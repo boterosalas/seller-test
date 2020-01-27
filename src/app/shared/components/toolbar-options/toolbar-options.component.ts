@@ -44,12 +44,17 @@ export class ToolbarOptionsComponent implements OnInit {
   public textForSearch: FormControl;
   //  Elemento paginador para la tabla
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  _idSeller: any;
   // Variable que almacena la configuración para el formulario
   @Input() informationToForm: SearchFormEntity;
   @Input() billingType: boolean;
   @Input() downloadPermission: boolean;
   @Input() downloadBillingPay: boolean;
-  @Input() idSeller: number;
+  @Input() set idSeller(value: number) {
+  if (value !== undefined ) {
+    this._idSeller = value;
+  }
+  }
   @Input() Typeprofile: number;
 
 
@@ -63,6 +68,11 @@ export class ToolbarOptionsComponent implements OnInit {
   @Input() isFullSearch: boolean;
   // Limite de registros
   lengthOrder = 100;
+  @Input() set _lengthOrder (value: number){
+    if (value !== undefined) {
+      this.lengthOrder = value;
+    }
+  }
   state= undefined;
 
   public user: any;
@@ -109,10 +119,7 @@ export class ToolbarOptionsComponent implements OnInit {
   }
 
 
-  /**
-  * Método empleado para consultar la lista de tiendas disponibles
-  * @memberof SearchStoreComponent
-  */
+
   public getAllSellers() {
     this.loadingService.viewSpinner();
     if (this.isFullSearch) {
@@ -145,10 +152,10 @@ export class ToolbarOptionsComponent implements OnInit {
    * @memberof ToolbarOptionsComponent
    */
   toggleMenuOrderSearch() {
-    if (this.idSeller === undefined) {
-      this.idSeller = null;
+    if (this._idSeller === undefined) {
+      this._idSeller = null;
     }
-    this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this.idSeller, this.Typeprofile, this.state);
+    this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this._idSeller, this.Typeprofile, this.state, this.paginator);
   }
 
   /**
@@ -212,7 +219,7 @@ export class ToolbarOptionsComponent implements OnInit {
    * @memberof ToolbarOptionsComponent
    */
   getOrdersList(category?: any) {
-    this.OnGetOrdersList.emit({ lengthOrder: this.lengthOrder, paginator: this.paginator, category: category });
+    this.OnGetOrdersList.emit({ lengthOrder: this.lengthOrder, paginator: this.paginator, category: category, callOne: true });
   }
 
   /**

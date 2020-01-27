@@ -15,6 +15,7 @@ interface DialogData {
 })
 export class ViewCommentComponent {
   public historical: HistoricalDevolutionEntity;
+  public message: string;
 
   constructor(
     public dialogRef: MatDialogRef<ViewCommentComponent>,
@@ -25,9 +26,21 @@ export class ViewCommentComponent {
      *  ya que al usar el mimso json estaba presentando cambios en ambas vistas
      */
     this.historical = _.cloneDeep(data.historical);
-    this.historical =
-      this.historical ||
-      (FAKE.FAKEPENDINGDEVOLUTION as HistoricalDevolutionEntity);
+    this.historical = this.historical || (FAKE.FAKEPENDINGDEVOLUTION as HistoricalDevolutionEntity);
+    this.getMessage();
+  }
+
+  /**
+   * Orden de comentarios a mostrar
+   * 1. sacObservationReceiptRefuse
+   * 2. sacObservationReversionRequestRefuse
+   * 3. clientObservation
+   *
+   * @memberof ViewCommentComponent
+   */
+  public getMessage(): void {
+    const { sacObservationReceiptRefuse, sacObservationReversionRequestRefuse, clientObservation } = this.historical;
+    this.message = sacObservationReceiptRefuse || sacObservationReversionRequestRefuse || clientObservation || '';
   }
 
   /**

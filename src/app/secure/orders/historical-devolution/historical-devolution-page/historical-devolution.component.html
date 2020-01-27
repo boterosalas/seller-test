@@ -6,7 +6,8 @@
       <!-- Toolbar para los dropdown de filtro de estado para las órdenes -->
       <!-- Toolbar de las opciones para la orden -->
       <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions [idSeller]="idSeller"
-        (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [Typeprofile]="typeProfile">
+        (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)"
+        [Typeprofile]="typeProfile">
       </app-toolbar-options>
       <!-- Toolbar de las opciones para la orden -->
     </div>
@@ -51,17 +52,17 @@
           </mat-cell>
         </ng-container>
 
-        <!-- Fecha de resolucion (Next Feature) - Column
-        <ng-container matColumnDef="maximumDeliveryDate">
+        <!-- Fecha de resolutionDate  - Column -->
+        <ng-container matColumnDef="resolutionDate">
           <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.gt-xl="false" fxShow="true" fxFlex.sm=""
             fxFlex.xl="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
-            {{'secure.orders.in_validation.in_validation_page.max_response_date' | translate}}
+            {{'secure.orders.historical_devolutions.historical_devolutions_page.date_resolution' | translate}}
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.md=""
             fxFlex.lg="" fxFlex.xs="70" fxFlex.xl="" *matCellDef="let element">
-            <p class="sc-date-content-table">{{element.maximumDeliveryDate | date}} </p>
+            <p class="sc-date-content-table" *ngIf="element.resolutionDate !== '0001-01-01T00:00:00'">{{element.resolutionDate | date: 'dd/MM/yyyy hh:mm a'}} </p>
           </mat-cell>
-        </ng-container> -->
+        </ng-container>
 
         <!-- reversionRequestStatus Column -->
         <ng-container matColumnDef="reversionRequestStatus">

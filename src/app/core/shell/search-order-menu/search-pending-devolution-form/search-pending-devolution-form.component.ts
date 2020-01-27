@@ -33,6 +33,7 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
   @Input() informationToForm: SearchFormEntity;
 
   @Input() idSeller: number;
+  @Input() paginator: any;
 
   /**
    * Creates an instance of SearchOrderFormComponent.
@@ -111,17 +112,15 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
    * @memberof SearchOrderFormComponent
    */
   filterOrder(data: any) {
-
     // Obtengo la información del usuario
     // this.user = this.userService.getUser();
     const datePipe = new DatePipe(this.locale);
-
     // aplico el formato para la fecha a emplear en la consulta
     const dateReversionRequestFinal = datePipe.transform(data.value.dateReversionRequestFinal, 'yyyy/MM/dd');
     const dateReversionRequestInitial = datePipe.transform(data.value.dateReversionRequestInitial, 'yyyy/MM/dd');
 
     // creo el string que indicara los parametros de la consulta
-    let stringSearch = '';
+    let stringSearch = `limit=${this.paginator.pageSize}`;
     const objectSearch: any = {};
     if (dateReversionRequestInitial != null && dateReversionRequestInitial !== '') {
       stringSearch += `&dateReversionRequestInitial=${dateReversionRequestInitial}`;
@@ -148,23 +147,45 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
 
     if (stringSearch !== '') {
 
-      stringSearch += `&reversionRequestStatusId=${this.informationToForm.information.reversionRequestStatusId}&idSeller=${this.idSeller}`;
+      stringSearch += `&reversionRequestStatusId=${this.informationToForm.information.reversionRequestStatusId}` + `&idSeller=${this.idSeller}` ;
 
       // Guardo el filtro aplicado por el usuario.
       this.searchOrderMenuService.setCurrentFilterOrders(objectSearch);
       // obtengo las órdenes con el filtro indicado
-      this.searchOrderMenuService.getOrdersPendingDevolutionFilter(100, stringSearch).subscribe((res: any) => {
+      if (this.informationToForm.information.reversionRequestStatusId === 1) {
+        this.searchOrderMenuService.getOrdersPendingDevolutionFilterTempo(stringSearch).subscribe((res: any) => {
+          if (res != null) {
+            res.filter = {
+              dateOrderFinal : dateReversionRequestFinal,
+              dateOrderInitial: dateReversionRequestInitial,
+              idChannel: data.value.idChannel,
+              orderNumber: data.value.orderNumber,
+              identificationCard: data.value.identificationCard,
+              processedOrder: data.value.processedOrder
+             };
+            // indico a los elementos que esten suscriptos al evento.
+            this.shellComponent.eventEmitterOrders.filterOrdersWithStatusResponse(res);
+            this.toggleMenu();
+          } else {
+            this.componentsService.openSnackBar(this.languageService.instant('secure.orders.order_list.order_page.no_orders_found'), this.languageService.instant('actions.close'), 5000);
+          }
+        }, err => {
+          this.componentsService.openSnackBar(this.languageService.instant('errors.error_check_orders'), this.languageService.instant('actions.close'), 5000);
+        });
+      } else {
+        this.searchOrderMenuService.getOrdersPendingDevolutionFilter(stringSearch).subscribe((res: any) => {
 
-        if (res != null) {
-          // indico a los elementos que esten suscriptos al evento.
-          this.shellComponent.eventEmitterOrders.filterOrdersWithStatusResponse(res);
-          this.toggleMenu();
-        } else {
-          this.componentsService.openSnackBar(this.languageService.instant('secure.orders.order_list.order_page.no_orders_found'), this.languageService.instant('actions.close'), 5000);
-        }
-      }, err => {
-        this.componentsService.openSnackBar(this.languageService.instant('errors.error_check_orders'), this.languageService.instant('actions.close'), 5000);
-      });
+          if (res != null) {
+            // indico a los elementos que esten suscriptos al evento.
+            this.shellComponent.eventEmitterOrders.filterOrdersWithStatusResponse(res);
+            this.toggleMenu();
+          } else {
+            this.componentsService.openSnackBar(this.languageService.instant('secure.orders.order_list.order_page.no_orders_found'), this.languageService.instant('actions.close'), 5000);
+          }
+        }, err => {
+          this.componentsService.openSnackBar(this.languageService.instant('errors.error_check_orders'), this.languageService.instant('actions.close'), 5000);
+        });
+      }
     } else {
       this.componentsService.openSnackBar(this.languageService.instant('errors.error_no_searh_criteria'), this.languageService.instant('actions.close'), 5000);
     }
