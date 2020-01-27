@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { RoutesConst } from '@app/shared';
 import { LoadingService } from '@app/core';
 import { SupportModalComponent } from '@app/secure/support-modal/support-modal.component';
+import { DashboardService } from '../services/dashboard.service';
 
 export interface Calification {
   calification: string;
@@ -38,6 +39,7 @@ export class SellerRatingComponent implements OnInit {
     private router: Router,
     private loadingService: LoadingService,
     public dialog: MatDialog,
+    private _dashboard: DashboardService,
   ) { }
 
   ngOnInit() {
