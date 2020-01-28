@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { EndpointService } from '@app/core';
 import { Observable, of } from 'rxjs';
+import { ModelFilterSellerRating } from '../seller-rating/seller-rating.model';
 
 /**
  * @export
@@ -11,6 +12,8 @@ import { Observable, of } from 'rxjs';
  */
 @Injectable()
 export class DashboardService {
+
+  public paramsData: ModelFilterSellerRating;
 
   /**
    * @description Create an instance of DashboardService
@@ -22,7 +25,9 @@ export class DashboardService {
     private _http: HttpClient,
     private _api: EndpointService,
     private datePipe: DatePipe,
-  ) { }
+  ) {
+    this.paramsData = new ModelFilterSellerRating();
+  }
 
   /**
    * @description Obtiene la sumatoria de todas las órdenes del cliente, separadas por estado.
@@ -46,88 +51,29 @@ export class DashboardService {
     return this._http.get(URL);
   }
 
-  public getRatingSellers(): Observable<any> {
-    const pruebaRatingSellet = [
-      {
-        'IdSeller': 11618,
-        'QualificationDate': '24/01/2020',
-        'GeneratedDate': '24/01/2020',
-        'UrlFile': null,
-        'Qualitative': 'Excelente',
-        'Quantitative': 5,
-        'QualificationPromiseDelivery': {
-          'Numerator': 10,
-          'Denominator': 10,
-          'Percentage': 200,
-          'Qualification': 5,
-          'QualificationPercentage': 0.5,
-          'Total': 89.9,
-          'PercentagePenalty': 200,
-          'ValuePenalty': 2000000
-        },
-        'QualificationCase': {
-          'Numerator': 10,
-          'Denominator': 10,
-          'Percentage': 200,
-          'Qualification': 5,
-          'QualificationPercentage': 0.5,
-          'Total': 89.9,
-          'PercentagePenalty': 200,
-          'ValuePenalty': 2000000
-        },
-        'QualificationCanceled': {
-          'Numerator': 10,
-          'Denominator': 10,
-          'Percentage': 200,
-          'Qualification': 5,
-          'QualificationPercentage': 0.5,
-          'Total': 89.9,
-          'PercentagePenalty': 200,
-          'ValuePenalty': 2000000
-        },
-        'Detail':
-        {
-          'OrdersOutsideDeliveryDate': {
-            'OrderNumber': '12345',
-            'OrderDate': 'dd/mm/yyyy',
-            'MaxDeliveryDate': 'dd/mm/yyyy',
-            'DeliveryDate': 'dd/mm/yyyy',
-            'DelayDays': 3,
-            'CustomerIdentificationCard': '123454687',
-            'CustomerName': 'Aristóbulo XD',
-            'Penalty': 145612,
-            'TotalCommission': 1456423
-          },
-          'OrdersCanceledBySellerResponsibility':
-          {
-            'OrderNumber': '12345',
-            'OrderDate': 'dd/mm/yyyy',
-            'OrderStatus': 'Entregado',
-            'ReasonPqr': '',
-            'PqrDate': 'dd/mm/yyyy',
-            'CustomerIdentificationCard': '123454687',
-            'CustomerName': 'Aristóbulo XD',
-            'Penalty': 145612,
-            'TotalCommission': 1456423
-          },
-          'OrdersWithPqr':
-          {
-            'OrderNumber': '12345',
-            'OrderDate': 'dd/mm/yyyy',
-            'MaxDeliveryDate': 'dd/mm/yyyy',
-            'ReasonPqr': '',
-            'PqrDate': 'dd/mm/yyyy',
-            'CustomerIdentificationCard': '123454687',
-            'CustomerName': 'Aristóbulo XD',
-          }
-        }
-      }
-    ];
+  /**
+   * Servicio para traer las calificaciones del vendedor
+   * @param {string} idSeller Id del seller para traer las calificaciones
+   * @param {string} [initialDate=new Date().toString() + ''] Para filtar por fecha inicial
+   * @param {string} [finalDate=new Date().toString() + ''] Para filtrar por fecha final
+   * @returns {Observable<any>}
+   * @memberof DashboardService
+   */
+  public getRatingSellers(params: any): Observable<any> {
+    console.log(params);
+    this.paramsData.sellerId = params === undefined || params.sellerId === undefined || params.sellerId === null || params.sellerId === '' ? null : params.sellerId;
+    this.paramsData.dateQualificationFinal = params === undefined || params.dateQualificationFinal === undefined || params.dateQualificationFinal === null || params.dateQualificationFinal === '' ? null : params.dateQualificationFinal;
+    this.paramsData.datequalificationinitial = params === undefined || params.datequalificationinitial === undefined || params.datequalificationinitial === null || params.datequalificationinitial === '' ? null : params.datequalificationinitial;
+    this.paramsData.generatedDateFinal = params === undefined || params.generatedDateFinal === undefined || params.generatedDateFinal === null;
+    this.paramsData.generatedDateInitial = params === undefined || params.generatedDateInitial === undefined || params.generatedDateInitial === null;
+    this.paramsData.paginationToken = params === undefined || params.paginationToken === undefined || params.paginationToken === null;
+    this.paramsData.limit = params === undefined || params.limit === undefined || params.limit === null || params.limit === '' ? null : params.limit;
 
-    return of({
-      status: 200,
-      body: pruebaRatingSellet
-    });
+    const PARAMS = `${this.paramsData.sellerId}/${this.paramsData.dateQualificationFinal}/${this.paramsData.datequalificationinitial}/${null}/${null}/${null}/${this.paramsData.limit}`;
+    console.log(PARAMS);
+
+    const URL = this._api.get('getSellerRating', [PARAMS]);
+    return this._http.get(URL);
   }
 
 }
