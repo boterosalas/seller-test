@@ -10,7 +10,12 @@
 // }
 .filter_rating {
   float: right;
-  width: 60%;
+  width: 75%;
+  height: 24%;
+  form{
+    display: flex;
+
+  }
   // position: sticky;
   // top: 0;
   // background: white;
@@ -28,6 +33,7 @@
   background: white;
   width: 25%;
   padding-right: 0px;
+  height: 40px;
 }
 
 .example-container-rating {
@@ -55,6 +61,17 @@ mat-form-field {
   display: inline-block;
   position: relative;
   text-align: left;
-  width: 24%;
+  width: 19%;
   font-size: small;
+  padding-top: 4%;
+
+}
+
+tr.mat-header-row {
+  height: 40px;
+}
+
+.btn_filter_rating {
+  padding-right: 0px;
+  padding-left: 0px;
 }

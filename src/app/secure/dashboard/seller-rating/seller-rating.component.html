@@ -52,28 +52,51 @@
 <div class="example-container-rating">
 
   <div class="filter_rating">
-
-    <mat-form-field>
-      <input matInput [matDatepicker]="picker1" placeholder="Fecha inicial" [formControl]="date">
-      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-      <mat-datepicker #picker1></mat-datepicker>
+    <!-- <form class="basic-info" #createfilterSellerRating="ngForm" [formGroup]="filterSellerRating" class="seller-filter-sidenav">
+    <mat-form-field color="primary">
+      <input matInput [placeholder]="'secure.dashboard.seller-rating.date_calificated' | translate" formControlName="datequalificationinitial" [errorStateMatcher]="matcher">
+      <mat-hint></mat-hint>
+      <mat-error *ngIf="filterProduts.get('productName').hasError('pattern')">
+          {{'secure.products.create_product_unit.list_products.product_name_invalid' | translate}}
+      </mat-error>
     </mat-form-field>
-
-    <mat-form-field>
-      <input matInput [matDatepicker]="picker2" placeholder="Fecha final" [formControl]="serializedDate">
-      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-      <mat-datepicker #picker2></mat-datepicker>
+    <mat-form-field color="primary">
+      <input matInput [placeholder]="'secure.dashboard.seller-rating.date_issued' | translate" formControlName="dateQualificationFinal" [errorStateMatcher]="matcher">
+      <mat-hint></mat-hint>
+      <mat-error *ngIf="filterProduts.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>
     </mat-form-field>
+    </form> -->
 
-    <button type="button" mat-button>
-      <mat-icon>filter_list</mat-icon>
-      <small class="sub-title-filter">{{'filters.filter' | translate}}</small>
-    </button>
+    <form class="example-container" #createfilterSellerRating="ngForm" [formGroup]="filterSellerRating"
+      class="seller-filter-sidenav">
+      <h6>Filtro por fecha de Emisión:</h6>
+      <mat-form-field>
+        <input matInput [placeholder]="'secure.dashboard.seller-rating.date_issued_initial_filter' | translate"
+          formControlName="datequalificationinitial" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="filterSellerRating.get('datequalificationinitial').hasError('pattern')">
+          {{'secure.dashboard.seller-rating.date_issued_final_filter_error' | translate}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [placeholder]="'secure.dashboard.seller-rating.date_issued_final_filter' | translate"
+          formControlName="dateQualificationFinal" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="filterSellerRating.get('dateQualificationFinal').hasError('pattern')">
+          {{'secure.dashboard.seller-rating.date_issued_final_filter_error' | translate}}</mat-error>
+      </mat-form-field>
 
-    <button type="button" mat-button (click)="drawer.toggle()">
-      <mat-icon>clear</mat-icon>
-      <small class="sub-title-filter">{{'filters.clear' | translate}}</small>
-    </button>
+      <button type="button" mat-button class="btn_filter_rating" (click)="getFilterSellerRating()">
+        <mat-icon>filter_list</mat-icon>
+        <small class="sub-title-filter">{{'filters.filter' | translate}}</small>
+      </button>
+
+      <button type="button" mat-button class="btn_filter_rating" (click)="cleanAllFilter()">
+        <mat-icon>clear</mat-icon>
+        <small class="sub-title-filter">{{'filters.clear' | translate}}</small>
+      </button>
+<!-- 
+      <button mat-stroked-button color="primary" type="button" (click)="cleanFilter()"
+        [innerHTML]="['filters.clear' | translate]">{{'filters.clear' | translate}}</button>
+      <button mat-flat-button color="primary" type="submit" [innerHTML]="['filters.filter' | translate]">{{'filters.filter' | translate}}</button> -->
+    </form>
   </div>
 
 

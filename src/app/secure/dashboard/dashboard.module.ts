@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
-import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
+import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher, MatFormFieldModule, MatInputModule } from '@angular/material';
 
 import { DashboardService } from './services/dashboard.service';
 
@@ -28,7 +28,9 @@ import { SellerRatingComponent } from './seller-rating/seller-rating.component';
         DashboardRoutingModule,
         HttpClientModule,
         HttpClientJsonpModule,
-        SharedModule
+        SharedModule,
+        MatFormFieldModule,
+        MatInputModule
     ],
     exports: [],
     providers: [

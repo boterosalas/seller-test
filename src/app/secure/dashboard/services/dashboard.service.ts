@@ -73,7 +73,7 @@ export class DashboardService {
     console.log(PARAMS);
 
     const URL = this._api.get('getSellerRating', [PARAMS]);
-    return this._http.get(URL);
+    return this._http.get(URL, { observe: 'response' });
   }
 
 }
