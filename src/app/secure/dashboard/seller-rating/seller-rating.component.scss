@@ -86,3 +86,13 @@ tr.mat-header-row {
   padding-right: 0px;
   padding-left: 0px;
 }
+
+.filterResponsive{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+tr.mat-row:nth-child(1){
+  /* background-color: black; */
+  font-weight: bold;
+}

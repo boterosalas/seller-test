@@ -80,12 +80,12 @@ export class SellerRatingComponent implements OnInit {
   ) {
     // this.getAllDataUser();
     this.getDataUser();
+
   }
 
   ngOnInit() {
     this.createFormControls();
     this.validateFormSupport();
-    this.paramsGetSellerRating.sellerId = this.user.sellerId;
     this.getSellerRating();
     // this.prueba();
   }
@@ -163,6 +163,7 @@ export class SellerRatingComponent implements OnInit {
   }
 
   getSellerRating() {
+    this.paramsGetSellerRating.sellerId = this.user.sellerId;
     this.loadingService.viewSpinner();
     this._dashboard.getRatingSellers(this.paramsGetSellerRating).subscribe(result => {
       this.arraySellerRating = result.body.viewModel;
