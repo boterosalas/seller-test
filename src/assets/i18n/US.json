@@ -46,7 +46,7 @@
     "menu.Menu": "Menu",
     "menu.Reporte de ofertas": "Active offers reports",
     "menu.Historico de devoluciones": "Historical devolution",
-    "menu.Calificación de vendedores": "Quality Score",
+    "menu.Calificación de Vendedores": "Quality Score",
     "menu.Solicitudes Pendientes": "Awaiting request",
 
     "module.Documentación": "Documentation",
@@ -1121,5 +1121,11 @@
     "secure.products.bulk_upload.process": "when uploading the products.",
 
     "secure.reports.report-offert.download-modal-offert-ts.ok": "The download has started successfully. Check your e-mail.",
-    "secure.reports.report-offert.download-modal-offert-ts.ko": "And error has occurred when downloading the file."
+    "secure.reports.report-offert.download-modal-offert-ts.ko": "And error has occurred when downloading the file.",
+
+    "secure.quality.quality-score.quality" :"Quality",
+    "secure.quality.quality-score.qualityMonth" :"Quality month",
+    "secure.quality.quality-score.qualityIssued" :"Quality issued",
+    "secure.quality.quality-score.text-empty-califications" :"Enter the name of the seller in the search bar to see the quality score. ",
+    "secure.quality.quality-score.filter-title": "Consultar calificaciones"
 }

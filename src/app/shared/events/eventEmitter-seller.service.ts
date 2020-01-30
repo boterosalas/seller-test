@@ -15,7 +15,6 @@ export class EventEmitterSeller {
      * @memberof EventEmitterSeller
      */
     searchSeller(seller: any) {
-        console.log(seller);
         this.eventSearchSeller.emit(seller);
     }
 }

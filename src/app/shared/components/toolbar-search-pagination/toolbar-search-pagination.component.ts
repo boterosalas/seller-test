@@ -51,6 +51,8 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   // Para identificar qué tipo de búsqueda se va a realizar.
   @Input() isFullSearch: boolean;
 
+  @Input() customerFilterCalifications = false;
+
 
 
   //  Elemento paginador para la tabla
@@ -78,6 +80,7 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   // Evento que permite consultar las órdenes
   @Output() OnGetOrdersList = new EventEmitter<object>();
   @Output() paginationListOrdens = new EventEmitter<object>();
+  @Output() filterCalifications = new EventEmitter<any>();
   // Evento que permite saber cuando el usuario cambia el número de paginas
   @Output() OnChangeSizeOrderTable = new EventEmitter<object>();
   // Limite de registros
@@ -131,6 +134,9 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
    */
   toggleMenuOrderSearch() {
     this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this.idSeller, this.Typeprofile, this.state);
+  }
+  toggleMenuCalifications() {
+    this.filterCalifications.emit();
   }
 
   /**

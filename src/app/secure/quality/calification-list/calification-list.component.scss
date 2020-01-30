@@ -1,0 +1,73 @@
+.orders-no-data {
+    flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    background-color: #fff;
+    box-shadow: 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0px 1px 1px -4px rgba(0, 0, 0, 0.14), 0px 1px 1px 0px rgba(0, 0, 0, 0.12);
+    flex-direction: column;
+    & .icon-not-found {
+      font-size: 40px;
+      height: 40px;
+      width: 40px;
+    }
+  }
+
+  .align-end-actions{
+    width: 100%;
+    text-align: center;
+  }
+  
+  .color-icons-details{
+      color: #03a9f4;
+  }
+
+  .cursor-pointer{
+      cursor: pointer;
+  }
+
+  .calification-list-containter-details{
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.24), 0 0 2px rgba(0, 0, 0, 0.12);
+    margin: 4px;
+  }
+
+  .calification-list-container-details-header{
+    height: 60px;
+    display: flex;
+    align-items: center
+  }
+
+  .calification-list-padding-info-seller{
+    padding-bottom: 10px;
+  }
+
+  .calification-list-result-by-seller{
+    padding:  0 10px 0 10px;
+  }
+
+  .title-toolbar{
+    text-transform: uppercase;
+    margin-right: 10px;
+    font-size: 14px;
+    width: 200px;
+    line-height: 24px;
+  }
+
+  .excellent {
+    background-color: #66b53e;
+  }
+
+  .acceptable{
+    background-color:#f0ea35 ;
+  }
+
+  .deficient {
+    background-color:  #de2d2d;
+  }
+
+  .default {
+    background-color: #cac9c9;
+  }
