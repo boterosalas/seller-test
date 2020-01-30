@@ -2,9 +2,11 @@
     font-size: 22px;
     margin: 5% 10%;
     height: 100%;" fxFlex="row">
-<iframe src="https://vignette.wikia.nocookie.net/gemas/images/b/b1/Gear1.gif/revision/latest?cb=20151201164022&path-prefix=es" width="200" height="146" frameBorder="0"></iframe>
+  <iframe
+    src="https://vignette.wikia.nocookie.net/gemas/images/b/b1/Gear1.gif/revision/latest?cb=20151201164022&path-prefix=es"
+    width="200" height="146" frameBorder="0"></iframe>
   <p>
-    "Estamos trabajando para mostrarte una información mas detallada, muchas gracias por tu paciencia. 
+    "Estamos trabajando para mostrarte una información mas detallada, muchas gracias por tu paciencia.
     Puedes ingresar al resto de los m&oacute;dulos a trabajar. "
   </p>
 </div>
@@ -14,14 +16,15 @@
     <!-- Orders table -->
     <div class="dashboard__orders orders">
       <div class="orders__header" fxFlex="45%">
-          <h3 class="orders__title">{{'secure.orders.orders' | translate}}</h3>
+        <h3 class="orders__title">{{'secure.orders.orders' | translate}}</h3>
       </div>
       <div class="prueba" fxFlex="45%">
         <h3>{{'secure.dashboard.seller-rating.title' | translate}}</h3>
+      </div>
     </div>
-    </div>
-    <div fxLayout="row" fxLayoutAlign="space-between stretch" style="height: 300px">
-      <div class="orders__body" fxFlex="45%">
+    <!-- <div fxLayout="row" fxLayoutAlign="space-between stretch" style="height: 300px" class="resDashboard"> -->
+    <div class="resDashboard">
+      <div class="orders__body">
         <div class="orders__row">
           <div class="orders__colum_size">
             <div class="orders__cell orders__cell--title">
@@ -52,8 +55,8 @@
             </div>
             <div class="orders__cell">
               <span class="orders__icon-box">
-                <svg class="orders__icon" aria-hidden="true" data-prefix="fas" data-icon="truck" role="img" xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0
+                <svg class="orders__icon" aria-hidden="true" data-prefix="fas" data-icon="truck" role="img"
+                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0
                   640
                   512">
                   <path fill="currentColor" d="M624
@@ -127,8 +130,11 @@
           </div>
         </div>
       </div>
-      <div class="seller-rating" fxFlex="52%">
-        <app-seller-rating ></app-seller-rating>
+      <div class="hideTitleResponsive">
+        <h4>{{'secure.dashboard.seller-rating.title' | translate}}</h4>
+      </div>
+      <div class="seller-rating">
+        <app-seller-rating></app-seller-rating>
       </div>
     </div>
 
@@ -142,17 +148,23 @@
           <div class="sales__false-dp-box" (click)="openDatePicker()">
             <label class="sales__month" for="" (click)="openDatePicker()">{{visibleDate}}</label>
             <span class="sales__icon-box" (click)="openDatePicker()">
-              <svg aria-hidden="true" data-prefix="far" data-icon="calendar-alt" class="sales__icon svg-inline--fa fa-calendar-alt fa-w-14"
-                role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                <path fill="currentColor" d="M148 288h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm108-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 96v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96-260v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48zm-48 346V160H48v298c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z"></path>
+              <svg aria-hidden="true" data-prefix="far" data-icon="calendar-alt"
+                class="sales__icon svg-inline--fa fa-calendar-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 448 512">
+                <path fill="currentColor"
+                  d="M148 288h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm108-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 96v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96-260v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48zm-48 346V160H48v298c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z">
+                </path>
               </svg>
             </span>
           </div>
           <mat-form-field style="display: none" class="sales__date">
             <input [value]="visibleDate" [(ngModel)]="startDate" [readonly]="true" [max]="dateMax" matInput
-              [matDatepicker]="picker" [placeholder]="'secure.dashboard.selected_months' | translate" (click)="openDatePicker()">
-            <mat-datepicker-toggle matSuffix [for]="picker">{{'secure.dashboard.selected_months' | translate}}</mat-datepicker-toggle>
-            <mat-datepicker touchUi #picker startView="year" [startAt]="startDate" (monthSelected)="chosenMonthHandler($event, picker)"></mat-datepicker>
+              [matDatepicker]="picker" [placeholder]="'secure.dashboard.selected_months' | translate"
+              (click)="openDatePicker()">
+            <mat-datepicker-toggle matSuffix [for]="picker">{{'secure.dashboard.selected_months' | translate}}
+            </mat-datepicker-toggle>
+            <mat-datepicker touchUi #picker startView="year" [startAt]="startDate"
+              (monthSelected)="chosenMonthHandler($event, picker)"></mat-datepicker>
           </mat-form-field>
         </div>
 
@@ -180,7 +192,8 @@
         <div *ngIf="isLoading">
           <div>
             <mat-spinner [diameter]="40" style="margin-left: 48%; margin-right: 55%;"></mat-spinner>
-            <p class="loading-waiting">{{'secure.products.create_product_unit.list_products.please_wait' | translate}}</p>
+            <p class="loading-waiting">{{'secure.products.create_product_unit.list_products.please_wait' | translate}}
+            </p>
           </div>
         </div>
       </div>

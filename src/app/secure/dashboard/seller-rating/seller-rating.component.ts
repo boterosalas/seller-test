@@ -48,9 +48,25 @@ export class SellerRatingComponent implements OnInit {
   BrandsRegex = { dateMonthYear: '' };
 
   listFilterBrands = [];
-
+  public paginationToken = '{}';
 
   validateRegex: any;
+  public arrayPosition = [];
+
+  public arraySellerRating: any;
+  private scrolled: Boolean = false;
+
+  public paramsGetSellerRating = {
+    'sellerId': null,
+    'datequalificationinitial': null,
+    'dateQualificationFinal': null,
+    'generatedDateInitial': null,
+    'generatedDateFinal': null,
+    'paginationToken': '{}',
+    'limit': 10,
+  };
+
+  private activeScrolled: Boolean = false;
 
   constructor(
     private router: Router,
@@ -69,8 +85,9 @@ export class SellerRatingComponent implements OnInit {
   ngOnInit() {
     this.createFormControls();
     this.validateFormSupport();
+    this.paramsGetSellerRating.sellerId = this.user.sellerId;
     this.getSellerRating();
-    this.prueba();
+    // this.prueba();
   }
 
   async getDataUser() {
@@ -78,26 +95,44 @@ export class SellerRatingComponent implements OnInit {
     // console.log('this.user :' , this.user.sellerId );
   }
 
-  prueba() {
-    window.addEventListener('scroll', () => {
-      const scrolled = window.scrollY;
-      const scrolled1 = window.scroll;
-      const scrolled2 = window.scrollX;
-      const scrolled3 = window.scrollbars;
-      const scrolled4 = window.top;
-      const scrolled5 = window.screenTop;
-      // const scrolled6 = window.scrollY;
-      console.log('scrolled: ', scrolled);
-      console.log('scrolled1: ', scrolled1);
-      console.log('scrolled2: ', scrolled2);
-      console.log('scrolled3: ', scrolled3);
-      console.log('scrolled4: ', scrolled4);
+  prueba(event?: any) {
 
+    const scrollFilter = Object.assign({}, this.paramsGetSellerRating);
+    scrollFilter.paginationToken = this.paginationToken;
+    // alert('gay');
 
-      console.log('scrolled5: ', scrolled5);
-    });
+    if (this.activeScrolled) {
+      if (event.srcElement.scrollHeight === (event.srcElement.offsetHeight + event.srcElement.scrollTop) && !this.scrolled) {
+        alert('ahora si');
+        this.scrolled = true;
+        this._dashboard.getRatingSellers(scrollFilter).subscribe(result => {
+          const a = [{
+            idSeller: 11811,
+            qualificationDate: 202012,
+            generatedDate: 20201227,
+            urlFile: 'https://s3.amazonaws.com/seller.center.exito.seller/qualificationDev/1234_Noviembre_2019_spanish.html',
+            qualitative: 'Deficiente'
+          },
+          {
+            idSeller: 11811,
+            qualificationDate: 202012,
+            generatedDate: 20201227,
+            urlFile: 'https://s3.amazonaws.com/seller.center.exito.seller/qualificationDev/1234_Noviembre_2019_spanish.html',
+            qualitative: 'Deficiente'
+          }];
+
+          this.arraySellerRating = this.arraySellerRating.concat(result.body.viewModel);
+          this.dataSource = new MatTableDataSource(this.arraySellerRating);
+          this.paginationToken = result.body.paginationToken;
+          this.scrolled = false;
+          console.log(22, this.paginationToken);
+        });
+      }
+    }
+
 
   }
+
 
   createFormControls() {
     // this.filterSellerRating = this.fb.group({
@@ -129,48 +164,40 @@ export class SellerRatingComponent implements OnInit {
 
   getSellerRating() {
     this.loadingService.viewSpinner();
-    console.log('this.allUser: ', this.allUser);
-    const sellerId = 11618;
-    // paramsGetFilter = `${11618}/${null}/${null}/${null}/${null}/${null}/${10}`;
-
-    const paramsArray = {
-      'sellerId': this.user.sellerId,
-      'datequalificationinitial': null,
-      'dateQualificationFinal': null,
-      'generatedDateInitial': null,
-      'generatedDateFinal': null,
-      'paginationToken': null,
-      'limit': 10,
-    };
-
-    this._dashboard.getRatingSellers(paramsArray).subscribe(result => {
-      console.log('result: ', result);
-      this.dataSource = new MatTableDataSource(result.body.viewModel);
+    this._dashboard.getRatingSellers(this.paramsGetSellerRating).subscribe(result => {
+      this.arraySellerRating = result.body.viewModel;
+      this.dataSource = new MatTableDataSource(this.arraySellerRating);
+      this.savePaginationToken(result.body.paginationToken);
       this.loadingService.closeSpinner();
     });
   }
 
+  savePaginationToken(paginationToken: string) {
+    if (paginationToken) {
+      this.paginationToken = paginationToken;
+    }
+  }
+
   getFilterSellerRating() {
+    this.activeScrolled = true;
+    this.scrolled = false;
     this.loadingService.viewSpinner();
 
+    const filterSellerRating = Object.assign({}, this.paramsGetSellerRating);
     const dateInitial = this.filterSellerRating.controls.datequalificationinitial.value.replace('/', '');
     const dateFinal = this.filterSellerRating.controls.dateQualificationFinal.value.replace('/', '');
 
-    this.loadingService.viewSpinner();
-    const paramsArray = {
-      'sellerId': this.user.sellerId,
-      'datequalificationinitial': dateInitial,
-      'dateQualificationFinal': dateFinal,
-      'generatedDateInitial': null,
-      'generatedDateFinal': null,
-      'paginationToken': null,
-      'limit': null,
-    };
-    console.log('paramsGetFilter:', paramsArray);
+    filterSellerRating.datequalificationinitial = dateInitial;
+    filterSellerRating.dateQualificationFinal = dateFinal;
 
-    this._dashboard.getRatingSellers(paramsArray).subscribe(result => {
-      console.log('result:', result);
+    console.log('this.paramsGetSellerRating', this.paramsGetSellerRating);
+
+    this.loadingService.viewSpinner();
+
+    this._dashboard.getRatingSellers(filterSellerRating).subscribe(result => {
+      this.arraySellerRating = result.body.viewModel;
       this.dataSource = new MatTableDataSource(result.body.viewModel);
+      this.savePaginationToken(result.body.paginationToken);
       this.loadingService.closeSpinner();
     });
   }

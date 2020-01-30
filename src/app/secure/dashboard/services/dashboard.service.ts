@@ -66,10 +66,10 @@ export class DashboardService {
     this.paramsData.datequalificationinitial = params === undefined || params.datequalificationinitial === undefined || params.datequalificationinitial === null || params.datequalificationinitial === '' ? null : params.datequalificationinitial;
     this.paramsData.generatedDateFinal = params === undefined || params.generatedDateFinal === undefined || params.generatedDateFinal === null;
     this.paramsData.generatedDateInitial = params === undefined || params.generatedDateInitial === undefined || params.generatedDateInitial === null;
-    this.paramsData.paginationToken = params === undefined || params.paginationToken === undefined || params.paginationToken === null;
+    this.paramsData.paginationToken = params === undefined || params.paginationToken === undefined || params.paginationToken === null || params.paginationToken === '' ? null : params.paginationToken;
     this.paramsData.limit = params === undefined || params.limit === undefined || params.limit === null || params.limit === '' ? null : params.limit;
 
-    const PARAMS = `${this.paramsData.sellerId}/${this.paramsData.dateQualificationFinal}/${this.paramsData.datequalificationinitial}/${null}/${null}/${null}/${this.paramsData.limit}`;
+    const PARAMS = `${this.paramsData.sellerId}/${this.paramsData.dateQualificationFinal}/${this.paramsData.datequalificationinitial}/${null}/${null}/${this.paramsData.paginationToken}/${this.paramsData.limit}`;
     console.log(PARAMS);
 
     const URL = this._api.get('getSellerRating', [PARAMS]);
