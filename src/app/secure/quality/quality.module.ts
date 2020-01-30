@@ -6,6 +6,7 @@ import { SharedModule } from '@app/shared/shared.module';
 import { FilterComponent } from './component/filter/filter.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalificationService } from './quality.service';
+import { DetailCalificationComponent } from './component/detail-calification/detail-calification.component';
 
 
 
@@ -19,7 +20,8 @@ import { CalificationService } from './quality.service';
   ],
   declarations: [
     CalificationListComponent,
-     FilterComponent
+     FilterComponent,
+     DetailCalificationComponent
     ],
     providers: [
       CalificationService

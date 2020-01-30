@@ -478,12 +478,6 @@ formtDateDayMonthYear(date: any) {
         res.ViewModel[0].Detail = [];
         res.ViewModel[0].Detail = this.detail;
         this.detailByElemet = res.ViewModel[0];
-        this.sumatoryPenality (this.detailByElemet.Detail);
-       this.colorCalificationPromiseDelivery =  this.setClassColorByCalification(this.detailByElemet.QualificationPromiseDelivery.Qualification);
-       this.colorCalificationCase =  this.setClassColorByCalification(this.detailByElemet.QualificationCase.Qualification);
-       this.colorCalificationCanceled =  this.setClassColorByCalification(this.detailByElemet.QualificationCanceled.Qualification);
-       this.setFormatDateInfoSellerMonthQuality = this.formatNameMonth(this.detailByElemet.QualificationDate);
-       this.setFormatDateInfoSellerGenrateDate = this.formtDateDayMonthYear(this.detailByElemet.GeneratedDate);
         this.loadingService.closeSpinner();
         this.showContainerDetail = true;
       });
@@ -491,34 +485,7 @@ formtDateDayMonthYear(date: any) {
 
   }
 
-  sumatoryPenality(details: any) {
-    details.forEach(element => {
-      this.penaltyOutSideDelivery +=  element.OrdersOutsideDeliveryDate.Penalty;
-      this.penaltyCanceledBySeller +=  element.OrdersCanceledBySellerResponsibility.Penalty;
-    });
-    this.penaltyTotal = this.penaltyOutSideDelivery + this.penaltyCanceledBySeller;
-  }
 
-  setClassColorByCalification(calification: number) {
-    let classColorByCalification = 'default';
-    if (calification < 3) {
-      classColorByCalification = 'deficient';
-    }
-
-    if (calification >= 3 && calification < 5) {
-      classColorByCalification = 'acceptable';
-    }
-
-    if (calification >= 5) {
-      classColorByCalification = 'excellent';
-    }
-
-    return classColorByCalification;
-  }
-
-  backTolist() {
-    this.showContainerDetail = false;
-  }
 
 
   toggleFilterCalifications() {
