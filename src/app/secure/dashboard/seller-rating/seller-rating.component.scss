@@ -21,6 +21,13 @@
     @media only screen and (max-width: 600px) {
     padding-left: 10px;
     padding-right: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    h6{
+      margin-top: 5%;
+    margin-bottom: 1%;
+    margin-left: 5%;
+    }
     }
   }
 
@@ -90,9 +97,11 @@ tr.mat-header-row {
 .filterResponsive{
   display: flex;
   flex-wrap: wrap;
+  margin-left: 5%;
 }
 
 tr.mat-row:nth-child(1){
   /* background-color: black; */
   font-weight: bold;
+  background-color: whitesmoke;
 }

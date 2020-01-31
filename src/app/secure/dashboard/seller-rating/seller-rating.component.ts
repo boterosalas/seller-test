@@ -69,13 +69,10 @@ export class SellerRatingComponent implements OnInit {
   private activeScrolled: Boolean = false;
 
   constructor(
-    private router: Router,
     private loadingService: LoadingService,
     public dialog: MatDialog,
-    private profileService: MyProfileService,
     private userParams: UserParametersService,
     private _dashboard: DashboardService,
-    private fb?: FormBuilder,
     public SUPPORT?: SupportService,
   ) {
     // this.getAllDataUser();

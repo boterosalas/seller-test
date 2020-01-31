@@ -70,6 +70,8 @@
     <form class="example-container" #createfilterSellerRating="ngForm" [formGroup]="filterSellerRating"
       class="seller-filter-sidenav">
       <h6>Filtro por fecha de Emisión:</h6>
+      <div class="filterResponsive">
+
       <mat-form-field>
         <input matInput [placeholder]="'secure.dashboard.seller-rating.date_issued_initial_filter' | translate"
           formControlName="datequalificationinitial" [errorStateMatcher]="matcher">
@@ -92,7 +94,7 @@
           <mat-icon>clear</mat-icon>
           <small class="sub-title-filter">{{'filters.clear' | translate}}</small>
         </button>
-      <!-- </div> -->
+      </div>
 
       <!-- 
       <button mat-stroked-button color="primary" type="button" (click)="cleanFilter()"
