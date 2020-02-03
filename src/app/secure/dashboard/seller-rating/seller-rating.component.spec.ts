@@ -6,9 +6,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '@app/shared/shared.module';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
-import { LoadingService, UserParametersService, CognitoUtil } from '@app/core';
+import { LoadingService, UserParametersService, CognitoUtil, EndpointService } from '@app/core';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { DashboardService } from '../services/dashboard.service';
 import { of } from 'rxjs';
@@ -73,9 +73,12 @@ fdescribe('SellerRatingComponent', () => {
                 { provide: LoadingService, useValue: mockLoadingService },
                 { provide: UserParametersService, useValue: mockUserParametersService },
                 // UserParametersService,
+                DashboardService,
+                DatePipe,
+                EndpointService,
                 CognitoUtil,
                 { provide: SupportService, useValue: mockSuportService },
-                { provide: DashboardService, useValue: mockDashboardService },
+                // { provide: DashboardService, useValue: mockDashboardService },
             ]
         })
             .compileComponents();
@@ -86,14 +89,23 @@ fdescribe('SellerRatingComponent', () => {
         component = fixture.componentInstance;
         mockUserParametersService.getUserData.and.returnValue(of(UserInformation));
         mockSuportService.getRegexFormSupport.and.returnValue(of(resRegex));
-        component.paramsGetSellerRating.sellerId = '11618';
-        // component.paramsGetSellerRating = params;
+        localStorage.setItem('userId', UserInformation.sellerId);
         fixture.detectChanges();
     });
 
     it('should create', () => {
-        component.sellerId = '11618';
-        console.log(component.sellerId);
         expect(component).toBeTruthy();
+    });
+    it('Get regex', () => {
+        const dashboard = {
+            dateMonthYear: '^(0[0-9]||1[0-2])/([0-9]{4})$',
+          };
+        expect(component.BrandsRegex).toEqual(dashboard);
+        component.validateFormSupport();
+        // expect(component.BrandsRegex).not.toEqual(dashboard);
+    });
+    it('clear all filter', () => {
+        component.cleanAllFilter();
+        expect(component.listFilterBrands).toEqual([]);
     });
 });

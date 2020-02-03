@@ -128,7 +128,6 @@ export class SellerRatingComponent implements OnInit {
           this.dataSource = new MatTableDataSource(this.arraySellerRating);
           this.paginationToken = result.body.paginationToken;
           this.scrolled = false;
-          console.log(22, this.paginationToken);
         });
       }
     }
@@ -173,7 +172,6 @@ export class SellerRatingComponent implements OnInit {
       this.sellerId = this.user.sellerId;
     }
     this.paramsGetSellerRating.sellerId = localStorage.getItem('userId');
-    console.log(this.paramsGetSellerRating.sellerId);
     this.loadingService.viewSpinner();
     this._dashboard.getRatingSellers(this.paramsGetSellerRating).subscribe(result => {
       this.arraySellerRating = result.body.viewModel;
@@ -209,8 +207,6 @@ export class SellerRatingComponent implements OnInit {
 
     filterSellerRating.datequalificationinitial = dateInitial;
     filterSellerRating.dateQualificationFinal = dateFinal;
-
-    console.log('this.paramsGetSellerRating', this.paramsGetSellerRating);
 
     this.loadingService.viewSpinner();
 

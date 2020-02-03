@@ -1,75 +1,9 @@
-<!-- <mat-form-field>
-  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-</mat-form-field> -->
-
-<!-- <mat-drawer #drawer [mode]="'over'" [position]="'end'" class="example-sidenav-rating" [disableClose]="true">
-
-  <h3>hola</h3>
-
-  <h3>hola</h3>
-  <h3>hola</h3>
-  <h3>hola</h3> -->
-
-<!-- <form class="basic-info" #createfilterProduts="ngForm" [formGroup]="filterProduts">
-    <div fxLayout="row" fxLayoutAlign="space-between center">
-      <h3>{{'secure.products.create_product_unit.list_products.product_filter' | translate}}</h3>
-      <button id="closeMenuApplication" type="button" color="primary" [matTooltip]="'actions.close' | translate"
-        matTooltipPosition="below" mat-icon-button mat-button (click)="drawer.toggle() && closeFilter()">
-        <mat-icon>clear</mat-icon>
-      </button>
-    </div>
-
-    <div>
-      <div fxLayout="row" fxLayoutAlign="space-between center">
-        <mat-form-field class="classDatapicker">
-          <input matInput [matDatepicker]="picker"
-            [placeholder]="'core.shell.search_order_menu.search_order_form.from' | translate" disabled
-            formControlName="initialDate">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker disabled="false"></mat-datepicker>
-        </mat-form-field>
-
-        <mat-form-field class="classDatapicker">
-          <input matInput [matDatepicker]="picker1"
-            [placeholder]="'core.shell.search_order_menu.search_order_form.to' | translate" disabled
-            formControlName="finalDate">
-          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-          <mat-datepicker #picker1 disabled="false"></mat-datepicker>
-        </mat-form-field>
-      </div>
-    </div>
-
-
-    <div fxLayout="row" fxLayoutAlign="space-between center" class="buttonsSend">
-      <button mat-stroked-button color="primary" type="button">{{'filters.clear' | translate}} </button>
-      <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterSeller.form.valid || (!product.value && !ean.value && !stock.value)"></button> -->
-<!-- <button mat-flat-button color="primary" type="submit" (click)="filterApply(drawer)">{{'filters.filter' | translate}}</button> -->
-<!-- </div> -->
-<!-- </form> -->
-<!-- </mat-drawer> -->
-
-<!-- <div class="example-container-rating mat-elevation-z8"> -->
 <div class="example-container-rating" (scroll)="prueba($event)">
 
   <div class="filter_rating">
-    <!-- <form class="basic-info" #createfilterSellerRating="ngForm" [formGroup]="filterSellerRating" class="seller-filter-sidenav">
-    <mat-form-field color="primary">
-      <input matInput [placeholder]="'secure.dashboard.seller-rating.date_calificated' | translate" formControlName="datequalificationinitial" [errorStateMatcher]="matcher">
-      <mat-hint></mat-hint>
-      <mat-error *ngIf="filterProduts.get('productName').hasError('pattern')">
-          {{'secure.products.create_product_unit.list_products.product_name_invalid' | translate}}
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field color="primary">
-      <input matInput [placeholder]="'secure.dashboard.seller-rating.date_issued' | translate" formControlName="dateQualificationFinal" [errorStateMatcher]="matcher">
-      <mat-hint></mat-hint>
-      <mat-error *ngIf="filterProduts.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>
-    </mat-form-field>
-    </form> -->
-
     <form class="example-container" #createfilterSellerRating="ngForm" [formGroup]="filterSellerRating"
       class="seller-filter-sidenav">
-      <h6>Filtro por fecha de Emisión:</h6>
+      <h5>Filtro por fecha de Emisión:</h5>
       <div class="filterResponsive">
 
       <mat-form-field>

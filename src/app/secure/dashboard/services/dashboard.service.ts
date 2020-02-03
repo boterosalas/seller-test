@@ -60,7 +60,6 @@ export class DashboardService {
    * @memberof DashboardService
    */
   public getRatingSellers(params: any): Observable<any> {
-    console.log(params);
     this.paramsData.sellerId = params === undefined || params.sellerId === undefined || params.sellerId === null || params.sellerId === '' ? null : params.sellerId;
     this.paramsData.dateQualificationFinal = params === undefined || params.dateQualificationFinal === undefined || params.dateQualificationFinal === null || params.dateQualificationFinal === '' ? null : params.dateQualificationFinal;
     this.paramsData.datequalificationinitial = params === undefined || params.datequalificationinitial === undefined || params.datequalificationinitial === null || params.datequalificationinitial === '' ? null : params.datequalificationinitial;
@@ -70,7 +69,6 @@ export class DashboardService {
     this.paramsData.limit = params === undefined || params.limit === undefined || params.limit === null || params.limit === '' ? null : params.limit;
 
     const PARAMS = `${this.paramsData.sellerId}/${this.paramsData.dateQualificationFinal}/${this.paramsData.datequalificationinitial}/${null}/${null}/${this.paramsData.paginationToken}/${this.paramsData.limit}`;
-    console.log(PARAMS);
 
     const URL = this._api.get('getSellerRating', [PARAMS]);
     return this._http.get(URL, { observe: 'response' });
