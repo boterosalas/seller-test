@@ -109,84 +109,51 @@
           <div>
             <div class="detail-calification-container-table-califications-column-promise-delivery">Reclamaciones</div>
             <div fxLayout="row" class="detail-calification-column-row">
-              <div class="calification-list-result-by-selle detail-calification-column-generate-shipping" > Perdidos generados</div>
+              <div class="calification-list-result-by-seller detail-calification-column-generate-shipping" > Perdidos generados</div>
               <div class="calification-list-result-by-seller detail-calification-column-completed-shipping" >Perdidos cumplidos</div>
               <div class="calification-list-result-by-seller detail-calification-container-table-calification-column-title-reclaim" style="width: 113px">%Porcentaje</div>
               <div class="calification-list-result-by-seller detail-calification-container-table-calification-column-title-reclaim" style="width: 111px">Puntaje obtenido</div>
-              <div class="calification-list-result-by-seller" style="color:
-                #9e9e9e; padding-bottom: 5px; padding-top:
-                5px;font-size: 14px; width: 149px">Peso en calificación</div>
-              <div class="calification-list-result-by-seller" style="width:
-                110px; text-align: center; color: #9e9e9e;
-                padding-bottom: 5px; padding-top: 5px;font-size: 14px;
-                width: 95px">Total</div>
+              <div class="calification-list-result-by-seller detail-calification-container-table-calification-column-title-reclaim" style="width: 149px">Peso en calificación</div>
+              <div class="calification-list-result-by-seller detail-calification-container-table-calification-column-title-reclaim" style=" width: 95px; text-align: center;">Total</div>
             </div>
-            <div fxLayout="row wrap" style="padding-left:
-              5px;padding-right: 5px; border: 1px solid rgb(219, 218,
-              218); margin-left: 5px;margin-right: 5px;border-top:
-              hidden;">
-              <div class="calification-list-result-by-seller"
-                style="width: 123px; text-align: center; color: #717171;">{{detailByElemet.QualificationCase.Numerator}}</div>
-              <div class="calification-list-result-by-seller"
-                style="width: 137px; text-align: center; color: #717171;">{{detailByElemet.QualificationCase.Denominator}}</div>
-              <div class="calification-list-result-by-seller"
-                style="width: 117px; text-align: center; color: #717171;">{{detailByElemet.QualificationCase.Percentage}}%</div>
-              <div [ngClass]="colorCalificationCase"
-                class="calification-list-result-by-seller" style="width: 111px;
+            <div fxLayout="row wrap" class="detail-calification-container-result-reclaim-row">
+              <div class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text" style="width: 123px">{{detailByElemet.QualificationCase.Numerator}}</div>
+              <div class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text" style="width: 137px">{{detailByElemet.QualificationCase.Denominator}}</div>
+              <div class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text" style="width: 117px">{{detailByElemet.QualificationCase.Percentage}}%</div>
+              <div [ngClass]="colorCalificationCase" class="calification-list-result-by-seller" style="width: 111px;
                 text-align: center">{{detailByElemet.QualificationCase.Qualification}}</div>
-              <div class="calification-list-result-by-seller"
-                style="width: 152px; text-align: center; color: #717171;">{{detailByElemet.QualificationCase.QualificationPercentage}}%</div>
-              <div class="calification-list-result-by-seller"
-                style="width: 95px; text-align: center; color: #717171;">{{detailByElemet.QualificationCase.Total}}</div>
+              <div class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text"  style="width: 152px">{{detailByElemet.QualificationCase.QualificationPercentage}}%</div>
+              <div class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text" style="width: 95px">{{detailByElemet.QualificationCase.Total}}</div>
             </div>
           </div>
         </div>
-        <div fxFlex="grow" style="height: 25%; max-width: 100%;">
+        <div fxFlex="grow" class="detail-calification-container-table-califications-promise-delivery-size">
           <div>
             <div class="detail-calification-container-table-califications-column-promise-delivery">Cancelaciones</div>
             <div fxLayout="row" class="detail-calification-column-row">
               <div class="calification-list-result-by-seller detail-calification-column-generate-shipping"> Perdidos generados</div>
               <div class="calification-list-result-by-seller detail-calification-column-completed-shipping">Perdidos cumplidos</div>
               <div class="calification-list-result-by-seller detail-calification-column-percent" >%Porcentaje</div>
-              <div class="calification-list-result-by-seller" style="color:
-                #9e9e9e; padding-bottom: 5px; padding-top:
-                5px;font-size: 14px; width: 111px">Puntaje obtenido</div>
-              <div class="calification-list-result-by-seller" style="color:
-                #9e9e9e; padding-bottom: 5px; padding-top:
-                5px;font-size: 14px; width: 149px">Peso en calificación</div>
-              <div class="calification-list-result-by-seller" style="width:
-                110px; text-align: center; color: #9e9e9e;
-                padding-bottom: 5px; padding-top: 5px;font-size: 14px;
-                width: 95px">Total</div>
+              <div class="calification-list-result-by-seller detail-calification-container-table-cancelation-result" style=" width: 111px">Puntaje obtenido</div>
+              <div class="calification-list-result-by-seller detail-calification-container-table-cancelation-result" style=" width: 149px">Peso en calificación</div>
+              <div class="calification-list-result-by-seller detail-calification-container-table-cancelation-result " style="width: 95px">Total</div>
             </div>
-            <div fxLayout="row wrap" style="padding-left:
-              5px;padding-right: 5px; border: 1px solid rgb(219, 218,
-              218); margin-left: 5px;margin-right: 5px;border-top:
-              hidden;">
-              <div class="calification-list-result-by-seller"
-                style="width: 123px; text-align: center;color: #717171;">{{detailByElemet.QualificationCanceled.Numerator}}</div>
-              <div class="calification-list-result-by-seller"
-                style="width: 137px; text-align: center; color: #717171;">{{detailByElemet.QualificationCanceled.Denominator}}</div>
-              <div class="calification-list-result-by-seller"
-                style="width: 117px; text-align: center; color: #717171;">{{detailByElemet.QualificationCanceled.Percentage}}%</div>
+            <div fxLayout="row wrap" class="detail-calification-container-table-calification-column-result">
+              <div class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text"style="width: 123px">{{detailByElemet.QualificationCanceled.Numerator}}</div>
+              <div class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text" style="width: 137px">{{detailByElemet.QualificationCanceled.Denominator}}</div>
+              <div class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text" style="width: 117px">{{detailByElemet.QualificationCanceled.Percentage}}%</div>
               <div [ngClass]="colorCalificationCanceled"
                 class="calification-list-result-by-seller" style="width: 111px;
                 text-align: center">{{detailByElemet.QualificationCanceled.Qualification}}</div>
-              <div class="calification-list-result-by-seller"
-                style="width: 152px; text-align: center; color: #717171;">{{detailByElemet.QualificationCanceled.QualificationPercentage}}%</div>
-              <div class="calification-list-result-by-seller"
-                style="width: 95px; text-align: center; color: #717171;">{{detailByElemet.QualificationCanceled.Total}}</div>
+              <div class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text" style="width: 152px;">{{detailByElemet.QualificationCanceled.QualificationPercentage}}%</div>
+              <div class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text" style="width: 95px; ">{{detailByElemet.QualificationCanceled.Total}}</div>
             </div>
           </div>
         </div>
-        <div fxFlex="grow" style="height: 25%; max-width: 100%;">
-          <div fxLayout="row" style="color: #545353;background-color:
-            #e4e2e2;margin-left: 5px;margin-right: 5px; padding-left:
-            11px;padding-bottom: 5px;padding-top: 5px; border: 1px solid
-            rgb(219, 218, 218);">
+        <div fxFlex="grow" class="detail-calification-container-table-califications-promise-delivery-size">
+          <div fxLayout="row" class="detail-calification-container-table-result-total">
             <div fxFlex="85" style="font-weight: bold;">Total General</div>
-            <div fxFlex="10" fxLayoutAlign="center center" style="margin-right:
-              27px; font-weight: bold;">{{detailByElemet.Quantitative}}</div>
+            <div fxFlex="10" fxLayoutAlign="center center" class="detail-calification-container-result-total-calification">{{detailByElemet.Quantitative}}</div>
           </div>
         </div>
       </div>
@@ -195,17 +162,17 @@
   <div>
     <div style="padding:5px" *ngIf="detailByElemet && detailByElemet.Detail">
       <mat-expansion-panel>
-        <mat-expansion-panel-header style="background-color: #f6f5f5;">
+        <mat-expansion-panel-header class="detail-calification-container-details-background-color">
           <mat-panel-title>
-            <div style="color:#5D5D5D">
-              <mat-icon class="mat-18" style="vertical-align: middle;">assessment</mat-icon>
+            <div class="detail-calification-container-color-details-panel">
+              <mat-icon class="mat-18 detail-calification-container-center-vertical">assessment</mat-icon>
               Pedidos que no cumplen con la promesa de entrega
             </div>
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div>
-          <table style="width: 100%; margin-top: 10px;">
-            <tr style="background-color: #dde3f2;">
+          <table class="detail-calification-container-width-complete" style=" margin-top: 10px;">
+            <tr class="detail-calification-container-background-color-details-panel-tr">
               <td>Número Pedido</td>
               <td>Fecha de P</td>
               <td>Fecha Máxi</td>
@@ -252,17 +219,17 @@
     </div>
     <div style="padding:5px">
       <mat-expansion-panel>
-        <mat-expansion-panel-header style="background-color: #f6f5f5;">
+        <mat-expansion-panel-header class="detail-calification-container-details-background-color">
           <mat-panel-title>
-            <div style="color:#5D5D5D">
-              <mat-icon class="mat-18" style="vertical-align: middle;">assessment</mat-icon>
+            <div class="detail-calification-container-color-details-panel">
+              <mat-icon class="mat-18 detail-calification-container-center-vertical">assessment</mat-icon>
               Pedidos Cancelados
             </div>
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div>
-          <table style="width: 100%;">
-            <tr style="background-color: #dde3f2;">
+          <table class="detail-calification-container-width-complete">
+            <tr class="detail-calification-container-background-color-details-panel-tr">
               <td>Número Pedido</td>
               <td>Fecha de P</td>
               <td>Estado</td>
@@ -309,17 +276,17 @@
     </div>
     <div style="padding:5px">
       <mat-expansion-panel>
-        <mat-expansion-panel-header style="background-color: #f6f5f5;">
+        <mat-expansion-panel-header class="detail-calification-container-details-background-color">
           <mat-panel-title>
-            <div style="color:#5D5D5D">
-              <mat-icon class="mat-18" style="vertical-align: middle;">assessment</mat-icon>
+            <div class="detail-calification-container-color-details-panel">
+              <mat-icon class="mat-18 detail-calification-container-center-vertical" >assessment</mat-icon>
               Pedidos PQR
             </div>
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div>
-          <table style="width: 100%;">
-            <tr style="background-color: #dde3f2;">
+          <table class="detail-calification-container-width-complete">
+            <tr class="detail-calification-container-background-color-details-panel-tr">
               <td>Número Pedido</td>
               <td>Fecha de P</td>
               <td>Fecha Max</td>
@@ -361,7 +328,7 @@
         <button mat-raised-button color="secondary" type="button"
           (click)="backTolist()" mat-button
           style="margin-right: 10px;">
-          <mat-icon class="mat-18" style="color: #5d5d5d;"> arrow_back
+          <mat-icon class="mat-18 detail-calification-container-arrow-Back-color" > arrow_back
           </mat-icon>Atras
         </button>
         <button mat-raised-button color="primary" mat-button type="submit">Notificar</button>
