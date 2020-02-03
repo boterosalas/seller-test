@@ -67,6 +67,7 @@ export class SellerRatingComponent implements OnInit {
   };
 
   private activeScrolled: Boolean = false;
+  sellerId: string;
 
   constructor(
     private loadingService: LoadingService,
@@ -76,31 +77,36 @@ export class SellerRatingComponent implements OnInit {
     public SUPPORT?: SupportService,
   ) {
     // this.getAllDataUser();
-    this.getDataUser();
+    // this.getDataUser();
 
   }
 
   ngOnInit() {
+    this.paramsGetSellerRating.sellerId = localStorage.getItem('userId');
     this.createFormControls();
     this.validateFormSupport();
     this.getSellerRating();
     // this.prueba();
   }
 
+  /**
+   * Metodo para obtener datos del usuario.
+   * @memberof SellerRatingComponent
+   */
   async getDataUser() {
     this.user = await this.userParams.getUserData();
-    // console.log('this.user :' , this.user.sellerId );
   }
 
-  prueba(event?: any) {
-
+  /**
+   * Evento Scroll q se utiliza para hacer la peticion del filtro
+   * @param {*} [event]
+   * @memberof SellerRatingComponent
+   */
+  eventScrollFilter(event?: any) {
     const scrollFilter = Object.assign({}, this.paramsGetSellerRating);
     scrollFilter.paginationToken = this.paginationToken;
-    // alert('gay');
-
-    if (this.activeScrolled) {
+    if (this.activeScrolled && scrollFilter.paginationToken !== '{}') {
       if (event.srcElement.scrollHeight === (event.srcElement.offsetHeight + event.srcElement.scrollTop) && !this.scrolled) {
-        alert('ahora si');
         this.scrolled = true;
         this._dashboard.getRatingSellers(scrollFilter).subscribe(result => {
           const a = [{
@@ -131,16 +137,14 @@ export class SellerRatingComponent implements OnInit {
   }
 
 
+  /**
+   * Metodo para crear formulario del filtro
+   * @memberof SellerRatingComponent
+   */
   createFormControls() {
-    // this.filterSellerRating = this.fb.group({
-    //   datequalificationinitial: new FormControl('', Validators.compose([Validators.pattern(this.getValue('dateMonthYear'))])),
-    //   dateQualificationFinal: new FormControl('', Validators.compose([Validators.pattern(this.getValue('dateMonthYear'))])),
-    //     matcher: new MyErrorStateMatcher()
-    // });
     this.filterSellerRating = new FormGroup({
       datequalificationinitial: new FormControl('', [Validators.pattern(this.BrandsRegex.dateMonthYear)]),
       dateQualificationFinal: new FormControl('', [Validators.pattern(this.BrandsRegex.dateMonthYear)]),
-      // matcher: new MyErrorStateMatcher()
     });
   }
 
@@ -159,8 +163,17 @@ export class SellerRatingComponent implements OnInit {
     });
   }
 
+  /**
+   * Metodo que obtiene los primeros datos de calificación
+   * @memberof SellerRatingComponent
+   */
   getSellerRating() {
-    this.paramsGetSellerRating.sellerId = this.user.sellerId;
+    this.sellerId = localStorage.getItem('userId');
+    if (this.sellerId === undefined || this.sellerId === '' || this.sellerId === null || !this.sellerId) {
+      this.sellerId = this.user.sellerId;
+    }
+    this.paramsGetSellerRating.sellerId = localStorage.getItem('userId');
+    console.log(this.paramsGetSellerRating.sellerId);
     this.loadingService.viewSpinner();
     this._dashboard.getRatingSellers(this.paramsGetSellerRating).subscribe(result => {
       this.arraySellerRating = result.body.viewModel;
@@ -170,12 +183,21 @@ export class SellerRatingComponent implements OnInit {
     });
   }
 
+  /**
+   * Metodo para ir guardando el pagination token
+   * @param {string} paginationToken
+   * @memberof SellerRatingComponent
+   */
   savePaginationToken(paginationToken: string) {
     if (paginationToken) {
       this.paginationToken = paginationToken;
     }
   }
 
+  /**
+   * Metodo apra filtrar la calificacion segun fecha de emisión
+   * @memberof SellerRatingComponent
+   */
   getFilterSellerRating() {
     this.activeScrolled = true;
     this.scrolled = false;
@@ -215,10 +237,19 @@ export class SellerRatingComponent implements OnInit {
     });
   }
 
+  /**
+   * metodo para abrir pdf en nueva ventana para su descarga
+   * @param {*} model
+   * @memberof SellerRatingComponent
+   */
   public getPDF(model: any): void {
     window.open(model.urlFile, '_blank');
   }
 
+  /**
+   * Metodo apra limpiar aprametros del filtro.
+   * @memberof SellerRatingComponent
+   */
   cleanAllFilter() {
     this.filterSellerRating.reset({ datequalificationinitial: '', dateQualificationFinal: '' });
     this.listFilterBrands = [];
