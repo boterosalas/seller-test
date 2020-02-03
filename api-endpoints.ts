@@ -221,8 +221,8 @@ export const endpoints = {
       validateSellerEmail: 'https://ejn1rdfov9.execute-api.us-east-1.amazonaws.com/validateselleremail-pdn/{params}',
       validateSellerName: 'https://z0exz5y0f6.execute-api.us-east-1.amazonaws.com/validatesellername-pdn/{params}',
       // Cities and States services
-      getCities: 'https://lcdy1iepcf.execute-api.us-east-1.amazonaws.com/cities-pdn/{params}',
-      getCitiesCoverage: '',
+      getCities: 'https://lcdy1iepcf.execute-api.us-east-1.amazonaws.com/cities-pdn/GetCitiesByState/{params}',
+      getCitiesCoverage: 'https://lcdy1iepcf.execute-api.us-east-1.amazonaws.com/cities-pdn/GetAllCitiesVtexS3',
       getDaneCodesNonCoverage: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/GetSellerData',
       getStates: 'https://yz3bm0grtf.execute-api.us-east-1.amazonaws.com/states-pdn',
       pacthCitiesNoCoverage: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/UpdateCitiesNonCoverage',

@@ -186,7 +186,7 @@ export class FAKE {
       'reference': ' ',
       'requestedAmount': 0,
       'reverseAmount': 0,
-      'attachedEvidence': ''
-    }
+    },
+    'evidenceLists':''
   };
 }
