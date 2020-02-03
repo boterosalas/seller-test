@@ -39,7 +39,7 @@ export class DetailCalificationComponent implements OnInit {
     this.colorCalificationCase = this.setClassColorByCalification(this.detailByElemet.QualificationCase.Qualification);
     this.colorCalificationCanceled = this.setClassColorByCalification(this.detailByElemet.QualificationCanceled.Qualification);
     this.setFormatDateInfoSellerMonthQuality = this.formatNameMonth(this.detailByElemet.QualificationDate);
-    this.setFormatDateInfoSellerGenrateDate = this.formtDateDayMonthYear(this.detailByElemet.GeneratedDate);
+    this.setFormatDateInfoSellerGenrateDate = this.formatNameMonth(this.detailByElemet.GeneratedDate);
   }
 
   setClassColorByCalification(calification: number) {
@@ -80,10 +80,16 @@ export class DetailCalificationComponent implements OnInit {
   }
 
   sumatoryPenality(details: any) {
-    details.forEach(element => {
-      this.penaltyOutSideDelivery += element.OrdersOutsideDeliveryDate.Penalty;
-      this.penaltyCanceledBySeller += element.OrdersCanceledBySellerResponsibility.Penalty;
+    if( details.OrdersOutsideDeliveryDate && details.OrdersOutsideDeliveryDate.length > 0){
+       details.OrdersOutsideDeliveryDate.forEach(element => {
+      this.penaltyOutSideDelivery += element.Penalty
     });
+    }
+    if (details.OrdersOutsideDeliveryDate && details.OrdersCanceledBySellerResponsibility.length > 0){
+       details.OrdersCanceledBySellerResponsibility.forEach(element => {
+      this.penaltyCanceledBySeller += element.Penalty
+    });
+    }
     this.penaltyTotal = this.penaltyOutSideDelivery + this.penaltyCanceledBySeller;
   }
 

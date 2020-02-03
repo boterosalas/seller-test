@@ -475,14 +475,11 @@ formtDateDayMonthYear(date: any) {
     if (qualificationDate && idSeller) {
       const params = idSeller + '/' + qualificationDate;
       this.calificationService.getListCalificationsBySeller(params).subscribe((res: any) => {
-        res.ViewModel[0].Detail = [];
-        res.ViewModel[0].Detail = this.detail;
-        this.detailByElemet = res.ViewModel[0];
+        this.detailByElemet = res.ViewModel;
         this.loadingService.closeSpinner();
         this.showContainerDetail = true;
       });
     }
-
   }
 
 
