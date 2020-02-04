@@ -334,14 +334,19 @@
     "secure.dashboard.info_cancel_sale": "This info is approximated and doesn't take into account cancelations, additionaly the sales value is shown without taking freight values into account",
 
     "secure.dashboard.seller-rating.title":"Calificación de Calidad",
+    "secure.dashboard.seller-rating.title_filter":"Filtro por fecha de Emisión",
     "secure.dashboard.seller-rating.header_rating":"Calificación",
     "secure.dashboard.seller-rating.date_calificated":"Fecha mes Calificado",
     "secure.dashboard.seller-rating.date_issued":"Fecha Emisión",
     "secure.dashboard.seller-rating.date_issued_initial_filter":"Initial date",
     "secure.dashboard.seller-rating.date_issued_final_filter":"Final date",
     "secure.dashboard.seller-rating.date_issued_final_filter_error":"Invalid format (mm/yyyy)",
-
+    "secure.dashboard.seller-rating.date_issued_final_not_data":"No se han encontrado registros de calificación.",
+    "secure.dashboard.seller-rating.date_issued_final_not_data_filter":"No se han encontrado registros de calificación en este rango de fechas.",
+    "secure.dashboard.seller-rating.appeal":"Appeal",
+    "secure.dashboard.seller-rating.getPdf":"Download PDF",
     
+
     "secure.error_page.no_found_page": "The page you requested is not available",
     "secure.error_page.go_home": "Go to start",
 
