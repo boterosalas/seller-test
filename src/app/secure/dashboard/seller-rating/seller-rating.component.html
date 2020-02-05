@@ -36,7 +36,10 @@
       <button mat-flat-button color="primary" type="submit" [innerHTML]="['filters.filter' | translate]">{{'filters.filter' | translate}}</button> -->
     </form>
   </div>
+{{dataSource}} hoola
+  <div *ngIf="dataSource.length > 0">
 
+  </div>
 
   <table mat-table [dataSource]="dataSource">
     <!-- Calificación -->

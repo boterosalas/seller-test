@@ -77,12 +77,12 @@ export class SellerRatingComponent implements OnInit {
     public SUPPORT?: SupportService,
   ) {
     // this.getAllDataUser();
-    // this.getDataUser();
+    this.getDataUser();
 
   }
 
   ngOnInit() {
-    this.paramsGetSellerRating.sellerId = localStorage.getItem('userId');
+    // this.paramsGetSellerRating.sellerId = localStorage.getItem('userId');
     this.createFormControls();
     this.validateFormSupport();
     this.getSellerRating();
@@ -131,8 +131,6 @@ export class SellerRatingComponent implements OnInit {
         });
       }
     }
-
-
   }
 
 
@@ -168,7 +166,9 @@ export class SellerRatingComponent implements OnInit {
    */
   getSellerRating() {
     this.sellerId = localStorage.getItem('userId');
+    console.log('this.sellerId', this.sellerId);
     if (this.sellerId === undefined || this.sellerId === '' || this.sellerId === null || !this.sellerId) {
+      console.log('entra al if');
       this.sellerId = this.user.sellerId;
     }
     this.paramsGetSellerRating.sellerId = localStorage.getItem('userId');
@@ -176,6 +176,7 @@ export class SellerRatingComponent implements OnInit {
     this._dashboard.getRatingSellers(this.paramsGetSellerRating).subscribe(result => {
       this.arraySellerRating = result.body.viewModel;
       this.dataSource = new MatTableDataSource(this.arraySellerRating);
+      console.log(this.dataSource, this.arraySellerRating, this.arraySellerRating.length);
       this.savePaginationToken(result.body.paginationToken);
       this.loadingService.closeSpinner();
     });
