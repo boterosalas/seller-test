@@ -1,5 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import * as moment from 'moment';
+import { CalificationService } from '../../quality.service';
+import { MatDialog } from '@angular/material';
+import { ModalConfirmComponent } from '../modal-confirm/modal-confirm.component';
+import { LoadingService } from '@app/core';
 
 @Component({
   selector: 'app-detail-calification',
@@ -22,12 +26,18 @@ export class DetailCalificationComponent implements OnInit {
   public penaltyCanceledBySeller = 0;
   public penaltyTotal = 0;
 
+  public params: any;
+
   public monthEN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   public monthES = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
 
 
-  constructor() { }
+  constructor(
+    private calificationService: CalificationService,
+    public dialog: MatDialog,
+    private loadingService: LoadingService,
+  ) { }
 
   ngOnInit() {
     this.setDetailsBySeller();
@@ -80,14 +90,14 @@ export class DetailCalificationComponent implements OnInit {
   }
 
   sumatoryPenality(details: any) {
-    if( details.OrdersOutsideDeliveryDate && details.OrdersOutsideDeliveryDate.length > 0){
+    if ( details.OrdersOutsideDeliveryDate && details.OrdersOutsideDeliveryDate.length > 0) {
        details.OrdersOutsideDeliveryDate.forEach(element => {
-      this.penaltyOutSideDelivery += element.Penalty
+      this.penaltyOutSideDelivery += element.Penalty;
     });
     }
-    if (details.OrdersOutsideDeliveryDate && details.OrdersCanceledBySellerResponsibility.length > 0){
+    if (details.OrdersOutsideDeliveryDate && details.OrdersCanceledBySellerResponsibility.length > 0) {
        details.OrdersCanceledBySellerResponsibility.forEach(element => {
-      this.penaltyCanceledBySeller += element.Penalty
+      this.penaltyCanceledBySeller += element.Penalty;
     });
     }
     this.penaltyTotal = this.penaltyOutSideDelivery + this.penaltyCanceledBySeller;
@@ -98,5 +108,49 @@ export class DetailCalificationComponent implements OnInit {
     // this.showContainerDetail = false;
   }
 
+  confirmDeleteCalification(element: any , idSeller: string, idToProcess: string, Ean: string, typeExclusion: number ) {
+
+    const params = {
+     OrderNumber: element.OrderNumber,
+     CustomerName: element.CustomerName,
+     OrderStatus: element.OrderStatus,
+     TotalCommission: element.TotalCommission,
+     Penalty: element.Penalty,
+     idSeller: idSeller,
+     idToProcess: idToProcess,
+     Ean: Ean,
+     typeExclusion: typeExclusion
+   };
+
+    const dialogRef = this.dialog.open(ModalConfirmComponent, {
+      width: '70%',
+      minWidth: '300px',
+      disableClose: false,
+      data:  params
+    });
+
+    const dialogIntance = dialogRef.componentInstance;
+    dialogIntance.processFinish$.subscribe((val) => {
+      this.loadingService.viewSpinner();
+      this.recalculateQualitative();
+    });
+  }
+
+  recalculateQualitative() {
+    if (this.detailByElemet && this.detailByElemet.QualificationDate && this.detailByElemet.IdSeller ) {
+      const params = this.detailByElemet.IdSeller + '/' + this.detailByElemet.QualificationDate;
+        this.calificationService.getListCalificationsBySeller(params).subscribe((res: any) => {
+        this.detailByElemet = res.ViewModel;
+        this.loadingService.closeSpinner();
+        this.dialog.closeAll();
+      });
+    }
+  }
+
+  notificateSeller() {
+    this.calificationService.notificate(this.idSeller).subscribe((res: any) => {
+      console.log(res);
+    });
+  }
 
 }

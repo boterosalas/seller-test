@@ -50,6 +50,9 @@
   &-container-table-info-seller-icon-seller-aling-center{
     vertical-align: middle;
   }
+  &-container-aling-center{
+    text-align: center;
+  }
   &-container-table-info-seller-detail{
     height: 86%;
     width: 100%;
@@ -91,11 +94,13 @@
   }
   &-container-table-info-column-penalty-cancel{
     padding: 7px 5px;
+    margin-top: 11px;
   }
   &-container-table-info-column-penalty-total{
     padding: 6px 5px;
     color: #545353;
-    background-color: #e4e2e2
+    background-color: #e4e2e2;
+    border: 1px solid #dbdada;
   }
   &-container-table-info-column-penalty-total-text{
     font-weight:bold; 
@@ -177,9 +182,9 @@
     margin-left: 5px;
     margin-right: 5px;
     padding-left: 11px;
-    padding-bottom: 5px;
+    padding-bottom: 7px;
     padding-top: 5px;
-    border: 1px solidrgb(219, 218, 218);
+    border: 1px solid rgb(219, 218, 218);
     margin-top: 12px;
   }
 
@@ -204,6 +209,11 @@
 
   .deficient {
     background-color:  #de2d2d;
+  }
+  .delete {
+    cursor: pointer;
+    color: #de2d2d;
+    text-align: center;
   }
 
   .default {

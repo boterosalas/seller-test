@@ -7,6 +7,7 @@ import { FilterComponent } from './component/filter/filter.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalificationService } from './quality.service';
 import { DetailCalificationComponent } from './component/detail-calification/detail-calification.component';
+import { ModalConfirmComponent } from './component/modal-confirm/modal-confirm.component';
 
 
 
@@ -21,10 +22,14 @@ import { DetailCalificationComponent } from './component/detail-calification/det
   declarations: [
     CalificationListComponent,
      FilterComponent,
-     DetailCalificationComponent
+     DetailCalificationComponent,
+     ModalConfirmComponent
     ],
     providers: [
       CalificationService
+  ],
+  entryComponents: [
+    ModalConfirmComponent
   ],
 })
 export class QualityModule { }

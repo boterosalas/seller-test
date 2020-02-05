@@ -12,6 +12,13 @@ export class CalificationService {
     private api: EndpointService
   ) {}
 
+//////////////////////////////////// BORARAR
+  res = {
+    'errors': [],
+    'data': true,
+    'message': 'Operación realizada con éxito.'
+  };
+
 
   getOrderList(params: any): Observable<[{}]> {
     let filter = '';
@@ -48,4 +55,31 @@ export class CalificationService {
   public getListCalificationsBySeller(params: any): Observable<any> {
     return this.http.get(this.api.get('getSellerRating', [params]));
   }
+
+
+ public delete(params: any): Observable<{}> {
+  return new Observable(observer => {
+    observer.next(true);
+  });
+    // return new Observable(observer => {
+    //   this.http.patch<any>(this.api.get('qualificationDelete'), params, { observe: 'response' })
+    //     .subscribe(
+    //       data => {
+    //         observer.next(data);
+    //       },
+    //       error => {
+    //         observer.next(error);
+    //       }
+    //     );
+    // });
+  }
+
+  public notificate(body: any): Observable<any> {
+    return new Observable(observer => {
+      observer.next(this.res);
+    });
+    // return this.http.post(`${this.api.get('upsertQualification')}`, body);
+  }
+
+
 }

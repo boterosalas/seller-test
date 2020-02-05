@@ -1,0 +1,41 @@
+<div>
+  <div>
+    <div>
+      <div fxLayout="row" class="modal-confirm-container-margin-bottom-title">
+        <div fxFlex="90" class="modal-confirm-color-title-modal" >
+          <mat-icon class="mat-18" class="modal-confirm-container-center-vertical">delete_forever</mat-icon>
+           <span class="modal-confirm-container-title-text-size">¿Esta seguro que desea eliminar el siguiente pedido?</span>
+        </div>
+        <div fxFlex="10" fxLayoutAlign="end center">
+          <mat-icon class="mat-18" (click)="closeAll()" [matTooltip]="'actions.close' | translate" class="modal-confirm-container-center-vertical modal-confirm-container-icon-close-modal">clear</mat-icon>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <mat-dialog-content class="modal-confirm-container-column-title">
+        <div fxLayout="row">
+          <div fxFlex="100" style="margin-top: 25px;">
+            <div fxFlex="20" class="modal-confirm-container-center-color-title">Numero de Orden</div>
+            <div fxFlex="20" class="modal-confirm-container-center-color-title">Cliente</div>
+            <div fxFlex="20" class="modal-confirm-container-center-color-title">Estado</div>
+            <div fxFlex="20" class="modal-confirm-container-center-color-title">Total de comision</div>
+            <div fxFlex="20" class="modal-confirm-container-center-color-title">Penalidad</div>
+          </div>
+        </div>
+        <div fxLayout="row" style="margin-top:5px">
+          <div fxFlex="100">
+            <div fxFlex="20" class="modal-confirm-container-center-item">{{data.OrderNumber}}</div>
+            <div fxFlex="20" class="modal-confirm-container-center-item">{{data.CustomerName}}</div>
+            <div fxFlex="20" class="modal-confirm-container-center-item">{{data.OrderStatus}}</div>
+            <div fxFlex="20" class="modal-confirm-container-center-item">{{data.TotalCommission}}</div>
+            <div fxFlex="20" class="modal-confirm-container-center-item">{{data.Penalty}}</div>
+          </div>
+        </div>
+      </mat-dialog-content>
+      <mat-divider></mat-divider>
+      <mat-dialog-actions class="dialog-buttons">
+        <button class="sc-button" mat-button [mat-dialog-close]="true">{{'actions.cancel_min' | translate}}</button>
+        <button class="sc-button modal-confirm-btn-delete"  (click)="confirmDelete(data)" mat-raised-button >Eliminar</button>
+      </mat-dialog-actions>
+    </div>
+  </div>
+</div>

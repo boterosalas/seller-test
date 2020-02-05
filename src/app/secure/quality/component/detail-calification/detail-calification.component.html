@@ -1,6 +1,13 @@
  <div *ngIf="detailByElemet" class="detail-calification-padding">
+   <div fxLayout="row">
+    <div fxFlex="100">
+      <div style="border-bottom: 0.001em solid #D3D3D3; padding: 0 25px;position: fixed;z-index: 2;background-color: white;">
+      aqui va  las acciones
+      </div>
+    </div>
+   </div>
   <div fxLayout="row wrap" fxLayoutAlign="space-around none" class="detail-calification-container-height">
-    <div fxFlex="30">
+    <div fxFlex="30"  fxFlex.xs="100" fxFlex.sm="100">
       <div fxLayout="row wrap" class="detail-calification-container-height-complete">
         <div fxFlex="grow" class="detail-calification-container-table-info-seller">
           <div class="detail-calification-container-table-info-seller-icon-seller">
@@ -61,14 +68,14 @@
         </div>
       </div>
     </div>
-    <div fxFlex="69">
+    <div fxFlex="69" fxFlex.xs="100" fxFlex.sm="100">
       <div fxLayout="row wrap" class="detail-calification-container-height-complete">
         <div fxFlex="grow" class="detail-calification-container-table-info-calication-get">
           <div class="detail-calification-container-table-info-calication-get-row">
             <mat-icon class="mat-18 detail-calification-container-center-vertical">assignment_turned_in</mat-icon>
             Calificación Obtenida ({{detailByElemet.Quantitative}})
           </div>
-          <div style="text-align: end;">
+          <!-- <div style="text-align: end;">
             <button mat-button [matMenuTriggerFor]="menu">
               <mat-icon class="mat-18">dehaze</mat-icon>
             </button>
@@ -76,7 +83,7 @@
               <button mat-menu-item (click)="backTolist()">Atras</button>
               <button mat-menu-item>Notificar</button>
             </mat-menu>
-          </div>
+          </div> -->
         </div>
         <div fxFlex="grow" class="detail-calification-container-table-califications-promise-delivery-size">
           <div>
@@ -105,7 +112,7 @@
             </div>
           </div>
         </div>
-        <div fxFlex="grow" class="detail-calification--container-table-califications-promise-delivery-size" >
+        <div fxFlex="grow" class="detail-calification-container-table-califications-promise-delivery-size" >
           <div>
             <div class="detail-calification-container-table-califications-column-promise-delivery">Reclamaciones</div>
             <div fxLayout="row" class="detail-calification-column-row">
@@ -182,6 +189,7 @@
               <td>Cliente</td>
               <td>Penalidad</td>
               <td>Comisión</td>
+              <td>Acción</td>
             </tr>
             <tr style="height: 30px" *ngFor="let detail of
               detailByElemet.Detail.OrdersOutsideDeliveryDate" class="mat-row">
@@ -212,6 +220,9 @@
               <td>
                 {{detail.TotalCommission}}
               </td>
+              <td class="detail-calification-container-aling-center">
+                <mat-icon class="mat-18 delete" (click)="confirmDeleteCalification(detail, detailByElemet.IdSeller, detail.OrderNumber, detail.Sku, 1)" matTooltip="delete" >delete_forever</mat-icon>
+              </td>
             </tr>
           </table>
         </div>
@@ -239,6 +250,7 @@
               <td>Cliente</td>
               <td>Penalidad</td>
               <td>Comisión</td>
+              <td>Acción</td>
             </tr>
             <tr style="height: 30px" *ngFor="let detail of
               detailByElemet.Detail.OrdersCanceledBySellerResponsibility" class="mat-row">
@@ -269,6 +281,9 @@
               <td>
                 {{detail.TotalCommission}}
               </td>
+              <td style="text-align: center;">
+                <mat-icon class="mat-18 delete" (click)="confirmDeleteCalification(detail, detailByElemet.IdSeller, detail.OrderNumber, detail.Sku, 1)">delete_forever</mat-icon>
+              </td>
             </tr>
           </table>
         </div>
@@ -294,6 +309,7 @@
               <td>Fecha PQR</td>
               <td>Cédula</td>
               <td>Cliente</td>
+              <td>Acción</td>
             </tr>
             <tr style="height: 30px;" *ngFor="let detail of
               detailByElemet.Detail.OrderWithPqr" class="mat-row">
@@ -318,12 +334,15 @@
               <td>
                 {{detail.CustomerName}}
               </td>
+              <td style="text-align: center;">
+                <mat-icon class="mat-18 delete" (click)="confirmDeleteCalification(detail, detailByElemet.IdSeller , detail.CaseId, null, 2)">delete_forever</mat-icon>
+              </td>
             </tr>
           </table>
         </div>
       </mat-expansion-panel>
     </div>
-    <div fxLayout="row" fxLayoutAlign="end end">
+    <!-- <div fxLayout="row" fxLayoutAlign="end end">
       <div style="padding: 5px;">
         <button mat-raised-button color="secondary" type="button"
           (click)="backTolist()" mat-button
@@ -331,8 +350,8 @@
           <mat-icon class="mat-18 detail-calification-container-arrow-Back-color" > arrow_back
           </mat-icon>Atras
         </button>
-        <button mat-raised-button color="primary" mat-button type="submit">Notificar</button>
+        <button mat-raised-button color="primary" mat-button type="button" (click)="notificateSeller()">Notificar</button>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
