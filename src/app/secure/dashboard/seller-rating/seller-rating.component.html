@@ -6,19 +6,19 @@
       <h5>{{'secure.dashboard.seller-rating.title_filter' | translate}}:</h5>
       <div class="filterResponsive">
 
-      <mat-form-field>
-        <input matInput [placeholder]="'secure.dashboard.seller-rating.date_issued_initial_filter' | translate"
-          formControlName="datequalificationinitial" [errorStateMatcher]="matcher">
-        <mat-error *ngIf="filterSellerRating.get('datequalificationinitial').hasError('pattern')">
-          {{'secure.dashboard.seller-rating.date_issued_final_filter_error' | translate}}</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput [placeholder]="'secure.dashboard.seller-rating.date_issued_final_filter' | translate"
-          formControlName="dateQualificationFinal" [errorStateMatcher]="matcher">
-        <mat-error *ngIf="filterSellerRating.get('dateQualificationFinal').hasError('pattern')">
-          {{'secure.dashboard.seller-rating.date_issued_final_filter_error' | translate}}</mat-error>
-      </mat-form-field>
-      <!-- <div class="filterResponsive"> -->
+        <mat-form-field>
+          <input matInput [placeholder]="'secure.dashboard.seller-rating.date_issued_initial_filter' | translate"
+            formControlName="datequalificationinitial" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="filterSellerRating.get('datequalificationinitial').hasError('pattern')">
+            {{'secure.dashboard.seller-rating.date_issued_final_filter_error' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [placeholder]="'secure.dashboard.seller-rating.date_issued_final_filter' | translate"
+            formControlName="dateQualificationFinal" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="filterSellerRating.get('dateQualificationFinal').hasError('pattern')">
+            {{'secure.dashboard.seller-rating.date_issued_final_filter_error' | translate}}</mat-error>
+        </mat-form-field>
+        <!-- <div class="filterResponsive"> -->
         <button type="button" mat-button class="btn_filter_rating" (click)="getFilterSellerRating()">
           <mat-icon>filter_list</mat-icon>
           <small class="sub-title-filter">{{'filters.filter' | translate}}</small>
@@ -35,10 +35,6 @@
         [innerHTML]="['filters.clear' | translate]">{{'filters.clear' | translate}}</button>
       <button mat-flat-button color="primary" type="submit" [innerHTML]="['filters.filter' | translate]">{{'filters.filter' | translate}}</button> -->
     </form>
-  </div>
-{{dataSource}} hoola
-  <div *ngIf="dataSource.length > 0">
-
   </div>
 
   <table mat-table [dataSource]="dataSource">
@@ -70,15 +66,21 @@
         <!-- <button mat-icon-button (click)="getPDF(element)">
           <mat-icon color="primary" matTooltip="Descargar PDF">picture_as_pdf</mat-icon>
         </button> -->
-        <mat-icon color="primary" [matTooltip]="'secure.dashboard.seller-rating.getPdf' | translate" (click)="getPDF(element)">picture_as_pdf</mat-icon>
+        <mat-icon color="primary" [matTooltip]="'secure.dashboard.seller-rating.getPdf' | translate"
+          (click)="getPDF(element)">picture_as_pdf</mat-icon>
         <!-- <button mat-icon-button (click)="openDialogSupport()">
           <mat-icon color="accent" matTooltip="Apelar">event_note</mat-icon>
         </button> -->
-        <mat-icon color="accent" [matTooltip]="'secure.dashboard.seller-rating.appeal' | translate" (click)="openDialogSupport()">event_note</mat-icon>
+        <mat-icon color="accent" [matTooltip]="'secure.dashboard.seller-rating.appeal' | translate"
+          (click)="openDialogSupport()">event_note</mat-icon>
       </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>  
   </table>
+  <div class="seller-no-data" *ngIf="dataSource.data.length === 0">
+    <mat-icon class="icon-not-found" color="primary">info</mat-icon>
+    <p>{{'secure.dashboard.seller-rating.date_issued_final_not_data' | translate}}</p>
+  </div>
 </div>

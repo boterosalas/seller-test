@@ -174,9 +174,9 @@ export class SellerRatingComponent implements OnInit {
     this.paramsGetSellerRating.sellerId = localStorage.getItem('userId');
     this.loadingService.viewSpinner();
     this._dashboard.getRatingSellers(this.paramsGetSellerRating).subscribe(result => {
-      this.arraySellerRating = result.body.viewModel;
+      this.arraySellerRating = [];
       this.dataSource = new MatTableDataSource(this.arraySellerRating);
-      console.log(this.dataSource, this.arraySellerRating, this.arraySellerRating.length);
+      console.log(this.dataSource.data.length);
       this.savePaginationToken(result.body.paginationToken);
       this.loadingService.closeSpinner();
     });
