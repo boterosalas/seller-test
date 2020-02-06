@@ -494,7 +494,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   iURLDeImagen3: this.arrayNecessaryData[0].indexOf('Image URL 3'),
                   iURLDeImagen4: this.arrayNecessaryData[0].indexOf('Image URL 4'),
                   iURLDeImagen5: this.arrayNecessaryData[0].indexOf('Image URL 5'),
-                  iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
+                  iModificacionImagen: this.arrayNecessaryData[0].indexOf('Image Modification'),
                   iParentReference: this.arrayNecessaryData[0].indexOf('Parent reference'),
                   // iSonReference: this.arrayNecessaryData[0].indexOf('Child reference'),
                   iSize: this.arrayNecessaryData[0].indexOf('Size'),
@@ -537,7 +537,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   iURLDeImagen3: this.arrayNecessaryData[0].indexOf('URL de Imagen 3'),
                   iURLDeImagen4: this.arrayNecessaryData[0].indexOf('URL de Imagen 4'),
                   iURLDeImagen5: this.arrayNecessaryData[0].indexOf('URL de Imagen 5'),
-                  iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
+                  iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
                   iParentReference: this.arrayNecessaryData[0].indexOf('Referencia Padre'),
                   // iSonReference: this.arrayNecessaryData[0].indexOf('Referencia Hijo'),
                   iSize: this.arrayNecessaryData[0].indexOf('Talla'),
@@ -580,7 +580,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   iURLDeImagen3: this.arrayNecessaryData[0].indexOf('Image URL 3'),
                   iURLDeImagen4: this.arrayNecessaryData[0].indexOf('Image URL 4'),
                   iURLDeImagen5: this.arrayNecessaryData[0].indexOf('Image URL 5'),
-                  iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
+                  iModificacionImagen: this.arrayNecessaryData[0].indexOf('Image Modification'),
                   iParentReference: this.arrayNecessaryData[0].indexOf('Parent reference'),
                   iSonReference: this.arrayNecessaryData[0].indexOf('Child reference'),
                   iSize: this.arrayNecessaryData[0].indexOf('Size'),
@@ -623,7 +623,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   iURLDeImagen3: this.arrayNecessaryData[0].indexOf('URL de Imagen 3'),
                   iURLDeImagen4: this.arrayNecessaryData[0].indexOf('URL de Imagen 4'),
                   iURLDeImagen5: this.arrayNecessaryData[0].indexOf('URL de Imagen 5'),
-                  iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
+                  iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
                   iParentReference: this.arrayNecessaryData[0].indexOf('Referencia Padre'),
                   iSonReference: this.arrayNecessaryData[0].indexOf('Referencia Hijo'),
                   iSize: this.arrayNecessaryData[0].indexOf('Talla'),
@@ -680,7 +680,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
    * @memberof BulkLoadProductComponent
    */
   createTable(res: any, iVal: any, numCol: any) {
-
     for (let i = 0; i < res.length; i++) {
       let variant = false;
       let isModifyImage = false;
@@ -2245,6 +2244,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
         'URL de Imagen 3': undefined,
         'URL de Imagen 4': undefined,
         'URL de Imagen 5': undefined,
+        'Modificacion Imagen': undefined,
         'Logistica Exito': undefined,
       },
       this.modelSpecs
@@ -2278,6 +2278,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
         'Image URL 3': undefined,
         'Image URL 4': undefined,
         'Image URL 5': undefined,
+        'Image Modification': undefined,
         'Exito Logistics': undefined,
       },
       this.modelSpecs
@@ -2333,6 +2334,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           'URL de Imagen 3': undefined,
           'URL de Imagen 4': undefined,
           'URL de Imagen 5': undefined,
+          'Modificacion Imagen': undefined,
           'Logistica Exito': undefined,
         },
         this.modelSpecs
@@ -2371,6 +2373,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           'Image URL 3': undefined,
           'Image URL 4': undefined,
           'Image URL 5': undefined,
+          'Image Modification': undefined,
           'Exito Logistics': undefined,
         },
         this.modelSpecs
@@ -2411,6 +2414,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           'URL de Imagen 3': undefined,
           'URL de Imagen 4': undefined,
           'URL de Imagen 5': undefined,
+          'Modificacion Imagen': undefined,
           'Logistica Exito': undefined,
         },
         this.modelSpecs
@@ -2449,6 +2453,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           'Image URL 3': undefined,
           'Image URL 4': undefined,
           'Image URL 5': undefined,
+          'Image Modification': undefined,
           'Exito Logistics': undefined,
         },
         this.modelSpecs

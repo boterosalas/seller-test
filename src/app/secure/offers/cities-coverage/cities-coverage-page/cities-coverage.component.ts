@@ -44,6 +44,7 @@ export class CitiesCoverageComponent implements OnInit {
   public dataSource: MatTableDataSource<CitiesEntity>;
   /** Modelo de ciudades selecciondas */
   public selection = new SelectionModel<CitiesEntity>(true, []);
+  allData: CitiesEntity[];
 
   /**
    * Creates an instance of CitiesCoverageComponent.
@@ -126,7 +127,9 @@ export class CitiesCoverageComponent implements OnInit {
           const obj = Object.assign({}, city);
           obj.Status = !this.daneCodesNonCoverage.includes(city.DaneCode);
           return obj;
-        }).filter((el => el.State === stateSelected));
+        });
+        this.allData = data;
+        data = data.filter((el => el.State === stateSelected));
         data = data.sort((a, b) => (a.City > b.City) ? 1 : -1);
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.data.forEach((row: CitiesEntity) => (row.Status) && this.selection.select(row));
@@ -160,6 +163,15 @@ export class CitiesCoverageComponent implements OnInit {
   }
 
   /**
+   * Funcion para forzar cambiar estado a dataSource
+   * @param {*} row
+   * @memberof CitiesCoverageComponent
+   */
+  public changeStatus(row: any) {
+    row.Status = this.selection.isSelected(row);
+  }
+
+  /**
    * Guarda las ciudades
    *
    * @param {CitiesEntity[]} cities
@@ -167,13 +179,22 @@ export class CitiesCoverageComponent implements OnInit {
    */
   public saveCities(cities: any): void {
     this.__loadingService.viewSpinner();
+    const dataStatusFalse = [];
     const sendDaneCode = {
       'DaneCodesNonCoverage': []
     };
-    const uncheckCity = this.dataSource.data.filter(el => -1 === cities.indexOf(el));
-    uncheckCity.forEach(element => {
-      sendDaneCode['DaneCodesNonCoverage'].push(element.DaneCode);
+    this.allData.forEach((row: CitiesEntity) => {
+      if (row.Status === false) {
+        dataStatusFalse.push(row);
+      }
     });
+    dataStatusFalse.filter(el => el.Status === false).forEach(el => {
+      sendDaneCode['DaneCodesNonCoverage'].push(el.DaneCode);
+    });
+    const uncheckCity = this.dataSource.data.filter(el => -1 === cities.indexOf(el));
+    // uncheckCity.forEach(element => {
+    //   sendDaneCode['DaneCodesNonCoverage'].push(element.DaneCode);
+    // });
 
     this.__citiesCoverage.pacthCitiesNoCoverage(sendDaneCode).subscribe((result: any) => {
       if (result.status === 200 || result.status === 201) {

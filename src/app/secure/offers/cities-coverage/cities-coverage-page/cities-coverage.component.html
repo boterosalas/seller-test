@@ -18,7 +18,7 @@
           </mat-checkbox>
         </th>
         <td mat-cell *matCellDef="let row">
-          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null;changeStatus(row)"
             [checked]="selection.isSelected(row)">
           </mat-checkbox>
         </td>
@@ -50,7 +50,7 @@
     </div>
 
     <div class="button__save">
-      <button mat-flat-button (click)="saveCities(selection.selected)">Guardar</button>
+      <button mat-flat-button (click)="saveCities(selection.selected)">{{'secure.products.create_product_unit.component_process.save' | translate}}</button>
     </div>
   </div>
 </div>
