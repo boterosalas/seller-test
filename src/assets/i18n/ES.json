@@ -1128,5 +1128,6 @@
     "secure.quality.quality-score.qualityMonth" :"Mes calificado",
     "secure.quality.quality-score.qualityIssued" :"Mes emitido",
     "secure.quality.quality-score.text-empty-califications" :"Ingresa el nombre del vendedor en la barra de búsqueda para ver las calificaciones.",
-    "secure.quality.quality-score.filter-title": "Consultar calificaciones"
+    "secure.quality.quality-score.filter-title": "Consultar calificaciones",
+    "secure.quality.quality-score.message-send-quality": "La calificación del vendedor se ha enviado correctamente"
 }

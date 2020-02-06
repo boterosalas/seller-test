@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as moment from 'moment';
 import { CalificationService } from '../../quality.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { ModalConfirmComponent } from '../modal-confirm/modal-confirm.component';
 import { LoadingService } from '@app/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-detail-calification',
@@ -15,6 +16,7 @@ export class DetailCalificationComponent implements OnInit {
   @Input() detailByElemet: any;
   @Input() nameSeller: string;
   @Input() idSeller: any;
+  @Output() showContainerDetailSend = new EventEmitter<any>();
 
   public colorCalificationPromiseDelivery = 'default';
   public colorCalificationCase = 'default';
@@ -36,7 +38,9 @@ export class DetailCalificationComponent implements OnInit {
   constructor(
     private calificationService: CalificationService,
     public dialog: MatDialog,
+    private languageService: TranslateService,
     private loadingService: LoadingService,
+    public snackBar?: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -103,9 +107,8 @@ export class DetailCalificationComponent implements OnInit {
     this.penaltyTotal = this.penaltyOutSideDelivery + this.penaltyCanceledBySeller;
   }
 
-  // EMITIR LOS EVENTOS
   backTolist() {
-    // this.showContainerDetail = false;
+    this.showContainerDetailSend.emit();
   }
 
   confirmDeleteCalification(element: any , idSeller: string, idToProcess: string, Ean: string, typeExclusion: number ) {
@@ -148,8 +151,12 @@ export class DetailCalificationComponent implements OnInit {
   }
 
   notificateSeller() {
+    this.loadingService.viewSpinner();
     this.calificationService.notificate(this.idSeller).subscribe((res: any) => {
-      console.log(res);
+      this.loadingService.closeSpinner();
+      this.snackBar.open(this.languageService.instant('secure.quality.quality-score.message-send-quality'), this.languageService.instant('actions.close'), {
+        duration: 3000,
+    });
     });
   }
 }

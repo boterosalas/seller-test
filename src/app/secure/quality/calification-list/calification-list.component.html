@@ -81,7 +81,7 @@
       </div>
     </div>
     <div fxFlex.xs="100%" fxFlex.sm="95" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100" *ngIf="showContainerDetail">
-     <app-detail-calification [detailByElemet]="detailByElemet" [nameSeller]="nameSeller" [idSeller]="idSeller"></app-detail-calification>
+     <app-detail-calification [detailByElemet]="detailByElemet" (showContainerDetailSend)="backListCalifications()" [nameSeller]="nameSeller" [idSeller]="idSeller"></app-detail-calification>
     </div>
   </div>
 </div>

@@ -2,14 +2,14 @@
    <div fxLayout="row">
     <div fxFlex="100">
       <mat-toolbar class="calification-toolbar">
-        <div>
+        <div style="width: 100%;">
           <div fxFlex="50">
-            <span>
-              <mat-icon (click)="backTolist()" class="mat-18 detail-calification-container-arrow-Back-color"> arrow_back</mat-icon>
-              Atras
+            <span class="detail-calification-container-cursor-pointer" (click)="backTolist()">
+              <mat-icon  class="mat-18 detail-calification-container-arrow-Back-color"> arrow_back</mat-icon>
+              <span style="font-size: 15px;">{{'secure.offers.list.components.detail_offer.return'| translate}}</span>
             </span>
           </div>
-          <div fxFlex="50">
+          <div fxFlex="50" style="text-align: end;">
             <button mat-raised-button color="primary" mat-button type="button" (click)="notificateSeller()">Notificar</button>
           </div>
         </div>
@@ -232,7 +232,7 @@
                 {{detail.TotalCommission}}
               </td>
               <td class="detail-calification-container-aling-center">
-                <mat-icon class="mat-18 delete" (click)="confirmDeleteCalification(detail, detailByElemet.IdSeller, detail.OrderNumber, detail.Sku, 1)" matTooltip="delete" >delete_forever</mat-icon>
+                <mat-icon class="mat-18 delete" (click)="confirmDeleteCalification(detail, detailByElemet.IdSeller, detail.OrderNumber, detail.Sku, 1)" [matTooltip]="'actions.delete' | translate" >delete_forever</mat-icon>
               </td>
             </tr>
           </table>

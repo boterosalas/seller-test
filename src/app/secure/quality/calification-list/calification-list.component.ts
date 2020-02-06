@@ -316,7 +316,6 @@ formtDateDayMonthYear(date: any) {
     }
   }
 
-
   contentDetails(qualificationDate: string, idSeller: number) {
     this.loadingService.viewSpinner();
     if (qualificationDate && idSeller) {
@@ -328,9 +327,6 @@ formtDateDayMonthYear(date: any) {
       });
     }
   }
-
-
-
 
   toggleFilterCalifications() {
     this.sidenavSearchOrder.toggle();
@@ -384,6 +380,10 @@ formtDateDayMonthYear(date: any) {
     };
     this.getCalificationsBySeller(this.params);
     this.toggleFilterCalifications();
+  }
+
+  backListCalifications() {
+    this.showContainerDetail = false;
   }
 
 }
