@@ -210,6 +210,11 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
       transform: translateY(-47px);
       transition:  all .4s ease 0s;
   }
+  .top-toolbar-calification{
+    border-top: 1px solid $color-gray5;
+      transform: translateY(-139px);
+      transition:  all .4s ease 0s;
+  }
 
   #closeMenuApplication, .toolbar-title-search  {
     span .mat-icon{
@@ -328,6 +333,9 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
     }
 
     mat-toolbar.toolbar-component, .tree-toolbar{
+        top: 54px;
+    }
+    mat-toolbar.toolbar-component, .calification-to-position{
         top: 54px;
     }
 

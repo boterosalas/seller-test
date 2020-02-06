@@ -152,5 +152,4 @@ export class DetailCalificationComponent implements OnInit {
       console.log(res);
     });
   }
-
 }

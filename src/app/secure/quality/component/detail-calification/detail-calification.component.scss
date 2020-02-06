@@ -4,7 +4,8 @@
     padding-top: 15px;
   }
   &-container-height{
-    height:390px
+    height:390px;
+    margin-top: 48px;
   }
   &-container-height-complete{
     height: 100%;
@@ -278,4 +279,14 @@
     padding-bottom: 5px;
     padding-top:5px;
     font-size: 14px;
+  }
+
+  .calification-toolbar{
+    border-bottom: 0.001em solid #D3D3D3;
+    padding: 0 25px;
+    position: fixed;
+    z-index: 2;
+    background-color: white;
+    height: 70px;
+    width: 97%;
   }

@@ -1,9 +1,20 @@
  <div *ngIf="detailByElemet" class="detail-calification-padding">
    <div fxLayout="row">
     <div fxFlex="100">
-      <div style="border-bottom: 0.001em solid #D3D3D3; padding: 0 25px;position: fixed;z-index: 2;background-color: white;">
-      aqui va  las acciones
-      </div>
+      <mat-toolbar class="calification-toolbar">
+        <div>
+          <div fxFlex="50">
+            <span>
+              <mat-icon (click)="backTolist()" class="mat-18 detail-calification-container-arrow-Back-color"> arrow_back</mat-icon>
+              Atras
+            </span>
+          </div>
+          <div fxFlex="50">
+            <button mat-raised-button color="primary" mat-button type="button" (click)="notificateSeller()">Notificar</button>
+          </div>
+        </div>
+      </mat-toolbar>
+   
     </div>
    </div>
   <div fxLayout="row wrap" fxLayoutAlign="space-around none" class="detail-calification-container-height">
