@@ -165,10 +165,15 @@ export class CitiesCoverageComponent implements OnInit {
   /**
    * Funcion para forzar cambiar estado a dataSource
    * @param {*} row
+   * @param {*} status
    * @memberof CitiesCoverageComponent
    */
-  public changeStatus(row: any) {
-    row.Status = this.selection.isSelected(row);
+  public changeStatus(row: any, status: any) {
+    if (row) {
+      row.Status = this.selection.isSelected(row);
+    } else {
+      this.dataSource.data.forEach(rows => rows.Status = status);
+    }
   }
 
   /**
@@ -191,10 +196,6 @@ export class CitiesCoverageComponent implements OnInit {
     dataStatusFalse.filter(el => el.Status === false).forEach(el => {
       sendDaneCode['DaneCodesNonCoverage'].push(el.DaneCode);
     });
-    const uncheckCity = this.dataSource.data.filter(el => -1 === cities.indexOf(el));
-    // uncheckCity.forEach(element => {
-    //   sendDaneCode['DaneCodesNonCoverage'].push(element.DaneCode);
-    // });
 
     this.__citiesCoverage.pacthCitiesNoCoverage(sendDaneCode).subscribe((result: any) => {
       if (result.status === 200 || result.status === 201) {
