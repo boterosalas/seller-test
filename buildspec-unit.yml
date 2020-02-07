@@ -39,8 +39,4 @@ artifacts:
     
 #cache:
   #paths:
-<<<<<<< HEAD
     #- 'node_modules/**/*'
-=======
-    #- '/node_modules'
->>>>>>> fixCities2
