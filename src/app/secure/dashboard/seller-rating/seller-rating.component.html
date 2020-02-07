@@ -49,14 +49,14 @@
     <ng-container matColumnDef="date_calificate">
       <th mat-header-cell *matHeaderCellDef class="position_fixed_header">
         {{'secure.dashboard.seller-rating.date_calificated' | translate}} </th>
-      <td mat-cell *matCellDef="let element"> {{element.qualificationDate | date}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.qualificationDate}} </td>
     </ng-container>
 
     <!-- Fecha cuando se emitió -->
     <ng-container matColumnDef="date_issued">
       <th mat-header-cell *matHeaderCellDef class="position_fixed_header">
         {{'secure.dashboard.seller-rating.date_issued' | translate}} </th>
-      <td mat-cell *matCellDef="let element"> {{element.generatedDate | date}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.generatedDate|date: 'MM/dd/yyyy'}} </td>
     </ng-container>
 
     <!-- Fecha cuando se emitió -->
@@ -79,8 +79,8 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>  
   </table>
-  <div class="seller-no-data" *ngIf="dataSource.data.length === 0">
+  <!-- <div class="seller-no-data" *ngIf="dataSource.data.length === 0">
     <mat-icon class="icon-not-found" color="primary">info</mat-icon>
     <p>{{'secure.dashboard.seller-rating.date_issued_final_not_data' | translate}}</p>
-  </div>
+  </div> -->
 </div>

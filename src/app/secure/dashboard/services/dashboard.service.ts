@@ -68,7 +68,7 @@ export class DashboardService {
     this.paramsData.paginationToken = params === undefined || params.paginationToken === undefined || params.paginationToken === null || params.paginationToken === '' ? null : params.paginationToken;
     this.paramsData.limit = params === undefined || params.limit === undefined || params.limit === null || params.limit === '' ? null : params.limit;
 
-    const PARAMS = `${this.paramsData.sellerId}/${this.paramsData.dateQualificationFinal}/${this.paramsData.datequalificationinitial}/${null}/${null}/${this.paramsData.paginationToken}/${this.paramsData.limit}`;
+    const PARAMS = `${this.paramsData.sellerId}/${this.paramsData.datequalificationinitial}/${this.paramsData.dateQualificationFinal}/${null}/${null}/${this.paramsData.paginationToken}/${this.paramsData.limit}`;
 
     const URL = this._api.get('getSellerRating', [PARAMS]);
     return this._http.get(URL, { observe: 'response' });

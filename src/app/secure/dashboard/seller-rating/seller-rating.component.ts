@@ -2,7 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { MatTableDataSource, MatDialog, ErrorStateMatcher } from '@angular/material';
 import { Router } from '@angular/router';
 import { RoutesConst } from '@app/shared';
-import { LoadingService, UserParametersService } from '@app/core';
+import { LoadingService, UserParametersService, ModalService } from '@app/core';
 import { SupportModalComponent } from '@app/secure/support-modal/support-modal.component';
 import { DashboardService } from '../services/dashboard.service';
 import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
@@ -74,6 +74,7 @@ export class SellerRatingComponent implements OnInit {
     public dialog: MatDialog,
     private userParams: UserParametersService,
     private _dashboard: DashboardService,
+    private modalService: ModalService,
     public SUPPORT?: SupportService,
   ) {
     // this.getAllDataUser();
@@ -109,21 +110,21 @@ export class SellerRatingComponent implements OnInit {
       if (event.srcElement.scrollHeight === (event.srcElement.offsetHeight + event.srcElement.scrollTop) && !this.scrolled) {
         this.scrolled = true;
         this._dashboard.getRatingSellers(scrollFilter).subscribe(result => {
-          const a = [{
-            idSeller: 11811,
-            qualificationDate: 202012,
-            generatedDate: 20201227,
-            urlFile: 'https://s3.amazonaws.com/seller.center.exito.seller/qualificationDev/1234_Noviembre_2019_spanish.html',
-            qualitative: 'Deficiente'
-          },
-          {
-            idSeller: 11811,
-            qualificationDate: 202012,
-            generatedDate: 20201227,
-            urlFile: 'https://s3.amazonaws.com/seller.center.exito.seller/qualificationDev/1234_Noviembre_2019_spanish.html',
-            qualitative: 'Deficiente'
-          }];
-
+          console.log('res: ', result);
+          // const a = [{
+          //   idSeller: 11811,
+          //   qualificationDate: 202012,
+          //   generatedDate: 20201227,
+          //   urlFile: 'https://s3.amazonaws.com/seller.center.exito.seller/qualificationDev/1234_Noviembre_2019_spanish.html',
+          //   qualitative: 'Deficiente'
+          // },
+          // {
+          //   idSeller: 11811,
+          //   qualificationDate: 202012,
+          //   generatedDate: 20201227,
+          //   urlFile: 'https://s3.amazonaws.com/seller.center.exito.seller/qualificationDev/1234_Noviembre_2019_spanish.html',
+          //   qualitative: 'Deficiente'
+          // }];
           this.arraySellerRating = this.arraySellerRating.concat(result.body.viewModel);
           this.dataSource = new MatTableDataSource(this.arraySellerRating);
           this.paginationToken = result.body.paginationToken;
@@ -174,10 +175,16 @@ export class SellerRatingComponent implements OnInit {
     this.paramsGetSellerRating.sellerId = localStorage.getItem('userId');
     this.loadingService.viewSpinner();
     this._dashboard.getRatingSellers(this.paramsGetSellerRating).subscribe(result => {
-      this.arraySellerRating = [];
-      this.dataSource = new MatTableDataSource(this.arraySellerRating);
-      console.log(this.dataSource.data.length);
-      this.savePaginationToken(result.body.paginationToken);
+      console.log('result', result);
+      if (result.status === 200 || result.status === 201) {
+        this.arraySellerRating = result.body.viewModel;
+        this.dataSource = new MatTableDataSource(this.arraySellerRating);
+        console.log(this.dataSource);
+        this.savePaginationToken(result.body.paginationToken);
+        console.log(result.body.paginationToken);
+      } else {
+        this.modalService.showModal('errorService');
+      }
       this.loadingService.closeSpinner();
     });
   }
@@ -193,6 +200,13 @@ export class SellerRatingComponent implements OnInit {
     }
   }
 
+  formtDateYearMonth(valueDate: string) {
+    if (valueDate && valueDate.includes('/')) {
+      const arrayDate = valueDate.split('/');
+      return arrayDate[1] + arrayDate[0];
+    }
+  }
+
   /**
    * Metodo apra filtrar la calificacion segun fecha de emisión
    * @memberof SellerRatingComponent
@@ -203,14 +217,17 @@ export class SellerRatingComponent implements OnInit {
     this.loadingService.viewSpinner();
 
     const filterSellerRating = Object.assign({}, this.paramsGetSellerRating);
-    const dateInitial = this.filterSellerRating.controls.datequalificationinitial.value.replace('/', '');
-    const dateFinal = this.filterSellerRating.controls.dateQualificationFinal.value.replace('/', '');
+    const dateInitial = this.formtDateYearMonth(this.filterSellerRating.controls.datequalificationinitial.value);
+    // const dateInitial = this.filterSellerRating.controls.datequalificationinitial.value.replace('/', '');
+    // const dateFinal = this.filterSellerRating.controls.dateQualificationFinal.value.replace('/', '');
+    const dateFinal = this.formtDateYearMonth(this.filterSellerRating.controls.dateQualificationFinal.value);
+
 
     filterSellerRating.datequalificationinitial = dateInitial;
     filterSellerRating.dateQualificationFinal = dateFinal;
 
     this.loadingService.viewSpinner();
-
+    console.log('filterSellerRating', filterSellerRating);
     this._dashboard.getRatingSellers(filterSellerRating).subscribe(result => {
       this.arraySellerRating = result.body.viewModel;
       this.dataSource = new MatTableDataSource(result.body.viewModel);
