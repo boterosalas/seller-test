@@ -7,11 +7,12 @@ import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.servi
 import { SearchFormEntity, InformationToForm } from '@app/shared';
 import { ShellComponent } from '@app/core/shell';
 import { LoadingService } from '@app/core';
-import { MatTableDataSource, MatSidenav, ErrorStateMatcher } from '@angular/material';
+import { MatTableDataSource, MatSidenav, ErrorStateMatcher, MatSnackBar } from '@angular/material';
 import { animate, style, transition, state, trigger } from '@angular/animations';
 import { CalificationService } from '../quality.service';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import * as moment from 'moment';
+import { TranslateService } from '@ngx-translate/core';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -110,7 +111,9 @@ export class CalificationListComponent implements OnInit {
     private calificationService: CalificationService,
     public eventsSeller: EventEmitterSeller,
     private fb: FormBuilder,
+    private languageService: TranslateService,
     public SUPPORT?: SupportService,
+    public snackBar?: MatSnackBar,
   ) {
   }
 
@@ -119,8 +122,12 @@ export class CalificationListComponent implements OnInit {
     this.createFormControls();
     this.validateFormSupport();
   }
-
-  createFormControls() {
+/**
+ * Funcion para inicializar el formulario para el filtro
+ *
+ * @memberof CalificationListComponent
+ */
+createFormControls() {
     this.filterCalifications = new FormGroup({
       dateInitQualityMonth: new FormControl('', [Validators.pattern(this.BrandsRegex.dateMonthYear)]),
       dateFinalQualityMonth: new FormControl('', [Validators.pattern(this.BrandsRegex.dateMonthYear)]),
@@ -129,8 +136,12 @@ export class CalificationListComponent implements OnInit {
     });
   }
 
-  // Funcion para cargar datos de regex
-  public validateFormSupport(): void {
+ /**
+  * funcion para validar la regex de base de datos y comparar con los campos de fechas
+  *
+  * @memberof CalificationListComponent
+  */
+ public validateFormSupport(): void {
     this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
       let dataOffertRegex = JSON.parse(res.body.body);
       dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'dashboard');
@@ -143,8 +154,12 @@ export class CalificationListComponent implements OnInit {
       this.createFormControls();
     });
   }
-
-  eventEmitSearch() {
+/**
+ * funcion que dispara un evento para buscar un vendedor y traer la informacion correspondiente
+ *
+ * @memberof CalificationListComponent
+ */
+eventEmitSearch() {
     this.searchSubscription = this.eventsSeller.eventSearchSeller.subscribe((seller: StoreModel) => {
       this.idSeller = seller.IdSeller;
       this.nameSeller = seller.Name;
@@ -157,8 +172,13 @@ export class CalificationListComponent implements OnInit {
       this.getCalificationsBySeller(paramsArray);
     });
   }
-
-  paginations(event: any) {
+/**
+ * funcion para paginar las informacion de un vendedor con diferentes calificaciones
+ *
+ * @param {*} event
+ * @memberof CalificationListComponent
+ */
+paginations(event: any) {
     if (event) {
       const index = event.param.pageIndex;
       if (event.param.pageSize !== this.pageSize) {
@@ -195,27 +215,52 @@ export class CalificationListComponent implements OnInit {
       this.getCalificationsBySeller(params);
     }
   }
-
-  setItemsByPage(size: any) {
+/**
+ *  funcion para setear el tamaño de la pagina
+ *
+ * @param {*} size
+ * @memberof CalificationListComponent
+ */
+setItemsByPage(size: any) {
     this.pageSize = size;
   }
-
-  validateArrayPositionPaginationToken() {
+/**
+ * funcion para validar la posicion del array del pagination token
+ *
+ * @memberof CalificationListComponent
+ */
+validateArrayPositionPaginationToken() {
     if (this.arrayPosition && this.arrayPosition.length > 0) {
       this.arrayPosition = [];
       this.isClear = true;
     }
   }
-
-  getCalificationsBySeller(params?: any) {
+/**
+ * funcion para consultar las calificaciones de un vendedor y listarla
+ *
+ * @param {*} [params]
+ * @memberof CalificationListComponent
+ */
+getCalificationsBySeller(params?: any) {
     this.loadingService.viewSpinner();
     this.params = this.setParameters(params);
-    console.log(this.params);
     this.calificationService.getListCalificationsBySeller(this.params).subscribe((res: any) => {
       this.setTable(res);
       this.loadingService.closeSpinner();
+    }, error => {
+      this.loadingService.closeSpinner();
+      this.snackBar.open(this.languageService.instant('secure.orders.send.error_ocurred_processing'), this.languageService.instant('actions.close'), {
+        duration: 3000,
+    });
     });
   }
+  /**
+   * funcion para setear los parametros a variables de las consultas
+   *
+   * @param {*} params
+   * @returns
+   * @memberof CalificationListComponent
+   */
   setParameters(params: any) {
     if (params && params.callOne) {
       this.paginationToken = '{}';
@@ -265,8 +310,13 @@ export class CalificationListComponent implements OnInit {
 
     return calificationsParams;
   }
-
-  setTable(res: any) {
+/**
+ * funcion para guardar el pagination tocken y setear la tabla
+ *
+ * @param {*} res
+ * @memberof CalificationListComponent
+ */
+setTable(res: any) {
     if (res) {
       if (this.onlyOne) {
         this.length = res.count;
@@ -285,8 +335,14 @@ export class CalificationListComponent implements OnInit {
     }
     this.onlyOne = false;
   }
-
-  mapItems(items: any[]): any[] {
+/**
+ * funcion para mapear la respuesta de del back
+ *
+ * @param {any[]} items
+ * @returns {any[]}
+ * @memberof CalificationListComponent
+ */
+mapItems(items: any[]): any[] {
     return items.map(x => {
         return {
             idSeller: x.idSeller,
@@ -294,46 +350,80 @@ export class CalificationListComponent implements OnInit {
             qualificationDate: x.qualificationDate,
             generatedDate: x.generatedDate,
             qualificationDateFormt: this.formtDateMonthYear(x.qualificationDate),
-            generatedDateFormt: this.formtDateDayMonthYear(x.generatedDate),
+            generatedDateFormt: this.formtDateMonthYear(x.generatedDate),
         };
     });
 }
-
+/**
+ * funcion para formatear la fecha que se muesta en la pantalla mes y año
+ *
+ * @param {*} date
+ * @returns
+ * @memberof CalificationListComponent
+ */
 formtDateMonthYear(date: any) {
   const formtDateMonth = date.toString().substr(-2, 2);
   const formtDateYear = date.toString().substr(-20, 4);
   return formtDateMonth + '/' + formtDateYear ;
 }
+/**
+ * funcion para formatear la fecha que se muesta en la pantalla DD/MM/AAAA
+ *
+ * @param {*} date
+ * @returns
+ * @memberof CalificationListComponent
+ */
 formtDateDayMonthYear(date: any) {
   const format = 'DD/MM/YYYY';
   const stringDate = moment(date.toString()).utc().format(format).toString();
-  return stringDate;
+  // return stringDate;
+  return date;
 }
-
-  savePaginationToken(paginationToken: string) {
+/**
+ * funcion para setear el pagination token a una variable de global
+ *
+ * @param {string} paginationToken
+ * @memberof CalificationListComponent
+ */
+savePaginationToken(paginationToken: string) {
     if (paginationToken) {
       this.paginationToken = paginationToken;
     }
   }
-
-  contentDetails(qualificationDate: string, idSeller: number) {
+/**
+ * funcion para consumir el detalle de un vendedor y de una calificacion, ocultar el listado y mostrar el detalle
+ *
+ * @param {string} qualificationDate
+ * @param {number} idSeller
+ * @memberof CalificationListComponent
+ */
+contentDetails(qualificationDate: string, idSeller: number) {
     this.loadingService.viewSpinner();
     if (qualificationDate && idSeller) {
       const params = idSeller + '/' + qualificationDate;
       this.calificationService.getListCalificationsBySeller(params).subscribe((res: any) => {
-        this.detailByElemet = res.ViewModel;
+        this.detailByElemet = res.viewModel;
         this.loadingService.closeSpinner();
         this.showContainerDetail = true;
       });
     }
   }
-
-  toggleFilterCalifications() {
+/**
+ * funcion para mostrar el menu de filtros
+ *
+ * @memberof CalificationListComponent
+ */
+toggleFilterCalifications() {
     this.sidenavSearchOrder.toggle();
   }
 
-
-  filterCalification(form: any) {
+/**
+ * funcion para filtrar calificaciones
+ *
+ * @param {*} form
+ * @memberof CalificationListComponent
+ */
+filterCalification(form: any) {
 
     if (form) {
       if (form.dateInitQualityMonth) {
@@ -354,22 +444,38 @@ formtDateDayMonthYear(date: any) {
     };
     this.getCalificationsBySeller(params);
   }
-
-  formtDateYearMonth(valueDate: string) {
+/**
+ * funcion intercambiar la posicion del mes y el año
+ *
+ * @param {string} valueDate
+ * @returns
+ * @memberof CalificationListComponent
+ */
+formtDateYearMonth(valueDate: string) {
     if (valueDate && valueDate.includes('/')) {
       const arrayDate = valueDate.split('/');
       return arrayDate[1] + arrayDate[0];
     }
   }
-
-  formatNameMonth(date: string) {
+/**
+ * funcion para mostar el mes y el año
+ *
+ * @param {string} date
+ * @returns
+ * @memberof CalificationListComponent
+ */
+formatNameMonth(date: string) {
     const formtDateMonth = date.toString().substr(-2, 2);
     const formtDateYear = date.toString().substr(-20, 4);
     const month = this.monthES[parseInt(formtDateMonth, 0) - 1];
    return month + ' (' + formtDateYear + ')';
   }
-
-  clearForm() {
+/**
+ * funcion para limpiar el formulario
+ *
+ * @memberof CalificationListComponent
+ */
+clearForm() {
     this.filterCalifications.reset();
     this.dateInitQualityMonth = '';
     this.dateFinalQualityMonth = '';
@@ -381,8 +487,12 @@ formtDateDayMonthYear(date: any) {
     this.getCalificationsBySeller(this.params);
     this.toggleFilterCalifications();
   }
-
-  backListCalifications() {
+/**
+ * funcion para ocultar el detalle y mostrar el listado de las calificaciones por vendedor
+ *
+ * @memberof CalificationListComponent
+ */
+backListCalifications() {
     this.showContainerDetail = false;
   }
 

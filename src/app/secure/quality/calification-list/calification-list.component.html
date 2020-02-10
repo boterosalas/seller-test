@@ -7,7 +7,7 @@
         [idSeller]="idSeller" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)"
         (paginationListOrdens)="paginations($event)" [pageIndexChange]="pageIndexChange"
         (OnChangeSizeOrderTable)="changeSizeTable($event)" [Typeprofile]="typeProfile" [lengthOrder]="length"
-        [customerFilterCalifications]=true (filterCalifications)="toggleFilterCalifications()">
+        [customerFilterCalifications]=true (filterCalifications)="toggleFilterCalifications()" [showContainerDetail]="showContainerDetail">
       </app-toolbar-search-pagination>
     </div>
 

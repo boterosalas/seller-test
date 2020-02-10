@@ -50,6 +50,10 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
 
   // Para identificar qué tipo de búsqueda se va a realizar.
   @Input() isFullSearch: boolean;
+   public _showContainerDetail: boolean;
+  @Input() set showContainerDetail(value: boolean) {
+      this._showContainerDetail = value;
+  }
 
   @Input() customerFilterCalifications = false;
 

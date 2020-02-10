@@ -48,12 +48,13 @@ export class DetailCalificationComponent implements OnInit {
   }
 
   setDetailsBySeller() {
-    this.sumatoryPenality(this.detailByElemet.Detail);
-    this.colorCalificationPromiseDelivery = this.setClassColorByCalification(this.detailByElemet.QualificationPromiseDelivery.Qualification);
-    this.colorCalificationCase = this.setClassColorByCalification(this.detailByElemet.QualificationCase.Qualification);
-    this.colorCalificationCanceled = this.setClassColorByCalification(this.detailByElemet.QualificationCanceled.Qualification);
-    this.setFormatDateInfoSellerMonthQuality = this.formatNameMonth(this.detailByElemet.QualificationDate);
-    this.setFormatDateInfoSellerGenrateDate = this.formatNameMonth(this.detailByElemet.GeneratedDate);
+    console.log(this.detailByElemet);
+    this.sumatoryPenality(this.detailByElemet.detail);
+    this.colorCalificationPromiseDelivery = this.setClassColorByCalification(this.detailByElemet.qualificationPromiseDelivery.qualification);
+    this.colorCalificationCase = this.setClassColorByCalification(this.detailByElemet.qualificationCase.qualification);
+    this.colorCalificationCanceled = this.setClassColorByCalification(this.detailByElemet.qualificationCanceled.qualification);
+    this.setFormatDateInfoSellerMonthQuality = this.formatNameMonth(this.detailByElemet.qualificationDate);
+    this.setFormatDateInfoSellerGenrateDate = this.formatNameMonth(this.detailByElemet.generatedDate);
   }
 
   setClassColorByCalification(calification: number) {
@@ -94,14 +95,14 @@ export class DetailCalificationComponent implements OnInit {
   }
 
   sumatoryPenality(details: any) {
-    if ( details.OrdersOutsideDeliveryDate && details.OrdersOutsideDeliveryDate.length > 0) {
-       details.OrdersOutsideDeliveryDate.forEach(element => {
-      this.penaltyOutSideDelivery += element.Penalty;
+    if ( details.ordersOutsideDeliveryDate && details.ordersOutsideDeliveryDate.length > 0) {
+       details.ordersOutsideDeliveryDate.forEach(element => {
+      this.penaltyOutSideDelivery += element.penalty;
     });
     }
-    if (details.OrdersOutsideDeliveryDate && details.OrdersCanceledBySellerResponsibility.length > 0) {
-       details.OrdersCanceledBySellerResponsibility.forEach(element => {
-      this.penaltyCanceledBySeller += element.Penalty;
+    if (details.ordersOutsideDeliveryDate && details.ordersCanceledBySellerResponsibility.length > 0) {
+       details.ordersCanceledBySellerResponsibility.forEach(element => {
+      this.penaltyCanceledBySeller += element.penalty;
     });
     }
     this.penaltyTotal = this.penaltyOutSideDelivery + this.penaltyCanceledBySeller;
@@ -111,20 +112,18 @@ export class DetailCalificationComponent implements OnInit {
     this.showContainerDetailSend.emit();
   }
 
-  confirmDeleteCalification(element: any , idSeller: string, idToProcess: string, Ean: string, typeExclusion: number ) {
-
+  confirmDeleteCalification(element: any , idSeller: any, idToProcess: string, Ean: string, typeExclusion: number ) {
     const params = {
-     OrderNumber: element.OrderNumber,
-     CustomerName: element.CustomerName,
-     OrderStatus: element.OrderStatus,
-     TotalCommission: element.TotalCommission,
-     Penalty: element.Penalty,
+     orderNumber: element.orderNumber,
+     customerName: element.customerName,
+     orderStatus: element.orderStatus,
+     totalCommission: element.totalCommission,
+     penalty: element.penalty,
      idSeller: idSeller,
      idToProcess: idToProcess,
-     Ean: Ean,
+     ean: Ean,
      typeExclusion: typeExclusion
    };
-
     const dialogRef = this.dialog.open(ModalConfirmComponent, {
       width: '70%',
       minWidth: '300px',
@@ -140,10 +139,10 @@ export class DetailCalificationComponent implements OnInit {
   }
 
   recalculateQualitative() {
-    if (this.detailByElemet && this.detailByElemet.QualificationDate && this.detailByElemet.IdSeller ) {
-      const params = this.detailByElemet.IdSeller + '/' + this.detailByElemet.QualificationDate;
+    if (this.detailByElemet && this.detailByElemet.qualificationDate && this.detailByElemet.idSeller ) {
+      const params = this.detailByElemet.idSeller + '/' + this.detailByElemet.qualificationDate;
         this.calificationService.getListCalificationsBySeller(params).subscribe((res: any) => {
-        this.detailByElemet = res.ViewModel;
+        this.detailByElemet = res.viewModel;
         this.loadingService.closeSpinner();
         this.dialog.closeAll();
       });

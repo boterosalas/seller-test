@@ -56,22 +56,8 @@ export class CalificationService {
     return this.http.get(this.api.get('getSellerRating', [params]));
   }
 
-
- public delete(params: any): Observable<{}> {
-  return new Observable(observer => {
-    observer.next(true);
-  });
-    // return new Observable(observer => {
-    //   this.http.patch<any>(this.api.get('qualificationDelete'), params, { observe: 'response' })
-    //     .subscribe(
-    //       data => {
-    //         observer.next(data);
-    //       },
-    //       error => {
-    //         observer.next(error);
-    //       }
-    //     );
-    // });
+ public delete(body: any): Observable<{}> {
+    return this.http.patch(this.api.get('upsertQualification'), body);
   }
 
   public notificate(body: any): Observable<any> {

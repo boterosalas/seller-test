@@ -4,6 +4,7 @@ import { CommonService } from '@app/shared';
 import { HttpEvent, HttpClient } from '@angular/common/http';
 import { CalificationService } from '../../quality.service';
 import { Subject } from 'rxjs';
+import { LoadingService } from '@app/core';
 
 @Component({
   selector: 'app-modal-confirm',
@@ -21,6 +22,7 @@ export class ModalConfirmComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private service: CommonService,
     private calificationService: CalificationService,
+    private loadingService: LoadingService,
   ) { }
 
   ngOnInit() {
@@ -30,11 +32,12 @@ export class ModalConfirmComponent implements OnInit {
     this.params = {
       IdSeller : data.idSeller,
       IdToProcess : data.idToProcess,
-      Ean : data.Ean,
+      Sku : data.sku,
       TypeExclusion : data.typeExclusion,
     };
 
     this.calificationService.delete(this.params).subscribe((res: any) => {
+      this.loadingService.viewSpinner();
       if (res) {
         this.processFinish$.next(res);
       }

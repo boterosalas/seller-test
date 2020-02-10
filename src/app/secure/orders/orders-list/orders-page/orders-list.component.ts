@@ -157,7 +157,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
     title: 'secure.orders.orders',
-    subtitle: '',
+    subtitle: 'secure.orders.order_list.order_page.all_orders',
     btn_title: 'secure.orders.filter.title',
     title_for_search: 'secure.orders.filter.title',
     type_form: 'orders',
@@ -493,18 +493,20 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     let stateCurrent = null;
     this.setCategoryName();
     this.orderService.getOrderList(this.params).subscribe((res: any) => {
-      if (params.state !== '') {
-        stateCurrent = params.state;
-        this.lastState = stateCurrent;
+      if (res) {
+        if (params.state !== '') {
+          stateCurrent = params.state;
+          this.lastState = stateCurrent;
+        }
+        this.setTable(res);
+        if (params && params.callOne) {
+          this.length = res.count;
+          this.isClear = true;
+        }
+        const paginator = { 'pageIndex': 0 };
+        this.addCheckOptionInProduct(res.viewModel, paginator);
+        this.loadingService.closeSpinner();
       }
-      this.setTable(res);
-      if (params && params.callOne) {
-        this.length = res.count;
-        this.isClear = true;
-      }
-      const paginator = { 'pageIndex': 0 };
-      this.addCheckOptionInProduct(res.viewModel, paginator);
-      this.loadingService.closeSpinner();
     });
   }
 
