@@ -674,6 +674,8 @@
     "secure.offers.bulk_upload.table_load.dane_code": "Picking City",
 
     "secure.offers.cities_coverage.title": "Cities Availiable for Dispatch",
+    "secure.offers.cities_coverage.get_error": "There was an error trying to get the cities. Try again later.",
+
 
     "secure.products.bulk_upload.title_module": "Products",
     "secure.products.bulk_upload.title_bar": "Bulk upload",
