@@ -81,24 +81,19 @@ $underline: #909090;
 }
 
 ::ng-deep .mat-paginator-page-size-label {
-  visibility: hidden;
+  visibility: visible;
   @media (max-width: 768px) {
     display: none;
-    visibility: hidden;
+    visibility: visible;
   }
   @media (max-width: 992px) {
     display: none;
-    visibility: hidden;
+    visibility: visible;
   }
   @media (max-width: 600px) {
     display: none;
-    visibility: hidden;
+    visibility: visible;
   }
-}
-
-::ng-deep .mat-paginator-page-size-label::after {
-  content: 'Productos por pagina' !important;
-  visibility: visible;
 }
 
 ::ng-deep .mat-form-field-underline {

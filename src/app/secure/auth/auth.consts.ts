@@ -243,7 +243,7 @@ const OrdersModule = new ModuleModel(orderModule, showAll, orderModule.toLowerCa
  * 4. Histórico de ofertas. (Tipo Administrador)
  * 4. listado de ofertas. (Tipo Administrador)
  */
-export const offersModule = 'OFERTAS', offerListName = 'Listado de Ofertas', offerListNameAdmin = 'Listado de Ofertas', bulkLoadName = 'Carga Masiva de Ofertas', bulkLoadHistoryName = 'Histórico de Carga de Ofertas', bulkLoadHistoryNameAdmin = 'Histórico de Carga de ofertas';
+export const offersModule = 'OFERTAS', offerListName = 'Listado de Ofertas', offerListNameAdmin = 'Listado de Ofertas', bulkLoadName = 'Carga Masiva de Ofertas', bulkLoadHistoryName = 'Histórico de Carga de Ofertas', bulkLoadHistoryNameAdmin = 'Histórico de Carga de ofertas', citiesCoverageName = 'Ciudades con Cobertura';
 const OffersModule = new ModuleModel(offersModule, showAll, offersModule.toLowerCase(), [
     // 1. Listado de ofertas.
     new MenuModel(offerListName, showAll, offerListName.toLowerCase(), ProfileTypes.Vendedor, [
@@ -268,6 +268,10 @@ const OffersModule = new ModuleModel(offersModule, showAll, offersModule.toLower
     new MenuModel(offerListNameAdmin, showAll, offerListNameAdmin.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
     ], RoutesConst.sellerCenterIntOfersListAdmin),
+    new MenuModel(citiesCoverageName, showAll, citiesCoverageName.toLowerCase(), ProfileTypes.Vendedor, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
+        new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality) // Editar
+    ], RoutesConst.sellerCenterIntOfferCitiesCoverage),
 ]);
 
 /**
@@ -277,12 +281,14 @@ const OffersModule = new ModuleModel(offersModule, showAll, offersModule.toLower
  * Para incluir un menu en el modulo de ofertas un menu o funcionalidad en algun menu ya creado. por favor actualizar este objeto la version y fechas.
  *
  * Modulo de devoluciones que posee menus:
- * 1. Solicitudes pendientes
- * 2. En devolucion
- * 3. En devolucion (administrator)
- * 4. Validacion
+ * 1. Solicitudes pendientes (vendedor)
+ * 2. Solicitudes pendientes (administrador)
+ * 3. En devolucion
+ * 4. En devolucion (administrator)
+ * 5. Validacion
+ * 6. Historico de devoluciones
  */
-export const devolutionsModule = 'DEVOLUCIONES', pendingName = 'Solicitudes pendientes', devolutionName = 'En devolución', validationName = 'En validación';
+export const devolutionsModule = 'DEVOLUCIONES', pendingName = 'Solicitudes pendientes', devolutionName = 'En devolución', validationName = 'En validación', historicDevolution = 'Historico de devoluciones';
 const DevolutionsModule = new ModuleModel(devolutionsModule, showAll, devolutionsModule.toLowerCase(), [
     // 1. Solicitudes pendientes
     new MenuModel(pendingName, showAll, pendingName.toLowerCase(), ProfileTypes.Vendedor, [
@@ -290,21 +296,32 @@ const DevolutionsModule = new ModuleModel(devolutionsModule, showAll, devolution
         new FunctionalitiesModel(acceptFuncionality, showAll, acceptFuncionality), // Aceptar.
         new FunctionalitiesModel(refuseFuncionality, showAll, refuseFuncionality), // Rechazar.
     ], RoutesConst.sellerCenterIntOrderInPendingDevolution),
+    // 2. Solicitudes pendientes
+    new MenuModel(pendingName, showAll, pendingName.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+    ], RoutesConst.sellerCenterIntOrderInPendingDevolution),
     // 2. Devoluciones (rol vendedor - Consultar, Aceptar, Rechazar)
     new MenuModel(devolutionName, showAll, devolutionName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(acceptFuncionality, showAll, acceptFuncionality), // Aceptar.
         new FunctionalitiesModel(refuseFuncionality, showAll, refuseFuncionality), // Rechazar.
     ], RoutesConst.sellerCenterIntOrderInDevolution),
-    // 9. Devoluciones (Rol administrador - Consultar)
+    // 3. Devoluciones (Rol administrador - Consultar)
     new MenuModel(devolutionName, showAll, devolutionName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
         new FunctionalitiesModel(visualizeFunctionality, showAll, visualizeFunctionality), // Visualizar.
     ], RoutesConst.sellerCenterIntOrderInDevolution),
-    // 3. Validaciónes (Consultar)
+    // 4. Validaciónes (Consultar)
     new MenuModel(validationName, showAll, validationName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
     ], RoutesConst.sellerCenterIntOrderInValidation),
+    // 5. Historico de devoluciones
+    new MenuModel(historicDevolution, showAll, historicDevolution.toLowerCase(), ProfileTypes.Vendedor, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+    ], RoutesConst.sellerCenterIntOrderHistoricalDevolution),
+    new MenuModel(historicDevolution, showAll, historicDevolution.toLowerCase(), ProfileTypes.Administrador, [
+      new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+  ], RoutesConst.sellerCenterIntOrderHistoricalDevolution),
 ]);
 
 

@@ -1,0 +1,57 @@
+<div class="main">
+  <div class="main__content">
+    <h4>{{'secure.offers.cities_coverage.title' | translate}}</h4>
+    <mat-form-field>
+      <mat-select [placeholder]="'secure.seller.register_seller.lb_state_form' | translate"
+        (selectionChange)="getCities($event.value)">
+        <mat-option *ngFor="let state of states" [value]="state">
+          {{state}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null; changeStatus(null, $event.checked)" [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()">
+            principal
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null;changeStatus(row, false)"
+            [checked]="selection.isSelected(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <!-- department Column -->
+      <ng-container matColumnDef="department">
+        <th mat-header-cell *matHeaderCellDef>{{'secure.seller.register_seller.lb_state_form' | translate}}</th>
+        <td mat-cell *matCellDef="let element"> {{ element.State }} </td>
+      </ng-container>
+
+      <!-- city Column -->
+      <ng-container matColumnDef="city">
+        <th mat-header-cell *matHeaderCellDef>{{'secure.seller.register_seller.lb_city_form' | translate}}</th>
+        <td mat-cell *matCellDef="let element"> {{element.City}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="shownColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: shownColumns;"></tr>
+    </table>
+
+    <div [@detailExpand] class="cities-no-data" *ngIf="dataSource?.data?.length === 0">
+      <mat-icon class="icon-not-found" color="primary">info</mat-icon>
+      <p>{{'secure.orders.in_devolution.in_devolution_page.no_found_orders' | translate}}
+      </p>
+      <button id="load-all-orders-button" mat-button color="primary">
+        {{'secure.orders.in_devolution.in_devolution_page.charge_orders' | translate}}
+      </button>
+    </div>
+
+    <div class="button__save">
+      <button mat-flat-button (click)="saveCities(selection.selected)">{{'secure.products.create_product_unit.component_process.save' | translate}}</button>
+    </div>
+  </div>
+</div>

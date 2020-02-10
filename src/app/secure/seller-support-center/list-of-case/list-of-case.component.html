@@ -1,50 +1,25 @@
-<app-case-toolbar
-  (toggleFilter)="toggleFilter($event)"
-  (changePagination)="changePagination($event)"
-  [length]="length"
-  [pageIndex]="pageIndex"
-  [pageSize]="pageSize"
->
+<app-case-toolbar (toggleFilter)="toggleFilter($event)" (changePagination)="changePagination($event)" [length]="length"
+  [pageIndex]="pageIndex" [pageSize]="pageSize">
 </app-case-toolbar>
 
 <ng-template [ngIf]="cases">
-  <app-drop-down-list
-    [data]="cases"
-    [options]="options"
-    [configurations]="listConfiguration"
-  >
+  <app-drop-down-list [data]="cases" [options]="options" [configurations]="headerConfigurations">
+
     <ng-container *itemDropDownList>
-      <app-drop-down-box
-        *ngFor="let item of cases"
-        [data]="item"
-        [read]="item.read"
-        (opened)="markAsRead($event)"
-      >
+      <app-drop-down-box *ngFor="let item of cases; let i = index" [data]="item" [read]="item.read"
+        (opened)="markAsRead($event)" [index]="i">
         <ng-container *itemCaseList>
-          <app-case-summary
-            (clickResponse)="onEmitResponse($event)"
-            [case]="item"
-            [disabledClass]="item.status === 'Cerrado'"
-          ></app-case-summary>
+          <app-case-summary (clickResponse)="onEmitResponse($event)" [case]="item"
+            [disabledClass]="item.status === 'Cerrado'" [indexParent]="i"></app-case-summary>
         </ng-container>
       </app-drop-down-box>
     </ng-container>
+
   </app-drop-down-list>
 </ng-template>
 
-<div
-  [ngClass]="
-    filter ? 'support-center-case__filter-container' : 'hidden-content'
-  "
->
-  <div
-    [@slideInOut]="menuState"
-    [ngClass]="filter ? 'support-filter' : 'hidden-content'"
-  >
-    <app-case-filter
-      (eventFilter)="toggleFilter($event)"
-      [stateFilter]="filter"
-      [options]="options"
-    ></app-case-filter>
+<div [ngClass]="filter ? 'support-center-case__filter-container' : 'hidden-content'">
+  <div [@slideInOut]="menuState" [ngClass]="filter ? 'support-filter' : 'hidden-content'">
+    <app-case-filter (eventFilter)="toggleFilter($event)" [stateFilter]="filter" [options]="options"></app-case-filter>
   </div>
 </div>

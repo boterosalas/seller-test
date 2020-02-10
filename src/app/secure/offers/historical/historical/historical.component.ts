@@ -269,6 +269,7 @@ export class HistoricalComponent implements OnInit {
         stock: x.stock,
         warranty: x.warranty,
         updatedDate: x.updatedDate,
+        priceApproval: x.priceApproval,
         month: this.transformateDate(x.updatedDate)
       };
     });

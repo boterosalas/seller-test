@@ -31,6 +31,7 @@ export class SearchOrderFormComponent implements OnInit {
   @Input() idSeller: number;
   @Input() typeProfiel: number;
   @Input() state: number;
+  @Input() paginator: number;
 
   /**
    * Creates an instance of SearchOrderFormComponent.
@@ -123,7 +124,6 @@ export class SearchOrderFormComponent implements OnInit {
     // aplico el formato para la fecha a emplear en la consulta
     const dateOrderFinal = datePipe.transform(this.myform.controls.dateOrderFinal.value, 'yyyy/MM/dd');
     const dateOrderInitial = datePipe.transform(this.myform.controls.dateOrderInitial.value, 'yyyy/MM/dd');
-
     // creo el string que indicara los parametros de la consulta
     let stringSearch = '';
     const objectSearch: any = {};
@@ -154,7 +154,6 @@ export class SearchOrderFormComponent implements OnInit {
       stringSearch += `&processedOrder=${data.value.processedOrder}`;
       objectSearch.processedOrder = data.value.processedOrder;
     }
-
     if (stringSearch !== '') {
       let status = '';
       stringSearch += '&paginationToken=' + encodeURI('{}');
@@ -168,6 +167,14 @@ export class SearchOrderFormComponent implements OnInit {
       this.searchOrderMenuService.getOrdersFilter(100, stringSearch, this.idSeller).subscribe((res: any) => {
         if (res != null) {
           // indico a los elementos que esten suscriptos al evento.
+          res.filter = {
+            dateOrderFinal : dateOrderFinal,
+            dateOrderInitial: dateOrderInitial,
+            idChannel: data.value.idChannel,
+            orderNumber: data.value.orderNumber,
+            identificationCard: data.value.identificationCard,
+            processedOrder: data.value.processedOrder
+           };
           this.shellComponent.eventEmitterOrders.filterOrderListResponse(res);
           this.toggleMenu();
           this.loadingService.closeSpinner();

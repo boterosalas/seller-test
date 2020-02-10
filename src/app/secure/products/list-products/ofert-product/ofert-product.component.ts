@@ -2,7 +2,7 @@
 import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { Logger } from '@app/core/util/logger.service';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { ErrorStateMatcher, MatSnackBar } from '@angular/material';
+import { ErrorStateMatcher, MatSnackBar, MatDialog } from '@angular/material';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { LoadingService, ModalService, UserParametersService } from '@app/core';
 import { ListProductService } from '../list-products.service';
@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { distinctUntilChanged, last, takeLast, repeat } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
+import { ModalRuleOfferComponent } from '../modal-rule-offer/modal-rule-offer.component';
 import { UserInformation } from '@app/shared';
 import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 
@@ -53,15 +54,23 @@ export class OfertExpandedProductComponent implements OnInit {
         price: ''
     };
 
+    dataUpdateOffer = {
+        ListOffers: [],
+        priceApproval: 0
+    };
+
+
     public showCharge: boolean;
 
 
     public validateNumberOrder = true;
     convertPromise: string;
+    approvalOfert: any;
 
     constructor(
         private languageService: TranslateService,
         public SUPPORT: SupportService,
+        private dialog: MatDialog,
         private profileService: MyProfileService,
         private loadingService?: LoadingService,
         public snackBar?: MatSnackBar,
@@ -131,7 +140,7 @@ export class OfertExpandedProductComponent implements OnInit {
         // this.ofertProduct.controls.IsUpdatedStock.disable();
         // this.disableUpdate();
         this.ofertProduct.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
-            this.changeTypeCurrency(val);
+            // this.changeTypeCurrency(val);
             if (val === 'USD' && this.authService.completeUserData.country !== 'Colombia') {
                 this.ofertProduct.get('ofertOption').setValue(null);
                 // tslint:disable-next-line: no-unused-expression
@@ -272,6 +281,11 @@ export class OfertExpandedProductComponent implements OnInit {
     }
 
 
+    /**
+     * Funcion que setea el error del precio con descuento.
+     * @param {boolean} show
+     * @memberof OfertExpandedProductComponent
+     */
     public setCategoryError(show: boolean): void {
         if (show) {
             if (this.ofertProduct.controls.DiscountPrice.value <= 8000 && this.ofertProduct.controls.Currency.value === 'COP') {
@@ -282,6 +296,11 @@ export class OfertExpandedProductComponent implements OnInit {
         }
     }
 
+    /**
+     * Funcion que setea el error del precio.
+     * @param {boolean} show
+     * @memberof OfertExpandedProductComponent
+     */
     public setCategoryErrorPrice(show: boolean): void {
         if (show) {
             if (this.ofertProduct.controls.Price.value <= 8000) {
@@ -343,13 +362,30 @@ export class OfertExpandedProductComponent implements OnInit {
 
     }
 
-
     /**
-     * Metodo para concatenar todo el arreglo y enviar la data
-     *
+     * Metodo que llama el modal de regla de precio
      * @memberof OfertExpandedProductComponent
      */
-    public sendDataToService(): void {
+    openDialogModalRule(): void {
+        const dialogRef = this.dialog.open(ModalRuleOfferComponent, {
+            width: '95%',
+            data: {},
+        });
+        dialogRef.afterClosed().subscribe(res => {
+            log.info('The dialog was closed');
+            this.approvalOfert = res;
+            if (this.approvalOfert === true) {
+                this.sendDataToService(1);
+            }
+        });
+    }
+
+    /**
+     * Funcion que se encarga de enviar el JSON y llamar el servicio
+     * @param {number} approval
+     * @memberof OfertExpandedProductComponent
+     */
+    public sendDataToService(approval: number): void {
         const data = {
             EAN: this.applyOffer.ean,
             Stock: this.ofertProduct.controls.Stock.value,
@@ -370,26 +406,46 @@ export class OfertExpandedProductComponent implements OnInit {
         };
         let aryOfAry = [data];
         aryOfAry = aryOfAry.concat(this.getChildrenData());
+        this.dataUpdateOffer = {
+            ListOffers: aryOfAry,
+            priceApproval: approval
+        };
         this.process.validaData(aryOfAry);
         this.loadingService.viewSpinner();
-        this.bulkLoadService.setOffersProducts(aryOfAry).subscribe(
+        this.bulkLoadService.setOffersProducts(this.dataUpdateOffer).subscribe(
             (result: any) => {
                 if (result.status === 200 || result.status === 201) {
-                    this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.offer_has_been_correctly'), this.languageService.instant('actions.close'), {
-                        duration: 5000,
-                    });
-                    this.loadingService.closeSpinner();
+                    // this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.offer_has_been_correctly'), this.languageService.instant('actions.close'), {
+                    //     duration: 5000,
+                    // });
 
                     // Le dice al servicio que cambie la variable, para que aquel que este suscrito, lo cambie.
-                    this.listService.changeEmitter();
                     // window.location.reload();
 
+                    if (result.body.data.error > 0) {
+                        if (result.body.data.offerNotifyViewModels) {
+                            const errorRule = result.body.data.offerNotifyViewModels;
+                            errorRule.forEach(el => {
+                                if (el.code === 'PEX') {
+                                    this.openDialogModalRule();
+                                }
+                            });
+                        }
+                    } else {
+                        this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.offer_has_been_correctly'), this.languageService.instant('actions.close'), {
+                            duration: 5000,
+                        });
+                        this.loadingService.closeSpinner();
+                        this.listService.changeEmitter();
+                        window.location.reload();
+                    }
+                        // window.location.reload();
                 } else {
                     log.error(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.error_trying_apply_offer'));
                     this.modalService.showModal('errorService');
                 }
                 this.loadingService.closeSpinner();
-                window.location.reload();
+                // window.location.reload();
 
             }, error => {
                 this.loadingService.closeSpinner();

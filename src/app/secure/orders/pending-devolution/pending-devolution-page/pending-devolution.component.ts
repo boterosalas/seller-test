@@ -25,6 +25,8 @@ import { ViewCommentComponent } from '../view-comment/view-comment.component';
 import { LoadingService } from '@app/core/global/loading/loading.service';
 import { MenuModel, readFunctionality, acceptFuncionality, refuseFuncionality, pendingName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
+import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
+import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 
 // log component
 const log = new Logger('PendingDevolutionComponent');
@@ -71,6 +73,8 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
   ];
   // contendra la Información para la tabla
   public dataSource: MatTableDataSource<any>;
+  //
+  public subFilterOrder: any;
   // Método para el check de la tabla
   public selection = new SelectionModel<Pending>(true, []);
   // Variable que almacena el numero de elementos de la tabla
@@ -79,8 +83,13 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
   public orderListLength = false;
   // user info
   public user: UserInformation;
+  //
+  lengthOrder= 0;
+  public pageSize = 50;
+  isClear = false;
   // suscriptions vars
   private subFilterOrderPending: any;
+  public searchSubscription: any;
   // Variable que almacena el objeto de paginación actual para listar las órdenes.
   currentEventPaginate: any;
   // Lista de opciones para realizar el rechazo de una solicitud
@@ -97,15 +106,35 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
     },
     count: ''
   };
+    // Variables con los permisos que este componente posee.
+    permissionComponent: MenuModel;
+    read = readFunctionality;
+    accept = acceptFuncionality;
+    refuse = refuseFuncionality;
+    readPermission: boolean;
+    acceptPermission: boolean;
+    refusePermission: boolean;
+    typeProfile: number;
 
-  permissionComponent: MenuModel;
-
-  /**
-   * Attribute that represent the read access
-   */
-  read = readFunctionality;
-  accept = acceptFuncionality;
-  refuse = refuseFuncionality;
+    public length = 0;
+    public idSeller = '';
+    public event: any;
+    public paginationToken = '{}';
+    public params: any;
+    public onlyOne = true;
+    public onlyOneCall = true;
+    public call = true;
+    public positionPagination: any;
+    public arrayPosition = [];
+    public listOrdens: any;
+    public dateOrderInitial = '';
+    public dateOrderFinal = '';
+    public idChannel= '';
+    public orderNumber = '';
+    public identificationCard= '';
+    public processedOrder= '';
+    public lastState: number;
+    public querySearch = '';
 
   constructor(
     public shellComponent: ShellComponent,
@@ -114,7 +143,8 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
     public componentsService: ComponentsService,
     public userParams: UserParametersService,
     private loadingService: LoadingService,
-    private authService: AuthService
+    private authService: AuthService,
+    public eventsSeller: EventEmitterSeller
   ) { }
 
   /**
@@ -122,8 +152,19 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
    * @memberof PendingDevolutionComponent
    */
   ngOnInit() {
-    this.permissionComponent = this.authService.getMenu(pendingName);
-    this.getDataUser();
+    // this.permissionComponent = this.authService.getMenu(pendingName);
+    this.getDataUser(pendingName);
+    this.searchSubscription = this.eventsSeller.eventSearchSeller
+      .subscribe((seller: StoreModel) => {
+        this.idSeller = seller.IdSeller;
+        const paramsArray = {
+          'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
+          'callOne': true,
+          'lengthOrder': 100
+        };
+          this.getOrdersList(paramsArray);
+      });
+      this.clearTable();
   }
 
   ngOnDestroy() {
@@ -134,18 +175,38 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
   /**
    * MEthod that get the permissions for the component
    */
-  public getFunctionality(functionality: string): boolean {
-    const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
-    return permission && permission.ShowFunctionality;
-  }
 
-  async getDataUser() {
+  async getDataUser(nameMenu: string) {
     this.user = await this.userParams.getUserData();
     this.toolbarOption.getOrdersList();
+    if (this.user.sellerProfile === 'seller') {
+      this.permissionComponent = this.authService.getMenuProfiel(nameMenu, 0);
+      this.setPermission(0);
+    } else {
+      this.permissionComponent = this.authService.getMenuProfiel(nameMenu, 1);
+      this.setPermission(1);
+    }
     this.getOrdersListSinceFilterSearchOrder();
     this.getReasonsRejection();
   }
 
+  setPermission(typeProfile: number) {
+    // Permisos del componente.
+    this.typeProfile = typeProfile;
+    this.readPermission = this.getFunctionality(this.read);
+    this.acceptPermission = this.getFunctionality(this.accept);
+    this.refusePermission = this.getFunctionality(this.refuse);
+  }
+
+  public getFunctionality(functionality: string): boolean {
+    if (this.permissionComponent) {
+      const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+      return permission && permission.ShowFunctionality;
+    } else {
+      return null;
+    }
+
+  }
   /**
    * Evento que permite obtener los resultados obtenidos al momento de realizar el filtro de órdenes en la opcion search-order-menu
    * @memberof OrdersListComponent
@@ -154,15 +215,26 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
 
     this.subFilterOrderPending = this.shellComponent.eventEmitterOrders.filterOrdersWithStatus.subscribe(
       (data: any) => {
-        if (data != null) {
-          this.orderListLength = data.length === 0;
-          this.dataSource = new MatTableDataSource(data);
-
-          const paginator = this.toolbarOption.getPaginator();
-          paginator.pageIndex = 0;
-          this.dataSource.paginator = paginator;
-          this.dataSource.sort = this.sort;
-          this.numberElements = this.dataSource.data.length;
+        if (data && data.count > 0) {
+          this.dataSource = new MatTableDataSource(data.viewModel);
+          this.lengthOrder = data.count;
+            const paginator = this.toolbarOption.getPaginator();
+            paginator.pageIndex = 0;
+            this.dataSource.paginator = paginator;
+            this.dataSource.sort = this.sort;
+            this.orderListLength = false;
+        } else {
+          this.lengthOrder = data.count;
+          this.dataSource = new MatTableDataSource(null);
+          this.orderListLength = true;
+        }
+        if (data && data.filter) {
+          this.dateOrderInitial = data.filter.dateOrderInitial;
+          this.dateOrderFinal = data.filter.dateOrderFinal;
+          this.idChannel = data.filter.idChannel;
+          this.orderNumber = data.filter.orderNumber;
+          this.identificationCard = data.filter.identificationCard;
+          this.processedOrder = data.filter.processedOrder;
         }
       });
   }
@@ -172,41 +244,154 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
    * @param {any} $event
    * @memberof PendingDevolutionComponent
    */
-  changeSizeOrderTable($event) {
-    this.dataSource.paginator = $event.paginator;
+  changeSizeOrderTable($event: any) {
+    // this.pageSize = $event.pageSize;
+    // this.dataSource.paginator = $event.paginator;
   }
 
 
-  /**
-   * Método para obtener la lista de órdenes.
-   * @param {any} $event
-   * @memberof PendingDevolutionComponent
-   */
-  getOrdersList($event) {
-    if (!$event) {
-      $event = {
-        lengthOrder: 100
-      };
-    }
-    const stringSearch = `limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusPendingDevolution}`;
+  getOrdersList(params?: any) {
     this.loadingService.viewSpinner();
-    this.pendingDevolutionService.getOrders(stringSearch).subscribe((res: any) => {
-      this.loadingService.closeSpinner();
-      // guardo el filtro actual para la paginación.
-      this.currentEventPaginate = $event;
-      if (isEmpty(res)) {
-        this.orderListLength = res.length === 0;
+    this.isClear = false;
+    this.params = this.setParameters(params);
+    this.pendingDevolutionService.getOrders(this.params).subscribe((res: any) => {
+      if (res && res.count > 0) {
+        this.setTable(res);
+        this.orderListLength = false;
+        if (params && params.callOne) {
+          this.lengthOrder = res.count;
+          this.isClear = true;
+        }
+      } else {
+        this.lengthOrder = 0;
+        this.isClear = true;
+        this.orderListLength = true;
+        this.dataSource = new MatTableDataSource(null);
       }
-      // Creo el elemento que permite pintar la tabla
-      this.dataSource = new MatTableDataSource(res);
-      // this.paginator.pageIndex = 0;
-      this.dataSource.paginator = $event.paginator;
-      this.dataSource.sort = this.sort;
-      this.numberElements = this.dataSource.data.length;
-    }, () => {
-      this.orderListLength = true;
-      // log.error(this.dataSource);
+      this.loadingService.closeSpinner();
     });
+  }
+
+  setParameters(params: any) {
+    if (params && params.callOne) {
+      this.paginationToken = '{}';
+      this.arrayPosition = [];
+    }
+    if (params && params.clear) {
+      this.dateOrderFinal = '';
+      this.dateOrderInitial = '';
+      this.orderNumber = '';
+      this.identificationCard = '';
+    }
+    const paramsArray = {
+      'limit': 'limit=' + this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken) + this.querySearch,
+      'idSeller': this.idSeller,
+      'dateOrderFinal': this.dateOrderFinal,
+      'dateOrderInitial': this.dateOrderInitial,
+      'orderNumber': this.orderNumber,
+      'identificationCard': this.identificationCard,
+      'reversionRequestStatusId': Const.StatusPendingDevolution
+    };
+    return paramsArray;
+  }
+
+  /**
+   * funcion para resetear la data
+   *
+   * @param {*} res
+   * @memberof OrdersListComponent
+   */
+  setTable(res: any) {
+    if (res) {
+      if (this.onlyOne) {
+        this.length = res.count;
+        this.arrayPosition = [];
+        this.arrayPosition.push('{}');
+      }
+
+      // if (res.paginationTokens.length > 0) {
+      //   this.arrayPosition = [];
+      //   this.arrayPosition = res.paginationTokens;
+      // }
+      this.dataSource = new MatTableDataSource(res.viewModel);
+      this.savePaginationToken(res.paginationToken);
+    } else {
+      this.clearTable();
+    }
+    this.onlyOne = false;
+  }
+  /**
+   * funcion para salvar el token de la paginacion
+   *
+   * @param {string} paginationToken
+   * @memberof OrdersListComponent
+   */
+  savePaginationToken(paginationToken: string) {
+    if (paginationToken) {
+      this.paginationToken = paginationToken;
+    }
+  }
+  /**
+   * limpiar el contador de la tabla
+   *
+   * @memberof OrdersListComponent
+   */
+  clearTable() {
+    this.subFilterOrder = this.shellComponent.eventEmitterOrders.clearTable.subscribe(
+      (data: any) => {
+        const paramsArray = {
+          'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
+          'callOne': true,
+          'lengthOrder': 100,
+          'clear': true
+        };
+        this.getOrdersList(paramsArray);
+      });
+  }
+  /**
+   * funcion que escucha el cambio de paginacion y el rango de busqueda
+   *
+   * @param {*} event
+   * @memberof OrdersListComponent
+   */
+  paginations(event: any) {
+    const index = event.paginator.pageIndex;
+    if (event.paginator.pageSize !== this.pageSize) {
+      this.pageSize = event.paginator.pageSize;
+      if (this.arrayPosition && this.arrayPosition.length > 0) {
+        // this.querySearch = '&currentPage=' + this.arrayPosition.length + '&newLimit=' + this.pageSize;
+        // this.pageIndexChange = this.arrayPosition.length - 1;
+        this.arrayPosition = [];
+        this.isClear = true;
+      }
+    } else {
+      this.querySearch = '';
+    }
+    if (index === 0) {
+      this.paginationToken = '{}';
+    }
+    const isExistInitial = this.arrayPosition.includes('{}');
+    if (isExistInitial === false) {
+      this.arrayPosition.push('{}');
+    }
+    const isExist = this.arrayPosition.includes(this.paginationToken);
+    if (isExist === false) {
+      this.arrayPosition.push(this.paginationToken);
+    }
+
+    this.paginationToken = this.arrayPosition[index];
+    if (this.paginationToken === undefined) {
+      this.paginationToken = '{}';
+      this.isClear = true;
+    }
+    const params = {
+      'limit': this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken),
+      'idSeller': this.idSeller,
+      'state': this.lastState,
+      'dateOrderFinal': this.dateOrderFinal,
+      'dateOrderInitial': this.dateOrderInitial
+    };
+    this.getOrdersList(params);
   }
 
 
@@ -247,7 +432,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
    * @param {any} item
    * @memberof PendingDevolutionComponent
    */
-  openModalDetailOrder(item): void {
+  openModalDetailOrder(item: any): void {
     const dialogRef = this.dialog.open(ProductPendingDevolutionModalComponent, {
       data: {
         user: this.user,
@@ -288,7 +473,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
    * Método para desplegar el modal para ver el comentario de la orden
    * @param item
    */
-  openModalCommentOrder(item): void {
+  openModalCommentOrder(item: any): void {
 
     const dialogRef = this.dialog.open(ViewCommentComponent, {
       width: '50%',

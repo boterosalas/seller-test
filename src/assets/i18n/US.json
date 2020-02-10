@@ -33,7 +33,7 @@
     "menu.Perfil": "Profile",
     "menu.Creación Unitaria": "Unitary creation",
     "menu.Creación unitaria": "Unitary creation",
-    "menu.Listar reclamaciones": "Claims list",
+    "menu.Listar Reclamaciones": "Claims list",
     "menu.Validaciones": "In Validation",
     "menu.Devoluciones": "In Return",
     "menu.En validación": "In Validation",
@@ -44,7 +44,11 @@
     "menu.Enviadas": "Sent",
     "menu.Cargar guías": "Upload tracking numbers",
     "menu.Menu": "Menu",
-
+    "menu.Reporte de ofertas": "Active offers reports",
+    "menu.Historico de devoluciones": "Historical devolution",
+    "menu.Ciudades con Cobertura": "Cities with Coverage",
+    "menu.Calificación de Vendedores": "Quality Score",
+    "menu.Solicitudes Pendientes": "Awaiting request",
 
     "module.Documentación": "Documentation",
     "module.Ofertas": "Offers",
@@ -57,6 +61,7 @@
     "module.Reclamaciones": "Claims",
     "module.Reportes": "Reports",
     "module.Devoluciones": "Returns",
+    "module.Calificación": "Quality",
 
 
     "permissions.Consultar": "Browse",
@@ -169,6 +174,8 @@
     "actions.page": "Items per page",
     "actions.next_page": "Next page",
     "actions.previous_page": "Previous page",
+    "actions.view_attachments" : "View attachments",
+    "actions.confirm_offer": "Approve Offer",
 
     "errors.required": "Field required",
     "errors.invalid_name": "Invalid name",
@@ -228,7 +235,7 @@
     "error.exception_brand.max_error": "The entered tariffs can not be over 100",
     "error.exception_brand.min_error": "The entered tariffs can not be under 0",
     "error.exception_brand.number_int": "The entered tariffs must be a positive whole numer, or contain a maximum of two decimal numbers",
-
+    "error.pending.not_attachments": "No attached files",
 
     "modal.success.register": "The process was successful! Soon you will receive a notification with the seller's username and password for Seller Center. In this notification you will also receive the seller's ID",
     "modal.success.register title": "The process was successful!",
@@ -286,7 +293,6 @@
     "public.auth.forgot.user_not_found": "User not found",
     "public.auth.forgot.pattern_psw": "The password must contain at least a letter, a number and a symbol, and must contain at least 7 characters.",
     "public.auth.forgot.code_not_valid": "The verification code is invalid, please try again later.",
-
 
     "secure.aws_cognito.profile.profile": "My profile",
     "secure.aws_cognito.profile.seller_id": "Seller id",
@@ -388,6 +394,7 @@
     "secure.orders.order_list.detail_modal.channel": "Channel",
 
     "secure.orders.order_list.order_page.no_orders_found": "No orders have been found",
+    "secure.orders.order_list.order_page.pending_requests": "No pending requests have been found",
     "secure.orders.order_list.order_page.load_all_orders": "Load all the orders",
     "secure.orders.order_list.order_page.all_orders": "All the orders",
     "secure.orders.order_list.order_page.without_invoice": "Without attached invoice",
@@ -438,6 +445,7 @@
     "secure.orders.in_devolution.in_devolution_page.rejected": "Reject",
     "secure.orders.in_devolution.in_devolution_page.no_found_orders": "No orders have been found.",
     "secure.orders.in_devolution.in_devolution_page.charge_orders": "Reload all the orders.",
+    "secure.orders.in_devolution.in_devolution_page.load_pending_requests": "Reload all the pending requests.",
     "secure.orders.in_devolution.in_devolution_page.sn_error_request": "An error has occurred while accepting the request.",
 
     "secure.orders.in_devolution.product_devolution_modal.info_title": "Product information",
@@ -457,6 +465,13 @@
     "secure.orders.pending_devolution.action_accept_devolution.body": "The request has been approved, we will notify the client so they can send you the product back.",
 
     "secure.orders.pending_devolution.view_comment.commnet_client": "Customer's comment",
+
+    "secure.orders.historical_devolutions.historical_devolutions_page.resolution": "Resolution",
+    "secure.orders.historical_devolutions.historical_devolutions_page.date_resolution": "Date of resolution",
+    "secure.orders.historical_devolutions.historical_devolutions_page.resolution.approved": "Approved",
+    "secure.orders.historical_devolutions.historical_devolutions_page.resolution.rejected": "Rejected",
+    "secure.orders.historical_devolutions.filter.title_filter": "Check history of returns",
+    "secure.orders.historical_devolutions.filter.resolution": "Filter by resolution",
 
     "secure.orders.send.no_more_sent_products": "The order has no more products pending to be sent",
     "secure.orders.send.total_sent_order": "Total of products to be sent in the order",
@@ -527,6 +542,9 @@
     "secure.seller.contracts.lb_title_toolbar": "Agreements",
     "secure.seller.contracts.lb_subtitle_toolbar": "Agreement lookup",
     "secure.seller.contracts.txt_no_contract_seller": "There are no current Agreement associated to this seller",
+
+    "secure.offers.cities_coverage.save_daneCode_ok": "The available cities for dispatch have been saved succesfully.",
+    "secure.offers.cities_coverage.save_daneCode_ko": "An error has occurren when trying to save the cities available for dispatch.",
 
     "secure.offers.stores.txt_no_seller": "Enter the store name in the search bar to see the categories.",
     "secure.offers.stores.treee.components.exception_brand_create_ok": "Brand exception has been added correctly.",
@@ -611,6 +629,7 @@
     "secure.offers.list.components.detail_offer.cop": "COP",
     "secure.offers.list.components.detail_offer.usd": "USD",
     "secure.offers.list.components.detail_offer.update_stock": "Stock update",
+    "secure.offers.list.components.detail_offer.change_extreme_price": "Extreme price change approval",
     "secure.offers.list.components.detail_offer.snackbar_offer_product": "This product is not ready for an offer to be associated, please try again later.",
     "secure.offers.list.components.detail_offer.snackbar_currency": "The currency has been changed to ",
     "secure.offers.list.components.detail_offer.id_offer": "Offer ID: ",
@@ -637,7 +656,7 @@
     "secure.offers.bulk_upload.bulk_upload.list_error_2": "has not been indexed yet, please try again later.",
 
     "secure.offers.bulk_upload.finish_upload_information.error_upload": "There have been",
-    "secure.offers.bulk_upload.finish_upload_information.error_upload_2": "error(s) when uploading the offer information.",
+    "secure.offers.bulk_upload.finish_upload_information.error_upload_2": "event(s) when uploading the offer information.",
 
     "secure.offers.bulk_upload.table_error.error_promise_delivery": "must have the following format (# to #), the numbers must be greater than 0.",
     "secure.offers.bulk_upload.table_error.error_currency": "must be either COP or USD.",
@@ -653,6 +672,8 @@
     "secure.offers.bulk_upload.table_load.quantity_combo": "Amount in combo",
     "secure.offers.bulk_upload.table_load.address": "Picking Address",
     "secure.offers.bulk_upload.table_load.dane_code": "Picking City",
+
+    "secure.offers.cities_coverage.title": "Cities Availiable for Dispatch",
 
     "secure.products.bulk_upload.title_module": "Products",
     "secure.products.bulk_upload.title_bar": "Bulk upload",
@@ -746,6 +767,7 @@
     "secure.products.bulk_load_product_moderation.text_file_may_update": "in this file you may upload the product validation",
     "secure.products.bulk_load_product_moderation.product_validation": "Product validation",
     "secure.products.bulk_load_product_moderation.will_send_validation": "We will send you the validation form to the following e-mail address",
+    "secure.products.bulk_load_product_offer.will_send_validation": "We will send you the offer form to the following e-mail address",
     "secure.products.bulk_load_product_moderation.validation_sent_succesfully": "The validation has been sent succesfully",
     "secure.products.bulk_load_product_moderation.validation_sent_couldnt_be_sent": "Something happened, the validation couldn't be sent",
     "secure.products.bulk_load_product_moderation.download_file": "Download file",
@@ -793,7 +815,7 @@
     "secure.products.create_product_unit.basic_information.red": "Red",
     "secure.products.create_product_unit.basic_information.silver": "Silver",
     "secure.products.create_product_unit.basic_information.golden": "Gold",
-    "secure.products.create_product_unit.basic_information.multicolored": "Multicolored",
+    "secure.products.create_product_unit.basic_information.multicolored": "MultiColored",
     "secure.products.create_product_unit.basic_information.gram": "Gram",
     "secure.products.create_product_unit.basic_information.mililitre": "Mililitre",
     "secure.products.create_product_unit.basic_information.metre": "Metre",
@@ -926,6 +948,8 @@
     "secure.products.create_product_unit.list_products.ofert_product.changed_currency": "The currency has changed to ",
     "secure.products.create_product_unit.list_products.ofert_product.format_invalidate": "The format is invalid",
     "secure.products.create_product_unit.list_products.please_wait" : "Loading, wait please ...",
+
+    "secure.products.list_products.modal.title": "This offer undergoes an extreme price change, do you wish to continue?",
 
     "secure.parametize.title_toolbar": "Configuration",
     "secure.parametize.brands.title_filter_brand": "Brand filter",
@@ -1070,6 +1094,37 @@
     "secure.parametize.support_modal.field.paymentDate": "Payment date",
     "secure.parametize.support_modal.field.orderStripNumber": "Order strip number",
     "secure.parametize.support_modal.field.billNumber": "Bill number",
+
+    "secure.parametize.support_modal.reply.title.reply": "Reply",
+    "secure.parametize.support_modal.reply.dialog-cancel-button": "Cancel",
+    "secure.parametize.support_modal.reply.dialog-add-button": "Add",
+    "secure.parametize.support_modal.reply.placeholder-write-answer": "Write your answer",
+
+    "secure.parametize.support_claims.title.claim": "Claims",
+    "secure.parametize.support_claims.claims-display": "Claims display",
+    "secure.parametize.support_claims.products-per-page": "Products per page",
+    "secure.parametize.support_claims.filter": "Filter",
+    "secure.parametize.support_claims.description": "Description",
+    "secure.parametize.support_claims.tracing": "Tracing",
+    "secure.parametize.support_claims.reply-btn": "REPLY",
+    "secure.parametize.support_claims.no-tracing": "Have not tracing",
+    "secure.parametize.support_claims.back-to-claims": "Back to claims",
+    "secure.parametize.support_claims.view-detail": "View detail",
+    "secure.parametize.support_claims-details.attachments": "Attachments",
+    "secure.parametize.support_claims-details.detail-of-solution": "Solution details",
+
+    "secure.parametize.support_claims-filter.modal-title": "Claims filter",
+    "secure.parametize.support_claims-filter.id": "ID",
+    "secure.parametize.support_claims-filter.reason": "Reason",
+    "secure.parametize.support_claims-filter.start-date": "Start date",
+    "secure.parametize.support_claims-filter.end-date": "End date",
+    "secure.parametize.support_claims-filter.status": "Status",
+    "secure.parametize.support_claims-filter.orderNumber": "Order number",
+    "secure.parametize.support_claims-filter.clear": "Clear",
+    "secure.parametize.support_claims-filter.filter": "Filter",
+
+    "secure.parametize.support_claims-upload-btn.title": "Please choose a file",
+    "secure.parametize.support_claims-upload-general-error": "The attached document that you are trying to upload is not compatible with our platform, we ask you to take into account the following recommendations: Your video cannot last more than 90 seconds and the formats allowed are: AVI, 3GP (mobile), MOV (Mac) , WMV (Windows), MPG, MPEG and MP4 with a maximum weight of 4 MB. The images you can upload must be in JPG, PNG or PDF, Excel or Word documents",
 
     "secure.products.bulk_upload.process": "when uploading the products.",
 

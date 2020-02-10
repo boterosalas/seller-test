@@ -15,7 +15,7 @@
     </div>
     <div *ngIf="!Success && !inProcess && data.failText">
       <h4 class="error-string" mat-subheader>
-        <mat-icon>warning</mat-icon>
+        <!-- <mat-icon>warning</mat-icon> -->
         {{'secure.offers.bulk_upload.finish_upload_information.error_upload' | translate}} {{countError}}
         {{'secure.offers.bulk_upload.finish_upload_information.error_upload_2' | translate}}
       </h4>
@@ -26,24 +26,30 @@
     <mat-dialog-content class="mat-typography finish-upload-information-list-height">
       <mat-nav-list>
         <mat-list-item *ngFor="let error of listError">
-          <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>
+          <mat-icon mat-list-icon class="icon-color-error" *ngIf="error.Code === 'PEX'">warning</mat-icon>
+          <mat-icon mat-list-icon class="icon-color-error" *ngIf="error.Code !== 'PEX'">error</mat-icon>
           <h4 matLine>{{'secure.offers.historical_admin.components.filter.EAN' | translate}}: {{error.Ean}}</h4>
-          <p matLine>{{'secure.products.Finish_upload_product_information.error_ocurred' | translate}}:
-            {{error.Message}}</p>
+          <p matLine *ngIf="error.Code !== 'PEX'">{{'secure.products.Finish_upload_product_information.error_ocurred' | translate}}:
+            {{error.Message}}.</p>
+          <p matLine *ngIf="error.Code === 'PEX'">{{error.Message}}.</p>
         </mat-list-item>
       </mat-nav-list>
     </mat-dialog-content>
     <mat-divider></mat-divider>
   </div>
   <div>
-    <mat-dialog-actions align="center">
-      <button id="close-finish-upload-button" [disabled]="inProcess" mat-button
-        mat-dialog-close>{{'actions.close' | translate}}</button>
+    <mat-dialog-actions align="end">
       <button id="export-to-excel-button" *ngIf="countError > 0" mat-raised-button color="primary"
         (click)="exportAsExcelFile(listError,'OffersLog')">{{'actions.export_excel' | translate}}
       </button>
+      <button id="btn-confirmation" type="submit" *ngIf="countError > 0 && pex" mat-raised-button color="primary"
+        (click)="confirmation()">
+        {{'actions.confirm_offer' | translate}}
+      </button>
       <button id="close-finish-upload-button" *ngIf="inProcess" mat-raised-button color="primary"
         [routerLink]="['/securehome/seller-center']" mat-dialog-close>{{'actions.go_to_start' | translate}}</button>
+      <button id="close-finish-upload-button" [disabled]="inProcess" mat-button
+        mat-dialog-close>{{'actions.close' | translate}}</button>
     </mat-dialog-actions>
   </div>
 </div>

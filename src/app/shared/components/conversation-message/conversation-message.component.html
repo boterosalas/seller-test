@@ -1,35 +1,24 @@
 <div class="sh-message">
-  <span
-    class="sh-message__small-text sh-message__small-text--bottom-space"
-    *ngIf="configuration.theme === _THEMES.BASIC"
-  >
-    {{ date ? (date | dateNoGtm | date: "MMMM d 'de' y - HH:mm:ss") : '' }}
+  <span class="sh-message__small-text sh-message__small-text--bottom-space"
+    *ngIf="configuration.theme === _THEMES.BASIC">
+    {{ date ? (date | date: "MM, d, y - HH:mm:ss") : '' }}
   </span>
   <div class="sh-message__content">
-    <span
-      class="sh-message__small-text sh-message__small-text--bottom-space"
-      *ngIf="configuration.theme === _THEMES.ALTER"
-    >
-      {{ date ? (date | dateNoGtm | date: "MMMM d 'de' y - HH:mm:ss") : '' }}
+    <span class="sh-message__small-text sh-message__small-text--bottom-space"
+      *ngIf="configuration.theme === _THEMES.ALTER">
+      {{ date ? (date | date: "MM, d, y - HH:mm:ss") : '' }}
     </span>
-    <p>{{ message ? message : '' }}</p>
+    <p id="conversation-message-{{caseId}}">{{ message ? message : '' }}</p>
     <span class="sh-message__small-text">
       {{ name ? name : '' }}
     </span>
   </div>
-  <div
-    class="sh-message__controls sh-message__controls--right"
-    *ngIf="configuration.reply"
-  >
-    <button
-      [disabled]="disabled"
-      (click)="replyEvent.emit()"
+  <div class="sh-message__controls sh-message__controls--right" *ngIf="configuration.reply">
+    <button [disabled]="disabled" (click)="replyEvent.emit()"
       class="mat-raised-button sh-message__button sh-message__button--secondary"
-      [ngClass]="
-        disabledClass ? 'sh-message__button--secondary-disabled' : ''
-      "
-    >
-      RESPONDER
+      [ngClass]="disabledClass ? 'sh-message__button--secondary-disabled' : ''"
+      id="conversation-message-reply-btn-{{caseId}}">
+      {{'secure.parametize.support_claims.reply-btn'| translate}}
     </button>
   </div>
 </div>

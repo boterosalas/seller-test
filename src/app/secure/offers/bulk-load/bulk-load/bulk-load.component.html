@@ -17,7 +17,7 @@
           <div fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" fxFlex="60"
             fXLayout="row wrap" fxLayoutAlign="center center">
             <!-- Input para subir archivo Excel -->
-            <a download class="sc-default-button" id="download-file-button" (click)="downloadFormatMassiveOfferLoad(language)"
+            <a download class="sc-default-button" id="download-file-button" (click)="requestMail()"
               mat-button>
               <mat-icon class="mat-18">file_download</mat-icon>
               {{'secure.offers.bulk_upload.bulk_upload.download_format_offer' | translate}}
@@ -93,7 +93,7 @@
       </div>
       <div class="content-information-no-data">
         <p>{{'secure.products.bulk_upload.text_step_import' | translate}}
-          <a download id="download-file-guide-button" (click)="downloadFormatMassiveOfferLoad(language)"
+          <a download id="download-file-guide-button" (click)="requestMail()"
             class="link-text">{{'secure.products.bulk_upload.download_the_format' | translate}}
           </a>, {{'secure.offers.bulk_upload.bulk_upload.text_step_import_to_offer' | translate}}
         </p>

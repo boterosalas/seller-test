@@ -35,7 +35,7 @@
     "menu.Creación unitaria": "Creación unitaria",
     "menu.Validaciones": "Validaciones",
     "menu.Devoluciones": "Devoluciones",
-    "menu.Listarreclamaciones": "Listar reclamaciones",
+    "menu.Listar Reclamaciones": "Listar reclamaciones",
     "menu.En validación": "En validación",
     "menu.En devolución": "En devolución",
     "menu.Solicitudes pendientes": "Solicitudes pendientes",
@@ -44,7 +44,11 @@
     "menu.Enviadas": "Enviadas",
     "menu.Cargar guías": "Cargar guías",
     "menu.Menu": "Menú",
-
+    "menu.Reporte de ofertas": "Reporte de ofertas",
+    "menu.Historico de devoluciones": "Histórico de devoluciones",
+    "menu.Ciudades con Cobertura": "Ciudades con Cobertura",
+    "menu.Calificación de Vendedores": "Calificación de Vendedores",
+    "menu.Solicitudes Pendientes": "Solicitudes Pendientes",
 
     "module.Documentación": "Documentación",
     "module.Ofertas": "Ofertas",
@@ -57,6 +61,7 @@
     "module.Reclamaciones": "Reclamaciones",
     "module.Reportes": "Reportes",
     "module.Devoluciones": "Devoluciones",
+    "module.Calificación": "Calificación",
 
 
     "permissions.Consultar": "Consultar",
@@ -169,6 +174,8 @@
     "actions.page": "Ítems por página",
     "actions.next_page": "Página siguiente",
     "actions.previous_page": "Página anterior",
+    "actions.view_attachments" : "Ver Adjunto",
+    "actions.confirm_offer": "Confirmar Oferta",
 
     "errors.required": "Este cambio es obligatorio",
     "errors.invalid_name": "Nombre invalido",
@@ -228,7 +235,7 @@
     "error.exception_brand.max_error": "La comisión no puede ser mayor a 100",
     "error.exception_brand.min_error": "La comisión no puede ser menor a 0",
     "error.exception_brand.number_int": "La  comisión ingresada debe ser entero positivo, y/o tener dos decimales",
-
+    "error.pending.not_attachments": "No hay archivos adjuntos",
 
     "modal.success.register": "¡Tú registro ha sido exitoso! Próximamente recibirás un correo electrónico confirmando el usuario y contraseña de acceso de este vendedor al Seller Center. En este correo también recibirás el ID de vendedor para su registro.",
     "modal.success.register title": "¡Registro realizado con éxito!",
@@ -286,7 +293,6 @@
     "public.auth.forgot.user_not_found": "Usuario no encontrado",
     "public.auth.forgot.pattern_psw": "La contraseña debe contener por lo menos una letra, un número y un símbolo y debe contener por lo menos 7 caracteres.",
     "public.auth.forgot.code_not_valid": "El código de verificación no es válido, por favor intente de nuevo.",
-
 
     "secure.aws_cognito.profile.profile": "Mi Perfil",
     "secure.aws_cognito.profile.seller_id": "Id seller",
@@ -388,7 +394,8 @@
     "secure.orders.order_list.detail_modal.channel": "Canal",
 
     "secure.orders.order_list.order_page.no_orders_found": "No se han encontrado órdenes",
-    "secure.orders.order_list.order_page.load_all_orders": "Cargar todas las órdenes",
+    "secure.orders.order_list.order_page.pending_requests": "No se han encontrado solicitudes pendientes",
+    "secure.orders.order_list.order_page.load_al_orders": "Cargar todas las órdenes",
     "secure.orders.order_list.order_page.all_orders": "Todas las órdenes",
     "secure.orders.order_list.order_page.without_invoice": "Sin factura adjunta",
     "secure.orders.order_list.order_page.with_invoice": "Con factura adjunta",
@@ -438,6 +445,7 @@
     "secure.orders.in_devolution.in_devolution_page.rejected": "Rechazar",
     "secure.orders.in_devolution.in_devolution_page.no_found_orders": "No se han encontrado órdenes.",
     "secure.orders.in_devolution.in_devolution_page.charge_orders": "Cargar todas las órdenes",
+    "secure.orders.in_devolution.in_devolution_page.load_pending_requests": "Cargar todas las solicitudes pendientes",
     "secure.orders.in_devolution.in_devolution_page.sn_error_request": "Se ha presentado un error al aceptar la solicitud.",
 
     "secure.orders.in_devolution.product_devolution_modal.info_title": "Información del producto",
@@ -457,6 +465,13 @@
     "secure.orders.pending_devolution.action_accept_devolution.body": "La solicitud ha sido aceptada, le notificaremos al cliente para que envié el producto.",
 
     "secure.orders.pending_devolution.view_comment.commnet_client": "Comentario cliente",
+
+    "secure.orders.historical_devolutions.historical_devolutions_page.resolution": "Resolución",
+    "secure.orders.historical_devolutions.historical_devolutions_page.date_resolution": "Fecha de resolución",
+    "secure.orders.historical_devolutions.historical_devolutions_page.resolution.approved": "Aprobado",
+    "secure.orders.historical_devolutions.historical_devolutions_page.resolution.rejected": "Rechazado",
+    "secure.orders.historical_devolutions.filter.title_filter": "Consultar histórico de devoluciones",
+    "secure.orders.historical_devolutions.filter.resolution": "Filtrar por resolución",
 
     "secure.orders.send.no_more_sent_products": "La orden ya no posee mas productos para ser enviados",
     "secure.orders.send.total_sent_order": "Total del productos a ser enviados en la orden",
@@ -527,6 +542,9 @@
     "secure.seller.contracts.lb_title_toolbar": "Acuerdos",
     "secure.seller.contracts.lb_subtitle_toolbar": "Buscar acuerdos",
     "secure.seller.contracts.txt_no_contract_seller": "No hay acuerdos asociados a este vendendor",
+
+    "secure.offers.cities_coverage.save_daneCode_ok": "Se ha guardado con éxito la restricción de las ciudades sin cobertura.",
+    "secure.offers.cities_coverage.save_daneCode_ko": "Se ha producido un error al intentar guardar la restricción de ciudades sin cobertura.",
 
     "secure.offers.stores.txt_no_seller": "Ingrese el nombre de la tienda en la  barra de búsqueda para ver las categorías.",
     "secure.offers.stores.treee.components.exception_brand_create_ok": "Agregó correctamente una excepción por marca.",
@@ -611,6 +629,7 @@
     "secure.offers.list.components.detail_offer.cop": "COP",
     "secure.offers.list.components.detail_offer.usd": "USD",
     "secure.offers.list.components.detail_offer.update_stock": "Actualización de Inventario",
+    "secure.offers.list.components.detail_offer.change_extreme_price": "Aprobación de Cambio Extremo de Precio",
     "secure.offers.list.components.detail_offer.snackbar_offer_product": "Este producto no está listo para ofertar, por favor intentalo más tarde.",
     "secure.offers.list.components.detail_offer.snackbar_currency": "El tipo de moneda se ha cambiado a ",
     "secure.offers.list.components.detail_offer.id_offer": "ID de Oferta: ",
@@ -637,7 +656,7 @@
     "secure.offers.bulk_upload.bulk_upload.list_error_2": "no indexado, por favor intentar más tarde.",
 
     "secure.offers.bulk_upload.finish_upload_information.error_upload": "Se han presentado",
-    "secure.offers.bulk_upload.finish_upload_information.error_upload_2": "error (es) al momento de cargar las ofertas.",
+    "secure.offers.bulk_upload.finish_upload_information.error_upload_2": "novedad(es) al momento de cargar las ofertas.",
 
     "secure.offers.bulk_upload.table_error.error_promise_delivery": "debería tener el formato (# a #), los números deben ser mayores a 0.",
     "secure.offers.bulk_upload.table_error.error_currency": "El tipo de moneda debe ser COP o USD.",
@@ -653,6 +672,8 @@
     "secure.offers.bulk_upload.table_load.quantity_combo": "Cantidad en combo",
     "secure.offers.bulk_upload.table_load.address": "Dirección de Recogida",
     "secure.offers.bulk_upload.table_load.dane_code": "Ciudad de Recogida",
+
+    "secure.offers.cities_coverage.title": "Ciudades disponibles para despacho",
 
     "secure.products.bulk_upload.title_module": "Productos",
     "secure.products.bulk_upload.title_bar": "Carga masiva",
@@ -746,6 +767,7 @@
     "secure.products.bulk_load_product_moderation.text_file_may_update": ", en este archivo podrás cargar la validación de productos.",
     "secure.products.bulk_load_product_moderation.product_validation": "Validación del productos",
     "secure.products.bulk_load_product_moderation.will_send_validation": "Te enviaremos el formato de moderación al siguiente correo electrónico.",
+    "secure.products.bulk_load_product_offer.will_send_validation": "Te enviaremos el formato de ofertas al siguiente correo electrónico.",
     "secure.products.bulk_load_product_moderation.validation_sent_succesfully": "Se ha enviado correctamente la moderación.",
     "secure.products.bulk_load_product_moderation.validation_sent_couldnt_be_sent": "Algo ocurrió, no se pudo enviar la moderación.",
     "secure.products.bulk_load_product_moderation.download_file": "Descargar archivo",
@@ -784,7 +806,7 @@
     "secure.products.create_product_unit.basic_information.white": "Blanco",
     "secure.products.create_product_unit.basic_information.blue": "Azul",
     "secure.products.create_product_unit.basic_information.yellow": "Amarillo",
-    "secure.products.create_product_unit.basic_information.brown": "Café",
+    "secure.products.create_product_unit.basic_information.brown": "Cafe",
     "secure.products.create_product_unit.basic_information.gray": "Gris",
     "secure.products.create_product_unit.basic_information.green": "Verde",
     "secure.products.create_product_unit.basic_information.orange": "Naranja",
@@ -793,7 +815,7 @@
     "secure.products.create_product_unit.basic_information.red": "Rojo",
     "secure.products.create_product_unit.basic_information.silver": "Plata",
     "secure.products.create_product_unit.basic_information.golden": "Dorado",
-    "secure.products.create_product_unit.basic_information.multicolored": "Multicolor",
+    "secure.products.create_product_unit.basic_information.multicolored": "MultiColor",
     "secure.products.create_product_unit.basic_information.gram": "Gramo",
     "secure.products.create_product_unit.basic_information.mililitre": "Mililitro",
     "secure.products.create_product_unit.basic_information.metre": "Metro",
@@ -926,6 +948,8 @@
     "secure.products.create_product_unit.list_products.ofert_product.changed_currency": "El tipo de moneda se ha cambiado a ",
     "secure.products.create_product_unit.list_products.ofert_product.format_invalidate": "El formato es inválido",
     "secure.products.create_product_unit.list_products.please_wait" : "Cargando, espere por favor...",
+
+    "secure.products.list_products.modal.title": "Esta oferta sufre un cambio extremo de precio, ¿Deseas Continuar?",
 
     "secure.parametize.title_toolbar": "Parametrización",
     "secure.parametize.brands.title_filter_brand": "Filtro Marcas",
@@ -1070,6 +1094,37 @@
     "secure.parametize.support_modal.field.paymentDate": "Fecha de pago",
     "secure.parametize.support_modal.field.orderStripNumber": "Número de orden",
     "secure.parametize.support_modal.field.billNumber": "Número de compra",
+
+    "secure.parametize.support_modal.reply.title.reply": "Respuesta",
+    "secure.parametize.support_modal.reply.dialog-cancel-button": "Cancelar",
+    "secure.parametize.support_modal.reply.dialog-add-button": "Agregar",
+    "secure.parametize.support_modal.reply.placeholder-write-answer": "Escribe tu respuesta",
+
+    "secure.parametize.support_claims.title.claim": "Reclamaciones",
+    "secure.parametize.support_claims.claims-display": "Visualización de productos",
+    "secure.parametize.support_claims.products-per-page": "Productos por página",
+    "secure.parametize.support_claims.filter": "Filtro",
+    "secure.parametize.support_claims.description": "Descripción",
+    "secure.parametize.support_claims.tracing": "Seguimiento",
+    "secure.parametize.support_claims.reply-btn": "RESPONDER",
+    "secure.parametize.support_claims.no-tracing": "No contiene seguimiento",
+    "secure.parametize.support_claims.back-to-claims": "Volver a reclamaciones",
+    "secure.parametize.support_claims.view-detail": "Ver detalle",
+    "secure.parametize.support_claims-details.attachments": "Adjuntos",
+    "secure.parametize.support_claims-details.detail-of-solution": "Detalle de la solución",
+
+    "secure.parametize.support_claims-filter.modal-title": "Filtro de reclamaciones",
+    "secure.parametize.support_claims-filter.id": "ID",
+    "secure.parametize.support_claims-filter.reason": "Motivo",
+    "secure.parametize.support_claims-filter.start-date": "Fecha de inicio",
+    "secure.parametize.support_claims-filter.end-date": "Fecha final",
+    "secure.parametize.support_claims-filter.status": "Estado",
+    "secure.parametize.support_claims-filter.orderNumber": "Número del pedido",
+    "secure.parametize.support_claims-filter.clear": "Limpiar",
+    "secure.parametize.support_claims-filter.filter": "Filtrar",
+
+    "secure.parametize.support_claims-upload-btn.title": "SELECCIONAR ARCHIVO PARA IMPORTAR",
+    "secure.parametize.support_claims-upload-general-error": "El documento adjunto que estas tratando de cargar no es compatible con nuestra plataforma, te pedimos tener en cuenta las siguientes recomendaciones: Tu vídeo no puede durar más de 90 segundos y los formatos permitidos son : AVI, 3GP (móviles), MOV (Mac), WMV (Windows), MPG, MPEG y MP4 con un peso máximo de 4 MB. Las imágenes que puedes cargar deben estar en JPG, PNG o documentos en PDF, Excel o Word",
 
     "secure.products.bulk_upload.process": "al momento de cargar los productos.",
 

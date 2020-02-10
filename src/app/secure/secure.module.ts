@@ -11,14 +11,16 @@ import {
   HistoricalModuleAdmin,
   ListModule,
   ListAdminModule,
-  StoresModule
+  StoresModule,
+  CitiesCoverageModule
 } from '@app/secure/offers';
 import { QuotingModule } from '@app/secure/offers/quoting/quoting.module';
 import {
   InDevolutionModule,
   InValidationModule,
   OrdersModule,
-  PendingDevolutionModule
+  PendingDevolutionModule,
+  HistoricalDevolutionModule
 } from '@app/secure/orders';
 import { BulkLoadProductModule, UnitProductModule } from '@app/secure/products';
 import { ManageModule, RegisterModule } from '@app/secure/seller';
@@ -49,6 +51,7 @@ import { ListReportsModule } from './reports/reports.module';
     OrdersModule,
     InValidationModule,
     PendingDevolutionModule,
+    HistoricalDevolutionModule,
     InDevolutionModule,
     BillingModule,
     RegisterModule,
@@ -76,7 +79,8 @@ import { ListReportsModule } from './reports/reports.module';
     ParameterizeModule,
     SellerSupportCenterModule,
     CoreStoreModule,
-    ListReportsModule
+    ListReportsModule,
+    CitiesCoverageModule
   ],
   providers: [AuthService, SellerSupportCenterService]
 })

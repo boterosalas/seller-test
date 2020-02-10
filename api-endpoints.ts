@@ -8,14 +8,16 @@ export const endpoints = {
   stage: {
     v1: {
       // orders
+      sendOrderEmail : 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/exportoffersbyseller/{idSeller}/{email}',
       searchOrders: 'https://5x9qrupiba.execute-api.us-east-1.amazonaws.com/SearchOrders?idSeller={sellerId}&limit={limit}',
       carries: 'https://2he495iasj.execute-api.us-east-1.amazonaws.com/Carries',
       sendAllGuides: 'https://tew99ut1y2.execute-api.us-east-1.amazonaws.com/SendAllGuides',
       downloadOrder: 'https://z0vz1c608a.execute-api.us-east-1.amazonaws.com/DownloadOrder',
       sendAllProductInOrder: 'https://nnsfw2fjr7.execute-api.us-east-1.amazonaws.com/SendAllProductInOrder/{orderId}',
       sendProductInOrder: 'https://89qu0cyz29.execute-api.us-east-1.amazonaws.com/SendProductInOrder/{orderId}/{idDetailProduct}',
-      searchPendingDevolution: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch?idSeller={sellerId}&limit={limit}',
+      searchPendingDevolution: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch?{stringParams}',
       pendingDevolution: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch?{stringParams}',
+      pendingDevolutionSearchTemporal: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch/pending?{stringParams}',
       acceptOrDeniedDevolution: 'https://v1kfqoa8yd.execute-api.us-east-1.amazonaws.com/RequestAcceptOrDenied',
       recordProcesSedOrder: 'https://4nu4lf5m80.execute-api.us-east-1.amazonaws.com/RecordProcesSedOrder',
       getallordersbysellerwithouttracking: 'https://cbihc9u6fa.execute-api.us-east-1.amazonaws.com/GetAllOrdersBySellerWithoutTracking{stringParam}',
@@ -46,8 +48,12 @@ export const endpoints = {
       validateSellerEmail: 'https://iye9w7rlsg.execute-api.us-east-1.amazonaws.com/ValidateSellerEmail/{params}',
       validateSellerName: 'https://4gxrzfojb9.execute-api.us-east-1.amazonaws.com/ValidateSellerName/{params}',
       // Cities and States services
-      getCities: 'https://u9rxwf1i19.execute-api.us-east-1.amazonaws.com/Cities/{params}',
+      // getCities: 'https://u9rxwf1i19.execute-api.us-east-1.amazonaws.com/Cities/{params}', original
+      getCities: 'https://u9rxwf1i19.execute-api.us-east-1.amazonaws.com/Cities/GetCitiesByState/{params}',
+      getCitiesCoverage: 'https://u9rxwf1i19.execute-api.us-east-1.amazonaws.com/Cities/GetAllCitiesVtexS3',
+      getDaneCodesNonCoverage: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/GetSellerData',
       getStates: 'https://vppc3gie2i.execute-api.us-east-1.amazonaws.com/States',
+      pacthCitiesNoCoverage: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/UpdateCitiesNonCoverage',
       // Offers
       getOffers: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/{params}',
       getOffersAdmin: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/listoffersbyseller/{params}',
@@ -177,6 +183,7 @@ export const endpoints = {
   prod: {
     v1: {
       // orders
+      sendOrderEmail : 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/exportoffersbyseller/{idSeller}/{email}',
       searchOrders: 'https://ldixrz8no2.execute-api.us-east-1.amazonaws.com/searchorders-pdn?idSeller={sellerId}&limit={limit}',
       carries: 'https://q8sree00sb.execute-api.us-east-1.amazonaws.com/carrier-pdn',
       sendAllGuides: 'https://vaf1d3c2ic.execute-api.us-east-1.amazonaws.com/sendallguides-pdn',
@@ -185,6 +192,7 @@ export const endpoints = {
       sendProductInOrder: 'https://dc042g38t8.execute-api.us-east-1.amazonaws.com/sendproductinorder-pdn/{orderId}/{idDetailProduct}',
       searchPendingDevolution: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn?idSeller={sellerId}&limit={limit}',
       pendingDevolution: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn?{stringParams}', // PENDIENTE
+      pendingDevolutionSearchTemporal: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn/pending?{stringParams}',
       acceptOrDeniedDevolution: 'https://geddaxinw4.execute-api.us-east-1.amazonaws.com/refuseoracceptdevolution-pdn', // TODO: Faltante en api end points
       recordProcesSedOrder: 'https://cfa1kdi5yj.execute-api.us-east-1.amazonaws.com/recordproccessedorder-pdn',
       getallordersbysellerwithouttracking: 'https://e06ayaf6s9.execute-api.us-east-1.amazonaws.com/getallordersbysellerwithouttracking-pdn{stringParam}',
@@ -216,8 +224,11 @@ export const endpoints = {
       validateSellerEmail: 'https://ejn1rdfov9.execute-api.us-east-1.amazonaws.com/validateselleremail-pdn/{params}',
       validateSellerName: 'https://z0exz5y0f6.execute-api.us-east-1.amazonaws.com/validatesellername-pdn/{params}',
       // Cities and States services
-      getCities: 'https://lcdy1iepcf.execute-api.us-east-1.amazonaws.com/cities-pdn/{params}',
+      getCities: 'https://lcdy1iepcf.execute-api.us-east-1.amazonaws.com/cities-pdn/GetCitiesByState/{params}',
+      getCitiesCoverage: 'https://lcdy1iepcf.execute-api.us-east-1.amazonaws.com/cities-pdn/GetAllCitiesVtexS3',
+      getDaneCodesNonCoverage: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/GetSellerData',
       getStates: 'https://yz3bm0grtf.execute-api.us-east-1.amazonaws.com/states-pdn',
+      pacthCitiesNoCoverage: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/UpdateCitiesNonCoverage',
       // Offers
       getOffers: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/{params}',
       patchOffers: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn',

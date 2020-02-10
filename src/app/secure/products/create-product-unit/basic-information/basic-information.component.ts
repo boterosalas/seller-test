@@ -386,7 +386,6 @@ export class ProductBasicInfoComponent implements OnInit {
      * selectColor
      */
     public selectColor(color: any, son: any): void {
-        console.log(color.Label);
         son.colorSelected = color.Label;
         this.detectForm();
     }

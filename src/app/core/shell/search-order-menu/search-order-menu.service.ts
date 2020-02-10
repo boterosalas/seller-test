@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EndpointService } from '@app/core';
 import { Observable } from 'rxjs';
+import { HistoricalDevolutionEntity } from '@app/shared';
 
 
 @Injectable()
@@ -59,13 +60,29 @@ export class SearchOrderMenuService {
    * @returns {Observable<[{}]>}
    * @memberof OrderService
    */
-  getOrdersPendingDevolutionFilter(limit: any, stringSearch: any): Observable<[{}]> {
+  getOrdersPendingDevolutionFilter(stringSearch: any): Observable<[{}]> {
     return new Observable(observer => {
-      this.http.get(this.api.get('searchPendingDevolution', ['', limit + stringSearch])).subscribe((data: any) => {
+      this.http.get(this.api.get('searchPendingDevolution', [stringSearch])).subscribe((data: any) => {
         observer.next(data);
       }, errorMessage => {
         observer.error(errorMessage);
       });
+    });
+  }
+  getOrdersPendingDevolutionFilterTempo(stringSearch: any): Observable<[{}]> {
+    return new Observable(observer => {
+      this.http.get(this.api.get('pendingDevolutionSearchTemporal', [stringSearch])).subscribe((data: any) => {
+        observer.next(data);
+      }, errorMessage => {
+        observer.error(errorMessage);
+      });
+    });
+  }
+
+  getHistoricalDevolutionFilter(limit: number, stringSearch: string): Observable<HistoricalDevolutionEntity[]> {
+    return new Observable(obs => {
+      this.http.get<HistoricalDevolutionEntity[]>(this.api.get('searchPendingDevolution', ['', limit + stringSearch]))
+        .subscribe(data => obs.next(data), err => obs.error(err));
     });
   }
 }

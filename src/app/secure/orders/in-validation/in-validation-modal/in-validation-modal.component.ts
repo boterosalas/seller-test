@@ -26,6 +26,8 @@ export class InValidationModalComponent {
   // Order information
   public order: OrderDevolutionsModel;
 
+  public showMessage= false;
+
   /**
    * Creates an instance of ProductPendingDevolutionModalComponent.
    * @param {MatDialogRef<ProductPendingDevolutionModalComponent>} dialogRef
@@ -50,4 +52,19 @@ export class InValidationModalComponent {
     this.dialogRef.close(false);
   }
 
+    /**
+   * funcion para descargar el archivo .zip por medio de una url 
+   *
+   * @param {string} urlDownload
+   * @memberof ProductDevolutionModalComponent
+   */
+  cloudDownload(urlDownload: any) {
+     if (urlDownload && urlDownload.length > 0) {
+      urlDownload.forEach(element => {
+        window.open(element);
+      });
+    } else {
+      this.showMessage = true;
+    }
+  }
 }

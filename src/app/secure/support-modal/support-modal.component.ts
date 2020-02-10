@@ -3,7 +3,9 @@ import {
   FormBuilder,
   FormGroup,
   Validators,
-  FormControl
+  FormControl,
+  AbstractControl,
+  ValidatorFn
 } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 
@@ -108,7 +110,8 @@ export class SupportModalComponent implements OnInit {
         'El documento adjunto que estas tratando de cargar no es compatible con nuestra plataforma, te pedimos tener en cuenta las siguientes recomendaciones: Tu vídeo no puede durar más de 90 segundos y los formatos permitidos son : AVI, 3GP (móviles), MOV (Mac), WMV (Windows), MPG, MPEG y MP4 con un peso máximo de 4 MB. Las imágenes que puedes cargar deben estar en JPG, PNG o documentos en PDF, Excel o Word'
     }
   ];
-  omsCategories = [];
+
+  omsCategories: Array<any> = [];
   scCategories = [];
   scSubcategories = [];
   scReasonTypes = [];
@@ -122,7 +125,7 @@ export class SupportModalComponent implements OnInit {
     public SUPPORT: SupportService,
     public userParams: UserParametersService,
     public loadingService: LoadingService,
-    private languageService: TranslateService
+    public languageService: TranslateService
   ) { }
 
   /**
@@ -173,15 +176,15 @@ export class SupportModalComponent implements OnInit {
         if (element.requiered) {
           switch (element.name) {
             case 'paymentDate':
-              element.name = this.languageService.instant('secure.parametize.support_modal.field.paymentDate');
+              element.placeHolder = this.languageService.instant('secure.parametize.support_modal.field.paymentDate');
               break;
 
             case 'orderStripNumber':
-              element.name = this.languageService.instant('secure.parametize.support_modal.field.orderStripNumber');
+              element.placeHolder = this.languageService.instant('secure.parametize.support_modal.field.orderStripNumber');
               break;
 
             case 'billNumber':
-              element.name = this.languageService.instant('secure.parametize.support_modal.field.billNumber');
+              element.placeHolder = this.languageService.instant('secure.parametize.support_modal.field.billNumber');
               break;
 
             default:
@@ -196,6 +199,7 @@ export class SupportModalComponent implements OnInit {
   }
 
   onClickClassificationOption(item: CaseCategory) {
+    this.myform.clearValidators();
     this.scCategories = [];
     this.scSubcategories = [];
     this.scReasonTypes = [];
@@ -217,7 +221,6 @@ export class SupportModalComponent implements OnInit {
     if (!item.category) {
       this.scReasonTypes = item.type;
       this.scRequiered = this.getFieldsRequired(item.fields);
-      ;
     }
   }
 
@@ -246,18 +249,18 @@ export class SupportModalComponent implements OnInit {
       });
     if (!item.subcategory) {
       this.scReasonTypes = item.type;
+      this.scSubcategories = [];
       this.scRequiered = this.getFieldsRequired(item.fields);
-      ;
     }
   }
 
   onClickSubcategoryOption(item: CaseCategory) {
+    this.myform.clearValidators();
     this.scReasonTypes = [];
     this.scRequiered = [];
     this.classificationSelected = item;
     this.scReasonTypes = item.type;
     this.scRequiered = this.getFieldsRequired(item.fields);
-    ;
   }
 
   public getInfoSeller(): void {
@@ -300,7 +303,7 @@ export class SupportModalComponent implements OnInit {
       description: new FormControl(
         '',
         Validators.compose([
-          Validators.required,
+          /* Validators.required, */
           Validators.pattern(this.instant('descriptionOrders'))
         ])
       ),
@@ -316,11 +319,30 @@ export class SupportModalComponent implements OnInit {
       ),
       subCategory: new FormControl(''),
       category: new FormControl(''),
-      paymentDate: new FormControl(''),
-      orderStripNumber: new FormControl(''),
-      billNumber: new FormControl('')
+      paymentDate: new FormControl(null, [
+        /* this.validatorFunction('paymentDate').bind(this)] */
+      ]),
+      orderStripNumber: new FormControl(null, [
+        /* this.validatorFunction('orderStripNumber').bind(this) */
+      ]),
+      billNumber: new FormControl(null, [
+        /* this.validatorFunction('billNumber').bind(this) */
+      ])
     });
   }
+
+  /* public validatorFunction(fieldName: string): ValidatorFn {
+    return (field: FormControl): { [key: string]: boolean } | null => {
+
+      this.scRequiered.forEach(element => {
+        if (element.requiered && element.name === fieldName &&
+          field.value !== undefined && field.value !== null && field.value !== '') {
+          return null;
+        }
+      });
+      return { 'fields': false };
+    }
+  } */
 
   /**
    * Obtiene la regex de Dynamo
@@ -364,7 +386,10 @@ export class SupportModalComponent implements OnInit {
       typeOfRequirement: form.value.typeOfRequirement.trim(),
       // caseOrigin: "Sitio web marketplace",
       // caseMarketplaceOwner: "Soporte MarketPlace",
-      attachments: this.response.attachments
+      attachments: this.response.attachments,
+      paymentDate: form.value.paymentDate,
+      orderStripNumber: form.value.orderStripNumber,
+      billNumber: form.value.billNumber
     };
     this.loadingService.viewSpinner();
     this.SUPPORT.sendSupportMessage(

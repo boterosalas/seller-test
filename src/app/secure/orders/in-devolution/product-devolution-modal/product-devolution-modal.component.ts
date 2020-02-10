@@ -23,6 +23,8 @@ export class ProductDevolutionModalComponent {
   // Información de la orden
   order: OrderDevolutionsModel;
 
+  public showMessage= false;
+
   /**
    * Creates an instance of ProductDevolutionModalComponent.
    * @param {MatDialogRef<ProductDevolutionModalComponent>} dialogRef
@@ -46,5 +48,14 @@ export class ProductDevolutionModalComponent {
    */
   onNoClick(): void {
     this.dialogRef.close(false);
+  }
+  cloudDownload(urlDownload: any) {
+    if (urlDownload && urlDownload.length > 0) {
+      urlDownload.forEach(element => {
+        window.open(element);
+      });
+    } else {
+      this.showMessage = true;
+    }
   }
 }

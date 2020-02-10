@@ -1,5 +1,6 @@
 <mat-sidenav-container>
-  <app-toolbar [isEnabled]="" [sidenav]="sidenav" [inDetail]="inDetail" [currentPageInput]="currentPage" [numberPages]="numberPages"></app-toolbar>
+  <app-toolbar [isEnabled]="" [sidenav]="sidenav" [inDetail]="inDetail" [currentPageInput]="currentPage"
+    [numberPages]="numberPages"></app-toolbar>
 
   <section id="section-list-offers" class="flexbox justify-start  flex-wrap" *ngIf="historicalOffer">
 
@@ -21,60 +22,83 @@
               <p>{{'secure.offers.historical_admin.components.filter.EAN' | translate}}: <span>{{ item.ean }}</span></p>
             </mat-panel-description>
             <mat-panel-description class="extension-panel-description d-none d-block-sm">
-              <p>{{'secure.offers.historical_admin.historical_admin.stock' | translate}}: <span>{{ item.stock | number }} {{'secure.offers.historical_admin.historical_admin.units' | translate}}</span></p>
+              <p>{{'secure.offers.historical_admin.historical_admin.stock' | translate}}:
+                <span>{{ item.stock | number }}
+                  {{'secure.offers.historical_admin.historical_admin.units' | translate}}</span></p>
             </mat-panel-description>
             <mat-panel-description class="extension-panel-description d-none d-block-md">
-              <p>{{'secure.offers.historical_admin.historical_admin.price' | translate}}: <span>{{ item.price | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
+              <p>{{'secure.offers.historical_admin.historical_admin.price' | translate}}:
+                <span>{{ item.price | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
             </mat-panel-description>
             <mat-panel-description class="extension-panel-description d-none d-block-lg">
-              <p>{{'secure.offers.historical_admin.historical_admin.discount_price' | translate}}: <span>{{ item.discountPrice | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
+              <p>{{'secure.offers.historical_admin.historical_admin.discount_price' | translate}}:
+                <span>{{ item.discountPrice | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
             </mat-panel-description>
             <mat-panel-description class="extension-panel-description d-none d-block-xl">
-              <p>{{'secure.offers.historical_admin.historical_admin.shipping_cost' | translate}}: <span>{{ item.shippingCost | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
+              <p>{{'secure.offers.historical_admin.historical_admin.shipping_cost' | translate}}:
+                <span>{{ item.shippingCost | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
             </mat-panel-description>
           </mat-expansion-panel-header>
 
           <span class="extension-panel-down">
-            <p class="d-none-sm">{{'secure.offers.historical_admin.historical_admin.stock' | translate}}: <span>{{ item.stock | number }} unidades</span></p>
-            <p class="d-none-md">{{'secure.offers.historical_admin.historical_admin.price' | translate}}: <span>{{ item.price | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
-            <p class="d-none-lg ">{{'secure.offers.historical_admin.historical_admin.discount_price' | translate}}: <span>{{ item.discountPrice | currency: '$' : 'symbol' :
+            <p class="d-none-sm">{{'secure.offers.historical_admin.historical_admin.stock' | translate}}:
+              <span>{{ item.stock | number }} unidades</span></p>
+            <p class="d-none-md">{{'secure.offers.historical_admin.historical_admin.price' | translate}}:
+              <span>{{ item.price | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
+            <p class="d-none-lg ">{{'secure.offers.historical_admin.historical_admin.discount_price' | translate}}:
+              <span>{{ item.discountPrice | currency: '$' : 'symbol' :
                 '1.0-0' }}</span></p>
-            <p class="d-none-xl ">{{'secure.offers.historical_admin.historical_admin.shipping_cost' | translate}}: <span>{{ item.shippingCost | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
-            <p>{{'secure.offers.historical_admin.historical_admin.warranty' | translate}}: <span>{{ item.warranty }} meses</span></p>
-            <p>{{'secure.offers.historical_admin.historical_admin.promise' | translate}}: <span>{{ item.promiseDelivery }} días</span></p>
-            <p>{{'secure.offers.historical_admin.historical_admin.currency' | translate}}: <span>{{ item.currency }} </span></p>
+            <p class="d-none-xl ">{{'secure.offers.historical_admin.historical_admin.shipping_cost' | translate}}:
+              <span>{{ item.shippingCost | currency: '$' : 'symbol' : '1.0-0' }}</span></p>
+            <p>{{'secure.offers.historical_admin.historical_admin.warranty' | translate}}: <span>{{ item.warranty }}
+                meses</span></p>
+            <p>{{'secure.offers.historical_admin.historical_admin.promise' | translate}}:
+              <span>{{ item.promiseDelivery }} días</span></p>
+            <p>{{'secure.offers.historical_admin.historical_admin.currency' | translate}}: <span>{{ item.currency }}
+              </span></p>
             <p>
-                {{'secure.offers.list.components.detail_offer.update_stock' | translate}}: 
-                <span class="">
-                    <mat-icon *ngIf="item.isUpdatedStock == 1" class="icon checkIsUpdatedStock">check</mat-icon>
-                    <mat-icon *ngIf="item.isUpdatedStock == 0" class="icon closeIsUpdatedStock">close</mat-icon>
-                </span>
-              </p>
+              {{'secure.offers.list.components.detail_offer.update_stock' | translate}}:
+              <span class="">
+                <mat-icon *ngIf="item.isUpdatedStock == 1" class="icon checkIsUpdatedStock">check</mat-icon>
+                <mat-icon *ngIf="item.isUpdatedStock == 0" class="icon closeIsUpdatedStock">close</mat-icon>
+              </span>
+            </p>
+            <p>
+              {{'secure.offers.list.components.detail_offer.change_extreme_price' | translate}}:
+              <span class="">
+                <mat-icon *ngIf="item.priceApproval == 1" class="icon checkIsUpdatedStock">check</mat-icon>
+                <span *ngIf="item.priceApproval == 0">N/A</span>
+              </span>
+            </p>
           </span>
 
           <mat-grid-list class="grid-list" cols="4" rowHeight="30px">
             <mat-grid-tile class="grid-tile" [rowspan]="1" [colspan]="numCols">
               <mat-icon *ngIf="item.isFreeShipping == 1" class="icon check">check</mat-icon>
               <mat-icon *ngIf="item.isFreeShipping == 0" class="icon close">close</mat-icon>
-              <span [ngClass]="{'ligthen-gray' : item.isFreeShipping == 0}">{{'secure.offers.historical_admin.historical_admin.free_shipping' | translate}}</span>
+              <span
+                [ngClass]="{'ligthen-gray' : item.isFreeShipping == 0}">{{'secure.offers.historical_admin.historical_admin.free_shipping' | translate}}</span>
             </mat-grid-tile>
 
             <mat-grid-tile class="grid-tile" [rowspan]="1" [colspan]="numCols">
               <mat-icon *ngIf="item.isEnviosExito == 1" class="icon check">check</mat-icon>
               <mat-icon *ngIf="item.isEnviosExito == 0" class="icon close">close</mat-icon>
-              <span [ngClass]="{'ligthen-gray' : item.isEnviosExito == 0}">{{'secure.offers.historical_admin.historical_admin.shiping_exito' | translate}}</span>
+              <span
+                [ngClass]="{'ligthen-gray' : item.isEnviosExito == 0}">{{'secure.offers.historical_admin.historical_admin.shiping_exito' | translate}}</span>
             </mat-grid-tile>
 
             <mat-grid-tile class="grid-tile" [rowspan]="1" [colspan]="numCols">
               <mat-icon *ngIf="item.isLogisticsExito == 1" class="icon check">check</mat-icon>
               <mat-icon *ngIf="item.isLogisticsExito == 0" class="icon close">close</mat-icon>
-              <span [ngClass]="{'ligthen-gray' : item.isLogisticsExito == 0}">{{'secure.offers.historical_admin.historical_admin.exito_logistic' | translate}}</span>
+              <span
+                [ngClass]="{'ligthen-gray' : item.isLogisticsExito == 0}">{{'secure.offers.historical_admin.historical_admin.exito_logistic' | translate}}</span>
             </mat-grid-tile>
 
             <mat-grid-tile class="grid-tile" [rowspan]="1" [colspan]="numCols">
               <mat-icon *ngIf="item.isFreightCalculator == 1" class="icon check">check</mat-icon>
               <mat-icon *ngIf="item.isFreightCalculator == 0" class="icon close">close</mat-icon>
-              <span [ngClass]="{'ligthen-gray' : item.isFreightCalculator == 0}">{{'secure.offers.historical_admin.historical_admin.freight_calculator' | translate}}</span>
+              <span
+                [ngClass]="{'ligthen-gray' : item.isFreightCalculator == 0}">{{'secure.offers.historical_admin.historical_admin.freight_calculator' | translate}}</span>
             </mat-grid-tile>
           </mat-grid-list>
         </mat-expansion-panel>
@@ -85,7 +109,8 @@
   </section>
 
   <!-- Message for not offers -->
-  <section *ngIf="!historicalOffer || historicalOffer.length === 0 || historicalOffer.length === null" class="no-content-component">
+  <section *ngIf="!historicalOffer || historicalOffer.length === 0 || historicalOffer.length === null"
+    class="no-content-component">
     <div class="icon-sentiment-dissatisfied">
       <mat-icon>sentiment_dissatisfied</mat-icon>
     </div>

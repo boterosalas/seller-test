@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit, ViewChild, TemplateRef, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { MatDialog, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatTableDataSource, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 import { LoadingService, Logger, ModalService, UserLoginService, UserParametersService } from '@app/core';
 import { ComponentsService, RoutesConst } from '@app/shared';
@@ -13,6 +13,7 @@ import { ModelOffers } from '../models/offers.model';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { CreateProcessDialogComponent } from '@app/shared/components/create-process-dialog/create-process-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
+import { ModalSendEmailComponent } from '../modal-send-email/modal-send-email.component';
 
 export const OFFERS_HEADERS_EAN = 'EAN';
 export const OFFERS_HEADERS_INVENTARIO = 'Inventario';
@@ -113,7 +114,11 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
 
   public intervalTime = 2000;
 
-  public language = 'ES';
+  public language: any;
+
+  public sendData: any;
+
+  dialogRef: MatDialogRef<ModalSendEmailComponent>;
 
   // Validación de las regex
   validateRegex: any;
@@ -169,6 +174,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     this.validateFormSupport();
     this.verifyProccesOffert();
     this.selectLanguage();
+    this.language = localStorage['culture_current'];
+
   }
 
   selectLanguage() {
@@ -766,7 +773,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     this.orderListLength = this.arrayInformationForSend.length === 0 ? true : false;
 
     if (this.countErrors === 0) {
-      this.sendJsonOffer();
+      this.sendJsonOffer(0);
     }
   }
 
@@ -981,7 +988,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
           } else {
             this.modalService.showModal('errorService');
           }
-          this.resetVariableUploadFile();
+          // this.resetVariableUploadFile();
           this.loadingService.closeSpinner();
         }
       );
@@ -1257,8 +1264,10 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
    *
    * @memberof BulkLoadComponent
    */
-  sendJsonOffer() {
-    this.arrayInformationForSend.splice(0, 1);
+  sendJsonOffer(approval: number) {
+    if (approval  !== 1) {
+      this.arrayInformationForSend.splice(0, 1);
+    }
     // Validacion para que siempre se envie la promesa de entrega # a #.
     this.arrayInformationForSend.forEach(element => {
       // if (element['EanCombo'] === null && element['EanCombo'] === '' && element['EanCombo'] === undefined ) {
@@ -1266,20 +1275,25 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
         const promiseSplited = (element['PromiseDelivery'].split(/\s(a|-|to)\s/));
         const convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
         element['PromiseDelivery'] = convertPromise;
-       }
+      }
     });
-    this.bulkLoadService.setOffers(this.arrayInformationForSend)
+
+    this.sendData = {
+      'PriceApproval': approval,
+      'ListOffers' : this.arrayInformationForSend
+    };
+    this.bulkLoadService.setOffers(this.sendData)
       .subscribe(
         (result: any) => {
           if (result) {
-            if (result.data.successful === result.data.totalProcess) {
+            if ((result.data.successful === result.data.totalProcess) && (result.data.error === 0)) {
               this.openModal(1, null);
             } else {
               const { offerNotifyViewModels } = result.data;
               this.openModal(3, offerNotifyViewModels);
             }
           }
-          this.resetVariableUploadFile();
+          // this.resetVariableUploadFile();
           this.loadingService.closeSpinner();
         }
       );
@@ -1356,6 +1370,15 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     dialogIntance.processFinish$.subscribe((val) => {
       dialog.disableClose = false;
     });
+    this.configDialog(dialog);
+  }
+
+  configDialog(dialog: any) {
+    const dialogComponent = dialog.componentInstance;
+    dialogComponent.confirmation = () => {
+      this.dialog.closeAll();
+      this.sendJsonOffer(1);
+    };
   }
   /**
    * Calcula el tiempo del intervalo para realizar la consultado (consulta iterativa recursiva) el promedio de rango 0.012 ~ 0.018
@@ -1370,6 +1393,15 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       this.intervalTime = 6000;
     }
 
+  }
+
+/**
+ * funcion para abrir el modal de envio de correo de ofertas 
+ *
+ * @memberof BulkLoadComponent
+ */
+requestMail() {
+    this.dialogRef = this.dialog.open(ModalSendEmailComponent);
   }
   /**
    * destruye el compomente y cierra el modal

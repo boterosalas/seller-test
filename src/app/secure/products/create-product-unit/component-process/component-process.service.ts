@@ -5,6 +5,7 @@ import { EndpointService } from '@app/core/http/endpoint.service';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { of, observable } from 'rxjs';
 import { isUndefined } from 'util';
+import { LoadingService } from '@app/core';
 
 
 
@@ -210,9 +211,9 @@ export class ProcessService {
     constructor(
         private http: HttpClient,
         private api: EndpointService,
-        private languageService: TranslateService
+        private languageService: TranslateService,
+        private loadingService: LoadingService,
     ) {
-        this.resetProduct();
         this.productData.AssignEan = false;
         this.refreshSpecifications();
     }
@@ -245,13 +246,20 @@ export class ProcessService {
      * @memberof ProcessService
      */
     public getSpecsByCategories(idCategory: string): void {
+        this.loadingService.viewSpinner();
         this.idCategory = idCategory;
-        this.http.get(this.api.get('getSpecByCategory', [idCategory])).subscribe(data => {
-            // if (data) {
-            this.specsByCategory.emit(data);
-            // }
+        this.http.get(this.api.get('getSpecByCategory', [idCategory]), { observe: 'response' }).subscribe(res => {
+            const data = res.body;
+            if (res.status === 200 || res.status === 201) {
+                this.specsByCategory.emit(data);
+
+            }
+            this.loadingService.closeSpinner();
+
         }, error => {
             console.error(error);
+            this.loadingService.closeSpinner();
+
         });
     }
 

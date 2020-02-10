@@ -185,7 +185,8 @@ export class FAKE {
       'sku': '',
       'reference': ' ',
       'requestedAmount': 0,
-      'reverseAmount': 0
-    }
+      'reverseAmount': 0,
+    },
+    'evidenceLists':''
   };
 }

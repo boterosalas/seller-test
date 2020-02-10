@@ -7,6 +7,7 @@ import {
 import { from } from 'rxjs';
 import { map, toArray } from 'rxjs/operators';
 import { ACCEPT_TYPE } from '@app/shared/models';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-case-modal',
@@ -68,6 +69,7 @@ export class ResponseCaseDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<ResponseCaseDialogComponent>,
+    public translateService: TranslateService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 

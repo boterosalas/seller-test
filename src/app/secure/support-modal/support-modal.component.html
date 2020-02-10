@@ -103,9 +103,9 @@
       </ng-template>
 
       <mat-form-field id="suport-modal-input-category-content" class="example-full-width"
-        *ngIf="scCategories.length > 0 && scCategories[0].category && scCategories" required>
+        *ngIf="scCategories.length > 0 && scCategories[0].category && scCategories">
         <mat-icon matPrefix class="icon-support-modal">list</mat-icon>
-        <mat-select id="suport-modal-input-reason1" formControlName="category"
+        <mat-select id="suport-modal-input-reason1" formControlName="category" required="true"
           [placeholder]="'secure.parametize.support_modal.subClassification' | translate">
           <ng-container *ngFor="let item of scCategories; let i = index">
             <mat-option [value]="item.category ? item.category : 'null'" (click)="onClickCategoryOption(item)"
@@ -123,26 +123,28 @@
         </mat-icon>
       </mat-form-field>
 
-      <mat-form-field id="suport-modal-input-subCategory-content" class="example-full-width"
-        *ngIf="scSubcategories.length > 0 && scSubcategories" required>
-        <mat-icon matPrefix class="icon-support-modal">list</mat-icon>
-        <mat-select id="suport-modal-input-subCategory" formControlName="subCategory"
-          [placeholder]="'secure.parametize.support_modal.detail' | translate">
-          <ng-container *ngFor="let item of scSubcategories; let i = index">
-            <mat-option [value]="item.subcategory ? item.subcategory : 'null'" (click)="onClickSubcategoryOption(item)"
-              *ngIf="item.subcategory">
-              <span id="{{ item.subcategory }}-{{ i }}" *ngIf="item.subcategory">
-                {{ item.subcategory }}
-              </span>
-            </mat-option>
-          </ng-container>
-        </mat-select>
+      <ng-container *ngIf="scSubcategories.length > 0 && scSubcategories">
+        <mat-form-field id="suport-modal-input-subCategory-content" class="example-full-width"
+          *ngIf="scSubcategories.length > 0 && scSubcategories">
+          <mat-icon matPrefix class="icon-support-modal">list</mat-icon>
+          <mat-select id="suport-modal-input-subCategory" required="true" formControlName="subCategory"
+            [placeholder]="'secure.parametize.support_modal.detail' | translate">
+            <ng-container *ngFor="let item of scSubcategories; let i = index">
+              <mat-option [value]="item.subcategory ? item.subcategory : 'null'"
+                (click)="onClickSubcategoryOption(item)" *ngIf="item.subcategory">
+                <span id="{{ item.subcategory }}-{{ i }}" *ngIf="item.subcategory">
+                  {{ item.subcategory }}
+                </span>
+              </mat-option>
+            </ng-container>
+          </mat-select>
 
-        <mat-icon color="primary" matSuffix
-          [matTooltip]="'secure.parametize.support_modal.subcategory_tips' | translate" matTooltipPosition="below">
-          help_outline
-        </mat-icon>
-      </mat-form-field>
+          <mat-icon color="primary" matSuffix
+            [matTooltip]="'secure.parametize.support_modal.subcategory_tips' | translate" matTooltipPosition="below">
+            help_outline
+          </mat-icon>
+        </mat-form-field>
+      </ng-container>
 
       <mat-form-field class="example-full-width" id="suport-modal-input-typeOfRequirement-content"
         *ngIf="scReasonTypes.length > 0 && scReasonTypes" required>
@@ -150,9 +152,9 @@
         <mat-select id="suport-modal-input-typeOfRequirement" formControlName="typeOfRequirement"
           [placeholder]="'secure.parametize.support_modal.type_case' | translate">
           <ng-container *ngFor="let item of scReasonTypes; let i = index">
-            <mat-option [value]="item">
+            <mat-option [value]="item.value">
               <span id="{{ item }}-{{ i }}">
-                {{ item }}
+                {{ item.value }}
               </span>
             </mat-option>
           </ng-container>
@@ -165,11 +167,19 @@
       </mat-form-field>
 
 
-      <ng-container *ngFor="let field of scRequiered; let i=index">
-        <mat-form-field class="example-full-width" *ngIf="scRequiered && scRequiered.length > 0">
-          <input id="{{field.name}}-{{i}}" matInput formControlName="{{field.name}}" placeholder="{{field.name}}"
-            required="field.requiered" *ngIf="field.requiered">
-        </mat-form-field>
+      <ng-container *ngIf="scRequiered && scRequiered.length > 0">
+        <div *ngFor="let field of scRequiered; let i=index">
+          <mat-form-field class="example-full-width">
+
+            <input id="{{field.name}}-{{i}}" matInput [required]="field.requiered" formControlName="{{field.name}}"
+              placeholder="{{field.placeHolder}}">
+
+            <mat-error *ngIf="!myform.get(field.name).hasError('fields')">
+              {{"secure.products.create_product_unit.basic_information.input_mandatory" | translate}}
+            </mat-error>
+
+          </mat-form-field>
+        </div>
       </ng-container>
 
       <mat-form-field class="example-full-width">
@@ -201,9 +211,9 @@
     <mat-dialog-actions fxFlex="100" class="footer-dialog normal-theme dialog-buttons">
       <div>
         <app-upload-button [validations]="validations" [showGeneralError]="true"
-          generalMessageError="El documento adjunto que estas tratando de cargar no es compatible con nuestra plataforma, te pedimos tener en cuenta las siguientes recomendaciones: Tu vídeo no puede durar más de 90 segundos y los formatos permitidos son : AVI, 3GP (móviles), MOV (Mac), WMV (Windows), MPG, MPEG y MP4 con un peso máximo de 4 MB. Las imágenes que puedes cargar deben estar en JPG, PNG o documentos en PDF, Excel o Word"
+          [generalMessageError]="languageService.instant('secure.parametize.support_claims-upload-general-error')"
           (fileChange)="onFileChange($event)">
-          SELECCIONAR ARCHIVO PARA IMPORTAR
+          {{'secure.parametize.support_claims-upload-btn.title' | translate}}
         </app-upload-button>
       </div>
 

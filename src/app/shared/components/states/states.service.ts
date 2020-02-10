@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EndpointService } from '@app/core';
 import { Observable } from 'rxjs/Observable';
-
+import { map } from 'rxjs/operators'
+import { StateEntity } from '@app/shared/models';
 
 @Injectable()
 export class StatesService {
@@ -28,6 +29,11 @@ export class StatesService {
           }
         );
     });
+  }
+
+  public getDepartments(): Observable<StateEntity[]> {
+    return this.http.get<StateEntity[]>(this.api.get('getStates'))
+      .pipe(map((res: any) => <StateEntity[]>JSON.parse(res.body).Data));
   }
 
 }

@@ -1,42 +1,90 @@
 [
   {
-    "name": "caseId",
-    "displayName": "ID",
-    "md": 2
+    "ES": [
+      {
+        "name": "caseId",
+        "displayName": "ID",
+        "md": 2
+      },
+      {
+        "name": "orderNumber",
+        "displayName": "Número de pedido",
+        "md": 3
+      },
+      {
+        "name": "reasonPQR",
+        "displayName": "Motivo",
+        "md": 2
+      },
+      {
+        "name": "reasonDetail",
+        "displayName": "Detalle del motivo",
+        "md": 6
+      },
+      {
+        "name": "createDate",
+        "displayName": "Fecha creación",
+        "md": 3
+      },
+      {
+        "name": "status",
+        "displayName": "Estado",
+        "md": 2
+      },
+      {
+        "name": "",
+        "displayName": "Responder",
+        "md": 1
+      },
+      {
+        "name": "",
+        "displayName": "",
+        "md": 1
+      }
+    ]
   },
   {
-    "name": "orderNumber",
-    "displayName": "Número de pedido",
-    "md": 3
-  },
-  {
-    "name": "reasonPQR",
-    "displayName": "Motivo",
-    "md": 2
-  },
-  {
-    "name": "reasonDetail",
-    "displayName": "Detalle del motivo",
-    "md": 6
-  },
-  {
-    "name": "createDate",
-    "displayName": "Fecha creación",
-    "md": 3
-  },
-  {
-    "name": "status",
-    "displayName": "Estado",
-    "md": 2
-  },
-  {
-    "name": "",
-    "displayName": "Responder",
-    "md": 1
-  },
-  {
-    "name": "",
-    "displayName": "",
-    "md": 1
+    "US": [
+      {
+        "name": "caseId",
+        "displayName": "ID",
+        "md": 2
+      },
+      {
+        "name": "orderNumber",
+        "displayName": "Order number",
+        "md": 3
+      },
+      {
+        "name": "reasonPQR",
+        "displayName": "Case",
+        "md": 2
+      },
+      {
+        "name": "reasonDetail",
+        "displayName": "Case detail",
+        "md": 6
+      },
+      {
+        "name": "createDate",
+        "displayName": "Creation date",
+        "md": 3
+      },
+      {
+        "name": "status",
+        "displayName": "Status",
+        "md": 2
+      },
+      {
+        "name": "",
+        "displayName": "Reply",
+        "md": 1
+      },
+      {
+        "name": "",
+        "displayName": "",
+        "md": 1
+      }
+    ]
   }
 ]

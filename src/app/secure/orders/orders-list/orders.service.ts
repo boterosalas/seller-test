@@ -24,8 +24,30 @@ export class OrderService {
    * @memberof OrderService
    */
   getOrderList(params: any): Observable<[{}]> {
+    let filter = '';
+    if (params) {
+      if ( params.dateOrderInitial && params.dateOrderInitial !== '') {
+        filter += `&dateOrderInitial=${params.dateOrderInitial}`;
+      }
+      if (params.dateOrderFinal && params.dateOrderFinal !== '') {
+        filter += `&dateOrderFinal=${params.dateOrderFinal}`;
+      }
+      if (params.idChannel && params.idChannel !== '') {
+        filter += `&idChannel=${params.idChannel}`;
+      }
+
+      if (params.orderNumber && params.orderNumber !== '') {
+        filter += `&orderNumber=${params.orderNumber}`;
+      }
+      if (params.identificationCard && params.identificationCard !== '') {
+        filter += `&identificationCard=${params.identificationCard}`;
+      }
+      if (params.processedOrder && params.processedOrder !== '') {
+        filter += `&processedOrder=${params.processedOrder}`;
+      }
+    }
     return new Observable(observer => {
-      this.http.get<Order[]>(this.api.get('searchOrders', [params.idSeller, params.limit + `&idStatusOrder=${params.state}`])).subscribe((data: any) => {
+      this.http.get<Order[]>(this.api.get('searchOrders', [params.idSeller, params.limit + `&idStatusOrder=${params.state}` + filter ])).subscribe((data: any) => {
         observer.next(data);
       }, err => {
         observer.error(err);

@@ -11,12 +11,19 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material';
 import { getDutchPaginatorIntl } from '@app/shared';
+import { TranslateService } from '@ngx-translate/core';
+import { MatPaginatorI18nService } from '@app/shared/services/mat-paginator-i18n.service';
 
 @Component({
   selector: 'app-case-toolbar',
   templateUrl: './case-toolbar.component.html',
   styleUrls: ['./case-toolbar.component.scss'],
-  providers: [{ provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl() }]
+  providers: [
+    {
+      provide: MatPaginatorIntl,
+      useClass: MatPaginatorI18nService,
+    }
+  ]
 })
 export class CaseToolbarComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -27,6 +34,8 @@ export class CaseToolbarComponent implements OnInit {
 
   @Input() pageSize: number;
 
+  @Input() pageLabel: string;
+
   @Output() changePagination = new EventEmitter();
 
   @Output() toggleFilter = new EventEmitter();
@@ -35,7 +44,7 @@ export class CaseToolbarComponent implements OnInit {
 
   stateFilter = false;
 
-  constructor(private breakpointObserver: BreakpointObserver) {
+  constructor(private breakpointObserver: BreakpointObserver, public translateService: TranslateService) {
     this.isHandset$ = this.breakpointObserver
       .observe(Breakpoints.Handset)
       .pipe(map(result => result.matches));

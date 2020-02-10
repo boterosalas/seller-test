@@ -2,12 +2,7 @@
   <mat-toolbar-row class="toolbar-options">
     <div class="normal-theme toolbar-options-table">
       <div fxFlex="100%" fXLayout="row" fxLayoutAlign="start center" class="toolbar-cont">
-        <!--
-        <h3 fxShow.xs="false" fxShow.sm="true" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" class="sc-title title-toolbar" (click)="getOrdersList($event)">{{informationToForm.title}}</h3>
-
-        <button (click)="getOrdersList($event)">Recargar</button> -->
-
-        <button mat-button color="primary" fxShow.xs="false" fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-title title-toolbar" (click)="getOrdersList($event)">
+        <button mat-button color="primary" fxShow.xs="false" fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-title title-toolbar">
           <p>{{informationToForm.title | translate}}
             <small class="sub-title"><span class="bar">|</span> {{informationToForm.subtitle| translate}}</small>
           </p>
@@ -17,12 +12,12 @@
             <mat-form-field class="input-search">
               <!-- Icon search -->
               <mat-icon id="icon-search-store" class="icon-search" matPrefix>search</mat-icon>
-    
+
               <!-- Input search -->
               <input id="input-search-store" class="search-store-input input-search-black" type="search"
                 (ngModelChange)="whatchValueInput($event)" matInput [formControl]="textForSearch" [matAutocomplete]="auto">
             </mat-form-field>
-    
+
             <!-- Autocomplete -->
             <mat-autocomplete autoActiveFirstOption class="auto-complete" #auto="matAutocomplete">
               <mat-option id="option-search-store-number-{{position}}" (click)="viewStoreInformation(option)"
@@ -35,17 +30,10 @@
           </form>
         </div>
         <div fxLayout="row" fxFlex.xs="100" fxFlex.sm="60%" fxFlex.md="50%" fxFlex.xl="50%" class="toolbar-paginate">
-
-          <!-- Paginación de la tabla 
-          <mat-form-field [ngClass]="{'hidden-pagination': orderListLength == true}" fxShow.xs="false" fxShow.sm="false" fxShow.md="true"
-            fxShow="true" fxFlex="103px" class="list-length-order">
-            <input id="number-elements-input" type="number" matInput placeholder="Número de registros" [(ngModel)]="lengthOrder" (ngModelChange)="getOrdersList()">
-          </mat-form-field> -->
-
           <mat-paginator [ngClass]="{'hidden-pagination': orderListLength == true}" class="order-pagination" fxFlex.xs="250px"
             fxFlex.sm="250px" fxFlex.md="auto" fxFlex.lg="325px" fxFlex.xl="325px" class="paginator-style orders-paginate"
             itemsPerPageLabel="Items por pagina" #paginator [pageSize]="pageSizeOrder" [length]="lengthOrder"
-            [pageSizeOptions]="[50, 100, 200]">
+            [pageSizeOptions]="[50, 100, 200]" (page)="pageEvent = changeSizeOrderTable($event)">
           </mat-paginator>
 
           <div fxLayout="row" class="center-product-list" fxFlex="20px" fxShow.xs="true" fxShow.sm="true" fxShow.md="true"
@@ -68,15 +56,9 @@
                 <mat-icon>file_download</mat-icon>
                 <span>{{'actions.download' | translate}}</span>
               </button>
-              <!--
-              <mat-form-field class="selectPageSize">
-                <input id="number-elements-input" (click)="stopPropagation($event)" type="number" matInput placeholder="Número de registros"
-                  [(ngModel)]="lengthOrder" (ngModelChange)="getOrdersList()">
-              </mat-form-field>
-              -->
               <mat-form-field class="selectPageSize">
                 <mat-select id="select-number-page-size" (click)="stopPropagation($event)" placeholder="Items por pagina"
-                  [(ngModel)]="pageSizeOrder" (ngModelChange)="changeSizeOrderTable()">
+                  [(ngModel)]="pageSizeOrder" (ngModelChange)="changeSizeOrderTable($event)">
                   <mat-option value="5">5</mat-option>
                   <mat-option value="10">10</mat-option>
                   <mat-option value="20">20</mat-option>

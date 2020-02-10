@@ -1,0 +1,20 @@
+<div class="content-modal">
+  <h2 mat-dialog-title class="sc-title">{{'secure.orders.in_devolution.view_comment.comment_request' | translate}}</h2>
+  <mat-dialog-content>
+
+    <div class="title-comment">
+      <mat-icon color="primary" mat-list-icon matPrefix>comment</mat-icon>
+      <p> {{'secure.orders.pending_devolution.view_comment.commnet_client' | translate}}</p>
+    </div>
+
+    <p mat-subheader class="text-comment" *ngIf="message">{{ message }} </p>
+    <p mat-subheader class="text-comment" *ngIf="!message">
+      {{'secure.orders.in_devolution.view_comment.no_commnet' | translate}}
+    </p>
+
+  </mat-dialog-content>
+  <mat-dialog-actions class="button-content" fxLayoutAlign="end center">
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button mat-button color="primary" [mat-dialog-close]="true">{{'actions.close' | translate}}</button>
+  </mat-dialog-actions>
+</div>
