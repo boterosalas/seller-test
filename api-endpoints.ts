@@ -276,6 +276,9 @@ export const endpoints = {
       getRegexBasic: 'https://wpamkgir31.execute-api.us-east-1.amazonaws.com/regex-pdn/{params}',
       // Post Guardar informacion creacion unitaria de producto
       postSaveInformationUnitCreation: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn',
+       //
+       postUnitSaveInformationUnitCreation: '',
+       patchUnitSaveInformationUnitCreation: '',
       // Download billing.
       exportBilling: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn',
       // Billing orders visualize.
@@ -308,6 +311,8 @@ export const endpoints = {
       getSpecByCategory: 'https://fhby1m1mxd.execute-api.us-east-1.amazonaws.com/productsspec-pdn/{params}',
       // Obtener lista producto expandido
       getProductExpanded: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/get-product/{params}',
+      // Obtener detalles del producto
+      getProductDetails: '',
       // Obtener tipo de perfil
       getTypeProfileAndProfile: 'https://tjymvkz23e.execute-api.us-east-1.amazonaws.com/Profiles-pdn/GetTypeProfileAndProfile',
       // Payoneer
