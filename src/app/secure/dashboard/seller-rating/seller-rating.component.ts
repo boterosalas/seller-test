@@ -68,6 +68,11 @@ export class SellerRatingComponent implements OnInit {
 
   private activeScrolled: Boolean = false;
   sellerId: string;
+  activeFilter: Boolean = false;
+  appealRating_clasification: any;
+  appealRating_sub_clasification: any;
+  appealRating: any;
+
 
   constructor(
     private loadingService: LoadingService,
@@ -87,6 +92,7 @@ export class SellerRatingComponent implements OnInit {
     this.createFormControls();
     this.validateFormSupport();
     this.getSellerRating();
+    this.getCaseEvaluation();
     // this.prueba();
   }
 
@@ -109,6 +115,7 @@ export class SellerRatingComponent implements OnInit {
     if (this.activeScrolled && scrollFilter.paginationToken !== '{}') {
       if (event.srcElement.scrollHeight === (event.srcElement.offsetHeight + event.srcElement.scrollTop) && !this.scrolled) {
         this.scrolled = true;
+        this.loadingService.viewSpinner();
         this._dashboard.getRatingSellers(scrollFilter).subscribe(result => {
           console.log('res: ', result);
           // const a = [{
@@ -129,6 +136,7 @@ export class SellerRatingComponent implements OnInit {
           this.dataSource = new MatTableDataSource(this.arraySellerRating);
           this.paginationToken = result.body.paginationToken;
           this.scrolled = false;
+          this.loadingService.closeSpinner();
         });
       }
     }
@@ -166,22 +174,17 @@ export class SellerRatingComponent implements OnInit {
    * @memberof SellerRatingComponent
    */
   getSellerRating() {
+    this.loadingService.viewSpinner();
     this.sellerId = localStorage.getItem('userId');
-    console.log('this.sellerId', this.sellerId);
     if (this.sellerId === undefined || this.sellerId === '' || this.sellerId === null || !this.sellerId) {
-      console.log('entra al if');
       this.sellerId = this.user.sellerId;
     }
     this.paramsGetSellerRating.sellerId = localStorage.getItem('userId');
-    this.loadingService.viewSpinner();
     this._dashboard.getRatingSellers(this.paramsGetSellerRating).subscribe(result => {
-      console.log('result', result);
       if (result.status === 200 || result.status === 201) {
         this.arraySellerRating = result.body.viewModel;
         this.dataSource = new MatTableDataSource(this.arraySellerRating);
-        console.log(this.dataSource);
         this.savePaginationToken(result.body.paginationToken);
-        console.log(result.body.paginationToken);
       } else {
         this.modalService.showModal('errorService');
       }
@@ -200,6 +203,12 @@ export class SellerRatingComponent implements OnInit {
     }
   }
 
+  /**
+   * Metodo para capturar la fecha y cambiar el formato
+   * @param {string} valueDate
+   * @returns
+   * @memberof SellerRatingComponent
+   */
   formtDateYearMonth(valueDate: string) {
     if (valueDate && valueDate.includes('/')) {
       const arrayDate = valueDate.split('/');
@@ -229,11 +238,32 @@ export class SellerRatingComponent implements OnInit {
     this.loadingService.viewSpinner();
     console.log('filterSellerRating', filterSellerRating);
     this._dashboard.getRatingSellers(filterSellerRating).subscribe(result => {
+      this.dataSource = null;
       this.arraySellerRating = result.body.viewModel;
-      this.dataSource = new MatTableDataSource(result.body.viewModel);
-      this.savePaginationToken(result.body.paginationToken);
+      if (result.status === 200 || result.status === 201) {
+        if (this.arraySellerRating) {
+          this.dataSource = new MatTableDataSource(result.body.viewModel);
+          this.savePaginationToken(result.body.paginationToken);
+          this.activeFilter = false;
+        } else {
+          this.activeFilter = true;
+        }
+
+      }
+      // this.dataSource = new MatTableDataSource(result.body.viewModel);
+      // this.savePaginationToken(result.body.paginationToken);
       this.loadingService.closeSpinner();
     });
+  }
+
+  getCaseEvaluation() {
+    this.SUPPORT.getClassification().subscribe(categories => {
+        let ratingCategorie = categories.data;
+        ratingCategorie = ratingCategorie.filter(el => el.idMatrix === 'MT499');
+        this.appealRating_clasification = ratingCategorie.classification;
+        this.appealRating_sub_clasification = ratingCategorie.category;
+        this.appealRating = [this.appealRating_clasification, this.appealRating_sub_clasification];
+      });
   }
 
   /**
@@ -244,7 +274,8 @@ export class SellerRatingComponent implements OnInit {
     this.loadingService.viewProgressBar();
     const dialogRef = this.dialog.open(SupportModalComponent, {
       width: '90%',
-      panelClass: 'full-width-dialog'
+      panelClass: 'full-width-dialog',
+      data: this.appealRating
     });
     dialogRef.afterClosed().subscribe(result => {
       this.loadingService.closeProgressBar();
@@ -268,6 +299,8 @@ export class SellerRatingComponent implements OnInit {
     this.filterSellerRating.reset({ datequalificationinitial: '', dateQualificationFinal: '' });
     this.listFilterBrands = [];
     this.getSellerRating();
+    this.activeScrolled = false;
+    this.activeFilter = false;
   }
 
 }

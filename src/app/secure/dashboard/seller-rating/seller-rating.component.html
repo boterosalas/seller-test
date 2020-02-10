@@ -77,10 +77,14 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>  
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  <!-- <div class="seller-no-data" *ngIf="dataSource.data.length === 0">
+  <div class="seller-no-data" *ngIf="arraySellerRating === null && activeFilter === false">
     <mat-icon class="icon-not-found" color="primary">info</mat-icon>
     <p>{{'secure.dashboard.seller-rating.date_issued_final_not_data' | translate}}</p>
-  </div> -->
+  </div>
+  <div class="seller-no-data" *ngIf="activeFilter === true">
+    <mat-icon class="icon-not-found" color="primary">info</mat-icon>
+    <p>{{'secure.dashboard.seller-rating.date_issued_final_not_data_filter' | translate}}</p>
+  </div>
 </div>
