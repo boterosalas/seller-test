@@ -47,8 +47,97 @@ fdescribe('DetailCalificationComponent', () => {
     }],
   };
 
+
+  const detail = {
+    quantitative: 5,
+    qualificationPromiseDelivery: {
+      numerator: 45,
+      denominator: 45,
+      percentage: 100,
+      qualification: 5,
+      qualificationPercentage: 0,
+      total: 2,
+      percentagePenalty: 200,
+      valuePenalty: 0
+    },
+    qualificationCase: {
+      numerator: 1,
+      denominator: 45,
+      percentage: 2,
+      qualification: 5,
+      qualificationPercentage: 0,
+      total: 1,
+      percentagePenalty: 0,
+      valuePenalty: 0
+    },
+    qualificationCanceled: {
+      numerator: 0,
+      denominator: 46,
+      percentage: 0,
+      qualification: 5,
+      qualificationPercentage: 0,
+      total: 1,
+      percentagePenalty: 200,
+      valuePenalty: 0
+    },
+    detail: {
+      ordersOutsideDeliveryDate: [
+        {
+          orderNumber: '12345',
+          orderDate: 202002,
+          MaxDeliveryDate: 202020,
+          DeliveryDate: 202020,
+          DelayDays: 3,
+          CustomerIdentificationCard: '123454687',
+          CustomerName: 'Aristóbulo XD',
+          Penalty: 145612,
+          TotalCommission: 1456423
+        }
+      ],
+      ordersCanceledBySellerResponsibility:
+      [
+        {
+          orderNumber: '12345',
+          orderDate: 202020,
+          orderStatus: 'Entregado',
+          reasonPqr: '',
+          pqrDate: 202020,
+          customerIdentificationCard: '123454687',
+          customerName: 'Aristóbulo XD',
+          penalty: 145612,
+          totalCommission: 1456423
+        }
+      ],
+      ordersWithPqr: [
+        {
+          orderNumber: '12345',
+          orderDate: 202020,
+          maxDeliveryDate: 202020,
+          reasonPqr: '',
+          pqrDate: 202020,
+          customerIdentificationCard: '123454687',
+          customerName: 'Aristóbulo XD',
+        }
+      ]
+    },
+    idSeller: 10108,
+    sellerName: 'Leonisa',
+    qualificationDate: 201912,
+    generatedDate: 202002,
+    urlFile: 'https://s3.amazonaws.com/seller.center.exito.seller/qualificationDev/10108_diciembre_2019_{0}.html',
+    qualitative: 'Excelente'
+  };
+
   const response = {
     body: '{"Message":"Operación realizada éxitosamente.","Errors":[],"Data":{ "Brands":[{"Id":636934381618814126,"Name":"---------","Status":0,"IdVTEX":"2000500","UpdateStatus":false}, {"Id":636934381618814126,"Name":"---------","Status":1,"IdVTEX":"2000500","UpdateStatus":false}]}}',
+    headers: null,
+    isBase64Encoded: false,
+    multiValueHeaders: null,
+    statusCode: 200
+  };
+
+  const responseNotificate = {
+    body: '',
     headers: null,
     isBase64Encoded: false,
     multiValueHeaders: null,
@@ -113,22 +202,30 @@ fdescribe('DetailCalificationComponent', () => {
     dialogComponent = dialogFixture.componentInstance;
     mockSupportService.getRegexFormSupport.and.returnValue(of(registerRegex));
     mockCalificationService.getListCalificationsBySeller.and.returnValue(of(response));
-    detailCalificationComponent.detailByElemet = {
-      qualificationPromiseDelivery: { qualification: ''},
-      qualificationCase: { qualification: ''},
-      qualificationCanceled: { qualification: ''},
-      ordersOutsideDeliveryDate: {
-        qualification: ''
-      },
-      qualificationDate: '202002',
-      generatedDate: '202002',
-      detail: ''
-    };
+    mockCalificationService.notificate.and.returnValue(of(responseNotificate));
+    detailCalificationComponent.detailByElemet = detail;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(detailCalificationComponent).toBeTruthy();
     expect(detailCalificationComponent).toBeTruthy();
+  });
+  describe('diferentes calificaciones', () => {
+    beforeEach(() => {
+    });
+
+    it('setea color >= 3 && < 5', () => {
+        detailCalificationComponent.setClassColorByCalification(3);
+    });
+    it('setea color < 3 ', () => {
+        detailCalificationComponent.setClassColorByCalification(1);
+    });
+    it('recalculate ', () => {
+        detailCalificationComponent.recalculateQualitative();
+    });
+    it('notificate ', () => {
+        detailCalificationComponent.notificateSeller();
+    });
   });
 });
