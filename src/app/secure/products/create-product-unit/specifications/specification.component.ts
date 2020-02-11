@@ -278,7 +278,7 @@ export class SpecificationProductComponent implements OnInit {
                     }
                 }
                 if (form && form.form) {
-                    if (form.form.controls['specs' + index]) {
+                    if (form.form.controls['specs' + index] && !form.controls['specs' + index].value) {
                         form.controls['specs' + index].setValue(value);
                     }
                 }
