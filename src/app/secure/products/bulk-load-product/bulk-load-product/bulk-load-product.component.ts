@@ -2415,7 +2415,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           'URL de Imagen 3': undefined,
           'URL de Imagen 4': undefined,
           'URL de Imagen 5': undefined,
-          'Modificacion Imagen': undefined,
+          // 'Modificacion Imagen': undefined,
           'Logistica Exito': undefined,
         },
         this.modelSpecs
@@ -2454,7 +2454,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           'Image URL 3': undefined,
           'Image URL 4': undefined,
           'Image URL 5': undefined,
-          'Image Modification': undefined,
+          // 'Image Modification': undefined,
           'Exito Logistics': undefined,
         },
         this.modelSpecs
