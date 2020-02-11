@@ -674,6 +674,8 @@
     "secure.offers.bulk_upload.table_load.dane_code": "Ciudad de Recogida",
 
     "secure.offers.cities_coverage.title": "Ciudades disponibles para despacho",
+    "secure.offers.cities_coverage.get_error": "Se produjo un error al tratar de obtener las ciudades. Intentalo nuevamente.",
+
 
     "secure.products.bulk_upload.title_module": "Productos",
     "secure.products.bulk_upload.title_bar": "Carga masiva",
