@@ -23,7 +23,6 @@
     }
     &-container-column-title{
         padding-bottom: 25px;
-        padding-top: 17px;
     }
     &-container-text-title-aling{
         vertical-align: bottom;
@@ -35,6 +34,14 @@
     &-btn-delete{
         background-color: #de2d2d;
         color: #FFFFFF;
+    }
+
+    &-container-text-margin-top-title{
+        margin-top: 25px;
+    }
+
+    &-container-text-margin-top-subtitle{
+        margin-top:5px
     }
    
 }

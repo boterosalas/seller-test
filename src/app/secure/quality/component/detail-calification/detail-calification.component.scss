@@ -14,6 +14,12 @@
   &-container-width-complete {
     width: 100%;
   }
+  &-arrow-back-list-font-size{
+    font-size: 15px;
+  }
+  &-btn-notification-aling-end{
+    text-align: end;
+  }
 
   &-container-center-vertical {
     vertical-align: middle;
@@ -23,8 +29,23 @@
     font-weight: bold;
   }
 
+  &-container-padding-text{
+    padding:5px
+  }
+  &-container-padding-text-margin-top{
+    margin-top: 10px
+  }
+
+  &-container-row-detail{
+    height: 30px
+  }
+
   &-container-text-color {
     color: #545353;
+  }
+
+  &-container-text-name-seller-padding{
+    padding-top: 10px;
   }
 
   &-container-cursor-pointer {
@@ -241,6 +262,49 @@
       overflow: scroll;
       height: 112%;
     }
+  }
+
+  &-container-width-get-calification-column-one{
+    width: 126px
+  }
+  &-container-width-get-calification-column-two{
+    width: 147px;
+    text-align: center;
+  }
+  &-container-width-get-calification-column-thrre{
+    width: 113px
+  }
+  &-container-width-get-calification-column-four{
+    width: 111px
+  }
+  &-container-width-get-calification-column-five{
+    width: 149px;
+    text-align: center;
+  }
+  &-container-width-get-calification-column-six{
+    width: 95px;
+    text-align: center;
+  }
+
+  &-container-width-get-calification-column-result-one{
+    width: 123px;
+  }
+  &-container-width-get-calification-column-result-two{
+    width: 137px;
+  }
+  &-container-width-get-calification-column-result-thrre{
+    width: 117px;
+  }
+  &-container-width-get-calification-column-result-four{
+    width: 111px;
+    color: #000000;
+    text-align: center;
+  }
+  &-container-width-get-calification-column-result-five{
+    width: 152px;
+  }
+  &-container-width-get-calification-column-result-fix{
+    width: 95px;
   }
 }
 

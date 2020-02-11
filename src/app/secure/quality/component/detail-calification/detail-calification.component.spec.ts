@@ -97,26 +97,35 @@ fdescribe('DetailCalificationComponent', () => {
       ordersCanceledBySellerResponsibility:
       [
         {
-          orderNumber: '12345',
-          orderDate: 202020,
-          orderStatus: 'Entregado',
-          reasonPqr: '',
-          pqrDate: 202020,
-          customerIdentificationCard: '123454687',
-          customerName: 'Aristóbulo XD',
-          penalty: 145612,
-          totalCommission: 1456423
+          caseId: '5001U00000TI91WQAT',
+          orderNumber: '705664513',
+          orderDate: '2019-11-05T21:27:08.61+00:00',
+          maxDeliveryDate: '0001-01-01T00:00:00',
+          orderStatus: 'Cancelado',
+          idOrderStatus: 80,
+          reasonPqr: 'Servicio Posventa',
+          pqrDate: '2020-01-23T00:00:00+00:00',
+          customerIdentificationCard: '1000203784',
+          customerName: null,
+          penalty: 5174,
+          totalCommission: 2587,
         }
       ],
       ordersWithPqr: [
         {
-          orderNumber: '12345',
-          orderDate: 202020,
-          maxDeliveryDate: 202020,
-          reasonPqr: '',
-          pqrDate: 202020,
-          customerIdentificationCard: '123454687',
-          customerName: 'Aristóbulo XD',
+          caseId: '5001U00000TI91WQAT',
+          orderNumber: '705664513',
+          orderDate: '2019-11-05T16:27:08.61+00:00',
+          maxDeliveryDate: '0001-01-01T00:00:00',
+          orderStatus: 'Cancelado',
+          idOrderStatus: 80,
+          reasonPqr: 'Servicio Posventa',
+          pqrDate: '2020-01-23T00:00:00+00:00',
+          customerIdentificationCard: '1000203784',
+          customerName: 'Wilinton ',
+          penalty: 0,
+          totalCommission: 0,
+          sku: 'SKUMP01080002954',
         }
       ]
     },

@@ -23,7 +23,7 @@
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="30"
             fxFlex.sm="30" fxFlex.md="30" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
-            <p class="sc-text-normal" style="font-weight: bold;">{{element.qualitative}}</p>
+            <p class="sc-text-normal calification-list-font-weight">{{element.qualitative}}</p>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="qualityMonth">
@@ -49,10 +49,10 @@
             <p class="sc-text-normal">{{element.generatedDateFormt}}</p>
           </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="actions" style="justify-content: center;">
+        <ng-container matColumnDef="actions" class="calification-list-justify-content">
           <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
             fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef mat-sort-header
-            style="justify-content: center;">
+            class="calification-list-justify-content">
             <span class="title-table-header">{{'shared.actions' | translate}}</span>
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="20"
@@ -88,7 +88,7 @@
 
 <mat-sidenav-container>
   <mat-sidenav #sidenavSearchOrder mode="over" position="end" opened="{{stateSideNavOrder}}">
-    <mat-card class="content-profile" style="height: 93%;">
+    <mat-card class="content-profile calification-list-93-height" >
       <mat-nav-list class="light-content">
         <mat-toolbar color="primary" class="toolbar-title-search">
           <h4 class="title-toolbar">{{informationToForm.title_for_search | translate}}</h4>
@@ -102,22 +102,21 @@
         <form class="example-container" #createfilterCalisification="ngForm" [formGroup]="filterCalifications"
           class="seller-filter-sidenav">
         <div>
-            <div></div>
             <div>
-              <div style="padding: 30px 0;">
-                <div style="color: #626161;">
-                  <mat-icon class="mat-18" style="vertical-align: middle;">today</mat-icon>
-                  Fecha calificado <span style="font-size: 10px;">(MM/AAAA)</span>
+              <div class="calification-list-padding-container">
+                <div class="calification-list-color">
+                  <mat-icon class="mat-18 calification-list-vertical-aling">today</mat-icon>
+                  Fecha calificado <span class="calification-list-font-size">(MM/AAAA)</span>
                 </div>
-                <div style="padding-left: 31px;">
-                  <mat-form-field style="width: 100%;">
+                <div class="calification-list-padding-left">
+                  <mat-form-field class="calification-list-width-complete">
                     <input matInput [placeholder]="'secure.parametize.support_claims-filter.start-date' | translate"
                       formControlName="dateInitQualityMonth" [errorStateMatcher]="matcher">
                     <mat-error *ngIf="filterCalifications.get('dateInitQualityMonth').hasError('pattern')"
                       [innerHTML]="'Fecha invalida'"></mat-error>
                   </mat-form-field>
     
-                  <mat-form-field style="width: 100%;">
+                  <mat-form-field class="calification-list-width-complete">
                     <input matInput [placeholder]="'secure.parametize.support_claims-filter.end-date' | translate"
                       formControlName="dateFinalQualityMonth" [errorStateMatcher]="matcher">
                     <mat-error *ngIf="filterCalifications.get('dateFinalQualityMonth').hasError('pattern')"
@@ -126,19 +125,19 @@
                 </div>
               </div>
              <div>
-              <div style="color: #626161;">
-                <mat-icon class="mat-18" style="vertical-align: middle;">today</mat-icon>
-                Fecha Emitido <span style="font-size: 10px;">(MM/AAAA)</span>
+              <div class="calification-list-color">
+                <mat-icon class="mat-18 calification-list-vertical-aling" >today</mat-icon>
+                Fecha Emitido <span class="calification-list-font-size">(MM/AAAA)</span>
               </div>
-              <div style="padding-left: 31px;">
-                <mat-form-field style="width: 100%;">
+              <div class="calification-list-padding-left">
+                <mat-form-field class="calification-list-width-complete">
                   <input matInput [placeholder]="'secure.parametize.support_claims-filter.start-date' | translate"
                     formControlName="dateInitQualityIssued" [errorStateMatcher]="matcher">
                   <mat-error *ngIf="filterCalifications.get('dateInitQualityIssued').hasError('pattern')"
                     [innerHTML]="'Fecha invalida'"></mat-error>
                 </mat-form-field>
   
-                <mat-form-field style="width: 100%;">
+                <mat-form-field class="calification-list-width-complete">
                   <input matInput [placeholder]="'secure.parametize.support_claims-filter.end-date' | translate"
                     formControlName="dateFinalQualityIssued" [errorStateMatcher]="matcher">
                   <mat-error *ngIf="filterCalifications.get('dateFinalQualityIssued').hasError('pattern')"
@@ -148,7 +147,7 @@
              </div>
             </div>
             <div>
-              <div class="orders-search-option normal-theme" style="position: absolute; bottom: 50px;left: 0px; text-align: center; width: 100%;">
+              <div class="orders-search-option normal-theme calification-list-filter-btn-clear" >
                 <button  class="sc-button" mat-button type="button" (click)="clearForm()">
                   <mat-icon>clear_all</mat-icon>
                   {{'filters.clear' | translate}}
