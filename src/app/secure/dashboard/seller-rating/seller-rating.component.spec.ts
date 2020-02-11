@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '@app/shared/shared.module';
 import { CommonModule, DatePipe } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
-import { LoadingService, UserParametersService, CognitoUtil, EndpointService } from '@app/core';
+import { LoadingService, UserParametersService, CognitoUtil, EndpointService, ModalService } from '@app/core';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { DashboardService } from '../services/dashboard.service';
 import { of } from 'rxjs';
@@ -48,8 +48,9 @@ fdescribe('SellerRatingComponent', () => {
     const dialogMock = { close: () => { } };
     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
     const mockUserParametersService = jasmine.createSpyObj('UserParametersService', ['getUserData']);
-    const mockSuportService = jasmine.createSpyObj('SupportService', ['getRegexFormSupport']);
+    const mockSuportService = jasmine.createSpyObj('SupportService', ['getRegexFormSupport', 'getClassification']);
     const mockDashboardService = jasmine.createSpyObj('DashboardService', ['getRatingSellers']);
+    const mockDialogError = jasmine.createSpyObj('ModalService', ['showModal']);
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -72,6 +73,7 @@ fdescribe('SellerRatingComponent', () => {
                 { provide: MatDialogRef, useValue: dialogMock },
                 { provide: LoadingService, useValue: mockLoadingService },
                 { provide: UserParametersService, useValue: mockUserParametersService },
+                {provide: ModalService, useValue: mockDialogError},
                 // UserParametersService,
                 DashboardService,
                 DatePipe,

@@ -92,7 +92,7 @@ export class SellerRatingComponent implements OnInit {
     this.createFormControls();
     this.validateFormSupport();
     this.getSellerRating();
-    this.getCaseEvaluation();
+    // this.getCaseEvaluation();
     // this.prueba();
   }
 
@@ -190,6 +190,7 @@ export class SellerRatingComponent implements OnInit {
       }
       this.loadingService.closeSpinner();
     });
+    // this.getCaseEvaluation();
   }
 
   /**
