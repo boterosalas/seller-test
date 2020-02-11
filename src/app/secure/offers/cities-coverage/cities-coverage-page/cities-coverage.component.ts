@@ -135,6 +135,7 @@ export class CitiesCoverageComponent implements OnInit {
         this.dataSource.data.forEach((row: CitiesEntity) => (row.Status) && this.selection.select(row));
         // this.dataSource.data.forEach((row: CitiesEntity) => this.selection.select(row));
       }
+      this.__loadingService.closeSpinner();
     }, (err) => { console.error(err); }, () => this.__loadingService.closeSpinner());
   }
 
