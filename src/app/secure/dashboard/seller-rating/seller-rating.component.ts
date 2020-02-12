@@ -1,19 +1,23 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { MatTableDataSource, MatDialog, ErrorStateMatcher } from '@angular/material';
 import { Router } from '@angular/router';
-import { RoutesConst } from '@app/shared';
-import { LoadingService, UserParametersService, ModalService } from '@app/core';
+import { RoutesConst, ComponentsService } from '@app/shared';
+import { LoadingService, UserParametersService, ModalService, Logger } from '@app/core';
 import { SupportModalComponent } from '@app/secure/support-modal/support-modal.component';
 import { DashboardService } from '../services/dashboard.service';
 import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 import { FormGroup, FormBuilder, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import { TranslateService } from '@ngx-translate/core';
 
 // export interface Calification {
 //   calification: string;
 //   date_calificate: string;
 //   date_issued: string;
 // }
+
+const log = new Logger('SellerRatingComponent');
+
 
 /**
  *
@@ -80,6 +84,8 @@ export class SellerRatingComponent implements OnInit {
     private userParams: UserParametersService,
     private _dashboard: DashboardService,
     private modalService: ModalService,
+    public componentsService: ComponentsService,
+    private languageService: TranslateService,
     public SUPPORT?: SupportService,
   ) {
     // this.getAllDataUser();
@@ -92,6 +98,7 @@ export class SellerRatingComponent implements OnInit {
     this.createFormControls();
     this.validateFormSupport();
     this.getSellerRating();
+    console.log('hola');
     // this.getCaseEvaluation();
     // this.prueba();
   }
@@ -181,14 +188,24 @@ export class SellerRatingComponent implements OnInit {
     }
     this.paramsGetSellerRating.sellerId = localStorage.getItem('userId');
     this._dashboard.getRatingSellers(this.paramsGetSellerRating).subscribe(result => {
-      if (result.status === 200 || result.status === 201) {
-        this.arraySellerRating = result.body.viewModel;
-        this.dataSource = new MatTableDataSource(this.arraySellerRating);
-        this.savePaginationToken(result.body.paginationToken);
+      console.log('result', result);
+      if (result.body) {
+        if (result.status === 200 || result.status === 201) {
+          this.arraySellerRating = result.body.viewModel;
+          this.dataSource = new MatTableDataSource(this.arraySellerRating);
+          this.savePaginationToken(result.body.paginationToken);
+        } else {
+          this.modalService.showModal('errorService');
+        }
+        this.loadingService.closeSpinner();
       } else {
+        console.log('entra al else');
         this.modalService.showModal('errorService');
+        this.loadingService.closeSpinner();
       }
-      this.loadingService.closeSpinner();
+    }, error => {
+      this.componentsService.openSnackBar(this.languageService.instant('public.auth.forgot.error_try_again'), this.languageService.instant('actions.close'), 4000);
+      log.error(error);
     });
     // this.getCaseEvaluation();
   }

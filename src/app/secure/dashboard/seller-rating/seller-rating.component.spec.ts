@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogRef, MatDialogModule, MatInputModule, MatIconModule, MatSnackBarModule } from '@angular/material';
 import { SellerRatingComponent } from './seller-rating.component';
 import { MaterialModule } from '@app/material.module';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '@app/shared/shared.module';
@@ -12,6 +12,7 @@ import { LoadingService, UserParametersService, CognitoUtil, EndpointService, Mo
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { DashboardService } from '../services/dashboard.service';
 import { of } from 'rxjs';
+import { ComponentsService } from '@app/shared';
 
 export const registerRegex = [
     { Identifier: 'dateMonthYear', Value: '^(0[0-9]||1[0-2])\/([0-9]{4})$', Module: 'dashboard' },
@@ -27,6 +28,17 @@ fdescribe('SellerRatingComponent', () => {
         sellerName: 'la tienda de cristian 2019 vs 5',
         sellerNit: '1128438122',
         sellerProfile: 'seller',
+    };
+
+    const resSellerRating = {
+        body:   {
+            idSeller: 11811,
+            qualificationDate: 202012,
+            generatedDate: 20201227,
+            urlFile: 'https://s3.amazonaws.com/seller.center.exito.seller/qualificationDev/1234_Noviembre_2019_spanish.html',
+            qualitative: 'Deficiente'
+        },
+        status : 200
     };
 
     const params = {
@@ -79,6 +91,8 @@ fdescribe('SellerRatingComponent', () => {
                 DatePipe,
                 EndpointService,
                 CognitoUtil,
+                ComponentsService,
+                TranslateService,
                 { provide: SupportService, useValue: mockSuportService },
                 // { provide: DashboardService, useValue: mockDashboardService },
             ]
@@ -109,5 +123,36 @@ fdescribe('SellerRatingComponent', () => {
     it('clear all filter', () => {
         component.cleanAllFilter();
         expect(component.listFilterBrands).toEqual([]);
+    });
+    // it('getSellerRating', () => {
+    //     component.getSellerRating();
+    //     component.sellerId = undefined;
+    // });
+
+    describe('List with data', () => {
+        beforeEach(() => {
+            fixture = TestBed.createComponent(SellerRatingComponent);
+            component = fixture.componentInstance;
+            mockDashboardService.getRatingSellers.and.returnValue(of(resSellerRating));
+            localStorage.setItem('userId', UserInformation.sellerId);
+            fixture.detectChanges();
+        });
+
+        it('getSellerRating', () => {
+            const dashboard = {
+                    idSeller: 11811,
+                    qualificationDate: 202012,
+                    generatedDate: 20201227,
+                    urlFile: 'https://s3.amazonaws.com/seller.center.exito.seller/qualificationDev/1234_Noviembre_2019_spanish.html',
+                    qualitative: 'Deficiente'
+              };
+              component.arraySellerRating = dashboard;
+            // expect(component.arraySellerRating).toEqual(dashboard);
+            component.getSellerRating();
+        });
+        afterAll(() => {
+            TestBed.resetTestingModule();
+        });
+
     });
 });
