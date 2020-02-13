@@ -205,7 +205,7 @@ recalculateQualitative() {
     }
   }
 /**
- * funcion para notificar al vendedor 
+ * funcion para notificar al vendedor
  *
  * @memberof DetailCalificationComponent
  */
@@ -215,10 +215,12 @@ notificateSeller() {
       idSeller : this.idSeller
     };
     this.calificationService.notificate(params).subscribe((res: any) => {
-      this.loadingService.closeSpinner();
-      this.snackBar.open(this.languageService.instant('secure.quality.quality-score.message-send-quality'), this.languageService.instant('actions.close'), {
-        duration: 3000,
-    });
+      if (res) {
+        this.loadingService.closeSpinner();
+        this.snackBar.open(this.languageService.instant('secure.quality.quality-score.message-send-quality'), this.languageService.instant('actions.close'), {
+          duration: 3000,
+      });
+      }
     });
   }
 }

@@ -16,8 +16,8 @@ import { TranslateService } from '@ngx-translate/core';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-      const isSubmitted = form && form.submitted;
-      return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
 
@@ -76,7 +76,7 @@ export class CalificationListComponent implements OnInit {
   public onlyOne = true;
   public dataSource: MatTableDataSource<any>;
   public length = 0;
-  public showEmpty = true ;
+  public showEmpty = true;
 
   public stateSideNavOrder = false;
 
@@ -122,12 +122,12 @@ export class CalificationListComponent implements OnInit {
     this.createFormControls();
     this.validateFormSupport();
   }
-/**
- * Funcion para inicializar el formulario para el filtro
- *
- * @memberof CalificationListComponent
- */
-createFormControls() {
+  /**
+   * Funcion para inicializar el formulario para el filtro
+   *
+   * @memberof CalificationListComponent
+   */
+  createFormControls() {
     this.filterCalifications = new FormGroup({
       dateInitQualityMonth: new FormControl('', [Validators.pattern(this.BrandsRegex.dateMonthYear)]),
       dateFinalQualityMonth: new FormControl('', [Validators.pattern(this.BrandsRegex.dateMonthYear)]),
@@ -136,12 +136,12 @@ createFormControls() {
     });
   }
 
- /**
-  * funcion para validar la regex de base de datos y comparar con los campos de fechas
-  *
-  * @memberof CalificationListComponent
-  */
- public validateFormSupport(): void {
+  /**
+   * funcion para validar la regex de base de datos y comparar con los campos de fechas
+   *
+   * @memberof CalificationListComponent
+   */
+  public validateFormSupport(): void {
     this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
       let dataOffertRegex = JSON.parse(res.body.body);
       dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'dashboard');
@@ -154,12 +154,12 @@ createFormControls() {
       this.createFormControls();
     });
   }
-/**
- * funcion que dispara un evento para buscar un vendedor y traer la informacion correspondiente
- *
- * @memberof CalificationListComponent
- */
-eventEmitSearch() {
+  /**
+   * funcion que dispara un evento para buscar un vendedor y traer la informacion correspondiente
+   *
+   * @memberof CalificationListComponent
+   */
+  eventEmitSearch() {
     this.searchSubscription = this.eventsSeller.eventSearchSeller.subscribe((seller: StoreModel) => {
       this.idSeller = seller.IdSeller;
       this.nameSeller = seller.Name;
@@ -172,13 +172,13 @@ eventEmitSearch() {
       this.getCalificationsBySeller(paramsArray);
     });
   }
-/**
- * funcion para paginar las informacion de un vendedor con diferentes calificaciones
- *
- * @param {*} event
- * @memberof CalificationListComponent
- */
-paginations(event: any) {
+  /**
+   * funcion para paginar las informacion de un vendedor con diferentes calificaciones
+   *
+   * @param {*} event
+   * @memberof CalificationListComponent
+   */
+  paginations(event: any) {
     if (event) {
       const index = event.param.pageIndex;
       if (event.param.pageSize !== this.pageSize) {
@@ -215,43 +215,45 @@ paginations(event: any) {
       this.getCalificationsBySeller(params);
     }
   }
-/**
- *  funcion para setear el tamaño de la pagina
- *
- * @param {*} size
- * @memberof CalificationListComponent
- */
-setItemsByPage(size: any) {
+  /**
+   *  funcion para setear el tamaño de la pagina
+   *
+   * @param {*} size
+   * @memberof CalificationListComponent
+   */
+  setItemsByPage(size: any) {
     this.pageSize = size;
   }
-/**
- * funcion para validar la posicion del array del pagination token
- *
- * @memberof CalificationListComponent
- */
-validateArrayPositionPaginationToken() {
+  /**
+   * funcion para validar la posicion del array del pagination token
+   *
+   * @memberof CalificationListComponent
+   */
+  validateArrayPositionPaginationToken() {
     if (this.arrayPosition && this.arrayPosition.length > 0) {
       this.arrayPosition = [];
       this.isClear = true;
     }
   }
-/**
- * funcion para consultar las calificaciones de un vendedor y listarla
- *
- * @param {*} [params]
- * @memberof CalificationListComponent
- */
-getCalificationsBySeller(params?: any) {
+  /**
+   * funcion para consultar las calificaciones de un vendedor y listarla
+   *
+   * @param {*} [params]
+   * @memberof CalificationListComponent
+   */
+  getCalificationsBySeller(params?: any) {
     this.loadingService.viewSpinner();
     this.params = this.setParameters(params);
     this.calificationService.getListCalificationsBySeller(this.params).subscribe((res: any) => {
-      this.setTable(res);
-      this.loadingService.closeSpinner();
+      if (res) {
+        this.setTable(res);
+        this.loadingService.closeSpinner();
+      }
     }, error => {
       this.loadingService.closeSpinner();
       this.snackBar.open(this.languageService.instant('secure.orders.send.error_ocurred_processing'), this.languageService.instant('actions.close'), {
         duration: 3000,
-    });
+      });
     });
   }
   /**
@@ -280,43 +282,43 @@ getCalificationsBySeller(params?: any) {
     if (this.dateInitQualityMonth) {
       calificationsParams += this.dateInitQualityMonth + '/';
     } else {
-      calificationsParams += 'null/' ;
+      calificationsParams += 'null/';
     }
     if (this.dateFinalQualityMonth) {
-      calificationsParams +=  this.dateFinalQualityMonth + '/';
+      calificationsParams += this.dateFinalQualityMonth + '/';
     } else {
-      calificationsParams += 'null/' ;
+      calificationsParams += 'null/';
     }
     if (this.dateInitQualityIssued) {
       calificationsParams += this.dateInitQualityIssued + '/';
     } else {
-      calificationsParams += 'null/' ;
+      calificationsParams += 'null/';
     }
     if (this.dateFinalQualityIssued) {
       calificationsParams += this.dateFinalQualityIssued + '/';
     } else {
-      calificationsParams += 'null/' ;
+      calificationsParams += 'null/';
     }
     if (this.paginationToken) {
       calificationsParams += encodeURI(this.paginationToken) + '/';
     } else {
-      this.calificationsParams += 'null/' ;
+      this.calificationsParams += 'null/';
     }
     if (this.pageSize) {
       calificationsParams += this.pageSize;
     } else {
-      calificationsParams += '50' ;
+      calificationsParams += '50';
     }
 
     return calificationsParams;
   }
-/**
- * funcion para guardar el pagination tocken y setear la tabla
- *
- * @param {*} res
- * @memberof CalificationListComponent
- */
-setTable(res: any) {
+  /**
+   * funcion para guardar el pagination tocken y setear la tabla
+   *
+   * @param {*} res
+   * @memberof CalificationListComponent
+   */
+  setTable(res: any) {
     if (res) {
       if (this.onlyOne) {
         this.length = res.count;
@@ -326,7 +328,7 @@ setTable(res: any) {
       this.showEmpty = false;
       this.sortedData = this.mapItems(
         res.viewModel,
-    );
+      );
       this.dataSource = new MatTableDataSource(this.sortedData);
       this.savePaginationToken(res.paginationToken);
     } else {
@@ -335,69 +337,69 @@ setTable(res: any) {
     }
     this.onlyOne = false;
   }
-/**
- * funcion para mapear la respuesta de del back
- *
- * @param {any[]} items
- * @returns {any[]}
- * @memberof CalificationListComponent
- */
-mapItems(items: any[]): any[] {
+  /**
+   * funcion para mapear la respuesta de del back
+   *
+   * @param {any[]} items
+   * @returns {any[]}
+   * @memberof CalificationListComponent
+   */
+  mapItems(items: any[]): any[] {
     return items.map(x => {
-        return {
-            idSeller: x.idSeller,
-            qualitative: x.qualitative,
-            qualificationDate: x.qualificationDate,
-            generatedDate: x.generatedDate,
-            qualificationDateFormt: this.formtDateMonthYear(x.qualificationDate),
-            generatedDateFormt: this.formtDateMonthYear(x.generatedDate),
-        };
+      return {
+        idSeller: x.idSeller,
+        qualitative: x.qualitative,
+        qualificationDate: x.qualificationDate,
+        generatedDate: x.generatedDate,
+        qualificationDateFormt: this.formtDateMonthYear(x.qualificationDate),
+        generatedDateFormt: this.formtDateMonthYear(x.generatedDate),
+      };
     });
-}
-/**
- * funcion para formatear la fecha que se muesta en la pantalla mes y año
- *
- * @param {*} date
- * @returns
- * @memberof CalificationListComponent
- */
-formtDateMonthYear(date: any) {
-  const formtDateMonth = date.toString().substr(-2, 2);
-  const formtDateYear = date.toString().substr(-20, 4);
-  return formtDateMonth + '/' + formtDateYear ;
-}
-/**
- * funcion para formatear la fecha que se muesta en la pantalla DD/MM/AAAA
- *
- * @param {*} date
- * @returns
- * @memberof CalificationListComponent
- */
-formtDateDayMonthYear(date: any) {
-  const format = 'DD/MM/YYYY';
-  const stringDate = moment(date.toString()).utc().format(format).toString();
-  // return stringDate;
-  return date;
-}
-/**
- * funcion para setear el pagination token a una variable de global
- *
- * @param {string} paginationToken
- * @memberof CalificationListComponent
- */
-savePaginationToken(paginationToken: string) {
+  }
+  /**
+   * funcion para formatear la fecha que se muesta en la pantalla mes y año
+   *
+   * @param {*} date
+   * @returns
+   * @memberof CalificationListComponent
+   */
+  formtDateMonthYear(date: any) {
+    const formtDateMonth = date.toString().substr(-2, 2);
+    const formtDateYear = date.toString().substr(-20, 4);
+    return formtDateMonth + '/' + formtDateYear;
+  }
+  /**
+   * funcion para formatear la fecha que se muesta en la pantalla DD/MM/AAAA
+   *
+   * @param {*} date
+   * @returns
+   * @memberof CalificationListComponent
+   */
+  formtDateDayMonthYear(date: any) {
+    const format = 'DD/MM/YYYY';
+    const stringDate = moment(date.toString()).utc().format(format).toString();
+    // return stringDate;
+    return date;
+  }
+  /**
+   * funcion para setear el pagination token a una variable de global
+   *
+   * @param {string} paginationToken
+   * @memberof CalificationListComponent
+   */
+  savePaginationToken(paginationToken: string) {
     if (paginationToken) {
       this.paginationToken = paginationToken;
     }
   }
-/**
- * funcion para consumir el detalle de un vendedor y de una calificacion, ocultar el listado y mostrar el detalle
- *
- * @param {string} qualificationDate
- * @param {number} idSeller
- * @memberof CalificationListComponent
- */
-contentDetails(qualificationDate: string, idSeller: number) {
+  /**
+   * funcion para consumir el detalle de un vendedor y de una calificacion, ocultar el listado y mostrar el detalle
+   *
+   * @param {string} qualificationDate
+   * @param {number} idSeller
+   * @memberof CalificationListComponent
+   */
+  contentDetails(qualificationDate: string, idSeller: number) {
     this.loadingService.viewSpinner();
     let dataFormt = '';
     if (qualificationDate && idSeller) {
@@ -407,28 +409,35 @@ contentDetails(qualificationDate: string, idSeller: number) {
       }
       const params = idSeller + '/' + dataFormt;
       this.calificationService.getListCalificationsBySeller(params).subscribe((res: any) => {
-        this.detailByElemet = res.viewModel;
+        if (res) {
+          this.detailByElemet = res.viewModel;
+          this.loadingService.closeSpinner();
+          this.showContainerDetail = true;
+        }
+      }, error => {
         this.loadingService.closeSpinner();
-        this.showContainerDetail = true;
+        this.snackBar.open(this.languageService.instant('secure.orders.send.error_ocurred_processing'), this.languageService.instant('actions.close'), {
+          duration: 3000,
+        });
       });
     }
   }
-/**
- * funcion para mostrar el menu de filtros
- *
- * @memberof CalificationListComponent
- */
-toggleFilterCalifications() {
+  /**
+   * funcion para mostrar el menu de filtros
+   *
+   * @memberof CalificationListComponent
+   */
+  toggleFilterCalifications() {
     this.sidenavSearchOrder.toggle();
   }
 
-/**
- * funcion para filtrar calificaciones
- *
- * @param {*} form
- * @memberof CalificationListComponent
- */
-filterCalification(form: any) {
+  /**
+   * funcion para filtrar calificaciones
+   *
+   * @param {*} form
+   * @memberof CalificationListComponent
+   */
+  filterCalification(form: any) {
 
     if (form) {
       if (form.dateInitQualityMonth) {
@@ -445,43 +454,43 @@ filterCalification(form: any) {
       }
     }
     const params = {
-      callOne : true,
+      callOne: true,
     };
     this.getCalificationsBySeller(params);
     // this.clearForm();
   }
-/**
- * funcion intercambiar la posicion del mes y el año
- *
- * @param {string} valueDate
- * @returns
- * @memberof CalificationListComponent
- */
-formtDateYearMonth(valueDate: string) {
+  /**
+   * funcion intercambiar la posicion del mes y el año
+   *
+   * @param {string} valueDate
+   * @returns
+   * @memberof CalificationListComponent
+   */
+  formtDateYearMonth(valueDate: string) {
     if (valueDate && valueDate.includes('/')) {
       const arrayDate = valueDate.split('/');
       return arrayDate[1] + arrayDate[0];
     }
   }
-/**
- * funcion para mostar el mes y el año
- *
- * @param {string} date
- * @returns
- * @memberof CalificationListComponent
- */
-formatNameMonth(date: string) {
+  /**
+   * funcion para mostar el mes y el año
+   *
+   * @param {string} date
+   * @returns
+   * @memberof CalificationListComponent
+   */
+  formatNameMonth(date: string) {
     const formtDateMonth = date.toString().substr(-2, 2);
     const formtDateYear = date.toString().substr(-20, 4);
     const month = this.monthES[parseInt(formtDateMonth, 0) - 1];
-   return month + ' (' + formtDateYear + ')';
+    return month + ' (' + formtDateYear + ')';
   }
-/**
- * funcion para limpiar el formulario
- *
- * @memberof CalificationListComponent
- */
-clearForm() {
+  /**
+   * funcion para limpiar el formulario
+   *
+   * @memberof CalificationListComponent
+   */
+  clearForm() {
     this.filterCalifications.reset();
     this.dateInitQualityMonth = '';
     this.dateFinalQualityMonth = '';
@@ -493,12 +502,12 @@ clearForm() {
     this.getCalificationsBySeller(this.params);
     this.toggleFilterCalifications();
   }
-/**
- * funcion para ocultar el detalle y mostrar el listado de las calificaciones por vendedor
- *
- * @memberof CalificationListComponent
- */
-backListCalifications() {
+  /**
+   * funcion para ocultar el detalle y mostrar el listado de las calificaciones por vendedor
+   *
+   * @memberof CalificationListComponent
+   */
+  backListCalifications() {
     this.showContainerDetail = false;
   }
 
