@@ -76,7 +76,7 @@ export class SellerRatingComponent implements OnInit {
   activeFilter: Boolean = false;
   appealRating_clasification: any;
   appealRating_sub_clasification: any;
-  appealRating: any;
+  appealRating: Boolean = true;
 
 
   constructor(
@@ -298,15 +298,15 @@ export class SellerRatingComponent implements OnInit {
     });
   }
 
-  getCaseEvaluation() {
-    this.SUPPORT.getClassification().subscribe(categories => {
-      let ratingCategorie = categories.data;
-      ratingCategorie = ratingCategorie.filter(el => el.idMatrix === 'MT499');
-      this.appealRating_clasification = ratingCategorie.classification;
-      this.appealRating_sub_clasification = ratingCategorie.category;
-      this.appealRating = [this.appealRating_clasification, this.appealRating_sub_clasification];
-    });
-  }
+  // getCaseEvaluation() {
+  //   this.SUPPORT.getClassification().subscribe(categories => {
+  //     let ratingCategorie = categories.data;
+  //     ratingCategorie = ratingCategorie.filter(el => el.idMatrix === 'MT499');
+  //     this.appealRating_clasification = ratingCategorie.classification;
+  //     this.appealRating_sub_clasification = ratingCategorie.category;
+  //     this.appealRating = [this.appealRating_clasification, this.appealRating_sub_clasification];
+  //   });
+  // }
 
   /**
    * Metodo para abrir el modal de formulario de soporte para apelación

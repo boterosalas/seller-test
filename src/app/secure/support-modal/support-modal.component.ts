@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -7,7 +7,7 @@ import {
   AbstractControl,
   ValidatorFn
 } from '@angular/forms';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { UserParametersService } from '@app/core/aws-cognito';
 import { Logger } from '@app/core/util/logger.service';
@@ -35,6 +35,10 @@ import { CaseCategory, FieldsRequired } from '@app/shared/models/case-category';
 
 // log component
 const log = new Logger('SupportModalComponent');
+
+export interface DialogData {
+  data: boolean;
+}
 
 /**
  * Component que permite desplegar un modal donde se solicitaran unos datos para realizar el envió del mensaje de soporte
@@ -118,6 +122,10 @@ export class SupportModalComponent implements OnInit {
   scRequiered: Array<FieldsRequired> = [];
   classificationSelected = null;
 
+  appealRating_clasification: any;
+  appealRating_sub_clasification: any;
+  appealRating: any;
+
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<SupportModalComponent>,
@@ -125,17 +133,40 @@ export class SupportModalComponent implements OnInit {
     public SUPPORT: SupportService,
     public userParams: UserParametersService,
     public loadingService: LoadingService,
-    public languageService: TranslateService
+    public languageService: TranslateService,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) { }
 
   /**
    * @memberof SupportModalComponent
    */
   ngOnInit() {
+    console.log('data: ', this.data);
+    this.getCaseEvaluation();
     this.getInfoSeller();
     this.SUPPORT.getClassification()
       .pipe(filter(response => response && response.data))
       .subscribe(categories => this.omsCategories = categories.data);
+  }
+
+  /**
+   * Caso de evaluacion mensual por defecto
+   * @memberof SupportModalComponent
+   */
+  getCaseEvaluation() {
+    this.SUPPORT.getClassification().subscribe(categories => {
+      console.log(categories);
+      let ratingCategorie = categories.data;
+      ratingCategorie = ratingCategorie.filter(el => el.idMatrix === 'MT498');
+      console.log(ratingCategorie);
+      ratingCategorie.forEach(element => {
+        this.appealRating_clasification = element.classification;
+        this.appealRating_sub_clasification = element.category;
+
+      });
+      this.appealRating = [this.appealRating_clasification, this.appealRating_sub_clasification];
+      console.log('this.appealRating: ', this.appealRating);
+    });
   }
 
   getClassification(omsCategories: Array<CaseCategory>) {
@@ -211,6 +242,7 @@ export class SupportModalComponent implements OnInit {
       })
       .pipe(
         switchMap(options => from(options)),
+        // tslint:disable-next-line:no-shadowed-variable
         groupBy(item => item['category']),
         mergeMap((group) => group.pipe(toArray(), map(data => data[0]))),
         toArray()
@@ -314,7 +346,7 @@ export class SupportModalComponent implements OnInit {
           Validators.pattern(this.instant('contactOrders'))
         ])
       ),
-      classification: new FormControl('',
+      classification: new FormControl(this.appealRating_clasification,
         Validators.compose([Validators.required])
       ),
       subCategory: new FormControl(''),
