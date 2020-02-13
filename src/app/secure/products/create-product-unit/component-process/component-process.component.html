@@ -2,48 +2,48 @@
   {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
 </button> -->
 <div class="height-full">
-<mat-horizontal-stepper linear #stepper class="process__container height-full" (selectionChange)="stepClick($event)">
-  <mat-step [stepControl]="eanFormGroup">
+<mat-horizontal-stepper linear  #stepper  class="process__container height-full" (selectionChange)="stepClick($event)">
+  <mat-step [stepControl]="eanFormGroup" [optional]="isOptional" [editable]="editFirstStep" [completed] ="eanFormGroup.valid">
     <form [formGroup]="eanFormGroup">
       <ng-template matStepLabel>{{'shared.ean' | translate}}</ng-template>
-      <app-validate-ean></app-validate-ean>
+      <app-validate-ean [ean]="ean"></app-validate-ean>
     </form>
   </mat-step>
 
-  <mat-step [stepControl]="categoryFormGroup">
+  <mat-step [stepControl]="categoryFormGroup" [optional]="isOptional">
     <form [formGroup]="categoryFormGroup">
       <ng-template matStepLabel>{{'secure.products.create_product_unit.component_process.categorization' | translate}}</ng-template>
-      <app-search-categorization></app-search-categorization>
+      <app-search-categorization [detailProduct]="detailProduct" [ean]="ean"></app-search-categorization>
       <div class="buttonProcess">
         <button mat-button matStepperPrevious class="buttonProcessAtras">{{'secure.products.create_product_unit.component_process.back' | translate}}</button>
         <button mat-button matStepperNext [disabled]="!views?.showCat" class="buttonProcessContinuar">{{'secure.products.create_product_unit.component_process.continue' | translate}}</button>
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="basicInfoFormGroup">
+  <mat-step [stepControl]="basicInfoFormGroup" [completed] ="ean">
     <form [formGroup]="basicInfoFormGroup">
       <ng-template matStepLabel>{{'secure.products.create_product_unit.component_process.basic_information' | translate}}</ng-template>
-      <app-basic-information></app-basic-information>
+      <app-basic-information [detailProduct]="detailProduct" ></app-basic-information>
       <div class="buttonProcess">
         <button mat-button matStepperPrevious class="buttonProcessAtras">{{'secure.products.create_product_unit.component_process.back' | translate}}</button>
         <button mat-button matStepperNext class="buttonProcessContinuar" [disabled]="!basicInfoFormGroup.valid" (click)="continue_after_basic_info()">{{'secure.products.create_product_unit.component_process.continue' | translate}}</button>
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="especificFormGroup">
+  <mat-step [stepControl]="especificFormGroup" [completed] ="ean">
     <form [formGroup]="especificFormGroup">
       <ng-template matStepLabel>{{'secure.products.create_product_unit.component_process.specifications' | translate}}</ng-template>
-      <app-specification-product></app-specification-product>
+      <app-specification-product [detailProduct]="detailProduct" [ean]="ean"></app-specification-product>
       <div class="buttonProcess">
         <button mat-button matStepperPrevious class="buttonProcessAtras">{{'secure.products.create_product_unit.component_process.back' | translate}}</button>
         <button mat-button matStepperNext class="buttonProcessContinuar">{{'secure.products.create_product_unit.component_process.continue' | translate}}</button>
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="imageFormGroup">
+  <mat-step [stepControl]="imageFormGroup" [completed] ="ean">
     <form [formGroup]="imageFormGroup">
       <ng-template matStepLabel>{{'secure.products.create_product_unit.component_process.images' | translate}}</ng-template>
-      <app-assign-images [children]="children_created"></app-assign-images>
+      <app-assign-images [detailProduct]="detailProduct" [children]="children_created"></app-assign-images>
       <div class="buttonProcess">
           <button mat-button matStepperPrevious class="buttonProcessAtras">{{'secure.products.create_product_unit.component_process.back' | translate}}</button>
           <button mat-button (click)="saveInformationCreation()" class="buttonProcessContinuar">{{'secure.products.create_product_unit.component_process.save' | translate}}</button>

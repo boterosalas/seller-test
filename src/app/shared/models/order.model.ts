@@ -291,6 +291,7 @@ export class OrderDevolutionsModel {
   sacObservationReceiptRefuse?: null;
   attachedEvidence?: null;
   reversionRequestDetailViewModel: ReversionRequestDetailViewModel;
+  evidenceLists: any;
 }
 
 /**
@@ -306,7 +307,6 @@ export class ReversionRequestDetailViewModel {
   reference: string;
   requestedAmount: number;
   reverseAmount: number;
-  attachedEvidence: any;
 }
 
 /**
@@ -370,4 +370,20 @@ export interface HistoricalDevolutionEntity {
   sellerObservationReceiptRefuse: null | string;
   sacObservationReceiptRefuse: null | string;
   reversionRequestDetailViewModel: ReversionRequestDetailViewModel;
+}
+
+export interface StateEntity {
+  Id: number;
+  Name: string;
+}
+
+export interface CitiesEntity {
+  Id: number;
+  Name: string;
+  IdState: number;
+  DaneCode: string;
+  SincoDaneCode: string;
+  Status?: boolean;
+  City?: string;
+  State?: string;
 }

@@ -13,7 +13,7 @@ import { SpecificationModel } from './specification.model';
 import { SpecificationDialogComponent } from './dialog/dialog.component';
 import { ProcessService } from '../component-process/component-process.service';
 import { SharedModule } from '@app/shared/shared.module';
-import { LoadingService } from '@app/core';
+import { LoadingService, EndpointService } from '@app/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SpecificationProductComponent', () => {
@@ -1334,8 +1334,6 @@ describe('SpecificationProductComponent', () => {
         },
     };
 
-
- 
     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner', 'viewProgressBar']);
     const mockProcessService = jasmine.createSpyObj('ProcessService', ['setFeatures']);
 
@@ -1347,9 +1345,11 @@ describe('SpecificationProductComponent', () => {
             ],
             providers: [
                 { provide: SpecificationService, useValue: specificationService },
-                { provide: ProcessService, useValue: mockProcessService },
+                // { provide: ProcessService, useValue: mockProcessService },
                 { provide: MatDialogRef, useValue: {} },
                 { provide: LoadingService, useValue: mockLoadingService },
+                ProcessService,
+                EndpointService
             ], imports: [
                 MaterialModule,
                 MatFormFieldModule,

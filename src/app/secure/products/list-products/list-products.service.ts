@@ -68,5 +68,9 @@ export class ListProductService {
     return this.http.get(this.api.get('getProductExpanded', [params]));
   }
 
+  public getProductsDetails(params?: any): Observable<{}> {
+    return this.http.get(this.api.get('getProductDetails', [params]));
+  }
+
 
 }

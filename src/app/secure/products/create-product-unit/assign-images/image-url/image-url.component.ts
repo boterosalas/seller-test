@@ -19,27 +19,46 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class ImageUrlComponent implements OnInit {
   @Input() imgUrl: String;
   @Input() index: String;
+  @Input() idParentArray: any;
   @Output() imgUrlOut = new EventEmitter();
   public valImage: any;
   formatimage: any;
   createImage: FormGroup;
   public formatImg = /^([^\s]+(\.jpg)$)/;
+  arrayImageDadClothing: any;
+  @Input() set setImag(value: any) {
+    if (value) {
+      this.sendChange(value);
+      if (this.createImage && this.createImage.controls) {
+        this.createImage.controls.inputImage.setValue(value);
+      }
+    }
+  }
+
+  @Input() set setImagTec(value: any){
+    if (value) {
+      this.sendChange(value);
+      if (this.createImage && this.createImage.controls) {
+        this.createImage.controls.inputImage.setValue(value);
+      }
+    }
+  }
 
   constructor(private fb: FormBuilder, private service: AsignateimageService) {
+    this.createImage = this.fb.group({
+      inputImage: ['', Validators.pattern(this.formatImg)],
+    });
+    this.imgUrl = './assets/img/no-image.svg';
   }
 
-  ngOnInit() {
-      this.createImage = this.fb.group({
-          inputImage: ['', Validators.pattern(this.formatImg)],
-        });
-        this.imgUrl = './assets/img/no-image.svg';
-  }
+  ngOnInit() {}
 
-/**
- * Funcion sendChange()
- * Funcion para colocar valor de input en el src y cargar la imagen y que sea .jpg
- * @memberof ImageUrlComponent
- */
+
+  /**
+   * Funcion sendChange()
+   * Funcion para colocar valor de input en el src y cargar la imagen y que sea .jpg
+   * @memberof ImageUrlComponent
+   */
   sendChange(val: any) {
     this.imgUrl = val;
     if (val.match(this.formatImg)) {
@@ -49,14 +68,15 @@ export class ImageUrlComponent implements OnInit {
         if (this.formatimage.Data.Error === false) {
           this.imgUrlOut.emit([this.index, this.imgUrl]);
         } else {
-          if ( this.imgUrl ) {
-            this.createImage.controls.inputImage.setErrors({ 'validFormatImage': this.formatimage.Data.Error});
+          if (this.imgUrl) {
+            this.createImage.controls.inputImage.setErrors({ 'validFormatImage': this.formatimage.Data.Error });
             this.imgUrl = './assets/img/no-image.svg';
           }
         }
       });
     } else {
       this.imgUrl = './assets/img/no-image.svg';
+      this.imgUrlOut.emit([this.index, '']);
     }
   }
 }

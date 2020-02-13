@@ -11,7 +11,8 @@ import {
   HistoricalModuleAdmin,
   ListModule,
   ListAdminModule,
-  StoresModule
+  StoresModule,
+  CitiesCoverageModule
 } from '@app/secure/offers';
 import { QuotingModule } from '@app/secure/offers/quoting/quoting.module';
 import {
@@ -80,7 +81,8 @@ import { QualityModule } from './quality/quality.module';
     SellerSupportCenterModule,
     CoreStoreModule,
     ListReportsModule,
-    QualityModule
+    QualityModule,
+    CitiesCoverageModule
   ],
   providers: [AuthService, SellerSupportCenterService]
 })

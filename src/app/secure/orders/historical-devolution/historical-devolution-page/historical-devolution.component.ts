@@ -14,6 +14,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import * as _ from 'lodash';
+import { TranslateService } from '@ngx-translate/core';
 
 const log = new Logger('HistoricalDevolutionComponent');
 
@@ -122,19 +123,36 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     public userParams: UserParametersService,
     private shellComponent: ShellComponent,
-    public eventsSeller: EventEmitterSeller
+    public eventsSeller: EventEmitterSeller,
+    private languageService: TranslateService,
   ) { }
 
   ngOnInit() {
     this.getDataUser();
+    this.changeLanguage();
+
+    // this.searchSubscription = this.eventsSeller.eventSearchSeller
+    //   .subscribe((seller: StoreModel) => {
+    //     // this.changeLanguage();
+    //     this.idSeller = seller.IdSeller;
+    //     if (this.event) {
+    //       // this.changeLanguage();
+    //       this.getOrdersList(this.event);
+    //     }
+    //   });
+    this.clearData();
+  }
+
+  getAdminHistoric() {
     this.searchSubscription = this.eventsSeller.eventSearchSeller
       .subscribe((seller: StoreModel) => {
+        // this.changeLanguage();
         this.idSeller = seller.IdSeller;
         if (this.event) {
+          // this.changeLanguage();
           this.getOrdersList(this.event);
         }
       });
-    this.clearData();
   }
 
   ngOnDestroy() {
@@ -195,7 +213,6 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
     this.__loadingService.viewSpinner();
     this.__historicalService.getHistorical(stringSearch)
       .subscribe(data => {
-        this.__loadingService.closeSpinner();
         // guardo el filtro actual para la paginación.
         this.currentEventPaginate = $event;
 
@@ -207,6 +224,8 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
         this.dataSource.paginator = $event.paginator;
         this.dataSource.sort = this.sort;
         this.numberElements = this.dataSource.data.length;
+
+        this.__loadingService.closeSpinner();
       },
         () => {
           this.orderListLength = true;
@@ -306,6 +325,15 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
     this.subFilterHistoricalDevolution = this.shellComponent.eventEmitterOrders.clearTable.subscribe(() => {
       this.filterParamsHistoricoDevoluciones = undefined;
       this.getOrdersList(this.event);
+    });
+  }
+
+  changeLanguage() {
+    this.getAdminHistoric();
+    this.languageService.onLangChange.subscribe((e: Event) => {
+      localStorage.setItem('culture_current', e['lang']);
+      this.getOrdersList(this.event);
+      this.clearData();
     });
   }
 }
