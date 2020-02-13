@@ -406,7 +406,8 @@ export class ProductBasicInfoComponent implements OnInit {
     }
 
     public invertColor(hex: string, bw: boolean = true) {
-        if (hex) {
+        // if (hex) {
+        if (hex && hex !== '#0') {
             if (hex.indexOf('#') === 0) {
                 hex = hex.slice(1);
             }
