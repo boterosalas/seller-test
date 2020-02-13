@@ -12,14 +12,6 @@ export class CalificationService {
     private api: EndpointService
   ) {}
 
-//////////////////////////////////// BORARAR
-  res = {
-    'errors': [],
-    'data': true,
-    'message': 'Operación realizada con éxito.'
-  };
-
-
   getOrderList(params: any): Observable<[{}]> {
     let filter = '';
     if (params) {
@@ -61,11 +53,6 @@ export class CalificationService {
   }
 
   public notificate(body: any): Observable<any> {
-    return new Observable(observer => {
-      observer.next(this.res);
-    });
-    // return this.http.post(`${this.api.get('upsertQualification')}`, body);
+    return this.http.post(this.api.get('upsertQualification'), body);
   }
-
-
 }

@@ -46,18 +46,29 @@ export class DetailCalificationComponent implements OnInit {
   ngOnInit() {
     this.setDetailsBySeller();
   }
-
-  setDetailsBySeller() {
-    console.log(this.detailByElemet);
+/**
+ * funcion para calcular la sumatoria total y el color de la calificacion
+ *
+ * @memberof DetailCalificationComponent
+ */
+setDetailsBySeller() {
+  if ( this.detailByElemet && this.detailByElemet.detail) {
     this.sumatoryPenality(this.detailByElemet.detail);
     this.colorCalificationPromiseDelivery = this.setClassColorByCalification(this.detailByElemet.qualificationPromiseDelivery.qualification);
     this.colorCalificationCase = this.setClassColorByCalification(this.detailByElemet.qualificationCase.qualification);
     this.colorCalificationCanceled = this.setClassColorByCalification(this.detailByElemet.qualificationCanceled.qualification);
     this.setFormatDateInfoSellerMonthQuality = this.formatNameMonth(this.detailByElemet.qualificationDate);
-    this.setFormatDateInfoSellerGenrateDate = this.formatNameMonth(this.detailByElemet.generatedDate);
+    this.setFormatDateInfoSellerGenrateDate = this.detailByElemet.generatedDate;
   }
-
-  setClassColorByCalification(calification: number) {
+  }
+/**
+ * funcion para setear el color en la variables
+ *
+ * @param {number} calification
+ * @returns
+ * @memberof DetailCalificationComponent
+ */
+setClassColorByCalification(calification: number) {
     let classColorByCalification = 'default';
     if (calification < 3) {
       classColorByCalification = 'deficient';
@@ -73,46 +84,83 @@ export class DetailCalificationComponent implements OnInit {
 
     return classColorByCalification;
   }
-
-  formtDateYearMonth(valueDate: string) {
+/**
+ *  funcion formato de la fecha
+ *
+ * @param {string} valueDate
+ * @returns
+ * @memberof DetailCalificationComponent
+ */
+formtDateYearMonth(valueDate: string) {
     if (valueDate && valueDate.includes('/')) {
       const arrayDate = valueDate.split('/');
       return arrayDate[1] + arrayDate[0];
     }
   }
-
-  formatNameMonth(date: string) {
-    const formtDateMonth = date.toString().substr(-2, 2);
-    const formtDateYear = date.toString().substr(-20, 4);
-    const month = this.monthES[parseInt(formtDateMonth, 0) - 1];
-    return month + ' (' + formtDateYear + ')';
+/**
+ * funcion para formatar la fecha con el nombre del mes
+ *
+ * @param {string} date
+ * @returns
+ * @memberof DetailCalificationComponent
+ */
+formatNameMonth(date: string) {
+    if (date && date.includes('/')) {
+      const arrayDate = date.split('/');
+      const month = this.monthES[parseInt(arrayDate[0], 0)];
+      return month + ' (' + arrayDate[1] + ')';
+    }
   }
-
-  formtDateDayMonthYear(date: any) {
+/**
+ * funcion para dar formato dia mes y año
+ *
+ * @param {*} date
+ * @returns
+ * @memberof DetailCalificationComponent
+ */
+formtDateDayMonthYear(date: any) {
     const format = 'DD/MM/YYYY';
     const stringDate = moment(date.toString()).utc().format(format).toString();
     return stringDate;
   }
-
-  sumatoryPenality(details: any) {
+/**
+ * funcion para sumar la penalidad
+ *
+ * @param {*} details
+ * @memberof DetailCalificationComponent
+ */
+sumatoryPenality(details: any) {
     if ( details.ordersOutsideDeliveryDate && details.ordersOutsideDeliveryDate.length > 0) {
        details.ordersOutsideDeliveryDate.forEach(element => {
       this.penaltyOutSideDelivery += element.penalty;
     });
     }
-    if (details.ordersOutsideDeliveryDate && details.ordersCanceledBySellerResponsibility.length > 0) {
+    if (details.ordersCanceledBySellerResponsibility && details.ordersCanceledBySellerResponsibility.length > 0) {
        details.ordersCanceledBySellerResponsibility.forEach(element => {
       this.penaltyCanceledBySeller += element.penalty;
     });
     }
     this.penaltyTotal = this.penaltyOutSideDelivery + this.penaltyCanceledBySeller;
   }
-
-  backTolist() {
+/**
+ * funcion regresar a la lista
+ *
+ * @memberof DetailCalificationComponent
+ */
+backTolist() {
     this.showContainerDetailSend.emit();
   }
-
-  confirmDeleteCalification(element: any , idSeller: any, idToProcess: string, Ean: string, typeExclusion: number ) {
+/**
+ * funcion para confirmar la eliminacion del registro de las calificaciones
+ *
+ * @param {*} element
+ * @param {*} idSeller
+ * @param {string} idToProcess
+ * @param {string} Ean
+ * @param {number} typeExclusion
+ * @memberof DetailCalificationComponent
+ */
+confirmDeleteCalification(element: any , idSeller: any, idToProcess: string, Ean: string, typeExclusion: number ) {
     const params = {
      orderNumber: element.orderNumber,
      customerName: element.customerName,
@@ -137,21 +185,36 @@ export class DetailCalificationComponent implements OnInit {
       this.recalculateQualitative();
     });
   }
-
-  recalculateQualitative() {
+/**
+ * funcion para recalcular
+ *
+ * @memberof DetailCalificationComponent
+ */
+recalculateQualitative() {
     if (this.detailByElemet && this.detailByElemet.qualificationDate && this.detailByElemet.idSeller ) {
-      const params = this.detailByElemet.idSeller + '/' + this.detailByElemet.qualificationDate;
+      const arrayDate = this.detailByElemet.qualificationDate.split('/');
+      const params = this.detailByElemet.idSeller + '/' + arrayDate[1] + arrayDate[0];
         this.calificationService.getListCalificationsBySeller(params).subscribe((res: any) => {
         this.detailByElemet = res.viewModel;
+        this.penaltyOutSideDelivery = 0;
+        this.penaltyCanceledBySeller = 0;
+        this.setDetailsBySeller();
         this.loadingService.closeSpinner();
         this.dialog.closeAll();
       });
     }
   }
-
-  notificateSeller() {
+/**
+ * funcion para notificar al vendedor 
+ *
+ * @memberof DetailCalificationComponent
+ */
+notificateSeller() {
     this.loadingService.viewSpinner();
-    this.calificationService.notificate(this.idSeller).subscribe((res: any) => {
+    const params = {
+      idSeller : this.idSeller
+    };
+    this.calificationService.notificate(params).subscribe((res: any) => {
       this.loadingService.closeSpinner();
       this.snackBar.open(this.languageService.instant('secure.quality.quality-score.message-send-quality'), this.languageService.instant('actions.close'), {
         duration: 3000,

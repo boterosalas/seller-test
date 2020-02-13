@@ -77,18 +77,16 @@
                </div>
                <div class="detail-calification-container-table-info-column-penalty">
                  <div fxFlex="60">Penalidad Incumplimiento</div>
-                 <div fxFlex="40" fxLayoutAlign="end end">$
-                   {{penaltyOutSideDelivery}}</div>
+                 <div fxFlex="40" fxLayoutAlign="end end"><span [innerHTML]="penaltyOutSideDelivery | currency: '$' : 'symbol' : '1.2-2'"></span></div>
                </div>
                <div class="detail-calification-container-table-info-column-penalty-cancel">
                  <div fxFlex="60">Penalidad Cancelaciones</div>
-                 <div fxFlex="40" fxLayoutAlign="end end">$
-                   {{penaltyCanceledBySeller}}</div>
+                 <div fxFlex="40" fxLayoutAlign="end end"><span [innerHTML]="penaltyCanceledBySeller | currency: '$' : 'symbol' : '1.2-2'"></span></div>
                </div>
                <div class="detail-calification-container-table-info-column-penalty-total">
                  <div fxFlex="60" class="detail-calification-container-text-bold">Total</div>
                  <div fxFlex="40" fxLayoutAlign="end end"
-                   class="detail-calification-container-table-info-column-penalty-total-text">$ {{penaltyTotal}}</div>
+                   class="detail-calification-container-table-info-column-penalty-total-text"><span [innerHTML]="penaltyTotal | currency: '$' : 'symbol' : '1.2-2'"></span></div>
                </div>
              </div>
            </div>
@@ -278,13 +276,13 @@
                  {{detail.orderNumber}}
                </td>
                <td fxShow.xs="false">
-                 {{detail.orderDate}}
+                 {{detail.orderDateFormatted}}
                </td>
                <td fxShow.xs="false">
-                 {{detail.maxDeliveryDate}}
+                 {{detail.maxDeliveryDateFormatted}}
                </td>
                <td fxShow.xs="false">
-                 {{detail.deliveryDate}}
+                 {{detail.deliveryDateFormatted}}
                </td>
                <td fxShow.xs="false">
                  {{detail.delayDays}}
@@ -296,7 +294,7 @@
                  {{detail.customerName}}
                </td>
                <td fxShow.xs="false">
-                 {{detail.penalty}}
+                <p [innerHTML]="detail.penalty | currency: '$' : 'symbol' : '1.2-2'"> </p>
                </td>
                <td fxShow.xs="false">
                  {{detail.totalCommission}}
@@ -341,7 +339,7 @@
                  {{detail.orderNumber}}
                </td>
                <td fxShow.xs="false">
-                 {{detail.orderDate}}
+                 {{detail.orderDateFormatted}}
                </td>
                <td fxShow.xs="false">
                  {{detail.orderStatus}}
@@ -350,7 +348,7 @@
                  {{detail.reasonPqr}}
                </td>
                <td fxShow.xs="false">
-                 {{detail.pqrDate}}
+                 {{detail.pqrDateFormatted}}
                </td>
                <td fxShow.xs="false">
                  {{detail.customerIdentificationCard}}
@@ -359,10 +357,10 @@
                  {{detail.customerName}}
                </td>
                <td fxShow.xs="false">
-                 {{detail.penalty}}
+                <p [innerHTML]="detail.penalty | currency: '$' : 'symbol' : '1.2-2'"> </p>
                </td>
                <td fxShow.xs="false">
-                 {{detail.totalCommission}}
+                <p [innerHTML]="detail.totalCommission | currency: '$' : 'symbol' : '1.2-2'"> </p>
                </td>
                <td class="detail-calification-container-aling-center">
                  <mat-icon class="mat-18 delete" [matTooltip]="'actions.delete' | translate"
@@ -402,16 +400,16 @@
                  {{detail.orderNumber}}
                </td>
                <td fxShow.xs="false">
-                 {{detail.orderDate}}
+                 {{detail.orderDateFormatted}}
                </td>
                <td fxShow.xs="false">
-                 {{detail.maxDeliveryDate}}
+                 {{detail.maxDeliveryDateFormatted}}
                </td>
                <td fxShow.xs="false">
                  {{detail.reasonPqr}}
                </td>
                <td fxShow.xs="false">
-                 {{detail.pqrDate}}
+                 {{detail.pqrDateFormatted}}
                </td>
                <td fxShow.xs="false">
                  {{detail.customerIdentificationCard}}

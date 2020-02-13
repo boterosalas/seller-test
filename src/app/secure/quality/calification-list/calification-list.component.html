@@ -35,7 +35,7 @@
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="30"
             fxFlex.sm="30" fxFlex.md="30" fxFlex.xs="30" fxFlex.xl="30" *matCellDef="let element">
-            <p class="sc-text-normal">{{element.qualificationDateFormt}}</p>
+            <p class="sc-text-normal">{{element.qualificationDate}}</p>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="qualityIssued">
@@ -46,7 +46,7 @@
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="30"
             fxFlex.sm="30" fxFlex.md="30" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
-            <p class="sc-text-normal">{{element.generatedDateFormt}}</p>
+            <p class="sc-text-normal">{{element.generatedDate}}</p>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="actions" class="calification-list-justify-content">

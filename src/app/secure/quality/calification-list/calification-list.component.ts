@@ -399,8 +399,13 @@ savePaginationToken(paginationToken: string) {
  */
 contentDetails(qualificationDate: string, idSeller: number) {
     this.loadingService.viewSpinner();
+    let dataFormt = '';
     if (qualificationDate && idSeller) {
-      const params = idSeller + '/' + qualificationDate;
+      if (qualificationDate.includes('/')) {
+        const arrayDate = qualificationDate.split('/');
+        dataFormt = arrayDate[1] + arrayDate[0];
+      }
+      const params = idSeller + '/' + dataFormt;
       this.calificationService.getListCalificationsBySeller(params).subscribe((res: any) => {
         this.detailByElemet = res.viewModel;
         this.loadingService.closeSpinner();
@@ -443,6 +448,7 @@ filterCalification(form: any) {
       callOne : true,
     };
     this.getCalificationsBySeller(params);
+    // this.clearForm();
   }
 /**
  * funcion intercambiar la posicion del mes y el año
