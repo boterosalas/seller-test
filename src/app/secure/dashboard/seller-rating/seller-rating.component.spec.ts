@@ -18,7 +18,7 @@ export const registerRegex = [
     { Identifier: 'dateMonthYear', Value: '^(0[0-9]||1[0-2])\/([0-9]{4})$', Module: 'dashboard' },
 ];
 
-fdescribe('SellerRatingComponent', () => {
+describe('SellerRatingComponent', () => {
     let component: SellerRatingComponent;
     let fixture: ComponentFixture<SellerRatingComponent>;
 
@@ -59,12 +59,15 @@ fdescribe('SellerRatingComponent', () => {
         }
     };
 
+
     const dialogMock = { close: () => { } };
     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
     const mockUserParametersService = jasmine.createSpyObj('UserParametersService', ['getUserData']);
     const mockSuportService = jasmine.createSpyObj('SupportService', ['getRegexFormSupport', 'getClassification']);
     const mockDashboardService = jasmine.createSpyObj('DashboardService', ['getRatingSellers']);
     const mockDialogError = jasmine.createSpyObj('ModalService', ['showModal']);
+
+    let loadingService: LoadingService;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -89,14 +92,14 @@ fdescribe('SellerRatingComponent', () => {
                 { provide: UserParametersService, useValue: mockUserParametersService },
                 { provide: ModalService, useValue: mockDialogError },
                 // UserParametersService,
-                DashboardService,
+                // DashboardService,
                 DatePipe,
                 EndpointService,
                 CognitoUtil,
                 ComponentsService,
                 TranslateService,
                 { provide: SupportService, useValue: mockSuportService },
-                // { provide: DashboardService, useValue: mockDashboardService },
+                { provide: DashboardService, useValue: mockDashboardService },
             ]
         })
             .compileComponents();
@@ -107,6 +110,8 @@ fdescribe('SellerRatingComponent', () => {
         component = fixture.componentInstance;
         mockUserParametersService.getUserData.and.returnValue(of(UserInformation));
         mockSuportService.getRegexFormSupport.and.returnValue(of(resRegex));
+        mockDashboardService.getRatingSellers.and.returnValue(of(resSellerRating));
+        loadingService = TestBed.get(LoadingService);
         localStorage.setItem('userId', UserInformation.sellerId);
         fixture.detectChanges();
     });
@@ -126,9 +131,16 @@ fdescribe('SellerRatingComponent', () => {
         component.cleanAllFilter();
         expect(component.listFilterBrands).toEqual([]);
     });
-    // it('getSellerRating', () => {
-    //     component.getSellerRating();
-    //     component.sellerId = undefined;
+
+    it('open pdf', () => {
+        component.getPDF('docs.google.com/document/d/1HQx56fbvQMFuw34vgTQrnCuwEBf8SYNk17yjJogaLNI/edit');
+        // expect(component.listFilterBrands).toEqual([]);
+    });
+
+    // it('open modal', () => {
+    //     expect(loadingService).toBeTruthy();
+    //     component.openDialogSupport();
+    //     // expect(component.listFilterBrands).toEqual([]);
     // });
 
     describe('Rating with data', () => {
@@ -141,14 +153,7 @@ fdescribe('SellerRatingComponent', () => {
         });
 
         it('getSellerRating', () => {
-            const dashboard = {
-                idSeller: 11811,
-                qualificationDate: 202012,
-                generatedDate: 20201227,
-                urlFile: 'https://s3.amazonaws.com/seller.center.exito.seller/qualificationDev/1234_Noviembre_2019_spanish.html',
-                qualitative: 'Deficiente'
-            };
-            component.arraySellerRating = dashboard;
+            resSellerRating.status = 401;
             // expect(component.arraySellerRating).toEqual(dashboard);
             component.getSellerRating();
         });
@@ -157,4 +162,68 @@ fdescribe('SellerRatingComponent', () => {
         });
 
     });
+
+    describe('Rating with data fuera del body', () => {
+        beforeEach(() => {
+            fixture = TestBed.createComponent(SellerRatingComponent);
+            component = fixture.componentInstance;
+            mockDashboardService.getRatingSellers.and.returnValue(of({status: 400}));
+            localStorage.setItem('userId', UserInformation.sellerId);
+            fixture.detectChanges();
+        });
+
+        it('getSellerRating', () => {
+            resSellerRating.status = 401;
+            // expect(component.arraySellerRating).toEqual(dashboard);
+            component.getSellerRating();
+        });
+        afterAll(() => {
+            TestBed.resetTestingModule();
+        });
+    });
+    describe('Compair date', () => {
+        beforeEach(() => {
+            fixture = TestBed.createComponent(SellerRatingComponent);
+            component = fixture.componentInstance;
+            fixture.detectChanges();
+        });
+
+        it('compareDate', () => {
+            component.compareDate();
+        });
+        afterAll(() => {
+            TestBed.resetTestingModule();
+        });
+    });
+    describe('Compair date greater than', () => {
+        beforeEach(() => {
+            fixture = TestBed.createComponent(SellerRatingComponent);
+            component = fixture.componentInstance;
+            fixture.detectChanges();
+        });
+
+        it('compareDate', () => {
+            component.initial = '102020';
+            component.final = '092020';
+            component.compareDate();
+        });
+        afterAll(() => {
+            TestBed.resetTestingModule();
+        });
+    });
+    // describe('Open modal', () => {
+    //     beforeEach(() => {
+    //         fixture = TestBed.createComponent(SellerRatingComponent);
+    //     // mockLoadingService.LoadingService.and.returnValue();
+    //         component = fixture.componentInstance;
+    //         fixture.detectChanges();
+    //     });
+
+    //     it('openDialogSupport', () => {
+    //         component.openDialogSupport();
+    //     });
+    //     afterAll(() => {
+    //         TestBed.resetTestingModule();
+    //     });
+    // });
 });
