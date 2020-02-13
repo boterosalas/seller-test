@@ -13,12 +13,15 @@
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
-          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+          <mat-checkbox (change)="$event ? masterToggle() : null; changeStatus(null, $event.checked)"
+            [checked]="selection.hasValue() && isAllSelected()"
             [indeterminate]="selection.hasValue() && !isAllSelected()">
+            principal
           </mat-checkbox>
         </th>
         <td mat-cell *matCellDef="let row">
-          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+          <mat-checkbox (click)="$event.stopPropagation()"
+            (change)="$event ? selection.toggle(row) : null;changeStatus(row, false)"
             [checked]="selection.isSelected(row)">
           </mat-checkbox>
         </td>
@@ -42,15 +45,13 @@
 
     <div [@detailExpand] class="cities-no-data" *ngIf="dataSource?.data?.length === 0">
       <mat-icon class="icon-not-found" color="primary">info</mat-icon>
-      <p>{{'secure.orders.in_devolution.in_devolution_page.no_found_orders' | translate}}
+      <p>{{'secure.offers.cities_coverage.get_error' | translate}}
       </p>
-      <button id="load-all-orders-button" mat-button color="primary">
-        {{'secure.orders.in_devolution.in_devolution_page.charge_orders' | translate}}
-      </button>
     </div>
 
     <div class="button__save">
-      <button mat-flat-button (click)="saveCities(selection.selected)">Guardar</button>
+      <button mat-flat-button
+        (click)="saveCities(selection.selected)">{{'secure.products.create_product_unit.component_process.save' | translate}}</button>
     </div>
   </div>
 </div>

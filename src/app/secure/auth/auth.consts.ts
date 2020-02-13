@@ -333,36 +333,41 @@ const DevolutionsModule = new ModuleModel(devolutionsModule, showAll, devolution
  *
  * Modulo de productos que posee menus:
  * 1. Creación unitaria.
- * 2. Carga masiva de productos.
- * 3. Carga masiva Moderacion Seller Internacional
- * 4. Moderación.
- * 5. Listado de productos Admin
- * 6. Listado de productos Seller
+ * 2. Creacion unitaria admin.
+ * 3. Carga masiva de productos.
+ * 4. Carga masiva Moderacion Seller Internacional
+ * 5. Moderación.
+ * 6. Listado de productos Admin
+ * 7. Listado de productos Seller
  */
 export const productsModule = 'PRODUCTOS', unitaryCreateName = 'Creación Unitaria', bulkLoadProductName = 'Carga Masiva', moderateName = 'Moderación', listProductsName = 'Listado de productos';
 const ProductsModule = new ModuleModel(productsModule, showAll, productsModule.toLowerCase(), [
-    // 1. Creación unitaria.
+    // 1. Creación unitaria vendedor.
     new MenuModel(unitaryCreateName, showAll, unitaryCreateName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(createFunctionality, showAll, createFunctionality) // Crear
     ], RoutesConst.sellerCenterIntCreateUnutaryProduct),
-    // 2. Carga masiva de productos administrador.
+    // 2. Creación unitaria administrador.
+    new MenuModel(unitaryCreateName, showAll, unitaryCreateName.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(createFunctionality, showAll, createFunctionality) // Crear
+    ], RoutesConst.sellerCenterIntCreateUnutaryProduct),
+    // 3. Carga masiva de productos administrador.
     new MenuModel(bulkLoadProductName, showAll, bulkLoadProductName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(loadFunctionality, showAll, loadFunctionality) // Cargar
     ], RoutesConst.sellerCenterIntProductBulkLoad),
-    // 3. Carga masiva de productos vendedor.
+    // 4. Carga masiva de productos vendedor.
     new MenuModel(bulkLoadProductName, showAll, bulkLoadProductName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(loadFunctionality, showAll, loadFunctionality) // Cargar
     ], RoutesConst.sellerCenterIntProductBulkLoad),
-    // 4. Moderación.
+    // 5. Moderación.
     new MenuModel(moderateName, showAll, moderateName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(loadFunctionality, showAll, loadFunctionality) // Cargar
     ], RoutesConst.sellerCenterProductModerationBulkLoad),
-    // 5. Listado de productos. (Tipo vendedor)
+    // 6. Listado de productos. (Tipo vendedor)
     new MenuModel(listProductsName, showAll, listProductsName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
         new FunctionalitiesModel(offerFuncionality, showAll, offerFuncionality), // Ofertar
     ], RoutesConst.sellerCenterIntListProducts),
-    // 6. Listado de productos. (Tipo administrador)
+    // 7. Listado de productos. (Tipo administrador)
     new MenuModel(listProductsName, showAll, listProductsName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
     ], RoutesConst.sellerCenterIntListProducts)

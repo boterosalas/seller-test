@@ -15,6 +15,37 @@ export class AssignImagesComponent implements OnInit, OnChanges {
   public parent_image_url_arrray: any = []; // Array principal de fotos
   public children_image_url_arrray: any = []; // Array de fotos de los hijos.
   cantidadHijos: any;
+  _detailProduct: any;
+  arrayImageDadTecnology: any = ['', '', '', '', ''];
+  arrayImageDadClothing: any = ['', '', '', '', ''];
+  arrayImageDadClothingPtrueba: any = ['', '', '', '', ''];
+  @Input() set detailProduct(value: any) {
+    if (value) {
+      this._detailProduct = value;
+      if (this._detailProduct.productType === 'Technology') {
+        this.arrayImageDadTecnology = [
+          this._detailProduct.imageUrl1,
+          this._detailProduct.imageUrl2,
+          this._detailProduct.imageUrl3,
+          this._detailProduct.imageUrl4,
+          this._detailProduct.imageUrl5,
+        ];
+      } else {
+        if (this._detailProduct && this._detailProduct.children && this._detailProduct.children.length > 0){
+          this.arrayImageDadClothing = [];
+          this._detailProduct.children.forEach(item => {
+              this.arrayImageDadClothing.push([
+                item.imageUrl1,
+                item.imageUrl2,
+                item.imageUrl3,
+                item.imageUrl4,
+                item.imageUrl5,
+              ]);
+            });
+        }
+      }
+    }
+  }
 
   constructor(private fb: FormBuilder, private service: AsignateimageService, private serviceChildrens: ProcessService) {
   }
@@ -45,12 +76,6 @@ export class AssignImagesComponent implements OnInit, OnChanges {
   }
 
   setChildrenArray(dataChildArr: any, i: any) {
-    /*if (this.cantidadHijos !== 0) {
-    // tslint:disable-next-line:no-shadowed-variable
-      for (let i = 0; i <= this.cantidadHijos; i++) {
-        this.children_image_url_arrray.push(['', '', '', '', '']);
-      }
-    } */
     this.children_image_url_arrray[i] = dataChildArr;
     const data = {
       children_image_url_arrray: this.children_image_url_arrray

@@ -687,6 +687,8 @@
     "secure.offers.bulk_upload.table_load.dane_code": "Picking City",
 
     "secure.offers.cities_coverage.title": "Cities Availiable for Dispatch",
+    "secure.offers.cities_coverage.get_error": "There was an error trying to get the cities. Try again later.",
+
 
     "secure.products.bulk_upload.title_module": "Products",
     "secure.products.bulk_upload.title_bar": "Bulk upload",
@@ -854,6 +856,7 @@
     "secure.products.create_product_unit.categorization.list.you_selected": "You selected",
     "secure.products.create_product_unit.categorization.list.expand": "Expand",
     "secure.products.create_product_unit.categorization.list.colapse": "Colapse",
+    "secure.products.create_product_unit.categorization.list.standard_variant": "You can not change a category from Standard to Variant or from Variant to Standard",
 
     "secure.products.create_product_unit.component_process.categorization": "Categorization",
     "secure.products.create_product_unit.component_process.back": "Back",
@@ -864,6 +867,7 @@
     "secure.products.create_product_unit.component_process.save": "Save",
 
     "secure.products.create_product_unit.component_process.dialog_save.product_creation_request": "The product creation request has been succesful. The product will now go through our validation process and we will inform you as soon as possible whether the product has been accepted and an offer may be associated, or if it has been rejected and you must fix the information",
+    "secure.products.create_product_unit.component_process.dialog_save.product_modification_request": "The product modification request has been succesful. The product will now go through our validation process and we will inform you as soon as possible whether the product has been accepted and an offer may be associated, or if it has been rejected and you must fix the information",
     "secure.products.create_product_unit.component_process.dialog_save.home": "Home",
     "secure.products.create_product_unit.component_process.dialog_save.retry": "Retry",
     "secure.products.create_product_unit.component_process.dialog_save.error_ocurred": "An error has occurred",
@@ -886,6 +890,7 @@
     "secure.products.create_product_unit.specifications.dialog.there": "There",
     "secure.products.create_product_unit.specifications.dialog.been": "been",
     "secure.products.create_product_unit.specifications.dialog.try_create_products": "when trying to create the product. Try gain… Thank you",
+    "secure.products.create_product_unit.specifications.dialog.try_edit_products": "when trying to edit the product. Try gain… Thank you",
     "secure.products.create_product_unit.specifications.dialog.errors": "errors",
     "secure.products.create_product_unit.specifications.dialog.error": "error",
     "secure.products.create_product_unit.specifications.complete_name": "In order to add a specification you must enter the name and all provided fields.",

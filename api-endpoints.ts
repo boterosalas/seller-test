@@ -101,6 +101,9 @@ export const endpoints = {
       getRegexBasic: 'https://n1gy42mfqa.execute-api.us-east-1.amazonaws.com/Regex/{params}',
       // Post Guardar informacion creacion unitaria de producto
       postSaveInformationUnitCreation: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products',
+      //
+      postUnitSaveInformationUnitCreation: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/unitproduct',
+      patchUnitSaveInformationUnitCreation: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/unitproduct',
       // Download billing.
       exportBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing',
       // Billing orders visualize.
@@ -133,6 +136,8 @@ export const endpoints = {
       getSpecByCategory: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/products-specs-dev/{params}',
       // Obtener lista producto expandido
       getProductExpanded: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/get-product/{params}',
+      // Obtener detalles del producto
+      getProductDetails: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/unitproduct/{params}',
       // Obtener tipo de perfil
       getTypeProfileAndProfile: 'https://77q5jco8ga.execute-api.us-east-1.amazonaws.com/Profiles/GetTypeProfileAndProfile',
       // Payoneer
@@ -273,6 +278,9 @@ export const endpoints = {
       getRegexBasic: 'https://wpamkgir31.execute-api.us-east-1.amazonaws.com/regex-pdn/{params}',
       // Post Guardar informacion creacion unitaria de producto
       postSaveInformationUnitCreation: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn',
+       //
+       postUnitSaveInformationUnitCreation: '',
+       patchUnitSaveInformationUnitCreation: '',
       // Download billing.
       exportBilling: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn',
       // Billing orders visualize.
@@ -305,6 +313,8 @@ export const endpoints = {
       getSpecByCategory: 'https://fhby1m1mxd.execute-api.us-east-1.amazonaws.com/productsspec-pdn/{params}',
       // Obtener lista producto expandido
       getProductExpanded: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/get-product/{params}',
+      // Obtener detalles del producto
+      getProductDetails: '',
       // Obtener tipo de perfil
       getTypeProfileAndProfile: 'https://tjymvkz23e.execute-api.us-east-1.amazonaws.com/Profiles-pdn/GetTypeProfileAndProfile',
       // Payoneer

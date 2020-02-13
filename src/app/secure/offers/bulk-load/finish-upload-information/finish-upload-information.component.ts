@@ -61,10 +61,12 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
             this.inProcess = false;
             this.processFinish$.next(res);
           } else if (status === 3) {
-
             if (response) {
-              this.listErrorStatus = JSON.parse(response).Data.OfferNotify;
-              this.pex = this.typeErrorShowButton(this.listErrorStatus);
+              if(JSON.parse(response).Data.OfferNotify){
+                this.listErrorStatus = JSON.parse(response).Data.OfferNotify;
+              } else if (JSON.parse(response).Data.ProductNotify){
+                this.listErrorStatus = JSON.parse(response).Data.ProductNotify;
+              }
             } else {
               this.listErrorStatus = [length = 0];
             }

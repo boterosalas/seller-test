@@ -259,11 +259,11 @@
   <mat-divider></mat-divider> -->
 
   <!-- BUTTON TO ADD SONS -->
-  <div ngStickyNav fxLayout="row" fxLayoutAlign="space-between center" *ngIf="productData.ProductType === 'Clothing'"
+  <div  fxLayout="row" fxLayoutAlign="space-between center" *ngIf="productData.ProductType === 'Clothing'"
     class="sticky-position">
     <div>
     </div>
-    <button fxLayout="row" fxLayoutAlign="center center" class="add-son-button" mat-button (click)="addSon()">
+    <button fxLayout="row" [disabled]="disabledEanChildren" fxLayoutAlign="center center" class="add-son-button" mat-button (click)="addSon()">
       <mat-icon class="material-icons">
         add_circle_outline
       </mat-icon>
@@ -290,7 +290,7 @@
     <div *ngIf="son.Show" class="son-container">
 
       <div class="text-right">
-        <button mat-icon-button [matTooltip]="'secure.products.create_product_unit.basic_information.delete_variation'" (click)="deleteSon(i)">
+        <button mat-icon-button [disabled]="disabledEanChildren" [matTooltip]="'secure.products.create_product_unit.basic_information.delete_variation'" (click)="deleteSon(i)">
           <mat-icon class="material-icons">
             delete
           </mat-icon>
@@ -331,7 +331,6 @@
         </div>
 
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
-
           <div class="field">
             <label class="label-color">{{'secure.products.bulk_upload.color' | translate}}</label>
             <div class="full-width flex-container">
@@ -339,10 +338,10 @@
                 <div class="color-round-picker"
                   [ngStyle]="{'background-color': color.color, 'border-color': color.border}" *ngIf="!color.multicolor"
                   [matTooltip]="color.Name | translate" (click)="selectColor(color, son)"
-                  [ngClass]="{'select-color': color.Name === son.colorSelected}">
+                  [ngClass]="{'select-color': color.Label === son.colorSelected}">
                 </div>
                 <div class="material-icons multi-color" (click)="selectColor(color, son)"
-                  [ngClass]="{'select-color': color.Name === son.colorSelected}" *ngIf="color.multicolor"
+                  [ngClass]="{'select-color': color.Label === son.colorSelected}" *ngIf="color.multicolor"
                   [matTooltip]="color.Name | translate">
                   <div class="multi-one"></div>
                   <div class="multi-two"></div>

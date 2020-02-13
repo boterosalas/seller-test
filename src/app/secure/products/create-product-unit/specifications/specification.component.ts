@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { SpecificationService } from './specification.component.service';
 import { SpecificationModel } from './specification.model';
 import { SpecificationDialogComponent } from './dialog/dialog.component';
@@ -7,6 +7,7 @@ import { Logger } from '@app/core';
 import { ProcessService } from '../component-process/component-process.service';
 import { FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
+import { EanServicesService } from '../validate-ean/ean-services.service';
 
 const log = new Logger('SpecificationProductComponent');
 
@@ -27,6 +28,16 @@ export class SpecificationProductComponent implements OnInit {
     specsForm: FormControl;
     changeForm = false;
     isLoad = false;
+    _detailProduct: any;
+    idCategory: number;
+    dataSpecification: any;
+    @Input() set detailProduct(value: any) {
+        if (value) {
+            this._detailProduct = value;
+            this.idCategory = parseInt(value.categoryId, 0);
+        }
+    }
+    @Input() ean: any;
 
     /**
      * Creates an instance of SpecificationProductComponent.
@@ -37,31 +48,59 @@ export class SpecificationProductComponent implements OnInit {
         private specificationService: SpecificationService,
         public dialog: MatDialog,
         public processService: ProcessService,
-        private languageService: TranslateService) { }
+        private languageService: TranslateService) {
+        this.listSpecification();
+    }
 
     /**
      * Inicializa el componente llamando la funcion para obtener las especificaciones.
      *
      * @memberof SpecificationProductComponent
      */
-    ngOnInit() {
+    ngOnInit() { }
+
+    listSpecification() {
         this.specsForm = new FormControl();
-        // if (this.processService.specsByCategory) {
         this.processService.isLoad.subscribe(result => {
             this.isLoad = result;
         });
-        this.processService.specsByCategory.subscribe(result => {
-            if (result && result.data) {
-                this.specificationsGroups = this.specificationModel.changeJsonToSpecificationModel(result.data);
-            } else {
-                this.specificationsGroups = [];
+        if (this.processService.specsByCategory) {
+            this.processService.specsByCategory.subscribe(result => {
+                this.isLoad = false;
+                if (result && result.data) {
+                    this.dataSpecification = result.data;
+                    this.specificationsGroups = this.specificationModel.changeJsonToSpecificationModel(result.data);
+                    this.setSpecification(result.data);
+                    const views = this.processService.getViews();
+                    views.showSpec = false;
+                    this.processService.setViews(views);
+                } else {
+                    this.specificationsGroups = [];
+                    const views = this.processService.getViews();
+                    views.showSpec = false;
+                    this.processService.setViews(views);
+                }
+                this.chargeList = true;
+            });
+        }
+    }
+
+
+    setSpecification(data: any) {
+        if (this.idCategory) {
+            if (data && data.length > 0) {
+                let count = 0;
+                data.forEach(element => {
+                    let specf = element.categories.replace(/'/g, '"');
+                    specf = JSON.parse(specf).find(x => x === this.idCategory.toString());
+                    if (specf) {
+                        this.specificationsGroups[count].Show = true;
+                    }
+                    count++;
+                });
             }
-            this.isLoad = false;
-            this.chargeList = true;
-        });
 
-
-        // }
+        }
     }
 
     public validateObligatoryGroup(group: any): boolean {
@@ -75,12 +114,9 @@ export class SpecificationProductComponent implements OnInit {
     }
 
     public validForm(form: any): void {
-        if (form !== this.changeForm) {
-            this.changeForm = form;
-            const views = this.processService.getViews();
-            views.showSpec = !form;
-            this.processService.setViews(views);
-        }
+        const views = this.processService.getViews();
+        views.showSpec = !form;
+        this.processService.setViews(views);
     }
 
     /**
@@ -228,4 +264,26 @@ export class SpecificationProductComponent implements OnInit {
         this.validFeatureData();
         this.ShowSpecTitle = cont;
     }
+
+    setValueSpefici(index: number, form: any, inputSpecifications: any) {
+        if (inputSpecifications && inputSpecifications.Label) {
+            if (this._detailProduct && this._detailProduct.features.length > 0) {
+                const valueArray = this._detailProduct.features.find(x => x.key === inputSpecifications.Label);
+                let value = '';
+                if (valueArray !== undefined && valueArray !== null) {
+                    if (valueArray.value === null || valueArray.value === undefined) {
+                        value = '';
+                    } else {
+                        value = valueArray.value;
+                    }
+                }
+                if (form && form.form) {
+                    if (form.form.controls['specs' + index] && !form.controls['specs' + index].value) {
+                        form.controls['specs' + index].setValue(value);
+                    }
+                }
+            }
+        }
+    }
+
 }

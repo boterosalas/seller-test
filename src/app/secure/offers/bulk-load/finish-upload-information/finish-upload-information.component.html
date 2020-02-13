@@ -9,7 +9,8 @@
     <div *ngIf="Success && !inProcess && data.successText">
       <h3 class="succes-string" mat-subheader>
         <mat-icon>check</mat-icon>
-        {{response.successful}} {{'secure.products.Finish_upload_product_information.successful_upload' | translate}}
+        <!-- {{response.successful}} {{'secure.products.Finish_upload_product_information.successful_upload' | translate}} -->
+        {{response.successful}} {{data.successText}}
       </h3>
     </div>
     <div *ngIf="!Success && !inProcess && data.failText">

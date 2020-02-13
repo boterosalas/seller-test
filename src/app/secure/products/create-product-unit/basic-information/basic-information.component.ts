@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { BasicInformationService } from './basic-information.component.service';
@@ -36,25 +36,38 @@ export class ProductBasicInfoComponent implements OnInit {
     public validateEanSonExist;
     public validAfter = false;
     public descrip: string;
+    _detailProduct: any;
+    inputRequired = true;
+    disabledEanChildren= false;
+    @Input() set detailProduct(value: any) {
+        if (value) {
+            this._detailProduct = value;
+            if (!this.formBasicInfo && !this.formBasicInfo.controls) {
+                this.initComponent();
+            }
+            this.disabledEanChildren = true;
+            this.getInformationBasic(value);
+        }
+    }
     /**
      *  Json  con los colores predefinidos.
      */
     colorList = [
-        { Name: 'secure.products.create_product_unit.basic_information.beige', color: '#F5F5DC', border: '#e2e1c8', hexColorCode: 16185047 },
-        { Name: 'secure.products.create_product_unit.basic_information.black', color: '#000000', border: '#000000', hexColorCode: 0 },
-        { Name: 'secure.products.create_product_unit.basic_information.white', color: '#FFFFFF', border: '#bdbdbd', hexColorCode: 16777215 },
-        { Name: 'secure.products.create_product_unit.basic_information.blue', color: '#03A9F4', border: '#8282f9', hexColorCode: 255 },
-        { Name: 'secure.products.create_product_unit.basic_information.yellow', color: '#FEEA3A', border: '#cece00', hexColorCode: 16776960 },
-        { Name: 'secure.products.create_product_unit.basic_information.brown', color: '#4E342E', border: '#3E2723', hexColorCode: 6830601 },
-        { Name: 'secure.products.create_product_unit.basic_information.gray', color: '#37474F', border: '#565656', hexColorCode: 9803157 },
-        { Name: 'secure.products.create_product_unit.basic_information.green', color: '#2E7D32', border: '#1B5E20', hexColorCode: 32768 },
-        { Name: 'secure.products.create_product_unit.basic_information.orange', color: '#FF8F00', border: '#FF6F00', hexColorCode: 16750899 },
-        { Name: 'secure.products.create_product_unit.basic_information.pink', color: '#E91E63', border: '#C2185B', hexColorCode: 15572666 },
-        { Name: 'secure.products.create_product_unit.basic_information.purple', color: '#6639B6', border: '#670167', hexColorCode: 8388736 },
-        { Name: 'secure.products.create_product_unit.basic_information.red', color: '#c62828', border: '#b71c1c', hexColorCode: 16711680 },
-        { Name: 'secure.products.create_product_unit.basic_information.silver', color: '#BDBDBD', border: '#9E9E9E', hexColorCode: 12632256 },
-        { Name: 'secure.products.create_product_unit.basic_information.golden', color: '#FFB300', border: '#FFA000', hexColorCode: 15590005 },
-        { Name: 'secure.products.create_product_unit.basic_information.multicolored', color: '#FFB300', border: '#bdbdbd', hexColorCode: 986895, multicolor: true },
+        { Name: 'secure.products.create_product_unit.basic_information.beige', Label: 'Beige', color: '#F5F5DC', border: '#e2e1c8', hexColorCode: 16185047 },
+        { Name: 'secure.products.create_product_unit.basic_information.black', Label: 'Negro', color: '#000000', border: '#000000', hexColorCode: 0 },
+        { Name: 'secure.products.create_product_unit.basic_information.white', Label: 'Blanco', color: '#FFFFFF', border: '#bdbdbd', hexColorCode: 16777215 },
+        { Name: 'secure.products.create_product_unit.basic_information.blue', Label: 'Azul', color: '#03A9F4', border: '#8282f9', hexColorCode: 255 },
+        { Name: 'secure.products.create_product_unit.basic_information.yellow', Label: 'Amarillo', color: '#FEEA3A', border: '#cece00', hexColorCode: 16776960 },
+        { Name: 'secure.products.create_product_unit.basic_information.brown', Label: 'Café', color: '#4E342E', border: '#3E2723', hexColorCode: 6830601 },
+        { Name: 'secure.products.create_product_unit.basic_information.gray', Label: 'Gris', color: '#37474F', border: '#565656', hexColorCode: 9803157 },
+        { Name: 'secure.products.create_product_unit.basic_information.green', Label: 'Verde', color: '#2E7D32', border: '#1B5E20', hexColorCode: 32768 },
+        { Name: 'secure.products.create_product_unit.basic_information.orange', Label: 'Naranja', color: '#FF8F00', border: '#FF6F00', hexColorCode: 16750899 },
+        { Name: 'secure.products.create_product_unit.basic_information.pink', Label: 'Rosa', color: '#E91E63', border: '#C2185B', hexColorCode: 15572666 },
+        { Name: 'secure.products.create_product_unit.basic_information.purple', Label: 'Morado',  color: '#6639B6', border: '#670167', hexColorCode: 8388736 },
+        { Name: 'secure.products.create_product_unit.basic_information.red', Label: 'Rojo',  color: '#c62828', border: '#b71c1c', hexColorCode: 16711680 },
+        { Name: 'secure.products.create_product_unit.basic_information.silver', Label: 'Plata',  color: '#BDBDBD', border: '#9E9E9E', hexColorCode: 12632256 },
+        { Name: 'secure.products.create_product_unit.basic_information.golden', Label: 'Dorado', color: '#FFB300', border: '#FFA000', hexColorCode: 15590005 },
+        { Name: 'secure.products.create_product_unit.basic_information.multicolored', Label: 'Multicolor', color: '#FFB300', border: '#bdbdbd', hexColorCode: 986895, multicolor: true },
     ];
 
     public UnitMeasurementList = ['secure.products.create_product_unit.basic_information.gram', 'secure.products.create_product_unit.basic_information.mililitre', 'secure.products.create_product_unit.basic_information.metre', 'secure.products.create_product_unit.basic_information.Unit'];
@@ -102,10 +115,10 @@ export class ProductBasicInfoComponent implements OnInit {
         private loadingService: LoadingService,
         private languageService: TranslateService,
     ) {
+        this.initComponent();
     }
 
     ngOnInit() {
-        this.initComponent();
         this.listOfBrands();
     }
 
@@ -124,7 +137,35 @@ export class ProductBasicInfoComponent implements OnInit {
             if (this.formBasicInfo && this.formBasicInfo.controls.Category.value !== this.productData.Category &&
                 this.formBasicInfo.controls.Category.value !== this.productData.CategoryName) {
                 this.formBasicInfo.controls.Category.setValue(this.productData.CategoryName);
-                this.sonList = [];
+                if (this.productData.ProductType === 'Clothing') {
+                    if (!this._detailProduct) {
+                        this.sonList = [];
+                        const views = this.process.getViews();
+                        views.showInfo = false;
+                        this.process.setViews(views);
+                    } else {
+                        // BORRAR ESTA LINEA
+                        this._detailProduct.category = this.productData.CategoryName;
+                        //
+                        if (this._detailProduct.category !== this.productData.CategoryName) {
+                            this.sonList = [];
+                            const views = this.process.getViews();
+                            views.showInfo = false;
+                            this.process.setViews(views);
+                        }
+                    }
+                } else {
+                    this.sonList = [];
+                    if (!this.formBasicInfo.invalid) {
+                        const views = this.process.getViews();
+                        views.showInfo = true;
+                        this.process.setViews(views);
+                    } else {
+                        const views = this.process.getViews();
+                        views.showInfo = false;
+                        this.process.setViews(views);
+                    }
+                }
             }
             this.showButton = data.showEan;
         });
@@ -245,7 +286,11 @@ export class ProductBasicInfoComponent implements OnInit {
                 this.filterBrands = this.brands.filter(brand => brand.Name.toString().toLowerCase().includes(val.toLowerCase()));
                 const exist = this.filterBrands.find(brand => brand.Name === val);
                 if (!exist) {
-                    this.formBasicInfo.get('Brand').setErrors({ pattern: true });
+                    if (this._detailProduct && this._detailProduct.brand !== undefined && this._detailProduct.brand !== '') {
+                        this.formBasicInfo.get('Brand').clearValidators();
+                    } else {
+                        this.formBasicInfo.get('Brand').setErrors({ pattern: true });
+                    }
                 } else {
                     this.formBasicInfo.get('Brand').setErrors(null);
                 }
@@ -275,7 +320,7 @@ export class ProductBasicInfoComponent implements OnInit {
                         this.sendDataToService();
                     }
                 }
-                if (!views.showInfo && this.keywords.length > 0 && this.validateClothingProduct()) {
+                if (views.showInfo && this.keywords.length > 0 && this.validateClothingProduct()) {
                     views.showInfo = true;
                     this.process.setViews(views);
                 }
@@ -341,7 +386,7 @@ export class ProductBasicInfoComponent implements OnInit {
      * selectColor
      */
     public selectColor(color: any, son: any): void {
-        son.colorSelected = color.Name;
+        son.colorSelected = color.Label;
         this.detectForm();
     }
 
@@ -361,7 +406,8 @@ export class ProductBasicInfoComponent implements OnInit {
     }
 
     public invertColor(hex: string, bw: boolean = true) {
-        if (hex) {
+        // if (hex) {
+        if (hex && hex !== '#0') {
             if (hex.indexOf('#') === 0) {
                 hex = hex.slice(1);
             }
@@ -416,6 +462,9 @@ export class ProductBasicInfoComponent implements OnInit {
             t = newForm.form.controls.HexColorCodeName.enable();
             this.sonList.push(newForm);
             this.valInputEan = newForm.form.controls.Ean;
+            const views = this.process.getViews();
+            views.showInfo = false;
+            this.process.setViews(views);
         } else {
             // error to show
 
@@ -448,6 +497,7 @@ export class ProductBasicInfoComponent implements OnInit {
 
     public deleteSon(index: number): void {
         this.sonList.splice(index, 1);
+        this.sendDataToService();
     }
 
     public valdiateInfoBasic(): void {
@@ -522,7 +572,6 @@ export class ProductBasicInfoComponent implements OnInit {
      * @memberof ProductBasicInfoComponent
      */
     public detectForm(): void {
-
         if (this.formBasicInfo.valid && this.keywords.length) {
             if ((this.productData.ProductType === 'Clothing' && this.getValidSonsForm()) || (this.productData.ProductType !== 'Clothing')) {
                 this.sendDataToService();
@@ -675,6 +724,90 @@ export class ProductBasicInfoComponent implements OnInit {
                 this.listSize();
             }
         });
+    }
+    /**
+     * informacion basica - llena la información
+     *
+     * @param {*} detailProduct
+     * @memberof ProductBasicInfoComponent
+     */
+    getInformationBasic(detailProduct: any) {
+        if (detailProduct) {
+            if (this.formBasicInfo && this.formBasicInfo.controls) {
+                const packingData = this.formBasicInfo.controls.packing as FormGroup;
+                const productDateSize = this.formBasicInfo.controls.product as FormGroup;
+                this.formBasicInfo.controls.Name.setValue(detailProduct.name);
+                this.formBasicInfo.controls.Brand.setValue(detailProduct.brand);
+                this.formBasicInfo.controls.Model.setValue(detailProduct.model);
+                this.formBasicInfo.controls.Detail.setValue(detailProduct.details);
+                this.formBasicInfo.controls.MeasurementUnit.setValue(detailProduct.measurementUnit);
+                this.formBasicInfo.controls.ConversionFactor.setValue(detailProduct.conversionFactor);
+                this.formBasicInfo.controls.shippingSize.setValue(detailProduct.skuShippingSize);
+                packingData.controls.WidthPacking.setValue(detailProduct.packageWidth);
+                packingData.controls.HighPacking.setValue(detailProduct.packageHeight);
+                packingData.controls.LongPacking.setValue(detailProduct.packageLength);
+                packingData.controls.WeightPacking.setValue(detailProduct.packageWeight);
+                productDateSize.controls.WidthProduct.setValue(detailProduct.productWidth);
+                productDateSize.controls.HighProduct.setValue(detailProduct.productHeight);
+                productDateSize.controls.LongProduct.setValue(detailProduct.productLength);
+                productDateSize.controls.WeightProduct.setValue(detailProduct.productWeight);
+                this.formBasicInfo.controls.Description.setValue(detailProduct.description);
+                if (detailProduct.keyWords !== null && detailProduct.keyWords !== undefined ) {
+                    this.formBasicInfo.controls.Keyword.setValue(detailProduct.keyWords);
+                    this.inputRequired = false;
+                } else {
+                    this.formBasicInfo.controls.Keyword.setValue(null);
+                    this.inputRequired = true;
+                }
+                if ( detailProduct.children && detailProduct.children.length > 0) {
+                    this.setChildren(detailProduct);
+                }
+                this.saveKeyword();
+                this.sendDataToService();
+            }
+        }
+    }
+/**
+ * setea los hijos registrados en el formulario
+ *
+ * @param {*} detailProduct
+ * @memberof ProductBasicInfoComponent
+ */
+setChildren(detailProduct: any) {
+        if (detailProduct && detailProduct.children && detailProduct.children.length > 0) {
+            for (let i = 0; i < detailProduct.children.length; i++) {
+                const newForm = {
+                    form: new FormGroup({
+                        Ean: new FormControl({value: detailProduct.children[i].ean, disabled: true},
+                            [
+                                Validators.required, Validators.pattern(this.getValue('ean'))
+                            ]),
+                        Size: new FormControl(detailProduct.children[i].size,
+                            [
+                                Validators.required, Validators.pattern(this.getValue('sizeProduct'))
+                            ]),
+                        HexColorCodePDP: new FormControl('#' + detailProduct.children[i].hexColourCodePDP,
+                            [
+                                Validators.required,
+                            ]),
+                        HexColorCodeName: new FormControl(detailProduct.children[i].color,
+                            [
+                                Validators.required, Validators.pattern(this.getValue('hexColorNameProduct'))
+                            ]),
+                        associateEanSon: new FormControl({value: false, disabled: true}
+                        )
+                    }),
+                    Show: false,
+                    colorPick: '#' + detailProduct.children[i].hexColourCodePDP,
+                    colorPick2: null,
+                    colorSelected: detailProduct.children[i].color
+                };
+                let t = newForm.form.controls.HexColorCodePDP.disable();
+                t = newForm.form.controls.HexColorCodeName.enable();
+                this.sonList.push(newForm);
+                this.valInputEan = newForm.form.controls.Ean;
+            }
+        }
     }
 
     addEanCombo() {

@@ -245,7 +245,7 @@
     "modal.problems.title": "¡Oops!.",
     "modal.product.no_stock": "¡Este producto esta agotado! Por favor intenta con otro",
     "modal.success.update": "¡Tú actualización ha sido exitosa!",
-    "modal.success.update.title": "¡Actualización realizada con éxito!",
+    "modal.success.update.title": "Actualización realizada con éxito",
 
 
     "core.http.dialog_token_expired.title": "La sesión ha expirado",
@@ -687,6 +687,8 @@
     "secure.offers.bulk_upload.table_load.dane_code": "Ciudad de Recogida",
 
     "secure.offers.cities_coverage.title": "Ciudades disponibles para despacho",
+    "secure.offers.cities_coverage.get_error": "Se produjo un error al tratar de obtener las ciudades. Intentalo nuevamente.",
+
 
     "secure.products.bulk_upload.title_module": "Productos",
     "secure.products.bulk_upload.title_bar": "Carga masiva",
@@ -854,6 +856,7 @@
     "secure.products.create_product_unit.categorization.list.you_selected": "Usted seleccionó",
     "secure.products.create_product_unit.categorization.list.expand": "Expandir",
     "secure.products.create_product_unit.categorization.list.colapse": "Colapsar",
+    "secure.products.create_product_unit.categorization.list.standard_variant": "No puedes cambiar la categoría de Estandar a Variante o de Variante a Estandar",
 
     "secure.products.create_product_unit.component_process.categorization": "Categorización",
     "secure.products.create_product_unit.component_process.back": "Atrás",
@@ -864,6 +867,7 @@
     "secure.products.create_product_unit.component_process.save": "Guardar",
 
     "secure.products.create_product_unit.component_process.dialog_save.product_creation_request": "La solicitud de creación de tu producto ha sido recibida con éxito. El producto pasará a proceso de validación y te estaremos informando de manera oportuna si el producto es aceptado y puede ofertarse, o si es rechazado y debes corregir información.",
+    "secure.products.create_product_unit.component_process.dialog_save.product_modification_request": "La solicitud de modificación de tu producto ha sido recibida con éxito. El producto pasará a proceso de validación y te estaremos informando de manera oportuna si el producto es aceptado y puede ofertarse, o si es rechazado y debes corregir información.",
     "secure.products.create_product_unit.component_process.dialog_save.home": "Inicio",
     "secure.products.create_product_unit.component_process.dialog_save.retry": "Reintentar",
     "secure.products.create_product_unit.component_process.dialog_save.error_ocurred": "Error presentado",
@@ -886,6 +890,7 @@
     "secure.products.create_product_unit.specifications.dialog.there": "Se",
     "secure.products.create_product_unit.specifications.dialog.been": "presentado",
     "secure.products.create_product_unit.specifications.dialog.try_create_products": "al momento de crear el producto. Intentelo nuevamente... Gracias",
+    "secure.products.create_product_unit.specifications.dialog.try_edit_products": "al momento de modificar el producto. Intentelo nuevamente... Gracias",
     "secure.products.create_product_unit.specifications.dialog.errors": "errors",
     "secure.products.create_product_unit.specifications.dialog.error": "error",
     "secure.products.create_product_unit.specifications.complete_name": "Para agregar una especificación debes indicar el nombre de la misma y diligenciarla en los campos que te proveemos.",
