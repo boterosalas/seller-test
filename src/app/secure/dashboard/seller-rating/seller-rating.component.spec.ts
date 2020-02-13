@@ -31,14 +31,16 @@ fdescribe('SellerRatingComponent', () => {
     };
 
     const resSellerRating = {
-        body:   {
-            idSeller: 11811,
-            qualificationDate: 202012,
-            generatedDate: 20201227,
-            urlFile: 'https://s3.amazonaws.com/seller.center.exito.seller/qualificationDev/1234_Noviembre_2019_spanish.html',
-            qualitative: 'Deficiente'
+        body: {
+            viewModel: {
+                idSeller: 11811,
+                qualificationDate: 202012,
+                generatedDate: 20201227,
+                urlFile: 'https://s3.amazonaws.com/seller.center.exito.seller/qualificationDev/1234_Noviembre_2019_spanish.html',
+                qualitative: 'Deficiente'
+            }
         },
-        status : 200
+        status: 200
     };
 
     const params = {
@@ -85,7 +87,7 @@ fdescribe('SellerRatingComponent', () => {
                 { provide: MatDialogRef, useValue: dialogMock },
                 { provide: LoadingService, useValue: mockLoadingService },
                 { provide: UserParametersService, useValue: mockUserParametersService },
-                {provide: ModalService, useValue: mockDialogError},
+                { provide: ModalService, useValue: mockDialogError },
                 // UserParametersService,
                 DashboardService,
                 DatePipe,
@@ -115,7 +117,7 @@ fdescribe('SellerRatingComponent', () => {
     it('Get regex', () => {
         const dashboard = {
             dateMonthYear: '^(0[0-9]||1[0-2])/([0-9]{4})$',
-          };
+        };
         expect(component.BrandsRegex).toEqual(dashboard);
         component.validateFormSupport();
         // expect(component.BrandsRegex).not.toEqual(dashboard);
@@ -129,7 +131,7 @@ fdescribe('SellerRatingComponent', () => {
     //     component.sellerId = undefined;
     // });
 
-    describe('List with data', () => {
+    describe('Rating with data', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(SellerRatingComponent);
             component = fixture.componentInstance;
@@ -140,13 +142,13 @@ fdescribe('SellerRatingComponent', () => {
 
         it('getSellerRating', () => {
             const dashboard = {
-                    idSeller: 11811,
-                    qualificationDate: 202012,
-                    generatedDate: 20201227,
-                    urlFile: 'https://s3.amazonaws.com/seller.center.exito.seller/qualificationDev/1234_Noviembre_2019_spanish.html',
-                    qualitative: 'Deficiente'
-              };
-              component.arraySellerRating = dashboard;
+                idSeller: 11811,
+                qualificationDate: 202012,
+                generatedDate: 20201227,
+                urlFile: 'https://s3.amazonaws.com/seller.center.exito.seller/qualificationDev/1234_Noviembre_2019_spanish.html',
+                qualitative: 'Deficiente'
+            };
+            component.arraySellerRating = dashboard;
             // expect(component.arraySellerRating).toEqual(dashboard);
             component.getSellerRating();
         });

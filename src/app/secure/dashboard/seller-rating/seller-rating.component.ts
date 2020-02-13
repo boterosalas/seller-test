@@ -59,6 +59,7 @@ export class SellerRatingComponent implements OnInit {
 
   public arraySellerRating: any;
   private scrolled: Boolean = false;
+  private disableButton: Boolean = true;
 
   public paramsGetSellerRating = {
     'sellerId': null,
@@ -98,7 +99,6 @@ export class SellerRatingComponent implements OnInit {
     this.createFormControls();
     this.validateFormSupport();
     this.getSellerRating();
-    console.log('hola');
     // this.getCaseEvaluation();
     // this.prueba();
   }
@@ -124,26 +124,26 @@ export class SellerRatingComponent implements OnInit {
         this.scrolled = true;
         this.loadingService.viewSpinner();
         this._dashboard.getRatingSellers(scrollFilter).subscribe(result => {
-          console.log('res: ', result);
-          // const a = [{
-          //   idSeller: 11811,
-          //   qualificationDate: 202012,
-          //   generatedDate: 20201227,
-          //   urlFile: 'https://s3.amazonaws.com/seller.center.exito.seller/qualificationDev/1234_Noviembre_2019_spanish.html',
-          //   qualitative: 'Deficiente'
-          // },
-          // {
-          //   idSeller: 11811,
-          //   qualificationDate: 202012,
-          //   generatedDate: 20201227,
-          //   urlFile: 'https://s3.amazonaws.com/seller.center.exito.seller/qualificationDev/1234_Noviembre_2019_spanish.html',
-          //   qualitative: 'Deficiente'
-          // }];
-          this.arraySellerRating = this.arraySellerRating.concat(result.body.viewModel);
-          this.dataSource = new MatTableDataSource(this.arraySellerRating);
-          this.paginationToken = result.body.paginationToken;
-          this.scrolled = false;
-          this.loadingService.closeSpinner();
+          console.log('res del scroll: ', result);
+          if (result.body) {
+            if (result.status === 200 || result.status === 201) {
+              this.arraySellerRating = this.arraySellerRating.concat(result.body.viewModel);
+              this.dataSource = new MatTableDataSource(this.arraySellerRating);
+              this.paginationToken = result.body.paginationToken;
+              this.scrolled = false;
+              this.loadingService.closeSpinner();
+            } else {
+              this.modalService.showModal('errorService');
+            }
+            this.loadingService.closeSpinner();
+          } else {
+            console.log('entra al else del scroll');
+            this.modalService.showModal('errorService');
+            this.loadingService.closeSpinner();
+          }
+        }, error => {
+          this.componentsService.openSnackBar(this.languageService.instant('public.auth.forgot.error_try_again'), this.languageService.instant('actions.close'), 4000);
+          log.error(error);
         });
       }
     }
@@ -187,6 +187,7 @@ export class SellerRatingComponent implements OnInit {
       this.sellerId = this.user.sellerId;
     }
     this.paramsGetSellerRating.sellerId = localStorage.getItem('userId');
+    console.log('this._dashboard: ', this._dashboard);
     this._dashboard.getRatingSellers(this.paramsGetSellerRating).subscribe(result => {
       console.log('result', result);
       if (result.body) {
@@ -235,6 +236,35 @@ export class SellerRatingComponent implements OnInit {
   }
 
   /**
+   * Metodo para comparar rango de fechas para el filtro.
+   * @memberof SellerRatingComponent
+   */
+  compareDate() {
+    // this.disableButton = false;
+    const initial = this.formtDateYearMonth(this.filterSellerRating.controls.datequalificationinitial.value);
+    const final = this.formtDateYearMonth(this.filterSellerRating.controls.dateQualificationFinal.value);
+    if (+initial > +final) {
+      this.disableButton = true;
+      this.componentsService.openSnackBar(this.languageService.instant('secure.products.create_product_unit.list_products.date_must_no_be_initial_date'), this.languageService.instant('actions.close'), 5000);
+    } else {
+      this.disableButton = false;
+    }
+  }
+
+  /**
+   * Funcion para mostrar solo mes y año formato mm/yyyy
+   * @param {string} valueDate
+   * @returns
+   * @memberof SellerRatingComponent
+   */
+  // formtYearMonth(valueDate: string) {
+  //   if (valueDate && valueDate.includes('/')) {
+  //     const arrayDate = valueDate.split('/');
+  //     return arrayDate[1] + '/' + arrayDate[2];
+  //   }
+  // }
+
+  /**
    * Metodo apra filtrar la calificacion segun fecha de emisión
    * @memberof SellerRatingComponent
    */
@@ -245,16 +275,12 @@ export class SellerRatingComponent implements OnInit {
 
     const filterSellerRating = Object.assign({}, this.paramsGetSellerRating);
     const dateInitial = this.formtDateYearMonth(this.filterSellerRating.controls.datequalificationinitial.value);
-    // const dateInitial = this.filterSellerRating.controls.datequalificationinitial.value.replace('/', '');
-    // const dateFinal = this.filterSellerRating.controls.dateQualificationFinal.value.replace('/', '');
     const dateFinal = this.formtDateYearMonth(this.filterSellerRating.controls.dateQualificationFinal.value);
-
 
     filterSellerRating.datequalificationinitial = dateInitial;
     filterSellerRating.dateQualificationFinal = dateFinal;
 
     this.loadingService.viewSpinner();
-    console.log('filterSellerRating', filterSellerRating);
     this._dashboard.getRatingSellers(filterSellerRating).subscribe(result => {
       this.dataSource = null;
       this.arraySellerRating = result.body.viewModel;
@@ -268,20 +294,18 @@ export class SellerRatingComponent implements OnInit {
         }
 
       }
-      // this.dataSource = new MatTableDataSource(result.body.viewModel);
-      // this.savePaginationToken(result.body.paginationToken);
       this.loadingService.closeSpinner();
     });
   }
 
   getCaseEvaluation() {
     this.SUPPORT.getClassification().subscribe(categories => {
-        let ratingCategorie = categories.data;
-        ratingCategorie = ratingCategorie.filter(el => el.idMatrix === 'MT499');
-        this.appealRating_clasification = ratingCategorie.classification;
-        this.appealRating_sub_clasification = ratingCategorie.category;
-        this.appealRating = [this.appealRating_clasification, this.appealRating_sub_clasification];
-      });
+      let ratingCategorie = categories.data;
+      ratingCategorie = ratingCategorie.filter(el => el.idMatrix === 'MT499');
+      this.appealRating_clasification = ratingCategorie.classification;
+      this.appealRating_sub_clasification = ratingCategorie.category;
+      this.appealRating = [this.appealRating_clasification, this.appealRating_sub_clasification];
+    });
   }
 
   /**
