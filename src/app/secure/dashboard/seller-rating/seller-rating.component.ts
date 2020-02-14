@@ -124,7 +124,6 @@ export class SellerRatingComponent implements OnInit {
         this.scrolled = true;
         this.loadingService.viewSpinner();
         this._dashboard.getRatingSellers(scrollFilter).subscribe(result => {
-          console.log('res del scroll: ', result);
           if (result.body) {
             if (result.status === 200 || result.status === 201) {
               this.arraySellerRating = this.arraySellerRating.concat(result.body.viewModel);
@@ -137,7 +136,6 @@ export class SellerRatingComponent implements OnInit {
             }
             this.loadingService.closeSpinner();
           } else {
-            console.log('entra al else del scroll');
             this.modalService.showModal('errorService');
             this.loadingService.closeSpinner();
           }
@@ -187,9 +185,7 @@ export class SellerRatingComponent implements OnInit {
       this.sellerId = this.user.sellerId;
     }
     this.paramsGetSellerRating.sellerId = localStorage.getItem('userId');
-    console.log('this._dashboard: ', this._dashboard);
     this._dashboard.getRatingSellers(this.paramsGetSellerRating).subscribe(result => {
-      console.log('result', result);
       if (result.body) {
         if (result.status === 200 || result.status === 201) {
           this.arraySellerRating = result.body.viewModel;
@@ -200,7 +196,6 @@ export class SellerRatingComponent implements OnInit {
         }
         this.loadingService.closeSpinner();
       } else {
-        console.log('entra al else');
         this.modalService.showModal('errorService');
         this.loadingService.closeSpinner();
       }

@@ -203,8 +203,6 @@ describe('SellerRatingComponent', () => {
         });
 
         it('compareDate', () => {
-            component.initial = '102020';
-            component.final = '092020';
             component.compareDate();
         });
         afterAll(() => {
