@@ -49,9 +49,9 @@ export class AppComponent implements OnInit, AfterViewChecked, LoggedInCallback 
     };
 
     function toolbarTop() {
-
       const classtop = document.querySelector('.toolbar-component');
       const classtop2 = document.querySelector('.tree-toolbar');
+      const classtop3 = document.querySelector('.calification-toolbar');
       // const secondTool= document.querySelector('.toolbar-component');
       if (window.innerWidth > 959) {
         if (classtop) {
@@ -67,6 +67,13 @@ export class AppComponent implements OnInit, AfterViewChecked, LoggedInCallback 
             classtop2.classList.add('top-toolbar');
           } else {
             classtop2.classList.remove('top-toolbar');
+          }
+        }
+        if (classtop3) {
+          if (window.scrollY > 45) {
+            classtop3.classList.add('top-toolbar-calification');
+          } else {
+            classtop3.classList.remove('top-toolbar-calification');
           }
         }
       }

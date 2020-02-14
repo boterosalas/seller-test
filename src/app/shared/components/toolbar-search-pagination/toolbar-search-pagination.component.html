@@ -9,7 +9,7 @@
         </button>
       </div>
     </div>
-    <div fxFlex fxShow.xs="true" fxLayoutAlign="center start" class="center-search-orden">
+    <div fxFlex fxShow.xs="true" fxLayoutAlign="center start" class="center-search-orden" *ngIf="!_showContainerDetail" >
       <div *ngIf="Typeprofile == 1" style="width: 100%">
         <form id="search-store-form" class="search-store mat-typography" style="width: 100% !important;" (keydown)="keyDownFunction($event)">
           <mat-form-field class="input-search">
@@ -33,11 +33,11 @@
         </form>
       </div>
     </div>
-    <div fxFlex.xs="100" fxFlex.sm="300px" fxFlex fxLayoutAlign="end start">
+    <div fxFlex.xs="100" fxFlex.sm="300px" fxFlex fxLayoutAlign="end start"  [hidden]="_showContainerDetail" >
       <mat-paginator [ngClass]="{'hidden-pagination': orderListLength == true}" class="order-pagination" fxFlex.xs="300px"
         fxFlex.sm="300px" fxFlex.md="auto" fxFlex.lg="400px" fxFlex.xl="400px" class="paginator-style orders-paginate"
         itemsPerPageLabel="" #paginator [pageSize]="Typeprofile == 1 ? 50 : pageSizeOrder"
-        [length]="lengthOrder" [pageSizeOptions]="[50, 100, 150]" (page)="pageEvent = changePaginatorOrdens($event)">
+        [length]="lengthOrder"  [pageSizeOptions]="[50, 100, 150]" (page)="pageEvent = changePaginatorOrdens($event)">
       </mat-paginator>
       <div fxLayout="row" class="center-product-list" fxFlex="20px" fxShow.xs="true" fxShow.sm="true" fxShow.md="true"
         fxShow.lg="false" fxShow.xl="false">
@@ -87,8 +87,14 @@
         <mat-icon>file_download</mat-icon>
         {{'actions.download' | translate}}
       </button>
-      <button fxShow.xs="false" *ngIf="Typeprofile == 1"  [disabled]="idSeller? 'false': 'true'" fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button btn-filter input-search-black"
+      <button fxShow.xs="false" *ngIf="Typeprofile == 1 && !customerFilterCalifications"  [disabled]="idSeller? 'false': 'true'" fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button btn-filter input-search-black"
         id="search-order-button" (click)="toggleMenuOrderSearch()" style="top: 11px" mat-button color="primary">
+        <mat-icon>filter_list</mat-icon>
+        {{'filters.filter' | translate}}
+      </button>
+      <!-- filter for califications-->
+      <button fxShow.xs="false" *ngIf="Typeprofile == 1 && customerFilterCalifications"  [disabled]="idSeller? 'false': 'true'" fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button btn-filter input-search-black"
+        id="search-order-button" (click)="toggleMenuCalifications()" style="top: 11px" mat-button color="primary">
         <mat-icon>filter_list</mat-icon>
         {{'filters.filter' | translate}}
       </button>

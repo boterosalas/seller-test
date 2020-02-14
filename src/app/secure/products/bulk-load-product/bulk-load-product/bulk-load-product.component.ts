@@ -1592,7 +1592,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
    */
   sendJsonInformation() {
     this.arrayInformationForSend.splice(0, 1);
-    console.log(this.arrayInformationForSend);
     this.loadingService.viewSpinner();
     // call to the bulk load product service
     if (this.profileTypeLoad === 'Tienda') {

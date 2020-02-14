@@ -61,7 +61,7 @@
     "module.Reclamaciones": "Reclamaciones",
     "module.Reportes": "Reportes",
     "module.Devoluciones": "Devoluciones",
-    "module.Calificación": "Calificación",
+    "module.Calidad": "Calidad",
 
 
     "permissions.Consultar": "Consultar",
@@ -1144,5 +1144,12 @@
     "secure.products.bulk_upload.process": "al momento de cargar los productos.",
 
     "secure.reports.report-offert.download-modal-offert-ts.ok": "Se ha realizado la descarga del reporte de ofertas correctamente, revisa tu correo electrónico en unos minutos.",
-    "secure.reports.report-offert.download-modal-offert-ts.ko": "Se ha presentado un error al realizar la descarga del reporte de ofertas."
+    "secure.reports.report-offert.download-modal-offert-ts.ko": "Se ha presentado un error al realizar la descarga del reporte de ofertas.",
+
+    "secure.quality.quality-score.quality" :"Calificación",
+    "secure.quality.quality-score.qualityMonth" :"Mes calificado",
+    "secure.quality.quality-score.qualityIssued" :"Mes emitido",
+    "secure.quality.quality-score.text-empty-califications" :"Ingresa el nombre del vendedor en la barra de búsqueda para ver las calificaciones.",
+    "secure.quality.quality-score.filter-title": "Consultar calificaciones",
+    "secure.quality.quality-score.message-send-quality": "La calificación del vendedor se ha enviado correctamente"
 }

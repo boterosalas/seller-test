@@ -178,7 +178,10 @@ export const endpoints = {
       // Classification of cases
       getCaseCategories: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/get-case-categories',
       // Obtener calificacion de vendedores
-      getSellerRating: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller/{params}'
+      getSellerRating: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller/{params}',
+      // Eliminar calificacion de un vendedor
+      upsertQualification: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller'
+
     },
   },
   // Endpoints production
@@ -356,7 +359,9 @@ export const endpoints = {
       // Classification of cases
       getCaseCategories: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/get-case-categories',
       // Obtener calificacion de vendedores
-      getSellerRating: ''
+      getSellerRating: '',
+      // Eliminar calificacion de un vendedor
+      upsertQualification: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller'
     }
   }
 };

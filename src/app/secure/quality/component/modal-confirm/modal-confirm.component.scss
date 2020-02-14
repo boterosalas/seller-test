@@ -1,0 +1,51 @@
+.modal-confirm{
+    &-container-center-vertical{
+        vertical-align: middle;
+      }
+    &-color-title-modal{
+        color: #5D5D5D;
+        vertical-align: middle;
+    }
+    &-container-center-item{
+        text-align: center;
+    }
+    &-container-center-color-title{
+        text-align: center;
+        background-color: #dde3f2;
+        margin: 2px;
+    }
+    &-container-margin-bottom-title {
+        margin-bottom: 20px;
+    }
+    &-container-title-text-size {
+        font-size: 18px;
+        vertical-align: bottom;
+    }
+    &-container-column-title{
+        padding-bottom: 25px;
+    }
+    &-container-text-title-aling{
+        vertical-align: bottom;
+    }
+    &-container-icon-close-modal{
+        color: #5D5D5D;
+        cursor: pointer;
+    }
+    &-btn-delete{
+        background-color: #de2d2d;
+        color: #FFFFFF;
+    }
+
+    &-container-text-margin-top-title{
+        margin-top: 25px;
+    }
+
+    &-container-text-margin-top-subtitle{
+        margin-top:5px
+    }
+   
+}
+.dialog-buttons {
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
