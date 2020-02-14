@@ -78,6 +78,9 @@ export class CalificationListComponent implements OnInit {
   public length = 0;
   public showEmpty = true;
 
+  public lastState: null;
+  public pageIndexChange: 0;
+
   public stateSideNavOrder = false;
 
   private searchSubscription: any;
@@ -510,5 +513,7 @@ export class CalificationListComponent implements OnInit {
   backListCalifications() {
     this.showContainerDetail = false;
   }
+
+  changeSizeTable(event: any) { }
 
 }
