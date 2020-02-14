@@ -142,31 +142,45 @@ export class SupportModalComponent implements OnInit {
    */
   ngOnInit() {
     console.log('data: ', this.data);
-    this.getCaseEvaluation();
     this.getInfoSeller();
     this.SUPPORT.getClassification()
       .pipe(filter(response => response && response.data))
-      .subscribe(categories => this.omsCategories = categories.data);
+      .subscribe(categories => {
+        this.omsCategories = categories.data;
+        this.getCaseEvaluation();
+      }
+    );
   }
 
   /**
-   * Caso de evaluacion mensual por defecto
+   * Metodo para copnsultar los casos de soporte y traerme el de evaluacion mensual
    * @memberof SupportModalComponent
    */
   getCaseEvaluation() {
     this.SUPPORT.getClassification().subscribe(categories => {
-      console.log(categories);
       let ratingCategorie = categories.data;
       ratingCategorie = ratingCategorie.filter(el => el.idMatrix === 'MT498');
-      console.log(ratingCategorie);
       ratingCategorie.forEach(element => {
         this.appealRating_clasification = element.classification;
         this.appealRating_sub_clasification = element.category;
 
       });
       this.appealRating = [this.appealRating_clasification, this.appealRating_sub_clasification];
-      console.log('this.appealRating: ', this.appealRating);
+      this.myform.controls.classification.setValue(this.appealRating_clasification);
+      this.setValuesCaseEvaluation(ratingCategorie);
     });
+  }
+
+  setValuesCaseEvaluation(item: any) {
+    if (this.data) {
+      this.myform.controls.classification.setValue(this.appealRating_clasification );
+      this.onClickClassificationOption(item[0]);
+      this.myform.controls.category.setValue(this.appealRating_sub_clasification);
+      this.onClickCategoryOption(item[0]);
+    } else {
+      this.myform.controls.classification.setValue('');
+      this.myform.controls.category.setValue('');
+    }
   }
 
   getClassification(omsCategories: Array<CaseCategory>) {
@@ -230,6 +244,7 @@ export class SupportModalComponent implements OnInit {
   }
 
   onClickClassificationOption(item: CaseCategory) {
+    console.log(222, item);
     this.myform.clearValidators();
     this.scCategories = [];
     this.scSubcategories = [];
@@ -249,6 +264,7 @@ export class SupportModalComponent implements OnInit {
       )
       .subscribe((categories: any) => {
         this.scCategories = categories;
+        console.log(this.scCategories);
       });
     if (!item.category) {
       this.scReasonTypes = item.type;
@@ -257,6 +273,7 @@ export class SupportModalComponent implements OnInit {
   }
 
   onClickCategoryOption(item: CaseCategory) {
+    console.log(item);
     this.scSubcategories = [];
     this.scReasonTypes = [];
     this.classificationSelected = item;
@@ -346,7 +363,7 @@ export class SupportModalComponent implements OnInit {
           Validators.pattern(this.instant('contactOrders'))
         ])
       ),
-      classification: new FormControl(this.appealRating_clasification,
+      classification: new FormControl('',
         Validators.compose([Validators.required])
       ),
       subCategory: new FormControl(''),
