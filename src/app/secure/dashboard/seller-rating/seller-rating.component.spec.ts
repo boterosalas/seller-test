@@ -209,19 +209,4 @@ describe('SellerRatingComponent', () => {
             TestBed.resetTestingModule();
         });
     });
-    // describe('Open modal', () => {
-    //     beforeEach(() => {
-    //         fixture = TestBed.createComponent(SellerRatingComponent);
-    //     // mockLoadingService.LoadingService.and.returnValue();
-    //         component = fixture.componentInstance;
-    //         fixture.detectChanges();
-    //     });
-
-    //     it('openDialogSupport', () => {
-    //         component.openDialogSupport();
-    //     });
-    //     afterAll(() => {
-    //         TestBed.resetTestingModule();
-    //     });
-    // });
 });
