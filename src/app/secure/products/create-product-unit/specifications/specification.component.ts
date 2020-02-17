@@ -23,6 +23,7 @@ export class SpecificationProductComponent implements OnInit {
     chargeList = false;
     specificationsGroups: SpecificationModel[] = [];
     specificationListToAdd: any[] = [];
+    public arrayPosition = [];
     ShowSpecTitle = false;
     specificationModel = new SpecificationModel(null, null, null);
     specsForm: FormControl;
@@ -265,7 +266,7 @@ export class SpecificationProductComponent implements OnInit {
         this.ShowSpecTitle = cont;
     }
 
-    setValueSpefici(index: number, form: any, inputSpecifications: any) {
+    setValueSpefici(form: any, inputSpecifications: any, indexParent: number, indexSon: number) {
         if (inputSpecifications && inputSpecifications.Label) {
             if (this._detailProduct && this._detailProduct.features.length > 0) {
                 const valueArray = this._detailProduct.features.find(x => x.key === inputSpecifications.Label);
@@ -275,15 +276,21 @@ export class SpecificationProductComponent implements OnInit {
                         value = '';
                     } else {
                         value = valueArray.value;
+                        this.specificationChange(inputSpecifications, indexParent, indexSon);
                     }
-                }
-                if (form && form.form) {
-                    if (form.form.controls['specs' + index] && !form.controls['specs' + index].value) {
-                        form.controls['specs' + index].setValue(value);
+                    if (form && form.form) {
+                        if (form.form.controls['specs' + indexParent] && !form.controls['specs' + indexParent].value) {
+                            const isExist = this.arrayPosition.includes(indexParent);
+                            if (isExist === false) {
+                            this.arrayPosition.push(indexParent);
+                            setTimeout(res => {
+                                form.controls['specs' + indexParent].setValue(value);
+                            }, 10000);
+                            }
+                        }
                     }
                 }
             }
         }
     }
-
 }
