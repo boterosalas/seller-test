@@ -285,7 +285,7 @@ export class SpecificationProductComponent implements OnInit {
                             this.arrayPosition.push(indexParent);
                             setTimeout(res => {
                                 form.controls['specs' + indexParent].setValue(value);
-                            }, 10000);
+                            }, 20000);
                             }
                         }
                     }
