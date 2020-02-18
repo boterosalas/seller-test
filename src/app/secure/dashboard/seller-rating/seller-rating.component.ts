@@ -1,23 +1,14 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource, MatDialog, ErrorStateMatcher } from '@angular/material';
-import { Router } from '@angular/router';
-import { RoutesConst, ComponentsService } from '@app/shared';
+import { ComponentsService } from '@app/shared';
 import { LoadingService, UserParametersService, ModalService, Logger } from '@app/core';
 import { SupportModalComponent } from '@app/secure/support-modal/support-modal.component';
 import { DashboardService } from '../services/dashboard.service';
-import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
-import { FormGroup, FormBuilder, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { TranslateService } from '@ngx-translate/core';
 
-// export interface Calification {
-//   calification: string;
-//   date_calificate: string;
-//   date_issued: string;
-// }
-
 const log = new Logger('SellerRatingComponent');
-
 
 /**
  *
@@ -89,18 +80,14 @@ export class SellerRatingComponent implements OnInit {
     private languageService: TranslateService,
     public SUPPORT?: SupportService,
   ) {
-    // this.getAllDataUser();
     this.getDataUser();
 
   }
 
   ngOnInit() {
-    // this.paramsGetSellerRating.sellerId = localStorage.getItem('userId');
     this.createFormControls();
     this.validateFormSupport();
     this.getSellerRating();
-    // this.getCaseEvaluation();
-    // this.prueba();
   }
 
   /**
@@ -159,7 +146,10 @@ export class SellerRatingComponent implements OnInit {
     });
   }
 
-  // Funcion para cargar datos de regex
+  /**
+   * Funcion para cargar datos de regex
+   * @memberof SellerRatingComponent
+   */
   public validateFormSupport(): void {
     this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
       let dataOffertRegex = JSON.parse(res.body.body);
@@ -203,7 +193,6 @@ export class SellerRatingComponent implements OnInit {
       this.componentsService.openSnackBar(this.languageService.instant('public.auth.forgot.error_try_again'), this.languageService.instant('actions.close'), 4000);
       log.error(error);
     });
-    // this.getCaseEvaluation();
   }
 
   /**
@@ -247,19 +236,6 @@ export class SellerRatingComponent implements OnInit {
   }
 
   /**
-   * Funcion para mostrar solo mes y año formato mm/yyyy
-   * @param {string} valueDate
-   * @returns
-   * @memberof SellerRatingComponent
-   */
-  // formtYearMonth(valueDate: string) {
-  //   if (valueDate && valueDate.includes('/')) {
-  //     const arrayDate = valueDate.split('/');
-  //     return arrayDate[1] + '/' + arrayDate[2];
-  //   }
-  // }
-
-  /**
    * Metodo apra filtrar la calificacion segun fecha de emisión
    * @memberof SellerRatingComponent
    */
@@ -292,16 +268,6 @@ export class SellerRatingComponent implements OnInit {
       this.loadingService.closeSpinner();
     });
   }
-
-  // getCaseEvaluation() {
-  //   this.SUPPORT.getClassification().subscribe(categories => {
-  //     let ratingCategorie = categories.data;
-  //     ratingCategorie = ratingCategorie.filter(el => el.idMatrix === 'MT499');
-  //     this.appealRating_clasification = ratingCategorie.classification;
-  //     this.appealRating_sub_clasification = ratingCategorie.category;
-  //     this.appealRating = [this.appealRating_clasification, this.appealRating_sub_clasification];
-  //   });
-  // }
 
   /**
    * Metodo para abrir el modal de formulario de soporte para apelación

@@ -1,15 +1,5 @@
-// table {
-//   width: 90%;
-// //   height: 150px;
-// }
 
-// .mat-form-field {
-//   font-size: 11px;
-//   width: 90%;
-//   // height: 150px;
-// }
 .filter_rating {
-  // float: right;
   width: 95%;
   height: 23%;
   margin-left: 5%;
@@ -35,14 +25,10 @@
         width: 50%;
         margin-top: 5%;
         margin-bottom: 1%;
-        // margin-left: 5%;
       }
     }
   }
 
-  // position: sticky;
-  // top: 0;
-  // background: white;
 }
 
 .filter_title {
@@ -109,7 +95,6 @@ tr.mat-header-row {
 }
 
 tr.mat-row:nth-child(1) {
-  /* background-color: black; */
   font-weight: bold;
   background-color: whitesmoke;
 }
