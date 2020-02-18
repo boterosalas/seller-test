@@ -8,6 +8,11 @@
       <mat-spinner [diameter]="40" class="margin-loading"></mat-spinner>
       <p class="loading-waiting">{{'secure.products.create_product_unit.list_products.please_wait' | translate}}</p>
     </div>
+    <div *ngIf="!isLoad && isShow">
+      <mat-spinner [diameter]="30" class="margin-loading"></mat-spinner>
+      <p class="loading-waiting">{{'secure.products.create_product_unit.list_products.please_wait' | translate}}</p>
+    </div>
+
     <div *ngIf="!isLoad">
         <div *ngFor="let specification of specificationsGroups; let i = index" class="specification-item">
             <div fxLayout="row" fxLayoutAlign="space-between center" class="specification-title">

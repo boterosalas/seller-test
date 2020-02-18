@@ -32,6 +32,7 @@ export class SpecificationProductComponent implements OnInit {
     _detailProduct: any;
     idCategory: number;
     dataSpecification: any;
+    isShow = false;
     @Input() set detailProduct(value: any) {
         if (value) {
             this._detailProduct = value;
@@ -91,6 +92,7 @@ export class SpecificationProductComponent implements OnInit {
         if (this.idCategory) {
             if (data && data.length > 0) {
                 let count = 0;
+                this.isShow = true;
                 data.forEach(element => {
                     let specf = element.categories.replace(/'/g, '"');
                     specf = JSON.parse(specf).find(x => x === this.idCategory.toString());
@@ -285,7 +287,8 @@ export class SpecificationProductComponent implements OnInit {
                             this.arrayPosition.push(indexParent);
                             setTimeout(res => {
                                 form.controls['specs' + indexParent].setValue(value);
-                            }, 20000);
+                                this.isShow = false;
+                            }, 45000);
                             }
                         }
                     }

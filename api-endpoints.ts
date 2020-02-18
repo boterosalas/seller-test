@@ -101,8 +101,9 @@ export const endpoints = {
       getRegexBasic: 'https://n1gy42mfqa.execute-api.us-east-1.amazonaws.com/Regex/{params}',
       // Post Guardar informacion creacion unitaria de producto
       postSaveInformationUnitCreation: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products',
-      //
+      // Post solicitar informacion de detalle de productos
       postUnitSaveInformationUnitCreation: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/unitproduct',
+      // Patch actualizar un producto
       patchUnitSaveInformationUnitCreation: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/unitproduct',
       // Download billing.
       exportBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing',
@@ -282,8 +283,8 @@ export const endpoints = {
       // Post Guardar informacion creacion unitaria de producto
       postSaveInformationUnitCreation: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn',
        //
-       postUnitSaveInformationUnitCreation: '',
-       patchUnitSaveInformationUnitCreation: '',
+       postUnitSaveInformationUnitCreation: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/unitproduct',
+       patchUnitSaveInformationUnitCreation: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/unitproduct',
       // Download billing.
       exportBilling: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn',
       // Billing orders visualize.
@@ -317,7 +318,7 @@ export const endpoints = {
       // Obtener lista producto expandido
       getProductExpanded: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/get-product/{params}',
       // Obtener detalles del producto
-      getProductDetails: '',
+      getProductDetails: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/unitproduct/{params}',
       // Obtener tipo de perfil
       getTypeProfileAndProfile: 'https://tjymvkz23e.execute-api.us-east-1.amazonaws.com/Profiles-pdn/GetTypeProfileAndProfile',
       // Payoneer
@@ -359,7 +360,7 @@ export const endpoints = {
       // Classification of cases
       getCaseCategories: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/get-case-categories',
       // Obtener calificacion de vendedores
-      getSellerRating: '',
+      getSellerRating: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller/{params}',
       // Eliminar calificacion de un vendedor
       upsertQualification: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller'
     }
