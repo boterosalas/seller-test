@@ -49,8 +49,8 @@ export class SellerRatingComponent implements OnInit {
   public arrayPosition = [];
 
   public arraySellerRating: any;
-  private scrolled: Boolean = false;
-  private disableButton: Boolean = true;
+  public scrolled: Boolean = false;
+  public disableButton: Boolean = true;
 
   public paramsGetSellerRating = {
     'sellerId': null,
@@ -62,7 +62,7 @@ export class SellerRatingComponent implements OnInit {
     'limit': 10,
   };
 
-  private activeScrolled: Boolean = false;
+  public activeScrolled: Boolean = false;
   sellerId: string;
   activeFilter: Boolean = false;
   appealRating_clasification: any;
@@ -71,13 +71,13 @@ export class SellerRatingComponent implements OnInit {
 
 
   constructor(
-    private loadingService: LoadingService,
+    public loadingService: LoadingService,
     public dialog: MatDialog,
-    private userParams: UserParametersService,
-    private _dashboard: DashboardService,
-    private modalService: ModalService,
+    public userParams: UserParametersService,
+    public _dashboard: DashboardService,
+    public modalService: ModalService,
     public componentsService: ComponentsService,
-    private languageService: TranslateService,
+    public languageService: TranslateService,
     public SUPPORT?: SupportService,
   ) {
     this.getDataUser();
