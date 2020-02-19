@@ -11,6 +11,11 @@
         {{'secure.products.create_product_unit.categorization.list.you_selected' | translate}}: <strong
           [innerHTML]="selectedCategory"></strong>
       </div>
+      <div *ngIf="isShowP">
+          <div style="margin-top: 10px;">
+            {{'secure.products.create_product_unit.list_products.please_wait' | translate}}
+          </div>
+      </div>
     </div>
     <button mat-button (click)="openAll()">
       <span *ngIf="!openAllItems">
@@ -21,5 +26,5 @@
       </span>
     </button>
   </div>
-  <app-tree [treeData]=listCategories [idSelected]="selectedIdCategory" [open]="true" *ngIf="finishCharge"></app-tree>
+  <app-tree [treeData]=listCategories [idSelected]="selectedIdCategory" [open]="true" *ngIf="finishCharge" (isShowLoading)="showLoad"></app-tree>
 </div>
