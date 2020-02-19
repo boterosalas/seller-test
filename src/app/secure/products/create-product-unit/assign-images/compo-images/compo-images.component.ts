@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
     selector: 'app-compo-images',
@@ -9,6 +9,21 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class CompoImagesComponent implements OnInit {
 public urlArrayDad: any = ['', '', '', '', ''];
 @Output() toPpal = new EventEmitter();
+_arrayImageDadClothing: any = ['', '', '', '', ''];
+_arrayImageDadTecnology: any = ['', '', '', '', ''];
+@Input() set arrayImageDadClothing (value: any){
+    if (value) {
+        this._arrayImageDadClothing = value;
+    }
+}
+
+
+@Input() set arrayImageDadTecnology(value: any){
+    if (value) {
+        this._arrayImageDadTecnology = value;
+    }
+}
+
 constructor() {
     }
 

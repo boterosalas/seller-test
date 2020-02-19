@@ -49,9 +49,11 @@ export class ProductDevolutionModalComponent {
   onNoClick(): void {
     this.dialogRef.close(false);
   }
-  cloudDownload(urlDownload: string) {
-    if (urlDownload !== null && urlDownload !== undefined && urlDownload !== '') {
-      window.open(urlDownload, 'to_download', 'height=200,width=700,left=300,location=yes,menubar=no,resizable=no,scrollbars=yes,status=no,titlebar=yes,top=300');
+  cloudDownload(urlDownload: any) {
+    if (urlDownload && urlDownload.length > 0) {
+      urlDownload.forEach(element => {
+        window.open(element);
+      });
     } else {
       this.showMessage = true;
     }

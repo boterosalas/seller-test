@@ -61,7 +61,7 @@
     "module.Reclamaciones": "Reclamaciones",
     "module.Reportes": "Reportes",
     "module.Devoluciones": "Devoluciones",
-    "module.Calificación": "Calificación",
+    "module.Calidad": "Calidad",
 
 
     "permissions.Consultar": "Consultar",
@@ -245,7 +245,7 @@
     "modal.problems.title": "¡Oops!.",
     "modal.product.no_stock": "¡Este producto esta agotado! Por favor intenta con otro",
     "modal.success.update": "¡Tú actualización ha sido exitosa!",
-    "modal.success.update.title": "¡Actualización realizada con éxito!",
+    "modal.success.update.title": "Actualización realizada con éxito",
 
 
     "core.http.dialog_token_expired.title": "La sesión ha expirado",
@@ -333,6 +333,19 @@
     "secure.dashboard.selected_months": "Seleccione el mes",
     "secure.dashboard.info_cancel_sale": "Esta información es aproximada y no tiene en cuenta cancelación, adicionalmente la venta se muestra sin flete",
 
+    "secure.dashboard.seller-rating.title":"Calificación de Calidad",
+    "secure.dashboard.seller-rating.title_filter":"Filtro por fecha de Emisión",
+    "secure.dashboard.seller-rating.header_rating":"Calificación",
+    "secure.dashboard.seller-rating.date_calificated":"Fecha mes Calificado",
+    "secure.dashboard.seller-rating.date_issued":"Fecha Emisión",
+    "secure.dashboard.seller-rating.date_issued_initial_filter":"Fecha inicial",
+    "secure.dashboard.seller-rating.date_issued_final_filter":"Fecha final",
+    "secure.dashboard.seller-rating.date_issued_final_filter_error":"Formato inválido (mm/yyyy)",
+    "secure.dashboard.seller-rating.date_issued_final_not_data":"No se han encontrado registros de calificación.",
+    "secure.dashboard.seller-rating.date_issued_final_not_data_filter":"No se han encontrado registros de calificación en este rango de fechas.",
+    "secure.dashboard.seller-rating.appeal":"Apelar",
+    "secure.dashboard.seller-rating.getPdf":"Descargar PDF.",
+    
 
     "secure.error_page.no_found_page": "La pagina solicitada no ha sido encontrada",
     "secure.error_page.go_home": "Ir a inicio",
@@ -843,6 +856,7 @@
     "secure.products.create_product_unit.categorization.list.you_selected": "Usted seleccionó",
     "secure.products.create_product_unit.categorization.list.expand": "Expandir",
     "secure.products.create_product_unit.categorization.list.colapse": "Colapsar",
+    "secure.products.create_product_unit.categorization.list.standard_variant": "No puedes cambiar la categoría de Estandar a Variante o de Variante a Estandar",
 
     "secure.products.create_product_unit.component_process.categorization": "Categorización",
     "secure.products.create_product_unit.component_process.back": "Atrás",
@@ -853,6 +867,7 @@
     "secure.products.create_product_unit.component_process.save": "Guardar",
 
     "secure.products.create_product_unit.component_process.dialog_save.product_creation_request": "La solicitud de creación de tu producto ha sido recibida con éxito. El producto pasará a proceso de validación y te estaremos informando de manera oportuna si el producto es aceptado y puede ofertarse, o si es rechazado y debes corregir información.",
+    "secure.products.create_product_unit.component_process.dialog_save.product_modification_request": "La solicitud de modificación de tu producto ha sido recibida con éxito. El producto pasará a proceso de validación y te estaremos informando de manera oportuna si el producto es aceptado y puede ofertarse, o si es rechazado y debes corregir información.",
     "secure.products.create_product_unit.component_process.dialog_save.home": "Inicio",
     "secure.products.create_product_unit.component_process.dialog_save.retry": "Reintentar",
     "secure.products.create_product_unit.component_process.dialog_save.error_ocurred": "Error presentado",
@@ -874,8 +889,9 @@
     "secure.products.create_product_unit.specifications.dialog.have": "ha",
     "secure.products.create_product_unit.specifications.dialog.there": "Se",
     "secure.products.create_product_unit.specifications.dialog.been": "presentado",
-    "secure.products.create_product_unit.specifications.dialog.try_create_products": "al momento de crear el producto. Intentelo nuevamente... Gracias",
-    "secure.products.create_product_unit.specifications.dialog.errors": "errors",
+    "secure.products.create_product_unit.specifications.dialog.try_create_products": "al momento de crear el producto. Inténtelo nuevamente... Gracias",
+    "secure.products.create_product_unit.specifications.dialog.try_edit_products": "al momento de modificar el producto. Inténtelo nuevamente... Gracias",
+    "secure.products.create_product_unit.specifications.dialog.errors": "errores",
     "secure.products.create_product_unit.specifications.dialog.error": "error",
     "secure.products.create_product_unit.specifications.complete_name": "Para agregar una especificación debes indicar el nombre de la misma y diligenciarla en los campos que te proveemos.",
     "secure.products.create_product_unit.specifications.specs": "Especificación",
@@ -1128,5 +1144,12 @@
     "secure.products.bulk_upload.process": "al momento de cargar los productos.",
 
     "secure.reports.report-offert.download-modal-offert-ts.ok": "Se ha realizado la descarga del reporte de ofertas correctamente, revisa tu correo electrónico en unos minutos.",
-    "secure.reports.report-offert.download-modal-offert-ts.ko": "Se ha presentado un error al realizar la descarga del reporte de ofertas."
+    "secure.reports.report-offert.download-modal-offert-ts.ko": "Se ha presentado un error al realizar la descarga del reporte de ofertas.",
+
+    "secure.quality.quality-score.quality" :"Calificación",
+    "secure.quality.quality-score.qualityMonth" :"Mes calificado",
+    "secure.quality.quality-score.qualityIssued" :"Mes emitido",
+    "secure.quality.quality-score.text-empty-califications" :"Ingresa el nombre del vendedor en la barra de búsqueda para ver las calificaciones.",
+    "secure.quality.quality-score.filter-title": "Consultar calificaciones",
+    "secure.quality.quality-score.message-send-quality": "La calificación del vendedor se ha enviado correctamente"
 }

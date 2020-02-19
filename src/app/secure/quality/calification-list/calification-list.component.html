@@ -1,0 +1,166 @@
+<div class="content-order my-content">
+
+  <div fxFlex class="container" fxLayout="row wrap" fxLayoutAlign="center
+    start">
+    <div fxFlex="100" class="light-content">
+      <app-toolbar-search-pagination [isClear]="isClear" [informationToForm]="informationToForm" [state]="lastState"
+        [idSeller]="idSeller" #toolbarOptions 
+        (paginationListOrdens)="paginations($event)" [pageIndexChange]="pageIndexChange"
+        (OnChangeSizeOrderTable)="changeSizeTable($event)" [Typeprofile]="typeProfile" [lengthOrder]="length"
+        [customerFilterCalifications]=true (filterCalifications)="toggleFilterCalifications()" [showContainerDetail]="showContainerDetail">
+      </app-toolbar-search-pagination>
+    </div>
+
+    <!-- Tabla de órdenes -->
+    <div fxFlex.xs="100%" fxFlex.sm="95" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100" *ngIf="!showContainerDetail">
+      <mat-table #table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="qualityScore">
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="30" fxFlex.sm="30" fxFlex.md="30" fxFlex.xs="30" fxFlex.xl="30" *matHeaderCellDef
+            mat-sort-header>
+            <span class="title-table-header">{{'secure.quality.quality-score.quality'
+              | translate}}</span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="30"
+            fxFlex.sm="30" fxFlex.md="30" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal calification-list-font-weight">{{element.qualitative}}</p>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="qualityMonth">
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="30" fxFlex.sm="30" fxFlex.md="30" fxFlex.xs="30" fxFlex.xl="30" *matHeaderCellDef
+            mat-sort-header>
+            <span class="title-table-header">{{'secure.quality.quality-score.qualityMonth'
+              | translate}}</span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="30"
+            fxFlex.sm="30" fxFlex.md="30" fxFlex.xs="30" fxFlex.xl="30" *matCellDef="let element">
+            <p class="sc-text-normal">{{element.qualificationDate}}</p>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="qualityIssued">
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="30" fxFlex.sm="30" fxFlex.md="30" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
+            <span class="title-table-header">{{'secure.quality.quality-score.qualityIssued'
+              | translate}}</span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="30"
+            fxFlex.sm="30" fxFlex.md="30" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal">{{element.generatedDate}}</p>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="actions" class="calification-list-justify-content">
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef mat-sort-header
+            class="calification-list-justify-content">
+            <span class="title-table-header">{{'shared.actions' | translate}}</span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="20"
+            fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl="20" *matCellDef="let element">
+            <p class="sc-text-normal align-end-actions cursor-pointer">
+              <mat-icon class="color-icons-details" [matTooltip]="'shared.details' | translate" (click)="contentDetails(element.qualificationDate,
+                element.idSeller);">description</mat-icon>
+            </p>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row id="order-number-{{index}}" *matRowDef="let index=index; let
+          row; columns: displayedColumns;" class="element-row personal-row-table" [cdkDetailRow]="row"
+          [cdkDetailRowTpl]="tpl">
+        </mat-row>
+      </mat-table>
+      <div [@detailExpand] class="orders-no-data" *ngIf="length === 0">
+        <mat-icon class="icon-not-found" color="primary">info</mat-icon>
+        <div *ngIf="length === 0 && !showEmpty">
+          <p>No se han encontrado &oacute;rdenes</p>
+        </div>
+        <div *ngIf="length === 0 && showEmpty">
+          <p>{{'secure.quality.quality-score.text-empty-califications' |
+            translate}}</p>
+        </div>
+      </div>
+    </div>
+    <div fxFlex.xs="100%" fxFlex.sm="95" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100" *ngIf="showContainerDetail">
+     <app-detail-calification [detailByElemet]="detailByElemet" (showContainerDetailSend)="backListCalifications()" [nameSeller]="nameSeller" [idSeller]="idSeller"></app-detail-calification>
+    </div>
+  </div>
+</div>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenavSearchOrder mode="over" position="end" opened="{{stateSideNavOrder}}">
+    <mat-card class="content-profile calification-list-93-height" >
+      <mat-nav-list class="light-content">
+        <mat-toolbar color="primary" class="toolbar-title-search">
+          <h4 class="title-toolbar">{{informationToForm.title_for_search | translate}}</h4>
+          <button color="accent" [matTooltip]="'actions.close' | translate" matTooltipPosition="below" mat-icon-button
+            mat-button (click)="toggleFilterCalifications()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-toolbar>
+      </mat-nav-list>
+      <mat-card-content>
+        <form class="example-container" #createfilterCalisification="ngForm" [formGroup]="filterCalifications"
+          class="seller-filter-sidenav">
+        <div>
+            <div>
+              <div class="calification-list-padding-container">
+                <div class="calification-list-color">
+                  <mat-icon class="mat-18 calification-list-vertical-aling">today</mat-icon>
+                  Fecha calificado <span class="calification-list-font-size">(MM/AAAA)</span>
+                </div>
+                <div class="calification-list-padding-left">
+                  <mat-form-field class="calification-list-width-complete">
+                    <input matInput [placeholder]="'secure.parametize.support_claims-filter.start-date' | translate"
+                      formControlName="dateInitQualityMonth" [errorStateMatcher]="matcher">
+                    <mat-error *ngIf="filterCalifications.get('dateInitQualityMonth').hasError('pattern')"
+                      [innerHTML]="'Fecha invalida'"></mat-error>
+                  </mat-form-field>
+    
+                  <mat-form-field class="calification-list-width-complete">
+                    <input matInput [placeholder]="'secure.parametize.support_claims-filter.end-date' | translate"
+                      formControlName="dateFinalQualityMonth" [errorStateMatcher]="matcher">
+                    <mat-error *ngIf="filterCalifications.get('dateFinalQualityMonth').hasError('pattern')"
+                      [innerHTML]="'Fecha invalida'"></mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+             <div>
+              <div class="calification-list-color">
+                <mat-icon class="mat-18 calification-list-vertical-aling" >today</mat-icon>
+                Fecha Emitido <span class="calification-list-font-size">(MM/AAAA)</span>
+              </div>
+              <div class="calification-list-padding-left">
+                <mat-form-field class="calification-list-width-complete">
+                  <input matInput [placeholder]="'secure.parametize.support_claims-filter.start-date' | translate"
+                    formControlName="dateInitQualityIssued" [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="filterCalifications.get('dateInitQualityIssued').hasError('pattern')"
+                    [innerHTML]="'Fecha invalida'"></mat-error>
+                </mat-form-field>
+  
+                <mat-form-field class="calification-list-width-complete">
+                  <input matInput [placeholder]="'secure.parametize.support_claims-filter.end-date' | translate"
+                    formControlName="dateFinalQualityIssued" [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="filterCalifications.get('dateFinalQualityIssued').hasError('pattern')"
+                    [innerHTML]="'Fecha invalida'"></mat-error>
+                </mat-form-field>
+              </div>
+             </div>
+            </div>
+            <div>
+              <div class="orders-search-option normal-theme calification-list-filter-btn-clear" >
+                <button  class="sc-button" mat-button type="button" (click)="clearForm()">
+                  <mat-icon>clear_all</mat-icon>
+                  {{'filters.clear' | translate}}
+                </button>
+                <button  [disabled]="!createfilterCalisification.form.valid || !createfilterCalisification.form.touched" class="sc-button" mat-raised-button color="primary"
+                  type="submit" (click)="filterCalification(filterCalifications.value)">
+                  {{'actions.apply' | translate}}
+                </button>
+              </div>
+            </div>
+        </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </mat-sidenav>
+</mat-sidenav-container>

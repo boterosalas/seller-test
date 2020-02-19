@@ -144,3 +144,8 @@
     height: 80%;
     overflow-y: auto;
 }
+
+
+:host ::ng-deep .mat-step-optional{
+  display: none;
+}

@@ -61,7 +61,7 @@
     "module.Reclamaciones": "Claims",
     "module.Reportes": "Reports",
     "module.Devoluciones": "Returns",
-    "module.Calificación": "Quality",
+    "module.Calidad": "Quality",
 
 
     "permissions.Consultar": "Browse",
@@ -333,6 +333,19 @@
     "secure.dashboard.selected_months": "Select a month",
     "secure.dashboard.info_cancel_sale": "This info is approximated and doesn't take into account cancelations, additionaly the sales value is shown without taking freight values into account",
 
+    "secure.dashboard.seller-rating.title":"Quality score",
+    "secure.dashboard.seller-rating.title_filter":"Release date filter",
+    "secure.dashboard.seller-rating.header_rating":"Score",
+    "secure.dashboard.seller-rating.date_calificated":"Evaluated month",
+    "secure.dashboard.seller-rating.date_issued":"Release date",
+    "secure.dashboard.seller-rating.date_issued_initial_filter":"Initial date",
+    "secure.dashboard.seller-rating.date_issued_final_filter":"Final date",
+    "secure.dashboard.seller-rating.date_issued_final_filter_error":"Invalid format (mm/yyyy)",
+    "secure.dashboard.seller-rating.date_issued_final_not_data":"No evaluation data has been found.",
+    "secure.dashboard.seller-rating.date_issued_final_not_data_filter":"No evaluation data has been found for this date range.",
+    "secure.dashboard.seller-rating.appeal":"Appeal",
+    "secure.dashboard.seller-rating.getPdf":"Download PDF",
+    
 
     "secure.error_page.no_found_page": "The page you requested is not available",
     "secure.error_page.go_home": "Go to start",
@@ -843,6 +856,7 @@
     "secure.products.create_product_unit.categorization.list.you_selected": "You selected",
     "secure.products.create_product_unit.categorization.list.expand": "Expand",
     "secure.products.create_product_unit.categorization.list.colapse": "Colapse",
+    "secure.products.create_product_unit.categorization.list.standard_variant": "You can not change a category from Standard to Variant or from Variant to Standard",
 
     "secure.products.create_product_unit.component_process.categorization": "Categorization",
     "secure.products.create_product_unit.component_process.back": "Back",
@@ -853,6 +867,7 @@
     "secure.products.create_product_unit.component_process.save": "Save",
 
     "secure.products.create_product_unit.component_process.dialog_save.product_creation_request": "The product creation request has been succesful. The product will now go through our validation process and we will inform you as soon as possible whether the product has been accepted and an offer may be associated, or if it has been rejected and you must fix the information",
+    "secure.products.create_product_unit.component_process.dialog_save.product_modification_request": "The product modification request has been succesful. The product will now go through our validation process and we will inform you as soon as possible whether the product has been accepted and an offer may be associated, or if it has been rejected and you must fix the information",
     "secure.products.create_product_unit.component_process.dialog_save.home": "Home",
     "secure.products.create_product_unit.component_process.dialog_save.retry": "Retry",
     "secure.products.create_product_unit.component_process.dialog_save.error_ocurred": "An error has occurred",
@@ -875,6 +890,7 @@
     "secure.products.create_product_unit.specifications.dialog.there": "There",
     "secure.products.create_product_unit.specifications.dialog.been": "been",
     "secure.products.create_product_unit.specifications.dialog.try_create_products": "when trying to create the product. Try gain… Thank you",
+    "secure.products.create_product_unit.specifications.dialog.try_edit_products": "when trying to edit the product. Try gain… Thank you",
     "secure.products.create_product_unit.specifications.dialog.errors": "errors",
     "secure.products.create_product_unit.specifications.dialog.error": "error",
     "secure.products.create_product_unit.specifications.complete_name": "In order to add a specification you must enter the name and all provided fields.",
@@ -1128,5 +1144,11 @@
     "secure.products.bulk_upload.process": "when uploading the products.",
 
     "secure.reports.report-offert.download-modal-offert-ts.ok": "The download has started successfully. Check your e-mail.",
-    "secure.reports.report-offert.download-modal-offert-ts.ko": "And error has occurred when downloading the file."
+    "secure.reports.report-offert.download-modal-offert-ts.ko": "And error has occurred when downloading the file.",
+
+    "secure.quality.quality-score.quality" :"Quality",
+    "secure.quality.quality-score.qualityMonth" :"Quality month",
+    "secure.quality.quality-score.qualityIssued" :"Quality issued",
+    "secure.quality.quality-score.text-empty-califications" :"Enter the name of the seller in the search bar to see the quality score. ",
+    "secure.quality.quality-score.filter-title": "Consultar calificaciones"
 }

@@ -2,8 +2,8 @@ import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { EndpointService } from '@app/core/http/endpoint.service';
-import { of } from 'rxjs';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { of, observable } from 'rxjs';
 import { isUndefined } from 'util';
 import { LoadingService } from '@app/core';
 
@@ -57,6 +57,7 @@ export interface ProductModel {
     MetaDescription: string;
     IsCombo: boolean;
     EanCombo: any;
+    ModifyImage: any;
 }
 
 /**
@@ -168,7 +169,8 @@ export class ProcessService {
         MetaTitle: null,
         MetaDescription: null,
         IsCombo: null,
-        EanCombo: null
+        EanCombo: null,
+        ModifyImage: 0
     };
 
     /**
@@ -176,12 +178,19 @@ export class ProcessService {
      *
      * @memberof ProcessService
      */
+    // views = {
+    //     showEan: true,
+    //     showCat: false,
+    //     showInfo: true,
+    //     showSpec: true,
+    //     showImg: true,
+    // };
     views = {
         showEan: false,
         showCat: false,
-        showInfo: true,
-        showSpec: true,
-        showImg: true,
+        showInfo: false,
+        showSpec: false,
+        showImg: false,
     };
 
     /**
@@ -395,9 +404,16 @@ export class ProcessService {
      * @returns {Observable<{}>}
      * @memberof ProcessService
      */
-    public saveInformationUnitreation(): Observable<{}> {
+    public saveInformationUnitreation(ean: any): Observable<{}> {
         this.sendFieldMeta();
-        return this.http.post(this.api.get('postSaveInformationUnitCreation'), this.productData);
+        if (ean) {
+            this.productData.ModifyImage = 1;
+            return this.http.patch(this.api.get('patchUnitSaveInformationUnitCreation'), this.productData, { observe: 'response' });
+        } else {
+            this.productData.ModifyImage = 0;
+            return this.http.post(this.api.get('postUnitSaveInformationUnitCreation'), this.productData);
+        }
+
     }
 
     resetProduct() {
@@ -442,12 +458,18 @@ export class ProcessService {
             MetaTitle: null,
             MetaDescription: null,
             IsCombo: null,
-            EanCombo: null
+            EanCombo: null,
+            ModifyImage: 0
         };
         this.views.showCat = false;
     }
+    /**
+     * funcion para consultar el estatus del producto modificado por un admin
+     *
+     * @returns {Observable<{}>}
+     * @memberof ProcessService
+     */
+    setStatusChange(): Observable<any> {
+        return this.http.get(this.api.get('getStateOfCharge'), { observe: 'response' });
+    }
 }
-
-
-
-

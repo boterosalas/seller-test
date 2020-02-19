@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder, FormGroupDirective, NgForm } from '@angular/forms';
 import { EanServicesService } from '../validate-ean/ean-services.service';
 import { ErrorStateMatcher } from '@angular/material';
@@ -28,6 +28,8 @@ export class ValidateEanComponent {
   public asignatedEan: boolean;
   public showButton = false; // Variable que se conecta con el servicio que habilita los botonoes
   public copy = null;
+  @Input() ean: any;
+  public productEdit = false;
 
   constructor(private fb: FormBuilder, private service: EanServicesService, private process: ProcessService,
     private commonService: CommonService) {
@@ -57,6 +59,18 @@ export class ValidateEanComponent {
       }
     });
     this.validateEanExist = true;
+    if (this.ean) {
+      this.eanGroup.controls.eanCtrl.setValue(this.ean.toString());
+      this.productEdit = true;
+    } else {
+      this.process.views = {
+        showEan: false,
+        showCat: false,
+        showInfo: false,
+        showSpec: false,
+        showImg: false,
+      };
+    }
     this.process.change.subscribe(data => {
       this.showButton = data.showEan;
     });
@@ -106,8 +120,13 @@ export class ValidateEanComponent {
         // Validar si la data es un booleano
         this.validateEanExist = (res['data']);
         if (this.validateEanExist) {
-          this.eanGroup.controls.eanCtrl.setErrors({ 'validExistEanDB': this.validateEanExist });
-          this.process.unavailableEanView();
+          if (this.productEdit) {
+            this.activeButtonCreacionUnitaria = true;
+            this.sendEan();
+          } else {
+            this.eanGroup.controls.eanCtrl.setErrors({ 'validExistEanDB': this.validateEanExist });
+            this.process.unavailableEanView();
+          }
         }
         if (!this.validateEanExist) {
           this.activeButtonCreacionUnitaria = true;

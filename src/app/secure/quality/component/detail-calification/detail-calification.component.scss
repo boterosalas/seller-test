@@ -1,0 +1,410 @@
+.detail-calification {
+  &-padding {
+    padding-top: 15px;
+  }
+
+  &-container-height {
+    margin-top: 48px;
+  }
+
+  &-container-height-complete {
+    height: 100%;
+  }
+
+  &-container-width-complete {
+    width: 100%;
+  }
+  &-arrow-back-list-font-size{
+    font-size: 15px;
+  }
+  &-btn-notification-aling-end{
+    text-align: end;
+  }
+
+  &-container-center-vertical {
+    vertical-align: middle;
+  }
+
+  &-container-text-bold {
+    font-weight: bold;
+  }
+
+  &-container-padding-text{
+    padding:5px
+  }
+  &-container-padding-text-margin-top{
+    margin-top: 10px
+  }
+
+  &-container-row-detail{
+    height: 30px
+  }
+
+  &-container-text-color {
+    color: #545353;
+  }
+
+  &-container-text-name-seller-padding{
+    padding-top: 10px;
+  }
+
+  &-container-cursor-pointer {
+    cursor: pointer;
+  }
+
+  &-container-arrow-Back-color {
+    color: #5d5d5d;
+    vertical-align: middle;
+    font-size: 21px;
+  }
+
+  &-container-background-color-details-panel-tr {
+    background-color: #dde3f2;
+  }
+
+  &-container-color-details-panel {
+    color: #5D5D5D;
+  }
+
+  &-container-text-color-size {
+    color: #9e9e9e;
+    font-size: 14px
+  }
+
+  &-container-table-info-seller {
+    background-color: #ffffff;
+    height: 45px;
+    display: table;
+  }
+
+  &-container-table-info-seller-icon-seller {
+    padding-left: 11px;
+    color: #5D5D5D;
+    font-size: 17px;
+    vertical-align: middle;
+    display: table-cell;
+  }
+
+  &-container-table-info-seller-icon-seller-aling-center {
+    vertical-align: middle;
+  }
+
+  &-container-aling-center {
+    text-align: center;
+  }
+
+  &-container-table-info-seller-detail {
+    height: 86%;
+    width: 100%;
+  }
+
+  &-container-table-info-seller-detail-size-container {
+    height: 55%;
+    width: 100%;
+  }
+
+  &-container-table-info-seller-detail-description {
+    height: 55%;
+    width: 100%;
+  }
+
+  &-container-table-info-seller-detail-description-icon {
+    font-size: 160px;
+    height: 160px;
+    width: 160px;
+    color: #dadada;
+  }
+
+  &-container-table-info-penalty {
+    background-color: #ffffff;
+    height: 45px;
+    display: table;
+  }
+
+  &-container-table-info-icon {
+    padding-left: 11px;
+    color: #5D5D5D;
+    font-size: 17px;
+    vertical-align: middle;
+    display: table-cell;
+  }
+
+  &-container-table-info-icon-align {
+    vertical-align: middle;
+  }
+
+  &-container-table-info-column-penalty {
+    padding: 5px 5px;
+    background-color: #ececec;
+  }
+
+  &-container-table-info-column-penalty-cancel {
+    padding: 7px 5px;
+    margin-top: 11px;
+  }
+
+  &-container-table-info-column-penalty-total {
+    padding: 6px 5px;
+    color: #545353;
+    background-color: #e4e2e2;
+    border: 1px solid #dbdada;
+  }
+
+  &-container-table-info-column-penalty-total-text {
+    font-weight: bold;
+    color: #545353
+  }
+
+  &-container-table-info-calication-get {
+    background-color: #ffffff;
+    height: 45px;
+    display: table;
+  }
+
+  &-container-table-info-calication-get-row {
+    padding-left: 11px;
+    color: #5D5D5D;
+    font-size: 17px;
+    vertical-align: middle;
+    display: table-cell;
+  }
+
+  &-container-table-califications-promise-delivery-size {
+    height: 25%;
+    max-width: 100%;
+  }
+
+  &-container-table-califications-column-promise-delivery {
+    color: #545353;
+    background-color: #e4e2e2;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding-left: 11px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    border: 1px solid rgb(219, 218, 218)
+  }
+
+  &-container-table-califications-column-text {
+    color: #9e9e9e;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  &-container-table-calification-column-result {
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 1px solid rgb(219, 218, 218);
+    margin-left: 5px;
+    margin-right: 5px;
+    border-top: hidden;
+  }
+
+  &-container-table-calification-column-result-text {
+    text-align: center;
+    color: #717171;
+  }
+
+  &-container-table-calification-column-title-reclaim {
+    color: #9e9e9e;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    font-size: 14px;
+    width: 113px
+  }
+
+  &-container-result-reclaim-row {
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 1px solid rgb(219, 218, 218);
+    margin-left: 5px;
+    margin-right: 5px;
+    border-top: hidden;
+  }
+
+  &-container-table-cancelation-result {
+    text-align: center;
+    color: #9e9e9e;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    font-size: 14px;
+  }
+
+  &-container-table-result-total {
+    color: #545353;
+    background-color: #e4e2e2;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding-left: 11px;
+    padding-bottom: 7px;
+    padding-top: 5px;
+    border: 1px solid rgb(219, 218, 218);
+    margin-top: 12px;
+  }
+
+  &-container-result-total-calification {
+    margin-right: 27px;
+    font-weight: bold;
+  }
+
+  &-container-details-background-color {
+    background-color: #f6f5f5;
+  }
+
+  &-container-text-resalt-info {
+    color: #000000;
+    font-weight: bold;
+  }
+
+  &-container-scroll-mobil {
+    @media only screen and (max-width: 500px) and (min-width: 341px) {
+      width: 102%;
+      overflow: scroll;
+      height: 112%;
+    }
+  }
+
+  &-container-width-get-calification-column-one{
+    width: 126px
+  }
+  &-container-width-get-calification-column-two{
+    width: 147px;
+    text-align: center;
+  }
+  &-container-width-get-calification-column-thrre{
+    width: 113px
+  }
+  &-container-width-get-calification-column-four{
+    width: 111px
+  }
+  &-container-width-get-calification-column-five{
+    width: 149px;
+    text-align: center;
+  }
+  &-container-width-get-calification-column-six{
+    width: 95px;
+    text-align: center;
+  }
+
+  &-container-width-get-calification-column-result-one{
+    width: 123px;
+  }
+  &-container-width-get-calification-column-result-two{
+    width: 137px;
+  }
+  &-container-width-get-calification-column-result-thrre{
+    width: 117px;
+  }
+  &-container-width-get-calification-column-result-four{
+    width: 111px;
+    color: #000000;
+    text-align: center;
+  }
+  &-container-width-get-calification-column-result-five{
+    width: 152px;
+  }
+  &-container-width-get-calification-column-result-fix{
+    width: 95px;
+  }
+
+  &-margin-block{
+    margin-block-end: inherit;
+    margin-block-start: inherit;
+  }
+}
+
+
+
+.excellent {
+  background-color: #66b53e;
+}
+
+.acceptable {
+  background-color: #f0ea35;
+}
+
+.deficient {
+  background-color: #de2d2d;
+}
+
+.delete {
+  cursor: pointer;
+  color: #de2d2d;
+  text-align: center;
+}
+
+.default {
+  background-color: #cac9c9;
+}
+
+.calification-list-padding-info-seller {
+  padding-bottom: 10px;
+}
+
+.calification-list-containter-details {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.24), 0 0 2px rgba(0, 0, 0, 0.12);
+  margin: 4px;
+}
+
+.calification-list-container-details-header {
+  height: 60px;
+  display: flex;
+  align-items: center
+}
+
+.calification-list-result-by-seller {
+  padding: 5px 10px 5px 10px;
+}
+
+.detail-calification-column-row {
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  background-color: #FFFFFF;
+  margin-left: 5px;
+  margin-right: 5px;
+  border: 1px solid rgb(219, 218, 218);
+}
+
+.detail-calification-column-generate-shipping {
+  color: #9e9e9e;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  font-size: 14px;
+  width: 126px
+}
+
+.detail-calification-column-completed-shipping {
+  color: #9e9e9e;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  font-size: 14px;
+  width: 147px
+}
+
+.detail-calification-column-percent {
+  color: #9e9e9e;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  font-size: 14px;
+  width: 113px
+}
+
+.detail-calification-column-style {
+  color: #9e9e9e;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  font-size: 14px;
+}
+
+.calification-toolbar {
+  border-bottom: 0.001em solid #D3D3D3;
+  padding: 0 25px;
+  position: fixed;
+  z-index: 2;
+  background-color: white;
+  height: 45px;
+  width: 97%;
+}

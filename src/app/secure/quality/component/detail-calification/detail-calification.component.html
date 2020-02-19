@@ -1,0 +1,431 @@
+ <div *ngIf="detailByElemet" class="detail-calification-padding detail-calification-container-scroll-mobil">
+   <div fxLayout="column">
+     <div fxLayout="row wrap">
+       <div fxFlex="100">
+         <mat-toolbar class="calification-toolbar">
+           <div class="detail-calification-container-width-complete">
+             <div fxFlex="50">
+               <span class="detail-calification-container-cursor-pointer" (click)="backTolist()">
+                 <mat-icon class="mat-18 detail-calification-container-arrow-Back-color"> arrow_back</mat-icon>
+                 <span
+                   class="detail-calification-arrow-back-list-font-size">{{'secure.offers.list.components.detail_offer.return'| translate}}</span>
+               </span>
+             </div>
+             <div fxFlex="50" class="detail-calification-btn-notification-aling-end">
+               <button mat-raised-button color="primary" mat-button type="button"
+                 (click)="notificateSeller()">Notificar</button>
+             </div>
+           </div>
+         </mat-toolbar>
+       </div>
+     </div>
+   </div>
+   <div fxLayout="column">
+     <div fxLayout="row wrap" fxLayoutAlign="space-around none" class="detail-calification-container-height">
+       <div fxFlex="30" fxFlex.xs="100" fxFlex.sm="100">
+         <div fxLayout="row wrap" class="detail-calification-container-height-complete">
+           <div fxFlex="grow" class="detail-calification-container-table-info-seller">
+             <div class="detail-calification-container-table-info-seller-icon-seller">
+               <mat-icon class="mat-18 detail-calification-container-table-info-seller-icon-seller-aling-center">
+                 assignment_ind</mat-icon>
+               Información del vendedor
+             </div>
+           </div>
+           <div class="detail-calification-container-table-info-seller-detail">
+             <div fxLayout="row" class="detail-calification-container-table-info-seller-detail-size-container">
+               <div class="detail-calification-container-table-info-seller-detail-description">
+                 <div fxFlex="40" class="detail-calification-container-aling-center">
+                   <mat-icon class="mat-18 detail-calification-container-table-info-seller-detail-description-icon">
+                     description</mat-icon>
+                 </div>
+                 <div class="detail-cañification-container-width-complete">
+                   <div
+                     class="calification-list-padding-info-seller detail-calification-container-text-name-seller-padding">
+                     <div class="detail-calification-container-text-color">Nombre del Vendedor </div>
+                     <div
+                       class="detail-calification-container-text-color-size detail-calification-container-text-resalt-info">
+                       {{nameSeller}}
+                     </div>
+                   </div>
+                   <div class="calification-list-padding-info-seller">
+                     <div class="detail-calification-container-text-color">Calificación </div>
+                     <div
+                       class="detail-calification-container-text-color-size detail-calification-container-text-resalt-info">
+                       {{detailByElemet.qualitative}}</div>
+                   </div>
+                   <div class="calification-list-padding-info-seller">
+                     <div class="detail-calification-container-text-color">Mes calificado </div>
+                     <div
+                       class="detail-calification-container-text-color-size detail-calification-container-text-resalt-info">
+                       {{setFormatDateInfoSellerMonthQuality}}</div>
+                   </div>
+                   <div class="calification-list-padding-info-seller">
+                     <div class="detail-calification-container-text-color">Mes Emitido </div>
+                     <div
+                       class="detail-calification-container-text-color-size detail-calification-container-text-resalt-info">
+                       {{setFormatDateInfoSellerGenrateDate}}</div>
+                   </div>
+                 </div>
+               </div>
+             </div>
+             <div>
+               <div class="detail-calification-container-table-info-penalty">
+                 <div class="detail-calification-container-table-info-icon">
+                   <mat-icon class="mat-18 detail-calification-container-table-info-icon-align">attach_money</mat-icon>
+                   Cobro de penalidad
+                 </div>
+               </div>
+               <div class="detail-calification-container-table-info-column-penalty">
+                 <div fxFlex="60">Penalidad Incumplimiento</div>
+                 <div fxFlex="40" fxLayoutAlign="end end"><span [innerHTML]="penaltyOutSideDelivery | currency: '$' : 'symbol' : '1.2-2'"></span></div>
+               </div>
+               <div class="detail-calification-container-table-info-column-penalty-cancel">
+                 <div fxFlex="60">Penalidad Cancelaciones</div>
+                 <div fxFlex="40" fxLayoutAlign="end end"><span [innerHTML]="penaltyCanceledBySeller | currency: '$' : 'symbol' : '1.2-2'"></span></div>
+               </div>
+               <div class="detail-calification-container-table-info-column-penalty-total">
+                 <div fxFlex="60" class="detail-calification-container-text-bold">Total</div>
+                 <div fxFlex="40" fxLayoutAlign="end end"
+                   class="detail-calification-container-table-info-column-penalty-total-text"><span [innerHTML]="penaltyTotal | currency: '$' : 'symbol' : '1.2-2'"></span></div>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+       <div fxFlex="69" fxFlex.xs="100" fxFlex.sm="100">
+         <div fxLayout="row wrap" class="detail-calification-container-height-complete">
+           <div fxFlex="grow" class="detail-calification-container-table-info-calication-get">
+             <div class="detail-calification-container-table-info-calication-get-row">
+               <mat-icon class="mat-18 detail-calification-container-center-vertical">assignment_turned_in</mat-icon>
+               Calificación Obtenida ({{detailByElemet.quantitative}})
+             </div>
+           </div>
+           <div fxFlex="grow" class="detail-calification-container-table-califications-promise-delivery-size">
+             <div>
+               <div class="detail-calification-container-table-califications-column-promise-delivery">Promesa de Entrega
+               </div>
+               <div fxLayout="row" class="detail-calification-column-row">
+                 <div
+                   class="calification-list-result-by-seller detail-calification-container-table-califications-column-text detail-calification-container-width-get-calification-column-one"
+                   fxShow.xs="false"> Perdidos generados</div>
+                 <div
+                   class="calification-list-result-by-seller detail-calification-container-table-califications-column-text detail-calification-container-width-get-calification-column-two"
+                   fxShow.xs="false">Perdidos cumplidos</div>
+                 <div
+                   class="calification-list-result-by-seller detail-calification-container-table-califications-column-text detail-calification-container-width-get-calification-column-thrre"
+                   fxShow.xs="false">%Porcentaje</div>
+                 <div
+                   class="calification-list-result-by-seller detail-calification-container-table-califications-column-text detail-calification-container-width-get-calification-column-four">
+                   Puntaje obtenido</div>
+                 <div
+                   class="calification-list-result-by-seller detail-calification-container-table-califications-column-text detail-calification-container-width-get-calification-column-five"
+                   fxShow.xs="false">Peso en calificación</div>
+                 <div
+                   class="calification-list-result-by-seller detail-calification-container-table-califications-column-text detail-calification-container-width-get-calification-column-six">
+                   Total</div>
+               </div>
+               <div fxLayout="row wrap" class="detail-calification-container-table-calification-column-result">
+                 <div
+                   class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-one"
+                   fxShow.xs="false">{{detailByElemet.qualificationPromiseDelivery.numerator}}</div>
+                 <div
+                   class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-two"
+                   fxShow.xs="false">{{detailByElemet.qualificationPromiseDelivery.denominator}}</div>
+                 <div
+                   class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-thrre"
+                   fxShow.xs="false">{{detailByElemet.qualificationPromiseDelivery.percentage}}%</div>
+                 <div [ngClass]="colorCalificationPromiseDelivery"
+                   class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-four">
+                   {{detailByElemet.qualificationPromiseDelivery.qualification}}
+                 </div>
+                 <div
+                   class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-five"
+                   fxShow.xs="false">{{detailByElemet.qualificationPromiseDelivery.qualificationPercentage}}%</div>
+                 <div
+                   class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-fix">
+                   {{detailByElemet.qualificationPromiseDelivery.total}}</div>
+               </div>
+             </div>
+           </div>
+           <div fxFlex="grow" class="detail-calification-container-table-califications-promise-delivery-size">
+             <div>
+               <div class="detail-calification-container-table-califications-column-promise-delivery">Reclamaciones
+               </div>
+               <div fxLayout="row" class="detail-calification-column-row">
+                 <div
+                   class="calification-list-result-by-seller detail-calification-column-generate-shipping detail-calification-container-width-get-calification-column-one"
+                   fxShow.xs="false"> Perdidos generados</div>
+                 <div
+                   class="calification-list-result-by-seller detail-calification-column-completed-shipping detail-calification-container-width-get-calification-column-two"
+                   fxShow.xs="false">Perdidos cumplidos</div>
+                 <div
+                   class="calification-list-result-by-seller detail-calification-container-table-calification-column-title-reclaim detail-calification-container-width-get-calification-column-thrre"
+                   fxShow.xs="false">%Porcentaje</div>
+                 <div
+                   class="calification-list-result-by-seller detail-calification-container-table-calification-column-title-reclaim detail-calification-container-width-get-calification-column-four">
+                   Puntaje obtenido</div>
+                 <div
+                   class="calification-list-result-by-seller detail-calification-container-table-calification-column-title-reclaim detail-calification-container-width-get-calification-column-five"
+                   fxShow.xs="false">Peso en calificación</div>
+                 <div
+                   class="calification-list-result-by-seller detail-calification-container-table-calification-column-title-reclaim detail-calification-container-width-get-calification-column-six">
+                   Total</div>
+               </div>
+               <div fxLayout="row wrap" class="detail-calification-container-result-reclaim-row">
+                 <div
+                   class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-one"
+                    fxShow.xs="false">{{detailByElemet.qualificationCase.numerator}}</div>
+                 <div
+                   class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-two"
+                    fxShow.xs="false">{{detailByElemet.qualificationCase.denominator}}</div>
+                 <div
+                   class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-thrre"
+                    fxShow.xs="false">{{detailByElemet.qualificationCase.percentage}}%</div>
+                 <div [ngClass]="colorCalificationCase" class="calification-list-result-by-seller detail-calification-container-width-get-calification-column-result-four">{{detailByElemet.qualificationCase.qualification}}</div>
+                 <div
+                   class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-five"
+                  fxShow.xs="false">{{detailByElemet.qualificationCase.qualificationPercentage}}%
+                 </div>
+                 <div
+                   class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-fix"
+                  >{{detailByElemet.qualificationCase.total}}</div>
+               </div>
+             </div>
+           </div>
+           <div fxFlex="grow" class="detail-calification-container-table-califications-promise-delivery-size">
+             <div>
+               <div class="detail-calification-container-table-califications-column-promise-delivery">Cancelaciones
+               </div>
+               <div fxLayout="row" class="detail-calification-column-row">
+                 <div class="calification-list-result-by-seller detail-calification-column-generate-shipping detail-calification-container-width-get-calification-column-one"
+                   fxShow.xs="false"> Perdidos
+                   generados</div>
+                 <div class="calification-list-result-by-seller detail-calification-column-completed-shipping detail-calification-container-width-get-calification-column-two"
+                   fxShow.xs="false">Perdidos
+                   cumplidos</div>
+                 <div class="calification-list-result-by-seller detail-calification-column-percent detail-calification-container-width-get-calification-column-thrre" fxShow.xs="false">
+                   %Porcentaje</div>
+                 <div class="calification-list-result-by-seller detail-calification-container-table-cancelation-result detail-calification-container-width-get-calification-column-four"
+                   >Puntaje obtenido</div>
+                 <div class="calification-list-result-by-seller detail-calification-container-table-cancelation-result detail-calification-container-width-get-calification-column-five"
+                    fxShow.xs="false">Peso en calificación</div>
+                 <div class="calification-list-result-by-seller detail-calification-container-table-cancelation-result detail-calification-container-width-get-calification-column-six"
+                   >Total</div>
+               </div>
+               <div fxLayout="row wrap" class="detail-calification-container-table-calification-column-result">
+                 <div
+                   class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-one"
+                   fxShow.xs="false">{{detailByElemet.qualificationCanceled.numerator}}</div>
+                 <div
+                   class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-two"
+                    fxShow.xs="false">{{detailByElemet.qualificationCanceled.denominator}}</div>
+                 <div
+                   class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-thrre"
+                    fxShow.xs="false">{{detailByElemet.qualificationCanceled.percentage}}%</div>
+                 <div [ngClass]="colorCalificationCanceled" class="calification-list-result-by-seller detail-calification-container-width-get-calification-column-result-four" >{{detailByElemet.qualificationCanceled.qualification}}</div>
+                 <div
+                   class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-five"
+                    fxShow.xs="false">
+                   {{detailByElemet.qualificationCanceled.qualificationPercentage}}%</div>
+                 <div
+                   class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-fix"
+                   >{{detailByElemet.qualificationCanceled.total}}</div>
+               </div>
+             </div>
+           </div>
+           <div fxFlex="grow" class="detail-calification-container-table-califications-promise-delivery-size">
+             <div fxLayout="row" class="detail-calification-container-table-result-total">
+               <div fxFlex="85" class="detail-calification-container-text-bold">Total General</div>
+               <div fxFlex="10" fxLayoutAlign="center center"
+                 class="detail-calification-container-result-total-calification">{{detailByElemet.quantitative}}</div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+   <div fxLayout="column">
+
+     <div class="detail-calification-container-padding-text" *ngIf="detailByElemet && detailByElemet.detail">
+       <mat-expansion-panel>
+         <mat-expansion-panel-header class="detail-calification-container-details-background-color">
+           <mat-panel-title>
+             <div class="detail-calification-container-color-details-panel">
+               <mat-icon class="mat-18 detail-calification-container-center-vertical">assessment</mat-icon>
+               Pedidos que no cumplen con la promesa de entrega
+             </div>
+           </mat-panel-title>
+         </mat-expansion-panel-header>
+         <div>
+           <table class="detail-calification-container-width-complete detail-calification-container-padding-text-margin-top">
+             <tr class="detail-calification-container-background-color-details-panel-tr">
+               <td>Número Pedido</td>
+               <td fxShow.xs="false">Fecha de P</td>
+               <td fxShow.xs="false">Fecha Máxi</td>
+               <td fxShow.xs="false">Fecha de Despacho</td>
+               <td fxShow.xs="false">Días de retraso</td>
+               <td fxShow.xs="false">Cédula</td>
+               <td fxShow.xs="false">Cliente</td>
+               <td fxShow.xs="false">Penalidad</td>
+               <td fxShow.xs="false">Comisión</td>
+               <td>Acción</td>
+             </tr>
+             <tr class="detail-calification-container-row-detail" *ngFor="let detail of
+               detailByElemet.detail.ordersOutsideDeliveryDate" class="mat-row">
+               <td>
+                 {{detail.orderNumber}}
+               </td>
+               <td fxShow.xs="false">
+                 {{detail.orderDateFormatted}}
+               </td>
+               <td fxShow.xs="false">
+                 {{detail.maxDeliveryDateFormatted}}
+               </td>
+               <td fxShow.xs="false">
+                 {{detail.deliveryDateFormatted}}
+               </td>
+               <td fxShow.xs="false">
+                 {{detail.delayDays}}
+               </td>
+               <td fxShow.xs="false">
+                 {{detail.customerIdentificationCard}}
+               </td>
+               <td fxShow.xs="false">
+                 {{detail.customerName}}
+               </td>
+               <td fxShow.xs="false">
+                <p [innerHTML]="detail.penalty | currency: '$' : 'symbol' : '1.2-2'"> </p>
+               </td>
+               <td fxShow.xs="false">
+                 {{detail.totalCommission}}
+               </td>
+               <td class="detail-calification-container-aling-center">
+                 <mat-icon class="mat-18 delete"
+                   (click)="confirmDeleteCalification(detail, detailByElemet.idSeller, detail.orderNumber, detail.sku, 1)"
+                   [matTooltip]="'actions.delete' | translate">delete_forever</mat-icon>
+               </td>
+             </tr>
+           </table>
+         </div>
+       </mat-expansion-panel>
+     </div>
+     <div class="detail-calification-container-padding-text">
+       <mat-expansion-panel>
+         <mat-expansion-panel-header class="detail-calification-container-details-background-color">
+           <mat-panel-title>
+             <div class="detail-calification-container-color-details-panel">
+               <mat-icon class="mat-18 detail-calification-container-center-vertical">assessment</mat-icon>
+               Pedidos Cancelados
+             </div>
+           </mat-panel-title>
+         </mat-expansion-panel-header>
+         <div>
+           <table class="detail-calification-container-width-complete">
+             <tr class="detail-calification-container-background-color-details-panel-tr">
+               <td>Número Pedido</td>
+               <td fxShow.xs="false">Fecha de P</td>
+               <td fxShow.xs="false">Estado</td>
+               <td fxShow.xs="false">PQR</td>
+               <td fxShow.xs="false">Fecha PQR</td>
+               <td fxShow.xs="false">Cédula</td>
+               <td fxShow.xs="false">Cliente</td>
+               <td fxShow.xs="false">Penalidad</td>
+               <td fxShow.xs="false">Comisión</td>
+               <td>Acción</td>
+             </tr>
+             <tr class="detail-calification-container-row-detail" *ngFor="let detail of
+               detailByElemet.detail.ordersCanceledBySellerResponsibility" class="mat-row">
+               <td>
+                 {{detail.orderNumber}}
+               </td>
+               <td fxShow.xs="false">
+                 {{detail.orderDateFormatted}}
+               </td>
+               <td fxShow.xs="false">
+                 {{detail.orderStatus}}
+               </td>
+               <td fxShow.xs="false">
+                 {{detail.reasonPqr}}
+               </td>
+               <td fxShow.xs="false">
+                 {{detail.pqrDateFormatted}}
+               </td>
+               <td fxShow.xs="false">
+                 {{detail.customerIdentificationCard}}
+               </td>
+               <td fxShow.xs="false">
+                 {{detail.customerName}}
+               </td>
+               <td fxShow.xs="false">
+                <p [innerHTML]="detail.penalty | currency: '$' : 'symbol' : '1.2-2'"> </p>
+               </td>
+               <td fxShow.xs="false">
+                <p [innerHTML]="detail.totalCommission | currency: '$' : 'symbol' : '1.2-2'"> </p>
+               </td>
+               <td class="detail-calification-container-aling-center">
+                 <mat-icon class="mat-18 delete" [matTooltip]="'actions.delete' | translate"
+                   (click)="confirmDeleteCalification(detail, detailByElemet.idSeller, detail.caseId , null, 2)">
+                   delete_forever</mat-icon>
+               </td>
+             </tr>
+           </table>
+         </div>
+       </mat-expansion-panel>
+     </div>
+     <div class="detail-calification-container-padding-text">
+       <mat-expansion-panel>
+         <mat-expansion-panel-header class="detail-calification-container-details-background-color">
+           <mat-panel-title>
+             <div class="detail-calification-container-color-details-panel">
+               <mat-icon class="mat-18 detail-calification-container-center-vertical">assessment</mat-icon>
+               Pedidos PQR
+             </div>
+           </mat-panel-title>
+         </mat-expansion-panel-header>
+         <div>
+           <table class="detail-calification-container-width-complete">
+             <tr class="detail-calification-container-background-color-details-panel-tr">
+               <td>Número Pedido</td>
+               <td fxShow.xs="false">Fecha de P</td>
+               <td fxShow.xs="false">Fecha Max</td>
+               <td fxShow.xs="false">PQR</td>
+               <td fxShow.xs="false">Fecha PQR</td>
+               <td fxShow.xs="false">Cédula</td>
+               <td fxShow.xs="false">Cliente</td>
+               <td>Acción</td>
+             </tr>
+             <tr class="detail-calification-container-row-detail" *ngFor="let detail of
+               detailByElemet.detail.orderWithPqr" class="mat-row">
+               <td>
+                 {{detail.orderNumber}}
+               </td>
+               <td fxShow.xs="false">
+                 {{detail.orderDateFormatted}}
+               </td>
+               <td fxShow.xs="false">
+                 {{detail.maxDeliveryDateFormatted}}
+               </td>
+               <td fxShow.xs="false">
+                 {{detail.reasonPqr}}
+               </td>
+               <td fxShow.xs="false">
+                 {{detail.pqrDateFormatted}}
+               </td>
+               <td fxShow.xs="false">
+                 {{detail.customerIdentificationCard}}
+               </td>
+               <td fxShow.xs="false">
+                 {{detail.customerName}}
+               </td>
+               <td class="detail-calification-container-aling-center">
+                 <mat-icon class="mat-18 delete" [matTooltip]="'actions.delete' | translate"
+                   (click)="confirmDeleteCalification(detail, detailByElemet.idSeller , detail.caseId, null, 2)">
+                   delete_forever</mat-icon>
+               </td>
+             </tr>
+           </table>
+         </div>
+       </mat-expansion-panel>
+     </div>
+   </div>
+ </div>

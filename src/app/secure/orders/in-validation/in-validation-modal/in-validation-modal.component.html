@@ -81,7 +81,7 @@
 
 <mat-dialog-actions align="end" class="dialog-buttons">
   <a download class="sc-default-button" id="download-file-button"
-    (click)="cloudDownload(order.reversionRequestDetailViewModel.attachedEvidence);"
+    (click)="cloudDownload(order.evidenceLists);"
     mat-button>
     <mat-icon class="mat-18">file_download</mat-icon>
     {{'actions.view_attachments' | translate}}

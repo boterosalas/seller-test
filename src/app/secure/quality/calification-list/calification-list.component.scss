@@ -1,0 +1,83 @@
+.orders-no-data {
+    flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    background-color: #fff;
+    box-shadow: 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0px 1px 1px -4px rgba(0, 0, 0, 0.14), 0px 1px 1px 0px rgba(0, 0, 0, 0.12);
+    flex-direction: column;
+    & .icon-not-found {
+      font-size: 40px;
+      height: 40px;
+      width: 40px;
+    }
+  }
+
+  .align-end-actions{
+    width: 100%;
+    text-align: center;
+  }
+  
+  .color-icons-details{
+      color: #03a9f4;
+  }
+
+  .cursor-pointer{
+      cursor: pointer;
+  }
+
+
+
+  .title-toolbar{
+    text-transform: uppercase;
+    margin-right: 10px;
+    font-size: 14px;
+    width: 200px;
+    line-height: 24px;
+  }
+
+
+  .calification-list-font-weight{
+    font-weight: bold;
+  }
+
+  .calification-list-justify-content{
+    justify-content: center;
+  }
+
+  .calification-list-93-height{
+    height: 93%;
+  }
+
+  .calification-list-padding-container{
+    padding: 30px 0;
+  }
+
+  .calification-list-color{
+    color: #626161;
+  }
+
+  .calification-list-vertical-aling{
+    vertical-align: middle;
+  }
+
+  .calification-list-font-size{
+    font-size: 10px;
+  }
+
+  .calification-list-padding-left{
+    padding-left: 31px;
+  }
+
+  .calification-list-width-complete{
+    width: 100%;
+  }
+
+  .calification-list-filter-btn-clear{
+    position: absolute;
+    bottom: 50px;
+    left: 0px;
+    text-align: center;
+    width: 100%;
+  }
