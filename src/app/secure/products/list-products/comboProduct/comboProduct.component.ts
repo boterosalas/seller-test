@@ -19,6 +19,7 @@ export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
   @Input() productsList: any;
   @Input() showProducts: boolean;
   @Input() offerPermission: boolean;
+  @Input() editPermission: boolean;
 
   public productsExpanded: any;
   public showImage = false;
