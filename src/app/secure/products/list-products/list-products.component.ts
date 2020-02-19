@@ -9,7 +9,7 @@ import { ModelFilterProducts } from './listFilter/filter-products.model';
 import { CustomPaginator } from './listFilter/paginatorList';
 
 import { ReturnStatement } from '@angular/compiler';
-import { MenuModel, listProductsName, readFunctionality, offerFuncionality } from '@app/secure/auth/auth.consts';
+import { MenuModel, listProductsName, readFunctionality, offerFuncionality, updateFunctionality, unitaryCreateName  } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { TranslateService } from '@ngx-translate/core';
 import { MatPaginatorI18nService } from '@app/shared/services/mat-paginator-i18n.service';
@@ -80,7 +80,9 @@ export class ListProductsComponent implements OnInit {
     productsProductExpanded: any = [];
     read = readFunctionality;
     offer = offerFuncionality;
+    edit = updateFunctionality;
     offerPermission = false;
+    editPermission = false;
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     constructor(
@@ -95,6 +97,8 @@ export class ListProductsComponent implements OnInit {
     ) { }
     ngOnInit() {
         this.offerPermission = this.authService.getPermissionForMenu(listProductsName, this.offer);
+        this.editPermission = this.authService.getPermissionForMenu(unitaryCreateName, 'Editar');
+        console.log(this.editPermission);
         this.validateFormSupport();
     }
 

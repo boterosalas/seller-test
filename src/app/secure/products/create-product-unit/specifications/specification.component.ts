@@ -120,6 +120,9 @@ export class SpecificationProductComponent implements OnInit {
         const views = this.processService.getViews();
         views.showSpec = !form;
         this.processService.setViews(views);
+        if (this._detailProduct.features.length === 1) {
+            this.isShow = false;
+        }
     }
 
     /**
@@ -267,10 +270,18 @@ export class SpecificationProductComponent implements OnInit {
         this.validFeatureData();
         this.ShowSpecTitle = cont;
     }
-
-    setValueSpefici(form: any, inputSpecifications: any, indexParent: number, indexSon: number) {
+/**
+ * funcion para setear las especificaciones
+ *
+ * @param {*} form
+ * @param {*} inputSpecifications
+ * @param {number} indexParent
+ * @param {number} indexSon
+ * @memberof SpecificationProductComponent
+ */
+setValueSpefici(form: any, inputSpecifications: any, indexParent: number, indexSon: number) {
         if (inputSpecifications && inputSpecifications.Label) {
-            if (this._detailProduct && this._detailProduct.features.length > 0) {
+            if (this._detailProduct && this._detailProduct.features.length > 1) {
                 const valueArray = this._detailProduct.features.find(x => x.key === inputSpecifications.Label);
                 let value = '';
                 if (valueArray !== undefined && valueArray !== null) {

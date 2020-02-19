@@ -15,6 +15,7 @@ export class ExpandedProductComponent implements OnInit {
 
     @Input() productsExpanded: any;
     @Input() offerPermission: boolean;
+    @Input() editPermission: boolean;
 
     /* arreglo q contiene las imagenes grandes y pequeñas */
     public images = [];

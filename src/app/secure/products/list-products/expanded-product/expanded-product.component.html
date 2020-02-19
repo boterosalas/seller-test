@@ -27,15 +27,14 @@
   </div>
 
   <mat-divider vertical="true"></mat-divider>
-
   <div class="info-product" fxLayout="column" fxLayoutAlign="space-around none">
     <div class="subtitle divider-two" fxShow.xs="false">
         <div fxFlex fxLayout="row wrap" fxLayoutAlign="center start" class="max-height-list-product expanded-product-margin-max-height">
         <div fxFlex>
           <h3>{{'secure.offers.list.list.EAN_offert' | translate}} {{productsExpanded.ean}}</h3>
         </div>
-        <div  fxFlex fxLayoutAlign="end center" class="expanded-product-height-edit-icon">
-            <button class="button-edit" type="button" color="primary" matTooltip="Editar" matTooltipPosition="below" mat-icon-button mat-button
+        <div  fxFlex fxLayoutAlign="end center" class="expanded-product-height-edit-icon" *ngIf="productsExpanded">
+            <button class="button-edit" type="button" color="primary" matTooltip="Editar" *ngIf="editPermission && productsExpanded.isMarketplace" matTooltipPosition="below" mat-icon-button mat-button
             (click)="editProduct(productsExpanded)">
             <mat-icon class="flexbox align-center justify-center">edit</mat-icon>
           </button>

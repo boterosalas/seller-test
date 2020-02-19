@@ -38,6 +38,7 @@ export class ProductBasicInfoComponent implements OnInit {
     public descrip: string;
     _detailProduct: any;
     inputRequired = true;
+    isEdit= false;
     disabledEanChildren= false;
     @Input() set detailProduct(value: any) {
         if (value) {
@@ -46,6 +47,7 @@ export class ProductBasicInfoComponent implements OnInit {
                 this.initComponent();
             }
             this.disabledEanChildren = true;
+            this.isEdit = true;
             this.getInformationBasic(value);
         }
     }
@@ -363,8 +365,13 @@ export class ProductBasicInfoComponent implements OnInit {
                 });
             }
         }
-        this.validatorKeyWord();
+        if (!this.isEdit) {
+            this.validatorKeyWord();
+        }
 
+        if (this.keywords.length === 0 ) {
+            this.validatorKeyWord();
+        }
     }
 
     public validatorKeyWord() {
