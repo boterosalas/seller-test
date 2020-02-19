@@ -98,7 +98,6 @@ export class ListProductsComponent implements OnInit {
     ngOnInit() {
         this.offerPermission = this.authService.getPermissionForMenu(listProductsName, this.offer);
         this.editPermission = this.authService.getPermissionForMenu(unitaryCreateName, 'Editar');
-        console.log(this.editPermission);
         this.validateFormSupport();
     }
 
