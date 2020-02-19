@@ -278,7 +278,7 @@ export class SpecificationProductComponent implements OnInit {
                         value = '';
                     } else {
                         value = valueArray.value;
-                        this.specificationChange(inputSpecifications, indexParent, indexSon);
+                        this.specificationChange(inputSpecifications, indexSon, indexParent);
                     }
                     if (form && form.form) {
                         if (form.form.controls['specs' + indexParent] && !form.controls['specs' + indexParent].value) {
