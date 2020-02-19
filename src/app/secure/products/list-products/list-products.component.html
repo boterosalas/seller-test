@@ -104,7 +104,7 @@
     </div>
 
     <div class="prodList">
-      <app-combo-product [offerPermission]="offerPermission" [showProducts]="showProducts" [productsList]="productsList" class="listCombo"></app-combo-product>
+      <app-combo-product [offerPermission]="offerPermission" [editPermission]="editPermission" [showProducts]="showProducts" [productsList]="productsList" class="listCombo"></app-combo-product>
       <div *ngIf="!productsList.length" fxLayout="column" class="no-products">
         <div class="icon-face">
           <mat-icon class="mat-18">layers_clear</mat-icon>

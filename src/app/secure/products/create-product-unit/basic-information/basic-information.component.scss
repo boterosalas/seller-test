@@ -136,11 +136,15 @@ $color-red: #f44336;
         color: $color-label;
         transition: width 2s;
         width: 20px !important;
+        cursor: pointer;
     }
     .add-keyword-icon:hover {
         cursor: pointer;
         width: 30px !important;
     }
+}
+.add-keyword-icon{
+    cursor: pointer;
 }
 
 .flex-container {

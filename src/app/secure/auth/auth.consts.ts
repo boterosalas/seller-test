@@ -344,11 +344,13 @@ export const productsModule = 'PRODUCTOS', unitaryCreateName = 'Creación Unitar
 const ProductsModule = new ModuleModel(productsModule, showAll, productsModule.toLowerCase(), [
     // 1. Creación unitaria vendedor.
     new MenuModel(unitaryCreateName, showAll, unitaryCreateName.toLowerCase(), ProfileTypes.Vendedor, [
-        new FunctionalitiesModel(createFunctionality, showAll, createFunctionality) // Crear
+        new FunctionalitiesModel(createFunctionality, showAll, createFunctionality), // Crear
+        new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality), // Editar.
     ], RoutesConst.sellerCenterIntCreateUnutaryProduct),
     // 2. Creación unitaria administrador.
     new MenuModel(unitaryCreateName, showAll, unitaryCreateName.toLowerCase(), ProfileTypes.Administrador, [
-        new FunctionalitiesModel(createFunctionality, showAll, createFunctionality) // Crear
+        new FunctionalitiesModel(createFunctionality, showAll, createFunctionality), // Crear
+        new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality), // Editar.
     ], RoutesConst.sellerCenterIntCreateUnutaryProduct),
     // 3. Carga masiva de productos administrador.
     new MenuModel(bulkLoadProductName, showAll, bulkLoadProductName.toLowerCase(), ProfileTypes.Administrador, [

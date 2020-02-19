@@ -189,7 +189,7 @@
     <mat-form-field class="keyword-field">
       <input type="tel" matInput [placeholder]="'secure.products.create_product_unit.list_products.expanded_product.keywords' | translate" formControlName="Keyword" id="keywordProduct"
         (keyup.enter)="saveKeyword()" (change)="detectForm()" required>
-      <mat-icon matSuffix class="material-icons" (click)="saveKeyword()" class="add-keyword-icon">
+      <mat-icon matSuffix class="material-icons add-keyword-icon" (click)="saveKeyword()">
         add_circle_outline
       </mat-icon>
       <div class="basic-info-error" *ngIf="keywords.length<1 && formBasicInfo.get('Keyword').touched">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</div>
