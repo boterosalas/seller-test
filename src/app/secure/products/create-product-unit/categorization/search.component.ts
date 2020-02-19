@@ -116,5 +116,4 @@ export class SearchCategorizationComponent implements OnInit {
             this.getCategoriesList();
         });
     }
-
 }
