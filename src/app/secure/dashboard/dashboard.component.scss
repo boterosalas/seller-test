@@ -294,3 +294,9 @@ $table-break: 900px;
   text-align: center;
   color: #757474;
 }
+
+.dashboard-componente{
+  &-container-orders{
+    width: 100%;
+  }
+}

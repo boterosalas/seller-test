@@ -48,6 +48,19 @@ export class DashboardComponent implements OnInit {
     public isLoad = true;
     public isLoading = false;
 
+    public periodsEN = [
+        { value: 'Trimester'},
+        { value: 'Monthly'},
+        { value: 'Weekly'},
+        { value: 'Daily'}
+    ];
+    public periodsES = [
+        { value: 'Trimestral'},
+        { value: 'Mensual'},
+        { value: 'Semanal'},
+        { value: 'Diaria'}
+    ];
+
     /**
      * Variable para observar el input del filtro inicial
      * @memberof FilterComponent
@@ -144,22 +157,22 @@ export class DashboardComponent implements OnInit {
         }
         if (this.user && this.user.sellerId) {
             this._dashboard.getLastSales(this.user.sellerId, date)
-            .subscribe((res: any[]) => {
-                if (this.isLoad) {
-                    this.loadingService.closeSpinner();
-                } else {
-                    this.isLoading = false;
-                }
-                this.last_sales = res ? this.parseLastSales(res.reverse()) : [];
-            }, err => {
-                if (this.isLoad) {
-                    this.loadingService.closeSpinner();
-                } else {
-                    this.isLoading = false;
-                }
-                this.log.debug(err);
-                this.modalService.showModal('errorService');
-            });
+                .subscribe((res: any[]) => {
+                    if (this.isLoad) {
+                        this.loadingService.closeSpinner();
+                    } else {
+                        this.isLoading = false;
+                    }
+                    this.last_sales = res ? this.parseLastSales(res.reverse()) : [];
+                }, err => {
+                    if (this.isLoad) {
+                        this.loadingService.closeSpinner();
+                    } else {
+                        this.isLoading = false;
+                    }
+                    this.log.debug(err);
+                    this.modalService.showModal('errorService');
+                });
         }
     }
 
@@ -169,7 +182,7 @@ export class DashboardComponent implements OnInit {
             this.isLoading = true;
             localStorage.setItem('culture_current', e['lang']);
             this.getLastSales(this.dateCurrent);
-          });
+        });
     }
 
     /**
