@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { SearchService } from '../search.component.service';
 import { Logger, LoadingService } from '@app/core';
 import { CategoryModel } from './category.model';
@@ -33,8 +33,10 @@ export class ListCategorizationComponent implements OnInit, OnChanges, OnDestroy
     @Input() set detailProduct(value: any) {
         if (value) {
             this.selectedCategoryCurrent(value);
+            this.isShowP = true;
         } else {
             this.selectedCategoryCurrent(null);
+            this.isShowP = true;
         }
     }
     @Input() ean: any;
@@ -44,6 +46,8 @@ export class ListCategorizationComponent implements OnInit, OnChanges, OnDestroy
     // Variable para mostrar loading
     public isLoad = false;
     copyDataCategory: any;
+    @Output() showLoad = new EventEmitter<boolean>();
+    isShowP = false;
 
     /**
      * Creates an instance of ListCategorizationComponent.
@@ -98,7 +102,7 @@ export class ListCategorizationComponent implements OnInit, OnChanges, OnDestroy
     }
 
     selectedCategoryCurrent(detailProduct: any) {
-        this.loadingService.viewSpinner();
+        // this.loadingService.viewSpinner();
         if (detailProduct) {
             this.selectedCategory = detailProduct.category;
             this.selectedIdCategory = parseInt(detailProduct.categoryId, 0);
@@ -228,7 +232,7 @@ export class ListCategorizationComponent implements OnInit, OnChanges, OnDestroy
                 const body = JSON.parse(result.body.body);
                 this.listCategories = body.Data;
                 this.showOnlyWithSon();
-                this.loadingService.closeSpinner();
+                // this.loadingService.closeSpinner();
                 this.selectedCategory = '';
             // Hacemos una busqueda de la categoria con el clone del arreglo para mostrar cual seleccionó y enviarla al 3 paso traducido.
             this.copyDataCategory.Data.forEach(el => {
@@ -343,6 +347,7 @@ export class ListCategorizationComponent implements OnInit, OnChanges, OnDestroy
         if (idParent != null) {
             this.listCategories.find(x => x.Id === idCategorySelect).Show = true;
             this.showCategorySelect(idParent);
+            this.isShowP = false;
         } else {
             this.listCategories.find(x => x.Id === idCategorySelect).Show = true;
         }

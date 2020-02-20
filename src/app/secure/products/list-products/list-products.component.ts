@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Logger } from '@app/core/util/logger.service';
-import { LoadingService, ModalService } from '@app/core';
+import { LoadingService, ModalService, UserParametersService } from '@app/core';
 import { ListProductService } from './list-products.service';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators } from '@angular/forms';
 import { ErrorStateMatcher, PageEvent, MatPaginatorIntl, MatSnackBar, MatPaginator } from '@angular/material';
@@ -13,6 +13,7 @@ import { MenuModel, listProductsName, readFunctionality, offerFuncionality, upda
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { TranslateService } from '@ngx-translate/core';
 import { MatPaginatorI18nService } from '@app/shared/services/mat-paginator-i18n.service';
+import { UserInformation } from '@app/shared';
 
 export interface ListFilterProducts {
     name: string;
@@ -57,6 +58,8 @@ export class ListProductsComponent implements OnInit {
     fechaFinal: any;
     pluVtexList: any;
     showProducts = false;
+     // user info
+    public user: UserInformation;
 
     eanVariable = false;
     pluVariable = false;
@@ -83,10 +86,12 @@ export class ListProductsComponent implements OnInit {
     edit = updateFunctionality;
     offerPermission = false;
     editPermission = false;
+    permissionComponent: MenuModel;
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     constructor(
         private languageService: TranslateService,
+        public userParams: UserParametersService,
         private loadingService?: LoadingService,
         private productsService?: ListProductService,
         private modalService?: ModalService,
@@ -98,8 +103,29 @@ export class ListProductsComponent implements OnInit {
     ngOnInit() {
         this.offerPermission = this.authService.getPermissionForMenu(listProductsName, this.offer);
         this.editPermission = this.authService.getPermissionForMenu(unitaryCreateName, 'Editar');
+        this.getDataUser();
         this.validateFormSupport();
     }
+
+    async getDataUser() {
+        this.user = await this.userParams.getUserData();
+        if (this.user.sellerProfile === 'seller') {
+          this.permissionComponent = this.authService.getMenuProfiel(unitaryCreateName, 0);
+          this.setPermission(0);
+        } else {
+          this.permissionComponent = this.authService.getMenuProfiel(unitaryCreateName, 1);
+          this.setPermission(1);
+        }
+      }
+
+      setPermission(typeProfile: number) {
+        this.editPermission = this.getFunctionality('Editar');
+      }
+
+      public getFunctionality(functionality: string): boolean {
+        const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+        return permission && permission.ShowFunctionality;
+      }
 
     onEnter(value: string) {
         this.value = value;
