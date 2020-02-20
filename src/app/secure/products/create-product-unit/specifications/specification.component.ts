@@ -120,7 +120,7 @@ export class SpecificationProductComponent implements OnInit {
         const views = this.processService.getViews();
         views.showSpec = !form;
         this.processService.setViews(views);
-        if (this._detailProduct.features.length === 1) {
+        if (this._detailProduct && this._detailProduct.features && this._detailProduct.features.length === 1) {
             this.isShow = false;
         }
     }

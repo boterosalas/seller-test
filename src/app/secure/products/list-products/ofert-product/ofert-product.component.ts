@@ -126,7 +126,7 @@ export class OfertExpandedProductComponent implements OnInit {
                 Validators.pattern(this.formatNumber)]),
             ComboQuantity: new FormControl('', [Validators.required,
                 Validators.pattern(this.formatNumber)]),*/
-            Currency: new FormControl('COP')
+            Currency: new FormControl('')
         });
 
         // Borrar esta linea, para Internacional
@@ -140,7 +140,7 @@ export class OfertExpandedProductComponent implements OnInit {
         // this.ofertProduct.controls.IsUpdatedStock.disable();
         // this.disableUpdate();
         this.ofertProduct.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
-            // this.changeTypeCurrency(val);
+            this.changeTypeCurrency(val);
             if (val === 'USD' && this.authService.completeUserData.country !== 'Colombia') {
                 this.ofertProduct.get('ofertOption').setValue(null);
                 // tslint:disable-next-line: no-unused-expression
@@ -272,7 +272,9 @@ export class OfertExpandedProductComponent implements OnInit {
                 if (this.ofertProduct.get('Currency').value === 'COP') {
                     this.setCategoryErrorPrice(errors);
                 } else {
-                    errors = false;
+                    const regexp = new RegExp(this.offertRegex.formatNumber),
+                    test = regexp.test(this.ofertProduct.controls.Price.value);
+                    errors = !test;
                     this.setCategoryErrorPrice(errors);
                 }
             }
@@ -287,27 +289,31 @@ export class OfertExpandedProductComponent implements OnInit {
      * @memberof OfertExpandedProductComponent
      */
     public setCategoryError(show: boolean): void {
-        if (show) {
-            if (this.ofertProduct.controls.DiscountPrice.value <= 8000 && this.ofertProduct.controls.Currency.value === 'COP') {
-                this.ofertProduct.controls.DiscountPrice.setErrors({ price: show });
+        if (this.ofertProduct.get('Currency').value === 'COP') {
+            if (show ) {
+                if (this.ofertProduct.controls.DiscountPrice.value <= 8000 && this.ofertProduct.controls.Currency.value === 'COP') {
+                    this.ofertProduct.controls.DiscountPrice.setErrors({ price: show });
+                }
+            } else {
+                this.ofertProduct.controls.DiscountPrice.setErrors(null);
             }
-        } else {
-            this.ofertProduct.controls.DiscountPrice.setErrors(null);
         }
     }
 
     /**
-     * Funcion que setea el error del precio.
+     * Funcion que setea el error del precio. // si cumple la regex
      * @param {boolean} show
      * @memberof OfertExpandedProductComponent
      */
     public setCategoryErrorPrice(show: boolean): void {
-        if (show) {
-            if (this.ofertProduct.controls.Price.value <= 8000) {
-                this.ofertProduct.controls.Price.setErrors({ priceReal: show });
+        if (this.ofertProduct.get('Currency').value === 'COP') {
+            if (show) {
+                if (this.ofertProduct.controls.Price.value <= 8000) {
+                    this.ofertProduct.controls.Price.setErrors({ priceReal: show });
+                }
+            } else {
+                this.ofertProduct.controls.Price.setErrors(null);
             }
-        } else {
-            this.ofertProduct.controls.Price.setErrors(null);
         }
     }
 
@@ -536,15 +542,14 @@ export class OfertExpandedProductComponent implements OnInit {
                 price.controls.ComboQuantity.reset('');
             });
         }
-
         if (event === 'USD') {
             this.ofertProduct.controls['DiscountPrice'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
-            this.ofertProduct.controls['Price'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
-            this.ofertProduct.controls['IsFreightCalculator'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
+            this.ofertProduct.controls['Price'].setValidators([Validators.required, Validators.pattern(this.offertRegex.formatNumber)]);
+            this.ofertProduct.controls['IsFreightCalculator'].setValidators([Validators.required, Validators.pattern(this.offertRegex.formatNumber)]);
         } else {
             this.ofertProduct.controls['DiscountPrice'].setValidators([Validators.pattern(this.offertRegex.price)]);
-            this.ofertProduct.controls['Price'].setValidators([Validators.pattern(this.offertRegex.price)]);
-            this.ofertProduct.controls['IsFreightCalculator'].setValidators([Validators.pattern(this.offertRegex.price)]);
+            this.ofertProduct.controls['Price'].setValidators([Validators.required, Validators.pattern(this.offertRegex.price)]);
+            this.ofertProduct.controls['IsFreightCalculator'].setValidators([Validators.required, Validators.pattern(this.offertRegex.price)]);
         }
     }
 
