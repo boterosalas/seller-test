@@ -243,7 +243,7 @@ const OrdersModule = new ModuleModel(orderModule, showAll, orderModule.toLowerCa
  * 4. Histórico de ofertas. (Tipo Administrador)
  * 4. listado de ofertas. (Tipo Administrador)
  */
-export const offersModule = 'OFERTAS', offerListName = 'Listado de Ofertas', offerListNameAdmin = 'Listado de Ofertas', bulkLoadName = 'Carga Masiva de Ofertas', bulkLoadHistoryName = 'Histórico de Carga de Ofertas', bulkLoadHistoryNameAdmin = 'Histórico de Carga de ofertas', citiesCoverageName = 'Ciudades con Cobertura';
+export const offersModule = 'OFERTAS', offerListName = 'Listado de Ofertas', offerListNameAdmin = 'Listado de Ofertas', bulkLoadName = 'Carga Masiva de Ofertas', bulkLoadHistoryName = 'Histórico de Carga de Ofertas', bulkLoadHistoryNameAdmin = 'Histórico de Carga de ofertas', citiesCoverageName = 'Ciudades con Cobertura', quoteOffert = 'Cotizador';
 const OffersModule = new ModuleModel(offersModule, showAll, offersModule.toLowerCase(), [
     // 1. Listado de ofertas.
     new MenuModel(offerListName, showAll, offerListName.toLowerCase(), ProfileTypes.Vendedor, [
@@ -272,6 +272,13 @@ const OffersModule = new ModuleModel(offersModule, showAll, offersModule.toLower
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
         new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality) // Editar
     ], RoutesConst.sellerCenterIntOfferCitiesCoverage),
+    // 6. Cotizador (Vendedor solo nacional)
+    new MenuModel(quoteOffert, showAll, quoteOffert.toLowerCase(), ProfileTypes.Vendedor, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
+        new FunctionalitiesModel(deleteFunctionality, showAll, deleteFunctionality), // Eliminar
+        new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality), // Editar
+        new FunctionalitiesModel(createFunctionality, showAll, createFunctionality) // Agregar
+    ], RoutesConst.sellerCenterIntOfferQuoting),
 ]);
 
 /**
