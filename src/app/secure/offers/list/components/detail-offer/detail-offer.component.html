@@ -142,7 +142,7 @@
 
         <mat-form-field>
           <input matInput [placeholder]="['secure.offers.historical_admin.historical_admin.price' | translate]"
-            id="detail-offer-Price" formControlName="Price" [errorStateMatcher]="matcher" (blur)="valiteInput(); validInput('Price'); getVerifyPrice()"
+            id="detail-offer-Price" formControlName="Price" [errorStateMatcher]="matcher" (blur)="valiteInput(); validInput('Price');"
             required>
           <mat-hint></mat-hint>
           <mat-error *ngIf="formUpdateOffer.get('Price').hasError('required')"
@@ -159,12 +159,12 @@
             [innerHTML]="['errors.error_price_dscto' | translate]"></mat-error>
             <mat-error
             *ngIf="!formUpdateOffer.get('Price').hasError('required') && formUpdateOffer.get('Price').hasError('notCero')">
-          No puede ser 0</mat-error>
+            {{'errors.price_cannot_be_0' | translate}}</mat-error>
         </mat-form-field>
 
         <mat-form-field>
           <input matInput [placeholder]="'secure.offers.historical_admin.historical_admin.discount_price' | translate"
-            [errorStateMatcher]="matcher" formControlName="DiscountPrice" (blur)="valiteInput() ;validInput('DiscountPrice'); getVerifyPrice()">
+            [errorStateMatcher]="matcher" formControlName="DiscountPrice" (blur)="valiteInput() ">
           <mat-hint></mat-hint>
           <mat-error *ngIf="formUpdateOffer.get('DiscountPrice').hasError('pattern')"
             [innerHTML]="['errors.format_invalidate' | translate]">
@@ -178,7 +178,7 @@
             [innerHTML]="['errors.error_price_dscto' | translate]"></mat-error>
             <mat-error
             *ngIf="!formUpdateOffer.get('Price').hasError('required') && formUpdateOffer.get('DiscountPrice').hasError('notCero')">
-          No puede ser 0</mat-error>
+          {{'errors.discounted_price_cannot_be_0' | translate}}</mat-error>
         </mat-form-field>
 
         <mat-form-field>

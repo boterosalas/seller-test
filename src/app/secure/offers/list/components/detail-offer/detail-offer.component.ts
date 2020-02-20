@@ -356,7 +356,6 @@ export class DetailOfferComponent implements OnInit {
     this.formUpdateOffer.get('Currency').disable();
     this.validateOffertType(this.formUpdateOffer.get('Currency').value);
     this.formUpdateOffer.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
-      console.log(val);
       this.changeTypeCurrency(val);
       this.validateOffertType(val);
     });
@@ -489,9 +488,11 @@ export class DetailOfferComponent implements OnInit {
         } else if (parseFloat(this.Price.value) <= parseFloat(this.DiscountPrice.value)) {
           this.formUpdateOffer.controls[input].setErrors({ 'isLessThanDiscPrice': true });
           this.formUpdateOffer.controls.DiscountPrice.setErrors({ 'isLessThanDiscPrice': true });
-        } else if ( (parseInt(this.Price.value, 10) === 0 || parseInt(this.Price.value, 10) === 0.00) && this.Currency.value === 'USD') {
+        } else if ( (+this.formUpdateOffer.controls.Price.value === 0 || +this.formUpdateOffer.controls.Price.value === 0.00) && this.Currency.value === 'USD') {
           this.formUpdateOffer.controls[input].setErrors({ 'notCero': true });
-        } else {
+        }  else if ((+this.formUpdateOffer.controls.DiscountPrice.value === 0 || +this.formUpdateOffer.controls.DiscountPrice.value === 0.00) && this.formUpdateOffer.controls.DiscountPrice.value && this.Currency.value === 'USD') {
+          this.formUpdateOffer.controls['DiscountPrice'].setErrors({ 'notCero': true });
+        }else {
           this.DiscountPrice.enable();
         }
         break;
@@ -501,7 +502,7 @@ export class DetailOfferComponent implements OnInit {
             this.formUpdateOffer.controls[input].setErrors({ 'isLessThanEightThousand': true });
           } else if (parseFloat(this.DiscountPrice.value) >= parseFloat(this.Price.value)) {
             this.formUpdateOffer.controls[input].setErrors({ 'isgreaterThanPrice': true });
-          } else if ( (parseInt(this.DiscountPrice.value, 10) === 0 || parseInt(this.DiscountPrice.value, 10) === 0.00) && this.Currency.value === 'USD') {
+          } else if ((+this.formUpdateOffer.controls.DiscountPrice.value === 0 || +this.formUpdateOffer.controls.DiscountPrice.value === 0.00) && this.Currency.value === 'USD') {
             this.formUpdateOffer.controls[input].setErrors({ 'notCero': true });
           } else {
             this.formUpdateOffer.controls['Price'].reset(this.Price.value);
@@ -712,18 +713,16 @@ export class DetailOfferComponent implements OnInit {
     // this.formUpdateOffer.controls.Price.reset('');
     // this.formUpdateOffer.controls.DiscountPrice.reset('');
     // this.formUpdateOffer.controls.AverageFreightCost.reset('');
-    console.log(22, event);
     if (event === 'USD') {
       this.formUpdateOffer.controls['DiscountPrice'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
-      this.formUpdateOffer.controls['Price'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
-      this.formUpdateOffer.controls['AverageFreightCost'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
+      this.formUpdateOffer.controls['Price'].setValidators([Validators.required, Validators.pattern(this.offertRegex.formatNumber)]);
+      this.formUpdateOffer.controls['AverageFreightCost'].setValidators([Validators.required, Validators.pattern(this.offertRegex.formatNumber)]);
     } else {
-      console.log('entra al else');
       this.formUpdateOffer.controls['DiscountPrice'].setValidators([Validators.pattern(this.offertRegex.price)]);
-      this.formUpdateOffer.controls['Price'].setValidators([Validators.pattern(this.offertRegex.price)]);
-      this.formUpdateOffer.controls['AverageFreightCost'].setValidators([Validators.pattern(this.offertRegex.price)]);
+      this.formUpdateOffer.controls['Price'].setValidators([Validators.required, Validators.pattern(this.offertRegex.price)]);
+      this.formUpdateOffer.controls['AverageFreightCost'].setValidators([Validators.required, Validators.pattern(this.offertRegex.price)]);
     }
-    this.AverageFreightCost = new FormControl(this.dataOffer.shippingCost, [Validators.pattern(this.offertRegex.formatNumber)]);
+    this.AverageFreightCost = new FormControl(this.dataOffer.shippingCost, [Validators.required, Validators.pattern(this.offertRegex.formatNumber)]);
     this.snackBar.open(`${this.languageService.instant('secure.offers.list.components.detail_offer.snackbar_currency')} (${event})`, this.languageService.instant('actions.close'), {
       duration: 3000,
     });
@@ -788,11 +787,10 @@ export class DetailOfferComponent implements OnInit {
    */
   getVerifyPrice(showErrors: boolean = true, total?: number) {
     let errors = true;
-    console.log('chupelo');
     if (this.formUpdateOffer.controls.DiscountPrice.value) {
       if (this.formUpdateOffer.controls.DiscountPrice.value && parseFloat(this.formUpdateOffer.controls.DiscountPrice.value) >= 8000) {
         errors = false;
-        this.formUpdateOffer.controls.DiscountPrice.setErrors({ price: true });
+        // this.formUpdateOffer.controls.DiscountPrice.setErrors({ price: true });
         if (parseFloat(this.formUpdateOffer.controls.DiscountPrice.value) >= parseFloat(this.formUpdateOffer.controls.Price.value)) {
           if (showErrors) {
             this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.price_lower_discount'), this.languageService.instant('actions.close'), {
@@ -837,11 +835,9 @@ export class DetailOfferComponent implements OnInit {
         if (this.formUpdateOffer.get('Currency').value === 'COP') {
           this.setCategoryErrorPrice(errors);
         } else {
-          console.log('here');
           const regexp = new RegExp(this.offertRegex.formatNumber),
             test = regexp.test(this.formUpdateOffer.controls.Price.value);
           errors = !test;
-          console.log(errors);
           this.setCategoryErrorPrice(errors);
         }
         //   });
@@ -912,7 +908,6 @@ export class DetailOfferComponent implements OnInit {
     const price = this.formUpdateOffer.controls.Price.value;
     const discountPrice = this.formUpdateOffer.controls.DiscountPrice.value;
     let total = 0;
-    console.log('perro');
     if (this.Combos && this.Combos.controls && this.Combos.controls.length > 0) {
       this.Combos.controls.forEach((priceCombo: any) => {
         total += (priceCombo.value.ofertPriceComponet * priceCombo.value.ComboQuantity);
