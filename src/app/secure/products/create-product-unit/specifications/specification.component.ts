@@ -76,6 +76,9 @@ export class SpecificationProductComponent implements OnInit {
                     const views = this.processService.getViews();
                     views.showSpec = false;
                     this.processService.setViews(views);
+                    if (this.specificationsGroups && this.specificationsGroups.length === 0) {
+                        this.isShow = false;
+                    }
                 } else {
                     this.specificationsGroups = [];
                     const views = this.processService.getViews();
