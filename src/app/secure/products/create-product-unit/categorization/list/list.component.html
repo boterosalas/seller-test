@@ -11,7 +11,7 @@
         {{'secure.products.create_product_unit.categorization.list.you_selected' | translate}}: <strong
           [innerHTML]="selectedCategory"></strong>
       </div>
-      <div *ngIf="isShowP">
+      <div *ngIf="isShowP && isEdit">
           <div style="margin-top: 10px;">
             {{'secure.products.create_product_unit.list_products.please_wait' | translate}}
           </div>

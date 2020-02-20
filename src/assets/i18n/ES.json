@@ -217,6 +217,8 @@
     "errors.error_price_discount": "Precio con Descuento inválido, el valor debe ser mayor o igual a 8.000.",
     "errors.error_price_discount-2": "Precio con Descuento inválido, el valor debe ser menor a Precio.",
     "errors.format_invalidate": "Formato inválido",
+    "errors.price_cannot_be_0": "El precio no puede ser 0",
+    "errors.discounted_price_cannot_be_0": "El precio con descuento no puede ser 0",
     "errors.error_promise": "La promesa de entrega no es válida.",
     "errors.quoting_postal_code_invalid": "Campo invalido (8 caraceteres separados por coma)",
     "errors.error_product": "Producto inválido.",
