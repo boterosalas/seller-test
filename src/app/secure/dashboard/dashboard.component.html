@@ -12,11 +12,11 @@
 </div>
 <div class="dashboard">
   <div class="dashboard__content">
-      <div>
-          <div fxLayout="column" style="height: 50px;">
+      <div style="border: 1px solid #f0f0f0; border-radius: 7px;">
+          <div fxLayout="column" style="height: 50px;" class="dashboard-component-container-border-color">
             <div fxLayout="row" >
-                <div fxFlex="80">
-                  <h3 class="orders__title">{{'secure.orders.orders' | translate}}</h3>
+                <div fxFlex="80" style="padding-top: 15px">
+                  {{'secure.orders.orders' | translate}}
                 </div>
                 <div fxFlex="20">
                   <mat-form-field>
@@ -29,11 +29,11 @@
                 </div>
             </div>
           </div>
-          <div fxLayout="column" style="height: 200px;">
+          <div fxLayout="column" style="height: 200px; margin-top: 15px;">
             <div fxLayout="row">
                 <div fxFlex="40">
                   <div fxLayout="column" fxLayoutAlign=" none">
-                      <div>
+                      <div class="dashboard-component-aling-center">
                         <div>
                           {{'secure.dashboard.all' | translate}}
                         </div>
@@ -43,29 +43,29 @@
                       </div>
                       <div>
                         <div fxLayout="row">
-                          <div fxFlex="35">
+                          <div fxFlex="35" class="dashboard-component-aling-center">
                             <div fxLayout="column">
                               <div>{{'secure.dashboard.in_transit' | translate}}</div>
-                              <div>{{orders?.pending | number}}</div>
+                              <div><mat-icon class="mat-18" style="vertical-align: bottom;">local_shipping</mat-icon>{{orders?.pending | number}}</div>
                             </div>
                           </div>
-                          <div fxFlex="35">
+                          <div fxFlex="35" class="dashboard-component-aling-center">
                             <div fxLayout="column">
                               <div>{{'secure.dashboard.delievered' | translate}}</div>
-                              <div>{{orders?.delivered | number}}</div>
+                              <div> <mat-icon class="mat-18" style="vertical-align: bottom;">check_circle_outline</mat-icon>{{orders?.delivered | number}}</div>
                             </div>
                           </div>
-                          <div fxFlex="30">
+                          <div fxFlex="30" class="dashboard-component-aling-center">
                             <div fxLayout="column">
                               <div>{{'secure.dashboard.expired' | translate}}</div>
-                              <div>{{orders?.expired | number}}</div>
+                              <div><mat-icon class="mat-18" style="vertical-align: bottom;">highlight_off</mat-icon>{{orders?.expired | number}}</div>
                             </div>
                           </div>
                         </div>
                       </div>
                   </div>
                 </div>
-                <div fxFlex="60" >13</div>
+                <div fxFlex="60" style="background-color: chartreuse;"></div>
             </div>
           </div>
       </div>

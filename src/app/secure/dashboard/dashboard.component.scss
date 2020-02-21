@@ -295,8 +295,15 @@ $table-break: 900px;
   color: #757474;
 }
 
-.dashboard-componente{
+.dashboard-component{
   &-container-orders{
     width: 100%;
+  }
+  &-aling-center{
+    text-align: center;
+  }
+
+  &-container-border-color{
+    border-bottom: 1px solid #f0f0f0;
   }
 }
