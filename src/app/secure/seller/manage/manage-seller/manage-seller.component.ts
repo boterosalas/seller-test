@@ -344,6 +344,7 @@ export class ManageSellerComponent implements OnInit {
     // disable = true ; Se quita el disable true para prueba internacional
     this.country = new FormControl({ value: '', disabled: disable }, [Validators.required]);
     this.payoneer = new FormControl({ value: '', disabled: disable });
+    this.country.disable();
     this.createForm();
     this.addValidationsSellerForm();
   }
