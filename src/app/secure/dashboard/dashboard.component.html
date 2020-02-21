@@ -13,20 +13,61 @@
 <div class="dashboard">
   <div class="dashboard__content">
       <div>
-          <div fxLayout="column">
-            <div fxLayout="row">
-                <div fxFlex="80">12</div>
-                <div fxFlex="20">13</div>
-              </div>
+          <div fxLayout="column" style="height: 50px;">
+            <div fxLayout="row" >
+                <div fxFlex="80">
+                  <h3 class="orders__title">{{'secure.orders.orders' | translate}}</h3>
+                </div>
+                <div fxFlex="20">
+                  <mat-form-field>
+                    <mat-select>
+                      <mat-option *ngFor="let period of periodsES" [value]="period.value">
+                        {{period.value}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+            </div>
           </div>
-          <div fxLayout="column">
+          <div fxLayout="column" style="height: 200px;">
             <div fxLayout="row">
-                <div fxFlex="80">12</div>
-                <div fxFlex="20">13</div>
-              </div>
+                <div fxFlex="40" style="background-color: blue;">
+                  <div fxLayout="column" fxLayoutAlign=" none">
+                      <div>
+                        <div>
+                          {{'secure.dashboard.all' | translate}}
+                        </div>
+                        <div>
+                          {{orders?.all | number}}
+                        </div>
+                      </div>
+                      <div>
+                        <div fxLayout="row">
+                          <div fxFlex="35">
+                            <div fxLayout="column">
+                              <div>{{'secure.dashboard.in_transit' | translate}}</div>
+                              <div>{{orders?.pending | number}}</div>
+                            </div>
+                          </div>
+                          <div fxFlex="35">
+                            <div fxLayout="column">
+                              <div>{{'secure.dashboard.delievered' | translate}}</div>
+                              <div>{{orders?.delivered | number}}</div>
+                            </div>
+                          </div>
+                          <div fxFlex="30">
+                            <div fxLayout="column">
+                              <div>{{'secure.dashboard.expired' | translate}}</div>
+                              <div>{{orders?.expired | number}}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+                <div fxFlex="60" style="background-color:brown;">13</div>
+            </div>
           </div>
-        
-         
       </div>
       <div>2</div>
 
