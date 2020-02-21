@@ -1,0 +1,30 @@
+table {
+  width: 95%;
+  margin-left: 2%;
+  margin-right: 2%;
+
+  th {
+    font-size: 14px;
+    color: #909090;
+    font-weight: bold
+  }
+
+  td {
+    color: #909090;
+    font-size: 14px;
+  }
+}
+
+.pointer {
+  cursor: pointer;
+
+  mat-icon {
+    color: #909090;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.newOption {
+    float: right;
+}

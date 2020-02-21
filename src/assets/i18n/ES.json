@@ -90,6 +90,8 @@
     "permissions.Editarzonas": "Editar zonas",
     "permissions.Eliminartransportadora": "Eliminar transportadora",
     "permissions.Eliminarzonas": "Eliminar zonas",
+    "permissions.Eliminar_Parametrizacion": "Eliminar parametrización",
+    "permissions.Editar_Parametrizacion": "Editar parametrización",
 
 
     "shared.name": "Nombre",
@@ -593,6 +595,8 @@
     "secure.offers.quoting.administrator.dialogs.create.modal_placeholder_shipping_method": "Seleccionar Metodo",
     "secure.offers.quoting.administrator.dialogs.create.modal_placeholder_name_zone": "Nombre de la zona",
     "secure.offers.quoting.administrator.dialogs.create.modal_placeholder_postal_code": "Código DANE",
+
+    "secure.offers.quoting.seller.new_opcion": "NUEVA OPCIÓN DE ENVÍO",
 
     "secure.offers.historical_admin.components.filter.title": "Filtro histórico",
     "secure.offers.historical_admin.components.filter.tooltip_close": "Cerrar",

@@ -90,6 +90,8 @@
     "permissions.Editarzonas": "Edit zones",
     "permissions.Eliminartransportadora": "Remove shipping company",
     "permissions.Eliminarzonas": "Remove zones",
+    "permissions.Eliminar_Parametrizacion": "Remove parameterization",
+    "permissions.Editar_Parametrizacion": "Edit parameterization",
 
 
     "shared.name": "Name",
@@ -593,6 +595,8 @@
     "secure.offers.quoting.administrator.dialogs.create.modal_placeholder_shipping_method": "Select shipping method",
     "secure.offers.quoting.administrator.dialogs.create.modal_placeholder_name_zone": "Zone name",
     "secure.offers.quoting.administrator.dialogs.create.modal_placeholder_postal_code": "Postal code",
+
+    "secure.offers.quoting.seller.new_opcion": "NEW SHIPPING OPTION",
 
     "secure.offers.historical_admin.components.filter.title": "Historic offer registry filter",
     "secure.offers.historical_admin.components.filter.tooltip_close": "Close",
