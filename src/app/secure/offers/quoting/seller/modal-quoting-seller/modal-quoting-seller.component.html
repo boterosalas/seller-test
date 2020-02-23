@@ -1,0 +1,71 @@
+
+
+<div mat-dialog-content class="quoting-seller" fxLayout="column" fxLayoutAlign="center center">
+  <div class="quoting-seller--icon" fxLayout="column" fxLayoutAlign="center center">
+    <mat-icon class="material-icons" *ngIf="action === actions.add">
+      local_shipping
+    </mat-icon>
+    <mat-icon class="material-icons" *ngIf="action === actions.delete">
+      delete
+    </mat-icon>
+  </div>
+  <h3 *ngIf="action === actions.add">
+    Nuevo opción de envío
+  </h3>
+  <p class="quoting-seller--text" *ngIf="action === actions.add">
+    In ac nisl tortor. Phasellus aliquam dui volutpat aliquet tempor. Fusce dignissim porttitor 
+    dolor ac accumsan. Suspendisse potenti.
+  </p>
+
+  <h3 *ngIf="action === actions.delete">
+    Eliminar opción de envío
+  </h3>
+  <p class="quoting-seller--text" *ngIf="action === actions.delete">
+    In ac nisl tortor. Phasellus aliquam dui volutpat aliquet tempor. Fusce dignissim porttitor 
+    dolor ac accumsan. Suspendisse potenti.
+  </p>
+  <div fxLayout="column" class="quoting-seller--container" *ngIf="action === actions.add">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        
+      <mat-form-field class="quoting-seller--container__field">
+        <mat-label>Select an option</mat-label>
+        <mat-select [(value)]="selected">
+          <mat-option>None</mat-option>
+          <mat-option value="option1">Option 1</mat-option>
+          <mat-option value="option2">Option 2</mat-option>
+          <mat-option value="option3">Option 3</mat-option>
+        </mat-select>
+      </mat-form-field>
+        
+      <mat-form-field class="quoting-seller--container__field">
+        <mat-label>Select an option</mat-label>
+        <mat-select [(value)]="selected">
+          <mat-option>None</mat-option>
+          <mat-option value="option1">Option 1</mat-option>
+          <mat-option value="option2">Option 2</mat-option>
+          <mat-option value="option3">Option 3</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <mat-form-field class="quoting-seller--container__field">
+        <mat-label>Select an option</mat-label>
+        <mat-select [(value)]="selected">
+          <mat-option>None</mat-option>
+          <mat-option value="option1">Option 1</mat-option>
+          <mat-option value="option2">Option 2</mat-option>
+          <mat-option value="option3">Option 3</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
+  <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [disabled]="formZone">
+    {{'actions.cancel' | translate}}
+  </button>
+  <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [disabled]="formZone">
+    {{'actions.accept' | translate}}
+  </button>
+</div>

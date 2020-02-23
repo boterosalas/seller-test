@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { TranslateService } from '@ngx-translate/core';
+import { ModalQuotingSellerComponent, quotiongDialogAction } from './modal-quoting-seller/modal-quoting-seller.component';
 
 export interface PeriodicElement {
   category: string;
@@ -37,13 +38,27 @@ export class QuotingSellerComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  openDialog(action?: string, element?: any) {
-    const data = this.putDataForCreate();
-    const dialogRef = this.dialog.open(DialogWithFormComponent, {
-      data: data,
+  openDialog(action?: any, element?: any) {
+    // const data = this.putDataForCreate();
+    const dialogRef = this.dialog.open(ModalQuotingSellerComponent, {
       width: '55%',
-      minWidth: '280px'
+      minWidth: '280px',
+      data: {
+        action: action
+      }
     });
+  }
+
+  addCategory() {
+    this.openDialog(quotiongDialogAction.add);
+  }
+
+  updateCategory() {
+    this.openDialog(quotiongDialogAction.update);
+  }
+
+  deleteCategory() {
+    this.openDialog(quotiongDialogAction.delete);
   }
 
   putDataForCreate() {

@@ -5,10 +5,12 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { SharedModule } from '@app/shared/shared.module';
 import { MaterialModule } from '@app/material.module';
+import { ModalQuotingSellerComponent } from './modal-quoting-seller/modal-quoting-seller.component';
 
 @NgModule({
   declarations: [
-    QuotingSellerComponent
+    QuotingSellerComponent,
+    ModalQuotingSellerComponent
   ],
   imports: [
     CommonModule,
@@ -23,5 +25,6 @@ import { MaterialModule } from '@app/material.module';
     QuotingSellerComponent
   ],
   providers: [],
+  entryComponents: [ModalQuotingSellerComponent]
 })
 export class QuotingSellerModule { }
