@@ -338,9 +338,36 @@ $table-break: 900px;
       padding-right: 10px;
       padding-left: 10px;
     }
+    &-container-position-title-orders{
+      margin-top: initial;
+      margin-left: initial;
+    }
+    &-container-aling-icon{
+      text-align: end;
+      margin-right: 10px;
+    }
 
-    &-container-cursor-pointer{
-      cursor: pointer;
+    &-container-aling-select-filter{
+      width: 90%;
     }
   } 
+  &-container-cursor-pointer{
+    cursor: pointer;
+    color: #448aff;
+  }
+
+  @media only screen and (max-width: 1500px) and (min-width: 501px) {  
+    &-container-position-title-orders{
+      margin-top: 16px;
+      margin-left: 16px;
+    }
+    &-container-aling-icon{
+      text-align: end;
+      margin-right: 10px;
+    }
+    &-container-aling-select-filter{
+      width: 90%;
+    }
+  }
+
 }
