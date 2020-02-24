@@ -33,6 +33,7 @@ export class SpecificationProductComponent implements OnInit {
     idCategory: number;
     dataSpecification: any;
     isShow = false;
+    count = 0;
     @Input() set detailProduct(value: any) {
         if (value) {
             this._detailProduct = value;
@@ -76,9 +77,14 @@ export class SpecificationProductComponent implements OnInit {
                     const views = this.processService.getViews();
                     views.showSpec = false;
                     this.processService.setViews(views);
-                    if (this.specificationsGroups && this.specificationsGroups.length === 0) {
+                    const dataClear = {
+                        Features : []
+                    };
+                    this.processService.validaData(dataClear);
+                    if ( this.count >= 2) {
                         this.isShow = false;
                     }
+                    this.count = this.count + 1;
                 } else {
                     this.specificationsGroups = [];
                     const views = this.processService.getViews();
