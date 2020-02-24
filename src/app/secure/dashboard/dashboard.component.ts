@@ -315,7 +315,6 @@ export class DashboardComponent implements OnInit {
     }
 
     public showChangeView(show: boolean) {
-        console.log(show);
-        // this.showOrdersChart = !show ;
+        this.showOrdersChart = !show ;
     }
 }

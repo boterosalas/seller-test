@@ -18,7 +18,7 @@
                 <div fxFlex="80" >
                   {{'secure.orders.orders' | translate}}
                 </div>
-                <div fxFlex="20" class="dashboard-component-container-orders-align">
+                <div fxFlex="20" fxFlex.md="" fxFlex.lg="" fxFlex.xs="20" fxFlex.xl="20" class="dashboard-component-container-orders-align">
                   <mat-form-field [fxShow.xs]="false">
                     <mat-select>
                       <mat-option *ngFor="let period of periodsES" [value]="period.value">
@@ -26,8 +26,7 @@
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
-                  {{showOrdersChart}}
-                    <mat-icon class="mat-18" (click)="showChangeView(showOrdersChart)" class="dashboard-component-container-cursor-pointer">insert_chart_outlined</mat-icon>
+                    <mat-icon class="mat-18" fxShow.lg="false" (click)="showChangeView(showOrdersChart)" class="dashboard-component-container-cursor-pointer">insert_chart_outlined</mat-icon>
                 </div>
             </div>
           </div>
