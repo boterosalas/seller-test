@@ -15,6 +15,9 @@ $modal: 72px;
 
 .quoting-seller {
     margin: 0px;
+    mat-icon{
+        color: gray;
+    }
     &--icon{
         @include icon-border-gray();
     }

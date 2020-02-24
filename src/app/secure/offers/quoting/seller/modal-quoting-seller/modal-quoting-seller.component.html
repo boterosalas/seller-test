@@ -29,7 +29,7 @@
         
       <mat-form-field class="quoting-seller--container__field">
         <mat-label>Select an option</mat-label>
-        <mat-select [placeholder]="'secure.offers.quoting.administrator.dialogs.create.modal_placeholder_shipping_method' | translate" >
+        <mat-select [placeholder]="'secure.offers.quoting.seller.plh_shiping:method' | translate" >
           <mat-option *ngFor="let type of transportTypeList" [value]="type.Id">
             {{type.Name}}
           </mat-option>
@@ -37,7 +37,8 @@
       </mat-form-field>
         
       <mat-form-field class="quoting-seller--container__field">
-        <mat-select>
+        <mat-icon matPrefix>local_shipping</mat-icon>
+        <mat-select [placeholder]="'secure.offers.quoting.seller.plh_transoprt' | translate">
           <mat-option *ngFor="let type of listTransporters" [value]="type.Id">
             {{type.Name}}
           </mat-option>
@@ -46,12 +47,10 @@
     </div>
     <div fxLayout="row" fxLayoutAlign="space-between center">
       <mat-form-field class="quoting-seller--container__field">
-        <mat-label>Select an option</mat-label>
-        <mat-select [(value)]="selected">
-          <mat-option>None</mat-option>
-          <mat-option value="option1">Option 1</mat-option>
-          <mat-option value="option2">Option 2</mat-option>
-          <mat-option value="option3">Option 3</mat-option>
+        <mat-select [placeholder]="'secure.offers.quoting.seller.plh_zone' | translate">
+          <mat-option *ngFor="let type of listZones" [value]="type.Id">
+            {{type.Name}}
+          </mat-option>
         </mat-select>
       </mat-form-field>
     </div>

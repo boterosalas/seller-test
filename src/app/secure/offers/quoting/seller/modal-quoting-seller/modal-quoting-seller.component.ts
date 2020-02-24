@@ -5,6 +5,8 @@ import { ShippingMethodsModel } from '../../administrator/shipping-methods/shipp
 import { Logger, LoadingService, ModalService } from '@app/core';
 import { ListTransporterService } from '../../administrator/list-transporter/list-transporter.service';
 import { TransportModel } from '../../administrator/dialogs/models/transport.model';
+import { ListZonesService } from '../../administrator/list-zones/list-zones.service';
+import { ZoneModel } from '../../administrator/dialogs/models/zone.model';
 
 const log = new Logger('ModalQuotingSellerComponent');
 
@@ -26,9 +28,11 @@ export class ModalQuotingSellerComponent implements OnInit {
   actions = quotiongDialogAction;
   public transportTypeList: Array<ShippingMethodsModel>;
   public listTransporters: Array<TransportModel> = [];
+  public listZones: ZoneModel[];
 
   constructor(
     private methodService: ShippingMethodsService,
+    private service: ListZonesService,
     private transportService: ListTransporterService,
     private loadingService: LoadingService,
     private modalService: ModalService,
@@ -40,7 +44,8 @@ export class ModalQuotingSellerComponent implements OnInit {
 
   ngOnInit() {
     this.getTransportMethodRequiredData(); // Get methods.
-    this.getListTransporters();
+    this.getListTransporters(); // Get transport
+    this.getListZones(); // Get zones.
   }
 
   /**
@@ -76,6 +81,24 @@ export class ModalQuotingSellerComponent implements OnInit {
       } else {
         this.modalService.showModal('errorService');
       }
+    });
+  }
+
+  /**
+   * Funcion que obtiene las zonas
+   * @memberof ModalQuotingSellerComponent
+   */
+  public getListZones(): void {
+    this.loadingService.viewSpinner();
+    this.service.getListZones().subscribe((result: any) => {
+      if (result.status === 201 || result.status === 200) {
+        const body = JSON.parse(result.body.body);
+        this.listZones = body.Data;
+        console.log(this.listZones);
+      } else {
+        this.modalService.showModal('errorService');
+      }
+      this.loadingService.closeSpinner();
     });
   }
 

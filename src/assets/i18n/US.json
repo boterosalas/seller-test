@@ -597,6 +597,9 @@
     "secure.offers.quoting.administrator.dialogs.create.modal_placeholder_postal_code": "Postal code",
 
     "secure.offers.quoting.seller.new_opcion": "NEW SHIPPING OPTION",
+    "secure.offers.quoting.seller.plh_transoprt": "Selecciona transportadora",
+    "secure.offers.quoting.seller.plh_zone": "Selecciona zona",
+    "secure.offers.quoting.seller.plh_shiping:method": "Selecciona método de envío",
 
     "secure.offers.historical_admin.components.filter.title": "Historic offer registry filter",
     "secure.offers.historical_admin.components.filter.tooltip_close": "Close",

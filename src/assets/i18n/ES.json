@@ -597,6 +597,9 @@
     "secure.offers.quoting.administrator.dialogs.create.modal_placeholder_postal_code": "Código DANE",
 
     "secure.offers.quoting.seller.new_opcion": "NUEVA OPCIÓN DE ENVÍO",
+    "secure.offers.quoting.seller.plh_transoprt": "Selecciona transportadora",
+    "secure.offers.quoting.seller.plh_zone": "Selecciona zona",
+    "secure.offers.quoting.seller.plh_shiping:method": "Selecciona método de envío",
 
     "secure.offers.historical_admin.components.filter.title": "Filtro histórico",
     "secure.offers.historical_admin.components.filter.tooltip_close": "Cerrar",
