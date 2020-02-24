@@ -273,7 +273,7 @@ export class OfertExpandedProductComponent implements OnInit {
                     this.setCategoryErrorPrice(errors);
                 } else {
                     const regexp = new RegExp(this.offertRegex.formatNumber),
-                    test = regexp.test(this.ofertProduct.controls.Price.value);
+                        test = regexp.test(this.ofertProduct.controls.Price.value);
                     errors = !test;
                     this.setCategoryErrorPrice(errors);
                 }
@@ -290,12 +290,20 @@ export class OfertExpandedProductComponent implements OnInit {
      */
     public setCategoryError(show: boolean): void {
         if (this.ofertProduct.get('Currency').value === 'COP') {
-            if (show ) {
+            if (show) {
                 if (this.ofertProduct.controls.DiscountPrice.value <= 8000 && this.ofertProduct.controls.Currency.value === 'COP') {
                     this.ofertProduct.controls.DiscountPrice.setErrors({ price: show });
                 }
             } else {
                 this.ofertProduct.controls.DiscountPrice.setErrors(null);
+            }
+        } else {
+            if (this.ofertProduct.controls.DiscountPrice.value) {
+                if (this.ofertProduct.controls.DiscountPrice.value <= 0) {
+                    this.ofertProduct.controls.DiscountPrice.setErrors({ notCero: true });
+                } else {
+                    this.ofertProduct.controls.DiscountPrice.setErrors(null);
+                }
             }
         }
     }
@@ -313,6 +321,14 @@ export class OfertExpandedProductComponent implements OnInit {
                 }
             } else {
                 this.ofertProduct.controls.Price.setErrors(null);
+            }
+        } else {
+            if (this.ofertProduct.controls.Price.value) {
+                if (this.ofertProduct.controls.Price.value <= 0) {
+                    this.ofertProduct.controls.Price.setErrors({ notCero: true });
+                } else {
+                    this.ofertProduct.controls.Price.setErrors(null);
+                }
             }
         }
     }
@@ -445,7 +461,7 @@ export class OfertExpandedProductComponent implements OnInit {
                         this.listService.changeEmitter();
                         window.location.reload();
                     }
-                        // window.location.reload();
+                    // window.location.reload();
                 } else {
                     log.error(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.error_trying_apply_offer'));
                     this.modalService.showModal('errorService');
