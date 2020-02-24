@@ -507,6 +507,7 @@ export class ManageSellerComponent implements OnInit {
       values.State = this.validateFormRegister.controls.State.value;
       values.Profile = profile;
       values.Policy = this.validateFormRegister.controls.Policy.value;
+      values.Country = this.validateFormRegister.controls.Country.value;
       this.manageSeller.updateSeller(values).subscribe(
         (result: any) => {
           if (result.status === 201 || result.status === 200) {
