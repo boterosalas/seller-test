@@ -12,32 +12,34 @@
 </div>
 <div class="dashboard">
   <div class="dashboard__content">
-      <div style="border: 1px solid #f0f0f0; border-radius: 7px;">
-          <div fxLayout="column" style="height: 50px;" class="dashboard-component-container-border-color">
-            <div fxLayout="row" >
-                <div fxFlex="80" style="padding-top: 15px">
+      <div class="dashboard-component-container-color-border">
+          <div fxLayout="column" style="height: 50px;" class="dashboard-component-container-border-bottom-color">
+            <div fxLayout="row" class="dashboard-component-container-header-aling">
+                <div fxFlex="80" >
                   {{'secure.orders.orders' | translate}}
                 </div>
-                <div fxFlex="20">
-                  <mat-form-field>
+                <div fxFlex="20" class="dashboard-component-container-orders-align">
+                  <mat-form-field [fxShow.xs]="false">
                     <mat-select>
                       <mat-option *ngFor="let period of periodsES" [value]="period.value">
                         {{period.value}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
+                  {{showOrdersChart}}
+                    <mat-icon class="mat-18" (click)="showChangeView(showOrdersChart)" class="dashboard-component-container-cursor-pointer">insert_chart_outlined</mat-icon>
                 </div>
             </div>
           </div>
-          <div fxLayout="column" style="height: 200px; margin-top: 15px;">
+          <div fxLayout="column" style=" margin-top: 15px;">
             <div fxLayout="row">
-                <div fxFlex="40">
+                <div fxFlex="40" fxFlex.md="" fxFlex.lg="" fxFlex.xs="100" fxFlex.xl="100" [fxShow.xs]="!showOrdersChart">
                   <div fxLayout="column" fxLayoutAlign=" none">
                       <div class="dashboard-component-aling-center">
                         <div>
                           {{'secure.dashboard.all' | translate}}
                         </div>
-                        <div>
+                        <div class="dashboard-component-orders-all-number">
                           {{orders?.all | number}}
                         </div>
                       </div>
@@ -45,66 +47,105 @@
                         <div fxLayout="row">
                           <div fxFlex="35" class="dashboard-component-aling-center">
                             <div fxLayout="column">
-                              <div>{{'secure.dashboard.in_transit' | translate}}</div>
-                              <div><mat-icon class="mat-18" style="vertical-align: bottom;">local_shipping</mat-icon>{{orders?.pending | number}}</div>
+                              <div class="dashboard-component-container-text-details-orders">{{'secure.dashboard.in_transit' | translate}}</div>
+                              <div><mat-icon class="mat-18" style="vertical-align: bottom; color:#FFDA10; padding-right: 10px;">local_shipping</mat-icon>{{orders?.pending | number}}</div>
                             </div>
                           </div>
                           <div fxFlex="35" class="dashboard-component-aling-center">
                             <div fxLayout="column">
-                              <div>{{'secure.dashboard.delievered' | translate}}</div>
-                              <div> <mat-icon class="mat-18" style="vertical-align: bottom;">check_circle_outline</mat-icon>{{orders?.delivered | number}}</div>
+                              <div class="dashboard-component-container-text-details-orders">{{'secure.dashboard.delievered' | translate}}</div>
+                              <div> <mat-icon class="mat-18" style="vertical-align: bottom; color: #34B72D; padding-right: 10px;">check_circle_outline</mat-icon>{{orders?.delivered | number}}</div>
                             </div>
                           </div>
                           <div fxFlex="30" class="dashboard-component-aling-center">
                             <div fxLayout="column">
-                              <div>{{'secure.dashboard.expired' | translate}}</div>
-                              <div><mat-icon class="mat-18" style="vertical-align: bottom;">highlight_off</mat-icon>{{orders?.expired | number}}</div>
+                              <div class="dashboard-component-container-text-details-orders">{{'secure.dashboard.expired' | translate}}</div>
+                              <div><mat-icon class="mat-18" style="vertical-align: bottom; color: red; padding-right: 10px;">highlight_off</mat-icon>{{orders?.expired | number}}</div>
                             </div>
                           </div>
                         </div>
                       </div>
                   </div>
                 </div>
-                <div fxFlex="60" style="background-color: chartreuse;"></div>
+                <div fxFlex="60" fxFlex.md="" fxFlex.lg="" fxFlex.xs="100" fxFlex.xl="100" [fxShow.xs]="showOrdersChart" > 
+                  <div class="sales__graph-box">
+                    <div class="sales__graph graph">
+                      <div class="graph__content">
+                        <div class="graph__table">
+                          <div *ngFor="let colum of last_sales" class="graph__bar-box">
+                            <div class="graph__value">${{colum.value | number}}</div>
+                            <div class="graph__bar" [style.minHeight]="colum.percent">
+                              <div class="graph__label">{{colum.monthName}}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="graph__info">
+                        <p>
+                          *{{'secure.dashboard.info_cancel_sale' | translate}}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </div>
           </div>
       </div>
-      <div>2</div>
-
-    <!-- <div fxLayout="column"  style="display: inline-block; width: 100%;">
-      <div style="height: 50px;">
-        <div fxLayout="row">
-          <div fxFlex="80">
-            <h3 class="orders__title">{{'secure.orders.orders' | translate}}</h3>
-          </div>
-          <div fxFlex="20">
-            <mat-form-field>
-              <mat-select>
-                <mat-option *ngFor="let period of periodsES" [value]="period.value">
-                  {{period.value}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-        <div fxLayout="row">
-          <div fxFlex="40">
-              <div style="background-color: darkgreen;">
-                <div fxLayout="column">
-                    <div>1</div>
-                    <div>2</div>
-                </div>
-
+      <div class="dashboard-component-container-color-border" style=" margin-top: 50px;">
+        <div fxLayout="column" style="height: 50px;" class="dashboard-component-container-border-bottom-color">
+          <div fxLayout="row" >
+              <div fxFlex="80" style="padding-top: 15px; padding-left: 23px;">
+                {{'secure.dashboard.sales' | translate}}
+              </div>
+              <div fxFlex="20">
+                <mat-form-field>
+                  <mat-select>
+                    <mat-option *ngFor="let period of periodsES" [value]="period.value">
+                      {{period.value}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
           </div>
-          <div fxFlex="60">2</div>
         </div>
-      </div>
+        <div fxLayout="column" style=" margin-top: 15px;">
+          <div fxLayout="row">
+              <div fxFlex="40">
+                <div fxLayout="column" fxLayoutAlign=" none">
+                    <div class="dashboard-component-aling-center">
+                      <div>
+                        {{'secure.dashboard.sales.total' | translate}}
+                      </div>
+                      <div class="dashboard-component-orders-all-number">
+                        {{orders?.all | number}}
+                      </div>
+                    </div>
+                </div>
+              </div>
+              <div fxFlex="60"> 
+                <div class="sales__graph-box">
+                  <div class="sales__graph graph">
+                    <div class="graph__content">
+                      <div class="graph__table">
+                        <div *ngFor="let colum of last_sales" class="graph__bar-box">
+                          <div class="graph__value">${{colum.value | number}}</div>
+                          <div class="graph__bar" [style.minHeight]="colum.percent">
+                            <div class="graph__label">{{colum.monthName}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="graph__info">
+                      <p>
+                        *{{'secure.dashboard.info_cancel_sale' | translate}}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
     </div>
-    <div fxLayout="column">
-        <div fxFlex="100"> asdasd</div>
-
-    </div> -->
 
     <!-- Orders table -->
     <!-- <div class="dashboard__orders orders">

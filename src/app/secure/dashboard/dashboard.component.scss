@@ -199,9 +199,8 @@ $table-break: 900px;
     -ms-flex-align: end;
     align-items: flex-end;
     margin-bottom: 2em;
-    border-left: 2px solid #D3D3D3;
     border-bottom: 2px solid #D3D3D3;
-    height: 260px;
+    // height: 260px;
   }
 
   &__table {
@@ -286,7 +285,7 @@ $table-break: 900px;
     text-align: center;
     font-size: 14px;
     color: #909090;
-    margin-top: 6em;
+    margin-top: 4em;
   }
 }
 
@@ -301,9 +300,47 @@ $table-break: 900px;
   }
   &-aling-center{
     text-align: center;
+    padding-top: 30px;
   }
 
-  &-container-border-color{
-    border-bottom: 1px solid #f0f0f0;
+  &-container-border-bottom-color{
+    border-bottom: 1px solid #dadada;
   }
+
+  &-orders-all-number{
+    font-size: 36px;
+    font-weight: bold;
+    padding-bottom: 32px;
+    padding-top: 10px;
+  }
+  &-container-text-details-orders{
+    font-size: 13px;
+    color: #757575;
+    padding-bottom: 5px;
+  }
+  &-container-color-border {
+    border: 1px solid #dadada; border-radius: 7px;
+  }
+
+  @media only screen and (max-width: 500px) and (min-width: 341px) {  
+    &-container-chart-orders{
+      display: none;
+    }
+    &-container-summary-total-orders{
+      padding-top: 15px;
+      padding-left: 23px;
+    }
+    &-container-orders-align{
+      text-align: end;
+    }
+    &-container-header-aling{
+      margin-top: 14px;
+      padding-right: 10px;
+      padding-left: 10px;
+    }
+
+    &-container-cursor-pointer{
+      cursor: pointer;
+    }
+  } 
 }

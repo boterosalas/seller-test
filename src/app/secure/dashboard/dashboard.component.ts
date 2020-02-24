@@ -39,6 +39,8 @@ export class DashboardComponent implements OnInit {
 
     public dateCurrent: any;
 
+    public showOrdersChart = false;
+
     // Fecha máxima del datePicker
     public dateMax: Date;
 
@@ -310,5 +312,10 @@ export class DashboardComponent implements OnInit {
         } else {
             this.getUserData();
         }
+    }
+
+    public showChangeView(show: boolean) {
+        console.log(show);
+        // this.showOrdersChart = !show ;
     }
 }

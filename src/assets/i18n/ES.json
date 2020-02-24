@@ -330,6 +330,7 @@
     "secure.dashboard.delievered": "Entregado",
     "secure.dashboard.expired": "Vencido",
     "secure.dashboard.sales": "Ventas",
+    "secure.dashboard.sales.total": "Ventas totales",
     "secure.dashboard.selected_months": "Seleccione el mes",
     "secure.dashboard.info_cancel_sale": "Esta información es aproximada y no tiene en cuenta cancelación, adicionalmente la venta se muestra sin flete",
 
