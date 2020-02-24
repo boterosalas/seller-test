@@ -7,13 +7,15 @@ import { ListTransporterService } from '../../administrator/list-transporter/lis
 import { TransportModel } from '../../administrator/dialogs/models/transport.model';
 import { ListZonesService } from '../../administrator/list-zones/list-zones.service';
 import { ZoneModel } from '../../administrator/dialogs/models/zone.model';
+import { QuotingService } from '../../quoting.service';
 
 const log = new Logger('ModalQuotingSellerComponent');
 
 export enum quotiongDialogAction {
   add,
   update,
-  delete
+  delete,
+  idZone
 }
 
 @Component({
@@ -36,6 +38,7 @@ export class ModalQuotingSellerComponent implements OnInit {
     private transportService: ListTransporterService,
     private loadingService: LoadingService,
     private modalService: ModalService,
+    private quotingService: QuotingService,
     public dialogRef: MatDialogRef<ModalQuotingSellerComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     console.log(data, this.actions);
@@ -100,6 +103,34 @@ export class ModalQuotingSellerComponent implements OnInit {
       }
       this.loadingService.closeSpinner();
     });
+  }
+
+  public deleteIdQuote(): void {
+    console.log('data.idZone', this.data.idZone);
+    this.loadingService.viewSpinner();
+    this.quotingService.deleteQuotingSeller(this.data.idZone)
+      .subscribe((result: any) => {
+        console.log(result);
+        if (result.status === 201 || result.status === 200) {
+          console.log('entra al primer');
+          if (result.body.statusCode === 200 || result.body.statusCode === 201) {
+            console.log('entra al segundo');
+            if (result.body) {
+              const data = JSON.parse(result.body.body);
+              if (data.data === true) {
+                console.log('entra al data true');
+                this.loadingService.closeSpinner();
+                this.dialogRef.close();
+              }
+            }
+          }
+          // this.getListQuote();
+        } else {
+          this.modalService.showModal('error');
+          this.loadingService.closeSpinner();
+        }
+        this.loadingService.closeSpinner();
+      });
   }
 
 }

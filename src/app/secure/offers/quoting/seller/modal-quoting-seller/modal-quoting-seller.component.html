@@ -61,7 +61,10 @@
   <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [disabled]="formZone">
     {{'actions.cancel' | translate}}
   </button>
-  <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [disabled]="formZone">
+  <button id="btn-create-transporter" (click)="deleteIdQuote()" type="submit" mat-raised-button color="primary" [disabled]="formZone" *ngIf="action === actions.delete">
+    {{'actions.delete' | translate}}
+  </button>
+  <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [disabled]="formZone" *ngIf="action === actions.add">
     {{'actions.accept' | translate}}
   </button>
 </div>

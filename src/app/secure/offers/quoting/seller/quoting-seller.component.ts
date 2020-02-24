@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { TranslateService } from '@ngx-translate/core';
 import { ModalQuotingSellerComponent, quotiongDialogAction } from './modal-quoting-seller/modal-quoting-seller.component';
+import { LoadingService, ModalService } from '@app/core';
+import { QuotingService } from '../quoting.service';
 
 export interface PeriodicElement {
   category: string;
@@ -11,14 +13,14 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {category: 'Categoria', transport: 'Envío propio', zone: 'Zonoa Bogota'},
-  {category: 'Categoria', transport: 'Envío propio', zone: 'Zonoa Bogota'},
-  {category: 'Categoria', transport: 'Envío propio', zone: 'Zonoa Bogota'},
-  {category: 'Categoria', transport: 'Envío propio', zone: 'Zonoa Bogota'},
-  {category: 'Categoria', transport: 'Envío propio', zone: 'Zonoa Bogota'},
-  {category: 'Categoria', transport: 'Envío propio', zone: 'Zonoa Bogota'},
-  {category: 'Categoria', transport: 'Envío propio', zone: 'Zonoa Bogota'},
-  {category: 'Categoria', transport: 'Envío propio', zone: 'Zonoa Bogota'},
+  { category: 'Categoria', transport: 'Envío propio', zone: 'Zonoa Bogota' },
+  { category: 'Categoria', transport: 'Envío propio', zone: 'Zonoa Bogota' },
+  { category: 'Categoria', transport: 'Envío propio', zone: 'Zonoa Bogota' },
+  { category: 'Categoria', transport: 'Envío propio', zone: 'Zonoa Bogota' },
+  { category: 'Categoria', transport: 'Envío propio', zone: 'Zonoa Bogota' },
+  { category: 'Categoria', transport: 'Envío propio', zone: 'Zonoa Bogota' },
+  { category: 'Categoria', transport: 'Envío propio', zone: 'Zonoa Bogota' },
+  { category: 'Categoria', transport: 'Envío propio', zone: 'Zonoa Bogota' },
 ];
 
 
@@ -30,13 +32,19 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class QuotingSellerComponent implements OnInit {
 
   displayedColumns: string[] = ['category', 'transport', 'zone', 'actions'];
-  dataSource = ELEMENT_DATA;
+  dataSource = [];
+  listQuotes: any;
   constructor(
     private dialog: MatDialog,
+    private loadingService: LoadingService,
+    private quotingService: QuotingService,
+    private modalService: ModalService,
     private languageService: TranslateService,
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit() {
+    this.getListQuote();
+  }
 
   openDialog(action?: any, element?: any) {
     // const data = this.putDataForCreate();
@@ -44,7 +52,8 @@ export class QuotingSellerComponent implements OnInit {
       width: '55%',
       minWidth: '280px',
       data: {
-        action: action
+        action: action,
+        idZone: element
       }
     });
   }
@@ -57,17 +66,42 @@ export class QuotingSellerComponent implements OnInit {
     this.openDialog(quotiongDialogAction.update);
   }
 
-  deleteCategory() {
-    this.openDialog(quotiongDialogAction.delete);
+  deleteCategory(idZone: any) {
+    this.openDialog(quotiongDialogAction.delete , idZone);
   }
 
-  putDataForCreate() {
-    const title = this.languageService.instant('secure.parametize.commission.addTariffs');
-    const message = null;
-    const messageCenter = false;
-    const showButtons = true;
-    const icon = null;
-    const btnConfirmationText = null;
-    return { title, message, messageCenter, showButtons, icon, btnConfirmationText };
+  public getListQuote(): void {
+    this.loadingService.viewSpinner();
+    this.quotingService.getQuotingSeller().subscribe((result: any) => {
+      if (result.status === 201 || result.status === 200) {
+        const body = JSON.parse(result.body.body);
+        this.listQuotes = body.Data;
+        this.dataSource = this.listQuotes;
+        console.log(this.listQuotes);
+      } else {
+        this.modalService.showModal('errorService');
+      }
+      this.loadingService.closeSpinner();
+    });
   }
+
+  /**
+   * Metodo para eliminar las parametrizaciones de cotizador
+   * @param {number} idQuote
+   * @memberof QuotingSellerComponent
+   */
+  // public deleteIdQuote(idQuote: number): void {
+  //   this.loadingService.viewSpinner();
+  //   this.quotingService.deleteQuotingSeller(idQuote)
+  //     .subscribe(
+  //       (result: any) => {
+  //         if (result.statusCode === 201 || result.statusCode === 200) {
+  //           this.getListQuote();
+  //           this.loadingService.closeSpinner();
+  //         } else {
+  //           this.modalService.showModal('error');
+  //         }
+  //       }
+  //     );
+  // }
 }
