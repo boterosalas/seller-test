@@ -8,6 +8,7 @@ import { TransportModel } from '../../administrator/dialogs/models/transport.mod
 import { ListZonesService } from '../../administrator/list-zones/list-zones.service';
 import { ZoneModel } from '../../administrator/dialogs/models/zone.model';
 import { QuotingService } from '../../quoting.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 const log = new Logger('ModalQuotingSellerComponent');
 
@@ -31,7 +32,37 @@ export class ModalQuotingSellerComponent implements OnInit {
   public transportTypeList: Array<ShippingMethodsModel>;
   public listTransporters: Array<TransportModel> = [];
   public listZones: ZoneModel[];
-
+  // Esta es la variable que maneja todo.
+  stepOne = 0;
+  stepTwo = 1;
+  public stepper = [{
+    show: true, // Muestra de primero
+    validForm: false
+  },
+  {
+    show: false,
+    validForm: false
+  }];
+  principalForm: FormGroup;
+  secondForm: FormGroup;
+  indexForm = [1];
+  showFinalValue = true;
+  // precio = 2, categoria = 1, peso =3 cuales son los ids de esos
+  placeholders = [
+    {
+      initialValue: 'Codigo de categoria',
+      shippingValue: 'Valor cobro flete'
+    }, {
+      initialValue: 'Precio Inicial',
+      finalValue: 'Precio Final',
+      shippingValue: 'Valor cobro flete'
+    }, {
+      initialValue: 'Peso Inicial',
+      finalValue: 'Peso Final',
+      shippingValue: 'Valor cobro flete'
+    }
+  ];
+  shippingMethod: number;
   constructor(
     private methodService: ShippingMethodsService,
     private service: ListZonesService,
@@ -49,8 +80,66 @@ export class ModalQuotingSellerComponent implements OnInit {
     this.getTransportMethodRequiredData(); // Get methods.
     this.getListTransporters(); // Get transport
     this.getListZones(); // Get zones.
+    this.createPrincipalForm();
   }
 
+  public createPrincipalForm() {
+    this.principalForm = new FormGroup({
+      MethodShipping: new FormControl('', [Validators.required]),
+      Transport: new FormControl('', [Validators.required]),
+      Zone: new FormControl('', [Validators.required]),
+    });
+  }
+
+  public createSecondForm(valuePrinpcipalForm: any) {
+    this.shippingMethod = valuePrinpcipalForm.MethodShipping;
+    this.showFinalValue = valuePrinpcipalForm.MethodShipping !== 1; // id categoria: si cambia toca cambiar esto.
+    this.secondForm = new FormGroup({
+      initialValue0: new FormControl('', [Validators.required]),
+      shippingValue0: new FormControl('', [Validators.required]),
+    });
+    if (this.showFinalValue) {
+      this.indexForm[0] = valuePrinpcipalForm.MethodShipping;
+      this.secondForm.addControl(
+        'finalValue0', new FormControl('', [Validators.required]),
+      );
+    }
+  }
+
+  public addFormControl() {
+    this.secondForm.addControl( `initialValue${this.indexForm.length}`,  new FormControl('', [Validators.required]));
+    this.secondForm.addControl( `shippingValue${this.indexForm.length}`,  new FormControl('', [Validators.required]));
+    if (this.showFinalValue) {
+      this.secondForm.addControl(
+        `finalValue${this.indexForm.length}`, new FormControl('', [Validators.required]),
+      );
+    }
+    this.indexForm.push(this.shippingMethod);
+  }
+
+  public removeItem(index: number) {
+    console.log('rico ese *', this.secondForm);
+    this.indexForm.splice(index, 1); // pere pienso
+    this.secondForm.removeControl(`initialValue${index}`);
+    this.secondForm.removeControl(`shippingValue${index}`);
+    if (this.showFinalValue) {
+      this.secondForm.removeControl(`finalValue${index}`);
+    }
+  }
+
+
+
+
+  public next(step: any, form: any) {
+    console.log(step, form);
+    if (form.valid) {
+      this.stepper[step].show = false;
+      if (step === this.stepOne) {
+        this.createSecondForm(this.principalForm.value);
+        this.stepper[this.stepTwo].show = true;
+      }
+    }
+  }
   /**
    * Function to get required data to charge select in transport form.
    * @memberof ModalQuotingSellerComponent
