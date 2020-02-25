@@ -105,26 +105,24 @@ export class ModalQuotingSellerComponent implements OnInit {
     });
   }
 
+  /**
+   * Funcion para eliminar parametrizaciones por IdZone
+   * @memberof ModalQuotingSellerComponent
+   */
   public deleteIdQuote(): void {
-    console.log('data.idZone', this.data.idZone);
     this.loadingService.viewSpinner();
     this.quotingService.deleteQuotingSeller(this.data.idZone)
       .subscribe((result: any) => {
-        console.log(result);
         if (result.status === 201 || result.status === 200) {
-          console.log('entra al primer');
           if (result.body.statusCode === 200 || result.body.statusCode === 201) {
-            console.log('entra al segundo');
             if (result.body) {
               const data = JSON.parse(result.body.body);
-              if (data.data === true) {
-                console.log('entra al data true');
+              if (data.Data === true) {
                 this.loadingService.closeSpinner();
-                this.dialogRef.close();
+                this.dialogRef.close(confirm);
               }
             }
           }
-          // this.getListQuote();
         } else {
           this.modalService.showModal('error');
           this.loadingService.closeSpinner();

@@ -28,7 +28,6 @@
     <div fxLayout="row" fxLayoutAlign="space-between center">
         
       <mat-form-field class="quoting-seller--container__field">
-        <mat-label>Select an option</mat-label>
         <mat-select [placeholder]="'secure.offers.quoting.seller.plh_shiping:method' | translate" >
           <mat-option *ngFor="let type of transportTypeList" [value]="type.Id">
             {{type.Name}}

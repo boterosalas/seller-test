@@ -46,6 +46,12 @@ export class QuotingSellerComponent implements OnInit {
     this.getListQuote();
   }
 
+  /**
+   * Función que abre modal con las diferentes acciones (create, update,delete)
+   * @param {*} [action]
+   * @param {*} [element]
+   * @memberof QuotingSellerComponent
+   */
   openDialog(action?: any, element?: any) {
     // const data = this.putDataForCreate();
     const dialogRef = this.dialog.open(ModalQuotingSellerComponent, {
@@ -56,20 +62,44 @@ export class QuotingSellerComponent implements OnInit {
         idZone: element
       }
     });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('res: ', result);
+      if (result) {
+        this.getListQuote();
+      }
+    });
   }
 
+  /**
+   * Accion para crear parametizacion de cotizador
+   * @memberof QuotingSellerComponent
+   */
   addCategory() {
     this.openDialog(quotiongDialogAction.add);
   }
 
+  /**
+   * Accion para editar parametizacion de cotizador
+   * @memberof QuotingSellerComponent
+   */
   updateCategory() {
     this.openDialog(quotiongDialogAction.update);
   }
 
+  /**
+   * Accion para eliminar parametizacion de cotizador
+   * @param {*} idZone
+   * @memberof QuotingSellerComponent
+   */
   deleteCategory(idZone: any) {
-    this.openDialog(quotiongDialogAction.delete , idZone);
+    this.openDialog(quotiongDialogAction.delete, idZone);
   }
 
+  /**
+   * Metodo para obtener todas las parametrizaciones y pintarlas
+   * @memberof QuotingSellerComponent
+   */
   public getListQuote(): void {
     this.loadingService.viewSpinner();
     this.quotingService.getQuotingSeller().subscribe((result: any) => {
@@ -85,23 +115,4 @@ export class QuotingSellerComponent implements OnInit {
     });
   }
 
-  /**
-   * Metodo para eliminar las parametrizaciones de cotizador
-   * @param {number} idQuote
-   * @memberof QuotingSellerComponent
-   */
-  // public deleteIdQuote(idQuote: number): void {
-  //   this.loadingService.viewSpinner();
-  //   this.quotingService.deleteQuotingSeller(idQuote)
-  //     .subscribe(
-  //       (result: any) => {
-  //         if (result.statusCode === 201 || result.statusCode === 200) {
-  //           this.getListQuote();
-  //           this.loadingService.closeSpinner();
-  //         } else {
-  //           this.modalService.showModal('error');
-  //         }
-  //       }
-  //     );
-  // }
 }
