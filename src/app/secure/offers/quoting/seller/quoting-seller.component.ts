@@ -56,6 +56,7 @@ export class QuotingSellerComponent implements OnInit {
     // const data = this.putDataForCreate();
     const dialogRef = this.dialog.open(ModalQuotingSellerComponent, {
       width: '55%',
+      height: '70%',
       minWidth: '280px',
       data: {
         action: action,

@@ -1,6 +1,5 @@
-
-
-<div mat-dialog-content class="quoting-seller" fxLayout="column" fxLayoutAlign="center center">
+<div mat-dialog-content class="quoting-seller" fxLayout="column" fxLayoutAlign="center center"
+  style="height: 100% !important">
   <div class="quoting-seller--icon" fxLayout="column" fxLayoutAlign="center center">
     <mat-icon class="material-icons" *ngIf="action === actions.add">
       local_shipping
@@ -13,7 +12,7 @@
     Nuevo opción de envío
   </h3>
   <p class="quoting-seller--text" *ngIf="action === actions.add">
-    In ac nisl tortor. Phasellus aliquam dui volutpat aliquet tempor. Fusce dignissim porttitor 
+    In ac nisl tortor. Phasellus aliquam dui volutpat aliquet tempor. Fusce dignissim porttitor
     dolor ac accumsan. Suspendisse potenti.
   </p>
 
@@ -21,24 +20,27 @@
     Eliminar opción de envío
   </h3>
   <p class="quoting-seller--text" *ngIf="action === actions.delete">
-    In ac nisl tortor. Phasellus aliquam dui volutpat aliquet tempor. Fusce dignissim porttitor 
+    In ac nisl tortor. Phasellus aliquam dui volutpat aliquet tempor. Fusce dignissim porttitor
     dolor ac accumsan. Suspendisse potenti.
   </p>
   <div fxLayout="column" class="quoting-seller--container" *ngIf="action === actions.add">
-    <form *ngIf="stepper[stepOne].show" fxLayout="column" [formGroup]="principalForm" (ngSubmit)="next(stepOne, principalForm)">
+    <form *ngIf="stepper[stepOne].show" fxLayout="column" [formGroup]="principalForm"
+      (ngSubmit)="next(stepOne, principalForm)">
       <div fxLayout="row" fxLayoutAlign="space-between center">
-          
+
         <mat-form-field class="quoting-seller--container__field">
-          <mat-select formControlName="MethodShipping" [placeholder]="'secure.offers.quoting.seller.plh_shiping:method' | translate" >
+          <mat-select formControlName="MethodShipping"
+            [placeholder]="'secure.offers.quoting.seller.plh_shiping:method' | translate">
             <mat-option *ngFor="let type of transportTypeList" [value]="type.Id">
               {{type.Name}}
             </mat-option>
           </mat-select>
         </mat-form-field>
-          
+
         <mat-form-field class="quoting-seller--container__field">
           <mat-icon matPrefix>local_shipping</mat-icon>
-          <mat-select formControlName="Transport" [placeholder]="'secure.offers.quoting.seller.plh_transoprt' | translate">
+          <mat-select formControlName="Transport"
+            [placeholder]="'secure.offers.quoting.seller.plh_transoprt' | translate">
             <mat-option *ngFor="let type of listTransporters" [value]="type.Id">
               {{type.Name}}
             </mat-option>
@@ -57,49 +59,58 @@
 
 
       <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
-        <button id="btn-create-transporter" type="button" mat-raised-button color="primary">
+        <button id="btn-create-transporter" type="button" mat-raised-button color="primary" [mat-dialog-close]="true">
           {{'actions.cancel' | translate}}
         </button>
-       
-        <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [disabled]="principalForm.invalid"
-         *ngIf="action === actions.add">
+
+        <button id="btn-create-transporter" type="submit" mat-raised-button color="primary"
+          [disabled]="principalForm.invalid" *ngIf="action === actions.add">
           {{'actions.accept' | translate}}
         </button>
       </div>
     </form>
-    <form *ngIf="stepper[stepTwo].show" fxLayout="column" [formGroup]="secondForm" (ngSubmit)="next(stepTwo, principalForm)">
+    <form *ngIf="stepper[stepTwo].show" fxLayout="column" [formGroup]="secondForm"
+      (ngSubmit)="next(stepTwo, principalForm)">
 
-      <div fxLayout="row" fxLayoutAlign="space-between center"  *ngFor="let fields of indexForm; let i = index">
-        <mat-form-field fxFlex="100">
-          <input formControlName="initialValue{{i}}" matInput placeholder="{{placeholders[fields -1].initialValue}}"/>
+      <div fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let fields of indexForm; let i = index">
+        <mat-form-field fxFlex="100" class="marginInputsValues">
+          <input formControlName="initialValue{{i}}" matInput placeholder="{{placeholders[fields -1].initialValue}}" />
         </mat-form-field>
-        <mat-form-field fxFlex="100" *ngIf="showFinalValue">
-          <input formControlName="finalValue{{i}}" matInput placeholder="{{placeholders[fields -1].finalValue}}"/>
+        <mat-form-field fxFlex="100" *ngIf="showFinalValue" class="marginInputsValues">
+          <input formControlName="finalValue{{i}}" matInput placeholder="{{placeholders[fields -1].finalValue}}" />
         </mat-form-field>
-        <mat-form-field fxFlex="100">
-          <input formControlName="shippingValue{{i}}" matInput placeholder="{{placeholders[fields -1].shippingValue}}"/>
+        <mat-form-field fxFlex="100" class="marginInputsValues">
+          <input formControlName="shippingValue{{i}}" matInput
+            placeholder="{{placeholders[fields -1].shippingValue}}" />
         </mat-form-field>
 
-        <button  type="button" (click)="removeItem(fields -1)" mat-icon-button aria-label="Example icon-button with a heart icon">
+        <button type="button" (click)="removeItem(fields -1)" mat-icon-button
+          aria-label="Example icon-button with a heart icon">
           <mat-icon>delete</mat-icon>
         </button>
       </div>
 
-
-      <button (click)="addFormControl()" type="button">
+      <div> 
+        <h6 (click)="addFormControl()" type="button" class="addBand">
+        <strong>+</strong>
+          Añadir banda
+        </h6>
+      </div>
+      <!-- <button (click)="addFormControl()" type="button">
         agregar
-      </button>
+      </button> -->
 
     </form>
   </div>
 </div>
 
 <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
-  <button id="btn-create-transporter" type="button" mat-raised-button color="primary"  *ngIf="action === actions.delete">
+  <button id="btn-create-transporter" type="button" mat-raised-button color="primary" *ngIf="action === actions.delete">
     {{'actions.cancel' | translate}}
   </button>
-  <button id="btn-create-transporter" (click)="deleteIdQuote()" type="submit" mat-raised-button color="primary" [disabled]="formZone" *ngIf="action === actions.delete">
+  <button id="btn-create-transporter" (click)="deleteIdQuote()" type="submit" mat-raised-button color="primary"
+    [disabled]="formZone" *ngIf="action === actions.delete">
     {{'actions.delete' | translate}}
   </button>
- 
+
 </div>
