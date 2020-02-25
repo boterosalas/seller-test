@@ -175,7 +175,7 @@ export class SpecificationProductComponent implements OnInit {
         if (cont === null) {
             this.specificationListToAdd.push({
                 Name: model.Label,
-                Key: model.Label,
+                Key: model.Name,
                 Value: model.Value,
                 ExistId: indexParent + '-' + indexSon
             });
