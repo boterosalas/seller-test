@@ -322,6 +322,21 @@ $table-break: 900px;
     border: 1px solid #dadada; border-radius: 7px;
   }
 
+  &-container-aling-icon-calender-orders{
+    vertical-align: bottom;
+    margin-top: 5px;
+    margin-left: 5px;
+  }
+
+  &-container-color-text-month{
+   color: #818181
+  }
+
+  &-container-max-wight{
+    contain: content;
+    max-width: 50%;
+  }
+
   @media only screen and (max-width: 500px) and (min-width: 341px) {  
     &-container-chart-orders{
       display: none;
@@ -367,6 +382,9 @@ $table-break: 900px;
     }
     &-container-aling-select-filter{
       width: 90%;
+    }
+    &-container-orders-align{
+      text-align: end;
     }
   }
 

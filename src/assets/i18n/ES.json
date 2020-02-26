@@ -331,6 +331,10 @@
     "secure.dashboard.expired": "Vencido",
     "secure.dashboard.sales": "Ventas",
     "secure.dashboard.sales.total": "Ventas totales",
+    "secure.dashboard.type.filter.quarterly": "Trimestral",
+    "secure.dashboard.type.filter.monthly": "Mensual",
+    "secure.dashboard.type.filter.weekly": "Semanal",
+    "secure.dashboard.type.filter.diary": "Diario",
     "secure.dashboard.selected_months": "Seleccione el mes",
     "secure.dashboard.info_cancel_sale": "Esta información es aproximada y no tiene en cuenta cancelación, adicionalmente la venta se muestra sin flete",
 

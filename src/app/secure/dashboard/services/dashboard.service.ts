@@ -74,4 +74,8 @@ export class DashboardService {
     return this._http.get(URL, { observe: 'response' });
   }
 
+  public getOrdensSummary(params: any): Observable<any> {
+    return this._http.get(this._api.get('ordersSummaryStatus', [params]));
+  }
+
 }

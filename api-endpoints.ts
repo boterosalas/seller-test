@@ -181,8 +181,9 @@ export const endpoints = {
       // Obtener calificacion de vendedores
       getSellerRating: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller/{params}',
       // Eliminar calificacion de un vendedor
-      upsertQualification: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller'
-
+      upsertQualification: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller',
+      // consultar las ordenes por tipo de filtros
+      ordersSummaryStatus: 'https://nv4izavvqj.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus/{params}'
     },
   },
   // Endpoints production
@@ -362,7 +363,9 @@ export const endpoints = {
       // Obtener calificacion de vendedores
       getSellerRating: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller/{params}',
       // Eliminar calificacion de un vendedor
-      upsertQualification: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller'
+      upsertQualification: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller',
+      // consultar las ordenes por tipo de filtros
+      ordersSummaryStatus: 'https://2l1pous4cl.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus-pdn/{params}'
     }
   }
 };

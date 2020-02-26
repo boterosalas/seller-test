@@ -7,6 +7,7 @@ import { Logger } from '@core/util/logger.service';
 import { DashboardService } from './services/dashboard.service';
 import { RoutesConst } from '@app/shared';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { DatePipe } from '@angular/common';
 
 /**
  * @export
@@ -41,6 +42,7 @@ export class DashboardComponent implements OnInit {
 
     public showOrdersChart = false;
     public showOrdersChartSeller = false;
+    public params: any;
 
     // Fecha máxima del datePicker
     public dateMax: Date;
@@ -52,23 +54,31 @@ export class DashboardComponent implements OnInit {
     public isLoading = false;
 
     public periodsEN = [
-        { value: 'Trimester'},
-        { value: 'Monthly'},
-        { value: 'Weekly'},
-        { value: 'Daily'}
+        { value: 'Trimester' },
+        { value: 'Monthly' },
+        { value: 'Weekly' },
+        { value: 'Daily' }
     ];
     public periodsES = [
-        { value: 'Trimestral'},
-        { value: 'Mensual'},
-        { value: 'Semanal'},
-        { value: 'Diaria'}
+        { value: 'Trimestral' },
+        { value: 'Mensual' },
+        { value: 'Semanal' },
+        { value: 'Diaria' }
     ];
+
+    selected: any;
+    selectedValue: string;
+    public typeFilter = 1;
+    public showCalenderQ = true;
+    public showCalenderD = false;
+    public showCalenderW = false;
 
     /**
      * Variable para observar el input del filtro inicial
      * @memberof FilterComponent
      */
     @ViewChild('picker') picker;
+    @ViewChild('pickerDiary') pickerDiary;
 
     /**
      * @method constructor
@@ -80,6 +90,7 @@ export class DashboardComponent implements OnInit {
     constructor(
         private _dashboard: DashboardService,
         private languageService: TranslateService,
+        public datepipe: DatePipe,
         public userService?: UserLoginService,
         public userParams?: UserParametersService,
         private loadingService?: LoadingService,
@@ -106,11 +117,72 @@ export class DashboardComponent implements OnInit {
      * @memberof DashboardComponent
      */
     ngOnInit(): void {
-        // this.userService.isAuthenticated(this);
         this.log = new Logger('DashboardComponent');
         this.getUserData();
         this.changeLanguage();
+        this.setSelectFilterOrders();
+        this.getOrdensSummary();
     }
+
+    setSelectFilterOrders() {
+        this.selected = '1';
+    }
+
+    select(filter: any) {
+        this.typeFilter = filter;
+        if (filter === '1' || filter === '2') {
+            this.showCalenderQ = true;
+            this.showCalenderD = false;
+            this.showCalenderW = false;
+        }  else {
+            this.showCalenderQ = false;
+            this.showCalenderD = true;
+            this.showCalenderW = false;
+        }
+        this.getOrdensSummary();
+        // console.log(filter);
+
+    }
+
+
+
+    getOrdensSummary(params?: any) {
+        this.params = this.setParameters(params);
+        this._dashboard.getOrdensSummary(this.params).subscribe((res: any) => {
+                if (this.isLoad) {
+                this.loadingService.closeSpinner();
+            } else {
+                this.isLoading = false;
+            }
+            this.last_sales = res ? this.parseLastSales(res.reverse()) : [];
+        }, err => {
+            if (this.isLoad) {
+                this.loadingService.closeSpinner();
+            } else {
+                this.isLoading = false;
+            }
+            this.log.debug(err);
+            this.modalService.showModal('errorService');
+        }
+        );
+    }
+
+    setParameters(params: any) {
+        let paramsOrdersSummary = 'null/';
+        if (this.dateCurrent === '' || this.dateCurrent === undefined) {
+            this.dateCurrent = new Date();
+            const latest_date = this.datepipe.transform(this.dateCurrent, 'yyyy-MM-dd');
+            paramsOrdersSummary += latest_date + '/';
+        } else {
+            paramsOrdersSummary += this.datepipe.transform(this.dateCurrent, 'yyyy-MM-dd') + '/';
+        }
+        if (this.typeFilter !== undefined && this.typeFilter !== null) {
+            paramsOrdersSummary += this.typeFilter;
+        }
+
+        return paramsOrdersSummary;
+    }
+
 
     /**
      * @method getUserData
@@ -120,7 +192,7 @@ export class DashboardComponent implements OnInit {
     private async getUserData() {
         this.user = await this.userParams.getUserData();
         this.getOrdersData();
-        this.getLastSales();
+        // this.getLastSales();
         /*
         if (this.user.sellerProfile !== 'seller') {
             this.router.navigate([`/${RoutesConst.sellerCenterIntSellerRegister}`]);
@@ -155,28 +227,30 @@ export class DashboardComponent implements OnInit {
      */
     private getLastSales(date?: any) {
         this.dateCurrent = date;
-        if (this.isLoad) {
-            this.loadingService.viewSpinner();
-        }
-        if (this.user && this.user.sellerId) {
-            this._dashboard.getLastSales(this.user.sellerId, date)
-                .subscribe((res: any[]) => {
-                    if (this.isLoad) {
-                        this.loadingService.closeSpinner();
-                    } else {
-                        this.isLoading = false;
-                    }
-                    this.last_sales = res ? this.parseLastSales(res.reverse()) : [];
-                }, err => {
-                    if (this.isLoad) {
-                        this.loadingService.closeSpinner();
-                    } else {
-                        this.isLoading = false;
-                    }
-                    this.log.debug(err);
-                    this.modalService.showModal('errorService');
-                });
-        }
+        this.getOrdensSummary();
+        // if (this.isLoad) {
+        //     this.loadingService.viewSpinner();
+        // }
+        // if (this.user && this.user.sellerId) {
+        //     this._dashboard.getLastSales(this.user.sellerId, date)
+        //         .subscribe((res: any[]) => {
+        //             console.log(res);
+        //             if (this.isLoad) {
+        //                 this.loadingService.closeSpinner();
+        //             } else {
+        //                 this.isLoading = false;
+        //             }
+        //             this.last_sales = res ? this.parseLastSales(res.reverse()) : [];
+        //         }, err => {
+        //             if (this.isLoad) {
+        //                 this.loadingService.closeSpinner();
+        //             } else {
+        //                 this.isLoading = false;
+        //             }
+        //             this.log.debug(err);
+        //             this.modalService.showModal('errorService');
+        //         });
+        // }
     }
 
     changeLanguage() {
@@ -239,6 +313,13 @@ export class DashboardComponent implements OnInit {
         this.getLastSales(date);
         dp.close();
     }
+    public chosenMonthHandlerDiary(month: any, dp: any) {
+        const date = new Date(month.value);
+        this.startDate = date;
+        this.getMonthVisible(date.getMonth());
+        this.getLastSales(date);
+        dp.close();
+    }
 
     /**
      * @method openDatePicker
@@ -247,6 +328,14 @@ export class DashboardComponent implements OnInit {
      */
     public openDatePicker() {
         this.picker.open();
+    }
+    /**
+     * @method openDatePicker
+     * @description Método que abre el date picker diario.
+     * @memberof DashboardComponent
+     */
+    public openDatePickerDiary() {
+        this.pickerDiary.open();
     }
 
     getMonthVisible(month: any) {
@@ -316,10 +405,10 @@ export class DashboardComponent implements OnInit {
     }
 
     public showChangeView(show: boolean) {
-        this.showOrdersChart = !show ;
+        this.showOrdersChart = !show;
     }
 
-    public showChangeViewSeller(show: boolean){
+    public showChangeViewSeller(show: boolean) {
         this.showOrdersChartSeller = !show;
     }
 }
