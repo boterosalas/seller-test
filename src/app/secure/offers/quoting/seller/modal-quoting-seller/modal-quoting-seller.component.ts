@@ -2,13 +2,14 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ShippingMethodsService } from '../../administrator/shipping-methods/shipping-methods.service';
 import { ShippingMethodsModel } from '../../administrator/shipping-methods/shipping-methods.model';
-import { Logger, LoadingService, ModalService } from '@app/core';
+import { Logger, LoadingService, ModalService, UserParametersService } from '@app/core';
 import { ListTransporterService } from '../../administrator/list-transporter/list-transporter.service';
 import { TransportModel } from '../../administrator/dialogs/models/transport.model';
 import { ListZonesService } from '../../administrator/list-zones/list-zones.service';
 import { ZoneModel } from '../../administrator/dialogs/models/zone.model';
 import { QuotingService } from '../../quoting.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { SupportService } from '@app/secure/support-modal/support.service';
 
 const log = new Logger('ModalQuotingSellerComponent');
 
@@ -63,6 +64,27 @@ export class ModalQuotingSellerComponent implements OnInit {
     }
   ];
   shippingMethod: number;
+
+  quotingRegex = {
+    price: '',
+    formatNumber: ''
+  };
+  subTitle: string;
+  public user: any;
+  sellerId: string;
+
+  dataToSend = {
+    'IdSeller': null,
+    'IdZone': null,
+    'Zone': null,
+    'ZoneDaneCode': null,
+    'IdMethodShipping': null,
+    'MethodShipping': null,
+    'IdTransport': null,
+    'Transport': null,
+    'Ranges': []
+  };
+
   constructor(
     private methodService: ShippingMethodsService,
     private service: ListZonesService,
@@ -70,10 +92,13 @@ export class ModalQuotingSellerComponent implements OnInit {
     private loadingService: LoadingService,
     private modalService: ModalService,
     private quotingService: QuotingService,
+    public SUPPORT: SupportService,
+    public userParams: UserParametersService,
     public dialogRef: MatDialogRef<ModalQuotingSellerComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     console.log(data, this.actions);
     this.action = data ? data.action : null;
+    this.getDataUser();
   }
 
   ngOnInit() {
@@ -81,6 +106,15 @@ export class ModalQuotingSellerComponent implements OnInit {
     this.getListTransporters(); // Get transport
     this.getListZones(); // Get zones.
     this.createPrincipalForm();
+    this.validateFormSupport();
+  }
+
+
+  /**
+   * Metodo para obtener datos del usuario.
+   */
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
   }
 
   public createPrincipalForm() {
@@ -92,7 +126,9 @@ export class ModalQuotingSellerComponent implements OnInit {
   }
 
   public createSecondForm(valuePrinpcipalForm: any) {
+    console.log(valuePrinpcipalForm);
     this.shippingMethod = valuePrinpcipalForm.MethodShipping;
+    console.log(11, valuePrinpcipalForm.MethodShipping);
     this.showFinalValue = valuePrinpcipalForm.MethodShipping !== 1; // id categoria: si cambia toca cambiar esto.
     this.secondForm = new FormGroup({
       initialValue0: new FormControl('', [Validators.required]),
@@ -104,11 +140,65 @@ export class ModalQuotingSellerComponent implements OnInit {
         'finalValue0', new FormControl('', [Validators.required]),
       );
     }
+    this.validatorsIputs(valuePrinpcipalForm.MethodShipping);
+    this.setIdandNameMethod(valuePrinpcipalForm.MethodShipping);
+    this.setIdandNameTransport(valuePrinpcipalForm.Transport);
+    this.setIdandNameZone(valuePrinpcipalForm.Zone);
+    console.log('this.dataToSend: ', this.dataToSend);
+  }
+
+  public validatorsIputs(param: any) {
+    console.log(param);
+    let validators: any;
+    switch (param) {
+      case 1:
+        console.log('1: ', 1);
+        validators = [
+          this.secondForm.controls['initialValue0'].setValidators([Validators.required, Validators.pattern(this.quotingRegex.price)]),
+          this.secondForm.controls['shippingValue0'].setValidators([Validators.required, Validators.pattern(this.quotingRegex.price)])
+        ];
+        this.subTitle = 'Rango por categoria';
+        break;
+      case 2:
+        console.log('2: ', 2);
+        validators = [
+          this.secondForm.controls['initialValue0'].setValidators([Validators.required, Validators.pattern(this.quotingRegex.price)]),
+          this.secondForm.controls['finalValue0'].setValidators([Validators.required, Validators.pattern(this.quotingRegex.price)]),
+          this.secondForm.controls['shippingValue0'].setValidators([Validators.required, Validators.pattern(this.quotingRegex.formatNumber)])
+        ];
+        this.subTitle = 'Rango por precio';
+        break;
+      case 3:
+        console.log('3: ', 3);
+        console.log(this.secondForm.controls['initialValue0'].value);
+        validators = [
+          this.secondForm.controls['initialValue0'].setValidators([Validators.required, Validators.pattern(this.quotingRegex.formatNumber)]),
+          this.secondForm.controls['finalValue0'].setValidators([Validators.required, Validators.pattern(this.quotingRegex.formatNumber)]),
+          this.secondForm.controls['shippingValue0'].setValidators([Validators.required, Validators.pattern(this.quotingRegex.price)])
+        ];
+        this.subTitle = 'Rango por peso';
+
+        break;
+    }
+    return validators;
+  }
+
+  public validateFormSupport(): void {
+    this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
+      let dataOffertRegex = JSON.parse(res.body.body);
+      dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'ofertas');
+      for (const val in this.quotingRegex) {
+        if (!!val) {
+          const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
+          this.quotingRegex[val] = element && `${element.Value}`;
+        }
+      }
+    });
   }
 
   public addFormControl() {
-    this.secondForm.addControl( `initialValue${this.indexForm.length}`,  new FormControl('', [Validators.required]));
-    this.secondForm.addControl( `shippingValue${this.indexForm.length}`,  new FormControl('', [Validators.required]));
+    this.secondForm.addControl(`initialValue${this.indexForm.length}`, new FormControl('', [Validators.required]));
+    this.secondForm.addControl(`shippingValue${this.indexForm.length}`, new FormControl('', [Validators.required]));
     if (this.showFinalValue) {
       this.secondForm.addControl(
         `finalValue${this.indexForm.length}`, new FormControl('', [Validators.required]),
@@ -119,7 +209,7 @@ export class ModalQuotingSellerComponent implements OnInit {
 
   public removeItem(index: number) {
     console.log('rico ese *', this.secondForm);
-    this.indexForm.splice(index, 1); // pere pienso
+    this.indexForm.splice(index, 1);
     this.secondForm.removeControl(`initialValue${index}`);
     this.secondForm.removeControl(`shippingValue${index}`);
     if (this.showFinalValue) {
@@ -220,4 +310,69 @@ export class ModalQuotingSellerComponent implements OnInit {
       });
   }
 
+  public setIdandNameMethod(id: any) {
+    this.transportTypeList.forEach( el => {
+      if (el.Id === id) {
+        this.dataToSend.MethodShipping = el.Name;
+        this.dataToSend.IdMethodShipping = el.Id;
+      }
+    });
+  }
+
+  public setIdandNameTransport(id: any) {
+    this.listTransporters.forEach( el => {
+      if (el.Id === id) {
+        this.dataToSend.Transport = el.Name;
+        this.dataToSend.IdTransport = el.Id;
+      }
+    });
+  }
+
+  public setIdandNameZone(id: any) {
+    this.listZones.forEach( el => {
+      if (el.Id === id) {
+        this.dataToSend.Zone = el.Name;
+        this.dataToSend.IdZone = el.Id;
+        this.dataToSend.ZoneDaneCode = el.DaneCode;
+      }
+    });
+  }
+
+  public saveQuoting() {
+    console.log('form1: ', this.principalForm);
+    console.log('fprm2: ', this.secondForm);
+    const data = this.secondForm.value;
+    this.sellerId = localStorage.getItem('userId');
+    if (this.sellerId === undefined || this.sellerId === '' || this.sellerId === null || !this.sellerId) {
+      this.sellerId = this.user.sellerId;
+    }
+    // const data2 = {
+    //   'IdSeller': this.sellerId,
+    //   'IdZone': 3,
+    //   'ZoneDaneCode': '18001000',
+    //   'IdMethodShipping': 1,
+    //   'IdTransport': 22,
+    //   'Ranges': [
+    //     {
+    //       'Initial': '27221',
+    //       'Final': '',
+    //       'Value': 8000
+    //     },
+    //     {
+    //       'Initial': '272211',
+    //       'Final': '',
+    //       'Value': 9000
+    //     },
+    //     {
+    //       'Initial': '27703',
+    //       'Final': '',
+    //       'Value': 20000
+    //     }
+    //   ]
+    // };
+    // this.loadingService.viewSpinner();
+    // this.quotingService.crateQuotingSeller(data).subscribe((res: any) => {
+    //   console.log('res: ', res);
+    // });
+  }
 }
