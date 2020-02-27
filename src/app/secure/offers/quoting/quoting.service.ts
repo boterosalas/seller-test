@@ -34,7 +34,8 @@ export class QuotingService {
    * @memberof QuotingService
    */
   public crateQuotingSeller(param: any): Observable<any> {
-    return this.http.post(this.api.get('createQuoting', [param]), { observe: 'response' });
+    // return this.http.post<any>(this.api.get('createQuoting', (param)), { observe: 'response' });
+    return this.http.post<any>(this.api.get('createQuoting'), param, { observe: 'response' });
   }
 
   /**

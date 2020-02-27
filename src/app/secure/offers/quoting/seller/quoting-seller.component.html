@@ -11,19 +11,19 @@
     <!-- Position Column -->
     <ng-container matColumnDef="category">
       <th mat-header-cell *matHeaderCellDef> Categoria </th>
-      <td mat-cell *matCellDef="let element"> {{element.IdMethodShipping}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.MethodShipping}} </td>
     </ng-container>
   
     <!-- Name Column -->
     <ng-container matColumnDef="transport">
       <th mat-header-cell *matHeaderCellDef> Tranportadora </th>
-      <td mat-cell *matCellDef="let element"> {{element.IdTransport}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Transport}} </td>
     </ng-container>
   
     <!-- Weight Column -->
     <ng-container matColumnDef="zone">
       <th mat-header-cell *matHeaderCellDef> Zona configurada </th>
-      <td mat-cell *matCellDef="let element"> {{element.IdZone}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Zone}} </td>
     </ng-container>
   
     <!-- Symbol Column -->
@@ -34,7 +34,7 @@
       <!-- <button mat-icon-button (click)="openDialogSupport()">
         <mat-icon color="accent" matTooltip="Apelar">event_note</mat-icon>
       </button> -->
-      <mat-icon color="accent" (click)="updateCategory()"  [matTooltip]="'permissions.Editar_Parametrizacion' | translate">edit</mat-icon>
+      <mat-icon color="accent" (click)="updateCategory(element)"  [matTooltip]="'permissions.Editar_Parametrizacion' | translate">edit</mat-icon>
       </td>
     </ng-container>
   

@@ -52,7 +52,7 @@ export class QuotingSellerComponent implements OnInit {
    * @param {*} [element]
    * @memberof QuotingSellerComponent
    */
-  openDialog(action?: any, element?: any) {
+  openDialog(action?: any, idZone?: any, element?: any) {
     // const data = this.putDataForCreate();
     const dialogRef = this.dialog.open(ModalQuotingSellerComponent, {
       width: '55%',
@@ -60,7 +60,8 @@ export class QuotingSellerComponent implements OnInit {
       minWidth: '280px',
       data: {
         action: action,
-        idZone: element
+        idZone: idZone,
+        element: element
       }
     });
 
@@ -84,8 +85,8 @@ export class QuotingSellerComponent implements OnInit {
    * Accion para editar parametizacion de cotizador
    * @memberof QuotingSellerComponent
    */
-  updateCategory() {
-    this.openDialog(quotiongDialogAction.update);
+  updateCategory(data: any) {
+    this.openDialog(quotiongDialogAction.update, null, data);
   }
 
   /**

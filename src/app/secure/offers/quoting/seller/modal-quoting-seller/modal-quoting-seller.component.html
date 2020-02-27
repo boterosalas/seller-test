@@ -2,7 +2,7 @@
   style="height: 100% !important">
 
   <div class="quoting-seller--icon" fxLayout="column" fxLayoutAlign="center center" *ngIf="stepper[stepOne].show">
-    <mat-icon class="material-icons" *ngIf="action === actions.add">
+    <mat-icon class="material-icons" *ngIf="action === actions.add || action === actions.update">
       local_shipping
     </mat-icon>
     <mat-icon class="material-icons" *ngIf="action === actions.delete">
@@ -11,10 +11,10 @@
   </div>
   <div *ngIf="stepper[stepOne].show">
 
-    <h3 *ngIf="action === actions.add">
+    <h3 *ngIf="action === actions.add || action === actions.update">
       Nuevo opción de envío
     </h3>
-    <p class="quoting-seller--text" *ngIf="action === actions.add">
+    <p class="quoting-seller--text" *ngIf="action === actions.add || action === actions.update">
       In ac nisl tortor. Phasellus aliquam dui volutpat aliquet tempor. Fusce dignissim porttitor
       dolor ac accumsan. Suspendisse potenti.
     </p>
@@ -27,7 +27,7 @@
     In ac nisl tortor. Phasellus aliquam dui volutpat aliquet tempor. Fusce dignissim porttitor
     dolor ac accumsan. Suspendisse potenti.
   </p>
-  <div fxLayout="column" class="quoting-seller--container" *ngIf="action === actions.add">
+  <div fxLayout="column" class="quoting-seller--container" *ngIf="action === actions.add || action === actions.update">
     <form *ngIf="stepper[stepOne].show" fxLayout="column" [formGroup]="principalForm"
       (ngSubmit)="next(stepOne, principalForm)">
       <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -68,7 +68,7 @@
         </button>
 
         <button id="btn-create-transporter" type="submit" mat-raised-button color="primary"
-          [disabled]="principalForm.invalid" *ngIf="action === actions.add">
+          [disabled]="principalForm.invalid" *ngIf="action === actions.add || action === actions.update">
           {{'actions.accept' | translate}}
         </button>
       </div>
@@ -111,8 +111,10 @@
         {{'actions.cancel' | translate}}
       </button> -->
 
-      <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" (click)="saveQuoting()"
-         *ngIf="action === actions.add && stepper[stepTwo].show">
+      <!-- <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" (click)="saveQuoting()"
+         *ngIf="action === actions.add || action === actions.update && stepper[stepTwo].show"> -->
+         <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" (click)="saveQuoting()"
+         *ngIf="action === actions.add && stepper[stepTwo].show || action === actions.update && stepper[stepTwo].show">
         {{'actions.save' | translate}}
       </button>
     </div>

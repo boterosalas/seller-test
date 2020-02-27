@@ -7,6 +7,7 @@ import { QuotingSellerModule } from './seller/quoting-seller.module';
 import { QuotingRoutingModule } from './quoting.routing';
 import { SharedModule } from '@app/shared/shared.module';
 import { QuotingService } from './quoting.service';
+import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { QuotingService } from './quoting.service';
   ],
   exports: [],
   providers: [
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
     QuotingService
   ],
 })
