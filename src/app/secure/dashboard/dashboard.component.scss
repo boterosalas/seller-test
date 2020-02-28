@@ -215,7 +215,7 @@ $table-break: 900px;
 
   &__value {
     margin-bottom: 1.5em;
-    font-weight: bold;
+    // font-weight: bold;
     font-size: 14px;
 
     @media only screen and (max-width: $mobile-break) {
@@ -273,7 +273,8 @@ $table-break: 900px;
     bottom: -2.5em;
     text-align: center;
     width: 100%;
-    font-weight: bold;
+    // font-weight: bold;
+    font-size: 14px;
     text-transform: capitalize;
 
     @media only screen and (max-width: $mobile-break) {
@@ -295,12 +296,69 @@ $table-break: 900px;
 }
 
 .dashboard-component{
+
+  &-container-general {
+    text-align: center;
+    font-size: 22px;
+    margin: 5% 10%;
+    height: 100%;
+  }
+
+  &-container-height-50{
+    height: 50px;
+  }
+
+  &-container-margin-top-50{
+    margin-top:50px;
+  }
   &-container-orders{
     width: 100%;
+  }
+
+  &-margin-top-0{
+    margin-top: 0px;
+  }
+
+  &-container-display-none{
+    display: none
+  }
+  &-container-vertical-aling{
+    vertical-align: bottom;
+  }
+
+  &-container-cursor-point{
+    cursor: pointer;
+  }
+
+  &-container-aling-end-top{
+    text-align: end;
+    margin-top: 10px;
+  }
+
+  &-container-aling-vertical-middle{
+    font-size: 11px;
+    color: #b6b6b6;
+    vertical-align: middle;
+  }
+
+  &-container-cursos-vertical-align{
+    color: #757575;
+    cursor: pointer;
+    margin-right: 28px;
+    vertical-align: middle;
+  }
+
+  &-container-cursor-pointer{
+    cursor: pointer;
   }
   &-aling-center{
     text-align: center;
     padding-top: 30px;
+  }
+  &-aling-center-sales{
+    text-align: center;
+    padding-top: 96px;
+    min-height: 173px;
   }
 
   &-container-border-bottom-color{
@@ -333,8 +391,75 @@ $table-break: 900px;
   }
 
   &-container-max-wight{
-    contain: content;
-    max-width: 50%;
+    display: inline-flex;
+    overflow-x: scroll;
+    max-width: 59%;
+    padding-top: 10px;
+    min-height: 320px;
+  }
+  &-container-max-wight-without-scroll{
+    display: inline-flex;
+    overflow-x: hidden;
+    max-width: 59%;
+    padding-top: 10px;
+    min-height: 320px;
+  }
+
+  &-container-max-width-left-ordens{
+    max-width: 40%;
+  }
+  &-container-aling-center{
+   text-align: center;
+   margin-top: 63px;
+   margin-bottom: 117px;
+  }
+
+  &-container-margin-top-15{
+    margin-top: 15px;
+  }
+
+  &-container-margin-top-0{
+    margin-top: 0px;
+  }
+
+  &-container-icon-color-process-send{
+    vertical-align: bottom;
+    color:#FFDA10;
+    padding-right: 10px;
+  }
+
+  &-container-icon-color-expired{
+    vertical-align: bottom;
+    color: red;
+    padding-right: 10px;
+  }
+
+  &-container-icon-color-delivered{
+    vertical-align:bottom;
+    color: #34B72D;
+    padding-right: 10px;
+  }
+
+  &-container-margin-spinner{
+    margin:0 auto;
+    margin-bottom: 10px;
+  }
+
+  &-container-data-sales{
+    font-size: 11px;
+    color: #b6b6b6;
+    vertical-align: middle;
+  }
+  &-container-aling-end-margin-top{
+    text-align: end;
+    margin-top: 10px;
+  }
+
+  &-container-screenFull{
+    color: #757575;
+    cursor: pointer;
+    margin-right: 28px;
+    vertical-align: middle;
   }
 
   @media only screen and (max-width: 500px) and (min-width: 341px) {  
@@ -370,6 +495,17 @@ $table-break: 900px;
     cursor: pointer;
     color: #448aff;
   }
+
+  &-container-aling-bottom{
+    margin-bottom: 10px;;
+  }
+
+  &-container-width-input{
+    width: 95%;
+    margin-left: 10px;
+    margin-right: 31px;
+  }
+ 
 
   @media only screen and (max-width: 1500px) and (min-width: 501px) {  
     &-container-position-title-orders{

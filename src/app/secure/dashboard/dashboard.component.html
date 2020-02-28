@@ -1,393 +1,304 @@
-<div *ngIf="false" style="text-align: center;
-    font-size: 22px;
-    margin: 5% 10%;
-    height: 100%;" fxFlex="row">
+<div *ngIf="false" class="dashboard-component-container-general" fxFlex="row">
   <iframe
     src="https://vignette.wikia.nocookie.net/gemas/images/b/b1/Gear1.gif/revision/latest?cb=20151201164022&path-prefix=es"
     width="200" height="146" frameBorder="0"></iframe>
   <p>
-    "Estamos trabajando para mostrarte una información mas detallada, muchas gracias por tu paciencia.
-    Puedes ingresar al resto de los m&oacute;dulos a trabajar. "
-  </p>
+    "Estamos trabajando para mostrarte una información mas detallada, muchas
+    gracias por tu paciencia.
+    Puedes ingresar al resto de los m&oacute;dulos a trabajar. "</p>
 </div>
 <div class="dashboard">
   <div class="dashboard__content">
-      <div class="dashboard-component-container-color-border">
-          <div fxLayout="column" style="height: 50px;" class="dashboard-component-container-border-bottom-color">
-            <div fxLayout="row" class="dashboard-component-container-header-aling">
-                <div fxFlex="70"  fxFlex.sm ="90" fxFlex.md="75" class="dashboard-component-container-position-title-orders">
-                  {{'secure.orders.orders' | translate}}
-                </div>
-                <div fxFlex="20" fxFlex.sm ="10" fxFlex.md="25" fxFlex.lg="" fxFlex.xs="30" fxFlex.xl="20" class="dashboard-component-container-orders-align">
-                  <mat-form-field [fxShow.xs]="false" [fxShow.sm]="false" style="margin-top: 0px;">
-                    <mat-select [(value)]="selected" #selectFilter (selectionChange)="select($event.value)" >
-                      <mat-option value="1">{{'secure.dashboard.type.filter.quarterly' | translate}}</mat-option>
-                      <mat-option value="2">{{'secure.dashboard.type.filter.monthly' | translate}}</mat-option>
-                      <mat-option value="3">{{'secure.dashboard.type.filter.weekly' | translate}}</mat-option>
-                      <mat-option value="4">{{'secure.dashboard.type.filter.diary' | translate}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                  <!-- <div (click)="openDatePicker()">
-                    <mat-icon class="mat-18" >date_range</mat-icon>
-                  </div> -->
-
-                  <!-- <div class="sales__false-dp-box" (click)="openDatePicker()">
-                    <label class="sales__month" for="" (click)="openDatePicker()">{{visibleDate}}</label>
-                    <span class="sales__icon-box" (click)="openDatePicker()">
-                      <mat-icon class="mat-18">date_range</mat-icon>
-                    </span>
-                  </div> -->
-
-                  <mat-form-field style="display: none" class="sales__date">
-                    <input [value]="visibleDate" [(ngModel)]="startDate" [readonly]="true" [max]="dateMax" matInput
-                      [matDatepicker]="picker" [placeholder]="'secure.dashboard.selected_months' | translate"
-                      (click)="openDatePicker()">
-                    <mat-datepicker-toggle matSuffix [for]="picker">
-                      {{'secure.dashboard.selected_months' | translate}}</mat-datepicker-toggle>
-                    <mat-datepicker touchUi #picker startView="year" [startAt]="startDate"
-                      (monthSelected)="chosenMonthHandler($event, picker)"></mat-datepicker>
-                  </mat-form-field>
-
-                  <mat-form-field style="display: none" class="sales__date">
-                    <input [value]="visibleDate" [(ngModel)]="startDateDiary" [readonly]="true" [max]="dateMax" matInput
-                      [matDatepicker]="pickerDiary" [placeholder]="'secure.dashboard.selected_months' | translate"
-                      (click)="openDatePickerDiary()" (dateChange)="chosenMonthHandlerDiary($event, pickerDiary)">
-                    <mat-datepicker-toggle matSuffix [for]="pickerDiary">
-                      {{'secure.dashboard.selected_months' | translate}}</mat-datepicker-toggle>
-                    <mat-datepicker touchUi #pickerDiary  [startAt]="startDateDiary"
-                      (monthSelected)="chosenMonthHandlerDiary($event, pickerDiary)"></mat-datepicker>
-                  </mat-form-field>
-
-                  <div fxLayout="column" [fxShow.lg]="false" [fxShow.xl]="false" [fxShow.sm]="true" [fxShow.md]="false" class="dashboard-component-container-position-title-orders dashboard-component-container-aling-icon">
-                    <div><mat-icon class="mat-18" fxShow.lg="false" (click)="showChangeView(showOrdersChart)"  *ngIf="!showOrdersChart" class="dashboard-component-container-cursor-pointer">insert_chart_outlined</mat-icon></div>
-                    <div><mat-icon class="mat-18" fxShow.lg="false" (click)="showChangeView(showOrdersChart)"  *ngIf="showOrdersChart" class="dashboard-component-container-cursor-pointer">picture_in_picture_alt</mat-icon></div>
-                  </div>
-                </div>
-                <div fxFlex="10" [fxShow.xs]="false" [fxShow.sm]="false" class="dashboard-component-container-aling-icon-calender-orders" *ngIf="showCalenderQ">
-                  <mat-icon class="mat-18 dashboard-component-container-cursor-pointer" (click)="openDatePicker()" style="vertical-align: bottom;">date_range</mat-icon>
-                  <span (click)="openDatePicker()" style="cursor: pointer;" class="dashboard-component-container-color-text-month">{{visibleDate}}</span>
-                </div>
-                <div fxFlex="10" [fxShow.xs]="false" [fxShow.sm]="false" class="dashboard-component-container-aling-icon-calender-orders" *ngIf="showCalenderD">
-                  <mat-icon class="mat-18 dashboard-component-container-cursor-pointer" style="vertical-align: bottom;">date_range</mat-icon>
-                  <span (click)="openDatePickerDiary()" class="dashboard-component-container-color-text-month">{{visibleDate}}</span>
-                </div>
-                <!-- <div fxFlex="10" [fxShow.xs]="false" [fxShow.sm]="false" class="dashboard-component-container-aling-icon-calender-orders" *ngIf="showCalenderW">
-                  <mat-icon class="mat-18 dashboard-component-container-color-text-month" style="vertical-align: bottom;">date_range</mat-icon>
-                  <span class="dashboard-component-container-color-text-month">{{visibleDate}}</span>
-                </div> -->
-            </div>
+    <div class="dashboard-component-container-color-border">
+      <div fxLayout="column" class="dashboard-component-container-border-bottom-color dashboard-component-container-height-50">
+        <div fxLayout="row" class="dashboard-component-container-header-aling">
+          <div fxFlex="70" fxFlex.sm="90" fxFlex.md="75" class="dashboard-component-container-position-title-orders">
+            {{'secure.orders.orders' | translate}}
           </div>
-          <div fxLayout="column" style=" margin-top: 15px;">
-            <div fxLayout="row">
-                <div fxFlex="20" fxFlex.md="" fxFlex.lg="" fxFlex.xs="100" fxFlex.xl="100" fxFlex.sm="100" [fxShow.xs]="!showOrdersChart" [fxShow.sm]="!showOrdersChart">
-                  <div fxLayout="column" fxLayoutAlign=" none">
-                      <div class="dashboard-component-aling-center">
-                        <div>
-                          {{'secure.dashboard.all' | translate}}
-                        </div>
-                        <div class="dashboard-component-orders-all-number">
-                          {{orders?.all | number}}
-                        </div>
-                      </div>
-                      <div>
-                        <div fxLayout="row">
-                          <div fxFlex="35" class="dashboard-component-aling-center">
-                            <div fxLayout="column">
-                              <div class="dashboard-component-container-text-details-orders">{{'secure.dashboard.in_transit' | translate}}</div>
-                              <div><mat-icon class="mat-18" style="vertical-align: bottom; color:#FFDA10; padding-right: 10px;">local_shipping</mat-icon>{{orders?.pending | number}}</div>
-                            </div>
-                          </div>
-                          <div fxFlex="35" class="dashboard-component-aling-center">
-                            <div fxLayout="column">
-                              <div class="dashboard-component-container-text-details-orders">{{'secure.dashboard.delievered' | translate}}</div>
-                              <div> <mat-icon class="mat-18" style="vertical-align: bottom; color: #34B72D; padding-right: 10px;">check_circle_outline</mat-icon>{{orders?.delivered | number}}</div>
-                            </div>
-                          </div>
-                          <div fxFlex="30" class="dashboard-component-aling-center">
-                            <div fxLayout="column">
-                              <div class="dashboard-component-container-text-details-orders">{{'secure.dashboard.expired' | translate}}</div>
-                              <div><mat-icon class="mat-18" style="vertical-align: bottom; color: red; padding-right: 10px;">highlight_off</mat-icon>{{orders?.expired | number}}</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                  </div>
-                </div>
-                <div fxFlex="80" fxFlex.sm="100" fxFlex.md="" fxFlex.lg="" fxFlex.xs="100" fxFlex.xl="100" [fxShow.xs]="showOrdersChart" [fxShow.sm]="showOrdersChart" class="dashboard-component-container-max-wight"> 
-                  <div style="text-align: center;">
-                    <mat-form-field [fxShow.xs]="true" [fxShow.sm]="true" [fxShow.md]="false" [fxShow.xs]="false" [fxShow.lg]="false" class="dashboard-component-container-aling-select-filter">
-                      <mat-select>
-                        <mat-option *ngFor="let period of periodsES" [value]="period.value">
-                          {{period.value}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                  <div class="sales__graph-box">
-                    <div class="sales__graph graph">
-                      <div class="graph__content">
-                        <div class="graph__table">
-                          <div *ngFor="let colum of last_sales" class="graph__bar-box">
-                            <div class="graph__value">${{colum.value | number}}</div>
-                            <div class="graph__bar" [style.minHeight]="colum.percent">
-                              <div class="graph__label">{{colum.name}}</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="graph__info">
-                        <p>
-                          *{{'secure.dashboard.info_cancel_sale' | translate}}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            </div>
-          </div>
-      </div>
-      <div class="dashboard-component-container-color-border" style="margin-top: 50px;">
-        <div fxLayout="column" style="height: 50px;" class="dashboard-component-container-border-bottom-color">
-          <div fxLayout="row" class="dashboard-component-container-header-aling">
-              <div fxFlex="80"  fxFlex.sm ="90" fxFlex.md="75" class="dashboard-component-container-position-title-orders">
-                {{'secure.dashboard.sales' | translate}}
+          <div fxFlex="20" fxFlex.sm="10" fxFlex.md="25" fxFlex.lg="" fxFlex.xs="30" fxFlex.xl="20"
+            class="dashboard-component-container-orders-align">
+            <mat-form-field [fxShow.xs]="false" [fxShow.sm]="false" class="dashboard-component-container-margin-top-0">
+              <mat-select [(value)]="selected" name="operacion0" (selectionChange)="select($event.value)">
+                <mat-option value="1">{{'secure.dashboard.type.filter.quarterly'| translate}}</mat-option>
+                <mat-option value="2">{{'secure.dashboard.type.filter.monthly' | translate}}</mat-option>
+                <mat-option value="3">{{'secure.dashboard.type.filter.weekly' | translate}}</mat-option>
+                <mat-option value="4">{{'secure.dashboard.type.filter.diary' |  translate}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="sales__date dashboard-component-container-display-none">
+              <input [value]="visibleDate" [(ngModel)]="startDate" [readonly]="true" [max]="dateMax" matInput
+                [matDatepicker]="picker" [placeholder]="'secure.dashboard.selected_months' | translate"
+                (click)="openDatePicker()">
+              <mat-datepicker-toggle matSuffix [for]="picker">
+                {{'secure.dashboard.selected_months' | translate}}</mat-datepicker-toggle>
+              <mat-datepicker touchUi #picker startView="year" [startAt]="startDate"
+                (monthSelected)="chosenMonthHandler($event, picker)"></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field class="sales__date dashboard-component-container-display-none">
+              <input [value]="visibleDate" [(ngModel)]="startDateDiary" [readonly]="true" [max]="dateMax" matInput
+                [matDatepicker]="pickerDiary" [placeholder]="'secure.dashboard.selected_months' | translate"
+                (click)="openDatePickerDiary()" (dateChange)="chosenMonthHandlerDiary($event, pickerDiary)">
+              <mat-datepicker-toggle matSuffix [for]="pickerDiary">
+                {{'secure.dashboard.selected_months' | translate}}</mat-datepicker-toggle>
+              <mat-datepicker touchUi #pickerDiary [startAt]="startDateDiary"
+                (monthSelected)="chosenMonthHandlerDiary($event, pickerDiary)"></mat-datepicker>
+            </mat-form-field>
+
+            <div fxLayout="column" [fxShow.lg]="false" [fxShow.xl]="false" [fxShow.sm]="true" [fxShow.md]="false" class="dashboard-component-container-position-title-orders
+              dashboard-component-container-aling-icon">
+              <div>
+                <mat-icon class="mat-18" fxShow.lg="false" (click)="showChangeView(showOrdersChart)"
+                  *ngIf="!showOrdersChart" class="dashboard-component-container-cursor-pointer">insert_chart_outlined
+                </mat-icon>
               </div>
-              <div fxFlex="20" fxFlex.sm ="10" fxFlex.md="25" fxFlex.lg="" fxFlex.xs="20" fxFlex.xl="20" class="dashboard-component-container-orders-align">
-                <mat-form-field [fxShow.xs]="false" [fxShow.sm]="false" style="margin-top: 0px;">
-                  <mat-select>
-                    <mat-option *ngFor="let period of periodsES" [value]="period.value">
-                      {{period.value}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <div fxLayout="column" [fxShow.lg]="false" [fxShow.xl]="false" [fxShow.sm]="true" [fxShow.md]="false" class="dashboard-component-container-position-title-orders dashboard-component-container-aling-icon">
-                  <div><mat-icon class="mat-18" fxShow.lg="false" (click)="showChangeViewSeller(showOrdersChartSeller)"  *ngIf="!showOrdersChartSeller" class="dashboard-component-container-cursor-pointer">insert_chart_outlined</mat-icon></div>
-                  <div><mat-icon class="mat-18" fxShow.lg="false" (click)="showChangeViewSeller(showOrdersChartSeller)"  *ngIf="showOrdersChartSeller" class="dashboard-component-container-cursor-pointer">picture_in_picture_alt</mat-icon></div>
-                </div>
+              <div>
+                <mat-icon class="mat-18" fxShow.lg="false" (click)="showChangeView(showOrdersChart)"
+                  *ngIf="showOrdersChart" class="dashboard-component-container-cursor-pointer">picture_in_picture_alt
+                </mat-icon>
               </div>
-          </div>
-        </div>
-        <div fxLayout="column" style=" margin-top: 15px;">
-          <div fxLayout="row">
-              <div fxFlex="40"  fxFlex.md="" fxFlex.lg="" fxFlex.xs="100" fxFlex.xl="100" fxFlex.sm="100" [fxShow.xs]="!showOrdersChartSeller" [fxShow.sm]="!showOrdersChartSeller">
-                <div fxLayout="column" fxLayoutAlign=" none">
-                    <div class="dashboard-component-aling-center">
-                      <div>
-                        {{'secure.dashboard.sales.total' | translate}}
-                      </div>
-                      <div class="dashboard-component-orders-all-number">
-                        {{orders?.all | number}}
-                      </div>
-                    </div>
-                </div>
-              </div>
-              <div fxFlex="60" fxFlex.sm="100" fxFlex.md="" fxFlex.lg="" fxFlex.xs="100" fxFlex.xl="100" [fxShow.xs]="showOrdersChartSeller" [fxShow.sm]="showOrdersChartSeller" > 
-                <div style="text-align: center;">
-                  <mat-form-field [fxShow.xs]="true" [fxShow.sm]="true" [fxShow.md]="false" [fxShow.xs]="false" [fxShow.lg]="false" class="dashboard-component-container-aling-select-filter">
-                    <mat-select>
-                      <mat-option *ngFor="let period of periodsES" [value]="period.value">
-                        {{period.value}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-                <div class="sales__graph-box">
-                  <div class="sales__graph graph">
-                    <div class="graph__content">
-                      <div class="graph__table">
-                        <div *ngFor="let colum of last_sales" class="graph__bar-box">
-                          <div class="graph__value">${{colum.value | number}}</div>
-                          <div class="graph__bar" [style.minHeight]="colum.percent">
-                            <div class="graph__label">{{colum.monthName}}</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="graph__info">
-                      <p>
-                        *{{'secure.dashboard.info_cancel_sale' | translate}}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-          </div>
-        </div>
-    </div>
-
-    <!-- Orders table -->
-    <!-- <div class="dashboard__orders orders">
-      <div class="orders__header">
-        <h3 class="orders__title">{{'secure.orders.orders' | translate}}</h3>
-      </div>
-      <div class="orders__body">
-        <div class="orders__row">
-          <div class="orders__colum">
-            <div class="orders__cell orders__cell--title">
-              {{'secure.dashboard.all' | translate}}
-            </div>
-            <div class="orders__cell">
-              <span class="orders__icon-box">
-                <svg class="orders__icon" aria-hidden="true" data-prefix="fas" data-icon="check-square" role="img"
-                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                  <path fill="currentColor" d="M400
-                  480H48c-26.51 0-48-21.49-48-48V80c0-26.51 21.49-48
-                  48-48h352c26.51 0 48 21.49 48 48v352c0 26.51-21.49 48-48
-                  48zm-204.686-98.059l184-184c6.248-6.248 6.248-16.379
-                  0-22.627l-22.627-22.627c-6.248-6.248-16.379-6.249-22.628
-                  0L184
-                  302.745l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628
-                  0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104
-                  104c6.249 6.25 16.379 6.25 22.628.001z"></path>
-                </svg>
-              </span>
-              {{orders?.all | number}}
             </div>
           </div>
-
-          <div class="orders__colum">
-            <div class="orders__cell orders__cell--title">
-              {{'secure.dashboard.in_transit' | translate}}
-            </div>
-            <div class="orders__cell">
-              <span class="orders__icon-box">
-                <svg class="orders__icon" aria-hidden="true" data-prefix="fas" data-icon="truck" role="img"
-                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0
-                640
-                512">
-                  <path fill="currentColor" d="M624
-                  352h-16V243.9c0-12.7-5.1-24.9-14.1-33.9L494
-                  110.1c-9-9-21.2-14.1-33.9-14.1H416V48c0-26.5-21.5-48-48-48H48C21.5
-                  0 0 21.5 0 48v320c0 26.5 21.5 48 48 48h16c0 53 43 96 96
-                  96s96-43 96-96h128c0 53 43 96 96 96s96-43 96-96h48c8.8 0
-                  16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM160 464c-26.5
-                  0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48
-                  48zm320 0c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48
-                  48-21.5 48-48 48zm80-208H416V144h44.1l99.9 99.9V256z"></path>
-                </svg>
-              </span>
-              {{orders?.pending | number}}
-            </div>
+          <div fxFlex="10" [fxShow.xs]="false" [fxShow.sm]="false"
+            class="dashboard-component-container-aling-icon-calender-orders" *ngIf="showCalenderQ">
+            <mat-icon class="mat-18
+              dashboard-component-container-cursor-pointer dashboard-component-container-vertical-aling" (click)="openDatePicker()">
+              date_range</mat-icon>
+            <span (click)="openDatePicker()" 
+              class="dashboard-component-container-color-text-month dashboard-component-container-cursor-pointer">{{visibleDate}}</span>
           </div>
-
-          <div class="orders__colum">
-            <div class="orders__cell orders__cell--title">
-              {{'secure.dashboard.delievered' | translate}}
-            </div>
-            <div class="orders__cell">
-              <span class="orders__icon-box">
-                <svg class="orders__icon" aria-hidden="true" data-prefix="far" data-icon="check-circle" role="img"
-                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512
-                512">
-                  <path fill="currentColor" d="M256 8C119.033 8 8 119.033 8
-                  256s111.033 248 248 248 248-111.033 248-248S392.967 8 256
-                  8zm0 48c110.532 0 200 89.451 200 200 0 110.532-89.451
-                  200-200 200-110.532 0-200-89.451-200-200 0-110.532
-                  89.451-200 200-200m140.204
-                  130.267l-22.536-22.718c-4.667-4.705-12.265-4.736-16.97-.068L215.346
-                  303.697l-59.792-60.277c-4.667-4.705-12.265-4.736-16.97-.069l-22.719
-                  22.536c-4.705 4.667-4.736 12.265-.068 16.971l90.781
-                  91.516c4.667 4.705 12.265 4.736
-                  16.97.068l172.589-171.204c4.704-4.668
-                  4.734-12.266.067-16.971z"></path>
-                </svg>
-              </span>
-              {{orders?.delivered | number}}
-            </div>
-          </div>
-
-          <div class="orders__colum">
-            <div class="orders__cell orders__cell--title">
-              {{'secure.dashboard.expired' | translate}}
-            </div>
-            <div class="orders__cell">
-              <span class="orders__icon-box">
-                <svg class="orders__icon" aria-hidden="true" data-prefix="far" data-icon="times-circle" role="img"
-                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0
-                512
-                512">
-                  <path fill="currentColor" d="M256 8C119 8 8 119 8 256s111
-                  248
-                  248 248 248-111 248-248S393 8 256 8zm0 448c-110.5
-                  0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5
-                  200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7
-                  12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256
-                  295.6l-62.2
-                  62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3
-                  0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3
-                  0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2
-                  62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3
-                  0
-                  17z"></path>
-                </svg>
-              </span>
-              {{orders?.expired | number}}
-            </div>
+          <div fxFlex="10" [fxShow.xs]="false" [fxShow.sm]="false"
+            class="dashboard-component-container-aling-icon-calender-orders" *ngIf="showCalenderD">
+            <mat-icon class="mat-18
+              dashboard-component-container-cursor-pointer dashboard-component-container-vertical-aling" (click)="openDatePickerDiary()">date_range</mat-icon>
+            <span (click)="openDatePickerDiary()" 
+              class="dashboard-component-container-color-text-month dashboard-component-container-cursor-pointer">{{visibleDate}}</span>
           </div>
         </div>
       </div>
-    </div> -->
-
-    <!-- Sells -->
-    <!-- <div class="dashboard__sales sales">
-      <div class="sales__header">
-        <h3 class="sales__title">{{'secure.dashboard.sales' | translate}}</h3>
-      </div>
-      <div class="sales__body">
-        <div class="sales__date-box">
-          <div class="sales__false-dp-box" (click)="openDatePicker()">
-            <label class="sales__month" for="" (click)="openDatePicker()">{{visibleDate}}</label>
-            <span class="sales__icon-box" (click)="openDatePicker()">
-              <svg aria-hidden="true" data-prefix="far" data-icon="calendar-alt"
-                class="sales__icon svg-inline--fa fa-calendar-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512">
-                <path fill="currentColor"
-                  d="M148 288h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm108-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 96v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96-260v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48zm-48 346V160H48v298c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z">
-                </path>
-              </svg>
-            </span>
-          </div>
-          <mat-form-field style="display: none" class="sales__date">
-            <input [value]="visibleDate" [(ngModel)]="startDate" [readonly]="true" [max]="dateMax" matInput
-              [matDatepicker]="picker" [placeholder]="'secure.dashboard.selected_months' | translate"
-              (click)="openDatePicker()">
-            <mat-datepicker-toggle matSuffix [for]="picker">
-              {{'secure.dashboard.selected_months' | translate}}</mat-datepicker-toggle>
-            <mat-datepicker touchUi #picker startView="year" [startAt]="startDate"
-              (monthSelected)="chosenMonthHandler($event, picker)"></mat-datepicker>
+      <div fxLayout="column">
+        <div class="dashboard-component-container-aling-end-top">
+          <span *ngIf="showOrdens" class="dashboard-component-container-aling-vertical-middle">{{dateOrdens}}</span>
+          <mat-icon class="mat-18 dashboard-component-container-cursos-vertical-align" [fxShow.xs]="false" [fxShow.sm]="false" >fullscreen</mat-icon>
+        </div>
+        <div *ngIf="showOrdersChart">
+          <mat-form-field class="dashboard-component-container-width-input dashboard-component-container-margin-top-0" [fxShow.xs]="true" [fxShow.sm]="true" [fxShow.md]="false" [fxShow.xs]="false" [fxShow.lg]="false">
+            <mat-select [(value)]="selected" name="operacion0" (selectionChange)="select($event.value)">
+              <mat-option value="1">{{'secure.dashboard.type.filter.quarterly'| translate}}</mat-option>
+              <mat-option value="2">{{'secure.dashboard.type.filter.monthly' | translate}}</mat-option>
+              <mat-option value="3">{{'secure.dashboard.type.filter.weekly' | translate}}</mat-option>
+              <mat-option value="4">{{'secure.dashboard.type.filter.diary' |  translate}}</mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
-
-        <div *ngIf="!isLoading">
-          <div class="sales__graph-box">
-            <div class="sales__graph graph">
-              <div class="graph__content">
-                <div class="graph__table">
-                  <div *ngFor="let colum of last_sales" class="graph__bar-box">
-                    <div class="graph__value">${{colum.value | number}}</div>
-                    <div class="graph__bar" [style.minHeight]="colum.percent">
-                      <div class="graph__label">{{colum.monthName}}</div>
+      </div>
+      <div fxLayout="column" class="dashboard-component-container-margin-top-15">
+        <div fxLayout="row">
+          <div fxFlex="20" fxFlex.md="" fxFlex.lg="" fxFlex.xs="100" fxFlex.xl="100" fxFlex.sm="100"
+            [fxShow.xs]="!showOrdersChart" [fxShow.sm]="!showOrdersChart"
+            class="dashboard-component-container-max-width-left-ordens">
+            <div fxLayout="column" fxLayoutAlign="none">
+              <div class="dashboard-component-aling-center">
+                <div>
+                  {{'secure.dashboard.all' | translate}}
+                </div>
+                <div class="dashboard-component-orders-all-number">
+                  {{orders?.all | number}}
+                </div>
+              </div>
+              <div>
+                <div fxLayout="row" class="dashboard-component-container-aling-bottom">
+                  <div fxFlex="35" class="dashboard-component-aling-center">
+                    <div fxLayout="column">
+                      <div class="dashboard-component-container-text-details-orders">{{'secure.dashboard.in_transit'
+                        | translate}}</div>
+                      <div>
+                        <mat-icon class="mat-18 dashboard-component-container-icon-color-process-send" >local_shipping</mat-icon>{{orders?.pending
+                        | number}}
+                      </div>
+                    </div>
+                  </div>
+                  <div fxFlex="35" class="dashboard-component-aling-center">
+                    <div fxLayout="column">
+                      <div class="dashboard-component-container-text-details-orders">{{'secure.dashboard.delievered'
+                        | translate}}</div>
+                      <div>
+                        <mat-icon class="mat-18 dashboard-component-container-icon-color-delivered" >check_circle_outline</mat-icon>{{orders?.delivered
+                        | number}}
+                      </div>
+                    </div>
+                  </div>
+                  <div fxFlex="30" class="dashboard-component-aling-center">
+                    <div fxLayout="column">
+                      <div class="dashboard-component-container-text-details-orders">{{'secure.dashboard.expired'
+                        | translate}}</div>
+                      <div>
+                        <mat-icon class="mat-18 dashboard-component-container-icon-color-expired">highlight_off</mat-icon>{{orders?.expired
+                        | number}}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="graph__info">
-                <p>
-                  {{'secure.dashboard.info_cancel_sale' | translate}}
-                </p>
+            </div>
+          </div>
+          <div fxFlex="80" fxFlex.sm="100" fxFlex.md="" fxFlex.lg="" fxFlex.xs="100" fxFlex.xl="100"
+            [fxShow.xs]="showOrdersChart" [fxShow.sm]="showOrdersChart" [ngClass]="typeFilter === '1' || typeFilterSales === 1 ? 'dashboard-component-container-max-wight-without-scroll' : 'dashboard-component-container-max-wight'">
+            <div class="sales__graph-box">
+              <div class="sales__graph graph">
+                <div class="graph__content" *ngIf="showChartOrdens">
+                  <div class="graph__table">
+                    <div *ngFor="let colum of last_ordens" class="graph__bar-box">
+                      <div class="graph__value">{{colum.quantity | number}}</div>
+                      <div class="graph__bar" [style.minHeight]="colum.percent">
+                        <div class="graph__label">{{colum.name}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="!showChartOrdens" class="dashboard-component-container-aling-center">
+                  <mat-spinner [diameter]="40" class="margin-loading dashboard-component-container-margin-spinner"></mat-spinner>
+                  <span>{{'secure.products.create_product_unit.list_products.please_wait' | translate}}</span>
+                </div>
+                <div class="graph__info">
+                  <p>
+                    *{{'secure.dashboard.info_cancel_sale' | translate}}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div *ngIf="isLoading">
-          <div>
-            <mat-spinner [diameter]="40" style="margin-left: 48%; margin-right: 55%;"></mat-spinner>
-            <p class="loading-waiting">
-              {{'secure.products.create_product_unit.list_products.please_wait' | translate}}</p>
+      </div>
+    </div>
+    <div class="dashboard-component-container-color-border dashboard-component-container-margin-top-50" >
+      <div fxLayout="column" class="dashboard-component-container-border-bottom-color dashboard-component-container-height-50">
+        <div fxLayout="row" class="dashboard-component-container-header-aling">
+          <div fxFlex="70" fxFlex.sm="90" fxFlex.md="75" class="dashboard-component-container-position-title-orders">
+            {{'secure.dashboard.sales' | translate}}
+          </div>
+          <div fxFlex="20" fxFlex.sm="10" fxFlex.md="25" fxFlex.lg="" fxFlex.xs="30" fxFlex.xl="20"
+            class="dashboard-component-container-orders-align">
+            <mat-form-field [fxShow.xs]="false" [fxShow.sm]="false" [fxShow.md]="true" [fxShow.xs]="true" [fxShow.lg]="true" class="dashboard-component-margin-top-0">
+              <mat-select [(value)]="selectedSales" name="operacion1" (selectionChange)="selectSales($event.value)">
+                <mat-option value="1">{{'secure.dashboard.type.filter.quarterly'| translate}}</mat-option>
+                <mat-option value="2">{{'secure.dashboard.type.filter.monthly' | translate}}</mat-option>
+                <mat-option value="3">{{'secure.dashboard.type.filter.weekly' | translate}}</mat-option>
+                <mat-option value="4">{{'secure.dashboard.type.filter.diary' |  translate}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field  class="sales__date dashboard-component-container-display-none">
+              <input [value]="visibleDateSales" [(ngModel)]="startDateSales" [readonly]="true" [max]="dateMax" matInput
+                [matDatepicker]="pickerSales" [placeholder]="'secure.dashboard.selected_months' | translate"
+                (click)="openDatePickerSales()">
+              <mat-datepicker-toggle matSuffix [for]="pickerSales">
+                {{'secure.dashboard.selected_months' | translate}}</mat-datepicker-toggle>
+              <mat-datepicker touchUi #pickerSales startView="year" [startAt]="startDateSales"
+                (monthSelected)="chosenMonthHandlerSales($event, pickerSales)"></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field  class="sales__date dashboard-component-container-display-none">
+              <input [value]="visibleDateSales" [(ngModel)]="startDateDiarySales" [readonly]="true" [max]="dateMax" matInput
+                [matDatepicker]="pickerDiarySales" [placeholder]="'secure.dashboard.selected_months' | translate"
+                (click)="openDatePickerDiarySale()" (dateChange)="chosenMonthHandlerDiarySales($event, pickerDiarySales)">
+              <mat-datepicker-toggle matSuffix [for]="pickerDiarySales">
+                {{'secure.dashboard.selected_months' | translate}}</mat-datepicker-toggle>
+              <mat-datepicker touchUi #pickerDiarySales [startAt]="startDateDiarySales"
+                (monthSelected)="chosenMonthHandlerDiarySales($event, pickerDiarySales)"></mat-datepicker>
+            </mat-form-field>
+
+            <div fxLayout="column" [fxShow.lg]="false" [fxShow.xl]="false" [fxShow.sm]="true" [fxShow.md]="false" class="dashboard-component-container-position-title-orders
+              dashboard-component-container-aling-icon">
+              <div>
+                <mat-icon class="mat-18" fxShow.lg="false" (click)="showChangeViewSales(showOrdersChartSales)"
+                  *ngIf="!showOrdersChartSales" class="dashboard-component-container-cursor-pointer">insert_chart_outlined
+                </mat-icon>
+              </div>
+              <div>
+                <mat-icon class="mat-18" fxShow.lg="false" (click)="showChangeViewSales(showOrdersChartSales)"
+                  *ngIf="showOrdersChartSales" class="dashboard-component-container-cursor-pointer">picture_in_picture_alt
+                </mat-icon>
+              </div>
+            </div>
+          </div>
+          <div fxFlex="10" [fxShow.xs]="false" [fxShow.sm]="false"
+            class="dashboard-component-container-aling-icon-calender-orders" *ngIf="showCalenderQSales">
+            <mat-icon class="mat-18
+              dashboard-component-container-cursor-pointer dashboard-component-container-vertical-aling" (click)="openDatePickerSales()">
+              date_range</mat-icon>
+            <span (click)="openDatePickerSales()" 
+              class="dashboard-component-container-color-text-month dashboard-component-container-cursor-point">{{visibleDateSales}}</span>
+          </div>
+          <div fxFlex="10" [fxShow.xs]="false" [fxShow.sm]="false"
+            class="dashboard-component-container-aling-icon-calender-orders" *ngIf="showCalenderDSales">
+            <mat-icon class="mat-18
+              dashboard-component-container-cursor-pointer dashboard-component-container-vertical-aling" (click)="openDatePickerDiarySales()">date_range</mat-icon>
+            <span (click)="openDatePickerDiarySales()"
+              class="dashboard-component-container-color-text-month dashboard-component-container-cursor-point">{{visibleDateSales}}</span>
           </div>
         </div>
       </div>
-    </div> -->
-
+      <div fxLayout="column">
+        <div class="dashboard-component-container-aling-end-margin-top">
+          <span *ngIf="showSales" class="dashboard-component-container-data-sales">{{dateSales}}</span>
+          <mat-icon class="mat-18 dashboard-component-container-screenFull" [fxShow.xs]="false" [fxShow.sm]="false" >fullscreen</mat-icon>
+        </div>
+        <div *ngIf="showOrdersChartSales">
+          <mat-form-field class="dashboard-component-container-width-input dashboard-component-container-margin-top-0" [fxShow.xs]="true" [fxShow.sm]="true" >
+            <mat-select [(value)]="selectedSales" name="operacion1" (selectionChange)="selectSales($event.value)">
+              <mat-option value="1">{{'secure.dashboard.type.filter.quarterly'| translate}}</mat-option>
+              <mat-option value="2">{{'secure.dashboard.type.filter.monthly' | translate}}</mat-option>
+              <mat-option value="3">{{'secure.dashboard.type.filter.weekly' | translate}}</mat-option>
+              <mat-option value="4">{{'secure.dashboard.type.filter.diary' |  translate}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="column" class="dashboard-component-container-margin-top-15">
+        <div fxLayout="row">
+          <div fxFlex="20" fxFlex.md="" fxFlex.lg="" fxFlex.xs="100" fxFlex.xl="100" fxFlex.sm="100"
+            [fxShow.xs]="!showOrdersChartSales" [fxShow.sm]="!showOrdersChartSales"
+            class="dashboard-component-container-max-width-left-ordens">
+            <div fxLayout="column" fxLayoutAlign="none">
+              <div class="dashboard-component-aling-center-sales">
+                <div>
+                  {{'secure.dashboard.sales.total' | translate}}
+                </div>
+                <div class="dashboard-component-orders-all-number">
+                  $ {{sumatoryTotal | number}}
+                </div>
+              </div>
+              <div>
+              </div>
+            </div>
+          </div>
+          <div fxFlex="80" fxFlex.sm="100" fxFlex.md="" fxFlex.lg="" fxFlex.xs="100" fxFlex.xl="100"
+            [fxShow.xs]="showOrdersChartSales" [fxShow.sm]="showOrdersChartSales" [ngClass]="typeFilterSales === '1' || typeFilterSales === 1 ? 'dashboard-component-container-max-wight-without-scroll' : 'dashboard-component-container-max-wight'">
+            <div class="sales__graph-box">
+              <div class="sales__graph graph">
+                <div class="graph__content" *ngIf="showChartSales">
+                  <div class="graph__table">
+                    <div *ngFor="let colum of last_sales" class="graph__bar-box">
+                      <div class="graph__value">${{colum.sales | number}}</div>
+                      <div class="graph__bar" [style.minHeight]="colum.percent">
+                        <div class="graph__label">{{colum.name}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="!showChartSales" class="dashboard-component-container-aling-center">
+                  <mat-spinner [diameter]="40" class="margin-loading dashboard-component-container-margin-spinner" ></mat-spinner>
+                  <span>{{'secure.products.create_product_unit.list_products.please_wait' | translate}}</span>
+                </div>
+                <div class="graph__info">
+                  <p>
+                    *{{'secure.dashboard.info_cancel_sale' | translate}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
   </div>
 </div>
