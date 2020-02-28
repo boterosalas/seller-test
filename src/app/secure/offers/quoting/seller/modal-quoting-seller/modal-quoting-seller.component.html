@@ -79,13 +79,31 @@
       <div fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let fields of indexForm; let i = index">
         <mat-form-field fxFlex="100" class="marginInputsValues">
           <input formControlName="initialValue{{i}}" matInput placeholder="{{placeholders[fields -1].initialValue}}" />
+          <mat-error *ngIf="secondForm && secondForm.controls['initialValue'+i].errors.required"
+            [innerHTML]="['errors.error_required' | translate]">
+          </mat-error>
+          <mat-error *ngIf="secondForm && secondForm.controls['initialValue'+i].errors.pattern"
+          [innerHTML]="['errors.format_invalidate' | translate]">
+          </mat-error>
         </mat-form-field>
         <mat-form-field fxFlex="100" *ngIf="showFinalValue" class="marginInputsValues">
           <input formControlName="finalValue{{i}}" matInput placeholder="{{placeholders[fields -1].finalValue}}" />
+          <mat-error *ngIf="secondForm && secondForm.controls['finalValue'+i].errors.required"
+          [innerHTML]="['errors.error_required' | translate]">
+        </mat-error>
+        <mat-error *ngIf="secondForm && secondForm.controls['finalValue'+i].errors.pattern"
+        [innerHTML]="['errors.format_invalidate' | translate]">
+        </mat-error>
         </mat-form-field>
         <mat-form-field fxFlex="100" class="marginInputsValues">
           <input formControlName="shippingValue{{i}}" matInput
             placeholder="{{placeholders[fields -1].shippingValue}}" />
+            <mat-error *ngIf="secondForm && secondForm.controls['shippingValue'+i].errors.required"
+            [innerHTML]="['errors.error_required' | translate]">
+          </mat-error>
+          <mat-error *ngIf="secondForm && secondForm.controls['shippingValue'+i].errors.pattern"
+          [innerHTML]="['errors.format_invalidate' | translate]">
+          </mat-error>
         </mat-form-field>
 
         <button type="button" (click)="removeItem(fields -1)" mat-icon-button
