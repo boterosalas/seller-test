@@ -53,6 +53,8 @@ export class DashboardComponent implements OnInit {
     public showSales = false;
     public dateSales = '';
 
+    public startDateDiary: any;
+
     // Fecha máxima del datePicker
     public dateMax: Date;
 
@@ -93,6 +95,8 @@ export class DashboardComponent implements OnInit {
     public ordens: string;
 
     public visibleDateSales: string;
+    public startDateSales: any;
+    public startDateDiarySales: any;
 
     /**
      * Variable para observar el input del filtro inicial

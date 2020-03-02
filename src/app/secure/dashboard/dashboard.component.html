@@ -150,7 +150,7 @@
           </div>
           <div fxFlex="80" fxFlex.sm="100" fxFlex.md="" fxFlex.lg="" fxFlex.xs="100" fxFlex.xl="100"
             [fxShow.xs]="showOrdersChart" [fxShow.sm]="showOrdersChart"
-            [ngClass]="typeFilter === '1' || typeFilterSales === 1 ? 'dashboard-component-container-max-wight-without-scroll' : 'dashboard-component-container-max-wight'">
+            [ngClass]="typeFilter === '1' || typeFilterSales === '1' ? 'dashboard-component-container-max-wight-without-scroll' : 'dashboard-component-container-max-wight'">
             <div class="sales__graph-box">
               <div class="sales__graph graph">
                 <div class="graph__content" *ngIf="showChartOrdens">
@@ -210,7 +210,7 @@
             <mat-form-field class="sales__date dashboard-component-container-display-none">
               <input [value]="visibleDateSales" [(ngModel)]="startDateDiarySales" [readonly]="true" [max]="dateMax"
                 matInput [matDatepicker]="pickerDiarySales"
-                [placeholder]="'secure.dashboard.selected_months' | translate" (click)="openDatePickerDiarySale()"
+                [placeholder]="'secure.dashboard.selected_months' | translate" (click)="openDatePickerDiarySales()"
                 (dateChange)="chosenMonthHandlerDiarySales($event, pickerDiarySales)">
               <mat-datepicker-toggle matSuffix [for]="pickerDiarySales">
                 {{'secure.dashboard.selected_months' | translate}}</mat-datepicker-toggle>
@@ -291,7 +291,7 @@
           </div>
           <div fxFlex="80" fxFlex.sm="100" fxFlex.md="" fxFlex.lg="" fxFlex.xs="100" fxFlex.xl="100"
             [fxShow.xs]="showOrdersChartSales" [fxShow.sm]="showOrdersChartSales"
-            [ngClass]="typeFilterSales === '1' || typeFilterSales === 1 ? 'dashboard-component-container-max-wight-without-scroll' : 'dashboard-component-container-max-wight'">
+            [ngClass]="typeFilterSales === '1' || typeFilterSales === '1' ? 'dashboard-component-container-max-wight-without-scroll' : 'dashboard-component-container-max-wight'">
             <div class="sales__graph-box">
               <div class="sales__graph graph">
                 <div class="graph__content" *ngIf="showChartSales">
