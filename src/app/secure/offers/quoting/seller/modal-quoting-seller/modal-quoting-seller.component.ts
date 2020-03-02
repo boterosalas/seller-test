@@ -10,6 +10,9 @@ import { ZoneModel } from '../../administrator/dialogs/models/zone.model';
 import { QuotingService } from '../../quoting.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import { ComponentsService } from '@app/shared';
+import { TranslateService } from '@ngx-translate/core';
+import { SearchService } from '@app/secure/products/create-product-unit/categorization/search.component.service';
 
 const log = new Logger('ModalQuotingSellerComponent');
 
@@ -66,8 +69,8 @@ export class ModalQuotingSellerComponent implements OnInit {
   shippingMethod: number;
 
   quotingRegex = {
-    price: '',
-    formatNumber: ''
+    priceInfinite: '',
+    formatNumberInfinito: ''
   };
   subTitle: string;
   public user: any;
@@ -86,6 +89,7 @@ export class ModalQuotingSellerComponent implements OnInit {
   };
 
   element;
+  listCategories: any;
   constructor(
     private methodService: ShippingMethodsService,
     private service: ListZonesService,
@@ -94,6 +98,9 @@ export class ModalQuotingSellerComponent implements OnInit {
     private modalService: ModalService,
     private quotingService: QuotingService,
     public SUPPORT: SupportService,
+    public componentsService: ComponentsService,
+    private languageService: TranslateService,
+    private searchService: SearchService,
     public userParams: UserParametersService,
     public dialogRef: MatDialogRef<ModalQuotingSellerComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -107,6 +114,7 @@ export class ModalQuotingSellerComponent implements OnInit {
     this.getTransportMethodRequiredData(); // Get methods.
     this.createPrincipalForm();
     this.validateFormSupport();
+    this.getCategoriesList();
   }
 
 
@@ -169,14 +177,61 @@ export class ModalQuotingSellerComponent implements OnInit {
     if (this.showFinalValue) {
       this.indexForm[0] = valuePrinpcipalForm.MethodShipping;
       this.secondForm.addControl(
-        'finalValue0', new FormControl('', [Validators.required]),
+        'finalValue0', new FormControl('Infinito', [Validators.required]),
       );
     }
     this.validatorsIputs(valuePrinpcipalForm.MethodShipping);
     this.setIdandNameMethod(valuePrinpcipalForm.MethodShipping);
     this.setIdandNameTransport(valuePrinpcipalForm.Transport);
     this.setIdandNameZone(valuePrinpcipalForm.Zone);
+    // this.validateCategorie();
     console.log('this.dataToSend: ', this.dataToSend);
+    // this.validatePrice();
+  }
+
+  public validatePrice() {
+    const index = this.indexForm.length - 1; // Indice de los inputs.
+    const initialPrice = this.secondForm.controls[`initialValue${index}`].value;
+
+    const absControl = `initialValue${index}`;
+
+    if (this.shippingMethod === 2) {
+      if (+initialPrice && +initialPrice <= 8000) {
+        this.secondForm.controls[absControl].setErrors({ 'price_must_less': true });
+      } else {
+        this.secondForm.controls[`initialValue${index}`].setErrors(null);
+      }
+    }
+  }
+
+  public validatePriceFinal() {
+    const index = this.indexForm.length - 1; // Indice de los inputs.
+    const finalPrice = this.secondForm.controls[`finalValue${index}`].value;
+
+    const absControl = `initialValue${index}`;
+
+    if (this.shippingMethod === 2) {
+      if (+finalPrice && +finalPrice <= 8000) {
+        this.secondForm.controls[absControl].setErrors({ 'price_must_less': true });
+      } else {
+        this.secondForm.controls[`initialValue${index}`].setErrors(null);
+      }
+    }
+  }
+
+  public validateCategorie(index: any) {
+    const word = this.secondForm.controls[`initialValue${index}`].value;
+
+    const absControl = `initialValue${index}`;
+    const exitCategorie = this.listCategories.find(el => el.Id === +word);
+
+    if (this.shippingMethod === 1) {
+      if (exitCategorie) {
+        this.secondForm.controls[absControl].setErrors(null);
+      } else {
+        this.secondForm.controls[absControl].setErrors({ 'invalid_category': true });
+      }
+    }
   }
 
   /**
@@ -186,34 +241,30 @@ export class ModalQuotingSellerComponent implements OnInit {
    * @memberof ModalQuotingSellerComponent
    */
   public validatorsIputs(param: any) {
-    console.log(param);
     const index = this.indexForm.length - 1; // Indice de los inputs.
     let validators: any;
+
     switch (param) {
       case 1:
-        console.log('1: ', 1);
         validators = [
-          this.secondForm.controls[`initialValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.price)]),
-          this.secondForm.controls[`shippingValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.price)])
+          this.secondForm.controls[`initialValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.priceInfinite)]),
+          this.secondForm.controls[`shippingValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.priceInfinite)])
         ];
         this.subTitle = 'Rango por categoria';
         break;
       case 2:
-        console.log('2: ', 2);
         validators = [
-          this.secondForm.controls[`initialValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.price)]),
-          this.secondForm.controls[`finalValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.price)]),
-          this.secondForm.controls[`shippingValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.formatNumber)])
+          this.secondForm.controls[`initialValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.priceInfinite)]),
+          this.secondForm.controls[`finalValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.priceInfinite)]),
+          this.secondForm.controls[`shippingValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.formatNumberInfinito)])
         ];
         this.subTitle = 'Rango por precio';
         break;
       case 3:
-        console.log('3: ', 3);
-        console.log(this.secondForm.controls[`initialValue${index}`].value);
         validators = [
-          this.secondForm.controls[`initialValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.formatNumber)]),
-          this.secondForm.controls[`finalValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.formatNumber)]),
-          this.secondForm.controls[`shippingValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.price)])
+          this.secondForm.controls[`initialValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.formatNumberInfinito)]),
+          this.secondForm.controls[`finalValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.formatNumberInfinito)]),
+          this.secondForm.controls[`shippingValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.priceInfinite)])
         ];
         this.subTitle = 'Rango por peso';
 
@@ -244,25 +295,34 @@ export class ModalQuotingSellerComponent implements OnInit {
    * @memberof ModalQuotingSellerComponent
    */
   public addFormControl() {
-    this.secondForm.addControl(`initialValue${this.indexForm.length}`, new FormControl('', [Validators.required]));
-    this.secondForm.addControl(`shippingValue${this.indexForm.length}`, new FormControl('', [Validators.required]));
-    if (this.showFinalValue) {
-      this.secondForm.addControl(
-        `finalValue${this.indexForm.length}`, new FormControl('', [Validators.required]),
-      );
+    if (this.secondForm.valid) {
+      this.secondForm.disable();
+      this.secondForm.addControl(`initialValue${this.indexForm.length}`, new FormControl('', [Validators.required]));
+      this.secondForm.addControl(`shippingValue${this.indexForm.length}`, new FormControl('', [Validators.required]));
+      if (this.showFinalValue) {
+        this.secondForm.addControl(
+          `finalValue${this.indexForm.length}`, new FormControl('', [Validators.required]),
+        );
+      }
+      this.indexForm.push(this.shippingMethod);
+      this.validatorsIputs(this.principalForm.value.MethodShipping);
     }
-    this.indexForm.push(this.shippingMethod);
-    this.validatorsIputs(this.principalForm.value.MethodShipping);
   }
 
   public removeItem(index: number) {
-    console.log('rico ese *', this.secondForm);
     this.indexForm.splice(index, 1);
     this.secondForm.removeControl(`initialValue${index}`);
     this.secondForm.removeControl(`shippingValue${index}`);
     if (this.showFinalValue) {
       this.secondForm.removeControl(`finalValue${index}`);
     }
+
+    this.secondForm.controls[`initialValue${this.indexForm.length - 1}`].enable();
+    this.secondForm.controls[`shippingValue${this.indexForm.length - 1}`].enable();
+    if (this.showFinalValue) {
+      this.secondForm.controls[`finalValue${this.indexForm.length - 1}`].enable();
+    }
+
   }
 
   /**
@@ -461,6 +521,17 @@ export class ModalQuotingSellerComponent implements OnInit {
         this.modalService.showModal('errorService');
       }
       this.loadingService.closeSpinner();
+    });
+  }
+
+  public getCategoriesList(): void {
+    this.searchService.getCategories().subscribe((result: any) => {
+      // guardo el response
+      if (result.status === 200) {
+        const body = JSON.parse(result.body.body);
+        this.listCategories = body.Data;
+        console.log('this.listCategories: ', this.listCategories);
+      }
     });
   }
 }

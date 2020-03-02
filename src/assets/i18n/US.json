@@ -600,6 +600,7 @@
     "secure.offers.quoting.seller.plh_transoprt": "Selecciona transportadora",
     "secure.offers.quoting.seller.plh_zone": "Selecciona zona",
     "secure.offers.quoting.seller.plh_shiping:method": "Selecciona método de envío",
+    "secure.offers.quoting.seller.invalid.category": "Categoría Inválida",
 
     "secure.offers.historical_admin.components.filter.title": "Historic offer registry filter",
     "secure.offers.historical_admin.components.filter.tooltip_close": "Close",
