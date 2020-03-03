@@ -12,7 +12,7 @@
     <div class="dashboard-component-container-color-border">
       <div fxLayout="column"
         class="dashboard-component-container-border-bottom-color dashboard-component-container-height-50">
-        <div fxLayout="row" class="dashboard-component-container-header-aling">
+        <div fxLayout="row" class="dashboard-component-container-header-align">
           <div fxFlex="70" fxFlex.sm="90" fxFlex.md="75" class="dashboard-component-container-position-title-orders">
             {{'secure.orders.orders' | translate}}
           </div>
@@ -45,7 +45,7 @@
                 (monthSelected)="chosenMonthHandlerDiary($event, pickerDiary)"></mat-datepicker>
             </mat-form-field>
             <div fxLayout="column" [fxShow.lg]="false" [fxShow.xl]="false" [fxShow.sm]="true" [fxShow.md]="false" class="dashboard-component-container-position-title-orders
-              dashboard-component-container-aling-icon">
+              dashboard-component-container-align-icon">
               <div>
                 <mat-icon class="mat-18" fxShow.lg="false" (click)="showChangeView(showOrdersChart)"
                   *ngIf="!showOrdersChart" class="dashboard-component-container-cursor-pointer">insert_chart_outlined
@@ -59,18 +59,18 @@
             </div>
           </div>
           <div fxFlex="10" [fxShow.xs]="false" [fxShow.sm]="false"
-            class="dashboard-component-container-aling-icon-calender-orders" *ngIf="showCalenderQ">
+            class="dashboard-component-container-align-icon-calender-orders" *ngIf="showCalenderQ">
             <mat-icon class="mat-18
-              dashboard-component-container-cursor-pointer dashboard-component-container-vertical-aling"
+              dashboard-component-container-cursor-pointer dashboard-component-container-vertical-align"
               (click)="openDatePicker()">
               date_range</mat-icon>
             <span (click)="openDatePicker()"
               class="dashboard-component-container-color-text-month dashboard-component-container-cursor-pointer">{{visibleDate}}</span>
           </div>
           <div fxFlex="10" [fxShow.xs]="false" [fxShow.sm]="false"
-            class="dashboard-component-container-aling-icon-calender-orders" *ngIf="showCalenderD">
+            class="dashboard-component-container-align-icon-calender-orders" *ngIf="showCalenderD">
             <mat-icon class="mat-18
-              dashboard-component-container-cursor-pointer dashboard-component-container-vertical-aling"
+              dashboard-component-container-cursor-pointer dashboard-component-container-vertical-align"
               (click)="openDatePickerDiary()">date_range</mat-icon>
             <span (click)="openDatePickerDiary()"
               class="dashboard-component-container-color-text-month dashboard-component-container-cursor-pointer">{{visibleDate}}</span>
@@ -78,8 +78,8 @@
         </div>
       </div>
       <div fxLayout="column">
-        <div class="dashboard-component-container-aling-end-top">
-          <span *ngIf="showOrdens" class="dashboard-component-container-aling-vertical-middle">{{dateOrdens}}</span>
+        <div class="dashboard-component-container-align-end-top">
+          <span *ngIf="showOrdens" class="dashboard-component-container-align-vertical-middle">{{dateOrdens}}</span>
           <mat-icon class="mat-18 dashboard-component-container-cursos-vertical-align" [fxShow.xs]="false"
             [fxShow.sm]="false">fullscreen</mat-icon>
         </div>
@@ -101,7 +101,7 @@
             [fxShow.xs]="!showOrdersChart" [fxShow.sm]="!showOrdersChart"
             class="dashboard-component-container-max-width-left-ordens">
             <div fxLayout="column" fxLayoutAlign="none">
-              <div class="dashboard-component-aling-center">
+              <div class="dashboard-component-align-center">
                 <div>
                   {{'secure.dashboard.all' | translate}}
                 </div>
@@ -110,8 +110,8 @@
                 </div>
               </div>
               <div>
-                <div fxLayout="row" class="dashboard-component-container-aling-bottom">
-                  <div fxFlex="35" class="dashboard-component-aling-center">
+                <div fxLayout="row" class="dashboard-component-container-align-bottom">
+                  <div fxFlex="35" class="dashboard-component-align-center">
                     <div fxLayout="column">
                       <div class="dashboard-component-container-text-details-orders">{{'secure.dashboard.in_transit'
                         | translate}}</div>
@@ -122,7 +122,7 @@
                       </div>
                     </div>
                   </div>
-                  <div fxFlex="35" class="dashboard-component-aling-center">
+                  <div fxFlex="35" class="dashboard-component-align-center">
                     <div fxLayout="column">
                       <div class="dashboard-component-container-text-details-orders">{{'secure.dashboard.delievered'
                         | translate}}</div>
@@ -133,7 +133,7 @@
                       </div>
                     </div>
                   </div>
-                  <div fxFlex="30" class="dashboard-component-aling-center">
+                  <div fxFlex="30" class="dashboard-component-align-center">
                     <div fxLayout="column">
                       <div class="dashboard-component-container-text-details-orders">{{'secure.dashboard.expired'
                         | translate}}</div>
@@ -163,7 +163,7 @@
                     </div>
                   </div>
                 </div>
-                <div *ngIf="!showChartOrdens" class="dashboard-component-container-aling-center">
+                <div *ngIf="!showChartOrdens" class="dashboard-component-container-align-center">
                   <mat-spinner [diameter]="40" class="margin-loading dashboard-component-container-margin-spinner">
                   </mat-spinner>
                   <span>{{'secure.products.create_product_unit.list_products.please_wait' | translate}}</span>
@@ -182,7 +182,7 @@
     <div class="dashboard-component-container-color-border dashboard-component-container-margin-top-50">
       <div fxLayout="column"
         class="dashboard-component-container-border-bottom-color dashboard-component-container-height-50">
-        <div fxLayout="row" class="dashboard-component-container-header-aling">
+        <div fxLayout="row" class="dashboard-component-container-header-align">
           <div fxFlex="70" fxFlex.sm="90" fxFlex.md="75" class="dashboard-component-container-position-title-orders">
             {{'secure.dashboard.sales' | translate}}
           </div>
@@ -219,7 +219,7 @@
             </mat-form-field>
 
             <div fxLayout="column" [fxShow.lg]="false" [fxShow.xl]="false" [fxShow.sm]="true" [fxShow.md]="false" class="dashboard-component-container-position-title-orders
-              dashboard-component-container-aling-icon">
+              dashboard-component-container-align-icon">
               <div>
                 <mat-icon class="mat-18" fxShow.lg="false" (click)="showChangeViewSales(showOrdersChartSales)"
                   *ngIf="!showOrdersChartSales" class="dashboard-component-container-cursor-pointer">
@@ -235,18 +235,18 @@
             </div>
           </div>
           <div fxFlex="10" [fxShow.xs]="false" [fxShow.sm]="false"
-            class="dashboard-component-container-aling-icon-calender-orders" *ngIf="showCalenderQSales">
+            class="dashboard-component-container-align-icon-calender-orders" *ngIf="showCalenderQSales">
             <mat-icon class="mat-18
-              dashboard-component-container-cursor-pointer dashboard-component-container-vertical-aling"
+              dashboard-component-container-cursor-pointer dashboard-component-container-vertical-align"
               (click)="openDatePickerSales()">
               date_range</mat-icon>
             <span (click)="openDatePickerSales()"
               class="dashboard-component-container-color-text-month dashboard-component-container-cursor-point">{{visibleDateSales}}</span>
           </div>
           <div fxFlex="10" [fxShow.xs]="false" [fxShow.sm]="false"
-            class="dashboard-component-container-aling-icon-calender-orders" *ngIf="showCalenderDSales">
+            class="dashboard-component-container-align-icon-calender-orders" *ngIf="showCalenderDSales">
             <mat-icon class="mat-18
-              dashboard-component-container-cursor-pointer dashboard-component-container-vertical-aling"
+              dashboard-component-container-cursor-pointer dashboard-component-container-vertical-align"
               (click)="openDatePickerDiarySales()">date_range</mat-icon>
             <span (click)="openDatePickerDiarySales()"
               class="dashboard-component-container-color-text-month dashboard-component-container-cursor-point">{{visibleDateSales}}</span>
@@ -254,7 +254,7 @@
         </div>
       </div>
       <div fxLayout="column">
-        <div class="dashboard-component-container-aling-end-margin-top">
+        <div class="dashboard-component-container-align-end-margin-top">
           <span *ngIf="showSales" class="dashboard-component-container-data-sales">{{dateSales}}</span>
           <mat-icon class="mat-18 dashboard-component-container-screenFull" [fxShow.xs]="false" [fxShow.sm]="false">
             fullscreen</mat-icon>
@@ -277,7 +277,7 @@
             [fxShow.xs]="!showOrdersChartSales" [fxShow.sm]="!showOrdersChartSales"
             class="dashboard-component-container-max-width-left-ordens">
             <div fxLayout="column" fxLayoutAlign="none">
-              <div class="dashboard-component-aling-center-sales">
+              <div class="dashboard-component-align-center-sales">
                 <div>
                   {{'secure.dashboard.sales.total' | translate}}
                 </div>
@@ -304,7 +304,7 @@
                     </div>
                   </div>
                 </div>
-                <div *ngIf="!showChartSales" class="dashboard-component-container-aling-center">
+                <div *ngIf="!showChartSales" class="dashboard-component-container-align-center">
                   <mat-spinner [diameter]="40" class="margin-loading dashboard-component-container-margin-spinner">
                   </mat-spinner>
                   <span>{{'secure.products.create_product_unit.list_products.please_wait' | translate}}</span>

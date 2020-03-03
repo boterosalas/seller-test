@@ -319,7 +319,7 @@ $table-break: 900px;
   &-container-display-none{
     display: none
   }
-  &-container-vertical-aling{
+  &-container-vertical-align{
     vertical-align: bottom;
   }
 
@@ -327,12 +327,12 @@ $table-break: 900px;
     cursor: pointer;
   }
 
-  &-container-aling-end-top{
+  &-container-align-end-top{
     text-align: end;
     margin-top: 10px;
   }
 
-  &-container-aling-vertical-middle{
+  &-container-align-vertical-middle{
     font-size: 11px;
     color: #b6b6b6;
     vertical-align: middle;
@@ -348,11 +348,11 @@ $table-break: 900px;
   &-container-cursor-pointer{
     cursor: pointer;
   }
-  &-aling-center{
+  &-align-center{
     text-align: center;
     padding-top: 30px;
   }
-  &-aling-center-sales{
+  &-align-center-sales{
     text-align: center;
     padding-top: 96px;
     min-height: 173px;
@@ -378,7 +378,7 @@ $table-break: 900px;
     border-radius: 7px;
   }
 
-  &-container-aling-icon-calender-orders{
+  &-container-align-icon-calender-orders{
     vertical-align: bottom;
     margin-top: 5px;
     margin-left: 5px;
@@ -406,7 +406,7 @@ $table-break: 900px;
   &-container-max-width-left-ordens{
     max-width: 40%;
   }
-  &-container-aling-center{
+  &-container-align-center{
    text-align: center;
    margin-top: 63px;
    margin-bottom: 117px;
@@ -448,7 +448,7 @@ $table-break: 900px;
     color: #b6b6b6;
     vertical-align: middle;
   }
-  &-container-aling-end-margin-top{
+  &-container-align-end-margin-top{
     text-align: end;
     margin-top: 10px;
   }
@@ -471,7 +471,7 @@ $table-break: 900px;
     &-container-orders-align{
       text-align: end;
     }
-    &-container-header-aling{
+    &-container-header-align{
       margin-top: 14px;
       padding-right: 10px;
       padding-left: 10px;
@@ -480,12 +480,12 @@ $table-break: 900px;
       margin-top: initial;
       margin-left: initial;
     }
-    &-container-aling-icon{
+    &-container-align-icon{
       text-align: end;
       margin-right: 10px;
     }
 
-    &-container-aling-select-filter{
+    &-container-align-select-filter{
       width: 90%;
     }
   } 
@@ -494,7 +494,7 @@ $table-break: 900px;
     color: #448aff;
   }
 
-  &-container-aling-bottom{
+  &-container-align-bottom{
     margin-bottom: 10px;;
   }
 
@@ -510,11 +510,11 @@ $table-break: 900px;
       margin-top: 16px;
       margin-left: 16px;
     }
-    &-container-aling-icon{
+    &-container-align-icon{
       text-align: end;
       margin-right: 10px;
     }
-    &-container-aling-select-filter{
+    &-container-align-select-filter{
       width: 90%;
     }
     &-container-orders-align{
