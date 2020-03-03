@@ -54,16 +54,16 @@ export class ModalQuotingSellerComponent implements OnInit {
   // precio = 2, categoria = 1, peso =3 cuales son los ids de esos
   placeholders = [
     {
-      initialValue: 'Codigo de categoria',
-      shippingValue: 'Valor cobro flete'
+      initialValue: this.languageService.instant('secure.offers.quoting.seller.cod_category'),
+      shippingValue: this.languageService.instant('secure.offers.quoting.seller.freight_cost')
     }, {
-      initialValue: 'Precio Inicial',
-      finalValue: 'Precio Final',
-      shippingValue: 'Valor cobro flete'
+      initialValue: this.languageService.instant('secure.offers.quoting.seller.initialPrice'),
+      finalValue: this.languageService.instant('secure.offers.quoting.seller.finalPrice'),
+      shippingValue: this.languageService.instant('secure.offers.quoting.seller.freight_cost')
     }, {
-      initialValue: 'Peso Inicial',
-      finalValue: 'Peso Final',
-      shippingValue: 'Valor cobro flete'
+      initialValue: this.languageService.instant('secure.offers.quoting.seller.initialWeight'),
+      finalValue: this.languageService.instant('secure.offers.quoting.seller.finalWeight'),
+      shippingValue: this.languageService.instant('secure.offers.quoting.seller.freight_cost')
     }
   ];
   shippingMethod: number;
@@ -90,6 +90,7 @@ export class ModalQuotingSellerComponent implements OnInit {
 
   element;
   listCategories: any;
+  title: string;
 
   constructor(
     private methodService: ShippingMethodsService,
@@ -111,6 +112,7 @@ export class ModalQuotingSellerComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('data: ', this.data);
     this.getTransportMethodRequiredData(); // Get methods.
     this.createPrincipalForm();
     this.validateFormSupport();
@@ -256,15 +258,17 @@ export class ModalQuotingSellerComponent implements OnInit {
           this.secondForm.controls[`initialValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.priceInfinite)]),
           this.secondForm.controls[`shippingValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.priceInfinite)])
         ];
-        this.subTitle = 'Rango por categoria';
+        this.title = 'Rango por categoria';
         break;
       case 2:
+        this.secondForm.controls[`initialValue${0}`].setValue(8000);
         validators = [
           this.secondForm.controls[`initialValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.priceInfinite)]),
           this.secondForm.controls[`finalValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.priceInfinite)]),
           this.secondForm.controls[`shippingValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.formatNumberInfinito)])
         ];
-        this.subTitle = 'Rango por precio';
+        this.title = 'Rango por precio';
+        this.subTitle = '(Valor en pesos)';
         break;
       case 3:
         validators = [
@@ -272,8 +276,8 @@ export class ModalQuotingSellerComponent implements OnInit {
           this.secondForm.controls[`finalValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.formatNumberInfinito)]),
           this.secondForm.controls[`shippingValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.priceInfinite)])
         ];
-        this.subTitle = 'Rango por peso';
-
+        this.title = 'Rango por peso';
+        this.subTitle = '(Peso en KG)';
         break;
     }
     return validators;
@@ -518,6 +522,9 @@ export class ModalQuotingSellerComponent implements OnInit {
     if (this.sellerId === undefined || this.sellerId === '' || this.sellerId === null || !this.sellerId) {
       this.dataToSend.IdSeller = this.user.sellerId;
     }
+    if (this.data.action === 1) {
+      this.dataToSend = this.data.element;
+    }
     this.dataToSend.Ranges = this.validDataToSend();
     console.log('this.dataToSend: ', this.dataToSend);
     this.quotingService.crateQuotingSeller(this.dataToSend).subscribe((res: any) => {
@@ -559,11 +566,21 @@ export class ModalQuotingSellerComponent implements OnInit {
     const absControl = `initialValue${index}`;
 
     if (this.indexForm.length > 1) {
-      if (Number(this.secondForm.controls[`initialValue${this.indexForm.length - 1}`].value) < Number(this.secondForm.controls[`finalValue${this.indexForm.length - 2}`].value)) {
-        console.log('SI ES MAYOR');
-        this.secondForm.controls[absControl].setErrors({ 'price_must_less_priceFinal': true });
-      } else {
-        this.secondForm.controls[absControl].setErrors(null);
+      if (this.shippingMethod === 2) {
+        if (Number(this.secondForm.controls[`initialValue${this.indexForm.length - 1}`].value) < Number(this.secondForm.controls[`finalValue${this.indexForm.length - 2}`].value)) {
+          console.log('SI ES MAYOR');
+          this.secondForm.controls[absControl].setErrors({ 'price_must_less_priceFinal': true });
+        } else {
+          this.secondForm.controls[absControl].setErrors(null);
+        }
+      }
+      if (this.shippingMethod === 3) {
+        if (Number(this.secondForm.controls[`initialValue${this.indexForm.length - 1}`].value) < Number(this.secondForm.controls[`finalValue${this.indexForm.length - 2}`].value)) {
+          console.log('SI ES MAYOR');
+          this.secondForm.controls[absControl].setErrors({ 'weigth_must_less_priceFinal': true });
+        } else {
+          this.secondForm.controls[absControl].setErrors(null);
+        }
       }
     }
 

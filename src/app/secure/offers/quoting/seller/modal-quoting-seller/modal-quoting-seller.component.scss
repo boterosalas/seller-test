@@ -35,6 +35,10 @@ $modal: 72px;
 
     &__field {
       width: 45%;
+
+      & mat-icon{
+        padding-right: 6px
+      }
     }
   }
 }
@@ -53,4 +57,14 @@ $modal: 72px;
   margin: 0;
   font-size: 14px;
 
+}
+
+.subtitle {
+  text-align: center;
+  margin-top: 0px;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 1%;
 }

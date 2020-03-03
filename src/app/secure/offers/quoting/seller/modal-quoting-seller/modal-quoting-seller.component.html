@@ -11,21 +11,19 @@
   </div>
   <div *ngIf="stepper[stepOne].show">
 
-    <h3 *ngIf="action === actions.add || action === actions.update">
-      Nuevo opción de envío
+    <h3 class="title" *ngIf="action === actions.add || action === actions.update">
+      {{'secure.offers.quoting.seller.new_opcion' | translate}}
     </h3>
     <p class="quoting-seller--text" *ngIf="action === actions.add || action === actions.update">
-      In ac nisl tortor. Phasellus aliquam dui volutpat aliquet tempor. Fusce dignissim porttitor
-      dolor ac accumsan. Suspendisse potenti.
+      {{'secure.offers.quoting.seller.new_opcion_body' | translate}}
     </p>
   </div>
 
   <h3 *ngIf="action === actions.delete">
-    Eliminar opción de envío
+    {{'secure.offers.quoting.seller.delete_shipping' | translate}}
   </h3>
   <p class="quoting-seller--text" *ngIf="action === actions.delete">
-    In ac nisl tortor. Phasellus aliquam dui volutpat aliquet tempor. Fusce dignissim porttitor
-    dolor ac accumsan. Suspendisse potenti.
+   {{'secure.offers.quoting.seller.delete_shipping_option' | translate}}
   </p>
   <div fxLayout="column" class="quoting-seller--container" *ngIf="action === actions.add || action === actions.update">
     <form *ngIf="stepper[stepOne].show" fxLayout="column" [formGroup]="principalForm"
@@ -75,7 +73,8 @@
     </form>
     <form *ngIf="stepper[stepTwo].show" fxLayout="column" [formGroup]="secondForm"
       (ngSubmit)="next(stepTwo, principalForm)">
-      <h3 style="text-align: center">{{subTitle}}</h3>
+      <h3 class="title">{{title}}</h3>
+      <h5 class="subtitle">{{subTitle}}</h5>
       <div fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let fields of indexForm; let i = index; let last = last;">
         <mat-form-field fxFlex="100" class="marginInputsValues">
           <input formControlName="initialValue{{i}}" matInput placeholder="{{placeholders[fields -1].initialValue}}"
@@ -92,8 +91,12 @@
           </mat-error>
           <mat-error
             *ngIf="secondForm.controls['initialValue'+i].errors && secondForm.controls['initialValue'+i].errors.price_must_less_priceFinal"
-            > El precio no debe ser menor q el final
+            >{{'secure.offers.quoting.seller.error_price_range' | translate}}
           </mat-error>
+          <mat-error
+          *ngIf="secondForm.controls['initialValue'+i].errors && secondForm.controls['initialValue'+i].errors.weigth_must_less_priceFinal"
+          >{{'secure.offers.quoting.seller.error_weight_range' | translate}}
+        </mat-error>
           <mat-error
           *ngIf="secondForm.controls['initialValue'+i].errors && secondForm.controls['initialValue'+i].errors.invalid_category"
           [innerHTML]="['secure.offers.quoting.seller.invalid.category' | translate]">
@@ -133,7 +136,7 @@
       <div>
         <h6 (click)="addFormControl()" type="button" class="addBand">
           <strong>+</strong>
-          Añadir banda
+          {{'secure.offers.quoting.seller.add_band' | translate}}
         </h6>
       </div>
       <!-- <button (click)="addFormControl()" type="button">
