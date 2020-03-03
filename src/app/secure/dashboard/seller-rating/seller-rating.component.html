@@ -43,27 +43,27 @@
         <table mat-table [dataSource]="dataSource">
 
           <ng-container matColumnDef="calification">
-            <th mat-header-cell *matHeaderCellDef class="position_fixed_header" style="text-align: center;">
+            <th mat-header-cell *matHeaderCellDef class="position_fixed_header">
               {{'secure.dashboard.seller-rating.header_rating' | translate}} </th>
             <td mat-cell *matCellDef="let element"> {{element.qualitative}} </td>
           </ng-container>
       
       
           <ng-container matColumnDef="date_calificate">
-            <th mat-header-cell *matHeaderCellDef class="position_fixed_header" style="text-align: center;">
+            <th mat-header-cell *matHeaderCellDef class="position_fixed_header">
               {{'secure.dashboard.seller-rating.date_calificated' | translate}} </th>
             <td mat-cell *matCellDef="let element"> {{element.qualificationDate}} </td>
           </ng-container>
       
       
           <ng-container matColumnDef="date_issued">
-            <th mat-header-cell *matHeaderCellDef class="position_fixed_header" style="text-align: center;">
+            <th mat-header-cell *matHeaderCellDef class="position_fixed_header" >
               {{'secure.dashboard.seller-rating.date_issued' | translate}} </th>
             <td mat-cell *matCellDef="let element"> {{element.generatedDate}} </td>
           </ng-container>
       
           <ng-container matColumnDef="Actions">
-            <th mat-header-cell *matHeaderCellDef class="position_fixed_header" style="text-align: center;"> {{'shared.actions' | translate}} </th>
+            <th mat-header-cell *matHeaderCellDef class="position_fixed_header"> {{'shared.actions' | translate}} </th>
             <td mat-cell *matCellDef="let element" class="pointer">
               <mat-icon color="primary" [matTooltip]="'secure.dashboard.seller-rating.getPdf' | translate" 
                 (click)="getPDF(element)">picture_as_pdf</mat-icon>
