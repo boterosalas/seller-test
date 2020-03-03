@@ -81,7 +81,7 @@
         <div class="dashboard-component-container-aling-end-top">
           <span *ngIf="showOrdens" class="dashboard-component-container-aling-vertical-middle">{{dateOrdens}}</span>
           <mat-icon class="mat-18 dashboard-component-container-cursos-vertical-align" [fxShow.xs]="false"
-            [fxShow.sm]="false">fullscreen</mat-icon>
+            [fxShow.sm]="false" (click)="modalOpenChart(last_ordens, 1, typeFilter)">fullscreen</mat-icon>
         </div>
         <div *ngIf="showOrdersChart">
           <mat-form-field class="dashboard-component-container-width-input dashboard-component-container-margin-top-0"
@@ -150,7 +150,7 @@
           </div>
           <div fxFlex="80" fxFlex.sm="100" fxFlex.md="" fxFlex.lg="" fxFlex.xs="100" fxFlex.xl="100"
             [fxShow.xs]="showOrdersChart" [fxShow.sm]="showOrdersChart"
-            [ngClass]="typeFilter === '1' || typeFilterSales === '1' ? 'dashboard-component-container-max-wight-without-scroll' : 'dashboard-component-container-max-wight'">
+            [ngClass]="typeFilter === '1'  ? 'dashboard-component-container-max-wight-without-scroll' : 'dashboard-component-container-max-wight'">
             <div class="sales__graph-box">
               <div class="sales__graph graph">
                 <div class="graph__content" *ngIf="showChartOrdens">
@@ -256,7 +256,7 @@
       <div fxLayout="column">
         <div class="dashboard-component-container-aling-end-margin-top">
           <span *ngIf="showSales" class="dashboard-component-container-data-sales">{{dateSales}}</span>
-          <mat-icon class="mat-18 dashboard-component-container-screenFull" [fxShow.xs]="false" [fxShow.sm]="false">
+          <mat-icon class="mat-18 dashboard-component-container-screenFull" (click)="modalOpenChart(last_sales, 2, typeFilterSales)" [fxShow.xs]="false" [fxShow.sm]="false">
             fullscreen</mat-icon>
         </div>
         <div *ngIf="showOrdersChartSales">

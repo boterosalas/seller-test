@@ -8,6 +8,8 @@ import { DashboardService } from './services/dashboard.service';
 import { RoutesConst } from '@app/shared';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { DatePipe } from '@angular/common';
+import { ModalDashboardComponent } from './modal-dashboard/modal-dashboard.component';
+import { MatDialog } from '@angular/material';
 
 /**
  * @export
@@ -118,6 +120,7 @@ export class DashboardComponent implements OnInit {
     constructor(
         private _dashboard: DashboardService,
         private languageService: TranslateService,
+        public dialog: MatDialog,
         public datepipe: DatePipe,
         public userService?: UserLoginService,
         public userParams?: UserParametersService,
@@ -406,7 +409,7 @@ export class DashboardComponent implements OnInit {
         }
     }
     /**
-     * funcion para mostrar las diferentes vistas de movil a escritorio 
+     * funcion para mostrar las diferentes vistas de movil a escritorio
      *
      * @param {boolean} show
      * @memberof DashboardComponent
@@ -610,5 +613,34 @@ export class DashboardComponent implements OnInit {
         this.getMonthVisibleSales(date.getMonth());
         this.getLastSales(date);
         dp.close();
+    }
+
+/**
+* modal para mostrar el detalle 
+ *
+ * @param {*} data
+ * @param {*} type
+ * @param {*} filter
+ * @memberof DashboardComponent
+ */
+public modalOpenChart(data: any, type: any, filter: any) {
+        this.openDialog(data, type, filter);
+    }
+/**
+ * modal para mostrar el detalle 
+ *
+ * @param {*} data
+ * @param {*} type
+ * @param {*} filter
+ * @memberof DashboardComponent
+ */
+public openDialog(data: any, type: any, filter: any) {
+        if (!!data) {
+            const dialogRef = this.dialog.open(ModalDashboardComponent, {
+                height: '400px',
+                // minWidth: '280px',
+                data: {data: data, type: type, filter: filter}
+            });
+        }
     }
 }
