@@ -79,7 +79,7 @@
       <div fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let fields of indexForm; let i = index; let last = last;">
         <mat-form-field fxFlex="100" class="marginInputsValues">
           <input formControlName="initialValue{{i}}" matInput placeholder="{{placeholders[fields -1].initialValue}}"
-            (blur)="validatePrice(); validateCategorie(i)" />
+            (blur)="validatePrice(); validateCategorie(i); compareValue()" />
           <mat-error *ngIf="secondForm.controls['initialValue'+i] && secondForm.controls['initialValue'+i].hasError('required')"
             [innerHTML]="['errors.error_required' | translate]">
           </mat-error>
@@ -91,13 +91,17 @@
             [innerHTML]="['secure.products.create_product_unit.list_products.ofert_product.price_must_less' | translate]">
           </mat-error>
           <mat-error
+            *ngIf="secondForm.controls['initialValue'+i].errors && secondForm.controls['initialValue'+i].errors.price_must_less_priceFinal"
+            > El precio no debe ser menor q el final
+          </mat-error>
+          <mat-error
           *ngIf="secondForm.controls['initialValue'+i].errors && secondForm.controls['initialValue'+i].errors.invalid_category"
           [innerHTML]="['secure.offers.quoting.seller.invalid.category' | translate]">
         </mat-error>
         </mat-form-field>
         <mat-form-field fxFlex="100" *ngIf="showFinalValue" class="marginInputsValues">
           <input formControlName="finalValue{{i}}" matInput placeholder="{{placeholders[fields -1].finalValue}}"
-            (blur)="validatePriceFinal()" />
+            (blur)="validatePriceFinal(); compareValue()" />
           <mat-error *ngIf="secondForm.controls['finalValue'+i] && secondForm.controls['finalValue'+i].hasError('required')"
             [innerHTML]="['errors.error_required' | translate]">
           </mat-error>
@@ -105,7 +109,7 @@
             [innerHTML]="['errors.format_invalidate' | translate]">
           </mat-error>
           <mat-error
-            *ngIf="secondForm.controls['initialValue'+i].errors && secondForm.controls['initialValue'+i].errors.price_must_less"
+            *ngIf="secondForm.controls['initialValue'+i].errors && secondForm.controls['initialValue'+i].errors.price_must_less_final"
             [innerHTML]="['secure.products.create_product_unit.list_products.ofert_product.price_must_less' | translate]">
           </mat-error>
         </mat-form-field>

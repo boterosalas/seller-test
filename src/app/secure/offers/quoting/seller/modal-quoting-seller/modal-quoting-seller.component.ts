@@ -90,6 +90,7 @@ export class ModalQuotingSellerComponent implements OnInit {
 
   element;
   listCategories: any;
+
   constructor(
     private methodService: ShippingMethodsService,
     private service: ListZonesService,
@@ -104,7 +105,6 @@ export class ModalQuotingSellerComponent implements OnInit {
     public userParams: UserParametersService,
     public dialogRef: MatDialogRef<ModalQuotingSellerComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    console.log(data, this.actions);
     this.action = data ? data.action : null;
     this.element = data ? data.element : null;
     this.getDataUser();
@@ -147,8 +147,6 @@ export class ModalQuotingSellerComponent implements OnInit {
    */
   public allowSecondForm() {
     this.element.Ranges.forEach((range, index) => {
-      console.log(this.secondForm, range, index, this.secondForm.controls[`initialValue${index}`],
-        `initialValue${index}`);
       this.secondForm.controls[`initialValue${index}`].setValue(range.Initial);
       if (range.Final) {
         this.secondForm.controls[`finalValue${index}`].setValue(range.Final);
@@ -166,9 +164,7 @@ export class ModalQuotingSellerComponent implements OnInit {
    * @memberof ModalQuotingSellerComponent
    */
   public createSecondForm(valuePrinpcipalForm: any) {
-    console.log(valuePrinpcipalForm);
     this.shippingMethod = valuePrinpcipalForm.MethodShipping;
-    console.log(11, valuePrinpcipalForm.MethodShipping);
     this.showFinalValue = valuePrinpcipalForm.MethodShipping !== 1; // id categoria: si cambia toca cambiar esto.
     this.secondForm = new FormGroup({
       initialValue0: new FormControl('', [Validators.required]),
@@ -184,11 +180,12 @@ export class ModalQuotingSellerComponent implements OnInit {
     this.setIdandNameMethod(valuePrinpcipalForm.MethodShipping);
     this.setIdandNameTransport(valuePrinpcipalForm.Transport);
     this.setIdandNameZone(valuePrinpcipalForm.Zone);
-    // this.validateCategorie();
-    console.log('this.dataToSend: ', this.dataToSend);
-    // this.validatePrice();
   }
 
+  /**
+   * Función para validar que el precio inicial no sea mayor a 8mil
+   * @memberof ModalQuotingSellerComponent
+   */
   public validatePrice() {
     const index = this.indexForm.length - 1; // Indice de los inputs.
     const initialPrice = this.secondForm.controls[`initialValue${index}`].value;
@@ -204,6 +201,10 @@ export class ModalQuotingSellerComponent implements OnInit {
     }
   }
 
+  /**
+   * Función para validar que el precio final no sea mayor a 8mil
+   * @memberof ModalQuotingSellerComponent
+   */
   public validatePriceFinal() {
     const index = this.indexForm.length - 1; // Indice de los inputs.
     const finalPrice = this.secondForm.controls[`finalValue${index}`].value;
@@ -212,13 +213,18 @@ export class ModalQuotingSellerComponent implements OnInit {
 
     if (this.shippingMethod === 2) {
       if (+finalPrice && +finalPrice <= 8000) {
-        this.secondForm.controls[absControl].setErrors({ 'price_must_less': true });
+        this.secondForm.controls[absControl].setErrors({ 'price_must_less_final': true });
       } else {
-        this.secondForm.controls[`initialValue${index}`].setErrors(null);
+        this.secondForm.controls[`finalValue${index}`].setErrors(null);
       }
     }
   }
 
+  /**
+   * Metodo apra validar que la categoria exista.
+   * @param {*} index
+   * @memberof ModalQuotingSellerComponent
+   */
   public validateCategorie(index: any) {
     const word = this.secondForm.controls[`initialValue${index}`].value;
 
@@ -301,7 +307,7 @@ export class ModalQuotingSellerComponent implements OnInit {
       this.secondForm.addControl(`shippingValue${this.indexForm.length}`, new FormControl('', [Validators.required]));
       if (this.showFinalValue) {
         this.secondForm.addControl(
-          `finalValue${this.indexForm.length}`, new FormControl('', [Validators.required]),
+          `finalValue${this.indexForm.length}`, new FormControl('Infinito', [Validators.required]),
         );
       }
       this.indexForm.push(this.shippingMethod);
@@ -309,6 +315,11 @@ export class ModalQuotingSellerComponent implements OnInit {
     }
   }
 
+  /**
+   * Metodo para ir eliminando parametrizaciones segun el index.
+   * @param {number} index
+   * @memberof ModalQuotingSellerComponent
+   */
   public removeItem(index: number) {
     this.indexForm.splice(index, 1);
     this.secondForm.removeControl(`initialValue${index}`);
@@ -332,7 +343,6 @@ export class ModalQuotingSellerComponent implements OnInit {
    * @memberof ModalQuotingSellerComponent
    */
   public next(step: any, form: any) {
-    console.log(step, form);
     if (form.valid) {
       this.stepper[step].show = false;
       if (step === this.stepOne) {
@@ -347,13 +357,11 @@ export class ModalQuotingSellerComponent implements OnInit {
    */
   public getTransportMethodRequiredData(): void {
     this.methodService.getShippingMethods().subscribe((res: any) => {
-      console.log('res: ', res);
       this.getListTransporters(); // Get transport
       if (res.statusCode === 200) {
         if (res.body) {
           const body = JSON.parse(res.body);
           this.transportTypeList = body.Data;
-          console.log(this.transportTypeList);
         }
       } else {
         log.error('Error al intentar obtener los metodos de envios');
@@ -371,8 +379,6 @@ export class ModalQuotingSellerComponent implements OnInit {
       if (result.status === 201 || result.status === 200) {
         const body = JSON.parse(result.body.body);
         this.listTransporters = body.Data;
-        console.log(this.listTransporters);
-        /** Validate if needs to show spinner, because doesnt finished required services */
       } else {
         this.modalService.showModal('errorService');
       }
@@ -389,7 +395,6 @@ export class ModalQuotingSellerComponent implements OnInit {
       if (result.status === 201 || result.status === 200) {
         const body = JSON.parse(result.body.body);
         this.listZones = body.Data;
-        console.log(this.listZones);
       } else {
         this.modalService.showModal('errorService');
       }
@@ -479,13 +484,23 @@ export class ModalQuotingSellerComponent implements OnInit {
    */
   public validRanges() {
     const data = [];
-    this.indexForm.forEach((element, index) => {
-      data.push({
-        Initial: this.secondForm.value[`initialValue${index}`],
-        Final: this.secondForm.value[`finalValue${index}`],
-        Value: this.secondForm.value[`shippingValue${index}`]
+    if (this.shippingMethod === 1) {
+      this.indexForm.forEach((element, index) => {
+        data.push({
+          Initial: this.secondForm.controls[`initialValue${index}`].value,
+          Final: '',
+          Value: this.secondForm.controls[`shippingValue${index}`].value
+        });
       });
-    });
+    } else {
+      this.indexForm.forEach((element, index) => {
+        data.push({
+          Initial: this.secondForm.controls[`initialValue${index}`].value,
+          Final: this.secondForm.controls[`finalValue${index}`].value,
+          Value: this.secondForm.controls[`shippingValue${index}`].value
+        });
+      });
+    }
     return data;
   }
 
@@ -524,6 +539,10 @@ export class ModalQuotingSellerComponent implements OnInit {
     });
   }
 
+  /**
+   * Funcion para obtener listado de categorias.
+   * @memberof ModalQuotingSellerComponent
+   */
   public getCategoriesList(): void {
     this.searchService.getCategories().subscribe((result: any) => {
       // guardo el response
@@ -533,5 +552,20 @@ export class ModalQuotingSellerComponent implements OnInit {
         console.log('this.listCategories: ', this.listCategories);
       }
     });
+  }
+
+  public compareValue() {
+    const index = this.indexForm.length - 1; // Indice de los inputs.
+    const absControl = `initialValue${index}`;
+
+    if (this.indexForm.length > 1) {
+      if (Number(this.secondForm.controls[`initialValue${this.indexForm.length - 1}`].value) < Number(this.secondForm.controls[`finalValue${this.indexForm.length - 2}`].value)) {
+        console.log('SI ES MAYOR');
+        this.secondForm.controls[absControl].setErrors({ 'price_must_less_priceFinal': true });
+      } else {
+        this.secondForm.controls[absControl].setErrors(null);
+      }
+    }
+
   }
 }
