@@ -258,7 +258,7 @@ export class ModalQuotingSellerComponent implements OnInit {
           this.secondForm.controls[`initialValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.priceInfinite)]),
           this.secondForm.controls[`shippingValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.priceInfinite)])
         ];
-        this.title = 'Rango por categoria';
+        this.title = this.languageService.instant('secure.offers.quoting.seller.category_rank');
         break;
       case 2:
         this.secondForm.controls[`initialValue${0}`].setValue(8000);
@@ -267,8 +267,8 @@ export class ModalQuotingSellerComponent implements OnInit {
           this.secondForm.controls[`finalValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.priceInfinite)]),
           this.secondForm.controls[`shippingValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.formatNumberInfinito)])
         ];
-        this.title = 'Rango por precio';
-        this.subTitle = '(Valor en pesos)';
+        this.title = this.languageService.instant('secure.offers.quoting.seller.price_rank');
+        this.subTitle = this.languageService.instant('secure.offers.quoting.seller.price_rank_value');
         break;
       case 3:
         validators = [
@@ -276,8 +276,8 @@ export class ModalQuotingSellerComponent implements OnInit {
           this.secondForm.controls[`finalValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.formatNumberInfinito)]),
           this.secondForm.controls[`shippingValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.priceInfinite)])
         ];
-        this.title = 'Rango por peso';
-        this.subTitle = '(Peso en KG)';
+        this.title = this.languageService.instant('secure.offers.quoting.seller.weight_rank');
+        this.subTitle = this.languageService.instant('secure.offers.quoting.seller.weight_rank_value');
         break;
     }
     return validators;
@@ -578,14 +578,14 @@ export class ModalQuotingSellerComponent implements OnInit {
 
     if (this.indexForm.length > 1) {
       if (this.shippingMethod === 2) {
-        if (Number(this.secondForm.controls[`initialValue${this.indexForm.length - 1}`].value) < Number(this.secondForm.controls[`finalValue${this.indexForm.length - 2}`].value)) {
+        if (Number(this.secondForm.controls[`initialValue${this.indexForm.length - 1}`].value) <= Number(this.secondForm.controls[`finalValue${this.indexForm.length - 2}`].value)) {
           this.secondForm.controls[absControl].setErrors({ 'price_must_less_priceFinal': true });
         } else {
           this.secondForm.controls[absControl].setErrors(null);
         }
       }
       if (this.shippingMethod === 3) {
-        if (Number(this.secondForm.controls[`initialValue${this.indexForm.length - 1}`].value) < Number(this.secondForm.controls[`finalValue${this.indexForm.length - 2}`].value)) {
+        if (Number(this.secondForm.controls[`initialValue${this.indexForm.length - 1}`].value) <= Number(this.secondForm.controls[`finalValue${this.indexForm.length - 2}`].value)) {
           this.secondForm.controls[absControl].setErrors({ 'weigth_must_less_priceFinal': true });
         } else {
           this.secondForm.controls[absControl].setErrors(null);
