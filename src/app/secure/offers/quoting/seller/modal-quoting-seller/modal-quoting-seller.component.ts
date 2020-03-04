@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { ShippingMethodsService } from '../../administrator/shipping-methods/shipping-methods.service';
 import { ShippingMethodsModel } from '../../administrator/shipping-methods/shipping-methods.model';
 import { Logger, LoadingService, ModalService, UserParametersService } from '@app/core';
@@ -104,6 +104,7 @@ export class ModalQuotingSellerComponent implements OnInit {
     private languageService: TranslateService,
     private searchService: SearchService,
     public userParams: UserParametersService,
+    public snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<ModalQuotingSellerComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.action = data ? data.action : null;
@@ -536,8 +537,17 @@ export class ModalQuotingSellerComponent implements OnInit {
             console.log(data);
             if (data.Data === true) {
               this.dialogRef.close(confirm);
+              this.snackBar.open(this.languageService.instant('secure.offers.quoting.seller.save_info_ok'), this.languageService.instant('actions.close'), {
+                duration: 5000,
+              });
+            } else {
+              this.snackBar.open(this.languageService.instant('secure.offers.quoting.seller.save_info_ko'), this.languageService.instant('actions.close'), {
+                duration: 5000,
+              });
             }
           }
+        } else {
+          this.modalService.showModal('errorService');
         }
       } else {
         this.modalService.showModal('errorService');

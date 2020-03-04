@@ -23,7 +23,7 @@
     {{'secure.offers.quoting.seller.delete_shipping' | translate}}
   </h3>
   <p class="quoting-seller--text" *ngIf="action === actions.delete">
-   {{'secure.offers.quoting.seller.delete_shipping_option' | translate}}
+    {{'secure.offers.quoting.seller.delete_shipping_option' | translate}}
   </p>
   <div fxLayout="column" class="quoting-seller--container" *ngIf="action === actions.add || action === actions.update">
     <form *ngIf="stepper[stepOne].show" fxLayout="column" [formGroup]="principalForm"
@@ -75,14 +75,17 @@
       (ngSubmit)="next(stepTwo, principalForm)">
       <h3 class="title">{{title}}</h3>
       <h5 class="subtitle">{{subTitle}}</h5>
-      <div fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let fields of indexForm; let i = index; let last = last;">
+      <div fxLayout="row" fxLayoutAlign="space-between center"
+        *ngFor="let fields of indexForm; let i = index; let last = last;">
         <mat-form-field fxFlex="100" class="marginInputsValues">
           <input formControlName="initialValue{{i}}" matInput placeholder="{{placeholders[fields -1].initialValue}}"
             (blur)="validatePrice(); validateCategorie(i); compareValue()" />
-          <mat-error *ngIf="secondForm.controls['initialValue'+i] && secondForm.controls['initialValue'+i].hasError('required')"
+          <mat-error
+            *ngIf="secondForm.controls['initialValue'+i] && secondForm.controls['initialValue'+i].hasError('required')"
             [innerHTML]="['errors.error_required' | translate]">
           </mat-error>
-          <mat-error *ngIf="secondForm.controls['initialValue'+i] && secondForm.controls['initialValue'+i].hasError('pattern')"
+          <mat-error
+            *ngIf="secondForm.controls['initialValue'+i] && secondForm.controls['initialValue'+i].hasError('pattern')"
             [innerHTML]="['errors.format_invalidate' | translate]">
           </mat-error>
           <mat-error
@@ -90,25 +93,27 @@
             [innerHTML]="['secure.products.create_product_unit.list_products.ofert_product.price_must_less' | translate]">
           </mat-error>
           <mat-error
-            *ngIf="secondForm.controls['initialValue'+i].errors && secondForm.controls['initialValue'+i].errors.price_must_less_priceFinal"
-            >{{'secure.offers.quoting.seller.error_price_range' | translate}}
+            *ngIf="secondForm.controls['initialValue'+i].errors && secondForm.controls['initialValue'+i].errors.price_must_less_priceFinal">
+            {{'secure.offers.quoting.seller.error_price_range' | translate}}
           </mat-error>
           <mat-error
-          *ngIf="secondForm.controls['initialValue'+i].errors && secondForm.controls['initialValue'+i].errors.weigth_must_less_priceFinal"
-          >{{'secure.offers.quoting.seller.error_weight_range' | translate}}
-        </mat-error>
+            *ngIf="secondForm.controls['initialValue'+i].errors && secondForm.controls['initialValue'+i].errors.weigth_must_less_priceFinal">
+            {{'secure.offers.quoting.seller.error_weight_range' | translate}}
+          </mat-error>
           <mat-error
-          *ngIf="secondForm.controls['initialValue'+i].errors && secondForm.controls['initialValue'+i].errors.invalid_category"
-          [innerHTML]="['secure.offers.quoting.seller.invalid.category' | translate]">
-        </mat-error>
+            *ngIf="secondForm.controls['initialValue'+i].errors && secondForm.controls['initialValue'+i].errors.invalid_category"
+            [innerHTML]="['secure.offers.quoting.seller.invalid.category' | translate]">
+          </mat-error>
         </mat-form-field>
         <mat-form-field fxFlex="100" *ngIf="showFinalValue" class="marginInputsValues">
           <input formControlName="finalValue{{i}}" matInput placeholder="{{placeholders[fields -1].finalValue}}"
             (blur)="validatePriceFinal(); compareValue()" />
-          <mat-error *ngIf="secondForm.controls['finalValue'+i] && secondForm.controls['finalValue'+i].hasError('required')"
+          <mat-error
+            *ngIf="secondForm.controls['finalValue'+i] && secondForm.controls['finalValue'+i].hasError('required')"
             [innerHTML]="['errors.error_required' | translate]">
           </mat-error>
-          <mat-error *ngIf="secondForm.controls['finalValue'+i] && secondForm.controls['finalValue'+i].hasError('pattern')"
+          <mat-error
+            *ngIf="secondForm.controls['finalValue'+i] && secondForm.controls['finalValue'+i].hasError('pattern')"
             [innerHTML]="['errors.format_invalidate' | translate]">
           </mat-error>
           <mat-error
@@ -119,10 +124,12 @@
         <mat-form-field fxFlex="100" class="marginInputsValues">
           <input formControlName="shippingValue{{i}}" matInput
             placeholder="{{placeholders[fields -1].shippingValue}}" />
-          <mat-error *ngIf="secondForm.controls['shippingValue'+i] && secondForm.controls['shippingValue'+i].hasError('required')"
+          <mat-error
+            *ngIf="secondForm.controls['shippingValue'+i] && secondForm.controls['shippingValue'+i].hasError('required')"
             [innerHTML]="['errors.error_required' | translate]">
           </mat-error>
-          <mat-error *ngIf="secondForm.controls['shippingValue'+i] && secondForm.controls['shippingValue'+i].hasError('pattern')"
+          <mat-error
+            *ngIf="secondForm.controls['shippingValue'+i] && secondForm.controls['shippingValue'+i].hasError('pattern')"
             [innerHTML]="['errors.format_invalidate' | translate]">
           </mat-error>
         </mat-form-field>
@@ -139,20 +146,11 @@
           {{'secure.offers.quoting.seller.add_band' | translate}}
         </h6>
       </div>
-      <!-- <button (click)="addFormControl()" type="button">
-        agregar
-      </button> -->
-
 
     </form>
     <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
-      <!-- <button id="btn-create-transporter" type="button" mat-raised-button color="primary" [mat-dialog-close]="true">
-        {{'actions.cancel' | translate}}
-      </button> -->
-
-      <!-- <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" (click)="saveQuoting()"
-         *ngIf="action === actions.add || action === actions.update && stepper[stepTwo].show"> -->
-      <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" (click)="saveQuoting()"  [disabled]="secondForm.invalid"
+      <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" (click)="saveQuoting()"
+        [disabled]="secondForm.invalid"
         *ngIf="action === actions.add && stepper[stepTwo].show || action === actions.update && stepper[stepTwo].show">
         {{'actions.save' | translate}}
       </button>
