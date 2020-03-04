@@ -1,6 +1,6 @@
 <div fxFlex fxLayout="column" fxFlex="100" class="content-product-detail">
   <div class="title-product-list">
-    <div fxFlex="56px" class="sc-text-normal">
+    <div fxFlex="56px" fxFlex.sm="10px" fxFlex.xs="10px" class="sc-text-normal">
       <div class="center-product-list" *ngIf="Typeprofile === 0">
         <mat-checkbox class="sc-check-personal"
           *ngIf="order.allowShipping == true && order.idStatusOrder == const.OrderAsignado"
@@ -62,7 +62,7 @@
   </div>
 
   <div *ngFor="let product of order.products;let index=index" class="content-product-list">
-    <div fxFlex="50px">
+    <div fxFlex="50px" fxFlex.sm="4px" fxFlex.xs="4px">
       <div class="center-product-list" *ngIf="Typeprofile === 0">
         <mat-checkbox id="check-product-detail-{{index}}" class="sc-check-personal"
           *ngIf="order.allowShipping == true && product.idStatusProduct == const.ProductAsignado"
@@ -185,13 +185,13 @@
 
   <!-- Total row -->
 
-  <div>
-    <div fxFlex.sm="96px" fxFlex.md="230px" fxFlex.lg="320px" fxFlex.xs="96px">
+  <div fxLayoutAlign.xs="center space-evenly" fxLayoutGap.xs="20px">
+    <div fxFlex.xs="initial" fxFlex.sm="96px" fxFlex.md="230px" fxFlex.lg="320px">
       <div class="total-product-text">
         <p class="sc-text-bold-order">{{'secure.orders.order_list.product_order.total' | translate}}:</p>
       </div>
     </div>
-    <div fxFlex.sm="127px" fxFlex.md="230px" fxFlex.lg="127px" fxFlex.xs="127px">
+    <div fxFlex.xs="initial" fxFlex.sm="127px" fxFlex.md="230px" fxFlex.lg="127px">
       <div>
         <p>
           <span class="cost-item-table" fxShow fxHide.xs="false" fxHide.sm="false" fxHide.lt-md="true" fxHide.lg="true"
@@ -200,7 +200,7 @@
         </p>
       </div>
     </div>
-    <div fxFlex.sm="127px" fxFlex.md="230px" fxFlex.lg="127px" fxFlex.xs="127px">
+    <div fxFlex.xs="initial" fxFlex.sm="127px" fxFlex.md="230px" fxFlex.lg="127px">
       <div>
         <p>
           <span class="cost-item-table" fxShow fxHide.xs="false" fxHide.sm="false" fxHide.lt-md="true" fxHide.lg="true"
