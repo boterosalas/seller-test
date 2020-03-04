@@ -361,6 +361,7 @@ export class ModalQuotingSellerComponent implements OnInit {
    * @memberof ModalQuotingSellerComponent
    */
   public getTransportMethodRequiredData(): void {
+    this.loadingService.viewSpinner();
     this.methodService.getShippingMethods().subscribe((res: any) => {
       this.getListTransporters(); // Get transport
       if (res.statusCode === 200) {
@@ -371,6 +372,7 @@ export class ModalQuotingSellerComponent implements OnInit {
       } else {
         log.error('Error al intentar obtener los metodos de envios');
       }
+      this.loadingService.closeSpinner();
     });
   }
 
@@ -379,6 +381,7 @@ export class ModalQuotingSellerComponent implements OnInit {
    * @memberof ModalQuotingSellerComponent
    */
   public getListTransporters() {
+    this.loadingService.viewSpinner();
     this.transportService.getListTransporters().subscribe((result: any) => {
       this.getListZones(); // Get zones.
       if (result.status === 201 || result.status === 200) {
@@ -387,6 +390,7 @@ export class ModalQuotingSellerComponent implements OnInit {
       } else {
         this.modalService.showModal('errorService');
       }
+      this.loadingService.closeSpinner();
     });
   }
 
@@ -527,14 +531,11 @@ export class ModalQuotingSellerComponent implements OnInit {
       this.dataToSend = this.data.element;
     }
     this.dataToSend.Ranges = this.validDataToSend();
-    console.log('this.dataToSend: ', this.dataToSend);
     this.quotingService.crateQuotingSeller(this.dataToSend).subscribe((res: any) => {
-      console.log(res);
       if (res.status === 201 || res.status === 200) {
         if (res.body.statusCode === 200 || res.body.statusCode === 201) {
           if (res.body.body) {
             const data = JSON.parse(res.body.body);
-            console.log(data);
             if (data.Data === true) {
               this.dialogRef.close(confirm);
               this.snackBar.open(this.languageService.instant('secure.offers.quoting.seller.save_info_ok'), this.languageService.instant('actions.close'), {

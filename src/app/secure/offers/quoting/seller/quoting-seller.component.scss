@@ -6,7 +6,10 @@ table {
   th {
     font-size: 14px;
     color: #909090;
-    font-weight: bold
+    font-weight: bold;
+    @media only screen and (max-width: 600px) {
+      padding-right: 2%
+    }
   }
 
   td {
@@ -26,5 +29,17 @@ table {
 }
 
 .newOption {
-    float: right;
+  float: right;
+}
+
+.quoting-seller {
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  // display: flex;
+
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+    box-sizing: border-box;
+  }
 }

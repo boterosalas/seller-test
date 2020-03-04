@@ -1,7 +1,7 @@
 <div class="newOption">
   <button mat-stroked-button color="primary" (click)="addCategory()">{{'secure.offers.quoting.seller.new_opcion' | translate}}</button>
 </div>
-<div>
+<div fxLayout.xs="column" fxLayout="row" class="quoting-seller">
   <table mat-table [dataSource]="dataSource">
 
     <!-- Position Column -->
