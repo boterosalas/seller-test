@@ -219,6 +219,8 @@
     "errors.error_price_discount": "Invalid discount price, the value must be higher or equal to 8.000.",
     "errors.error_price_discount-2": "Invalid discount price, the value must be lower than the Price entered.",
     "errors.format_invalidate": "Invalid format",
+    "errors.price_cannot_be_0": "The price cannot be 0",
+    "errors.discounted_price_cannot_be_0": "The discounted price cannot be 0",
     "errors.error_promise": "The delivery promise entered is invalid.",
     "errors.quoting_postal_code_invalid": "Invalid field (8 characters maximum, separated by a comma)",
     "errors.error_product": "Invalid product.",

@@ -45,7 +45,7 @@
                     <mat-form-field *ngIf="spec.List.length" class="specification-input">
                         <mat-select [(ngModel)]="spec.Value" [required]="spec.Required" placeholder="{{spec.Name}}"
                             id="specs{{e}}" name="specs{{e}}" (selectionChange)="specificationChange(spec, i, e)">
-                            <mat-option *ngFor="let item of spec.List" [value]="item.label">
+                            <mat-option *ngFor="let item of spec.List" [value]="item.displayName">
                                 {{item.displayName}}
                             </mat-option>
                         </mat-select>
