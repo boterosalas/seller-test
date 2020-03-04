@@ -332,6 +332,11 @@
     "secure.dashboard.delievered": "Delievered",
     "secure.dashboard.expired": "Expired",
     "secure.dashboard.sales": "Sales",
+    "secure.dashboard.sales.total": "Total",
+    "secure.dashboard.type.filter.quarterly": "Quarterly",
+    "secure.dashboard.type.filter.monthly": "Monthly",
+    "secure.dashboard.type.filter.weekly": "Weekly",
+    "secure.dashboard.type.filter.diary": "Diary",
     "secure.dashboard.selected_months": "Select a month",
     "secure.dashboard.info_cancel_sale": "This info is approximated and doesn't take into account cancelations, additionaly the sales value is shown without taking freight values into account",
 
