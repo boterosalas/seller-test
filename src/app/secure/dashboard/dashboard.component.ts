@@ -225,7 +225,7 @@ export class DashboardComponent implements OnInit {
         this.totalCount = 0;
         if (res && res.length > 0) {
             res.forEach(element => {
-                this.totalCount += element.value;
+                this.totalCount += element.quantity;
             });
         }
     }
