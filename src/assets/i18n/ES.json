@@ -323,6 +323,9 @@
     "secure.client_information.client": "Cliente",
     "secure.client_information.address": "Dirección",
     "secure.client_information.phone": "Teléfono",
+    "secure.client_information.city": "Ciudad",
+    "secure.client_information.delivery_address": "Delivery Address",
+    "secure.client_information.customer_information": "Customer Information",
 
 
     "secure.dashboard.all": "Todas",

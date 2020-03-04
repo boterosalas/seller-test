@@ -1,22 +1,32 @@
 .client-information-container {
   padding-left: 54px;
   padding-bottom: 10px;
+  padding-top: 10px;
   background-color: #eAeAeA;
 }
 
+.content-information-title{
+  font-size: 13px;
+  color: black;
+  font-weight: 600;
+}
+
 .content-information-client {
-  display: inline-block;
+  display: inline-flex;
   margin-top: 10px;
 }
 
 .client-information {
-  color: rgb(132, 130, 131);
-  font-weight: 400;
-  font-size: 12px;
+  // color: rgb(132, 130, 131);
+  color: black;
+  font-weight: 600;
+  // font-weight: 400;
+  font-size: 13px;
   width: auto;
 }
 
 .client-data {
+  // color: rgb(132, 130, 131);
   color: black;
   font-size: 13px;
   width: auto;
@@ -30,4 +40,8 @@
 
 .n-margin {
   margin: 0px;
+}
+
+.mr-5{
+  margin-right: 5px;
 }
