@@ -12,6 +12,57 @@ $table-break: 900px;
   }
 }
 
+.hideTitleResponsive {
+  @media only screen and (min-width: $mobile-break) {
+    display: none;
+  }
+}
+
+.orders__body {
+  @media only screen and (min-width: $mobile-break) {
+    flex: 1 1 100%;
+    box-sizing: border-box;
+    max-width: 45%;
+  }
+}
+
+.seller-rating {
+  width: 60%;
+
+  @media only screen and (min-width: $mobile-break) {
+    flex: 1 1 100%;
+    box-sizing: border-box;
+    max-width: 52%;
+  }
+
+  @media only screen and (max-width: $mobile-break) {
+    width: 100%;
+    height: 400px;
+  }
+}
+
+.orders__colum_size {
+  font-size: 14px;
+  width: 25%;
+  min-width: 250px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+
+  @media only screen and (max-width: $mobile-break) {
+    flex-direction: inherit;
+
+  }
+}
+
+.prueba {
+  @media only screen and (max-width: $mobile-break) {
+    display: none;
+  }
+
+  padding-left: 3%;
+}
+
 .orders {
   $self: &;
 
@@ -33,7 +84,7 @@ $table-break: 900px;
   }
 
   &__colum {
-    font-size: 22px;
+    font-size: 20px;
     width: 25%;
     min-width: 250px;
     -webkit-box-flex: 1;
@@ -124,6 +175,27 @@ $table-break: 900px;
     &-box {
       margin-right: 20px;
     }
+  }
+}
+
+.resDashboard {
+  height: 300px;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  max-height: 100%;
+  place-content: stretch space-between;
+  align-items: stretch;
+
+  @media only screen and (max-width: $mobile-break) {
+    height: auto;
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    // flex-wrap: wrap;
+    max-height: 100%;
+    place-content: stretch space-between;
+    align-items: stretch;
   }
 }
 
@@ -287,11 +359,12 @@ $table-break: 900px;
   }
 }
 
-.loading-waiting{
+.loading-waiting {
   text-align: center;
   color: #757474;
 }
 
+<<<<<<< HEAD
 .dashboard-component{
 
   &-container-general {
@@ -522,4 +595,9 @@ $table-break: 900px;
     }
   }
 
+=======
+.spinner-loading {
+  margin-left: 48%;
+  margin-right: 55%;
+>>>>>>> develop
 }

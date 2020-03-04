@@ -101,10 +101,16 @@ export class CalificationListComponent implements OnInit {
 
   public setFormatDateInfoSellerMonthQuality = '';
   public setFormatDateInfoSellerGenrateDate = '';
+  public showSelectorMouthQuality= true;
+  public showSelectorMouthEmit=  true;
+  public textSelector = 'Seleccione el filtro para realizar la consulta, el formato de fecha es (MM/AAAA).';
 
   public filterCalifications: FormGroup;
   public matcher: MyErrorStateMatcher;
   BrandsRegex = { dateMonthYear: '' };
+  public selectFilter: any;
+  @ViewChild('rdCalification') rdCalification: any;
+  @ViewChild('rdEmit') rdEmit: any;
 
   @ViewChild('sidenavSearchOrder') sidenavSearchOrder: MatSidenav;
 
@@ -431,6 +437,10 @@ export class CalificationListComponent implements OnInit {
    * @memberof CalificationListComponent
    */
   toggleFilterCalifications() {
+    // this.showSelectorMouthQuality = true;
+    // this.showSelectorMouthEmit =  true;
+    // this.rdCalification.checked = false;
+    // this.rdEmit.checked = false;
     this.sidenavSearchOrder.toggle();
   }
 
@@ -460,6 +470,7 @@ export class CalificationListComponent implements OnInit {
       callOne: true,
     };
     this.getCalificationsBySeller(params);
+    this.toggleFilterCalifications();
     // this.clearForm();
   }
   /**
@@ -515,5 +526,15 @@ export class CalificationListComponent implements OnInit {
   }
 
   changeSizeTable(event: any) { }
+
+  selectorFilter(selector: number) {
+    if (selector === 1) {
+        this.showSelectorMouthQuality = false;
+        this.showSelectorMouthEmit = true;
+    } else {
+      this.showSelectorMouthQuality = true;
+      this.showSelectorMouthEmit = false;
+    }
+  }
 
 }
