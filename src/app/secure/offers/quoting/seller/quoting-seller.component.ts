@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { TranslateService } from '@ngx-translate/core';
 import { ModalQuotingSellerComponent, quotiongDialogAction } from './modal-quoting-seller/modal-quoting-seller.component';
 import { LoadingService, ModalService } from '@app/core';
 import { QuotingService } from '../quoting.service';
+import { AuthService } from '@app/secure/auth/auth.routing';
+import { Router } from '@angular/router';
+import { RoutesConst } from '@app/shared';
 
 export interface PeriodicElement {
   category: string;
@@ -39,11 +42,28 @@ export class QuotingSellerComponent implements OnInit {
     private loadingService: LoadingService,
     private quotingService: QuotingService,
     private modalService: ModalService,
+    public authService: AuthService,
+    public router: Router,
+    public snackBar: MatSnackBar,
     private languageService: TranslateService,
   ) { }
 
   ngOnInit() {
+    this.returnHome();
     this.getListQuote();
+  }
+
+  /**
+   * Funcion para validar si es Seller nacional o internacional para validar la vista de cotizador.
+   * @memberof QuotingSellerComponent
+   */
+  returnHome() {
+    if (this.authService.completeUserData && this.authService.completeUserData.Country !== 'COLOMBIA') {
+      this.snackBar.open(this.languageService.instant('secure.offers.historical_admin.historical_admin.without_offert'), this.languageService.instant('actions.close'), {
+        duration: 5000,
+      });
+      this.router.navigate([`/${RoutesConst.home}`]);
+    }
   }
 
   /**
@@ -66,7 +86,6 @@ export class QuotingSellerComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('res: ', result);
       if (result) {
         this.getListQuote();
       }
@@ -109,7 +128,6 @@ export class QuotingSellerComponent implements OnInit {
         const body = JSON.parse(result.body.body);
         this.listQuotes = body.Data;
         this.dataSource = this.listQuotes;
-        console.log(this.listQuotes);
       } else {
         this.modalService.showModal('errorService');
       }

@@ -620,6 +620,9 @@
     "secure.offers.quoting.seller.price_rank_value": "(Value in pesos)",
     "secure.offers.quoting.seller.weight_rank": "Product Weight Range",
     "secure.offers.quoting.seller.weight_rank_value": "(Weight in KG)",
+    "secure.offers.quoting.seller.category": "Category",
+    "secure.offers.quoting.seller.zone": "Configured zone",
+    "secure.offers.quoting.seller.permission": "This section is not available for you.",
 
     "secure.offers.historical_admin.components.filter.title": "Historic offer registry filter",
     "secure.offers.historical_admin.components.filter.tooltip_close": "Close",

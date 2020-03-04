@@ -113,7 +113,6 @@ export class ModalQuotingSellerComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('data: ', this.data);
     this.getTransportMethodRequiredData(); // Get methods.
     this.createPrincipalForm();
     this.validateFormSupport();
@@ -562,13 +561,14 @@ export class ModalQuotingSellerComponent implements OnInit {
    * @memberof ModalQuotingSellerComponent
    */
   public getCategoriesList(): void {
+    this.loadingService.viewSpinner();
     this.searchService.getCategories().subscribe((result: any) => {
       // guardo el response
       if (result.status === 200) {
         const body = JSON.parse(result.body.body);
         this.listCategories = body.Data;
-        console.log('this.listCategories: ', this.listCategories);
       }
+      this.loadingService.closeSpinner();
     });
   }
 
@@ -579,7 +579,6 @@ export class ModalQuotingSellerComponent implements OnInit {
     if (this.indexForm.length > 1) {
       if (this.shippingMethod === 2) {
         if (Number(this.secondForm.controls[`initialValue${this.indexForm.length - 1}`].value) < Number(this.secondForm.controls[`finalValue${this.indexForm.length - 2}`].value)) {
-          console.log('SI ES MAYOR');
           this.secondForm.controls[absControl].setErrors({ 'price_must_less_priceFinal': true });
         } else {
           this.secondForm.controls[absControl].setErrors(null);
@@ -587,7 +586,6 @@ export class ModalQuotingSellerComponent implements OnInit {
       }
       if (this.shippingMethod === 3) {
         if (Number(this.secondForm.controls[`initialValue${this.indexForm.length - 1}`].value) < Number(this.secondForm.controls[`finalValue${this.indexForm.length - 2}`].value)) {
-          console.log('SI ES MAYOR');
           this.secondForm.controls[absControl].setErrors({ 'weigth_must_less_priceFinal': true });
         } else {
           this.secondForm.controls[absControl].setErrors(null);

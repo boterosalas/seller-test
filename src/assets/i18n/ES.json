@@ -622,6 +622,7 @@
     "secure.offers.quoting.seller.weight_rank_value": "(Peso en KG)",
     "secure.offers.quoting.seller.category": "Categoría",
     "secure.offers.quoting.seller.zone": "Zona configurada",
+    "secure.offers.quoting.seller.permission": "Esta sección no está habilitada para ti.",
 
     "secure.offers.historical_admin.components.filter.title": "Filtro histórico",
     "secure.offers.historical_admin.components.filter.tooltip_close": "Cerrar",
