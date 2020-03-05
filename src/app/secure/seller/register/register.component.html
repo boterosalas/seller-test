@@ -107,6 +107,20 @@
 
             </div>
 
+            <!-- <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between"
+              fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
+              <div *ngIf="!isColombiaSelect" fxFlex="50%">
+                <mat-form-field class="register" style="width:100% !important;">
+                  <mat-select [placeholder]="'secure.seller.register_seller.lb_profile_type_form' | translate"
+                    id="register-delivery-center" [(ngModel)]="selectedValue" name="de" formControlName="DeliveryCenter">
+                    <mat-option *ngFor="let Seller of profileSeller" [value]="Seller">
+                      {{Seller}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div> -->
+
             <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between"
               fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xl="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
 
@@ -267,8 +281,9 @@
 
               <div fxFlex="100%">
                 <mat-form-field class="register" style="width:100% !important;">
-                  <textarea matInput [placeholder]="'secure.seller.register_seller.lb_warranty' | translate" formControlName="Policy"
-                    [errorStateMatcher]="matcher" id="register-warranty-store" required rows="5" cols="80%"></textarea>
+                  <textarea matInput [placeholder]="'secure.seller.register_seller.lb_warranty' | translate"
+                    formControlName="Policy" [errorStateMatcher]="matcher" id="register-warranty-store" required
+                    rows="5" cols="80%"></textarea>
 
                   <!-- <input matInput placeholder="Políticas de Devolución y Garantía" formControlName="Warranty"
                     [errorStateMatcher]="matcher" id="register-warranty-store" (ngModelChange)="activeButton = false"
@@ -366,8 +381,8 @@
             id="register-form-seller" (ngSubmit)="submitAdminRegistrationForm()">
             <h4>{{'secure.seller.register_seller.lb_select_profile_type' | translate}}</h4>
             <mat-form-field>
-              <mat-select [placeholder]="'secure.seller.register_seller.lb_profile_type_form' | translate" id="register-profile" [(ngModel)]="selectedValue" name="food"
-                formControlName="Profile">
+              <mat-select [placeholder]="'secure.seller.register_seller.lb_profile_type_form' | translate"
+                id="register-profile" [(ngModel)]="selectedValue" name="food" formControlName="Profile">
                 <mat-option *ngFor="let Admin of profileAdmin" [value]="Admin">
                   {{Admin}}
                 </mat-option>
@@ -380,10 +395,10 @@
 
               <div fxFlex="50%">
                 <mat-form-field class="register" style="width:100% !important">
-                  <input matInput [placeholder]="'secure.seller.register_seller.lb_nit_form' | translate" (keypress)="keyPress($event, 'nit')" maxlength="20"
-                    formControlName="Nit" autocomplete="off" (blur)="validateExist($event,'Admin' ,'Nit')"
-                    [errorStateMatcher]="matcher" id="register-nit" (ngModelChange)="activeButton = false"
-                    required>
+                  <input matInput [placeholder]="'secure.seller.register_seller.lb_nit_form' | translate"
+                    (keypress)="keyPress($event, 'nit')" maxlength="20" formControlName="Nit" autocomplete="off"
+                    (blur)="validateExist($event,'Admin' ,'Nit')" [errorStateMatcher]="matcher" id="register-nit"
+                    (ngModelChange)="activeButton = false" required>
                   <mat-hint></mat-hint>
                   <mat-error id="error-nit-required" *ngIf="validateFormRegisterAdmin.get('Nit').hasError('required')">
                     {{'errors.required' | translate}}</mat-error>
@@ -394,8 +409,9 @@
               </div>
               <div fxFlex="50%">
                 <mat-form-field class="register" style="width:100% !important;">
-                  <input matInput [placeholder]="'secure.seller.register_seller.lb_email_form' | translate" formControlName="Email"
-                    [errorStateMatcher]="matcher" (blur)="validateExist($event,'Admin', 'Email')" id="register-email"
+                  <input matInput [placeholder]="'secure.seller.register_seller.lb_email_form' | translate"
+                    formControlName="Email" [errorStateMatcher]="matcher"
+                    (blur)="validateExist($event,'Admin', 'Email')" id="register-email"
                     (ngModelChange)="activeButton = false" required>
                   <mat-hint></mat-hint>
 

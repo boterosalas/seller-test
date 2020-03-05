@@ -192,6 +192,7 @@ export class RegisterSellerComponent implements OnInit {
       Country: new FormControl,
       State: new FormControl,
       City: new FormControl,
+      // DeliveryCenter: new FormControl,
       DaneCode: new FormControl(Validators.pattern(this.sellerRegex.integerNumber)),
       SincoDaneCode: new FormControl(Validators.pattern(this.sellerRegex.integerNumber)),
       Name: new FormControl({ value: '', disabled: disabledForm }, [
