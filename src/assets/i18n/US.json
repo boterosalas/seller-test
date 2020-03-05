@@ -611,6 +611,8 @@
     "secure.offers.quoting.seller.invalid.category": "Invalid category code",
     "secure.offers.quoting.seller.delete_shipping": "Delete shipping option",
     "secure.offers.quoting.seller.delete_shipping_option": "Are you sure you want to delete the record?",
+    "secure.offers.quoting.seller.error_price": "The final price should not be higher than the initial price.",
+    "secure.offers.quoting.seller.error_weight": "The final weight should not be higher than the initial weight.",
     "secure.offers.quoting.seller.error_price_range": "The initial price must not be greater than the final price of the last parameterized range.",
     "secure.offers.quoting.seller.error_weight_range": "The initial weight must not be greater than the final price of the last parameterized range.",
     "secure.offers.quoting.seller.add_band": "Add band",

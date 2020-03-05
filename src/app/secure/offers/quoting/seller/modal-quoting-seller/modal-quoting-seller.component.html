@@ -106,7 +106,7 @@
         </mat-form-field>
         <mat-form-field fxFlex="100" *ngIf="showFinalValue" class="marginInputsValues">
           <input formControlName="finalValue{{i}}" matInput placeholder="{{placeholders[fields -1].finalValue}}"
-            (blur)="validatePriceFinal(); compareValue()" />
+            (blur)="validateValueFinal(); compareValue()" />
           <mat-error
             *ngIf="secondForm.controls['finalValue'+i] && secondForm.controls['finalValue'+i].hasError('required')"
             [innerHTML]="['errors.error_required' | translate]">
@@ -116,8 +116,16 @@
             [innerHTML]="['errors.format_invalidate' | translate]">
           </mat-error>
           <mat-error
-            *ngIf="secondForm.controls['initialValue'+i].errors && secondForm.controls['initialValue'+i].errors.price_must_less_final"
+            *ngIf="secondForm.controls['finalValue'+i].errors && secondForm.controls['finalValue'+i].errors.price_must_less_final"
             [innerHTML]="['secure.products.create_product_unit.list_products.ofert_product.price_must_less' | translate]">
+          </mat-error>
+          <mat-error
+            *ngIf="secondForm.controls['finalValue'+i].errors && secondForm.controls['finalValue'+i].errors.price_higher"
+            [innerHTML]="['secure.offers.quoting.seller.error_price' | translate]">
+          </mat-error>
+          <mat-error
+            *ngIf="secondForm.controls['finalValue'+i].errors && secondForm.controls['finalValue'+i].errors.weight_higher"
+            [innerHTML]="['secure.offers.quoting.seller.error_weight' | translate]">
           </mat-error>
         </mat-form-field>
         <mat-form-field fxFlex="100" class="marginInputsValues">

@@ -195,7 +195,7 @@ export class ModalQuotingSellerComponent implements OnInit {
     const absControl = `initialValue${index}`;
 
     if (this.shippingMethod === 2) {
-      if (+initialPrice && +initialPrice <= 8000) {
+      if (+initialPrice && +initialPrice < 8000) {
         this.secondForm.controls[absControl].setErrors({ 'price_must_less': true });
       } else {
         this.secondForm.controls[`initialValue${index}`].setErrors(null);
@@ -207,15 +207,32 @@ export class ModalQuotingSellerComponent implements OnInit {
    * Función para validar que el precio final no sea mayor a 8mil
    * @memberof ModalQuotingSellerComponent
    */
-  public validatePriceFinal() {
+  public validateValueFinal() {
     const index = this.indexForm.length - 1; // Indice de los inputs.
-    const finalPrice = this.secondForm.controls[`finalValue${index}`].value;
+    const finalValue = this.secondForm.controls[`finalValue${index}`].value;
+    const initialValue = this.secondForm.controls[`initialValue${index}`].value;
 
-    const absControl = `initialValue${index}`;
+
+    const absControl = `finalValue${index}`;
 
     if (this.shippingMethod === 2) {
-      if (+finalPrice && +finalPrice <= 8000) {
+      if (+finalValue && +finalValue < 8000) {
         this.secondForm.controls[absControl].setErrors({ 'price_must_less_final': true });
+      } else {
+        this.secondForm.controls[`finalValue${index}`].setErrors(null);
+      }
+      if (+finalValue && +finalValue <= +initialValue) {
+        console.log('si');
+        this.secondForm.controls[absControl].setErrors({ 'price_higher': true });
+      } else {
+        console.log('no');
+        this.secondForm.controls[`finalValue${index}`].setErrors(null);
+      }
+    }
+
+    if (this.shippingMethod === 3) {
+      if (+finalValue && +finalValue <= +initialValue) {
+        this.secondForm.controls[absControl].setErrors({ 'weight_higher': true });
       } else {
         this.secondForm.controls[`finalValue${index}`].setErrors(null);
       }
@@ -547,7 +564,10 @@ export class ModalQuotingSellerComponent implements OnInit {
             }
           }
         } else {
-          this.modalService.showModal('errorService');
+          this.snackBar.open(this.languageService.instant('secure.offers.quoting.seller.save_info_ko'), this.languageService.instant('actions.close'), {
+            duration: 5000,
+          });
+          // this.modalService.showModal('errorService');
         }
       } else {
         this.modalService.showModal('errorService');
