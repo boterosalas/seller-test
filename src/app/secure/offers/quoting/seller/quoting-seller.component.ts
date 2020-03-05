@@ -15,18 +15,6 @@ export interface PeriodicElement {
   zone: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { category: 'Categoria', transport: 'Envío propio', zone: 'Zonoa Bogota' },
-  { category: 'Categoria', transport: 'Envío propio', zone: 'Zonoa Bogota' },
-  { category: 'Categoria', transport: 'Envío propio', zone: 'Zonoa Bogota' },
-  { category: 'Categoria', transport: 'Envío propio', zone: 'Zonoa Bogota' },
-  { category: 'Categoria', transport: 'Envío propio', zone: 'Zonoa Bogota' },
-  { category: 'Categoria', transport: 'Envío propio', zone: 'Zonoa Bogota' },
-  { category: 'Categoria', transport: 'Envío propio', zone: 'Zonoa Bogota' },
-  { category: 'Categoria', transport: 'Envío propio', zone: 'Zonoa Bogota' },
-];
-
-
 @Component({
   selector: 'app-quoting-seller',
   templateUrl: './quoting-seller.component.html',
