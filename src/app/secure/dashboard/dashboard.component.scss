@@ -12,6 +12,57 @@ $table-break: 900px;
   }
 }
 
+.hideTitleResponsive {
+  @media only screen and (min-width: $mobile-break) {
+    display: none;
+  }
+}
+
+.orders__body {
+  @media only screen and (min-width: $mobile-break) {
+    flex: 1 1 100%;
+    box-sizing: border-box;
+    max-width: 45%;
+  }
+}
+
+.seller-rating {
+  width: 60%;
+
+  @media only screen and (min-width: $mobile-break) {
+    flex: 1 1 100%;
+    box-sizing: border-box;
+    max-width: 52%;
+  }
+
+  @media only screen and (max-width: $mobile-break) {
+    width: 100%;
+    height: 400px;
+  }
+}
+
+.orders__colum_size {
+  font-size: 14px;
+  width: 25%;
+  min-width: 250px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+
+  @media only screen and (max-width: $mobile-break) {
+    flex-direction: inherit;
+
+  }
+}
+
+.prueba {
+  @media only screen and (max-width: $mobile-break) {
+    display: none;
+  }
+
+  padding-left: 3%;
+}
+
 .orders {
   $self: &;
 
@@ -33,7 +84,7 @@ $table-break: 900px;
   }
 
   &__colum {
-    font-size: 22px;
+    font-size: 20px;
     width: 25%;
     min-width: 250px;
     -webkit-box-flex: 1;
@@ -124,6 +175,27 @@ $table-break: 900px;
     &-box {
       margin-right: 20px;
     }
+  }
+}
+
+.resDashboard {
+  height: 300px;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  max-height: 100%;
+  place-content: stretch space-between;
+  align-items: stretch;
+
+  @media only screen and (max-width: $mobile-break) {
+    height: auto;
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    // flex-wrap: wrap;
+    max-height: 100%;
+    place-content: stretch space-between;
+    align-items: stretch;
   }
 }
 
@@ -292,7 +364,7 @@ $table-break: 900px;
   }
 }
 
-.loading-waiting{
+.loading-waiting {
   text-align: center;
   color: #757474;
 }
@@ -326,7 +398,7 @@ $table-break: 900px;
   &-container-display-none{
     display: none
   }
-  &-container-vertical-aling{
+  &-container-vertical-align{
     vertical-align: bottom;
   }
 
@@ -334,12 +406,12 @@ $table-break: 900px;
     cursor: pointer;
   }
 
-  &-container-aling-end-top{
+  &-container-align-end-top{
     text-align: end;
     margin-top: 10px;
   }
 
-  &-container-aling-vertical-middle{
+  &-container-align-vertical-middle{
     font-size: 11px;
     color: #b6b6b6;
     vertical-align: middle;
@@ -355,11 +427,11 @@ $table-break: 900px;
   &-container-cursor-pointer{
     cursor: pointer;
   }
-  &-aling-center{
+  &-align-center{
     text-align: center;
     padding-top: 30px;
   }
-  &-aling-center-sales{
+  &-align-center-sales{
     text-align: center;
     padding-top: 96px;
     min-height: 173px;
@@ -385,7 +457,7 @@ $table-break: 900px;
     border-radius: 7px;
   }
 
-  &-container-aling-icon-calender-orders{
+  &-container-align-icon-calender-orders{
     vertical-align: bottom;
     margin-top: 5px;
     margin-left: 5px;
@@ -413,7 +485,7 @@ $table-break: 900px;
   &-container-max-width-left-ordens{
     max-width: 40%;
   }
-  &-container-aling-center{
+  &-container-align-center{
    text-align: center;
    margin-top: 63px;
    margin-bottom: 117px;
@@ -456,7 +528,7 @@ $table-break: 900px;
     vertical-align: middle;
     margin-right: 10px;
   }
-  &-container-aling-end-margin-top{
+  &-container-align-end-margin-top{
     text-align: end;
     margin-top: 10px;
   }
@@ -483,7 +555,7 @@ $table-break: 900px;
     &-container-orders-align{
       text-align: end;
     }
-    &-container-header-aling{
+    &-container-header-align{
       margin-top: 14px;
       padding-right: 10px;
       padding-left: 10px;
@@ -492,12 +564,12 @@ $table-break: 900px;
       margin-top: initial;
       margin-left: initial;
     }
-    &-container-aling-icon{
+    &-container-align-icon{
       text-align: end;
       margin-right: 10px;
     }
 
-    &-container-aling-select-filter{
+    &-container-align-select-filter{
       width: 90%;
     }
   } 
@@ -506,7 +578,7 @@ $table-break: 900px;
     color: #448aff;
   }
 
-  &-container-aling-bottom{
+  &-container-align-bottom{
     margin-bottom: 10px;;
   }
 
@@ -522,16 +594,20 @@ $table-break: 900px;
       margin-top: 16px;
       margin-left: 16px;
     }
-    &-container-aling-icon{
+    &-container-align-icon{
       text-align: end;
       margin-right: 10px;
     }
-    &-container-aling-select-filter{
+    &-container-align-select-filter{
       width: 90%;
     }
     &-container-orders-align{
       text-align: end;
     }
   }
+}
 
+.spinner-loading {
+  margin-left: 48%;
+  margin-right: 55%;
 }

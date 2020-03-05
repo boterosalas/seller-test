@@ -19,6 +19,9 @@
         <mat-error *ngIf="ofertProduct.controls.Price.hasError('priceReal')">
             {{'secure.products.create_product_unit.list_products.ofert_product.price_higher_product' | translate}}
         </mat-error>
+        <mat-error *ngIf="ofertProduct.get('Price').hasError('notCero')">
+          {{'errors.price_cannot_be_0' | translate}}
+      </mat-error>
       </mat-form-field>
     </div>
     <div fxFlex="28%" class="ofert-information">
@@ -30,6 +33,9 @@
         <mat-error *ngIf="ofertProduct.controls.DiscountPrice.hasError('price')">
             {{'secure.products.create_product_unit.list_products.ofert_product.discount_price_higher' | translate}}
         </mat-error>
+        <mat-error *ngIf="ofertProduct.get('DiscountPrice').hasError('notCero')">
+          {{'errors.discounted_price_cannot_be_0' | translate}}
+      </mat-error>
       </mat-form-field>
     </div>
   </div>

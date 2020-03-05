@@ -30,13 +30,16 @@ export class ListCategorizationComponent implements OnInit, OnChanges, OnDestroy
     selectedIdCategory: number;
     idDetailProduct: number;
     productType: string;
+    isEdit = false;
     @Input() set detailProduct(value: any) {
         if (value) {
             this.selectedCategoryCurrent(value);
             this.isShowP = true;
+            this.isEdit = true;
         } else {
             this.selectedCategoryCurrent(null);
             this.isShowP = true;
+            this.isEdit = false;
         }
     }
     @Input() ean: any;
@@ -354,6 +357,7 @@ export class ListCategorizationComponent implements OnInit, OnChanges, OnDestroy
     }
 
     ngOnDestroy(): void {
+        // tslint:disable-next-line:no-unused-expression
         !!this.subs && this.subs.unsubscribe();
     }
 }
