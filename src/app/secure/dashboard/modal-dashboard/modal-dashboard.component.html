@@ -2,7 +2,7 @@
   <div class="text-title-modal">
     *{{'secure.dashboard.info_cancel_sale' | translate}}
   </div>
-  <div class="sales__graph-box modal-scroll" *ngIf="data.type === 1 ">
+  <div class="sales__graph-box modal-scroll" *ngIf="data && data.type === 1 ">
     <div class="sales__graph graph modal-dashboard-component-display">
       <div [ngClass]=" filter === '1' ? 'graph__content withoutWidth' : 'graph__content withWidth'" >
         <div class="graph__table">
@@ -21,7 +21,7 @@
       </p>
     </div>
   </div>
-  <div class="sales__graph-box modal-scroll"  *ngIf="data.type === 2 ">
+  <div class="sales__graph-box modal-scroll"  *ngIf="data && data.type === 2 ">
     <div class="sales__graph graph modal-dashboard-component-display">
       <div [ngClass]=" filter === '1' ? 'graph__content withoutWidth' : 'graph__content withWidth'">
         <div class="graph__table">
