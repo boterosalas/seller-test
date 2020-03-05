@@ -1,10 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ModalQuotingSellerComponent } from './modal-quoting-seller.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatDialogModule, MatIconModule, MatSnackBarModule, MatInputModule, MatDialogRef } from '@angular/material';
+import { MatDialogModule, MatIconModule, MatSnackBarModule, MatInputModule, MatDialogRef, MatSnackBar } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MaterialModule } from '@app/material.module';
+import { LoadingService, UserParametersService, ModalService } from '@app/core';
+import { ShippingMethodsService } from '../../administrator/shipping-methods/shipping-methods.service';
+import { ListZonesService } from '../../administrator/list-zones/list-zones.service';
+import { ListTransporterService } from '../../administrator/list-transporter/list-transporter.service';
+import { SupportService } from '@app/secure/support-modal/support.service';
+import { ComponentsService } from '@app/shared';
+import { SearchService } from '@app/secure/products/create-product-unit/categorization/search.component.service';
 
 export const registerRegex = [
     { Identifier: 'formatNumberInfinito', Value: '^([0-9]+([.][0-9]{2})?)$|^((Infinito|Infinite)$)', Module: 'ofertas' },
@@ -61,10 +68,20 @@ fdescribe('ModalQuotingSellerComponent', () => {
             ],
             providers: [
                 { provide: MatDialogRef, useValue: dialogMock },
-                TranslateService
-                // { provide: LoadingService, useValue: mockLoadingService },
-                // { provide: UserParametersService, useValue: mockUserParametersService },
-                // { provide: ModalService, useValue: mockDialogError },
+                TranslateService,
+                { provide: LoadingService, useValue: mockLoadingService },
+                { provide: UserParametersService, useValue: mockUserParametersService },
+                { provide: ModalService, useValue: mockDialogError },
+                { provide: ShippingMethodsService, useValue: mockShippingMethodsService },
+                { provide: ListZonesService, useValue: mockListZonesService },
+                { provide: ListTransporterService, useValue: mockListTransporterService },
+                { provide: ListTransporterService, useValue: mockQuotingService },
+                { provide: SupportService, useValue: mockSupportService },
+                { provide: ComponentsService, useValue: mockComponentsService },
+                // { provide: TranslateService, useValue: mockTranslateService },
+                { provide: SearchService, useValue: mockSearchService },
+                { provide: MatSnackBar, useValue: mockMatSnackBar },
+
             ]
         })
             .compileComponents();
