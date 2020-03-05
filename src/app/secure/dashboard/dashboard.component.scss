@@ -259,6 +259,11 @@ $table-break: 900px;
     }
   }
 }
+.dashboard-component-container-max-wight::-webkit-scrollbar {
+  width: 10px;
+  height: 7px;
+}
+
 
 .graph {
   $self: &;
@@ -365,12 +370,14 @@ $table-break: 900px;
 }
 
 .dashboard-component{
-
   &-container-general {
     text-align: center;
     font-size: 22px;
     margin: 5% 10%;
     height: 100%;
+  }
+  &-container-aling-center-calender{
+    text-align: center;
   }
 
   &-container-height-50{
@@ -465,14 +472,14 @@ $table-break: 900px;
     overflow-x: scroll;
     max-width: 59%;
     padding-top: 10px;
-    min-height: 320px;
+    min-height: 350px;
   }
   &-container-max-wight-without-scroll{
     display: inline-flex;
     overflow-x: hidden;
     max-width: 59%;
     padding-top: 10px;
-    min-height: 320px;
+    min-height: 350px;
   }
 
   &-container-max-width-left-ordens{
@@ -519,6 +526,7 @@ $table-break: 900px;
     font-size: 11px;
     color: #b6b6b6;
     vertical-align: middle;
+    margin-right: 10px;
   }
   &-container-align-end-margin-top{
     text-align: end;
@@ -531,6 +539,10 @@ $table-break: 900px;
     margin-right: 28px;
     vertical-align: middle;
   }
+
+  .container::-webkit-scrollbar {
+    height: 20px;    /* Tamaño del scroll en horizontal */
+}
 
   @media only screen and (max-width: 500px) and (min-width: 341px) {  
     &-container-chart-orders{
@@ -593,5 +605,9 @@ $table-break: 900px;
       text-align: end;
     }
   }
+}
 
+.spinner-loading {
+  margin-left: 48%;
+  margin-right: 55%;
 }

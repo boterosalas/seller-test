@@ -81,7 +81,7 @@
         <div class="dashboard-component-container-align-end-top">
           <span *ngIf="showOrdens" class="dashboard-component-container-align-vertical-middle">{{dateOrdens}}</span>
           <mat-icon class="mat-18 dashboard-component-container-cursos-vertical-align" [fxShow.xs]="false"
-            [fxShow.sm]="false">fullscreen</mat-icon>
+            [fxShow.sm]="false" (click)="modalOpenChart(last_ordens, 1, typeFilter)">zoom_out_map</mat-icon>
         </div>
         <div *ngIf="showOrdersChart">
           <mat-form-field class="dashboard-component-container-width-input dashboard-component-container-margin-top-0"
@@ -93,6 +93,20 @@
               <mat-option value="4">{{'secure.dashboard.type.filter.diary' |  translate}}</mat-option>
             </mat-select>
           </mat-form-field>
+          <div [fxShow.xs]="true" [fxShow.sm]="true" [fxShow.md]="false" [fxShow.lg]="false" [fxShow.xl]="false" class="dashboard-component-container-aling-center-calender" *ngIf="showCalenderQ">
+            <mat-icon class="mat-18
+            dashboard-component-container-cursor-pointer dashboard-component-container-vertical-aling"
+            (click)="openDatePicker()">date_range</mat-icon>
+          <span (click)="openDatePicker()"
+            class="dashboard-component-container-color-text-month dashboard-component-container-cursor-point">{{visibleDateSales}}</span>
+          </div>
+          <div [fxShow.xs]="true" [fxShow.sm]="true" [fxShow.md]="false" [fxShow.lg]="false" [fxShow.xl]="false" class="dashboard-component-container-aling-center-calender" *ngIf="showCalenderD">
+            <mat-icon class="mat-18
+            dashboard-component-container-cursor-pointer dashboard-component-container-vertical-aling"
+            (click)="openDatePickerDiary()">date_range</mat-icon>
+          <span (click)="openDatePickerDiary()"
+            class="dashboard-component-container-color-text-month dashboard-component-container-cursor-point">{{visibleDateSales}}</span>
+          </div>
         </div>
       </div>
       <div fxLayout="column" class="dashboard-component-container-margin-top-15">
@@ -106,7 +120,7 @@
                   {{'secure.dashboard.all' | translate}}
                 </div>
                 <div class="dashboard-component-orders-all-number">
-                  {{orders?.all | number}}
+                  {{totalCount | number}}
                 </div>
               </div>
               <div>
@@ -150,7 +164,7 @@
           </div>
           <div fxFlex="80" fxFlex.sm="100" fxFlex.md="" fxFlex.lg="" fxFlex.xs="100" fxFlex.xl="100"
             [fxShow.xs]="showOrdersChart" [fxShow.sm]="showOrdersChart"
-            [ngClass]="typeFilter === '1' || typeFilterSales === '1' ? 'dashboard-component-container-max-wight-without-scroll' : 'dashboard-component-container-max-wight'">
+            [ngClass]="typeFilter === '1'  ? 'dashboard-component-container-max-wight-without-scroll' : 'dashboard-component-container-max-wight'">
             <div class="sales__graph-box">
               <div class="sales__graph graph">
                 <div class="graph__content" *ngIf="showChartOrdens">
@@ -256,12 +270,12 @@
       <div fxLayout="column">
         <div class="dashboard-component-container-align-end-margin-top">
           <span *ngIf="showSales" class="dashboard-component-container-data-sales">{{dateSales}}</span>
-          <mat-icon class="mat-18 dashboard-component-container-screenFull" [fxShow.xs]="false" [fxShow.sm]="false">
-            fullscreen</mat-icon>
+          <mat-icon class="mat-18 dashboard-component-container-screenFull" (click)="modalOpenChart(last_sales, 2, typeFilterSales)" [fxShow.xs]="false" [fxShow.sm]="false">
+            zoom_out_map</mat-icon>
         </div>
         <div *ngIf="showOrdersChartSales">
           <mat-form-field class="dashboard-component-container-width-input dashboard-component-container-margin-top-0"
-            [fxShow.xs]="true" [fxShow.sm]="true">
+            [fxShow.xs]="true" [fxShow.sm]="true" [fxShow.md]="false" [fxShow.lg]="false" [fxShow.xl]="false">
             <mat-select [(value)]="selectedSales" name="operacion1" (selectionChange)="selectSales($event.value)">
               <mat-option value="1">{{'secure.dashboard.type.filter.quarterly'| translate}}</mat-option>
               <mat-option value="2">{{'secure.dashboard.type.filter.monthly' | translate}}</mat-option>
@@ -269,6 +283,20 @@
               <mat-option value="4">{{'secure.dashboard.type.filter.diary' |  translate}}</mat-option>
             </mat-select>
           </mat-form-field>
+          <div [fxShow.xs]="true" [fxShow.sm]="true" [fxShow.md]="false" [fxShow.lg]="false" [fxShow.xl]="false" class="dashboard-component-container-aling-center-calender" *ngIf="showCalenderQSales">
+            <mat-icon class="mat-18
+            dashboard-component-container-cursor-pointer dashboard-component-container-vertical-aling"
+            (click)="openDatePickerSales()">date_range</mat-icon>
+          <span (click)="openDatePickerSales()"
+            class="dashboard-component-container-color-text-month dashboard-component-container-cursor-point">{{visibleDateSales}}</span>
+          </div>
+          <div [fxShow.xs]="true" [fxShow.sm]="true" [fxShow.md]="false" [fxShow.lg]="false" [fxShow.xl]="false" class="dashboard-component-container-aling-center-calender" *ngIf="showCalenderDSales">
+            <mat-icon class="mat-18
+            dashboard-component-container-cursor-pointer dashboard-component-container-vertical-aling"
+            (click)="openDatePickerDiarySales()">date_range</mat-icon>
+          <span (click)="openDatePickerDiarySales()"
+            class="dashboard-component-container-color-text-month dashboard-component-container-cursor-point">{{visibleDateSales}}</span>
+          </div>
         </div>
       </div>
       <div fxLayout="column" class="dashboard-component-container-margin-top-15">

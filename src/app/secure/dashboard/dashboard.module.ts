@@ -14,11 +14,13 @@ import { DashboardRoutingModule } from '@app/secure/dashboard/dashboard.routing'
 import { TermsService } from '../seller/agreement/terms/terms.component.service';
 import { SellerRatingComponent } from './seller-rating/seller-rating.component';
 import { MaterialModule } from '@app/material.module';
+import { ModalDashboardComponent } from './modal-dashboard/modal-dashboard.component';
 
 @NgModule({
     declarations: [
         DashboardComponent,
-        SellerRatingComponent
+        SellerRatingComponent,
+        ModalDashboardComponent
     ],
     imports: [
         CommonModule,
@@ -33,6 +35,9 @@ import { MaterialModule } from '@app/material.module';
         MatFormFieldModule,
         MatInputModule,
         MaterialModule
+    ],
+    entryComponents: [
+        ModalDashboardComponent
     ],
     exports: [],
     providers: [
