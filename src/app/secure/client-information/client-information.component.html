@@ -1,4 +1,4 @@
-<div fxFlex="100" fxLayout="row wrap" fxFlexAlign="start center">
+<div *ngIf="isInternational" fxFlex="100" fxLayout="row wrap" fxFlexAlign="start center">
   <div class="client-information-container" fxFlex="40" fxFlex.sm="50" fxFlex.xs="100" fxLayout="column nowrap" fxFlexAlign="start center">
     <span class="content-information-title" fxFlex="100">{{'secure.client_information.customer_information' | translate}}</span>
     <div class="light-content" fxFlex="100">

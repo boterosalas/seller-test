@@ -16,6 +16,8 @@ export class ClientInformationComponent {
 
   // Input para obtener los datos de la orden
   @Input() order: Order = Const.EMPTYORDER;
+  // Input para obtener los datos de la orden
+  @Input() isInternational: Boolean;
 
   /**
    * Creates an instance of ClientInformationComponent.
