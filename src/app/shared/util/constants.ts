@@ -75,7 +75,12 @@ export class Const {
         enviosExito: false,
         fulfillment: false
       }
-      ]
+      ],
+      port:{
+        idDispatchPort: 0,
+        address: '',
+        phone: '',
+      }
     };
 
 

@@ -27,8 +27,19 @@ export class Order {
   clientTelephone?: string;
   clientAddress?: string;
   products?: (ProductsEntity)[] | Array<ProductsEntity>;
+  port?: Port;
 }
 
+/**
+ * Información del centro de acopio
+ * @export
+ * @class Port
+ */
+export class Port {
+  idDispatchPort?: number;
+  address?: string;
+  phone?: string;
+}
 /**
  * Información del cliente
  * @export
