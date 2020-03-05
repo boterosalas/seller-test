@@ -25,13 +25,13 @@
 
 .content-product-list {
   flex-wrap: wrap;
-  padding-left: 6px;
+  // padding-left: 6px;
   padding-right: 6px;
   padding-top: 10px;
   border-bottom: 1px solid #e0e0e0;
 
   @media (max-width: 960px) {
-    padding-left: 16px;
+    // padding-left: 12px;
     padding-right: 16px;
   }
 }
@@ -62,7 +62,7 @@
 }
 
 .full-button {
-  width: 100%;
+  width: calc(100% - 20px);
   margin: 10px;
 }
 

@@ -12,8 +12,12 @@
 }
 
 .content-information-client {
-  display: inline-flex;
   margin-top: 10px;
+  display: inline-block;
+  
+  &.is-international{
+    display: inline-flex;
+  }
 }
 
 .client-information {

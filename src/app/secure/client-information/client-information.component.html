@@ -2,19 +2,19 @@
   <div class="client-information-container" fxFlex="40" fxFlex.sm="50" fxFlex.xs="100" fxLayout="column nowrap" fxFlexAlign="start center">
     <span class="content-information-title" fxFlex="100">{{'secure.client_information.customer_information' | translate}}</span>
     <div class="light-content" fxFlex="100">
-      <div class="content-information-client">
+      <div class="content-information-client is-international">
         <p class="client-information n-margin mr-5">{{'secure.client_information.billing_address' | translate}}: </p>
         <p class="client-data n-margin">{{order.clientAddress}}
       </div>
     </div>
     <div class="light-content" fxFlex="100">
-      <div class="content-information-client">
+      <div class="content-information-client is-international">
         <p class="client-information n-margin mr-5">{{'shared.name' | translate}}: </p>
         <p class="client-data n-margin ">{{order.clientName}} {{order.identificationCard}} </p>
       </div>
     </div>
     <div class="light-content" fxFlex="100">
-      <div class="content-information-client">
+      <div class="content-information-client is-international">
         <p class="client-information n-margin mr-5">{{'secure.client_information.phone' | translate}}: </p>
         <p class="client-data n-margin">{{order.clientTelephone}}</p>
       </div>
@@ -24,23 +24,45 @@
   <div class="client-information-container" fxFlex="60" fxFlex.sm="50" fxFlex.xs="100" fxLayout="column nowrap" fxFlexAlign="start center">
     <span class="content-information-title" fxFlex="100">{{'secure.client_information.delivery_address' | translate}}</span>
     <div class="light-content" fxFlex="100">
-      <div class="content-information-client">
+      <div class="content-information-client is-international">
         <p class="client-information n-margin mr-5">{{'secure.client_information.city' | translate}}:</p>
         <p class="client-data n-margin ">{{order.clientName}} {{order.identificationCard}}
         </p>
       </div>
     </div>
     <div class="light-content" fxFlex="100">
-      <div class="content-information-client">
+      <div class="content-information-client is-international">
         <p class="client-information n-margin mr-5">{{'secure.client_information.address' | translate}}:</p>
         <p class="client-data n-margin">{{order.clientAddress}}
       </div>
     </div>
     <div class="light-content" fxFlex="100">
-      <div class="content-information-client">
+      <div class="content-information-client is-international">
         <p class="client-information n-margin mr-5">{{'secure.client_information.phone' | translate}}:</p>
         <p class="client-data n-margin">{{order.clientTelephone}}</p>
       </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!isInternational" class="client-information-container" fxFlex="100" fxLayout="row wrap" fxFlexAlign="start center">
+  <div class="light-content" fxFlex.md="20" fxFlex.xs="100">
+    <div class="content-information-client">
+      <p class="client-information n-margin ">{{'secure.client_information.client' | translate}}</p>
+      <p class="client-data n-margin ">{{order.clientName}}
+        <br> {{order.identificationCard}}
+      </p>
+    </div>
+  </div>
+  <div class="light-content" fxFlex.md="20" fxFlex.xs="100">
+    <div class="content-information-client">
+      <p class="client-information n-margin">{{'secure.client_information.address' | translate}}</p>
+      <p class="client-data n-margin">{{order.clientAddress}}
+    </div>
+  </div>
+  <div class="light-content" fxFlex.md="20" fxFlex.xs="100">
+    <div class="content-information-client">
+      <p class="client-information n-margin ">{{'secure.client_information.phone' | translate}}</p>
+      <p class="client-data n-margin">{{order.clientTelephone}}</p>
     </div>
   </div>
 </div>
