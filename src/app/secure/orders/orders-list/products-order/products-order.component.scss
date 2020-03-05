@@ -29,10 +29,15 @@
   padding-right: 6px;
   padding-top: 10px;
   border-bottom: 1px solid #e0e0e0;
+
+  @media (max-width: 960px) {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
 
 .item-title-table {
-  width: 130px;
+  width: 100px;
 
   @media (max-width: 960px) {
     width: 120px;
@@ -62,8 +67,8 @@
 }
 
 .cost-item-table {
-  color: #000;
-  font-size: 11px;
+  color: gray;
+  font-size: 13px;
 }
 
 .total-product-text {
@@ -74,9 +79,13 @@
 
   & p {
     padding-left: 55px;
-
+    
     @media (max-width: 960px) {
-      padding-left: 10px;
+      padding-left: 7px;
+    }
+    
+    @media (min-width: 600px) {
+      padding-left: 16px;
     }
   }
 }

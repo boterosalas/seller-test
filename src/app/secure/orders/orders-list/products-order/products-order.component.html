@@ -1,6 +1,6 @@
 <div fxFlex fxLayout="column" fxFlex="100" class="content-product-detail">
   <div class="title-product-list">
-    <div fxFlex="56px" fxFlex.sm="10px" fxFlex.xs="10px" class="sc-text-normal">
+    <div fxFlex="56px" fxFlex.sm="16px" fxFlex.xs="16px" class="sc-text-normal">
       <div class="center-product-list" *ngIf="Typeprofile === 0">
         <mat-checkbox class="sc-check-personal"
           *ngIf="order.allowShipping == true && order.idStatusOrder == const.OrderAsignado"
@@ -62,7 +62,7 @@
   </div>
 
   <div *ngFor="let product of order.products;let index=index" class="content-product-list">
-    <div fxFlex="50px" fxFlex.sm="4px" fxFlex.xs="4px">
+    <div fxFlex="50px" fxFlex.sm="10px" fxFlex.xs="10px">
       <div class="center-product-list" *ngIf="Typeprofile === 0">
         <mat-checkbox id="check-product-detail-{{index}}" class="sc-check-personal"
           *ngIf="order.allowShipping == true && product.idStatusProduct == const.ProductAsignado"
@@ -70,7 +70,7 @@
           [(ngModel)]="product.checkProductToSend"></mat-checkbox>
       </div>
     </div>
-    <div fxFlex.sm="265px" fxFlex.md="230px" fxFlex.lg="265px" fxFlex.xs="265px">
+    <div fxFlex.sm="265px" fxFlex.md="230px" fxFlex.lg="265px" fxFlex.xs="auto">
       <div class="productName-table-option">
         <div class="product-name n-margin">
           {{product.nameProduct}}
@@ -185,7 +185,7 @@
 
   <!-- Total row -->
 
-  <div fxLayoutAlign.xs="center space-evenly" fxLayoutGap.xs="20px">
+  <div fxLayoutAlign.xs="center space-evenly" fxLayoutGap.xs="17px">
     <div fxFlex.xs="initial" fxFlex.sm="96px" fxFlex.md="230px" fxFlex.lg="320px">
       <div class="total-product-text">
         <p class="sc-text-bold-order">{{'secure.orders.order_list.product_order.total' | translate}}:</p>
