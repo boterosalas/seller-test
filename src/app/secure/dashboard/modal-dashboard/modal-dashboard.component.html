@@ -1,4 +1,7 @@
 <mat-dialog-content >
+  <div style="text-align: center; color: #b6b6b6;">
+    *{{'secure.dashboard.info_cancel_sale' | translate}}
+  </div>
   <div class="sales__graph-box modal-scroll" *ngIf="data.type === 1 ">
     <div class="sales__graph graph modal-dashboard-component-display">
       <div [ngClass]=" filter === '1' ? 'graph__content withoutWidth' : 'graph__content withWidth'" >
@@ -14,11 +17,11 @@
     </div>
     <div class="graph__info">
       <p>
-        *{{'secure.dashboard.info_cancel_sale' | translate}}
+        
       </p>
     </div>
   </div>
-  <div class="sales__graph-box display-line-block"  *ngIf="data.type === 2 ">
+  <div class="sales__graph-box modal-scroll"  *ngIf="data.type === 2 ">
     <div class="sales__graph graph modal-dashboard-component-display">
       <div [ngClass]=" filter === '1' ? 'graph__content withoutWidth' : 'graph__content withWidth'">
         <div class="graph__table">
@@ -32,7 +35,6 @@
       </div>
       <div class="graph__info">
         <p>
-          *{{'secure.dashboard.info_cancel_sale' | translate}}
         </p>
       </div>
     </div>

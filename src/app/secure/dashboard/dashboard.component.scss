@@ -187,6 +187,11 @@ $table-break: 900px;
     }
   }
 }
+.dashboard-component-container-max-wight::-webkit-scrollbar {
+  width: 10px;
+  height: 7px;
+}
+
 
 .graph {
   $self: &;
@@ -395,14 +400,14 @@ $table-break: 900px;
     overflow-x: scroll;
     max-width: 59%;
     padding-top: 10px;
-    min-height: 320px;
+    min-height: 350px;
   }
   &-container-max-wight-without-scroll{
     display: inline-flex;
     overflow-x: hidden;
     max-width: 59%;
     padding-top: 10px;
-    min-height: 320px;
+    min-height: 350px;
   }
 
   &-container-max-width-left-ordens{
@@ -449,6 +454,7 @@ $table-break: 900px;
     font-size: 11px;
     color: #b6b6b6;
     vertical-align: middle;
+    margin-right: 10px;
   }
   &-container-aling-end-margin-top{
     text-align: end;

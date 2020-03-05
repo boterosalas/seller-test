@@ -84,7 +84,6 @@ $table-break: 900px;
       bottom: -2.5em;
       text-align: center;
       width: 100%;
-      // font-weight: bold;
       font-size: 14px;
       text-transform: capitalize;
   
@@ -124,7 +123,10 @@ $table-break: 900px;
 }
 
 .modal-scroll{
-   display: inline-block;
+  contain: content;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  display: grid;
 }
 
 .display-line-block{

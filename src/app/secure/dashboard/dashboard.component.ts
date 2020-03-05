@@ -211,7 +211,7 @@ export class DashboardComponent implements OnInit {
         if (this.typeFilter !== undefined && this.typeFilter !== null) {
             paramsOrdersSummary += this.typeFilter;
         }
-        if (this.typeFilter === '4') {
+        if (this.typeFilter === '4' || this.typeFilter === '3') {
             this.dateOrdens = this.datepipe.transform(this.dateCurrent, 'yyyy-MM-dd');
             this.showOrdens = true;
         } else {
@@ -500,7 +500,7 @@ export class DashboardComponent implements OnInit {
         if (this.typeFilterSales !== undefined && this.typeFilterSales !== null) {
             paramsOrdersSummary += this.typeFilterSales;
         }
-        if (this.typeFilterSales === '4') {
+        if (this.typeFilterSales === '4' || this.typeFilterSales === '3') {
             this.dateSales = this.datepipe.transform(this.dateCurrent, 'yyyy-MM-dd');
             this.showSales = true;
         } else {
