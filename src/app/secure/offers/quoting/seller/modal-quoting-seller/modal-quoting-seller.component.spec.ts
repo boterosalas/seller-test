@@ -100,13 +100,11 @@ describe('ModalQuotingSellerComponent', () => {
     const mockListTransporterService = jasmine.createSpyObj('ListTransporterService', ['getListTransporters']);
     const mockQuotingService = jasmine.createSpyObj('QuotingService', ['deleteQuotingSeller']);
     const mockSupportService = jasmine.createSpyObj('SupportService', ['getRegexFormSupport']);
-    // const mockComponentsService = jasmine.createSpyObj('ComponentsService', ['']);
-    // const mockTranslateService = jasmine.createSpyObj('TranslateService', ['']);
+
     const mockSearchService = jasmine.createSpyObj('SearchService', ['getCategories']);
     const mockMatSnackBar = jasmine.createSpyObj('MatSnackBar', ['open']);
 
     let loadingService: LoadingService;
-    // let shippingMethodsService: ShippingMethodsService;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -135,8 +133,6 @@ describe('ModalQuotingSellerComponent', () => {
                 { provide: ListTransporterService, useValue: mockListTransporterService },
                 { provide: QuotingService, useValue: mockQuotingService },
                 { provide: SupportService, useValue: mockSupportService },
-                // { provide: ComponentsService, useValue: mockComponentsService },
-                // { provide: TranslateService, useValue: mockTranslateService },
                 { provide: SearchService, useValue: mockSearchService },
                 { provide: MatSnackBar, useValue: mockMatSnackBar },
                 ComponentsService,
@@ -174,7 +170,6 @@ describe('ModalQuotingSellerComponent', () => {
         };
         expect(component.quotingRegex).toEqual(ofertas);
         component.validateFormSupport();
-        // expect(component.BrandsRegex).not.toEqual(dashboard);
     });
     it('Get name and Id of method shiping', () => {
         component.transportTypeList = resShipingMethods.body.Data;

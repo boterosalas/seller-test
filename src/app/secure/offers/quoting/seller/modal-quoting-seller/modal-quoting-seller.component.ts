@@ -572,10 +572,8 @@ export class ModalQuotingSellerComponent implements OnInit {
             this.snackBar.open(this.languageService.instant('secure.offers.quoting.seller.save_info_ko'), this.languageService.instant('actions.close'), {
               duration: 5000,
             });
-            // this.modalService.showModal('errorService');
           }
         } else {
-          // this.modalService.showModal('errorService');
           this.snackBar.open(this.languageService.instant('secure.offers.quoting.seller.save_info_ko'), this.languageService.instant('actions.close'), {
             duration: 5000,
           });
@@ -605,7 +603,6 @@ export class ModalQuotingSellerComponent implements OnInit {
             this.snackBar.open(this.languageService.instant('secure.offers.quoting.seller.save_info_ko'), this.languageService.instant('actions.close'), {
               duration: 5000,
             });
-            // this.modalService.showModal('errorService');
           }
         } else {
           this.modalService.showModal('errorService');
