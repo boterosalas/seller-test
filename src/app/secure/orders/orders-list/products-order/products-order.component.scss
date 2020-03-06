@@ -13,6 +13,7 @@
 
 .title-table-product {
   font-size: 12px;
+  width: inherit;
 }
 
 .product-name {
@@ -25,13 +26,11 @@
 
 .content-product-list {
   flex-wrap: wrap;
-  // padding-left: 6px;
   padding-right: 6px;
   padding-top: 10px;
   border-bottom: 1px solid #e0e0e0;
 
   @media (max-width: 960px) {
-    // padding-left: 12px;
     padding-right: 16px;
   }
 }

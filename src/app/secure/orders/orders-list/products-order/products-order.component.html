@@ -62,7 +62,7 @@
   </div>
 
   <div *ngFor="let product of order.products;let index=index" class="content-product-list">
-    <div fxFlex="50px" [fxFlex.sm]="order.allowShipping == true ? '44px' : '16px'" [fxFlex.xs]="order.allowShipping == true ? '44px' : '16px'">
+    <div fxFlex="56px" [fxFlex.sm]="order.allowShipping == true ? '44px' : '16px'" [fxFlex.xs]="order.allowShipping == true ? '44px' : '16px'">
       <div class="center-product-list" *ngIf="Typeprofile === 0">
         <mat-checkbox id="check-product-detail-{{index}}" class="sc-check-personal"
           *ngIf="order.allowShipping == true && product.idStatusProduct == const.ProductAsignado"
@@ -185,8 +185,8 @@
 
   <!-- Total row -->
 
-  <div fxLayout="row wrap" fxLayoutAlign.xs="center space-evenly" fxLayoutGap.xs="17px" fxFlexOffset.md="34px">
-    <div fxFlex.xs="initial" fxFlex.sm="96px" fxFlex.md="230px" fxFlex.lg="320px">
+  <div fxLayout="row wrap" fxLayoutAlign.xs="center space-evenly" fxLayoutGap.xs="17px">
+    <div fxFlex.xs="initial" fxFlex.sm="96px" fxFlex.md="230px" fxFlex.lg="320px" fxFlexOffset.sm="34px">
       <div class="total-product-text">
         <p class="sc-text-bold-order">{{'secure.orders.order_list.product_order.total' | translate}}:</p>
       </div>
