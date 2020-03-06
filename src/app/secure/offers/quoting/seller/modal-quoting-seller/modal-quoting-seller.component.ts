@@ -222,10 +222,8 @@ export class ModalQuotingSellerComponent implements OnInit {
         this.secondForm.controls[`finalValue${index}`].setErrors(null);
       }
       if (+finalValue && +finalValue <= +initialValue) {
-        console.log('si');
         this.secondForm.controls[absControl].setErrors({ 'price_higher': true });
       } else {
-        console.log('no');
         this.secondForm.controls[`finalValue${index}`].setErrors(null);
       }
     }
@@ -545,13 +543,11 @@ export class ModalQuotingSellerComponent implements OnInit {
     }
     if (this.data.action === 1) {
       this.dataToSend = this.data.element;
-    }
-    this.dataToSend.Ranges = this.validDataToSend();
-    this.quotingService.crateQuotingSeller(this.dataToSend).subscribe((res: any) => {
-      if (res.status === 201 || res.status === 200) {
-        if (res.body.statusCode === 200 || res.body.statusCode === 201) {
-          if (res.body.body) {
-            const data = JSON.parse(res.body.body);
+      this.dataToSend.Ranges = this.validDataToSend();
+      this.quotingService.updateQuotingSeller(this.dataToSend).subscribe((res: any) => {
+        if (res.statusCode === 201 || res.statusCode === 200) {
+          if (res.body) {
+            const data = JSON.parse(res.body);
             if (data.Data === true) {
               this.dialogRef.close(confirm);
               this.snackBar.open(this.languageService.instant('secure.offers.quoting.seller.save_info_ok'), this.languageService.instant('actions.close'), {
@@ -562,18 +558,51 @@ export class ModalQuotingSellerComponent implements OnInit {
                 duration: 5000,
               });
             }
+          } else {
+            this.snackBar.open(this.languageService.instant('secure.offers.quoting.seller.save_info_ko'), this.languageService.instant('actions.close'), {
+              duration: 5000,
+            });
+            // this.modalService.showModal('errorService');
           }
         } else {
+          // this.modalService.showModal('errorService');
           this.snackBar.open(this.languageService.instant('secure.offers.quoting.seller.save_info_ko'), this.languageService.instant('actions.close'), {
             duration: 5000,
           });
-          // this.modalService.showModal('errorService');
         }
-      } else {
-        this.modalService.showModal('errorService');
-      }
-      this.loadingService.closeSpinner();
-    });
+        this.loadingService.closeSpinner();
+      });
+
+    } else {
+      this.dataToSend.Ranges = this.validDataToSend();
+      this.quotingService.crateQuotingSeller(this.dataToSend).subscribe((res: any) => {
+        if (res.status === 201 || res.status === 200) {
+          if (res.body.statusCode === 200 || res.body.statusCode === 201) {
+            if (res.body.body) {
+              const data = JSON.parse(res.body.body);
+              if (data.Data === true) {
+                this.dialogRef.close(confirm);
+                this.snackBar.open(this.languageService.instant('secure.offers.quoting.seller.save_info_ok'), this.languageService.instant('actions.close'), {
+                  duration: 5000,
+                });
+              } else {
+                this.snackBar.open(this.languageService.instant('secure.offers.quoting.seller.save_info_ko'), this.languageService.instant('actions.close'), {
+                  duration: 5000,
+                });
+              }
+            }
+          } else {
+            this.snackBar.open(this.languageService.instant('secure.offers.quoting.seller.save_info_ko'), this.languageService.instant('actions.close'), {
+              duration: 5000,
+            });
+            // this.modalService.showModal('errorService');
+          }
+        } else {
+          this.modalService.showModal('errorService');
+        }
+        this.loadingService.closeSpinner();
+      });
+    }
   }
 
   /**

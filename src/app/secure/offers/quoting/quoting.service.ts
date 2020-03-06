@@ -45,7 +45,14 @@ export class QuotingService {
    * @memberof QuotingService
    */
   public updateQuotingSeller(param: any): Observable<any> {
-    return this.http.patch(this.api.get('updateQuoting', [param]), { observe: 'response' });
+    // return this.http.patch(this.api.get('updateQuoting', param), { observe: 'response' });
+    return new Observable(observer => {
+      this.http.patch(this.api.get('updateQuoting'), param).subscribe((data: any) => {
+        observer.next(data);
+      }, err => {
+        observer.error(err);
+      });
+    });
   }
 
   /**

@@ -77,7 +77,7 @@ export const endpoints = {
       getSize: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/getvtexsizelist',
       getQuoting: 'https://swje0lr27g.execute-api.us-east-1.amazonaws.com/utilities-dev/shippingcostrules/GetShippingCostRules',
       createQuoting: 'https://swje0lr27g.execute-api.us-east-1.amazonaws.com/utilities-dev/shippingcostrules/CreateShippingCostRule',
-      editQuoting: 'https://swje0lr27g.execute-api.us-east-1.amazonaws.com/utilities-dev/shippingcostrules/UpdateShippingCostRule',
+      updateQuoting: 'https://swje0lr27g.execute-api.us-east-1.amazonaws.com/utilities-dev/shippingcostrules/UpdateShippingCostRule',
       deleteQuoting: 'https://swje0lr27g.execute-api.us-east-1.amazonaws.com/utilities-dev/shippingcostrules/DeleteShippingCostRule/{param}',
 
       // Seller
@@ -262,13 +262,13 @@ export const endpoints = {
       transports: 'https://hl7mqciur3.execute-api.us-east-1.amazonaws.com/transporters-pdn',
       getTransport: 'https://hl7mqciur3.execute-api.us-east-1.amazonaws.com/transporters-pdn/{params}',
       getSize: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/getvtexsizelist',
-      getQuoting: ' https://ndinovqhh8.execute-api.us-east-1.amazonaws.com/utilities-pdn/shippingcostrules/shippingcostrules/GetShippingCostRules',
-      createQuoting: ' https://ndinovqhh8.execute-api.us-east-1.amazonaws.com/utilities-pdn/shippingcostrules/shippingcostrules/CreateShippingCostRule',
-      editQuoting: ' https://ndinovqhh8.execute-api.us-east-1.amazonaws.com/utilities-pdn/shippingcostrules/shippingcostrules/UpdateShippingCostRule',
-      deleteQuoting: ' https://ndinovqhh8.execute-api.us-east-1.amazonaws.com/utilities-pdn/shippingcostrules/shippingcostrules/DeleteShippingCostRule/{param}',
+      getQuoting: 'https://ndinovqhh8.execute-api.us-east-1.amazonaws.com/utilities-pdn/shippingcostrules/shippingcostrules/GetShippingCostRules',
+      createQuoting: 'https://ndinovqhh8.execute-api.us-east-1.amazonaws.com/utilities-pdn/shippingcostrules/shippingcostrules/CreateShippingCostRule',
+      updateQuoting: 'https://ndinovqhh8.execute-api.us-east-1.amazonaws.com/utilities-pdn/shippingcostrules/shippingcostrules/UpdateShippingCostRule',
+      deleteQuoting: 'https://ndinovqhh8.execute-api.us-east-1.amazonaws.com/utilities-pdn/shippingcostrules/shippingcostrules/DeleteShippingCostRule/{param}',
       // Seller
       getListSellersName: 'https://xvc4l3bdd7.execute-api.us-east-1.amazonaws.com/getnameallseller-pdn/{params}',
-      getSpecificSeller: ' https://0zhu6q42zl.execute-api.us-east-1.amazonaws.com/getallsellers-pdn/{idSeller}/{allSeller}',
+      getSpecificSeller: 'https://0zhu6q42zl.execute-api.us-east-1.amazonaws.com/getallsellers-pdn/{idSeller}/{allSeller}',
       updateSeller: 'https://yiw0kz0lal.execute-api.us-east-1.amazonaws.com/UpdateSeller-pdn',
       changeStatusSeller: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/SetSellerAvaibality',
       cancelVacationSeller: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/CancelVacation',
