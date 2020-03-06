@@ -1,0 +1,6 @@
+<mat-form-field class="ports-field" style="width:100% !important;" [formGroup]="validateFormRegister">
+  <mat-select [placeholder]="'secure.seller.register_seller.lb_city_form' | translate" formControlName="portsFormControl" id="register-cities" required (blur)="setParamToDaneChange()">
+      <mat-option *ngFor='let item of listItems' [value]=item.Id [innerHTML]="item.Name" (click)="setDataCitie(item)"></mat-option>
+  </mat-select>
+  <mat-error id="error-ports-required" *ngIf="validateFormRegister.get('portsFormControl').hasError('required')" [innerHTML]="'Este campo es requerido.'"></mat-error>
+</mat-form-field>

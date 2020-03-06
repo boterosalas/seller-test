@@ -46,6 +46,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { SelectLanguageComponent } from './components/select-language/select-language.component';
 import { UploadButtonComponent } from './components/upload-button/upload-button.component';
+import { PortsComponent } from './components/ports/ports.component';
 
 export function createTranslateLaoder(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -96,7 +97,8 @@ export function createTranslateLaoder(http: HttpClient) {
     StatesComponent,
     CitiesComponent,
     SelectLanguageComponent,
-    UploadButtonComponent
+    UploadButtonComponent,
+    PortsComponent
   ],
   exports: [
     MaterialModule,
