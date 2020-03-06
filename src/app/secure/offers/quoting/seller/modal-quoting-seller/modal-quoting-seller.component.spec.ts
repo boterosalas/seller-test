@@ -19,10 +19,10 @@ import { of } from 'rxjs';
 export const registerRegex = [
     { Identifier: 'formatNumberInfinito', Value: '^([0-9]+([.][0-9]{2})?)$|^((Infinito|Infinite)$)', Module: 'ofertas' },
     { Identifier: 'priceInfinite', Value: '^[0-9]+$|^((Infinito|Infinite)$)', Module: 'ofertas' },
-
+    { Identifier: 'freightInfinite', Value: '^[1-9]+$|^((Infinito|Infinite)$)|^[0]{1}$', Module: 'ofertas' },
 ];
 
-fdescribe('ModalQuotingSellerComponent', () => {
+describe('ModalQuotingSellerComponent', () => {
     let component: ModalQuotingSellerComponent;
     let fixture: ComponentFixture<ModalQuotingSellerComponent>;
 
@@ -169,7 +169,8 @@ fdescribe('ModalQuotingSellerComponent', () => {
     it('Get regex', () => {
         const ofertas = {
             formatNumberInfinito: '^([0-9]+([.][0-9]{2})?)$|^((Infinito|Infinite)$)',
-            priceInfinite: '^[0-9]+$|^((Infinito|Infinite)$)'
+            priceInfinite: '^[0-9]+$|^((Infinito|Infinite)$)',
+            freightInfinite: '^[1-9]+$|^((Infinito|Infinite)$)|^[0]{1}$'
         };
         expect(component.quotingRegex).toEqual(ofertas);
         component.validateFormSupport();
