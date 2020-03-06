@@ -26,7 +26,7 @@
       <div [ngClass]=" filter === '1' ? 'graph__content withoutWidth' : 'graph__content withWidth'">
         <div class="graph__table">
           <div *ngFor="let colum of data.data" class="graph__bar-box">
-            <div class="graph__value">${{colum.sales | number}}</div>
+            <div class="graph__value modal-dashboard-rotate-text">${{colum.sales | number}}</div>
             <div class="graph__bar" [style.minHeight]="colum.percent">
               <div class="graph__label">{{colum.name}}</div>
             </div>
