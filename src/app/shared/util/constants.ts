@@ -78,6 +78,7 @@ export class Const {
       ],
       port:{
         idDispatchPort: 0,
+        name: '',
         address: '',
         phone: '',
       }

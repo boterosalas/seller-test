@@ -21,19 +21,19 @@
     </div>
   </div>
 
-  <div *ngIf="order.port" class="delivery-information-container" fxFlex="60" fxFlex.sm="50" fxFlex.xs="100" fxLayout="column nowrap" fxFlexAlign="start center">
+  <div *ngIf="order.port" class="delivery-information-container" fxFlex="40" fxFlex.sm="50" fxFlex.xs="100" fxLayout="column nowrap" fxFlexAlign="start center">
     <span class="content-information-title" fxFlex="100">{{'secure.client_information.delivery_address' | translate}}</span>
-    <!-- <div class="light-content" fxFlex="100">
-      <div class="content-information-client is-international">
-        <p class="client-information n-margin mr-5">{{'secure.client_information.city' | translate}}:</p>
-        <p class="client-data n-margin ">{{order.clientName}} {{order.identificationCard}}
+    <div class="light-content" fxFlex="100">
+      <div class="content-information-delivery is-international">
+        <p class="delivery-information n-margin mr-5">{{'shared.name' | translate}}:</p>
+        <p class="delivery-data n-margin ">{{order.port.name}} {{order.identificationCard}}
         </p>
       </div>
-    </div> -->
+    </div>
     <div class="light-content" fxFlex="100">
       <div class="content-information-delivery is-international">
         <p class="delivery-information n-margin mr-5">{{'secure.client_information.address' | translate}}:</p>
-        <p class="delivery-data n-margin">{{order.port.phone}}</p>
+        <p class="delivery-data n-margin">{{order.port.address}}</p>
       </div>
     </div>
     <div class="light-content" fxFlex="100">

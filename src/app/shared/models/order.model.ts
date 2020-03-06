@@ -37,6 +37,7 @@ export class Order {
  */
 export class Port {
   idDispatchPort?: number;
+  name?: string;
   address?: string;
   phone?: string;
 }

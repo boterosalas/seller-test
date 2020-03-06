@@ -41,7 +41,8 @@
 }
 
 @media (max-width: 960px) {
-  .client-information-container {
+  .client-information-container,
+  .delivery-information-container {
     padding: 16px !important;
   }
 }
