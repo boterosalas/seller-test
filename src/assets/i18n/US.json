@@ -49,6 +49,7 @@
     "menu.Ciudades con Cobertura": "Cities with Coverage",
     "menu.Calificación de Vendedores": "Quality Score",
     "menu.Solicitudes Pendientes": "Awaiting request",
+    "menu.Parametrizar Centros de Acopio": "Parameterize collection centers",
 
     "module.Documentación": "Documentation",
     "module.Ofertas": "Offers",
@@ -1144,6 +1145,14 @@
     "secure.parametize.support_claims-filter.orderNumber": "Order number",
     "secure.parametize.support_claims-filter.clear": "Clear",
     "secure.parametize.support_claims-filter.filter": "Filter",
+
+    "secure.parametize.port.port": "Port",
+    "secure.parametize.port.country": "Country",
+    "secure.parametize.port.collection_center": "Collection center",
+    "secure.parametize.port.address": "Address",
+    "secure.parametize.port.action": "Action",
+    "secure.parametize.port.apply": "Apply",
+    "secure.parametize.port.btn_add_port": "add collection center",
 
     "secure.parametize.support_claims-upload-btn.title": "Please choose a file",
     "secure.parametize.support_claims-upload-general-error": "The attached document that you are trying to upload is not compatible with our platform, we ask you to take into account the following recommendations: Your video cannot last more than 90 seconds and the formats allowed are: AVI, 3GP (mobile), MOV (Mac) , WMV (Windows), MPG, MPEG and MP4 with a maximum weight of 4 MB. The images you can upload must be in JPG, PNG or PDF, Excel or Word documents",

@@ -49,6 +49,7 @@
     "menu.Ciudades con Cobertura": "Ciudades con Cobertura",
     "menu.Calificación de Vendedores": "Calificación de Vendedores",
     "menu.Solicitudes Pendientes": "Solicitudes Pendientes",
+    "menu.Parametrizar Centros de Acopio": "Parametrizar Centros de Acopio",
 
     "module.Documentación": "Documentación",
     "module.Ofertas": "Ofertas",
@@ -1144,6 +1145,14 @@
     "secure.parametize.support_claims-filter.orderNumber": "Número del pedido",
     "secure.parametize.support_claims-filter.clear": "Limpiar",
     "secure.parametize.support_claims-filter.filter": "Filtrar",
+
+    "secure.parametize.port.port": "Puerto",
+    "secure.parametize.port.country": "País",
+    "secure.parametize.port.collection_center": "Centro de acopio",
+    "secure.parametize.port.address": "Dirección",
+    "secure.parametize.port.action": "Acción",
+    "secure.parametize.port.apply": "Aplica",
+    "secure.parametize.port.btn_add_port": "Agregar centro de acopio",
 
     "secure.parametize.support_claims-upload-btn.title": "SELECCIONAR ARCHIVO PARA IMPORTAR",
     "secure.parametize.support_claims-upload-general-error": "El documento adjunto que estas tratando de cargar no es compatible con nuestra plataforma, te pedimos tener en cuenta las siguientes recomendaciones: Tu vídeo no puede durar más de 90 segundos y los formatos permitidos son : AVI, 3GP (móviles), MOV (Mac), WMV (Windows), MPG, MPEG y MP4 con un peso máximo de 4 MB. Las imágenes que puedes cargar deben estar en JPG, PNG o documentos en PDF, Excel o Word",

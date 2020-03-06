@@ -1,0 +1,218 @@
+<div class="content-order my-content">
+
+  <div fxFlex class="container" fxLayout="row wrap" fxLayoutAlign="center start">
+    <div fxFlex="100" class="light-content">
+      <!-- Toolbar para los dropdown de filtro de estado para las órdenes -->
+      <!-- Toolbar de las opciones para la orden -->
+      <!-- <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [downloadPermission]="downloadPermission"></app-toolbar-options> -->
+      <!-- Toolbar de las opciones para la orden -->
+      <app-toolbar-search-pagination [isClear]="isClear" [informationToForm]="informationToForm" [state]="lastState"
+        [idSeller]="idSeller" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)"
+        (paginationListOrdens)="paginations($event)" [pageIndexChange]="pageIndexChange"
+        (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [downloadPermission]="downloadPermission"
+        [Typeprofile]="3" [lengthOrder]="length" (filterCalifications)="toggleFilterPorts()">
+      </app-toolbar-search-pagination>
+    </div>
+
+    <div style="width: 100%; padding: 35px;">
+    <div fxLayout="column" style="width: 100%">
+      <div fxLayout="row">
+        <div class="port-component-label-filter">
+          <div class="example-chip-list">
+            <mat-chip-list #chipList>
+              <mat-chip *ngFor="let productsFilter of listFilterBrands" [selectable]="selectable" [removable]="removable"
+                (removed)="remove(productsFilter)">
+                {{productsFilter.name}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" disabled>
+            </mat-chip-list>
+          </div>
+        </div>
+        <div class="port-component-button-add">
+          <div id="addButton" class="container-group-add-button">
+            <button mat-button (click)="upsetBrands()">
+              <mat-icon class="material-icons">
+                control_point
+              </mat-icon>
+              {{'secure.parametize.port.btn_add_port'| translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <!-- Tabla de órdenes -->
+    <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="97" fxFlex.lg="97" fxFlex.xl="97" class="port-component-content-table-center-collection">
+
+      <!-- matSort: Permite filtrar la tabla por los titulos de las columnas -->
+      <mat-table #table [dataSource]="dataSource" matSort>
+      
+        <!-- channel Column -->
+        <ng-container matColumnDef="port">
+          <mat-header-cell class='marginListAdminTotal' fxShow.xs="false"
+            fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10"
+            fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
+            <span class="title-table-header">{{'secure.parametize.port.port' | translate}}</span>
+          </mat-header-cell>
+          <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
+            fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal">{{element.port}}</p>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="country">
+          <mat-header-cell class='marginListAdminTotal' fxShow.xs="false"
+            fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10"
+            fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
+            <span class="title-table-header">{{'secure.parametize.port.country' | translate}}</span>
+          </mat-header-cell>
+          <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
+            fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal">{{element.country}}</p>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="collection_center">
+          <mat-header-cell class='marginListAdminTotal' fxShow.xs="false"
+            fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10"
+            fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
+            <span class="title-table-header">{{'secure.parametize.port.collection_center' | translate}}</span>
+          </mat-header-cell>
+          <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
+            fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal">{{element.collection_center}}</p>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="address">
+          <mat-header-cell class='marginListAdminTotal' fxShow.xs="false"
+            fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10"
+            fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
+            <span class="title-table-header">{{'secure.parametize.port.address' | translate}}</span>
+          </mat-header-cell>
+          <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
+            fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal">{{element.address}}</p>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <mat-header-cell class="port-component-text-aling"  fxShow.xs="false"
+            fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10"
+            fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
+            <span class="title-table-header">{{'secure.parametize.port.action' | translate}}</span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
+            fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element" class="port-component-text-aling" >
+            <mat-icon class="mat-18 port-component-color-icon-edit">edit</mat-icon>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="apply">
+          <mat-header-cell class="port-component-text-aling"  fxShow.xs="false"
+            fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10"
+            fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
+            <span class="title-table-header">{{'secure.parametize.port.apply' | translate}}</span>
+          </mat-header-cell>
+          <mat-cell  fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
+            fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element" class="port-component-text-aling">
+            <mat-slide-toggle class="example-margin"  (click)="changeStatusBrands($event, element)" [checked]=element.apply></mat-slide-toggle>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Creación de las filas para la tabla -->
+        <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
+        <mat-row id="order-number-{{index}}" *matRowDef="let index=index; let row; columns: displayedColumns;"
+          class="element-row personal-row-table" [cdkDetailRow]="row" [cdkDetailRowTpl]="tpl">
+        </mat-row>
+      </mat-table>
+    </div>
+  </div>
+</div>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenavSearchOrder mode="over" position="end" opened="{{stateSideNavOrder}}">
+    <mat-card class="content-profile calification-list-93-height">
+      <mat-nav-list class="light-content">
+        <mat-toolbar color="primary" class="toolbar-title-search">
+          <h4 class="title-toolbar">{{informationToForm.title_for_search | translate}}</h4>
+          <button color="accent" [matTooltip]="'actions.close' | translate" matTooltipPosition="below" mat-icon-button
+            mat-button (click)="toggleFilterPorts()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-toolbar>
+      </mat-nav-list>
+      <mat-card-content>
+        <!-- <form class="example-container" #createfilterCalisification="ngForm" [formGroup]="filterCalifications"
+          class="seller-filter-sidenav">
+        <div>
+            <div>
+              <div class="calification-list-style-text-select-filter">
+                <span>
+                  {{textSelector}}
+                </span>
+              </div>
+              <div>
+                <mat-radio-group >
+                  <mat-radio-button value="1" #rdCalification name="radio" class="calification-list-filter-selector-radio" (click)="selectorFilter(1)">Mes calificado</mat-radio-button>
+                  <mat-radio-button value="2" #rdEmit name="radio" class="calification-list-filter-selector-radio" (click)="selectorFilter(2)">Mes emitido</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div class="calification-list-padding-container" [hidden]="showSelectorMouthQuality">
+                <div class="calification-list-color">
+                  <mat-icon class="mat-18 calification-list-vertical-aling">today</mat-icon>
+                  Fecha calificado <span class="calification-list-font-size">(MM/AAAA)</span>
+                </div>
+                <div class="calification-list-padding-left">
+                  <mat-form-field class="calification-list-width-complete">
+                    <input matInput [placeholder]="'secure.parametize.support_claims-filter.start-date' | translate"
+                      formControlName="dateInitQualityMonth" [errorStateMatcher]="matcher">
+                    <mat-error *ngIf="filterCalifications.get('dateInitQualityMonth').hasError('pattern')"
+                      [innerHTML]="'Fecha invalida'"></mat-error>
+                  </mat-form-field>
+    
+                  <mat-form-field class="calification-list-width-complete">
+                    <input matInput [placeholder]="'secure.parametize.support_claims-filter.end-date' | translate"
+                      formControlName="dateFinalQualityMonth" [errorStateMatcher]="matcher">
+                    <mat-error *ngIf="filterCalifications.get('dateFinalQualityMonth').hasError('pattern')"
+                      [innerHTML]="'Fecha invalida'"></mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+             <div [hidden]="showSelectorMouthEmit" class="calification-list-margin-date">
+              <div class="calification-list-color">
+                <mat-icon class="mat-18 calification-list-vertical-aling" >today</mat-icon>
+                Fecha Emitido <span class="calification-list-font-size">(MM/AAAA)</span>
+              </div>
+              <div class="calification-list-padding-left">
+                <mat-form-field class="calification-list-width-complete">
+                  <input matInput [placeholder]="'secure.parametize.support_claims-filter.start-date' | translate"
+                    formControlName="dateInitQualityIssued" [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="filterCalifications.get('dateInitQualityIssued').hasError('pattern')"
+                    [innerHTML]="'Fecha invalida'"></mat-error>
+                </mat-form-field>
+  
+                <mat-form-field class="calification-list-width-complete">
+                  <input matInput [placeholder]="'secure.parametize.support_claims-filter.end-date' | translate"
+                    formControlName="dateFinalQualityIssued" [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="filterCalifications.get('dateFinalQualityIssued').hasError('pattern')"
+                    [innerHTML]="'Fecha invalida'"></mat-error>
+                </mat-form-field>
+              </div>
+             </div>
+            </div>
+            <div>
+              <div class="orders-search-option normal-theme calification-list-filter-btn-clear" >
+                <button  class="sc-button" mat-button type="button" (click)="clearForm()">
+                  <mat-icon>clear_all</mat-icon>
+                  {{'filters.clear' | translate}}
+                </button>
+                <button  [disabled]="!createfilterCalisification.form.valid || !createfilterCalisification.form.touched" class="sc-button" mat-raised-button color="primary"
+                  type="submit" (click)="filterCalification(filterCalifications.value)">
+                  {{'actions.apply' | translate}}
+                </button>
+              </div>
+            </div>
+        </div>
+        </form> -->
+      </mat-card-content>
+    </mat-card>
+  </mat-sidenav>
+</mat-sidenav-container>

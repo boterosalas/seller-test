@@ -98,6 +98,11 @@
         <mat-icon>filter_list</mat-icon>
         {{'filters.filter' | translate}}
       </button>
+      <button fxShow.xs="false" *ngIf="Typeprofile == 3 "  fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button btn-filter input-search-black"
+        id="search-order-button" (click)="toggleMenuCalifications()" style="top: 11px" mat-button color="primary">
+        <mat-icon>filter_list</mat-icon>
+        {{'filters.filter' | translate}}
+      </button>
       <button fxShow.xs="false"  *ngIf="Typeprofile == 0"  fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button btn-filter input-search-black"
         id="search-order-button" (click)="toggleMenuOrderSearch()" style="top: 11px" mat-button color="primary">
         <mat-icon>filter_list</mat-icon>

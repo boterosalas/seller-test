@@ -1,0 +1,49 @@
+@import '~@angular/material/theming'; // always include only once per project
+@import '_variables';
+@include mat-core();
+$green: mat-palette($mat-green);
+$amber: mat-palette($mat-amber);
+$blue: mat-palette($mat-indigo);
+
+
+
+:host ::ng-deep .content-order {
+  & .container {
+    min-width: 300px;
+    flex-direction: column;
+    display: flex;
+    padding: 0;
+  }
+}
+
+.marginListAdmin{
+  max-width: 191px;
+}
+.marginListAdminTotal{
+  max-width: 390px !important;
+}
+
+.port-component{
+  &-content-table-center-collection{
+    padding: 0px 40px 40px 40px;
+  }
+
+  &-color-icon-edit{
+    color: #5e5e5e;
+    cursor: pointer;
+  }
+
+  &-text-aling{
+    justify-content:center;
+  }
+
+  &-label-filter {
+    margin-top: 10px;
+    width: calc(100% - 166px);
+  }
+
+  &-button-add {
+    text-align: right;
+    color: #485AFA;
+  }
+}
