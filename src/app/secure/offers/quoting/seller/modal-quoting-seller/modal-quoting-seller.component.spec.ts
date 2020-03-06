@@ -59,7 +59,7 @@ fdescribe('ModalQuotingSellerComponent', () => {
             Errors: [],
             body: {
                 Data: [
-                    { Id: 29, Name: 'aja', IdShippingMethod: 1 },
+                    { Id: 29, Name: 'aja', IdShippingMethod: 1, Method: 'Hola' },
                 ]
             }
         }
@@ -155,6 +155,10 @@ fdescribe('ModalQuotingSellerComponent', () => {
         mockListZonesService.getListZones.and.returnValue(of(resListZones));
         mockSearchService.getCategories.and.returnValue(of(resCategory));
         loadingService = TestBed.get(LoadingService);
+        component.transportTypeList = resShipingMethods.body.Data;
+        component.listZones = resListZones.body.body.Data;
+        component.listTransporters = resListTransport.body.body.Data;
+
         localStorage.setItem('userId', UserInformation.sellerId);
         fixture.detectChanges();
     });
@@ -170,5 +174,20 @@ fdescribe('ModalQuotingSellerComponent', () => {
         expect(component.quotingRegex).toEqual(ofertas);
         component.validateFormSupport();
         // expect(component.BrandsRegex).not.toEqual(dashboard);
+    });
+    it('Get name and Id of method shiping', () => {
+        component.transportTypeList = resShipingMethods.body.Data;
+        expect(component.setIdandNameMethod).toBeTruthy();
+        component.setIdandNameMethod(1);
+    });
+    it('Get name and Id of zone', () => {
+        component.listZones = resListZones.body.body.Data;
+        expect(component.setIdandNameMethod).toBeTruthy();
+        component.setIdandNameZone(9);
+    });
+    it('Get name and Id of conveyor', () => {
+        component.listTransporters = resListTransport.body.body.Data;
+        expect(component.setIdandNameMethod).toBeTruthy();
+        component.setIdandNameTransport(29);
     });
 });

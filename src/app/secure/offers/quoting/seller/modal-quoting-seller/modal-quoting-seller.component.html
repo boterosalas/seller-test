@@ -156,14 +156,15 @@
 
     </form>
     <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
-      <button *ngIf="action === actions.add && stepper[stepTwo].show" id="btn-create-transporter" type="button"
-        mat-raised-button color="primary" [mat-dialog-close]="true">
+      <button
+        *ngIf="action === actions.add && stepper[stepTwo].show || action === actions.update && stepper[stepTwo].show"
+        id="btn-create-transporter" type="button" mat-raised-button color="primary" [mat-dialog-close]="true">
         {{'actions.cancel' | translate}}
       </button>
       <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" (click)="saveQuoting()"
         [disabled]="secondForm.invalid"
         *ngIf="action === actions.add && stepper[stepTwo].show || action === actions.update && stepper[stepTwo].show">
-        {{'actions.save' | translate}}
+        {{'actions.accept' | translate}}
       </button>
     </div>
   </div>
