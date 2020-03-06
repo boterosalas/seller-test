@@ -17,13 +17,25 @@
       {{'secure.offers.quoting.seller.new_opcion_body' | translate}}
     </p>
   </div>
+  <div *ngIf="action === actions.delete">
+    <h3 *ngIf="action === actions.delete" class="title">
+      {{'secure.offers.quoting.seller.delete_shipping' | translate}}
+    </h3>
+    <p class="quoting-seller--text" *ngIf="action === actions.delete">
+      {{'secure.offers.quoting.seller.delete_shipping_option' | translate}}
+    </p>
+    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
+      <button id="btn-create-transporter" id="btn-create-transporter" type="button" mat-raised-button color="primary" [mat-dialog-close]="true"
+        *ngIf="action === actions.delete">
+        {{'actions.cancel' | translate}}
+      </button>
+      <button id="btn-create-transporter" (click)="deleteIdQuote()" type="submit" mat-raised-button color="primary"
+        [disabled]="formZone" *ngIf="action === actions.delete">
+        {{'actions.delete' | translate}}
+      </button>
+    </div>
+  </div>
 
-  <h3 *ngIf="action === actions.delete">
-    {{'secure.offers.quoting.seller.delete_shipping' | translate}}
-  </h3>
-  <p class="quoting-seller--text" *ngIf="action === actions.delete">
-    {{'secure.offers.quoting.seller.delete_shipping_option' | translate}}
-  </p>
   <div fxLayout="column" class="quoting-seller--container" *ngIf="action === actions.add || action === actions.update">
     <form *ngIf="stepper[stepOne].show" fxLayout="column" [formGroup]="principalForm"
       (ngSubmit)="next(stepOne, principalForm)">
@@ -129,7 +141,7 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field fxFlex="100" class="marginInputsValues">
-          <input formControlName="shippingValue{{i}}" matInput
+          <input formControlName="shippingValue{{i}}" matInput 
             placeholder="{{placeholders[fields -1].shippingValue}}" />
           <mat-error
             *ngIf="secondForm.controls['shippingValue'+i] && secondForm.controls['shippingValue'+i].hasError('required')"
@@ -142,7 +154,7 @@
         </mat-form-field>
 
         <button type="button" *ngIf="last && i > 0" (click)="removeItem(i)" mat-icon-button
-          aria-label="Example icon-button with a heart icon">
+          aria-label="Example icon-button with a heart icon" class="deleteRange">
           <mat-icon>delete</mat-icon>
         </button>
       </div>
@@ -170,7 +182,7 @@
   </div>
 </div>
 
-<div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
+<!-- <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
   <button id="btn-create-transporter" type="button" mat-raised-button color="primary" *ngIf="action === actions.delete">
     {{'actions.cancel' | translate}}
   </button>
@@ -179,4 +191,4 @@
     {{'actions.delete' | translate}}
   </button>
 
-</div>
+</div> -->
