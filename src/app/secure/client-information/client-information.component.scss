@@ -1,4 +1,8 @@
-.client-information-container {
+.client-delivery-information-wrapper{
+  background-color: #eAeAeA;
+}
+.client-information-container,
+.delivery-information-container {
   padding-left: 54px;
   padding-bottom: 10px;
   padding-top: 10px;
@@ -11,7 +15,8 @@
   font-weight: 600;
 }
 
-.content-information-client {
+.content-information-client,
+.content-information-delivery {
   margin-top: 10px;
   display: inline-block;
   
@@ -20,14 +25,16 @@
   }
 }
 
-.client-information {
+.client-information,
+.delivery-information {
   color: black;
   font-weight: 600;
   font-size: 13px;
   width: auto;
 }
 
-.client-data {
+.client-data,
+.delivery-data {
   color: black;
   font-size: 13px;
   width: auto;

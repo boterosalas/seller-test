@@ -1,4 +1,4 @@
-<div *ngIf="isInternational" fxFlex="100" fxLayout="row wrap" fxFlexAlign="start center">
+<div *ngIf="isInternational" class="client-delivery-information-wrapper" fxFlex="100" fxLayout="row wrap" fxFlexAlign="start center">
   <div class="client-information-container" fxFlex="40" fxFlex.sm="50" fxFlex.xs="100" fxLayout="column nowrap" fxFlexAlign="start center">
     <span class="content-information-title" fxFlex="100">{{'secure.client_information.customer_information' | translate}}</span>
     <div class="light-content" fxFlex="100">
@@ -21,7 +21,7 @@
     </div>
   </div>
 
-  <div class="client-information-container" fxFlex="60" fxFlex.sm="50" fxFlex.xs="100" fxLayout="column nowrap" fxFlexAlign="start center">
+  <div *ngIf="order.port" class="delivery-information-container" fxFlex="60" fxFlex.sm="50" fxFlex.xs="100" fxLayout="column nowrap" fxFlexAlign="start center">
     <span class="content-information-title" fxFlex="100">{{'secure.client_information.delivery_address' | translate}}</span>
     <!-- <div class="light-content" fxFlex="100">
       <div class="content-information-client is-international">
@@ -31,15 +31,15 @@
       </div>
     </div> -->
     <div class="light-content" fxFlex="100">
-      <div class="content-information-client is-international">
-        <p class="client-information n-margin mr-5">{{'secure.client_information.address' | translate}}:</p>
-        <p class="client-data n-margin">{{order.port ? order.port.phone : ''}}</p>
+      <div class="content-information-delivery is-international">
+        <p class="delivery-information n-margin mr-5">{{'secure.client_information.address' | translate}}:</p>
+        <p class="delivery-data n-margin">{{order.port.phone}}</p>
       </div>
     </div>
     <div class="light-content" fxFlex="100">
-      <div class="content-information-client is-international">
-        <p class="client-information n-margin mr-5">{{'secure.client_information.phone' | translate}}:</p>
-        <p class="client-data n-margin">{{order.port ? order.port.phone : ''}}</p>
+      <div class="content-information-delivery is-international">
+        <p class="delivery-information n-margin mr-5">{{'secure.client_information.phone' | translate}}:</p>
+        <p class="delivery-data n-margin">{{order.port.phone}}</p>
       </div>
     </div>
   </div>
