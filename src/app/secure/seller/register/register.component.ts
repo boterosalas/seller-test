@@ -192,7 +192,7 @@ export class RegisterSellerComponent implements OnInit {
       Country: new FormControl,
       State: new FormControl,
       City: new FormControl,
-      // DeliveryCenter: new FormControl,
+      Port: new FormControl,
       DaneCode: new FormControl(Validators.pattern(this.sellerRegex.integerNumber)),
       SincoDaneCode: new FormControl(Validators.pattern(this.sellerRegex.integerNumber)),
       Name: new FormControl({ value: '', disabled: disabledForm }, [
@@ -496,6 +496,11 @@ export class RegisterSellerComponent implements OnInit {
    */
   receivePortItem($event: any) {
     console.log($event);
+    if ($event && $event !== undefined && $event !== null) {
+      this.validateFormRegister.controls['Port'].setValue($event.id);
+    } else {
+      this.validateFormRegister.controls['Port'].setValue(null);
+    }
   }
 
   disabledButton() {
