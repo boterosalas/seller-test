@@ -284,26 +284,31 @@ export class ModalQuotingSellerComponent implements OnInit {
         ];
         this.title = this.languageService.instant('secure.offers.quoting.seller.category_rank');
         break;
-      case 2:
-        this.secondForm.controls[`initialValue${0}`].setValue(8000);
-        validators = [
-          this.secondForm.controls[`initialValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.priceInfinite)]),
-          this.secondForm.controls[`finalValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.freightInfinite)]),
-          this.secondForm.controls[`shippingValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.freightInfinite)])
-        ];
-        this.title = this.languageService.instant('secure.offers.quoting.seller.price_rank');
-        this.subTitle = this.languageService.instant('secure.offers.quoting.seller.price_rank_value');
-        break;
-      case 3:
-        this.secondForm.controls[`initialValue${0}`].setValue(0);
-        validators = [
-          this.secondForm.controls[`initialValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.formatNumberInfinito)]),
-          this.secondForm.controls[`finalValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.formatNumberInfinito)]),
-          this.secondForm.controls[`shippingValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.freightInfinite)])
-        ];
-        this.title = this.languageService.instant('secure.offers.quoting.seller.weight_rank');
-        this.subTitle = this.languageService.instant('secure.offers.quoting.seller.weight_rank_value');
-        break;
+        case 2:
+          if(this.indexForm.length === 1) {
+            this.secondForm.controls[`initialValue${0}`].setValue(8000);
+          }
+          validators = [
+            this.secondForm.controls[`initialValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.priceInfinite)]),
+            this.secondForm.controls[`finalValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.freightInfinite)]),
+            this.secondForm.controls[`shippingValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.freightInfinite)])
+          ];
+          this.title = this.languageService.instant('secure.offers.quoting.seller.price_rank');
+          this.subTitle = this.languageService.instant('secure.offers.quoting.seller.price_rank_value');
+          break;
+        case 3:
+          if(this.indexForm.length === 1) {
+            this.secondForm.controls[`initialValue${0}`].setValue(0);
+          }
+          console.log(this.quotingRegex.formatNumberInfinito);
+          validators = [
+            this.secondForm.controls[`initialValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.formatNumberInfinito)]),
+            this.secondForm.controls[`finalValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.formatNumberInfinito)]),
+            this.secondForm.controls[`shippingValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.freightInfinite)])
+          ];
+          this.title = this.languageService.instant('secure.offers.quoting.seller.weight_rank');
+          this.subTitle = this.languageService.instant('secure.offers.quoting.seller.weight_rank_value');
+          break;
     }
     return validators;
   }
