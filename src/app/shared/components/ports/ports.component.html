@@ -1,4 +1,4 @@
-<mat-form-field class="ports-field full-width" style="width:100% !important;" [formGroup]="validateFormRegister">
+<mat-form-field class="register-ports-field full-width" style="width:100% !important;" [formGroup]="validateFormRegister">
   <mat-select [placeholder]="'secure.seller.register_seller.lb_postal_ports' | translate" formControlName="portsFormControl" id="register-cities" required>
       <mat-option *ngFor='let port of listPorts' [value]="port.id" [innerHTML]="port.name" (click)="setDataPort(port)"></mat-option>
   </mat-select>

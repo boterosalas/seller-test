@@ -490,7 +490,7 @@ export class RegisterSellerComponent implements OnInit {
   }
 
   /**
-   * @method receivePortItem Metodo para obtener la data de la ciudad.
+   * @method receivePortItem Metodo para obtener la data del puerto seleccionado.
    * @param
    * @memberof RegisterSellerComponent
    */
