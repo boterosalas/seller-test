@@ -489,6 +489,15 @@ export class RegisterSellerComponent implements OnInit {
     }
   }
 
+  /**
+   * @method receivePortItem Metodo para obtener la data de la ciudad.
+   * @param
+   * @memberof RegisterSellerComponent
+   */
+  receivePortItem($event: any) {
+    console.log($event);
+  }
+
   disabledButton() {
     this.activeButton = false;
   }
@@ -518,6 +527,10 @@ export class RegisterSellerComponent implements OnInit {
 
   get City(): FormControl {
     return this.validateFormRegister.get('City') as FormControl;
+  }
+
+  get Port(): FormControl {
+    return this.validateFormRegister.get('Port') as FormControl;
   }
 
   get PostalCode(): FormControl {

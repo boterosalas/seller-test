@@ -107,6 +107,7 @@ export function createTranslateLaoder(http: HttpClient) {
     NoWhitespaceDirective,
     StatesComponent,
     CitiesComponent,
+    PortsComponent,
     ToolbarTittleModule,
     SearchSellerComponent,
     ControlMessagesComponent,

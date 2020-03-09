@@ -387,3 +387,8 @@ export interface CitiesEntity {
   City?: string;
   State?: string;
 }
+
+export interface PortEntity {
+  id: number,
+  name: string,
+}

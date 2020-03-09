@@ -541,6 +541,7 @@
     "secure.seller.register_seller.lb_state_form": "Departamento",
     "secure.seller.register_seller.lb_city_form": "Ciudad",
     "secure.seller.register_seller.lb_postal_code_form": "Código postal",
+    "secure.seller.register_seller.lb_postal_ports": "Centro de Acopio",
     "secure.seller.register_seller.lb_phone_form": "Teléfono",
     "secure.seller.register_seller.lb_payoneer_form": "Payoneer",
     "secure.seller.register_seller.lb_nit_form": "NIT",
