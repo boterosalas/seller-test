@@ -71,7 +71,8 @@ export class ModalQuotingSellerComponent implements OnInit {
   quotingRegex = {
     priceInfinite: '',
     formatNumberInfinito: '',
-    freightInfinite: ''
+    freightInfinite: '',
+    freightInfiniteNoZero: ''
   };
   subTitle: string;
   public user: any;
@@ -299,7 +300,7 @@ export class ModalQuotingSellerComponent implements OnInit {
         validators = [
           this.secondForm.controls[`initialValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.formatNumberInfinito)]),
           this.secondForm.controls[`finalValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.formatNumberInfinito)]),
-          this.secondForm.controls[`shippingValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.freightInfinite)])
+          this.secondForm.controls[`shippingValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.freightInfiniteNoZero)])
         ];
         this.title = this.languageService.instant('secure.offers.quoting.seller.weight_rank');
         this.subTitle = this.languageService.instant('secure.offers.quoting.seller.weight_rank_value');
@@ -324,7 +325,7 @@ export class ModalQuotingSellerComponent implements OnInit {
       }
     });
   }
-
+  
   /**
    * Metodo para ir añadiendo los controles de cada rango de parametrizacíon
    * @memberof ModalQuotingSellerComponent
