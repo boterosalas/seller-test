@@ -290,7 +290,7 @@ export class ModalQuotingSellerComponent implements OnInit {
         validators = [
           this.secondForm.controls[`initialValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.priceInfinite)]),
           this.secondForm.controls[`finalValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.freightInfinite)]),
-          this.secondForm.controls[`shippingValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.freightInfinite)])
+          this.secondForm.controls[`shippingValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.freightInfiniteNoZero)])
         ];
         this.title = this.languageService.instant('secure.offers.quoting.seller.price_rank');
         this.subTitle = this.languageService.instant('secure.offers.quoting.seller.price_rank_value');
