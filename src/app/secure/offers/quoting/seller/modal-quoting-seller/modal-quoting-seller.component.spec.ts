@@ -20,6 +20,7 @@ export const registerRegex = [
     { Identifier: 'formatNumberInfinito', Value: '^([0-9]+([.][0-9]{2})?)$|^((Infinito|Infinite)$)', Module: 'ofertas' },
     { Identifier: 'priceInfinite', Value: '^[0-9]+$|^((Infinito|Infinite)$)', Module: 'ofertas' },
     { Identifier: 'freightInfinite', Value: '^[1-9]+$|^((Infinito|Infinite)$)|^[0]{1}$', Module: 'ofertas' },
+    { Identifier: 'freightInfiniteNoZero', Value: '^([1-9][0-9]*)$|^((Infinito|Infinite)$)', Module: 'ofertas' },
 ];
 
 describe('ModalQuotingSellerComponent', () => {
@@ -166,7 +167,8 @@ describe('ModalQuotingSellerComponent', () => {
         const ofertas = {
             formatNumberInfinito: '^([0-9]+([.][0-9]{2})?)$|^((Infinito|Infinite)$)',
             priceInfinite: '^[0-9]+$|^((Infinito|Infinite)$)',
-            freightInfinite: '^[1-9]+$|^((Infinito|Infinite)$)|^[0]{1}$'
+            freightInfinite: '^[1-9]+$|^((Infinito|Infinite)$)|^[0]{1}$',
+            freightInfiniteNoZero: '^([1-9][0-9]*)$|^((Infinito|Infinite)$)'
         };
         expect(component.quotingRegex).toEqual(ofertas);
         component.validateFormSupport();
