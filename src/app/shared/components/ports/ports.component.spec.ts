@@ -15,8 +15,9 @@ import { LoadingService, ModalService, EndpointService } from '@app/core';
 
 import { PortsComponent } from './ports.component';
 import { PortsService } from './ports.service';
+import { PortEntity } from '@app/shared/models';
 
-fdescribe('PortsComponent', () => {
+describe('PortsComponent', () => {
     // Mock Services
     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
     const mockDialogError = jasmine.createSpyObj('ModalService', ['showModal']);
@@ -27,6 +28,23 @@ fdescribe('PortsComponent', () => {
     let component: PortsComponent;
     let fixture: ComponentFixture<PortsComponent>;
     let formGroupMock: FormGroup;
+
+    const listPorts: Array<PortEntity> = [
+        {
+            id: 1,
+            name: "Port 1"
+        },
+        {
+            id: 2,
+            name: "Port 2"
+        },
+        {
+            id: 3,
+            name: "Port 3"
+        }
+    ];
+
+    const portEmittedDataMock = {id: 3, name: "Port 3"};
 
     // Services
     let portsService: PortsService;
@@ -74,15 +92,40 @@ fdescribe('PortsComponent', () => {
 
     describe('Loading ports data', () => {
         beforeEach(() => {
-            
+
             formGroupMock = new FormGroup({
                 portsFormControl: new FormControl({ value: 'prueba', disabled: true }, [Validators.required])
             });
-            
+
         });
         it('Should validateFormRegister be created', () => {
             component.validateFormRegister = formGroupMock;
             expect(component.validateFormRegister.controls['portsFormControl'].value).toEqual('prueba');
+        });
+
+        it('Should getPortsDropdown be called', () => {
+            const getPortsSpy = spyOn(component, "getPortsDropdown");
+            component.ngOnInit();
+            expect(getPortsSpy).toHaveBeenCalled();
+        });
+
+        it('Should getPortsDropdown return an array of ports', () => {
+            component.getPortsDropdown();
+            mockPortsService.fetchData.and.returnValue(of(listPorts));
+            if (!component.disabledComponent) {
+                expect(component.validateFormRegister.controls['portsFormControl'].enabled).toBeTruthy();
+            }
+        })
+
+        it('Should emit a value when select value changes', () => {
+            fixture.whenStable().then(() => {
+                tick();
+                const select: HTMLSelectElement = fixture.debugElement.query(By.css('#register-ports')).nativeElement;
+                select.value = select.options[2].value;  // <-- select a new value
+                select.dispatchEvent(new Event('change'));
+                fixture.detectChanges();
+                expect(component.portItemEmmited.emit).toHaveBeenCalledWith(portEmittedDataMock);
+            })
         })
     })
 });

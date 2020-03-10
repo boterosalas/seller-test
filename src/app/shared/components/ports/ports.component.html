@@ -1,5 +1,5 @@
 <mat-form-field class="register-ports-field full-width" style="width:100% !important;" [formGroup]="validateFormRegister">
-  <mat-select [placeholder]="'secure.seller.register_seller.lb_postal_ports' | translate" formControlName="portsFormControl" id="register-cities" required>
+  <mat-select [placeholder]="'secure.seller.register_seller.lb_postal_ports' | translate" formControlName="portsFormControl" id="register-ports" required>
       <mat-option *ngFor='let port of listPorts' [value]="port.id" [innerHTML]="port.name" (click)="setDataPort(port)"></mat-option>
   </mat-select>
   <mat-error id="error-ports-required" *ngIf="validateFormRegister.get('portsFormControl').hasError('required')" [innerHTML]="'Este campo es requerido.'"></mat-error>

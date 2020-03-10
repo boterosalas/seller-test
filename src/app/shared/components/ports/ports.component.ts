@@ -54,7 +54,7 @@ export class PortsComponent implements OnInit, OnChanges {
     this.loadingService.viewSpinner();
     this.portService.fetchData().subscribe(
       (data: any) => {
-        console.log(data);
+        // console.log(data);
         this.listPorts = data;
         if (!this.disabledComponent) {
           this.validateFormRegister.get('portsFormControl').enable();
