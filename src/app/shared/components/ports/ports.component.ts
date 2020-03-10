@@ -14,7 +14,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-ports',
   templateUrl: './ports.component.html',
-  styleUrls: ['./ports.component.scss'],
   providers: [PortsService]
 })
 export class PortsComponent implements OnInit, OnChanges {

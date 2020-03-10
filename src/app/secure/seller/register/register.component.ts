@@ -495,7 +495,6 @@ export class RegisterSellerComponent implements OnInit {
    * @memberof RegisterSellerComponent
    */
   receivePortItem($event: any) {
-    console.log($event);
     if ($event && $event !== undefined && $event !== null) {
       this.validateFormRegister.controls['Port'].setValue($event.id);
     } else {

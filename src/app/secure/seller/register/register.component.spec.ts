@@ -112,7 +112,7 @@ describe('RegisterSellerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  fdescribe('Admin login', () => {
+  describe('Admin login', () => {
     // BeforeEach asincrono debido a la ejecución del metodo de logeo
     beforeAll(async () => {
       // clona el modelo de respuesta de un usuario
@@ -688,7 +688,7 @@ describe('RegisterSellerComponent', () => {
         });
       });
 
-      fit('Should be fail Port with /', () => {
+      it('Should be fail Port with /', () => {
         fixture.whenStable().then(() => {
           tick();
           expect(component.isColombiaSelect).toBeFalsy();
@@ -702,7 +702,7 @@ describe('RegisterSellerComponent', () => {
         })
       })
 
-      fit('Should be fail Port with \\', () => {
+      it('Should be fail Port with \\', () => {
         fixture.whenStable().then(() => {
           tick();
           expect(component.isColombiaSelect).toBeFalsy();
@@ -716,7 +716,7 @@ describe('RegisterSellerComponent', () => {
         })
       })
 
-      fit('Should call receivePortItem when port select value change', () => {
+      it('Should call receivePortItem when port select value change', () => {
         fixture.whenStable().then(() => {
           tick();
           expect(component.isColombiaSelect).toBeFalsy();
