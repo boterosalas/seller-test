@@ -73,6 +73,7 @@ export class ManageSellerComponent implements OnInit {
   public state: FormControl;
   public city: FormControl;
   public daneCode: FormControl;
+  public port: FormControl;
   public sincoDaneCode: FormControl;
   public name: FormControl;
   public isLogisticsExito: FormControl;
@@ -328,6 +329,7 @@ export class ManageSellerComponent implements OnInit {
     this.state = new FormControl({ value: '', disabled: disable }, [Validators.required]);
     this.city = new FormControl({ value: '', disabled: disable });
     this.daneCode = new FormControl({ value: '', disabled: disable });
+    this.port = new FormControl([Validators.required]);
     this.sincoDaneCode = new FormControl({ value: '', disabled: disable });
     this.name = new FormControl
       ({ value: '', disabled: disable }, [Validators.required,
@@ -366,6 +368,7 @@ export class ManageSellerComponent implements OnInit {
       State: this.state,
       City: this.city,
       DaneCode: this.daneCode,
+      Port: this.port,
       SincoDaneCode: this.sincoDaneCode,
       Name: this.name,
       Policy: this.policy,
@@ -392,7 +395,7 @@ export class ManageSellerComponent implements OnInit {
   /**
    * @method keyPress que permite solo el ingreso de números
    * @param event
-   * @memberof RegisterSellerComponent
+   * @memberof ManageSellerComponent
    */
   keyPress(event: any, inputName: string): void {
     if (inputName === 'phoneNumber' && this.isColombiaSelect === true) {
@@ -411,7 +414,7 @@ export class ManageSellerComponent implements OnInit {
    *
    * @method Metodo para validar si existe el parametro despues de cambiar el focus del input
    * @param {*} event
-   * @memberof RegisterSellerComponent
+   * @memberof ManageSellerComponent
    */
   validateExist(event: any, param: string): void {
     if (this.initialEmail !== this.validateFormRegisterAdmin.controls.Email.value || this.initialName !== this.validateFormRegisterAdmin.controls.Name.value ||
@@ -459,7 +462,7 @@ export class ManageSellerComponent implements OnInit {
   /**
    * @method receiveDataState Metodo para obtener la data de departamento.
    * @param
-   * @memberof RegisterSellerComponent
+   * @memberof ManageSellerComponent
    */
   receiveDataState($event: any): void {
     if ($event && $event !== undefined && $event !== null) {
@@ -478,7 +481,7 @@ export class ManageSellerComponent implements OnInit {
   /**
    * @method receiveDataCitie Metodo para obtener la data de la ciudad.
    * @param
-   * @memberof RegisterSellerComponent
+   * @memberof ManageSellerComponent
    */
   receiveDataCitie($event: any): void {
     if ($event && $event !== undefined && $event !== null) {
@@ -489,6 +492,19 @@ export class ManageSellerComponent implements OnInit {
         this.validateFormRegister.controls['DaneCode'].markAsTouched();
       }
       this.activeForm = true;
+    }
+  }
+
+  /**
+   * @method receivePortItem Metodo para obtener la data del puerto seleccionado.
+   * @param
+   * @memberof ManageSellerComponent
+   */
+  receivePortItem($event: any) {
+    if ($event && $event !== undefined && $event !== null) {
+      this.validateFormRegister.controls['Port'].setValue($event.id);
+    } else {
+      this.validateFormRegister.controls['Port'].setValue(null);
     }
   }
 
@@ -718,6 +734,9 @@ export class ManageSellerComponent implements OnInit {
   }
   get PostalCode(): FormControl {
     return this.validateFormRegister.get('DaneCode') as FormControl;
+  }
+  get Port(): FormControl {
+    return this.validateFormRegister.get('Port') as FormControl;
   }
   get Payoneer(): FormControl {
     return this.validateFormRegister.get('Payoneer') as FormControl;
