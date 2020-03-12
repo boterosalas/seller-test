@@ -76,6 +76,7 @@ export class RegisterSellerComponent implements OnInit {
   public user: UserInformation;
   public activeButton: boolean;
   public selectedValue: string;
+  public elementIdDispatchPortLoad: string = null;
 
   profileSeller: string[] = [];
   profileAdmin: string[] = [];
@@ -192,7 +193,7 @@ export class RegisterSellerComponent implements OnInit {
       Country: new FormControl,
       State: new FormControl,
       City: new FormControl,
-      Port: new FormControl,
+      IdDispatchPort: new FormControl,
       DaneCode: new FormControl(Validators.pattern(this.sellerRegex.integerNumber)),
       SincoDaneCode: new FormControl(Validators.pattern(this.sellerRegex.integerNumber)),
       Name: new FormControl({ value: '', disabled: disabledForm }, [
@@ -242,6 +243,7 @@ export class RegisterSellerComponent implements OnInit {
   disabledFiledsSellerForm() {
     this.State.disable();
     this.City.disable();
+    this.IdDispatchPort.disable();
     this.PostalCode.disable();
     this.PhoneNumber.disable();
     this.Nit.disable();
@@ -260,6 +262,7 @@ export class RegisterSellerComponent implements OnInit {
       this.PostalCode.reset(null);
       this.City.enable();
       this.PostalCode.enable();
+      this.IdDispatchPort.enable();
       this.PhoneNumber.enable();
       this.Nit.reset({ value: null, disabled: false });
       this.Rut.enable();
@@ -272,6 +275,7 @@ export class RegisterSellerComponent implements OnInit {
     this.Rut.setValidators(Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern(this.sellerRegex.internationalIdentifier)]));
     this.State.setValidators(Validators.compose([Validators.required, Validators.maxLength(60), Validators.pattern(this.sellerRegex.internationalLocation)]));
     this.City.setValidators(Validators.compose([Validators.required, Validators.maxLength(60), Validators.pattern(this.sellerRegex.internationalLocation)]));
+    this.IdDispatchPort.setValidators(Validators.compose([Validators.required]));
     this.PostalCode.setValidators(Validators.compose([Validators.required, Validators.maxLength(8), Validators.minLength(4), Validators.pattern(this.sellerRegex.internationalPostalCode)]));
     this.Payoneer.enable();
     this.Payoneer.setValidators(Validators.compose([Validators.required, Validators.maxLength(50), Validators.pattern(this.sellerRegex.payoneer)]));
@@ -282,6 +286,7 @@ export class RegisterSellerComponent implements OnInit {
     this.Rut.setValidators(Validators.compose([Validators.required, Validators.maxLength(20), Validators.pattern(this.sellerRegex.integerNumber)]));
     this.State.setValidators(null);
     this.City.setValidators(null);
+    this.IdDispatchPort.setValidators(null);
     this.PostalCode.setValidators(Validators.pattern(this.sellerRegex.integerNumber));
     this.Payoneer.disable();
   }
@@ -496,9 +501,10 @@ export class RegisterSellerComponent implements OnInit {
    */
   receivePortItem($event: any) {
     if ($event && $event !== undefined && $event !== null) {
-      this.validateFormRegister.controls['Port'].setValue($event.id);
+      this.validateFormRegister.controls['IdDispatchPort'].setValue($event.Id);
+      this.validateFormRegister.controls['IdDispatchPort'].markAsTouched();
     } else {
-      this.validateFormRegister.controls['Port'].setValue(null);
+      this.validateFormRegister.controls['IdDispatchPort'].setValue(null);
     }
   }
 
@@ -533,8 +539,8 @@ export class RegisterSellerComponent implements OnInit {
     return this.validateFormRegister.get('City') as FormControl;
   }
 
-  get Port(): FormControl {
-    return this.validateFormRegister.get('Port') as FormControl;
+  get IdDispatchPort(): FormControl {
+    return this.validateFormRegister.get('IdDispatchPort') as FormControl;
   }
 
   get PostalCode(): FormControl {

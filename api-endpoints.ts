@@ -188,7 +188,9 @@ export const endpoints = {
       // Eliminar calificacion de un vendedor
       upsertQualification: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller',
       // consultar las ordenes por tipo de filtros
-      ordersSummaryStatus: 'https://nv4izavvqj.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus/{params}'
+      ordersSummaryStatus: 'https://nv4izavvqj.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus/{params}',
+      // Obtener puertos por país
+      getPortsByCountryName: 'https://orba3qnrte.execute-api.us-east-1.amazonaws.com/dispatchport/GetDispatchPortsByCountryName/{params}'
     },
   },
   // Endpoints production

@@ -23,6 +23,7 @@ export class StoreModel {
         public City?: string,
         public Country?: string,
         public SincoDaneCode?: string,
+        public IdDispatchPort?: string,
         public Profile?: string,
         public Policy?: string
     ) { }

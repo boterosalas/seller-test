@@ -38,10 +38,10 @@ export class PortsService {
     return of(this.listPorts);
   }
 
-  // public getCities(idState: number): Observable<CitiesEntity[]> {
-  //   return this.http.get<CitiesEntity[]>(this.api.get('getCities', [idState]))
-  //     .pipe(map((res: any) => <CitiesEntity[]>JSON.parse(res.body).Data));
-  // }
+  public getPortByCountryName(countryName: string): Observable<PortEntity[]> {
+    return this.http.get<any>(this.api.get('getPortsByCountryName', [countryName]))
+      .pipe(map((res: any) => <PortEntity[]>JSON.parse(res.body).Data));
+  }
 
   // public getCitiesCoverage(): Observable<CitiesEntity[]> {
   //   return this.http.get<CitiesEntity[]>(this.api.get('getCitiesCoverage'))

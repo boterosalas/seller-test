@@ -112,8 +112,8 @@
 
           <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between"
             fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
-            <div *ngIf="!isColombiaSelect" fxFlex="50%" [ngStyle]="{'padding-right': (!isColombiaSelect ? '5%' : '0')}">
-              <app-ports (portItemEmmited)="receivePortItem($event)"></app-ports>
+            <div *ngIf="!isColombiaSelect" [fxFlex]="!isColombiaSelect ? '45%' : '50%'" >
+              <app-ports (portItemEmmited)="receivePortItem($event)" [countryName]="Country.value" [disabledComponent]='disabledComponent' [elementLoad]="elementIdDispatchPortLoad"></app-ports>
             </div>
           </div>
 

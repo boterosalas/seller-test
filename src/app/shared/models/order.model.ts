@@ -389,6 +389,6 @@ export interface CitiesEntity {
 }
 
 export interface PortEntity {
-  id: number,
-  name: string,
+  Id: number,
+  Name: string,
 }

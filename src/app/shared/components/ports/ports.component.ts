@@ -20,9 +20,11 @@ export class PortsComponent implements OnInit, OnChanges {
   public portsFormControl: FormControl;
   public validateFormRegister: FormGroup;
   public matcher: MyErrorStateMatcher;
-  public listPorts: PortEntity;
+  public listPorts: PortEntity[] = [];
   @Output() portItemEmmited = new EventEmitter<number>();
   @Input() disabledComponent: boolean;
+  @Input() elementLoad: number;
+  @Input() countryName: string;
 
   constructor(
     @Inject(PortsService)
@@ -36,7 +38,6 @@ export class PortsComponent implements OnInit, OnChanges {
       portsFormControl: new FormControl({ value: '', disabled: true }, [Validators.required])
     });
     this.matcher = new MyErrorStateMatcher();
-    this.getPortsDropdown();
   }
 
   /**
@@ -45,24 +46,53 @@ export class PortsComponent implements OnInit, OnChanges {
    * @memberof CitiesComponent
    */
   ngOnChanges(changes: any) {
-    // if (this.idState && this.idState !== undefined && this.idState !== null) {
-      this.getPortsDropdown();
+    console.log(this.countryName);
+    if (this.countryName && this.countryName !== undefined && this.countryName !== null) {
+      this.getPortsDropdown(this.countryName);
       this.portItemEmmited.emit(null);
-    // }
+    }
   }
-  getPortsDropdown() {
+
+  /**
+   * Recibe una cadena de palabras y procede a buscar en la lista de departamentos, para obtener el Identificador
+   * para asi cargarlo en front
+   * @param {*} element
+   * @returns {number}
+   * @memberof StatesComponent
+   */
+  public validateElementLoaded(element: number): any {
+    let loaded: any;
+    this.listPorts.forEach(port => {
+      if (port.Id === element) {
+        loaded = port;
+      }
+    });
+    return loaded;
+  }
+
+  getPortsDropdown(countryName: string) {
     this.loadingService.viewSpinner();
-    this.portService.fetchData().subscribe(
-      (data: any) => {
-        // console.log(data);
+    this.portService.getPortByCountryName(countryName.toUpperCase()).subscribe(
+      (data: PortEntity[]) => {
         this.listPorts = data;
         if (!this.disabledComponent) {
           this.validateFormRegister.get('portsFormControl').enable();
         }
+        if (this.elementLoad) {
+          console.log(this.elementLoad)
+          const portSelected = this.validateElementLoaded(this.elementLoad);
+          // console.log(portSelected);
+          if (portSelected) {
+            this.validateFormRegister.controls['portsFormControl'].setValue(portSelected.Id, { onlySelf: true });
+          }
+        }
         this.loadingService.closeSpinner();
       },
-      err => console.log(err)
-    )
+      err => {
+        this.loadingService.closeSpinner();
+        this.modalService.showModal('errorService');
+      }
+    );
   }
 
   /**

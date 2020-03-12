@@ -688,31 +688,31 @@ describe('RegisterSellerComponent', () => {
         });
       });
 
-      it('Should be fail Port with /', () => {
+      it('Should be fail IdDispatchPort with /', () => {
         fixture.whenStable().then(() => {
           tick();
           expect(component.isColombiaSelect).toBeFalsy();
           const portsField = fixture.debugElement.query(By.css('#register-ports'));
           expect(portsField).toBeTruthy();
           const portNativeElement = portsField.nativeElement;
-          portNativeElement.value = 'Port /';
+          portNativeElement.value = 'IdDispatchPort /';
           portNativeElement.dispatchEvent(new Event('input'));
           fixture.detectChanges();
-          expect(component.Port.errors).toBeTruthy();
+          expect(component.IdDispatchPort.errors).toBeTruthy();
         })
       })
 
-      it('Should be fail Port with \\', () => {
+      it('Should be fail IdDispatchPort with \\', () => {
         fixture.whenStable().then(() => {
           tick();
           expect(component.isColombiaSelect).toBeFalsy();
           const portsField = fixture.debugElement.query(By.css('#register-ports'));
           expect(portsField).toBeTruthy();
           const portNativeElement = portsField.nativeElement;
-          portNativeElement.value = 'Port \\';
+          portNativeElement.value = 'IdDispatchPort \\';
           portNativeElement.dispatchEvent(new Event('input'));
           fixture.detectChanges();
-          expect(component.Port.errors).toBeTruthy();
+          expect(component.IdDispatchPort.errors).toBeTruthy();
         })
       })
 
