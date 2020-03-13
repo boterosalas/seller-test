@@ -327,9 +327,12 @@
     "secure.client_information.client": "Client",
     "secure.client_information.address": "Address",
     "secure.client_information.phone": "Phone",
+    "secure.client_information.client_phone": "Customer Phone",
     "secure.client_information.city": "City",
     "secure.client_information.billing_address": "Billing Address",
-    "secure.client_information.delivery_address": "Delivery Address",
+    "secure.client_information.collection_center": "Collection Center",
+    "secure.client_information.collection_center_phone": "Collection center telephone",
+    "secure.client_information.dipatch_address": "Dispatch Address",
     "secure.client_information.customer_information": "Customer Information",
 
 
