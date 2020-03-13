@@ -51,7 +51,8 @@ import { ModalPortComponent } from './port/modal-port/modal-port.component';
     AddDialogSpecsComponent,
     DeleteDialogSpecsComponent,
     DialogWithFormComponent,
-    CreateProcessDialogComponent
+    CreateProcessDialogComponent,
+    ModalPortComponent
   ]
 })
 export class ParameterizeModule { }

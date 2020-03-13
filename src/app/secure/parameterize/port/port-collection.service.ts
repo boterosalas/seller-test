@@ -10,53 +10,16 @@ export class PortCollectionService {
 
  data = [
    {
-     port : 'puerto_01',
-     country : 'Argentina',
-     collection_center : 'usa',
+     id : 1,
+     name : 'puerto_1',
+     country : 'ESTADOS UNIDOS',
      address : 'direccion 2',
-     apply: false
-   }
-   , {
-     port : 'puerto_02',
-     country : 'Mexico',
-     collection_center : 'mexico',
-     address : 'direccion 2',
-     apply: false
-   }
-   , {
-     port : 'puerto_03',
-     country : 'pais10',
-     collection_center : 'atlantis',
-     address : 'direccion 1',
-     apply: true
-   }
-   , {
-     port : 'puerto_04',
-     country : 'Belgica',
-     collection_center : 'belgica',
-     address : 'direccion 3',
-     apply: false
-   }
-   , {
-     port : 'puerto_05',
-     country : 'china',
-     collection_center : 'china',
-     address : 'direccion 5',
-     apply: false
-   }
-   , {
-     port : 'puerto_06',
-     country : 'Ecuador',
-     collection_center : 'Ecuador',
-     address : 'direccion 9',
-     apply: false
-   }
-   , {
-     port : 'puerto_07',
-     country : 'USA',
-     collection_center : 'Canada',
-     address : 'direccion 10',
-     apply: false
+     phone: 3053659647,
+     tariff: 0,
+     shippingCost: 0,
+     negotiatedShippingCostPercent: 0,
+     apply: true,
+     countrys : ['ESTADOS UNIDOS', 'ARGENTINA', 'MEXICO', 'FRANCIA', 'BRASIL', 'VENEZUELA', 'COLOMBIA', 'PERU']
    }
   ];
 
@@ -66,9 +29,20 @@ export class PortCollectionService {
   ) { }
 
 
-  getAllPort() {
+  getAllPort(params: any) {
     return new Observable(observer => {
       observer.next(this.data);
+    });
+  }
+
+  changeApplyCountry(params: any) {
+    return new Observable(observer => {
+      observer.next(!params);
+    });
+  }
+  savePort(params: any) {
+    return new Observable(observer => {
+      observer.next(true);
     });
   }
 }

@@ -31,7 +31,7 @@
         </div>
         <div class="port-component-button-add">
           <div id="addButton" class="container-group-add-button">
-            <button mat-button (click)="upsetBrands()">
+            <button mat-button (click)="upsetPort(1, null)">
               <mat-icon class="material-icons">
                 control_point
               </mat-icon>
@@ -50,37 +50,37 @@
       <mat-table #table [dataSource]="dataSource" matSort>
       
         <!-- channel Column -->
-        <ng-container matColumnDef="port">
-          <mat-header-cell class='marginListAdminTotal' fxShow.xs="false"
-            fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10"
+        <ng-container matColumnDef="name">
+          <mat-header-cell class='marginListAdminTotal' fxShow.xs="true"
+            fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10"
             fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
             <span class="title-table-header">{{'secure.parametize.port.port' | translate}}</span>
           </mat-header-cell>
-          <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
+          <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
             fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
-            <p class="sc-text-normal">{{element.port}}</p>
+            <p class="sc-text-normal">{{element.name}}</p>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="country">
-          <mat-header-cell class='marginListAdminTotal' fxShow.xs="false"
-            fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10"
+          <mat-header-cell class='marginListAdminTotal' fxShow.xs="true"
+            fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10"
             fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
             <span class="title-table-header">{{'secure.parametize.port.country' | translate}}</span>
           </mat-header-cell>
-          <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
+          <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
             fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
-            <p class="sc-text-normal">{{element.country}}</p>
+            <p class="sc-text-normal">{{element.collection_center}}</p>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="collection_center">
-          <mat-header-cell class='marginListAdminTotal' fxShow.xs="false"
-            fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10"
+          <mat-header-cell class='marginListAdminTotal' fxShow.xs="true"
+            fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10"
             fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
             <span class="title-table-header">{{'secure.parametize.port.collection_center' | translate}}</span>
           </mat-header-cell>
-          <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
+          <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
             fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
-            <p class="sc-text-normal">{{element.collection_center}}</p>
+            <p class="sc-text-normal">{{element.country}}</p>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="address">
@@ -94,26 +94,26 @@
             <p class="sc-text-normal">{{element.address}}</p>
           </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="action">
-          <mat-header-cell class="port-component-text-aling"  fxShow.xs="false"
+        <ng-container matColumnDef="phone">
+          <mat-header-cell class='marginListAdminTotal' fxShow.xs="false"
             fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10"
+            fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
+            <span class="title-table-header">{{'secure.parametize.port.phone' | translate}}</span>
+          </mat-header-cell>
+          <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
+            fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal">{{element.phone}}</p>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <mat-header-cell class="port-component-text-aling"  fxShow.xs="true"
+            fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10"
             fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
             <span class="title-table-header">{{'secure.parametize.port.action' | translate}}</span>
           </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
+          <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
             fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element" class="port-component-text-aling" >
-            <mat-icon class="mat-18 port-component-color-icon-edit">edit</mat-icon>
-          </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="apply">
-          <mat-header-cell class="port-component-text-aling"  fxShow.xs="false"
-            fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10"
-            fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
-            <span class="title-table-header">{{'secure.parametize.port.apply' | translate}}</span>
-          </mat-header-cell>
-          <mat-cell  fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
-            fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element" class="port-component-text-aling">
-            <mat-slide-toggle class="example-margin"  (click)="changeStatusBrands($event, element)" [checked]=element.apply></mat-slide-toggle>
+            <mat-icon class="mat-18 port-component-color-icon-edit" (click)="upsetPort(2, element)">edit</mat-icon>
           </mat-cell>
         </ng-container>
 
@@ -129,7 +129,7 @@
 
 <mat-sidenav-container>
   <mat-sidenav #sidenavSearchOrder mode="over" position="end" opened="{{stateSideNavOrder}}">
-    <mat-card class="content-profile calification-list-93-height">
+    <mat-card class="content-profile port-list-93-height">
       <mat-nav-list class="light-content">
         <mat-toolbar color="primary" class="toolbar-title-search">
           <h4 class="title-toolbar">{{informationToForm.title_for_search | translate}}</h4>
@@ -140,79 +140,211 @@
         </mat-toolbar>
       </mat-nav-list>
       <mat-card-content>
-        <!-- <form class="example-container" #createfilterCalisification="ngForm" [formGroup]="filterCalifications"
+        <form class="example-container" #createfilterPort="ngForm" [formGroup]="filterPort"
           class="seller-filter-sidenav">
         <div>
             <div>
-              <div class="calification-list-style-text-select-filter">
-                <span>
-                  {{textSelector}}
-                </span>
-              </div>
-              <div>
-                <mat-radio-group >
-                  <mat-radio-button value="1" #rdCalification name="radio" class="calification-list-filter-selector-radio" (click)="selectorFilter(1)">Mes calificado</mat-radio-button>
-                  <mat-radio-button value="2" #rdEmit name="radio" class="calification-list-filter-selector-radio" (click)="selectorFilter(2)">Mes emitido</mat-radio-button>
-                </mat-radio-group>
-              </div>
-              <div class="calification-list-padding-container" [hidden]="showSelectorMouthQuality">
-                <div class="calification-list-color">
-                  <mat-icon class="mat-18 calification-list-vertical-aling">today</mat-icon>
-                  Fecha calificado <span class="calification-list-font-size">(MM/AAAA)</span>
+              <div class="port-list-padding-container" [hidden]="showSelectorMouthQuality">
+                <div class="port-component-text-filter">
+                  <span>Use el filtro para buscar los puertos asociados al pais seleccionado</span>
                 </div>
-                <div class="calification-list-padding-left">
-                  <mat-form-field class="calification-list-width-complete">
-                    <input matInput [placeholder]="'secure.parametize.support_claims-filter.start-date' | translate"
-                      formControlName="dateInitQualityMonth" [errorStateMatcher]="matcher">
-                    <mat-error *ngIf="filterCalifications.get('dateInitQualityMonth').hasError('pattern')"
-                      [innerHTML]="'Fecha invalida'"></mat-error>
-                  </mat-form-field>
-    
-                  <mat-form-field class="calification-list-width-complete">
-                    <input matInput [placeholder]="'secure.parametize.support_claims-filter.end-date' | translate"
-                      formControlName="dateFinalQualityMonth" [errorStateMatcher]="matcher">
-                    <mat-error *ngIf="filterCalifications.get('dateFinalQualityMonth').hasError('pattern')"
-                      [innerHTML]="'Fecha invalida'"></mat-error>
+                <div class="port-list-padding-left">
+                  <mat-form-field class="field" style="width: 100%;">
+                    <input matInput [placeholder]="'secure.parametize.port.country' | translate" [matAutocomplete]="auto" formControlName="countryFilter">
+                    <mat-autocomplete #auto="matAutocomplete">
+                      <mat-option *ngFor="let country of filterCountry" [value]="country.CountryName">
+                        {{country.CountryName}}
+                      </mat-option>
+                    </mat-autocomplete>
                   </mat-form-field>
                 </div>
               </div>
-             <div [hidden]="showSelectorMouthEmit" class="calification-list-margin-date">
-              <div class="calification-list-color">
-                <mat-icon class="mat-18 calification-list-vertical-aling" >today</mat-icon>
-                Fecha Emitido <span class="calification-list-font-size">(MM/AAAA)</span>
-              </div>
-              <div class="calification-list-padding-left">
-                <mat-form-field class="calification-list-width-complete">
-                  <input matInput [placeholder]="'secure.parametize.support_claims-filter.start-date' | translate"
-                    formControlName="dateInitQualityIssued" [errorStateMatcher]="matcher">
-                  <mat-error *ngIf="filterCalifications.get('dateInitQualityIssued').hasError('pattern')"
-                    [innerHTML]="'Fecha invalida'"></mat-error>
-                </mat-form-field>
-  
-                <mat-form-field class="calification-list-width-complete">
-                  <input matInput [placeholder]="'secure.parametize.support_claims-filter.end-date' | translate"
-                    formControlName="dateFinalQualityIssued" [errorStateMatcher]="matcher">
-                  <mat-error *ngIf="filterCalifications.get('dateFinalQualityIssued').hasError('pattern')"
-                    [innerHTML]="'Fecha invalida'"></mat-error>
-                </mat-form-field>
-              </div>
-             </div>
             </div>
-            <div>
+            <div class="port-component-paddin-100">
               <div class="orders-search-option normal-theme calification-list-filter-btn-clear" >
-                <button  class="sc-button" mat-button type="button" (click)="clearForm()">
+                <button  class="sc-button" mat-button type="button" (click)="clearFormFilter()">
                   <mat-icon>clear_all</mat-icon>
                   {{'filters.clear' | translate}}
                 </button>
-                <button  [disabled]="!createfilterCalisification.form.valid || !createfilterCalisification.form.touched" class="sc-button" mat-raised-button color="primary"
-                  type="submit" (click)="filterCalification(filterCalifications.value)">
+                <button  [disabled]="!createfilterPort.form.valid || !createfilterPort.form.touched" class="sc-button" mat-raised-button color="primary"
+                  type="submit" (click)="getFilterPort(filterPort.value)">
                   {{'actions.apply' | translate}}
                 </button>
               </div>
             </div>
         </div>
-        </form> -->
+        </form>
       </mat-card-content>
     </mat-card>
   </mat-sidenav>
 </mat-sidenav-container>
+
+<ng-template #dialogContent>
+  <div fxLayout="row" style="padding: 10px;">
+    <div fxFlex="90">
+      <div *ngIf="data && data.typeModal === 1 ">
+        {{'secure.parametize.port.addPort' | translate}}
+      </div>
+      <div *ngIf="data && data.typeModal === 2 ">
+        {{'secure.parametize.port.editPort' | translate}}
+      </div>
+    </div>
+    <div fxFlex="10" style="text-align: end;">
+      <mat-icon class="mat-18 close-modal" (click)="onNoClick()"  [matTooltip]="'actions.close' | translate">clear</mat-icon>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div mat-dialog-content>
+    <form #f="ngForm" [formGroup]="formPort" (ngSubmit)="saveColletionCenter()" style="padding: 31px 31px 0px 31px">
+      <div fxLayout="row wrap">
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100" class="port-component-container-header">
+          <span class="port-component-text-title">
+            <mat-icon class="mat-18" style="vertical-align: bottom;  color: #c5c4c4;">assignment</mat-icon>
+            Información Centro de Acopio
+          </span>
+        </div>
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" class="port-component-aling-padding-left">
+          <mat-form-field class="field" style="width: 90%;">
+            <input matInput [placeholder]="'secure.parametize.port.port' | translate" [matAutocomplete]="auto" formControlName="country">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let country of filterCountry" [value]="country.CountryName">
+                {{country.CountryName}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" >
+          <mat-form-field class="field port-component-width-90">
+            <input matInput [placeholder]="'secure.parametize.port.country_apply' | translate" [matAutocomplete]="auto" formControlName="applyCountry">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let country of filterCountry" [value]="country.CountryName">
+                {{country.CountryName}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <mat-icon matSuffix style="vertical-align: text-top;" class="material-icons add-keyword-icon" (click)="saveKeyword()">
+            add_circle_outline
+          </mat-icon>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayout.xs="column"  [ngClass]="validateKey ? 'port-componente-container-scroll-hide' : 'port-component-container-scroll-country-apply'">
+        <div class="port-component-container-chips-country">
+          <mat-chip-list>
+              <mat-chip
+              *ngFor="let key of keywords; let i = index"
+              (removed)="deleteKeywork(i)">
+              {{key}}
+              <mat-icon class="material-icons" matChipRemove>cancel</mat-icon>
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+      </div>
+      <div fxLayout="row wrap" style=" margin-top: 11px;">
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" class="port-component-aling-padding-left">
+          <mat-form-field style="width: 95%;">
+            <input formControlName="address" matInput [placeholder]="'secure.parametize.port.address' | translate" >
+            <mat-error *ngIf="formPort.get('address').hasError('maxlength')">{{'errors.spec_name_max_length' | translate}}</mat-error>
+            <mat-error *ngIf="formPort.get('address').hasError('required')">{{'errors.required' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
+          <mat-form-field style="width: 95%;">
+            <input formControlName="phone" matInput [placeholder]="'shared.phone' | translate" >
+            <mat-error *ngIf="formPort.get('phone').hasError('maxlength')">{{'errors.spec_name_max_length' | translate}}</mat-error>
+            <mat-error *ngIf="formPort.get('phone').hasError('required')">{{'errors.required' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div  fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100" class="port-component-container-header">
+          <span class="port-component-text-title">
+            <mat-icon class="mat-18" style="vertical-align: bottom; color: #c5c4c4;">local_shipping</mat-icon>
+            Flete
+          </span>
+        </div>
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" class="port-component-aling-padding-left">
+          <mat-form-field style="width: 95%;">
+            <input formControlName="insurance_freight" matInput [placeholder]="'secure.parametize.port.insurance_freight' | translate" >
+            <mat-error *ngIf="formPort.get('insurance_freight').hasError('maxlength')">{{'errors.spec_name_max_length' | translate}}</mat-error>
+            <mat-error *ngIf="formPort.get('insurance_freight').hasError('required')">{{'errors.required' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
+          <mat-form-field style="width: 95%;">
+            <input formControlName="preparation" matInput [placeholder]="'secure.parametize.port.preparation' | translate" >
+            <mat-error *ngIf="formPort.get('preparation').hasError('maxlength')">{{'errors.spec_name_max_length' | translate}}</mat-error>
+            <mat-error *ngIf="formPort.get('preparation').hasError('required')">{{'errors.required' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" class="port-component-aling-padding-left">
+          <mat-form-field style="width: 95%;">
+            <input formControlName="shippingCost" matInput [placeholder]="'secure.parametize.port.shippingCost' | translate" >
+            <mat-error *ngIf="formPort.get('shippingCost').hasError('maxlength')">{{'errors.spec_name_max_length' | translate}}</mat-error>
+            <mat-error *ngIf="formPort.get('shippingCost').hasError('required')">{{'errors.required' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
+          <mat-form-field style="width: 95%;">
+            <input formControlName="national_transportation" matInput [placeholder]="'secure.parametize.port.national_transportation' | translate" >
+            <mat-error *ngIf="formPort.get('national_transportation').hasError('maxlength')">{{'errors.spec_name_max_length' | translate}}</mat-error>
+            <mat-error *ngIf="formPort.get('national_transportation').hasError('required')">{{'errors.required' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div  fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100" class="port-component-container-header">
+          <span class="port-component-text-title">
+            <mat-icon class="mat-18" style="vertical-align: bottom; color: #c5c4c4;">security</mat-icon>
+            CIF
+          </span>
+        </div>
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" class="port-component-aling-padding-left">
+          <mat-form-field style="width: 95%;">
+            <input formControlName="insurance_CIF" matInput [placeholder]="'secure.parametize.port.insurance_CIF' | translate" >
+            <mat-error *ngIf="formPort.get('insurance_CIF').hasError('maxlength')">{{'errors.spec_name_max_length' | translate}}</mat-error>
+            <mat-error *ngIf="formPort.get('insurance_CIF').hasError('required')">{{'errors.required' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
+          <mat-form-field style="width: 95%;">
+            <input formControlName="tariffByKg" matInput [placeholder]="'secure.parametize.port.tariffByKg' | translate" >
+            <mat-error *ngIf="formPort.get('tariffByKg').hasError('maxlength')">{{'errors.spec_name_max_length' | translate}}</mat-error>
+            <mat-error *ngIf="formPort.get('tariffByKg').hasError('required')">{{'errors.required' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div  fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100" class="port-component-container-header">
+          <span class="port-component-text-title">
+            <mat-icon class="mat-18" style="vertical-align: bottom; color: #c5c4c4;">account_balance</mat-icon>
+            Impuestos
+          </span>
+        </div>
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" class="port-component-aling-padding-left">
+          <mat-form-field style="width: 95%;">
+            <input formControlName="tariff" matInput [placeholder]="'secure.parametize.port.tariff' | translate" >
+            <mat-error *ngIf="formPort.get('tariff').hasError('maxlength')">{{'errors.spec_name_max_length' | translate}}</mat-error>
+            <mat-error *ngIf="formPort.get('tariff').hasError('required')">{{'errors.required' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
+          <mat-form-field style="width: 95%;">
+            <input formControlName="iva" matInput [placeholder]="'secure.parametize.port.iva' | translate" >
+            <mat-error *ngIf="formPort.get('iva').hasError('maxlength')">{{'errors.spec_name_max_length' | translate}}</mat-error>
+            <mat-error *ngIf="formPort.get('iva').hasError('required')">{{'errors.required' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+  <mat-divider></mat-divider>
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">{{'actions.cancel'| translate}}</button>
+    <button type="button" mat-raised-button color="primary" [disabled]="!f.form.valid || validateKey" (click)="savePort()">{{'actions.accept' | translate}}</button>
+  </mat-dialog-actions>
+</ng-template>
+
+
+

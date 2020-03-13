@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, EventEmitter, TemplateRef } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
+import { TranslateService } from '@ngx-translate/core';
+import { countries } from '../../../../secure/seller/register/countries';
+import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
+import { PortCollectionService } from '../port-collection.service';
 
 @Component({
   selector: 'app-modal-port',
@@ -7,9 +13,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModalPortComponent implements OnInit {
 
-  constructor() { }
+  public formPort: FormGroup;
+  content: TemplateRef<any>;
+  keywords = [];
+  countries = countries;
+  filterCountry = [];
+  validateKey = true;
+  countryCurrent: string;
+  body: any;
+  idPort: any;
+  refresh= false;
 
-  ngOnInit() {
-  }
+  constructor(
+    private snackBar: MatSnackBar,
+    private languageService: TranslateService,
+    private portCollectionService: PortCollectionService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+  ) { }
+
+  ngOnInit() {}
+
 
 }

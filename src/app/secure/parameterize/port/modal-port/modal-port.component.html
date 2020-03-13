@@ -1,3 +1,4 @@
-<p>
-  modal-port works!
-</p>
+<ng-container *ngIf="!!content">
+  <ng-template [ngTemplateOutlet]="content">
+  </ng-template>
+</ng-container>
