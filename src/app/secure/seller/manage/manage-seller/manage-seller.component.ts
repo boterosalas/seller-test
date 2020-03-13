@@ -344,6 +344,7 @@ export class ManageSellerComponent implements OnInit {
     // disable = true ; Se quita el disable true para prueba internacional
     this.country = new FormControl({ value: '', disabled: disable }, [Validators.required]);
     this.payoneer = new FormControl({ value: '', disabled: disable });
+    this.country.disable();
     this.createForm();
     this.addValidationsSellerForm();
   }
@@ -506,6 +507,7 @@ export class ManageSellerComponent implements OnInit {
       values.State = this.validateFormRegister.controls.State.value;
       values.Profile = profile;
       values.Policy = this.validateFormRegister.controls.Policy.value;
+      values.Country = this.validateFormRegister.controls.Country.value;
       this.manageSeller.updateSeller(values).subscribe(
         (result: any) => {
           if (result.status === 201 || result.status === 200) {

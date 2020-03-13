@@ -60,7 +60,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         public authService: AuthService,
         private snackBar: MatSnackBar,
         private languageService: TranslateService) {
-            this.loading.viewSpinner();
+        this.loading.viewSpinner();
     }
 
     ngOnInit() {
@@ -74,7 +74,8 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         this.authService.availableModules$.pipe(distinctUntilChanged()).subscribe(data => {
             if (!!data) {
                 const modules = data.find(mod => mod.Name === this.profile);
-                const menu = modules && modules.Menus.find(menu => menu.Name === this.profile );
+                // tslint:disable-next-line: no-shadowed-variable
+                const menu = modules && modules.Menus.find(menu => menu.Name === this.profile);
                 const actions = menu && menu.Actions;
                 this.canVacation = actions && !!(actions.find(action => action === this.vacation));
                 this.canCancelVacation = actions && !!(actions.find(action => action === this.cancelVacation));
@@ -101,11 +102,11 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     openPicker(pos: number) {
         switch (pos) {
             case 1:
-            this.initialPicker.open();
-            break;
+                this.initialPicker.open();
+                break;
             case 2:
-            this.endPicker.open();
-            break;
+                this.endPicker.open();
+                break;
         }
     }
 
@@ -115,9 +116,10 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     private initVacationForm() {
         this.vacationForm = this.fb.group({
             StartDateVacation: ['', Validators.compose([Validators.required])],
-            EndDateVacation : ['', Validators.compose([Validators.required])]
+            EndDateVacation: ['', Validators.compose([Validators.required])]
         });
         this.startDateVacation.valueChanges.subscribe(val => {
+            // tslint:disable-next-line:no-unused-expression
             !!val && this.endDateVacation.reset(null);
         });
     }
@@ -145,7 +147,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
             this.loading.viewSpinner();
             this.sotreService.changeStateSeller(vacationForm).subscribe(response => {
                 const body = response.body;
-                if ( body && body.statusCode && body.statusCode === 201) {
+                if (body && body.statusCode && body.statusCode === 201) {
                     const resultData = JSON.parse(body.body);
                     if (resultData && resultData.Message && resultData.Message === 'El usuario ha sido actualizado éxitosamente.') {
                         this.user.StartVacations = DateService.getDateFormatToShow(this.startDateVacation.value);
@@ -153,7 +155,9 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
                         this.isInVacation = true;
                     } else {
                         this.profileService.getUser().toPromise().then(res => {
+                            // tslint:disable-next-line:no-shadowed-variable
                             const body: any = res.body;
+                            // tslint:disable-next-line:no-shadowed-variable
                             const response = JSON.parse(body.body);
                             const userData = response.Data;
                             this.setUserData(userData);
@@ -173,7 +177,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
      * @param data Data del dialogo
      */
     openDialogVacation(data: any) {
-        const dialogRef = this.dialog.open( DialogWithFormComponent, {
+        const dialogRef = this.dialog.open(DialogWithFormComponent, {
             data: data,
             width: '55%',
             minWidth: '280px'
@@ -181,11 +185,12 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         return dialogRef.componentInstance;
     }
 
-    //** metodo para habilitar la fecha final y setear un dia despues de seleccionado las vacaciones */
+    /* metodo para habilitar la fecha final y setear un dia despues de seleccionado las vacaciones */
 
     startDate() {
         this.enableEndVacation = false;
-        let date = moment(this.vacationForm.controls.StartDateVacation.value).add(1,'days').utc();
+        // tslint:disable-next-line:prefer-const
+        let date = moment(this.vacationForm.controls.StartDateVacation.value).add(1, 'days').utc();
         this.endvacationStart = date['_d'];
     }
 
@@ -193,13 +198,13 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
      * Metodo que retorna la data del dialogo de programar vacaciones
      */
     setDataVacationsDialog() {
-        const title = this.languageService.instant('secure.seller.list.vacation_title_modal');;
+        const title = this.languageService.instant('secure.seller.list.vacation_title_modal');
         const message = this.languageService.instant('secure.seller.list.vacation_message_modal');
         const icon = 'local_airport';
         const form = this.vacationForm;
         const showButtons = true;
         const btnConfirmationText = null;
-        return {title, message, icon, form, showButtons, btnConfirmationText};
+        return { title, message, icon, form, showButtons, btnConfirmationText };
     }
 
     /**
@@ -250,8 +255,10 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         const endDate = DateService.getDateFormatToShow(this.user.EndVacations);
         const startDateVacationsSeller = DateService.stringToDate(DateService.getDateFormatToShow(this.user.StartVacations));
         if (moment(this.today).diff(moment(startDateVacationsSeller)) > 0) {
+            // tslint:disable-next-line:no-unused-expression
             !!this.startDateVacation && this.startDateVacation.setValue(this.today);
         } else {
+            // tslint:disable-next-line:no-unused-expression
             !!this.startDateVacation && this.startDateVacation.setValue(startDateVacationsSeller);
         }
         this.endDateVacation.setValue(DateService.stringToDate(endDate));
@@ -285,10 +292,10 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
      * @param dialog dialogo de cancelación de vacaciones
      * @param index posición del vendedor
      */
-    configCancelDialog(dialog: DialogWithFormComponent){
+    configCancelDialog(dialog: DialogWithFormComponent) {
         dialog.confirmation = () => {
             this.loading.viewSpinner();
-            this.sotreService.cancelVacation({IdSeller: this.user.IdSeller}).subscribe(val => {
+            this.sotreService.cancelVacation({ IdSeller: this.user.IdSeller }).subscribe(val => {
                 if (val.status === 200) {
                     const body = val.body.body;
                     const message = JSON.parse(body);
@@ -303,6 +310,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
                         });
                     } else {
                         this.profileService.getUser().toPromise().then(res => {
+                            // tslint:disable-next-line:no-shadowed-variable
                             const body: any = res.body;
                             const response = JSON.parse(body.body);
                             const userData = response.Data;
@@ -342,7 +350,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         const messageCenter = false;
         const showButtons = true;
         const btnConfirmationText = null;
-        return {message, title, icon, form, messageCenter, showButtons, btnConfirmationText};
+        return { message, title, icon, form, messageCenter, showButtons, btnConfirmationText };
     }
 
     /**
@@ -376,14 +384,14 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     /**
      * retorna el campo de inicio de vacaciones del formulario de vacaciones
      */
-    get startDateVacation(): FormControl{
+    get startDateVacation(): FormControl {
         return this.vacationForm.get('StartDateVacation') as FormControl;
     }
 
     /**
      * retorna el campo de fin de vacaciones del formulario de vacaciones
      */
-    get endDateVacation(): FormControl{
+    get endDateVacation(): FormControl {
         return this.vacationForm.get('EndDateVacation') as FormControl;
     }
 }

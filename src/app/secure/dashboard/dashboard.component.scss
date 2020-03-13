@@ -12,6 +12,57 @@ $table-break: 900px;
   }
 }
 
+.hideTitleResponsive {
+  @media only screen and (min-width: $mobile-break) {
+    display: none;
+  }
+}
+
+.orders__body {
+  @media only screen and (min-width: $mobile-break) {
+    flex: 1 1 100%;
+    box-sizing: border-box;
+    max-width: 45%;
+  }
+}
+
+.seller-rating {
+  width: 60%;
+
+  @media only screen and (min-width: $mobile-break) {
+    flex: 1 1 100%;
+    box-sizing: border-box;
+    max-width: 52%;
+  }
+
+  @media only screen and (max-width: $mobile-break) {
+    width: 100%;
+    height: 400px;
+  }
+}
+
+.orders__colum_size {
+  font-size: 14px;
+  width: 25%;
+  min-width: 250px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+
+  @media only screen and (max-width: $mobile-break) {
+    flex-direction: inherit;
+
+  }
+}
+
+.prueba {
+  @media only screen and (max-width: $mobile-break) {
+    display: none;
+  }
+
+  padding-left: 3%;
+}
+
 .orders {
   $self: &;
 
@@ -33,7 +84,7 @@ $table-break: 900px;
   }
 
   &__colum {
-    font-size: 22px;
+    font-size: 20px;
     width: 25%;
     min-width: 250px;
     -webkit-box-flex: 1;
@@ -127,6 +178,26 @@ $table-break: 900px;
   }
 }
 
+.resDashboard {
+  height: 300px;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  max-height: 100%;
+  place-content: stretch space-between;
+  align-items: stretch;
+
+  @media only screen and (max-width: $mobile-break) {
+    height: auto;
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    max-height: 100%;
+    place-content: stretch space-between;
+    align-items: stretch;
+  }
+}
+
 .sales {
   &__title {
     @media only screen and (max-width: $mobile-break) {
@@ -187,6 +258,11 @@ $table-break: 900px;
     }
   }
 }
+.dashboard-component-container-max-wight::-webkit-scrollbar {
+  width: 10px;
+  height: 7px;
+}
+
 
 .graph {
   $self: &;
@@ -287,18 +363,20 @@ $table-break: 900px;
   }
 }
 
-.loading-waiting{
+.loading-waiting {
   text-align: center;
   color: #757474;
 }
 
 .dashboard-component{
-
   &-container-general {
     text-align: center;
     font-size: 22px;
     margin: 5% 10%;
     height: 100%;
+  }
+  &-container-aling-center-calender{
+    text-align: center;
   }
 
   &-container-height-50{
@@ -336,6 +414,7 @@ $table-break: 900px;
     font-size: 11px;
     color: #b6b6b6;
     vertical-align: middle;
+    margin-right: 10px;
   }
 
   &-container-cursos-vertical-align{
@@ -392,15 +471,15 @@ $table-break: 900px;
     display: inline-flex;
     overflow-x: scroll;
     max-width: 59%;
-    padding-top: 10px;
-    min-height: 320px;
+    padding-top: 70px;
+    min-height: 350px;
   }
   &-container-max-wight-without-scroll{
     display: inline-flex;
     overflow-x: hidden;
     max-width: 59%;
-    padding-top: 10px;
-    min-height: 320px;
+    padding-top: 70px;
+    min-height: 350px;
   }
 
   &-container-max-width-left-ordens{
@@ -447,6 +526,7 @@ $table-break: 900px;
     font-size: 11px;
     color: #b6b6b6;
     vertical-align: middle;
+    margin-right: 10px;
   }
   &-container-align-end-margin-top{
     text-align: end;
@@ -459,6 +539,15 @@ $table-break: 900px;
     margin-right: 28px;
     vertical-align: middle;
   }
+
+  &-rotate-text{
+    transform: rotate(-90deg);
+    margin-bottom: 45px;
+  }
+
+  .container::-webkit-scrollbar {
+    height: 20px;    /* Tamaño del scroll en horizontal */
+}
 
   @media only screen and (max-width: 500px) and (min-width: 341px) {  
     &-container-chart-orders{
@@ -521,5 +610,9 @@ $table-break: 900px;
       text-align: end;
     }
   }
+}
 
+.spinner-loading {
+  margin-left: 48%;
+  margin-right: 55%;
 }

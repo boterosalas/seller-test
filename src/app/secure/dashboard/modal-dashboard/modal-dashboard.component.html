@@ -1,0 +1,47 @@
+<mat-dialog-content >
+  <div class="text-title-modal">
+    *{{'secure.dashboard.info_cancel_sale' | translate}}
+  </div>
+  <div class="sales__graph-box modal-scroll" *ngIf="data && data.type === 1 ">
+    <div class="sales__graph graph modal-dashboard-component-display">
+      <div [ngClass]=" filter === '1' ? 'graph__content withoutWidth' : 'graph__content withWidth'" >
+        <div class="graph__table">
+          <div *ngFor="let colum of data.data" class="graph__bar-box">
+            <div class="graph__value">{{colum.quantity | number}}</div>
+            <div class="graph__bar" [style.minHeight]="colum.percent">
+              <div class="graph__label">{{colum.name}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="graph__info">
+      <p>
+        
+      </p>
+    </div>
+  </div>
+  <div class="sales__graph-box modal-scroll"  *ngIf="data && data.type === 2 ">
+    <div class="sales__graph graph modal-dashboard-component-display">
+      <div [ngClass]=" filter === '1' ? 'graph__content withoutWidth' : 'graph__content withWidth'">
+        <div class="graph__table">
+          <div *ngFor="let colum of data.data" class="graph__bar-box">
+            <div class="graph__value modal-dashboard-rotate-text">${{colum.sales | number}}</div>
+            <div class="graph__bar" [style.minHeight]="colum.percent">
+              <div class="graph__label">{{colum.name}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="graph__info">
+        <p>
+        </p>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions class="dialog-buttons">
+  <div>
+    <button type="button" mat-button color="primary" (click)="onNoClick()">{{'actions.close' | translate}}</button>
+  </div>
+</mat-dialog-actions>

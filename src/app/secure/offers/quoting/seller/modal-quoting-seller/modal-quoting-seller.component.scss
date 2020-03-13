@@ -1,0 +1,75 @@
+$color-black-transparent :rgba($color: #000000, $alpha: 0.7);
+$color-black-transparent2 :rgba($color: #000000, $alpha: 0.16);
+$color-white: #FFFFFF;
+$color-gray: #BCBCBC;
+$modal: 72px;
+
+@mixin icon-border-gray {
+  border-radius: 40px;
+  background-color: $color-gray;
+  width: $modal;
+  height: $modal;
+
+  mat-icon {
+    color: $color-white;
+  }
+}
+
+.quoting-seller {
+  margin: 0px;
+  height: 100% !important;
+
+  mat-icon {
+    color: gray;
+  }
+
+  &--icon {
+    @include icon-border-gray();
+  }
+
+  &--text {
+    text-align: justify;
+  }
+
+  &--container {
+    width: 100%;
+
+    &__field {
+      width: 45%;
+
+      & mat-icon{
+        padding-right: 6px
+      }
+    }
+  }
+}
+
+.marginInputsValues {
+  margin: 1% 1%;
+}
+
+.addBand {
+  float: right;
+  color: #757474;
+  opacity: 1;
+  text-decoration: underline;
+  font-size: 12px;
+  cursor: pointer;
+  margin: 0;
+  font-size: 14px;
+
+}
+
+.subtitle {
+  text-align: center;
+  margin-top: 0px;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 1%;
+}
+
+.deleteRange{
+  margin-bottom: 30px;
+}

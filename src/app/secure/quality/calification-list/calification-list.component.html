@@ -103,7 +103,18 @@
           class="seller-filter-sidenav">
         <div>
             <div>
-              <div class="calification-list-padding-container">
+              <div class="calification-list-style-text-select-filter">
+                <span>
+                  {{textSelector}}
+                </span>
+              </div>
+              <div>
+                <mat-radio-group >
+                  <mat-radio-button value="1" #rdCalification name="radio" class="calification-list-filter-selector-radio" (click)="selectorFilter(1)">Mes calificado</mat-radio-button>
+                  <mat-radio-button value="2" #rdEmit name="radio" class="calification-list-filter-selector-radio" (click)="selectorFilter(2)">Mes emitido</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div class="calification-list-padding-container" [hidden]="showSelectorMouthQuality">
                 <div class="calification-list-color">
                   <mat-icon class="mat-18 calification-list-vertical-aling">today</mat-icon>
                   Fecha calificado <span class="calification-list-font-size">(MM/AAAA)</span>
@@ -124,7 +135,7 @@
                   </mat-form-field>
                 </div>
               </div>
-             <div>
+             <div [hidden]="showSelectorMouthEmit" class="calification-list-margin-date">
               <div class="calification-list-color">
                 <mat-icon class="mat-18 calification-list-vertical-aling" >today</mat-icon>
                 Fecha Emitido <span class="calification-list-font-size">(MM/AAAA)</span>

@@ -42,6 +42,7 @@ import { SellerSupportCenterModule } from './seller-support-center/seller-suppor
 import { CoreStoreModule } from '../store';
 import { ListReportsModule } from './reports/reports.module';
 import { QualityModule } from './quality/quality.module';
+import { QuotingSellerModule } from './offers/quoting/seller/quoting-seller.module';
 
 @NgModule({
   declarations: [],
@@ -82,7 +83,8 @@ import { QualityModule } from './quality/quality.module';
     CoreStoreModule,
     ListReportsModule,
     QualityModule,
-    CitiesCoverageModule
+    CitiesCoverageModule,
+    QuotingSellerModule
   ],
   providers: [AuthService, SellerSupportCenterService]
 })

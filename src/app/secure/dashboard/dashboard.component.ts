@@ -8,6 +8,8 @@ import { DashboardService } from './services/dashboard.service';
 import { RoutesConst } from '@app/shared';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { DatePipe } from '@angular/common';
+import { ModalDashboardComponent } from './modal-dashboard/modal-dashboard.component';
+import { MatDialog } from '@angular/material';
 
 /**
  * @export
@@ -118,6 +120,7 @@ export class DashboardComponent implements OnInit {
     constructor(
         private _dashboard: DashboardService,
         private languageService: TranslateService,
+        public dialog: MatDialog,
         public datepipe: DatePipe,
         public userService?: UserLoginService,
         public userParams?: UserParametersService,
@@ -208,7 +211,7 @@ export class DashboardComponent implements OnInit {
         if (this.typeFilter !== undefined && this.typeFilter !== null) {
             paramsOrdersSummary += this.typeFilter;
         }
-        if (this.typeFilter === '4') {
+        if (this.typeFilter === '4' || this.typeFilter === '3') {
             this.dateOrdens = this.datepipe.transform(this.dateCurrent, 'yyyy-MM-dd');
             this.showOrdens = true;
         } else {
@@ -222,7 +225,7 @@ export class DashboardComponent implements OnInit {
         this.totalCount = 0;
         if (res && res.length > 0) {
             res.forEach(element => {
-                this.totalCount += element.value;
+                this.totalCount += element.quantity;
             });
         }
     }
@@ -406,7 +409,7 @@ export class DashboardComponent implements OnInit {
         }
     }
     /**
-     * funcion para mostrar las diferentes vistas de movil a escritorio 
+     * funcion para mostrar las diferentes vistas de movil a escritorio
      *
      * @param {boolean} show
      * @memberof DashboardComponent
@@ -497,7 +500,7 @@ export class DashboardComponent implements OnInit {
         if (this.typeFilterSales !== undefined && this.typeFilterSales !== null) {
             paramsOrdersSummary += this.typeFilterSales;
         }
-        if (this.typeFilterSales === '4') {
+        if (this.typeFilterSales === '4' || this.typeFilterSales === '3') {
             this.dateSales = this.datepipe.transform(this.dateCurrent, 'yyyy-MM-dd');
             this.showSales = true;
         } else {
@@ -610,5 +613,33 @@ export class DashboardComponent implements OnInit {
         this.getMonthVisibleSales(date.getMonth());
         this.getLastSales(date);
         dp.close();
+    }
+
+/**
+* modal para mostrar el detalle 
+ *
+ * @param {*} data
+ * @param {*} type
+ * @param {*} filter
+ * @memberof DashboardComponent
+ */
+public modalOpenChart(data: any, type: any, filter: any) {
+        this.openDialog(data, type, filter);
+    }
+/**
+ * modal para mostrar el detalle 
+ *
+ * @param {*} data
+ * @param {*} type
+ * @param {*} filter
+ * @memberof DashboardComponent
+ */
+public openDialog(data: any, type: any, filter: any) {
+        if (!!data) {
+            const dialogRef = this.dialog.open(ModalDashboardComponent, {
+                height: '530px',
+                data: {data: data, type: type, filter: filter}
+            });
+        }
     }
 }

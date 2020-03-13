@@ -33,6 +33,7 @@ export class SpecificationProductComponent implements OnInit {
     idCategory: number;
     dataSpecification: any;
     isShow = false;
+    count = 0;
     @Input() set detailProduct(value: any) {
         if (value) {
             this._detailProduct = value;
@@ -76,6 +77,14 @@ export class SpecificationProductComponent implements OnInit {
                     const views = this.processService.getViews();
                     views.showSpec = false;
                     this.processService.setViews(views);
+                    const dataClear = {
+                        Features : []
+                    };
+                    this.processService.validaData(dataClear);
+                    if ( this.count >= 2) {
+                        this.isShow = false;
+                    }
+                    this.count = this.count + 1;
                 } else {
                     this.specificationsGroups = [];
                     const views = this.processService.getViews();
@@ -120,7 +129,7 @@ export class SpecificationProductComponent implements OnInit {
         const views = this.processService.getViews();
         views.showSpec = !form;
         this.processService.setViews(views);
-        if (this._detailProduct.features.length === 1) {
+        if (this._detailProduct && this._detailProduct.features && this._detailProduct.features.length === 1) {
             this.isShow = false;
         }
     }
@@ -166,7 +175,7 @@ export class SpecificationProductComponent implements OnInit {
         if (cont === null) {
             this.specificationListToAdd.push({
                 Name: model.Label,
-                Key: model.Label,
+                Key: model.Name,
                 Value: model.Value,
                 ExistId: indexParent + '-' + indexSon
             });
