@@ -43,7 +43,7 @@ export class PortsComponent implements OnInit, OnChanges {
   /**
    * @method ngOnInit
    * @description Metodo que se ejecuta cuando se detecta un cambio en algún atributo del componente
-   * @memberof CitiesComponent
+   * @memberof PortsComponent
    */
   ngOnChanges(changes: any) {
     console.log(this.countryName);
@@ -54,11 +54,10 @@ export class PortsComponent implements OnInit, OnChanges {
   }
 
   /**
-   * Recibe una cadena de palabras y procede a buscar en la lista de departamentos, para obtener el Identificador
-   * para asi cargarlo en front
-   * @param {*} element
-   * @returns {number}
-   * @memberof StatesComponent
+   * @method validateElementLoaded
+   * @description Metodo que se ejecuta para obtener el puerto seleccionado si usuario ya lo tiene seleccionado
+   * @param element Id del puerto
+   * @memberof PortsComponent
    */
   public validateElementLoaded(element: number): any {
     let loaded: any;
@@ -70,6 +69,13 @@ export class PortsComponent implements OnInit, OnChanges {
     return loaded;
   }
 
+  /**
+   * Recibe el id de un puerto y procede a buscar en la lista de puertos, para obtener el la informacion
+   * para asi cargarlo en front
+   * @param {*} element
+   * @returns {string}
+   * @memberof PortsComponent
+   */
   getPortsDropdown(countryName: string) {
     this.loadingService.viewSpinner();
     this.portService.getPortByCountryName(countryName.toUpperCase()).subscribe(
@@ -81,7 +87,6 @@ export class PortsComponent implements OnInit, OnChanges {
         if (this.elementLoad) {
           console.log(this.elementLoad)
           const portSelected = this.validateElementLoaded(this.elementLoad);
-          // console.log(portSelected);
           if (portSelected) {
             this.validateFormRegister.controls['portsFormControl'].setValue(portSelected.Id, { onlySelf: true });
           }
@@ -97,7 +102,7 @@ export class PortsComponent implements OnInit, OnChanges {
 
   /**
      * @method setDataPort
-     * @description Metodo para enviar los datos de la ciudad seleccionada, de aca se usa el codigo dane
+     * @description Metodo para enviar los datos del puerto seleccionada
      * @param param
      * @memberof PortsComponent
      */
