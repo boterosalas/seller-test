@@ -13,6 +13,7 @@
 
 .title-table-product {
   font-size: 12px;
+  width: inherit;
 }
 
 .product-name {
@@ -25,14 +26,17 @@
 
 .content-product-list {
   flex-wrap: wrap;
-  padding-left: 6px;
   padding-right: 6px;
   padding-top: 10px;
   border-bottom: 1px solid #e0e0e0;
+
+  @media (max-width: 960px) {
+    padding-right: 16px;
+  }
 }
 
 .item-title-table {
-  width: 130px;
+  width: 100px;
 
   @media (max-width: 960px) {
     width: 120px;
@@ -57,13 +61,13 @@
 }
 
 .full-button {
-  width: 100%;
+  width: calc(100% - 20px);
   margin: 10px;
 }
 
 .cost-item-table {
-  color: #000;
-  font-size: 11px;
+  color: gray;
+  font-size: 13px;
 }
 
 .total-product-text {
@@ -74,6 +78,14 @@
 
   & p {
     padding-left: 55px;
+    
+    @media (max-width: 960px) {
+      padding-left: 7px;
+    }
+    
+    @media (min-width: 600px) {
+      padding-left: 16px;
+    }
   }
 }
 

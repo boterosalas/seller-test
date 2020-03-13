@@ -327,6 +327,10 @@
     "secure.client_information.client": "Client",
     "secure.client_information.address": "Address",
     "secure.client_information.phone": "Phone",
+    "secure.client_information.city": "City",
+    "secure.client_information.billing_address": "Billing Address",
+    "secure.client_information.delivery_address": "Delivery Address",
+    "secure.client_information.customer_information": "Customer Information",
 
 
     "secure.dashboard.all": "All",
