@@ -20,7 +20,7 @@ import { of, throwError } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 
 
-describe('DownloadOrderModalComponent', () => {
+fdescribe('DownloadOrderModalComponent', () => {
   let component: DownloadOrderModalComponent;
   let fixture: ComponentFixture<DownloadOrderModalComponent>;
 

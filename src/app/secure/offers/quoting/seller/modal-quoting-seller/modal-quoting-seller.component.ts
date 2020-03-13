@@ -70,7 +70,9 @@ export class ModalQuotingSellerComponent implements OnInit {
 
   quotingRegex = {
     priceInfinite: '',
-    formatNumberInfinito: ''
+    formatNumberInfinito: '',
+    freightInfinite: '',
+    freightInfiniteNoZero: ''
   };
   subTitle: string;
   public user: any;
@@ -195,29 +197,52 @@ export class ModalQuotingSellerComponent implements OnInit {
     const absControl = `initialValue${index}`;
 
     if (this.shippingMethod === 2) {
-      if (+initialPrice && +initialPrice <= 8000) {
+      if (+initialPrice && (+initialPrice < 8000) || !+initialPrice) {
         this.secondForm.controls[absControl].setErrors({ 'price_must_less': true });
-      } else {
-        this.secondForm.controls[`initialValue${index}`].setErrors(null);
       }
     }
   }
+
 
   /**
    * Función para validar que el precio final no sea mayor a 8mil
    * @memberof ModalQuotingSellerComponent
    */
-  public validatePriceFinal() {
+  public validateValueFinal() {
     const index = this.indexForm.length - 1; // Indice de los inputs.
-    const finalPrice = this.secondForm.controls[`finalValue${index}`].value;
+    const finalValue = this.secondForm.controls[`finalValue${index}`].value;
+    const initialValue = this.secondForm.controls[`initialValue${index}`].value;
 
-    const absControl = `initialValue${index}`;
+
+    const absControl = `finalValue${index}`;
 
     if (this.shippingMethod === 2) {
-      if (+finalPrice && +finalPrice <= 8000) {
+      if (+finalValue && ((+finalValue < 8000) || !+finalValue)) {
         this.secondForm.controls[absControl].setErrors({ 'price_must_less_final': true });
       } else {
-        this.secondForm.controls[`finalValue${index}`].setErrors(null);
+        if (!finalValue) {
+          this.secondForm.controls[`finalValue${index}`].setErrors(null);
+        }
+      }
+      if (+finalValue && +finalValue <= +initialValue) {
+        this.secondForm.controls[absControl].setErrors({ 'price_higher': true });
+      } else {
+        if (+finalValue) {
+          this.secondForm.controls[`finalValue${index}`].setErrors(null);
+        }
+      }
+    }
+
+    if (this.shippingMethod === 3) {
+      if (+finalValue && (+finalValue <= +initialValue)) {
+        this.secondForm.controls[absControl].setErrors({ 'weight_higher': true });
+      } else {
+        if (+finalValue) {
+          this.secondForm.controls[`finalValue${index}`].setErrors(null);
+        }
+      }
+      if (finalValue && (+finalValue === 0)) {
+        this.secondForm.controls[absControl].setErrors({ pattern: true });
       }
     }
   }
@@ -256,7 +281,7 @@ export class ModalQuotingSellerComponent implements OnInit {
       case 1:
         validators = [
           this.secondForm.controls[`initialValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.priceInfinite)]),
-          this.secondForm.controls[`shippingValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.priceInfinite)])
+          this.secondForm.controls[`shippingValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.freightInfinite)])
         ];
         this.title = this.languageService.instant('secure.offers.quoting.seller.category_rank');
         break;
@@ -264,17 +289,18 @@ export class ModalQuotingSellerComponent implements OnInit {
         this.secondForm.controls[`initialValue${0}`].setValue(8000);
         validators = [
           this.secondForm.controls[`initialValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.priceInfinite)]),
-          this.secondForm.controls[`finalValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.priceInfinite)]),
-          this.secondForm.controls[`shippingValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.formatNumberInfinito)])
+          this.secondForm.controls[`finalValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.freightInfinite)]),
+          this.secondForm.controls[`shippingValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.freightInfiniteNoZero)])
         ];
         this.title = this.languageService.instant('secure.offers.quoting.seller.price_rank');
         this.subTitle = this.languageService.instant('secure.offers.quoting.seller.price_rank_value');
         break;
       case 3:
+        this.secondForm.controls[`initialValue${0}`].setValue(0);
         validators = [
           this.secondForm.controls[`initialValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.formatNumberInfinito)]),
           this.secondForm.controls[`finalValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.formatNumberInfinito)]),
-          this.secondForm.controls[`shippingValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.priceInfinite)])
+          this.secondForm.controls[`shippingValue${index}`].setValidators([Validators.required, Validators.pattern(this.quotingRegex.freightInfiniteNoZero)])
         ];
         this.title = this.languageService.instant('secure.offers.quoting.seller.weight_rank');
         this.subTitle = this.languageService.instant('secure.offers.quoting.seller.weight_rank_value');
@@ -299,7 +325,7 @@ export class ModalQuotingSellerComponent implements OnInit {
       }
     });
   }
-
+  
   /**
    * Metodo para ir añadiendo los controles de cada rango de parametrizacíon
    * @memberof ModalQuotingSellerComponent
@@ -528,13 +554,11 @@ export class ModalQuotingSellerComponent implements OnInit {
     }
     if (this.data.action === 1) {
       this.dataToSend = this.data.element;
-    }
-    this.dataToSend.Ranges = this.validDataToSend();
-    this.quotingService.crateQuotingSeller(this.dataToSend).subscribe((res: any) => {
-      if (res.status === 201 || res.status === 200) {
-        if (res.body.statusCode === 200 || res.body.statusCode === 201) {
-          if (res.body.body) {
-            const data = JSON.parse(res.body.body);
+      this.dataToSend.Ranges = this.validDataToSend();
+      this.quotingService.updateQuotingSeller(this.dataToSend).subscribe((res: any) => {
+        if (res.statusCode === 201 || res.statusCode === 200) {
+          if (res.body) {
+            const data = JSON.parse(res.body);
             if (data.Data === true) {
               this.dialogRef.close(confirm);
               this.snackBar.open(this.languageService.instant('secure.offers.quoting.seller.save_info_ok'), this.languageService.instant('actions.close'), {
@@ -545,15 +569,48 @@ export class ModalQuotingSellerComponent implements OnInit {
                 duration: 5000,
               });
             }
+          } else {
+            this.snackBar.open(this.languageService.instant('secure.offers.quoting.seller.save_info_ko'), this.languageService.instant('actions.close'), {
+              duration: 5000,
+            });
+          }
+        } else {
+          this.snackBar.open(this.languageService.instant('secure.offers.quoting.seller.save_info_ko'), this.languageService.instant('actions.close'), {
+            duration: 5000,
+          });
+        }
+        this.loadingService.closeSpinner();
+      });
+
+    } else {
+      this.dataToSend.Ranges = this.validDataToSend();
+      this.quotingService.crateQuotingSeller(this.dataToSend).subscribe((res: any) => {
+        if (res.status === 201 || res.status === 200) {
+          if (res.body.statusCode === 200 || res.body.statusCode === 201) {
+            if (res.body.body) {
+              const data = JSON.parse(res.body.body);
+              if (data.Data === true) {
+                this.dialogRef.close(confirm);
+                this.snackBar.open(this.languageService.instant('secure.offers.quoting.seller.save_info_ok'), this.languageService.instant('actions.close'), {
+                  duration: 5000,
+                });
+              } else {
+                this.snackBar.open(this.languageService.instant('secure.offers.quoting.seller.save_info_ko'), this.languageService.instant('actions.close'), {
+                  duration: 5000,
+                });
+              }
+            }
+          } else {
+            this.snackBar.open(this.languageService.instant('secure.offers.quoting.seller.save_info_ko'), this.languageService.instant('actions.close'), {
+              duration: 5000,
+            });
           }
         } else {
           this.modalService.showModal('errorService');
         }
-      } else {
-        this.modalService.showModal('errorService');
-      }
-      this.loadingService.closeSpinner();
-    });
+        this.loadingService.closeSpinner();
+      });
+    }
   }
 
   /**

@@ -325,7 +325,7 @@
                 <div class="graph__content" *ngIf="showChartSales">
                   <div class="graph__table">
                     <div *ngFor="let colum of last_sales" class="graph__bar-box">
-                      <div class="graph__value">${{colum.sales | number}}</div>
+                      <div class="graph__value dashboard-component-rotate-text">${{colum.sales | number}}</div>
                       <div class="graph__bar" [style.minHeight]="colum.percent">
                         <div class="graph__label">{{colum.name}}</div>
                       </div>
