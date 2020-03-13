@@ -21,7 +21,7 @@ describe('PortsComponent', () => {
     // Mock Services
     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
     const mockDialogError = jasmine.createSpyObj('ModalService', ['showModal']);
-    const mockPortsService = jasmine.createSpyObj('PortsService', ['fetchData']);
+    const mockPortsService = jasmine.createSpyObj('PortsService', ['getPortByCountryName']);
     const mockAuthService = jasmine.createSpyObj('AuthService', ['getMenu']);
 
     // Components and fixtures
@@ -31,20 +31,21 @@ describe('PortsComponent', () => {
 
     const listPorts: Array<PortEntity> = [
         {
-            id: 1,
-            name: "Port 1"
+            Id: 1,
+            Name: "Port 1"
         },
         {
-            id: 2,
-            name: "Port 2"
+            Id: 2,
+            Name: "Port 2"
         },
         {
-            id: 3,
-            name: "Port 3"
+            Id: 3,
+            Name: "Port 3"
         }
     ];
 
     const portEmittedDataMock = {id: 3, name: "Port 3"};
+    const country = "PANAMA";
 
     // Services
     let portsService: PortsService;
@@ -61,7 +62,6 @@ describe('PortsComponent', () => {
                 RouterTestingModule,
                 BrowserAnimationsModule,
                 HttpClientTestingModule,
-                // SharedModule,
                 TranslateModule.forRoot({})
             ],
             providers: [
@@ -105,23 +105,39 @@ describe('PortsComponent', () => {
 
         it('Should getPortsDropdown be called', () => {
             const getPortsSpy = spyOn(component, "getPortsDropdown");
-            component.ngOnInit();
-            expect(getPortsSpy).toHaveBeenCalled();
+            component.countryName = country;
+            component.ngOnChanges();
+            expect(getPortsSpy).toHaveBeenCalledWith(country);
         });
 
         it('Should getPortsDropdown return an array of ports', () => {
-            component.getPortsDropdown();
-            mockPortsService.fetchData.and.returnValue(of(listPorts));
-            if (!component.disabledComponent) {
-                expect(component.validateFormRegister.controls['portsFormControl'].enabled).toBeTruthy();
-            }
+            fixture.whenStable().then(() => {
+                component.getPortsDropdown(country);
+                mockPortsService.getPortByCountryName.and.returnValue(of(listPorts));
+                tick();
+                if (!component.disabledComponent) {
+                    expect(component.validateFormRegister.controls['portsFormControl'].enabled).toBeTruthy();
+                }
+                expect(component.listPorts.length).toBe(3);
+            })
+        })
+
+        it('Should validateElementLoaded should return an array', () => {
+            const portId = 1;
+            const validateElementLoadedSpy = spyOn(component, "validateElementLoaded");
+
+            fixture.whenStable().then(() => {
+                tick();
+                expect(validateElementLoadedSpy).toHaveBeenCalledWith(portId);
+                expect(component.validateFormRegister.controls['portsFormControl'].value).toBe(portId);
+            })
         })
 
         it('Should emit a value when select value changes', () => {
             fixture.whenStable().then(() => {
                 tick();
                 const select: HTMLSelectElement = fixture.debugElement.query(By.css('#register-ports')).nativeElement;
-                select.value = select.options[2].value;  // <-- select a new value
+                select.value = select.options[2].value;
                 select.dispatchEvent(new Event('change'));
                 fixture.detectChanges();
                 expect(component.portItemEmmited.emit).toHaveBeenCalledWith(portEmittedDataMock);

@@ -34,7 +34,7 @@ export const registerRegex = [
     { Identifier: 'internationalLocation', Value: '^([^\/])*$', Module: 'vendedores' }
 ];
 
-fdescribe('ManageSellerComponent', () => {
+describe('ManageSellerComponent', () => {
     const userData = { sellerProfile: 'administrator' };
     const registerMenu = {
         Functionalities: [{

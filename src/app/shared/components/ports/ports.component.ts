@@ -45,8 +45,7 @@ export class PortsComponent implements OnInit, OnChanges {
    * @description Metodo que se ejecuta cuando se detecta un cambio en algún atributo del componente
    * @memberof PortsComponent
    */
-  ngOnChanges(changes: any) {
-    console.log(this.countryName);
+  ngOnChanges() {
     if (this.countryName && this.countryName !== undefined && this.countryName !== null) {
       this.getPortsDropdown(this.countryName);
       this.portItemEmmited.emit(null);
@@ -59,8 +58,8 @@ export class PortsComponent implements OnInit, OnChanges {
    * @param element Id del puerto
    * @memberof PortsComponent
    */
-  public validateElementLoaded(element: number): any {
-    let loaded: any;
+  validateElementLoaded(element: number): PortEntity {
+    let loaded: PortEntity = null;
     this.listPorts.forEach(port => {
       if (port.Id === element) {
         loaded = port;
@@ -85,7 +84,6 @@ export class PortsComponent implements OnInit, OnChanges {
           this.validateFormRegister.get('portsFormControl').enable();
         }
         if (this.elementLoad) {
-          console.log(this.elementLoad)
           const portSelected = this.validateElementLoaded(this.elementLoad);
           if (portSelected) {
             this.validateFormRegister.controls['portsFormControl'].setValue(portSelected.Id, { onlySelf: true });

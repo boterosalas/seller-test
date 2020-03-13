@@ -507,7 +507,6 @@ export class ManageSellerComponent implements OnInit {
    * @memberof ManageSellerComponent
    */
   receivePortItem($event: any) {
-    // console.log(this.validateFormRegister);
     if ($event && $event !== undefined && $event !== null) {
       this.validateFormRegister.controls['IdDispatchPort'].setValue($event.Id);
       this.validateFormRegister.controls['IdDispatchPort'].markAsTouched();
@@ -517,7 +516,6 @@ export class ManageSellerComponent implements OnInit {
   }
 
   submitUpdateSeller(): void {
-    // console.log(this.validateFormRegister.value);
     if (this.validateFormRegister.valid) {
       this.loadingService.viewSpinner();
       this.disabledForService = true;
