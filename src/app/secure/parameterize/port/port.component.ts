@@ -36,6 +36,12 @@ export class PortComponent implements OnInit {
   idPort: any;
   refresh = false;
   data: any;
+  lastState: 0;
+  isClear= false;
+  listFilterBrands = [];
+  separatorKeysCodes = [];
+
+  length: number;
 
   public displayedColumns = [
     'name',
@@ -78,6 +84,7 @@ getAllCenterCollection() {
     this.portCollectionService.getAllPort(null).subscribe((res: any) => {
       this.loadingService.closeSpinner();
       if (res) {
+        this.length = res.length;
         this.dataSource = new MatTableDataSource(res);
       }
     }, error => {
@@ -358,4 +365,9 @@ getFilterPort(params: any) {
 clearFormFilter() {
     this.filterPort.reset();
   }
+
+
+  changeSizeOrderTable(event: any) {}
+  paginations(event: any) {}
+  getOrdersList(event: any) {}
 }

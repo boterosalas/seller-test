@@ -7,9 +7,9 @@
       <!-- <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [downloadPermission]="downloadPermission"></app-toolbar-options> -->
       <!-- Toolbar de las opciones para la orden -->
       <app-toolbar-search-pagination [isClear]="isClear" [informationToForm]="informationToForm" [state]="lastState"
-        [idSeller]="idSeller" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)"
-        (paginationListOrdens)="paginations($event)" [pageIndexChange]="pageIndexChange"
-        (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [downloadPermission]="downloadPermission"
+         #toolbarOptions (OnGetOrdersList)="getOrdersList($event)"
+        (paginationListOrdens)="paginations($event)" 
+        (OnChangeSizeOrderTable)="changeSizeOrderTable($event)"
         [Typeprofile]="3" [lengthOrder]="length" (filterCalifications)="toggleFilterPorts()">
       </app-toolbar-search-pagination>
     </div>
@@ -144,7 +144,7 @@
           class="seller-filter-sidenav">
         <div>
             <div>
-              <div class="port-list-padding-container" [hidden]="showSelectorMouthQuality">
+              <div class="port-list-padding-container" >
                 <div class="port-component-text-filter">
                   <span>Use el filtro para buscar los puertos asociados al pais seleccionado</span>
                 </div>
