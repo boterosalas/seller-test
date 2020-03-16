@@ -18,7 +18,7 @@ export const registerRegex = [
     { Identifier: 'dateMonthYear', Value: '^(0[0-9]||1[0-2])\/([0-9]{4})$', Module: 'dashboard' },
 ];
 
-describe('SellerRatingComponent', () => {
+fdescribe('SellerRatingComponent', () => {
     let component: SellerRatingComponent;
     let fixture: ComponentFixture<SellerRatingComponent>;
 
