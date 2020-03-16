@@ -181,13 +181,13 @@ describe('Detail offer Component SELLER', () => {
             fixture.detectChanges();
         });
 
-        it('Edit offert', () => {
-            detailOfferComponent.editOffer();
-            expect(detailOfferComponent.isUpdateOffer).toBeTruthy();
-        });
-        afterAll(() => {
-            TestBed.resetTestingModule();
-        });
+        // it('Edit offert', () => {
+        //     // detailOfferComponent.editOffer();
+        //     // expect(detailOfferComponent.isUpdateOffer).toBeTruthy();
+        // });
+        // afterAll(() => {
+        //     TestBed.resetTestingModule();
+        // });
     });
 
 });

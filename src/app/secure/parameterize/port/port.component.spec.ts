@@ -25,7 +25,7 @@ export const registerRegex = [
   { Identifier: 'formatIntegerNumber', Value: '^[0-9]+([.][0-9]{2})?$', Module: 'parametrizacion' },
 ];
 
-describe('PortComponent', () => {
+fdescribe('PortComponent', () => {
 
   const registerMenu = {
     Functionalities: [{
@@ -135,10 +135,34 @@ beforeEach(() => {
   dialogComponent = dialogFixture.componentInstance;
   mockSupportService.getRegexFormSupport.and.returnValue(of(registerRegex));
   mockPortCollectionService.getAllPort.and.returnValue(of(response));
+  portComponent.keywords = ['PARIS', 'MEXICO', 'ESPAÑA'];
   fixture.detectChanges();
 });
 
-  it('should create', () => {
+
+  it('should create', function(done: any){
     expect(portComponent).toBeTruthy();
+    done();
   });
+
+  it('toggle Filter', function (){
+    portComponent.toggleFilterPorts();
+  });
+  it('Delete key', function (){
+    portComponent.deleteKeywork(1);
+  });
+
+  describe('inputs edit', () => {
+    beforeEach(() => {
+      portComponent.keywords = [];
+      fixture.detectChanges();
+    });
+
+    it('Edit offert', () => {
+      portComponent.deleteKeywork(1);
+        // detailOfferComponent.editOffer();
+        // expect(detailOfferComponent.isUpdateOffer).toBeTruthy();
+    });
+
+});
 });
