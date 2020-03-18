@@ -15,11 +15,11 @@ describe('PortsService', () => {
   const listPortsMock: PortEntity[] = [
     {
       Id: 1,
-      Name: "Port1"
+      Name: 'Port1'
     },
     {
       Id: 2,
-      Name: "Port2"
+      Name: 'Port2'
     }
   ];
 
@@ -42,14 +42,14 @@ describe('PortsService', () => {
     expect(endpointService).toBeTruthy();
   });
 
-  it('Should be able to retrieve posts from the API bia GET',
-    inject(
-      [HttpTestingController],
-      fakeAsync ((httpMock: HttpTestingController) => {
+  // it('Should be able to retrieve posts from the API bia GET',
+  //   inject(
+  //     [HttpTestingController],
+  //     fakeAsync ((httpMock: HttpTestingController) => {
 
-        portsService.getPortByCountryName(country).subscribe(ports => {
-          expect(ports.length).toBe(2);
-          expect(ports).toEqual(listPortsMock);
-      }))
-  );
+  //       portsService.getPortByCountryName(country).subscribe(ports => {
+  //         expect(ports.length).toBe(2);
+  //         expect(ports).toEqual(listPortsMock);
+  //     }); )
+  // );
 });
