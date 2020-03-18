@@ -32,20 +32,20 @@ describe('PortsComponent', () => {
     const listPorts: Array<PortEntity> = [
         {
             Id: 1,
-            Name: "Port 1"
+            Name: 'Port 1'
         },
         {
             Id: 2,
-            Name: "Port 2"
+            Name: 'Port 2'
         },
         {
             Id: 3,
-            Name: "Port 3"
+            Name: 'Port 3'
         }
     ];
 
-    const portEmittedDataMock = {id: 3, name: "Port 3"};
-    const country = "PANAMA";
+    const portEmittedDataMock = {id: 3, name: 'Port 3'};
+    const country = 'PANAMA';
 
     // Services
     let portsService: PortsService;
@@ -104,7 +104,7 @@ describe('PortsComponent', () => {
         });
 
         it('Should getPortsDropdown be called', () => {
-            const getPortsSpy = spyOn(component, "getPortsDropdown");
+            const getPortsSpy = spyOn(component, 'getPortsDropdown');
             component.countryName = country;
             component.ngOnChanges();
             expect(getPortsSpy).toHaveBeenCalledWith(country);
@@ -119,19 +119,19 @@ describe('PortsComponent', () => {
                     expect(component.validateFormRegister.controls['portsFormControl'].enabled).toBeTruthy();
                 }
                 expect(component.listPorts.length).toBe(3);
-            })
-        })
+            });
+        });
 
         it('Should validateElementLoaded should return an array', () => {
             const portId = 1;
-            const validateElementLoadedSpy = spyOn(component, "validateElementLoaded");
+            const validateElementLoadedSpy = spyOn(component, 'validateElementLoaded');
 
             fixture.whenStable().then(() => {
                 tick();
                 expect(validateElementLoadedSpy).toHaveBeenCalledWith(portId);
                 expect(component.validateFormRegister.controls['portsFormControl'].value).toBe(portId);
-            })
-        })
+            });
+        });
 
         it('Should emit a value when select value changes', () => {
             fixture.whenStable().then(() => {
@@ -141,7 +141,7 @@ describe('PortsComponent', () => {
                 select.dispatchEvent(new Event('change'));
                 fixture.detectChanges();
                 expect(component.portItemEmmited.emit).toHaveBeenCalledWith(portEmittedDataMock);
-            })
-        })
-    })
+            });
+        });
+    });
 });
