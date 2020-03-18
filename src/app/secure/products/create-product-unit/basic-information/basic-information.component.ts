@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
-import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
+import { FormGroup, Validators, FormControl, FormBuilder, FormGroupDirective, NgForm } from '@angular/forms';
+import { MatSnackBar, ErrorStateMatcher } from '@angular/material';
 import { BasicInformationService } from './basic-information.component.service';
 import { EanServicesService } from '../validate-ean/ean-services.service';
 import { ProcessService } from '../component-process/component-process.service';
@@ -11,11 +11,27 @@ import { trimField, withArray } from '@app/shared/util/validation-messages';
 import { TranslateService } from '@ngx-translate/core';
 import { SupportService } from '@app/secure/support-modal/support.service';
 
+/**
+ * exporta funcion para mostrar los errores de validacion del formulario
+ *
+ * @export
+ * @class MyErrorStateMatcher
+ * @implements {ErrorStateMatcher}
+ */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+        const isSubmitted = form && form.submitted;
+        return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+    }
+}
+
+
 @Component({
     selector: 'app-basic-information',
     templateUrl: './basic-information.component.html',
     styleUrls: ['./basic-information.component.scss']
 })
+
 
 export class ProductBasicInfoComponent implements OnInit {
 
@@ -128,6 +144,7 @@ export class ProductBasicInfoComponent implements OnInit {
 
     ngOnInit() {
         this.listOfBrands();
+        this.getRegexByModule();
     }
 
     /**
@@ -188,12 +205,14 @@ export class ProductBasicInfoComponent implements OnInit {
      * @memberof ProductBasicInfoComponent
      */
     public getValue(name: string): string {
-        for (let i = 0; i < this.validateRegex.Data.length; i++) {
-            if (this.validateRegex.Data[i].Identifier === name) {
-                return this.validateRegex.Data[i].Value;
+        if (this.validateRegex && this.validateRegex.Data) {
+            for (let i = 0; i < this.validateRegex.Data.length; i++) {
+                if (this.validateRegex.Data[i].Identifier === name) {
+                    return this.validateRegex.Data[i].Value;
+                }
             }
+            return null;
         }
-        return null;
     }
 
     /**
@@ -313,11 +332,8 @@ export class ProductBasicInfoComponent implements OnInit {
                 if (!val) {
                     this.filterBrands = [];
                     this.formBasicInfo.get('Brand').setErrors({ required: true });
-                } else {
-                    this.formBasicInfo.get('Brand').setErrors(null);
                 }
             }
-            
 
         });
 
@@ -870,8 +886,15 @@ setChildren(detailProduct: any) {
     }
 
     setValidateBrands() {
+        this.formBasicInfo.controls['Brand'].setValue('');
         this.formBasicInfo.get('Brand').setErrors(null);
-       console.log(this.isManual);
+       if (this.isManual) {
+        this.formBasicInfo.controls['Brand'].setValidators([Validators.required, Validators.pattern(this.BrandsRegex.brandsName)]);
+       } else {
+        this.formBasicInfo.controls['Brand'].setValidators([
+            Validators.required, Validators.pattern(this.getValue('brandProduct'))
+        ]);
+       }
     }
 
 
