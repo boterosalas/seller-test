@@ -9,6 +9,7 @@ import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import { LoadingService } from '@app/core';
 import { trimField, withArray } from '@app/shared/util/validation-messages';
 import { TranslateService } from '@ngx-translate/core';
+import { SupportService } from '@app/secure/support-modal/support.service';
 
 @Component({
     selector: 'app-basic-information',
@@ -40,6 +41,10 @@ export class ProductBasicInfoComponent implements OnInit {
     inputRequired = true;
     isEdit= false;
     disabledEanChildren= false;
+    textCheck= 'Ingresar la marca manual';
+    show= false;
+    isManual = false;
+    BrandsRegex = { brandsName: '', formatIntegerNumber: '' };
     @Input() set detailProduct(value: any) {
         if (value) {
             this._detailProduct = value;
@@ -114,6 +119,7 @@ export class ProductBasicInfoComponent implements OnInit {
         private service: BasicInformationService,
         private serviceEanSon: EanServicesService,
         private process: ProcessService,
+        public SUPPORT: SupportService,
         private loadingService: LoadingService,
         private languageService: TranslateService,
     ) {
@@ -284,24 +290,34 @@ export class ProductBasicInfoComponent implements OnInit {
         });
 
         this.formBasicInfo.get('Brand').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
-            if (!!val && val.length >= 2) {
-                this.filterBrands = this.brands.filter(brand => brand.Name.toString().toLowerCase().includes(val.toLowerCase()));
-                const exist = this.filterBrands.find(brand => brand.Name === val);
-                if (!exist) {
-                    if (this._detailProduct && this._detailProduct.brand !== undefined && this._detailProduct.brand !== '') {
-                        this.formBasicInfo.get('Brand').clearValidators();
+            if (!this.isManual) {
+                if (!!val && val.length >= 2) {
+                    this.filterBrands = this.brands.filter(brand => brand.Name.toString().toLowerCase().includes(val.toLowerCase()));
+                    const exist = this.filterBrands.find(brand => brand.Name === val);
+                    if (!exist) {
+                        if (this._detailProduct && this._detailProduct.brand !== undefined && this._detailProduct.brand !== '') {
+                            this.formBasicInfo.get('Brand').clearValidators();
+                        } else {
+                            this.formBasicInfo.get('Brand').setErrors({ pattern: true });
+                        }
                     } else {
-                        this.formBasicInfo.get('Brand').setErrors({ pattern: true });
+                        this.formBasicInfo.get('Brand').setErrors(null);
                     }
+                } else if (!val) {
+                    this.filterBrands = [];
+                    this.formBasicInfo.get('Brand').setErrors({ required: true });
+                } else {
+                    this.formBasicInfo.get('Brand').setErrors({ pattern: true });
+                }
+            } else {
+                if (!val) {
+                    this.filterBrands = [];
+                    this.formBasicInfo.get('Brand').setErrors({ required: true });
                 } else {
                     this.formBasicInfo.get('Brand').setErrors(null);
                 }
-            } else if (!val) {
-                this.filterBrands = [];
-                this.formBasicInfo.get('Brand').setErrors({ required: true });
-            } else {
-                this.formBasicInfo.get('Brand').setErrors({ pattern: true });
             }
+            
 
         });
 
@@ -846,6 +862,31 @@ setChildren(detailProduct: any) {
             EanCombo: this.combos
         };
         this.process.validaData(data);
+    }
+    showBrandsInput(changeShow: boolean) {
+        this.show = !changeShow;
+        this.isManual = !changeShow;
+        this.setValidateBrands();
+    }
+
+    setValidateBrands() {
+        this.formBasicInfo.get('Brand').setErrors(null);
+       console.log(this.isManual);
+    }
+
+
+    public getRegexByModule(): void {
+        this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
+            let dataOffertRegex = JSON.parse(res.body.body);
+            dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'parametrizacion');
+            for (const val in this.BrandsRegex) {
+                if (!!val) {
+                    const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
+                    this.BrandsRegex[val] = element && `${element.Value}`;
+                }
+            }
+            this.createForm();
+        });
     }
 
     get IsCombo(): FormControl {
