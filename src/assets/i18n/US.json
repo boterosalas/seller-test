@@ -882,6 +882,7 @@
     "secure.products.create_product_unit.basic_information.size":"Enter size",
     "secure.products.create_product_unit.basic_information.colorPDP":"HexColorCodePDP",
     "secure.products.create_product_unit.basic_information.color_spec":"Specific color name",
+    "secure.products.create_product_unit.basic_information.enter_new_brand":"Enter new brand",
 
     "secure.products.create_product_unit.basic_information.kit": "Kit",
     "secure.products.create_product_unit.basic_information.kit_ean": "Kit's Ean",

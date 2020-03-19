@@ -74,7 +74,7 @@ $color-red: #f44336;
             }
         }
         .fieldBrands {
-            width: 40%;
+            width: 28%;
             &.name-product {
                 @include inputs-basic-info-form();
             }
@@ -323,4 +323,10 @@ $color-red: #f44336;
 
 [hidden] {
     display: none !important;
+  }
+
+  @media only screen and (max-width: 500px) and (min-width: 341px) {  
+    .fieldBrands{
+        width: 100%;
+    }
   }
