@@ -107,7 +107,7 @@ formtDateYearMonth(valueDate: string) {
 formatNameMonth(date: string) {
     if (date && date.includes('/')) {
       const arrayDate = date.split('/');
-      const month = this.monthES[parseInt(arrayDate[0], 0)];
+      const month = this.monthES[parseInt(arrayDate[0], 0) - 1];
       return month + ' (' + arrayDate[1] + ')';
     }
   }
