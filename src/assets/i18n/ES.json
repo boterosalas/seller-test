@@ -333,6 +333,7 @@
     "secure.client_information.collection_center": "Centro de Acopio",
     "secure.client_information.collection_center_phone": "Teléfono centro de acopio",
     "secure.client_information.dipatch_address": "Dirección de despacho",
+    "secure.client_information.po_box": "Casillero del Cliente",
 
 
     "secure.dashboard.all": "Todas",
