@@ -7,6 +7,9 @@ import { Logger } from '@core/util/logger.service';
 import { DashboardService } from './services/dashboard.service';
 import { RoutesConst } from '@app/shared';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { DatePipe } from '@angular/common';
+import { ModalDashboardComponent } from './modal-dashboard/modal-dashboard.component';
+import { MatDialog } from '@angular/material';
 
 /**
  * @export
@@ -24,6 +27,7 @@ export class DashboardComponent implements OnInit {
 
     // Variable que almacena un arreglo con los datos de ventas de los tres últimos meses del vendedor.
     public last_sales: any[];
+    public last_ordens: any[];
 
     // Variable para almacenar los datos del vendedor.
     private user: any;
@@ -39,6 +43,20 @@ export class DashboardComponent implements OnInit {
 
     public dateCurrent: any;
 
+    public showOrdersChart = false;
+    public showOrdersChartSales = false;
+    public showOrdersChartSeller = false;
+    public params: any;
+    public totalCount = 0;
+    public sumatoryTotal = 0;
+
+    public showOrdens = false;
+    public dateOrdens = '';
+    public showSales = false;
+    public dateSales = '';
+
+    public startDateDiary: any;
+
     // Fecha máxima del datePicker
     public dateMax: Date;
 
@@ -48,11 +66,49 @@ export class DashboardComponent implements OnInit {
     public isLoad = true;
     public isLoading = false;
 
+    public periodsEN = [
+        { value: 'Trimester' },
+        { value: 'Monthly' },
+        { value: 'Weekly' },
+        { value: 'Daily' }
+    ];
+    public periodsES = [
+        { value: 'Trimestral' },
+        { value: 'Mensual' },
+        { value: 'Semanal' },
+        { value: 'Diaria' }
+    ];
+
+    selected: any;
+    selectedSales: any;
+    selectedValue: string;
+    public typeFilter = '1';
+    public showCalenderQ = true;
+    public showCalenderD = false;
+
+    public typeFilterSales = '1';
+    public showCalenderQSales = true;
+    public showCalenderDSales = false;
+
+    public showChartSales = false;
+    public showChartOrdens = false;
+
+    public sales: string;
+    public ordens: string;
+
+    public visibleDateSales: string;
+    public startDateSales: any;
+    public startDateDiarySales: any;
+
     /**
      * Variable para observar el input del filtro inicial
      * @memberof FilterComponent
      */
     @ViewChild('picker') picker;
+    @ViewChild('pickerDiary') pickerDiary;
+
+    @ViewChild('pickerSales') pickerSales;
+    @ViewChild('pickerDiarySales') pickerDiarySales;
 
     /**
      * @method constructor
@@ -64,6 +120,8 @@ export class DashboardComponent implements OnInit {
     constructor(
         private _dashboard: DashboardService,
         private languageService: TranslateService,
+        public dialog: MatDialog,
+        public datepipe: DatePipe,
         public userService?: UserLoginService,
         public userParams?: UserParametersService,
         private loadingService?: LoadingService,
@@ -78,10 +136,12 @@ export class DashboardComponent implements OnInit {
         };
 
         this.last_sales = [];
+        this.last_ordens = [];
 
         this.startDate = new Date();
         this.dateMax = this.startDate;
         this.getMonthVisible(this.startDate.getMonth());
+        this.getMonthVisibleSales(this.startDate.getMonth());
     }
 
     /**
@@ -90,11 +150,86 @@ export class DashboardComponent implements OnInit {
      * @memberof DashboardComponent
      */
     ngOnInit(): void {
-        // this.userService.isAuthenticated(this);
         this.log = new Logger('DashboardComponent');
         this.getUserData();
         this.changeLanguage();
+        this.setSelectFilterOrders();
+        this.getSalesSummary();
+        this.getOrdensSummary();
     }
+
+    setSelectFilterOrders() {
+        this.selected = '1';
+        this.selectedSales = '1';
+    }
+
+    select(filter: any) {
+        this.typeFilter = filter;
+        if (filter === '1' || filter === '2') {
+            this.showCalenderQ = true;
+            this.showCalenderD = false;
+        } else {
+            this.showCalenderQ = false;
+            this.showCalenderD = true;
+        }
+        this.getOrdensSummary();
+    }
+
+    getOrdensSummary(params?: any) {
+        this.params = this.setParameters(params);
+        this.showChartOrdens = false;
+        this._dashboard.getSalesSummary(this.params).subscribe((res: any) => {
+            if (this.isLoad) {
+                this.loadingService.closeSpinner();
+            } else {
+                this.isLoading = false;
+            }
+            this.last_ordens = res ? this.parseLastOrdens(res.reverse()) : [];
+            this.calculateCountSales(res);
+            this.showChartOrdens = true;
+        }, err => {
+            if (this.isLoad) {
+                this.loadingService.closeSpinner();
+            } else {
+                this.isLoading = false;
+            }
+            this.log.debug(err);
+            this.modalService.showModal('errorService');
+        }
+        );
+    }
+
+    setParameters(params: any) {
+        let paramsOrdersSummary = 'null/';
+        if (this.dateCurrent === '' || this.dateCurrent === undefined) {
+            this.dateCurrent = new Date();
+            const latest_date = this.datepipe.transform(this.dateCurrent, 'yyyy-MM-dd');
+            paramsOrdersSummary += latest_date + '/';
+        } else {
+            paramsOrdersSummary += this.datepipe.transform(this.dateCurrent, 'yyyy-MM-dd') + '/';
+        }
+        if (this.typeFilter !== undefined && this.typeFilter !== null) {
+            paramsOrdersSummary += this.typeFilter;
+        }
+        if (this.typeFilter === '4' || this.typeFilter === '3') {
+            this.dateOrdens = this.datepipe.transform(this.dateCurrent, 'yyyy-MM-dd');
+            this.showOrdens = true;
+        } else {
+            this.dateOrdens = '';
+            this.showOrdens = false;
+        }
+        return paramsOrdersSummary;
+    }
+
+    calculateCountSales(res: any) {
+        this.totalCount = 0;
+        if (res && res.length > 0) {
+            res.forEach(element => {
+                this.totalCount += element.quantity;
+            });
+        }
+    }
+
 
     /**
      * @method getUserData
@@ -104,14 +239,6 @@ export class DashboardComponent implements OnInit {
     private async getUserData() {
         this.user = await this.userParams.getUserData();
         this.getOrdersData();
-        this.getLastSales();
-        /*
-        if (this.user.sellerProfile !== 'seller') {
-            this.router.navigate([`/${RoutesConst.sellerCenterIntSellerRegister}`]);
-        } else {
-            this.getOrdersData();
-            this.getLastSales();
-        } */
     }
 
     /**
@@ -137,39 +264,17 @@ export class DashboardComponent implements OnInit {
      * @description Método que carga los datos de las ventas de los últimos tres meses a parir de la fecha indicada.
      * @memberof DashboardComponent
      */
-    private getLastSales(date?: any) {
+    private getLastOrdens(date?: any) {
         this.dateCurrent = date;
-        if (this.isLoad) {
-            this.loadingService.viewSpinner();
-        }
-        if (this.user && this.user.sellerId) {
-            this._dashboard.getLastSales(this.user.sellerId, date)
-            .subscribe((res: any[]) => {
-                if (this.isLoad) {
-                    this.loadingService.closeSpinner();
-                } else {
-                    this.isLoading = false;
-                }
-                this.last_sales = res ? this.parseLastSales(res.reverse()) : [];
-            }, err => {
-                if (this.isLoad) {
-                    this.loadingService.closeSpinner();
-                } else {
-                    this.isLoading = false;
-                }
-                this.log.debug(err);
-                this.modalService.showModal('errorService');
-            });
-        }
+        this.getOrdensSummary();
     }
-
     changeLanguage() {
         this.languageService.onLangChange.subscribe((e: Event) => {
             this.isLoad = false;
             this.isLoading = true;
             localStorage.setItem('culture_current', e['lang']);
             this.getLastSales(this.dateCurrent);
-          });
+        });
     }
 
     /**
@@ -179,34 +284,22 @@ export class DashboardComponent implements OnInit {
      * @param last datos sin procesar de los últimos tres meses.
      * @memberof DashboardComponent
      */
-    private parseLastSales(last: any) {
-        const last_array: any = last;
-
-        let max: any;
-        let max_index: number;
-
-        for (let f = 0; f < last_array.length; f++) {
-            if (!max || parseInt(last_array[f].value, 10) > parseInt(max.value, 10)) {
-                max = last_array[f];
-                max_index = f;
-            }
-        }
-
-        if (parseInt(last_array[max_index].value, 10) !== 0) {
-            last_array[max_index].percent = 100 + '%';
-
-            last_array.forEach((e, f) => {
-                if (f !== max_index) {
-                    e.percent = ((e.value / max.value) * 100) + '%';
-                }
+    private parseLastOrdens(last: any) {
+        if (last && last.length > 0) {
+            let sumatory = 0;
+            last.forEach(element => {
+                sumatory += element.quantity;
+                element.percent = 0 + '%';
+            });
+            last.forEach(element => {
+                element.percent = ((element.quantity / sumatory) * 100) + '%';
             });
         } else {
-            last_array.forEach(e => {
-                e.percent = 0 + '%';
+            last.forEach(element => {
+                element.percent = '0%';
             });
         }
-
-        return last_array;
+        return last;
     }
 
     /**
@@ -220,9 +313,17 @@ export class DashboardComponent implements OnInit {
         const date = new Date(month);
         this.startDate = date;
         this.getMonthVisible(date.getMonth());
-        this.getLastSales(date);
+        this.getLastOrdens(date);
         dp.close();
     }
+    public chosenMonthHandlerDiary(month: any, dp: any) {
+        const date = new Date(month.value);
+        this.startDate = date;
+        this.getMonthVisible(date.getMonth());
+        this.getLastOrdens(date);
+        dp.close();
+    }
+
 
     /**
      * @method openDatePicker
@@ -231,6 +332,15 @@ export class DashboardComponent implements OnInit {
      */
     public openDatePicker() {
         this.picker.open();
+    }
+
+    /**
+     * @method openDatePicker
+     * @description Método que abre el date picker diario.
+     * @memberof DashboardComponent
+     */
+    public openDatePickerDiary() {
+        this.pickerDiary.open();
     }
 
     getMonthVisible(month: any) {
@@ -296,6 +406,240 @@ export class DashboardComponent implements OnInit {
             // this.router.navigate([`/${RoutesConst.home}`]);
         } else {
             this.getUserData();
+        }
+    }
+    /**
+     * funcion para mostrar las diferentes vistas de movil a escritorio
+     *
+     * @param {boolean} show
+     * @memberof DashboardComponent
+     */
+    public showChangeView(show: boolean) {
+        this.showOrdersChart = !show;
+    }
+    /**
+     * funcion para mostrar las grafias de ventas
+     *
+     * @param {boolean} show
+     * @memberof DashboardComponent
+     */
+    public showChangeViewSales(show: boolean) {
+        this.showOrdersChartSales = !show;
+    }
+    /**
+     * funcion para mostrar las graficas de ventas
+     *
+     * @param {boolean} show
+     * @memberof DashboardComponent
+     */
+    public showChangeViewSeller(show: boolean) {
+        this.showOrdersChartSeller = !show;
+    }
+    /**
+     * funcion que obtiene los registros de ventas del vendedor logeado
+     *
+     * @param {*} [params]
+     * @memberof DashboardComponent
+     */
+    getSalesSummary(params?: any) {
+        this.params = this.setParametersSales(params);
+        this.showChartSales = false;
+        this._dashboard.getSalesSummary(this.params).subscribe((res: any) => {
+            if (this.isLoad) {
+                this.loadingService.closeSpinner();
+            } else {
+                this.isLoading = false;
+            }
+            this.last_sales = res ? this.parseLastSales(res.reverse()) : [];
+            this.calculateCountSales(res);
+            this.showChartSales = true;
+        }, err => {
+            if (this.isLoad) {
+                this.loadingService.closeSpinner();
+            } else {
+                this.isLoading = false;
+            }
+            this.log.debug(err);
+            this.modalService.showModal('errorService');
+        }
+        );
+    }
+    /**
+     * funcion para mostrar los calendarios mes y otro permite dias
+     *
+     * @param {*} filter
+     * @memberof DashboardComponent
+     */
+    selectSales(filter: any) {
+        this.typeFilterSales = filter;
+        if (filter === '1' || filter === '2') {
+            this.showCalenderQSales = true;
+            this.showCalenderDSales = false;
+        } else {
+            this.showCalenderQSales = false;
+            this.showCalenderDSales = true;
+        }
+        this.getSalesSummary();
+    }
+    /**
+     * funcion para setear los parametros y enviarlo al endPoint para consultar las ventas
+     *
+     * @param {*} params
+     * @returns
+     * @memberof DashboardComponent
+     */
+    setParametersSales(params: any) {
+        let paramsOrdersSummary = 'null/';
+        if (this.dateCurrent === '' || this.dateCurrent === undefined) {
+            this.dateCurrent = new Date();
+            const latest_date = this.datepipe.transform(this.dateCurrent, 'yyyy-MM-dd');
+            paramsOrdersSummary += latest_date + '/';
+        } else {
+            paramsOrdersSummary += this.datepipe.transform(this.dateCurrent, 'yyyy-MM-dd') + '/';
+        }
+        if (this.typeFilterSales !== undefined && this.typeFilterSales !== null) {
+            paramsOrdersSummary += this.typeFilterSales;
+        }
+        if (this.typeFilterSales === '4' || this.typeFilterSales === '3') {
+            this.dateSales = this.datepipe.transform(this.dateCurrent, 'yyyy-MM-dd');
+            this.showSales = true;
+        } else {
+            this.dateSales = '';
+            this.showSales = false;
+        }
+        return paramsOrdersSummary;
+    }
+    /**
+     * funcion para calcular el porcentaje de las barras para el grafico
+     *
+     * @private
+     * @param {*} last
+     * @returns
+     * @memberof DashboardComponent
+     */
+    private parseLastSales(last: any) {
+        let sumatory = 0;
+        if (last && last.length > 0) {
+            last.forEach(element => {
+                sumatory += element.sales;
+                element.percent = 0 + '%';
+            });
+            last.forEach(element => {
+                element.percent = ((element.sales / sumatory) * 100) + '%';
+            });
+        } else {
+            last.forEach(element => {
+                element.percent = '0%';
+            });
+        }
+        this.sumatoryTotal = sumatory;
+        return last;
+    }
+    /**
+     * funcion para setear la fecha en una variable global y llamar a la funcion getSalesSummary
+     *
+     * @private
+     * @param {*} [date]
+     * @memberof DashboardComponent
+     */
+    private getLastSales(date?: any) {
+        this.dateCurrent = date;
+        this.getSalesSummary();
+    }
+    /**
+     * funcion para buscar por medio de un array las traducion de los meses
+     *
+     * @param {*} month
+     * @memberof DashboardComponent
+     */
+    getMonthVisibleSales(month: any) {
+        this.languageService.onLangChange.subscribe((event: LangChangeEvent) => {
+            if ('ES' === event.lang) {
+                this.visibleDateSales = this.monthES[month];
+            } else {
+                this.visibleDateSales = this.monthEN[month];
+            }
+        });
+        this.lang = localStorage.getItem('culture_current');
+        if (this.lang === 'ES') {
+            this.visibleDateSales = this.monthES[month];
+        } else {
+            this.visibleDateSales = this.monthEN[month];
+        }
+    }
+    /**
+     * funcion para abrir el datapicker (mes)
+     *
+     * @memberof DashboardComponent
+     */
+    public openDatePickerDiarySales() {
+        this.pickerDiarySales.open();
+    }
+    /**
+     * funcion para abrir el datapicker (diario)
+     *
+     * @memberof DashboardComponent
+     */
+    public openDatePickerSales() {
+        this.pickerSales.open();
+    }
+
+
+    /**
+     * funcion para seleccionar el mes  y consultar de nuevo los datos con ese mes (mes)
+     *
+     * @param {*} month
+     * @param {*} dp
+     * @memberof DashboardComponent
+     */
+    public chosenMonthHandlerSales(month: any, dp: any) {
+        const date = new Date(month);
+        this.startDate = date;
+        this.getMonthVisibleSales(date.getMonth());
+        this.getLastSales(date);
+        dp.close();
+    }
+
+    /** funcion para seleccionar el mes  y consultar de nuevo los datos con ese mes (diario)
+     *
+     *
+     * @param {*} month
+     * @param {*} dp
+     * @memberof DashboardComponent
+     */
+    public chosenMonthHandlerDiarySales(month: any, dp: any) {
+        const date = new Date(month.value);
+        this.startDate = date;
+        this.getMonthVisibleSales(date.getMonth());
+        this.getLastSales(date);
+        dp.close();
+    }
+
+/**
+* modal para mostrar el detalle 
+ *
+ * @param {*} data
+ * @param {*} type
+ * @param {*} filter
+ * @memberof DashboardComponent
+ */
+public modalOpenChart(data: any, type: any, filter: any) {
+        this.openDialog(data, type, filter);
+    }
+/**
+ * modal para mostrar el detalle 
+ *
+ * @param {*} data
+ * @param {*} type
+ * @param {*} filter
+ * @memberof DashboardComponent
+ */
+public openDialog(data: any, type: any, filter: any) {
+        if (!!data) {
+            const dialogRef = this.dialog.open(ModalDashboardComponent, {
+                height: '530px',
+                data: {data: data, type: type, filter: filter}
+            });
         }
     }
 }

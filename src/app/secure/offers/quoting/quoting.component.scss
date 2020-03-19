@@ -11,6 +11,9 @@
             width: 100%;
             box-sizing: border-box;
             padding: 20px 42px;
+            @media only screen and (max-width: 600px) {
+                padding: 1px 1px;
+              }
         }
         .app-toolbar-title {
             position: sticky;

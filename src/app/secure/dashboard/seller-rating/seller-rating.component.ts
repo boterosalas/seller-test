@@ -175,24 +175,24 @@ export class SellerRatingComponent implements OnInit {
       this.sellerId = this.user.sellerId;
     }
     this.paramsGetSellerRating.sellerId = localStorage.getItem('userId');
-    this._dashboard.getRatingSellers(this.paramsGetSellerRating).subscribe(result => {
-      if (result.body) {
-        if (result.status === 200 || result.status === 201) {
-          this.arraySellerRating = result.body.viewModel;
-          this.dataSource = new MatTableDataSource(this.arraySellerRating);
-          this.savePaginationToken(result.body.paginationToken);
-        } else {
-          this.modalService.showModal('errorService');
-        }
-        this.loadingService.closeSpinner();
-      } else {
-        this.modalService.showModal('errorService');
-        this.loadingService.closeSpinner();
-      }
-    }, error => {
-      this.componentsService.openSnackBar(this.languageService.instant('public.auth.forgot.error_try_again'), this.languageService.instant('actions.close'), 4000);
-      log.error(error);
-    });
+    // this._dashboard.getRatingSellers(this.paramsGetSellerRating).subscribe(result => {
+    //   if (result.body) {
+    //     if (result.status === 200 || result.status === 201) {
+    //       this.arraySellerRating = result.body.viewModel;
+    //       this.dataSource = new MatTableDataSource(this.arraySellerRating);
+    //       this.savePaginationToken(result.body.paginationToken);
+    //     } else {
+    //       this.modalService.showModal('errorService');
+    //     }
+    //     this.loadingService.closeSpinner();
+    //   } else {
+    //     this.modalService.showModal('errorService');
+    //     this.loadingService.closeSpinner();
+    //   }
+    // }, error => {
+    //   this.componentsService.openSnackBar(this.languageService.instant('public.auth.forgot.error_try_again'), this.languageService.instant('actions.close'), 4000);
+    //   log.error(error);
+    // });
   }
 
   /**

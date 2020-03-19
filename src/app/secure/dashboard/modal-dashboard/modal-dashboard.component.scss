@@ -1,0 +1,145 @@
+$mobile-break: 666px;
+$table-break: 900px;
+
+.graph {
+    $self: &;
+  
+    &__content {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: end;
+      -ms-flex-align: end;
+      align-items: flex-end;
+      margin-bottom: 2em;
+      border-bottom: 2px solid #D3D3D3;
+    }
+  
+    &__table {
+      width: 100%;
+      height: 200px;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-pack: distribute;
+      justify-content: space-around;
+    }
+  
+    &__value {
+      margin-bottom: 1.5em;
+      font-size: 14px;
+  
+      @media only screen and (max-width: $mobile-break) {
+        font-size: 9px;
+        margin-bottom: .8em;
+      }
+    }
+  
+    &__bar {
+      width: 100%;
+      border-radius: 5px 5px 0px 0px;
+      position: relative;
+      background-color: #FFD54F;
+  
+      &-box {
+        max-width: 150px;
+        min-width: 45px;
+        height: 100%;
+        width: 20%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: end;
+        -ms-flex-pack: end;
+        justify-content: flex-end;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        text-align: center;
+  
+  
+        &:nth-child(1) {
+          #{$self}__bar {
+            background-color: #FFA600;
+          }
+        }
+  
+        &:nth-child(2) {
+          #{$self}__bar {
+            background-color: #FFC10C;
+          }
+        }
+  
+        &:nth-child(3) {
+          #{$self}__bar {
+            background-color: #FFD54F;
+          }
+        }
+      }
+    }
+  
+    &__label {
+      position: absolute;
+      bottom: -2.5em;
+      text-align: center;
+      width: 100%;
+      font-size: 14px;
+      text-transform: capitalize;
+  
+      @media only screen and (max-width: $mobile-break) {
+        font-size: 12px;
+      }
+    }
+  
+    &__info {
+      text-align: center;
+      font-size: 14px;
+      color: #909090;
+    }
+  }
+
+  .modal-dashboard-component-display{
+    display: grid
+  }
+
+
+
+  ::ng-deep .mat-dialog-container {
+    overflow-y: hidden !important;
+    overflow-x: hidden !important;
+}
+
+.withoutWidth{
+  width: initial;
+}
+
+.withWidth{
+  width: 100%;
+}
+
+.dialog-buttons {
+  justify-content: flex-end;
+}
+
+.modal-scroll{
+  contain: content;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  display: grid;
+  padding-top: 148px;
+}
+
+.display-line-block{
+  display: inline-block;
+}
+
+.text-title-modal{
+  text-align: center;
+  color: #b6b6b6;
+}
+
+.modal-dashboard-rotate-text{
+  transform: rotate(-90deg);
+  margin-bottom: 45px;
+}

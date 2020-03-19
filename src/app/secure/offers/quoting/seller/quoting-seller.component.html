@@ -1,1 +1,37 @@
-<h1>Componente Cotizador vendedor</h1>
+<div class="newOption">
+  <button mat-stroked-button color="primary" (click)="addCategory()">{{'secure.offers.quoting.seller.new_opcion' | translate}}</button>
+</div>
+<div fxLayout.xs="column" fxLayout="row" class="quoting-seller">
+  <table mat-table [dataSource]="dataSource">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef> {{'secure.offers.quoting.seller.category' | translate}} </th>
+      <td mat-cell *matCellDef="let element"> {{element.MethodShipping}} </td>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="transport">
+      <th mat-header-cell *matHeaderCellDef> {{'secure.orders.order_list.product_order.conveyor' | translate}} </th>
+      <td mat-cell *matCellDef="let element"> {{element.Transport}} </td>
+    </ng-container>
+  
+    <!-- Weight Column -->
+    <ng-container matColumnDef="zone">
+      <th mat-header-cell *matHeaderCellDef> {{'secure.offers.quoting.seller.zone' | translate}} </th>
+      <td mat-cell *matCellDef="let element"> {{element.Zone}} </td>
+    </ng-container>
+  
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> {{'shared.actions' | translate}} </th>
+      <td mat-cell *matCellDef="let element" class="pointer">
+        <mat-icon color="primary" (click)="deleteCategory(element.IdZone)" [matTooltip]="'permissions.Eliminar_Parametrizacion' | translate">delete</mat-icon>
+      <mat-icon color="accent" (click)="updateCategory(element)"  [matTooltip]="'permissions.Editar_Parametrizacion' | translate">edit</mat-icon>
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
