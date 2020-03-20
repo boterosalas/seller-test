@@ -127,6 +127,7 @@ $table-break: 900px;
   overflow-x: scroll;
   overflow-y: hidden;
   display: grid;
+  padding-top: 148px;
 }
 
 .display-line-block{
@@ -136,4 +137,9 @@ $table-break: 900px;
 .text-title-modal{
   text-align: center;
   color: #b6b6b6;
+}
+
+.modal-dashboard-rotate-text{
+  transform: rotate(-90deg);
+  margin-bottom: 45px;
 }

@@ -195,9 +195,6 @@ export class AuthService implements CanActivate {
 
     /**
      * Redirecciona a la pagina principal.
-     * no puedo hablar mucho entonces:
-     * lo que hice fue que verificara si el usuario esta logeado, lo mande para el home (la primera vista de la lista),
-     * pero si no esta logeado redirectLog, lo mande para el logout;
      *
      * @param {boolean} result
      * @memberof AuthService

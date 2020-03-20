@@ -110,6 +110,12 @@
             </div>
           </div>
 
+          <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between"
+            fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
+            <div *ngIf="!isColombiaSelect" [fxFlex]="!isColombiaSelect ? '45%' : '50%'" >
+              <app-ports (portItemEmmited)="receivePortItem($event)" [countryName]="Country.value" [disabledComponent]='disabledComponent' [elementLoad]="elementIdDispatchPortLoad"></app-ports>
+            </div>
+          </div>
 
           <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between"
             fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xl="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%">
@@ -244,9 +250,9 @@
                   {{'errors.required' | translate}}</mat-error>
               </mat-form-field>
             </div>
-          <!-- </div> -->
+            <!-- </div> -->
 
-          <!-- <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between"
+            <!-- <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between"
             fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%"> -->
 
             <div fxFlex="50%">
@@ -265,8 +271,8 @@
                   {{'errors.store_name_exist' | translate}}</mat-error>
               </mat-form-field>
             </div>
-          <!-- </div> -->
-        </div>
+            <!-- </div> -->
+          </div>
           <!--Campo politicas y devoluciones-->
           <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between"
             fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%">

@@ -27,6 +27,7 @@ export class DetailCalificationComponent implements OnInit {
   public penaltyOutSideDelivery = 0;
   public penaltyCanceledBySeller = 0;
   public penaltyTotal = 0;
+  public qualificationDate: any;
 
   public params: any;
 
@@ -59,6 +60,7 @@ setDetailsBySeller() {
     this.colorCalificationCanceled = this.setClassColorByCalification(this.detailByElemet.qualificationCanceled.qualification);
     this.setFormatDateInfoSellerMonthQuality = this.formatNameMonth(this.detailByElemet.qualificationDate);
     this.setFormatDateInfoSellerGenrateDate = this.detailByElemet.generatedDate;
+    this.qualificationDate = this.detailByElemet.qualificationDate;
   }
   }
 /**
@@ -107,7 +109,7 @@ formtDateYearMonth(valueDate: string) {
 formatNameMonth(date: string) {
     if (date && date.includes('/')) {
       const arrayDate = date.split('/');
-      const month = this.monthES[parseInt(arrayDate[0], 0)];
+      const month = this.monthES[parseInt(arrayDate[0], 0) - 1];
       return month + ' (' + arrayDate[1] + ')';
     }
   }
@@ -212,7 +214,8 @@ recalculateQualitative() {
 notificateSeller() {
     this.loadingService.viewSpinner();
     const params = {
-      idSeller : this.idSeller
+      idSeller : this.idSeller,
+      qualificationDate: this.qualificationDate
     };
     this.calificationService.notificate(params).subscribe((res: any) => {
       if (res) {

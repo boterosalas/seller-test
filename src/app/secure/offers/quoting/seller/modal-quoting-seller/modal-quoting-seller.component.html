@@ -1,0 +1,194 @@
+<div mat-dialog-content class="quoting-seller" fxLayout="column" fxLayoutAlign="center center">
+
+  <div class="quoting-seller--icon" fxLayout="column" fxLayoutAlign="center center" *ngIf="stepper[stepOne].show">
+    <mat-icon class="material-icons" *ngIf="action === actions.add || action === actions.update">
+      local_shipping
+    </mat-icon>
+    <mat-icon class="material-icons" *ngIf="action === actions.delete">
+      delete
+    </mat-icon>
+  </div>
+  <div *ngIf="stepper[stepOne].show">
+
+    <h3 class="title" *ngIf="action === actions.add || action === actions.update">
+      {{'secure.offers.quoting.seller.new_opcion' | translate}}
+    </h3>
+    <p class="quoting-seller--text" *ngIf="action === actions.add || action === actions.update">
+      {{'secure.offers.quoting.seller.new_opcion_body' | translate}}
+    </p>
+  </div>
+  <div *ngIf="action === actions.delete">
+    <h3 *ngIf="action === actions.delete" class="title">
+      {{'secure.offers.quoting.seller.delete_shipping' | translate}}
+    </h3>
+    <p class="quoting-seller--text" *ngIf="action === actions.delete">
+      {{'secure.offers.quoting.seller.delete_shipping_option' | translate}}
+    </p>
+    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
+      <button id="btn-create-transporter" id="btn-create-transporter" type="button" mat-raised-button color="primary" [mat-dialog-close]="true"
+        *ngIf="action === actions.delete">
+        {{'actions.cancel' | translate}}
+      </button>
+      <button id="btn-create-transporter" (click)="deleteIdQuote()" type="submit" mat-raised-button color="primary"
+        [disabled]="formZone" *ngIf="action === actions.delete">
+        {{'actions.delete' | translate}}
+      </button>
+    </div>
+  </div>
+
+  <div fxLayout="column" class="quoting-seller--container" *ngIf="action === actions.add || action === actions.update">
+    <form *ngIf="stepper[stepOne].show" fxLayout="column" [formGroup]="principalForm"
+      (ngSubmit)="next(stepOne, principalForm)">
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+
+        <mat-form-field class="quoting-seller--container__field">
+          <mat-select formControlName="MethodShipping"
+            [placeholder]="'secure.offers.quoting.seller.plh_shiping:method' | translate">
+            <mat-option *ngFor="let type of transportTypeList" [value]="type.Id">
+              {{type.Name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="quoting-seller--container__field">
+          <mat-icon matPrefix>local_shipping</mat-icon>
+          <mat-select formControlName="Transport"
+            [placeholder]="'secure.offers.quoting.seller.plh_transoprt' | translate">
+            <mat-option *ngFor="let type of listTransporters" [value]="type.Id">
+              {{type.Name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-form-field class="quoting-seller--container__field">
+          <mat-select formControlName="Zone" [placeholder]="'secure.offers.quoting.seller.plh_zone' | translate">
+            <mat-option *ngFor="let type of listZones" [value]="type.Id">
+              {{type.Name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+
+      <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
+        <button id="btn-create-transporter" type="button" mat-raised-button color="primary" [mat-dialog-close]="true">
+          {{'actions.cancel' | translate}}
+        </button>
+
+        <button id="btn-create-transporter" type="submit" mat-raised-button color="primary"
+          [disabled]="principalForm.invalid" *ngIf="action === actions.add || action === actions.update">
+          {{'actions.accept' | translate}}
+        </button>
+      </div>
+    </form>
+    <form *ngIf="stepper[stepTwo].show" fxLayout="column" [formGroup]="secondForm"
+      (ngSubmit)="next(stepTwo, principalForm)">
+      <h3 class="title">{{title}}</h3>
+      <h5 class="subtitle">{{subTitle}}</h5>
+      <div fxLayout="row" fxLayoutAlign="space-between center"
+        *ngFor="let fields of indexForm; let i = index; let last = last;">
+        <mat-form-field fxFlex="100" class="marginInputsValues">
+          <input formControlName="initialValue{{i}}" matInput placeholder="{{placeholders[fields -1].initialValue}}"
+            (blur)="validatePrice(); validateCategorie(i); compareValue()" />
+          <mat-error
+            *ngIf="secondForm.controls['initialValue'+i] && secondForm.controls['initialValue'+i].hasError('required')"
+            [innerHTML]="['errors.error_required' | translate]">
+          </mat-error>
+          <mat-error
+            *ngIf="secondForm.controls['initialValue'+i] && secondForm.controls['initialValue'+i].hasError('pattern')"
+            [innerHTML]="['errors.format_invalidate' | translate]">
+          </mat-error>
+          <mat-error
+            *ngIf="secondForm.controls['initialValue'+i].errors && secondForm.controls['initialValue'+i].errors.price_must_less"
+            [innerHTML]="['secure.products.create_product_unit.list_products.ofert_product.price_must_less' | translate]">
+          </mat-error>
+          <mat-error
+            *ngIf="secondForm.controls['initialValue'+i].errors && secondForm.controls['initialValue'+i].errors.price_must_less_priceFinal">
+            {{'secure.offers.quoting.seller.error_price_range' | translate}}
+          </mat-error>
+          <mat-error
+            *ngIf="secondForm.controls['initialValue'+i].errors && secondForm.controls['initialValue'+i].errors.weigth_must_less_priceFinal">
+            {{'secure.offers.quoting.seller.error_weight_range' | translate}}
+          </mat-error>
+          <mat-error
+            *ngIf="secondForm.controls['initialValue'+i].errors && secondForm.controls['initialValue'+i].errors.invalid_category"
+            [innerHTML]="['secure.offers.quoting.seller.invalid.category' | translate]">
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex="100" *ngIf="showFinalValue" class="marginInputsValues">
+          <input formControlName="finalValue{{i}}" matInput placeholder="{{placeholders[fields -1].finalValue}}"
+            (blur)="validateValueFinal(); compareValue()" />
+          <mat-error
+            *ngIf="secondForm.controls['finalValue'+i] && secondForm.controls['finalValue'+i].hasError('required')"
+            [innerHTML]="['errors.error_required' | translate]">
+          </mat-error>
+          <mat-error
+            *ngIf="secondForm.controls['finalValue'+i] && secondForm.controls['finalValue'+i].hasError('pattern')"
+            [innerHTML]="['errors.format_invalidate' | translate]">
+          </mat-error>
+          <mat-error
+            *ngIf="secondForm.controls['finalValue'+i].errors && secondForm.controls['finalValue'+i].errors.price_must_less_final"
+            [innerHTML]="['secure.products.create_product_unit.list_products.ofert_product.price_must_less' | translate]">
+          </mat-error>
+          <mat-error
+            *ngIf="secondForm.controls['finalValue'+i].errors && secondForm.controls['finalValue'+i].errors.price_higher"
+            [innerHTML]="['secure.offers.quoting.seller.error_price' | translate]">
+          </mat-error>
+          <mat-error
+            *ngIf="secondForm.controls['finalValue'+i].errors && secondForm.controls['finalValue'+i].errors.weight_higher"
+            [innerHTML]="['secure.offers.quoting.seller.error_weight' | translate]">
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex="100" class="marginInputsValues">
+          <input formControlName="shippingValue{{i}}" matInput 
+            placeholder="{{placeholders[fields -1].shippingValue}}" />
+          <mat-error
+            *ngIf="secondForm.controls['shippingValue'+i] && secondForm.controls['shippingValue'+i].hasError('required')"
+            [innerHTML]="['errors.error_required' | translate]">
+          </mat-error>
+          <mat-error
+            *ngIf="secondForm.controls['shippingValue'+i] && secondForm.controls['shippingValue'+i].hasError('pattern')"
+            [innerHTML]="['errors.format_invalidate' | translate]">
+          </mat-error>
+        </mat-form-field>
+
+        <button type="button" *ngIf="last && i > 0" (click)="removeItem(i)" mat-icon-button
+          aria-label="Example icon-button with a heart icon" class="deleteRange">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+
+      <div>
+        <h6 (click)="addFormControl()" type="button" class="addBand">
+          <strong>+</strong>
+          {{'secure.offers.quoting.seller.add_band' | translate}}
+        </h6>
+      </div>
+
+    </form>
+    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
+      <button
+        *ngIf="action === actions.add && stepper[stepTwo].show || action === actions.update && stepper[stepTwo].show"
+        id="btn-create-transporter" type="button" mat-raised-button color="primary" [mat-dialog-close]="true">
+        {{'actions.cancel' | translate}}
+      </button>
+      <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" (click)="saveQuoting()"
+        [disabled]="secondForm.invalid"
+        *ngIf="action === actions.add && stepper[stepTwo].show || action === actions.update && stepper[stepTwo].show">
+        {{'actions.accept' | translate}}
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
+  <button id="btn-create-transporter" type="button" mat-raised-button color="primary" *ngIf="action === actions.delete">
+    {{'actions.cancel' | translate}}
+  </button>
+  <button id="btn-create-transporter" (click)="deleteIdQuote()" type="submit" mat-raised-button color="primary"
+    [disabled]="formZone" *ngIf="action === actions.delete">
+    {{'actions.delete' | translate}}
+  </button>
+
+</div> -->

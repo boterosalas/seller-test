@@ -637,8 +637,7 @@ public modalOpenChart(data: any, type: any, filter: any) {
 public openDialog(data: any, type: any, filter: any) {
         if (!!data) {
             const dialogRef = this.dialog.open(ModalDashboardComponent, {
-                height: '400px',
-                // minWidth: '280px',
+                height: '530px',
                 data: {data: data, type: type, filter: filter}
             });
         }
