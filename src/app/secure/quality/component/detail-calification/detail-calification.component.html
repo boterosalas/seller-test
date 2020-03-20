@@ -301,7 +301,7 @@
                </td>
                <td class="detail-calification-container-aling-center">
                  <mat-icon class="mat-18 delete"
-                   (click)="confirmDeleteCalification(detail, detailByElemet.idSeller, detail.orderNumber, detail.sku, 1)"
+                   (click)="confirmDeleteCalification(detail, detail.orderDateFormatted ,detailByElemet.idSeller, detail.orderNumber, detail.sku, 1)"
                    [matTooltip]="'actions.delete' | translate">delete_forever</mat-icon>
                </td>
              </tr>
@@ -364,7 +364,7 @@
                </td>
                <td class="detail-calification-container-aling-center">
                  <mat-icon class="mat-18 delete" [matTooltip]="'actions.delete' | translate"
-                   (click)="confirmDeleteCalification(detail, detailByElemet.idSeller, detail.caseId , null, 2)">
+                   (click)="confirmDeleteCalification(detail, detail.orderDateFormatted ,detailByElemet.idSeller, detail.caseId , null, 2)">
                    delete_forever</mat-icon>
                </td>
              </tr>
@@ -419,7 +419,7 @@
                </td>
                <td class="detail-calification-container-aling-center">
                  <mat-icon class="mat-18 delete" [matTooltip]="'actions.delete' | translate"
-                   (click)="confirmDeleteCalification(detail, detailByElemet.idSeller , detail.caseId, null, 2)">
+                   (click)="confirmDeleteCalification(detail, detail.orderDateFormatted ,detailByElemet.idSeller , detail.caseId, null, 2)">
                    delete_forever</mat-icon>
                </td>
              </tr>
