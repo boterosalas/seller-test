@@ -1,14 +1,29 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { SearchFormEntity, InformationToForm } from '@app/shared';
-import { MatSidenav, MatSnackBar, MatTableDataSource, MatDialog, MatDialogRef } from '@angular/material';
+import { MatSidenav, MatSnackBar, MatTableDataSource, MatDialog, MatDialogRef, ErrorStateMatcher } from '@angular/material';
 import { PortCollectionService } from './port-collection.service';
 import { LoadingService } from '@app/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ModalPortComponent } from './modal-port/modal-port.component';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { countries } from '../../../secure/seller/register/countries';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import { ResponseCaseDialogComponent } from '@app/shared/components/response-case-dialog/response-case-dialog.component';
+import { SupportService } from '@app/secure/support-modal/support.service';
+
+/**
+ * exporta funcion para mostrar los errores de validacion del formulario
+ *
+ * @export
+ * @class MyErrorStateMatcher
+ * @implements {ErrorStateMatcher}
+ */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+      const isSubmitted = form && form.submitted;
+      return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-port',
@@ -40,6 +55,7 @@ export class PortComponent implements OnInit {
   isClear= false;
   listFilterBrands = [];
   separatorKeysCodes = [];
+  PortRegex = {formatIntegerNumber: '' };
 
   length: number;
 
@@ -66,6 +82,7 @@ export class PortComponent implements OnInit {
     private portCollectionService: PortCollectionService,
     private loadingService: LoadingService,
     private languageService: TranslateService,
+    public SUPPORT: SupportService,
     public dialog: MatDialog,
     public snackBar?: MatSnackBar,
   ) { }
@@ -73,6 +90,22 @@ export class PortComponent implements OnInit {
   ngOnInit() {
     this.getAllCenterCollection();
     this.createFormControls();
+    this.getRegexByModule();
+  }
+
+
+    public getRegexByModule(): void {
+      this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
+          let dataOffertRegex = JSON.parse(res.body.body);
+          dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'parametrizacion');
+          for (const val in this.PortRegex) {
+              if (!!val) {
+                  const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
+                  this.PortRegex[val] = element && `${element.Value}`;
+              }
+          }
+          this.createFormControls();
+      });
   }
 /**
  * funcion para consultar el listado de los puertos guardados
@@ -152,14 +185,14 @@ createFormControls() {
       applyCountry: new FormControl(''),
       address: new FormControl('', Validators.compose([Validators.required])),
       phone: new FormControl('', Validators.compose([Validators.required])),
-      insurance_freight: new FormControl('', Validators.compose([Validators.required])),
-      preparation: new FormControl('', Validators.compose([Validators.required])),
-      shippingCost: new FormControl('', Validators.compose([Validators.required])),
-      national_transportation: new FormControl('', Validators.compose([Validators.required])),
-      insurance_CIF: new FormControl('', Validators.compose([Validators.required])),
-      tariffByKg: new FormControl('', Validators.compose([Validators.required])),
-      tariff: new FormControl('', Validators.compose([Validators.required])),
-      iva: new FormControl('', Validators.compose([Validators.required])),
+      insurance_freight: new FormControl('', Validators.compose([Validators.required , Validators.pattern(this.PortRegex.formatIntegerNumber)])),
+      preparation: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
+      shippingCost: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
+      national_transportation: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
+      insurance_CIF: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
+      tariffByKg: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
+      tariff: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
+      iva: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
     });
 
     this.filterPort = new FormGroup({

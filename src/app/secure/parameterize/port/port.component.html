@@ -243,14 +243,14 @@
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" class="port-component-aling-padding-left">
           <mat-form-field style="width: 95%;">
             <input formControlName="address" matInput [placeholder]="'secure.parametize.port.address' | translate" >
-            <mat-error *ngIf="formPort.get('address').hasError('maxlength')">{{'errors.spec_name_max_length' | translate}}</mat-error>
+            
             <mat-error *ngIf="formPort.get('address').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
           <mat-form-field style="width: 95%;">
             <input formControlName="phone" matInput [placeholder]="'shared.phone' | translate" >
-            <mat-error *ngIf="formPort.get('phone').hasError('maxlength')">{{'errors.spec_name_max_length' | translate}}</mat-error>
+            <mat-error *ngIf="formPort.get('phone').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
             <mat-error *ngIf="formPort.get('phone').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
         </div>
@@ -265,14 +265,14 @@
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" class="port-component-aling-padding-left">
           <mat-form-field style="width: 95%;">
             <input formControlName="insurance_freight" matInput [placeholder]="'secure.parametize.port.insurance_freight' | translate" >
-            <mat-error *ngIf="formPort.get('insurance_freight').hasError('maxlength')">{{'errors.spec_name_max_length' | translate}}</mat-error>
+            <mat-error *ngIf="formPort.get('insurance_freight').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
             <mat-error *ngIf="formPort.get('insurance_freight').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
           <mat-form-field style="width: 95%;">
             <input formControlName="preparation" matInput [placeholder]="'secure.parametize.port.preparation' | translate" >
-            <mat-error *ngIf="formPort.get('preparation').hasError('maxlength')">{{'errors.spec_name_max_length' | translate}}</mat-error>
+            <mat-error *ngIf="formPort.get('preparation').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
             <mat-error *ngIf="formPort.get('preparation').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
         </div>
@@ -280,15 +280,15 @@
       <div fxLayout="row wrap">
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" class="port-component-aling-padding-left">
           <mat-form-field style="width: 95%;">
-            <input formControlName="shippingCost" matInput [placeholder]="'secure.parametize.port.shippingCost' | translate" >
-            <mat-error *ngIf="formPort.get('shippingCost').hasError('maxlength')">{{'errors.spec_name_max_length' | translate}}</mat-error>
+            <input formControlName="shippingCost" currencyMask [options]="{thousands: '.', decimal: ',' }" matInput [placeholder]="'secure.parametize.port.shippingCost' | translate" >
+            <mat-error *ngIf="formPort.get('shippingCost').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
             <mat-error *ngIf="formPort.get('shippingCost').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
           <mat-form-field style="width: 95%;">
             <input formControlName="national_transportation" matInput [placeholder]="'secure.parametize.port.national_transportation' | translate" >
-            <mat-error *ngIf="formPort.get('national_transportation').hasError('maxlength')">{{'errors.spec_name_max_length' | translate}}</mat-error>
+            <mat-error *ngIf="formPort.get('national_transportation').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
             <mat-error *ngIf="formPort.get('national_transportation').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
         </div>
@@ -302,15 +302,15 @@
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" class="port-component-aling-padding-left">
           <mat-form-field style="width: 95%;">
-            <input formControlName="insurance_CIF" matInput [placeholder]="'secure.parametize.port.insurance_CIF' | translate" >
-            <mat-error *ngIf="formPort.get('insurance_CIF').hasError('maxlength')">{{'errors.spec_name_max_length' | translate}}</mat-error>
+            <input formControlName="insurance_CIF" currencyMask [options]="{thousands: '.', decimal: '.', precision:'3' }" matInput [placeholder]="'secure.parametize.port.insurance_CIF' | translate" >
+            <mat-error *ngIf="formPort.get('insurance_CIF').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
             <mat-error *ngIf="formPort.get('insurance_CIF').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
           <mat-form-field style="width: 95%;">
-            <input formControlName="tariffByKg" matInput [placeholder]="'secure.parametize.port.tariffByKg' | translate" >
-            <mat-error *ngIf="formPort.get('tariffByKg').hasError('maxlength')">{{'errors.spec_name_max_length' | translate}}</mat-error>
+            <input formControlName="tariffByKg" currencyMask [options]="{thousands: '.', decimal: ',' }" matInput [placeholder]="'secure.parametize.port.tariffByKg' | translate" >
+            <mat-error *ngIf="formPort.get('tariffByKg').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
             <mat-error *ngIf="formPort.get('tariffByKg').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
         </div>
@@ -324,15 +324,15 @@
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" class="port-component-aling-padding-left">
           <mat-form-field style="width: 95%;">
-            <input formControlName="tariff" matInput [placeholder]="'secure.parametize.port.tariff' | translate" >
-            <mat-error *ngIf="formPort.get('tariff').hasError('maxlength')">{{'errors.spec_name_max_length' | translate}}</mat-error>
+            <input formControlName="tariff"  matInput currencyMask [options]="{prefix: '',suffix:' %' , thousands: '', decimal: ''}" [placeholder]="'secure.parametize.port.tariff' | translate" >
+            <mat-error *ngIf="formPort.get('tariff').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
             <mat-error *ngIf="formPort.get('tariff').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
           <mat-form-field style="width: 95%;">
-            <input formControlName="iva" matInput [placeholder]="'secure.parametize.port.iva' | translate" >
-            <mat-error *ngIf="formPort.get('iva').hasError('maxlength')">{{'errors.spec_name_max_length' | translate}}</mat-error>
+            <input formControlName="iva" matInput  [placeholder]="'secure.parametize.port.iva' | translate"  >
+            <mat-error *ngIf="formPort.get('iva').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
             <mat-error *ngIf="formPort.get('iva').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
         </div>

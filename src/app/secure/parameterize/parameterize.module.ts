@@ -17,6 +17,7 @@ import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form
 import { CreateProcessDialogComponent } from '../../shared/components/create-process-dialog/create-process-dialog.component';
 import { PortComponent } from './port/port.component';
 import { ModalPortComponent } from './port/modal-port/modal-port.component';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ModalPortComponent } from './port/modal-port/modal-port.component';
     SharedModule,
     ParameterizeRouting,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    CurrencyMaskModule
   ],
   exports: [
     CategoryTreeComponent
