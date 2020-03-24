@@ -185,14 +185,14 @@ createFormControls() {
       country: new FormControl(''),
       address: new FormControl('', Validators.compose([Validators.required])),
       phone: new FormControl('', Validators.compose([Validators.required])),
-      insurance_freight: new FormControl('', Validators.compose([Validators.required , Validators.pattern(this.PortRegex.formatIntegerNumber)])),
+      insuranceFreight: new FormControl('', Validators.compose([Validators.required , Validators.pattern(this.PortRegex.formatIntegerNumber)])),
       preparation: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
       shippingCost: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
       nationalTransport: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
-      insurance_CIF: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
-      tariffByKg: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
+      insuranceCif: new FormControl('', Validators.compose([Validators.required])),
+      negotiatedShippingCost: new FormControl('', Validators.compose([Validators.required])),
       tariff: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
-      iva: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
+    
     });
 
 
@@ -311,14 +311,13 @@ setEdit() {
       this.formPort.controls['name'].setValue(this.data.data.country);
       this.formPort.controls['address'].setValue(this.data.data.address);
       this.formPort.controls['phone'].setValue(this.data.data.phone);
-      this.formPort.controls['insurance_freight'].setValue(this.data.data.insurance_freight);
+      this.formPort.controls['insuranceFreight'].setValue(this.data.data.insuranceFreight);
       this.formPort.controls['preparation'].setValue(this.data.data.preparation);
       this.formPort.controls['shippingCost'].setValue(this.data.data.shippingCost);
       this.formPort.controls['nationalTransport'].setValue(this.data.data.nationalTransport);
-      this.formPort.controls['insurance_CIF'].setValue(this.data.data.insurance_CIF);
-      this.formPort.controls['tariffByKg'].setValue(this.data.data.tariffByKg);
+      this.formPort.controls['insuranceCif'].setValue(this.data.data.insuranceCif);
+      this.formPort.controls['negotiatedShippingCost'].setValue(this.data.data.negotiatedShippingCost);
       this.formPort.controls['tariff'].setValue(this.data.data.tariff);
-      this.formPort.controls['iva'].setValue(this.data.data.iva);
       if (this.data && this.data.data && this.data.data.countrys.length > 0) {
         this.data.data.countrys.forEach(element => {
           this.keywords.push(element);
@@ -356,14 +355,13 @@ public savePort() {
         name: this.body.name,
         address: this.body.address,
         phone: this.body.phone,
-        tariff: this.body.tariff,
-        shippingCost: this.body.shippingCost,
-        insurance: this.body.insurance_freight,
-        preparation: this.body.preparation,
-        nationalTransport: this.body.nationalTransport,
-        insuranceCIF: this.body.insurance_CIF,
-        tariffByKg: this.body.tariffByKg,
-        iva: this.body.iva,
+        tariff: parseFloat(this.body.tariff),
+        shippingCost: parseFloat(this.body.shippingCost),
+        insuranceFreight : parseFloat(this.body.insuranceFreight),
+        preparation: parseFloat(this.body.preparation),
+        nationalTransport: parseFloat(this.body.nationalTransport),
+        insuranceCif: parseFloat(this.body.insuranceCif),
+        negotiatedShippingCost: parseFloat(this.body.negotiatedShippingCost),
         country: this.keywords
       };
       this.portCollectionService.savePort(params).subscribe(result => {

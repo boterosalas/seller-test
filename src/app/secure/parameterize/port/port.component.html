@@ -264,9 +264,9 @@
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" class="port-component-aling-padding-left">
           <mat-form-field style="width: 95%;">
-            <input formControlName="insurance_freight" matInput [placeholder]="'secure.parametize.port.insurance_freight' | translate" >
-            <mat-error *ngIf="formPort.get('insurance_freight').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
-            <mat-error *ngIf="formPort.get('insurance_freight').hasError('required')">{{'errors.required' | translate}}</mat-error>
+            <input formControlName="insuranceFreight" matInput [placeholder]="'secure.parametize.port.insurance_freight' | translate" >
+            <mat-error *ngIf="formPort.get('insuranceFreight').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
+            <mat-error *ngIf="formPort.get('insuranceFreight').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
@@ -280,7 +280,7 @@
       <div fxLayout="row wrap">
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" class="port-component-aling-padding-left">
           <mat-form-field style="width: 95%;">
-            <input formControlName="shippingCost" currencyMask [options]="{thousands: '.', decimal: ',' }" matInput [placeholder]="'secure.parametize.port.shippingCost' | translate" >
+            <input formControlName="shippingCost" matInput [placeholder]="'secure.parametize.port.shippingCost' | translate" >
             <mat-error *ngIf="formPort.get('shippingCost').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
             <mat-error *ngIf="formPort.get('shippingCost').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
@@ -302,16 +302,16 @@
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" class="port-component-aling-padding-left">
           <mat-form-field style="width: 95%;">
-            <input formControlName="insurance_CIF" currencyMask [options]="{thousands: '.', decimal: '.', precision:'3' }" matInput [placeholder]="'secure.parametize.port.insurance_CIF' | translate" >
-            <mat-error *ngIf="formPort.get('insurance_CIF').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
-            <mat-error *ngIf="formPort.get('insurance_CIF').hasError('required')">{{'errors.required' | translate}}</mat-error>
+            <input formControlName="insuranceCif"  matInput [placeholder]="'secure.parametize.port.insurance_CIF' | translate" >
+            <mat-error *ngIf="formPort.get('insuranceCif').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
+            <mat-error *ngIf="formPort.get('insuranceCif').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
           <mat-form-field style="width: 95%;">
-            <input formControlName="tariffByKg" currencyMask [options]="{thousands: '.', decimal: ',' }" matInput [placeholder]="'secure.parametize.port.tariffByKg' | translate" >
-            <mat-error *ngIf="formPort.get('tariffByKg').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
-            <mat-error *ngIf="formPort.get('tariffByKg').hasError('required')">{{'errors.required' | translate}}</mat-error>
+            <input formControlName="negotiatedShippingCost" currencyMask [options]="{thousands: '.', decimal: ',' }" matInput [placeholder]="'secure.parametize.port.tariffByKg' | translate" >
+            <mat-error *ngIf="formPort.get('negotiatedShippingCost').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
+            <mat-error *ngIf="formPort.get('negotiatedShippingCost').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -327,13 +327,6 @@
             <input formControlName="tariff"  matInput currencyMask [options]="{prefix: '',suffix:' %' , thousands: '', decimal: ''}" [placeholder]="'secure.parametize.port.tariff' | translate" >
             <mat-error *ngIf="formPort.get('tariff').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
             <mat-error *ngIf="formPort.get('tariff').hasError('required')">{{'errors.required' | translate}}</mat-error>
-          </mat-form-field>
-        </div>
-        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
-          <mat-form-field style="width: 95%;">
-            <input formControlName="iva" matInput  [placeholder]="'secure.parametize.port.iva' | translate"  >
-            <mat-error *ngIf="formPort.get('iva').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
-            <mat-error *ngIf="formPort.get('iva').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
         </div>
       </div>
