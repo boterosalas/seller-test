@@ -104,10 +104,10 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   public listOrdens: any;
   public dateOrderInitial = '';
   public dateOrderFinal = '';
-  public idChannel= '';
+  public idChannel = '';
   public orderNumber = '';
-  public identificationCard= '';
-  public processedOrder= '';
+  public identificationCard = '';
+  public processedOrder = '';
 
 
   public length = 0;
@@ -170,7 +170,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   public lastState: number;
   private searchSubscription: any;
   public userCurrent: any;
-  public isInternational= false;
+  public isInternational = false;
   // Método que permite crear la fila de detalle de la tabla
   isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
 
@@ -194,7 +194,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     private profileService: MyProfileService,
   ) {
     this.getAllDataUser();
-   }
+  }
 
   /**
    * ngOnInit
@@ -222,14 +222,14 @@ export class OrdersListComponent implements OnInit, OnDestroy {
         const response = JSON.parse(body.body);
         const userData = response.Data;
         return userData;
-    });
-    if (sellerData.Country !== 'COLOMBIA') {
-      this.isInternational = true;
-    } else {
-      this.isInternational = false;
+      });
+      if (sellerData.Country !== 'COLOMBIA') {
+        this.isInternational = true;
+      } else {
+        this.isInternational = false;
+      }
     }
-    }
-}
+  }
 
 
   /**
@@ -350,15 +350,15 @@ export class OrdersListComponent implements OnInit, OnDestroy {
             this.setTitleToolbar();
           }
         } else {
-            this.orderListLength = true;
-            this.length = 0;
-            this.isClear = true;
-            this.dataSource = new MatTableDataSource();
-            const paginator = this.toolbarOption.getPaginator();
-            paginator.pageIndex = 0;
-            this.dataSource.paginator = paginator;
-            this.dataSource.sort = this.sort;
-            this.setTitleToolbar();
+          this.orderListLength = true;
+          this.length = 0;
+          this.isClear = true;
+          this.dataSource = new MatTableDataSource();
+          const paginator = this.toolbarOption.getPaginator();
+          paginator.pageIndex = 0;
+          this.dataSource.paginator = paginator;
+          this.dataSource.sort = this.sort;
+          this.setTitleToolbar();
         }
 
         if (data && data.filter) {
@@ -843,6 +843,9 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     console.log('param: ', orderNumber);
     this.orderService.getDownlaodLabel(orderNumber).subscribe((res: any) => {
       console.log('res: ', res);
+      /* linea para abrir pdf en hoja aparte.
+        window.open(model.urlFile, '_blank');
+      */
     });
   }
 
