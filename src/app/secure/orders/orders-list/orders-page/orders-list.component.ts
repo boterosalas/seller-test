@@ -834,6 +834,19 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Descargar rotulos en ordenes estado asignado
+   * @param {*} param
+   * @memberof OrdersListComponent
+   */
+  public downloadLabel(param: any) {
+    const orderNumber = +param.orderNumber;
+    console.log('param: ', orderNumber);
+    this.orderService.getDownlaodLabel(orderNumber).subscribe((res: any) => {
+      console.log('res: ', res);
+    });
+  }
+
+  /**
    * funcion para destruir las subcripciones abiertas
    *
    * @memberof OrdersListComponent

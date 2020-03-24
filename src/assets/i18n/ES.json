@@ -164,7 +164,7 @@
     "actions.show_detail": "Ver detalle",
     "actions.send_all": "Enviar todo",
     "actions.print_receipt": "Imprimir recibo",
-    "actions.print_label": "Imprimir rótulo",
+    "actions.download_label": "Descargar rótulo",
     "actions.attach_invoice": "Adjuntar factura",
     "actions.go_to_start": "Ir al inicio",
     "actions.update": "ACTUALIZAR",
