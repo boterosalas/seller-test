@@ -132,7 +132,7 @@
     <mat-card class="content-profile port-list-93-height">
       <mat-nav-list class="light-content">
         <mat-toolbar color="primary" class="toolbar-title-search">
-          <h4 class="title-toolbar">{{informationToForm.title_for_search | translate}}</h4>
+          <h4 class="title-toolbar">{{'secure.parametize.port.search_port' | translate}}</h4>
           <button color="accent" [matTooltip]="'actions.close' | translate" matTooltipPosition="below" mat-icon-button
             mat-button (click)="toggleFilterPorts()">
             <mat-icon>close</mat-icon>
@@ -205,7 +205,7 @@
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" class="port-component-aling-padding-left">
           <mat-form-field class="field" style="width: 90%;">
-            <input matInput [placeholder]="'secure.parametize.port.country' | translate" [matAutocomplete]="auto" formControlName="country">
+            <input matInput [placeholder]="'secure.parametize.port.country' | translate" [matAutocomplete]="auto" formControlName="name">
             <mat-autocomplete #auto="matAutocomplete">
               <mat-option *ngFor="let country of filterCountry" [value]="country.CountryName">
                 {{country.CountryName}}
@@ -215,7 +215,7 @@
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" >
           <mat-form-field class="field port-component-width-90">
-            <input matInput [placeholder]="'secure.parametize.port.country_apply' | translate" [matAutocomplete]="auto" formControlName="applyCountry">
+            <input matInput [placeholder]="'secure.parametize.port.country_apply' | translate" [matAutocomplete]="auto" formControlName="country" (keyup.enter)="saveKeyword()">
             <mat-autocomplete #auto="matAutocomplete">
               <mat-option *ngFor="let country of filterCountry" [value]="country.CountryName">
                 {{country.CountryName}}
@@ -287,9 +287,9 @@
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
           <mat-form-field style="width: 95%;">
-            <input formControlName="national_transportation" matInput [placeholder]="'secure.parametize.port.national_transportation' | translate" >
-            <mat-error *ngIf="formPort.get('national_transportation').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
-            <mat-error *ngIf="formPort.get('national_transportation').hasError('required')">{{'errors.required' | translate}}</mat-error>
+            <input formControlName="nationalTransport" matInput [placeholder]="'secure.parametize.port.national_transportation' | translate" >
+            <mat-error *ngIf="formPort.get('nationalTransport').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
+            <mat-error *ngIf="formPort.get('nationalTransport').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
         </div>
       </div>

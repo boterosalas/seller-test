@@ -181,45 +181,34 @@ configDataDialog(dialog: MatDialogRef<ModalPortComponent>) {
  */
 createFormControls() {
     this.formPort = new FormGroup({
+      name: new FormControl(''),
       country: new FormControl(''),
-      applyCountry: new FormControl(''),
       address: new FormControl('', Validators.compose([Validators.required])),
       phone: new FormControl('', Validators.compose([Validators.required])),
       insurance_freight: new FormControl('', Validators.compose([Validators.required , Validators.pattern(this.PortRegex.formatIntegerNumber)])),
       preparation: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
       shippingCost: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
-      national_transportation: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
+      nationalTransport: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
       insurance_CIF: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
       tariffByKg: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
       tariff: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
       iva: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
     });
 
+
+
+        // public decimal Tariff { get; set; }
+        // public decimal NegotiatedShippingCost { get; set; }
+        // public decimal Insurance { get; set; }
+
     this.filterPort = new FormGroup({
       countryFilter: new FormControl('', Validators.compose([Validators.required]))
     });
 
-    this.formPort.get('applyCountry').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
-      if (!!val && val.length >= 2) {
-        this.filterCountry = this.countries.filter(country => country.CountryName.toString().toLowerCase().includes(val.toLowerCase()));
-        const exist = this.filterCountry.find(country => country.CountryName === val);
-        if (!exist) {
-          this.formPort.get('applyCountry').setErrors({ pattern: false });
-        } else {
-          this.formPort.get('applyCountry').setErrors(null);
-        }
-      } else if (!val) {
-        this.filterCountry = [];
-        this.formPort.get('applyCountry').setErrors(null);
-      } else {
-        this.formPort.get('applyCountry').setErrors(null);
-      }
-
-    });
     this.formPort.get('country').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
       if (!!val && val.length >= 2) {
         this.filterCountry = this.countries.filter(country => country.CountryName.toString().toLowerCase().includes(val.toLowerCase()));
-        const exist = this.filterCountry.find(country => country.CountryName === val || country.CountryName === this.countryCurrent);
+        const exist = this.filterCountry.find(country => country.CountryName === val);
         if (!exist) {
           this.formPort.get('country').setErrors({ pattern: false });
         } else {
@@ -230,6 +219,23 @@ createFormControls() {
         this.formPort.get('country').setErrors(null);
       } else {
         this.formPort.get('country').setErrors(null);
+      }
+
+    });
+    this.formPort.get('name').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
+      if (!!val && val.length >= 2) {
+        this.filterCountry = this.countries.filter(country => country.CountryName.toString().toLowerCase().includes(val.toLowerCase()));
+        const exist = this.filterCountry.find(country => country.CountryName === val || country.CountryName === this.countryCurrent);
+        if (!exist) {
+          this.formPort.get('name').setErrors({ pattern: false });
+        } else {
+          this.formPort.get('name').setErrors(null);
+        }
+      } else if (!val) {
+        this.filterCountry = [];
+        this.formPort.get('name').setErrors(null);
+      } else {
+        this.formPort.get('name').setErrors(null);
       }
 
     });
@@ -257,7 +263,7 @@ createFormControls() {
  * @memberof PortComponent
  */
 public saveKeyword(): void {
-    let word = this.formPort.controls.applyCountry.value;
+    let word = this.formPort.controls.country.value;
     if (word) {
       word = word.trim();
       if (this.keywords.length < 20) {
@@ -271,8 +277,8 @@ public saveKeyword(): void {
             }
           });
         }
-        this.formPort.controls.applyCountry.clearValidators();
-        this.formPort.controls.applyCountry.reset();
+        this.formPort.controls.country.clearValidators();
+        this.formPort.controls.country.reset();
         this.validateKey = this.keywords.length > 0 ? false : true;
       } else {
         this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.basic_information.only_up_to_20_keywords'), 'Cerrar', {
@@ -302,13 +308,13 @@ public deleteKeywork(indexOfValue: number): void {
 setEdit() {
     if (this.data && this.data.data !== null && this.data.typeModal === 2) {
       this.resetFormModal();
-      this.formPort.controls['country'].setValue(this.data.data.country);
+      this.formPort.controls['name'].setValue(this.data.data.country);
       this.formPort.controls['address'].setValue(this.data.data.address);
       this.formPort.controls['phone'].setValue(this.data.data.phone);
       this.formPort.controls['insurance_freight'].setValue(this.data.data.insurance_freight);
       this.formPort.controls['preparation'].setValue(this.data.data.preparation);
       this.formPort.controls['shippingCost'].setValue(this.data.data.shippingCost);
-      this.formPort.controls['national_transportation'].setValue(this.data.data.national_transportation);
+      this.formPort.controls['nationalTransport'].setValue(this.data.data.nationalTransport);
       this.formPort.controls['insurance_CIF'].setValue(this.data.data.insurance_CIF);
       this.formPort.controls['tariffByKg'].setValue(this.data.data.tariffByKg);
       this.formPort.controls['tariff'].setValue(this.data.data.tariff);
@@ -347,18 +353,18 @@ public savePort() {
       this.body = this.formPort.value;
       const params = {
         id: this.idPort,
-        country: this.body.country,
+        name: this.body.name,
         address: this.body.address,
         phone: this.body.phone,
         tariff: this.body.tariff,
         shippingCost: this.body.shippingCost,
         insurance: this.body.insurance_freight,
         preparation: this.body.preparation,
-        nationalTransport: this.body.national_transportation,
+        nationalTransport: this.body.nationalTransport,
         insuranceCIF: this.body.insurance_CIF,
         tariffByKg: this.body.tariffByKg,
         iva: this.body.iva,
-        applyCountry: this.keywords
+        country: this.keywords
       };
       this.portCollectionService.savePort(params).subscribe(result => {
         if (result && result === true) {
@@ -397,6 +403,13 @@ getFilterPort(params: any) {
  */
 clearFormFilter() {
     this.filterPort.reset();
+  }
+
+validar(e: any) {
+   const tecla =  e.keyCode ;
+    if (tecla === 13) {
+      this.saveKeyword();
+    }
   }
 
 

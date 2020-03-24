@@ -1186,6 +1186,7 @@
     "secure.parametize.support_claims-filter.filter": "Filter",
 
     "secure.parametize.port.port": "Port",
+    "secure.parametize.port.search_port": "Search port",
     "secure.parametize.port.country_apply": "country Apply",
     "secure.parametize.port.insurance_freight": "insurance Freight",
     "secure.parametize.port.preparation": "Preparation",

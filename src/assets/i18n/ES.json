@@ -1186,6 +1186,7 @@
     "secure.parametize.support_claims-filter.filter": "Filtrar",
 
     "secure.parametize.port.port": "Puerto",
+    "secure.parametize.port.search_port": "Consultar puerto",
     "secure.parametize.port.country_apply": "Nombre Centro de Acopio",
     "secure.parametize.port.insurance_freight": "Seguro",
     "secure.parametize.port.preparation": "Preparación",
