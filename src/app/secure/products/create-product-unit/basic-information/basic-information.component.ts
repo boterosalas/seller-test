@@ -58,7 +58,6 @@ export class ProductBasicInfoComponent implements OnInit {
     inputRequired = true;
     isEdit= false;
     disabledEanChildren= false;
-    textCheck= 'Ingresar la marca manual';
     show= false;
     isManual = false;
     BrandsRegex = { brandsName: '', formatIntegerNumber: '' };
