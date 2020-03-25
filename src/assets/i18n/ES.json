@@ -327,6 +327,12 @@
     "secure.client_information.client": "Cliente",
     "secure.client_information.address": "Dirección",
     "secure.client_information.phone": "Teléfono",
+    "secure.client_information.client_phone": "Teléfono del cliente",
+    "secure.client_information.city": "Ciudad",
+    "secure.client_information.billing_address": "Dirección del cliente",
+    "secure.client_information.collection_center": "Centro de Acopio",
+    "secure.client_information.collection_center_phone": "Teléfono centro de acopio",
+    "secure.client_information.dipatch_address": "Dirección de despacho",
 
 
     "secure.dashboard.all": "Todas",
@@ -541,6 +547,7 @@
     "secure.seller.register_seller.lb_state_form": "Departamento",
     "secure.seller.register_seller.lb_city_form": "Ciudad",
     "secure.seller.register_seller.lb_postal_code_form": "Código postal",
+    "secure.seller.register_seller.lb_postal_ports": "Centro de Acopio",
     "secure.seller.register_seller.lb_phone_form": "Teléfono",
     "secure.seller.register_seller.lb_payoneer_form": "Payoneer",
     "secure.seller.register_seller.lb_nit_form": "NIT",

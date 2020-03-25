@@ -327,6 +327,12 @@
     "secure.client_information.client": "Client",
     "secure.client_information.address": "Address",
     "secure.client_information.phone": "Phone",
+    "secure.client_information.client_phone": "Customer Phone",
+    "secure.client_information.city": "City",
+    "secure.client_information.billing_address": "Billing Address",
+    "secure.client_information.collection_center": "Collection Center",
+    "secure.client_information.collection_center_phone": "Collection center telephone",
+    "secure.client_information.dipatch_address": "Dispatch Address",
 
 
     "secure.dashboard.all": "All",
@@ -541,6 +547,7 @@
     "secure.seller.register_seller.lb_state_form": "State",
     "secure.seller.register_seller.lb_city_form": "City",
     "secure.seller.register_seller.lb_postal_code_form": "Postal code",
+    "secure.seller.register_seller.lb_postal_ports": "Delivery address",
     "secure.seller.register_seller.lb_phone_form": "Phone",
     "secure.seller.register_seller.lb_payoneer_form": "Payoneer",
     "secure.seller.register_seller.lb_nit_form": "NIT",

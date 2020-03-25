@@ -20,19 +20,19 @@ import { SharedModule } from '@app/shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 
 export const registerRegex = [
-  {Identifier: 'phoneNumber', Value: '^[0-9+\-\s]*$', Module: 'vendedores'},
-  {Identifier: 'contactName', Value: '^[0-9A-Za-zá é í ó ú ü ñà è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$', Module: 'vendedores'},
-  {Identifier: 'email', Value: '^[a-zA-Z0-9._-]+@[a-zA-Z0-9]?(?:[a-zA-Z0-9-]{0,}[a-zA-Z0-9]+\.)+[a-z]{2,}$', Module: 'vendedores'},
-  {Identifier: 'nameStore', Value: '^((?!\.com$)(?!\.co$)(?!\.net$)(?!\.gov$)(?!\.edu$)(?!\ss\.a\.s$)(?!\ss\.a$)(?!\ss\.a\.$)(?!\ss\.a\.$)(?!\ssa\.s$)(?!\ssas$)(?!\ssa$)(?!\sltda$)(?!\sltda\.$).)*$', Module: 'vendedores'},
-  {Identifier: 'integerNumber', Value: '^[0-9]*$', Module: 'vendedores'},
-  {Identifier: 'internationalIdentifier', Value: '^[0-9a-zA-Z-]*$', Module: 'vendedores'},
-  {Identifier: 'internationalPostalCode', Value: '^[0-9a-zA-Z]*$', Module: 'vendedores'},
-  {Identifier: 'payoneer', Value: '^[\w_\-\.\^@!\? \'\']+$', Module: 'vendedores'},
-  {Identifier: 'internationalLocation', Value: '^([^\/])*$', Module: 'vendedores'}
+  { Identifier: 'phoneNumber', Value: '^[0-9+\-\s]*$', Module: 'vendedores' },
+  { Identifier: 'contactName', Value: '^[0-9A-Za-zá é í ó ú ü ñà è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$', Module: 'vendedores' },
+  { Identifier: 'email', Value: '^[a-zA-Z0-9._-]+@[a-zA-Z0-9]?(?:[a-zA-Z0-9-]{0,}[a-zA-Z0-9]+\.)+[a-z]{2,}$', Module: 'vendedores' },
+  { Identifier: 'nameStore', Value: '^((?!\.com$)(?!\.co$)(?!\.net$)(?!\.gov$)(?!\.edu$)(?!\ss\.a\.s$)(?!\ss\.a$)(?!\ss\.a\.$)(?!\ss\.a\.$)(?!\ssa\.s$)(?!\ssas$)(?!\ssa$)(?!\sltda$)(?!\sltda\.$).)*$', Module: 'vendedores' },
+  { Identifier: 'integerNumber', Value: '^[0-9]*$', Module: 'vendedores' },
+  { Identifier: 'internationalIdentifier', Value: '^[0-9a-zA-Z-]*$', Module: 'vendedores' },
+  { Identifier: 'internationalPostalCode', Value: '^[0-9a-zA-Z]*$', Module: 'vendedores' },
+  { Identifier: 'payoneer', Value: '^[\w_\-\.\^@!\? \'\']+$', Module: 'vendedores' },
+  { Identifier: 'internationalLocation', Value: '^([^\/])*$', Module: 'vendedores' }
 ];
 
 describe('RegisterSellerComponent', () => {
-  const userData = {sellerProfile: 'administrator'};
+  const userData = { sellerProfile: 'administrator' };
   const registerMenu = {
     Functionalities: [{
       NameFunctionality: 'Crear',
@@ -87,7 +87,7 @@ describe('RegisterSellerComponent', () => {
         { provide: CitiesServices, useValue: mockCitiesService },
         { provide: StatesService, useValue: mockStatesSiervice },
         { provide: BasicInformationService, useValue: mockBasicInformationService },
-        { provide: PayoneerService, useValue: mockPayoneerService},
+        { provide: PayoneerService, useValue: mockPayoneerService },
         EndpointService,
       ],
       // No_Errors_schema (Evita errores de importación de otros Componentes)
@@ -120,7 +120,7 @@ describe('RegisterSellerComponent', () => {
       // construccion del modelo de respuesta del regex del servicio
       const responseRegex = {
         body: {
-          body: JSON.stringify({Data: registerRegex })
+          body: JSON.stringify({ Data: registerRegex })
         }
       };
       // Define la respuesta del servicio de regex
@@ -180,7 +180,7 @@ describe('RegisterSellerComponent', () => {
         const response = {
           status: 200,
           body: {
-            body: JSON.stringify({Data: 'Success'})
+            body: JSON.stringify({ Data: 'Success' })
           }
         };
         mockRegisterService.registerUser.and.returnValue(of(response));
@@ -334,7 +334,7 @@ describe('RegisterSellerComponent', () => {
     });
 
     describe('is not Colombia Select', () => {
-      beforeEach( () => {
+      beforeEach(() => {
         component.ngOnInit();
         // se genera un Spy para saber si el metodo validationsForNotColombiaSelectSellerForm es llamado
         spyValidateNotColombia = spyOn(component, 'validationsForNotColombiaSelectSellerForm');
@@ -688,6 +688,45 @@ describe('RegisterSellerComponent', () => {
         });
       });
 
+      it('Should be fail IdDispatchPort with /', () => {
+        fixture.whenStable().then(() => {
+          tick();
+          expect(component.isColombiaSelect).toBeFalsy();
+          const portsField = fixture.debugElement.query(By.css('#register-ports'));
+          expect(portsField).toBeTruthy();
+          const portNativeElement = portsField.nativeElement;
+          portNativeElement.value = 'IdDispatchPort /';
+          portNativeElement.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+          expect(component.IdDispatchPort.errors).toBeTruthy();
+        })
+      })
+
+      it('Should be fail IdDispatchPort with \\', () => {
+        fixture.whenStable().then(() => {
+          tick();
+          expect(component.isColombiaSelect).toBeFalsy();
+          const portsField = fixture.debugElement.query(By.css('#register-ports'));
+          expect(portsField).toBeTruthy();
+          const portNativeElement = portsField.nativeElement;
+          portNativeElement.value = 'IdDispatchPort \\';
+          portNativeElement.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+          expect(component.IdDispatchPort.errors).toBeTruthy();
+        })
+      })
+
+      it('Should call receivePortItem when port select value change', () => {
+        fixture.whenStable().then(() => {
+          tick();
+          expect(component.isColombiaSelect).toBeFalsy();
+          const select: HTMLSelectElement = fixture.debugElement.query(By.css('#register-cities')).nativeElement;
+          select.value = select.options[3].value;  // <-- select a new value
+          select.dispatchEvent(new Event('change'));
+          fixture.detectChanges();
+          expect(component.receivePortItem(select.value)).toHaveBeenCalled();
+        })
+      })
       it('Should be submiter a International Seller', () => {
 
       });
