@@ -55,6 +55,7 @@ export class PortComponent implements OnInit {
   isClear= false;
   listFilterBrands = [];
   separatorKeysCodes = [];
+  filter= null;
   PortRegex = {formatIntegerNumber: '' };
 
   length: number;
@@ -112,9 +113,12 @@ export class PortComponent implements OnInit {
  *
  * @memberof PortComponent
  */
-getAllCenterCollection() {
+getAllCenterCollection(params?: any) {
     this.loadingService.viewSpinner();
-    this.portCollectionService.getAllPort(null).subscribe((res: any) => {
+    if (params && params.countryFilter) {
+      this.filter = params.countryFilter;
+    }
+    this.portCollectionService.getAllPort(this.filter).subscribe((res: any) => {
       this.loadingService.closeSpinner();
       if (res) {
         this.length = res.length;
@@ -385,7 +389,9 @@ onNoClick() {
  * @memberof PortComponent
  */
 getFilterPort(params: any) {
-    console.log(params);
+  if (params && params.countryFilter) {
+    this.getAllCenterCollection(params);
+  }
   }
 /**
  * funcion para limpiar el formulario del filtro
