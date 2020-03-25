@@ -192,14 +192,7 @@ createFormControls() {
       insuranceCif: new FormControl('', Validators.compose([Validators.required])),
       negotiatedShippingCost: new FormControl('', Validators.compose([Validators.required])),
       tariff: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
-    
     });
-
-
-
-        // public decimal Tariff { get; set; }
-        // public decimal NegotiatedShippingCost { get; set; }
-        // public decimal Insurance { get; set; }
 
     this.filterPort = new FormGroup({
       countryFilter: new FormControl('', Validators.compose([Validators.required]))
