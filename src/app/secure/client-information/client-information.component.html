@@ -2,55 +2,58 @@
   fxFlexAlign="start center">
   <div class="client-information-container" fxFlex="40" fxFlex.sm="50" fxFlex.xs="100" fxLayout="column nowrap"
     fxFlexAlign="start center">
-    <span class="content-information-title" fxFlex="100">{{'secure.client_information.client' | translate}}</span>
-    <div class="light-content" fxFlex="100">
-      <div class="content-information-client is-international">
-        <p class="client-information n-margin mr-5">{{'secure.client_information.billing_address' | translate}}: </p>
-        <p class="client-data n-margin">{{order.clientAddress}}
+    <span class="content-information-title">{{'secure.client_information.client' | translate}}</span>
+    <div  fxLayout="row wrap" class="margin-Div-Info">
+      <div class="light-content" fxFlex="100">
+        <div class="content-information-client is-international">
+          <p class="client-information n-margin mr-5">{{'shared.name' | translate}}: </p>
+          <p class="client-data n-margin ">{{order.clientName}} {{order.identificationCard}} </p>
+        </div>
       </div>
-    </div>
-    <div class="light-content" fxFlex="100">
-      <div class="content-information-client is-international">
-        <p class="client-information n-margin mr-5">{{'shared.name' | translate}}: </p>
-        <p class="client-data n-margin ">{{order.clientName}} {{order.identificationCard}} </p>
+      <div class="light-content" fxFlex="100">
+        <div class="content-information-client is-international">
+          <p class="client-information n-margin mr-5">{{'secure.client_information.client_phone' | translate}}: </p>
+          <p class="client-data n-margin">{{order.clientTelephone}}</p>
+        </div>
       </div>
-    </div>
-    <div class="light-content" fxFlex="100">
-      <div class="content-information-client is-international">
-        <p class="client-information n-margin mr-5">{{'secure.client_information.client_phone' | translate}}: </p>
-        <p class="client-data n-margin">{{order.clientTelephone}}</p>
+      <div class="light-content" fxFlex="100">
+        <div class="content-information-client is-international">
+          <p class="client-information n-margin mr-5">{{'secure.client_information.billing_address' | translate}}: </p>
+          <p class="client-data n-margin">{{order.clientAddress}}
+        </div>
       </div>
     </div>
   </div>
 
-  <div *ngIf="order.port" class="delivery-information-container" fxFlex="40" fxFlex.sm="50" fxFlex.xs="100"
+  <div *ngIf="order.port" class="delivery-information-container" fxFlex="45" fxFlex.sm="50" fxFlex.xs="100"
     fxLayout="column nowrap" fxFlexAlign="start center">
-    <span class="content-information-title"
-      fxFlex="100">{{'secure.client_information.collection_center' | translate}}</span>
-    <div class="light-content" fxFlex="100">
-      <div class="content-information-delivery is-international">
-        <p class="delivery-information n-margin mr-5">{{'shared.name' | translate}}:</p>
-        <p class="delivery-data n-margin ">{{order.port.name}} {{order.identificationCard}}
-        </p>
+    <span class="content-information-title">{{'secure.client_information.collection_center' | translate}}</span>
+    <div fxFlex="100" fxLayout="row wrap" class="margin-Div-Info">
+      <div class="light-content" fxFlex="100">
+        <div class="content-information-delivery is-international">
+          <p class="delivery-information n-margin mr-5">{{'shared.name' | translate}}:</p>
+          <p class="delivery-data n-margin ">{{order.port.name}} {{order.identificationCard}}
+          </p>
+        </div>
       </div>
-    </div>
-    <div class="light-content" fxFlex="100">
-      <div class="content-information-delivery is-international">
-        <p class="delivery-information n-margin mr-5">{{'secure.client_information.dipatch_address' | translate}}:</p>
-        <p class="delivery-data n-margin">{{order.port.address}}</p>
+      <div class="light-content" fxFlex="100">
+        <div class="content-information-delivery is-international">
+          <p class="delivery-information n-margin mr-5">{{'secure.client_information.dipatch_address' | translate}}:</p>
+          <p class="delivery-data n-margin">{{order.port.address}}</p>
+        </div>
       </div>
-    </div>
-    <div class="light-content" fxFlex="100">
-      <div class="content-information-delivery is-international">
-        <p class="delivery-information n-margin mr-5">
-          {{'secure.client_information.collection_center_phone' | translate}}:</p>
-        <p class="delivery-data n-margin">{{order.port.phone}}</p>
+      <div class="light-content" fxFlex="100">
+        <div class="content-information-delivery is-international">
+          <p class="delivery-information n-margin mr-5">
+            {{'secure.client_information.collection_center_phone' | translate}}:</p>
+          <p class="delivery-data n-margin">{{order.port.phone}}</p>
+        </div>
       </div>
-    </div>
-    <div class="light-content" fxFlex="100">
-      <div class="content-information-delivery is-international">
-        <p class="delivery-information n-margin mr-5">{{'secure.client_information.po_box' | translate}}:</p>
-        <p class="delivery-data n-margin">{{order.subPoBox}}</p>
+      <div class="light-content" fxFlex="100">
+        <div class="content-information-delivery is-international">
+          <p class="delivery-information n-margin mr-5">{{'secure.client_information.po_box' | translate}}:</p>
+          <p class="delivery-data n-margin">{{order.subPoBox}}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -58,24 +61,26 @@
 
 <div *ngIf="!isInternational" class="client-information-container" fxFlex="100" fxLayout="row wrap"
   fxFlexAlign="start center">
-  <div class="light-content" fxFlex.md="20" fxFlex.xs="100">
-    <div class="content-information-client">
-      <p class="client-information n-margin ">{{'secure.client_information.client' | translate}}</p>
-      <p class="client-data n-margin ">{{order.clientName}}
-        <br> {{order.identificationCard}}
-      </p>
+  <div fxFlex="100" fxLayout="row wrap" class="margin-Div-Info">
+    <div class="light-content" fxFlex.md="20" fxFlex.xs="100">
+      <div class="content-information-client">
+        <p class="client-information n-margin ">{{'secure.client_information.client' | translate}}</p>
+        <p class="client-data n-margin ">{{order.clientName}}
+          <br> {{order.identificationCard}}
+        </p>
+      </div>
     </div>
-  </div>
-  <div class="light-content" fxFlex.md="20" fxFlex.xs="100">
-    <div class="content-information-client">
-      <p class="client-information n-margin">{{'secure.client_information.address' | translate}}</p>
-      <p class="client-data n-margin">{{order.clientAddress}}
+    <div class="light-content" fxFlex.md="20" fxFlex.xs="100">
+      <div class="content-information-client">
+        <p class="client-information n-margin ">{{'secure.client_information.phone' | translate}}</p>
+        <p class="client-data n-margin">{{order.clientTelephone}}</p>
+      </div>
     </div>
-  </div>
-  <div class="light-content" fxFlex.md="20" fxFlex.xs="100">
-    <div class="content-information-client">
-      <p class="client-information n-margin ">{{'secure.client_information.phone' | translate}}</p>
-      <p class="client-data n-margin">{{order.clientTelephone}}</p>
+    <div class="light-content" fxFlex.md="20" fxFlex.xs="100">
+      <div class="content-information-client">
+        <p class="client-information n-margin">{{'secure.client_information.address' | translate}}</p>
+        <p class="client-data n-margin">{{order.clientAddress}}
+      </div>
     </div>
   </div>
 </div>
