@@ -291,6 +291,7 @@ export class SpecificationProductComponent implements OnInit {
 setValueSpefici(form: any, inputSpecifications: any, indexParent: number, indexSon: number) {
         if (inputSpecifications && inputSpecifications.Label) {
             if (this._detailProduct && this._detailProduct.features.length > 1) {
+                this.isShow = true;
                 const valueArray = this._detailProduct.features.find(x => x.key === inputSpecifications.Label);
                 let value = '';
                 if (valueArray !== undefined && valueArray !== null) {
@@ -310,9 +311,17 @@ setValueSpefici(form: any, inputSpecifications: any, indexParent: number, indexS
                                 this.isShow = false;
                             }, 45000);
                             }
+                        } else {
+                            this.isShow = false;
                         }
+                    } else {
+                        this.isShow = false;
                     }
+                } else {
+                    this.isShow = false;
                 }
+            } else {
+                this.isShow = false;
             }
         }
     }

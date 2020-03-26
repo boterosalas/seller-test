@@ -32,10 +32,10 @@ export class ModalConfirmComponent implements OnInit {
     this.params = {
       IdSeller : data.idSeller,
       IdToProcess : data.idToProcess,
-      Sku : data.sku,
+      Sku : data.ean,
+      QualificationDate: data.qualificationDate,
       TypeExclusion : data.typeExclusion,
     };
-
     this.calificationService.delete(this.params).subscribe((res: any) => {
       this.loadingService.viewSpinner();
       if (res) {

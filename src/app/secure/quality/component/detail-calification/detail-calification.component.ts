@@ -162,7 +162,7 @@ backTolist() {
  * @param {number} typeExclusion
  * @memberof DetailCalificationComponent
  */
-confirmDeleteCalification(element: any , idSeller: any, idToProcess: string, Ean: string, typeExclusion: number ) {
+confirmDeleteCalification(element: any , qualificationDate: string , idSeller: any, idToProcess: string, Ean: string, typeExclusion: number ) {
     const params = {
      orderNumber: element.orderNumber,
      customerName: element.customerName,
@@ -172,6 +172,7 @@ confirmDeleteCalification(element: any , idSeller: any, idToProcess: string, Ean
      idSeller: idSeller,
      idToProcess: idToProcess,
      ean: Ean,
+     qualificationDate: qualificationDate,
      typeExclusion: typeExclusion
    };
     const dialogRef = this.dialog.open(ModalConfirmComponent, {

@@ -15,6 +15,7 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { EanServicesService } from '../validate-ean/ean-services.service';
 import { SharedModule } from '@app/shared/shared.module';
+import { SupportService } from '@app/secure/support-modal/support.service';
 
 describe('ProductBasicInfoComponent', () => {
     let component: ProductBasicInfoComponent;
@@ -176,6 +177,7 @@ describe('ProductBasicInfoComponent', () => {
             providers: [
                 EndpointService,
                 ProcessService,
+                SupportService,
                 { provide: BasicInformationService, useValue: mockBasicInformationService },
                 { provide: EanServicesService, useValue: mockEanService },
                 { provide: FormBuilder, useValue: formBuilder },
@@ -195,6 +197,7 @@ describe('ProductBasicInfoComponent', () => {
         fixture = TestBed.createComponent(ProductBasicInfoComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = 90000000;
         // tslint:disable-next-line:no-unused-expression
         component.formBasicInfo;
 
@@ -213,7 +216,7 @@ describe('ProductBasicInfoComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('valid data', () => {
+    it('valid data', (done) => {
         component.formBasicInfo.controls.Keyword.setValue('test');
         component.formBasicInfo.controls.Name.setValue('test');
         component.formBasicInfo.controls.Category.setValue('Category');
@@ -233,6 +236,7 @@ describe('ProductBasicInfoComponent', () => {
         component.formBasicInfo.controls.product['controls'].WidthProduct.setValue('1');
         component.formBasicInfo.controls.product['controls'].WeightProduct.setValue('1');
         expect(component.formBasicInfo.valid).toBeTruthy();
+        done();
     });
 
     // invert color
@@ -247,13 +251,15 @@ describe('ProductBasicInfoComponent', () => {
         expect(component.padZero).toBeTruthy();
     });
 
-    it('invert color bw true', () => {
+    it('invert color bw true', (done) => {
         component.invertColor('#F5F5DC');
         expect(component.invertColor).toBeTruthy();
+        done();
     });
 
     it('invert color bw true 3 letters', () => {
         component.invertColor('#FFF');
+        console.log(component.invertColor);
         expect(component.invertColor).toBeTruthy();
     });
 
@@ -261,9 +267,10 @@ describe('ProductBasicInfoComponent', () => {
         expect(() => component.invertColor('#FFFFFFF')).toThrow(new Error('Invalid HEX color.'));
     });
 
-    it('invert color no #', () => {
+    it('invert color no #', (done) => {
         component.invertColor('red');
         expect(component.invertColor).toBeTruthy();
+        done();
     });
 
     it('invert color no hex  ', () => {
