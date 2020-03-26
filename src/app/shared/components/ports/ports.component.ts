@@ -79,15 +79,23 @@ export class PortsComponent implements OnInit, OnChanges {
     this.loadingService.viewSpinner();
     this.portService.getPortByCountryName(countryName.toUpperCase()).subscribe(
       (data: PortEntity[]) => {
-        this.listPorts = data;
-        if (!this.disabledComponent) {
-          this.validateFormRegister.get('portsFormControl').enable();
-        }
-        if (this.elementLoad) {
-          const portSelected = this.validateElementLoaded(this.elementLoad);
-          if (portSelected) {
-            this.validateFormRegister.controls['portsFormControl'].setValue(portSelected.Id, { onlySelf: true });
+        if (data) {
+          this.listPorts = data;
+          if (data.length === 1) {
+            this.validateFormRegister.controls['portsFormControl'].setValue(data[0].Id, { onlySelf: true });
+            this.setDataPort(data[0]);
           }
+          if (!this.disabledComponent) {
+            this.validateFormRegister.get('portsFormControl').enable();
+          }
+          if (this.elementLoad) {
+            const portSelected = this.validateElementLoaded(this.elementLoad);
+            if (portSelected) {
+              this.validateFormRegister.controls['portsFormControl'].setValue(portSelected.Id, { onlySelf: true });
+            }
+          }
+        } else {
+          this.modalService.showModal('errorService');
         }
         this.loadingService.closeSpinner();
       },
