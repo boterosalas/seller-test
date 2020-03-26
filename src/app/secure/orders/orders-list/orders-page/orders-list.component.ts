@@ -5,7 +5,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginatorIntl, MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AwsUtil, CognitoUtil, LoadingService, Logger, UserLoginService, UserParametersService, } from '@app/core';
+import { AwsUtil, CognitoUtil, LoadingService, Logger, UserLoginService, UserParametersService, ModalService, } from '@app/core';
 import { CategoryList, ComponentsService, Const, getDutchPaginatorIntl, InformationToForm, Order, RoutesConst, SearchFormEntity, UserInformation, } from '@app/shared';
 import { ShellComponent } from '@core/shell';
 
@@ -192,6 +192,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     private languageService: TranslateService,
     public eventsSeller: EventEmitterSeller,
     private profileService: MyProfileService,
+    public modalService: ModalService,
   ) {
     this.getAllDataUser();
   }
@@ -839,13 +840,24 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   public downloadLabel(param: any) {
+    this.loadingService.viewSpinner();
     const orderNumber = +param.orderNumber;
-    console.log('param: ', orderNumber);
     this.orderService.getDownlaodLabel(orderNumber).subscribe((res: any) => {
-      console.log('res: ', res);
-      /* linea para abrir pdf en hoja aparte.
-        window.open(model.urlFile, '_blank');
-      */
+      if (res.status === 200 || res.status === 201) {
+        if (res.body && res.body.data) {
+          window.open(res.body.data, '_blank');
+        } else {
+          this.modalService.showModal('errorService');
+        }
+      } else {
+        this.modalService.showModal('errorService');
+      }
+      this.loadingService.closeSpinner();
+    }, error => {
+      this.loadingService.closeSpinner();
+      this.componentService.openSnackBar(this.languageService.instant('public.auth.forgot.error_try_again'), 
+      this.languageService.instant('actions.close'), 4000);
+      log.error(error);
     });
   }
 

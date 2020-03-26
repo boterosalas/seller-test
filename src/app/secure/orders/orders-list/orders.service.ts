@@ -178,6 +178,6 @@ export class OrderService {
    * @memberof OrderService
    */
   public getDownlaodLabel(params: any): Observable<{}> {
-    return this.http.get(this.api.get('getDownlaodLabel', params), { observe: 'response' });
+    return this.http.get(this.api.get('getDownlaodLabel', [params]), { observe: 'response' });
   }
 }

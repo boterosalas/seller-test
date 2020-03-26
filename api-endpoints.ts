@@ -190,7 +190,7 @@ export const endpoints = {
       // consultar las ordenes por tipo de filtros
       ordersSummaryStatus: 'https://nv4izavvqj.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus/{params}',
       // Descargar rotulos
-      getDownlaodLabel: ''
+      getDownlaodLabel: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/orders/{params}/sticker'
     },
   },
   // Endpoints production
