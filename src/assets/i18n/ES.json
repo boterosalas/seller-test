@@ -890,6 +890,7 @@
     "secure.products.create_product_unit.basic_information.size":"Ingresa la talla",
     "secure.products.create_product_unit.basic_information.colorPDP":"HexColorCodePDP",
     "secure.products.create_product_unit.basic_information.color_spec":"Nombre específico de color",
+    "secure.products.create_product_unit.basic_information.enter_new_brand":"Ingresar nueva marca",
 
     "secure.products.create_product_unit.basic_information.kit": "Producto Combo",
     "secure.products.create_product_unit.basic_information.kit_ean": "Ean del producto combo",

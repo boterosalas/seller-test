@@ -23,7 +23,7 @@
   <mat-step [stepControl]="basicInfoFormGroup" [completed] ="ean">
     <form [formGroup]="basicInfoFormGroup">
       <ng-template matStepLabel>{{'secure.products.create_product_unit.component_process.basic_information' | translate}}</ng-template>
-      <app-basic-information [detailProduct]="detailProduct" ></app-basic-information>
+      <app-basic-information [detailProduct]="detailProduct" [isAdmin]="isAdmin" ></app-basic-information>
       <div class="buttonProcess">
         <button mat-button matStepperPrevious class="buttonProcessAtras">{{'secure.products.create_product_unit.component_process.back' | translate}}</button>
         <button mat-button matStepperNext class="buttonProcessContinuar" [disabled]="!basicInfoFormGroup.valid" (click)="continue_after_basic_info()">{{'secure.products.create_product_unit.component_process.continue' | translate}}</button>

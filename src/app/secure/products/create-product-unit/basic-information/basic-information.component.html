@@ -21,18 +21,9 @@
 
     <!-- BRAND AND MODEL -->
     <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
-      <!-- <mat-form-field class="brand-product field">
-        <input matInput placeholder="Marca" class="input-brand-product" formControlName="Brand" (change)="detectForm()"
-          id="brandProduct">
-        <mat-error *ngIf="formBasicInfo.get('Brand').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.brand_invalidate' | translate}}</mat-error>
-        <mat-error *ngIf="formBasicInfo.get('Brand').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
-        <mat-error *ngIf="formBasicInfo.get('Brand').hasError('pattern')">La marca ingresada no es v&aacute;lido</mat-error>
-        <mat-error *ngIf="formBasicInfo.get('Brand').hasError('required')">Este campo es obligatorio</mat-error>
-      </mat-form-field> -->
-
-      <mat-form-field class="field">
+      <mat-form-field [ngClass]="isAdmin ? 'field' : 'fieldBrands'" class="" [hidden]="show">
         <input matInput [placeholder]="'shared.brand' | translate" [matAutocomplete]="auto" formControlName="Brand" (change)="detectForm()"
-          id="brandProduct" required>
+           required>
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let brand of filterBrands" [value]="brand.Name">
             {{brand.Name}}
@@ -41,17 +32,15 @@
         <mat-error *ngIf="formBasicInfo.get('Brand').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
         <mat-error *ngIf="formBasicInfo.get('Brand').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.brand_invalidate' | translate}}</mat-error>
       </mat-form-field>
+      <mat-form-field class="fieldBrands" [hidden]="!show">
+        <input matInput [placeholder]="'shared.brand' | translate" formControlName="Brand" [errorStateMatcher]="matcher" (change)="detectForm()"
+           required>
+        <mat-error *ngIf="formBasicInfo.get('Brand').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('Brand').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
+      </mat-form-field>
+      
+      <mat-checkbox style="margin-right: 70px;" [matTooltip]="'secure.products.create_product_unit.basic_information.enter_new_brand'| translate" [hidden]="isAdmin" (click)="showBrandsInput(show)">{{'secure.products.create_product_unit.basic_information.enter_new_brand'| translate}}</mat-checkbox>
 
-
-      <!-- <mat-form-field class="field">
-          <mat-select placeholder="Marca" formControlName="Brand" id="Brand" (selectionChange)="detectForm()" required>
-            <mat-option *ngFor="let brand of brands" [value]="brand.Name">
-              {{brand.Name}}
-            </mat-option>
-          </mat-select> 
-          
-          <mat-error *ngIf="formBasicInfo.get('Brand').hasError('required')">Este campo es obligatorio</mat-error>
-        </mat-form-field>-->
 
       <mat-form-field class="model-product field">
         <input matInput [placeholder]="'shared.model' | translate" class="input-model-product" formControlName="Model" (change)="detectForm()"
@@ -60,6 +49,7 @@
         <mat-error *ngIf="formBasicInfo.get('Model').hasError('required') && formBasicInfo.get('Model').touched">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
       </mat-form-field>
     </div>
+ 
 
     <!-- DETAIL AND SHIPPING SIZE -->
     <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">

@@ -27,6 +27,7 @@ export class DetailCalificationComponent implements OnInit {
   public penaltyOutSideDelivery = 0;
   public penaltyCanceledBySeller = 0;
   public penaltyTotal = 0;
+  public qualificationDate: any;
 
   public params: any;
 
@@ -59,6 +60,7 @@ setDetailsBySeller() {
     this.colorCalificationCanceled = this.setClassColorByCalification(this.detailByElemet.qualificationCanceled.qualification);
     this.setFormatDateInfoSellerMonthQuality = this.formatNameMonth(this.detailByElemet.qualificationDate);
     this.setFormatDateInfoSellerGenrateDate = this.detailByElemet.generatedDate;
+    this.qualificationDate = this.detailByElemet.qualificationDate;
   }
   }
 /**
@@ -160,7 +162,7 @@ backTolist() {
  * @param {number} typeExclusion
  * @memberof DetailCalificationComponent
  */
-confirmDeleteCalification(element: any , idSeller: any, idToProcess: string, Ean: string, typeExclusion: number ) {
+confirmDeleteCalification(element: any , qualificationDate: string , idSeller: any, idToProcess: string, Ean: string, typeExclusion: number ) {
     const params = {
      orderNumber: element.orderNumber,
      customerName: element.customerName,
@@ -170,6 +172,7 @@ confirmDeleteCalification(element: any , idSeller: any, idToProcess: string, Ean
      idSeller: idSeller,
      idToProcess: idToProcess,
      ean: Ean,
+     qualificationDate: qualificationDate,
      typeExclusion: typeExclusion
    };
     const dialogRef = this.dialog.open(ModalConfirmComponent, {
@@ -212,7 +215,8 @@ recalculateQualitative() {
 notificateSeller() {
     this.loadingService.viewSpinner();
     const params = {
-      idSeller : this.idSeller
+      idSeller : this.idSeller,
+      qualificationDate: this.qualificationDate
     };
     this.calificationService.notificate(params).subscribe((res: any) => {
       if (res) {
