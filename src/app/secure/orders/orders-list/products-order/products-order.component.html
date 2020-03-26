@@ -210,8 +210,8 @@
         </p>
       </div>
     </div>
-    <div *ngIf="order.allowShipping == true && order.idStatusOrder == const.OrderAsignado" fxFlexOffset.lg="40%"
-      fxFlexOffset.xl="40%" fxFlex.xl="140px" fxFlex.lg="140px" fxFlex.sm="140px" fxFlex.md="140px" fxFlex.xs="initial">
+    <div *ngIf="order.allowShipping == true && order.idStatusOrder == const.OrderAsignado" class="left-Button" fxFlexOffset.lg="40%"
+      fxFlexOffset.xl="80%" fxFlex.xl="140px" fxFlex.lg="140px" fxFlex.sm="140px" fxFlex.md="140px" fxFlex.xs="initial">
       <div *ngIf="Typeprofile === 0">
         <button id="send-from-product-order-{{order.orderNumber}}" (click)="openDialogSendOrder(order)"
           [disabled]="!order.sendAllProduct" class="full-button sc-default-button sc-button" mat-raised-button
