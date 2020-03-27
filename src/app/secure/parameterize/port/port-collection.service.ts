@@ -30,9 +30,7 @@ export class PortCollectionService {
 
 
   getAllPort(params: any) {
-    return new Observable(observer => {
-      observer.next(this.data);
-    });
+    return this.http.get(`${this.api.get('managePort')}/GetDispatchPortsAll`, { observe: 'response' });
   }
 
   changeApplyCountry(params: any) {
@@ -41,8 +39,13 @@ export class PortCollectionService {
     });
   }
   savePort(params: any) {
-    return new Observable(observer => {
-      observer.next(true);
-    });
+    return this.http.post(`${this.api.get('managePort')}/RegisterDispatchPort`, params);
   }
+  upsertPort(params: any) {
+    return this.http.patch(`${this.api.get('managePort')}/UpdateDispatchPort`, params, { observe: 'response' });
+  }
+  filterPortByCountryName(params: any): Observable<any> {
+    return this.http.get(this.api.get('getPortsByCountryName', [params]), { observe: 'response' });
+  }
+
 }

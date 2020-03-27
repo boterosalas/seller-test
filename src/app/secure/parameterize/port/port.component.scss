@@ -158,3 +158,123 @@ $color-red: #f44336;
   }
 
 }
+
+.cup-text-country{
+    width: 250px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.sc-text-normal{
+  color: #2e2e2e;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.sc-text-normal-detail{
+  color: #5D5D5D;
+  font-size: 13px;
+}
+
+.element-row:not(.expanded):hover {
+  background: #eaeaea;
+}
+
+.element-row.expanded {
+  opacity: 0.7;
+  background-color: #f1f6ff;
+}
+
+.element-row:not(.expanded) {
+  cursor: pointer;
+}
+
+.element-row {
+  position: relative;
+}
+
+.container-port-details{
+  // background-color: #fbfafa;
+    margin-left: 28px;
+    margin-right: 12px;
+    padding: 10px;
+    margin-top: 24px;
+}
+
+.port-title-text-detail{
+  font-size: 13px;
+    color: black;
+    font-weight: 600;
+}
+
+.port-result-text-detail{
+   color: #848181;
+    font-size: 13px;
+    width: auto;
+}
+
+.container-port-padding{
+  padding: 5px;
+}
+
+.container-title-collection-center{
+  text-align: center;
+  width: 100%;
+  padding-top: 24px;
+  font-size: 13px;
+  color: black;
+  font-weight: 600;
+  padding-bottom: 10px;
+}
+
+.container-port-padding-button{
+  margin-bottom: 16px;
+}
+
+.container-port-main{
+  width: 100%;
+  padding: 15px;
+  padding-right: 47px;
+}
+
+.container-width-100{
+  width: 100%
+}
+
+.orders-no-data {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  background-color: #fff;
+  box-shadow: 0px 1px 1px -2px rgba(0, 0, 0, 0.2), 0px 1px 1px -4px rgba(0, 0, 0, 0.14), 0px 1px 1px 0px rgba(0, 0, 0, 0.12);
+  flex-direction: row;
+
+  & .content-icon-no-data {
+    width: 30%;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  & .content-information-no-data {
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  & .content-icon-no-data .icon-not-found {
+    font-size: 70px;
+    height: 70px;
+    width: 70px;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}

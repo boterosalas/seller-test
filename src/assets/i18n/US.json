@@ -1207,6 +1207,9 @@
     "secure.parametize.port.negotiatedShippingCostPercent": "negotiated ShippingCost Percent",
     "secure.parametize.port.addPort": "Add port",
     "secure.parametize.port.editPort": "Edit port",
+    "secure.parametize.port.error_format_two_decimal": "Two-digit maximum invalid format",
+    "secure.parametize.port.error_format_five_decimal": "Five-digit maximum invalid format",
+    "secure.parametize.port.no_found_port": "No port have been found.",
 
     "secure.parametize.support_claims-upload-btn.title": "Please choose a file",
     "secure.parametize.support_claims-upload-general-error": "The attached document that you are trying to upload is not compatible with our platform, we ask you to take into account the following recommendations: Your video cannot last more than 90 seconds and the formats allowed are: AVI, 3GP (mobile), MOV (Mac) , WMV (Windows), MPG, MPEG and MP4 with a maximum weight of 4 MB. The images you can upload must be in JPG, PNG or PDF, Excel or Word documents",

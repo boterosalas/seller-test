@@ -190,7 +190,9 @@ export const endpoints = {
       // consultar las ordenes por tipo de filtros
       ordersSummaryStatus: 'https://nv4izavvqj.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus/{params}',
       // Obtener puertos por país
-      getPortsByCountryName: 'https://orba3qnrte.execute-api.us-east-1.amazonaws.com/dispatchport/GetDispatchPortsByCountryName/{params}'
+      getPortsByCountryName: 'https://orba3qnrte.execute-api.us-east-1.amazonaws.com/dispatchport/GetDispatchPortsByCountryName/{params}',
+      // Ruta basica para puertos
+      managePort : 'https://orba3qnrte.execute-api.us-east-1.amazonaws.com/dispatchport',
     },
   },
   // Endpoints production
@@ -378,7 +380,9 @@ export const endpoints = {
       // consultar las ordenes por tipo de filtros
       ordersSummaryStatus: 'https://2l1pous4cl.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus-pdn/{params}',
       // Obtener puertos por país
-      getPortsByCountryName: 'https://kouotxul6i.execute-api.us-east-1.amazonaws.com/dispatchport-pdn/GetDispatchPortsByCountryName/{params}'
+      getPortsByCountryName: 'https://kouotxul6i.execute-api.us-east-1.amazonaws.com/dispatchport-pdn/GetDispatchPortsByCountryName/{params}',
+      // Ruta basica para puertos
+      managePort : 'https://kouotxul6i.execute-api.us-east-1.amazonaws.com/dispatchport-pdn',
     }
   }
 };

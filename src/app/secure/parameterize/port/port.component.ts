@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, ElementRef } from '@angular/core';
 import { SearchFormEntity, InformationToForm } from '@app/shared';
 import { MatSidenav, MatSnackBar, MatTableDataSource, MatDialog, MatDialogRef, ErrorStateMatcher } from '@angular/material';
 import { PortCollectionService } from './port-collection.service';
@@ -10,6 +10,7 @@ import { countries } from '../../../secure/seller/register/countries';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import { ResponseCaseDialogComponent } from '@app/shared/components/response-case-dialog/response-case-dialog.component';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import { trigger, transition, animate, style, state } from '@angular/animations';
 
 /**
  * exporta funcion para mostrar los errores de validacion del formulario
@@ -28,7 +29,14 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-port',
   templateUrl: './port.component.html',
-  styleUrls: ['./port.component.scss']
+  styleUrls: ['./port.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('void', style({ height: '0px', minHeight: '0', visibility: 'hidden' })),
+      state('*', style({ height: '*', visibility: 'visible' })),
+      transition('void <=> *', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class PortComponent implements OnInit {
 
@@ -36,6 +44,7 @@ export class PortComponent implements OnInit {
 
   public stateSideNavOrder = false;
   public dataSource: MatTableDataSource<any>;
+  public initialPortList: any;
   public dialogRef: MatDialogRef<ResponseCaseDialogComponent>;
   @ViewChild('dialogContent') content: TemplateRef<any>;
 
@@ -44,7 +53,9 @@ export class PortComponent implements OnInit {
   public filterPort: FormGroup;
   keywords = [];
   countries = countries;
-  filterCountry = [];
+  filterCountryFilter = [];
+  filterCountryName = [];
+  filterCountryApply = [];
   validateKey = true;
   countryCurrent: string;
   body: any;
@@ -56,17 +67,22 @@ export class PortComponent implements OnInit {
   listFilterBrands = [];
   separatorKeysCodes = [];
   filter= null;
-  PortRegex = {formatIntegerNumber: '' };
+  mapInitialPortList: any;
+  PortRegex = {formatTwoDecimal: '', formatFiveDecimal: '' };
+  method= '';
+  show = false;
 
-  length: number;
+  length= 0;
 
   public displayedColumns = [
+    'expand',
     'name',
     'collection_center',
     'address',
     'phone',
     'action'
   ];
+
 
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
@@ -79,6 +95,7 @@ export class PortComponent implements OnInit {
     count: null
   };
 
+  isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
   constructor(
     private portCollectionService: PortCollectionService,
     private loadingService: LoadingService,
@@ -120,9 +137,18 @@ getAllCenterCollection(params?: any) {
     }
     this.portCollectionService.getAllPort(this.filter).subscribe((res: any) => {
       this.loadingService.closeSpinner();
-      if (res) {
-        this.length = res.length;
-        this.dataSource = new MatTableDataSource(res);
+      if (!!res && !!res.status && res.status === 200) {
+        if (res && res.body && res.body.body) {
+          this.initialPortList = JSON.parse(res.body.body).Data;
+          if (JSON.stringify(this.initialPortList) !== '{}') {
+            this.mapInitialPortList = this.mapItems(this.initialPortList);
+            this.dataSource = new MatTableDataSource(this.mapInitialPortList);
+            this.length = this.initialPortList.length;
+          } else {
+            this.length = 0;
+            this.dataSource = new MatTableDataSource(null);
+          }
+        }
       }
     }, error => {
       this.loadingService.closeSpinner();
@@ -131,6 +157,33 @@ getAllCenterCollection(params?: any) {
       });
     });
   }
+
+    /**
+     * funcion para mapear el resultado del servicio get all brands
+     * @param {any[]} items
+     * @returns {any[]}
+     * @memberof BrandsComponent
+     */
+    mapItems(items: any[]): any[] {
+      return items.map(x => {
+          return {
+              Id: x.Id,
+              Name: x.Name,
+              Address: x.Address,
+              Phone: x.Phone,
+              Tariff: x.Tariff,
+              ShippingCost: x.ShippingCost,
+              NegotiatedShippingCost: x.NegotiatedShippingCost,
+              InsuranceFreight: x.InsuranceFreight,
+              Preparation: x.Preparation,
+              NationalTransport: x.NationalTransport,
+              InsuranceCif: x.InsuranceCif,
+              CountryString: x.Country && x.Country.length > 0 ? x.Country.join(', ') : null,
+              Country: x.Country,
+          };
+      });
+  }
+
 /**
  * funcion para abrir el componente del filtro
  *
@@ -189,13 +242,13 @@ createFormControls() {
       country: new FormControl(''),
       address: new FormControl('', Validators.compose([Validators.required])),
       phone: new FormControl('', Validators.compose([Validators.required])),
-      insuranceFreight: new FormControl('', Validators.compose([Validators.required , Validators.pattern(this.PortRegex.formatIntegerNumber)])),
-      preparation: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
-      shippingCost: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
-      nationalTransport: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
-      insuranceCif: new FormControl('', Validators.compose([Validators.required])),
-      negotiatedShippingCost: new FormControl('', Validators.compose([Validators.required])),
-      tariff: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
+      insuranceFreight: new FormControl('', Validators.compose([Validators.required , Validators.pattern(this.PortRegex.formatFiveDecimal)])),
+      preparation: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatTwoDecimal)])),
+      shippingCost: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatTwoDecimal)])),
+      nationalTransport: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatTwoDecimal)])),
+      insuranceCif: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatFiveDecimal)])),
+      negotiatedShippingCost: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatFiveDecimal)])),
+      tariff: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatFiveDecimal)])),
     });
 
     this.filterPort = new FormGroup({
@@ -204,15 +257,15 @@ createFormControls() {
 
     this.formPort.get('country').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
       if (!!val && val.length >= 2) {
-        this.filterCountry = this.countries.filter(country => country.CountryName.toString().toLowerCase().includes(val.toLowerCase()));
-        const exist = this.filterCountry.find(country => country.CountryName === val);
+        this.filterCountryApply = this.countries.filter(country => country.CountryName.toString().toLowerCase().includes(val.toLowerCase()));
+        const exist = this.filterCountryApply.find(country => country.CountryName === val);
         if (!exist) {
           this.formPort.get('country').setErrors({ pattern: false });
         } else {
           this.formPort.get('country').setErrors(null);
         }
       } else if (!val) {
-        this.filterCountry = [];
+        this.filterCountryApply = [];
         this.formPort.get('country').setErrors(null);
       } else {
         this.formPort.get('country').setErrors(null);
@@ -221,15 +274,15 @@ createFormControls() {
     });
     this.formPort.get('name').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
       if (!!val && val.length >= 2) {
-        this.filterCountry = this.countries.filter(country => country.CountryName.toString().toLowerCase().includes(val.toLowerCase()));
-        const exist = this.filterCountry.find(country => country.CountryName === val || country.CountryName === this.countryCurrent);
+        this.filterCountryName = this.countries.filter(country => country.CountryName.toString().toLowerCase().includes(val.toLowerCase()));
+        const exist = this.filterCountryName.find(country => country.CountryName === val || country.CountryName === this.countryCurrent);
         if (!exist) {
           this.formPort.get('name').setErrors({ pattern: false });
         } else {
           this.formPort.get('name').setErrors(null);
         }
       } else if (!val) {
-        this.filterCountry = [];
+        this.filterCountryName = [];
         this.formPort.get('name').setErrors(null);
       } else {
         this.formPort.get('name').setErrors(null);
@@ -238,15 +291,15 @@ createFormControls() {
     });
     this.filterPort.get('countryFilter').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
       if (!!val && val.length >= 2) {
-        this.filterCountry = this.countries.filter(country => country.CountryName.toString().toLowerCase().includes(val.toLowerCase()));
-        const exist = this.filterCountry.find(country => country.CountryName === val);
+        this.filterCountryFilter = this.countries.filter(country => country.CountryName.toString().toLowerCase().includes(val.toLowerCase()));
+        const exist = this.filterCountryFilter.find(country => country.CountryName === val);
         if (!exist) {
           this.filterPort.get('countryFilter').setErrors({ pattern: false });
         } else {
           this.filterPort.get('countryFilter').setErrors(null);
         }
       } else if (!val) {
-        this.filterCountry = [];
+        this.filterCountryFilter = [];
         this.filterPort.get('countryFilter').setErrors(null);
       } else {
         this.filterPort.get('countryFilter').setErrors(null);
@@ -305,23 +358,23 @@ public deleteKeywork(indexOfValue: number): void {
 setEdit() {
     if (this.data && this.data.data !== null && this.data.typeModal === 2) {
       this.resetFormModal();
-      this.formPort.controls['name'].setValue(this.data.data.country);
-      this.formPort.controls['address'].setValue(this.data.data.address);
-      this.formPort.controls['phone'].setValue(this.data.data.phone);
-      this.formPort.controls['insuranceFreight'].setValue(this.data.data.insuranceFreight);
-      this.formPort.controls['preparation'].setValue(this.data.data.preparation);
-      this.formPort.controls['shippingCost'].setValue(this.data.data.shippingCost);
-      this.formPort.controls['nationalTransport'].setValue(this.data.data.nationalTransport);
-      this.formPort.controls['insuranceCif'].setValue(this.data.data.insuranceCif);
-      this.formPort.controls['negotiatedShippingCost'].setValue(this.data.data.negotiatedShippingCost);
-      this.formPort.controls['tariff'].setValue(this.data.data.tariff);
-      if (this.data && this.data.data && this.data.data.countrys.length > 0) {
-        this.data.data.countrys.forEach(element => {
+      this.formPort.controls['name'].setValue(this.data.data.Name);
+      this.formPort.controls['address'].setValue(this.data.data.Address);
+      this.formPort.controls['phone'].setValue(this.data.data.Phone);
+      this.formPort.controls['insuranceFreight'].setValue(this.data.data.InsuranceFreight);
+      this.formPort.controls['preparation'].setValue(this.data.data.Preparation);
+      this.formPort.controls['shippingCost'].setValue(this.data.data.ShippingCost);
+      this.formPort.controls['nationalTransport'].setValue(this.data.data.NationalTransport);
+      this.formPort.controls['insuranceCif'].setValue(this.data.data.InsuranceCif);
+      this.formPort.controls['negotiatedShippingCost'].setValue(this.data.data.NegotiatedShippingCost);
+      this.formPort.controls['tariff'].setValue(this.data.data.Tariff);
+      if (this.data && this.data.data && this.data.data.Country.length > 0) {
+        this.data.data.Country.forEach(element => {
           this.keywords.push(element);
         });
         this.validateKey = this.keywords.length > 0 ? false : true;
-        this.countryCurrent = this.data.data.country;
-        this.idPort = this.data.data.id;
+        this.countryCurrent = this.data.data.Country;
+        this.idPort = this.data.data.Id;
       }
     } else {
       this.resetFormModal();
@@ -346,25 +399,33 @@ resetFormModal() {
  */
 public savePort() {
     if (this.formPort && this.formPort.controls) {
+      this.loadingService.viewSpinner();
       this.body = this.formPort.value;
       const params = {
         id: this.idPort,
         name: this.body.name,
         address: this.body.address,
         phone: this.body.phone,
-        tariff: parseFloat(this.body.tariff),
-        shippingCost: parseFloat(this.body.shippingCost),
-        insuranceFreight : parseFloat(this.body.insuranceFreight),
-        preparation: parseFloat(this.body.preparation),
-        nationalTransport: parseFloat(this.body.nationalTransport),
-        insuranceCif: parseFloat(this.body.insuranceCif),
-        negotiatedShippingCost: parseFloat(this.body.negotiatedShippingCost),
+        tariff: this.body.tariff,
+        shippingCost: this.body.shippingCost.toString(),
+        insuranceFreight : this.body.insuranceFreight.toString(),
+        preparation: this.body.preparation.toString(),
+        nationalTransport: this.body.nationalTransport.toString(),
+        insuranceCif: this.body.insuranceCif.toString(),
+        negotiatedShippingCost: this.body.negotiatedShippingCost.toString(),
         country: this.keywords
       };
-      this.portCollectionService.savePort(params).subscribe(result => {
-        if (result && result === true) {
-          this.getAllCenterCollection();
+      if (this.idPort) {
+        this.method = 'upsertPort';
+      } else {
+        this.method = 'savePort';
+      }
+      this.portCollectionService[this.method](params).subscribe(res => {
+        // validar mejor
+        if (res) {
           this.onNoClick();
+          this.loadingService.closeSpinner();
+          this.getAllCenterCollection();
         }
       }, error => {
         this.loadingService.closeSpinner();
@@ -390,7 +451,24 @@ onNoClick() {
  */
 getFilterPort(params: any) {
   if (params && params.countryFilter) {
-    this.getAllCenterCollection(params);
+    this.portCollectionService.filterPortByCountryName(params.countryFilter).subscribe(res => {
+      if (res && res.body && res.body.body) {
+        this.initialPortList = JSON.parse(res.body.body).Data;
+          if (JSON.stringify(this.initialPortList) !== '{}') {
+            this.mapInitialPortList = this.mapItems(this.initialPortList);
+            this.dataSource = new MatTableDataSource(this.mapInitialPortList);
+            this.length = this.initialPortList.length;
+          } else {
+            this.length = 0;
+          }
+        this.toggleFilterPorts();
+      }
+    }, error => {
+      this.loadingService.closeSpinner();
+      this.snackBar.open(this.languageService.instant('secure.orders.send.error_ocurred_processing'), this.languageService.instant('actions.close'), {
+        duration: 3000,
+      });
+    });
   }
   }
 /**
@@ -399,6 +477,9 @@ getFilterPort(params: any) {
  * @memberof PortComponent
  */
 clearFormFilter() {
+    this.getAllCenterCollection();
+    this.toggleFilterPorts();
+    this.filterPort.clearValidators();
     this.filterPort.reset();
   }
 
