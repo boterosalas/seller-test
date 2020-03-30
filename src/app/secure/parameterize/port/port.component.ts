@@ -68,7 +68,7 @@ export class PortComponent implements OnInit {
   separatorKeysCodes = [];
   filter= null;
   mapInitialPortList: any;
-  PortRegex = {formatTwoDecimal: '', formatFiveDecimal: '' };
+  PortRegex = {formatTwoDecimal: '', formatFiveDecimal: '', formatIntegerNumber: '' };
   method= '';
   show = false;
 
@@ -238,10 +238,10 @@ configDataDialog(dialog: MatDialogRef<ModalPortComponent>) {
  */
 createFormControls() {
     this.formPort = new FormGroup({
-      name: new FormControl(''),
+      name: new FormControl('', Validators.compose([Validators.required])),
       country: new FormControl(''),
       address: new FormControl('', Validators.compose([Validators.required])),
-      phone: new FormControl('', Validators.compose([Validators.required])),
+      phone: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
       insuranceFreight: new FormControl('', Validators.compose([Validators.required , Validators.pattern(this.PortRegex.formatFiveDecimal)])),
       preparation: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatTwoDecimal)])),
       shippingCost: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatTwoDecimal)])),
@@ -272,23 +272,23 @@ createFormControls() {
       }
 
     });
-    this.formPort.get('name').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
-      if (!!val && val.length >= 2) {
-        this.filterCountryName = this.countries.filter(country => country.CountryName.toString().toLowerCase().includes(val.toLowerCase()));
-        const exist = this.filterCountryName.find(country => country.CountryName === val || country.CountryName === this.countryCurrent);
-        if (!exist) {
-          this.formPort.get('name').setErrors({ pattern: false });
-        } else {
-          this.formPort.get('name').setErrors(null);
-        }
-      } else if (!val) {
-        this.filterCountryName = [];
-        this.formPort.get('name').setErrors(null);
-      } else {
-        this.formPort.get('name').setErrors(null);
-      }
+    // this.formPort.get('name').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
+    //   if (!!val && val.length >= 2) {
+    //     this.filterCountryName = this.countries.filter(country => country.CountryName.toString().toLowerCase().includes(val.toLowerCase()));
+    //     const exist = this.filterCountryName.find(country => country.CountryName === val || country.CountryName === this.countryCurrent);
+    //     if (!exist) {
+    //       this.formPort.get('name').setErrors({ pattern: false });
+    //     } else {
+    //       this.formPort.get('name').setErrors(null);
+    //     }
+    //   } else if (!val) {
+    //     this.filterCountryName = [];
+    //     this.formPort.get('name').setErrors(null);
+    //   } else {
+    //     this.formPort.get('name').setErrors(null);
+    //   }
 
-    });
+    // });
     this.filterPort.get('countryFilter').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
       if (!!val && val.length >= 2) {
         this.filterCountryFilter = this.countries.filter(country => country.CountryName.toString().toLowerCase().includes(val.toLowerCase()));
