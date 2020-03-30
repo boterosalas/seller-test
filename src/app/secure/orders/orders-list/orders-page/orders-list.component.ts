@@ -855,7 +855,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       this.loadingService.closeSpinner();
     }, error => {
       this.loadingService.closeSpinner();
-      this.componentService.openSnackBar(this.languageService.instant('public.auth.forgot.error_try_again'),
+      this.componentService.openSnackBar(error.error.errors[0].message,
         this.languageService.instant('actions.close'), 4000);
       log.error(error);
     });
