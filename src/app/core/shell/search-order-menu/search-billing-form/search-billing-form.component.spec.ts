@@ -117,7 +117,7 @@ describe('SearchBillingFormComponent', () => {
       expect(component.myform.controls.paymentDateInitial.errors).toBeNull();
     });
 
-    it('invalid initial date', () => {
+    it('invalid initial date', (done) => {
       const initialDate = fixture.debugElement.query(By.css('#input-filter-paymentDateInitial'));
       expect(initialDate).toBeTruthy();
       const initialDateNativeElement = initialDate.nativeElement;
@@ -125,6 +125,7 @@ describe('SearchBillingFormComponent', () => {
       initialDateNativeElement.dispatchEvent(new Event('input'));
       fixture.detectChanges();
       expect(component.myform.controls.paymentDateInitial.errors).toBeNull();
+      done();
     });
 
     it('valid final date', () => {

@@ -20,7 +20,7 @@ import { of, throwError } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 
 
-fdescribe('DownloadOrderModalComponent', () => {
+describe('DownloadOrderModalComponent', () => {
   let component: DownloadOrderModalComponent;
   let fixture: ComponentFixture<DownloadOrderModalComponent>;
 
@@ -173,7 +173,7 @@ fdescribe('DownloadOrderModalComponent', () => {
     });
   });
 
-  describe('Funcion obtener las facturas ERROR SERV', () => {
+  fdescribe('Funcion obtener las facturas ERROR SERV', () => {
     beforeEach(() => {
       mockDownloadOrderService.downloadBilling.and.returnValue(throwError('falle'));
       fixture.detectChanges();
@@ -186,4 +186,3 @@ fdescribe('DownloadOrderModalComponent', () => {
     });
   });
 });
-

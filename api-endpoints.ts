@@ -190,7 +190,9 @@ export const endpoints = {
       // consultar las ordenes por tipo de filtros
       ordersSummaryStatus: 'https://nv4izavvqj.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus/{params}',
       // Descargar rotulos
-      getDownlaodLabel: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/orders/{params}/sticker'
+      getDownlaodLabel: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/orders/{params}/sticker',
+      // Obtener puertos por país
+      getPortsByCountryName: 'https://orba3qnrte.execute-api.us-east-1.amazonaws.com/dispatchport/GetDispatchPortsByCountryName/{params}'
     },
   },
   // Endpoints production
@@ -378,7 +380,9 @@ export const endpoints = {
       // consultar las ordenes por tipo de filtros
       ordersSummaryStatus: 'https://2l1pous4cl.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus-pdn/{params}',
        // Descargar rotulos
-       getDownlaodLabel: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/orders/{params}/sticker'
+       getDownlaodLabel: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/orders/{params}/sticker',
+      // Obtener puertos por país
+      getPortsByCountryName: 'https://kouotxul6i.execute-api.us-east-1.amazonaws.com/dispatchport-pdn/GetDispatchPortsByCountryName/{params}'
     }
   }
 };

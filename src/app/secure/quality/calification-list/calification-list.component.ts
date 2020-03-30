@@ -335,9 +335,13 @@ export class CalificationListComponent implements OnInit {
         this.arrayPosition.push('{}');
       }
       this.showEmpty = false;
-      this.sortedData = this.mapItems(
-        res.viewModel,
-      );
+      if (res && res.count && res.count > 0) {
+        this.sortedData = this.mapItems(
+          res.viewModel,
+        );
+      } else {
+        this.sortedData = null;
+      }
       this.dataSource = new MatTableDataSource(this.sortedData);
       this.savePaginationToken(res.paginationToken);
     } else {
