@@ -21,7 +21,8 @@
 
     <!-- BRAND AND MODEL -->
     <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
-      <mat-form-field [ngClass]="isAdmin ? 'field' : 'fieldBrands'" class="" [hidden]="show">
+      <!-- <mat-form-field [ngClass]="isAdmin ? 'field' : 'fieldBrands'" class="" [hidden]="show"> -->
+      <mat-form-field [ngClass]="!show ? 'field' : 'fieldBrands'" class="" [hidden]="show">
         <input matInput [placeholder]="'shared.brand' | translate" [matAutocomplete]="auto" formControlName="Brand" (change)="detectForm()"
            required>
         <mat-autocomplete #auto="matAutocomplete">
@@ -39,7 +40,8 @@
         <mat-error *ngIf="formBasicInfo.get('Brand').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
       </mat-form-field>
       
-      <mat-checkbox style="margin-right: 70px;" [matTooltip]="'secure.products.create_product_unit.basic_information.enter_new_brand'| translate" [hidden]="isAdmin" (click)="showBrandsInput(show)">{{'secure.products.create_product_unit.basic_information.enter_new_brand'| translate}}</mat-checkbox>
+      <!-- <mat-checkbox style="margin-right: 70px;" [matTooltip]="'secure.products.create_product_unit.basic_information.enter_new_brand'| translate" [hidden]="isAdmin" (click)="showBrandsInput(show)">{{'secure.products.create_product_unit.basic_information.enter_new_brand'| translate}}</mat-checkbox> -->
+      <mat-checkbox style="margin-right: 70px;" [matTooltip]="'secure.products.create_product_unit.basic_information.enter_new_brand'| translate" [hidden]="!show" (click)="showBrandsInput(show)">{{'secure.products.create_product_unit.basic_information.enter_new_brand'| translate}}</mat-checkbox>
 
 
       <mat-form-field class="model-product field">
