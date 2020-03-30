@@ -231,9 +231,11 @@ export class ManageSellerComponent implements OnInit {
               this.phoneNumber.setValue(this.currentSellerSelect.PhoneNumber);
               this.state.setValue(this.currentSellerSelect.State);
               this.city.setValue(this.currentSellerSelect.City);
-              if(this.currentSellerSelect.IdDispatchPort){
+              if (this.currentSellerSelect.IdDispatchPort) {
                 this.idDispatchPort.setValue(this.currentSellerSelect.IdDispatchPort);
                 this.elementIdDispatchPortLoad = this.currentSellerSelect.IdDispatchPort;
+              } else {
+                this.idDispatchPort.setValue(0);
               }
               this.address.setValue(this.currentSellerSelect.Address);
               this.daneCode.setValue(this.currentSellerSelect.DaneCode);
@@ -328,7 +330,7 @@ export class ManageSellerComponent implements OnInit {
       ]);
     this.phoneNumber = new FormControl
       ({ value: '', disabled: disable }, [Validators.required,
-        Validators.pattern(this.sellerRegex.phoneNumber),
+      Validators.pattern(this.sellerRegex.phoneNumber),
       Validators.minLength(7)]);
     this.address = new FormControl
       ({ value: '', disabled: disable }, [Validators.required]);
@@ -510,13 +512,14 @@ export class ManageSellerComponent implements OnInit {
     if ($event && $event !== undefined && $event !== null) {
       this.validateFormRegister.controls['IdDispatchPort'].setValue($event.Id);
       this.validateFormRegister.controls['IdDispatchPort'].markAsTouched();
-    } else {
-      this.validateFormRegister.controls['IdDispatchPort'].setValue(null);
     }
   }
 
   submitUpdateSeller(): void {
     if (this.validateFormRegister.valid) {
+      if (this.validateFormRegister.controls['Country'].value === 'COLOMBIA') {
+        this.validateFormRegister.controls['IdDispatchPort'].setValue(null);
+      }
       this.loadingService.viewSpinner();
       this.disabledForService = true;
       const profile = `Tienda|${this.validateFormRegister.controls.Profile.value}`;
