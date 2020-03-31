@@ -17,16 +17,7 @@
       <div fxLayout="column" class="container-width-100">
         <div fxLayout="row">
           <div class="port-component-label-filter">
-            <div class="example-chip-list">
-              <mat-chip-list #chipList>
-                <mat-chip *ngFor="let productsFilter of listFilterBrands" [selectable]="selectable"
-                  [removable]="removable" (removed)="remove(productsFilter)">
-                  {{productsFilter.name}}
-                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                </mat-chip>
-                <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" disabled>
-              </mat-chip-list>
-            </div>
+            <div class="example-chip-list"></div>
           </div>
           <div class="port-component-button-add">
             <div id="addButton" class="container-group-add-button">

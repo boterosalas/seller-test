@@ -402,12 +402,20 @@ public savePort() {
         this.method = 'savePort';
       }
       this.portCollectionService[this.method](params).subscribe(res => {
-        console.log(res);
-        // validar mejor
-        if (res) {
-          this.onNoClick();
-          this.loadingService.closeSpinner();
-          this.getAllCenterCollection();
+        if (!!res && !!res.statusCode && res.statusCode === 200) {
+          if (res && res.body) {
+            const error = JSON.parse(res.body).Errors;
+            if (error && Array.isArray(error) && error.length > 0) {
+              this.loadingService.closeSpinner();
+              this.snackBar.open(this.languageService.instant(error), this.languageService.instant('actions.close'), {
+                duration: 3000,
+              });
+            } else {
+              this.onNoClick();
+              this.loadingService.closeSpinner();
+              this.getAllCenterCollection();
+            }
+          }
         }
       }, error => {
         this.loadingService.closeSpinner();
