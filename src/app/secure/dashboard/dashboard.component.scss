@@ -483,7 +483,7 @@ $table-break: 900px;
   }
 
   &-container-max-width-left-ordens{
-    max-width: 40%;
+    max-width: 45%;
   }
   &-container-align-center{
    text-align: center;
@@ -502,7 +502,7 @@ $table-break: 900px;
   &-container-icon-color-process-send{
     vertical-align: bottom;
     color:#FFDA10;
-    padding-right: 10px;
+    padding-right: 6px;
   }
 
   &-container-icon-color-expired{
@@ -514,7 +514,7 @@ $table-break: 900px;
   &-container-icon-color-delivered{
     vertical-align:bottom;
     color: #34B72D;
-    padding-right: 10px;
+    padding-right: 6px;
   }
 
   &-container-margin-spinner{
@@ -615,4 +615,46 @@ $table-break: 900px;
 .spinner-loading {
   margin-left: 48%;
   margin-right: 55%;
+}
+
+.vertical-aling-bottom{
+  vertical-align: bottom;
+}
+
+.dashboard-width-25{
+  width: 25%;
+}
+
+.dashboard-color-text{
+  font-size: 13px;
+  color: #767575;
+}
+
+.dashboard-padding-resumen{
+  padding: 10px;
+}
+
+.dashboard-padding-left-25{
+  padding-left: 25px;
+}
+
+.dashboard-padding-buttom-32{
+  padding-bottom: 20px;
+}
+
+.dashboard-title-text-style{
+  font-size: 13px;
+  font-weight: bold;
+}
+.dashboard-padding-container{
+  padding: 10px;
+}
+
+.dashboard-border-color-separate{
+  border-bottom: 1px solid #dadada;
+  padding-bottom: 10px;
+}
+
+.dashboard-padding-top-10{
+  padding-top: 10px;
 }
