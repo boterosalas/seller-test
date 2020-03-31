@@ -270,25 +270,7 @@ createFormControls() {
       } else {
         this.formPort.get('country').setErrors(null);
       }
-
     });
-    // this.formPort.get('name').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
-    //   if (!!val && val.length >= 2) {
-    //     this.filterCountryName = this.countries.filter(country => country.CountryName.toString().toLowerCase().includes(val.toLowerCase()));
-    //     const exist = this.filterCountryName.find(country => country.CountryName === val || country.CountryName === this.countryCurrent);
-    //     if (!exist) {
-    //       this.formPort.get('name').setErrors({ pattern: false });
-    //     } else {
-    //       this.formPort.get('name').setErrors(null);
-    //     }
-    //   } else if (!val) {
-    //     this.filterCountryName = [];
-    //     this.formPort.get('name').setErrors(null);
-    //   } else {
-    //     this.formPort.get('name').setErrors(null);
-    //   }
-
-    // });
     this.filterPort.get('countryFilter').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
       if (!!val && val.length >= 2) {
         this.filterCountryFilter = this.countries.filter(country => country.CountryName.toString().toLowerCase().includes(val.toLowerCase()));
@@ -304,7 +286,6 @@ createFormControls() {
       } else {
         this.filterPort.get('countryFilter').setErrors(null);
       }
-
     });
   }
 /**
@@ -421,6 +402,7 @@ public savePort() {
         this.method = 'savePort';
       }
       this.portCollectionService[this.method](params).subscribe(res => {
+        console.log(res);
         // validar mejor
         if (res) {
           this.onNoClick();

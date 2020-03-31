@@ -45,8 +45,6 @@
     <!-- Tabla de órdenes -->
     <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="97" fxFlex.lg="97" fxFlex.xl="97"
       class="port-component-content-table-center-collection">
-
-      <!-- matSort: Permite filtrar la tabla por los titulos de las columnas -->
       <mat-table #table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="expand">
           <mat-header-cell fxFlex.lg="60px" fxFlex="70px" fxShow.xs="false" fxShow.sm="false" fxShow.gt-lg="false"
@@ -55,12 +53,10 @@
           <mat-cell fxFlex="70px" fxFlex.lg="60px" fxShow.xs="false" fxShow.sm="false" fxShow.gt-lg="false"
             fxShow="true" *matCellDef="let element;let index=index">
             <button id="expand-row-number-{{index}}" disabled mat-icon-button>
-              <mat-icon style="font-weight: bold;" color="primary">expand_more</mat-icon>
+              <mat-icon class="font-weight" color="primary">expand_more</mat-icon>
             </button>
           </mat-cell>
         </ng-container>
-
-        <!-- channel Column -->
         <ng-container matColumnDef="name">
           <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
             fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
@@ -73,9 +69,6 @@
             <p class="sc-text-normal">{{element.Name}}</p>
           </mat-cell>
         </ng-container>
-
-      
-
         <ng-container matColumnDef="collection_center">
           <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
             fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
@@ -87,7 +80,6 @@
             *matCellDef="let element">
             <div></div>
             <p class="sc-text-normal cup-text-country">{{element.CountryString}}</p>
-
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="address">
@@ -142,7 +134,7 @@
     </div>
       <!-- Fila desplegable para la tabla -->
       <ng-template #tpl let-element>
-        <div class="content-detail-order mat-row " [@detailExpand] style="overflow: hidden ">
+        <div class="content-detail-order mat-row  overFlow-Hidden" [@detailExpand]>
           <div fxLayout="row wrap" class="container-port-padding-button">
             <div fxFlex.lg="40" fxFlex.sm="100" fxFlex.md="40" fxFlex.xs="100" fxFlex.xl="40">
               <div fxLayout="column" class="container-port-details">
@@ -159,8 +151,8 @@
               <div fxLayout="row">
                 <div class="container-title-collection-center">{{'secure.parametize.port.country' | translate}}</div>
               </div>
-              <div fxLayout="row wrap" style="max-height: 190px; overflow-y: auto;">
-                <div fxFlex="50" *ngFor="let country of element.Country" style="width: 100%; padding: 3px;" class="port-result-text-detail">{{country}}</div>
+              <div fxLayout="row wrap" class="max-height-overflox-y">
+                <div fxFlex="50" *ngFor="let country of element.Country"  class="port-result-text-detail width-and-padding">{{country}}</div>
               </div>
             </div>
           </div>
@@ -191,7 +183,7 @@
                   <span>Use el filtro para buscar los puertos asociados al pais seleccionado</span>
                 </div>
                 <div class="port-list-padding-left">
-                  <mat-form-field class="field" style="width: 100%;">
+                  <mat-form-field class="field container-width-100">
                     <input matInput [placeholder]="'secure.parametize.port.country' | translate"
                       [matAutocomplete]="auto" formControlName="countryFilter">
                     <mat-autocomplete #auto="matAutocomplete">
@@ -223,7 +215,7 @@
 </mat-sidenav-container>
 
 <ng-template #dialogContent>
-  <div fxLayout="row" style="padding: 10px;">
+  <div fxLayout="row" class="padding-10">
     <div fxFlex="90">
       <div *ngIf="data && data.typeModal === 1 ">
         {{'secure.parametize.port.addPort' | translate}}
@@ -232,25 +224,25 @@
         {{'secure.parametize.port.editPort' | translate}}
       </div>
     </div>
-    <div fxFlex="10" style="text-align: end;">
+    <div fxFlex="10" class="text-aling-end">
       <mat-icon class="mat-18 close-modal" (click)="onNoClick()" [matTooltip]="'actions.close' | translate">clear
       </mat-icon>
     </div>
   </div>
   <mat-divider></mat-divider>
   <div mat-dialog-content>
-    <form #f="ngForm" [formGroup]="formPort" (ngSubmit)="saveColletionCenter()" style="padding: 31px 31px 0px 31px">
+    <form #f="ngForm" [formGroup]="formPort" (ngSubmit)="saveColletionCenter()" class="padding-31px">
       <div fxLayout="row wrap">
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100"
           class="port-component-container-header">
           <span class="port-component-text-title">
-            <mat-icon class="mat-18" style="vertical-align: bottom;  color: #c5c4c4;">assignment</mat-icon>
+            <mat-icon class="mat-18 vertical-align-and-color-icon">assignment</mat-icon>
             Información Centro de Acopio
           </span>
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50"
           class="port-component-aling-padding-left">
-          <mat-form-field class="field" style="width: 90%;">
+          <mat-form-field class="field port-component-width-90">
             <!-- <input matInput [placeholder]="'secure.parametize.port.country' | translate"
               [matAutocomplete]="autoNameCountry" formControlName="name"> -->
             <input matInput [placeholder]="'shared.name' | translate"
@@ -274,7 +266,7 @@
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
-          <mat-icon matSuffix style="vertical-align: text-top;" [matTooltip]="'secure.parametize.port.btn_add_port' | translate" class="material-icons add-keyword-icon"
+          <mat-icon matSuffix  [matTooltip]="'secure.parametize.port.btn_add_port' | translate" class="material-icons add-keyword-icon vertical-align-top"
             (click)="saveKeyword()">
             add_circle_outline
           </mat-icon>
@@ -291,10 +283,10 @@
           </mat-chip-list>
         </div>
       </div>
-      <div fxLayout="row wrap" style=" margin-top: 11px;">
+      <div fxLayout="row wrap" class="margin-top-11">
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50"
           class="port-component-aling-padding-left">
-          <mat-form-field style="width: 95%;">
+          <mat-form-field class="port-component-width-95">
             <input formControlName="address" matInput [placeholder]="'secure.parametize.port.address' | translate">
 
             <mat-error *ngIf="formPort.get('address').hasError('required')">{{'errors.required' | translate}}
@@ -302,7 +294,7 @@
           </mat-form-field>
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
-          <mat-form-field style="width: 95%;">
+          <mat-form-field class="port-component-width-95">
             <input formControlName="phone" matInput [placeholder]="'shared.phone' | translate">
             <mat-error *ngIf="formPort.get('phone').hasError('pattern')">{{'errors.format_invalidate' | translate}}
             </mat-error>
@@ -314,13 +306,13 @@
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100"
           class="port-component-container-header">
           <span class="port-component-text-title">
-            <mat-icon class="mat-18" style="vertical-align: bottom; color: #c5c4c4;">local_shipping</mat-icon>
+            <mat-icon class="mat-18 vertical-and-color">local_shipping</mat-icon>
             Flete
           </span>
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50"
           class="port-component-aling-padding-left">
-          <mat-form-field style="width: 95%;">
+          <mat-form-field class="port-component-width-95">
             <input formControlName="insuranceFreight" matInput
               [placeholder]="'secure.parametize.port.insurance_freight' | translate">
             <mat-error *ngIf="formPort.get('insuranceFreight').hasError('pattern')">
@@ -330,7 +322,7 @@
           </mat-form-field>
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
-          <mat-form-field style="width: 95%;">
+          <mat-form-field class="port-component-width-95">
             <input formControlName="preparation" matInput
               [placeholder]="'secure.parametize.port.preparation' | translate">
             <mat-error *ngIf="formPort.get('preparation').hasError('pattern')">
@@ -343,7 +335,7 @@
       <div fxLayout="row wrap">
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50"
           class="port-component-aling-padding-left">
-          <mat-form-field style="width: 95%;">
+          <mat-form-field class="port-component-width-95">
             <input formControlName="shippingCost" matInput
               [placeholder]="'secure.parametize.port.shippingCost' | translate">
             <mat-error *ngIf="formPort.get('shippingCost').hasError('pattern')">
@@ -353,7 +345,7 @@
           </mat-form-field>
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
-          <mat-form-field style="width: 95%;">
+          <mat-form-field class="port-component-width-95">
             <input formControlName="nationalTransport" matInput
               [placeholder]="'secure.parametize.port.national_transportation' | translate">
             <mat-error *ngIf="formPort.get('nationalTransport').hasError('pattern')">
@@ -367,13 +359,13 @@
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100"
           class="port-component-container-header">
           <span class="port-component-text-title">
-            <mat-icon class="mat-18" style="vertical-align: bottom; color: #c5c4c4;">security</mat-icon>
+            <mat-icon class="mat-18 vertical-and-color">security</mat-icon>
             CIF
           </span>
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50"
           class="port-component-aling-padding-left">
-          <mat-form-field style="width: 95%;">
+          <mat-form-field class="port-component-width-95">
             <input formControlName="insuranceCif" matInput
               [placeholder]="'secure.parametize.port.insurance_CIF' | translate">
             <mat-error *ngIf="formPort.get('insuranceCif').hasError('pattern')">
@@ -383,7 +375,7 @@
           </mat-form-field>
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
-          <mat-form-field style="width: 95%;">
+          <mat-form-field class="port-component-width-95">
             <input formControlName="negotiatedShippingCost" matInput
               [placeholder]="'secure.parametize.port.tariffByKg' | translate">
             <mat-error *ngIf="formPort.get('negotiatedShippingCost').hasError('pattern')">
@@ -397,13 +389,13 @@
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100"
           class="port-component-container-header">
           <span class="port-component-text-title">
-            <mat-icon class="mat-18" style="vertical-align: bottom; color: #c5c4c4;">account_balance</mat-icon>
+            <mat-icon class="mat-18 vertical-and-color">account_balance</mat-icon>
             Impuestos
           </span>
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50"
           class="port-component-aling-padding-left">
-          <mat-form-field style="width: 95%;">
+          <mat-form-field class="port-component-width-95">
             <input formControlName="tariff" matInput [placeholder]="'secure.parametize.port.tariff' | translate">
             <mat-error *ngIf="formPort.get('tariff').hasError('pattern')">{{'secure.parametize.port.error_format_five_decimal' | translate}}
             </mat-error>
