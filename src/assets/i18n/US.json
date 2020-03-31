@@ -165,7 +165,7 @@
     "actions.show_detail": "See detail",
     "actions.send_all": "Send all",
     "actions.print_receipt": "Print receipt",
-    "actions.print_label": "Print label",
+    "actions.download_label": "Download label",
     "actions.attach_invoice": "Attach invoice",
     "actions.go_to_start": "Go to start",
     "actions.update": "UPDATE",
@@ -334,6 +334,7 @@
     "secure.client_information.collection_center": "Collection Center",
     "secure.client_information.collection_center_phone": "Collection center telephone",
     "secure.client_information.dipatch_address": "Dispatch Address",
+    "secure.client_information.po_box": "PO BOX",
 
 
     "secure.dashboard.all": "All",

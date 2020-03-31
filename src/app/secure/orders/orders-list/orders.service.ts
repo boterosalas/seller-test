@@ -170,4 +170,14 @@ export class OrderService {
   setCurrentFilterOrders(data: any) {
     localStorage.setItem('currentFilter', JSON.stringify(data));
   }
+
+  /**
+   * Servicio que descarga el rotulo
+   * @param {*} params
+   * @returns {Observable<{}>}
+   * @memberof OrderService
+   */
+  public getDownlaodLabel(params: any): Observable<{}> {
+    return this.http.get(this.api.get('getDownlaodLabel', [params]), { observe: 'response' });
+  }
 }

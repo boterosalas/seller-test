@@ -189,6 +189,8 @@ export const endpoints = {
       upsertQualification: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller',
       // consultar las ordenes por tipo de filtros
       ordersSummaryStatus: 'https://nv4izavvqj.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus/{params}',
+      // Descargar rotulos
+      getDownlaodLabel: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/orders/{params}/sticker',
       // Obtener puertos por país
       getPortsByCountryName: 'https://orba3qnrte.execute-api.us-east-1.amazonaws.com/dispatchport/GetDispatchPortsByCountryName/{params}',
       // Ruta basica para puertos
@@ -266,10 +268,10 @@ export const endpoints = {
       transports: 'https://hl7mqciur3.execute-api.us-east-1.amazonaws.com/transporters-pdn',
       getTransport: 'https://hl7mqciur3.execute-api.us-east-1.amazonaws.com/transporters-pdn/{params}',
       getSize: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/getvtexsizelist',
-      getQuoting: 'https://ndinovqhh8.execute-api.us-east-1.amazonaws.com/utilities-pdn/shippingcostrules/shippingcostrules/GetShippingCostRules',
-      createQuoting: 'https://ndinovqhh8.execute-api.us-east-1.amazonaws.com/utilities-pdn/shippingcostrules/shippingcostrules/CreateShippingCostRule',
-      updateQuoting: 'https://ndinovqhh8.execute-api.us-east-1.amazonaws.com/utilities-pdn/shippingcostrules/shippingcostrules/UpdateShippingCostRule',
-      deleteQuoting: 'https://ndinovqhh8.execute-api.us-east-1.amazonaws.com/utilities-pdn/shippingcostrules/shippingcostrules/DeleteShippingCostRule/{param}',
+      getQuoting: 'https://ndinovqhh8.execute-api.us-east-1.amazonaws.com/utilities-pdn/shippingcostrules/GetShippingCostRules',
+      createQuoting: 'https://ndinovqhh8.execute-api.us-east-1.amazonaws.com/utilities-pdn/shippingcostrules/CreateShippingCostRule',
+      updateQuoting: 'https://ndinovqhh8.execute-api.us-east-1.amazonaws.com/utilities-pdn/shippingcostrules/UpdateShippingCostRule',
+      deleteQuoting: 'https://ndinovqhh8.execute-api.us-east-1.amazonaws.com/utilities-pdn/shippingcostrules/DeleteShippingCostRule/{param}',
       // Seller
       getListSellersName: 'https://xvc4l3bdd7.execute-api.us-east-1.amazonaws.com/getnameallseller-pdn/{params}',
       getSpecificSeller: 'https://0zhu6q42zl.execute-api.us-east-1.amazonaws.com/getallsellers-pdn/{idSeller}/{allSeller}',
@@ -379,6 +381,8 @@ export const endpoints = {
       upsertQualification: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller',
       // consultar las ordenes por tipo de filtros
       ordersSummaryStatus: 'https://2l1pous4cl.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus-pdn/{params}',
+       // Descargar rotulos
+       getDownlaodLabel: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/orders/{params}/sticker',
       // Obtener puertos por país
       getPortsByCountryName: 'https://kouotxul6i.execute-api.us-east-1.amazonaws.com/dispatchport-pdn/GetDispatchPortsByCountryName/{params}',
       // Ruta basica para puertos

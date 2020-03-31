@@ -5,7 +5,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginatorIntl, MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AwsUtil, CognitoUtil, LoadingService, Logger, UserLoginService, UserParametersService, } from '@app/core';
+import { AwsUtil, CognitoUtil, LoadingService, Logger, UserLoginService, UserParametersService, ModalService, } from '@app/core';
 import { CategoryList, ComponentsService, Const, getDutchPaginatorIntl, InformationToForm, Order, RoutesConst, SearchFormEntity, UserInformation, } from '@app/shared';
 import { ShellComponent } from '@core/shell';
 
@@ -104,10 +104,10 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   public listOrdens: any;
   public dateOrderInitial = '';
   public dateOrderFinal = '';
-  public idChannel= '';
+  public idChannel = '';
   public orderNumber = '';
-  public identificationCard= '';
-  public processedOrder= '';
+  public identificationCard = '';
+  public processedOrder = '';
 
 
   public length = 0;
@@ -170,7 +170,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   public lastState: number;
   private searchSubscription: any;
   public userCurrent: any;
-  public isInternational= false;
+  public isInternational = false;
   // Método que permite crear la fila de detalle de la tabla
   isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
 
@@ -192,9 +192,10 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     private languageService: TranslateService,
     public eventsSeller: EventEmitterSeller,
     private profileService: MyProfileService,
+    public modalService: ModalService,
   ) {
     this.getAllDataUser();
-   }
+  }
 
   /**
    * ngOnInit
@@ -222,14 +223,14 @@ export class OrdersListComponent implements OnInit, OnDestroy {
         const response = JSON.parse(body.body);
         const userData = response.Data;
         return userData;
-    });
-    if (sellerData.Country !== 'COLOMBIA') {
-      this.isInternational = true;
-    } else {
-      this.isInternational = false;
+      });
+      if (sellerData.Country !== 'COLOMBIA') {
+        this.isInternational = true;
+      } else {
+        this.isInternational = false;
+      }
     }
-    }
-}
+  }
 
 
   /**
@@ -350,15 +351,15 @@ export class OrdersListComponent implements OnInit, OnDestroy {
             this.setTitleToolbar();
           }
         } else {
-            this.orderListLength = true;
-            this.length = 0;
-            this.isClear = true;
-            this.dataSource = new MatTableDataSource();
-            const paginator = this.toolbarOption.getPaginator();
-            paginator.pageIndex = 0;
-            this.dataSource.paginator = paginator;
-            this.dataSource.sort = this.sort;
-            this.setTitleToolbar();
+          this.orderListLength = true;
+          this.length = 0;
+          this.isClear = true;
+          this.dataSource = new MatTableDataSource();
+          const paginator = this.toolbarOption.getPaginator();
+          paginator.pageIndex = 0;
+          this.dataSource.paginator = paginator;
+          this.dataSource.sort = this.sort;
+          this.setTitleToolbar();
         }
 
         if (data && data.filter) {
@@ -831,6 +832,33 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     const timezone = new Date().getTimezoneOffset();
     const time = new Date(date).getTime(); // new Date('2019-02-03T00:42:06.177+00:00').getTime();
     return new Date(time + (timezone * 60 * 1000));
+  }
+
+  /**
+   * Descargar rotulos en ordenes estado asignado
+   * @param {*} param
+   * @memberof OrdersListComponent
+   */
+  public downloadLabel(param: any) {
+    this.loadingService.viewSpinner();
+    const orderNumber = +param.orderNumber;
+    this.orderService.getDownlaodLabel(orderNumber).subscribe((res: any) => {
+      if (res.status === 200 || res.status === 201) {
+        if (res.body && res.body.data) {
+          window.open(res.body.data, '_blank');
+        } else {
+          this.modalService.showModal('errorService');
+        }
+      } else {
+        this.modalService.showModal('errorService');
+      }
+      this.loadingService.closeSpinner();
+    }, error => {
+      this.loadingService.closeSpinner();
+      this.componentService.openSnackBar(error.error.errors[0].message,
+        this.languageService.instant('actions.close'), 4000);
+      log.error(error);
+    });
   }
 
   /**

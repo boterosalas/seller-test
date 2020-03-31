@@ -40,6 +40,7 @@ export class Port {
   name?: string;
   address?: string;
   phone?: string;
+  subPoBox?: string;
 }
 /**
  * Información del cliente
@@ -401,6 +402,6 @@ export interface CitiesEntity {
 }
 
 export interface PortEntity {
-  Id: number,
-  Name: string,
+  Id: number;
+  Name: string;
 }

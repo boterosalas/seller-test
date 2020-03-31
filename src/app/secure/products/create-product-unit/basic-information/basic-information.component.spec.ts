@@ -259,7 +259,6 @@ describe('ProductBasicInfoComponent', () => {
 
     it('invert color bw true 3 letters', () => {
         component.invertColor('#FFF');
-        console.log(component.invertColor);
         expect(component.invertColor).toBeTruthy();
     });
 
