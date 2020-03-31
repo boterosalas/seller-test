@@ -2,10 +2,6 @@
 
   <div fxFlex class="container" fxLayout="row wrap" fxLayoutAlign="center start">
     <div fxFlex="100" class="light-content">
-      <!-- Toolbar para los dropdown de filtro de estado para las órdenes -->
-      <!-- Toolbar de las opciones para la orden -->
-      <!-- <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [downloadPermission]="downloadPermission"></app-toolbar-options> -->
-      <!-- Toolbar de las opciones para la orden -->
       <app-toolbar-search-pagination [isClear]="isClear" [informationToForm]="informationToForm" [state]="lastState"
         #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (paginationListOrdens)="paginations($event)"
         (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [Typeprofile]="3" [lengthOrder]="length"
@@ -171,7 +167,7 @@
             <div>
               <div class="port-list-padding-container">
                 <div class="port-component-text-filter">
-                  <span>Use el filtro para buscar los puertos asociados al pais seleccionado</span>
+                  <span>Use el filtro para buscar los puertos asociados al país seleccionado</span>
                 </div>
                 <div class="port-list-padding-left">
                   <mat-form-field class="field container-width-100">
