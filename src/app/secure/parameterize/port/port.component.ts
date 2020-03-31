@@ -21,8 +21,8 @@ import { trigger, transition, animate, style, state } from '@angular/animations'
  */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-      const isSubmitted = form && form.submitted;
-      return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
 
@@ -63,16 +63,16 @@ export class PortComponent implements OnInit {
   refresh = false;
   data: any;
   lastState: 0;
-  isClear= false;
+  isClear = false;
   listFilterBrands = [];
   separatorKeysCodes = [];
-  filter= null;
+  filter = null;
   mapInitialPortList: any;
-  PortRegex = {formatTwoDecimal: '', formatFiveDecimal: '', formatIntegerNumber: '' };
-  method= '';
+  PortRegex = { formatTwoDecimal: '', formatFiveDecimal: '', formatIntegerNumber: '' };
+  method = '';
   show = false;
 
-  length= 0;
+  length = 0;
 
   public displayedColumns = [
     'expand',
@@ -112,25 +112,25 @@ export class PortComponent implements OnInit {
   }
 
 
-    public getRegexByModule(): void {
-      this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
-          let dataOffertRegex = JSON.parse(res.body.body);
-          dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'parametrizacion');
-          for (const val in this.PortRegex) {
-              if (!!val) {
-                  const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
-                  this.PortRegex[val] = element && `${element.Value}`;
-              }
-          }
-          this.createFormControls();
-      });
+  public getRegexByModule(): void {
+    this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
+      let dataOffertRegex = JSON.parse(res.body.body);
+      dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'parametrizacion');
+      for (const val in this.PortRegex) {
+        if (!!val) {
+          const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
+          this.PortRegex[val] = element && `${element.Value}`;
+        }
+      }
+      this.createFormControls();
+    });
   }
-/**
- * funcion para consultar el listado de los puertos guardados
- *
- * @memberof PortComponent
- */
-getAllCenterCollection(params?: any) {
+  /**
+   * funcion para consultar el listado de los puertos guardados
+   *
+   * @memberof PortComponent
+   */
+  getAllCenterCollection(params?: any) {
     this.loadingService.viewSpinner();
     if (params && params.countryFilter) {
       this.filter = params.countryFilter;
@@ -158,58 +158,58 @@ getAllCenterCollection(params?: any) {
     });
   }
 
-    /**
-     * funcion para mapear el resultado del servicio get all brands
-     * @param {any[]} items
-     * @returns {any[]}
-     * @memberof BrandsComponent
-     */
-    mapItems(items: any[]): any[] {
-      return items.map(x => {
-          return {
-              Id: x.Id,
-              Name: x.Name,
-              Address: x.Address,
-              Phone: x.Phone,
-              Tariff: x.Tariff,
-              ShippingCost: x.ShippingCost,
-              NegotiatedShippingCost: x.NegotiatedShippingCost,
-              InsuranceFreight: x.InsuranceFreight,
-              Preparation: x.Preparation,
-              NationalTransport: x.NationalTransport,
-              InsuranceCif: x.InsuranceCif,
-              CountryString: x.Country && x.Country.length > 0 ? x.Country.join(', ') : null,
-              Country: x.Country,
-          };
-      });
+  /**
+   * funcion para mapear el resultado del servicio get all brands
+   * @param {any[]} items
+   * @returns {any[]}
+   * @memberof BrandsComponent
+   */
+  mapItems(items: any[]): any[] {
+    return items.map(x => {
+      return {
+        Id: x.Id,
+        Name: x.Name,
+        Address: x.Address,
+        Phone: x.Phone,
+        Tariff: x.Tariff,
+        ShippingCost: x.ShippingCost,
+        NegotiatedShippingCost: x.NegotiatedShippingCost,
+        InsuranceFreight: x.InsuranceFreight,
+        Preparation: x.Preparation,
+        NationalTransport: x.NationalTransport,
+        InsuranceCif: x.InsuranceCif,
+        CountryString: x.Country && x.Country.length > 0 ? x.Country.join(', ') : null,
+        Country: x.Country,
+      };
+    });
   }
 
-/**
- * funcion para abrir el componente del filtro
- *
- * @memberof PortComponent
- */
-toggleFilterPorts() {
+  /**
+   * funcion para abrir el componente del filtro
+   *
+   * @memberof PortComponent
+   */
+  toggleFilterPorts() {
     this.sidenavSearchOrder.toggle();
   }
-/**
- * funcion para abri el modal tanto como para editar como para crear
- *
- * @param {number} typeModal
- * @param {*} data
- * @memberof PortComponent
- */
-upsetPort(typeModal: number, data: any) {
+  /**
+   * funcion para abri el modal tanto como para editar como para crear
+   *
+   * @param {number} typeModal
+   * @param {*} data
+   * @memberof PortComponent
+   */
+  upsetPort(typeModal: number, data: any) {
     this.setDataDialog(typeModal, data);
   }
-/**
- * funcion para abrir el dialogo y pasar variables que recibe el modal
- *
- * @param {number} typeModal
- * @param {*} data
- * @memberof PortComponent
- */
-public setDataDialog(typeModal: number, data: any): void {
+  /**
+   * funcion para abrir el dialogo y pasar variables que recibe el modal
+   *
+   * @param {number} typeModal
+   * @param {*} data
+   * @memberof PortComponent
+   */
+  public setDataDialog(typeModal: number, data: any): void {
     this.data = { typeModal: typeModal, data: data };
     this.setEdit();
     const dialogRef = this.dialog.open(ModalPortComponent, {
@@ -221,28 +221,28 @@ public setDataDialog(typeModal: number, data: any): void {
       this.configDataDialog(dialogRef);
     });
   }
-/**
- * funcion para capturar el evento del modal confirmar
- *
- * @param {MatDialogRef<ModalPortComponent>} dialog
- * @memberof PortComponent
- */
-configDataDialog(dialog: MatDialogRef<ModalPortComponent>) {
+  /**
+   * funcion para capturar el evento del modal confirmar
+   *
+   * @param {MatDialogRef<ModalPortComponent>} dialog
+   * @memberof PortComponent
+   */
+  configDataDialog(dialog: MatDialogRef<ModalPortComponent>) {
     const dialogInstance = dialog.componentInstance;
     dialogInstance.content = this.content;
   }
-/**
- * funcion para crear el formulario, controles y las validaciones correspondientes
- *
- * @memberof PortComponent
- */
-createFormControls() {
+  /**
+   * funcion para crear el formulario, controles y las validaciones correspondientes
+   *
+   * @memberof PortComponent
+   */
+  createFormControls() {
     this.formPort = new FormGroup({
       name: new FormControl('', Validators.compose([Validators.required])),
       country: new FormControl(''),
       address: new FormControl('', Validators.compose([Validators.required])),
       phone: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
-      insuranceFreight: new FormControl('', Validators.compose([Validators.required , Validators.pattern(this.PortRegex.formatFiveDecimal)])),
+      insuranceFreight: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatFiveDecimal)])),
       preparation: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatTwoDecimal)])),
       shippingCost: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatTwoDecimal)])),
       nationalTransport: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatTwoDecimal)])),
@@ -288,12 +288,12 @@ createFormControls() {
       }
     });
   }
-/**
- * funcion para salvar los paises en chips y almacenarlos en una variable global para su utilidad
- *
- * @memberof PortComponent
- */
-public saveKeyword(): void {
+  /**
+   * funcion para salvar los paises en chips y almacenarlos en una variable global para su utilidad
+   *
+   * @memberof PortComponent
+   */
+  public saveKeyword(): void {
     let word = this.formPort.controls.country.value;
     if (word) {
       word = word.trim();
@@ -318,25 +318,25 @@ public saveKeyword(): void {
       }
     }
   }
-/**
- * funcion para eliminar el listado (chip's) de los paises agregados
- *
- * @param {number} indexOfValue
- * @memberof PortComponent
- */
-public deleteKeywork(indexOfValue: number): void {
+  /**
+   * funcion para eliminar el listado (chip's) de los paises agregados
+   *
+   * @param {number} indexOfValue
+   * @memberof PortComponent
+   */
+  public deleteKeywork(indexOfValue: number): void {
     this.keywords.splice(indexOfValue, 1);
     this.validateKey = this.keywords.length > 0 ? false : true;
     if (this.keywords.length < 1) {
       this.formPort.setErrors({ required: true });
     }
   }
-/**
- * funcion para setear los valores en el modal de puertos
- *
- * @memberof PortComponent
- */
-setEdit() {
+  /**
+   * funcion para setear los valores en el modal de puertos
+   *
+   * @memberof PortComponent
+   */
+  setEdit() {
     if (this.data && this.data.data !== null && this.data.typeModal === 2) {
       this.resetFormModal();
       this.formPort.controls['name'].setValue(this.data.data.Name);
@@ -361,24 +361,24 @@ setEdit() {
       this.resetFormModal();
     }
   }
-/**
- * funcion para resetear (limpiar) el formulario cada vez que se abra
- *
- * @memberof PortComponent
- */
-resetFormModal() {
+  /**
+   * funcion para resetear (limpiar) el formulario cada vez que se abra
+   *
+   * @memberof PortComponent
+   */
+  resetFormModal() {
     this.formPort.reset();
     this.validateKey = true;
     this.countryCurrent = null;
     this.idPort = undefined;
     this.keywords = [];
   }
-/**
- * funcion para salvar las modificaciones o adicionar un puerto
- *
- * @memberof PortComponent
- */
-public savePort() {
+  /**
+   * funcion para salvar las modificaciones o adicionar un puerto
+   *
+   * @memberof PortComponent
+   */
+  public savePort() {
     if (this.formPort && this.formPort.controls) {
       this.loadingService.viewSpinner();
       this.body = this.formPort.value;
@@ -389,7 +389,7 @@ public savePort() {
         phone: this.body.phone,
         tariff: this.body.tariff,
         shippingCost: this.body.shippingCost.toString(),
-        insuranceFreight : this.body.insuranceFreight.toString(),
+        insuranceFreight: this.body.insuranceFreight.toString(),
         preparation: this.body.preparation.toString(),
         nationalTransport: this.body.nationalTransport.toString(),
         insuranceCif: this.body.insuranceCif.toString(),
@@ -425,25 +425,25 @@ public savePort() {
       });
     }
   }
-/**
- * funcion para cerrar el modal, tanto en el boton como en el icono en la parte superior derecho
- *
- * @memberof PortComponent
- */
-onNoClick() {
+  /**
+   * funcion para cerrar el modal, tanto en el boton como en el icono en la parte superior derecho
+   *
+   * @memberof PortComponent
+   */
+  onNoClick() {
     this.dialog.closeAll();
   }
-/**
- * funcion para capturar parametros y realizar el filtrado de los paises y mostrar los puertos asociados
- *
- * @param {*} params
- * @memberof PortComponent
- */
-getFilterPort(params: any) {
-  if (params && params.countryFilter) {
-    this.portCollectionService.filterPortByCountryName(params.countryFilter).subscribe(res => {
-      if (res && res.body && res.body.body) {
-        this.initialPortList = JSON.parse(res.body.body).Data;
+  /**
+   * funcion para capturar parametros y realizar el filtrado de los paises y mostrar los puertos asociados
+   *
+   * @param {*} params
+   * @memberof PortComponent
+   */
+  getFilterPort(params: any) {
+    if (params && params.countryFilter) {
+      this.portCollectionService.filterPortByCountryName(params.countryFilter).subscribe(res => {
+        if (res && res.body && res.body.body) {
+          this.initialPortList = JSON.parse(res.body.body).Data;
           if (JSON.stringify(this.initialPortList) !== '{}') {
             this.mapInitialPortList = this.mapItems(this.initialPortList);
             this.dataSource = new MatTableDataSource(this.mapInitialPortList);
@@ -451,37 +451,37 @@ getFilterPort(params: any) {
           } else {
             this.length = 0;
           }
-        this.toggleFilterPorts();
-      }
-    }, error => {
-      this.loadingService.closeSpinner();
-      this.snackBar.open(this.languageService.instant('secure.orders.send.error_ocurred_processing'), this.languageService.instant('actions.close'), {
-        duration: 3000,
+          this.toggleFilterPorts();
+        }
+      }, error => {
+        this.loadingService.closeSpinner();
+        this.snackBar.open(this.languageService.instant('secure.orders.send.error_ocurred_processing'), this.languageService.instant('actions.close'), {
+          duration: 3000,
+        });
       });
-    });
+    }
   }
-  }
-/**
- * funcion para limpiar el formulario del filtro
- *
- * @memberof PortComponent
- */
-clearFormFilter() {
+  /**
+   * funcion para limpiar el formulario del filtro
+   *
+   * @memberof PortComponent
+   */
+  clearFormFilter() {
     this.getAllCenterCollection();
     this.toggleFilterPorts();
     this.filterPort.clearValidators();
     this.filterPort.reset();
   }
 
-validar(e: any) {
-   const tecla =  e.keyCode ;
+  validar(e: any) {
+    const tecla = e.keyCode;
     if (tecla === 13) {
       this.saveKeyword();
     }
   }
 
 
-  changeSizeOrderTable(event: any) {}
-  paginations(event: any) {}
-  getOrdersList(event: any) {}
+  changeSizeOrderTable(event: any) { }
+  paginations(event: any) { }
+  getOrdersList(event: any) { }
 }
