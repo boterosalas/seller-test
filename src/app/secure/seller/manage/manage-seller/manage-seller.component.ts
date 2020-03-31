@@ -73,6 +73,7 @@ export class ManageSellerComponent implements OnInit {
   public state: FormControl;
   public city: FormControl;
   public daneCode: FormControl;
+  public idDispatchPort: FormControl;
   public sincoDaneCode: FormControl;
   public name: FormControl;
   public isLogisticsExito: FormControl;
@@ -127,6 +128,7 @@ export class ManageSellerComponent implements OnInit {
   public noValidateData: any;
   public elementStateLoad: string;
   public elementCityLoad: string;
+  public elementIdDispatchPortLoad: string;
   public firstEmit = true;
   public idSeller: string;
   public selectedValue: string;
@@ -204,6 +206,7 @@ export class ManageSellerComponent implements OnInit {
       this.createForm();
       this.elementStateLoad = null;
       this.elementCityLoad = null;
+      this.elementIdDispatchPortLoad = null;
       if (!isEmpty(seller)) {
         this.idSeller = seller.IdSeller;
         this.firstEmit = true;
@@ -228,6 +231,12 @@ export class ManageSellerComponent implements OnInit {
               this.phoneNumber.setValue(this.currentSellerSelect.PhoneNumber);
               this.state.setValue(this.currentSellerSelect.State);
               this.city.setValue(this.currentSellerSelect.City);
+              if (this.currentSellerSelect.IdDispatchPort) {
+                this.idDispatchPort.setValue(this.currentSellerSelect.IdDispatchPort);
+                this.elementIdDispatchPortLoad = this.currentSellerSelect.IdDispatchPort;
+              } else {
+                this.idDispatchPort.setValue(0);
+              }
               this.address.setValue(this.currentSellerSelect.Address);
               this.daneCode.setValue(this.currentSellerSelect.DaneCode);
               this.sincoDaneCode.setValue(this.currentSellerSelect.SincoDaneCode);
@@ -321,13 +330,14 @@ export class ManageSellerComponent implements OnInit {
       ]);
     this.phoneNumber = new FormControl
       ({ value: '', disabled: disable }, [Validators.required,
-        Validators.pattern(this.sellerRegex.phoneNumber),
+      Validators.pattern(this.sellerRegex.phoneNumber),
       Validators.minLength(7)]);
     this.address = new FormControl
       ({ value: '', disabled: disable }, [Validators.required]);
     this.state = new FormControl({ value: '', disabled: disable }, [Validators.required]);
     this.city = new FormControl({ value: '', disabled: disable });
     this.daneCode = new FormControl({ value: '', disabled: disable });
+    this.idDispatchPort = new FormControl({ value: '', disabled: disable }, [Validators.required]);
     this.sincoDaneCode = new FormControl({ value: '', disabled: disable });
     this.name = new FormControl
       ({ value: '', disabled: disable }, [Validators.required,
@@ -366,6 +376,7 @@ export class ManageSellerComponent implements OnInit {
       State: this.state,
       City: this.city,
       DaneCode: this.daneCode,
+      IdDispatchPort: this.idDispatchPort,
       SincoDaneCode: this.sincoDaneCode,
       Name: this.name,
       Policy: this.policy,
@@ -392,7 +403,7 @@ export class ManageSellerComponent implements OnInit {
   /**
    * @method keyPress que permite solo el ingreso de números
    * @param event
-   * @memberof RegisterSellerComponent
+   * @memberof ManageSellerComponent
    */
   keyPress(event: any, inputName: string): void {
     if (inputName === 'phoneNumber' && this.isColombiaSelect === true) {
@@ -411,7 +422,7 @@ export class ManageSellerComponent implements OnInit {
    *
    * @method Metodo para validar si existe el parametro despues de cambiar el focus del input
    * @param {*} event
-   * @memberof RegisterSellerComponent
+   * @memberof ManageSellerComponent
    */
   validateExist(event: any, param: string): void {
     if (this.initialEmail !== this.validateFormRegisterAdmin.controls.Email.value || this.initialName !== this.validateFormRegisterAdmin.controls.Name.value ||
@@ -459,7 +470,7 @@ export class ManageSellerComponent implements OnInit {
   /**
    * @method receiveDataState Metodo para obtener la data de departamento.
    * @param
-   * @memberof RegisterSellerComponent
+   * @memberof ManageSellerComponent
    */
   receiveDataState($event: any): void {
     if ($event && $event !== undefined && $event !== null) {
@@ -478,7 +489,7 @@ export class ManageSellerComponent implements OnInit {
   /**
    * @method receiveDataCitie Metodo para obtener la data de la ciudad.
    * @param
-   * @memberof RegisterSellerComponent
+   * @memberof ManageSellerComponent
    */
   receiveDataCitie($event: any): void {
     if ($event && $event !== undefined && $event !== null) {
@@ -492,8 +503,23 @@ export class ManageSellerComponent implements OnInit {
     }
   }
 
+  /**
+   * @method receivePortItem Metodo para obtener la data del puerto seleccionado.
+   * @param
+   * @memberof ManageSellerComponent
+   */
+  receivePortItem($event: any) {
+    if ($event && $event !== undefined && $event !== null) {
+      this.validateFormRegister.controls['IdDispatchPort'].setValue($event.Id);
+      this.validateFormRegister.controls['IdDispatchPort'].markAsTouched();
+    }
+  }
+
   submitUpdateSeller(): void {
     if (this.validateFormRegister.valid) {
+      if (this.validateFormRegister.controls['Country'].value === 'COLOMBIA') {
+        this.validateFormRegister.controls['IdDispatchPort'].setValue(null);
+      }
       this.loadingService.viewSpinner();
       this.disabledForService = true;
       const profile = `Tienda|${this.validateFormRegister.controls.Profile.value}`;
@@ -508,6 +534,8 @@ export class ManageSellerComponent implements OnInit {
       values.Profile = profile;
       values.Policy = this.validateFormRegister.controls.Policy.value;
       values.Country = this.validateFormRegister.controls.Country.value;
+      values.IdDispatchPort = this.validateFormRegister.controls.IdDispatchPort.value;
+
       this.manageSeller.updateSeller(values).subscribe(
         (result: any) => {
           if (result.status === 201 || result.status === 200) {
@@ -659,6 +687,7 @@ export class ManageSellerComponent implements OnInit {
     this.rut.setValidators(Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern(this.sellerRegex.internationalRut)]));
     this.state.setValidators(Validators.compose([Validators.required, Validators.maxLength(60), Validators.pattern(this.sellerRegex.onlyLetter)]));
     this.city.setValidators(Validators.compose([Validators.required, Validators.maxLength(60), Validators.pattern(this.sellerRegex.onlyLetter)]));
+    this.IdDispatchPort.setValidators(Validators.compose([Validators.required]));
     this.PostalCode.setValidators(Validators.compose([Validators.required, Validators.maxLength(8), Validators.minLength(4), Validators.pattern(this.sellerRegex.internationalPostalCode)]));
     this.payoneer.enable();
     this.payoneer.setValidators(Validators.compose([Validators.maxLength(50), Validators.pattern(this.sellerRegex.payoneer)]));
@@ -718,6 +747,9 @@ export class ManageSellerComponent implements OnInit {
   }
   get PostalCode(): FormControl {
     return this.validateFormRegister.get('DaneCode') as FormControl;
+  }
+  get IdDispatchPort(): FormControl {
+    return this.validateFormRegister.get('IdDispatchPort') as FormControl;
   }
   get Payoneer(): FormControl {
     return this.validateFormRegister.get('Payoneer') as FormControl;

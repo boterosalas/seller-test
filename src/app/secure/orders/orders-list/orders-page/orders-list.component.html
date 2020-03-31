@@ -256,7 +256,7 @@
       <div class="content-detail-order mat-row " [@detailExpand] style="overflow: hidden ">
         <div fxFlex="100" fxLayout="column ">
           <!-- Client Information -->
-          <app-client-information [order]="element"></app-client-information>
+          <app-client-information [order]="element" [isInternational]="isInternational"></app-client-information>
           <!-- Product Information -->
           <app-products-order  [user]="user" [Typeprofile]="typeProfile" [isInternational]="isInternational"
             [dataSource]="dataSource" [order]="element"></app-products-order>

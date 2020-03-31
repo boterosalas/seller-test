@@ -73,6 +73,25 @@ $color-red: #f44336;
                 }
             }
         }
+        .fieldBrands {
+            width: 28%;
+            &.name-product {
+                @include inputs-basic-info-form();
+            }
+            &.category-product {}
+            &.brand-product {
+                @include inputs-basic-info-form();
+            }
+            &.model-product {}
+            &.detail-product {
+                @include inputs-basic-info-form();
+            }
+            &.shipping-product {
+                .label-shipping {
+                    width: 100%;
+                }
+            }
+        }
         .sub-form {
             width: 46%;
             .packing-sub-level {
@@ -301,3 +320,13 @@ $color-red: #f44336;
 .my-1{
     margin: 1rem 0;
 }
+
+[hidden] {
+    display: none !important;
+  }
+
+  @media only screen and (max-width: 500px) and (min-width: 341px) {  
+    .fieldBrands{
+        width: 100%;
+    }
+  }

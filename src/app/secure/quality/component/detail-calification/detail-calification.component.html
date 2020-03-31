@@ -126,11 +126,11 @@
                </div>
                <div fxLayout="row wrap" class="detail-calification-container-table-calification-column-result">
                  <div
-                   class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-one"
-                   fxShow.xs="false">{{detailByElemet.qualificationPromiseDelivery.numerator}}</div>
-                 <div
                    class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-two"
                    fxShow.xs="false">{{detailByElemet.qualificationPromiseDelivery.denominator}}</div>
+                   <div
+                   class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-one"
+                   fxShow.xs="false">{{detailByElemet.qualificationPromiseDelivery.numerator}}</div>
                  <div
                    class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-thrre"
                    fxShow.xs="false">{{detailByElemet.qualificationPromiseDelivery.percentage}}%</div>
@@ -172,12 +172,12 @@
                    Total</div>
                </div>
                <div fxLayout="row wrap" class="detail-calification-container-result-reclaim-row">
-                 <div
+                <div
+                class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-two"
+                 fxShow.xs="false">{{detailByElemet.qualificationCase.denominator}}</div>  
+                <div
                    class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-one"
                     fxShow.xs="false">{{detailByElemet.qualificationCase.numerator}}</div>
-                 <div
-                   class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-two"
-                    fxShow.xs="false">{{detailByElemet.qualificationCase.denominator}}</div>
                  <div
                    class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-thrre"
                     fxShow.xs="false">{{detailByElemet.qualificationCase.percentage}}%</div>
@@ -213,12 +213,12 @@
                    >Total</div>
                </div>
                <div fxLayout="row wrap" class="detail-calification-container-table-calification-column-result">
-                 <div
+                <div
+                class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-two"
+                 fxShow.xs="false">{{detailByElemet.qualificationCanceled.denominator}}</div>
+                <div
                    class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-one"
                    fxShow.xs="false">{{detailByElemet.qualificationCanceled.numerator}}</div>
-                 <div
-                   class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-two"
-                    fxShow.xs="false">{{detailByElemet.qualificationCanceled.denominator}}</div>
                  <div
                    class="calification-list-result-by-seller detail-calification-container-table-calification-column-result-text detail-calification-container-width-get-calification-column-result-thrre"
                     fxShow.xs="false">{{detailByElemet.qualificationCanceled.percentage}}%</div>
@@ -301,7 +301,7 @@
                </td>
                <td class="detail-calification-container-aling-center">
                  <mat-icon class="mat-18 delete"
-                   (click)="confirmDeleteCalification(detail, detailByElemet.idSeller, detail.orderNumber, detail.sku, 1)"
+                   (click)="confirmDeleteCalification(detail, detail.orderDateFormatted ,detailByElemet.idSeller, detail.orderNumber, detail.sku, 1)"
                    [matTooltip]="'actions.delete' | translate">delete_forever</mat-icon>
                </td>
              </tr>
@@ -364,7 +364,7 @@
                </td>
                <td class="detail-calification-container-aling-center">
                  <mat-icon class="mat-18 delete" [matTooltip]="'actions.delete' | translate"
-                   (click)="confirmDeleteCalification(detail, detailByElemet.idSeller, detail.caseId , null, 2)">
+                   (click)="confirmDeleteCalification(detail, detail.orderDateFormatted ,detailByElemet.idSeller, detail.caseId , null, 2)">
                    delete_forever</mat-icon>
                </td>
              </tr>
@@ -419,7 +419,7 @@
                </td>
                <td class="detail-calification-container-aling-center">
                  <mat-icon class="mat-18 delete" [matTooltip]="'actions.delete' | translate"
-                   (click)="confirmDeleteCalification(detail, detailByElemet.idSeller , detail.caseId, null, 2)">
+                   (click)="confirmDeleteCalification(detail, detail.orderDateFormatted ,detailByElemet.idSeller , detail.caseId, null, 2)">
                    delete_forever</mat-icon>
                </td>
              </tr>

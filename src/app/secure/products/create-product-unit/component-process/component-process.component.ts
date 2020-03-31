@@ -147,7 +147,7 @@ export class ComponentProcessComponent implements OnInit {
     this.userParams.getUserData().then(data => {
       if (data.sellerProfile === this.constantes.administrator ) {
         this.isAdmin = true;
-        if (this.ean === undefined){
+        if (this.ean === undefined) {
           this.isAdmin = false;
           this.router.navigate([`/${RoutesConst.home}`]);
         }
