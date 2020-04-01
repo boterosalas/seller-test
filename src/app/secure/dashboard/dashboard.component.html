@@ -454,34 +454,34 @@
             </div>
             <div fxLayout="column" class="dashboard-padding-container">
               <div class="dashboard-border-color-separate">
-                <span class="dashboard-title-text-style">Productos más vencidos</span>
+                <span class="dashboard-title-text-style">Productos más vendidos</span>
               </div>
-              <div class="dashboard-padding-top-10">
-                <table>
-                  <tr>
-                    <td class="dashboard-width-25 dashboard-color-text">PLU</td>
-                    <td class="dashboard-width-25 dashboard-color-text">Nombre</td>
-                    <td class="dashboard-width-25 dashboard-color-text">Uds. Vendidas</td>
-                    <td class="dashboard-width-25 dashboard-color-text">Uds. Disponibles</td>
-                  </tr>
-                  <tr>
-
-                  </tr>
-                </table>
+              <div class="dashboard-padding-top-10" #containerScrollTop>
+                  <table mat-table [dataSource]="arrayTop10">
+                    <ng-container matColumnDef="PLU">
+                      <th mat-header-cell *matHeaderCellDef> PLU </th>
+                      <td mat-cell *matCellDef="let element" class="dashboard-table-text-top"> {{element.PLU}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Nombre">
+                      <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                      <td mat-cell *matCellDef="let element" class="dashboard-table-text-top"> {{element.name}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Uds. Vendidas">
+                      <th mat-header-cell *matHeaderCellDef> Uds. Vendidas </th>
+                      <td mat-cell style="text-align: center;" *matCellDef="let element" class="dashboard-table-text-top"> {{element.unit_seller}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Uds. Disponibles">
+                      <th mat-header-cell *matHeaderCellDef> Uds. Disponibles </th>
+                      <td mat-cell style="text-align: center;" *matCellDef="let element" class="dashboard-table-text-top"> {{element.unit_available}} </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
+              </div>
+              <div class="dashboard-padding-text-more-products">
+                <span class="dashboard-text-more-products" (click)="addClassScroll(showMore)">Ver {{option}} productos</span>
               </div>
             </div>
-            <!-- <div fxLayout="column" fxLayoutAlign="none">
-              <div class="dashboard-component-align-center-sales">
-                <div>
-                  {{'secure.dashboard.sales.total' | translate}}
-                </div>
-                <div class="dashboard-component-orders-all-number">
-                  $ {{sumatoryTotal | number}}
-                </div>
-              </div>
-              <div>
-              </div>
-            </div> -->
           </div>
           <div fxFlex="80" fxFlex.sm="100" fxFlex.md="" fxFlex.lg=""
             fxFlex.xs="100" fxFlex.xl="100"

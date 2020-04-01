@@ -1,5 +1,5 @@
 // 3rd party components
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 // Our own custom components
 import { UserLoginService, UserParametersService, LoadingService, ModalService } from '@app/core';
@@ -11,6 +11,7 @@ import { DatePipe } from '@angular/common';
 import { ModalDashboardComponent } from './modal-dashboard/modal-dashboard.component';
 import { MatDialog } from '@angular/material';
 
+
 /**
  * @export
  * @class DashboardComponent
@@ -20,6 +21,7 @@ import { MatDialog } from '@angular/material';
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss']
 })
+
 export class DashboardComponent implements OnInit {
 
     // Variable que almacena el objeto que contiene los datos de las órdenes del vendedor.
@@ -54,8 +56,80 @@ export class DashboardComponent implements OnInit {
     public dateOrdens = '';
     public showSales = false;
     public dateSales = '';
+    public showMore = true;
+    public option = 'más';
 
     public startDateDiary: any;
+
+    public displayedColumns= [
+        'PLU',
+        'Nombre',
+        'Uds. Vendidas',
+        'Uds. Disponibles'
+    ];
+
+    public arrayTop10= [
+        {
+            name: 'Huawei P20 lite dual sin 64gb',
+            PLU: '############',
+            unit_seller: '###',
+            unit_available: '###'
+        },
+        {
+            name: 'Golty Balon de football blanco naranja',
+            PLU: '############',
+            unit_seller: '###',
+            unit_available: '###'
+        },
+        {
+            name: 'Bicicleta Gw Jackal 27.5 Suspension 2.2',
+            PLU: '############',
+            unit_seller: '###',
+            unit_available: '###'
+        },
+        {
+            name: 'Bicicleta Gw Jackal 27.5 Suspension 2.2',
+            PLU: '############',
+            unit_seller: '###',
+            unit_available: '###'
+        },
+        {
+            name: 'Bicicleta Gw Jackal 27.5 Suspension 2.2',
+            PLU: '############',
+            unit_seller: '###',
+            unit_available: '###'
+        },
+        {
+            name: 'Bicicleta Gw Jackal 27.5 Suspension 2.2',
+            PLU: '############',
+            unit_seller: '###',
+            unit_available: '###'
+        },
+        {
+            name: 'Bicicleta Gw Jackal 27.5 Suspension 2.2',
+            PLU: '############',
+            unit_seller: '###',
+            unit_available: '###'
+        },
+        {
+            name: 'Bicicleta Gw Jackal 27.5 Suspension 2.2',
+            PLU: '############',
+            unit_seller: '###',
+            unit_available: '###'
+        },
+        {
+            name: 'Bicicleta Gw Jackal 27.5 Suspension 2.2',
+            PLU: '############',
+            unit_seller: '###',
+            unit_available: '###'
+        },
+        {
+            name: 'Bicicleta Gw Jackal 27.5 Suspension 2.2',
+            PLU: '############',
+            unit_seller: '###',
+            unit_available: '###'
+        },
+    ];
 
     // Fecha máxima del datePicker
     public dateMax: Date;
@@ -109,6 +183,7 @@ export class DashboardComponent implements OnInit {
 
     @ViewChild('pickerSales') pickerSales;
     @ViewChild('pickerDiarySales') pickerDiarySales;
+    @ViewChild('containerScrollTop') containerScrollTop: ElementRef;
 
     /**
      * @method constructor
@@ -641,5 +716,16 @@ public openDialog(data: any, type: any, filter: any) {
                 data: {data: data, type: type, filter: filter}
             });
         }
+    }
+
+    public addClassScroll(show: boolean) {
+        if (show) {
+            this.option = 'menos';
+            this.containerScrollTop.nativeElement.classList.add('addScroll');
+        } else {
+            this.option = 'más';
+            this.containerScrollTop.nativeElement.classList.remove('addScroll');
+        }
+        this.showMore = !this.showMore;
     }
 }
