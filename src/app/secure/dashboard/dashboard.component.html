@@ -427,14 +427,14 @@
             [fxShow.sm]="!showOrdersChartSales"
             class="dashboard-component-container-max-width-left-ordens">
             <div fxLayout="column" class="dashboard-padding-buttom-32">
-              <div fxLayout="row">
+              <div fxLayout="row" class="dashboard-component-container-aling-center-calender">
                 <div fxFlex="50">
                   <div fxLayout="column">
                     <div class="dashboard-color-text dashboard-padding-resumen">Ventas trismetral</div>
                     <div>
                       <span class="dashboard-padding-left-25">
                         <mat-icon class="mat-18 vertical-aling-bottom dashboard-component-container-icon-color-delivered">monetization_on</mat-icon>
-                        <span >$0.000.000.000</span>
+                        <span >${{last_sales}}</span>
                       </span>
                     </div>
                   </div>
@@ -445,7 +445,7 @@
                     <div>
                       <span class="dashboard-padding-left-25">
                         <mat-icon class="mat-18 vertical-aling-bottom dashboard-component-container-icon-color-process-send">local_offer</mat-icon>
-                        <span>$0.000.000.000</span>
+                        <span>${{promedTicket}}</span>
                       </span>
                     </div>
                   </div>
@@ -456,8 +456,8 @@
               <div class="dashboard-border-color-separate">
                 <span class="dashboard-title-text-style">Productos más vendidos</span>
               </div>
-              <div class="dashboard-padding-top-10" #containerScrollTop>
-                  <table mat-table [dataSource]="arrayTop10">
+              <div class="dashboard-padding-top-10 addScroll" #containerScrollTop>
+                  <table mat-table [dataSource]="topProduct">
                     <ng-container matColumnDef="PLU">
                       <th mat-header-cell *matHeaderCellDef> PLU </th>
                       <td mat-cell *matCellDef="let element" class="dashboard-table-text-top"> {{element.PLU}} </td>
@@ -480,9 +480,9 @@
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                   </table>
               </div>
-              <div class="dashboard-padding-text-more-products">
+              <!-- <div class="dashboard-padding-text-more-products">
                 <span class="dashboard-text-more-products" (click)="addClassScroll(showMore)">Ver {{option}} productos</span>
-              </div>
+              </div> -->
             </div>
           </div>
           <div fxFlex="80" fxFlex.sm="100" fxFlex.md="" fxFlex.lg=""

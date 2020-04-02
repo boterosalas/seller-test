@@ -161,7 +161,7 @@ export class DashboardComponent implements OnInit {
     public showCalenderQ = true;
     public showCalenderD = false;
 
-    public typeFilterSales = '1';
+    public typeFilterSales = '4';
     public showCalenderQSales = true;
     public showCalenderDSales = false;
 
@@ -174,6 +174,9 @@ export class DashboardComponent implements OnInit {
     public visibleDateSales: string;
     public startDateSales: any;
     public startDateDiarySales: any;
+
+    public topProduct= [];
+    public promedTicket = '0';
 
     /**
      * Variable para observar el input del filtro inicial
@@ -236,7 +239,7 @@ export class DashboardComponent implements OnInit {
 
     setSelectFilterOrders() {
         this.selected = '1';
-        this.selectedSales = '1';
+        this.selectedSales = '4';
     }
 
     select(filter: any) {
@@ -521,6 +524,7 @@ export class DashboardComponent implements OnInit {
         this.params = this.setParametersSales(params);
         this.showChartSales = false;
         this._dashboard.getSalesSummary(this.params).subscribe((res: any) => {
+            console.log(res);
             if (this.isLoad) {
                 this.loadingService.closeSpinner();
             } else {
@@ -528,6 +532,10 @@ export class DashboardComponent implements OnInit {
             }
             this.last_sales = res ? this.parseLastSales(res.reverse()) : [];
             this.calculateCountSales(res);
+
+            this.topProduct = this.arrayTop10;
+            this.promedTicket = '23.455.567';
+
             this.showChartSales = true;
         }, err => {
             if (this.isLoad) {
