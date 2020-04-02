@@ -2423,7 +2423,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
         productos = [{
           'Combo EAN Group': undefined,
           'EAN': undefined,
-          'Child reference': undefined,
+          // 'Child reference': undefined,
           'Parent reference': undefined,
           'Product Name': undefined,
           'Category': undefined,
