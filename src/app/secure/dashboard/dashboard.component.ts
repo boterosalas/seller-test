@@ -524,7 +524,6 @@ export class DashboardComponent implements OnInit {
         this.params = this.setParametersSales(params);
         this.showChartSales = false;
         this._dashboard.getSalesSummary(this.params).subscribe((res: any) => {
-            console.log(res);
             if (this.isLoad) {
                 this.loadingService.closeSpinner();
             } else {
@@ -609,7 +608,7 @@ export class DashboardComponent implements OnInit {
                 element.percent = 0 + '%';
             });
             last.forEach(element => {
-                element.percent = ((element.sales / sumatory) * 100) + '%';
+                element.percent = ((element.sales / last.length) * 100) + '%';
             });
         } else {
             last.forEach(element => {
