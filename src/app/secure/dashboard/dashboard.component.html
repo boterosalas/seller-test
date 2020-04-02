@@ -464,7 +464,9 @@
                     </ng-container>
                     <ng-container matColumnDef="Nombre">
                       <th mat-header-cell *matHeaderCellDef> Nombre </th>
-                      <td mat-cell *matCellDef="let element" class="dashboard-table-text-top"> {{element.name}} </td>
+                      <td mat-cell *matCellDef="let element" [matTooltipPosition]="position" [matTooltip]="element.name" class="dashboard-table-text-top" >
+                         <span class="dashboard-cut-text-name-product">{{element.name}} </span>
+                        </td>
                     </ng-container>
                     <ng-container matColumnDef="Uds. Vendidas">
                       <th mat-header-cell *matHeaderCellDef> Uds. Vendidas </th>

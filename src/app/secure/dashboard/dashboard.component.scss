@@ -581,6 +581,7 @@ $table-break: 900px;
   &-container-cursor-pointer{
     cursor: pointer;
     color: #448aff;
+    vertical-align: bottom;
   }
 
   &-container-align-bottom{
@@ -656,7 +657,7 @@ $table-break: 900px;
 }
 
 .dashboard-padding-top-10{
-  height: 180px;
+  height: 183px;
   // overflow: auto;
   contain: content;
 }
@@ -679,9 +680,27 @@ table {
 
 .dashboard-padding-text-more-products{
   text-align: center;
-  padding-top: 56px;
+  padding-top: 43px;
 }
 
 .addScroll{
   overflow-y: auto;
+}
+
+.mat-row{
+  height: 41px;
+}
+.dashboard-cut-text-name-product{
+  width: 160px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+}
+
+@media only screen and (max-width: 1200px) and (min-width: 200px) {  
+  .dashboard-cut-text-name-product{
+    width: 130px;
+  }
+
 }

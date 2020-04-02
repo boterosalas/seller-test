@@ -44,6 +44,7 @@ export class DashboardComponent implements OnInit {
     public visibleDate: string;
 
     public dateCurrent: any;
+    public position= 'right';
 
     public showOrdersChart = false;
     public showOrdersChartSales = false;
@@ -691,7 +692,7 @@ export class DashboardComponent implements OnInit {
     }
 
 /**
-* modal para mostrar el detalle 
+ * modal para mostrar el detalle
  *
  * @param {*} data
  * @param {*} type
@@ -702,7 +703,7 @@ public modalOpenChart(data: any, type: any, filter: any) {
         this.openDialog(data, type, filter);
     }
 /**
- * modal para mostrar el detalle 
+ * modal para mostrar el detalle
  *
  * @param {*} data
  * @param {*} type
