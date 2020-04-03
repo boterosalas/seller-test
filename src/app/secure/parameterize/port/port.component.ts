@@ -398,31 +398,53 @@ export class PortComponent implements OnInit {
       };
       if (this.idPort) {
         this.method = 'upsertPort';
-      } else {
-        this.method = 'savePort';
-      }
-      this.portCollectionService[this.method](params).subscribe(res => {
-        if (!!res && !!res.statusCode && res.statusCode === 200) {
-          if (res && res.body) {
-            const error = JSON.parse(res.body).Errors;
-            if (error && Array.isArray(error) && error.length > 0) {
-              this.loadingService.closeSpinner();
-              this.snackBar.open(this.languageService.instant(error), this.languageService.instant('actions.close'), {
-                duration: 3000,
-              });
-            } else {
-              this.onNoClick();
-              this.loadingService.closeSpinner();
-              this.getAllCenterCollection();
+        this.portCollectionService[this.method](params).subscribe(res => {
+          if (!!res && !!res.status && res.status === 200) {
+            if (res && res.body && res.body.body) {
+              const error = JSON.parse(res.body.body).Errors;
+              if (error && Array.isArray(error) && error.length > 0) {
+                this.loadingService.closeSpinner();
+                this.snackBar.open(this.languageService.instant(error), this.languageService.instant('actions.close'), {
+                  duration: 3000,
+                });
+              } else {
+                this.getAllCenterCollection();
+                this.loadingService.closeSpinner();
+                this.onNoClick();
+              }
             }
           }
-        }
-      }, error => {
-        this.loadingService.closeSpinner();
-        this.snackBar.open(this.languageService.instant('secure.orders.send.error_ocurred_processing'), this.languageService.instant('actions.close'), {
-          duration: 3000,
+        }, error => {
+          this.loadingService.closeSpinner();
+          this.snackBar.open(this.languageService.instant('secure.orders.send.error_ocurred_processing'), this.languageService.instant('actions.close'), {
+            duration: 3000,
+          });
         });
-      });
+      } else {
+        this.method = 'savePort';
+        this.portCollectionService[this.method](params).subscribe(res => {
+          if (!!res && !!res.statusCode && res.statusCode === 200) {
+            if (res && res.body) {
+              const error = JSON.parse(res.body).Errors;
+              if (error && Array.isArray(error) && error.length > 0) {
+                this.loadingService.closeSpinner();
+                this.snackBar.open(this.languageService.instant(error), this.languageService.instant('actions.close'), {
+                  duration: 3000,
+                });
+              } else {
+                this.onNoClick();
+                this.loadingService.closeSpinner();
+                this.getAllCenterCollection();
+              }
+            }
+          }
+        }, error => {
+          this.loadingService.closeSpinner();
+          this.snackBar.open(this.languageService.instant('secure.orders.send.error_ocurred_processing'), this.languageService.instant('actions.close'), {
+            duration: 3000,
+          });
+        });
+      }
     }
   }
   /**
