@@ -236,13 +236,22 @@ export class DashboardComponent implements OnInit {
         this.getSalesSummary();
         this.getOrdensSummary();
     }
-
-    setSelectFilterOrders() {
+/**
+ * funcion para selecionar por defecto una opcion en el listado de periodicidad
+ *
+ * @memberof DashboardComponent
+ */
+setSelectFilterOrders() {
         this.selected = '1';
         this.selectedSales = '4';
     }
-
-    select(filter: any) {
+/**
+ * funcion para mostrar los diferentes calendarios dependiendo del filtro
+ *
+ * @param {*} filter
+ * @memberof DashboardComponent
+ */
+select(filter: any) {
         this.typeFilter = filter;
         if (filter === '1' || filter === '2') {
             this.showCalenderQ = true;
@@ -253,8 +262,13 @@ export class DashboardComponent implements OnInit {
         }
         this.getOrdensSummary();
     }
-
-    getOrdensSummary(params?: any) {
+/**
+ * funcion para obtener todas las ordenes
+ *
+ * @param {*} [params]
+ * @memberof DashboardComponent
+ */
+getOrdensSummary(params?: any) {
         this.params = this.setParameters(params);
         this.showChartOrdens = false;
         this._dashboard.getSalesSummary(this.params).subscribe((res: any) => {
@@ -277,8 +291,14 @@ export class DashboardComponent implements OnInit {
         }
         );
     }
-
-    setParameters(params: any) {
+/**
+ * funcion para setear los parametros
+ *
+ * @param {*} params
+ * @returns
+ * @memberof DashboardComponent
+ */
+setParameters(params: any) {
         let paramsOrdersSummary = 'null/';
         if (this.dateCurrent === '' || this.dateCurrent === undefined) {
             this.dateCurrent = new Date();
@@ -299,8 +319,13 @@ export class DashboardComponent implements OnInit {
         }
         return paramsOrdersSummary;
     }
-
-    calculateCountSales(res: any) {
+/**
+ * funcion para calcular el total de cantidad de un producto
+ *
+ * @param {*} res
+ * @memberof DashboardComponent
+ */
+calculateCountSales(res: any) {
         this.totalCount = 0;
         if (res && res.length > 0) {
             res.forEach(element => {
@@ -725,8 +750,13 @@ public openDialog(data: any, type: any, filter: any) {
             });
         }
     }
-
-    public addClassScroll(show: boolean) {
+/**
+ * funcion para agregar un clase que permita el scroll en el contenedor
+ *
+ * @param {boolean} show
+ * @memberof DashboardComponent
+ */
+public addClassScroll(show: boolean) {
         if (show) {
             this.option = 'menos';
             this.containerScrollTop.nativeElement.classList.add('addScroll');
