@@ -133,6 +133,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   showMenssage = false;
   isClear = false;
   pageIndexChange = 0;
+  isFullSearch= true;
 
 
   typeProfile: number;
@@ -203,7 +204,20 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getMenuSelected();
     this.searchSubscription = this.eventsSeller.eventSearchSeller.subscribe((seller: StoreModel) => {
-      this.idSeller = seller.IdSeller;
+      if (seller) {
+        if (seller && seller.IdSeller) {
+          this.idSeller = seller.IdSeller;
+        }
+        if (seller && seller.Country) {
+          if (seller.Country === 'Colombia' || seller.Country === 'COLOMBIA') {
+            this.isInternational = false;
+          } else {
+            this.isInternational = true;
+          }
+        } else {
+          this.isInternational = false;
+        }
+      }
       const paramsArray = {
         'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
         'idSeller': this.idSeller,
