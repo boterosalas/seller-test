@@ -1186,6 +1186,9 @@
     "secure.parametize.support_claims-filter.orderNumber": "Order number",
     "secure.parametize.support_claims-filter.clear": "Clear",
     "secure.parametize.support_claims-filter.filter": "Filter",
+    "secure.parametize.support_claims-filter.last_post": "Last post",
+    "secure.parametize.support_claims-filter.sac_answer": "Customer service response",
+    "secure.parametize.support_claims-filter.seller_answer": "Seller´s response",
 
     "secure.parametize.port.port": "Port",
     "secure.parametize.port.search_port": "Search port",

@@ -46,6 +46,12 @@ export class CaseFilterComponent implements OnInit {
   public rangeDateMax;
   public rangeError = false;
 
+  // Modelo de ultima respuesta
+  public lastPost = [
+    {value: 1, name: this.translateService.instant('secure.parametize.support_claims-filter.sac_answer')},
+    {value: 2, name: this.translateService.instant('secure.parametize.support_claims-filter.seller_answer')}
+  ];
+
   constructor(private router: Router, private route: ActivatedRoute,
     private formatDate: DatePipe, public translateService: TranslateService) {
     this.options = [];

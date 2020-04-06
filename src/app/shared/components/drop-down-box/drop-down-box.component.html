@@ -20,9 +20,6 @@
           <div class="case-list-detail--item-detail" fxFlex="15%" id="dpbox-case-number-{{index}}">
             {{ data.orderNumber }}
           </div>
-          <div class="case-list-detail--item-detail" fxFlex="10%" id="dpbox-case-reason-{{index}}">
-            {{ data.reasonPQR }}
-          </div>
           <div class="case-list-detail--item-detail" fxFlex="30%" id="dpbox-case-detail-{{index}}">
             <p>{{ data.reasonDetail }}</p>
           </div>
@@ -40,6 +37,9 @@
               *ngIf="data.attachments && data.attachments.length && data.attachments.length > 0">
               attachment
             </mat-icon>
+          </div>
+          <div class="case-list-detail--item-detail" fxFlex="10%" id="dpbox-case-reason-{{index}}">
+            Ultima respuesta
           </div>
         </div>
       </mat-expansion-panel-header>

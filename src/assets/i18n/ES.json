@@ -1186,6 +1186,9 @@
     "secure.parametize.support_claims-filter.orderNumber": "Número del pedido",
     "secure.parametize.support_claims-filter.clear": "Limpiar",
     "secure.parametize.support_claims-filter.filter": "Filtrar",
+    "secure.parametize.support_claims-filter.last_post": "Última respuesta",
+    "secure.parametize.support_claims-filter.sac_answer": "Respuesta servicio al cliente",
+    "secure.parametize.support_claims-filter.seller_answer": "Respuesta vendedor",
 
     "secure.parametize.port.port": "Puerto",
     "secure.parametize.port.search_port": "Consultar puerto",

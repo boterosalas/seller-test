@@ -12,11 +12,6 @@
         "md": 3
       },
       {
-        "name": "reasonPQR",
-        "displayName": "Motivo",
-        "md": 2
-      },
-      {
         "name": "reasonDetail",
         "displayName": "Detalle del motivo",
         "md": 6
@@ -40,6 +35,11 @@
         "name": "",
         "displayName": "",
         "md": 1
+      },
+      {
+        "name": "lastPostDesc",
+        "displayName": "Última respuesta",
+        "md": 2
       }
     ]
   },
@@ -54,11 +54,6 @@
         "name": "orderNumber",
         "displayName": "Order number",
         "md": 3
-      },
-      {
-        "name": "reasonPQR",
-        "displayName": "Case",
-        "md": 2
       },
       {
         "name": "reasonDetail",
@@ -84,6 +79,11 @@
         "name": "",
         "displayName": "",
         "md": 1
+      },
+      {
+        "name": "lastPostDesc",
+        "displayName": "Last post",
+        "md": 2
       }
     ]
   }
