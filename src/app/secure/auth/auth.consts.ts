@@ -542,7 +542,11 @@ export const reclaModule = 'RECLAMACIONES', listreclamaciones = 'Listar Reclamac
 const ReclaModule = new ModuleModel(reclaModule, showAll, reclaModule.toLowerCase(), [
     new MenuModel(listreclamaciones, showAll, listreclamaciones.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
-    ], RoutesConst.sellerCenterCases)]);
+    ], RoutesConst.sellerCenterCases),
+    new MenuModel(listreclamaciones, showAll, listreclamaciones.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+    ], RoutesConst.sellerCenterCases)
+]);
 
 /**
  * Actualizado: 14/08/2019 - jbanguera.
