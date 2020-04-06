@@ -58,7 +58,7 @@ export class DashboardComponent implements OnInit {
     public showSales = false;
     public dateSales = '';
     public showMore = true;
-    public option = 'más';
+    public selectTypeFilter= '';
 
     public startDateDiary: any;
 
@@ -378,7 +378,20 @@ calculateCountSales(res: any) {
             this.isLoading = true;
             localStorage.setItem('culture_current', e['lang']);
             this.getLastSales(this.dateCurrent);
+
+            if ('ES' === e['lang']) {
+                this.selectTypeFilter = this.periodsES[3].value;
+            } else {
+                this.selectTypeFilter = this.periodsEN[3].value;
+            }
         });
+
+        this.lang = localStorage.getItem('culture_current');
+        if (this.lang === 'ES') {
+            this.selectTypeFilter = this.periodsES[3].value;
+        } else {
+            this.selectTypeFilter = this.periodsEN[3].value;
+        }
     }
 
     /**
@@ -587,6 +600,14 @@ calculateCountSales(res: any) {
             this.showCalenderQSales = false;
             this.showCalenderDSales = true;
         }
+        if (filter) {
+            this.lang = localStorage.getItem('culture_current');
+            if (this.lang === 'ES') {
+                this.selectTypeFilter = this.periodsES[filter - 1].value;
+            } else {
+                this.selectTypeFilter = this.periodsEN[filter - 1].value;
+            }
+        }
         this.getSalesSummary();
     }
     /**
@@ -627,13 +648,15 @@ calculateCountSales(res: any) {
      */
     private parseLastSales(last: any) {
         let sumatory = 0;
+        let total = '0';
         if (last && last.length > 0) {
             last.forEach(element => {
                 sumatory += element.sales;
                 element.percent = 0 + '%';
             });
             last.forEach(element => {
-                element.percent = ((element.sales / last.length) * 100) + '%';
+                total = ((element.sales / sumatory) * 100).toString();
+                element.percent = parseFloat(total).toFixed(2) + '%';
             });
         } else {
             last.forEach(element => {
@@ -758,10 +781,8 @@ public openDialog(data: any, type: any, filter: any) {
  */
 public addClassScroll(show: boolean) {
         if (show) {
-            this.option = 'menos';
             this.containerScrollTop.nativeElement.classList.add('addScroll');
         } else {
-            this.option = 'más';
             this.containerScrollTop.nativeElement.classList.remove('addScroll');
         }
         this.showMore = !this.showMore;
