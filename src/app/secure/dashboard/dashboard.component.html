@@ -430,9 +430,10 @@
               <div fxLayout="row" class="dashboard-component-container-aling-center-calender">
                 <div fxFlex="50">
                   <div fxLayout="column">
-                    <div class="dashboard-color-text dashboard-padding-resumen"> {{selectTypeFilter}} {{'secure.dashboard.sales'| translate}}</div>
+                    <div class="dashboard-color-text dashboard-padding-resumen" *ngIf="lang === 'US'"> {{selectTypeFilter}} {{'secure.dashboard.sales'| translate}}</div>
+                    <div class="dashboard-color-text dashboard-padding-resumen" *ngIf="lang === 'ES'"> {{'secure.dashboard.sales'| translate}} {{selectTypeFilter}}</div>
                     <div>
-                      <span class="dashboard-padding-left-25">
+                      <span>
                         <mat-icon class="mat-18 vertical-aling-bottom dashboard-component-container-icon-color-delivered">monetization_on</mat-icon>
                         <span >${{sumatoryTotal | number}}</span>
                       </span>
@@ -443,7 +444,7 @@
                   <div fxLayout="column">
                     <div class="dashboard-color-text dashboard-padding-resumen">{{'secure.dashboard.table.top.title.average_listing_price' | translate}}</div>
                     <div>
-                      <span class="dashboard-padding-left-25">
+                      <span>
                         <mat-icon class="mat-18 vertical-aling-bottom dashboard-component-container-icon-color-process-send">local_offer</mat-icon>
                         <span>${{promedTicket}}</span>
                       </span>
