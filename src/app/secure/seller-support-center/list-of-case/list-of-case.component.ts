@@ -23,6 +23,8 @@ import { Observable } from 'rxjs';
 import { ConfigurationState } from '@app/store/configuration';
 import { StoreService } from '@app/store/store.service';
 import { TranslateService } from '@ngx-translate/core';
+import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
+import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 
 @Component({
   selector: 'app-list-of-case',
@@ -68,6 +70,8 @@ export class ListOfCaseComponent implements OnInit {
 
   public log: Logger;
 
+  isAdmin: Boolean = false;
+
   constructor(
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
@@ -77,26 +81,58 @@ export class ListOfCaseComponent implements OnInit {
     private loadingService?: LoadingService,
     private modalService?: ModalService,
     private storeService?: StoreService,
-    private translateService?: TranslateService
-  ) { }
+    private translateService?: TranslateService,
+    private emitterSeller?: EventEmitterSeller,
+    private profileService?: MyProfileService
+  ) {
+    this.getAllDataUser();
+  }
 
   ngOnInit() {
     this.toggleFilter(this.filter);
     this.getStatusCase();
+    console.log('this.router.queryParams: ', this.router.queryParams);
     this.filterByRoute(this.router.queryParams).subscribe(res =>
       this.loadCases(res)
     );
-    this.store
-      .select(reduxState => reduxState.notification.unreadCases)
+    // tslint:disable-next-line: deprecation
+    this.store.select(reduxState => reduxState.notification.unreadCases)
       .subscribe(unreadCase => (this.unreadCase = unreadCase));
 
     this.translateService.onLangChange.subscribe(e => {
       setTimeout(() => { this.loadCases([]); }, 350);
     });
+
+    this.emitterSeller.eventSearchSeller.subscribe(data => {
+      // const dataSeller = data.IdSeller;
+      const dataSeller = {
+        'SellerId':  data.IdSeller
+      };
+      this.loadCases(dataSeller);
+    });
+  }
+
+
+  async getAllDataUser() {
+    this.loadingService.viewSpinner();
+    const sellerData = await this.profileService.getUser().toPromise().then(res => {
+      const body: any = res.body;
+      const response = JSON.parse(body.body);
+      const userData = response.Data;
+      console.log(userData);
+      if (userData.Profile !== 'seller') {
+        this.isAdmin = true;
+      } else {
+        this.isAdmin = false;
+      }
+      this.loadingService.closeSpinner();
+      return userData;
+    });
   }
 
 
   filterByRoute(queryParams: Observable<any>): Observable<any> {
+    console.log('queryParams: ', queryParams);
     return queryParams.pipe(
       map((res: any) =>
         res.Status && res.Status.length > 0 ? res : { ...res, init: true }
@@ -134,6 +170,7 @@ export class ListOfCaseComponent implements OnInit {
   }
 
   loadCases(filter?: any) {
+    console.log('filter', filter);
     this.loadingService.viewSpinner();
     this.sellerSupportService.getAllCase(filter).subscribe(
       res => {
@@ -145,6 +182,7 @@ export class ListOfCaseComponent implements OnInit {
             this.loadingService.closeSpinner();
           }
         }
+        this.loadingService.closeSpinner();
       },
       err => {
         this.modalService.showModal('errorService');

@@ -1,25 +1,45 @@
-<app-case-toolbar (toggleFilter)="toggleFilter($event)" (changePagination)="changePagination($event)" [length]="length"
-  [pageIndex]="pageIndex" [pageSize]="pageSize">
-</app-case-toolbar>
+<div *ngIf="isAdmin">
+  <mat-toolbar class="tree-toolbar">
+    <div class="normal-theme toolbar-options-table flexbox justify-start align-center" fxLayout.xs="column">
+      <!-- Titulo del toolbar -->
+      <p class="tree-title">
+        {{'secure.seller.contracts.lb_title_toolbar' | translate}}
+        <small class="sub-title">| {{'secure.seller.contracts.lb_subtitle_toolbar' | translate}}</small>
+      </p>
 
-<ng-template [ngIf]="cases">
-  <app-drop-down-list [data]="cases" [options]="options" [configurations]="headerConfigurations">
+      <!-- Componente para realizar la busqueda de una tienda -->
+      <div class="search-container">
+        <app-search-seller id="contet-searc-store" class="search-content" >
+        </app-search-seller>
+      </div>
+    </div>
+  </mat-toolbar>
+</div>
+<div>
+  <app-case-toolbar (toggleFilter)="toggleFilter($event)" (changePagination)="changePagination($event)"
+    [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize">
+  </app-case-toolbar>
 
-    <ng-container *itemDropDownList>
-      <app-drop-down-box *ngFor="let item of cases; let i = index" [data]="item" [read]="item.read"
-        (opened)="markAsRead($event)" [index]="i">
-        <ng-container *itemCaseList>
-          <app-case-summary (clickResponse)="onEmitResponse($event)" [case]="item"
-            [disabledClass]="item.status === 'Cerrado'" [indexParent]="i"></app-case-summary>
-        </ng-container>
-      </app-drop-down-box>
-    </ng-container>
+  <ng-template [ngIf]="cases">
+    <app-drop-down-list [data]="cases" [options]="options" [configurations]="headerConfigurations">
 
-  </app-drop-down-list>
-</ng-template>
+      <ng-container *itemDropDownList>
+        <app-drop-down-box *ngFor="let item of cases; let i = index" [data]="item" [read]="item.read"
+          (opened)="markAsRead($event)" [index]="i">
+          <ng-container *itemCaseList>
+            <app-case-summary (clickResponse)="onEmitResponse($event)" [case]="item"
+              [disabledClass]="item.status === 'Cerrado'" [indexParent]="i"></app-case-summary>
+          </ng-container>
+        </app-drop-down-box>
+      </ng-container>
 
-<div [ngClass]="filter ? 'support-center-case__filter-container' : 'hidden-content'">
-  <div [@slideInOut]="menuState" [ngClass]="filter ? 'support-filter' : 'hidden-content'">
-    <app-case-filter (eventFilter)="toggleFilter($event)" [stateFilter]="filter" [options]="options"></app-case-filter>
+    </app-drop-down-list>
+  </ng-template>
+
+  <div [ngClass]="filter ? 'support-center-case__filter-container' : 'hidden-content'">
+    <div [@slideInOut]="menuState" [ngClass]="filter ? 'support-filter' : 'hidden-content'">
+      <app-case-filter (eventFilter)="toggleFilter($event)" [stateFilter]="filterForm" [options]="options">
+      </app-case-filter>
+    </div>
   </div>
 </div>

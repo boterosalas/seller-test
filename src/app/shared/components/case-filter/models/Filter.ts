@@ -7,4 +7,5 @@ export interface Filter {
   DateEnd?: string; //   dd/mm/yyyy
   Page?: number;
   PageSize?: number;
+  LastPost?: number;
  }
