@@ -71,6 +71,9 @@ export class ListOfCaseComponent implements OnInit {
   public log: Logger;
 
   isAdmin: Boolean = false;
+  sellerId: any;
+
+  paramsFilter: any = {};
 
   constructor(
     public dialog: MatDialog,
@@ -91,24 +94,37 @@ export class ListOfCaseComponent implements OnInit {
   ngOnInit() {
     this.toggleFilter(this.filter);
     this.getStatusCase();
-    console.log('this.router.queryParams: ', this.router.queryParams);
-    this.filterByRoute(this.router.queryParams).subscribe(res =>
-      this.loadCases(res)
-    );
+    this.filterByRoute(this.router.queryParams).subscribe(res => {
+      console.log(res);
+      const seller = this.paramsFilter.SellerId;
+      this.paramsFilter = {};
+      // Const para eliminar filtros y sobreescribirlos.
+      if (seller) {
+        res.SellerId = res;
+      }
+      Object.assign(this.paramsFilter, res);
+      this.loadCases(this.paramsFilter);
+    });
+    // this.loadCases();
     // tslint:disable-next-line: deprecation
     this.store.select(reduxState => reduxState.notification.unreadCases)
       .subscribe(unreadCase => (this.unreadCase = unreadCase));
 
     this.translateService.onLangChange.subscribe(e => {
-      setTimeout(() => { this.loadCases([]); }, 350);
+      setTimeout(() => {
+        this.paramsFilter = {};
+        this.loadCases([]);
+      }, 350);
     });
 
     this.emitterSeller.eventSearchSeller.subscribe(data => {
       // const dataSeller = data.IdSeller;
       const dataSeller = {
-        'SellerId':  data.IdSeller
+        'SellerId': data.IdSeller
       };
-      this.loadCases(dataSeller);
+      console.log(this.paramsFilter);
+      Object.assign(this.paramsFilter, dataSeller);
+      this.loadCases();
     });
   }
 
@@ -119,6 +135,7 @@ export class ListOfCaseComponent implements OnInit {
       const body: any = res.body;
       const response = JSON.parse(body.body);
       const userData = response.Data;
+      this.sellerId = userData.IdSeller;
       console.log(userData);
       if (userData.Profile !== 'seller') {
         this.isAdmin = true;
@@ -170,9 +187,9 @@ export class ListOfCaseComponent implements OnInit {
   }
 
   loadCases(filter?: any) {
-    console.log('filter', filter);
+    console.log('this.paramsFilter: ', this.paramsFilter);
     this.loadingService.viewSpinner();
-    this.sellerSupportService.getAllCase(filter).subscribe(
+    this.sellerSupportService.getAllCase(this.paramsFilter).subscribe(
       res => {
         if (res && res['status'] === 200) {
           if (res.body) {

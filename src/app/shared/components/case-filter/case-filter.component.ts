@@ -26,7 +26,8 @@ export class CaseFilterComponent implements OnInit {
     ReasonPQR: null,
     Status: [],
     DateInit: '',
-    DateEnd: ''
+    DateEnd: '',
+    SellerId: null
   };
 
   value: string;
@@ -48,9 +49,10 @@ export class CaseFilterComponent implements OnInit {
 
   // Modelo de ultima respuesta
   public lastPost = [
-    {value: 1, name: this.translateService.instant('secure.parametize.support_claims-filter.sac_answer')},
-    {value: 2, name: this.translateService.instant('secure.parametize.support_claims-filter.seller_answer')}
+    { valuePost: 1, name: this.translateService.instant('secure.parametize.support_claims-filter.sac_answer') },
+    { valuePost: 2, name: this.translateService.instant('secure.parametize.support_claims-filter.seller_answer') }
   ];
+
 
   constructor(private router: Router, private route: ActivatedRoute,
     private formatDate: DatePipe, public translateService: TranslateService) {
@@ -69,14 +71,20 @@ export class CaseFilterComponent implements OnInit {
 
   submitFilter() {
     this.router.navigate([], { relativeTo: this.route, queryParams: {} });
-    if (this.value !== undefined) {
-      if (this.value !== null) {
-        this.filter.Status.push(this.value);
+    if (this.filterForm.control.value.lastPost) {
+      this.filter.LastPost = this.filterForm.control.value.lastPost;
+    }
+    if (this.value) {
+      if (this.value !== undefined) {
+        if (this.value !== null) {
+          this.filter.Status.push(this.value);
+        }
+      } else {
+        this.filter.Status = [];
       }
-    } else {
-      this.filter.Status = [];
     }
 
+    // this.filter.SellerId = 1;
     this.eventFilter.emit(!this.stateFilter);
     this.filter.DateInit = this.formatDate.transform(
       this.filter.DateInit,
@@ -95,9 +103,11 @@ export class CaseFilterComponent implements OnInit {
     this.filter.Status.pop();
     this.cleanFilter();
   }
+
   cleanFilter() {
     this.filterForm.reset();
   }
+
   openDateInitial() {
     this.dateInitial.open();
   }

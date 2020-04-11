@@ -14,10 +14,11 @@
               [(ngModel)]="filter.CaseNumber" name="caseNumber" />
           </mat-form-field>
 
+          <!-- Input Last Post -->
           <mat-form-field class="filter-form--field">
             <mat-select [placeholder]="translateService.instant('secure.parametize.support_claims-filter.last_post')"
-              name="post" [(ngModel)]="value">
-              <mat-option *ngFor="let post of lastPost" value="{{post.value}}">
+              name="lastPost" [(ngModel)]="valuePost">
+              <mat-option *ngFor="let post of lastPost" value="{{post.valuePost}}">
                 {{post.name | translate}}
               </mat-option>
             </mat-select>

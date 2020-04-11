@@ -8,4 +8,5 @@ export interface Filter {
   Page?: number;
   PageSize?: number;
   LastPost?: number;
+  SellerId?: number;
  }
