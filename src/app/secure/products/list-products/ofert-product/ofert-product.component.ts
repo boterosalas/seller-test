@@ -516,10 +516,6 @@ export class OfertExpandedProductComponent implements OnInit {
                 price.controls.ComboQuantity.reset('');
             });
         }
-
-        if (this.ofertProduct.controls.Currency.value !== 'COP') {
-            this.ofertProduct.controls.Currency.setValue('COP');
-        }
         this.cleanFilterListProducts(result);
     }
 

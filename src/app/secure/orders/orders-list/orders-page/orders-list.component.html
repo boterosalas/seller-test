@@ -8,7 +8,7 @@
       <!-- Toolbar de las opciones para la orden -->
       <app-toolbar-search-pagination [isClear]="isClear" [informationToForm]="informationToForm" [state]="lastState"
         [idSeller]="idSeller" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)"
-        (paginationListOrdens)="paginations($event)" [pageIndexChange]="pageIndexChange"
+        (paginationListOrdens)="paginations($event)" [isFullSearch]="isFullSearch" [pageIndexChange]="pageIndexChange"
         (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [downloadPermission]="downloadPermission"
         [Typeprofile]="typeProfile" [lengthOrder]="length"></app-toolbar-search-pagination>
     </div>
