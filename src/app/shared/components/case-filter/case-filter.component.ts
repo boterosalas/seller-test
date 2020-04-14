@@ -84,7 +84,6 @@ export class CaseFilterComponent implements OnInit {
       }
     }
 
-    // this.filter.SellerId = 1;
     this.eventFilter.emit(!this.stateFilter);
     this.filter.DateInit = this.formatDate.transform(
       this.filter.DateInit,

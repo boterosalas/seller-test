@@ -239,7 +239,7 @@ export class ListOfCaseComponent implements OnInit {
     const { pageIndex, pageSize } = pagination;
 
     if (this.isAdmin) {
-      this.loadCases({ SellerId: this.sellerIdLogger, Limit: pageSize , paginationToken: this.paginationToken});
+      this.loadCases({ SellerId: this.sellerIdLogger.SellerId, Limit: pageSize , paginationToken: this.paginationToken});
     } else {
       this.loadCases({ Limit: pageSize , paginationToken: this.paginationToken});
     }
