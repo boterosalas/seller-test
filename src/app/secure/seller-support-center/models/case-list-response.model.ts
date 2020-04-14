@@ -1,7 +1,7 @@
 import { IResponse } from './response.interface';
 import { CaseSummary } from './case-summary.model';
 
-export class CaseListResponse implements IResponse {
+export class CaseListResponse  {
   errors: Array<any>;
   data: {
     totalPages: number;

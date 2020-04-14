@@ -57,7 +57,7 @@ export class ListOfCaseComponent implements OnInit {
   repondCase: any;
   headerConfigurations: Array<any>;
   length: number;
-  pageIndex = 1;
+  pageIndex = 0;
   pageSize = 50;
   filterParams: any;
   unreadCase: number;
@@ -68,12 +68,15 @@ export class ListOfCaseComponent implements OnInit {
     data: null
   };
 
+  public paginationToken = '{}';
+
   public log: Logger;
 
   isAdmin: Boolean = false;
   sellerId: any;
 
   paramsFilter: any = {};
+  arrayTokens: Array<any> = ['{}'];
 
   constructor(
     public dialog: MatDialog,
@@ -95,7 +98,6 @@ export class ListOfCaseComponent implements OnInit {
     this.toggleFilter(this.filter);
     this.getStatusCase();
     this.filterByRoute(this.router.queryParams).subscribe(res => {
-      console.log(res);
       const seller = this.paramsFilter.SellerId;
       this.paramsFilter = {};
       // Const para eliminar filtros y sobreescribirlos.
@@ -122,7 +124,6 @@ export class ListOfCaseComponent implements OnInit {
       const dataSeller = {
         'SellerId': data.IdSeller
       };
-      console.log(this.paramsFilter);
       Object.assign(this.paramsFilter, dataSeller);
       this.loadCases();
     });
@@ -136,7 +137,6 @@ export class ListOfCaseComponent implements OnInit {
       const response = JSON.parse(body.body);
       const userData = response.Data;
       this.sellerId = userData.IdSeller;
-      console.log(userData);
       if (userData.Profile !== 'seller') {
         this.isAdmin = true;
       } else {
@@ -149,7 +149,6 @@ export class ListOfCaseComponent implements OnInit {
 
 
   filterByRoute(queryParams: Observable<any>): Observable<any> {
-    console.log('queryParams: ', queryParams);
     return queryParams.pipe(
       map((res: any) =>
         res.Status && res.Status.length > 0 ? res : { ...res, init: true }
@@ -160,11 +159,6 @@ export class ListOfCaseComponent implements OnInit {
   toggleFilter(stateFilter: boolean) {
     this.filter = stateFilter;
     this.menuState = stateFilter ? 'in' : 'out';
-  }
-
-  changePagination(pagination: any) {
-    const { pageIndex, pageSize } = pagination;
-    this.loadCases({ PageSize: pageSize, Page: pageIndex });
   }
 
   getStatusCase() {
@@ -187,6 +181,9 @@ export class ListOfCaseComponent implements OnInit {
   }
 
   loadCases(filter?: any) {
+    if (filter.Limit) {
+      this.paramsFilter = filter;
+    }
     console.log('this.paramsFilter: ', this.paramsFilter);
     this.loadingService.viewSpinner();
     this.sellerSupportService.getAllCase(this.paramsFilter).subscribe(
@@ -194,8 +191,10 @@ export class ListOfCaseComponent implements OnInit {
         if (res && res['status'] === 200) {
           if (res.body) {
             const { pageSize, page } = res.body.data;
-            this.cases = res.body.data.cases;
             this.refreshPaginator(res.body.data.total, page, pageSize);
+            this.paginationToken = res.body.paginationToken;
+            this.savePaginationToken(this.paginationToken);
+            this.cases = res.body.data.cases;
             this.loadingService.closeSpinner();
           }
         }
@@ -208,10 +207,60 @@ export class ListOfCaseComponent implements OnInit {
     );
   }
 
+  changePagination(pagination: any) {
+    console.log(pagination);
+    const index = pagination.pageIndex;
+
+    if (index === 0) {
+      this.paginationToken = '{}';
+    }
+    const isExistInitial = this.arrayTokens.includes('{}');
+    if (isExistInitial === false) {
+      this.arrayTokens.push('{}');
+    }
+
+    // Se guarda el paginaation token que envia back
+    const isExist = this.arrayTokens.includes(this.paginationToken);
+    if (isExist === false) {
+      this.arrayTokens.push(this.paginationToken);
+    }
+
+    this.paginationToken = this.arrayTokens[index];
+    if (this.paginationToken === undefined) {
+      this.paginationToken = '{}';
+    }
+
+
+    // this.arrayTokens.push(this.paginationToken);
+    const { pageIndex, pageSize } = pagination;
+    // let token;
+    // if (pageIndex === 0) {
+    //   token = '{}';
+    // } else {
+    //   token = this.paginationToken;
+    // }
+    this.loadCases({ Limit: pageSize , paginationToken: this.paginationToken});
+    console.log(this.arrayTokens);
+  }
+
   refreshPaginator(total: number, page: number, limit: number) {
-    this.length = total;
     this.pageSize = limit;
-    this.pageIndex = page - 1;
+    if (this.paginationToken === '{}') {
+      this.length = total;
+      this.pageIndex = 0;
+    } else {
+      this.pageIndex = page - 1;
+    }
+    // this.length = total;
+    // this.pageIndex = page - 1;
+  }
+
+  savePaginationToken(paginationToken: string) {
+    // this.arrayTokens = [];
+    console.log('paginationToken: ', paginationToken);
+    if (paginationToken) {
+      this.paginationToken = paginationToken;
+    }
   }
 
   onEmitResponse(caseResponse: any) {
