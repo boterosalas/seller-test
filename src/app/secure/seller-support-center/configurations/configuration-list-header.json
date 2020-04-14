@@ -39,7 +39,7 @@
       {
         "name": "lastPostDesc",
         "displayName": "Última respuesta",
-        "md": 2
+        "md": 4
       }
     ]
   },
@@ -83,7 +83,7 @@
       {
         "name": "lastPostDesc",
         "displayName": "Last post",
-        "md": 2
+        "md": 4
       }
     ]
   }

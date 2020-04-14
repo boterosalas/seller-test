@@ -58,7 +58,7 @@ export class ListOfCaseComponent implements OnInit {
   headerConfigurations: Array<any>;
   length: number;
   pageIndex = 0;
-  pageSize = 50;
+  pageSize = 100;
   filterParams: any;
   unreadCase: number;
 
@@ -74,6 +74,8 @@ export class ListOfCaseComponent implements OnInit {
 
   isAdmin: Boolean = false;
   sellerId: any;
+
+  sellerIdLogger: any;
 
   paramsFilter: any = {};
   arrayTokens: Array<any> = ['{}'];
@@ -99,15 +101,20 @@ export class ListOfCaseComponent implements OnInit {
     this.getStatusCase();
     this.filterByRoute(this.router.queryParams).subscribe(res => {
       const seller = this.paramsFilter.SellerId;
-      this.paramsFilter = {};
-      // Const para eliminar filtros y sobreescribirlos.
-      if (seller) {
-        res.SellerId = res;
+      if (this.isAdmin) {
+        if (seller) {
+        }
+        Object.assign(this.paramsFilter, res);
+      } else {
+        this.paramsFilter = {};
+        // Const para eliminar filtros y sobreescribirlos.
+        if (seller) {
+          res.SellerId = res;
+        }
+        Object.assign(this.paramsFilter, res);
       }
-      Object.assign(this.paramsFilter, res);
       this.loadCases(this.paramsFilter);
     });
-    // this.loadCases();
     // tslint:disable-next-line: deprecation
     this.store.select(reduxState => reduxState.notification.unreadCases)
       .subscribe(unreadCase => (this.unreadCase = unreadCase));
@@ -120,12 +127,11 @@ export class ListOfCaseComponent implements OnInit {
     });
 
     this.emitterSeller.eventSearchSeller.subscribe(data => {
-      // const dataSeller = data.IdSeller;
-      const dataSeller = {
+      this.sellerIdLogger = {
         'SellerId': data.IdSeller
       };
-      Object.assign(this.paramsFilter, dataSeller);
-      this.loadCases();
+      Object.assign(this.paramsFilter, this.sellerIdLogger);
+      this.loadCases(this.paramsFilter);
     });
   }
 
@@ -181,19 +187,15 @@ export class ListOfCaseComponent implements OnInit {
   }
 
   loadCases(filter?: any) {
-    if (filter.Limit) {
-      this.paramsFilter = filter;
-    }
-    console.log('this.paramsFilter: ', this.paramsFilter);
     this.loadingService.viewSpinner();
-    this.sellerSupportService.getAllCase(this.paramsFilter).subscribe(
+    this.sellerSupportService.getAllCase(filter).subscribe(
       res => {
         if (res && res['status'] === 200) {
           if (res.body) {
             const { pageSize, page } = res.body.data;
-            this.refreshPaginator(res.body.data.total, page, pageSize);
+            this.length = res.body.data.total;
+            this.refreshPaginator(this.length, res.body.data.page, res.body.data.pageSize);
             this.paginationToken = res.body.paginationToken;
-            this.savePaginationToken(this.paginationToken);
             this.cases = res.body.data.cases;
             this.loadingService.closeSpinner();
           }
@@ -207,8 +209,12 @@ export class ListOfCaseComponent implements OnInit {
     );
   }
 
+  /**
+   * Método para ejecutar la paginacion, que recibe evento que escucha el paginado
+   * @param {*} pagination
+   * @memberof ListOfCaseComponent
+   */
   changePagination(pagination: any) {
-    console.log(pagination);
     const index = pagination.pageIndex;
 
     if (index === 0) {
@@ -230,17 +236,13 @@ export class ListOfCaseComponent implements OnInit {
       this.paginationToken = '{}';
     }
 
-
-    // this.arrayTokens.push(this.paginationToken);
     const { pageIndex, pageSize } = pagination;
-    // let token;
-    // if (pageIndex === 0) {
-    //   token = '{}';
-    // } else {
-    //   token = this.paginationToken;
-    // }
-    this.loadCases({ Limit: pageSize , paginationToken: this.paginationToken});
-    console.log(this.arrayTokens);
+
+    if (this.isAdmin) {
+      this.loadCases({ SellerId: this.sellerIdLogger, Limit: pageSize , paginationToken: this.paginationToken});
+    } else {
+      this.loadCases({ Limit: pageSize , paginationToken: this.paginationToken});
+    }
   }
 
   refreshPaginator(total: number, page: number, limit: number) {
@@ -251,17 +253,8 @@ export class ListOfCaseComponent implements OnInit {
     } else {
       this.pageIndex = page - 1;
     }
-    // this.length = total;
-    // this.pageIndex = page - 1;
   }
 
-  savePaginationToken(paginationToken: string) {
-    // this.arrayTokens = [];
-    console.log('paginationToken: ', paginationToken);
-    if (paginationToken) {
-      this.paginationToken = paginationToken;
-    }
-  }
 
   onEmitResponse(caseResponse: any) {
     if (caseResponse.status === 'Cerrado') {
