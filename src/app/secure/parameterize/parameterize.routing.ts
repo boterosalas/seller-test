@@ -6,6 +6,7 @@ import { BrandsComponent } from './brands/brands.component';
 import { RoutesConst } from './../../shared';
 import { AuthService } from '../auth/auth.routing';
 import { CategoriesComponent } from './category/categories/categories.component';
+import { PortComponent } from './port/port.component';
 
 const routes: Routes = [
   Route.withShell([
@@ -25,6 +26,12 @@ const routes: Routes = [
       component: CategoriesComponent,
       canActivate: [AuthService],
       data: {title: 'Categorias'}
+    },
+    {
+      path: `${RoutesConst.sellerCenterIntPort}`,
+      component: PortComponent,
+      canActivate: [AuthService],
+      data: {title: 'Port'}
     }
   ])
 ];

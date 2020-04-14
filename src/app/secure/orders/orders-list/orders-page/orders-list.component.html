@@ -193,9 +193,11 @@
                   <mat-icon>description</mat-icon>
                   <span>{{'actions.print_receipt' | translate}}</span>
                 </button>
-                <button id="print-rot-button-order-{{index}}" mat-menu-item>
+                <button id="print-rot-button-order-{{index}}"
+                  *ngIf="isInternational && element.statusOrder == const.NameOrderAsignado"
+                  (click)="downloadLabel(element)" mat-menu-item>
                   <mat-icon>label_outline</mat-icon>
-                  <span>{{'actions.print_label' | translate}}</span>
+                  <span>{{'actions.download_label' | translate}}</span>
                 </button>
                 <button id="add-billing-button-order-{{index}}" (click)="openLoadFile(element)" mat-menu-item
                   [disabled]="element.billUrl" *ngIf="attachmentPermission">

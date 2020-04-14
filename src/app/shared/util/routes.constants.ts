@@ -57,6 +57,7 @@ export class RoutesConst {
     static readonly categoryTree: any = 'category-tree';
     static readonly reportOffertAdmin: any = 'category-tree';
     static readonly listCalification: any = 'quality-score';
+    static readonly port: any = 'port';
 
 
     /* Support Center */
@@ -125,6 +126,7 @@ export class RoutesConst {
     static readonly sellerCenterIntSellerProfiles: any = RoutesConst.sellerCenterSellers + '/' + RoutesConst.sellerProfiles;
     static readonly sellerCenterIntSellerList: any = RoutesConst.sellerCenterSellers + '/' + RoutesConst.sellerList;
     static readonly sellerCenterIntCategoryTree: any = RoutesConst.securehome + '/' + RoutesConst.categoryTree;
+    static readonly sellerCenterIntPort: any = RoutesConst.securehome + '/' + RoutesConst.port;
 
     static readonly sellerCenterIntShipmentsExitoHist: any = RoutesConst.sellerCenterShipmentsExito + '/' + RoutesConst.shipmentsExitoHist;
     static readonly sellerCenterIntShipmentsExitoOffice: any = RoutesConst.sellerCenterShipmentsExito + '/' + RoutesConst.shipmentsExitoOffice;
