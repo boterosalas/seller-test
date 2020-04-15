@@ -173,7 +173,7 @@ describe('DownloadOrderModalComponent', () => {
     });
   });
 
-  fdescribe('Funcion obtener las facturas ERROR SERV', () => {
+  describe('Funcion obtener las facturas ERROR SERV', () => {
     beforeEach(() => {
       mockDownloadOrderService.downloadBilling.and.returnValue(throwError('falle'));
       fixture.detectChanges();
