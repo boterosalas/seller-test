@@ -297,7 +297,6 @@ export class PortComponent implements OnInit {
     let word = this.formPort.controls.country.value;
     if (word) {
       word = word.trim();
-      if (this.keywords.length < 20) {
         if (word.search(',') === -1) {
           this.keywords.push(word);
         } else {
@@ -311,11 +310,6 @@ export class PortComponent implements OnInit {
         this.formPort.controls.country.clearValidators();
         this.formPort.controls.country.reset();
         this.validateKey = this.keywords.length > 0 ? false : true;
-      } else {
-        this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.basic_information.only_up_to_20_keywords'), 'Cerrar', {
-          duration: 3000,
-        });
-      }
     }
   }
   /**
