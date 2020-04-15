@@ -172,6 +172,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   private searchSubscription: any;
   public userCurrent: any;
   public isInternational = false;
+  currentLanguage: string;
   // Método que permite crear la fila de detalle de la tabla
   isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
 
@@ -228,6 +229,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       this.getOrdersList(paramsArray);
 
     });
+    this.changeLanguage();
   }
 
   async getAllDataUser() {
@@ -245,6 +247,26 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       }
     }
   }
+
+  changeLanguage() {
+    if (localStorage.getItem('culture_current') !== 'US') {
+    this.currentLanguage = 'ES';
+    localStorage.setItem('culture_current', 'ES');
+    } else {
+        this.currentLanguage = 'US';
+        localStorage.setItem('culture_current', 'US');
+    }
+    this.languageService.onLangChange.subscribe((e: Event) => {
+        localStorage.setItem('culture_current', e['lang']);
+        const paramsArray = {
+          'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
+          'idSeller': this.idSeller,
+          'state': this.lastState,
+          'callOne': true
+        };
+        this.getOrdersList(paramsArray);
+    });
+}
 
 
   /**
