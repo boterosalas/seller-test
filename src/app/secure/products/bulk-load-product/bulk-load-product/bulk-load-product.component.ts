@@ -1864,8 +1864,9 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           break;
         case 'formatPackage':
           if ((inputtxt.match(this.productsRegex.Package))) {
-            const num = parseInt(inputtxt, 10);
-            if (num > 0) {
+            // const num = parseInt(inputtxt, 10);
+            const num = inputtxt.replace(',', '.');
+            if (+num > 0) {
               valueReturn = true;
             } else {
               valueReturn = false;
