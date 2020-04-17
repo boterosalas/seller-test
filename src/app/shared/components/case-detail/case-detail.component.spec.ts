@@ -1,14 +1,21 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { CaseDetailComponent } from "./case-detail.component";
+import { SharedModule } from "@app/shared/shared.module";
+import { BasicCardComponent } from "../basic-card/basic-card.component";
+import { MaterialModule } from "@app/material.module";
 
-/* describe("CaseDetailComponent", () => {
+describe("CaseDetailComponent", () => {
   let component: CaseDetailComponent;
   let fixture: ComponentFixture<CaseDetailComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CaseDetailComponent]
+      declarations: [CaseDetailComponent],
+      imports: [
+        MaterialModule,
+        BasicCardComponent
+      ]
     }).compileComponents();
   }));
 
@@ -22,4 +29,4 @@ import { CaseDetailComponent } from "./case-detail.component";
     expect(component).toBeTruthy();
   });
 });
- */
+
