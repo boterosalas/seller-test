@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBarModule, MatFormFieldControl, MatInputModule } from '@angular/material';
 import { DownloadBillingpayModalComponent } from './download-billingpay-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -30,7 +30,7 @@ describe('DownloadBillingpayModalComponent', () => {
 
   let loadingService: LoadingService;
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
@@ -80,11 +80,12 @@ describe('DownloadBillingpayModalComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create', (done) => {
     expect(component).toBeTruthy();
+    done();
   });
 
-  it('valid email', () => {
+  it('valid email', (done) => {
     const emailField = fixture.debugElement.query(By.css('#emailPago'));
     expect(emailField).toBeTruthy();
     const emailNativeElement = emailField.nativeElement;
@@ -93,9 +94,10 @@ describe('DownloadBillingpayModalComponent', () => {
     fixture.detectChanges();
     component.downloadPay(component.myform);
     expect(component.myform.controls.email.errors).toBeNull();
+    done();
   });
 
-  it('invalid email', () => {
+  it('invalid email', (done) => {
     const emailField = fixture.debugElement.query(By.css('#emailPago'));
     expect(emailField).toBeTruthy();
     const emailNativeElement = emailField.nativeElement;
@@ -103,6 +105,7 @@ describe('DownloadBillingpayModalComponent', () => {
     emailNativeElement.dispatchEvent(new Event('input'));
     fixture.detectChanges();
     expect(component.myform.controls.email.errors).not.toBeNull();
+    done();
   });
 
 });

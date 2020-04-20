@@ -1,4 +1,4 @@
-import { async } from '@angular/core/testing';
+import { async, fakeAsync } from '@angular/core/testing';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { MaterialModule } from '@app/material.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -142,7 +142,7 @@ describe('CreateDialogComponent', () => {
     };
     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner', 'viewProgressBar', 'closeProgressBar' ]);
 
-    beforeEach(async(() => {
+    beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             declarations: [
                 CreateDialogComponent
@@ -178,39 +178,44 @@ describe('CreateDialogComponent', () => {
         fixture.detectChanges();
     });
 
-    it('should create CreateDialogComponent', () => {
+    it('should create CreateDialogComponent', (done) => {
         expect(component).toBeTruthy();
+        done();
     });
 
-    it('should create zone', () => {
+    it('should create zone', (done) => {
         component.dialogMode = false;
         component.saveZone();
         fixture.detectChanges();
+        done();
     });
 
-    it('should update zone', () => {
+    it('should update zone', (done) => {
         component.dialogMode = true;
         component.idToEdit = 1;
         structureJsonZone.status = 201;
         component.saveZone();
+        done();
     });
 
-    it('shoult create zone dialog', () => {
+    it('shoult create zone dialog', (done) => {
         component.dialogMode = false;
         component.idToEdit = null;
         component.ngOnInit();
         expect(component.formZone.valid).toBeFalsy();
+        done();
     });
 
-    it('shoult create zone dialog but charge zone get error', () => {
+    it('shoult create zone dialog but charge zone get error', (done) => {
         component.dialogMode = true;
         component.idToEdit = 1;
         component.ngOnInit();
         structureJsonZone.status = 400;
         component.saveZone();
+        done();
     });
 
-    it('should create CreateDialogComponent to transports and validate his validators', () => {
+    it('should create CreateDialogComponent to transports and validate his validators', (done) => {
         component.typeDialog = 1;
         component.idToEdit = null;
         component.dialogMode = false;
@@ -231,14 +236,16 @@ describe('CreateDialogComponent', () => {
         idShippingMethod.setValue(shippingMethodsList[0].Id);
         expect(component.formTransporter.valid).toBeTruthy();
         component.saveTransport();
+        done();
     });
 
-    it('should update transport', () => {
+    it('should update transport', (done) => {
         component.typeDialog = 1;
         component.idToEdit = transport.Id;
         component.ngOnInit();
         fixture.detectChanges();
         expect(component.formTransporter.valid).toBeTruthy();
         component.saveTransport();
+        done();
     });
 });

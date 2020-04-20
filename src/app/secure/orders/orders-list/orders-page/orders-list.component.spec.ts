@@ -1,5 +1,5 @@
 /* 3rd party components */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { OrdersListComponent } from './orders-list.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -142,7 +142,7 @@ describe('ordersList', () => {
     let dialogComponent: DialogWithFormComponent;
     let supportService: SupportService;
 
-    beforeEach(async(() => {
+    beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 CommonModule,
@@ -201,7 +201,7 @@ describe('ordersList', () => {
         });
     }));
 
-    beforeEach(async function() {
+    beforeEach(() => {
         mockAuthService.getMenu.and.returnValue(registerMenu);
         mockAuthService.getMenuProfiel.and.returnValue(registerMenu);
         fixture = TestBed.createComponent(OrdersListComponent);
@@ -221,16 +221,19 @@ describe('ordersList', () => {
         fixture.detectChanges();
     });
 
-    it('1', async function() {
+    it('1', (done) => {
         expect(orderService).toBeTruthy();
         expect(orderComponent).toBeTruthy();
+        done();
     });
-    it('2', async function() {
+    it('2', (done) => {
         orderComponent.stopPropagation(new Event('change'));
+        done();
     });
-    it('3', async function() {
+    it('3', (done) => {
         orderComponent.dataSource = new MatTableDataSource();
         orderComponent.isAllSelected();
+        done();
     });
 
     afterAll(() => {

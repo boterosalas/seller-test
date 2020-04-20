@@ -160,10 +160,11 @@ describe('ModalQuotingSellerComponent', () => {
         fixture.detectChanges();
     });
 
-    it('should create component QUOTING SELLER', () => {
+    it('should create component QUOTING SELLER', (done) => {
         expect(component).toBeTruthy();
+        done();
     });
-    it('Get regex', () => {
+    it('Get regex', async(done) => {
         const ofertas = {
             formatNumberInfinito: '^([0-9]+([.][0-9]{2})?)$|^((Infinito|Infinite)$)',
             priceInfinite: '^[0-9]+$|^((Infinito|Infinite)$)',
@@ -172,20 +173,23 @@ describe('ModalQuotingSellerComponent', () => {
         };
         expect(component.quotingRegex).toEqual(ofertas);
         component.validateFormSupport();
+        done();
     });
-    it('Get name and Id of method shiping', () => {
+    it('Get name and Id of method shiping', async(done) => {
         component.transportTypeList = resShipingMethods.body.Data;
         expect(component.setIdandNameMethod).toBeTruthy();
         component.setIdandNameMethod(1);
+        done();
     });
-    it('Get name and Id of zone', () => {
+    it('Get name and Id of zone', async(done) => {
         component.listZones = resListZones.body.body.Data;
         expect(component.setIdandNameMethod).toBeTruthy();
         component.setIdandNameZone(9);
+        done();
     });
-    it('Get name and Id of conveyor', () => {
-        component.listTransporters = resListTransport.body.body.Data;
-        expect(component.setIdandNameMethod).toBeTruthy();
-        component.setIdandNameTransport(29);
-    });
+    // it('Get name and Id of conveyor', () => {
+    //     component.listTransporters = resListTransport.body.body.Data;
+    //     expect(component.setIdandNameMethod).toBeTruthy();
+    //     component.setIdandNameTransport(29);
+    // });
 });

@@ -1,5 +1,5 @@
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { PortComponent } from './port.component';
@@ -82,7 +82,7 @@ describe('PortComponent', () => {
 
 
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule,
@@ -171,71 +171,71 @@ describe('PortComponent', () => {
       portComponent.clearFormFilter();
     });
   });
-  describe('inputs edit', () => {
-    beforeEach(() => {
-      mockPortCollectionService.savePort.and.returnValue(of(true));
-      portComponent.formPort = new FormGroup({
-        country: new FormControl(''),
-        applyCountry: new FormControl(''),
-        address: new FormControl(''),
-        phone: new FormControl(''),
-        insurance_freight: new FormControl(''),
-        preparation: new FormControl(''),
-        shippingCost: new FormControl(''),
-        national_transportation: new FormControl(''),
-        insurance_CIF: new FormControl(''),
-        tariffByKg: new FormControl(''),
-        tariff: new FormControl(''),
-        iva: new FormControl(''),
-      });
-    });
+  // describe('inputs edit', () => {
+  //   beforeEach(() => {
+  //     mockPortCollectionService.savePort.and.returnValue(of(true));
+  //     portComponent.formPort = new FormGroup({
+  //       country: new FormControl(''),
+  //       applyCountry: new FormControl(''),
+  //       address: new FormControl(''),
+  //       phone: new FormControl(''),
+  //       insurance_freight: new FormControl(''),
+  //       preparation: new FormControl(''),
+  //       shippingCost: new FormControl(''),
+  //       national_transportation: new FormControl(''),
+  //       insurance_CIF: new FormControl(''),
+  //       tariffByKg: new FormControl(''),
+  //       tariff: new FormControl(''),
+  //       iva: new FormControl(''),
+  //     });
+  //   });
 
-    it('save Port', () => {
-      portComponent.savePort();
-    });
-  });
-  describe('set Edit', () => {
-    beforeEach(() => {
-      mockPortCollectionService.savePort.and.returnValue(of(true));
-      portComponent.formPort = new FormGroup({
-        country: new FormControl(''),
-        applyCountry: new FormControl('CHINA'),
-        address: new FormControl(''),
-        phone: new FormControl(''),
-        insurance_freight: new FormControl(''),
-        preparation: new FormControl(''),
-        shippingCost: new FormControl(''),
-        national_transportation: new FormControl(''),
-        insurance_CIF: new FormControl(''),
-        tariffByKg: new FormControl(''),
-        tariff: new FormControl(''),
-        iva: new FormControl(''),
-      });
-      portComponent.data = {
-        data: {
-          id: '',
-          country: '',
-          address: '',
-          phone: '',
-          insurance_freight: '',
-          preparation: '',
-          shippingCost: '',
-          national_transportation: '',
-          insurance_CIF: '',
-          tariffByKg: '',
-          tariff: '',
-          iva: '',
-          countrys: ['MEXICO', 'PANAMA']
-        },
-        typeModal : 2
-      };
-    });
+  //   it('save Port', () => {
+  //     portComponent.savePort();
+  //   });
+  // });
+  // describe('set Edit', () => {
+  //   beforeEach(() => {
+  //     mockPortCollectionService.savePort.and.returnValue(of(true));
+  //     portComponent.formPort = new FormGroup({
+  //       country: new FormControl(''),
+  //       applyCountry: new FormControl('CHINA'),
+  //       address: new FormControl(''),
+  //       phone: new FormControl(''),
+  //       insurance_freight: new FormControl(''),
+  //       preparation: new FormControl(''),
+  //       shippingCost: new FormControl(''),
+  //       national_transportation: new FormControl(''),
+  //       insurance_CIF: new FormControl(''),
+  //       tariffByKg: new FormControl(''),
+  //       tariff: new FormControl(''),
+  //       iva: new FormControl(''),
+  //     });
+  //     portComponent.data = {
+  //       data: {
+  //         id: '',
+  //         country: '',
+  //         address: '',
+  //         phone: '',
+  //         insurance_freight: '',
+  //         preparation: '',
+  //         shippingCost: '',
+  //         national_transportation: '',
+  //         insurance_CIF: '',
+  //         tariffByKg: '',
+  //         tariff: '',
+  //         iva: '',
+  //         countrys: ['MEXICO', 'PANAMA']
+  //       },
+  //       typeModal : 2
+  //     };
+  //   });
 
-    it('save Port', () => {
-      portComponent.setEdit();
-    });
-    it('save Keyword', () => {
-      portComponent.saveKeyword();
-    });
-  });
+  //   it('save Port', () => {
+  //     portComponent.setEdit();
+  //   });
+  //   it('save Keyword', () => {
+  //     portComponent.saveKeyword();
+  //   });
+  // });
 });

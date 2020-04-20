@@ -1,5 +1,5 @@
 /* 3rd party components */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 
 /* our own custom components */
 import { SupportModalComponent } from './support-modal.component';
@@ -46,7 +46,7 @@ describe('SupportModalComponent', () => {
 
   const loadingService = <LoadingService>{};
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         SupportModalComponent
@@ -80,8 +80,9 @@ describe('SupportModalComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create SupportModalComponent', () => {
+  it('should create SupportModalComponent', (done) => {
     expect(component).toBeTruthy();
+    done();
   });
 
   afterEach(() => {

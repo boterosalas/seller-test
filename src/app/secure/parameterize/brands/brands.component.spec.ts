@@ -1,5 +1,5 @@
 /* 3rd party components */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrandsComponent } from './brands.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -111,7 +111,7 @@ describe('BrandsComponent', () => {
     let dialogComponent: DialogWithFormComponent;
     let supportService: SupportService;
 
-    beforeEach(async(() => {
+    beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 MaterialModule,
@@ -150,7 +150,7 @@ describe('BrandsComponent', () => {
         });
     }));
 
-    beforeEach(() => {
+    beforeEach((() => {
         mockAuthService.getMenu.and.returnValue(registerMenu);
         fixture = TestBed.createComponent(BrandsComponent);
         brandsComponent = fixture.componentInstance;
@@ -161,11 +161,12 @@ describe('BrandsComponent', () => {
         mockSupportService.getRegexFormSupport.and.returnValue(of(registerRegex));
         mockBrandsService.getAllBrands.and.returnValue(of(response));
         fixture.detectChanges();
-    });
+    }));
 
-    it('should create', () => {
+    it('should create', (done) => {
         expect(brandService).toBeTruthy();
         expect(brandsComponent).toBeTruthy();
+        done();
     });
 
 
@@ -177,21 +178,24 @@ describe('BrandsComponent', () => {
             mockBrandsService.getAllBrands.and.returnValue(of(response));
         });
 
-        it('Brands list with data', () => {
+        it('Brands list with data', (done) => {
             fixture.detectChanges();
             brandsComponent.getAllBrands();
             expect(brandsComponent.brandsList).not.toBeNull();
+            done();
         });
-        it('Brands list with filter name and id', () => {
+        it('Brands list with filter name and id', (done) => {
             brandsComponent.filterBrands = filterBrands;
             brandsComponent.getAllBrands();
             expect(brandsComponent.brandsList).not.toBeNull();
+            done();
         });
-        it('Brands list with page size and page paginator undefined', () => {
+        it('Brands list with page size and page paginator undefined', (done) => {
             brandsComponent.pageSize = undefined;
             brandsComponent.pagepaginator = undefined;
             brandsComponent.getAllBrands();
             expect(brandsComponent.brandsList).not.toBeNull();
+            done();
         });
         afterAll(() => {
             TestBed.resetTestingModule();
@@ -205,10 +209,11 @@ describe('BrandsComponent', () => {
             mockBrandsService.getAllBrands.and.returnValue(of(responseEmpty));
         });
 
-        it('Brands list with response empty', () => {
+        it('Brands list with response empty', (done) => {
             fixture.detectChanges();
             brandsComponent.getAllBrands();
             expect(brandsComponent.brandsList).not.toBeNull();
+            done();
         });
         afterAll(() => {
             TestBed.resetTestingModule();
@@ -222,9 +227,10 @@ describe('BrandsComponent', () => {
             mockBrandsService.getAllBrands.and.returnValue(throwError('falle'));
         });
 
-        it('Brands list with response error', () => {
+        it('Brands list with response error', (done) => {
             fixture.detectChanges();
             brandsComponent.getAllBrands();
+            done();
 
         });
         afterAll(() => {
@@ -239,33 +245,37 @@ describe('BrandsComponent', () => {
             mockBrandsService.getAllBrands.and.returnValue(of(response));
         });
 
-        it('Sort data with data', () => {
+        it('Sort data with data', (done) => {
             brandsComponent.brandsList = brands;
             fixture.detectChanges();
             brandsComponent.sortData(sort);
             expect(brandsComponent.brandsList).not.toBeNull();
+            done();
         });
-        it('Sort data with params empty ', () => {
+        it('Sort data with params empty ', (done) => {
             brandsComponent.brandsList = brands;
             fixture.detectChanges();
             brandsComponent.sortData({ active: '', direction: '' });
             expect(brandsComponent.brandsList).not.toBeNull();
+            done();
         });
-        it('Sort data with order id', () => {
+        it('Sort data with order id', (done) => {
             sort.active = 'id';
             brandsComponent.brandsList = brands;
             fixture.detectChanges();
             brandsComponent.sortData(sort);
             const sortDataId = brandsComponent.sortData(sort);
             expect(sortDataId).not.toBeNull();
+            done();
         });
-        it('sort data with order status', () => {
+        it('sort data with order status', (done) => {
             sort.active = 'status';
             brandsComponent.brandsList = brands;
             fixture.detectChanges();
             brandsComponent.sortData(sort);
             const sortDataId = brandsComponent.sortData(sort);
             expect(sortDataId).not.toBeNull();
+            done();
         });
         afterAll(() => {
             TestBed.resetTestingModule();
@@ -279,19 +289,22 @@ describe('BrandsComponent', () => {
             mockBrandsService.getAllBrands.and.returnValue(of(responseEmpty));
         });
 
-        it('set data with id', () => {
+        it('set data with id', (done) => {
             const brandsData = { Id: '636934381618814126', Name: '---------', Status: true, IdVTEX: '2000500', UpdateStatus: false };
             const brandsStatus = brandsComponent.setDataChangeStatusDialog(brandsData);
             expect(brandsStatus.icon).toEqual('edit');
+            done();
         });
-        it('set data with id empty', () => {
+        it('set data with id empty', (done) => {
             const brandsData = {};
             const brandsStatus = brandsComponent.setDataChangeStatusDialog(brandsData);
             expect(brandsStatus.icon).toEqual('control_point');
+            done();
         });
-        it('clear all filter', () => {
+        it('clear all filter', (done) => {
             brandsComponent.cleanAllFilter();
             expect(brandsComponent.listFilterBrands).toEqual([]);
+            done();
         });
         afterAll(() => {
             TestBed.resetTestingModule();
@@ -304,15 +317,17 @@ describe('BrandsComponent', () => {
             mockDialogRef.componentInstance.and.returnValue(dialogComponent);
             fixture.detectChanges();
         });
-        it('change status with data empty', () => {
+        it('change status with data empty', (done) => {
             const event = jasmine.createSpyObj('event', ['preventDefault']);
             const brand = {};
             brandsComponent.changeStatusBrands(event, brand);
+            done();
         });
-        it('change status with data', () => {
+        it('change status with data', (done) => {
             const event = jasmine.createSpyObj('event', ['preventDefault']);
             const brand = { Id: '636934381618814126', Name: '---------', Status: true, IdVTEX: '2000500', UpdateStatus: false };
             brandsComponent.changeStatusBrands(event, brand);
+            done();
         });
         afterAll(() => {
             TestBed.resetTestingModule();
@@ -325,7 +340,7 @@ describe('BrandsComponent', () => {
             brandsComponent.countFilter = 1;
             mockBrandsService.getAllBrands.and.returnValue(of(response));
         });
-        it('apply filter with data', () => {
+        it('apply filter with data', (done) => {
             const newForm = new FormGroup({ filterBrandsId: new FormControl('123456789'), filterBrandsName: new FormControl('SUPERPOPIS') });
             brandsComponent.filterBrands = newForm;
             const drawerr = {
@@ -333,8 +348,9 @@ describe('BrandsComponent', () => {
             };
             brandsComponent.filterApply(drawerr);
             expect(brandsComponent.pagepaginator).toEqual(0);
+            done();
         });
-        it('aplly filter with data empty', () => {
+        it('aplly filter with data empty', (done) => {
             const newForm = new FormGroup({ filterBrandsId: new FormControl(''), filterBrandsName: new FormControl('') });
             brandsComponent.filterBrands = newForm;
             const drawerr = {
@@ -342,6 +358,7 @@ describe('BrandsComponent', () => {
             };
             brandsComponent.filterApply(drawerr);
             expect(brandsComponent.pagepaginator).toEqual(0);
+            done();
         });
         afterAll(() => {
             TestBed.resetTestingModule();
@@ -354,11 +371,12 @@ describe('BrandsComponent', () => {
             brandsComponent.countFilter = 1;
             mockBrandsService.getAllBrands.and.returnValue(of(response));
         });
-        it('remove chips', () => {
+        it('remove chips', (done) => {
             const listFilterBrands: ListFilterBrands = { name: 'filterBrandsId', value: 'filterBrandsId', nameFilter: 'filterBrandsId' };
             brandsComponent.listFilterBrands.push(listFilterBrands);
             brandsComponent.remove(listFilterBrands);
             expect(brandsComponent.listFilterBrands).not.toBeNull();
+            done();
         });
         afterAll(() => {
             TestBed.resetTestingModule();
@@ -369,10 +387,11 @@ describe('BrandsComponent', () => {
             brandsComponent.countFilter = 1;
             mockBrandsService.getAllBrands.and.returnValue(of(response));
         });
-        it('change paginator with page index and page size empty', () => {
+        it('change paginator with page index and page size empty', (done) => {
             const params = { pageSize: 0, pageIndex: 0 };
             brandsComponent.changePaginatorBrands(params);
             expect(brandsComponent.pagepaginator).toEqual(0);
+            done();
         });
         afterAll(() => {
             TestBed.resetTestingModule();
@@ -385,11 +404,12 @@ describe('BrandsComponent', () => {
             mockBrandsService.getAllBrands.and.returnValue(of(response));
             mockBrandsService.validateExistBrands.and.returnValue(of(response));
         });
-        it('Confirmation create brands', () => {
+        it('Confirmation create brands', (done) => {
             const newForm = new FormGroup({ idBrands: new FormControl('123456789'), nameBrands: new FormControl('SUPERPOPIS') });
             brandsComponent.form = newForm;
             brandsComponent.confirmation();
             expect(brandsComponent.body).not.toBeNull();
+            done();
         });
         it('confirmation create with data empty', () => {
             brandsComponent.confirmation();

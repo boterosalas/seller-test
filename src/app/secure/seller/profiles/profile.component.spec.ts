@@ -1,5 +1,5 @@
 import { ProfileComponent } from './profile.component';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { async } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatToolbarModule, MatIconModule, MatButtonModule, MatTooltipModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatRippleModule, MatRadioModule, MatSelectModule, MatDividerModule, MatDialog } from '@angular/material';
@@ -166,7 +166,7 @@ describe('Pruebas unitarias del componente de perfiles ProfileComponent', () => 
     };
 
 
-    beforeEach(async(() => {
+    beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             declarations: [
                 ProfileComponent
@@ -218,8 +218,9 @@ describe('Pruebas unitarias del componente de perfiles ProfileComponent', () => 
         expect(component.profileList).toBeDefined();
     });
 
-    it('Deberia tener lista de menus', () => {
+    it('Deberia tener lista de menus', (done) => {
         expect(component.menuList).toBeDefined();
+        done();
     });
 
     /*  Por cambios en estructura de JSON de perfiles es necesario cambiar 'listMenus' ya que se cambiaron algunos atributos del
