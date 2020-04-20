@@ -1,8 +1,18 @@
+<!-- Headers para tipo perifl seller -->
 <div class="sh-list-header-header" fxLayout="row" fxLayout.xs="row" fxLayoutAlign="center center" fxLayoutGap="10px"
-  fxLayoutGap.xs="0">
+  fxLayoutGap.xs="0" *ngIf="hideHeader === true">
   <div fxFlex="5%">&nbsp;</div>
-
   <div class="sh-list-header-header--item-header" *ngFor="let columnConfiguration of configurations"
+    [fxFlex]="columnConfiguration.md * 5 | flexSize">
+    {{ columnConfiguration.displayName }}
+  </div>
+</div>
+
+<!-- Headers para tipo perifl administrator -->
+<div class="sh-list-header-header" fxLayout="row" fxLayout.xs="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+  fxLayoutGap.xs="0" *ngIf="hideHeader === false">
+  <div fxFlex="5%">&nbsp;</div>
+  <div class="sh-list-header-header--item-header" *ngFor="let columnConfiguration of copyConfigurations"
     [fxFlex]="columnConfiguration.md * 5 | flexSize">
     {{ columnConfiguration.displayName }}
   </div>
