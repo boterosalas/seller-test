@@ -4,14 +4,19 @@
 module.exports = function (config) {
   config.set({
     basePath: '',
-    frameworks: ['jasmine', '@angular-devkit/build-angular'],
+    frameworks: ['parallel', 'jasmine', '@angular-devkit/build-angular'],
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage-istanbul-reporter'),
-      require('@angular-devkit/build-angular/plugins/karma')
+      require('@angular-devkit/build-angular/plugins/karma'),
+      require('karma-parallel'),
     ],
+    parallelOptions: {
+      executors: 4, // Defaults to cpu-count - 1
+      shardStrategy: 'round-robin'
+      },
     client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
@@ -36,13 +41,13 @@ module.exports = function (config) {
         ]
       }
     },
-    browsers: ['ChromeHeadless'],
-    singleRun: true,
-    // browsers: ['Chrome'],
-    // singleRun: false,
+    // browsers: ['ChromeHeadless'],
+    // singleRun: true,
+    browsers: ['Chrome'],
+    singleRun: false,
     captureTimeout: 210000,
     browserDisconnectTolerance: 3, 
-    browserDisconnectTimeout : 210000,
-    browserNoActivityTimeout : 210000,
+    browserDisconnectTimeout : 310000,
+    browserNoActivityTimeout : 310000,
   });
 };

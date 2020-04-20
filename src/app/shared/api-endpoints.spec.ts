@@ -9,8 +9,9 @@ describe('endpoints', () => {
     beforeEach(() => {
     });
 
-    it('Deberia obtener los api endpoints de desarrollo', () => {
+    it('Deberia obtener los api endpoints de desarrollo', (done) => {
         expect(endpoints.stage).toBeDefined();
+        done();
     });
 
     it('Deberia tener el mismo numero de endpoints en produccion y en desarrollo', () => {
