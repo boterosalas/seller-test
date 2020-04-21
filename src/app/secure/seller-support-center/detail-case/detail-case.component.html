@@ -2,7 +2,11 @@
 
 <mat-toolbar>
   <div class="prev-view">
-    <a [routerLink]="['/securehome/seller-center/support-center']">
+    <!-- <a [routerLink]="['/securehome/seller-center/support-center']">
+      <mat-icon>keyboard_arrow_left</mat-icon>
+      {{'secure.parametize.support_claims.back-to-claims' | translate}}
+    </a> -->
+    <a (click)="redirecToListClaims()">
       <mat-icon>keyboard_arrow_left</mat-icon>
       {{'secure.parametize.support_claims.back-to-claims' | translate}}
     </a>

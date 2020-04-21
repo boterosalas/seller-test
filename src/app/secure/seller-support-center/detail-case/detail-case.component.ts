@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {
   trigger,
   state,
@@ -18,6 +18,7 @@ import { MatDialog } from '@angular/material';
 import { StoreService } from '@app/store/store.service';
 import { ConfigurationState } from '@app/store/configuration';
 import { TranslateService } from '@ngx-translate/core';
+import { CaseSupportCenterService } from '../services/case-support-center.service';
 
 @Component({
   selector: 'app-detail-case',
@@ -56,6 +57,10 @@ export class DetailCaseComponent implements OnInit {
   };
   filterParams: any;
 
+  // @Output()
+  // change: EventEmitter<any> = new EventEmitter<any>();
+  // pruebaSeller: any;
+
   constructor(
     public dialog: MatDialog,
     private sellerSupportService: SellerSupportCenterService,
@@ -63,6 +68,8 @@ export class DetailCaseComponent implements OnInit {
     private loadingService?: LoadingService,
     private storeService?: StoreService,
     private translateService?: TranslateService,
+    public redirecServ?: CaseSupportCenterService
+
   ) { }
 
   ngOnInit(): void {
@@ -75,6 +82,11 @@ export class DetailCaseComponent implements OnInit {
       .pipe(map((res: CaseDetailResponse) => res.data));
 
     this.case$.subscribe(() => this.loadingService.closeSpinner());
+  }
+
+  redirecToListClaims() {
+    this.redirecServ.redirectToListServ();
+    // this.pruebaSeller = this.redirecServ.sellerIdCase;
   }
 
   toggleFilter(stateFilter: boolean) {
@@ -122,6 +134,7 @@ export class DetailCaseComponent implements OnInit {
       this.options = res.statusCases;
       this.case$ = this.sellerSupportService
         .getCase(this.route.snapshot.paramMap.get('idCase'))
+        // tslint:disable-next-line:no-shadowed-variable
         .pipe(map((res: CaseDetailResponse) => res.data));
     });
   }

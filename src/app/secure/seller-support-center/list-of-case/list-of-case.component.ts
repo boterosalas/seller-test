@@ -91,7 +91,8 @@ export class ListOfCaseComponent implements OnInit {
     private storeService?: StoreService,
     private translateService?: TranslateService,
     private emitterSeller?: EventEmitterSeller,
-    private profileService?: MyProfileService
+    private profileService?: MyProfileService,
+    private route?: ActivatedRoute,
   ) {
     this.getAllDataUser();
   }
@@ -189,6 +190,10 @@ export class ListOfCaseComponent implements OnInit {
 
   loadCases(filter?: any) {
     this.loadingService.viewSpinner();
+    const urlIdSeller = this.route.snapshot.paramMap.get('idSeller');
+    if (!filter.SellerId && urlIdSeller) {
+      filter.SellerId = urlIdSeller;
+    }
     this.sellerSupportService.getAllCase(filter).subscribe(
       res => {
         if (res && res['status'] === 200) {

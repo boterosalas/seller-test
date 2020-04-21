@@ -18,6 +18,11 @@ const routes: Routes = [
       path: `${RoutesConst.sellerCenterCasesDetail}`,
       component: DetailCaseComponent,
       data: { title: 'Detalle Caso' }
+    },
+    {
+      path: `${RoutesConst.sellerCenterCases}/:idSeller`,
+      component: ListOfCaseComponent,
+      data: { title: 'Administrar Casos' }
     }
   ])
 ];
