@@ -14,6 +14,7 @@ import {
   MatSnackBarModule,
   MatSidenavContainer,
   MatNativeDateModule,
+  MatInputModule,
 } from '@angular/material';
 import { ListOfCaseComponent } from './list-of-case.component';
 import { EndpointService, LoadingService, ModalService } from '@app/core'
@@ -46,9 +47,10 @@ import { ConfigurationState } from '@app/store/configuration';
 import { CoreState } from '@app/store';
 import { StoreService } from '@app/store/store.service';
 import { StoreTestModule } from '../store-test/store-test.module';
+import { EventEmitter } from '@angular/core';
 
 
-fdescribe('CaseComponentComponent', () => {
+describe('ListOfCaseComponent', () => {
   let component: ListOfCaseComponent;
   let fixture: ComponentFixture<ListOfCaseComponent>;
   const configurationState: ConfigurationState = { language: 'US', statusCases: [] };
@@ -77,6 +79,7 @@ fdescribe('CaseComponentComponent', () => {
       imports: [
         HttpClientModule,
         FlexModule,
+        MatInputModule,
         TranslateModule.forRoot({}),
         RouterTestingModule,
         BrowserAnimationsModule,
@@ -92,7 +95,7 @@ fdescribe('CaseComponentComponent', () => {
         MatIconModule,
         MatPaginatorModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
       ],
       providers: [
         EndpointService,
@@ -113,7 +116,7 @@ fdescribe('CaseComponentComponent', () => {
         { provide: StoreService, useClass: StoreServiceTest },
         { provide: LoadingService, useValue: mockLoadingService },
         { provide: ModalService, useValue: mockDialogError },
-        { provide: MyProfileService, useValue: mockMyProfileService },
+        { provide: MyProfileService, useClass: MyProfileServiceTest },
         { provide: MatSidenavContainer, useValue: {} },
       ]
     }).compileComponents();
@@ -148,15 +151,8 @@ class StoreServiceTest {
   }
 }
 
-class MyProfileServiceTest {
-  getUser() {
-    return [];
-  }
-}
-
 class StoreTest {
   select(): Observable<any> {
-    debugger
     return of(
       {
         notification: {
@@ -168,8 +164,35 @@ class StoreTest {
 }
 
 class EventEmitterSellerTest {
-  searchSeller() {
-    debugger
-    return of({ idSeller: "2134516" })
+
+  eventSearchSeller = new EventEmitter<any>();
+  seller = {
+    IdSeller: "qwe"
+  }
+
+  constructor() {
+    this.eventSearchSeller.next(this.seller)
+  }
+
+  searchSeller(seller: any) {
+    this.eventSearchSeller.emit(seller);
+  }
+}
+
+class MyProfileServiceTest {
+  getUser() {
+    const responseTxt =
+      JSON.stringify(
+        {
+          Data: {
+            IdSeller: "as",
+            Profile: "seller"
+          }
+        }
+      );
+    const response = {
+      body: { body: responseTxt }
+    }
+    return of(response);
   }
 }
