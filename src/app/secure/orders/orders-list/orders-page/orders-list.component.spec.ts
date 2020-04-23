@@ -218,6 +218,7 @@ describe('ordersList', () => {
             }
         };
         mockUserParameterService.getUserData.and.returnValue(of(responseGetUser));
+        mockOrderService.getOrderList.and.returnValue(of([{}, {}]));
         fixture.detectChanges();
     });
 

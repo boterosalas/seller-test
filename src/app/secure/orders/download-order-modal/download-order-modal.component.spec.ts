@@ -18,6 +18,7 @@ import { ComponentsService } from '@app/shared';
 import { UserParametersService, LoadingService, EndpointService, CognitoUtil } from '@app/core';
 import { of, throwError } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
+import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 
 
 describe('DownloadOrderModalComponent', () => {
@@ -54,7 +55,7 @@ describe('DownloadOrderModalComponent', () => {
         FormsModule,
         RouterTestingModule,
         BrowserAnimationsModule,
-        HttpClientModule,
+        HttpClientTestingModule,
         TranslateModule.forRoot({}),
       ],
       declarations: [
