@@ -111,6 +111,7 @@ export class ListOfCaseComponent implements OnInit {
   };
   filterLastPost: string;
 
+  selectedCategory: string;
 
   constructor(
     public dialog: MatDialog,
@@ -130,6 +131,9 @@ export class ListOfCaseComponent implements OnInit {
 
   ) {
     this.getAllDataUser();
+    if (localStorage.getItem('sellerNameClaim')) {
+      this.selectedCategory = localStorage.getItem('sellerNameClaim');
+    }
   }
 
   ngOnInit() {
@@ -164,6 +168,8 @@ export class ListOfCaseComponent implements OnInit {
     });
 
     this.emitterSeller.eventSearchSeller.subscribe(data => {
+      this.selectedCategory = data.Name;
+      localStorage.setItem('sellerNameClaim', this.selectedCategory);
       this.sellerIdLogger = {
         'SellerId': data.IdSeller
       };
@@ -185,13 +191,12 @@ export class ListOfCaseComponent implements OnInit {
   }
 
   public filterApply(param?: any) {
-    console.log('param', this.filterListCases.controls.CaseNumber.value);
     this.paramsFIlterListCase.CaseNumber = this.filterListCases.controls.CaseNumber.value;
     this.paramsFIlterListCase.LastPost = this.filterListCases.controls.LastPost.value;
     this.paramsFIlterListCase.Status = [this.filterListCases.controls.Status.value];
     this.paramsFIlterListCase.OrderNumber = this.filterListCases.controls.OrderNumber.value;
     if (this.isAdmin) {
-    this.paramsFIlterListCase.SellerId = this.paramsFilter.SellerId;
+      this.paramsFIlterListCase.SellerId = this.paramsFilter.SellerId;
     }
     this.paramsFIlterListCase.DateInit = this.formatDate.transform(
       this.filterDateInit,

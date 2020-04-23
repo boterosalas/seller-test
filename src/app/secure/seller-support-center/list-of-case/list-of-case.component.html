@@ -11,7 +11,12 @@
       <div class="search-container">
         <app-search-seller id="contet-searc-store" class="search-content">
         </app-search-seller>
+        <h6 *ngIf="selectedCategory">
+          {{'secure.products.create_product_unit.categorization.list.you_selected' | translate}}: <strong
+            [innerHTML]="selectedCategory"></strong>
+        </h6>
       </div>
+     
     </div>
   </mat-toolbar>
 </div>
