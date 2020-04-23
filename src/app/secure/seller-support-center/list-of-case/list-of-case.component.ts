@@ -146,7 +146,7 @@ export class ListOfCaseComponent implements OnInit {
 
   ) {
     this.getAllDataUser();
-    if (localStorage.getItem('sellerNameClaim')) {
+    if (localStorage.getItem('sellerNameClaim') && this.route.snapshot.paramMap.get('idSeller')) {
       this.selectedCategory = localStorage.getItem('sellerNameClaim');
     }
   }
@@ -254,27 +254,12 @@ export class ListOfCaseComponent implements OnInit {
       this.paramsFIlterListCase.SellerId = urlIdSeller;
     }
 
-    if (!this.paramsFIlterListCase.SellerId) {
-      delete this.paramsFIlterListCase.SellerId;
-    }
+    // Se valida si cada elemento del objeto tiene elementos, sino se elimina.
 
-    if (!this.paramsFIlterListCase.CaseNumber) {
-      delete this.paramsFIlterListCase.CaseNumber;
-    }
-    if (!this.paramsFIlterListCase.LastPost) {
-      delete this.paramsFIlterListCase.LastPost;
-    }
-    if (!this.paramsFIlterListCase.Status || this.paramsFIlterListCase.Status === null || this.paramsFIlterListCase.Status === []) {
-      delete this.paramsFIlterListCase.Status;
-    }
-    if (!this.paramsFIlterListCase.OrderNumber) {
-      delete this.paramsFIlterListCase.OrderNumber;
-    }
-    if (!this.paramsFIlterListCase.DateInit) {
-      delete this.paramsFIlterListCase.DateInit;
-    }
-    if (!this.paramsFIlterListCase.DateEnd) {
-      delete this.paramsFIlterListCase.DateEnd;
+    for (const item in this.paramsFIlterListCase) {
+      if (!this.paramsFIlterListCase[item] || this.paramsFIlterListCase[item] === null || this.paramsFIlterListCase[item] === []) {
+        delete this.paramsFIlterListCase[item];
+      }
     }
 
     this.validateFinalDateRange();
@@ -293,19 +278,19 @@ export class ListOfCaseComponent implements OnInit {
     const init = this.filterDateInit;
     const final = this.filterDateEnd;
     const sumDays = ((+new Date(final) - +new Date(init)) / 1000 / 60 / 60 / 24);
-      if (+new Date(init) > +new Date(final)) {
+    if (+new Date(init) > +new Date(final)) {
+      this.hasErrorDate = true;
+      this.snackBar.open(this.translateService.instant('secure.products.create_product_unit.list_products.date_must_no_be_initial_date'), this.translateService.instant('actions.close'), {
+        duration: 4000,
+      });
+    } else {
+      if (sumDays > 15) {
         this.hasErrorDate = true;
-        this.snackBar.open(this.translateService.instant('secure.products.create_product_unit.list_products.date_must_no_be_initial_date'), this.translateService.instant('actions.close'), {
+        this.snackBar.open(this.translateService.instant('secure.parametize.support_claims.list.error.rangeDate'), this.translateService.instant('actions.close'), {
           duration: 4000,
         });
-      } else {
-        if (sumDays > 15) {
-          this.hasErrorDate = true;
-          this.snackBar.open(this.translateService.instant('secure.parametize.support_claims.list.error.rangeDate'), this.translateService.instant('actions.close'), {
-            duration: 4000,
-          });
-        }
       }
+    }
   }
 
   /**

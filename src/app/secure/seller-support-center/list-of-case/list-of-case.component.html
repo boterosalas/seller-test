@@ -21,47 +21,7 @@
   </mat-toolbar>
 </div>
 <div>
-  <!-- <mat-drawer-container style="height: 80%;" class="drawer-container" [hasBackdrop]="true">
-    <app-case-toolbar (changePagination)="changePagination($event)" [length]="length" [pageIndex]="pageIndex"
-      [pageSize]="pageSize">
-    </app-case-toolbar>
-    <button type="button" mat-button (click)="drawer.toggle()">
-      <mat-icon>filter_list</mat-icon>
-      <small class="sub-title-filter">filtro JOSE</small>
-    </button>
-
-    <ng-template [ngIf]="cases">
-      <app-drop-down-list [data]="cases" [options]="options" [configurations]="headerConfigurations">
-
-        <ng-container *itemDropDownList>
-          <app-drop-down-box *ngFor="let item of cases; let i = index" [data]="item" [read]="item.read"
-            (opened)="markAsRead($event)" [index]="i">
-            <ng-container *itemCaseList>
-              <app-case-summary (clickResponse)="onEmitResponse($event)" [case]="item"
-                [disabledClass]="item.status === 'Cerrado'" [indexParent]="i"></app-case-summary>
-            </ng-container>
-          </app-drop-down-box>
-        </ng-container>
-
-      </app-drop-down-list>
-    </ng-template>
-
-    <div [ngClass]="filter ? 'support-center-case__filter-container' : 'hidden-content'">
-      <div [@slideInOut]="menuState" [ngClass]="filter ? 'support-filter' : 'hidden-content'">
-      <app-case-filter (eventFilter)="toggleFilter($event)" [stateFilter]="filter" [options]="options">
-      </app-case-filter>
-    </div> -->
-  <!-- <mat-drawer #drawer [mode]="'over'" [position]="'end'" class="example-sidenav" [disableClose]="true">
-        <form class="basic-info" #createfilterListCases="ngForm" [formGroup]="filterListCases"
-          class="seller-filter-sidenav" *ngIf="filterListCases">
-          <div fxLayout="row" fxLayoutAlign="space-between center">
-            <h3>{{'secure.products.create_product_unit.list_products.product_filter' | translate}}</h3>
-
-          </div>
-        </form>
-      </mat-drawer>
-    </div>
-  </mat-drawer-container> -->
+ 
 </div>
 <mat-drawer-container class="example-container" autosize>
   <mat-drawer #drawer [mode]="'over'" [position]="'end'" class="example-sidenav" [disableClose]="true">
