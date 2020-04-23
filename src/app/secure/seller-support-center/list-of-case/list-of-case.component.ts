@@ -36,7 +36,7 @@ import { CustomPaginator } from '@app/secure/products/list-products/listFilter/p
   styleUrls: ['./list-of-case.component.scss'],
   providers: [
     { provide: MatPaginatorIntl, useValue: CustomPaginator() }
-],
+  ],
   animations: [
     trigger('slideInOut', [
       state(
@@ -106,7 +106,8 @@ export class ListOfCaseComponent implements OnInit {
     OrderNumber: '',
     Status: [],
     DateInit: '',
-    DateEnd: ''
+    DateEnd: '',
+    SellerId: ''
   };
   filterLastPost: string;
 
@@ -189,7 +190,9 @@ export class ListOfCaseComponent implements OnInit {
     this.paramsFIlterListCase.LastPost = this.filterListCases.controls.LastPost.value;
     this.paramsFIlterListCase.Status = [this.filterListCases.controls.Status.value];
     this.paramsFIlterListCase.OrderNumber = this.filterListCases.controls.OrderNumber.value;
-
+    if (this.isAdmin) {
+    this.paramsFIlterListCase.SellerId = this.paramsFilter.SellerId;
+    }
     this.paramsFIlterListCase.DateInit = this.formatDate.transform(
       this.filterDateInit,
       'y-MM-d'
@@ -199,13 +202,22 @@ export class ListOfCaseComponent implements OnInit {
       'y-MM-d'
     );
 
+    const urlIdSeller = this.route.snapshot.paramMap.get('idSeller');
+    if (!this.paramsFIlterListCase.SellerId && urlIdSeller) {
+      this.paramsFIlterListCase.SellerId = urlIdSeller;
+    }
+
+    if (!this.paramsFIlterListCase.SellerId) {
+      delete this.paramsFIlterListCase.SellerId;
+    }
+
     if (!this.paramsFIlterListCase.CaseNumber) {
       delete this.paramsFIlterListCase.CaseNumber;
     }
     if (!this.paramsFIlterListCase.LastPost) {
       delete this.paramsFIlterListCase.LastPost;
     }
-    if (!this.paramsFIlterListCase.Status) {
+    if (!this.paramsFIlterListCase.Status || this.paramsFIlterListCase.Status === null) {
       delete this.paramsFIlterListCase.Status;
     }
     if (!this.paramsFIlterListCase.OrderNumber) {
@@ -226,8 +238,26 @@ export class ListOfCaseComponent implements OnInit {
   }
 
   public cleanFilter() {
-    this.filterListCases.reset();
-    this.loadCases(this.filterListCases.value);
+    if (this.isAdmin) {
+      this.filterListCases.reset();
+      // this.paramsFIlterListCase.CaseNumber = this.filterListCases.controls.CaseNumber.value;
+      // this.paramsFIlterListCase.LastPost = this.filterListCases.controls.LastPost.value;
+      // this.paramsFIlterListCase.Status = [this.filterListCases.controls.Status.value];
+      // this.paramsFIlterListCase.OrderNumber = this.filterListCases.controls.OrderNumber.value;
+      // // this.paramsFIlterListCase.SellerId = this.paramsFilter.SellerId;
+      // this.paramsFIlterListCase.DateInit = '';
+      // this.paramsFIlterListCase.DateEnd = '';
+      // this.paramsFIlterListCase.SellerId = this.paramsFilter.SellerId;
+      // this.loadCases(this.paramsFIlterListCase);
+
+      this.filterApply();
+    } else {
+      this.filterListCases.reset();
+      this.loadCases(this.filterListCases.value);
+
+    }
+
+
   }
 
   async getAllDataUser() {
