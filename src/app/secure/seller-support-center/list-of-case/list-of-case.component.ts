@@ -8,7 +8,7 @@ import {
 } from '@angular/animations';
 import { SellerSupportCenterService } from '../services/seller-support-center.service';
 import { ResponseCaseDialogComponent } from '@shared/components/response-case-dialog/response-case-dialog.component';
-import { MatDialog, MatSnackBar, MatPaginatorIntl } from '@angular/material';
+import { MatDialog, MatSnackBar, MatPaginatorIntl, ErrorStateMatcher } from '@angular/material';
 import { LoadingService, ModalService } from '@app/core';
 import { Logger } from '@core/util/logger.service';
 import { ActivatedRoute } from '@angular/router';
@@ -25,10 +25,18 @@ import { StoreService } from '@app/store/store.service';
 import { TranslateService } from '@ngx-translate/core';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { MatPaginatorI18nService } from '@app/shared/services/mat-paginator-i18n.service';
 import { CustomPaginator } from '@app/secure/products/list-products/listFilter/paginatorList';
+import { SupportService } from '@app/secure/support-modal/support.service';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-list-of-case',
@@ -91,6 +99,11 @@ export class ListOfCaseComponent implements OnInit {
 
   public valuePost: any;
 
+  regexFilter = {
+    caseNumber: '',
+    orderNumber: ';'
+  };
+
   // Modelo de ultima respuesta
   public lastPost = [
     { valuePost: 1, name: this.translateService.instant('secure.parametize.support_claims-filter.sac_answer') },
@@ -127,7 +140,8 @@ export class ListOfCaseComponent implements OnInit {
     private profileService?: MyProfileService,
     private route?: ActivatedRoute,
     private fb?: FormBuilder,
-    private formatDate?: DatePipe
+    private formatDate?: DatePipe,
+    public SUPPORT?: SupportService,
 
   ) {
     this.getAllDataUser();
@@ -138,6 +152,7 @@ export class ListOfCaseComponent implements OnInit {
 
   ngOnInit() {
     this.createFormControls();
+    this.validateFormSupport();
 
     this.getStatusCase();
     this.filterByRoute(this.router.queryParams).subscribe(res => {
@@ -179,18 +194,44 @@ export class ListOfCaseComponent implements OnInit {
 
   }
 
+  /**
+   * Metodo para crear control del formulario del filtro.
+   * @memberof ListOfCaseComponent
+   */
   createFormControls() {
     this.filterListCases = this.fb.group({
-      CaseNumber: new FormControl(''),
+      CaseNumber: new FormControl('', [Validators.pattern(this.regexFilter.caseNumber)]),
       LastPost: new FormControl(''),
       DateInit: { disabled: true, value: '' },
       DateEnd: { disabled: true, value: '' },
       Status: new FormControl(''),
-      OrderNumber: new FormControl('')
+      OrderNumber: new FormControl('', [Validators.pattern(this.regexFilter.orderNumber)])
     });
   }
 
-  public filterApply(param?: any) {
+  /**
+   * Metodo para utilizar exxpresiones regulares de Dynamo DB
+   * @memberof ListOfCaseComponent
+   */
+  public validateFormSupport(): void {
+    this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
+      let dataOffertRegex = JSON.parse(res.body.body);
+      dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'reclamaciones');
+      for (const val in this.regexFilter) {
+        if (!!val) {
+          const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
+          this.regexFilter[val] = element && `${element.Value}`;
+        }
+      }
+      this.createFormControls();
+    });
+  }
+
+  /**
+   * Metodo para aplicar el filtro con los parametros necesarios
+   * @memberof ListOfCaseComponent
+   */
+  public filterApply() {
     this.paramsFIlterListCase.CaseNumber = this.filterListCases.controls.CaseNumber.value;
     this.paramsFIlterListCase.LastPost = this.filterListCases.controls.LastPost.value;
     this.paramsFIlterListCase.Status = [this.filterListCases.controls.Status.value];
@@ -238,33 +279,42 @@ export class ListOfCaseComponent implements OnInit {
     this.loadCases(this.paramsFIlterListCase);
   }
 
-  public cleanAllFilter() {
-    this.cleanFilter();
+  /**
+   * Funcion para validar que la fecha inicial no sea mayor a la fecha final
+   * @param {boolean} show
+   * @memberof ListOfCaseComponent
+   */
+  public setDateError(show: boolean): void {
+    const inicial = new Date(this.filterDateInit);
+    const final = new Date(this.filterDateEnd);
+    if (show) {
+
+      if (final < inicial) {
+        this.filterListCases.controls.DateInit.setErrors({ date: show });
+      }
+    } else {
+      this.filterListCases.controls.DateInit.setErrors(null);
+    }
   }
 
+  /**
+   * Metodo para limpiar datos del formulario de filtro y volver a realizar el loadcases con los parametros necesarios.
+   * @memberof ListOfCaseComponent
+   */
   public cleanFilter() {
     if (this.isAdmin) {
       this.filterListCases.reset();
-      // this.paramsFIlterListCase.CaseNumber = this.filterListCases.controls.CaseNumber.value;
-      // this.paramsFIlterListCase.LastPost = this.filterListCases.controls.LastPost.value;
-      // this.paramsFIlterListCase.Status = [this.filterListCases.controls.Status.value];
-      // this.paramsFIlterListCase.OrderNumber = this.filterListCases.controls.OrderNumber.value;
-      // // this.paramsFIlterListCase.SellerId = this.paramsFilter.SellerId;
-      // this.paramsFIlterListCase.DateInit = '';
-      // this.paramsFIlterListCase.DateEnd = '';
-      // this.paramsFIlterListCase.SellerId = this.paramsFilter.SellerId;
-      // this.loadCases(this.paramsFIlterListCase);
-
       this.filterApply();
     } else {
       this.filterListCases.reset();
       this.loadCases(this.filterListCases.value);
-
     }
-
-
   }
 
+  /**
+   * Metodo para obtener información del usuario logueado
+   * @memberof ListOfCaseComponent
+   */
   async getAllDataUser() {
     this.loadingService.viewSpinner();
     const sellerData = await this.profileService.getUser().toPromise().then(res => {

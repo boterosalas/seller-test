@@ -1177,6 +1177,8 @@
     "secure.parametize.support_claims.view-detail": "Ver detalle",
     "secure.parametize.support_claims-details.attachments": "Adjuntos",
     "secure.parametize.support_claims-details.detail-of-solution": "Detalle de la solución",
+    "secure.parametize.support_claims.list.error.caseNumber": "El # de caso es inválido",
+    "secure.parametize.support_claims.list.error.orderNumber": "EL # de orden es inválido",
 
     "secure.parametize.support_claims-filter.modal-title": "Filtro de reclamaciones",
     "secure.parametize.support_claims-filter.id": "ID",
