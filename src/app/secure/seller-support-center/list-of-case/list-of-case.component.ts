@@ -8,7 +8,7 @@ import {
 } from '@angular/animations';
 import { SellerSupportCenterService } from '../services/seller-support-center.service';
 import { ResponseCaseDialogComponent } from '@shared/components/response-case-dialog/response-case-dialog.component';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog, MatSnackBar, MatPaginatorIntl } from '@angular/material';
 import { LoadingService, ModalService } from '@app/core';
 import { Logger } from '@core/util/logger.service';
 import { ActivatedRoute } from '@angular/router';
@@ -25,11 +25,18 @@ import { StoreService } from '@app/store/store.service';
 import { TranslateService } from '@ngx-translate/core';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import { MatPaginatorI18nService } from '@app/shared/services/mat-paginator-i18n.service';
+import { CustomPaginator } from '@app/secure/products/list-products/listFilter/paginatorList';
 
 @Component({
   selector: 'app-list-of-case',
   templateUrl: './list-of-case.component.html',
   styleUrls: ['./list-of-case.component.scss'],
+  providers: [
+    { provide: MatPaginatorIntl, useValue: CustomPaginator() }
+],
   animations: [
     trigger('slideInOut', [
       state(
@@ -80,6 +87,30 @@ export class ListOfCaseComponent implements OnInit {
   paramsFilter: any = {};
   arrayTokens: Array<any> = ['{}'];
 
+  public filterListCases: FormGroup;
+
+  public valuePost: any;
+
+  // Modelo de ultima respuesta
+  public lastPost = [
+    { valuePost: 1, name: this.translateService.instant('secure.parametize.support_claims-filter.sac_answer') },
+    { valuePost: 2, name: this.translateService.instant('secure.parametize.support_claims-filter.seller_answer') }
+  ];
+
+  filterDateInit: any;
+  filterDateEnd: any;
+
+  paramsFIlterListCase = {
+    CaseNumber: '',
+    LastPost: '',
+    OrderNumber: '',
+    Status: [],
+    DateInit: '',
+    DateEnd: ''
+  };
+  filterLastPost: string;
+
+
   constructor(
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
@@ -93,12 +124,16 @@ export class ListOfCaseComponent implements OnInit {
     private emitterSeller?: EventEmitterSeller,
     private profileService?: MyProfileService,
     private route?: ActivatedRoute,
+    private fb?: FormBuilder,
+    private formatDate?: DatePipe
+
   ) {
     this.getAllDataUser();
   }
 
   ngOnInit() {
-    this.toggleFilter(this.filter);
+    this.createFormControls();
+
     this.getStatusCase();
     this.filterByRoute(this.router.queryParams).subscribe(res => {
       const seller = this.paramsFilter.SellerId;
@@ -134,8 +169,66 @@ export class ListOfCaseComponent implements OnInit {
       Object.assign(this.paramsFilter, this.sellerIdLogger);
       this.loadCases(this.paramsFilter);
     });
+
   }
 
+  createFormControls() {
+    this.filterListCases = this.fb.group({
+      CaseNumber: new FormControl(''),
+      LastPost: new FormControl(''),
+      DateInit: { disabled: true, value: '' },
+      DateEnd: { disabled: true, value: '' },
+      Status: new FormControl(''),
+      OrderNumber: new FormControl('')
+    });
+  }
+
+  public filterApply(param?: any) {
+    console.log('param', this.filterListCases.controls.CaseNumber.value);
+    this.paramsFIlterListCase.CaseNumber = this.filterListCases.controls.CaseNumber.value;
+    this.paramsFIlterListCase.LastPost = this.filterListCases.controls.LastPost.value;
+    this.paramsFIlterListCase.Status = [this.filterListCases.controls.Status.value];
+    this.paramsFIlterListCase.OrderNumber = this.filterListCases.controls.OrderNumber.value;
+
+    this.paramsFIlterListCase.DateInit = this.formatDate.transform(
+      this.filterDateInit,
+      'y-MM-d'
+    );
+    this.paramsFIlterListCase.DateEnd = this.formatDate.transform(
+      this.filterDateEnd,
+      'y-MM-d'
+    );
+
+    if (!this.paramsFIlterListCase.CaseNumber) {
+      delete this.paramsFIlterListCase.CaseNumber;
+    }
+    if (!this.paramsFIlterListCase.LastPost) {
+      delete this.paramsFIlterListCase.LastPost;
+    }
+    if (!this.paramsFIlterListCase.Status) {
+      delete this.paramsFIlterListCase.Status;
+    }
+    if (!this.paramsFIlterListCase.OrderNumber) {
+      delete this.paramsFIlterListCase.OrderNumber;
+    }
+    if (!this.paramsFIlterListCase.DateInit) {
+      delete this.paramsFIlterListCase.DateInit;
+    }
+    if (!this.paramsFIlterListCase.DateEnd) {
+      delete this.paramsFIlterListCase.DateEnd;
+    }
+
+    this.loadCases(this.paramsFIlterListCase);
+  }
+
+  public cleanAllFilter() {
+    this.cleanFilter();
+  }
+
+  public cleanFilter() {
+    this.filterListCases.reset();
+    this.loadCases(this.filterListCases.value);
+  }
 
   async getAllDataUser() {
     this.loadingService.viewSpinner();
@@ -245,9 +338,9 @@ export class ListOfCaseComponent implements OnInit {
     const { pageIndex, pageSize } = pagination;
 
     if (this.isAdmin) {
-      this.loadCases({ SellerId: this.sellerIdLogger.SellerId, Limit: pageSize , paginationToken: this.paginationToken});
+      this.loadCases({ SellerId: this.sellerIdLogger.SellerId, Limit: pageSize, paginationToken: this.paginationToken });
     } else {
-      this.loadCases({ Limit: pageSize , paginationToken: this.paginationToken});
+      this.loadCases({ Limit: pageSize, paginationToken: this.paginationToken });
     }
   }
 
