@@ -16,7 +16,7 @@
             [innerHTML]="selectedCategory"></strong>
         </h6>
       </div>
-     
+
     </div>
   </mat-toolbar>
 </div>
@@ -83,11 +83,10 @@
           <mat-form-field color="primary">
             <input matInput [placeholder]="translateService.instant('secure.parametize.support_claims-filter.id')"
               formControlName="CaseNumber" name="caseNumber" [errorStateMatcher]="matcher">
-              <mat-hint></mat-hint>
-              <mat-error *ngIf="filterListCases.get('CaseNumber').hasError('pattern')">
-                  {{'secure.products.create_product_unit.list_products.product_name_invalid' | translate}}
-              </mat-error>
-           
+            <mat-hint></mat-hint>
+            <mat-error *ngIf="filterListCases.get('CaseNumber').hasError('pattern')">
+              {{'secure.parametize.support_claims.list.error.caseNumber' | translate}}
+            </mat-error>
           </mat-form-field>
           <mat-form-field class="filter-form--field">
             <mat-select [placeholder]="translateService.instant('secure.parametize.support_claims-filter.last_post')"
@@ -98,7 +97,7 @@
             </mat-select>
           </mat-form-field>
           <mat-form-field class="classDatapicker">
-            <input matInput [matDatepicker]="picker"
+            <input matInput [matDatepicker]="picker" 
               [placeholder]="'secure.parametize.support_claims-filter.start-date' | translate"
               formControlName="DateInit" [(ngModel)]="filterDateInit">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -107,8 +106,8 @@
 
           <mat-form-field class="classDatapicker">
             <input matInput [matDatepicker]="picker1"
-              [placeholder]="'secure.parametize.support_claims-filter.end-date' | translate" formControlName="DateEnd"
-              [(ngModel)]="filterDateEnd">
+              [placeholder]="'secure.parametize.support_claims-filter.end-date' | translate" 
+              formControlName="DateEnd" [(ngModel)]="filterDateEnd">
             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1 disabled="false"></mat-datepicker>
           </mat-form-field>
@@ -125,13 +124,18 @@
             <input matInput
               [placeholder]="translateService.instant('secure.parametize.support_claims-filter.orderNumber')"
               formControlName="OrderNumber" name="orderNumber" />
+            <mat-hint></mat-hint>
+            <mat-error *ngIf="filterListCases.get('OrderNumber').hasError('pattern')">
+              {{'secure.parametize.support_claims.list.error.orderNumber' | translate}}
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="filter-control">
           <button mat-stroked-button color="primary" type="button" (click)="cleanFilter()">
             {{'secure.parametize.support_claims-filter.clear'| translate}}
           </button>
-          <button mat-flat-button color="primary" type="submit" (click)="drawer.toggle() && filterApply()">
+          <button mat-flat-button color="primary" type="submit" (click)="drawer.toggle() && filterApply()"
+          [disabled]="!createfilterListCases.form.valid || !createfilterListCases.form.touched">
             {{'secure.parametize.support_claims-filter.filter'| translate}}
           </button>
         </div>

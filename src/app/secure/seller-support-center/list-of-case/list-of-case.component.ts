@@ -125,6 +125,7 @@ export class ListOfCaseComponent implements OnInit {
   filterLastPost: string;
 
   selectedCategory: string;
+  hasErrorDate: boolean;
 
   constructor(
     public dialog: MatDialog,
@@ -263,7 +264,7 @@ export class ListOfCaseComponent implements OnInit {
     if (!this.paramsFIlterListCase.LastPost) {
       delete this.paramsFIlterListCase.LastPost;
     }
-    if (!this.paramsFIlterListCase.Status || this.paramsFIlterListCase.Status === null) {
+    if (!this.paramsFIlterListCase.Status || this.paramsFIlterListCase.Status === null || this.paramsFIlterListCase.Status === []) {
       delete this.paramsFIlterListCase.Status;
     }
     if (!this.paramsFIlterListCase.OrderNumber) {
@@ -276,7 +277,10 @@ export class ListOfCaseComponent implements OnInit {
       delete this.paramsFIlterListCase.DateEnd;
     }
 
-    this.loadCases(this.paramsFIlterListCase);
+    this.validateFinalDateRange();
+    if (this.hasErrorDate === false) {
+      this.loadCases(this.paramsFIlterListCase);
+    }
   }
 
   /**
@@ -284,17 +288,24 @@ export class ListOfCaseComponent implements OnInit {
    * @param {boolean} show
    * @memberof ListOfCaseComponent
    */
-  public setDateError(show: boolean): void {
-    const inicial = new Date(this.filterDateInit);
-    const final = new Date(this.filterDateEnd);
-    if (show) {
-
-      if (final < inicial) {
-        this.filterListCases.controls.DateInit.setErrors({ date: show });
+  validateFinalDateRange() {
+    this.hasErrorDate = false;
+    const init = this.filterDateInit;
+    const final = this.filterDateEnd;
+    const sumDays = ((+new Date(final) - +new Date(init)) / 1000 / 60 / 60 / 24);
+      if (+new Date(init) > +new Date(final)) {
+        this.hasErrorDate = true;
+        this.snackBar.open(this.translateService.instant('secure.products.create_product_unit.list_products.date_must_no_be_initial_date'), this.translateService.instant('actions.close'), {
+          duration: 4000,
+        });
+      } else {
+        if (sumDays > 15) {
+          this.hasErrorDate = true;
+          this.snackBar.open(this.translateService.instant('secure.parametize.support_claims.list.error.rangeDate'), this.translateService.instant('actions.close'), {
+            duration: 4000,
+          });
+        }
       }
-    } else {
-      this.filterListCases.controls.DateInit.setErrors(null);
-    }
   }
 
   /**
