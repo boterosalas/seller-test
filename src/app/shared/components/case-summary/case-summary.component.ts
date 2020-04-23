@@ -28,7 +28,15 @@ export class CaseSummaryComponent implements OnInit {
 
   productsConfig: Array<any>;
 
-  constructor(public dialog: MatDialog, public translateService: TranslateService) { }
+  disableButtonAnswer = false;
+
+  constructor(public dialog: MatDialog, public translateService: TranslateService) {
+    if (localStorage.getItem('typeProfile') === 'seller') {
+      this.disableButtonAnswer = false;
+    } else {
+      this.disableButtonAnswer = true;
+    }
+   }
 
   ngOnInit() {
     this.productsConfig = productsConfig;

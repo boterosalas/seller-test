@@ -143,6 +143,7 @@ export class ListOfCaseComponent implements OnInit {
       const response = JSON.parse(body.body);
       const userData = response.Data;
       this.sellerId = userData.IdSeller;
+      localStorage.setItem('typeProfile', userData.Profile);
       if (userData.Profile !== 'seller') {
         this.isAdmin = true;
       } else {
