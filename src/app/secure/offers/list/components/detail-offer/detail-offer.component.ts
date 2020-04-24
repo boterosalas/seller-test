@@ -89,7 +89,7 @@ export class DetailOfferComponent implements OnInit {
   public IsEnviosExito: FormControl;
   public IsFreightCalculator: FormControl;
   public Warranty: FormControl;
-  public IsLogisticsExito: FormControl;
+  // public IsLogisticsExito: FormControl;
   public IsUpdatedStock: FormControl;
   public Currency: FormControl;
   public comboForm: FormGroup;
@@ -312,7 +312,7 @@ export class DetailOfferComponent implements OnInit {
     this.IsEnviosExito = new FormControl(this.dataOffer.isEnviosExito ? 1 : 0);
     this.IsFreightCalculator = new FormControl(this.dataOffer.isFreightCalculator ? 1 : 0);
     this.Warranty = new FormControl(this.dataOffer.warranty);
-    this.IsLogisticsExito = new FormControl(this.dataOffer.isLogisticsExito ? 1 : 0);
+    // this.IsLogisticsExito = new FormControl(this.dataOffer.isLogisticsExito ? 1 : 0);
     // this.IsUpdatedStock = new FormControl({ value: this.dataOffer.isUpdatedStock ? 1 : 0, disabled: this.IsLogisticsExito.value ? false : true }, [Validators.pattern(this.offertRegex.isUpdatedStock)]);
     this.IsUpdatedStock = new FormControl(this.dataOffer.isUpdatedStock ? 1 : 0);
     // this.Currency = new FormControl('COP');
@@ -347,7 +347,7 @@ export class DetailOfferComponent implements OnInit {
       IsEnviosExito: this.IsEnviosExito,
       IsFreightCalculator: this.IsFreightCalculator,
       Warranty: this.Warranty,
-      IsLogisticsExito: this.IsLogisticsExito,
+      // IsLogisticsExito: this.IsLogisticsExito,
       IsUpdatedStock: this.IsUpdatedStock,
       Currency: this.Currency,
       Combos: this.fb.array([]),
@@ -369,14 +369,14 @@ export class DetailOfferComponent implements OnInit {
     if (val === 'USD' && !!this.authService.completeUserData && this.authService.completeUserData.Country !== 'Colombia') {
       this.formUpdateOffer.get('IsFreeShipping').setValue(0);
       this.formUpdateOffer.get('IsEnviosExito').setValue(0);
-      this.formUpdateOffer.get('IsLogisticsExito').setValue(0);
+      // this.formUpdateOffer.get('IsLogisticsExito').setValue(0);
       this.formUpdateOffer.get('IsFreightCalculator').setValue(0);
       // tslint:disable-next-line:no-unused-expression
       this.formUpdateOffer.get('IsFreeShipping').enabled && this.formUpdateOffer.get('IsFreeShipping').disable();
       // tslint:disable-next-line:no-unused-expression
       this.formUpdateOffer.get('IsEnviosExito').enabled && this.formUpdateOffer.get('IsEnviosExito').disable();
       // tslint:disable-next-line:no-unused-expression
-      this.formUpdateOffer.get('IsLogisticsExito').enabled && this.formUpdateOffer.get('IsLogisticsExito').disable();
+      // this.formUpdateOffer.get('IsLogisticsExito').enabled && this.formUpdateOffer.get('IsLogisticsExito').disable();
       // tslint:disable-next-line:no-unused-expression
       this.formUpdateOffer.get('IsFreightCalculator').enabled && this.formUpdateOffer.get('IsFreightCalculator').disable();
     } else {
@@ -385,7 +385,7 @@ export class DetailOfferComponent implements OnInit {
       // tslint:disable-next-line:no-unused-expression
       !this.formUpdateOffer.get('IsEnviosExito').enabled && this.formUpdateOffer.get('IsEnviosExito').enable();
       // tslint:disable-next-line:no-unused-expression
-      !this.formUpdateOffer.get('IsLogisticsExito').enabled && this.formUpdateOffer.get('IsLogisticsExito').enable();
+      // !this.formUpdateOffer.get('IsLogisticsExito').enabled && this.formUpdateOffer.get('IsLogisticsExito').enable();
       // tslint:disable-next-line:no-unused-expression
       !this.formUpdateOffer.get('IsFreightCalculator').enabled && this.formUpdateOffer.get('IsFreightCalculator').enable();
     }
@@ -405,7 +405,7 @@ export class DetailOfferComponent implements OnInit {
           this.IsFreeShipping.setValue(1);
           this.IsEnviosExito.setValue(0);
           this.IsFreightCalculator.setValue(0);
-          this.IsLogisticsExito.setValue(0);
+          // this.IsLogisticsExito.setValue(0);
           this.IsUpdatedStock.setValue(0);
           this.IsUpdatedStock.enable();
           break;
@@ -413,7 +413,7 @@ export class DetailOfferComponent implements OnInit {
           this.IsEnviosExito.setValue(1);
           this.IsFreeShipping.setValue(0);
           this.IsFreightCalculator.setValue(0);
-          this.IsLogisticsExito.setValue(0);
+          // this.IsLogisticsExito.setValue(0);
           this.IsUpdatedStock.setValue(0);
           this.IsUpdatedStock.enable();
           break;
@@ -421,12 +421,12 @@ export class DetailOfferComponent implements OnInit {
           this.IsFreightCalculator.setValue(1);
           this.IsFreeShipping.setValue(0);
           this.IsEnviosExito.setValue(0);
-          this.IsLogisticsExito.setValue(0);
+          // this.IsLogisticsExito.setValue(0);
           this.IsUpdatedStock.setValue(0);
           this.IsUpdatedStock.enable();
           break;
         case 'IsLogisticsExito':
-          this.IsLogisticsExito.setValue(1);
+          // this.IsLogisticsExito.setValue(1);
           this.IsFreightCalculator.setValue(0);
           this.IsFreeShipping.setValue(0);
           this.IsEnviosExito.setValue(0);
@@ -449,7 +449,7 @@ export class DetailOfferComponent implements OnInit {
           this.IsFreightCalculator.setValue(0);
           break;
         case 'IsLogisticsExito':
-          this.IsLogisticsExito.setValue(0);
+          // this.IsLogisticsExito.setValue(0);
           this.IsUpdatedStock.setValue(0);
           this.IsUpdatedStock.enable();
           break;
@@ -601,7 +601,8 @@ export class DetailOfferComponent implements OnInit {
         IsFreeShipping: this.formUpdateOffer.controls['IsFreeShipping'].value,
         IsEnviosExito: this.formUpdateOffer.controls['IsEnviosExito'].value,
         IsFreightCalculator: this.formUpdateOffer.controls['IsFreightCalculator'].value,
-        IsLogisticsExito: this.formUpdateOffer.controls['IsLogisticsExito'].value,
+        // IsLogisticsExito: this.formUpdateOffer.controls['IsLogisticsExito'].value,
+        IsLogisticsExito: '0',
         IsUpdatedStock: this.params[0].IsUpdatedStock,
         Currency: this.formUpdateOffer.controls['Currency'].value
       }
