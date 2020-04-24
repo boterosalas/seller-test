@@ -9,16 +9,115 @@
 
       <!-- Componente para realizar la busqueda de una tienda -->
       <div class="search-container">
-        <app-search-seller id="contet-searc-store" class="search-content" >
+        <app-search-seller id="contet-searc-store" class="search-content">
         </app-search-seller>
+        <h6 *ngIf="selectedStore">
+          {{'secure.products.create_product_unit.categorization.list.you_selected' | translate}}: <strong
+            [innerHTML]="selectedStore"></strong>
+        </h6>
       </div>
+
     </div>
   </mat-toolbar>
 </div>
 <div>
-  <app-case-toolbar (toggleFilter)="toggleFilter($event)" (changePagination)="changePagination($event)"
-    [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize">
-  </app-case-toolbar>
+ 
+</div>
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer [mode]="'over'" [position]="'end'" class="example-sidenav" [disableClose]="true">
+    <form class="flexbox flex-wrap justify-center" #createfilterListCases="ngForm" [formGroup]="filterListCases"
+      class="seller-filter-sidenav" *ngIf="filterListCases">
+      <div class="filter-content">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <div class="filter-header">
+            <span class="filter-header--title">
+              {{'secure.parametize.support_claims-filter.modal-title'| translate}}
+            </span>
+          </div>
+          <button id="closeMenuApplication" type="button" color="primary" [matTooltip]="'actions.close' | translate"
+            matTooltipPosition="below" mat-icon-button mat-button (click)="drawer.toggle()">
+            <mat-icon>clear</mat-icon>
+          </button>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-between" fxLayout.xs="column">
+          <mat-form-field color="primary">
+            <input matInput [placeholder]="translateService.instant('secure.parametize.support_claims-filter.id')"
+              formControlName="CaseNumber" name="caseNumber" [errorStateMatcher]="matcher">
+            <mat-hint></mat-hint>
+            <mat-error *ngIf="filterListCases.get('CaseNumber').hasError('pattern')">
+              {{'secure.parametize.support_claims.list.error.caseNumber' | translate}}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="filter-form--field">
+            <mat-select [placeholder]="translateService.instant('secure.parametize.support_claims-filter.last_post')"
+              [(ngModel)]="filterLastPost" formControlName="LastPost" name="lastPost">
+              <mat-option *ngFor="let post of lastPost" value="{{post.valuePost}}">
+                {{post.name | translate}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="classDatapicker">
+            <input matInput [matDatepicker]="picker" 
+              [placeholder]="'secure.parametize.support_claims-filter.start-date' | translate"
+              formControlName="DateInit" [(ngModel)]="filterDateInit">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker disabled="false"></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="classDatapicker">
+            <input matInput [matDatepicker]="picker1"
+              [placeholder]="'secure.parametize.support_claims-filter.end-date' | translate" 
+              formControlName="DateEnd" [(ngModel)]="filterDateEnd">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="filter-form--field">
+            <mat-select [placeholder]="translateService.instant('secure.parametize.support_claims-filter.status')"
+              name="status" formControlName="Status">
+              <mat-option *ngFor="let state of options" value="{{state.code}}">
+                {{state.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="filter-form--field">
+            <input matInput
+              [placeholder]="translateService.instant('secure.parametize.support_claims-filter.orderNumber')"
+              formControlName="OrderNumber" name="orderNumber" />
+            <mat-hint></mat-hint>
+            <mat-error *ngIf="filterListCases.get('OrderNumber').hasError('pattern')">
+              {{'secure.parametize.support_claims.list.error.orderNumber' | translate}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="filter-control">
+          <button mat-stroked-button color="primary" type="button" (click)="cleanFilter()">
+            {{'secure.parametize.support_claims-filter.clear'| translate}}
+          </button>
+          <button mat-flat-button color="primary" type="submit" (click)="drawer.toggle() && filterApply()"
+          [disabled]="!createfilterListCases.form.valid || !createfilterListCases.form.touched">
+            {{'secure.parametize.support_claims-filter.filter'| translate}}
+          </button>
+        </div>
+      </div>
+    </form>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+    <mat-toolbar class="tree-toolbar" class="drawer-container" [hasBackdrop]="true">
+      <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
+      </div>
+      <app-case-toolbar class="styleToolbar" (changePagination)="changePagination($event)" [length]="length"
+        [pageIndex]="pageIndex" [pageSize]="pageSize">
+      </app-case-toolbar>
+      <div class="classNewFilter">
+        <button type="button" mat-button (click)="drawer.toggle()">
+          <mat-icon>filter_list</mat-icon>
+          <small class="sub-title-filter">{{'filters.filter' | translate}}</small>
+        </button>
+      </div>
+    </mat-toolbar>
+  </div>
 
   <ng-template [ngIf]="cases">
     <app-drop-down-list [data]="cases" [options]="options" [configurations]="headerConfigurations">
@@ -36,10 +135,4 @@
     </app-drop-down-list>
   </ng-template>
 
-  <div [ngClass]="filter ? 'support-center-case__filter-container' : 'hidden-content'">
-    <div [@slideInOut]="menuState" [ngClass]="filter ? 'support-filter' : 'hidden-content'">
-      <app-case-filter (eventFilter)="toggleFilter($event)" [stateFilter]="filter" [options]="options">
-      </app-case-filter>
-    </div>
-  </div>
-</div>
+</mat-drawer-container>

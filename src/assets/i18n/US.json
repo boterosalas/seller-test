@@ -959,7 +959,7 @@
     "secure.products.create_product_unit.list_products.ending_date": "The ending date must NOT be inferior to the inicial date",
     "secure.products.create_product_unit.list_products.list_products_view": "Products list",
     "secure.products.create_product_unit.list_products.are_no_uploades_products": "There are no uploaded products",
-    "secure.products.create_product_unit.list_products.date_must_no_be_initial_date": "The starting date must NOT be later than the final date",
+    "secure.products.create_product_unit.list_products.date_must_no_be_initial_date": "The starting date must Not be later than the final date",
     "secure.products.create_product_unit.list_products.you_must_initial": "You must enter an inicial and ending date to filter",
 
     "secure.products.create_product_unit.list_products.combo_product.creation_date": "Creation date",
@@ -1177,6 +1177,9 @@
     "secure.parametize.support_claims.view-detail": "View detail",
     "secure.parametize.support_claims-details.attachments": "Attachments",
     "secure.parametize.support_claims-details.detail-of-solution": "Solution details",
+    "secure.parametize.support_claims.list.error.caseNumber": "The case number is invalid",
+    "secure.parametize.support_claims.list.error.orderNumber": "The order number is invalid",
+    "secure.parametize.support_claims.list.error.rangeDate": "The date range must be maximum of 14 days",
 
     "secure.parametize.support_claims-filter.modal-title": "Claims filter",
     "secure.parametize.support_claims-filter.id": "ID",

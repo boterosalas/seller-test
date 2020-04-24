@@ -29,7 +29,7 @@
           <div class="case-list-detail--item-detail" fxFlex="10%" id="dpbox-case-status-{{index}}">
             {{ data.status }}
           </div>
-          <div class="case-list-detail--item-detail case-list-detail--content-center" fxFlex="5%">
+          <div class="case-list-detail--item-detail case-list-detail--content-center" fxFlex="5%" *ngIf="hideStatus">
             <mat-icon>question_answer</mat-icon>
           </div>
           <div class="case-list-detail--item-detail case-list-detail--content-center" fxFlex="5%">

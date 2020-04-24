@@ -19,6 +19,7 @@ import { SharedModule } from '@app/shared/shared.module';
 import { DetailCaseComponent } from './detail-case/detail-case.component';
 import { SellerSupportCenterService } from './services/seller-support-center.service';
 import { CaseSupportCenterService } from './services/case-support-center.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -30,7 +31,9 @@ import { CaseSupportCenterService } from './services/case-support-center.service
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    SharedModule
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [ListOfCaseComponent, DetailCaseComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],

@@ -62,6 +62,8 @@ export class RoutesConst {
 
     /* Support Center */
     static readonly sellerSupportCenter: any = 'support-center';
+    static readonly sellerSupportCenterDetail: any = 'detail';
+
 
     static readonly homeLogin: any = RoutesConst.home + '/' + RoutesConst.login;
     static readonly homeForgotPassword: any = RoutesConst.home + '/' + RoutesConst.forgotPassword;
@@ -73,7 +75,7 @@ export class RoutesConst {
 
     // Support Center DetaiTicket
     static readonly sellerCenterCases: any = RoutesConst.secureSeller + '/' + RoutesConst.sellerSupportCenter;
-    static readonly sellerCenterCasesDetail: any = RoutesConst.secureSeller + '/' + RoutesConst.sellerSupportCenter + '/:idCase';
+    static readonly sellerCenterCasesDetail: any = RoutesConst.secureSeller + '/' + RoutesConst.sellerSupportCenterDetail + '/:idCase';
 
     static readonly sellerCenterIntDashboard: any = RoutesConst.secureSeller + '/' + RoutesConst.dashboard;
     static readonly sellerCenterOrders: any = RoutesConst.secureSeller + '/' + RoutesConst.orders;
