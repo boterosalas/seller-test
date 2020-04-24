@@ -11,9 +11,9 @@
       <div class="search-container">
         <app-search-seller id="contet-searc-store" class="search-content">
         </app-search-seller>
-        <h6 *ngIf="selectedCategory">
+        <h6 *ngIf="selectedStore">
           {{'secure.products.create_product_unit.categorization.list.you_selected' | translate}}: <strong
-            [innerHTML]="selectedCategory"></strong>
+            [innerHTML]="selectedStore"></strong>
         </h6>
       </div>
 
@@ -39,7 +39,7 @@
             <mat-icon>clear</mat-icon>
           </button>
         </div>
-        <div fxLayout="column" fxLayoutAlign="space-between" fxLayout.xs="column" class="styleInputs">
+        <div fxLayout="column" fxLayoutAlign="space-between" fxLayout.xs="column">
           <mat-form-field color="primary">
             <input matInput [placeholder]="translateService.instant('secure.parametize.support_claims-filter.id')"
               formControlName="CaseNumber" name="caseNumber" [errorStateMatcher]="matcher">
@@ -104,7 +104,7 @@
   </mat-drawer>
 
   <div class="example-sidenav-content">
-    <mat-toolbar class="tree-toolbar" style="height: 80%;" class="drawer-container" [hasBackdrop]="true">
+    <mat-toolbar class="tree-toolbar" class="drawer-container" [hasBackdrop]="true">
       <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
       </div>
       <app-case-toolbar style="width: 92%" (changePagination)="changePagination($event)" [length]="length"

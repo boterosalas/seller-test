@@ -1,11 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  trigger,
-  state,
-  style,
-  transition,
-  animate
-} from '@angular/animations';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { SellerSupportCenterService } from '../services/seller-support-center.service';
 import { ResponseCaseDialogComponent } from '@shared/components/response-case-dialog/response-case-dialog.component';
 import { MatDialog, MatSnackBar, MatPaginatorIntl, ErrorStateMatcher } from '@angular/material';
@@ -13,10 +7,7 @@ import { LoadingService, ModalService } from '@app/core';
 import { Logger } from '@core/util/logger.service';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import {
-  FetchUnreadCase,
-  FetchUnreadCaseDone
-} from '@app/store/notifications/actions';
+import { FetchUnreadCaseDone } from '@app/store/notifications/actions';
 import { CoreState } from '@app/store';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -27,7 +18,6 @@ import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.servi
 import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 import { FormBuilder, FormGroup, FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-import { MatPaginatorI18nService } from '@app/shared/services/mat-paginator-i18n.service';
 import { CustomPaginator } from '@app/secure/products/list-products/listFilter/paginatorList';
 import { SupportService } from '@app/secure/support-modal/support.service';
 
@@ -124,7 +114,7 @@ export class ListOfCaseComponent implements OnInit {
   };
   filterLastPost: string;
 
-  selectedCategory: string;
+  selectedStore: string;
   hasErrorDate: boolean;
 
   constructor(
@@ -147,7 +137,7 @@ export class ListOfCaseComponent implements OnInit {
   ) {
     this.getAllDataUser();
     if (localStorage.getItem('sellerNameClaim') && this.route.snapshot.paramMap.get('idSeller')) {
-      this.selectedCategory = localStorage.getItem('sellerNameClaim');
+      this.selectedStore = localStorage.getItem('sellerNameClaim');
     }
   }
 
@@ -184,8 +174,8 @@ export class ListOfCaseComponent implements OnInit {
     });
 
     this.emitterSeller.eventSearchSeller.subscribe(data => {
-      this.selectedCategory = data.Name;
-      localStorage.setItem('sellerNameClaim', this.selectedCategory);
+      this.selectedStore = data.Name;
+      localStorage.setItem('sellerNameClaim', this.selectedStore);
       this.sellerIdLogger = {
         'SellerId': data.IdSeller
       };

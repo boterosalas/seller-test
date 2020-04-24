@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   trigger,
   state,
@@ -17,7 +17,6 @@ import { ResponseCaseDialogComponent } from '@shared/components/response-case-di
 import { MatDialog } from '@angular/material';
 import { StoreService } from '@app/store/store.service';
 import { ConfigurationState } from '@app/store/configuration';
-import { TranslateService } from '@ngx-translate/core';
 import { CaseSupportCenterService } from '../services/case-support-center.service';
 
 @Component({
@@ -55,11 +54,6 @@ export class DetailCaseComponent implements OnInit {
     height: 'fit-content',
     data: null
   };
-  filterParams: any;
-
-  // @Output()
-  // change: EventEmitter<any> = new EventEmitter<any>();
-  // pruebaSeller: any;
 
   constructor(
     public dialog: MatDialog,
@@ -67,7 +61,6 @@ export class DetailCaseComponent implements OnInit {
     private route: ActivatedRoute,
     private loadingService?: LoadingService,
     private storeService?: StoreService,
-    private translateService?: TranslateService,
     public redirecServ?: CaseSupportCenterService
 
   ) { }
@@ -84,9 +77,12 @@ export class DetailCaseComponent implements OnInit {
     this.case$.subscribe(() => this.loadingService.closeSpinner());
   }
 
+  /**
+   * Metodo para retornar al listado de reclamaciones
+   * @memberof DetailCaseComponent
+   */
   redirecToListClaims() {
     this.redirecServ.redirectToListServ();
-    // this.pruebaSeller = this.redirecServ.sellerIdCase;
   }
 
   toggleFilter(stateFilter: boolean) {

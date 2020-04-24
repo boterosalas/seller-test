@@ -73,7 +73,7 @@ $underline-color: #19a695;
   .tree-toolbar {
     background-color: #fff;
     border-bottom: 1px solid #e0e0e0;
-    height: auto;
+    height: 80%;
 
     & .toolbar-options-table {
       width: 100%;
@@ -149,10 +149,6 @@ $underline-color: #19a695;
     cursor: pointer;
   }
 }
-
-// .styleInputs{
-//   margin: 2% 10%;
-// }
 
 .example-sidenav {
   width: 30%;
