@@ -107,7 +107,7 @@
     <mat-toolbar class="tree-toolbar" class="drawer-container" [hasBackdrop]="true">
       <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
       </div>
-      <app-case-toolbar style="width: 92%" (changePagination)="changePagination($event)" [length]="length"
+      <app-case-toolbar class="styleToolbar" (changePagination)="changePagination($event)" [length]="length"
         [pageIndex]="pageIndex" [pageSize]="pageSize">
       </app-case-toolbar>
       <div class="classNewFilter">
