@@ -23,7 +23,7 @@
       </ng-container>
     </app-conversation>
 
-    <div class="ticket-content__controls ticket-content__controls--left">
+    <div class="ticket-content__controls ticket-content__controls--left" *ngIf="!disableButtonAnswer">
       <button [disabled]="disabled" (click)="openResponseDialog()"
         class="mat-raised-button ticket-content__button ticket-content__button--secondary"
         [ngClass]="disabledClass ? 'ticket-content__button--secondary-disabled' : ''"
@@ -33,9 +33,15 @@
     </div>
   </div>
 
-  <span [routerLink]="['/securehome/seller-center/support-center/' + case.id]" class="ticket-content__item ticket-content__title ticket-content__item--full-width
+  <!-- <span [routerLink]="['/securehome/seller-center/support-center/' + case.id]" class="ticket-content__item ticket-content__title ticket-content__item--full-width
       ticket-content__title--underline ticket-content__title--center ticket-content__title--pointer
       ticket-content--no-select" id="case-summary-view-detail-{{case.caseNumber}}">
     {{'secure.parametize.support_claims.view-detail' | translate}}
-  </span>
+  </span> -->
+
+  <span (click)="redirecToDetail(case.id)" class="ticket-content__item ticket-content__title ticket-content__item--full-width
+  ticket-content__title--underline ticket-content__title--center ticket-content__title--pointer
+  ticket-content--no-select" id="case-summary-view-detail-{{case.caseNumber}}">
+{{'secure.parametize.support_claims.view-detail' | translate}}
+</span>
 </div>

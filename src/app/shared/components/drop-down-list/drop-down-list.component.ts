@@ -4,13 +4,13 @@ import {
   Input,
   ContentChildren,
   QueryList
-} from "@angular/core";
-import { ItemDropDownListDirective } from "./content-drop-down-list.directive";
+} from '@angular/core';
+import { ItemDropDownListDirective } from './content-drop-down-list.directive';
 
 @Component({
-  selector: "app-drop-down-list",
-  templateUrl: "./drop-down-list.component.html",
-  styleUrls: ["./drop-down-list.component.scss"]
+  selector: 'app-drop-down-list',
+  templateUrl: './drop-down-list.component.html',
+  styleUrls: ['./drop-down-list.component.scss']
 })
 export class DropDownListComponent implements OnInit {
   @Input() data: Array<any> = new Array();
@@ -26,7 +26,7 @@ export class DropDownListComponent implements OnInit {
     this.data = [];
     this.options = [];
   }
-  ngOnInit() {}
+  ngOnInit() { }
 }
 
 export interface ColumnConfiguration {

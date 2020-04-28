@@ -4,7 +4,8 @@ import {
   QueryList,
   Input,
   Output,
-  EventEmitter
+  EventEmitter,
+  OnInit
 } from '@angular/core';
 import { ContentDropDownBoxDirective } from './content-drop-down-box.directive';
 import { IData } from './models/data.model';
@@ -14,7 +15,7 @@ import { IData } from './models/data.model';
   templateUrl: './drop-down-box.component.html',
   styleUrls: ['./drop-down-box.component.scss']
 })
-export class DropDownBoxComponent {
+export class DropDownBoxComponent implements OnInit {
   @ContentChildren(ContentDropDownBoxDirective)
   items: QueryList<ContentDropDownBoxDirective>;
 
@@ -29,4 +30,14 @@ export class DropDownBoxComponent {
   @Output() opened = new EventEmitter();
 
   panelOpenState = false;
+  hideStatus: any;
+
+  ngOnInit() {
+    if (localStorage.getItem('typeProfile') === 'administrator') {
+      this.hideStatus = false;
+    } else {
+      this.hideStatus = true;
+    }
+  }
+
 }
