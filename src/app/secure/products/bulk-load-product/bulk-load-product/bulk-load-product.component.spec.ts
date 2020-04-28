@@ -1636,13 +1636,13 @@ describe('BulkLoad Products Component', () => {
             expect(component.productsRegex).not.toEqual(productsRegex);
         });
 
-        it('Download excel', () => {
-            component.downloadFormatMassiveOfferLoadinternacional();
-        });
+        // it('Download excel', () => {
+        //     component.downloadFormatMassiveOfferLoadinternacional();
+        // });
 
-        it('Download excel spanish', () => {
-            component.downloadFormatMassiveOfferLoad();
-        });
+        // it('Download excel spanish', () => {
+        //     component.downloadFormatMassiveOfferLoad();
+        // });
 
         // it('Validate status charge', () => {
         //     component.verifyStateCharge(response);
