@@ -298,7 +298,7 @@
                 <p [innerHTML]="detail.penalty | currency: '$' : 'symbol' : '1.2-2'"> </p>
                </td>
                <td fxShow.xs="false">
-                 {{detail.totalCommission}}
+                <p [innerHTML]="detail.totalCommission | currency: '$' : 'symbol' : '1.2-2'"> </p>
                </td>
                <td class="detail-calification-container-aling-center">
                  <mat-icon class="mat-18 delete"
