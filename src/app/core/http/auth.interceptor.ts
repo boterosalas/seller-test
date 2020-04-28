@@ -37,8 +37,10 @@ export class AuthInterceptor implements HttpInterceptor {
       }
       if (currencyCulture === 'es' || currencyCulture === 'ES' || currencyCulture === 'es-CO') {
         currencyCulture = 'es-CO';
-      } else {
+      } else if (currencyCulture === 'en' || currencyCulture === 'US' || currencyCulture === 'en-US') {
         currencyCulture = 'en-US';
+      } else {
+        currencyCulture = 'fr-FR';
       }
       const validate = req.url.includes('?') || req.url.includes('&');
       if (validate) {
