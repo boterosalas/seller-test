@@ -1165,6 +1165,7 @@
     "secure.parametize.support_modal.reply.placeholder-write-answer": "Escribe tu respuesta",
 
     "secure.parametize.support_claims.title.claim": "Reclamaciones",
+    "secure.parametize.support_claims.title.claim_search": "Buscar reclamaciones",
     "secure.parametize.support_claims.claims-display": "Visualización de productos",
     "secure.parametize.support_claims.products-per-page": "Productos por página",
     "secure.parametize.support_claims.filter": "Filtro",
@@ -1176,6 +1177,9 @@
     "secure.parametize.support_claims.view-detail": "Ver detalle",
     "secure.parametize.support_claims-details.attachments": "Adjuntos",
     "secure.parametize.support_claims-details.detail-of-solution": "Detalle de la solución",
+    "secure.parametize.support_claims.list.error.caseNumber": "El número de caso es inválido",
+    "secure.parametize.support_claims.list.error.orderNumber": "El número de orden es inválido",
+    "secure.parametize.support_claims.list.error.rangeDate": "El rango de fechas debe de ser máximo 14 días",
 
     "secure.parametize.support_claims-filter.modal-title": "Filtro de reclamaciones",
     "secure.parametize.support_claims-filter.id": "ID",
@@ -1186,6 +1190,9 @@
     "secure.parametize.support_claims-filter.orderNumber": "Número del pedido",
     "secure.parametize.support_claims-filter.clear": "Limpiar",
     "secure.parametize.support_claims-filter.filter": "Filtrar",
+    "secure.parametize.support_claims-filter.last_post": "Última respuesta",
+    "secure.parametize.support_claims-filter.sac_answer": "Respuesta servicio al cliente",
+    "secure.parametize.support_claims-filter.seller_answer": "Respuesta vendedor",
 
     "secure.parametize.port.port": "Puerto",
     "secure.parametize.port.search_port": "Consultar puerto",

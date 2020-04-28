@@ -17,7 +17,7 @@ import { ResponseCaseDialogComponent } from '@shared/components/response-case-di
 import { MatDialog } from '@angular/material';
 import { StoreService } from '@app/store/store.service';
 import { ConfigurationState } from '@app/store/configuration';
-import { TranslateService } from '@ngx-translate/core';
+import { CaseSupportCenterService } from '../services/case-support-center.service';
 
 @Component({
   selector: 'app-detail-case',
@@ -54,7 +54,6 @@ export class DetailCaseComponent implements OnInit {
     height: 'fit-content',
     data: null
   };
-  filterParams: any;
 
   constructor(
     public dialog: MatDialog,
@@ -62,7 +61,8 @@ export class DetailCaseComponent implements OnInit {
     private route: ActivatedRoute,
     private loadingService?: LoadingService,
     private storeService?: StoreService,
-    private translateService?: TranslateService,
+    public redirecServ?: CaseSupportCenterService
+
   ) { }
 
   ngOnInit(): void {
@@ -75,6 +75,14 @@ export class DetailCaseComponent implements OnInit {
       .pipe(map((res: CaseDetailResponse) => res.data));
 
     this.case$.subscribe(() => this.loadingService.closeSpinner());
+  }
+
+  /**
+   * Metodo para retornar al listado de reclamaciones
+   * @memberof DetailCaseComponent
+   */
+  redirecToListClaims() {
+    this.redirecServ.redirectToListServ();
   }
 
   toggleFilter(stateFilter: boolean) {
@@ -122,6 +130,7 @@ export class DetailCaseComponent implements OnInit {
       this.options = res.statusCases;
       this.case$ = this.sellerSupportService
         .getCase(this.route.snapshot.paramMap.get('idCase'))
+        // tslint:disable-next-line:no-shadowed-variable
         .pipe(map((res: CaseDetailResponse) => res.data));
     });
   }

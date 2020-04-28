@@ -7,4 +7,5 @@ export interface IData {
   createDate: string;
   status: string;
   attachments: Array<any>;
+  lastPost: any;
 }
