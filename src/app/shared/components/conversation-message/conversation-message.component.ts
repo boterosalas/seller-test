@@ -29,5 +29,15 @@ export class ConversationMessageComponent {
     reply: false
   };
 
+  disableButtonAnswer = false;
+
   @Output() replyEvent = new EventEmitter();
+
+  constructor( ) {
+    if (localStorage.getItem('typeProfile') === 'seller') {
+      this.disableButtonAnswer = false;
+    } else {
+      this.disableButtonAnswer = true;
+    }
+   }
 }
