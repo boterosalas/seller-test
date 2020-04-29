@@ -1,9 +1,18 @@
 $color-gray: #757474;
 $color-light-gray: #9E9E9E;
 $color-light-gray2: #EFEDED;
+$primary-color: #757474;
+$accent-color: #485afa;
+$title-color: black;
+$hint-color: #909090;
+$underline-color: #19a695;
 
 @mixin border-bottom {
   border-bottom: 1px solid $color-light-gray2;
+}
+
+.filter-content {
+  margin: 59px 32px;
 }
 
 .support-center-case {
@@ -43,12 +52,28 @@ $color-light-gray2: #EFEDED;
   visibility: hidden;
 }
 
+.ticket-toolbar {
+  background-color: white;
+  padding: 0px 32px;
+  border-bottom: 1px solid #e0e0e0;
+  height: 45px !important;
+  max-height: 45px;
+  justify-content: space-between;
+
+  @media (max-width: 600px) {
+    height: auto !important;
+    max-height: inherit !important;
+    padding-bottom: 16px;
+  }
+}
+
+
 
 :host ::ng-deep {
   .tree-toolbar {
     background-color: #fff;
     border-bottom: 1px solid #e0e0e0;
-    height: auto;
+    height: 80%;
 
     & .toolbar-options-table {
       width: 100%;
@@ -107,7 +132,73 @@ $color-light-gray2: #EFEDED;
   }
 }
 
-.search-container {
-  width: 70%;
-  padding-left: 20px;
+.filter-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 22px;
+  margin-bottom: 40px;
+
+  &--title {
+    font-weight: bold;
+    color: $title-color;
+  }
+
+  &--close {
+    color: $accent-color;
+    cursor: pointer;
+  }
 }
+
+.styleToolbar{
+  width: 92%;
+}
+
+.example-sidenav {
+  width: 30%;
+
+  @media only screen and (max-width: 600px) {
+    width: 80%;
+  }
+}
+
+.filter-control{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 51px 8px 0 8px;
+
+  &--btn-clean {
+    background-color: white;
+    border: 1px solid $accent-color;
+    color: $accent-color;
+
+    &:hover {
+      background-color: $accent-color;
+      color: white;
+    }
+  }
+
+  &--btn-send {
+    background-color: $accent-color;
+    color: white;
+    &:hover {
+      background-color: white;
+      color: $accent-color;
+    }
+  }
+ }
+
+
+  .search-container {
+    width: 70%;
+    padding-left: 20px;
+  }
+
+  .classNewFilter {
+    height: 61px;
+    margin-top: 1px;
+    background-color: white;
+    /* width: 5%; */
+    float: left;
+  }

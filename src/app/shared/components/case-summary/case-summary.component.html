@@ -33,9 +33,15 @@
     </div>
   </div>
 
-  <span [routerLink]="['/securehome/seller-center/support-center/' + case.id]" class="ticket-content__item ticket-content__title ticket-content__item--full-width
+  <!-- <span [routerLink]="['/securehome/seller-center/support-center/' + case.id]" class="ticket-content__item ticket-content__title ticket-content__item--full-width
       ticket-content__title--underline ticket-content__title--center ticket-content__title--pointer
       ticket-content--no-select" id="case-summary-view-detail-{{case.caseNumber}}">
     {{'secure.parametize.support_claims.view-detail' | translate}}
-  </span>
+  </span> -->
+
+  <span (click)="redirecToDetail(case.id)" class="ticket-content__item ticket-content__title ticket-content__item--full-width
+  ticket-content__title--underline ticket-content__title--center ticket-content__title--pointer
+  ticket-content--no-select" id="case-summary-view-detail-{{case.caseNumber}}">
+{{'secure.parametize.support_claims.view-detail' | translate}}
+</span>
 </div>
