@@ -362,7 +362,7 @@
     "secure.dashboard.seller-rating.date_issued_final_not_data_filter":"No evaluation data has been found for this date range.",
     "secure.dashboard.seller-rating.appeal":"Appeal",
     "secure.dashboard.seller-rating.getPdf":"Download PDF",
-    
+
 
     "secure.error_page.no_found_page": "The page you requested is not available",
     "secure.error_page.go_home": "Go to start",
@@ -1189,7 +1189,15 @@
     "secure.parametize.support_claims-filter.filter": "Filter",
     "secure.parametize.support_claims-filter.last_post": "Last post",
     "secure.parametize.support_claims-filter.sac_answer": "Customer service response",
-    "secure.parametize.support_claims-filter.seller_answer": "Seller´s response",
+    "secure.parametize.support_claims-filter.seller_answer": "Seller response",
+
+    "secure.parametize.support_drop-down-menu-ID": "ID",
+    "secure.parametize.support_drop-down-order-numer": "Order number",
+    "secure.parametize.support_drop-down-reason-detail": "Reason detail",
+    "secure.parametize.support_drop-down-creation-date": "Creation date",
+    "secure.parametize.support_drop-down-status": "Status",
+    "secure.parametize.support_drop-down-reply": "Reply",
+    "secure.parametize.support_drop-down-last-reply": "Last reply",
 
     "secure.parametize.port.port": "Port",
     "secure.parametize.port.search_port": "Search port",

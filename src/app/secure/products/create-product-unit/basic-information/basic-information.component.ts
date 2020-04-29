@@ -317,10 +317,13 @@ export class ProductBasicInfoComponent implements OnInit {
                         if (this._detailProduct && this._detailProduct.brand !== undefined && this._detailProduct.brand !== '') {
                             this.formBasicInfo.get('Brand').clearValidators();
                         } else {
-                            // this.formBasicInfo.get('Brand').setErrors({ pattern: true });
+                            this.formBasicInfo.get('Brand').setErrors({ pattern: true });
                         }
                     } else {
                         this.formBasicInfo.get('Brand').setErrors(null);
+                        const views = this.process.getViews();
+                        views.showInfo = true;
+                        this.process.setViews(views);
                     }
                 } else if (!val) {
                     this.filterBrands = [];

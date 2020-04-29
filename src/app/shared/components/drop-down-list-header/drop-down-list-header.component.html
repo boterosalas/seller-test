@@ -2,8 +2,34 @@
   fxLayoutGap.xs="0">
   <div fxFlex="5%">&nbsp;</div>
 
-  <div class="sh-list-header-header--item-header" *ngFor="let columnConfiguration of configurations"
-    [fxFlex]="columnConfiguration.md * 5 | flexSize">
-    {{ columnConfiguration.displayName }}
+  <div class="sh-list-header-header--item-header" id="sh-list-header-drop-down-menu-ID" [fxFlex]="2*  5 | flexSize">
+    {{"secure.parametize.support_drop-down-menu-ID" | translate}}
+  </div>
+
+  <div class="sh-list-header-header--item-header" id="sh-list-header-drop-down-menu-order-numer"
+    [fxFlex]="3*  5 | flexSize">
+    {{"secure.parametize.support_drop-down-order-numer" | translate}}
+  </div>
+
+  <div class="sh-list-header-header--item-header" id="sh-list-header-drop-down-menu-reason-detail"
+    [fxFlex]="6*  5 | flexSize">
+    {{"secure.parametize.support_drop-down-reason-detail" | translate}}
+  </div>
+
+  <div class="sh-list-header-header--item-header" id="sh-list-header-drop-down-creation-date"
+    [fxFlex]="3*  5 | flexSize">
+    {{"secure.parametize.support_drop-down-creation-date" | translate}}
+  </div>
+
+  <div class="sh-list-header-header--item-header" id="sh-list-header-drop-down-status" [fxFlex]="2*  5 | flexSize">
+    {{"secure.parametize.support_drop-down-status" | translate}}
+  </div>
+
+  <div class="sh-list-header-header--item-header" id="sh-list-header-drop-down-reply" [fxFlex]="2*  5 | flexSize">
+    {{"secure.parametize.support_drop-down-reply" | translate}}
+  </div>
+
+  <div class="sh-list-header-header--item-header" id="sh-list-header-drop-down-last-reply" [fxFlex]="4*  5 | flexSize">
+    {{"secure.parametize.support_drop-down-last-reply" | translate}}
   </div>
 </div>

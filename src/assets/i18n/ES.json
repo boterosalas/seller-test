@@ -362,7 +362,7 @@
     "secure.dashboard.seller-rating.date_issued_final_not_data_filter":"No se han encontrado registros de calificación en este rango de fechas.",
     "secure.dashboard.seller-rating.appeal":"Apelar",
     "secure.dashboard.seller-rating.getPdf":"Descargar PDF.",
-    
+
 
     "secure.error_page.no_found_page": "La pagina solicitada no ha sido encontrada",
     "secure.error_page.go_home": "Ir a inicio",
@@ -869,7 +869,7 @@
     "secure.products.create_product_unit.basic_information.white": "Blanco",
     "secure.products.create_product_unit.basic_information.blue": "Azul",
     "secure.products.create_product_unit.basic_information.yellow": "Amarillo",
-    "secure.products.create_product_unit.basic_information.brown": "Cafe",
+    "secure.products.create_product_unit.basic_information.brown": "Café",
     "secure.products.create_product_unit.basic_information.gray": "Gris",
     "secure.products.create_product_unit.basic_information.green": "Verde",
     "secure.products.create_product_unit.basic_information.orange": "Naranja",
@@ -1190,6 +1190,14 @@
     "secure.parametize.support_claims-filter.last_post": "Última respuesta",
     "secure.parametize.support_claims-filter.sac_answer": "Respuesta servicio al cliente",
     "secure.parametize.support_claims-filter.seller_answer": "Respuesta vendedor",
+
+    "secure.parametize.support_drop-down-menu-ID": "ID",
+    "secure.parametize.support_drop-down-order-numer": "Número de pedido",
+    "secure.parametize.support_drop-down-reason-detail": "Detalle del motivo",
+    "secure.parametize.support_drop-down-creation-date": "Fecha creación",
+    "secure.parametize.support_drop-down-status": "Estado",
+    "secure.parametize.support_drop-down-reply": "Responder",
+    "secure.parametize.support_drop-down-last-reply": "Última respuesta",
 
     "secure.parametize.port.port": "Puerto",
     "secure.parametize.port.search_port": "Consultar puerto",
