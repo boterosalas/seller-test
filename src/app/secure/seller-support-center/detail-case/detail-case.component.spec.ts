@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 
 import { DetailCaseComponent } from './detail-case.component';
 import { SharedModule } from '@app/shared/shared.module';
@@ -12,13 +12,13 @@ import { SellerSupportCenterService } from '../services/seller-support-center.se
 import { of } from 'rxjs';
 import { StoreService } from '@app/store/store.service';
 
-fdescribe('DetailCaseComponent', () => {
+describe('DetailCaseComponent', () => {
   let component: DetailCaseComponent;
   let fixture: ComponentFixture<DetailCaseComponent>;
   let storeMock;
   const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       declarations: [DetailCaseComponent],
       imports: [
@@ -49,19 +49,18 @@ fdescribe('DetailCaseComponent', () => {
 
 class StoreServiceTest {
   getStateConfiguration() {
-    debugger
     const objj = {
-      language: "ES",
+      language: 'ES',
       statusCases: [
         {
           id: 2,
           code: 2,
-          name: "string",
-          description: "string",
+          name: 'string',
+          description: 'string',
           default: false,
           active: false,
-          createDate: "string",
-          updateDate: "string",
+          createDate: 'string',
+          updateDate: 'string',
         }
       ],
     };

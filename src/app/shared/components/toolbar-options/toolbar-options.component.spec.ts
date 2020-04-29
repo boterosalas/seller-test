@@ -1,6 +1,6 @@
 
 /* 3rd party components */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 /* our own custom components */
 import { ToolbarOptionsComponent } from './toolbar-options.component';
@@ -37,7 +37,7 @@ describe('ToolbarOptionsComponent', () => {
   let component: ToolbarOptionsComponent;
   let fixture: ComponentFixture<ToolbarOptionsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         ShellComponent,
