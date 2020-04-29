@@ -459,6 +459,9 @@ export class ListOfCaseComponent implements OnInit {
       } else {
         this.loadingService.closeSpinner();
       }
+    }, err => {
+      this.modalService.showModal('errorService');
+      this.loadingService.closeSpinner();
     });
   }
 
