@@ -269,6 +269,7 @@
     "core.shell.search_order_menu.search_billing_form.invoice_number": "Invoice number",
 
     "core.shell.search_order_menu.search_envios_exito_form.filter_channel": "Filter by channel",
+    "core.shell.search_order_menu.search_envios_exito_form.filter_status": "Filter by status",
     "core.shell.search_order_menu.search_envios_exito_form.none": "None",
     "core.shell.search_order_menu.search_envios_exito_form.exito": "Éxito",
     "core.shell.search_order_menu.search_envios_exito_form.carulla": "Carulla",

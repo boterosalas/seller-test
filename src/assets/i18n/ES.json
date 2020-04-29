@@ -269,6 +269,7 @@
     "core.shell.search_order_menu.search_billing_form.invoice_number": "Número de factura",
 
     "core.shell.search_order_menu.search_envios_exito_form.filter_channel": "Filtrar por canal",
+    "core.shell.search_order_menu.search_envios_exito_form.filter_status": "Por Estados",
     "core.shell.search_order_menu.search_envios_exito_form.none": "Ninguno",
     "core.shell.search_order_menu.search_envios_exito_form.exito": "Éxito",
     "core.shell.search_order_menu.search_envios_exito_form.carulla": "Carulla",

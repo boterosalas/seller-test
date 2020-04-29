@@ -29,6 +29,16 @@
     </mat-select>
   </mat-form-field>
 
+  <mat-form-field id="status-input-search-order" [ngClass]="{'hidden': state === '170' || state === '35'}"  class="example-full-width" color="accent">
+    <mat-icon matPrefix color="accent">device_hub</mat-icon>
+    <mat-select id="select-status" formControlName="idStatusOrder" [placeholder]="'core.shell.search_order_menu.search_envios_exito_form.filter_status' | translate">
+      <mat-option value="11">Asignado</mat-option>
+      <mat-option value="13">Entregadas </mat-option>
+      <mat-option value="16">En envío </mat-option>
+      <mat-option value="null">Todas </mat-option>
+    </mat-select>
+  </mat-form-field>
+
   <mat-form-field class="example-full-width" color="accent">
     <mat-icon matPrefix color="accent">format_list_bulleted</mat-icon>
     <input id="orderNumber-input-search-order" formControlName="orderNumber" type="text" pattern="[0-9.]+" matInput

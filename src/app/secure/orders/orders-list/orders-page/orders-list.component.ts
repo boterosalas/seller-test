@@ -111,7 +111,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
 
 
   public length = 0;
-  public pageSize = 50;
+  public pageSize = 200;
   public querySearch = '';
 
 

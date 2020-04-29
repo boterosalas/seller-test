@@ -47,6 +47,8 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   public filteredOptions: Observable<string[]>;
 
   @Input() searchSellerInput;
+  @Input() pageSizeOptions;
+
 
   // Para identificar qué tipo de búsqueda se va a realizar.
   @Input() isFullSearch: boolean;
