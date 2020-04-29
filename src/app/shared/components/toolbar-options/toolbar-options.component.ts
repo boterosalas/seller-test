@@ -122,7 +122,6 @@ export class ToolbarOptionsComponent implements OnInit {
 
   public getAllSellers() {
     this.loadingService.viewSpinner();
-    debugger
     if (this.isFullSearch) {
       this.storeService.getAllStoresFull(this.user).subscribe((res: any) => {
         if (res.status === 200) {

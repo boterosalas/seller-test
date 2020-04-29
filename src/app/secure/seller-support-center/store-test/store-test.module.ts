@@ -11,7 +11,6 @@ import { of, Observable } from 'rxjs';
 export class StoreTestModule {
 
   store(): Observable<any> {
-    debugger
     return of([]);
   }
 }

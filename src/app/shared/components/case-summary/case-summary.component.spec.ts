@@ -7,6 +7,8 @@ import { ConversationMessageComponent } from '../conversation-message/conversati
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatDialogModule } from '@angular/material';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { EndpointService } from '@app/core';
 
 describe('CaseSumaryComponent', () => {
   let component: CaseSummaryComponent;
@@ -22,9 +24,13 @@ describe('CaseSumaryComponent', () => {
 
       ],
       imports: [
+        HttpClientTestingModule,
         TranslateModule.forRoot({}),
         RouterTestingModule,
         MatDialogModule
+      ],
+      providers: [
+        EndpointService
       ]
     })
       .compileComponents();
@@ -63,6 +69,8 @@ describe('CaseSumaryComponent', () => {
   });
 
   it('should button be enable', () => {
+    component.disableButtonAnswer = false;
+    fixture.detectChanges();
     const buton: any = document.getElementById('case-summary-reply-btn-2');
     expect(buton.disabled).toBeFalsy();
   });

@@ -15,6 +15,7 @@ import {
   MatSidenavContainer,
   MatNativeDateModule,
   MatInputModule,
+  MatTooltipModule,
 } from '@angular/material';
 import { ListOfCaseComponent } from './list-of-case.component';
 import { EndpointService, LoadingService, ModalService } from '@app/core'
@@ -48,6 +49,9 @@ import { CoreState } from '@app/store';
 import { StoreService } from '@app/store/store.service';
 import { StoreTestModule } from '../store-test/store-test.module';
 import { EventEmitter } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { SupportService } from '@app/secure/support-modal/support.service';
+import { SellerSupportCenterService } from '../services/seller-support-center.service';
 
 
 describe('ListOfCaseComponent', () => {
@@ -83,6 +87,7 @@ describe('ListOfCaseComponent', () => {
         TranslateModule.forRoot({}),
         RouterTestingModule,
         BrowserAnimationsModule,
+        MatTooltipModule,
         MatSidenavModule,
         MatToolbarModule,
         MatSnackBarModule,
@@ -98,6 +103,9 @@ describe('ListOfCaseComponent', () => {
         ReactiveFormsModule,
       ],
       providers: [
+        DatePipe,
+        // { provide: SellerSupportCenterService, useClass: SellerSupportCenterServiceTest },
+        { provide: SupportService, useClass: SupportServiceTest },
         EndpointService,
         { provide: EventEmitterSeller, useClass: EventEmitterSellerTest },
         {
@@ -194,5 +202,25 @@ class MyProfileServiceTest {
       body: { body: responseTxt }
     }
     return of(response);
+  }
+}
+
+class SupportServiceTest {
+  sendSupportMessage(user: any, supportMessage: any) {
+    const returnObj = { obk: "qwe" }
+    return of(returnObj);
+  }
+
+  public getRegexFormSupport(params: any): Observable<any> {
+    const responseTxt = JSON.stringify({ Data: ["reclamaciones"] });
+    const response = { body: { body: responseTxt } };
+    return of(response);
+  }
+
+  public getClassification(): Observable<any> {
+    const classification = {
+      class: "we"
+    };
+    return of(classification)
   }
 }
