@@ -6,6 +6,89 @@ import { EndpointService } from '@app/core';
 import { Observable, of } from 'rxjs';
 import { ModelFilterSellerRating } from '../seller-rating/seller-rating.model';
 
+const data = {
+  'reportOrdersSalesType': [
+      {
+          'name': 'abril',
+          'sales': 60000.0,
+          'quantity': 5
+      },
+      {
+          'name': 'marzo',
+          'sales': 170000.0,
+          'quantity': 3
+      },
+      {
+          'name': 'febrero',
+          'sales': 1243000.0,
+          'quantity': 8
+      }
+  ],
+  'productsBestSellings': [
+      {
+          'name': 'Celular002',
+          'pluVtex': '100254946',
+          'unitsSold': 1,
+          'unitsAvaliable': 2
+      },
+      {
+          'name': 'Celular002',
+          'pluVtex': '100254946',
+          'unitsSold': 1,
+          'unitsAvaliable': 2
+      },
+      {
+          'name': 'Producto Creado con EAN 2365477746910',
+          'pluVtex': '100254820',
+          'unitsSold': 1,
+          'unitsAvaliable': 2
+      },
+      {
+          'name': 'Producto Creado con EAN 2365477746910',
+          'pluVtex': '100254820',
+          'unitsSold': 1,
+          'unitsAvaliable': 2
+      },
+      {
+          'name': 'Producto Creado con EAN 2365477746910',
+          'pluVtex': '100254820',
+          'unitsSold': 1,
+          'unitsAvaliable': 2
+      },
+      {
+          'name': 'Producto Creado con EAN 2365477746910',
+          'pluVtex': '100254820',
+          'unitsSold': 1,
+          'unitsAvaliable': 2
+      },
+      {
+          'name': 'Celular003',
+          'pluVtex': '100254947',
+          'unitsSold': 1,
+          'unitsAvaliable': 2
+      },
+      {
+          'name': 'Producto Creado con EAN 2365477746910',
+          'pluVtex': '100254820',
+          'unitsSold': 1,
+          'unitsAvaliable': 2
+      },
+      {
+          'name': 'Producto Creado con EAN 2365477746910',
+          'pluVtex': '100254820',
+          'unitsSold': 1,
+          'unitsAvaliable': 2
+      },
+      {
+          'name': 'Producto Creado con EAN 2365477746910',
+          'pluVtex': '100254820',
+          'unitsSold': 1,
+          'unitsAvaliable': 2
+      }
+  ],
+  'ticketAverage': 92062.5
+};
+
 /**
  * @export
  * @class DashboardService
@@ -75,6 +158,12 @@ export class DashboardService {
   }
 
   public getSalesSummary(params: any): Observable<any> {
+    return new Observable(observer => {
+      observer.next(data);
+    });
+    // return this._http.get(this._api.get('ordersSummaryStatus', [params]));
+  }
+  public getOrdensSummary(params: any): Observable<any> {
     return this._http.get(this._api.get('ordersSummaryStatus', [params]));
   }
 

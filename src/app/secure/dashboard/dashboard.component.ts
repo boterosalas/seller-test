@@ -271,7 +271,7 @@ select(filter: any) {
 getOrdensSummary(params?: any) {
         this.params = this.setParameters(params);
         this.showChartOrdens = false;
-        this._dashboard.getSalesSummary(this.params).subscribe((res: any) => {
+        this._dashboard.getOrdensSummary(this.params).subscribe((res: any) => {
             if (this.isLoad) {
                 this.loadingService.closeSpinner();
             } else {
@@ -562,18 +562,30 @@ calculateCountSales(res: any) {
         this.params = this.setParametersSales(params);
         this.showChartSales = false;
         this._dashboard.getSalesSummary(this.params).subscribe((res: any) => {
-            if (this.isLoad) {
-                this.loadingService.closeSpinner();
-            } else {
-                this.isLoading = false;
+            if (res) {
+                if (this.isLoad) {
+                    this.loadingService.closeSpinner();
+                } else {
+                    this.isLoading = false;
+                }
+                this.last_sales = res.reportOrdersSalesType ? this.parseLastSales(res.reportOrdersSalesType.reverse()) : [];
+                this.calculateCountSales(res.reportOrdersSalesType);
+
+                if (res.productsBestSellings && res.productsBestSellings.length > 0) {
+                    this.topProduct = res.productsBestSellings;
+                } else {
+                    this.topProduct = [];
+                }
+
+                if (res.ticketAverage) {
+                    this.promedTicket = res.ticketAverage;
+                } else {
+                    this.promedTicket = '';
+                }
+
+                this.showChartSales = true;
             }
-            this.last_sales = res ? this.parseLastSales(res.reverse()) : [];
-            this.calculateCountSales(res);
 
-            this.topProduct = this.arrayTop10;
-            this.promedTicket = '23.455.567';
-
-            this.showChartSales = true;
         }, err => {
             if (this.isLoad) {
                 this.loadingService.closeSpinner();

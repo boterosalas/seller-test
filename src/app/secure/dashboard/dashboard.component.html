@@ -461,7 +461,7 @@
                   <table mat-table [dataSource]="topProduct">
                     <ng-container matColumnDef="PLU">
                       <th mat-header-cell *matHeaderCellDef> {{'secure.dashboard.table.top.title.SKU' | translate}} </th>
-                      <td mat-cell *matCellDef="let element" class="dashboard-table-text-top"> {{element.PLU}} </td>
+                      <td mat-cell *matCellDef="let element" class="dashboard-table-text-top"> {{element.pluVtex}} </td>
                     </ng-container>
                     <ng-container matColumnDef="Nombre">
                       <th mat-header-cell *matHeaderCellDef> {{'secure.dashboard.table.top.title.Product' | translate}} </th>
@@ -471,11 +471,11 @@
                     </ng-container>
                     <ng-container matColumnDef="Uds. Vendidas">
                       <th mat-header-cell *matHeaderCellDef> {{'secure.dashboard.table.top.title.Units_sold' | translate}} </th>
-                      <td mat-cell style="text-align: center;" *matCellDef="let element" class="dashboard-table-text-top"> {{element.unit_seller}} </td>
+                      <td mat-cell style="text-align: center;" *matCellDef="let element" class="dashboard-table-text-top"> {{element.unitsSold}} </td>
                     </ng-container>
                     <ng-container matColumnDef="Uds. Disponibles">
                       <th mat-header-cell *matHeaderCellDef> {{'secure.dashboard.table.top.title.Available_units' | translate}} </th>
-                      <td mat-cell style="text-align: center;" *matCellDef="let element" class="dashboard-table-text-top"> {{element.unit_available}} </td>
+                      <td mat-cell style="text-align: center;" *matCellDef="let element" class="dashboard-table-text-top"> {{element.unitsAvaliable}} </td>
                     </ng-container>
                     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
