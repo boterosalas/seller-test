@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
     public visibleDate: string;
 
     public dateCurrent: any;
-    public position= 'right';
+    public position= 'left';
 
     public showOrdersChart = false;
     public showOrdersChartSales = false;
