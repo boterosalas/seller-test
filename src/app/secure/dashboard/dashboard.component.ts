@@ -377,13 +377,14 @@ calculateCountSales(res: any) {
             this.isLoad = false;
             this.isLoading = true;
             localStorage.setItem('culture_current', e['lang']);
-            this.getLastSales(this.dateCurrent);
 
             if ('ES' === e['lang']) {
                 this.selectTypeFilter = this.periodsES[3].value;
             } else {
                 this.selectTypeFilter = this.periodsEN[3].value;
             }
+            this.getSalesSummary();
+            this.getOrdensSummary();
         });
 
         this.lang = localStorage.getItem('culture_current');
