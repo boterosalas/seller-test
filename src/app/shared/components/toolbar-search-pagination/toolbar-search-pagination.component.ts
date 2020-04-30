@@ -58,6 +58,7 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   }
 
   @Input() customerFilterCalifications = false;
+  @Input() allFilter: any;
 
 
 
@@ -153,7 +154,8 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
     const dialogRef = this.dialog.open(DownloadOrderModalComponent, {
       data: {
         limit: this.lengthOrder,
-        billingType: this.billingType
+        billingType: this.billingType,
+        filter: this.allFilter
       },
     });
     dialogRef.afterClosed().subscribe(result => {

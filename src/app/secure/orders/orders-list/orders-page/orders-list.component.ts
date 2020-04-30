@@ -106,6 +106,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   public dateOrderFinal = '';
   public idChannel = '';
   public orderNumber = '';
+  public idStatus = '';
   public identificationCard = '';
   public processedOrder = '';
 
@@ -153,6 +154,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   currentRootPage: any;
   // Variable que almacena el objeto de paginación actual para listar las órdenes.
   currentEventPaginate: any;
+  // Variable para almacenar los filtros seleccionados
+  allFilter: any;
 
 
   // Configuración para el toolbar-options y el search de la pagina
@@ -402,10 +405,12 @@ export class OrdersListComponent implements OnInit, OnDestroy {
           this.dateOrderInitial = data.filter.dateOrderInitial;
           this.dateOrderFinal = data.filter.dateOrderFinal;
           this.idChannel = data.filter.idChannel;
+          this.idStatus = data.filter.idStatus;
           this.orderNumber = data.filter.orderNumber;
           this.identificationCard = data.filter.identificationCard;
           this.processedOrder = data.filter.processedOrder;
         }
+        this.allFilter = data.filter;
       });
   }
   /**
@@ -557,6 +562,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       this.dateOrderInitial = '';
       this.idChannel = '';
       this.orderNumber = '';
+      this.idStatus = '';
       this.identificationCard = '';
       this.processedOrder = '';
     }
@@ -567,6 +573,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       'dateOrderFinal': this.dateOrderFinal,
       'dateOrderInitial': this.dateOrderInitial,
       'idChannel': this.idChannel,
+      'idStatus': this.idStatus,
       'orderNumber': this.orderNumber,
       'identificationCard': this.identificationCard,
       'processedOrder': this.processedOrder,

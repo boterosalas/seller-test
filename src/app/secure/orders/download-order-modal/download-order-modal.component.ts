@@ -35,6 +35,8 @@ export class DownloadOrderModalComponent implements OnInit {
   // Inicializa el modal de tipo de financial
   public billingType = false;
   // loadingService: any;
+  // filtros aplicados a la consulta
+  public filter: any;
 
   /**
    * Creates an instance of DownloadOrderModalComponent.
@@ -59,6 +61,7 @@ export class DownloadOrderModalComponent implements OnInit {
     // capturo el limite de registros indicados por el usuario
     this.limitLengthOrder = data.limit;
     this.billingType = true ? data.billingType : false;
+    this.filter = data.filter;
   }
 
   ngOnInit() {
@@ -103,6 +106,9 @@ export class DownloadOrderModalComponent implements OnInit {
     currentFiltersOrders.idSeller = this.user.sellerId;
     currentFiltersOrders.sellerName = this.user.sellerName;
     currentFiltersOrders.email = form.get('email').value;
+    currentFiltersOrders.dateOrderInitial = this.filter.dateOrderInitial;
+    currentFiltersOrders.dateOrderFinal = this.filter.dateOrderFinal;
+    currentFiltersOrders.idStatus = this.filter.idStatus;
     log.debug('parametros', currentFiltersOrders);
     if (!this.billingType) {
       this.downloadOrdersByService(currentFiltersOrders);

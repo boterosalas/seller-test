@@ -80,7 +80,7 @@ export class SearchOrderFormComponent implements OnInit {
       'identificationCard': [null, Validators.compose([])],
       // 'typeOrder': [null, Validators.compose([])],
       'idChannel': [null, Validators.compose([])],
-      'idStatusOrder': [null, Validators.compose([])],
+      'idStatus': [null, Validators.compose([])],
       'orderNumber': [null, Validators.compose([Validators.minLength(1), Validators.maxLength(30)])],
     });
   }
@@ -141,9 +141,9 @@ export class SearchOrderFormComponent implements OnInit {
       stringSearch += `&idChannel=${data.value.idChannel}`;
       objectSearch.idChannel = data.value.idChannel;
     }
-    if (data.value.idStatusOrder !== null && data.value.idStatusOrder !== '') {
-      stringSearch += `&idStatusOrder=${data.value.idStatusOrder}`;
-      objectSearch.idStatusOrder = data.value.idStatusOrder;
+    if (data.value.idStatus !== null && data.value.idStatus !== '') {
+      stringSearch += `&idStatus=${data.value.idStatus}`;
+      objectSearch.idStatus = data.value.idStatus;
     }
     if (data.value.orderNumber !== null && data.value.orderNumber !== '') {
       stringSearch += `&orderNumber=${data.value.orderNumber}`;
@@ -163,7 +163,7 @@ export class SearchOrderFormComponent implements OnInit {
       let status = '';
       stringSearch += '&paginationToken=' + encodeURI('{}');
       if (this.state && this.state !== undefined) {
-        status = '&idStatusOrder=' + this.state;
+        status = '&idStatus=' + this.state;
       }
       stringSearch += status;
       // Guardo el filtro aplicado por el usuario.
@@ -176,7 +176,7 @@ export class SearchOrderFormComponent implements OnInit {
             dateOrderFinal : dateOrderFinal,
             dateOrderInitial: dateOrderInitial,
             idChannel: data.value.idChannel,
-            idStatusOrder: data.value.idStatusOrder,
+            idStatus: data.value.idStatus,
             orderNumber: data.value.orderNumber,
             identificationCard: data.value.identificationCard,
             processedOrder: data.value.processedOrder

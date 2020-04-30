@@ -10,7 +10,7 @@
         [idSeller]="idSeller" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)"
         (paginationListOrdens)="paginations($event)" [isFullSearch]="isFullSearch" [pageIndexChange]="pageIndexChange"
         (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [downloadPermission]="downloadPermission"
-        [Typeprofile]="typeProfile" [pageSizeOptions]="[200, 300, 400]" [lengthOrder]="length"></app-toolbar-search-pagination>
+        [Typeprofile]="typeProfile" [allFilter]= "allFilter" [pageSizeOptions]="[200, 300, 400]" [lengthOrder]="length"></app-toolbar-search-pagination>
     </div>
 
     <!-- Tabla de órdenes -->
