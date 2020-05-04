@@ -4,7 +4,7 @@ import { environment } from '@env/environment';
 import { TranslateService } from '@ngx-translate/core';
 
 const log = new Logger('AppComponent');
-export const langs = ['US', 'ES'];
+export const langs = ['US', 'ES', 'FR'];
 
 @Component({
   selector: 'app-root',
