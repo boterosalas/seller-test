@@ -12,6 +12,7 @@ import { LoadGuideService } from '../load-guide.service';
 import { MenuModel, guideChargesName, loadFunctionality, downloadFunctionality } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { TranslateService } from '@ngx-translate/core';
+import { DownloadOrderModalComponent } from '@app/secure/orders/download-order-modal';
 
 // log component
 const log = new Logger('LoadGuideComponent');
@@ -157,9 +158,13 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
    * @memberof LoadGuidePageComponent
    */
   openModalDownloadFormat() {
-    const dialogRef = this.dialog.open(DownloadFormatComponent, {
-      height: '240px',
-      width: '360px',
+    const dialogRef = this.dialog.open(DownloadOrderModalComponent, {
+      data: {
+        limit: null,
+        billingType: null,
+        filter: null,
+        type: 2
+      },
     });
     dialogRef.afterClosed().subscribe(result => {
       log.info('The dialog was closed');

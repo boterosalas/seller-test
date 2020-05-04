@@ -1,7 +1,8 @@
 <div *ngIf="myform">
   <h2 mat-dialog-title>{{'secure.orders.download_order_modal.title' | translate}}
-    <span *ngIf="!billingType"> {{'secure.orders.orders' | translate}} </span>
+    <span *ngIf="!billingType && type === 1"> {{'secure.orders.orders' | translate}} </span>
     <span *ngIf="billingType"> {{'secure.orders.download_order_modal.title_3' | translate}} </span>
+    <span *ngIf="!billingType && type === 2"> {{'secure.orders.order_list.product_detail.guides' | translate}} </span>
     {{'secure.orders.download_order_modal.title_4' | translate}}</h2>
   <mat-dialog-content>
     <form #f="ngForm" [formGroup]="myform" class="form-login">
@@ -26,9 +27,12 @@
     <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
     <button class="sc-button" mat-button [mat-dialog-close]="true">{{'actions.cancel_min' | translate}}</button>
 
-    <button class="sc-button" [disabled]="!f.form.valid" (click)="downloadOrders(myform)" mat-raised-button color="accent">
+    <button class="sc-button" *ngIf="type === 1" [disabled]="!f.form.valid" (click)="downloadOrders(myform)" mat-raised-button color="accent">
       <span *ngIf="!billingType">{{'secure.orders.download_order_modal.btn_send_order' | translate}}</span>
       <span *ngIf="billingType">{{'secure.orders.download_order_modal.btn_send_invoice' | translate}} </span>
+    </button>
+    <button class="sc-button" *ngIf="type === 2" [disabled]="!f.form.valid" (click)="downloadGuide(myform)" mat-raised-button color="accent">
+      <span>{{'secure.orders.download_order_modal.btn_send_guide' | translate}}</span>
     </button>
   </mat-dialog-actions>
 </div>

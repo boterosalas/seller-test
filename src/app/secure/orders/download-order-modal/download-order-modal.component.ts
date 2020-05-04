@@ -38,6 +38,8 @@ export class DownloadOrderModalComponent implements OnInit {
   // filtros aplicados a la consulta
   public filter: any;
 
+  public type: any;
+
   /**
    * Creates an instance of DownloadOrderModalComponent.
    * @param {MatDialogRef<DownloadOrderModalComponent>} dialogRef
@@ -62,6 +64,7 @@ export class DownloadOrderModalComponent implements OnInit {
     this.limitLengthOrder = data.limit;
     this.billingType = true ? data.billingType : false;
     this.filter = data.filter;
+    this.type = data.type;
   }
 
   ngOnInit() {
@@ -106,9 +109,18 @@ export class DownloadOrderModalComponent implements OnInit {
     currentFiltersOrders.idSeller = this.user.sellerId;
     currentFiltersOrders.sellerName = this.user.sellerName;
     currentFiltersOrders.email = form.get('email').value;
-    currentFiltersOrders.dateOrderInitial = this.filter.dateOrderInitial;
-    currentFiltersOrders.dateOrderFinal = this.filter.dateOrderFinal;
-    currentFiltersOrders.idStatus = this.filter.idStatus;
+    if (this.filter) {
+      if (this.filter.dateOrderInitial) {
+        currentFiltersOrders.dateOrderInitial = this.filter.dateOrderInitial;
+      }
+      if (this.filter.dateOrderFinal) {
+        currentFiltersOrders.dateOrderFinal = this.filter.dateOrderFinal;
+      }
+      if (this.filter.idStatus) {
+        currentFiltersOrders.idStatus = this.filter.idStatus;
+      }
+    }
+
     log.debug('parametros', currentFiltersOrders);
     if (!this.billingType) {
       this.downloadOrdersByService(currentFiltersOrders);
@@ -134,6 +146,29 @@ export class DownloadOrderModalComponent implements OnInit {
       this.onNoClick();
     }, err => {
       this.componentsService.openSnackBar(this.languageService.instant('secure.orders.download_order_modal.sn_error_download'), this.languageService.instant('actions.close'), 5000);
+      this.loadingService.closeSpinner();
+      this.onNoClick();
+    });
+  }
+
+
+  downloadGuide(form: any) {
+    const currentFiltersOrders = this.downloadOrderService.getCurrentFilterOrders();
+    currentFiltersOrders.idSeller = this.user.sellerId;
+    currentFiltersOrders.sellerName = this.user.sellerName;
+    currentFiltersOrders.email = form.get('email').value;
+    this.loadingService.viewSpinner();
+    this.downloadOrderService.downloadGuides(currentFiltersOrders).subscribe(res => {
+      if (res != null && res.data !== false) {
+        this.componentsService.openSnackBar(this.languageService.instant('secure.orders.download_order_modal.sn_download_guide'), this.languageService.instant('actions.close'), 10000);
+        this.loadingService.closeSpinner();
+      } else {
+        this.componentsService.openSnackBar(this.languageService.instant('secure.orders.download_order_modal.sn_error_download_guide'), this.languageService.instant('actions.close'), 5000);
+        this.loadingService.closeSpinner();
+      }
+      this.onNoClick();
+    }, err => {
+      this.componentsService.openSnackBar(this.languageService.instant('secure.orders.download_order_modal.sn_error_download_guide'), this.languageService.instant('actions.close'), 5000);
       this.loadingService.closeSpinner();
       this.onNoClick();
     });

@@ -415,9 +415,12 @@
     "secure.orders.download_order_modal.title_3": "invoices",
     "secure.orders.download_order_modal.title_4": "to the following e-mail address",
     "secure.orders.download_order_modal.btn_send_order": "Send orders",
+    "secure.orders.download_order_modal.btn_send_guide": "Send guides",
     "secure.orders.download_order_modal.btn_send_invoice": "Send invoices",
     "secure.orders.download_order_modal.sn_download_order": "The orders have been downloaded correctly, check your inbox.",
+    "secure.orders.download_order_modal.sn_download_guide": "The guides have been downloaded correctly, check your inbox.",
     "secure.orders.download_order_modal.sn_error_download": "An error has occurred when downloading the orders.",
+    "secure.orders.download_order_modal.sn_error_download_guide": "An error has occurred when downloading the guides.",
 
     "secure.orders.order_list.detail_modal.order_date": "Order date",
     "secure.orders.order_list.detail_modal.deadline": "Maximum delivery date",
@@ -444,6 +447,7 @@
     "secure.orders.order_list.product_detail.cost": "Cost",
     "secure.orders.order_list.product_detail.freight": "Freight",
     "secure.orders.order_list.product_detail.guide": "Tracking number",
+    "secure.orders.order_list.product_detail.guides": "Tracking numbers",
 
     "secure.orders.order_list.product_order.conveyor": "Freight company",
     "secure.orders.order_list.product_order.delivery_type": "Delivery type",

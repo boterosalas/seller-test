@@ -415,9 +415,12 @@
     "secure.orders.download_order_modal.title_3": "facturas",
     "secure.orders.download_order_modal.title_4": "al siguiente correo electrónico.",
     "secure.orders.download_order_modal.btn_send_order": "Enviar órdenes",
+    "secure.orders.download_order_modal.btn_send_guide": "Enviar Guías",
     "secure.orders.download_order_modal.btn_send_invoice": "Enviar facturas",
     "secure.orders.download_order_modal.sn_download_order": "Se ha realizado la descarga de las órdenes correctamente, revisa tu correo electrónico.",
+    "secure.orders.download_order_modal.sn_download_guide": "Se ha realizado la descarga de las guías correctamente, revisa tu correo electrónico.",
     "secure.orders.download_order_modal.sn_error_download": "Se ha presentado un error al realizar la descarga de las órdenes.",
+    "secure.orders.download_order_modal.sn_error_download_guide": "Se ha presentado un error al realizar la descarga de las guías.",
 
     "secure.orders.order_list.detail_modal.order_date": "Fecha de pedido",
     "secure.orders.order_list.detail_modal.deadline": "Fecha maxima de entrega",
@@ -444,6 +447,7 @@
     "secure.orders.order_list.product_detail.cost": "Costo",
     "secure.orders.order_list.product_detail.freight": "Flete",
     "secure.orders.order_list.product_detail.guide": "Guía",
+    "secure.orders.order_list.product_detail.guides": "Guías",
 
     "secure.orders.order_list.product_order.conveyor": "Transportadora",
     "secure.orders.order_list.product_order.delivery_type": "Tipo de entrega",

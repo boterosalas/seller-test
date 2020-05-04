@@ -155,7 +155,8 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
       data: {
         limit: this.lengthOrder,
         billingType: this.billingType,
-        filter: this.allFilter
+        filter: this.allFilter,
+        type: 1
       },
     });
     dialogRef.afterClosed().subscribe(result => {
