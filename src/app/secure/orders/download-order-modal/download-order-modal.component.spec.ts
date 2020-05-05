@@ -18,6 +18,7 @@ import { ComponentsService } from '@app/shared';
 import { UserParametersService, LoadingService, EndpointService, CognitoUtil } from '@app/core';
 import { of, throwError } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
+import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 
 
 describe('DownloadOrderModalComponent', () => {
@@ -54,7 +55,7 @@ describe('DownloadOrderModalComponent', () => {
         FormsModule,
         RouterTestingModule,
         BrowserAnimationsModule,
-        HttpClientModule,
+        HttpClientTestingModule,
         TranslateModule.forRoot({}),
       ],
       declarations: [
@@ -173,7 +174,7 @@ describe('DownloadOrderModalComponent', () => {
     });
   });
 
-  fdescribe('Funcion obtener las facturas ERROR SERV', () => {
+  describe('Funcion obtener las facturas ERROR SERV', () => {
     beforeEach(() => {
       mockDownloadOrderService.downloadBilling.and.returnValue(throwError('falle'));
       fixture.detectChanges();

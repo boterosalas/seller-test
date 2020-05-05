@@ -20,5 +20,11 @@ $line-color: #d3d3d3;
       width: inherit;
       max-width: 30%;
     }
+
+    @media only screen and (max-width: 668px) {
+      &--item-header {
+        font-size: 10px;
+      }
+    }
   }
 }

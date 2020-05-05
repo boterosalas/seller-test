@@ -1,17 +1,45 @@
-import { async } from '@angular/core/testing';
+import { async, fakeAsync, tick } from '@angular/core/testing';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { endpoints } from '@root/api-endpoints';
+import { SupportService } from '@app/secure/support-modal/support.service';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { SharedModule } from '@app/shared/shared.module';
+import { AwsCognitoRoutingModule } from '@app/secure/aws-cognito/aws-cognito.routing';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MaterialModule } from '@app/material.module';
+import { RouterTestingModule } from '@angular/router/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ShellComponent } from '@app/core/shell';
 
+export const registerRegex = [
+    { Identifier: 'formatIntegerNumber', Value: '^[0-9]+([.][0-9]{2})?$', Module: 'parametrizacion' },
+];
 
 describe('endpoints', () => {
 
+    const mockSupportService = jasmine.createSpyObj('SupportService', ['getRegexFormSupport']);
 
+    beforeEach(fakeAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [
+                CommonModule
+            ],
+            providers: [
+                { provide: SupportService, useValue: mockSupportService },
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+        }).compileComponents();
+    }));
     beforeEach(() => {
+        TestBed.configureTestingModule({ });
     });
 
-    it('Deberia obtener los api endpoints de desarrollo', () => {
-        expect(endpoints.stage).toBeDefined();
-    });
+    it('Deberia obtener los api endpoints de desarrollo', (() => {
+        if (Object.keys(endpoints).length > 0) {
+            expect(endpoints.stage.v1).toBeDefined();
+        }
+    }));
 
     it('Deberia tener el mismo numero de endpoints en produccion y en desarrollo', () => {
         let exist = false;

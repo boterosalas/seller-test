@@ -11,9 +11,10 @@
     </div>
     <span class="example-spacer"></span>
     <div class="toolbar-content">
-      <mat-sidenav-content class="toolbar-right" fxLayout="row" fxLayoutAlign="center center">
-        <div class="toolbar-right--item toolbar-item--vertical-center">
-          <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
+      <mat-sidenav-container>
+        <mat-sidenav-content class="toolbar-right" fxLayout="row" fxLayoutAlign="center center">
+          <div class="toolbar-right--item toolbar-item--vertical-center">
+            <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
             [pageSizeOptions]="[5, 10, 25, 50, 100]">
           </mat-paginator>
         </div>
@@ -25,6 +26,7 @@
           </button>
         </div> -->
       </mat-sidenav-content>
+    </mat-sidenav-container>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
