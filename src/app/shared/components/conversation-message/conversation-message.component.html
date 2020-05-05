@@ -13,8 +13,8 @@
       {{ name ? name : '' }}
     </span>
   </div>
-  <div class="sh-message__controls sh-message__controls--right" *ngIf="configuration.reply && !disableButtonAnswer">
-    <button [disabled]="disabled" (click)="replyEvent.emit()"
+  <div class="sh-message__controls sh-message__controls--right" *ngIf="!disableButtonAnswer">
+    <button [disabled]="disabled" (click)="replyEvent.emit()" *ngIf="configuration.reply"
       class="mat-raised-button sh-message__button sh-message__button--secondary"
       [ngClass]="disabledClass ? 'sh-message__button--secondary-disabled' : ''"
       id="conversation-message-reply-btn-{{caseId}}">

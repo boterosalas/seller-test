@@ -33,11 +33,11 @@ export class ConversationMessageComponent {
 
   @Output() replyEvent = new EventEmitter();
 
-  constructor( ) {
-    if (localStorage.getItem('typeProfile') === 'seller') {
+  constructor() {
+    if (localStorage.getItem('typeProfile') === 'seller' || localStorage.getItem('typeProfile') === null || localStorage.getItem('typeProfile') === undefined || localStorage.getItem('typeProfile') === '') {
       this.disableButtonAnswer = false;
     } else {
       this.disableButtonAnswer = true;
     }
-   }
+  }
 }
