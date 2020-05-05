@@ -8,4 +8,5 @@ export interface IData {
   status: string;
   attachments: Array<any>;
   lastPost: any;
+  lastPostDesc: any;
 }
