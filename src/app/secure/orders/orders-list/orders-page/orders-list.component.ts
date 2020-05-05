@@ -112,7 +112,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
 
 
   public length = 0;
-  public pageSize = 200;
+  public pageSize = 10;
   public querySearch = '';
 
 
@@ -632,6 +632,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   paginations(event: any) {
+    console.log('trae')
     const index = event.param.pageIndex;
     if (event.param.pageSize !== this.pageSize) {
       this.pageSize = event.param.pageSize;
