@@ -309,7 +309,7 @@ export class ListOfCaseComponent implements OnInit {
       const userData = response.Data;
       this.sellerId = userData.IdSeller;
       localStorage.setItem('typeProfile', userData.Profile);
-      if (userData.Profile !== 'seller') {
+      if (userData.Profile === 'administrator' && userData.Profile && userData.Profile !== null) {
         this.isAdmin = true;
       } else {
         this.isAdmin = false;
