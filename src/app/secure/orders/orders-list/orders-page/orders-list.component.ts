@@ -632,7 +632,6 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   paginations(event: any) {
-    console.log('trae')
     const index = event.param.pageIndex;
     if (event.param.pageSize !== this.pageSize) {
       this.pageSize = event.param.pageSize;

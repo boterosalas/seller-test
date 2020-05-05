@@ -317,7 +317,6 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
  * @memberof ToolbarSearchPaginationComponent
  */
 public changePaginatorOrdens(param: any): any {
-  console.log(param);
     this.paginationListOrdens.emit({ param });
   }
 }
