@@ -47,7 +47,7 @@ export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.showProducts.currentValue) {
+    if (changes.showProducts && changes.showProducts.currentValue) {
       this.backTolist();
     }
   }

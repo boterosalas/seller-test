@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync } from '@angular/core/testing';
 import { async } from '@angular/core/testing';
 import { Observable, of } from 'rxjs';
 import { MaterialModule } from '@app/material.module';
@@ -72,7 +72,7 @@ describe('Probando componentes relacionados con la busqueda y seleccion de categ
     };
     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner', 'viewProgressBar', 'closeProgressBar']);
 
-    beforeEach(async(() => {
+    beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             declarations: [
                 SearchCategorizationComponent,
@@ -95,40 +95,44 @@ describe('Probando componentes relacionados con la busqueda y seleccion de categ
         }).compileComponents();
     }));
 
-    beforeEach(() => {
+    beforeEach(fakeAsync(() => {
         fixture = TestBed.createComponent(SearchCategorizationComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-    });
+    }));
 
-    it('Deberia crear SearchCategorizationComponent', () => {
+    it('Deberia crear SearchCategorizationComponent', (done) => {
         expect(component).toBeTruthy();
+        done();
     });
 
-    it('Deberia obtener el valor searchText del searchTextInput.', async(() => {
-        let field: HTMLInputElement = fixture.debugElement.query(By.css('#input-search')).nativeElement;
-        field.value = 'gas'
+    it('Deberia obtener el valor searchText del searchTextInput.', (done) => {
+        const field: HTMLInputElement = fixture.debugElement.query(By.css('#input-search')).nativeElement;
+        field.value = 'gas';
         field.dispatchEvent(new Event('input'));
         fixture.detectChanges();
         component.searchText = 'gas';
         expect(component.searchText).toBe('gas');
-      }));
+        done();
+      });
 
-    it('Deberia obtener el valor searchText del searchTextInput sin name', () => {
+    it('Deberia obtener el valor searchText del searchTextInput sin name', (done) => {
         const mockEvent = new Event('click');
         component.searchTextInput = {};
         component.searchTextInput = 'gas';
         component.keyDownFunction(mockEvent);
         expect(component.searchText).toBe(component.searchTextInput);
+        done();
     });
 
-    it('Deberia mediante la funcion whatchValueInput guardar el valor de searchTextInput', () => {
+    it('Deberia mediante la funcion whatchValueInput guardar el valor de searchTextInput', (done) => {
         const event = 'gas';
         component.keyDownFunction(event);
         expect(component.searchTextInput).toBe(event);
+        done();
     });
 
-    it('Deberia realizar el log de obtener las categorias', () => {
+    it('Deberia realizar el log de obtener las categorias', (done) => {
         component.listCategories = undefined;
         structureJson.status = 400;
         structureJson.statusCode = 400;
@@ -136,6 +140,7 @@ describe('Probando componentes relacionados con la busqueda y seleccion de categ
         expect(component.listCategories).toBeUndefined();
         structureJson.status = 200;
         structureJson.statusCode = 200;
+        done();
     });
 
     it('Deberia filtrar la lista', () => {

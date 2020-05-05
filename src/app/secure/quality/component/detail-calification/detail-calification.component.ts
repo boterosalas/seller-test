@@ -54,7 +54,7 @@ export class DetailCalificationComponent implements OnInit {
  */
 setDetailsBySeller() {
   if ( this.detailByElemet && this.detailByElemet.detail) {
-    this.sumatoryPenality(this.detailByElemet.detail);
+    this.sumatoryPenality(this.detailByElemet);
     this.colorCalificationPromiseDelivery = this.setClassColorByCalification(this.detailByElemet.qualificationPromiseDelivery.qualification);
     this.colorCalificationCase = this.setClassColorByCalification(this.detailByElemet.qualificationCase.qualification);
     this.colorCalificationCanceled = this.setClassColorByCalification(this.detailByElemet.qualificationCanceled.qualification);
@@ -132,16 +132,14 @@ formtDateDayMonthYear(date: any) {
  * @memberof DetailCalificationComponent
  */
 sumatoryPenality(details: any) {
-    if ( details.ordersOutsideDeliveryDate && details.ordersOutsideDeliveryDate.length > 0) {
-       details.ordersOutsideDeliveryDate.forEach(element => {
-      this.penaltyOutSideDelivery += element.penalty;
-    });
+  if (details) {
+    if (details.qualificationCanceled && details.qualificationCanceled.valuePenalty) {
+      this.penaltyCanceledBySeller = details.qualificationCanceled.valuePenalty;
     }
-    if (details.ordersCanceledBySellerResponsibility && details.ordersCanceledBySellerResponsibility.length > 0) {
-       details.ordersCanceledBySellerResponsibility.forEach(element => {
-      this.penaltyCanceledBySeller += element.penalty;
-    });
+    if (details.qualificationPromiseDelivery && details.qualificationPromiseDelivery.valuePenalty) {
+      this.penaltyOutSideDelivery = details.qualificationPromiseDelivery.valuePenalty;
     }
+  }
     this.penaltyTotal = this.penaltyOutSideDelivery + this.penaltyCanceledBySeller;
   }
 /**

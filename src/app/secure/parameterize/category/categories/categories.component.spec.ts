@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 
 import { CategoriesComponent } from './categories.component';
 import { NO_ERRORS_SCHEMA, NgZone } from '@angular/core';
@@ -158,7 +158,7 @@ describe('CategoriesComponent', () => {
   let dialogProcessFixture: ComponentFixture<CreateProcessDialogComponent>;
   let dialogProcessComponent: CreateProcessDialogComponent;
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       declarations: [CategoriesComponent],
       imports: [
@@ -267,8 +267,9 @@ describe('CategoriesComponent', () => {
       expect(component.IdCarulla).toBeTruthy();
     });
 
-    it('Should e exist IdCatalogos', () => {
+    it('Should e exist IdCatalogos', (done) => {
       expect(component.IdCatalogos).toBeTruthy();
+      done();
     });
 
     it('Should e exist IdExito', () => {

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 
 import { CategoryTreeComponent } from './category-tree.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -71,7 +71,7 @@ describe('CategoryTreeComponent', () => {
     }
   ];
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ CategoryTreeComponent ],
       imports: [SharedModule, HttpClientTestingModule],
@@ -98,16 +98,16 @@ describe('CategoryTreeComponent', () => {
   });
 
   describe('Category tree exist without child', () => {
-    beforeEach(() => {
+    beforeEach(fakeAsync(() => {
       component.categoryList = mockCategoryListWithoutChild;
       component.margin = 0;
-    });
+    }));
     describe('Full access', () => {
-      beforeEach(() => {
+      beforeEach(fakeAsync(() => {
         component.canCreate = true;
         component.canUpdate = true;
         fixture.detectChanges();
-      });
+      }));
 
       it('Should be exist edit button', () => {
         const btnEdit = fixture.debugElement.query(By.css('#btn-edit-category'));
@@ -137,19 +137,19 @@ describe('CategoryTreeComponent', () => {
   });
 
   describe('Category tree exist with child', () => {
-    beforeEach(() => {
+    beforeEach(fakeAsync(() => {
       component.categoryList = mockCategoryListWithChild;
       component.margin = 0;
-    });
+    }));
     describe('Full access', () => {
-      beforeEach(() => {
+      beforeEach(fakeAsync(() => {
         component.canCreate = true;
         component.canUpdate = true;
         component.categoryList[0].Show = false;
         component.parametrizationCategoryComponent = mockCategoriesComponent;
         (<any>mockCategoriesComponent.openCategoryDialog).calls.reset();
         fixture.detectChanges();
-      });
+      }));
 
       it('Should be exist edit button', () => {
         const btnEdit = fixture.debugElement.query(By.css('#btn-edit-category'));

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ProductsCaseDialogComponent } from '../products-case-dialog/products-case-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
+import { CaseSupportCenterService } from '@app/secure/seller-support-center/services/case-support-center.service';
 const productsConfig = require('./products-list-configuration.json');
 
 @Component({
@@ -28,7 +29,18 @@ export class CaseSummaryComponent implements OnInit {
 
   productsConfig: Array<any>;
 
-  constructor(public dialog: MatDialog, public translateService: TranslateService) { }
+  disableButtonAnswer = false;
+
+  constructor(public dialog: MatDialog,
+    public translateService: TranslateService,
+    public redirecServ: CaseSupportCenterService
+    ) {
+    if (localStorage.getItem('typeProfile') === 'seller') {
+      this.disableButtonAnswer = false;
+    } else {
+      this.disableButtonAnswer = true;
+    }
+   }
 
   ngOnInit() {
     this.productsConfig = productsConfig;
@@ -48,6 +60,11 @@ export class CaseSummaryComponent implements OnInit {
 
   closeDialog(): void {
     this.dialog.closeAll();
+  }
+
+  // Metodo para reidrigir al detalle de seguimiento.
+  redirecToDetail(caseId: any) {
+    this.redirecServ.redirectToDetailsServ(caseId, this.case.sellerId);
   }
 }
 

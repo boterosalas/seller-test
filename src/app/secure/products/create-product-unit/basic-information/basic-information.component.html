@@ -33,7 +33,7 @@
         <mat-error *ngIf="formBasicInfo.get('Brand').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.brand_invalidate' | translate}}</mat-error>
       </mat-form-field>
       <mat-form-field class="fieldBrands" [hidden]="!show">
-        <input matInput [placeholder]="'shared.brand' | translate" formControlName="Brand" [errorStateMatcher]="matcher" (change)="detectForm()"
+        <input matInput [placeholder]="'shared.brand' | translate" formControlName="Brand" [errorStateMatcher]="matcher"  style="text-transform:uppercase;" (change)="detectForm()"
            required>
         <mat-error *ngIf="formBasicInfo.get('Brand').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
         <mat-error *ngIf="formBasicInfo.get('Brand').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>

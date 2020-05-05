@@ -1,3 +1,20 @@
+$color-gray: #757474;
+$color-light-gray: #9E9E9E;
+$color-light-gray2: #EFEDED;
+$primary-color: #757474;
+$accent-color: #485afa;
+$title-color: black;
+$hint-color: #909090;
+$underline-color: #19a695;
+
+@mixin border-bottom {
+  border-bottom: 1px solid $color-light-gray2;
+}
+
+.filter-content {
+  margin: 59px 32px;
+}
+
 .support-center-case {
   &__filter-container {
     position: fixed;
@@ -8,19 +25,26 @@
     height: 100vh;
     background-color: #00000078;
     animation: fadein 0.4s;
+
     @keyframes fadein {
-      from { opacity: 0; }
-      to   { opacity: 1.5; }
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1.5;
+      }
     }
   }
 }
-.support-filter{
-    position: fixed;
-    z-index: 2;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: inherit;
+
+.support-filter {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: inherit;
 }
 
 .hidden-content {
@@ -28,3 +52,153 @@
   visibility: hidden;
 }
 
+.ticket-toolbar {
+  background-color: white;
+  padding: 0px 32px;
+  border-bottom: 1px solid #e0e0e0;
+  height: 45px !important;
+  max-height: 45px;
+  justify-content: space-between;
+
+  @media (max-width: 600px) {
+    height: auto !important;
+    max-height: inherit !important;
+    padding-bottom: 16px;
+  }
+}
+
+
+
+:host ::ng-deep {
+  .tree-toolbar {
+    background-color: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    height: 80%;
+
+    & .toolbar-options-table {
+      width: 100%;
+      padding: 0 20px;
+    }
+
+    .normal-theme {
+      width: 100%;
+    }
+  }
+
+  .tree-title {
+    font-size: 18px;
+    margin-left: 0;
+    color: #000000;
+  }
+
+  .sub-title {
+    color: #757474;
+    font-size: 18px;
+    padding-left: 5px;
+    font-weight: 400;
+  }
+
+  .buttn-toolbar-options {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    color: $color-gray;
+  }
+
+  .button-more-ver {
+    color: $color-gray !important;
+  }
+
+  .agreement {
+    .list-agreement {
+      color: $color-light-gray;
+      @include border-bottom();
+
+      .file-agreement {
+        margin: 0 1em;
+      }
+    }
+
+    .agreement-title {
+      p {
+        font-size: 14px;
+        color: $color-gray;
+        font-weight: bold;
+        margin-left: 1em;
+      }
+
+      @include border-bottom();
+    }
+  }
+}
+
+.filter-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 22px;
+  margin-bottom: 40px;
+
+  &--title {
+    font-weight: bold;
+    color: $title-color;
+  }
+
+  &--close {
+    color: $accent-color;
+    cursor: pointer;
+  }
+}
+
+.styleToolbar{
+  width: 92%;
+}
+
+.example-sidenav {
+  width: 30%;
+
+  @media only screen and (max-width: 600px) {
+    width: 80%;
+  }
+}
+
+.filter-control{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 51px 8px 0 8px;
+
+  &--btn-clean {
+    background-color: white;
+    border: 1px solid $accent-color;
+    color: $accent-color;
+
+    &:hover {
+      background-color: $accent-color;
+      color: white;
+    }
+  }
+
+  &--btn-send {
+    background-color: $accent-color;
+    color: white;
+    &:hover {
+      background-color: white;
+      color: $accent-color;
+    }
+  }
+ }
+
+
+  .search-container {
+    width: 70%;
+    padding-left: 20px;
+  }
+
+  .classNewFilter {
+    height: 61px;
+    margin-top: 1px;
+    background-color: white;
+    /* width: 5%; */
+    float: left;
+  }

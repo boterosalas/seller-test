@@ -20,9 +20,6 @@
           <div class="case-list-detail--item-detail" fxFlex="15%" id="dpbox-case-number-{{index}}">
             {{ data.orderNumber }}
           </div>
-          <div class="case-list-detail--item-detail" fxFlex="10%" id="dpbox-case-reason-{{index}}">
-            {{ data.reasonPQR }}
-          </div>
           <div class="case-list-detail--item-detail" fxFlex="30%" id="dpbox-case-detail-{{index}}">
             <p>{{ data.reasonDetail }}</p>
           </div>
@@ -32,7 +29,7 @@
           <div class="case-list-detail--item-detail" fxFlex="10%" id="dpbox-case-status-{{index}}">
             {{ data.status }}
           </div>
-          <div class="case-list-detail--item-detail case-list-detail--content-center" fxFlex="5%">
+          <div class="case-list-detail--item-detail case-list-detail--content-center" fxFlex="5%" *ngIf="hideStatus">
             <mat-icon>question_answer</mat-icon>
           </div>
           <div class="case-list-detail--item-detail case-list-detail--content-center" fxFlex="5%">
@@ -40,6 +37,12 @@
               *ngIf="data.attachments && data.attachments.length && data.attachments.length > 0">
               attachment
             </mat-icon>
+          </div>
+          <div class="case-list-detail--item-detail" fxFlex="20%" id="dpbox-case-reason-{{index}}">
+            <p *ngIf="data.lastPost === 0"></p>
+            <p *ngIf="data.lastPost === 1">{{'secure.parametize.support_claims-filter.sac_answer' | translate}}</p>
+            <p *ngIf="data.lastPost === 2">{{'secure.parametize.support_claims-filter.seller_answer' | translate}}</p>
+
           </div>
         </div>
       </mat-expansion-panel-header>

@@ -1,4 +1,4 @@
-import { async } from '@angular/core/testing';
+import { async, fakeAsync } from '@angular/core/testing';
 import { LoadingService } from '@app/core';
 import { Observable, of } from 'rxjs';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
@@ -93,7 +93,7 @@ describe('ListTransporterComponent', () => {
     let component: ListTransporterComponent;
 
 
-    beforeEach(async(() => {
+    beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             declarations: [
                 ListTransporterComponent,
@@ -120,11 +120,11 @@ describe('ListTransporterComponent', () => {
         }).compileComponents();
     }));
 
-    beforeEach(() => {
+    beforeEach(fakeAsync(() => {
         fixture = TestBed.createComponent(ListTransporterComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-    });
+    }));
 
     it('should create ListTransporterComponent', () => {
         expect(component).toBeTruthy();
