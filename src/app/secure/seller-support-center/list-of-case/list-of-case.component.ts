@@ -104,10 +104,11 @@ export class ListOfCaseComponent implements OnInit {
   filterDateEnd: any;
 
   paramsFIlterListCase = {
+    init: '',
     CaseNumber: '',
     LastPost: '',
     OrderNumber: '',
-    Status: [],
+    Status: '',
     DateInit: '',
     DateEnd: '',
     SellerId: ''
@@ -116,6 +117,8 @@ export class ListOfCaseComponent implements OnInit {
 
   selectedStore: string;
   hasErrorDate: boolean;
+  filterListCasesFilter: any;
+  activeInit = false;
 
   constructor(
     public dialog: MatDialog,
@@ -223,9 +226,10 @@ export class ListOfCaseComponent implements OnInit {
    * @memberof ListOfCaseComponent
    */
   public filterApply() {
+    this.paramsFIlterListCase.init = '';
     this.paramsFIlterListCase.CaseNumber = this.filterListCases.controls.CaseNumber.value;
     this.paramsFIlterListCase.LastPost = this.filterListCases.controls.LastPost.value;
-    this.paramsFIlterListCase.Status = [this.filterListCases.controls.Status.value];
+    this.paramsFIlterListCase.Status = this.filterListCases.controls.Status.value;
     this.paramsFIlterListCase.OrderNumber = this.filterListCases.controls.OrderNumber.value;
     if (this.isAdmin) {
       this.paramsFIlterListCase.SellerId = this.paramsFilter.SellerId;
@@ -252,10 +256,28 @@ export class ListOfCaseComponent implements OnInit {
       }
     }
 
-    this.validateFinalDateRange();
-    if (this.hasErrorDate === false) {
-      this.loadCases(this.paramsFIlterListCase);
+    if (this.activeInit === true) {
+      this.paramsFIlterListCase.init = 'true';
+      const cleanFilter = {
+        init : this.paramsFIlterListCase.init,
+        SellerId: this.paramsFIlterListCase.SellerId
+      };
+      this.validateFinalDateRange();
+      if (this.hasErrorDate === false) {
+        this.loadCases(cleanFilter);
+      }
+    } else {
+      this.validateFinalDateRange();
+      if (this.hasErrorDate === false) {
+        this.loadCases(this.paramsFIlterListCase);
+      }
     }
+    console.log(this.paramsFIlterListCase);
+    this.activeInit = false;
+    // this.validateFinalDateRange();
+    // if (this.hasErrorDate === false) {
+    //   this.loadCases(this.paramsFIlterListCase);
+    // }
   }
 
   /**
@@ -288,12 +310,18 @@ export class ListOfCaseComponent implements OnInit {
    * @memberof ListOfCaseComponent
    */
   public cleanFilter() {
+    // this.paramsFIlterListCase.init = '';
     if (this.isAdmin) {
       this.filterListCases.reset();
+      this.activeInit = true;
+      // this.paramsFIlterListCase.init = 'true';
       this.filterApply();
     } else {
       this.filterListCases.reset();
-      this.loadCases(this.filterListCases.value);
+      this.filterListCasesFilter = {
+        init: true
+      };
+      this.loadCases(this.filterListCasesFilter);
     }
   }
 
@@ -309,7 +337,7 @@ export class ListOfCaseComponent implements OnInit {
       const userData = response.Data;
       this.sellerId = userData.IdSeller;
       localStorage.setItem('typeProfile', userData.Profile);
-      if (userData.Profile === 'administrator' && userData.Profile && userData.Profile !== null) {
+      if (userData.Profile !== 'seller' && userData.Profile && userData.Profile !== null) {
         this.isAdmin = true;
       } else {
         this.isAdmin = false;
