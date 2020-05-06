@@ -162,8 +162,8 @@ export class DashboardComponent implements OnInit {
     public showCalenderD = false;
 
     public typeFilterSales = '4';
-    public showCalenderQSales = true;
-    public showCalenderDSales = false;
+    public showCalenderQSales = false;
+    public showCalenderDSales = true;
 
     public showChartSales = false;
     public showChartOrdens = false;
@@ -277,8 +277,8 @@ getOrdensSummary(params?: any) {
             } else {
                 this.isLoading = false;
             }
-            this.last_ordens = res ? this.parseLastOrdens(res.reverse()) : [];
-            this.calculateCountSales(res);
+            this.last_ordens = res.reportOrdersSalesType ? this.parseLastOrdens(res.reportOrdersSalesType.reverse()) : [];
+            this.calculateCountSales(res.reportOrdersSalesType);
             this.showChartOrdens = true;
         }, err => {
             if (this.isLoad) {
@@ -581,7 +581,7 @@ calculateCountSales(res: any) {
                 if (res.ticketAverage) {
                     this.promedTicket = res.ticketAverage;
                 } else {
-                    this.promedTicket = '';
+                    this.promedTicket = '0';
                 }
 
                 this.showChartSales = true;

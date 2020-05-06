@@ -432,6 +432,7 @@
                   <div fxLayout="column">
                     <div class="dashboard-color-text dashboard-padding-resumen" *ngIf="lang === 'US'"> {{selectTypeFilter}} {{'secure.dashboard.sales'| translate}}</div>
                     <div class="dashboard-color-text dashboard-padding-resumen" *ngIf="lang === 'ES'"> {{'secure.dashboard.sales'| translate}} {{selectTypeFilter}}</div>
+                    <div class="dashboard-color-text dashboard-padding-resumen" *ngIf="lang === 'FR'"> {{selectTypeFilter}} {{'secure.dashboard.sales'| translate}}</div>
                     <div>
                       <span>
                         <mat-icon class="mat-18 vertical-aling-bottom dashboard-component-container-icon-color-delivered">monetization_on</mat-icon>
@@ -457,7 +458,8 @@
               <div class="dashboard-border-color-separate">
                 <span class="dashboard-title-text-style">{{'secure.dashboard.table.top.title.top_selling_products' | translate}}</span>
               </div>
-              <div class="dashboard-padding-top-10 addScroll" #containerScrollTop>
+              <div *ngIf="showChartSales">
+                <div class="dashboard-padding-top-10 addScroll" #containerScrollTop *ngIf="topProduct.length > 0 ">
                   <table mat-table [dataSource]="topProduct">
                     <ng-container matColumnDef="PLU">
                       <th mat-header-cell *matHeaderCellDef> {{'secure.dashboard.table.top.title.SKU' | translate}} </th>
@@ -481,9 +483,19 @@
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                   </table>
               </div>
-              <!-- <div class="dashboard-padding-text-more-products">
-                <span class="dashboard-text-more-products" (click)="addClassScroll(showMore)">Ver {{option}} productos</span>
-              </div> -->
+              <div *ngIf="topProduct.length === 0" class="dashboard-component-align-center">
+                <div><mat-icon class="icon-not-found" color="primary">info</mat-icon></div>
+                <div>{{'secure.dashboard.seller-rating.date_issued_final_not_data_products' | translate}}</div>
+              </div>
+              </div>
+                <div *ngIf="!showChartSales"
+                  class="dashboard-component-container-align-center">
+                  <mat-spinner [diameter]="40" class="margin-loading
+                    dashboard-component-container-margin-spinner">
+                  </mat-spinner>
+                  <span>{{'secure.products.create_product_unit.list_products.please_wait'
+                    | translate}}</span>
+                </div>
             </div>
           </div>
           <div fxFlex="80" fxFlex.sm="100" fxFlex.md="" fxFlex.lg=""

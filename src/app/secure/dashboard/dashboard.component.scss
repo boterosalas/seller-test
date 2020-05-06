@@ -686,6 +686,12 @@ table {
   overflow-y: auto;
 }
 
+.icon-not-found{
+  font-size: 40px;
+  height: 40px;
+  width: 40px;
+}
+
 .mat-row{
   height: 41px;
 }
@@ -695,6 +701,7 @@ table {
   white-space: nowrap;
   overflow: hidden;
   display: inline-block;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 1200px) and (min-width: 200px) {  
