@@ -69,69 +69,6 @@ export class DashboardComponent implements OnInit {
         'Uds. Disponibles'
     ];
 
-    public arrayTop10= [
-        {
-            name: 'Huawei P20 lite dual sin 64gb',
-            PLU: '############',
-            unit_seller: '###',
-            unit_available: '###'
-        },
-        {
-            name: 'Golty Balon de football blanco naranja',
-            PLU: '############',
-            unit_seller: '###',
-            unit_available: '###'
-        },
-        {
-            name: 'Bicicleta Gw Jackal 27.5 Suspension 2.2',
-            PLU: '############',
-            unit_seller: '###',
-            unit_available: '###'
-        },
-        {
-            name: 'Bicicleta Gw Jackal 27.5 Suspension 2.2',
-            PLU: '############',
-            unit_seller: '###',
-            unit_available: '###'
-        },
-        {
-            name: 'Bicicleta Gw Jackal 27.5 Suspension 2.2',
-            PLU: '############',
-            unit_seller: '###',
-            unit_available: '###'
-        },
-        {
-            name: 'Bicicleta Gw Jackal 27.5 Suspension 2.2',
-            PLU: '############',
-            unit_seller: '###',
-            unit_available: '###'
-        },
-        {
-            name: 'Bicicleta Gw Jackal 27.5 Suspension 2.2',
-            PLU: '############',
-            unit_seller: '###',
-            unit_available: '###'
-        },
-        {
-            name: 'Bicicleta Gw Jackal 27.5 Suspension 2.2',
-            PLU: '############',
-            unit_seller: '###',
-            unit_available: '###'
-        },
-        {
-            name: 'Bicicleta Gw Jackal 27.5 Suspension 2.2',
-            PLU: '############',
-            unit_seller: '###',
-            unit_available: '###'
-        },
-        {
-            name: 'Bicicleta Gw Jackal 27.5 Suspension 2.2',
-            PLU: '############',
-            unit_seller: '###',
-            unit_available: '###'
-        },
-    ];
-
     // Fecha máxima del datePicker
     public dateMax: Date;
 
