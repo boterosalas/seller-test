@@ -24,17 +24,22 @@ export class DropDownListHeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.showHeader();
+    // this.showHeader();
   }
 
-  showHeader() {
-    if (this.hideHeader) {
-      this.configurations = this.configurations;
-    } else {
-      this.copyConfigurations = [...this.configurations];
-      this.copyConfigurations.splice(5, 1);
-    }
-  }
+  // Se deja codigo comentado que era la configuración de los headers por si alguna cosa.
+  // showHeader() {
+  //   console.log(this.copyConfigurations);
+  //   console.log(this.configurations);
+
+  //   if (this.hideHeader) {
+  //     this.configurations = this.configurations;
+  //   } else {
+  //     this.copyConfigurations = [...this.configurations];
+  //     this.copyConfigurations.splice(5, 1);
+  //     console.log(this.copyConfigurations);
+  //   }
+  // }
 }
 
 

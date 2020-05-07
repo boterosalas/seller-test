@@ -34,13 +34,13 @@ export class CaseSummaryComponent implements OnInit {
   constructor(public dialog: MatDialog,
     public translateService: TranslateService,
     public redirecServ: CaseSupportCenterService
-    ) {
-    if (localStorage.getItem('typeProfile') === 'seller') {
+  ) {
+    if (localStorage.getItem('typeProfile') === 'seller' || localStorage.getItem('typeProfile') === null || localStorage.getItem('typeProfile') === undefined || localStorage.getItem('typeProfile') === '') {
       this.disableButtonAnswer = false;
     } else {
       this.disableButtonAnswer = true;
     }
-   }
+  }
 
   ngOnInit() {
     this.productsConfig = productsConfig;

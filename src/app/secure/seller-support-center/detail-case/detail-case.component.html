@@ -1,17 +1,22 @@
 <!-- <app-case-toolbar (toggleFilter)="toggleFilter($event)" > </app-case-toolbar> -->
 
-<mat-toolbar>
-  <div class="prev-view">
+<!-- <mat-toolbar>
+  <div class="prev-view"> -->
     <!-- <a [routerLink]="['/securehome/seller-center/support-center']">
       <mat-icon>keyboard_arrow_left</mat-icon>
       {{'secure.parametize.support_claims.back-to-claims' | translate}}
     </a> -->
-    <a (click)="redirecToListClaims()">
+    <!-- <a (click)="redirecToListClaims()">
       <mat-icon>keyboard_arrow_left</mat-icon>
       {{'secure.parametize.support_claims.back-to-claims' | translate}}
     </a>
   </div>
-</mat-toolbar>
+</mat-toolbar> -->
+
+<button class="prev-view" mat-icon-button (click)="redirecToListClaims()">
+  <mat-icon>keyboard_arrow_left</mat-icon>
+  {{'secure.parametize.support_claims.back-to-claims' | translate}}
+</button>
 
 <div *ngIf="case$ | async as case" class="detail-content">
   <app-drop-down-list [data]="[case]" [configurations]="headerConfigurations">
