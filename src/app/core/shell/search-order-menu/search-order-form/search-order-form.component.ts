@@ -117,10 +117,21 @@ export class SearchOrderFormComponent implements OnInit {
     this.shellComponent.eventEmitterOrders.getOrderList(state);
   }
 
+  /**
+   * Metodo para consultar todos los estados de las ordenes.
+   * @memberof SearchOrderFormComponent
+   */
   getOrdersStatus() {
+    this.loadingService.viewSpinner();
     this.searchOrderMenuService.getIdOrders().subscribe((res: any) => {
-      console.log('res: ', res);
-      this.listOrderStatus = res.body.data;
+      if (res && res.status === 200 || res.status === 201) {
+        this.listOrderStatus = res.body.data;
+      } else {
+        this.componentsService.openSnackBar(this.languageService.instant('public.auth.forgot.error_try_again'), this.languageService.instant('actions.close'), 3000);
+      }
+      this.loadingService.closeSpinner();
+    }, err => {
+      this.componentsService.openSnackBar(this.languageService.instant('errors.error_check_orders'), this.languageService.instant('actions.close'), 3000);
     });
   }
 
