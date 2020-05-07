@@ -420,7 +420,7 @@
       </div>
       <div fxLayout="column"
         class="dashboard-component-container-margin-top-15">
-        <div fxLayout="row">
+        <div fxLayout="row" *ngIf="showChartSales">
           <div fxFlex="20" fxFlex.md="" fxFlex.lg="" fxFlex.xs="100"
             fxFlex.xl="100" fxFlex.sm="100"
             [fxShow.xs]="!showOrdersChartSales"
@@ -458,7 +458,7 @@
               <div class="dashboard-border-color-separate">
                 <span class="dashboard-title-text-style">{{'secure.dashboard.table.top.title.top_selling_products' | translate}}</span>
               </div>
-              <div *ngIf="showChartSales">
+              <!-- <div *ngIf="showChartSales"> -->
                 <div class="dashboard-padding-top-10 addScroll" #containerScrollTop *ngIf="topProduct.length > 0 ">
                   <table mat-table [dataSource]="topProduct">
                     <ng-container matColumnDef="PLU">
@@ -487,15 +487,15 @@
                 <div><mat-icon class="icon-not-found" color="primary">info</mat-icon></div>
                 <div>{{'secure.dashboard.seller-rating.date_issued_final_not_data_products' | translate}}</div>
               </div>
-              </div>
-                <div *ngIf="!showChartSales"
+              <!-- </div> -->
+                <!-- <div *ngIf="!showChartSales"
                   class="dashboard-component-container-align-center">
                   <mat-spinner [diameter]="40" class="margin-loading
                     dashboard-component-container-margin-spinner">
                   </mat-spinner>
                   <span>{{'secure.products.create_product_unit.list_products.please_wait'
                     | translate}}</span>
-                </div>
+                </div> -->
             </div>
           </div>
           <div fxFlex="80" fxFlex.sm="100" fxFlex.md="" fxFlex.lg=""
@@ -507,7 +507,7 @@
             'dashboard-component-container-max-wight'">
             <div class="sales__graph-box">
               <div class="sales__graph graph">
-                <div class="graph__content" *ngIf="showChartSales">
+                <div class="graph__content">
                   <div class="graph__table">
                     <div *ngFor="let colum of last_sales"
                       class="graph__bar-box">
@@ -519,14 +519,14 @@
                     </div>
                   </div>
                 </div>
-                <div *ngIf="!showChartSales"
+                <!-- <div *ngIf="!showChartSales"
                   class="dashboard-component-container-align-center">
                   <mat-spinner [diameter]="40" class="margin-loading
                     dashboard-component-container-margin-spinner">
                   </mat-spinner>
                   <span>{{'secure.products.create_product_unit.list_products.please_wait'
                     | translate}}</span>
-                </div>
+                </div> -->
                 <div class="graph__info">
                   <p>
                     *{{'secure.dashboard.info_cancel_sale' | translate}}
@@ -536,6 +536,14 @@
             </div>
           </div>
         </div>
+         <div *ngIf="!showChartSales"
+                  class="dashboard-component-container-align-center container-height-200 text-wait-padding-top">
+                  <mat-spinner [diameter]="40" class="margin-loading
+                    dashboard-component-container-margin-spinner">
+                  </mat-spinner>
+                  <span >{{'secure.products.create_product_unit.list_products.please_wait'
+                    | translate}}</span>
+                </div>
       </div>
     </div>
     <div class="dashboard-component-container-color-border
