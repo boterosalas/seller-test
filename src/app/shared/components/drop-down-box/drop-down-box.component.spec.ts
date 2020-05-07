@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePipe } from '@angular/common';
 
-describe("DropDownBoxComponent", () => {
+describe('DropDownBoxComponent', () => {
   let component: DropDownBoxComponent;
   let fixture: ComponentFixture<DropDownBoxComponent>;
 
@@ -31,98 +31,103 @@ describe("DropDownBoxComponent", () => {
     component = fixture.componentInstance;
     component.data = {
       attachments: [],
-      caseNumber: "",
+      caseNumber: '',
       createDate: new Date().toDateString(),
-      lastPost: "",
-      orderNumber: "",
-      reasonDetail: "",
-      reasonPQR: "",
-      status: "",
-      id: ""
-    }
+      lastPost: '',
+      orderNumber: '',
+      reasonDetail: '',
+      reasonPQR: '',
+      status: '',
+      lastPostDesc: '',
+      id: ''
+    };
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it("index should be 1", () => {
+  it('index should be 1', () => {
     component.index = 1;
     fixture.detectChanges();
     expect(component.index).toBe(1);
   });
 
-  it("casenumber should be 1220 in template", () => {
-    component.index = 1
+  it('casenumber should be 1220 in template', () => {
+    component.index = 1;
     component.data = {
       attachments: [],
-      caseNumber: "1220",
+      caseNumber: '1220',
       createDate: new Date().toDateString(),
-      lastPost: "",
-      orderNumber: "",
-      reasonDetail: "",
-      reasonPQR: "",
-      status: "",
-      id: ""
-    }
+      lastPost: '',
+      orderNumber: '',
+      reasonDetail: '',
+      reasonPQR: '',
+      status: '',
+      lastPostDesc: '',
+      id: ''
+    };
     fixture.detectChanges();
     const caseNumberTpl = document.getElementById('dpbox-case-id-1');
     expect(caseNumberTpl.innerText).toEqual(component.data.caseNumber);
   });
 
-  it("orderNumber should be 1220 in template", () => {
-    component.index = 1
+  it('orderNumber should be 1220 in template', () => {
+    component.index = 1;
     component.data = {
       attachments: [],
-      caseNumber: "",
+      caseNumber: '',
       createDate: new Date().toDateString(),
-      lastPost: "",
-      orderNumber: "1220",
-      reasonDetail: "",
-      reasonPQR: "",
-      status: "",
-      id: ""
-    }
+      lastPost: '',
+      orderNumber: '1220',
+      reasonDetail: '',
+      reasonPQR: '',
+      lastPostDesc: '',
+      status: '',
+      id: ''
+    };
     fixture.detectChanges();
     const orederNumberTpl = document.getElementById('dpbox-case-number-1');
     expect(orederNumberTpl.innerText).toEqual(component.data.orderNumber);
   });
 
-  it("status should be active in template", () => {
-    component.index = 1
+  it('status should be active in template', () => {
+    component.index = 1;
     component.data = {
       attachments: [],
-      caseNumber: "2",
+      caseNumber: '2',
       createDate: new Date().toDateString(),
-      lastPost: "2",
-      orderNumber: "2",
-      reasonDetail: "2",
-      reasonPQR: "",
-      status: "ACTIVO",
-      id: "1234"
-    }
+      lastPost: '2',
+      orderNumber: '2',
+      reasonDetail: '2',
+      reasonPQR: '',
+      lastPostDesc: 'Respuesta Vendedor',
+      status: 'ACTIVO',
+      id: '1234'
+    };
     fixture.detectChanges();
     const caseStatusTpl = document.getElementById('dpbox-case-status-1');
     expect(caseStatusTpl.innerText).toEqual(component.data.status);
   });
 
-  it("date should be currentDate in template", () => {
-    component.index = 1
+  it('date should be currentDate in template', () => {
+    component.index = 1;
     component.data = {
       attachments: [],
-      caseNumber: "2",
+      caseNumber: '2',
       createDate: new Date().toDateString(),
-      lastPost: "2",
-      orderNumber: "2",
-      reasonDetail: "2",
-      reasonPQR: "",
-      status: "ACTIVO",
-      id: "1234"
-    }
+      lastPost: '2',
+      orderNumber: '2',
+      reasonDetail: '2',
+      reasonPQR: '',
+      lastPostDesc: 'Respuesta Vendedor',
+      status: 'ACTIVO',
+      id: '1234'
+    };
     fixture.detectChanges();
     const dateTpl = document.getElementById('dpbox-case-date-1');
-    let datePipe = new DatePipe('en');
+    const datePipe = new DatePipe('en');
     expect(dateTpl.innerText).toEqual(datePipe.transform(component.data.createDate));
   });
 });
