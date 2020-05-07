@@ -404,6 +404,9 @@
     "secure.orders.delivered.product.Entregado": "Entregado",
     "secure.orders.sent.product.En envío": "En envío",
     "secure.orders.sent.product.Facturado Enviado": "Facturado Enviado",
+    "secure.orders.sent.Cancelado": "Cancelado",
+    "secure.orders.sent.Pagado Cancelado": "Pagado Cancelado",
+    "secure.orders.sent.Devolución Pendiente Validación": "Devolución Pendiente Validación",
 
     "secure.orders.billing_orders.subtitle_toolbar": "Buscar factura",
     "secure.orders.billing_orders.txt_serch_order": "Ingrese número de orden",

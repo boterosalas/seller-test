@@ -106,9 +106,20 @@ export class DownloadOrderModalComponent implements OnInit {
     currentFiltersOrders.idSeller = this.user.sellerId;
     currentFiltersOrders.sellerName = this.user.sellerName;
     currentFiltersOrders.email = form.get('email').value;
-    currentFiltersOrders.dateOrderInitial = this.filter.dateOrderInitial;
-    currentFiltersOrders.dateOrderFinal = this.filter.dateOrderFinal;
-    currentFiltersOrders.idStatus = this.filter.idStatus;
+    if (this.filter) {
+      if (this.filter.dateOrderInitial) {
+        currentFiltersOrders.dateOrderInitial = this.filter.dateOrderInitial;
+      }
+      if (this.filter.dateOrderFinal) {
+        currentFiltersOrders.dateOrderFinal = this.filter.dateOrderFinal;
+      }
+      if (this.filter.idStatus) {
+        currentFiltersOrders.idStatus = this.filter.idStatus;
+      }
+    }
+    // currentFiltersOrders.dateOrderInitial = this.filter.dateOrderInitial;
+    // currentFiltersOrders.dateOrderFinal = this.filter.dateOrderFinal;
+    // currentFiltersOrders.idStatus = this.filter.idStatus;
     log.debug('parametros', currentFiltersOrders);
     if (!this.billingType) {
       this.downloadOrdersByService(currentFiltersOrders);

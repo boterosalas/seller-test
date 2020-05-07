@@ -195,6 +195,8 @@ export const endpoints = {
       getPortsByCountryName: 'https://orba3qnrte.execute-api.us-east-1.amazonaws.com/dispatchport/GetDispatchPortsByCountryName/{params}',
       // Ruta basica para puertos
       managePort : 'https://orba3qnrte.execute-api.us-east-1.amazonaws.com/dispatchport',
+      // Get para consultar todos los estados de las ordenes
+      getIdOrders: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/statusorders'
     },
   },
   // Endpoints production
@@ -387,6 +389,8 @@ export const endpoints = {
       getPortsByCountryName: 'https://kouotxul6i.execute-api.us-east-1.amazonaws.com/dispatchport-pdn/GetDispatchPortsByCountryName/{params}',
       // Ruta basica para puertos
       managePort : 'https://kouotxul6i.execute-api.us-east-1.amazonaws.com/dispatchport-pdn',
+      // Get para consultar todos los estados de las ordenes
+      getIdOrders: ''
     }
   }
 };

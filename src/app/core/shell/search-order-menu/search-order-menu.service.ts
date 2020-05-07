@@ -53,6 +53,15 @@ export class SearchOrderMenuService {
   }
 
   /**
+   * Service of states of orders
+   * @returns {Observable<any>}
+   * @memberof SearchOrderMenuService
+   */
+  getIdOrders(): Observable<any> {
+    return this.http.get(this.api.get('getIdOrders'), { observe: 'response' });
+  }
+
+  /**
    * Método para realiar la consulta de las órdenes pendientes de devolución de acuerdo a los filtros indicados.
    *
    * @param {any} limit
