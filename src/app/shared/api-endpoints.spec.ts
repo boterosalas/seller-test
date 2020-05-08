@@ -69,7 +69,7 @@ describe('endpoints', () => {
                 arrayApi.push(elementProd);
             }
         });
-        console.error('EndPoints faltantes', arrayApi); // No borrar, logger informativo de endpoints faltantes
+        // console.error('EndPoints faltantes', arrayApi); // No borrar, logger informativo de endpoints faltantes
         expect(Object.keys(endpoints.stage.v1).length).toBe(Object.keys(endpoints.prod.v1).length);
     });
 

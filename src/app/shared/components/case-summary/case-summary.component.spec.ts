@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 
 import { CaseSummaryComponent } from './case-summary.component';
 import { BasicCardComponent } from '../basic-card/basic-card.component';
@@ -14,7 +14,7 @@ describe('CaseSumaryComponent', () => {
   let component: CaseSummaryComponent;
   let fixture: ComponentFixture<CaseSummaryComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         CaseSummaryComponent,
@@ -58,8 +58,9 @@ describe('CaseSumaryComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create', (done) => {
     expect(component).toBeTruthy();
+    done();
   });
 
 
