@@ -1,5 +1,5 @@
 // 3rd party components
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 // Our own custom components
 import { UserLoginService, UserParametersService, LoadingService, ModalService } from '@app/core';
@@ -11,6 +11,7 @@ import { DatePipe } from '@angular/common';
 import { ModalDashboardComponent } from './modal-dashboard/modal-dashboard.component';
 import { MatDialog } from '@angular/material';
 
+
 /**
  * @export
  * @class DashboardComponent
@@ -20,6 +21,7 @@ import { MatDialog } from '@angular/material';
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss']
 })
+
 export class DashboardComponent implements OnInit {
 
     // Variable que almacena el objeto que contiene los datos de las órdenes del vendedor.
@@ -42,6 +44,7 @@ export class DashboardComponent implements OnInit {
     public visibleDate: string;
 
     public dateCurrent: any;
+    public position= 'left';
 
     public showOrdersChart = false;
     public showOrdersChartSales = false;
@@ -54,8 +57,17 @@ export class DashboardComponent implements OnInit {
     public dateOrdens = '';
     public showSales = false;
     public dateSales = '';
+    public showMore = true;
+    public selectTypeFilter= '';
 
     public startDateDiary: any;
+
+    public displayedColumns= [
+        'PLU',
+        'Nombre',
+        'Uds. Vendidas',
+        'Uds. Disponibles'
+    ];
 
     // Fecha máxima del datePicker
     public dateMax: Date;
@@ -86,9 +98,9 @@ export class DashboardComponent implements OnInit {
     public showCalenderQ = true;
     public showCalenderD = false;
 
-    public typeFilterSales = '1';
-    public showCalenderQSales = true;
-    public showCalenderDSales = false;
+    public typeFilterSales = '4';
+    public showCalenderQSales = false;
+    public showCalenderDSales = true;
 
     public showChartSales = false;
     public showChartOrdens = false;
@@ -100,6 +112,9 @@ export class DashboardComponent implements OnInit {
     public startDateSales: any;
     public startDateDiarySales: any;
 
+    public topProduct= [];
+    public promedTicket = '0';
+
     /**
      * Variable para observar el input del filtro inicial
      * @memberof FilterComponent
@@ -109,6 +124,7 @@ export class DashboardComponent implements OnInit {
 
     @ViewChild('pickerSales') pickerSales;
     @ViewChild('pickerDiarySales') pickerDiarySales;
+    @ViewChild('containerScrollTop') containerScrollTop: ElementRef;
 
     /**
      * @method constructor
@@ -157,13 +173,22 @@ export class DashboardComponent implements OnInit {
         this.getSalesSummary();
         this.getOrdensSummary();
     }
-
-    setSelectFilterOrders() {
+/**
+ * funcion para selecionar por defecto una opcion en el listado de periodicidad
+ *
+ * @memberof DashboardComponent
+ */
+setSelectFilterOrders() {
         this.selected = '1';
-        this.selectedSales = '1';
+        this.selectedSales = '4';
     }
-
-    select(filter: any) {
+/**
+ * funcion para mostrar los diferentes calendarios dependiendo del filtro
+ *
+ * @param {*} filter
+ * @memberof DashboardComponent
+ */
+select(filter: any) {
         this.typeFilter = filter;
         if (filter === '1' || filter === '2') {
             this.showCalenderQ = true;
@@ -174,18 +199,23 @@ export class DashboardComponent implements OnInit {
         }
         this.getOrdensSummary();
     }
-
-    getOrdensSummary(params?: any) {
+/**
+ * funcion para obtener todas las ordenes
+ *
+ * @param {*} [params]
+ * @memberof DashboardComponent
+ */
+getOrdensSummary(params?: any) {
         this.params = this.setParameters(params);
         this.showChartOrdens = false;
-        this._dashboard.getSalesSummary(this.params).subscribe((res: any) => {
+        this._dashboard.getOrdensSummary(this.params).subscribe((res: any) => {
             if (this.isLoad) {
                 this.loadingService.closeSpinner();
             } else {
                 this.isLoading = false;
             }
-            this.last_ordens = res ? this.parseLastOrdens(res.reverse()) : [];
-            this.calculateCountSales(res);
+            this.last_ordens = res.reportOrdersSalesType ? this.parseLastOrdens(res.reportOrdersSalesType.reverse()) : [];
+            this.calculateCountSales(res.reportOrdersSalesType);
             this.showChartOrdens = true;
         }, err => {
             if (this.isLoad) {
@@ -198,8 +228,14 @@ export class DashboardComponent implements OnInit {
         }
         );
     }
-
-    setParameters(params: any) {
+/**
+ * funcion para setear los parametros
+ *
+ * @param {*} params
+ * @returns
+ * @memberof DashboardComponent
+ */
+setParameters(params: any) {
         let paramsOrdersSummary = 'null/';
         if (this.dateCurrent === '' || this.dateCurrent === undefined) {
             this.dateCurrent = new Date();
@@ -220,8 +256,13 @@ export class DashboardComponent implements OnInit {
         }
         return paramsOrdersSummary;
     }
-
-    calculateCountSales(res: any) {
+/**
+ * funcion para calcular el total de cantidad de un producto
+ *
+ * @param {*} res
+ * @memberof DashboardComponent
+ */
+calculateCountSales(res: any) {
         this.totalCount = 0;
         if (res && res.length > 0) {
             res.forEach(element => {
@@ -273,8 +314,22 @@ export class DashboardComponent implements OnInit {
             this.isLoad = false;
             this.isLoading = true;
             localStorage.setItem('culture_current', e['lang']);
-            this.getLastSales(this.dateCurrent);
+
+            if ('ES' === e['lang']) {
+                this.selectTypeFilter = this.periodsES[3].value;
+            } else {
+                this.selectTypeFilter = this.periodsEN[3].value;
+            }
+            this.getSalesSummary();
+            this.getOrdensSummary();
         });
+
+        this.lang = localStorage.getItem('culture_current');
+        if (this.lang === 'ES') {
+            this.selectTypeFilter = this.periodsES[3].value;
+        } else {
+            this.selectTypeFilter = this.periodsEN[3].value;
+        }
     }
 
     /**
@@ -445,14 +500,30 @@ export class DashboardComponent implements OnInit {
         this.params = this.setParametersSales(params);
         this.showChartSales = false;
         this._dashboard.getSalesSummary(this.params).subscribe((res: any) => {
-            if (this.isLoad) {
-                this.loadingService.closeSpinner();
-            } else {
-                this.isLoading = false;
+            if (res) {
+                if (this.isLoad) {
+                    this.loadingService.closeSpinner();
+                } else {
+                    this.isLoading = false;
+                }
+                this.last_sales = res.reportOrdersSalesType ? this.parseLastSales(res.reportOrdersSalesType.reverse()) : [];
+                this.calculateCountSales(res.reportOrdersSalesType);
+
+                if (res.productsBestSellings && res.productsBestSellings.length > 0) {
+                    this.topProduct = res.productsBestSellings;
+                } else {
+                    this.topProduct = [];
+                }
+
+                if (res.ticketAverage) {
+                    this.promedTicket = res.ticketAverage;
+                } else {
+                    this.promedTicket = '0';
+                }
+
+                this.showChartSales = true;
             }
-            this.last_sales = res ? this.parseLastSales(res.reverse()) : [];
-            this.calculateCountSales(res);
-            this.showChartSales = true;
+
         }, err => {
             if (this.isLoad) {
                 this.loadingService.closeSpinner();
@@ -478,6 +549,14 @@ export class DashboardComponent implements OnInit {
         } else {
             this.showCalenderQSales = false;
             this.showCalenderDSales = true;
+        }
+        if (filter) {
+            this.lang = localStorage.getItem('culture_current');
+            if (this.lang === 'ES') {
+                this.selectTypeFilter = this.periodsES[filter - 1].value;
+            } else {
+                this.selectTypeFilter = this.periodsEN[filter - 1].value;
+            }
         }
         this.getSalesSummary();
     }
@@ -519,13 +598,15 @@ export class DashboardComponent implements OnInit {
      */
     private parseLastSales(last: any) {
         let sumatory = 0;
+        let total = '0';
         if (last && last.length > 0) {
             last.forEach(element => {
                 sumatory += element.sales;
                 element.percent = 0 + '%';
             });
             last.forEach(element => {
-                element.percent = ((element.sales / sumatory) * 100) + '%';
+                total = ((element.sales / sumatory) * 100).toString();
+                element.percent = parseFloat(total).toFixed(2) + '%';
             });
         } else {
             last.forEach(element => {
@@ -616,7 +697,7 @@ export class DashboardComponent implements OnInit {
     }
 
 /**
-* modal para mostrar el detalle 
+ * modal para mostrar el detalle
  *
  * @param {*} data
  * @param {*} type
@@ -627,7 +708,7 @@ public modalOpenChart(data: any, type: any, filter: any) {
         this.openDialog(data, type, filter);
     }
 /**
- * modal para mostrar el detalle 
+ * modal para mostrar el detalle
  *
  * @param {*} data
  * @param {*} type
@@ -641,5 +722,19 @@ public openDialog(data: any, type: any, filter: any) {
                 data: {data: data, type: type, filter: filter}
             });
         }
+    }
+/**
+ * funcion para agregar un clase que permita el scroll en el contenedor
+ *
+ * @param {boolean} show
+ * @memberof DashboardComponent
+ */
+public addClassScroll(show: boolean) {
+        if (show) {
+            this.containerScrollTop.nativeElement.classList.add('addScroll');
+        } else {
+            this.containerScrollTop.nativeElement.classList.remove('addScroll');
+        }
+        this.showMore = !this.showMore;
     }
 }

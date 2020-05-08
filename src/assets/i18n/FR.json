@@ -359,6 +359,7 @@
     "secure.dashboard.seller-rating.date_issued_final_filter":"Final date",
     "secure.dashboard.seller-rating.date_issued_final_filter_error":"Invalid format (mm/yyyy)",
     "secure.dashboard.seller-rating.date_issued_final_not_data":"No evaluation data has been found.",
+    "secure.dashboard.seller-rating.date_issued_final_not_data_products":"No products data has been found.",
     "secure.dashboard.seller-rating.date_issued_final_not_data_filter":"No evaluation data has been found for this date range.",
     "secure.dashboard.seller-rating.appeal":"Appeal",
     "secure.dashboard.seller-rating.getPdf":"Download PDF",
