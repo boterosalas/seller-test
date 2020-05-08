@@ -317,6 +317,8 @@ calculateCountSales(res: any) {
 
             if ('ES' === e['lang']) {
                 this.selectTypeFilter = this.periodsES[3].value;
+            } else if ('FR' === e['lang']) {
+                this.selectTypeFilter = this.periodsEN[3].value;
             } else {
                 this.selectTypeFilter = this.periodsEN[3].value;
             }
@@ -327,6 +329,8 @@ calculateCountSales(res: any) {
         this.lang = localStorage.getItem('culture_current');
         if (this.lang === 'ES') {
             this.selectTypeFilter = this.periodsES[3].value;
+        } else if (this.lang === 'FR') {
+            this.selectTypeFilter = this.periodsEN[3].value;
         } else {
             this.selectTypeFilter = this.periodsEN[3].value;
         }
@@ -402,6 +406,8 @@ calculateCountSales(res: any) {
         this.languageService.onLangChange.subscribe((event: LangChangeEvent) => {
             if ('ES' === event.lang) {
                 this.visibleDate = this.monthES[month];
+            } else if ('FR' === event.lang) {
+                this.selectTypeFilter = this.monthEN[month];
             } else {
                 this.visibleDate = this.monthEN[month];
             }
@@ -637,6 +643,8 @@ calculateCountSales(res: any) {
         this.languageService.onLangChange.subscribe((event: LangChangeEvent) => {
             if ('ES' === event.lang) {
                 this.visibleDateSales = this.monthES[month];
+            } else if ('FR' === event.lang) {
+                this.selectTypeFilter = this.monthEN[month];
             } else {
                 this.visibleDateSales = this.monthEN[month];
             }
