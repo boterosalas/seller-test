@@ -36,7 +36,7 @@ describe('CaseSumaryComponent', () => {
       .compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(fakeAsync(() => {
     fixture = TestBed.createComponent(CaseSummaryComponent);
     component = fixture.componentInstance;
     component.case = {
@@ -56,7 +56,7 @@ describe('CaseSumaryComponent', () => {
       sellerId: "!,2",
     }
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', (done) => {
     expect(component).toBeTruthy();
