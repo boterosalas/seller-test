@@ -18,34 +18,49 @@ import { ModalSendEmailComponent } from '../modal-send-email/modal-send-email.co
 export const OFFERS_HEADERS_EAN = 'EAN';
 export const OFFERS_HEADERS_INVENTARIO = 'Inventario';
 export const OFFERS_HEADERS_STOCK = 'Stock';
+export const OFFERS_HEADERS_STOCK_FR = 'Stock';
 export const OFFERS_HEADERS_PRECIO = 'Precio';
 export const OFFERS_HEADERS_PRICE = 'Price';
+export const OFFERS_HEADERS_PRICE_FR = 'Prix';
 export const OFFERS_HEADERS_PRECIO_DESCUENTO = 'Precio con Descuento';
 export const OFFERS_HEADERS_DISCOUNT_PRICE = 'Discount Price';
+export const OFFERS_HEADERS_DISCOUNT_PRICE_FR = 'Prix réduit';
 export const OFFERS_HEADERS_FLETE = 'Costo de Flete Promedio';
 export const OFFERS_HEADERS_SHIPPING = 'Shipping Cost';
+export const OFFERS_HEADERS_SHIPPING_FR = 'Coût moyen d\'envoie';
 export const OFFERS_HEADERS_ENTREGA = 'Promesa de Entrega';
 export const OFFERS_HEADERS_DELIVERY = 'Delivery Terms';
+export const OFFERS_HEADERS_DELIVERY_FR = 'Temps de livraison';
 export const OFFERS_HEADERS_FREE_SHIPPING = 'Free Shipping';
+export const OFFERS_HEADERS_FREE_SHIPPING_FR = 'Livraison gratuite';
 export const OFFERS_HEADERS_ENVIOS_EXITO = 'Indicador Envios Exito';
 export const OFFERS_HEADERS_EXITO_INDICATOR = 'Envios Exito Indicator';
+export const OFFERS_HEADERS_EXITO_INDICATOR_FR = 'Indicateur d\'expédition Éxito';
 export const OFFERS_HEADERS_COTIZADOR = 'Cotizador de Flete';
 export const OFFERS_HEADERS_FREIGHT = 'Freight Calculator';
+export const OFFERS_HEADERS_FREIGHT_FR = 'Cotation du fret';
 export const OFFERS_HEADERS_GARANTIA = 'Garantia';
 export const OFFERS_HEADERS_WARRANTY = 'Warranty';
+export const OFFERS_HEADERS_WARRANTY_FR = 'Garantie';
 export const OFFERS_HEADERS_LIGICAEXITO = 'Logistica Exito';
 export const OFFERS_HEADERS_EXITO_LOGISTIC = 'Exito Logistics';
+export const OFFERS_HEADERS_EXITO_LOGISTIC_FR = 'Logistique Éxito';
 export const OFFERS_HEADERS_ACTIALIZACION_INVENTARIO = 'Actualizacion de Inventario';
 export const OFFERS_HEADERS_UPDATE_STOCK = 'Stock Update';
+export const OFFERS_HEADERS_UPDATE_STOCK_FR = 'Mise à Jour du Stock';
 export const OFFERS_HEADERS_EAN_COMBO = 'Ean combo';
 export const OFFERS_HEADERS_CANTIDAD_COMBO = 'Cantidad en combo';
 export const OFFERS_HEADERS_AMOUNT_COMBO = 'Amount in combo';
+export const OFFERS_HEADERS_AMOUNT_COMBO_FR = 'Bundle stock';
 export const OFFERS_HEADERS_MONEDA = 'Tipo de moneda';
 export const OFFERS_HEADERS_CURRENCY = 'Currency';
+export const OFFERS_HEADERS_CURRENCY_FR = 'Type de monnaie';
 export const OFFERS_HEADERS_DIRECCION = 'Direccion de Recogida';
 export const OFFERS_HEADERS_ADDRESS = 'Picking Address';
+export const OFFERS_HEADERS_ADDRESS_FR = 'Adresse de collecte';
 export const OFFERS_HEADERS_CODIGO_DANE = 'Ciudad de Recogida';
 export const OFFERS_HEADERS_DANECODE = 'Picking City';
+export const OFFERS_HEADERS_DANECODE_FR = 'Ville de collecte';
 
 
 // log component
@@ -321,15 +336,30 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             res[0][j] === OFFERS_HEADERS_DIRECCION ||
             res[0][j] === OFFERS_HEADERS_ADDRESS ||
             res[0][j] === OFFERS_HEADERS_CODIGO_DANE ||
-            res[0][j] === OFFERS_HEADERS_DANECODE
+            res[0][j] === OFFERS_HEADERS_DANECODE ||
+            res[0][j] === OFFERS_HEADERS_STOCK_FR ||
+            res[0][j] === OFFERS_HEADERS_PRICE_FR ||
+            res[0][j] === OFFERS_HEADERS_DISCOUNT_PRICE_FR ||
+            res[0][j] === OFFERS_HEADERS_SHIPPING_FR ||
+            res[0][j] === OFFERS_HEADERS_DELIVERY_FR ||
+            res[0][j] === OFFERS_HEADERS_FREE_SHIPPING_FR ||
+            res[0][j] === OFFERS_HEADERS_EXITO_INDICATOR_FR ||
+            res[0][j] === OFFERS_HEADERS_FREIGHT_FR ||
+            res[0][j] === OFFERS_HEADERS_WARRANTY_FR ||
+            res[0][j] === OFFERS_HEADERS_EXITO_LOGISTIC_FR ||
+            res[0][j] === OFFERS_HEADERS_UPDATE_STOCK_FR ||
+            res[0][j] === OFFERS_HEADERS_AMOUNT_COMBO_FR ||
+            res[0][j] === OFFERS_HEADERS_CURRENCY_FR ||
+            res[0][j] === OFFERS_HEADERS_ADDRESS_FR ||
+            res[0][j] === OFFERS_HEADERS_DANECODE_FR
           ) {
             this.arrayNecessaryData[i].push(res[i][j]);
           }
-          if (res[0][j] === OFFERS_HEADERS_PRECIO ||
+          if (res[0][j] === OFFERS_HEADERS_PRECIO || res[0][j] === OFFERS_HEADERS_PRICE_FR ||
             res[0][j] === OFFERS_HEADERS_PRICE) {
             priceIndex = j;
           }
-          if (res[0][j] === OFFERS_HEADERS_PRECIO_DESCUENTO ||
+          if (res[0][j] === OFFERS_HEADERS_PRECIO_DESCUENTO || OFFERS_HEADERS_DISCOUNT_PRICE_FR ||
             res[0][j] === OFFERS_HEADERS_DISCOUNT_PRICE) {
             priceDiscountIndex = j;
           }
@@ -381,27 +411,26 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
         this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.no_information_contains'), this.languageService.instant('actions.accpet_min'), 10000);
       } else {
 
-        if (this.arrayNecessaryData[0].includes('EAN') && (this.arrayNecessaryData[0].includes('Inventario') || this.arrayNecessaryData[0].includes('Stock')) &&
-          (this.arrayNecessaryData[0].includes('Precio') || this.arrayNecessaryData[0].includes('Price'))) {
-
+        if (this.arrayNecessaryData[0].includes('EAN') && (this.arrayNecessaryData[0].includes('Inventario') || this.arrayNecessaryData[0].includes('Stock') || this.arrayNecessaryData[0].includes('Stock')) &&
+          (this.arrayNecessaryData[0].includes('Precio') || this.arrayNecessaryData[0].includes('Prix') || this.arrayNecessaryData[0].includes('Price'))) {
           const iVal = {
             iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
-            iInv: this.validateSubTitle(this.arrayNecessaryData, 'Stock', 'Inventario'),
-            iPrecio: this.validateSubTitle(this.arrayNecessaryData, 'Price', 'Precio'),
-            iPrecDesc: this.validateSubTitle(this.arrayNecessaryData, 'Discount Price', 'Precio con Descuento'),
-            iCostFletProm: this.validateSubTitle(this.arrayNecessaryData, 'Shipping Cost', 'Costo de Flete Promedio'),
-            iPromEntrega: this.validateSubTitle(this.arrayNecessaryData, 'Delivery Terms', 'Promesa de Entrega'),
-            iFreeShiping: this.validateSubTitle(this.arrayNecessaryData, 'Free Shipping', 'Free Shipping'),
-            iIndEnvExito: this.validateSubTitle(this.arrayNecessaryData, 'Indicador Envios Exito', 'Envios Exito Indicator'),
-            iCotFlete: this.validateSubTitle(this.arrayNecessaryData, 'Freight Calculator', 'Cotizador de Flete'),
-            iGarantia: this.validateSubTitle(this.arrayNecessaryData, 'Warranty', 'Garantia'),
-            iLogisticaExito: this.validateSubTitle(this.arrayNecessaryData, 'Exito Logistics', 'Logistica Exito'),
-            iActInventario: this.validateSubTitle(this.arrayNecessaryData, 'Stock Update', 'Actualizacion de Inventario'),
-            iEanCombo: this.validateSubTitle(this.arrayNecessaryData, 'Ean combo', 'Ean combo'),
-            iCantidadCombo: this.validateSubTitle(this.arrayNecessaryData, 'Amount in combo', 'Cantidad en combo'),
-            iCurrency: this.validateSubTitle(this.arrayNecessaryData, 'Currency', 'Tipo de moneda'),
-            iAddress: this.validateSubTitle(this.arrayNecessaryData, 'Picking Address', 'Direccion de Recogida'),
-            iDaneCode: this.validateSubTitle(this.arrayNecessaryData, 'Picking City', 'Ciudad de Recogida')
+            iInv: this.validateSubTitle(this.arrayNecessaryData, 'Stock', 'Inventario', 'Stock'),
+            iPrecio: this.validateSubTitle(this.arrayNecessaryData, 'Price', 'Precio', 'Prix'),
+            iPrecDesc: this.validateSubTitle(this.arrayNecessaryData, 'Discount Price', 'Precio con Descuento', 'Prix réduit'),
+            iCostFletProm: this.validateSubTitle(this.arrayNecessaryData, 'Shipping Cost', 'Costo de Flete Promedio', 'Coût moyen d\'envoie'),
+            iPromEntrega: this.validateSubTitle(this.arrayNecessaryData, 'Delivery Terms', 'Promesa de Entrega', 'Temps de livraison'),
+            iFreeShiping: this.validateSubTitle(this.arrayNecessaryData, 'Free Shipping', 'Free Shipping', 'Livraison gratuite'),
+            iIndEnvExito: this.validateSubTitle(this.arrayNecessaryData, 'Indicador Envios Exito', 'Envios Exito Indicator', 'Indicateur d\'expédition Éxito'),
+            iCotFlete: this.validateSubTitle(this.arrayNecessaryData, 'Freight Calculator', 'Cotizador de Flete', 'Cotation du fret'),
+            iGarantia: this.validateSubTitle(this.arrayNecessaryData, 'Warranty', 'Garantia', 'Garantie'),
+            iLogisticaExito: this.validateSubTitle(this.arrayNecessaryData, 'Exito Logistics', 'Logistica Exito', 'Logistique Éxito'),
+            iActInventario: this.validateSubTitle(this.arrayNecessaryData, 'Stock Update', 'Actualizacion de Inventario', 'Mise à Jour du Stock'),
+            iEanCombo: this.validateSubTitle(this.arrayNecessaryData, 'Ean combo', 'Ean combo', 'Ean combo'),
+            iCantidadCombo: this.validateSubTitle(this.arrayNecessaryData, 'Amount in combo', 'Cantidad en combo', 'Bundle stock'),
+            iCurrency: this.validateSubTitle(this.arrayNecessaryData, 'Currency', 'Tipo de moneda', 'Type de monnaie'),
+            iAddress: this.validateSubTitle(this.arrayNecessaryData, 'Picking Address', 'Direccion de Recogida', 'Adresse de collecte'),
+            iDaneCode: this.validateSubTitle(this.arrayNecessaryData, 'Picking City', 'Ciudad de Recogida', 'Ville de collecte')
           };
           if (this.arrayNecessaryData.length > this.limitRowExcel) {
             this.loadingService.closeSpinner();
@@ -427,18 +456,20 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
    * @param {any} array
    * @param {string} titleEn
    * @param {string} titleEs
+   * @param {string} titleFr
    * Funcion que permite valida la cabecera del archivo de carga masiva;
    * captura y retorna el valor con la cabecera existente
    *
    */
 
-  validateSubTitle(array: any, titleEn: string, titleEs: string) {
+  validateSubTitle(array: any, titleEn: string, titleEs: string, titleFR: string) {
     if (array[0].indexOf(titleEs) > 0) {
       return array[0].indexOf(titleEs);
     } else if (array[0].indexOf(titleEn) > 0) {
       return array[0].indexOf(titleEn);
+    } else if (array[0].indexOf(titleFR) > 0) {
+      return array[0].indexOf(titleFR);
     }
-
   }
 
   /**
@@ -1146,35 +1177,60 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       }];
       log.info(emptyFile);
       this.exportAsExcelFile(emptyFile, 'Formato de Carga de Ofertas');
-    } else {
-      this.downloadFormatMassiveOfferLoadInternational();
     }
-
   }
 
-  /* Massive offer load Internacional*/
-  downloadFormatMassiveOfferLoadInternational() {
+  /* Massive offer load Internacional English*/
+  downloadFormatMassiveOfferLoadInternational(culture: any) {
+    if (culture === 'US') {
+      const emptyFile = [{
+        'EAN': undefined,
+        'Stock': undefined,
+        'Price': undefined,
+        'Discount Price': undefined,
+        'Shipping Cost': undefined,
+        'Delivery Terms': undefined,
+        'Free Shipping': undefined,
+        'Envios Exito Indicator': undefined,
+        'Stock Update': undefined,
+        'Freight Calculator': undefined,
+        'Warranty': undefined,
+        'Ean combo': undefined,
+        'Amount in combo': undefined,
+        'Currency': undefined,
+        'Picking Address': undefined,
+        'Picking City': undefined,
+      }];
+      log.info(emptyFile);
+      this.exportAsExcelFile(emptyFile, 'Offer upload format');
+    }
+  }
+
+  /* Massive offer load Internacional lenguaje FRANCES*/
+  downloadFormatMassiveOfferLoadInternational_FR(culture: any) {
+    if (culture === 'FR') {
     const emptyFile = [{
       'EAN': undefined,
       'Stock': undefined,
-      'Price': undefined,
-      'Discount Price': undefined,
-      'Shipping Cost': undefined,
-      'Delivery Terms': undefined,
-      'Free Shipping': undefined,
-      'Envios Exito Indicator': undefined,
-      'Stock Update': undefined,
-      'Freight Calculator': undefined,
-      'Warranty': undefined,
+      'Prix': undefined,
+      'Prix réduit': undefined,
+      'Coût moyen d\'envoie': undefined,
+      'Temps de livraison': undefined,
+      'Livraison gratuite': undefined,
+      'Indicateur d\'expédition Éxito': undefined,
+      'Mise à Jour du Stock': undefined,
+      'Cotation du fret': undefined,
+      'Garantie': undefined,
       'Ean combo': undefined,
-      'Amount in combo': undefined,
-      'Currency': undefined,
-      'Picking Address': undefined,
-      'Picking City': undefined,
+      'Bundle stock': undefined,
+      'Type de monnaie': undefined,
+      'Adresse de collecte': undefined,
+      'Collection City': undefined,
     }];
     log.info(emptyFile);
-    this.exportAsExcelFile(emptyFile, 'Offer upload format');
+    this.exportAsExcelFile(emptyFile, 'Offrir le format de téléchargement');
   }
+}
 
   /**
    * Método que genera el dato json en el formato que emplea excel para.
@@ -1190,7 +1246,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Método que genera el dato json en el formato que emplea excel Internacional
+   * Método que genera el dato json en el formato que emplea excel  idioma ingles
    * @param {any[]} json
    * @param {string} excelFileName
    * @memberof BulkLoadComponent
@@ -1200,6 +1256,19 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     const workbook: XLSX.WorkBook = { Sheets: { 'Offerts': worksheet }, SheetNames: ['Offerts'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', bookSST: false, type: 'binary' });
     this.saveAsExcelFileInternational(excelBuffer, excelFileName);
+  }
+
+  /**
+   * Método que genera el dato json en el formato que emplea excel Internacional idioma frances
+   * @param {any[]} json
+   * @param {string} excelFileName
+   * @memberof BulkLoadComponent
+   */
+  exportAsExcelFileInternational_FR(json: any[], excelFileName: string): void {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
+    const workbook: XLSX.WorkBook = { Sheets: { 'Offres': worksheet }, SheetNames: ['Offres'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', bookSST: false, type: 'binary' });
+    this.saveAsExcelFileInternational_FR(excelBuffer, excelFileName);
   }
 
   /**
@@ -1223,6 +1292,20 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
    * @memberof BulkLoadComponent
    */
   saveAsExcelFileInternational(buffer: any, fileName: string): void {
+    const data: Blob = new Blob([this.s2ab(buffer)], {
+      type: ''
+    });
+    FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+  }
+
+  /**
+   * Método que permite generar el excel con los datos pasados en ingles para Internacional
+   *
+   * @param {*} buffer
+   * @param {string} fileName
+   * @memberof BulkLoadComponent
+   */
+  saveAsExcelFileInternational_FR(buffer: any, fileName: string): void {
     const data: Blob = new Blob([this.s2ab(buffer)], {
       type: ''
     });
@@ -1265,7 +1348,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
    * @memberof BulkLoadComponent
    */
   sendJsonOffer(approval: number) {
-    if (approval  !== 1) {
+    if (approval !== 1) {
       this.arrayInformationForSend.splice(0, 1);
     }
     // Validacion para que siempre se envie la promesa de entrega # a #.
@@ -1280,7 +1363,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
 
     this.sendData = {
       'PriceApproval': approval,
-      'ListOffers' : this.arrayInformationForSend
+      'ListOffers': this.arrayInformationForSend
     };
     this.bulkLoadService.setOffers(this.sendData)
       .subscribe(
@@ -1395,12 +1478,12 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
 
   }
 
-/**
- * funcion para abrir el modal de envio de correo de ofertas 
- *
- * @memberof BulkLoadComponent
- */
-requestMail() {
+  /**
+   * funcion para abrir el modal de envio de correo de ofertas
+   *
+   * @memberof BulkLoadComponent
+   */
+  requestMail() {
     this.dialogRef = this.dialog.open(ModalSendEmailComponent);
   }
   /**

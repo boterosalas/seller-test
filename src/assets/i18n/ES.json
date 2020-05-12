@@ -349,6 +349,12 @@
     "secure.dashboard.type.filter.diary": "Diario",
     "secure.dashboard.selected_months": "Seleccione el mes",
     "secure.dashboard.info_cancel_sale": "Esta información es aproximada y no tiene en cuenta cancelación, adicionalmente la venta se muestra sin flete",
+    "secure.dashboard.table.top.title.SKU": "PLU",
+    "secure.dashboard.table.top.title.Product": "Producto",
+    "secure.dashboard.table.top.title.Units_sold": "Uds Vendidas",
+    "secure.dashboard.table.top.title.Available_units": "Uds Disponibles",
+    "secure.dashboard.table.top.title.top_selling_products": "Productos más vendidos",
+    "secure.dashboard.table.top.title.average_listing_price": "Ticket promedio",
 
     "secure.dashboard.seller-rating.title":"Calificación de Calidad",
     "secure.dashboard.seller-rating.title_filter":"Filtro por fecha de Emisión",
@@ -359,10 +365,11 @@
     "secure.dashboard.seller-rating.date_issued_final_filter":"Fecha final",
     "secure.dashboard.seller-rating.date_issued_final_filter_error":"Formato inválido (mm/yyyy)",
     "secure.dashboard.seller-rating.date_issued_final_not_data":"No se han encontrado registros de calificación.",
+    "secure.dashboard.seller-rating.date_issued_final_not_data_products":"No se han encontrado registros de productos.",
     "secure.dashboard.seller-rating.date_issued_final_not_data_filter":"No se han encontrado registros de calificación en este rango de fechas.",
     "secure.dashboard.seller-rating.appeal":"Apelar",
     "secure.dashboard.seller-rating.getPdf":"Descargar PDF.",
-    
+
 
     "secure.error_page.no_found_page": "La pagina solicitada no ha sido encontrada",
     "secure.error_page.go_home": "Ir a inicio",
@@ -425,7 +432,7 @@
 
     "secure.orders.order_list.order_page.no_orders_found": "No se han encontrado órdenes",
     "secure.orders.order_list.order_page.pending_requests": "No se han encontrado solicitudes pendientes",
-    "secure.orders.order_list.order_page.load_al_orders": "Cargar todas las órdenes",
+    "secure.orders.order_list.order_page.load_all_orders": "Cargar todas las órdenes",
     "secure.orders.order_list.order_page.all_orders": "Todas las órdenes",
     "secure.orders.order_list.order_page.without_invoice": "Sin factura adjunta",
     "secure.orders.order_list.order_page.with_invoice": "Con factura adjunta",
@@ -1193,6 +1200,14 @@
     "secure.parametize.support_claims-filter.last_post": "Última respuesta",
     "secure.parametize.support_claims-filter.sac_answer": "Respuesta servicio al cliente",
     "secure.parametize.support_claims-filter.seller_answer": "Respuesta vendedor",
+
+    "secure.parametize.support_drop-down-menu-ID": "ID",
+    "secure.parametize.support_drop-down-order-numer": "Número de pedido",
+    "secure.parametize.support_drop-down-reason-detail": "Detalle del motivo",
+    "secure.parametize.support_drop-down-creation-date": "Fecha creación",
+    "secure.parametize.support_drop-down-status": "Estado",
+    "secure.parametize.support_drop-down-reply": "Responder",
+    "secure.parametize.support_drop-down-last-reply": "Última respuesta",
 
     "secure.parametize.port.port": "Puerto",
     "secure.parametize.port.search_port": "Consultar puerto",

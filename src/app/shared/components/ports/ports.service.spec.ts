@@ -23,7 +23,7 @@ describe('PortsService', () => {
     }
   ];
 
-  beforeEach(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule, HttpClientTestingModule],
       providers: [
@@ -34,12 +34,13 @@ describe('PortsService', () => {
     });
     portsService = TestBed.get(PortsService);
     endpointService = TestBed.get(EndpointService);
-    endpoint = endpointService.get('getPortsByCountryName', [country])
-  });
+    endpoint = endpointService.get('getPortsByCountryName', [country]);
+  }));
 
-  it('should be created', () => {
+  it('should be created', (done) => {
     expect(portsService).toBeTruthy();
     expect(endpointService).toBeTruthy();
+    done();
   });
 
   // it('Should be able to retrieve posts from the API bia GET',

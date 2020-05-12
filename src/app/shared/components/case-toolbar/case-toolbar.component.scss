@@ -119,3 +119,9 @@ $underline: #909090;
     width: 100%;
   }
 }
+
+mat-paginator {
+  @media (max-width: 600px) {
+    width: 200px;
+  }
+}

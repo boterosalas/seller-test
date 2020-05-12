@@ -1,5 +1,5 @@
 /* 3rd party components */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 /* our own custom components */
@@ -17,7 +17,7 @@ describe('ProductDetailBillingModalComponent', () => {
   let fixture: ComponentFixture<ProductDetailBillingModalComponent>;
   const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync((() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
@@ -32,16 +32,17 @@ describe('ProductDetailBillingModalComponent', () => {
       schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();
-  }));
+  })));
 
-  beforeEach(() => {
+  beforeEach(async function() {
     fixture = TestBed.createComponent(ProductDetailBillingModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create', (done) => {
     expect(component).toBeTruthy();
+    done();
   });
 });
 
