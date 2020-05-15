@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {
   trigger,
   state,
@@ -55,6 +55,10 @@ export class DetailCaseComponent implements OnInit {
     data: null
   };
 
+  @Input() idDetail;
+  @Output() idDetailFalse = new EventEmitter<any>();
+
+
   constructor(
     public dialog: MatDialog,
     private sellerSupportService: SellerSupportCenterService,
@@ -71,7 +75,8 @@ export class DetailCaseComponent implements OnInit {
     this.getStatusCase();
 
     this.case$ = this.sellerSupportService
-      .getCase(this.route.snapshot.paramMap.get('idCase'))
+      // .getCase(this.route.snapshot.paramMap.get('idCase'))
+      .getCase(this.idDetail)
       .pipe(map((res: CaseDetailResponse) => res.data));
 
     this.case$.subscribe(() => this.loadingService.closeSpinner());
@@ -82,7 +87,9 @@ export class DetailCaseComponent implements OnInit {
    * @memberof DetailCaseComponent
    */
   redirecToListClaims() {
-    this.redirecServ.redirectToListServ();
+    this.idDetail = false;
+    this.idDetailFalse.emit(this.idDetail);
+    // this.redirecServ.redirectToListServ();
   }
 
   toggleFilter(stateFilter: boolean) {
@@ -96,9 +103,9 @@ export class DetailCaseComponent implements OnInit {
       ResponseCaseDialogComponent,
       this.configDialog
     );
+    this.loadingService.viewSpinner();
 
     dialogRef.afterClosed().subscribe(result => {
-      this.loadingService.viewSpinner();
       if (result !== undefined) {
         this.sellerSupportService
           .patchCaseResponse(result.data)
@@ -129,7 +136,8 @@ export class DetailCaseComponent implements OnInit {
       }
       this.options = res.statusCases;
       this.case$ = this.sellerSupportService
-        .getCase(this.route.snapshot.paramMap.get('idCase'))
+        // .getCase(this.route.snapshot.paramMap.get('idCase'))
+        .getCase(this.idDetail)
         // tslint:disable-next-line:no-shadowed-variable
         .pipe(map((res: CaseDetailResponse) => res.data));
     });
