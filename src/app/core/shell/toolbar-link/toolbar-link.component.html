@@ -16,7 +16,7 @@
 
         <mat-menu #orders="matMenu">
           <div *ngFor="let menu of module.Menus">
-            <button mat-menu-item [routerLink]="['/' + menu.UrlRedirect]" *ngIf="showMenu(menu) && menu.NameMenu !=='Creación Unitaria' && user.sellerProfile === 'administrator'">
+            <button mat-menu-item [routerLink]="['/' + menu.UrlRedirect]" *ngIf="showMenu(menu) && menu.NameMenu !=='Creación Unitaria' && user && user.sellerProfile === 'administrator'">
               <span>{{('menu.' + menu.NameMenu) | translate}}</span>
               <app-notification-circle *ngIf="menu.NameMenu === 'Solicitudes pendientes'" [value]="pending"
             id="circle-notification-toolbar"></app-notification-circle>
