@@ -18,7 +18,7 @@ import {
   MatTooltipModule,
 } from '@angular/material';
 import { ListOfCaseComponent } from './list-of-case.component';
-import { EndpointService, LoadingService, ModalService } from '@app/core'
+import { EndpointService, LoadingService, ModalService } from '@app/core';
 import { ActivatedRoute } from '@angular/router';
 import { from, of, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -48,13 +48,13 @@ import { ConfigurationState } from '@app/store/configuration';
 import { CoreState } from '@app/store';
 import { StoreService } from '@app/store/store.service';
 import { StoreTestModule } from '../store-test/store-test.module';
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { SellerSupportCenterService } from '../services/seller-support-center.service';
 
 
-describe('ListOfCaseComponent', () => {
+fdescribe('ListOfCaseComponent', () => {
   let component: ListOfCaseComponent;
   let fixture: ComponentFixture<ListOfCaseComponent>;
   const configurationState: ConfigurationState = { language: 'US', statusCases: [] };
@@ -126,7 +126,8 @@ describe('ListOfCaseComponent', () => {
         { provide: ModalService, useValue: mockDialogError },
         { provide: MyProfileService, useClass: MyProfileServiceTest },
         { provide: MatSidenavContainer, useValue: {} },
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
@@ -167,7 +168,7 @@ class StoreTest {
           unreadCases: 2
         }
       }
-    )
+    );
   }
 }
 
@@ -175,11 +176,11 @@ class EventEmitterSellerTest {
 
   eventSearchSeller = new EventEmitter<any>();
   seller = {
-    IdSeller: "qwe"
-  }
+    IdSeller: 'qwe'
+  };
 
   constructor() {
-    this.eventSearchSeller.next(this.seller)
+    this.eventSearchSeller.next(this.seller);
   }
 
   searchSeller(seller: any) {
@@ -193,34 +194,34 @@ class MyProfileServiceTest {
       JSON.stringify(
         {
           Data: {
-            IdSeller: "as",
-            Profile: "seller"
+            IdSeller: 'as',
+            Profile: 'seller'
           }
         }
       );
     const response = {
       body: { body: responseTxt }
-    }
+    };
     return of(response);
   }
 }
 
 class SupportServiceTest {
   sendSupportMessage(user: any, supportMessage: any) {
-    const returnObj = { obk: "qwe" }
+    const returnObj = { obk: 'qwe' };
     return of(returnObj);
   }
 
   public getRegexFormSupport(params: any): Observable<any> {
-    const responseTxt = JSON.stringify({ Data: ["reclamaciones"] });
+    const responseTxt = JSON.stringify({ Data: ['reclamaciones'] });
     const response = { body: { body: responseTxt } };
     return of(response);
   }
 
   public getClassification(): Observable<any> {
     const classification = {
-      class: "we"
+      class: 'we'
     };
-    return of(classification)
+    return of(classification);
   }
 }

@@ -55,7 +55,7 @@ export class DetailCaseComponent implements OnInit {
     data: null
   };
 
-  @Input() idDetail;
+  @Input() idDetail: any;
   @Output() idDetailFalse = new EventEmitter<any>();
 
 
