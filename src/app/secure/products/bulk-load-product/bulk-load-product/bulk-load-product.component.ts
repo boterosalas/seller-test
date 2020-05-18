@@ -102,6 +102,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   /*listado de especificaciones*/
   listSpecs: any[] = [];
 
+  checkIfDoneCharge: any = null;
+
 
   // Objeto moquear regex
   productsRegex = {
@@ -1757,20 +1759,11 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
   setIntervalStatusCharge() {
     console.log('hola');
-    let stoptInterval;
-    const intervalCharge = setInterval(() => this.BulkLoadProductS.getCargasMasivas().subscribe((res: any) => {
+    clearInterval(this.checkIfDoneCharge);
+    this.checkIfDoneCharge = setInterval(() => this.BulkLoadProductS.getCargasMasivas().subscribe((res: any) => {
       console.log(res);
       this.verifyStateCharge(res);
-      if (res.body.data.status === 1) {
-        stoptInterval = false;
-      } else {
-        stoptInterval = true;
-      }
     }), 7000);
-    console.log(stoptInterval);
-    // if ( stoptInterval) {
-    //   clearInterval(intervalCharge);
-    // }
   }
 
   /*
@@ -1797,10 +1790,12 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       }
       this.progressStatus = true;
     } else if (result.body.data.status === 2) {
+      clearInterval(this.checkIfDoneCharge);
       this.closeActualDialog();
       this.openDialogSendOrder(result);
     } else if (result.body.data.status === 3) {
       this.closeActualDialog();
+      clearInterval(this.checkIfDoneCharge);
       if (result.body.data.response.Errors['0']) {
         this.modalService.showModal('errorService');
       } else {
