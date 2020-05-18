@@ -497,10 +497,20 @@ export class ListOfCaseComponent implements OnInit {
     }
   }
 
+  /**
+   * Metodo para ir al detalle de las reclamaciones
+   * @param {*} id
+   * @memberof ListOfCaseComponent
+   */
   redirectToDetailClaims(id: any) {
     this.idDetail = id;
   }
 
+  /**
+   * Metodo para volver al listado de result
+   * @param {*} idFalse
+   * @memberof ListOfCaseComponent
+   */
   redirectToListClaims(idFalse: any) {
     this.idDetail = idFalse;
   }

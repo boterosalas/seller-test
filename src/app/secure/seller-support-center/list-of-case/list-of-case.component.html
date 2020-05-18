@@ -11,7 +11,7 @@
       <div class="search-container">
         <app-search-seller id="contet-searc-store" class="search-content">
         </app-search-seller>
-        <h6 *ngIf="selectedStore">
+        <h6 *ngIf="false">
           {{'secure.products.create_product_unit.categorization.list.you_selected' | translate}}: <strong
             [innerHTML]="selectedStore"></strong>
         </h6>
@@ -107,7 +107,7 @@
     <mat-toolbar class="tree-toolbar" class="drawer-container">
       <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
       </div>
-      <app-case-toolbar class="styleToolbar" (changePagination)="changePagination($event)" [length]="length"
+      <app-case-toolbar [ngClass]="{disabledDiv: idDetail}" class="styleToolbar" (changePagination)="changePagination($event)" [length]="length"
         [pageIndex]="pageIndex" [pageSize]="pageSize">
       </app-case-toolbar>
       <div class="classNewFilter">

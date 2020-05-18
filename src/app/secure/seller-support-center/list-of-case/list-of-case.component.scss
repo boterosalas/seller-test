@@ -15,6 +15,15 @@ $underline-color: #19a695;
   margin: 59px 32px;
 }
 
+.drawer-container {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.disabledDiv {
+  pointer-events: none;
+}
+
 .support-center-case {
   &__filter-container {
     position: fixed;
@@ -150,7 +159,7 @@ $underline-color: #19a695;
   }
 }
 
-.styleToolbar{
+.styleToolbar {
   width: 92%;
 }
 
@@ -162,7 +171,7 @@ $underline-color: #19a695;
   }
 }
 
-.filter-control{
+.filter-control {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -182,23 +191,26 @@ $underline-color: #19a695;
   &--btn-send {
     background-color: $accent-color;
     color: white;
+
     &:hover {
       background-color: white;
       color: $accent-color;
     }
   }
- }
+}
 
 
-  .search-container {
-    width: 70%;
-    padding-left: 20px;
-  }
+.search-container {
+  width: 70%;
+  padding-left: 20px;
+}
 
-  .classNewFilter {
-    height: 61px;
-    margin-top: 1px;
-    background-color: white;
-    /* width: 5%; */
-    float: left;
-  }
+.classNewFilter {
+  height: 61px;
+  margin-top: 1px;
+  background-color: white;
+  /* width: 5%; */
+  float: left;
+  width: 8%;
+  margin-bottom: 3px;
+}
