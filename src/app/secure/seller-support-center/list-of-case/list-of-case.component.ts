@@ -272,12 +272,7 @@ export class ListOfCaseComponent implements OnInit {
         this.loadCases(this.paramsFIlterListCase);
       }
     }
-    console.log(this.paramsFIlterListCase);
     this.activeInit = false;
-    // this.validateFinalDateRange();
-    // if (this.hasErrorDate === false) {
-    //   this.loadCases(this.paramsFIlterListCase);
-    // }
   }
 
   /**

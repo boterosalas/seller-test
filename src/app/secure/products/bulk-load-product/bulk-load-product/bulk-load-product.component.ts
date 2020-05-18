@@ -1757,11 +1757,13 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     }
   }
 
+  /**
+   * Metodo para llamar cierto tiempo el servicio del status de la carga
+   * @memberof BulkLoadProductComponent
+   */
   setIntervalStatusCharge() {
-    console.log('hola');
     clearInterval(this.checkIfDoneCharge);
     this.checkIfDoneCharge = setInterval(() => this.BulkLoadProductS.getCargasMasivas().subscribe((res: any) => {
-      console.log(res);
       this.verifyStateCharge(res);
     }), 7000);
   }
