@@ -359,7 +359,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             res[0][j] === OFFERS_HEADERS_PRICE) {
             priceIndex = j;
           }
-          if (res[0][j] === OFFERS_HEADERS_PRECIO_DESCUENTO || OFFERS_HEADERS_DISCOUNT_PRICE_FR ||
+          if (res[0][j] === OFFERS_HEADERS_PRECIO_DESCUENTO || res[0][j] === OFFERS_HEADERS_DISCOUNT_PRICE_FR ||
             res[0][j] === OFFERS_HEADERS_DISCOUNT_PRICE) {
             priceDiscountIndex = j;
           }

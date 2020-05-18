@@ -343,7 +343,7 @@
     "secure.dashboard.expired": "Expired",
     "secure.dashboard.sales": "Sales",
     "secure.dashboard.sales.total": "Total",
-    "secure.dashboard.type.filter.quarterly": "Trimester",
+    "secure.dashboard.type.filter.quarterly": "Quarterly",
     "secure.dashboard.type.filter.monthly": "Monthly",
     "secure.dashboard.type.filter.weekly": "Weekly",
     "secure.dashboard.type.filter.diary": "Daily",
@@ -1246,5 +1246,6 @@
     "secure.quality.quality-score.qualityMonth" :"Quality month",
     "secure.quality.quality-score.qualityIssued" :"Quality issued",
     "secure.quality.quality-score.text-empty-califications" :"Enter the name of the seller in the search bar to see the quality score. ",
-    "secure.quality.quality-score.filter-title": "Consultar calificaciones"
+    "secure.quality.quality-score.filter-title": "Consultar calificaciones",
+    "secure.quality.quality-score.message-send-quality": "Seller rating has been successfully submitted"
 }

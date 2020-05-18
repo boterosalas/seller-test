@@ -356,7 +356,6 @@
     "secure.dashboard.table.top.title.top_selling_products": "Productos más vendidos",
     "secure.dashboard.table.top.title.average_listing_price": "Ticket promedio",
 
-
     "secure.dashboard.seller-rating.title":"Calificación de Calidad",
     "secure.dashboard.seller-rating.title_filter":"Filtro por fecha de Emisión",
     "secure.dashboard.seller-rating.header_rating":"Calificación",
@@ -433,7 +432,7 @@
 
     "secure.orders.order_list.order_page.no_orders_found": "No se han encontrado órdenes",
     "secure.orders.order_list.order_page.pending_requests": "No se han encontrado solicitudes pendientes",
-    "secure.orders.order_list.order_page.load_al_orders": "Cargar todas las órdenes",
+    "secure.orders.order_list.order_page.load_all_orders": "Cargar todas las órdenes",
     "secure.orders.order_list.order_page.all_orders": "Todas las órdenes",
     "secure.orders.order_list.order_page.without_invoice": "Sin factura adjunta",
     "secure.orders.order_list.order_page.with_invoice": "Con factura adjunta",
