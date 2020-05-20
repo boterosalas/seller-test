@@ -54,7 +54,7 @@ import { SupportService } from '@app/secure/support-modal/support.service';
 import { SellerSupportCenterService } from '../services/seller-support-center.service';
 
 
-fdescribe('ListOfCaseComponent', () => {
+describe('ListOfCaseComponent', () => {
   let component: ListOfCaseComponent;
   let fixture: ComponentFixture<ListOfCaseComponent>;
   const configurationState: ConfigurationState = { language: 'US', statusCases: [] };
