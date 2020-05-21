@@ -13,6 +13,7 @@ import { MatPaginator, MatPaginatorIntl } from '@angular/material';
 import { getDutchPaginatorIntl } from '@app/shared';
 import { TranslateService } from '@ngx-translate/core';
 import { MatPaginatorI18nService } from '@app/shared/services/mat-paginator-i18n.service';
+import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 
 @Component({
   selector: 'app-case-toolbar',
@@ -38,22 +39,37 @@ export class CaseToolbarComponent implements OnInit {
 
   @Output() changePagination = new EventEmitter();
 
+  @Output() sellerDataSearch = new EventEmitter();
+
   @Output() toggleFilter = new EventEmitter();
 
   isHandset$: Observable<boolean>;
 
   stateFilter = false;
 
-  constructor(private breakpointObserver: BreakpointObserver, public translateService: TranslateService) {
+  isAdmin: boolean;
+  constructor(private breakpointObserver: BreakpointObserver, public translateService: TranslateService,
+    private emitterSeller?: EventEmitterSeller,
+    ) {
     this.isHandset$ = this.breakpointObserver
       .observe(Breakpoints.Handset)
       .pipe(map(result => result.matches));
+      console.log('local: ', localStorage);
+      if (localStorage.getItem('typeProfile') && localStorage.getItem('typeProfile') === 'administrator') {
+        this.isAdmin = true;
+      } else {
+        this.isAdmin = false;
+      }
   }
 
   ngOnInit() {
     this.paginator.page.subscribe(pagination =>
       this.changePagination.emit(pagination)
     );
+
+    this.emitterSeller.eventSearchSeller.subscribe(data => {
+      this.sellerDataSearch.emit(data);
+    });
   }
 
   onToggleFilter() {

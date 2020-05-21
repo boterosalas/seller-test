@@ -149,9 +149,9 @@ export class ListOfCaseComponent implements OnInit {
   ngOnInit() {
     this.createFormControls();
     this.validateFormSupport();
-
     this.getStatusCase();
     this.filterByRoute(this.router.queryParams).subscribe(res => {
+      console.log(res);
       const seller = this.paramsFilter.SellerId;
       if (this.isAdmin) {
         if (seller) {
@@ -178,15 +178,15 @@ export class ListOfCaseComponent implements OnInit {
       }, 350);
     });
 
-    this.emitterSeller.eventSearchSeller.subscribe(data => {
-      this.selectedStore = data.Name;
-      localStorage.setItem('sellerNameClaim', this.selectedStore);
-      this.sellerIdLogger = {
-        'SellerId': data.IdSeller
-      };
-      Object.assign(this.paramsFilter, this.sellerIdLogger);
-      this.loadCases(this.paramsFilter);
-    });
+    // this.emitterSeller.eventSearchSeller.subscribe(data => {
+    //   this.selectedStore = data.Name;
+    //   localStorage.setItem('sellerNameClaim', this.selectedStore);
+    //   this.sellerIdLogger = {
+    //     'SellerId': data.IdSeller
+    //   };
+    //   Object.assign(this.paramsFilter, this.sellerIdLogger);
+    //   this.loadCases(this.paramsFilter);
+    // });
 
   }
 
@@ -203,6 +203,20 @@ export class ListOfCaseComponent implements OnInit {
       Status: new FormControl(''),
       OrderNumber: new FormControl('', [Validators.pattern(this.regexFilter.orderNumber)])
     });
+  }
+
+  getSellerBySearch(res: any) {
+    console.log(res);
+    // this.emitterSeller.eventSearchSeller.subscribe(data => {
+    this.selectedStore = res.Name;
+    localStorage.setItem('sellerNameClaim', this.selectedStore);
+    this.sellerIdLogger = {
+      'SellerId': res.IdSeller
+    };
+    Object.assign(this.paramsFilter, this.sellerIdLogger);
+    this.loadCases(this.paramsFilter);
+    // });
+
   }
 
   /**
