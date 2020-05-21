@@ -31,6 +31,11 @@ export class SearchSellerComponent implements OnInit, OnChanges {
 
     @Input() searchSellerInput;
 
+    @Input() loadSpinner = true;
+    @Input() widthComplete = false;
+
+
+
     // Para identificar qué tipo de búsqueda se va a realizar.
     @Input() isFullSearch: boolean;
 
@@ -60,6 +65,7 @@ export class SearchSellerComponent implements OnInit, OnChanges {
             );
         // consulto las tiendas disponibles
         this.getAllSellers();
+
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -74,7 +80,9 @@ export class SearchSellerComponent implements OnInit, OnChanges {
      * @memberof SearchStoreComponent
      */
     public getAllSellers() {
-        this.loadingService.viewSpinner();
+        if (this.loadSpinner) {
+            this.loadingService.viewSpinner();
+        }
         if (this.isFullSearch) {
             this.storeService.getAllStoresFull(this.user).subscribe((res: any) => {
                 if (res.status === 200) {

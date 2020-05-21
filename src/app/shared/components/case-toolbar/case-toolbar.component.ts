@@ -36,6 +36,8 @@ export class CaseToolbarComponent implements OnInit {
 
   @Input() pageLabel: string;
 
+  @Input() isAdmin = false;
+
   @Output() changePagination = new EventEmitter();
 
   @Output() toggleFilter = new EventEmitter();

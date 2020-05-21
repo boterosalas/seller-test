@@ -20,6 +20,7 @@ import { FormBuilder, FormGroup, FormControl, FormGroupDirective, NgForm, Valida
 import { DatePipe } from '@angular/common';
 import { CustomPaginator } from '@app/secure/products/list-products/listFilter/paginatorList';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import { ModalExportToReclaimComponent } from '../modal-export-to-reclaim/modal-export-to-reclaim.component';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -513,5 +514,19 @@ export class ListOfCaseComponent implements OnInit {
    */
   redirectToListClaims(idFalse: any) {
     this.idDetail = idFalse;
+  }
+
+/**
+ * funcion para llamar al modal y por medio de ciertos filtros exportar las reclamaciones
+ *
+ * @memberof ListOfCaseComponent
+ */
+openModalExportByFilter() {
+
+  const dialogRef = this.dialog.open(ModalExportToReclaimComponent, {
+    width: '70%',
+    minWidth: '280px',
+    data: {}
+  });
   }
 }

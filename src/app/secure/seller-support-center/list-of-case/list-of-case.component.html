@@ -103,14 +103,17 @@
     </form>
   </mat-drawer>
 
-  <div class="example-sidenav-content">
+  <div class="example-sidenav-content borde-line-toolbar">
     <mat-toolbar class="tree-toolbar" class="drawer-container">
       <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
       </div>
       <app-case-toolbar [ngClass]="{disabledDiv: idDetail}" class="styleToolbar" (changePagination)="changePagination($event)" [length]="length"
-        [pageIndex]="pageIndex" [pageSize]="pageSize">
+        [pageIndex]="pageIndex" [pageSize]="pageSize" [isAdmin]="isAdmin">
       </app-case-toolbar>
-      <div class="classNewFilter">
+      <div>
+        <button mat-icon-button (click)="openModalExportByFilter()">
+          <mat-icon>archive</mat-icon>
+        </button>
         <button type="button" mat-button (click)="drawer.toggle()">
           <mat-icon>filter_list</mat-icon>
           <small class="sub-title-filter">{{'filters.filter' | translate}}</small>
