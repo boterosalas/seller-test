@@ -141,5 +141,9 @@
       <app-detail-case [idDetail]="idDetail" (idDetailFalse)="redirectToListClaims($event)"></app-detail-case>
     </div>
   </ng-template>
-
 </mat-drawer-container>
+<div *ngIf="length === 0">
+  <mat-icon class="icon-not-found" color="primary">info</mat-icon>
+
+  <p>{{'secure.orders.order_list.order_page.search_orders_insert' | translate}}</p>
+</div>

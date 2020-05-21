@@ -151,7 +151,6 @@ export class ListOfCaseComponent implements OnInit {
     this.validateFormSupport();
     this.getStatusCase();
     this.filterByRoute(this.router.queryParams).subscribe(res => {
-      console.log(res);
       const seller = this.paramsFilter.SellerId;
       if (this.isAdmin) {
         if (seller) {
@@ -177,17 +176,6 @@ export class ListOfCaseComponent implements OnInit {
         this.loadCases([]);
       }, 350);
     });
-
-    // this.emitterSeller.eventSearchSeller.subscribe(data => {
-    //   this.selectedStore = data.Name;
-    //   localStorage.setItem('sellerNameClaim', this.selectedStore);
-    //   this.sellerIdLogger = {
-    //     'SellerId': data.IdSeller
-    //   };
-    //   Object.assign(this.paramsFilter, this.sellerIdLogger);
-    //   this.loadCases(this.paramsFilter);
-    // });
-
   }
 
   /**
@@ -205,9 +193,12 @@ export class ListOfCaseComponent implements OnInit {
     });
   }
 
+  /**
+   * Metodo que hace el get de traer las reclamaciones por el id del seller obtenido del buscador.
+   * @param {*} res Parametro pasado del componente hijo al padre.
+   * @memberof ListOfCaseComponent
+   */
   getSellerBySearch(res: any) {
-    console.log(res);
-    // this.emitterSeller.eventSearchSeller.subscribe(data => {
     this.selectedStore = res.Name;
     localStorage.setItem('sellerNameClaim', this.selectedStore);
     this.sellerIdLogger = {
@@ -215,8 +206,6 @@ export class ListOfCaseComponent implements OnInit {
     };
     Object.assign(this.paramsFilter, this.sellerIdLogger);
     this.loadCases(this.paramsFilter);
-    // });
-
   }
 
   /**
@@ -391,6 +380,7 @@ export class ListOfCaseComponent implements OnInit {
           if (res.body) {
             const { pageSize, page } = res.body.data;
             this.length = res.body.data.total;
+            console.log(this.length);
             this.refreshPaginator(this.length, res.body.data.page, res.body.data.pageSize);
             this.paginationToken = res.body.paginationToken;
             this.cases = res.body.data.cases;
