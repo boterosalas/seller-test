@@ -1,9 +1,9 @@
 <div>
   <div fxLayout="row" class="padding-10">
     <div fxFlex="95">
-     <span>Exportar reclamaciones</span>
+      <span>Exportar reclamaciones</span>
     </div>
-    <div fxFlex="5" >
+    <div fxFlex="5">
       <mat-icon class="mat-18 close-modal" (click)="onNoClick()" [matTooltip]="'actions.close' | translate">clear
       </mat-icon>
     </div>
@@ -11,81 +11,34 @@
   <mat-divider></mat-divider>
   <div mat-dialog-content class="margin-top-container">
     <form #filterForm="ngForm" [formGroup]="form">
-    <div fxLayout="row">
-      <div fxFlex="80">
-        <app-search-seller [loadSpinner]= "false" [widthComplete] ="true"></app-search-seller>
+     <div fxLayout="column">
+      <div style="margin-bottom: 15px;">
+        <span>Te enviaremos las reclamaciones al siguiente correo electrónico.</span>
       </div>
-      <div fxFlex="20" class="text-aling-end">
-        <mat-icon matSuffix  [matTooltip]="'secure.parametize.port.btn_add_port' | translate" class="material-icons color-icon-add-seller vertical-align-top"
-        (click)="saveKeyword()">
-        add_circle_outline
-      </mat-icon>
-      <span class="color-text-add-seller">Agregar vendedor</span>
+     </div>
+     <div fxLayout="row">
+      <div fxFlex="60">
+        <mat-form-field class="half-width" style="width: 90%;">
+          <input matInput placeholder="Correo electronico" style="text-transform: uppercase;" formControlName="nameBrands"
+            [errorStateMatcher]="matcher" required>
+          <mat-error *ngIf="form.get('nameBrands').hasError('required')">{{'errors.required' | translate}}</mat-error>
+          <mat-error *ngIf="form.get('nameBrands').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
+        </mat-form-field>
       </div>
-    </div>
-    <div fxLayout="row" style="padding-top: 10px;">
-      <div fxFlex="15">
-        <mat-checkbox formControlName="importAll" class="dialog-accept">
-        </mat-checkbox>
-        <span style="color: #848181;font-size: 14px;margin-left: 5px;">Importar todos</span>
+      <div fxFlex="40">
+        <div>
+          <mat-checkbox formControlName="importAll" class="dialog-accept">
+          </mat-checkbox>
+          <span style="color: #848181;font-size: 14px;margin-left: 5px;">Exportar todos</span>
+        </div>
       </div>
-      <div fxFlex="15" style="margin-top: -3px;">
-        <mat-icon class="mat-18 vertical-align-top">filter_list</mat-icon>
-        <span style="color: #848181;font-size: 14px;margin-left: 5px;">Mas filtros</span>
-      </div>
-    </div>
-    <div fxLayout="row" style="padding-top: 10px;">
-      <div fxFlex="25">1</div>
-      <div fxFlex="25">1</div>
-      <div fxFlex="25">1</div>
-      <div fxFlex="25">1</div>
-    </div>
-   <div  style="height: 70px;">
-    <div style="text-align: center; margin-top: 27px;">
-      <span>No ha seleccionado ningun vendedor</span>
-    </div>
-   
-    <!-- <form #filterForm="ngForm" [formGroup]="form">
-      <div fxLayout="row">
-        <div fxFlex="25" style="background-color: blue;">1</div>
-        <div fxFlex="25" style="background-color: blueviolet;">1</div>
-        <div fxFlex="25" style="background-color:chartreuse;">1</div>
-        <div fxFlex="25" style="background-color: cornsilk;">1</div>
-      </div>
-       <mat-form-field class="half-width">
-        <input matInput [placeholder]="'secure.parametize.brands.txt_brand_name'| translate" style="text-transform: uppercase;" formControlName="nameBrands"
-          [errorStateMatcher]="matcher" required>
-        <mat-error *ngIf="form.get('nameBrands').hasError('required')">{{'errors.required' | translate}}</mat-error>
-        <mat-error *ngIf="form.get('nameBrands').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
-      </mat-form-field>
-      <mat-form-field class="half-width">
-        <input matInput [placeholder]="'secure.parametize.brands.txt_brand_name'| translate" style="text-transform: uppercase;" formControlName="nameBrands"
-          [errorStateMatcher]="matcher" required>
-        <mat-error *ngIf="form.get('nameBrands').hasError('required')">{{'errors.required' | translate}}</mat-error>
-        <mat-error *ngIf="form.get('nameBrands').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
-      </mat-form-field>
-      <mat-form-field class="half-width">
-        <input matInput [placeholder]="'secure.parametize.brands.txt_brand_name'| translate" style="text-transform: uppercase;" formControlName="nameBrands"
-          [errorStateMatcher]="matcher" required>
-        <mat-error *ngIf="form.get('nameBrands').hasError('required')">{{'errors.required' | translate}}</mat-error>
-        <mat-error *ngIf="form.get('nameBrands').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
-      </mat-form-field>
-      <mat-form-field class="half-width">
-        <input matInput [placeholder]="'secure.parametize.brands.txt_brand_name'| translate" style="text-transform: uppercase;" formControlName="nameBrands"
-          [errorStateMatcher]="matcher" required>
-        <mat-error *ngIf="form.get('nameBrands').hasError('required')">{{'errors.required' | translate}}</mat-error>
-        <mat-error *ngIf="form.get('nameBrands').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
-      </mat-form-field>
-
-    </form> -->
-
-   </div>
-  </form>
+     </div>
+    </form>
   </div>
   <mat-divider></mat-divider>
   <mat-dialog-actions align="end">
     <button mat-button (click)="onNoClick()">{{'actions.cancel'| translate}}</button>
-    <button type="button" mat-raised-button color="primary" 
+    <button type="button" mat-raised-button color="primary"
       (click)="savePort()">{{'actions.accept' | translate}}</button>
   </mat-dialog-actions>
 </div>
