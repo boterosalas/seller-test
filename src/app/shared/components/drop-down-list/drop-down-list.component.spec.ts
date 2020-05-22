@@ -25,11 +25,11 @@ describe('DropDownListComponent', () => {
       .compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(fakeAsync(() => {
     fixture = TestBed.createComponent(DropDownListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', (done) => {
     expect(component).toBeTruthy();
