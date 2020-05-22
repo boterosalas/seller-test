@@ -376,7 +376,7 @@ export class ListProductsComponent implements OnInit {
         // osea aqui se puede demorar 1 seg o 10 segundos
         this.productsService.getListProducts(urlParams2).subscribe((result: any) => {
             this.showProducts = true;
-            if (result.data !== undefined) {
+            if (result && result.data !== undefined) {
                 // const body = JSON.parse(result.data);
                 this.productsList = result.data.list;
                 this.length = result.data.total;

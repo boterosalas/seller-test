@@ -11,7 +11,7 @@
 //   let component: CaseToolbarComponent;
 //   let fixture: ComponentFixture<CaseToolbarComponent>;
 
-//   beforeEach(async(() => {
+//   beforeEach(fakeAsync(() => {
 //     TestBed.configureTestingModule({
 //       declarations: [
 //         CaseToolbarComponent,
@@ -38,13 +38,15 @@
 //     fixture.autoDetectChanges();
 //   }));
 
-//   it('should compile', () => {
+//   it('should compile', (done) => {
 //     expect(component).toBeTruthy();
+//     done();
 //   });
 
-//   it('should emmit toggle', () => {
+//   it('should emmit toggle', (done) => {
 //     const spy = spyOn(component.toggleFilter, 'emit');
 //     component.onToggleFilter();
 //     expect(spy).toHaveBeenCalled();
+//     done();
 //   });
 // });

@@ -132,6 +132,15 @@
               #{{item.fila}}</span> {{'secure.offers.bulk_upload.table_error.dane_code' | translate}}
           </p>
 
+          <!-- Error de periodicidad -->
+          <p matLine *ngIf="item.type == 'InvalidFormatPeriodicity'" class="overflex-style">
+            {{'secure.products.table_errors_product.column_data' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | translate}}
+              #{{item.fila}}</span> {{'secure.offers.bulk_upload.table_error.periodicity' | translate}}
+          </p>
+
 
         </mat-list-item>
       </mat-nav-list>
