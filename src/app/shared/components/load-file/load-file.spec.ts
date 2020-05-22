@@ -1,4 +1,4 @@
-import { async, TestBed, ComponentFixture } from '@angular/core/testing';
+import { async, TestBed, ComponentFixture, fakeAsync } from '@angular/core/testing';
 import { LoadFileComponent } from './load-file';
 import { HttpClient } from '@angular/common/http';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
@@ -15,7 +15,7 @@ describe('Probando componente para subir archivos.', () => {
     let httpClient: HttpClient;
     httpClient = <HttpClient>{};
 
-    beforeEach(async () => {
+    beforeEach(fakeAsync( () => {
         TestBed.configureTestingModule({
             declarations: [
                 LoadFileComponent
@@ -35,7 +35,7 @@ describe('Probando componente para subir archivos.', () => {
 
             ]
         }).compileComponents();
-    });
+    }));
 
     beforeEach(() => {
         fixture = TestBed.createComponent(LoadFileComponent);
