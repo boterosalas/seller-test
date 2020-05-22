@@ -1,7 +1,8 @@
 <div>
   <div fxLayout="row" class="padding-10">
     <div fxFlex="95">
-      <span>Exportar reclamaciones</span>
+      <span style="font-weight: bold;">Exportar reclamaciones </span><span>|</span><span style="color: #848181">
+        (dd@dd.com)</span>
     </div>
     <div fxFlex="5">
       <mat-icon class="mat-18 close-modal" (click)="onNoClick()" [matTooltip]="'actions.close' | translate">clear
@@ -9,30 +10,107 @@
     </div>
   </div>
   <mat-divider></mat-divider>
-  <div mat-dialog-content class="margin-top-container">
+  <div mat-dialog-content class="">
     <form #filterForm="ngForm" [formGroup]="form">
-     <div fxLayout="column">
-      <div style="margin-bottom: 15px;">
-        <span>Te enviaremos las reclamaciones al siguiente correo electrónico.</span>
-      </div>
-     </div>
-     <div fxLayout="row">
-      <div fxFlex="60">
-        <mat-form-field class="half-width" style="width: 90%;">
-          <input matInput placeholder="Correo electronico" style="text-transform: uppercase;" formControlName="nameBrands"
-            [errorStateMatcher]="matcher" required>
-          <mat-error *ngIf="form.get('nameBrands').hasError('required')">{{'errors.required' | translate}}</mat-error>
-          <mat-error *ngIf="form.get('nameBrands').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
-        </mat-form-field>
-      </div>
-      <div fxFlex="40">
+      <div fxLayout="row" style="margin-top: 30px; margin-bottom: 10px;">
         <div>
+          <span>Buscar vendedor</span>
+        </div>
+      </div>
+      <div fxLayout="row" style="margin-left: 10px;">
+        <div fxFlex="80">
+          <div fxLayout="column">
+            <div>
+              <app-search-seller [loadSpinner]="false" [widthComplete]="true"></app-search-seller>
+            </div>
+          </div>
+        </div>
+        <div fxFlex="20" class="text-aling-end">
+          <mat-icon matSuffix [matTooltip]="'secure.parametize.port.btn_add_port' | translate"
+            class="material-icons color-icon-add-seller vertical-align-top" (click)="saveKeyword()">
+            add_circle_outline
+          </mat-icon>
+          <span class="color-text-add-seller">Agregar vendedor</span>
+        </div>
+      </div>
+      <div fxLayout="row" style="padding-top: 10px; margin-left: 10px;">
+        <div fxFlex="15">
           <mat-checkbox formControlName="importAll" class="dialog-accept">
           </mat-checkbox>
           <span style="color: #848181;font-size: 14px;margin-left: 5px;">Exportar todos</span>
         </div>
+        <div fxFlex="15" style="margin-top: -3px;">
+          <mat-icon class="mat-18 vertical-align-top">filter_list</mat-icon>
+          <span style="color: #848181;font-size: 14px;margin-left: 5px;">Mostrar filtros</span>
+        </div>
       </div>
-     </div>
+      <div fxLayout="row" *ngIf="false" style="width: 100%;margin-top: 45px;margin-left: 20px; margin-right: 20px;">
+        <div fxFlex="25" >
+          <mat-form-field color="primary">
+            <input id="sinceDate-input"
+              [placeholder]="translateService.instant('secure.parametize.support_claims-filter.start-date')"
+              [(ngModel)]="filter.DateInit" formControlName="dateInitial"  name="dateInitial" [readonly]="true" matInput [matDatepicker]="dateInitial"
+              (click)="openDateInitial()">
+            <mat-datepicker-toggle matPrefix [for]="dateInitial"></mat-datepicker-toggle>
+            <mat-datepicker touchUi="true" startView="year" #dateInitial></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div fxFlex="25" >
+          <mat-form-field color="primary">
+            <input id="untilDate-input"
+              [placeholder]="translateService.instant('secure.parametize.support_claims-filter.end-date')"
+              [(ngModel)]="filter.DateEnd" formControlName="dateFinal" name="dateFinal" [readonly]="true" [min]="filter.DateInit"
+              [max]="rangeDateMax" matInput [matDatepicker]="dateFinal" (click)="openDateFinal()">
+            <mat-datepicker-toggle matPrefix [for]="dateFinal"></mat-datepicker-toggle>
+            <mat-datepicker touchUi="true" startView="year" #dateFinal></mat-datepicker>
+            <mat-error *ngIf="rangeError" [innerHTML]="'El rango máximo son 15 días'"></mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex="25">
+          <mat-form-field class="filter-form--field" style="width: 90%;">
+            <mat-select [placeholder]="translateService.instant('secure.parametize.support_claims-filter.last_post')"
+              name="lastPost" formControlName="lastPost" [(ngModel)]="valuePost">
+              <mat-option *ngFor="let post of lastPost" value="{{post.valuePost}}">
+                {{post.name | translate}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="25">
+          <mat-form-field class="filter-form--field">
+            <mat-select [placeholder]="translateService.instant('secure.parametize.support_claims-filter.status')"
+              name="status" [(ngModel)]="value" formControlName="status">
+              <mat-option *ngFor="let state of options" value="{{state.code}}">
+                {{state.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row" style="width: 100%;">
+        <div style="text-align: center;margin-top: 46px;width: 100%; height: 50px;">
+          <span>No ha seleccionado ningun vendedor</span>
+        </div>
+      </div>
+      <div fxLayout="row">
+        <div>
+          <mat-icon style="color: #848181; cursor:pointer;font-size: 20px;" class="mat-18 vertical-align-top">email</mat-icon>
+          <span style="color: #848181;cursor: pointer;font-size: 13px;">Editar correo</span>
+        </div>
+      </div>
+      <div fxLayout="column" style="margin-top: 5px;" *ngIf="true">
+        <div style="margin-bottom: 20px;">
+          <span style="color: #848181;font-size: 14px;margin-left: 5px;">Te enviaremos el histórico de ofertas al siguiente correo electrónico.</span>
+        </div>
+        <div style="margin-left:5px;">
+          <mat-form-field class="half-width">
+            <input matInput placeholder="Correo electronico" style="text-transform: uppercase;" formControlName="email"
+              [errorStateMatcher]="matcher" required>
+            <mat-error *ngIf="form.get('email').hasError('required')">{{'errors.required' | translate}}</mat-error>
+            <mat-error *ngIf="form.get('email').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
     </form>
   </div>
   <mat-divider></mat-divider>
