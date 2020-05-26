@@ -8,6 +8,7 @@ $color-blue: #485AFA;
 $color-white-opacity: rgba(255, 255, 255, 0.7);
 $color-green: #6FB63E;
 :host ::ng-deep {
+    .mat-select-value{ color: $color-gray1;}
     section#section-detail-offer {
         padding: 100px 13px 30px 30px;
         color: $color-gray1;
@@ -335,4 +336,8 @@ $color-green: #6FB63E;
 
 .sizeContainer{
     width: 100%;
+}
+
+.color-select-periodicity {
+    color: $color-gray1;
 }

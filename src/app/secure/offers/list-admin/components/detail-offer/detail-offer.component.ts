@@ -2,6 +2,7 @@ import { Component, EventEmitter, HostListener, Input, Output, OnInit } from '@a
 import { FormControl, FormGroup } from '@angular/forms';
 import { environment } from '@env/environment';
 import { ListAdminComponent } from '@app/secure/offers/list-admin/list-admin/list-admin.component';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  *
@@ -67,6 +68,7 @@ export class DetailOfferComponent implements OnInit {
   promiseFirts: string;
   promiseSeconds: string;
   to: string;
+  periodicityHtml: string;
 
   /**
    * @description Variable que almancena un booleano que se le envia al listado de ofertas para volver a consumir el servicio
@@ -84,7 +86,8 @@ export class DetailOfferComponent implements OnInit {
   public isProductionEnv = environment.production;
 
   constructor(
-    public list: ListAdminComponent
+    public list: ListAdminComponent,
+    private languageService: TranslateService,
   ) {
     this.params = [];
   }
@@ -122,15 +125,32 @@ export class DetailOfferComponent implements OnInit {
    * @memberof DetailOfferComponent
    */
   setPromise() {
-    if (this.dataOffer && this.dataOffer.promiseDelivery) {
-      const promiseDe = this.dataOffer.promiseDelivery.split(' ');
-      this.promiseFirts = promiseDe[0];
-      this.to = promiseDe[1];
-      this.promiseSeconds = promiseDe[2];
-    } else {
+    if (this.dataOffer) {
+      if (this.dataOffer.promiseDelivery) {
+        const promiseDe = this.dataOffer.promiseDelivery.split(' ');
+        this.promiseFirts = promiseDe[0];
+        this.to = promiseDe[1];
+        this.promiseSeconds = promiseDe[2];
+      } else {
+        this.promiseFirts = '';
+        this.to = '';
+        this.promiseSeconds = '';
+      }
+
+      if (this.dataOffer.periodicity === 1) {
+        this.languageService.stream('secure.offers.historical_admin.historical_admin.day').subscribe(val => {
+          this.periodicityHtml = val ;
+        });
+      } else {
+        this.languageService.stream('secure.offers.historical_admin.historical_admin.hours').subscribe(val => {
+          this.periodicityHtml = val ;
+        });
+      }
+    }else {
       this.promiseFirts = '';
       this.to = '';
       this.promiseSeconds = '';
+      this.periodicityHtml = '';
     }
   }
 }

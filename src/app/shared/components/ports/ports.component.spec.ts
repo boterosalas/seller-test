@@ -78,6 +78,10 @@ describe('PortsComponent', () => {
 
     beforeEach(fakeAsync(() => {
         // Injección de servicios por medio de TestBed
+        TestBed.configureTestingModule({
+            declarations: [ PortsComponent ]
+          })
+          .compileComponents();
         portsService = TestBed.get(PortsService);
         fixture = TestBed.createComponent(PortsComponent);
         component = fixture.componentInstance;
