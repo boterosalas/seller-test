@@ -142,8 +142,8 @@
     </div>
   </ng-template>
 </mat-drawer-container>
-<div *ngIf="length === 0">
-  <mat-icon class="icon-not-found" color="primary">info</mat-icon>
+<div *ngIf="length === 0 && isAdmin" class="orders-no-data">
+  <mat-icon class="icon-not-found">info</mat-icon>
 
-  <p>{{'secure.orders.order_list.order_page.search_orders_insert' | translate}}</p>
+  <p>{{'secure.parametize.support_claims.search_orders_insert' | translate}}</p>
 </div>

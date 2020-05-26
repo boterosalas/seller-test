@@ -1178,6 +1178,10 @@
     "secure.parametize.support_claims.view-detail": "View detail",
     "secure.parametize.support_claims-details.attachments": "Attachments",
     "secure.parametize.support_claims-details.detail-of-solution": "Solution details",
+    "secure.parametize.support_claims.list.error.caseNumber": "The case number is invalid",
+    "secure.parametize.support_claims.list.error.orderNumber": "The order number is invalid",
+    "secure.parametize.support_claims.list.error.rangeDate": "The date range must be maximum of 14 days",
+    "secure.parametize.support_claims.search_orders_insert": "Enter the seller's name in the search bar to view claims.",
 
     "secure.parametize.support_claims-filter.modal-title": "Claims filter",
     "secure.parametize.support_claims-filter.id": "ID",

@@ -380,7 +380,6 @@ export class ListOfCaseComponent implements OnInit {
           if (res.body) {
             const { pageSize, page } = res.body.data;
             this.length = res.body.data.total;
-            console.log(this.length);
             this.refreshPaginator(this.length, res.body.data.page, res.body.data.pageSize);
             this.paginationToken = res.body.paginationToken;
             this.cases = res.body.data.cases;
