@@ -47,6 +47,8 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     tomorrow = DateService.getTomorrowDate();
 
     otherUser: any;
+    userData: any;
+    isDisable: boolean;
 
     constructor(
         public router: Router,
@@ -61,6 +63,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         private snackBar: MatSnackBar,
         private languageService: TranslateService) {
         this.loading.viewSpinner();
+        this.getAllDataUser();
     }
 
     ngOnInit() {
@@ -69,6 +72,25 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         this.initVacationForm();
         this.userService.isAuthenticated(this);
     }
+
+
+    /**
+     * Metodo que obtiene la información completa del usuario.
+     * @memberof MyProfileComponent
+     */
+    async getAllDataUser() {
+        this.loading.viewSpinner();
+        const sellerData = await this.profileService.getUser().toPromise().then(res => {
+          const body: any = res.body;
+          const userData = JSON.parse(body.body).Data;
+          if (userData.Status && userData.Status === 'Disable') {
+            this.isDisable = true;
+          } else {
+            this.isDisable = false;
+          }
+          this.loading.closeSpinner();
+        });
+      }
 
     getPermissions() {
         this.authService.availableModules$.pipe(distinctUntilChanged()).subscribe(data => {
@@ -155,6 +177,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
                         this.isInVacation = true;
                     } else {
                         this.profileService.getUser().toPromise().then(res => {
+                            console.log('res', res);
                             // tslint:disable-next-line:no-shadowed-variable
                             const body: any = res.body;
                             // tslint:disable-next-line:no-shadowed-variable

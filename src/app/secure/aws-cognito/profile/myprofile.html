@@ -20,14 +20,14 @@
       </mat-form-field>
     </form>
   </div>
-  <div *ngIf="canVacation" class="sub-content">
+  <div *ngIf="canVacation" class="sub-content" >
     <ng-container *ngIf="isInVacation; else programVacations">
       <mat-card id="info-vacation" class="mat card">
         <div class="options">
-          <mat-icon id="btn-edit-vacations" (click)="sendToOpenVacationDialog()">
+          <mat-icon id="btn-edit-vacations" (click)="sendToOpenVacationDialog()" [ngClass]="{disabledDiv: isDisable}">
             edit
           </mat-icon>
-          <mat-icon *ngIf="canCancelVacation" id="btn-cancel-vacations" (click)="sendToOpenCancelVacationDialog()">
+          <mat-icon *ngIf="canCancelVacation" id="btn-cancel-vacations" (click)="sendToOpenCancelVacationDialog()" [ngClass]="{disabledDiv: isDisable}">
             delete
           </mat-icon>
         </div>
@@ -52,7 +52,7 @@
       </mat-card>
     </ng-container>
     <ng-template #programVacations>
-      <button mat-stroked-button id="btn-program-vacation" color="primary"
+      <button mat-stroked-button id="btn-program-vacation" color="primary" [disabled]="isDisable"
         (click)="sendToOpenVacationDialog()">{{'secure.seller.list.program_vacation' | translate}}</button>
     </ng-template>
   </div>
