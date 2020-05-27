@@ -43,7 +43,8 @@ export class TableLoadComponent implements OnInit {
     'EanCombo',
     'Currency',
     'Address',
-    'DaneCode'
+    'DaneCode',
+    'Periodicity'
   ];
 
   /**

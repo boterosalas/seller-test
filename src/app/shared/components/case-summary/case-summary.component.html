@@ -18,7 +18,8 @@
 
       <ng-container *ngFor="let follow of case.followLast; let i = index">
         <app-conversation-message *itemConversation style="width: 100%" [name]="follow.userName"
-          [message]="follow.description" [date]="follow.createDate" [configuration]="{theme: 'BASIC'}" [caseId]="case.caseNumber">
+          [message]="follow.description" [date]="follow.createDate" [configuration]="{theme: 'BASIC'}"
+          [caseId]="case.caseNumber">
         </app-conversation-message>
       </ng-container>
     </app-conversation>
@@ -33,15 +34,9 @@
     </div>
   </div>
 
-  <!-- <span [routerLink]="['/securehome/seller-center/support-center/' + case.id]" class="ticket-content__item ticket-content__title ticket-content__item--full-width
-      ticket-content__title--underline ticket-content__title--center ticket-content__title--pointer
-      ticket-content--no-select" id="case-summary-view-detail-{{case.caseNumber}}">
-    {{'secure.parametize.support_claims.view-detail' | translate}}
-  </span> -->
-
   <span (click)="redirecToDetail(case.id)" class="ticket-content__item ticket-content__title ticket-content__item--full-width
   ticket-content__title--underline ticket-content__title--center ticket-content__title--pointer
   ticket-content--no-select" id="case-summary-view-detail-{{case.caseNumber}}">
-{{'secure.parametize.support_claims.view-detail' | translate}}
-</span>
+    {{'secure.parametize.support_claims.view-detail' | translate}}
+  </span>
 </div>

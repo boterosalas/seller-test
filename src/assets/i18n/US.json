@@ -670,6 +670,9 @@
     "secure.offers.historical_admin.historical_admin.shipping_cost": "Shipping Cost",
     "secure.offers.historical_admin.historical_admin.warranty": "Warranty",
     "secure.offers.historical_admin.historical_admin.promise": "Delivery Promise",
+    "secure.offers.historical_admin.historical_admin.periodicity": "Periodicity",
+    "secure.offers.historical_admin.historical_admin.hours": "Hours",
+    "secure.offers.historical_admin.historical_admin.day": "Business days",
     "secure.offers.historical_admin.historical_admin.currency": "Currency",
     "secure.offers.historical_admin.historical_admin.free_shipping": "Free shipping",
     "secure.offers.historical_admin.historical_admin.shiping_exito": "Envíos Éxito",
@@ -734,12 +737,15 @@
     "secure.offers.bulk_upload.table_error.sum_price_component": "should have a discount price comprised of the sum of the components.",
     "secure.offers.bulk_upload.table_error.address": "The Picking Address may not have over 30 characters.",
     "secure.offers.bulk_upload.table_error.dane_code": "The code entered is invalid.",
+    "secure.offers.bulk_upload.table_error.periodicity": "The periodicity is invalid.",
 
     "secure.offers.bulk_upload.table_load.title_offer_charge": "Upload the offers again",
     "secure.offers.bulk_upload.table_load.ean_combo": "EAN Combo",
     "secure.offers.bulk_upload.table_load.quantity_combo": "Amount in combo",
     "secure.offers.bulk_upload.table_load.address": "Picking Address",
     "secure.offers.bulk_upload.table_load.dane_code": "Picking City",
+    "secure.offers.bulk_upload.table_load.Periodicity": "Periodicity",
+
 
     "secure.offers.cities_coverage.title": "Cities Availiable for Dispatch",
     "secure.offers.cities_coverage.get_error": "There was an error trying to get the cities. Try again later.",
@@ -1199,7 +1205,7 @@
     "secure.parametize.support_claims-filter.filter": "Filter",
     "secure.parametize.support_claims-filter.last_post": "Last post",
     "secure.parametize.support_claims-filter.sac_answer": "Customer service response",
-    "secure.parametize.support_claims-filter.seller_answer": "Seller response",
+    "secure.parametize.support_claims-filter.seller_answer": "Seller´s response",
 
     "secure.parametize.support_drop-down-menu-ID": "ID",
     "secure.parametize.support_drop-down-order-numer": "Order number",
@@ -1207,7 +1213,7 @@
     "secure.parametize.support_drop-down-creation-date": "Creation date",
     "secure.parametize.support_drop-down-status": "Status",
     "secure.parametize.support_drop-down-reply": "Reply",
-    "secure.parametize.support_drop-down-last-reply": "Last reply",
+    "secure.parametize.support_drop-down-last-reply": "Last post",
 
     "secure.parametize.port.port": "Port",
     "secure.parametize.port.search_port": "Search port",

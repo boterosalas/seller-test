@@ -120,6 +120,8 @@ export class ListOfCaseComponent implements OnInit {
   filterListCasesFilter: any;
   activeInit = false;
 
+  idDetail: any;
+
   constructor(
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
@@ -226,6 +228,7 @@ export class ListOfCaseComponent implements OnInit {
    * @memberof ListOfCaseComponent
    */
   public filterApply() {
+    this.redirectToListClaims(false);
     this.paramsFIlterListCase.init = '';
     this.paramsFIlterListCase.CaseNumber = this.filterListCases.controls.CaseNumber.value;
     this.paramsFIlterListCase.LastPost = this.filterListCases.controls.LastPost.value;
@@ -259,7 +262,7 @@ export class ListOfCaseComponent implements OnInit {
     if (this.activeInit === true) {
       this.paramsFIlterListCase.init = 'true';
       const cleanFilter = {
-        init : this.paramsFIlterListCase.init,
+        init: this.paramsFIlterListCase.init,
         SellerId: this.paramsFIlterListCase.SellerId
       };
       this.validateFinalDateRange();
@@ -272,12 +275,7 @@ export class ListOfCaseComponent implements OnInit {
         this.loadCases(this.paramsFIlterListCase);
       }
     }
-    console.log(this.paramsFIlterListCase);
     this.activeInit = false;
-    // this.validateFinalDateRange();
-    // if (this.hasErrorDate === false) {
-    //   this.loadCases(this.paramsFIlterListCase);
-    // }
   }
 
   /**
@@ -497,5 +495,23 @@ export class ListOfCaseComponent implements OnInit {
       this.unreadCase--;
       this.store.dispatch(new FetchUnreadCaseDone(this.unreadCase));
     }
+  }
+
+  /**
+   * Metodo para ir al detalle de las reclamaciones
+   * @param {*} id
+   * @memberof ListOfCaseComponent
+   */
+  redirectToDetailClaims(id: any) {
+    this.idDetail = id;
+  }
+
+  /**
+   * Metodo para volver al listado de result
+   * @param {*} idFalse
+   * @memberof ListOfCaseComponent
+   */
+  redirectToListClaims(idFalse: any) {
+    this.idDetail = idFalse;
   }
 }
