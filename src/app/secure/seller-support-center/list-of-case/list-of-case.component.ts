@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { SellerSupportCenterService } from '../services/seller-support-center.service';
 import { ResponseCaseDialogComponent } from '@shared/components/response-case-dialog/response-case-dialog.component';
@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 import { FetchUnreadCaseDone } from '@app/store/notifications/actions';
 import { CoreState } from '@app/store';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ConfigurationState } from '@app/store/configuration';
 import { StoreService } from '@app/store/store.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -55,7 +55,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     ])
   ]
 })
-export class ListOfCaseComponent implements OnInit {
+export class ListOfCaseComponent implements OnInit, OnDestroy {
   options: any;
   filter: boolean;
   menuState: string;
@@ -67,6 +67,7 @@ export class ListOfCaseComponent implements OnInit {
   pageSize = 100;
   filterParams: any;
   unreadCase: number;
+  public subModalExport: Subscription;
 
   configDialog = {
     width: '70%',
@@ -79,6 +80,7 @@ export class ListOfCaseComponent implements OnInit {
   public log: Logger;
 
   isAdmin: Boolean = false;
+  email: string;
   sellerId: any;
 
   sellerIdLogger: any;
@@ -334,7 +336,9 @@ export class ListOfCaseComponent implements OnInit {
       const body: any = res.body;
       const response = JSON.parse(body.body);
       const userData = response.Data;
+      console.log(userData);
       this.sellerId = userData.IdSeller;
+      this.email = userData.Email;
       localStorage.setItem('typeProfile', userData.Profile);
       if (userData.Profile !== 'seller' && userData.Profile && userData.Profile !== null) {
         this.isAdmin = true;
@@ -522,11 +526,15 @@ export class ListOfCaseComponent implements OnInit {
  * @memberof ListOfCaseComponent
  */
 openModalExportByFilter() {
-
-  const dialogRef = this.dialog.open(ModalExportToReclaimComponent, {
+   this.dialog.open(ModalExportToReclaimComponent, {
     width: '70%',
     minWidth: '280px',
-    data: {}
+    data: {isAdmin: this.isAdmin, email: this.email}
   });
+  // this.subModalExport.afterClosed().unsubscribe();
+  }
+
+  ngOnDestroy() {
+ 
   }
 }

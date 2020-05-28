@@ -18,3 +18,9 @@
     color: #848181;
     font-size: 14px;
 }
+
+:host ::ng-deep .input-search {
+    .mat-form-field-wrapper{
+        padding-bottom: initial;
+    }
+}

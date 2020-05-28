@@ -33,6 +33,7 @@ export class SearchSellerComponent implements OnInit, OnChanges {
 
     @Input() loadSpinner = true;
     @Input() widthComplete = false;
+    @Input() emitModal: boolean;
 
 
 
@@ -41,6 +42,7 @@ export class SearchSellerComponent implements OnInit, OnChanges {
 
     constructor(
         public eventsSeller: EventEmitterSeller,
+        public eventsSellerModal: EventEmitterSeller,
         public storeService: StoresService,
         public shell: ShellComponent,
         private loadingService: LoadingService
@@ -80,9 +82,9 @@ export class SearchSellerComponent implements OnInit, OnChanges {
      * @memberof SearchStoreComponent
      */
     public getAllSellers() {
-        if (this.loadSpinner) {
-            this.loadingService.viewSpinner();
-        }
+        // if (this.loadSpinner) {
+        //     this.loadingService.viewSpinner();
+        // }
         if (this.isFullSearch) {
             this.storeService.getAllStoresFull(this.user).subscribe((res: any) => {
                 if (res.status === 200) {
@@ -160,7 +162,16 @@ export class SearchSellerComponent implements OnInit, OnChanges {
      */
     public viewStoreInformation(search_seller: StoreModel) {
         // llamo el eventEmitter que se emplea para notificar cuando una tienda ha sido consultada
-        this.eventsSeller.searchSeller(search_seller);
+        if (this.emitModal) {
+            this.eventsSellerModal.searchSellerModal(search_seller);
+        } else {
+            this.eventsSeller.searchSeller(search_seller);
+        }
+
+    }
+
+    saveSellerEmit() {
+        console.log('emite el evento');
     }
 
 }

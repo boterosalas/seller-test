@@ -2,7 +2,7 @@
   <div fxLayout="row" class="padding-10">
     <div fxFlex="95">
       <span style="font-weight: bold;">Exportar reclamaciones </span><span>|</span><span style="color: #848181">
-        (dd@dd.com)</span>
+        ({{email}})</span>
     </div>
     <div fxFlex="5">
       <mat-icon class="mat-18 close-modal" (click)="onNoClick()" [matTooltip]="'actions.close' | translate">clear
@@ -12,39 +12,40 @@
   <mat-divider></mat-divider>
   <div mat-dialog-content class="">
     <form #filterForm="ngForm" [formGroup]="form">
-      <div fxLayout="row" style="margin-top: 30px; margin-bottom: 10px;">
+      <div fxLayout="row" style="margin-top: 30px; margin-bottom: 10px;" *ngIf="isAdmin">
         <div>
           <span>Buscar vendedor</span>
         </div>
       </div>
-      <div fxLayout="row" style="margin-left: 10px;">
+      <div fxLayout="row" style="margin-left: 10px;" *ngIf="isAdmin">
         <div fxFlex="80">
           <div fxLayout="column">
             <div>
-              <app-search-seller [loadSpinner]="false" [widthComplete]="true"></app-search-seller>
+              <app-search-seller [loadSpinner]="false" [emitModal]="true" [widthComplete]="true"></app-search-seller>
             </div>
           </div>
         </div>
-        <div fxFlex="20" class="text-aling-end">
+        {{IsClickEnable}}
+        <div fxFlex="20" class="text-aling-end" (click)="IsClickEnable?saveKeyword():null" style="cursor: pointer;">
           <mat-icon matSuffix [matTooltip]="'secure.parametize.port.btn_add_port' | translate"
-            class="material-icons color-icon-add-seller vertical-align-top" (click)="saveKeyword()">
+            class="material-icons color-icon-add-seller vertical-align-top" >
             add_circle_outline
           </mat-icon>
           <span class="color-text-add-seller">Agregar vendedor</span>
         </div>
       </div>
-      <div fxLayout="row" style="padding-top: 10px; margin-left: 10px;">
+      <div fxLayout="row" style="padding-top: 10px; margin-left: 10px;" *ngIf="isAdmin">
         <div fxFlex="15">
           <mat-checkbox formControlName="importAll" class="dialog-accept">
           </mat-checkbox>
           <span style="color: #848181;font-size: 14px;margin-left: 5px;">Exportar todos</span>
         </div>
-        <div fxFlex="15" style="margin-top: -3px;">
-          <mat-icon class="mat-18 vertical-align-top">filter_list</mat-icon>
-          <span style="color: #848181;font-size: 14px;margin-left: 5px;">Mostrar filtros</span>
+        <div fxFlex="15" style="margin-top: -3px; cursor: pointer;" (click)="showFilter()">
+          <mat-icon class="mat-18 vertical-align-top" >filter_list</mat-icon>
+          <span style="color: #848181;font-size: 14px;margin-left: 5px; cursor: pointer;">Aplicar filtros</span>
         </div>
       </div>
-      <div fxLayout="row" *ngIf="false" style="width: 100%;margin-top: 45px;margin-left: 20px; margin-right: 20px;">
+      <div fxLayout="row" *ngIf="isShowFilter" style="width: 100%;margin-top: 45px;margin-left: 20px; margin-right: 20px; margin-bottom: 46px;">
         <div fxFlex="25" >
           <mat-form-field color="primary">
             <input id="sinceDate-input"
@@ -87,19 +88,29 @@
           </mat-form-field>
         </div>
       </div>
-      <div fxLayout="row" style="width: 100%;">
-        <div style="text-align: center;margin-top: 46px;width: 100%; height: 50px;">
+      <div fxLayout="row" style="width: 100%; height: 75px; margin-top: 47px;" *ngIf="isAdmin">
+        <div style="text-align: center;width: 100%; height: 50px;">
+          <mat-chip-list>
+            <mat-chip
+            *ngFor="let key of keywords; let i = index"
+            (removed)="deleteKeywork(i)">
+            {{key}}
+            <mat-icon class="material-icons" matChipRemove>cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
           <span>No ha seleccionado ningun vendedor</span>
         </div>
       </div>
       <div fxLayout="row">
-        <div>
+        <div (click)="showEmailSend()">
           <mat-icon style="color: #848181; cursor:pointer;font-size: 20px;" class="mat-18 vertical-align-top">email</mat-icon>
           <span style="color: #848181;cursor: pointer;font-size: 13px;">Editar correo</span>
         </div>
       </div>
-      <div fxLayout="column" style="margin-top: 5px;" *ngIf="true">
-        <div style="margin-bottom: 20px;">
+      
+      <div fxLayout="column" style="margin-top: 5px;" *ngIf="isShowEmail">
+        <mat-divider></mat-divider>
+        <div style="margin-bottom: 35px;">
           <span style="color: #848181;font-size: 14px;margin-left: 5px;">Te enviaremos el histórico de ofertas al siguiente correo electrónico.</span>
         </div>
         <div style="margin-left:5px;">
