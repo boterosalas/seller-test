@@ -18,5 +18,7 @@ $primary-color: #757474;
     margin: 0;
     text-align: justify;
     color: $hint-color;
+    word-wrap: break-word;
+    width: 100%;
   }
 }
