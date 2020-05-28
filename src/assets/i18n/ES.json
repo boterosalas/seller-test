@@ -670,6 +670,9 @@
     "secure.offers.historical_admin.historical_admin.shipping_cost": "Precio flete",
     "secure.offers.historical_admin.historical_admin.warranty": "Garantía",
     "secure.offers.historical_admin.historical_admin.promise": "Promesa de Entrega",
+    "secure.offers.historical_admin.historical_admin.periodicity": "Periodicidad",
+    "secure.offers.historical_admin.historical_admin.hours": "Horas",
+    "secure.offers.historical_admin.historical_admin.day": "Días hábiles",
     "secure.offers.historical_admin.historical_admin.currency": "Tipo de moneda",
     "secure.offers.historical_admin.historical_admin.free_shipping": "Free Shipping",
     "secure.offers.historical_admin.historical_admin.shiping_exito": "Envíos Éxito",
@@ -734,12 +737,14 @@
     "secure.offers.bulk_upload.table_error.sum_price_component": "El precio con descuento de este producto combo debe ser la sumatoria de sus componentes.",
     "secure.offers.bulk_upload.table_error.address": "La Dirección de Recogida no puede tener mas de 30 caracteres.",
     "secure.offers.bulk_upload.table_error.dane_code": "El código DANE ingresado es inválido.",
+    "secure.offers.bulk_upload.table_error.periodicity": "La periodicidad ingresada es inválida.",
 
     "secure.offers.bulk_upload.table_load.title_offer_charge": "Vuelve a cargar todas las ofertas",
     "secure.offers.bulk_upload.table_load.ean_combo": "Ean Combo",
     "secure.offers.bulk_upload.table_load.quantity_combo": "Cantidad en combo",
     "secure.offers.bulk_upload.table_load.address": "Dirección de Recogida",
     "secure.offers.bulk_upload.table_load.dane_code": "Ciudad de Recogida",
+    "secure.offers.bulk_upload.table_load.Periodicity": "Periodicidad",
 
     "secure.offers.cities_coverage.title": "Ciudades disponibles para despacho",
     "secure.offers.cities_coverage.get_error": "Se produjo un error al tratar de obtener las ciudades. Intentalo nuevamente.",
@@ -1187,6 +1192,7 @@
     "secure.parametize.support_claims.list.error.caseNumber": "El número de caso es inválido",
     "secure.parametize.support_claims.list.error.orderNumber": "El número de orden es inválido",
     "secure.parametize.support_claims.list.error.rangeDate": "El rango de fechas debe de ser máximo 14 días",
+    "secure.parametize.support_claims.search_orders_insert": "Ingresa el nombre del vendedor en la barra de búsqueda para ver las reclamaciones.",
 
     "secure.parametize.support_claims-filter.modal-title": "Filtro de reclamaciones",
     "secure.parametize.support_claims-filter.id": "ID",

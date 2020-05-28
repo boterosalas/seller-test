@@ -42,6 +42,15 @@
   <div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
     <div fxFlex="28%" class="ofert-information">
       <mat-form-field color="primary" fxFlex="80%">
+        <mat-icon matPrefix>attach_money</mat-icon>
+        <input matInput [placeholder]="'secure.products.create_product_unit.list_products.ofert_product.shipping_cost' | translate" formControlName="IsFreightCalculator" [errorStateMatcher]="matcher">
+        <mat-hint></mat-hint>
+        <mat-error *ngIf="ofertProduct.get('IsFreightCalculator').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
+        <mat-error *ngIf="ofertProduct.get('IsFreightCalculator').hasError('required')">{{'secure.products.create_product_unit.list_products.ofert_product.shipping_cost_mandatory' | translate}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div fxFlex="28%" class="ofert-information">
+      <mat-form-field color="primary" fxFlex="80%">
         <mat-icon matPrefix>local_shipping</mat-icon>
         <input matInput [placeholder]="'secure.offers.historical_admin.historical_admin.promise' | translate" formControlName="PromiseDelivery" [errorStateMatcher]="matcher" (keyup)="validatePromiseDeliveri()">
         <mat-hint></mat-hint>
@@ -52,13 +61,18 @@
     </div>
     <div fxFlex="28%" class="ofert-information">
       <mat-form-field color="primary" fxFlex="80%">
-        <mat-icon matPrefix>attach_money</mat-icon>
-        <input matInput [placeholder]="'secure.products.create_product_unit.list_products.ofert_product.shipping_cost' | translate" formControlName="IsFreightCalculator" [errorStateMatcher]="matcher">
+        <mat-select formControlName="Periodicity" class="color-select-periodicity" [disabled]="IsInternational">
+          <mat-option value="1">{{'secure.offers.historical_admin.historical_admin.day' |
+            translate}}</mat-option>
+          <mat-option value="2">{{'secure.offers.historical_admin.historical_admin.hours'|
+            translate}}</mat-option>
+        </mat-select>
         <mat-hint></mat-hint>
-        <mat-error *ngIf="ofertProduct.get('IsFreightCalculator').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
-        <mat-error *ngIf="ofertProduct.get('IsFreightCalculator').hasError('required')">{{'secure.products.create_product_unit.list_products.ofert_product.shipping_cost_mandatory' | translate}}</mat-error>
+        <mat-error *ngIf="ofertProduct.get('PromiseDelivery').hasError('required')">{{'secure.products.create_product_unit.list_products.ofert_product.promise_mandatoy' | translate}}</mat-error>
       </mat-form-field>
     </div>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
     <div fxFlex="28%" class="ofert-information">
       <mat-form-field color="primary" fxFlex="80%">
         <mat-icon matPrefix>beenhere</mat-icon>
@@ -68,8 +82,6 @@
         <mat-error *ngIf="ofertProduct.get('Warranty').hasError('required')">{{'secure.products.create_product_unit.list_products.ofert_product.mandatory_warranty' | translate}}</mat-error>
       </mat-form-field>
     </div>
-  </div>
-  <div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
     <div fxFlex="28%" class="ofert-information">
       <mat-form-field color="primary" fxFlex="80%">
         <mat-label>{{'secure.offers.historical_admin.historical_admin.currency' | translate}}</mat-label>
@@ -80,7 +92,6 @@
     </mat-form-field>
     </div>
     <div fxFlex="28%" class="ofert-information"></div>
-    <div fxFlex="28%" class="ofert-information"></div>
   </div>
 
   <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-evenly center" class="ofert-option">
@@ -88,7 +99,7 @@
       <mat-radio-group formControlName="ofertOption">
         <mat-radio-button value="IsFreeShipping" class="radio-ofert">{{'secure.offers.historical_admin.historical_admin.free_shipping' | translate}}</mat-radio-button>
         <mat-radio-button value="IsEnviosExito" class="radio-ofert">{{'secure.products.create_product_unit.list_products.ofert_product.envios_exito_indicator' | translate}}</mat-radio-button>
-        <mat-radio-button *ngIf="false" value="IsFreightCalculator" class="radio-ofert">{{'secure.offers.historical_admin.historical_admin.freight_calculator' | translate}}</mat-radio-button>
+        <mat-radio-button value="IsFreightCalculator" class="radio-ofert">{{'secure.offers.historical_admin.historical_admin.freight_calculator' | translate}}</mat-radio-button>
         <mat-radio-button *ngIf="false" value="IsLogisticsExito" class="radio-ofert">{{'secure.offers.historical_admin.historical_admin.exito_logistic' | translate}}</mat-radio-button>
       </mat-radio-group>
       <!-- <mat-slide-toggle formControlName="ofertOption" value="IsFreeShipping" class="radio-ofert" color="primary">
