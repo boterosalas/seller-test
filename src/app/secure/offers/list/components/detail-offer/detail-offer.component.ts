@@ -38,6 +38,7 @@ export interface Oferts {
   DiscountPrice?: number;
   Currency?: string;
   Warranty?: string;
+  Periodicity?: number;
   EanCombo?: string;
   ComboQuantity?: number;
 }
@@ -89,6 +90,7 @@ export class DetailOfferComponent implements OnInit {
   public IsEnviosExito: FormControl;
   public IsFreightCalculator: FormControl;
   public Warranty: FormControl;
+  public Periodicity: FormControl;
   // public IsLogisticsExito: FormControl;
   public IsUpdatedStock: FormControl;
   public Currency: FormControl;
@@ -99,6 +101,7 @@ export class DetailOfferComponent implements OnInit {
   promiseSeconds: string;
   to: string;
   showCombos = false;
+  periodicityHtml= '';
 
   offertRegex = {
     formatNumber: '',
@@ -162,6 +165,8 @@ export class DetailOfferComponent implements OnInit {
   public totalCombo: any;
   public oferts: Oferts[];
   approvalOfert: any;
+  selected: any;
+  isInternational = false;
 
   constructor(
     public list: ListComponent,
@@ -240,6 +245,7 @@ export class DetailOfferComponent implements OnInit {
       this.createValidators();
       this.createForm();
       this.setCombos();
+      this.selected = '2';
     } else {
       this.snackBar.open(this.languageService.instant('secure.offers.list.components.detail_offer.snackbar_offer_product'), this.languageService.instant('actions.close'), {
         duration: 5000,
@@ -270,8 +276,10 @@ export class DetailOfferComponent implements OnInit {
     });
     this.formUpdateOffer.get('Currency').disable();
     if (sellerData.Country === 'COLOMBIA') {
+      this.isInternational = false;
       this.formUpdateOffer.get('Currency').setValue('COP');
     } else {
+      this.isInternational = true;
       this.formUpdateOffer.get('Currency').setValue('USD');
     }
   }
@@ -312,6 +320,34 @@ export class DetailOfferComponent implements OnInit {
     this.IsEnviosExito = new FormControl(this.dataOffer.isEnviosExito ? 1 : 0);
     this.IsFreightCalculator = new FormControl(this.dataOffer.isFreightCalculator ? 1 : 0);
     this.Warranty = new FormControl(this.dataOffer.warranty);
+    if (this.dataOffer.periodicity) {
+      if (this.isInternational) {
+        this.Periodicity = new FormControl({ value: 1, disabled: true });
+        this.languageService.stream('secure.offers.historical_admin.historical_admin.day').subscribe(val => {
+          this.periodicityHtml = val ;
+        });
+      } else {
+        this.Periodicity = new FormControl(this.dataOffer.periodicity.toString());
+        if (this.Periodicity.value === '1') {
+          this.languageService.stream('secure.offers.historical_admin.historical_admin.day').subscribe(val => {
+            this.periodicityHtml = val ;
+          });
+        } else {
+          this.languageService.stream('secure.offers.historical_admin.historical_admin.hours').subscribe(val => {
+            this.periodicityHtml = val ;
+          });
+        }
+      }
+    } else {
+      if (this.isInternational) {
+        this.Periodicity = new FormControl({ value: 1, disabled: true });
+      } else {
+        this.Periodicity = new FormControl({ value: 1, disabled: false });
+      }
+      this.languageService.stream('secure.offers.historical_admin.historical_admin.day').subscribe(val => {
+        this.periodicityHtml = val ;
+      });
+    }
     // this.IsLogisticsExito = new FormControl(this.dataOffer.isLogisticsExito ? 1 : 0);
     // this.IsUpdatedStock = new FormControl({ value: this.dataOffer.isUpdatedStock ? 1 : 0, disabled: this.IsLogisticsExito.value ? false : true }, [Validators.pattern(this.offertRegex.isUpdatedStock)]);
     this.IsUpdatedStock = new FormControl(this.dataOffer.isUpdatedStock ? 1 : 0);
@@ -347,6 +383,7 @@ export class DetailOfferComponent implements OnInit {
       IsEnviosExito: this.IsEnviosExito,
       IsFreightCalculator: this.IsFreightCalculator,
       Warranty: this.Warranty,
+      Periodicity: this.Periodicity,
       // IsLogisticsExito: this.IsLogisticsExito,
       IsUpdatedStock: this.IsUpdatedStock,
       Currency: this.Currency,
@@ -598,6 +635,7 @@ export class DetailOfferComponent implements OnInit {
         AverageFreightCost: this.params[0].AverageFreightCost,
         PromiseDelivery: this.params[0].PromiseDelivery,
         Warranty: this.params[0].Warranty,
+        Periodicity: parseInt(this.params[0].Periodicity, 0),
         IsFreeShipping: this.formUpdateOffer.controls['IsFreeShipping'].value,
         IsEnviosExito: this.formUpdateOffer.controls['IsEnviosExito'].value,
         IsFreightCalculator: this.formUpdateOffer.controls['IsFreightCalculator'].value,

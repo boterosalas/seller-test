@@ -337,6 +337,22 @@
             </div>
           </td>
         </ng-container>
+        <ng-container matColumnDef="Periodicity">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>{{'secure.offers.bulk_upload.table_load.Periodicity' | translate}}</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorPeriodicity == true }" *matCellDef="let element">
+            <div class="information" *ngIf="element.Periodicity != undefined && element.Periodicity != ''">
+              <p class="sc-text-normal">{{element.Periodicity}}</p>
+            </div>
+            <div class="information" *ngIf="element.Periodicity == undefined || element.Periodicity == ''">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 

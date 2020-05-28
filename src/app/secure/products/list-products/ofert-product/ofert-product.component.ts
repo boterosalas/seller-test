@@ -41,6 +41,7 @@ export class OfertExpandedProductComponent implements OnInit {
     @Input() applyOffer: any;
     @Input() productsExpanded: any;
 
+    public IsInternational = false;
     public isTypeCurrency = false;
     // public formatNumber = /^[0-9]+$/;
     // public formatPromEntrega = /^0*[1-9]\d?\s[a]{1}\s0*[1-9]\d?$/;
@@ -110,6 +111,9 @@ export class OfertExpandedProductComponent implements OnInit {
             PromiseDelivery: new FormControl('', [
                 Validators.required,
                 Validators.pattern(this.offertRegex.promiseDelivery)
+            ]),
+            Periodicity: new FormControl('1', [
+                Validators.required
             ]),
             IsFreightCalculator: new FormControl('', [
                 Validators.required,
@@ -422,6 +426,7 @@ export class OfertExpandedProductComponent implements OnInit {
             IsFreightCalculator: this.ofertProduct.controls.ofertOption.value === 'IsFreightCalculator' ? '1' : '0',
             IsLogisticsExito: this.ofertProduct.controls.ofertOption.value === 'IsLogisticsExito' ? '1' : '0',
             IsUpdatedStock: this.ofertProduct.controls.IsUpdatedStock.value === true ? '1' : '0',
+            Periodicity: this.ofertProduct.controls.Periodicity.value,
             // ComboQuantity: this.Combos.controls.ComboQuantity.value,
             // EanCombo: this.ofertProduct.controls.EanCombo.value,
             Currency: this.ofertProduct.controls.Currency.value,
@@ -506,6 +511,7 @@ export class OfertExpandedProductComponent implements OnInit {
         this.ofertProduct.controls.Price.reset();
         this.ofertProduct.controls.DiscountPrice.reset();
         this.ofertProduct.controls.PromiseDelivery.reset();
+        this.ofertProduct.controls.Periodicity.reset();
         this.ofertProduct.controls.IsFreightCalculator.reset();
         this.ofertProduct.controls.Warranty.reset();
         this.ofertProduct.controls.ofertOption.reset();
@@ -632,8 +638,10 @@ export class OfertExpandedProductComponent implements OnInit {
             this.ofertProduct.get('Currency').disable();
             if (sellerData.Country === 'COLOMBIA') {
                 this.ofertProduct.get('Currency').setValue('COP');
+                this.IsInternational = false;
             } else {
                 this.ofertProduct.get('Currency').setValue('USD');
+                this.IsInternational = true;
             }
         }
     }

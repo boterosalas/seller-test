@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 
 import { NotificationCircleComponent } from './notification-circle.component';
 
@@ -6,7 +6,7 @@ describe('NotificationCircleComponent', () => {
   let component: NotificationCircleComponent;
   let fixture: ComponentFixture<NotificationCircleComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       declarations: [NotificationCircleComponent]
     }).compileComponents();
@@ -19,11 +19,12 @@ describe('NotificationCircleComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create', (done) => {
     expect(component).toBeTruthy();
     expect(
       fixture.nativeElement.querySelector('#notification-value').innerText
     ).toEqual('1');
+    done();
   });
 
   it('When notifications value is zero', () => {
