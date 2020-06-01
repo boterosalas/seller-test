@@ -12,7 +12,7 @@ $underline-color: #19a695;
 }
 
 .filter-content {
-  margin: 59px 32px;
+  margin: 16% 8%;
 }
 
 .drawer-container {
@@ -145,8 +145,9 @@ $underline-color: #19a695;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  font-size: 22px;
-  margin-bottom: 40px;
+  font-size: 20px;
+  margin-bottom: 6%;
+  margin-top: 6%;
 
   &--title {
     font-weight: bold;
