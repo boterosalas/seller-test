@@ -34,6 +34,9 @@ $line-color: #d3d3d3;
   font-size: 14px;
   height: 62px;
   margin-bottom: 2px;
+  @media (max-width: 600px) {
+    place-content: space-around !important;
+  }
 
   &--item-detail {
     text-overflow: ellipsis;
@@ -42,6 +45,9 @@ $line-color: #d3d3d3;
     overflow: hidden;
     width: inherit;
     max-width: 30%;
+    @media (max-width: 600px) {
+      max-width: 25% !important;
+    }
   }
 
   &--content-center {
@@ -62,6 +68,10 @@ $line-color: #d3d3d3;
 ::ng-deep .mat-expansion-panel {
   @media (max-width: 600px) {
     max-width: 100% !important;
+
+    .noneMobile{
+      display: none;
+    }
   }
 }
 
