@@ -1,11 +1,11 @@
 <form id="search-store-form" [ngClass]="widthComplete ? 'search-store-width mat-typography' : 'search-store mat-typography'" class="" (keydown)="keyDownFunction($event)">
-    <mat-form-field class="input-search">
+  <mat-form-field class="input-search">
       <!-- Icon search -->
       <mat-icon id="icon-search-store" class="icon-search" matPrefix>search</mat-icon>
   
       <!-- Input search -->
       <input id="input-search-store" class="search-store-input" type="search" (ngModelChange)="whatchValueInput($event)" matInput
-        [formControl]="textForSearch" [matAutocomplete]="auto" (keyup.enter)="saveSellerEmit()">
+        [formControl]="textForSearch" [matAutocomplete]="auto">
     </mat-form-field>
   
     <!-- Autocomplete -->

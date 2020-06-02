@@ -1201,6 +1201,8 @@
     "secure.parametize.support_claims-filter.sac_answer": "Customer service response",
     "secure.parametize.support_claims-filter.seller_answer": "Seller´s response",
 
+    "secure.parametize.support_claims-filter.modal.export.confirmSend": "Se ha realizado la descarga del la(s) reclamacion(es) correctamente, revisa tu correo electrónico",
+
     "secure.parametize.port.port": "Port",
     "secure.parametize.port.search_port": "Search port",
     "secure.parametize.port.country_apply": "country Apply",

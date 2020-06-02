@@ -339,7 +339,6 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
       const body: any = res.body;
       const response = JSON.parse(body.body);
       const userData = response.Data;
-      console.log(userData);
       this.sellerId = userData.IdSeller;
       this.email = userData.Email;
       localStorage.setItem('typeProfile', userData.Profile);
@@ -538,6 +537,6 @@ openModalExportByFilter() {
   }
 
   ngOnDestroy() {
- 
+ this.dialog.closeAll();
   }
 }

@@ -1,74 +1,102 @@
 <div>
   <div fxLayout="row" class="padding-10">
     <div fxFlex="95">
-      <span style="font-weight: bold;">Exportar reclamaciones </span><span>|</span><span style="color: #848181">
+      <span class="modal-export-to-reclaim-font-weight ">Exportar reclamaciones </span><span>|</span><span
+        class="modal-export-to-reclaim-color-text">
         ({{email}})</span>
     </div>
     <div fxFlex="5">
-      <mat-icon class="mat-18 close-modal" (click)="onNoClick()" [matTooltip]="'actions.close' | translate">clear
+      <mat-icon class="mat-18 close-modal modal-export-to-reclaim-cursor" (click)="onNoClick()"
+        [matTooltip]="'actions.close' | translate">clear
       </mat-icon>
     </div>
   </div>
   <mat-divider></mat-divider>
+
   <div mat-dialog-content class="">
     <form #filterForm="ngForm" [formGroup]="form">
-      <div fxLayout="row" style="margin-top: 30px; margin-bottom: 10px;" *ngIf="isAdmin">
+      <div fxLayout="row" class="modal-export-to-reclaim-margin-text-search-seller" *ngIf="isAdmin">
         <div>
           <span>Buscar vendedor</span>
         </div>
       </div>
-      <div fxLayout="row" style="margin-left: 10px;" *ngIf="isAdmin">
-        <div fxFlex="80">
+      <div fxLayout="row wrap" class="modal-export-to-reclaim-margin-left-component-search-seller" *ngIf="isAdmin">
+        <div fxFlex.md="75" fxFlex.lg="75" fxFlex.xl="75" fxFlex.xs="90" fxFlex.sm="90">
           <div fxLayout="column">
             <div>
-              <app-search-seller [loadSpinner]="false" [emitModal]="true" [widthComplete]="true"></app-search-seller>
+              <app-search-seller [loadSpinner]="false" [emitModal]="true" [clearSearch]="clearSearch"
+                [widthComplete]="true"></app-search-seller>
             </div>
           </div>
         </div>
-        {{IsClickEnable}}
-        <div fxFlex="20" class="text-aling-end" (click)="IsClickEnable?saveKeyword():null" style="cursor: pointer;">
+        <div fxFlex.md="20" fxFlex.lg="20" fxFlex.xl="20" fxFlex.xs="5" fxFlex.sm="5"
+          class="text-aling-end modal-export-to-reclaim-add-seller-btn" (click)="IsClickEnable?saveKeyword():null">
           <mat-icon matSuffix [matTooltip]="'secure.parametize.port.btn_add_port' | translate"
-            class="material-icons color-icon-add-seller vertical-align-top" >
+            class="material-icons color-icon-add-seller vertical-align-top">
             add_circle_outline
           </mat-icon>
-          <span class="color-text-add-seller">Agregar vendedor</span>
+          <span class="color-text-add-seller" fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
+            fxShow.xl="true">Agregar vendedor</span>
         </div>
       </div>
-      <div fxLayout="row" style="padding-top: 10px; margin-left: 10px;" *ngIf="isAdmin">
-        <div fxFlex="15">
-          <mat-checkbox formControlName="importAll" class="dialog-accept">
+      <div fxLayout="row wrap" class="modal-export-to-reclaim-action-padding" *ngIf="isAdmin">
+        <div fxFlex.md="15" fxFlex.lg="15" fxFlex.xl="15" fxFlex.xs="100" fxFlex.sm="95"
+          class="modal-export-to-reclaim-margin-content-action-5">
+          <mat-checkbox formControlName="importAll" class="dialog-accept" (click)="clearSellerSearch(!valueCheck)">
           </mat-checkbox>
-          <span style="color: #848181;font-size: 14px;margin-left: 5px;">Exportar todos</span>
+          <span class="modal-export-to-reclaim-text-export-text">Exportar todos</span>
         </div>
-        <div fxFlex="15" style="margin-top: -3px; cursor: pointer;" (click)="showFilter()">
-          <mat-icon class="mat-18 vertical-align-top" >filter_list</mat-icon>
-          <span style="color: #848181;font-size: 14px;margin-left: 5px; cursor: pointer;">Aplicar filtros</span>
+        <div fxFlex.md="15" fxFlex.lg="15" fxFlex.xl="15" fxFlex.xs="100" fxFlex.sm="95"
+          class="modal-export-to-reclaim-margin-content-action-5" (click)="showFilter()">
+          <mat-icon class="mat-18 vertical-align-top">filter_list</mat-icon>
+          <span class="modal-export-to-reclaim-text">Aplicar filtros</span>
+        </div>
+        <div fxFlex.md="15" fxFlex.lg="15" fxFlex.xl="15" fxFlex.xs="100" fxFlex.sm="95"
+          class="modal-export-to-reclaim-margin-content-action-5" (click)="showEmailSend()">
+          <mat-icon class="mat-18 vertical-align-top modal-export-to-reclaim-color-text modal-export-to-reclaim-cursor">
+            email</mat-icon>
+          <span class="modal-export-to-reclaim-text">Editar correo</span>
         </div>
       </div>
-      <div fxLayout="row" *ngIf="isShowFilter" style="width: 100%;margin-top: 45px;margin-left: 20px; margin-right: 20px; margin-bottom: 46px;">
-        <div fxFlex="25" >
-          <mat-form-field color="primary">
+      <div fxLayout="column" class="modal-export-to-reclaim-container-email" *ngIf="isShowEmail || !isAdmin">
+        <div class="modal-export-to-reclaim-margin-bottom-16" (click)="showEmailSend()">
+          <span class="modal-export-to-reclaim-text-send-email">Te enviaremos las reclamaciones al siguiente correo
+            electrónico.</span>
+        </div>
+        <div class="modal-expot-to-reclaim-margin-left-5">
+          <mat-form-field class="half-width modal-export-to-reclaim-width-100">
+            <input matInput placeholder="Correo electronico" class="modal-export-to-reclaim-text-uppercase"
+              formControlName="email" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="form.get('email').hasError('required')">{{'errors.required' | translate}}</mat-error>
+            <mat-error *ngIf="form.get('email').hasError('email')">{{'errors.format_invalidate' | translate}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row wrap" *ngIf="isShowFilter || !isAdmin" class="modal-export-to-reclaim-container-input-filter">
+        <div fxFlex.md="25" fxFlex.lg="25" fxFlex.xl="25" fxFlex.xs="100" fxFlex.sm="100">
+          <mat-form-field color="primary" class="modal-export-to-reclaim-width-90">
             <input id="sinceDate-input"
               [placeholder]="translateService.instant('secure.parametize.support_claims-filter.start-date')"
-              [(ngModel)]="filter.DateInit" formControlName="dateInitial"  name="dateInitial" [readonly]="true" matInput [matDatepicker]="dateInitial"
-              (click)="openDateInitial()">
+              [(ngModel)]="filter.DateInit" formControlName="dateInitial" name="dateInitial" [readonly]="true" matInput
+              [matDatepicker]="dateInitial">
             <mat-datepicker-toggle matPrefix [for]="dateInitial"></mat-datepicker-toggle>
             <mat-datepicker touchUi="true" startView="year" #dateInitial></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex="25" >
-          <mat-form-field color="primary">
+        <div fxFlex.md="25" fxFlex.lg="25" fxFlex.xl="25" fxFlex.xs="100" fxFlex.sm="100">
+          <mat-form-field color="primary" class="modal-export-to-reclaim-width-90">
             <input id="untilDate-input"
               [placeholder]="translateService.instant('secure.parametize.support_claims-filter.end-date')"
-              [(ngModel)]="filter.DateEnd" formControlName="dateFinal" name="dateFinal" [readonly]="true" [min]="filter.DateInit"
-              [max]="rangeDateMax" matInput [matDatepicker]="dateFinal" (click)="openDateFinal()">
+              [(ngModel)]="filter.DateEnd" formControlName="dateFinal" name="dateFinal" [readonly]="true"
+              [min]="filter.DateInit" [max]="rangeDateMax" matInput [matDatepicker]="dateFinal">
             <mat-datepicker-toggle matPrefix [for]="dateFinal"></mat-datepicker-toggle>
             <mat-datepicker touchUi="true" startView="year" #dateFinal></mat-datepicker>
             <mat-error *ngIf="rangeError" [innerHTML]="'El rango máximo son 15 días'"></mat-error>
           </mat-form-field>
         </div>
-        <div fxFlex="25">
-          <mat-form-field class="filter-form--field" style="width: 90%;">
+        <div fxFlex.md="25" fxFlex.lg="25" fxFlex.xl="25" fxFlex.xs="100" fxFlex.sm="100">
+          <mat-form-field class="filter-form--field" class="modal-export-to-reclaim-width-90">
             <mat-select [placeholder]="translateService.instant('secure.parametize.support_claims-filter.last_post')"
               name="lastPost" formControlName="lastPost" [(ngModel)]="valuePost">
               <mat-option *ngFor="let post of lastPost" value="{{post.valuePost}}">
@@ -77,8 +105,8 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div fxFlex="25">
-          <mat-form-field class="filter-form--field">
+        <div fxFlex.md="25" fxFlex.lg="25" fxFlex.xl="25" fxFlex.xs="100" fxFlex.sm="100">
+          <mat-form-field class="filter-form--field" class="modal-export-to-reclaim-width-90">
             <mat-select [placeholder]="translateService.instant('secure.parametize.support_claims-filter.status')"
               name="status" [(ngModel)]="value" formControlName="status">
               <mat-option *ngFor="let state of options" value="{{state.code}}">
@@ -88,38 +116,23 @@
           </mat-form-field>
         </div>
       </div>
-      <div fxLayout="row" style="width: 100%; height: 75px; margin-top: 47px;" *ngIf="isAdmin">
-        <div style="text-align: center;width: 100%; height: 50px;">
-          <mat-chip-list>
-            <mat-chip
-            *ngFor="let key of keywords; let i = index"
-            (removed)="deleteKeywork(i)">
-            {{key}}
-            <mat-icon class="material-icons" matChipRemove>cancel</mat-icon>
-          </mat-chip>
-        </mat-chip-list>
-          <span>No ha seleccionado ningun vendedor</span>
-        </div>
-      </div>
-      <div fxLayout="row">
-        <div (click)="showEmailSend()">
-          <mat-icon style="color: #848181; cursor:pointer;font-size: 20px;" class="mat-18 vertical-align-top">email</mat-icon>
-          <span style="color: #848181;cursor: pointer;font-size: 13px;">Editar correo</span>
-        </div>
-      </div>
-      
-      <div fxLayout="column" style="margin-top: 5px;" *ngIf="isShowEmail">
-        <mat-divider></mat-divider>
-        <div style="margin-bottom: 35px;">
-          <span style="color: #848181;font-size: 14px;margin-left: 5px;">Te enviaremos el histórico de ofertas al siguiente correo electrónico.</span>
-        </div>
-        <div style="margin-left:5px;">
-          <mat-form-field class="half-width">
-            <input matInput placeholder="Correo electronico" style="text-transform: uppercase;" formControlName="email"
-              [errorStateMatcher]="matcher" required>
-            <mat-error *ngIf="form.get('email').hasError('required')">{{'errors.required' | translate}}</mat-error>
-            <mat-error *ngIf="form.get('email').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
-          </mat-form-field>
+      <div fxLayout="row" class="modal-export-to-reclaim-container-scroll-seller" *ngIf="isAdmin">
+        <div class="modal-export-to-reclaim-chips-seller">
+          <div style="margin-top: 20px;">
+            <mat-chip-list>
+              <mat-chip *ngFor="let key of keywords; let i = index" (removed)="deleteKeywork(i)">
+                {{key}}
+                <mat-icon class="material-icons" matChipRemove>cancel</mat-icon>
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+          <div *ngIf="keywords.length === 0 && valueCheck === false" class="modal-export-to-reclaim-margin-top-50">
+            <span>No ha seleccionado ningún vendedor</span>
+          </div>
+          <div *ngIf="valueCheck === true && keywords.length === 0" class="modal-export-to-reclaim-margin-top-50">
+            <span class="modal-export-to-reclaim-font-weight ">Se exportará las reclamaciones asociadas a todos los
+              vendedores.</span>
+          </div>
         </div>
       </div>
     </form>
@@ -127,7 +140,7 @@
   <mat-divider></mat-divider>
   <mat-dialog-actions align="end">
     <button mat-button (click)="onNoClick()">{{'actions.cancel'| translate}}</button>
-    <button type="button" mat-raised-button color="primary"
-      (click)="savePort()">{{'actions.accept' | translate}}</button>
+    <button type="button" mat-raised-button color="primary" (click)="sendExportReclain()"
+      [disabled]="disabledButton && !valueCheck || !filterForm.form.valid">{{'actions.accept' | translate}}</button>
   </mat-dialog-actions>
 </div>

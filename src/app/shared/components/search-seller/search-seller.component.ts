@@ -25,6 +25,7 @@ export class SearchSellerComponent implements OnInit, OnChanges {
     public user: any;
     // variable que almacena la lista de tiendas disponibles para buscar
     public listSellers: any;
+    public _clearSearch = false;
 
     // variable que almacena los resultados obtenidos al realizar el filtro del autocomplete
     public filteredOptions: Observable<string[]>;
@@ -35,6 +36,14 @@ export class SearchSellerComponent implements OnInit, OnChanges {
     @Input() widthComplete = false;
     @Input() emitModal: boolean;
 
+    @Input() set clearSearch(value: any) {
+        if (value) {
+            this._clearSearch = value;
+            if (value === true) {
+                this.searchClear();
+            }
+        }
+    }
 
 
     // Para identificar qué tipo de búsqueda se va a realizar.
@@ -170,8 +179,8 @@ export class SearchSellerComponent implements OnInit, OnChanges {
 
     }
 
-    saveSellerEmit() {
-        console.log('emite el evento');
+    searchClear() {
+        this.textForSearch.reset();
     }
 
 }

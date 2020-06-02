@@ -70,6 +70,12 @@ $height-input: 25px;
   border-radius: 4px 4px 0 0
 }
 
+::ng-deep .search-store-width {
+  .mat-form-field-infix {
+    top: -5px;
+  }
+}
+
 ::ng-deep .mat-form-field.input-search .mat-form-field-underline {
   display: none;
 }
