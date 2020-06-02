@@ -83,6 +83,9 @@ $underline-color: #19a695;
     background-color: #fff;
     border-bottom: 1px solid #e0e0e0;
     height: 80%;
+    @media (max-width: 600px) {
+      display: inline-block !important;
+    }
 
     & .toolbar-options-table {
       width: 100%;
