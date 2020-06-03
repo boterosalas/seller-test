@@ -1,5 +1,5 @@
-<form id="search-store-form" class="search-store mat-typography" (keydown)="keyDownFunction($event)">
-    <mat-form-field class="input-search">
+<form id="search-store-form" [ngClass]="widthComplete ? 'search-store-width mat-typography' : 'search-store mat-typography'" class="" (keydown)="keyDownFunction($event)">
+  <mat-form-field class="input-search">
       <!-- Icon search -->
       <mat-icon id="icon-search-store" class="icon-search" matPrefix>search</mat-icon>
   

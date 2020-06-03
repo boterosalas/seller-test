@@ -18,6 +18,13 @@ $underline-color: #19a695;
 .drawer-container {
   padding-right: 0px;
   padding-left: 0px;
+  background-color: white;
+
+  @media (max-width: 600px) {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
 }
 
 .disabledDiv {
@@ -61,10 +68,14 @@ $underline-color: #19a695;
   visibility: hidden;
 }
 
+.borde-line-toolbar {
+  border-bottom: 1px solid #e0e0e0;
+}
+
 .ticket-toolbar {
   background-color: white;
   padding: 0px 32px;
-  border-bottom: 1px solid #e0e0e0;
+  // border-bottom: 1px solid #e0e0e0;
   height: 45px !important;
   max-height: 45px;
   justify-content: space-between;
@@ -73,7 +84,7 @@ $underline-color: #19a695;
     height: auto !important;
     max-height: inherit !important;
     padding-bottom: 16px;
-    padding: 0px 0px;
+    padding: 0px 0px !important;
 
   }
 }
@@ -168,8 +179,9 @@ $underline-color: #19a695;
 
 .styleToolbar {
   width: 92%;
+
   @media only screen and (max-width: 600px) {
-    width: 100%;
+    width: 88%;
   }
 }
 
@@ -252,5 +264,31 @@ $underline-color: #19a695;
     height: 40px;
     width: 40px;
     color: #5D5D5D;
+  }
+}
+
+.filterMobile {
+  @media only screen and (max-width: 600px) {
+    margin-top: 6%
+  }
+
+  @media only screen and (min-width: 600px) {
+    display: none;
+  }
+}
+
+.filterMobile2 {
+  @media only screen and (max-width: 600px) {
+    margin-top: 19%
+  }
+
+  @media only screen and (min-width: 600px) {
+    display: none;
+  }
+}
+
+.filterDesktop {
+  @media only screen and (max-width: 600px) {
+    display: none;
   }
 }

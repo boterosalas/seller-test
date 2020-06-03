@@ -6,7 +6,7 @@ $underline: #909090;
 .ticket-toolbar {
   background-color: white;
   padding: 0px 32px;
-  border-bottom: 1px solid #e0e0e0;
+  // border-bottom: 1px solid #e0e0e0;
   height: 45px !important;
   max-height: 45px;
   justify-content: space-between;
@@ -14,6 +14,8 @@ $underline: #909090;
     height: auto !important;
     max-height: inherit !important;
     padding-bottom: 16px;
+    padding: 0px 0px !important;
+
   }
 }
 
@@ -124,6 +126,7 @@ $underline: #909090;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    padding-right: 0px;
   }
 }
 

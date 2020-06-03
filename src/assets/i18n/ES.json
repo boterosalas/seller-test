@@ -1207,6 +1207,17 @@
     "secure.parametize.support_claims-filter.sac_answer": "Respuesta servicio al cliente",
     "secure.parametize.support_claims-filter.seller_answer": "Respuesta vendedor",
 
+    "secure.parametize.support_claims-filter.modal-export.export-all": "Se exportará las reclamaciones asociadas a todos los vendedores.",
+    "secure.parametize.support_claims-filter.modal-export.not-select-seller": "No ha seleccionado ningún vendedor",
+    "secure.parametize.support_claims-filter.modal-export.text-message-send-email": "Te enviaremos las reclamaciones al siguiente correo electrónico.",
+    "secure.parametize.support_claims-filter.modal.export.confirmSend": "Se ha realizado la descarga del la(s) reclamacion(es) correctamente, revisa tu correo electrónico",
+    "secure.parametize.support_claims-filter.modal.export.editEmail": "Editar correo",
+    "secure.parametize.support_claims-filter.modal-export.applyFilter": "Aplicar filtros",
+    "secure.parametize.support_claims-filter.modal-export.exportAll": "Exportar todos",
+    "secure.parametize.support_claims-filter.modal-export.addSeller": "Agregar vendedor",
+    "secure.parametize.support_claims-filter.modal-export.searchSeller": "Buscar vendedor",
+    "secure.parametize.support_claims-filter.modal-export.titleExportReclaim": "Exportar reclamaciones",
+
     "secure.parametize.support_drop-down-menu-ID": "ID",
     "secure.parametize.support_drop-down-order-numer": "Número de pedido",
     "secure.parametize.support_drop-down-reason-detail": "Detalle del motivo",
