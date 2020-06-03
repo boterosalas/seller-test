@@ -68,7 +68,7 @@ export class ListOfCaseComponent implements OnInit {
   unreadCase: number;
 
   configDialog = {
-    width: '70%',
+    width: '85%',
     height: 'fit-content',
     data: null
   };
