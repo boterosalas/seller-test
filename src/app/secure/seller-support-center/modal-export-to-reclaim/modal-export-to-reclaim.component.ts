@@ -182,7 +182,6 @@ export class ModalExportToReclaimComponent implements OnInit, OnDestroy {
       arraySend.allSeller = this.form.controls['importAll'].value;
       arraySend.sellers = this.arraySellerId;
     }
-
     this.modalExportReclaimService.sendEmailExportReclaim(arraySend).subscribe((res: any) => {
       if (res) {
         this.loadingService.closeSpinner();

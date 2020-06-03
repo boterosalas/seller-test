@@ -1201,7 +1201,16 @@
     "secure.parametize.support_claims-filter.sac_answer": "Customer service response",
     "secure.parametize.support_claims-filter.seller_answer": "Seller´s response",
 
-    "secure.parametize.support_claims-filter.modal.export.confirmSend": "Se ha realizado la descarga del la(s) reclamacion(es) correctamente, revisa tu correo electrónico",
+    "secure.parametize.support_claims-filter.modal-export.export-all": "The associated claims will be exported to all sellers",
+    "secure.parametize.support_claims-filter.modal-export.not-select-seller": "No seller selected",
+    "secure.parametize.support_claims-filter.modal-export.text-message-send-email": "Claims will be sent to the following email",
+    "secure.parametize.support_claims-filter.modal.export.confirmSend": "Claim(s) have been succesfully downloaded, check your email",
+    "secure.parametize.support_claims-filter.modal.export.editEmail": "Update Mail",
+    "secure.parametize.support_claims-filter.modal-export.applyFilter": "Apply filters",
+    "secure.parametize.support_claims-filter.modal-export.exportAll": "Export all",
+    "secure.parametize.support_claims-filter.modal-export.addSeller": "Add Seller",
+    "secure.parametize.support_claims-filter.modal-export.searchSeller": "Search for a seller",
+    "secure.parametize.support_claims-filter.modal-export.titleExportReclaim": "Export claims",
 
     "secure.parametize.port.port": "Port",
     "secure.parametize.port.search_port": "Search port",

@@ -1,7 +1,7 @@
 <div>
   <div fxLayout="row" class="padding-10">
     <div fxFlex="95">
-      <span class="modal-export-to-reclaim-font-weight ">Exportar reclamaciones </span><span>|</span><span
+      <span class="modal-export-to-reclaim-font-weight ">{{'secure.parametize.support_claims-filter.modal-export.titleExportReclaim' | translate}} </span><span>|</span><span
         class="modal-export-to-reclaim-color-text">
         ({{email}})</span>
     </div>
@@ -17,7 +17,7 @@
     <form #filterForm="ngForm" [formGroup]="form">
       <div fxLayout="row" class="modal-export-to-reclaim-margin-text-search-seller" *ngIf="isAdmin">
         <div>
-          <span>Buscar vendedor</span>
+          <span>{{'secure.parametize.support_claims-filter.modal-export.searchSeller' | translate}}</span>
         </div>
       </div>
       <div fxLayout="row wrap" class="modal-export-to-reclaim-margin-left-component-search-seller" *ngIf="isAdmin">
@@ -36,7 +36,7 @@
             add_circle_outline
           </mat-icon>
           <span class="color-text-add-seller" fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-            fxShow.xl="true">Agregar vendedor</span>
+            fxShow.xl="true">{{'secure.parametize.support_claims-filter.modal-export.addSeller' | translate}}</span>
         </div>
       </div>
       <div fxLayout="row wrap" class="modal-export-to-reclaim-action-padding" *ngIf="isAdmin">
@@ -44,24 +44,23 @@
           class="modal-export-to-reclaim-margin-content-action-5">
           <mat-checkbox formControlName="importAll" class="dialog-accept" (click)="clearSellerSearch(!valueCheck)">
           </mat-checkbox>
-          <span class="modal-export-to-reclaim-text-export-text">Exportar todos</span>
+          <span class="modal-export-to-reclaim-text-export-text">{{'secure.parametize.support_claims-filter.modal-export.exportAll' | translate}}</span>
         </div>
         <div fxFlex.md="15" fxFlex.lg="15" fxFlex.xl="15" fxFlex.xs="100" fxFlex.sm="95"
           class="modal-export-to-reclaim-margin-content-action-5" (click)="showFilter()">
           <mat-icon class="mat-18 vertical-align-top">filter_list</mat-icon>
-          <span class="modal-export-to-reclaim-text">Aplicar filtros</span>
+          <span class="modal-export-to-reclaim-text">{{'secure.parametize.support_claims-filter.modal-export.applyFilter' | translate}}</span>
         </div>
         <div fxFlex.md="15" fxFlex.lg="15" fxFlex.xl="15" fxFlex.xs="100" fxFlex.sm="95"
           class="modal-export-to-reclaim-margin-content-action-5" (click)="showEmailSend()">
           <mat-icon class="mat-18 vertical-align-top modal-export-to-reclaim-color-text modal-export-to-reclaim-cursor">
             email</mat-icon>
-          <span class="modal-export-to-reclaim-text">Editar correo</span>
+          <span class="modal-export-to-reclaim-text">{{'secure.parametize.support_claims-filter.modal.export.editEmail' | translate}}</span>
         </div>
       </div>
       <div fxLayout="column" class="modal-export-to-reclaim-container-email" *ngIf="isShowEmail || !isAdmin">
         <div class="modal-export-to-reclaim-margin-bottom-16" (click)="showEmailSend()">
-          <span class="modal-export-to-reclaim-text-send-email">Te enviaremos las reclamaciones al siguiente correo
-            electrónico.</span>
+          <span class="modal-export-to-reclaim-text-send-email">{{'secure.parametize.support_claims-filter.modal-export.text-message-send-email' | translate}}</span>
         </div>
         <div class="modal-expot-to-reclaim-margin-left-5">
           <mat-form-field class="half-width modal-export-to-reclaim-width-100">
@@ -92,7 +91,6 @@
               [min]="filter.DateInit" [max]="rangeDateMax" matInput [matDatepicker]="dateFinal">
             <mat-datepicker-toggle matPrefix [for]="dateFinal"></mat-datepicker-toggle>
             <mat-datepicker touchUi="true" startView="year" #dateFinal></mat-datepicker>
-            <mat-error *ngIf="rangeError" [innerHTML]="'El rango máximo son 15 días'"></mat-error>
           </mat-form-field>
         </div>
         <div fxFlex.md="25" fxFlex.lg="25" fxFlex.xl="25" fxFlex.xs="100" fxFlex.sm="100">
@@ -127,11 +125,10 @@
             </mat-chip-list>
           </div>
           <div *ngIf="keywords.length === 0 && valueCheck === false" class="modal-export-to-reclaim-margin-top-50">
-            <span>No ha seleccionado ningún vendedor</span>
+            <span>{{'secure.parametize.support_claims-filter.modal-export.not-select-seller' | translate}}</span>
           </div>
           <div *ngIf="valueCheck === true && keywords.length === 0" class="modal-export-to-reclaim-margin-top-50">
-            <span class="modal-export-to-reclaim-font-weight ">Se exportará las reclamaciones asociadas a todos los
-              vendedores.</span>
+            <span class="modal-export-to-reclaim-font-weight ">{{'secure.parametize.support_claims-filter.modal-export.export-all' | translate}}</span>
           </div>
         </div>
       </div>

@@ -12,10 +12,29 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, FormGroup, FormControl }
 import { RouterTestingModule } from '@angular/router/testing';
 import { EndpointService, LoadingService } from '@app/core';
 import { Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { StoreService } from '@app/store/store.service';
 import { ConfigurationState } from '@app/store/configuration';
+import { ModalExportReclaimService } from '../services/modal-export-reclaim.service';
 
+const res = {
+   errors: [], data: [], message: ''
+};
+
+const resStore = {
+  language: 'ES',
+  statusCases: [
+            {
+              active: true,
+              code: 'Respuesta generada',
+              createDate: '2019-06-12T14:45:23.084+00:00',
+              description: 'Respuesta generada',
+              id: 6,
+              name: 'Respuesta generada',
+              updateDate: '2019-06-12T14:45:29.084+00:00',
+            }
+        ]
+};
 
 class StoreTest {
   select(): Observable<any> {
@@ -33,14 +52,18 @@ class StoreServiceTest {
   getStateConfiguration() {
     const configurationState: ConfigurationState = { language: 'US', statusCases: [] };
     return of({
-      appConfiguration: configurationState,
-      configuration: { modules: [] },
-      notification: {
-        sumaUnreadDevolutions: 2,
-        unreadCases: 2,
-        unreadDevolutions: 2,
-        unreadPendings: 2
+        language: 'ES',
+        statusCases: [
+      {
+        active: true,
+        code: 'Respuesta generada',
+        createDate: '2019-06-12T14:45:23.084+00:00',
+        description: 'Respuesta generada',
+        id: 6,
+        name: 'Respuesta generada',
+        updateDate: '2019-06-12T14:45:29.084+00:00',
       }
+        ]
     });
   }
 }
@@ -48,6 +71,11 @@ class StoreServiceTest {
 describe('ModalExportToReclaimComponent', () => {
   let component: ModalExportToReclaimComponent;
   let fixture: ComponentFixture<ModalExportToReclaimComponent>;
+  let modalExportReclaimService: ModalExportReclaimService;
+
+  const mockExportReclaimService = jasmine.createSpyObj('ModalExportReclaimService', ['sendEmailExportReclaim']);
+  const storeServiceTest = jasmine.createSpyObj('StoreServiceTest', ['getStateConfiguration']);
+
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -67,6 +95,7 @@ describe('ModalExportToReclaimComponent', () => {
         LoadingService,
         { provide: Store, useClass: StoreTest },
         { provide: StoreService, useClass: StoreServiceTest },
+        { provide: ModalExportReclaimService, useValue: mockExportReclaimService },
       ]
     })
     .compileComponents();
@@ -75,11 +104,27 @@ describe('ModalExportToReclaimComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ModalExportToReclaimComponent);
     component = fixture.componentInstance;
+    modalExportReclaimService = TestBed.get(ModalExportReclaimService);
+    mockExportReclaimService.sendEmailExportReclaim.and.returnValue(of(res));
+    // storeServiceTest.getStateConfiguration.and.returnValue(of(resStore));
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+  it('services modal send data', () => {
+    component.sendExportReclain();
+  });
+
+   describe('services modal send data data null', () => {
+    beforeEach(() => {
+      mockExportReclaimService.sendEmailExportReclaim.and.returnValue(of(null));
+    });
+
+    it('save Port', () => {
+      component.sendExportReclain();
+    });
   });
 });
 
