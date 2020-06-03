@@ -129,7 +129,7 @@ $underline: #909090;
 
 ::ng-deep .mat-sidenav-content {
   @media (max-width: 600px) {
-    justify-content: space-between !important;
+    // justify-content: space-between !important;
   }
 }
 
@@ -141,6 +141,7 @@ $underline: #909090;
 
 mat-paginator {
   @media (max-width: 600px) {
-    width: 200px;
+    // width: 200px;
+    width: 100%
   }
 }
