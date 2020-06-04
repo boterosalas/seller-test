@@ -12,9 +12,6 @@ export class ModalExportReclaimService {
 
 
   public sendEmailExportReclaim(body: any): Observable<any> {
-    // return this.http.post(this.api.get(''), body);
-    return new Observable(observer => {
-      observer.next(true);
-    });
+    return this.http.post(this.api.get('exportReclaim'), body);
   }
 }

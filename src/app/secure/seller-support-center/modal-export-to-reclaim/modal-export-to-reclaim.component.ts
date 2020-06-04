@@ -168,7 +168,7 @@ export class ModalExportToReclaimComponent implements OnInit, OnDestroy {
       dateInitial: '',
       dateFinal: '',
       status: '',
-      lastReply: '',
+      lastPost: '',
       email: '',
       allSeller: '',
       sellers: []
@@ -177,7 +177,7 @@ export class ModalExportToReclaimComponent implements OnInit, OnDestroy {
       arraySend.dateInitial = this.form.controls['dateInitial'].value;
       arraySend.dateFinal = this.form.controls['dateFinal'].value;
       arraySend.status = this.form.controls['status'].value;
-      arraySend.lastReply = this.form.controls['lastPost'].value;
+      arraySend.lastPost = this.form.controls['lastPost'].value;
       arraySend.email = this.form.controls['email'].value;
       arraySend.allSeller = this.form.controls['importAll'].value;
       arraySend.sellers = this.arraySellerId;
@@ -188,11 +188,13 @@ export class ModalExportToReclaimComponent implements OnInit, OnDestroy {
         this.snackBar.open(this.translateService.instant('secure.parametize.support_claims-filter.modal.export.confirmSend'), this.translateService.instant('actions.close'), {
           duration: 3000,
       });
+      this.dialogRef.close();
       } else {
         this.loadingService.closeSpinner();
         this.snackBar.open(this.translateService.instant('secure.orders.send.error_ocurred_processing'), this.translateService.instant('actions.close'), {
         duration: 3000,
       });
+      this.dialogRef.close();
       }
     });
   }
