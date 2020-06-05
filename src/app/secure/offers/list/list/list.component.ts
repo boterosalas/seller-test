@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSidenav } from '@angular/material';
+import { MatSidenav, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 
 import { LoadingService, LoggedInCallback, ModalService, UserLoginService, UserParametersService } from '@app/core';
@@ -9,6 +9,7 @@ import { ListService } from '../list.service';
 import { environment } from '@env/environment';
 import { MenuModel, readFunctionality, updateFunctionality, offerListName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
+import { DialogDesactiveOffertComponent } from './dialog-desactive-offert/dialog-desactive-offert.component';
 
 
 
@@ -64,6 +65,7 @@ export class ListComponent implements OnInit {
   update = updateFunctionality;
   updatePermission: boolean;
   readPermission: boolean;
+  activeCheck: Boolean = false;
   // Fin de variables de permisos.
 
 
@@ -71,7 +73,8 @@ export class ListComponent implements OnInit {
     private loadingService?: LoadingService,
     private modalService?: ModalService,
     private offerService?: ListService,
-    public authService?: AuthService
+    public authService?: AuthService,
+    public dialog?: MatDialog
   ) {
     this.paramData = new ModelFilter();
     this.user = {};
@@ -237,5 +240,18 @@ export class ListComponent implements OnInit {
     this.paramData.pluVtex = null;
     this.filterOffers(this.paramData);
     // this.getListOffers(this.paramData);
+  }
+
+  openDialog() {
+    this.dialog.open(DialogDesactiveOffertComponent, {
+      data: {
+        animal: 'panda'
+      }
+    });
+    this.activeCheck = false;
+  }
+
+  openDialog2() {
+    this.activeCheck = true;
   }
 }

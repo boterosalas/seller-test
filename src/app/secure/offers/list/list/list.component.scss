@@ -1,6 +1,12 @@
 
 @import '_variables';
 
+.deactivate_offers{
+    margin-top: 5%;
+    margin-right: 5%;
+    float: right;
+}
+
 :host ::ng-deep {
     mat-sidenav-container {
         position: relative;
@@ -38,7 +44,7 @@
             width: 100%;
             max-width: 1350px;
             margin: 0 auto;
-            padding: 100px 30px 50px;
+            padding: 30px 30px 50px;
             aside {
                 &.filters {
                     box-sizing: border-box;

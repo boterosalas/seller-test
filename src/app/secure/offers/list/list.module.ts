@@ -15,6 +15,7 @@ import { ListRoutingModule } from './list.routing';
 import { ListService } from './list.service';
 import { ListComponent } from './list/list.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { DialogDesactiveOffertComponent } from './list/dialog-desactive-offert/dialog-desactive-offert.component';
 
 
 @NgModule({
@@ -34,11 +35,13 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
     ListComponent,
     ToolbarComponent,
     FilterComponent,
-    DetailOfferComponent
+    DetailOfferComponent,
+    DialogDesactiveOffertComponent
   ],
   providers: [
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
     ListService
-  ]
+  ],
+  entryComponents: [DialogDesactiveOffertComponent]
 })
 export class ListModule { }
