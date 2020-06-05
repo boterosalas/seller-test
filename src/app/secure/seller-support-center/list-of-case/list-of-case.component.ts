@@ -149,7 +149,6 @@ export class ListOfCaseComponent implements OnInit {
   ngOnInit() {
     this.createFormControls();
     this.validateFormSupport();
-
     this.getStatusCase();
     this.filterByRoute(this.router.queryParams).subscribe(res => {
       const seller = this.paramsFilter.SellerId;
@@ -177,17 +176,6 @@ export class ListOfCaseComponent implements OnInit {
         this.loadCases([]);
       }, 350);
     });
-
-    this.emitterSeller.eventSearchSeller.subscribe(data => {
-      this.selectedStore = data.Name;
-      localStorage.setItem('sellerNameClaim', this.selectedStore);
-      this.sellerIdLogger = {
-        'SellerId': data.IdSeller
-      };
-      Object.assign(this.paramsFilter, this.sellerIdLogger);
-      this.loadCases(this.paramsFilter);
-    });
-
   }
 
   /**
@@ -203,6 +191,21 @@ export class ListOfCaseComponent implements OnInit {
       Status: new FormControl(''),
       OrderNumber: new FormControl('', [Validators.pattern(this.regexFilter.orderNumber)])
     });
+  }
+
+  /**
+   * Metodo que hace el get de traer las reclamaciones por el id del seller obtenido del buscador.
+   * @param {*} res Parametro pasado del componente hijo al padre.
+   * @memberof ListOfCaseComponent
+   */
+  getSellerBySearch(res: any) {
+    this.selectedStore = res.Name;
+    localStorage.setItem('sellerNameClaim', this.selectedStore);
+    this.sellerIdLogger = {
+      'SellerId': res.IdSeller
+    };
+    Object.assign(this.paramsFilter, this.sellerIdLogger);
+    this.loadCases(this.paramsFilter);
   }
 
   /**

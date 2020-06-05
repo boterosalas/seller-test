@@ -1,4 +1,4 @@
-<div *ngIf="isAdmin">
+<div *ngIf="false">
   <mat-toolbar class="tree-toolbar">
     <div class="normal-theme toolbar-options-table flexbox justify-start align-center" fxLayout.xs="column">
       <!-- Titulo del toolbar -->
@@ -107,7 +107,7 @@
     <mat-toolbar class="tree-toolbar" class="drawer-container">
       <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
       </div>
-      <app-case-toolbar [ngClass]="{disabledDiv: idDetail}" class="styleToolbar" (changePagination)="changePagination($event)" [length]="length"
+      <app-case-toolbar [ngClass]="{disabledDiv: idDetail}" class="styleToolbar" (sellerDataSearch)="getSellerBySearch($event)" (changePagination)="changePagination($event)" [length]="length"
         [pageIndex]="pageIndex" [pageSize]="pageSize">
       </app-case-toolbar>
       <div class="classNewFilter">
@@ -141,5 +141,9 @@
       <app-detail-case [idDetail]="idDetail" (idDetailFalse)="redirectToListClaims($event)"></app-detail-case>
     </div>
   </ng-template>
-
 </mat-drawer-container>
+<div *ngIf="length === 0 && isAdmin" class="orders-no-data">
+  <mat-icon class="icon-not-found">info</mat-icon>
+
+  <p>{{'secure.parametize.support_claims.search_orders_insert' | translate}}</p>
+</div>

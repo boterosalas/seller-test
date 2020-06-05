@@ -25,7 +25,6 @@ export class DropDownListHeaderComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }
 
 
