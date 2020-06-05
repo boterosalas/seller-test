@@ -184,10 +184,17 @@ export class ModalExportToReclaimComponent implements OnInit, OnDestroy {
     }
     this.modalExportReclaimService.sendEmailExportReclaim(arraySend).subscribe((res: any) => {
       if (res) {
+        if (res.errors && res.errors.length > 0) {
+          this.snackBar.open(this.translateService.instant('secure.orders.send.error_ocurred_processing'), this.translateService.instant('actions.close'), {
+            duration: 3000,
+        });
+        } else {
+          this.snackBar.open(this.translateService.instant('secure.parametize.support_claims-filter.modal.export.confirmSend'), this.translateService.instant('actions.close'), {
+            duration: 3000,
+        });
+        }
         this.loadingService.closeSpinner();
-        this.snackBar.open(this.translateService.instant('secure.parametize.support_claims-filter.modal.export.confirmSend'), this.translateService.instant('actions.close'), {
-          duration: 3000,
-      });
+
       this.dialogRef.close();
       } else {
         this.loadingService.closeSpinner();

@@ -390,7 +390,7 @@ export const endpoints = {
       // Ruta basica para puertos
       managePort : 'https://kouotxul6i.execute-api.us-east-1.amazonaws.com/dispatchport-pdn',
       // Exportar reclamaciones
-      exportReclaim : ''
+      exportReclaim : 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/downloadreport'
     }
   }
 };
