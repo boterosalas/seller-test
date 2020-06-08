@@ -177,7 +177,6 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
                         this.isInVacation = true;
                     } else {
                         this.profileService.getUser().toPromise().then(res => {
-                            console.log('res', res);
                             // tslint:disable-next-line:no-shadowed-variable
                             const body: any = res.body;
                             // tslint:disable-next-line:no-shadowed-variable
