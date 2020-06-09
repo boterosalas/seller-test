@@ -63,10 +63,10 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         private snackBar: MatSnackBar,
         private languageService: TranslateService) {
         this.loading.viewSpinner();
-        this.getAllDataUser();
     }
 
     ngOnInit() {
+        this.getAllDataUser();
         this.enableEndVacation = true;
         this.initUserForm();
         this.initVacationForm();
@@ -81,16 +81,16 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     async getAllDataUser() {
         this.loading.viewSpinner();
         const sellerData = await this.profileService.getUser().toPromise().then(res => {
-          const body: any = res.body;
-          const userData = JSON.parse(body.body).Data;
-          if (userData.Status && userData.Status === 'Disable') {
-            this.isDisable = true;
-          } else {
-            this.isDisable = false;
-          }
-          this.loading.closeSpinner();
+            const body: any = res.body;
+            const userData = JSON.parse(body.body).Data;
+            if (userData.Status && userData.Status === 'Disable') {
+                this.isDisable = true;
+            } else {
+                this.isDisable = false;
+            }
+            this.loading.closeSpinner();
         });
-      }
+    }
 
     getPermissions() {
         this.authService.availableModules$.pipe(distinctUntilChanged()).subscribe(data => {
