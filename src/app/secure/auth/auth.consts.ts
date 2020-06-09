@@ -411,7 +411,7 @@ const BillingModule = new ModuleModel(billingModule, showAll, billingModule.toLo
  * 3. Acuerdos.
  * 4. Listado de Vendedores.
  */
-export const sellerModule = 'VENDEDORES', registerName = 'Registrar Nuevo', administrateName = 'Administrar', agreementName = 'Acuerdos', sellerListName = 'Listado de Vendedores';
+export const sellerModule = 'VENDEDORES', registerName = 'Registrar Nuevo', administrateName = 'Administrar', agreementName = 'Acuerdos', sellerListName = 'Listado de Vendedores', uploadAgreement = 'Cargar Acuerdos';
 const SellerModule = new ModuleModel(sellerModule, showAll, sellerModule.toLowerCase(), [
     // 1. Registrar Nuevo.
     new MenuModel(registerName, showAll, registerName.toLowerCase(), ProfileTypes.Administrador, [
@@ -437,6 +437,15 @@ const SellerModule = new ModuleModel(sellerModule, showAll, sellerModule.toLower
         new FunctionalitiesModel(vacationFunctionality, showAll, vacationFunctionality), // vacaciones
         new FunctionalitiesModel(cancelVacacionFunctionality, showAll, cancelVacacionFunctionality) // Cancelar vacaciones
     ], RoutesConst.sellerCenterIntSellerList),
+    // 5. Cargar acuerdos -contratos- anexos
+    new MenuModel(uploadAgreement, showAll, uploadAgreement.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
+        new FunctionalitiesModel(visualizeFunctionality, showAll, visualizeFunctionality), // Visualizar
+        new FunctionalitiesModel(enableFunctionality, showAll, enableFunctionality), // Habilitar
+        new FunctionalitiesModel(disableFunctionality, showAll, disableFunctionality), // Deshabilitar
+        new FunctionalitiesModel(loadFunctionality, showAll, loadFunctionality) // Cargar
+
+    ], RoutesConst.sellerCenterIntUploadAgreement),
 ]);
 
 /**

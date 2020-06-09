@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { SellerListComponent } from './list/list-sellers.component';
 import { RoutesConst } from '@app/shared';
 import { AuthService } from '../auth/auth.routing';
+import { UploadAgreementComponent } from './upload-agreement/upload-agreement.component';
 
 const routes: Routes = [
     Route.withShell([
@@ -11,6 +12,12 @@ const routes: Routes = [
             path: `${RoutesConst.sellerCenterIntSellerList}`,
             component:  SellerListComponent,
             data: { title: 'Administrar vendedores' },
+            canActivate: [AuthService]
+        },
+        {
+            path: `${RoutesConst.sellerCenterIntUploadAgreement}`,
+            component:  UploadAgreementComponent,
+            data: { title: 'Cargar acuerdos' },
             canActivate: [AuthService]
         }
     ])

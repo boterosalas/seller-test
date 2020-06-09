@@ -12,11 +12,13 @@ import { MatSidenav, MatSidenavModule } from '@angular/material';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { CoreModule } from '@angular/flex-layout';
+import { UploadAgreementComponent } from './upload-agreement/upload-agreement.component';
 
 
 @NgModule({
     declarations: [
         SellerListComponent,
+        UploadAgreementComponent,
     ],
     imports: [
         CommonModule,
