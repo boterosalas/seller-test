@@ -481,6 +481,15 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    */
   getAllOrderList() {
     // this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
+    const paramsArray = {
+      'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
+      'idSeller': this.idSeller,
+      'state': this.lastState,
+      'callOne': true,
+      'clear': true
+    };
+    this.isClear = true;
+    this.getOrdersList(paramsArray);
   }
 
   /**

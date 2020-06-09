@@ -1,3 +1,5 @@
+@import '_variables';
+
 $primary-color: #757474;
 $accent-color: #485afa;
 $title-color: black;
@@ -9,6 +11,8 @@ $line-color: #d3d3d3;
 }
 
 .prev-view {
+  left: 0;
+  color: $color-gray-light;
   font-size: 14px;
   font-weight: bold;
   margin: 0 32px;
@@ -125,4 +129,10 @@ $line-color: #d3d3d3;
 .hidden-content {
   display: none;
   visibility: hidden;
+}
+
+.bleft{
+  position: absolute;
+  left: 0;
+  color: $color-gray-light;
 }

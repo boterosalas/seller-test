@@ -31,6 +31,9 @@ export const OFFERS_HEADERS_SHIPPING_FR = 'Coût moyen d\'envoie';
 export const OFFERS_HEADERS_ENTREGA = 'Promesa de Entrega';
 export const OFFERS_HEADERS_DELIVERY = 'Delivery Terms';
 export const OFFERS_HEADERS_DELIVERY_FR = 'Temps de livraison';
+export const OFFERS_HEADERS_PERIODICIDAD = 'Periodicidad';
+export const OFFERS_HEADERS_PERIODICITY = 'Periodicity';
+export const OFFERS_HEADERS_PÉRIODICITÉ = 'Périodicité';
 export const OFFERS_HEADERS_FREE_SHIPPING = 'Free Shipping';
 export const OFFERS_HEADERS_FREE_SHIPPING_FR = 'Livraison gratuite';
 export const OFFERS_HEADERS_ENVIOS_EXITO = 'Indicador Envios Exito';
@@ -141,6 +144,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
   offertRegex = {
     formatNumber: '',
     promiseDelivery: '',
+    periodicity: '',
     currency: '',
     warranty: '',
     price: '',
@@ -317,6 +321,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             res[0][j] === OFFERS_HEADERS_SHIPPING ||
             res[0][j] === OFFERS_HEADERS_ENTREGA ||
             res[0][j] === OFFERS_HEADERS_DELIVERY ||
+            res[0][j] === OFFERS_HEADERS_PERIODICIDAD ||
+            res[0][j] === OFFERS_HEADERS_PERIODICITY ||
             res[0][j] === OFFERS_HEADERS_FREE_SHIPPING ||
             res[0][j] === OFFERS_HEADERS_ENVIOS_EXITO ||
             res[0][j] === OFFERS_HEADERS_EXITO_INDICATOR ||
@@ -359,7 +365,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             res[0][j] === OFFERS_HEADERS_PRICE) {
             priceIndex = j;
           }
-          if (res[0][j] === OFFERS_HEADERS_PRECIO_DESCUENTO || OFFERS_HEADERS_DISCOUNT_PRICE_FR ||
+          if (res[0][j] === OFFERS_HEADERS_PRECIO_DESCUENTO || res[0][j] === OFFERS_HEADERS_DISCOUNT_PRICE_FR ||
             res[0][j] === OFFERS_HEADERS_DISCOUNT_PRICE) {
             priceDiscountIndex = j;
           }
@@ -420,6 +426,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             iPrecDesc: this.validateSubTitle(this.arrayNecessaryData, 'Discount Price', 'Precio con Descuento', 'Prix réduit'),
             iCostFletProm: this.validateSubTitle(this.arrayNecessaryData, 'Shipping Cost', 'Costo de Flete Promedio', 'Coût moyen d\'envoie'),
             iPromEntrega: this.validateSubTitle(this.arrayNecessaryData, 'Delivery Terms', 'Promesa de Entrega', 'Temps de livraison'),
+            iPeriodicity: this.validateSubTitle(this.arrayNecessaryData, 'Periodicity', 'Periodicidad', 'Périodicité'),
             iFreeShiping: this.validateSubTitle(this.arrayNecessaryData, 'Free Shipping', 'Free Shipping', 'Livraison gratuite'),
             iIndEnvExito: this.validateSubTitle(this.arrayNecessaryData, 'Indicador Envios Exito', 'Envios Exito Indicator', 'Indicateur d\'expédition Éxito'),
             iCotFlete: this.validateSubTitle(this.arrayNecessaryData, 'Freight Calculator', 'Cotizador de Flete', 'Cotation du fret'),
@@ -598,6 +605,25 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
                     dato: j === iVal.iCurrency ? 'Currency' : null
                   };
 
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+
+              } else if (j === iVal.iPeriodicity) {
+                const iPeriodicity = this.validFormat(res[i][j], 'formatPeriodicity');
+                if (!iPeriodicity && iPeriodicity === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'InvalidFormatPeriodicity',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: j === iVal.iPeriodicity ? 'Periodicity' : null
+                  };
                   this.listLog.push(itemLog);
                   errorInCell = true;
                 }
@@ -873,6 +899,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       DiscountPrice: res[index][iVal.iPrecDesc],
       AverageFreightCost: res[index][iVal.iCostFletProm],
       PromiseDelivery: res[index][iVal.iPromEntrega],
+      Periodicity: res[index][iVal.iPeriodicity],
       IsFreeShipping: res[index][iVal.iFreeShiping],
       IsEnviosExito: res[index][iVal.iIndEnvExito],
       IsFreightCalculator: res[index][iVal.iCotFlete],
@@ -904,6 +931,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       DiscountPrice: res[index][iVal.iPrecDesc],
       AverageFreightCost: res[index][iVal.iCostFletProm],
       PromiseDelivery: res[index][iVal.iPromEntrega],
+      Periodicity: res[index][iVal.iPeriodicity],
       IsFreeShipping: res[index][iVal.iFreeShiping],
       IsEnviosExito: res[index][iVal.iIndEnvExito],
       IsFreightCalculator: res[index][iVal.iCotFlete],
@@ -951,6 +979,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       this.arrayInformation[index].errorDiscountPrice = false;
       this.arrayInformation[index].errorAverageFreightCost = false;
       this.arrayInformation[index].errorPromiseDelivery = false;
+      this.arrayInformation[index].errorPeriodicity = false;
       this.arrayInformation[index].errorIsFreeShipping = false;
       this.arrayInformation[index].errorIsEnviosExito = false;
       this.arrayInformation[index].errorIsFreightCalculator = false;
@@ -1123,6 +1152,13 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
           break;
         case 'formatPromEntrega':
           if ((inputtxt.match(this.offertRegex.promiseDelivery))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'formatPeriodicity':
+          if ((inputtxt.match(this.offertRegex.periodicity))) {
             valueReturn = true;
           } else {
             valueReturn = false;

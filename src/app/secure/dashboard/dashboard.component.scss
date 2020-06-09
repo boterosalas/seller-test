@@ -483,7 +483,7 @@ $table-break: 900px;
   }
 
   &-container-max-width-left-ordens{
-    max-width: 40%;
+    max-width: 45%;
   }
   &-container-align-center{
    text-align: center;
@@ -492,7 +492,7 @@ $table-break: 900px;
   }
 
   &-container-margin-top-15{
-    margin-top: 15px;
+    margin-top: 5px;
   }
 
   &-container-margin-top-0{
@@ -502,7 +502,7 @@ $table-break: 900px;
   &-container-icon-color-process-send{
     vertical-align: bottom;
     color:#FFDA10;
-    padding-right: 10px;
+    padding-right: 6px;
   }
 
   &-container-icon-color-expired{
@@ -514,7 +514,7 @@ $table-break: 900px;
   &-container-icon-color-delivered{
     vertical-align:bottom;
     color: #34B72D;
-    padding-right: 10px;
+    padding-right: 6px;
   }
 
   &-container-margin-spinner{
@@ -581,6 +581,7 @@ $table-break: 900px;
   &-container-cursor-pointer{
     cursor: pointer;
     color: #448aff;
+    vertical-align: bottom;
   }
 
   &-container-align-bottom{
@@ -615,4 +616,105 @@ $table-break: 900px;
 .spinner-loading {
   margin-left: 48%;
   margin-right: 55%;
+}
+
+.vertical-aling-bottom{
+  vertical-align: bottom;
+}
+
+.dashboard-width-25{
+  width: 25%;
+}
+
+.dashboard-color-text{
+  font-size: 13px;
+  color: #767575;
+}
+
+.dashboard-padding-resumen{
+  padding: 10px;
+}
+
+.dashboard-padding-left-25{
+  padding-left: 25px;
+}
+
+.dashboard-padding-buttom-32{
+  padding-bottom: 20px;
+}
+
+.dashboard-title-text-style{
+  font-size: 13px;
+  font-weight: bold;
+}
+.dashboard-padding-container{
+  padding: 10px;
+}
+
+.dashboard-border-color-separate{
+  border-bottom: 1px solid #dadada;
+  padding-bottom: 10px;
+}
+
+.dashboard-padding-top-10{
+  height: 179px;
+  contain: content;
+}
+
+
+table {
+  width: 100%;
+}
+
+.dashboard-table-text-top{
+  font-size: 12px;
+  color: #767575;
+}
+
+.dashboard-text-more-products{
+  font-size: 14px;
+  cursor: pointer;
+  color: #448aff;
+}
+
+.dashboard-padding-text-more-products{
+  text-align: center;
+  padding-top: 43px;
+}
+
+.addScroll{
+  overflow-y: auto;
+}
+
+.icon-not-found{
+  font-size: 40px;
+  height: 40px;
+  width: 40px;
+}
+
+.text-wait-padding-top{
+  padding-top: 70px;
+}
+
+.container-height-200{
+  height: 150px;
+}
+
+.mat-row{
+  height: 41px;
+}
+.dashboard-cut-text-name-product{
+  width: 160px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 1200px) and (min-width: 200px) {  
+  .dashboard-cut-text-name-product{
+    width: 130px;
+  }
+
 }

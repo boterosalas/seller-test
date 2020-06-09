@@ -24,16 +24,6 @@ export class DropDownListHeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.showHeader();
-  }
-
-  showHeader() {
-    if (this.hideHeader) {
-      this.configurations = this.configurations;
-    } else {
-      this.copyConfigurations = [...this.configurations];
-      this.copyConfigurations.splice(5, 1);
-    }
   }
 }
 

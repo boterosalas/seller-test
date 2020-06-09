@@ -140,7 +140,7 @@ export class ListTransporterComponent implements OnInit {
         }
         this.getListTransporters();
       } else {
-        log.error('Error al intentar obtener los metodos de envios');
+        // log.error('Error al intentar obtener los metodos de envios');
       }
     });
   }

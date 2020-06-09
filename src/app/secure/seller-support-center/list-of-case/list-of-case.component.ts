@@ -104,10 +104,11 @@ export class ListOfCaseComponent implements OnInit {
   filterDateEnd: any;
 
   paramsFIlterListCase = {
+    init: '',
     CaseNumber: '',
     LastPost: '',
     OrderNumber: '',
-    Status: [],
+    Status: '',
     DateInit: '',
     DateEnd: '',
     SellerId: ''
@@ -116,6 +117,10 @@ export class ListOfCaseComponent implements OnInit {
 
   selectedStore: string;
   hasErrorDate: boolean;
+  filterListCasesFilter: any;
+  activeInit = false;
+
+  idDetail: any;
 
   constructor(
     public dialog: MatDialog,
@@ -144,7 +149,6 @@ export class ListOfCaseComponent implements OnInit {
   ngOnInit() {
     this.createFormControls();
     this.validateFormSupport();
-
     this.getStatusCase();
     this.filterByRoute(this.router.queryParams).subscribe(res => {
       const seller = this.paramsFilter.SellerId;
@@ -172,17 +176,6 @@ export class ListOfCaseComponent implements OnInit {
         this.loadCases([]);
       }, 350);
     });
-
-    this.emitterSeller.eventSearchSeller.subscribe(data => {
-      this.selectedStore = data.Name;
-      localStorage.setItem('sellerNameClaim', this.selectedStore);
-      this.sellerIdLogger = {
-        'SellerId': data.IdSeller
-      };
-      Object.assign(this.paramsFilter, this.sellerIdLogger);
-      this.loadCases(this.paramsFilter);
-    });
-
   }
 
   /**
@@ -198,6 +191,21 @@ export class ListOfCaseComponent implements OnInit {
       Status: new FormControl(''),
       OrderNumber: new FormControl('', [Validators.pattern(this.regexFilter.orderNumber)])
     });
+  }
+
+  /**
+   * Metodo que hace el get de traer las reclamaciones por el id del seller obtenido del buscador.
+   * @param {*} res Parametro pasado del componente hijo al padre.
+   * @memberof ListOfCaseComponent
+   */
+  getSellerBySearch(res: any) {
+    this.selectedStore = res.Name;
+    localStorage.setItem('sellerNameClaim', this.selectedStore);
+    this.sellerIdLogger = {
+      'SellerId': res.IdSeller
+    };
+    Object.assign(this.paramsFilter, this.sellerIdLogger);
+    this.loadCases(this.paramsFilter);
   }
 
   /**
@@ -223,9 +231,11 @@ export class ListOfCaseComponent implements OnInit {
    * @memberof ListOfCaseComponent
    */
   public filterApply() {
+    this.redirectToListClaims(false);
+    this.paramsFIlterListCase.init = '';
     this.paramsFIlterListCase.CaseNumber = this.filterListCases.controls.CaseNumber.value;
     this.paramsFIlterListCase.LastPost = this.filterListCases.controls.LastPost.value;
-    this.paramsFIlterListCase.Status = [this.filterListCases.controls.Status.value];
+    this.paramsFIlterListCase.Status = this.filterListCases.controls.Status.value;
     this.paramsFIlterListCase.OrderNumber = this.filterListCases.controls.OrderNumber.value;
     if (this.isAdmin) {
       this.paramsFIlterListCase.SellerId = this.paramsFilter.SellerId;
@@ -252,10 +262,23 @@ export class ListOfCaseComponent implements OnInit {
       }
     }
 
-    this.validateFinalDateRange();
-    if (this.hasErrorDate === false) {
-      this.loadCases(this.paramsFIlterListCase);
+    if (this.activeInit === true) {
+      this.paramsFIlterListCase.init = 'true';
+      const cleanFilter = {
+        init: this.paramsFIlterListCase.init,
+        SellerId: this.paramsFIlterListCase.SellerId
+      };
+      this.validateFinalDateRange();
+      if (this.hasErrorDate === false) {
+        this.loadCases(cleanFilter);
+      }
+    } else {
+      this.validateFinalDateRange();
+      if (this.hasErrorDate === false) {
+        this.loadCases(this.paramsFIlterListCase);
+      }
     }
+    this.activeInit = false;
   }
 
   /**
@@ -288,12 +311,18 @@ export class ListOfCaseComponent implements OnInit {
    * @memberof ListOfCaseComponent
    */
   public cleanFilter() {
+    // this.paramsFIlterListCase.init = '';
     if (this.isAdmin) {
       this.filterListCases.reset();
+      this.activeInit = true;
+      // this.paramsFIlterListCase.init = 'true';
       this.filterApply();
     } else {
       this.filterListCases.reset();
-      this.loadCases(this.filterListCases.value);
+      this.filterListCasesFilter = {
+        init: true
+      };
+      this.loadCases(this.filterListCasesFilter);
     }
   }
 
@@ -309,7 +338,7 @@ export class ListOfCaseComponent implements OnInit {
       const userData = response.Data;
       this.sellerId = userData.IdSeller;
       localStorage.setItem('typeProfile', userData.Profile);
-      if (userData.Profile !== 'seller') {
+      if (userData.Profile !== 'seller' && userData.Profile && userData.Profile !== null) {
         this.isAdmin = true;
       } else {
         this.isAdmin = false;
@@ -446,6 +475,9 @@ export class ListOfCaseComponent implements OnInit {
       } else {
         this.loadingService.closeSpinner();
       }
+    }, err => {
+      this.modalService.showModal('errorService');
+      this.loadingService.closeSpinner();
     });
   }
 
@@ -466,5 +498,23 @@ export class ListOfCaseComponent implements OnInit {
       this.unreadCase--;
       this.store.dispatch(new FetchUnreadCaseDone(this.unreadCase));
     }
+  }
+
+  /**
+   * Metodo para ir al detalle de las reclamaciones
+   * @param {*} id
+   * @memberof ListOfCaseComponent
+   */
+  redirectToDetailClaims(id: any) {
+    this.idDetail = id;
+  }
+
+  /**
+   * Metodo para volver al listado de result
+   * @param {*} idFalse
+   * @memberof ListOfCaseComponent
+   */
+  redirectToListClaims(idFalse: any) {
+    this.idDetail = idFalse;
   }
 }

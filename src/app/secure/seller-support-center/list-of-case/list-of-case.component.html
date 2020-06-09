@@ -1,4 +1,4 @@
-<div *ngIf="isAdmin">
+<div *ngIf="false">
   <mat-toolbar class="tree-toolbar">
     <div class="normal-theme toolbar-options-table flexbox justify-start align-center" fxLayout.xs="column">
       <!-- Titulo del toolbar -->
@@ -11,7 +11,7 @@
       <div class="search-container">
         <app-search-seller id="contet-searc-store" class="search-content">
         </app-search-seller>
-        <h6 *ngIf="selectedStore">
+        <h6 *ngIf="false">
           {{'secure.products.create_product_unit.categorization.list.you_selected' | translate}}: <strong
             [innerHTML]="selectedStore"></strong>
         </h6>
@@ -66,8 +66,8 @@
 
           <mat-form-field class="classDatapicker">
             <input matInput [matDatepicker]="picker1"
-              [placeholder]="'secure.parametize.support_claims-filter.end-date' | translate"
-              formControlName="DateEnd" [(ngModel)]="filterDateEnd">
+              [placeholder]="'secure.parametize.support_claims-filter.end-date' | translate" formControlName="DateEnd"
+              [(ngModel)]="filterDateEnd">
             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1 disabled="false"></mat-datepicker>
           </mat-form-field>
@@ -95,7 +95,7 @@
             {{'secure.parametize.support_claims-filter.clear'| translate}}
           </button>
           <button mat-flat-button color="primary" type="submit" (click)="drawer.toggle() && filterApply()"
-          [disabled]="!createfilterListCases.form.valid || !createfilterListCases.form.touched">
+            [disabled]="!createfilterListCases.form.valid || !createfilterListCases.form.touched">
             {{'secure.parametize.support_claims-filter.filter'| translate}}
           </button>
         </div>
@@ -104,10 +104,10 @@
   </mat-drawer>
 
   <div class="example-sidenav-content">
-    <mat-toolbar class="tree-toolbar" class="drawer-container" >
+    <mat-toolbar class="tree-toolbar" class="drawer-container">
       <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
       </div>
-      <app-case-toolbar class="styleToolbar" (changePagination)="changePagination($event)" [length]="length"
+      <app-case-toolbar [ngClass]="{disabledDiv: idDetail}" class="styleToolbar" (sellerDataSearch)="getSellerBySearch($event)" (changePagination)="changePagination($event)" [length]="length"
         [pageIndex]="pageIndex" [pageSize]="pageSize">
       </app-case-toolbar>
       <div class="classNewFilter">
@@ -120,19 +120,30 @@
   </div>
 
   <ng-template [ngIf]="cases">
-    <app-drop-down-list [data]="cases" [options]="options" [configurations]="headerConfigurations">
+    <div *ngIf="!idDetail">
 
-      <ng-container *itemDropDownList>
-        <app-drop-down-box *ngFor="let item of cases; let i = index" [data]="item" [read]="item.read"
-          (opened)="markAsRead($event)" [index]="i">
-          <ng-container *itemCaseList>
-            <app-case-summary (clickResponse)="onEmitResponse($event)" [case]="item"
-              [disabledClass]="item.status === 'Cerrado'" [indexParent]="i"></app-case-summary>
-          </ng-container>
-        </app-drop-down-box>
-      </ng-container>
+      <app-drop-down-list [data]="cases" [options]="options" [configurations]="headerConfigurations">
 
-    </app-drop-down-list>
+        <ng-container *itemDropDownList>
+          <app-drop-down-box *ngFor="let item of cases; let i = index" [data]="item" [read]="item.read"
+            (opened)="markAsRead($event)" [index]="i">
+            <ng-container *itemCaseList>
+              <app-case-summary (clickResponse)="onEmitResponse($event)" [case]="item" (idDetail)="redirectToDetailClaims($event)"
+                [disabledClass]="item.status === 'Cerrado'" [indexParent]="i"></app-case-summary>
+            </ng-container>
+          </app-drop-down-box>
+        </ng-container>
+
+      </app-drop-down-list>
+    </div>
+
+    <div *ngIf="idDetail">
+      <app-detail-case [idDetail]="idDetail" (idDetailFalse)="redirectToListClaims($event)"></app-detail-case>
+    </div>
   </ng-template>
-
 </mat-drawer-container>
+<div *ngIf="length === 0 && isAdmin" class="orders-no-data">
+  <mat-icon class="icon-not-found">info</mat-icon>
+
+  <p>{{'secure.parametize.support_claims.search_orders_insert' | translate}}</p>
+</div>

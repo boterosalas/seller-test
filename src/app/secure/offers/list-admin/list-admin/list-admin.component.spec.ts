@@ -1,4 +1,4 @@
-// import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+// import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 
 // import { ListAdminComponent } from './list-admin.component';
 // import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -14,6 +14,9 @@
 // import { of } from 'rxjs';
 // import { TranslateModule } from '@ngx-translate/core';
 // import { HttpClientTestingModule } from '@angular/common/http/testing';
+// import { RoutesConst } from '@app/shared';
+// import { Router } from '@angular/router';
+// import { DashboardComponent } from '@app/secure/dashboard/dashboard.component';
 
 // describe('ListAdminComponent', () => {
 //   let component: ListAdminComponent;
@@ -25,6 +28,8 @@
 //   const mockAuthService = jasmine.createSpyObj('AuthService', ['getMenu']);
 //   const mockUserParameterService = jasmine.createSpyObj('UserParametersService', ['getUserData']);
 //   const mockUserLoginService = jasmine.createSpyObj('UserLoginService', ['isAuthenticated']);
+//   const mockRouterConstaService = jasmine.createSpyObj('RoutesConst', [{home: ''}]);
+
 
 //   const userData = { sellerProfile: 'administrator' };
 //   const registerMenu = {
@@ -44,9 +49,8 @@
 //         MatDialogModule,
 //         MatSnackBarModule,
 //         RouterTestingModule,
-//         HttpClientModule,
 //         HttpClientTestingModule,
-//         TranslateModule.forRoot({})
+//         TranslateModule.forRoot({}),
 //       ],
 //       providers: [
 //         { provide: ModalService, useValue: mockDialogError },
@@ -55,6 +59,8 @@
 //         { provide: UserLoginService, useValue: mockUserLoginService },
 //         { provide: UserParametersService, useValue: UserParametersService },
 //         { provide: AuthService, useValue: mockAuthService },
+//         { provide: RoutesConst, useValue: mockRouterConstaService },
+//         { provide: Router, useValue: {navigate: () => true}},
 //         EventEmitterSeller,
 //         ShellComponent,
 //         ComponentsService,
@@ -71,19 +77,35 @@
 //       .compileComponents();
 //   }));
 
-//   beforeEach(() => {
+//   beforeEach(async() => {
+//     TestBed.configureTestingModule({
+//         imports: [
+//           RouterTestingModule.withRoutes(
+//             [{path: 'home', component: DashboardComponent}]
+//           )
+//         ],
+//         declarations: [
+//           DashboardComponent,
+//           ListAdminComponent
+//         ]
+//       })
+//       .compileComponents();
 //     fixture = TestBed.createComponent(ListAdminComponent);
+
 //     component = fixture.componentInstance;
+//     spyOn<any>(component['router'], 'navigate').and.returnValue(true);
 //     fixture.detectChanges();
 //   });
 
-//   it('should create', () => {
+//   it('should create', (done) => {
+//     fixture.detectChanges();
 //     expect(component).toBeTruthy();
+//     done();
 //   });
 
 //   describe('Admin login', () => {
 //     // BeforeEach asincrono debido a la ejecución del metodo de logeo
-//     beforeEach(async () => {
+//     beforeEach(fakeAsync( () => {
 //       // clona el modelo de respuesta de un usuario
 //       const mockUser = Object.assign({}, userData);
 //       // construccion del modelo de respuesta del regex del servicio
@@ -93,14 +115,10 @@
 //           body: JSON.stringify({ Data: mockUser })
 //         }
 //       };
-//       // Define la respuesta del metodo getMenu
 //       mockAuthService.getMenu.and.returnValue(registerMenu);
-//       // Define la respuesta de la información de un usuario
+//       mockAuthService.getMenuProfiel.and.returnValue(registerMenu);
 //       mockUserParameterService.getUserData.and.returnValue(of(responseGetUser));
-//       mockUserLoginService.isAuthenticated.and.returnValue(true);
-//       // espera la respuesta del metodo isLoggedIn para continuar
-//       await component.isLoggedIn('', true);
-//     });
-
+//       component.isLoggedIn('', true);
+//     }));
 //   });
 // });

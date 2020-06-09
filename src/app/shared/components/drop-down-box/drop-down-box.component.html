@@ -39,9 +39,9 @@
             </mat-icon>
           </div>
           <div class="case-list-detail--item-detail" fxFlex="20%" id="dpbox-case-reason-{{index}}">
-            <p *ngIf="data.lastPost === 0"></p>
-            <p *ngIf="data.lastPost === 1">{{'secure.parametize.support_claims-filter.sac_answer' | translate}}</p>
-            <p *ngIf="data.lastPost === 2">{{'secure.parametize.support_claims-filter.seller_answer' | translate}}</p>
+            <p>{{ data.lastPostDesc }}</p>
+            <!-- <p *ngIf="data.lastPost === 1">{{'secure.parametize.support_claims-filter.sac_answer' | translate}}</p>
+            <p *ngIf="data.lastPost === 2">{{'secure.parametize.support_claims-filter.seller_answer' | translate}}</p> -->
 
           </div>
         </div>
