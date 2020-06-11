@@ -50,6 +50,7 @@
     "menu.Calificación de Vendedores": "Quality Score",
     "menu.Solicitudes Pendientes": "Awaiting request",
     "menu.Parametrizar Centros de Acopio": "Parameterize collection centers",
+    "menu.Cargar Acuerdos": "Cargar acuerdos",
 
     "module.Documentación": "Documentation",
     "module.Ofertas": "Offers",
@@ -538,6 +539,8 @@
     "secure.seller.list.tooltip_enable": "Activate user",
     "secure.seller.list.tooltip_disable": "Disable user",
     "secure.seller.list.tooltip_vacations": "Program vacations",
+
+    "secure.seller.uploadAgreement.selectAll": "All",
 
     "secure.seller.register_seller.tap_title_seller": "New seller onboarding form",
     "secure.seller.register_seller.tap_title_update_seller": "Seller update form",

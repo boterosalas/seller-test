@@ -50,6 +50,7 @@
     "menu.Calificación de Vendedores": "Calificación de Vendedores",
     "menu.Solicitudes Pendientes": "Solicitudes Pendientes",
     "menu.Parametrizar Centros de Acopio": "Parametrizar Centros de Acopio",
+    "menu.Cargar Acuerdos": "Cargar acuerdos",
 
     "module.Documentación": "Documentación",
     "module.Ofertas": "Ofertas",
@@ -544,6 +545,9 @@
     "secure.seller.list.tooltip_enable": "Habilitar vendedor",
     "secure.seller.list.tooltip_disable": "Deshabilitar vendedor",
     "secure.seller.list.tooltip_vacations": "Programar vacaciones",
+
+
+    "secure.seller.uploadAgreement.selectAll": "Todos",
 
     "secure.seller.register_seller.tap_title_seller": "Formulario registro de nuevo vendedor",
     "secure.seller.register_seller.tap_title_update_seller": "Formulario editar vendedor",
