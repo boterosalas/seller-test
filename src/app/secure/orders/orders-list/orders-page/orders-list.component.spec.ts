@@ -100,21 +100,6 @@ describe('ordersList', () => {
         ]
     };
 
-    // const dataSourceData = new MatTableDataSource({
-    //     id: 636996824890656701,
-    //     processedOrder: false,
-    //     allowShipping: true,
-    //     sendAllProduct: false,
-    //     idSeller: 0,
-    //     idChannel: 11,
-    //     costTotalOrder: 14,
-    //     costTotalShipping: 23,
-    //     dateOrder: '2019-07-25T14:51:16.01+00:00',
-    //     idStatusOrder: 35,
-    //     dateMaxDeliveryOrder: '2019-07-25T14:51:28.07+00:00',
-    //     commission: 0
-    // };
-
     const mockOrderService = jasmine.createSpyObj('OrderService', ['getOrderList', 'getOrdersFilter', 'sendProductOrder', 'sendAllProductInOrder', 'getCarries', 'recordProcesSedOrder', 'getCurrentFilterOrders', 'setCurrentFilterOrders']);
     const mockAuthService = jasmine.createSpyObj('AuthService', ['getMenu', 'getMenuProfiel']);
     const mockDialogError = jasmine.createSpyObj('ModalService', ['showModal']);
@@ -173,7 +158,6 @@ describe('ordersList', () => {
                 { provide: OrderService, useValue: mockOrderService },
                 EndpointService,
                 { provide: LoadingService, useValue: mockLoadingService },
-                // { provide: SupportService, useValue: mockSupportService },
                 SupportService,
                 { provide: AuthService, useValue: mockAuthService },
                 UserParametersService,
