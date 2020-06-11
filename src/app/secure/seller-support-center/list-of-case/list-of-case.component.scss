@@ -24,6 +24,10 @@ $underline-color: #19a695;
     display: flex;
     flex-wrap: wrap;
   }
+  @media (max-width: 768px) {
+    display: flex;
+    flex-wrap: wrap;
+  }
 
 }
 
@@ -70,6 +74,9 @@ $underline-color: #19a695;
 
 .borde-line-toolbar {
   border-bottom: 1px solid #e0e0e0;
+  @media screen and (min-width: 667px) and (max-width: 1000px) {
+    margin: 1% 2%;
+    height: 96px;  }
 }
 
 .ticket-toolbar {
@@ -87,6 +94,13 @@ $underline-color: #19a695;
     padding: 0px 0px !important;
 
   }
+  @media (max-width: 768px) {
+    height: auto !important;
+    max-height: inherit !important;
+    padding-bottom: 0px;
+    padding: 0px 0px !important;
+
+  }
 }
 
 
@@ -98,6 +112,9 @@ $underline-color: #19a695;
     height: 80%;
 
     @media (max-width: 600px) {
+      display: inline-block !important;
+    }
+    @media (max-width: 768px) {
       display: inline-block !important;
     }
 
@@ -178,10 +195,13 @@ $underline-color: #19a695;
 }
 
 .styleToolbar {
-  width: 92%;
+  width: 88%;
 
   @media only screen and (max-width: 600px) {
     width: 88%;
+  }
+  @media only screen and (min-width: 667) and (max-width: 768px) {
+    width: 100%;
   }
 }
 
@@ -191,10 +211,17 @@ $underline-color: #19a695;
   @media only screen and (max-width: 600px) {
     width: 80%;
   }
+  @media only screen and (max-width: 768px) {
+    width: 80%;
+  }
 }
 
 .toolbar-content {
   @media only screen and (max-width: 600px) {
+    display: content !important;
+    padding: 0px 0px !important;
+  }
+  @media only screen and (max-width: 768px) {
     display: content !important;
     padding: 0px 0px !important;
   }
@@ -246,6 +273,9 @@ $underline-color: #19a695;
   @media only screen and (max-width: 600px) {
     display: none;
   }
+  @media only screen and (max-width: 768px) {
+    // display: none;
+  }
 }
 
 .orders-no-data {
@@ -265,19 +295,34 @@ $underline-color: #19a695;
     width: 40px;
     color: #5D5D5D;
   }
+  & p{
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 }
 
 .filterMobile {
   @media only screen and (max-width: 600px) {
     margin-top: 6%
   }
+  @media only screen and (max-width: 768px) {
+    margin-top: 6%
+  }
 
   @media only screen and (min-width: 600px) {
     display: none;
   }
+  @media screen and (min-width: 667px) and (max-width: 1000px) {
+    margin-top: 0px;
+    display: block !important;
+  }
 }
 
 .filterMobile2 {
+  @media screen and (min-width: 667px) and (max-width: 1000px) {
+    margin-top: 7%;
+    display: block !important;
+  }
   @media only screen and (max-width: 600px) {
     margin-top: 19%
   }
@@ -289,6 +334,9 @@ $underline-color: #19a695;
 
 .filterDesktop {
   @media only screen and (max-width: 600px) {
+    display: none;
+  }
+  @media only screen and (max-width: 768px) {
     display: none;
   }
 }

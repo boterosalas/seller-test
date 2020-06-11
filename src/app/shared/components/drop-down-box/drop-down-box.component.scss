@@ -48,6 +48,9 @@ $line-color: #d3d3d3;
     @media (max-width: 600px) {
       max-width: 25% !important;
     }
+    @media (max-width: 768px) {
+      white-space: break-spaces;
+    }
   }
 
   &--content-center {
