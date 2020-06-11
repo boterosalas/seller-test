@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-modal-load-agreement',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModalLoadAgreementComponent implements OnInit {
 
+  public form: FormGroup;
+
   constructor() { }
 
   ngOnInit() {
+    this.createForm();
+  }
+
+  createForm() {
+    this.form = new FormGroup({
+      typeAgreement: new FormControl(''),
+    });
   }
 
 }

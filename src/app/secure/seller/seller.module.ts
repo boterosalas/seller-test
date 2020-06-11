@@ -14,6 +14,7 @@ import { SharedModule } from '@app/shared/shared.module';
 import { CoreModule } from '@angular/flex-layout';
 import { UploadAgreementComponent } from './upload-agreement/upload-agreement.component';
 import { ModalLoadAgreementComponent } from './modal-load-agreement/modal-load-agreement.component';
+import { ngfModule } from 'angular-file/file-upload/ngf.module';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { ModalLoadAgreementComponent } from './modal-load-agreement/modal-load-a
         MaterialModule,
         SellerRoutingModule,
         MatSidenavModule,
-        SharedModule
+        SharedModule,
+        ngfModule
     ],
     exports: [
     ],

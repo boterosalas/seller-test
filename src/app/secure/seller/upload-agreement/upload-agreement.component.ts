@@ -386,7 +386,7 @@ export class UploadAgreementComponent implements OnInit {
 
   importAgreement() {
     const dialogRef = this.dialog.open(ModalLoadAgreementComponent, {
-      width: '55%',
+      width: '80%',
       minWidth: '280px',
       data: {}
   });
