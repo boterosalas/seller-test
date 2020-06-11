@@ -162,7 +162,7 @@
                       </mat-icon>
                     </button>
                   </div>
-                  <div id="vacations" class="label-container vacations">
+                  <div id="vacations" class="label-container vacations" [ngClass]="{noneVacations: seller.Status == 'Disable' }">
                     <p class="title-list">{{'secure.seller.list.vacations' | translate}}
                     </p>
                     <label class="label-result flex-end-center" *ngIf="!!seller.StartVacations && !!seller.EndVacations; else ProgramDate">
