@@ -17,6 +17,7 @@ import { StoreService } from '@app/store/store.service';
 import { ConfigurationState } from '@app/store/configuration';
 import { ModalExportReclaimService } from '../services/modal-export-reclaim.service';
 import { DatePipe } from '@angular/common';
+import { MockComponent } from 'ng2-mock-component';
 
 const res = {
    errors: [], data: [], message: ''
@@ -90,7 +91,7 @@ describe('ModalExportToReclaimComponent', () => {
         SharedModule,
         MatSnackBarModule
       ],
-      declarations: [ ModalExportToReclaimComponent ],
+      declarations: [ ModalExportToReclaimComponent, MockComponent({ selector: 'DropDownListComponent' }) ],
       providers: [
         EndpointService,
         LoadingService,
