@@ -14,6 +14,7 @@ import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 import { ModalExportReclaimService } from '../services/modal-export-reclaim.service';
 import { LoadingService } from '@app/core';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -67,6 +68,7 @@ export class ModalExportToReclaimComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private storeService?: StoreService,
     public snackBar?: MatSnackBar,
+    private formatDate?: DatePipe,
   ) { }
 
   ngOnInit() {
@@ -165,8 +167,8 @@ export class ModalExportToReclaimComponent implements OnInit, OnDestroy {
   sendExportReclain() {
     this.loadingService.viewSpinner();
     const arraySend = {
-      dateInitial: '',
-      dateFinal: '',
+      dateInit: '',
+      dateEnd: '',
       status: '',
       lastPost: '',
       email: '',
@@ -174,8 +176,8 @@ export class ModalExportToReclaimComponent implements OnInit, OnDestroy {
       sellers: []
     };
     if (this.form) {
-      arraySend.dateInitial = this.form.controls['dateInitial'].value;
-      arraySend.dateFinal = this.form.controls['dateFinal'].value;
+      arraySend.dateInit =  this.formatDate.transform(this.form.controls['dateInitial'].value, 'y-MM-d');
+      arraySend.dateEnd = this.formatDate.transform(this.form.controls['dateFinal'].value, 'y-MM-d');
       arraySend.status = this.form.controls['status'].value;
       arraySend.lastPost = this.form.controls['lastPost'].value;
       arraySend.email = this.form.controls['email'].value;
