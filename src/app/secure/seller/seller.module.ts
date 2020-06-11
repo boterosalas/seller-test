@@ -13,12 +13,14 @@ import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form
 import { SharedModule } from '@app/shared/shared.module';
 import { CoreModule } from '@angular/flex-layout';
 import { UploadAgreementComponent } from './upload-agreement/upload-agreement.component';
+import { ModalLoadAgreementComponent } from './modal-load-agreement/modal-load-agreement.component';
 
 
 @NgModule({
     declarations: [
         SellerListComponent,
         UploadAgreementComponent,
+        ModalLoadAgreementComponent,
     ],
     imports: [
         CommonModule,
@@ -33,6 +35,7 @@ import { UploadAgreementComponent } from './upload-agreement/upload-agreement.co
     exports: [
     ],
     entryComponents: [
+        ModalLoadAgreementComponent
     ],
     providers: [
         SellerService,
