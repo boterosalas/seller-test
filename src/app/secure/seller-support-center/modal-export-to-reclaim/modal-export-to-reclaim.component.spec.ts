@@ -106,7 +106,6 @@ describe('ModalExportToReclaimComponent', () => {
     component = fixture.componentInstance;
     modalExportReclaimService = TestBed.get(ModalExportReclaimService);
     mockExportReclaimService.sendEmailExportReclaim.and.returnValue(of(res));
-    // storeServiceTest.getStateConfiguration.and.returnValue(of(resStore));
     fixture.detectChanges();
   });
 

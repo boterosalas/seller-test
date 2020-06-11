@@ -522,21 +522,20 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
     this.idDetail = idFalse;
   }
 
-/**
- * funcion para llamar al modal y por medio de ciertos filtros exportar las reclamaciones
- *
- * @memberof ListOfCaseComponent
- */
-openModalExportByFilter() {
-   this.dialog.open(ModalExportToReclaimComponent, {
-    width: '70%',
-    minWidth: '280px',
-    data: {isAdmin: this.isAdmin, email: this.email}
-  });
-  // this.subModalExport.afterClosed().unsubscribe();
+  /**
+   * funcion para llamar al modal y por medio de ciertos filtros exportar las reclamaciones
+   *
+   * @memberof ListOfCaseComponent
+   */
+  openModalExportByFilter() {
+    this.dialog.open(ModalExportToReclaimComponent, {
+      width: '70%',
+      minWidth: '280px',
+      data: { isAdmin: this.isAdmin, email: this.email }
+    });
   }
 
   ngOnDestroy() {
- this.dialog.closeAll();
+    this.dialog.closeAll();
   }
 }
