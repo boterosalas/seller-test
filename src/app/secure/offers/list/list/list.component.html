@@ -4,13 +4,14 @@
 
    <div class="deactivate_offers">
 
-     <button mat-button color="primary" [matMenuTriggerFor]="menu">Desactivar oferta(s)...¡¡¡</button>
+     <button mat-button color="primary" [matMenuTriggerFor]="menu">
+      <mat-icon>block</mat-icon> Desactivar oferta(s)</button>
      <mat-menu #menu="matMenu">
-       <button mat-menu-item (click)="openDialog2()">Seleccionar ofertas</button>
-       <button mat-menu-item (click)="openDialog()">Todas las ofertas</button>
+       <button mat-menu-item (click)="activeMultipleOffer()">Seleccionar ofertas</button>
+       <button mat-menu-item (click)="openDialogDesactiveOffer()">Todas las ofertas</button>
      </mat-menu>
      <div *ngIf="activeCheck">
-      <button mat-button color="primary" (click)="openDialog()">Confirmar desactiación.</button>
+       <button mat-button color="primary" (click)="openDialogDesactiveOffer()">Confirmar desactiación.</button>
      </div>
    </div>
 
@@ -60,52 +61,52 @@
 
      <div *ngFor="let item of listOffer">
        <div style="padding-left: 3%;" *ngIf="activeCheck">
-        <mat-checkbox>Check me!</mat-checkbox>
-
+         <mat-checkbox type="checkbox" [checked]="item.checked" (change)="onvalueCheckdesactiveChanged(item)">Check me!
+         </mat-checkbox>
        </div>
        <div>
-        <aside class="card-offer"  (click)="openDetailOffer(item)">
+         <aside class="card-offer" (click)="openDetailOffer(item)">
 
-          <div class="container-card-img flexbox align-center justify-center">
-            <img [src]="item.imageUrl" alt="">
-            <div class="sold-out flexbox justify-center align-center" *ngIf="item.stock === 0 || !item.stock">
-              <div class="flexbox justify-center align-center">
-                <p>{{'secure.offers.list.list.with_out_stock' | translate}}</p>
-              </div>
-            </div>
-          </div>
-   
-   
-          <div class="container-desc-card flexbox flex-wrap align-center">
-            <h3>{{'secure.offers.list.list.EAN_offert' | translate}} {{item.ean}}</h3>
-            <p *ngIf="item.discountPrice > 0" [innerHTML]="item.price | currency: '$' : 'symbol' : '1.2-2'"
-              class="price-strikethrough"></p>
-            <p [innerHTML]="item.discountPrice > 0 ? (item.discountPrice | currency: '$' : 'symbol' : '1.2-2') : (item.price | currency: '$' : 'symbol' : '1.2-2')"
-              class="price"></p>
-            <p [innerHTML]="item.name" class="name"></p>
-            <p [ngClass]="{'sold-out-text' : item.stock === 0 || !item.stock}"
-              [innerHTML]="item.stock > 0 ? (item.stock | number) + ['secure.offers.list.list.units' | translate] : ['secure.offers.list.list.with_out_stock' | translate]"
-              class="stock"></p>
-          </div>
-   
-          <footer class="container-last-modification flexbox align-center">
-            <p
-              [innerHTML]="['secure.offers.list.components.detail_offer.last_modify' | translate] + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'">
-            </p>
-          </footer>
-          <footer class="container-last-modification mobile flexbox align-center">
-            <p
-              [innerHTML]="['secure.offers.list.components.detail_offer.last_mod' | translate] + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'">
-            </p>
-            <p [ngClass]="{'sold-out-text' : item.stock === 0 || !item.stock}"
-              [innerHTML]="item.stock > 0 ? (item.stock | number) + ['secure.offers.list.list.units' | translate] : ['secure.offers.list.list.with_out_stock' | translate]">
-            </p>
-          </footer>
-   
-        </aside>
+           <div class="container-card-img flexbox align-center justify-center">
+             <img [src]="item.imageUrl" alt="">
+             <div class="sold-out flexbox justify-center align-center" *ngIf="item.stock === 0 || !item.stock">
+               <div class="flexbox justify-center align-center">
+                 <p>{{'secure.offers.list.list.with_out_stock' | translate}}</p>
+               </div>
+             </div>
+           </div>
+
+
+           <div class="container-desc-card flexbox flex-wrap align-center">
+             <h3>{{'secure.offers.list.list.EAN_offert' | translate}} {{item.ean}}</h3>
+             <p *ngIf="item.discountPrice > 0" [innerHTML]="item.price | currency: '$' : 'symbol' : '1.2-2'"
+               class="price-strikethrough"></p>
+             <p [innerHTML]="item.discountPrice > 0 ? (item.discountPrice | currency: '$' : 'symbol' : '1.2-2') : (item.price | currency: '$' : 'symbol' : '1.2-2')"
+               class="price"></p>
+             <p [innerHTML]="item.name" class="name"></p>
+             <p [ngClass]="{'sold-out-text' : item.stock === 0 || !item.stock}"
+               [innerHTML]="item.stock > 0 ? (item.stock | number) + ['secure.offers.list.list.units' | translate] : ['secure.offers.list.list.with_out_stock' | translate]"
+               class="stock"></p>
+           </div>
+
+           <footer class="container-last-modification flexbox align-center">
+             <p
+               [innerHTML]="['secure.offers.list.components.detail_offer.last_modify' | translate] + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'">
+             </p>
+           </footer>
+           <footer class="container-last-modification mobile flexbox align-center">
+             <p
+               [innerHTML]="['secure.offers.list.components.detail_offer.last_mod' | translate] + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'">
+             </p>
+             <p [ngClass]="{'sold-out-text' : item.stock === 0 || !item.stock}"
+               [innerHTML]="item.stock > 0 ? (item.stock | number) + ['secure.offers.list.list.units' | translate] : ['secure.offers.list.list.with_out_stock' | translate]">
+             </p>
+           </footer>
+
+         </aside>
        </div>
      </div>
-     
+
 
    </section>
 

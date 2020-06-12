@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-dialog-desactive-offert',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DialogDesactiveOffertComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public dialogRef: MatDialogRef<DialogDesactiveOffertComponent>,
+
+  ) { }
 
   ngOnInit() {
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close(false);
   }
 
 }

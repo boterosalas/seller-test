@@ -59,6 +59,7 @@ export class ListComponent implements OnInit {
 
   applyFilter = false;
 
+  valueCheckdesactive: any;
   // Variables con los permisos que este componente posee.
   permissionComponent: MenuModel;
   read = readFunctionality;
@@ -242,16 +243,44 @@ export class ListComponent implements OnInit {
     // this.getListOffers(this.paramData);
   }
 
-  openDialog() {
-    this.dialog.open(DialogDesactiveOffertComponent, {
+  dataTosendDesactiveOffer(data: any) {
+    data = {
+      desactiveOffers: '',
+      eans: [],
+      paramsFilters: {
+        ean: '',
+        plu: '',
+        nombre: '',
+        stock: ''
+      }
+    };
+  }
+
+  openDialogDesactiveOffer() {
+    const listToSend = [];
+    this.listOffer.forEach(item => {
+      if (item.checked) {
+        listToSend.push(item.ean);
+      }
+    });
+    console.log('listToSend: ', listToSend);
+    const dialogRef = this.dialog.open(DialogDesactiveOffertComponent, {
       data: {
         animal: 'panda'
       }
     });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('result', result);
+    });
     this.activeCheck = false;
   }
 
-  openDialog2() {
+  onvalueCheckdesactiveChanged(statusOffer: any) {
+    console.log('value', statusOffer, this.listOffer);
+    statusOffer.checked = !statusOffer.checked;
+    // this.valueCheckdesactive = value;
+  }
+  activeMultipleOffer() {
     this.activeCheck = true;
   }
 }
