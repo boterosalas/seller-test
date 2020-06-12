@@ -10,6 +10,7 @@ import { environment } from '@env/environment';
 import { MenuModel, readFunctionality, updateFunctionality, offerListName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { DialogDesactiveOffertComponent } from './dialog-desactive-offert/dialog-desactive-offert.component';
+import { NullAstVisitor } from '@angular/compiler';
 
 
 
@@ -67,6 +68,9 @@ export class ListComponent implements OnInit {
   updatePermission: boolean;
   readPermission: boolean;
   activeCheck: Boolean = false;
+  allOffer: Boolean = false;
+  totalOffers: any;
+
   // Fin de variables de permisos.
 
 
@@ -178,6 +182,7 @@ export class ListComponent implements OnInit {
           const response = result.body.data;
           this.numberPages = this.paramData.limit === undefined || this.paramData.limit === null ? response.total / 30 : response.total / this.paramData.limit;
           this.numberPages = Math.ceil(this.numberPages);
+          this.totalOffers = response.total;
           this.listOffer = response.sellerOfferViewModels;
           this.addDomainImages();
           this.loadingService.closeSpinner();
@@ -243,43 +248,85 @@ export class ListComponent implements OnInit {
     // this.getListOffers(this.paramData);
   }
 
-  dataTosendDesactiveOffer(data: any) {
-    data = {
-      desactiveOffers: '',
-      eans: [],
-      paramsFilters: {
-        ean: '',
-        plu: '',
-        nombre: '',
-        stock: ''
-      }
-    };
+  /**
+   * Booleano que selecciona todas las ofertas para desactivar
+   * @memberof ListComponent
+   */
+  allOffersSelected() {
+    this.allOffer = true;
   }
 
+  /**
+   * Booleano que selecciona algunas ofertas a desactivar
+   * @memberof ListComponent
+   */
+  someOffersSelected() {
+    this.allOffer = false;
+  }
+
+  /**
+   * Función para mostrar modal de confirmación de desactivacion de ofertas
+   * @memberof ListComponent
+   */
   openDialogDesactiveOffer() {
+    const dataToSend = {
+      desactiveOffers: this.allOffer,
+      eans: null,
+      paramsFilters: {
+        ean: null,
+        plu: null,
+        product: null,
+        stock: null
+      }
+    };
+    dataToSend.paramsFilters.ean = this.paramData.ean || null;
+    dataToSend.paramsFilters.plu = this.paramData.pluVtex || null;
+    dataToSend.paramsFilters.stock = this.paramData.stock || null;
+    dataToSend.paramsFilters.product = this.paramData.product || null;
+
     const listToSend = [];
+    let sumItem = 0;
     this.listOffer.forEach(item => {
       if (item.checked) {
+        sumItem ++;
         listToSend.push(item.ean);
       }
     });
-    console.log('listToSend: ', listToSend);
+    console.log('this.allOffer: ', this.allOffer);
+    this.allOffer ? sumItem = this.totalOffers : sumItem = sumItem;
+
+    console.log('dataToSend: antes', dataToSend);
     const dialogRef = this.dialog.open(DialogDesactiveOffertComponent, {
       data: {
-        animal: 'panda'
+        count: sumItem
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('result', result);
+      if (result === true) {
+        console.log('result', result);
+        dataToSend.eans = listToSend || null;
+        dataToSend.desactiveOffers = this.allOffer;
+        console.log('dataToSend dsps: ', dataToSend);
+        this.getListOffers();
+      }
     });
     this.activeCheck = false;
+    // this.cleanAllFilter();
   }
 
+  /**
+   * Metodo que recibe como parametro el item del nfgor de los card de ofertas
+   * @param {*} statusOffer
+   * @memberof ListComponent
+   */
   onvalueCheckdesactiveChanged(statusOffer: any) {
-    console.log('value', statusOffer, this.listOffer);
     statusOffer.checked = !statusOffer.checked;
-    // this.valueCheckdesactive = value;
   }
+
+  /**
+   * Funcion para activar masivamente las ofertas a seleccionar
+   * @memberof ListComponent
+   */
   activeMultipleOffer() {
     this.activeCheck = true;
   }

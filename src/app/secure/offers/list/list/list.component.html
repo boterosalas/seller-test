@@ -7,11 +7,11 @@
      <button mat-button color="primary" [matMenuTriggerFor]="menu">
       <mat-icon>block</mat-icon> Desactivar oferta(s)</button>
      <mat-menu #menu="matMenu">
-       <button mat-menu-item (click)="activeMultipleOffer()">Seleccionar ofertas</button>
-       <button mat-menu-item (click)="openDialogDesactiveOffer()">Todas las ofertas</button>
+       <button mat-menu-item (click)="someOffersSelected(); activeMultipleOffer()">Seleccionar ofertas</button>
+       <button mat-menu-item (click)="allOffersSelected(); openDialogDesactiveOffer()">Todas las ofertas</button>
      </mat-menu>
      <div *ngIf="activeCheck">
-       <button mat-button color="primary" (click)="openDialogDesactiveOffer()">Confirmar desactiación.</button>
+       <button mat-raised-button color="warn" (click)="openDialogDesactiveOffer()">Confirmar desactiación.</button>
      </div>
    </div>
 
