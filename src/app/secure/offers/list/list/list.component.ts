@@ -70,6 +70,8 @@ export class ListComponent implements OnInit {
   activeCheck: Boolean = false;
   allOffer: Boolean = false;
   totalOffers: any;
+  listToSend = [];
+  sumItemCount: number;
 
   // Fin de variables de permisos.
 
@@ -186,6 +188,7 @@ export class ListComponent implements OnInit {
           this.listOffer = response.sellerOfferViewModels;
           this.addDomainImages();
           this.loadingService.closeSpinner();
+          this.prueba();
         } else {
           this.loadingService.closeSpinner();
           this.modalService.showModal('errorService');
@@ -284,27 +287,22 @@ export class ListComponent implements OnInit {
     dataToSend.paramsFilters.stock = this.paramData.stock || null;
     dataToSend.paramsFilters.product = this.paramData.product || null;
 
-    const listToSend = [];
-    let sumItem = 0;
-    this.listOffer.forEach(item => {
-      if (item.checked) {
-        sumItem ++;
-        listToSend.push(item.ean);
-      }
-    });
     console.log('this.allOffer: ', this.allOffer);
-    this.allOffer ? sumItem = this.totalOffers : sumItem = sumItem;
+    this.allOffer ? this.sumItemCount = this.totalOffers : this.sumItemCount = this.sumItemCount;
 
     console.log('dataToSend: antes', dataToSend);
     const dialogRef = this.dialog.open(DialogDesactiveOffertComponent, {
       data: {
-        count: sumItem
+        count: this.sumItemCount
       }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        console.log('result', result);
-        dataToSend.eans = listToSend || null;
+        // const newListArray = [new Set(this.listToSend)];
+
+        console.log('this.listToSend', this.listToSend);
+        console.log('this.sumItemCount', this.sumItemCount);
+        dataToSend.eans = this.listToSend || null;
         dataToSend.desactiveOffers = this.allOffer;
         console.log('dataToSend dsps: ', dataToSend);
         this.getListOffers();
@@ -321,6 +319,29 @@ export class ListComponent implements OnInit {
    */
   onvalueCheckdesactiveChanged(statusOffer: any) {
     statusOffer.checked = !statusOffer.checked;
+    // this.listToSend = [];
+    this.sumItemCount = 0;
+    this.listOffer.forEach(item => {
+      if (item.checked) {
+        this.listToSend.push(item.ean);
+      }
+    });
+    const newListArray = Array.from(new Set(this.listToSend));
+    this.listToSend = newListArray;
+    this.sumItemCount = this.listToSend.length;
+  }
+
+  prueba() {
+    console.log('here');
+    this.listToSend.forEach(res => {
+      this.listOffer.forEach(result => {
+        if (result.ean === res) {
+        this.listOffer['checked'] = true;
+        }
+      });
+    });
+
+    // include, find, foreachd 2 array.
   }
 
   /**
