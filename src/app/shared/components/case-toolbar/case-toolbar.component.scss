@@ -6,19 +6,36 @@ $underline: #909090;
 .ticket-toolbar {
   background-color: white;
   padding: 0px 32px;
-  border-bottom: 1px solid #e0e0e0;
   height: 45px !important;
   max-height: 45px;
   justify-content: space-between;
+
   @media (max-width: 600px) {
     height: auto !important;
     max-height: inherit !important;
     padding-bottom: 16px;
+    padding: 0px 0px !important;
+
   }
 }
 
-.widthToolbar{
-  width: 40%;
+.toolbarIpad {
+  @media (max-width: 768px) {
+    display: flex;
+    flex-wrap: wrap;
+    padding-right: 0px;
+  }
+}
+
+.widthToolbar {
+  width: 45%;
+
+  @media (max-width: 600px) {
+    width: 112%;
+  }
+  @media screen and (min-width: 667px) and (max-width: 1000px) {
+    width: 68%;
+  }
 }
 
 .toolbar-brand {
@@ -27,34 +44,31 @@ $underline: #909090;
   span {
     font-weight: bold;
   }
+
   small {
     color: $hint-color;
   }
+
   @media (max-width: 768px) {
-    display: flex !important;
     flex-direction: column !important;
     font-size: 1rem !important;
   }
+
   @media (max-width: 600px) {
     &--title {
-      visibility: hidden;
-      display: none;
+      font-size: 16px;
     }
+
     &--subtitle {
       text-align: left;
       font-weight: bold;
-      font-size: 18px;
+      font-size: 14px;
     }
   }
 }
 
 .separator {
   font-weight: normal;
-
-  @media (max-width: 768px) {
-    display: none !important;
-    visibility: hidden !important;
-  }
 }
 
 .toolbar {
@@ -66,10 +80,17 @@ $underline: #909090;
   }
 
   &-right {
+    @media (max-width: 600px) {
+      width: 100%;
+    }
+
     font-size: 14px;
+
     &--item {
       height: 40px !important;
       max-height: 40px !important;
+      @media screen and (min-width: 667px) and (max-width: 1000px) {
+      }
     }
   }
 }
@@ -77,6 +98,20 @@ $underline: #909090;
 ::ng-deep .mat-paginator-container {
   min-height: 0 !important;
   margin-top: -5px;
+
+  @media (max-width: 768px) {
+    padding: 0 0px !important;
+  }
+
+  @media (max-width: 992px) {
+    padding: 0 0px !important;
+
+  }
+
+  @media (max-width: 600px) {
+    padding: 0 0px !important;
+
+  }
 }
 
 .mat-toolbar.mat-primary {
@@ -86,14 +121,17 @@ $underline: #909090;
 
 ::ng-deep .mat-paginator-page-size-label {
   visibility: visible;
+
   @media (max-width: 768px) {
     display: none;
     visibility: visible;
   }
+
   @media (max-width: 992px) {
     display: none;
     visibility: visible;
   }
+
   @media (max-width: 600px) {
     display: none;
     visibility: visible;
@@ -109,12 +147,12 @@ $underline: #909090;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    padding-right: 0px;
   }
 }
 
 ::ng-deep .mat-sidenav-content {
   @media (max-width: 600px) {
-    justify-content: space-between !important;
   }
 }
 
@@ -126,6 +164,6 @@ $underline: #909090;
 
 mat-paginator {
   @media (max-width: 600px) {
-    width: 200px;
+    width: 100%
   }
 }
