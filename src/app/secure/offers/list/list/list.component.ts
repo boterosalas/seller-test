@@ -188,7 +188,7 @@ export class ListComponent implements OnInit {
           this.listOffer = response.sellerOfferViewModels;
           this.addDomainImages();
           this.loadingService.closeSpinner();
-          this.prueba();
+          this.setCheckedTrue();
         } else {
           this.loadingService.closeSpinner();
           this.modalService.showModal('errorService');
@@ -282,6 +282,7 @@ export class ListComponent implements OnInit {
         stock: null
       }
     };
+
     dataToSend.paramsFilters.ean = this.paramData.ean || null;
     dataToSend.paramsFilters.plu = this.paramData.pluVtex || null;
     dataToSend.paramsFilters.stock = this.paramData.stock || null;
@@ -298,18 +299,19 @@ export class ListComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        // const newListArray = [new Set(this.listToSend)];
-
-        console.log('this.listToSend', this.listToSend);
-        console.log('this.sumItemCount', this.sumItemCount);
-        dataToSend.eans = this.listToSend || null;
+        // dataToSend.eans = this.listToSend || null;
+        if (this.listToSend.length === 0) {
+          dataToSend.eans = null;
+        } else {
+          dataToSend.eans = this.listToSend;
+        }
         dataToSend.desactiveOffers = this.allOffer;
         console.log('dataToSend dsps: ', dataToSend);
         this.getListOffers();
       }
     });
     this.activeCheck = false;
-    // this.cleanAllFilter();
+    this.cleanAllFilter();
   }
 
   /**
@@ -319,7 +321,6 @@ export class ListComponent implements OnInit {
    */
   onvalueCheckdesactiveChanged(statusOffer: any) {
     statusOffer.checked = !statusOffer.checked;
-    // this.listToSend = [];
     this.sumItemCount = 0;
     this.listOffer.forEach(item => {
       if (item.checked) {
@@ -331,17 +332,19 @@ export class ListComponent implements OnInit {
     this.sumItemCount = this.listToSend.length;
   }
 
-  prueba() {
-    console.log('here');
+  /**
+   * Metodo para checkear la oferta y no perderla al cambiar de pagina.
+   * @memberof ListComponent
+   */
+  setCheckedTrue() {
     this.listToSend.forEach(res => {
       this.listOffer.forEach(result => {
         if (result.ean === res) {
-        this.listOffer['checked'] = true;
+          console.log('si');
+          result['checked'] = true;
         }
       });
     });
-
-    // include, find, foreachd 2 array.
   }
 
   /**
