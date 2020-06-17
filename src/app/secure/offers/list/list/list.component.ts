@@ -11,6 +11,8 @@ import { MenuModel, readFunctionality, updateFunctionality, offerListName } from
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { DialogDesactiveOffertComponent } from './dialog-desactive-offert/dialog-desactive-offert.component';
 import { NullAstVisitor } from '@angular/compiler';
+import { BulkLoadService } from '../../bulk-load/bulk-load.service';
+import { FinishUploadInformationComponent } from '../../bulk-load/finish-upload-information/finish-upload-information.component';
 
 
 
@@ -81,7 +83,8 @@ export class ListComponent implements OnInit {
     private modalService?: ModalService,
     private offerService?: ListService,
     public authService?: AuthService,
-    public dialog?: MatDialog
+    public bulkLoadService?: BulkLoadService,
+    public dialog?: MatDialog,
   ) {
     this.paramData = new ModelFilter();
     this.user = {};
@@ -94,7 +97,7 @@ export class ListComponent implements OnInit {
    */
   ngOnInit() {
     this.getListOffers();
-    // offerListName
+    this.verifyProccesDesactiveOffert();
     this.permissionComponent = this.authService.getMenu(offerListName);
     this.updatePermission = this.getFunctionality(this.update);
     this.readPermission = this.getFunctionality(this.read);
@@ -311,7 +314,7 @@ export class ListComponent implements OnInit {
       }
     });
     this.activeCheck = false;
-    this.cleanAllFilter();
+    // this.cleanAllFilter();
   }
 
   /**
@@ -325,6 +328,9 @@ export class ListComponent implements OnInit {
     this.listOffer.forEach(item => {
       if (item.checked) {
         this.listToSend.push(item.ean);
+      }
+      if (item.checked === false) {
+        this.listToSend.splice(item, 1);
       }
     });
     const newListArray = Array.from(new Set(this.listToSend));
@@ -354,4 +360,69 @@ export class ListComponent implements OnInit {
   activeMultipleOffer() {
     this.activeCheck = true;
   }
+
+
+  verifyProccesDesactiveOffert() {
+    this.bulkLoadService.verifyStatusBulkLoad().subscribe((res) => {
+      console.log('res: ', res);
+      try {
+        if (res && res.status === 200) {
+          const { status, checked } = res.body.data;
+          if ((status === 1 || status === 4) && checked !== 'true') {
+            const statusCurrent = 1;
+            setTimeout(() => { this.openModal(statusCurrent, null); });
+          } else if (status === 2 && checked !== 'true') {
+            setTimeout(() => { this.openModal(status, null); });
+          } else if (status === 3 && checked !== 'true') {
+            const response = res.body.data.response;
+            // if (response) {
+            //   this.listErrorStatus = JSON.parse(response).Data.OfferNotify;
+            // } else {
+            //   this.listErrorStatus = null;
+            // }
+            // setTimeout(() => { this.openModal(status, this.listErrorStatus); });
+          } else {
+            this.loadingService.closeSpinner();
+          }
+        }
+      } catch {
+        this.loadingService.viewSpinner();
+        this.modalService.showModal('errorService');
+      }
+    });
+  }
+
+  openModal(type: number, listError: any) {
+    this.loadingService.closeSpinner();
+    // if (this.arrayInformationForSend.length > 0) {
+    //   this.calculateIntervalTime();
+    // } else {
+    //   this.intervalTime = 6000;
+    // }
+    const intervalTime = 6000;
+    const data = {
+      successText: 'Desactivación de ofertas realizada exitosamente',
+      failText: 'Desactivación de ofertas con errores',
+      processText: 'Desactivación de ofertas en proceso',
+      initTime: 500,
+      intervalTime: intervalTime,
+      listError: listError,
+      typeStatus: type
+    };
+    // this.cdr.detectChanges();
+    const dialog = this.dialog.open(FinishUploadInformationComponent, {
+      width: '70%',
+      minWidth: '280px',
+      maxHeight: '80vh',
+      disableClose: type === 1,
+      data: data
+    });
+    const dialogIntance = dialog.componentInstance;
+    dialogIntance.request = this.bulkLoadService.verifyStatusBulkLoad();
+    dialogIntance.processFinish$.subscribe((val) => {
+      dialog.disableClose = false;
+    });
+    // this.configDialog(dialog);
+  }
+
 }
