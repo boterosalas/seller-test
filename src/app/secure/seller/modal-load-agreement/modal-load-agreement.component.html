@@ -1,92 +1,103 @@
 <div>
-    <div fxLayout="row" class="padding-10">
-      <div fxFlex="95">
-        <span class="modal-load-agreement-font-weight ">{{'menu.Cargar Acuerdos' | translate}} </span>
-      </div>
-      <div fxFlex="5">
-        <mat-icon class="mat-18 close-modal modal-load-agreement-cursor" (click)="onNoClick()"
-          [matTooltip]="'actions.close' | translate">clear
-        </mat-icon>
-      </div>
+  <div fxLayout="row" class="padding-10">
+    <div fxFlex="95">
+      <span class="modal-load-agreement-font-weight">{{'menu.Cargar Acuerdos' |
+        translate}} </span>
     </div>
-    <mat-divider></mat-divider>
-   
-    <div mat-dialog-content class="">
-        <form #filterForm="ngForm" [formGroup]="form">
-            <div style="padding-top: 20px;padding-bottom: 20px;padding-left: 40px;">
-                <div style="margin-bottom: 10px;"><span style="color: #848181;font-size: 15px;">Por favor seleccione que tipo de acuerdo desea cargar</span></div>
-                <div>
-                    <mat-radio-group aria-label="Seleccione una opción" formControlName="typeAgreement">
-                        <mat-radio-button style="margin-right: 14px;color: #848181;font-size: 14px;">Contrato</mat-radio-button>
-                        <mat-radio-button style="margin-right: 14px;color: #848181;font-size: 14px;">Anexo</mat-radio-button>
-                      </mat-radio-group>
+    <div fxFlex="5">
+      <mat-icon class="mat-18 close-modal modal-load-agreement-cursor"
+        (click)="onNoClick()"
+        [matTooltip]="'actions.close' | translate">clear
+      </mat-icon>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div mat-dialog-content style="display: contents;">
+    <form #fomrLoadAgreement="ngForm" [formGroup]="form">
+      <div>
+        <div style="padding-top: 20px;padding-bottom: 20px;padding-left: 40px;">
+          <div style="margin-bottom: 10px;"><span style="color:
+              #848181;font-size: 15px;">Por favor seleccione que tipo
+              de acuerdo desea cargar</span></div>
+          <div>
+            <mat-radio-group aria-label="Seleccione una opción"
+              formControlName="typeAgreement">
+              <mat-radio-button value="contract" style="margin-right:
+                14px;color: #848181;font-size: 14px;">Acuerdo</mat-radio-button>
+              <mat-radio-button value="anexo" style="margin-right: 14px;color:
+                #848181;font-size: 14px;">Anexo</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <div
+          style="padding-top: 10px;padding-bottom: 10px;padding-left:
+          35px;text-align: center; background-color: #f2f9fd; margin-left:
+          36px;margin-right: 36px;">
+          <span style="margin-right: 14px;color: #848181;font-size: 14px;">Adjuntar
+            archivos formato <b>PDF</b> (peso
+            maximo 3 MegaBytes)</span></div>
+        <div fxLayout="row" class="load-file-container">
+          <div fxFlex="100" style="text-align: center;">
+            <div class="inline-block">
+              <div ngfDrop selectable="1" [(validDrag)]="validComboDrag"
+                [(files)]="files" [(file)]="file"
+                [maxSize]="maxSize" accept="application/pdf"
+                [(lastInvalids)]="lastInvalids" [(dragFiles)]="dragFiles"
+                class="well my-drop-zone" fxLayout="column" id="pdf"
+                fxLayoutAlign="center center"
+                [class.invalid-drag]="validComboDrag===false"
+                [class.valid-drag]="validComboDrag"
+                (filesChange)="lastFileAt=getDate(); validateOneFile()">
+                <strong
+                  *ngIf="!files.length && !lastInvalids?.length">{{'shared.components.load_file.text1'
+                  | translate}}</strong>
+                <strong *ngIf="files?.length && !lastInvalids?.length">{{files[files.length
+                  - 1].name}} -
+                  {{ files[files.length - 1].size/1024/1024 | number:'.2' }} MB</strong>
+                <strong *ngIf="lastInvalids?.length && lastInvalids.length ? validateFormatInvalidate(lastInvalids): null">{{'shared.components.load_file.text2'
+                  | translate}}</strong>
+                <mat-icon class="material-icons" *ngIf="!files.length &&
+                  !lastInvalids?.length">
+                  attach_file
+                </mat-icon>
+                <mat-icon class="material-icons check" *ngIf="files.length &&
+                  !lastInvalids?.length">
+                  check_circle
+                </mat-icon>
+                <mat-icon class="material-icons error"
+                  *ngIf="lastInvalids?.length">
+                  not_interested
+                </mat-icon>
+                <div class="button-fake" fxLayout="column" fxLayoutAlign="center
+                  center">
+                  <span>
+                    {{'shared.components.load_file.text3' | translate}}
+                  </span>
                 </div>
+              </div>
+              <!-- <div><span style="color: #848181;font-size: 14px;padding-left: 19px;">Adjuntar archivos formato PDF (peso maximo 3 MegaBytes)  </span></div> -->
             </div>
-            <div style="padding-top: 20px;padding-bottom: 20px;padding-left: 35px;text-align: center;"><span style="margin-right: 14px;color: #848181;font-size: 14px;">Adjuntar archivos formato <b>PDF</b> (peso maximo 3 MegaBytes)</span></div>
-           <div fxLayout="row" class="load-file-container">
-               <div fxFlex="50">
-                <div class="inline-block">
-                    <div><span style="color: #848181;font-size: 14px;padding-left: 19px;">Archivo a mostrar </span></div>
-                    <div ngfDrop selectable="1" [(validDrag)]="validComboDrag" [(files)]="files" [(file)]="file" [maxSize]="maxSize" accept="application/pdf"
-                        [(lastInvalids)]="lastInvalids" [(dragFiles)]="dragFiles" class="well my-drop-zone" fxLayout="column" id="pdf"
-                        fxLayoutAlign="center center" [class.invalid-drag]="validComboDrag===false" [class.valid-drag]="validComboDrag"
-                        (filesChange)="lastFileAt=getDate()">
-                        <!-- <strong *ngIf="!files.length && !lastInvalids?.length">{{'shared.components.load_file.text1' | translate}}</strong>
-                        <strong *ngIf="files?.length && !lastInvalids?.length">{{files[files.length - 1].name}} - {{ files[files.length - 1].size/1024/1024 | number:'.2' }} MB</strong>
-                        <strong *ngIf="lastInvalids?.length">{{'shared.components.load_file.text2' | translate}}</strong> -->
-                        <!-- <mat-icon class="material-icons" *ngIf="!files.length && !lastInvalids?.length">
-                            attach_file
-                        </mat-icon>
-                        <mat-icon class="material-icons check" *ngIf="files.length && !lastInvalids?.length">
-                            check_circle
-                        </mat-icon>
-                        <mat-icon class="material-icons error" *ngIf="lastInvalids?.length">
-                            not_interested
-                        </mat-icon> -->
-                        <div class="button-fake" fxLayout="column" fxLayoutAlign="center center">
-                            <span>
-                                {{'shared.components.load_file.text3' | translate}}
-                            </span>
-                        </div>
-                    </div>
-                    <!-- <div><span style="color: #848181;font-size: 14px;padding-left: 19px;">Adjuntar archivos formato PDF (peso maximo 3 MegaBytes)  </span></div> -->
-                </div>
-               </div>
-               <div fxFlex="50">
-                <div class="inline-block">
-                    <div><span style="color: #848181;font-size: 14px;padding-left: 19px;">Archivo a guardar</span></div>
-                    <div ngfDrop selectable="1" [(validDrag)]="validComboDrag" [(files)]="files" [(file)]="file" [maxSize]="maxSize" accept="application/pdf"
-                        [(lastInvalids)]="lastInvalids" [(dragFiles)]="dragFiles" class="well my-drop-zone" fxLayout="column" id="pdf"
-                        fxLayoutAlign="center center" [class.invalid-drag]="validComboDrag===false" [class.valid-drag]="validComboDrag"
-                        (filesChange)="lastFileAt=getDate()">
-                        <!-- <strong *ngIf="!files.length && !lastInvalids?.length">{{'shared.components.load_file.text1' | translate}}</strong>
-                        <strong *ngIf="files?.length && !lastInvalids?.length">{{files[files.length - 1].name}} - {{ files[files.length - 1].size/1024/1024 | number:'.2' }} MB</strong>
-                        <strong *ngIf="lastInvalids?.length">{{'shared.components.load_file.text2' | translate}}</strong> -->
-                        <!-- <mat-icon class="material-icons" *ngIf="!files.length && !lastInvalids?.length">
-                            attach_file
-                        </mat-icon>
-                        <mat-icon class="material-icons check" *ngIf="files.length && !lastInvalids?.length">
-                            check_circle
-                        </mat-icon>
-                        <mat-icon class="material-icons error" *ngIf="lastInvalids?.length">
-                            not_interested
-                        </mat-icon> -->
-                        <div class="button-fake" fxLayout="column" fxLayoutAlign="center center">
-                            <span>
-                                {{'shared.components.load_file.text3' | translate}}
-                            </span>
-                        </div>
-                    </div>
-                    <!-- <div><span style="color: #848181;font-size: 14px;padding-left: 19px;">Adjuntar archivos formato PDF (peso maximo 3 MegaBytes)  </span></div> -->
-                </div>
-               </div>
-            
-           </div>
-        </form>
-    </div>
-    <mat-divider></mat-divider>
-    <mat-dialog-actions align="end">
-      <button mat-button (click)="onNoClick()">{{'actions.cancel'| translate}}</button>
-      <button type="button" mat-raised-button color="primary" (click)="sendExportReclain()">Importar acuerdos</button>
-    </mat-dialog-actions>
+          </div>
+        </div>
+        <div style="width: 100%; padding-left: 11px;">
+          <mat-form-field class="field" style="width: 93%; font-size: 14px;">
+            <input matInput
+              [placeholder]="'secure.parametize.support_claims.description' |
+              translate"
+              formControlName="description">
+            <mat-error *ngIf="form.get('description').hasError('required')">{{'errors.required'
+              | translate}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+  <mat-divider></mat-divider>
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">{{'actions.cancel'| translate}}</button>
+    <button type="button" mat-raised-button color="primary"
+      [disabled]="!fomrLoadAgreement.form.valid || uploadAgreementBtn"
+      (click)="sendImportAgreement()">Importar acuerdos </button>
+  </mat-dialog-actions>
 </div>

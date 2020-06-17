@@ -4,7 +4,8 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Router } from '@angular/router';
 import { RoutesConst, Const } from '@app/shared';
-import { UserParametersService } from '@app/core';
+import { UserParametersService, EndpointService } from '@app/core';
+import { HttpClient } from '@angular/common/http';
 
 
 @Injectable()
@@ -12,8 +13,12 @@ export class SellerService implements CanActivate {
 
     user = null;
     constantes: Const = new Const();
-    constructor(private router: Router,
-        public userParams: UserParametersService) {
+    constructor(
+        private router: Router,
+        public userParams: UserParametersService,
+        private http: HttpClient,
+        private api: EndpointService
+        ) {
     }
 
     /**
@@ -67,6 +72,26 @@ export class SellerService implements CanActivate {
      */
     public redirectToHome(): void {
         this.router.navigate([`/${RoutesConst.securehome}`]);
+    }
+
+
+    getOrderList(params: any): Observable<[{}]> {
+        const varUnde = undefined;
+        return new Observable(observer => {
+          this.http.get<any[]>(this.api.get('searchOrders', [params.idSeller, params.limit + `&idStatusOrder=${varUnde}`  ])).subscribe((data: any) => {
+            observer.next(data);
+          }, err => {
+            observer.error(err);
+          });
+        });
+      }
+
+
+      public appplyAgreement(data: any): Observable<any> {
+          console.log(data);
+        return new Observable(observer => {
+            observer.next(true);
+          });
     }
 
 

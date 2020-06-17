@@ -17,6 +17,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ModalLoadAgreementComponent } from '../modal-load-agreement/modal-load-agreement.component';
+import { SellerService } from '../seller.service';
+import { AnyKindOfDictionary } from 'lodash';
 
 const log = new Logger('ManageSellerComponent');
 @Component({
@@ -33,6 +35,19 @@ const log = new Logger('ManageSellerComponent');
 })
 export class UploadAgreementComponent implements OnInit {
 
+
+  public statusAllCheck = true;
+  public arrayNotSelect = [];
+
+
+  public callOne = true;
+  public arrayPosition = [];
+  public paginationToken = '{}';
+  public arraySelect = [];
+  public all = false;
+  public disabledCheckTempor = false;
+  public isAllSelectedCurrent = false;
+
   @ViewChild('sidenav') sidenav: MatSidenav;
   public dataSource: MatTableDataSource<any>;
   public selection = new SelectionModel<any>(true, []);
@@ -40,15 +55,14 @@ export class UploadAgreementComponent implements OnInit {
   public mapInitialSellerList: any;
   public length = 0;
   public displayedColumns = [
-    'expand',
     'all',
     'id',
     'nit',
     'name',
   ];
 
-   // Configuración para el toolbar-options y el search de la pagina
-   public informationToForm: SearchFormEntity = {
+  // Configuración para el toolbar-options y el search de la pagina
+  public informationToForm: SearchFormEntity = {
     title: 'secure.seller.list.toolbar_title',
     subtitle: 'menu.Cargar Acuerdos',
     btn_title: 'secure.orders.filter.title',
@@ -61,335 +75,150 @@ export class UploadAgreementComponent implements OnInit {
   constructor(
 
     private storesService: StoresService,
-        private loading: LoadingService,
-        private snackBar: MatSnackBar,
-        private router: Router,
-        private fb: FormBuilder,
-        private dialog: MatDialog,
-        public authService: AuthService,
-        private modalService: ModalService,
-        private languageService: TranslateService
+    private loading: LoadingService,
+    private snackBar: MatSnackBar,
+    private router: Router,
+    private fb: FormBuilder,
+    private dialog: MatDialog,
+    public authService: AuthService,
+    private modalService: ModalService,
+    private languageService: TranslateService,
+    private sellerService: SellerService
   ) { }
 
   ngOnInit() {
     this.getAllSeller();
   }
 
-  getAllSeller() {
-    this.storesService.getAllStoresFull(null).subscribe((result: any) => {
-      if (result && result.status === 200) {
-        if (result && result.body && result.body.body) {
-          const body = JSON.parse(result.body.body);
-          this.initialSellerList = JSON.parse(result.body.body).Data;
-          console.log(this.initialSellerList);
-          this.dataSource = new MatTableDataSource([
-           {
-            Address: 'fame fashion house',
-            City: 'NEW YORK',
-            Country: 'ESTADOS, UNIDOS',
-            DaneCode: '1001800,0',
-            DaneCodesNonCoverae: [],
-            Email: 'xin@tfxny.com',
-            EndVacations: '0001-01-01T00:00:00',
-            GotoCarrulla: false,
-            GotoCatalogo: true,
-            GotoExito: true,
-            IdDispatchPort: 1,
-            IdSeller: 100153,
-            IsLogisticsExito: false,
-            IsShippingExito: true,
-            Name: '1407 Broadway Ste 2600',
-            Nit: '4444498148',
-            Payoneer: '3012404164',
-            Profile: 'seller',
-            StartVacations: '0001-01-01T00:00:00',
-            Status: 'Enable',
-           }
-           , {
-            Address: 'fame fashion house',
-            City: 'NEW YORK',
-            Country: 'ESTADOS, UNIDOS',
-            DaneCode: '1001800,0',
-            DaneCodesNonCoverae: [],
-            Email: 'xin@tfxny.com',
-            EndVacations: '0001-01-01T00:00:00',
-            GotoCarrulla: false,
-            GotoCatalogo: true,
-            GotoExito: true,
-            IdDispatchPort: 1,
-            IdSeller: 100153,
-            IsLogisticsExito: false,
-            IsShippingExito: true,
-            Name: '1407 Broadway Ste 2600',
-            Nit: '4444498148',
-            Payoneer: '3012404164',
-            Profile: 'seller',
-            StartVacations: '0001-01-01T00:00:00',
-            Status: 'Enable',
-           }
-           , {
-            Address: 'fame fashion house',
-            City: 'NEW YORK',
-            Country: 'ESTADOS, UNIDOS',
-            DaneCode: '1001800,0',
-            DaneCodesNonCoverae: [],
-            Email: 'xin@tfxny.com',
-            EndVacations: '0001-01-01T00:00:00',
-            GotoCarrulla: false,
-            GotoCatalogo: true,
-            GotoExito: true,
-            IdDispatchPort: 1,
-            IdSeller: 100153,
-            IsLogisticsExito: false,
-            IsShippingExito: true,
-            Name: '1407 Broadway Ste 2600',
-            Nit: '4444498148',
-            Payoneer: '3012404164',
-            Profile: 'seller',
-            StartVacations: '0001-01-01T00:00:00',
-            Status: 'Enable',
-           }
-           , {
-            Address: 'fame fashion house',
-            City: 'NEW YORK',
-            Country: 'ESTADOS, UNIDOS',
-            DaneCode: '1001800,0',
-            DaneCodesNonCoverae: [],
-            Email: 'xin@tfxny.com',
-            EndVacations: '0001-01-01T00:00:00',
-            GotoCarrulla: false,
-            GotoCatalogo: true,
-            GotoExito: true,
-            IdDispatchPort: 1,
-            IdSeller: 100153,
-            IsLogisticsExito: false,
-            IsShippingExito: true,
-            Name: '1407 Broadway Ste 2600',
-            Nit: '4444498148',
-            Payoneer: '3012404164',
-            Profile: 'seller',
-            StartVacations: '0001-01-01T00:00:00',
-            Status: 'Enable',
-           }
-           , {
-            Address: 'fame fashion house',
-            City: 'NEW YORK',
-            Country: 'ESTADOS, UNIDOS',
-            DaneCode: '1001800,0',
-            DaneCodesNonCoverae: [],
-            Email: 'xin@tfxny.com',
-            EndVacations: '0001-01-01T00:00:00',
-            GotoCarrulla: false,
-            GotoCatalogo: true,
-            GotoExito: true,
-            IdDispatchPort: 1,
-            IdSeller: 100153,
-            IsLogisticsExito: false,
-            IsShippingExito: true,
-            Name: '1407 Broadway Ste 2600',
-            Nit: '4444498148',
-            Payoneer: '3012404164',
-            Profile: 'seller',
-            StartVacations: '0001-01-01T00:00:00',
-            Status: 'Enable',
-           }
-           , {
-            Address: 'fame fashion house',
-            City: 'NEW YORK',
-            Country: 'ESTADOS, UNIDOS',
-            DaneCode: '1001800,0',
-            DaneCodesNonCoverae: [],
-            Email: 'xin@tfxny.com',
-            EndVacations: '0001-01-01T00:00:00',
-            GotoCarrulla: false,
-            GotoCatalogo: true,
-            GotoExito: true,
-            IdDispatchPort: 1,
-            IdSeller: 100153,
-            IsLogisticsExito: false,
-            IsShippingExito: true,
-            Name: '1407 Broadway Ste 2600',
-            Nit: '4444498148',
-            Payoneer: '3012404164',
-            Profile: 'seller',
-            StartVacations: '0001-01-01T00:00:00',
-            Status: 'Enable',
-           }
-           , {
-            Address: 'fame fashion house',
-            City: 'NEW YORK',
-            Country: 'ESTADOS, UNIDOS',
-            DaneCode: '1001800,0',
-            DaneCodesNonCoverae: [],
-            Email: 'xin@tfxny.com',
-            EndVacations: '0001-01-01T00:00:00',
-            GotoCarrulla: false,
-            GotoCatalogo: true,
-            GotoExito: true,
-            IdDispatchPort: 1,
-            IdSeller: 100153,
-            IsLogisticsExito: false,
-            IsShippingExito: true,
-            Name: '1407 Broadway Ste 2600',
-            Nit: '4444498148',
-            Payoneer: '3012404164',
-            Profile: 'seller',
-            StartVacations: '0001-01-01T00:00:00',
-            Status: 'Enable',
-           }
-           , {
-            Address: 'fame fashion house',
-            City: 'NEW YORK',
-            Country: 'ESTADOS, UNIDOS',
-            DaneCode: '1001800,0',
-            DaneCodesNonCoverae: [],
-            Email: 'xin@tfxny.com',
-            EndVacations: '0001-01-01T00:00:00',
-            GotoCarrulla: false,
-            GotoCatalogo: true,
-            GotoExito: true,
-            IdDispatchPort: 1,
-            IdSeller: 100153,
-            IsLogisticsExito: false,
-            IsShippingExito: true,
-            Name: '1407 Broadway Ste 2600',
-            Nit: '4444498148',
-            Payoneer: '3012404164',
-            Profile: 'seller',
-            StartVacations: '0001-01-01T00:00:00',
-            Status: 'Enable',
-           }
-           , {
-            Address: 'fame fashion house',
-            City: 'NEW YORK',
-            Country: 'ESTADOS, UNIDOS',
-            DaneCode: '1001800,0',
-            DaneCodesNonCoverae: [],
-            Email: 'xin@tfxny.com',
-            EndVacations: '0001-01-01T00:00:00',
-            GotoCarrulla: false,
-            GotoCatalogo: true,
-            GotoExito: true,
-            IdDispatchPort: 1,
-            IdSeller: 100153,
-            IsLogisticsExito: false,
-            IsShippingExito: true,
-            Name: '1407 Broadway Ste 2600',
-            Nit: '4444498148',
-            Payoneer: '3012404164',
-            Profile: 'seller',
-            StartVacations: '0001-01-01T00:00:00',
-            Status: 'Enable',
-           }
-           , {
-            Address: 'fame fashion house',
-            City: 'NEW YORK',
-            Country: 'ESTADOS, UNIDOS',
-            DaneCode: '1001800,0',
-            DaneCodesNonCoverae: [],
-            Email: 'xin@tfxny.com',
-            EndVacations: '0001-01-01T00:00:00',
-            GotoCarrulla: false,
-            GotoCatalogo: true,
-            GotoExito: true,
-            IdDispatchPort: 1,
-            IdSeller: 100153,
-            IsLogisticsExito: false,
-            IsShippingExito: true,
-            Name: '1407 Broadway Ste 2600',
-            Nit: '4444498148',
-            Payoneer: '3012404164',
-            Profile: 'seller',
-            StartVacations: '0001-01-01T00:00:00',
-            Status: 'Enable',
-           }
-           , {
-            Address: 'fame fashion house',
-            City: 'NEW YORK',
-            Country: 'ESTADOS, UNIDOS',
-            DaneCode: '1001800,0',
-            DaneCodesNonCoverae: [],
-            Email: 'xin@tfxny.com',
-            EndVacations: '0001-01-01T00:00:00',
-            GotoCarrulla: false,
-            GotoCatalogo: true,
-            GotoExito: true,
-            IdDispatchPort: 1,
-            IdSeller: 100153,
-            IsLogisticsExito: false,
-            IsShippingExito: true,
-            Name: '1407 Broadway Ste 2600',
-            Nit: '4444498148',
-            Payoneer: '3012404164',
-            Profile: 'seller',
-            StartVacations: '0001-01-01T00:00:00',
-            Status: 'Enable',
-           }
-           , {
-            Address: 'fame fashion house',
-            City: 'NEW YORK',
-            Country: 'ESTADOS, UNIDOS',
-            DaneCode: '1001800,0',
-            DaneCodesNonCoverae: [],
-            Email: 'xin@tfxny.com',
-            EndVacations: '0001-01-01T00:00:00',
-            GotoCarrulla: false,
-            GotoCatalogo: true,
-            GotoExito: true,
-            IdDispatchPort: 1,
-            IdSeller: 100153,
-            IsLogisticsExito: false,
-            IsShippingExito: true,
-            Name: '1407 Broadway Ste 2600',
-            Nit: '4444498148',
-            Payoneer: '3012404164',
-            Profile: 'seller',
-            StartVacations: '0001-01-01T00:00:00',
-            Status: 'Enable',
-           }
-           , {
-            Address: 'fame fashion house',
-            City: 'NEW YORK',
-            Country: 'ESTADOS, UNIDOS',
-            DaneCode: '1001800,0',
-            DaneCodesNonCoverae: [],
-            Email: 'xin@tfxny.com',
-            EndVacations: '0001-01-01T00:00:00',
-            GotoCarrulla: false,
-            GotoCatalogo: true,
-            GotoExito: true,
-            IdDispatchPort: 1,
-            IdSeller: 100153,
-            IsLogisticsExito: false,
-            IsShippingExito: true,
-            Name: '1407 Broadway Ste 2600',
-            Nit: '4444498148',
-            Payoneer: '3012404164',
-            Profile: 'seller',
-            StartVacations: '0001-01-01T00:00:00',
-            Status: 'Enable',
-           }
-          ]);
-          // if (JSON.stringify(this.initialSellerList) !== '{}') {
-            // this.mapInitialSellerList = this.mapItems(this.initialSellerList);
-            // this.dataSource = new MatTableDataSource(this.initialSellerList);
-          //   this.length = this.initialSellerList.length;
-          //   console.log(this.dataSource);
-          // }
+  getAllSeller(params?: any) {
+    if (params === undefined) {
+        params = {
+          limit: 10 + '&paginationToken=' + encodeURI(this.paginationToken),
+          idSeller: 11216,
+        };
+    }
+    this.sellerService.getOrderList(params).subscribe((result: any) => {
+      if (result) {
+        if (this.callOne) {
+          this.length = result.count;
+          this.arrayPosition = [];
+          this.arrayPosition.push('{}');
+          this.callOne = false;
+        }
+        this.dataSource = new MatTableDataSource(result.viewModel);
+        if (this.arraySelect.length > 0) {
+          this.arraySelect.forEach (select => {
+            this.dataSource.data.forEach(rowGen => {
+              if (rowGen.id === select.id) {
+                 this.selection.select(rowGen);
+              }
+            });
+          });
         }
 
-      } else {
-        log.error('Error al cargar los vendendores: ', result);
-       }
+        
+        if (this.all) {
+          this.dataSource.data.forEach(row => this.selection.select(row));
+        } 
+
+        this.paginationToken = result.paginationToken ? result.paginationToken : '{}';
+      }
     });
   }
 
-  importAgreement() {
-    const dialogRef = this.dialog.open(ModalLoadAgreementComponent, {
-      width: '80%',
-      minWidth: '280px',
-      data: {}
-  });
+  paginations(event: any) {
+    if (event && event.param && event.param.pageIndex >= 0) {
+        const index = event.param.pageIndex;
+        if (index === 0) {
+          this.paginationToken = '{}';
+        }
+        const isExistInitial = this.arrayPosition.includes('{}');
+        if (isExistInitial === false) {
+          this.arrayPosition.push('{}');
+        }
+        const isExist = this.arrayPosition.includes(this.paginationToken);
+        if (isExist === false) {
+          this.arrayPosition.push(this.paginationToken);
+        }
+        this.paginationToken = this.arrayPosition[index];
+        if (this.paginationToken === undefined) {
+          this.paginationToken = '{}';
+        }
+        const params = {
+          'limit': 10 + '&paginationToken=' + encodeURI(this.paginationToken),
+          'idSeller': 11216,
+        };
+        this.getAllSeller(params);
+    }
   }
 
+
+  importAgreement() {
+    const dialogRef = this.dialog.open(ModalLoadAgreementComponent, {
+      width: '50%',
+      minWidth: '280px',
+      data: {
+        selectAll : !this.statusAllCheck,
+        arraySelect : this.arraySelect,
+        arrayNotSelect: this.arrayNotSelect
+      }
+    });
+  }
+
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    if (numSelected === numRows) {
+      this.isAllSelectedCurrent = true;
+    } else {
+      this.isAllSelectedCurrent = false;
+    }
+  }
+
+
+  masterToggle(status: boolean) {
+    if (status) {
+      if (this.selection.selected.length > 0) {
+        this.selection.clear();
+        this.arraySelect = [];
+        this.statusAllCheck = true;
+      } else {
+        this.dataSource.data.forEach(row => this.selection.select(row));
+        this.statusAllCheck = !status;
+      }
+    } else {
+      this.selection.clear();
+      this.arraySelect = [];
+      this.statusAllCheck = !status;
+    }
+  }
+
+  public changeStatus(row: any, status: any) {
+    if (row) {
+      if (status) {
+        this.arraySelect.push(row);
+      } else {
+        const index = this.arraySelect.findIndex(rows => rows === row);
+        this.arraySelect.splice(index, 1);
+      }
+      if (!this.statusAllCheck) {
+        if (status) {
+          const index = this.arrayNotSelect.findIndex(rows => rows === row);
+          this.arrayNotSelect.splice(index, 1);
+        } else {
+          this.arrayNotSelect.push(row);
+        }
+      } else {
+        this.arrayNotSelect = [];
+      }
+    } else {
+      this.all = status;
+    }
+    this.isAllSelected();
+  }
+
+  valutePreueba(){
+    console.log('validaye');
+  }
 }
