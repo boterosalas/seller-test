@@ -18,7 +18,7 @@ export class SellerService implements CanActivate {
         public userParams: UserParametersService,
         private http: HttpClient,
         private api: EndpointService
-        ) {
+    ) {
     }
 
     /**
@@ -78,20 +78,19 @@ export class SellerService implements CanActivate {
     getOrderList(params: any): Observable<[{}]> {
         const varUnde = undefined;
         return new Observable(observer => {
-          this.http.get<any[]>(this.api.get('searchOrders', [params.idSeller, params.limit + `&idStatusOrder=${varUnde}`  ])).subscribe((data: any) => {
-            observer.next(data);
-          }, err => {
-            observer.error(err);
-          });
+            this.http.get<any[]>(this.api.get('searchOrders', [params.idSeller, params.limit + `&idStatusOrder=${varUnde}`])).subscribe((data: any) => {
+                observer.next(data);
+            }, err => {
+                observer.error(err);
+            });
         });
-      }
+    }
 
 
-      public appplyAgreement(data: any): Observable<any> {
-          console.log(data);
+    public appplyAgreement(data: any): Observable<any> {
         return new Observable(observer => {
             observer.next(true);
-          });
+        });
     }
 
 

@@ -41,7 +41,8 @@ import { ngfModule } from 'angular-file/file-upload/ngf.module';
     ],
     providers: [
         SellerService,
-        StoresService
+        StoresService,
+        ModalLoadAgreementComponent
     ],
 })
 export class SellerModule { }

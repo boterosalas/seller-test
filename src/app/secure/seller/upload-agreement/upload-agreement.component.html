@@ -81,7 +81,7 @@
             fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10"
             fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
             *matHeaderCellDef>
-            <span class="title-table-header" style="margin-left: 4px;">{{'secure.seller.list.id'
+            <span class="title-table-header upload-agreement-text-column" >{{'secure.seller.list.id'
               | translate}}</span>
           </mat-header-cell>
           <mat-cell class='marginListAdminTotal' fxShow.xs="true"
@@ -99,7 +99,7 @@
             fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10"
             fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
             *matHeaderCellDef>
-            <span class="title-table-header" style="margin-left: 4px;">{{'secure.seller.list.nit'
+            <span class="title-table-header upload-agreement-text-column" >{{'secure.seller.list.nit'
               | translate}}</span>
           </mat-header-cell>
           <mat-cell class='marginListAdminTotal' fxShow.xs="false"
@@ -116,7 +116,7 @@
             fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10"
             fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
             *matHeaderCellDef>
-            <span class="title-table-header" style="margin-left: 4px;">{{'secure.seller.list.seller_name'
+            <span class="title-table-header upload-agreement-text-column">{{'secure.seller.list.seller_name'
               | translate}}</span>
           </mat-header-cell>
           <mat-cell class='marginListAdminTotal' fxShow.xs="false"
@@ -137,11 +137,6 @@
         </mat-row>
       </mat-table>
 
-    </div>
-    <div [@detailExpand] class="orders-no-data" *ngIf="length == 0">
-      <mat-icon class="icon-not-found" color="primary">info</mat-icon>
-      <p>{{'secure.parametize.port.no_found_port' | translate}}
-      </p>
     </div>
   </div>
 </div>

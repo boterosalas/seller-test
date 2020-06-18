@@ -19,6 +19,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { ModalLoadAgreementComponent } from '../modal-load-agreement/modal-load-agreement.component';
 import { SellerService } from '../seller.service';
 import { AnyKindOfDictionary } from 'lodash';
+import { ShellComponent } from '@app/core/shell';
 
 const log = new Logger('ManageSellerComponent');
 @Component({
@@ -38,6 +39,7 @@ export class UploadAgreementComponent implements OnInit {
 
   public statusAllCheck = true;
   public arrayNotSelect = [];
+  public subModalLoad: any;
 
 
   public callOne = true;
@@ -73,24 +75,21 @@ export class UploadAgreementComponent implements OnInit {
   };
 
   constructor(
-
-    private storesService: StoresService,
-    private loading: LoadingService,
-    private snackBar: MatSnackBar,
-    private router: Router,
-    private fb: FormBuilder,
     private dialog: MatDialog,
     public authService: AuthService,
-    private modalService: ModalService,
-    private languageService: TranslateService,
-    private sellerService: SellerService
+    private sellerService: SellerService,
+    public modalLoadAgreementComponent: ModalLoadAgreementComponent,
+    public shellComponent: ShellComponent,
+    public loadingService: LoadingService,
   ) { }
 
   ngOnInit() {
     this.getAllSeller();
+    this.clearData();
   }
 
   getAllSeller(params?: any) {
+    this.loadingService.viewSpinner();
     if (params === undefined) {
         params = {
           limit: 10 + '&paginationToken=' + encodeURI(this.paginationToken),
@@ -115,13 +114,13 @@ export class UploadAgreementComponent implements OnInit {
             });
           });
         }
-
-        
         if (this.all) {
           this.dataSource.data.forEach(row => this.selection.select(row));
-        } 
-
+        }
         this.paginationToken = result.paginationToken ? result.paginationToken : '{}';
+        this.loadingService.closeSpinner();
+      } else {
+        this.loadingService.closeSpinner();
       }
     });
   }
@@ -218,7 +217,19 @@ export class UploadAgreementComponent implements OnInit {
     this.isAllSelected();
   }
 
-  valutePreueba(){
-    console.log('validaye');
+  clearData() {
+    this.subModalLoad = this.shellComponent.eventEmitterOrders.clearTable.subscribe(
+      (data: any) => {
+        this.paginationToken = '{}';
+        this.arrayNotSelect = [];
+        this.arraySelect = [];
+        this.arrayPosition = [];
+        this.all = false;
+        this.getAllSeller(undefined);
+        this.selection.clear();
+        this.dialog.closeAll();
+      });
   }
+
+
 }

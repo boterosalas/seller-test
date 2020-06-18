@@ -12,32 +12,26 @@
     </div>
   </div>
   <mat-divider></mat-divider>
-  <div mat-dialog-content style="display: contents;">
+  <div mat-dialog-content class="modal-load-agreement-content">
     <form #fomrLoadAgreement="ngForm" [formGroup]="form">
       <div>
-        <div style="padding-top: 20px;padding-bottom: 20px;padding-left: 40px;">
-          <div style="margin-bottom: 10px;"><span style="color:
-              #848181;font-size: 15px;">Por favor seleccione que tipo
+        <div class="modal-load-agreement-padding-content">
+          <div class="modal-load-agreement-padding-margin-content"><span class="modal-load-agreement-content-text-type">Por favor seleccione que tipo
               de acuerdo desea cargar</span></div>
           <div>
             <mat-radio-group aria-label="Seleccione una opción"
               formControlName="typeAgreement">
-              <mat-radio-button value="contract" style="margin-right:
-                14px;color: #848181;font-size: 14px;">Acuerdo</mat-radio-button>
-              <mat-radio-button value="anexo" style="margin-right: 14px;color:
-                #848181;font-size: 14px;">Anexo</mat-radio-button>
+              <mat-radio-button value=2 class="modal-load-agreement-text-option-type-agreement">Acuerdo</mat-radio-button>
+              <mat-radio-button value=1 class="modal-load-agreement-text-option-type-agreement">Anexo</mat-radio-button>
             </mat-radio-group>
           </div>
         </div>
-        <div
-          style="padding-top: 10px;padding-bottom: 10px;padding-left:
-          35px;text-align: center; background-color: #f2f9fd; margin-left:
-          36px;margin-right: 36px;">
-          <span style="margin-right: 14px;color: #848181;font-size: 14px;">Adjuntar
-            archivos formato <b>PDF</b> (peso
+        <div class="modal-load-agreement-content-load-file-padding">
+          <span class="modal-load-agreement-text-option-type-agreement">Adjuntar
+            archivos formato <strong>PDF</strong> (peso
             maximo 3 MegaBytes)</span></div>
         <div fxLayout="row" class="load-file-container">
-          <div fxFlex="100" style="text-align: center;">
+          <div fxFlex="100" class="text-aling-center-modal-load">
             <div class="inline-block">
               <div ngfDrop selectable="1" [(validDrag)]="validComboDrag"
                 [(files)]="files" [(file)]="file"
@@ -70,17 +64,16 @@
                 </mat-icon>
                 <div class="button-fake" fxLayout="column" fxLayoutAlign="center
                   center">
-                  <span>
+                  <span class="modal-load-agreement-text-btn-file-margin-top">
                     {{'shared.components.load_file.text3' | translate}}
                   </span>
                 </div>
               </div>
-              <!-- <div><span style="color: #848181;font-size: 14px;padding-left: 19px;">Adjuntar archivos formato PDF (peso maximo 3 MegaBytes)  </span></div> -->
             </div>
           </div>
         </div>
-        <div style="width: 100%; padding-left: 11px;">
-          <mat-form-field class="field" style="width: 93%; font-size: 14px;">
+        <div class="modal-load-agreement-content-description">
+          <mat-form-field class="field" class="modal-load-agreement-content-description-input">
             <input matInput
               [placeholder]="'secure.parametize.support_claims.description' |
               translate"

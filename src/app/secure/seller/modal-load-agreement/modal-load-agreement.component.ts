@@ -1,10 +1,12 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpEvent } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { Logger } from '@app/core';
+import { SellerService } from '../seller.service';
+import { ShellComponent } from '@app/core/shell';
 const log = new Logger('LoadFileComponent');
 
 @Component({
@@ -16,6 +18,7 @@ export class ModalLoadAgreementComponent implements OnInit {
 
   public form: FormGroup;
   public uploadAgreementBtn = true;
+  public clearTable = new EventEmitter<any>();
 
   accept = '*';
   files: File[] = [];
@@ -39,7 +42,9 @@ export class ModalLoadAgreementComponent implements OnInit {
     public dialogRef: MatDialogRef<ModalLoadAgreementComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public snackBar: MatSnackBar,
-    private languageService: TranslateService
+    private languageService: TranslateService,
+    private sellerService: SellerService,
+    private shellComponent: ShellComponent,
   ) { }
 
   ngOnInit() {
@@ -90,34 +95,10 @@ export class ModalLoadAgreementComponent implements OnInit {
           sellers: this.arraySend,
           applyAllSeller: this.data.selectAll
         };
+        this.sellerService.appplyAgreement(bodyToSend).subscribe((result: any) => {
+          this.shellComponent.eventEmitterOrders.getClear();
 
-        console.log(bodyToSend);
-
-        // this.sellerService.getOrderList(params).subscribe((result: any) => {
-
-
-        // this.service.postBillOrders(bodyToSend).subscribe(result => {
-        //   if (result.body.data) {
-        //     // Success
-        //     this.snackBar.open(result.body.message, this.languageService.instant('actions.close'), {
-        //       duration: 3000,
-        //     });
-        //     this.dialogRef.close(true);
-        //   } else {
-        //     // Error
-        //     this.snackBar.open(result.body.message, this.languageService.instant('actions.close'), {
-        //       duration: 3000,
-        //     });
-        //   }
-        //   this.showProgress = false;
-        // }, error => {
-        //   // Error
-        //   this.snackBar.open(this.languageService.instant('shared.components.load_file.snackbar_ko'), this.languageService.instant('actions.close'), {
-        //     duration: 3000,
-        //   });
-        //   log.error(error);
-        //   this.showProgress = false;
-        // });
+        });
       } catch (e) {
         log.error(this.languageService.instant('shared.components.load_file.snackbar_error'), e);
       }
@@ -151,5 +132,4 @@ export class ModalLoadAgreementComponent implements OnInit {
   validateFormatInvalidate(validate: any) {
     this.uploadAgreementBtn = true;
   }
-
 }
