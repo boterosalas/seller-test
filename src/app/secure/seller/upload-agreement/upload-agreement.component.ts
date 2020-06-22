@@ -145,7 +145,6 @@ export class UploadAgreementComponent implements OnInit {
         }
         const params = {
           'limit': 10 + '&paginationToken=' + encodeURI(this.paginationToken),
-          'idSeller': 11216,
         };
         this.getAllSeller(params);
     }

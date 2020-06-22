@@ -36,6 +36,7 @@ export const endpoints = {
       // servicios para el arbol de categorías
       getAllSellersFull: 'https://5m0vgt1hi5.execute-api.us-east-1.amazonaws.com/GetAllSellers',
       getAllSellers: 'https://9d5now9dr2.execute-api.us-east-1.amazonaws.com/getnameallSeller/1',
+      getAllSellersPaginated: 'https://5m0vgt1hi5.execute-api.us-east-1.amazonaws.com/GetAllSellers/paginated',
       // servicio empleado para obtener las comisiones de un usuario o todas las comisiones
       getSellerCommissionCategory: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/GetAllCategories',
       // Ruta base para la modificación de las categorías

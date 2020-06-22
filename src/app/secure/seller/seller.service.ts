@@ -77,8 +77,18 @@ export class SellerService implements CanActivate {
 
     getOrderList(params: any): Observable<[{}]> {
         const varUnde = undefined;
+        console.log(params)
         return new Observable(observer => {
             this.http.get<any[]>(this.api.get('searchOrders', [params.idSeller, params.limit + `&idStatusOrder=${varUnde}`])).subscribe((data: any) => {
+                observer.next(data);
+            }, err => {
+                observer.error(err);
+            });
+        });
+    }
+    getAllSellersPaginated(params: any): Observable<[{}]> {
+        return new Observable(observer => {
+            this.http.get<any[]>(this.api.get('getAllSellersPaginated', [params.idSeller, params.limit ])).subscribe((data: any) => {
                 observer.next(data);
             }, err => {
                 observer.error(err);
