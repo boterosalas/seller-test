@@ -12,6 +12,7 @@ import { MatSidenav, MatSidenavModule } from '@angular/material';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { CoreModule } from '@angular/flex-layout';
+import { TermsComponent } from './agreement/terms/terms.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { CoreModule } from '@angular/flex-layout';
     ],
     providers: [
         SellerService,
-        StoresService
+        StoresService,
+        TermsComponent
     ],
 })
 export class SellerModule { }
