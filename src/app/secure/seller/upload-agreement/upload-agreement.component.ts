@@ -40,6 +40,8 @@ export class UploadAgreementComponent implements OnInit {
   public statusAllCheck = true;
   public arrayNotSelect = [];
   public subModalLoad: any;
+  public limit = 10;
+  public resultModel: any;
 
 
   public callOne = true;
@@ -92,19 +94,20 @@ export class UploadAgreementComponent implements OnInit {
     this.loadingService.viewSpinner();
     if (params === undefined) {
         params = {
-          limit: 10 + '&paginationToken=' + encodeURI(this.paginationToken),
-          idSeller: 11216,
+          limit: this.limit  + '&paginationToken=' + encodeURI(this.paginationToken),
         };
     }
-    this.sellerService.getOrderList(params).subscribe((result: any) => {
+    this.sellerService.getAllSellersPaginated(params).subscribe((result: any) => {
       if (result) {
+          this.resultModel = JSON.parse(result.body);
         if (this.callOne) {
-          this.length = result.count;
+          this.length = this.resultModel.Count;
           this.arrayPosition = [];
           this.arrayPosition.push('{}');
           this.callOne = false;
         }
-        this.dataSource = new MatTableDataSource(result.viewModel);
+        console.log(this.resultModel);
+        this.dataSource = new MatTableDataSource(this.resultModel.ViewModel);
         if (this.arraySelect.length > 0) {
           this.arraySelect.forEach (select => {
             this.dataSource.data.forEach(rowGen => {
@@ -117,7 +120,7 @@ export class UploadAgreementComponent implements OnInit {
         if (this.all) {
           this.dataSource.data.forEach(row => this.selection.select(row));
         }
-        this.paginationToken = result.paginationToken ? result.paginationToken : '{}';
+        this.paginationToken = this.resultModel.PaginationToken ? this.resultModel.PaginationToken : '{}';
         this.loadingService.closeSpinner();
       } else {
         this.loadingService.closeSpinner();

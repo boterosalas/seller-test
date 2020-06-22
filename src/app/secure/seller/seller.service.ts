@@ -88,7 +88,7 @@ export class SellerService implements CanActivate {
     }
     getAllSellersPaginated(params: any): Observable<[{}]> {
         return new Observable(observer => {
-            this.http.get<any[]>(this.api.get('getAllSellersPaginated', [params.idSeller, params.limit ])).subscribe((data: any) => {
+            this.http.get<any[]>(this.api.get('getAllSellersPaginated', [params.limit])).subscribe((data: any) => {
                 observer.next(data);
             }, err => {
                 observer.error(err);
