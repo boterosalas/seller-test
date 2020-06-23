@@ -194,11 +194,11 @@ export const endpoints = {
       // Obtener puertos por país
       getPortsByCountryName: 'https://orba3qnrte.execute-api.us-east-1.amazonaws.com/dispatchport/GetDispatchPortsByCountryName/{params}',
       // Ruta basica para puertos
-      managePort : 'https://orba3qnrte.execute-api.us-east-1.amazonaws.com/dispatchport',
+      managePort: 'https://orba3qnrte.execute-api.us-east-1.amazonaws.com/dispatchport',
       // Desactivar masiva de Ofertas
-      // patchDesactiveOffer: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/disableoffersbyseller',
-      patchDesactiveOffer: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/disableoffersbyseller'
-
+      patchDesactiveOffer: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/disableoffersbyseller',
+      // Exportar reclamaciones
+      exportReclaim: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/downloadreport',
     },
   },
   // Endpoints production
@@ -302,9 +302,9 @@ export const endpoints = {
       getRegexBasic: 'https://wpamkgir31.execute-api.us-east-1.amazonaws.com/regex-pdn/{params}',
       // Post Guardar informacion creacion unitaria de producto
       postSaveInformationUnitCreation: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn',
-       //
-       postUnitSaveInformationUnitCreation: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/unitproduct',
-       patchUnitSaveInformationUnitCreation: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/unitproduct',
+      //
+      postUnitSaveInformationUnitCreation: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/unitproduct',
+      patchUnitSaveInformationUnitCreation: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/unitproduct',
       // Download billing.
       exportBilling: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn',
       // Billing orders visualize.
@@ -385,12 +385,16 @@ export const endpoints = {
       upsertQualification: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller',
       // consultar las ordenes por tipo de filtros
       ordersSummaryStatus: 'https://2l1pous4cl.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus-pdn/{params}',
-       // Descargar rotulos
-       getDownlaodLabel: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/orders/{params}/sticker',
+      // Descargar rotulos
+      getDownlaodLabel: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/orders/{params}/sticker',
       // Obtener puertos por país
       getPortsByCountryName: 'https://kouotxul6i.execute-api.us-east-1.amazonaws.com/dispatchport-pdn/GetDispatchPortsByCountryName/{params}',
       // Ruta basica para puertos
-      managePort : 'https://kouotxul6i.execute-api.us-east-1.amazonaws.com/dispatchport-pdn',
+      managePort: 'https://kouotxul6i.execute-api.us-east-1.amazonaws.com/dispatchport-pdn',
+      // Desactivar masiva de Ofertas
+      patchDesactiveOffer: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/disableoffersbyseller',
+      // Exportar reclamaciones
+      exportReclaim: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/downloadreport',
     }
   }
 };
