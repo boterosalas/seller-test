@@ -40,7 +40,7 @@ export class UploadAgreementComponent implements OnInit {
   public statusAllCheck = true;
   public arrayNotSelect = [];
   public subModalLoad: any;
-  public limit = 10;
+  public limit = 50;
   public resultModel: any;
 
 
@@ -148,6 +148,10 @@ export class UploadAgreementComponent implements OnInit {
    * @memberof UploadAgreementComponent
    */
   paginations(event: any) {
+    if (event.param.pageSize !== this.limit) {
+      this.limit = event.param.pageSize;
+      this.allClear();
+    }
     if (event && event.param && event.param.pageIndex >= 0) {
       const index = event.param.pageIndex;
       if (index === 0) {
@@ -166,7 +170,7 @@ export class UploadAgreementComponent implements OnInit {
         this.paginationToken = '{}';
       }
       const params = {
-        'limit': 10 + '&paginationToken=' + encodeURI(this.paginationToken),
+        'limit': this.limit + '&paginationToken=' + encodeURI(this.paginationToken),
       };
       this.getAllSeller(params);
     }
@@ -264,14 +268,18 @@ export class UploadAgreementComponent implements OnInit {
   clearData() {
     this.subModalLoad = this.shellComponent.eventEmitterOrders.clearTable.subscribe(
       (data: any) => {
-        this.paginationToken = '{}';
-        this.arrayNotSelect = [];
-        this.arraySelect = [];
-        this.arrayPosition = [];
-        this.all = false;
-        this.getAllSeller(undefined);
-        this.selection.clear();
-        this.dialog.closeAll();
+        this.allClear();
       });
+  }
+
+  allClear() {
+    this.paginationToken = '{}';
+    this.arrayNotSelect = [];
+    this.arraySelect = [];
+    this.arrayPosition = [];
+    this.all = false;
+    this.getAllSeller(undefined);
+    this.selection.clear();
+    this.dialog.closeAll();
   }
 }
