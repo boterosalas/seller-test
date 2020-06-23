@@ -124,11 +124,11 @@ export class TermsService implements CanActivate {
         this.dialogRef = dialogRef;
         const dialogIntance = dialogRef.componentInstance;
         dialogIntance.processFinish$.subscribe((val) => {
-            // if (val) {
-            //     this.getSellerAgreement(this.state, false);
-            // } else {
-            //     location.reload();
-            // }
+            if (val) {
+                this.getSellerAgreement(this.state, false);
+            } else {
+                location.reload();
+            }
           });
     }
 
