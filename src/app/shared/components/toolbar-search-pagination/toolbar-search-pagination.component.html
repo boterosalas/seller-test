@@ -37,7 +37,7 @@
       <mat-paginator [ngClass]="{'hidden-pagination': orderListLength == true}" class="order-pagination" fxFlex.xs="300px"
         fxFlex.sm="300px" fxFlex.md="auto" fxFlex.lg="400px" fxFlex.xl="400px" class="paginator-style orders-paginate"
         itemsPerPageLabel="" #paginator [pageSize]="Typeprofile == 1 ? 50 : pageSizeOrder"
-        [length]="lengthOrder"  [pageSizeOptions]="[10]" (page)="pageEvent = changePaginatorOrdens($event)">
+        [length]="lengthOrder"  [pageSizeOptions]="[50, 100, 150]" (page)="pageEvent = changePaginatorOrdens($event)">
       </mat-paginator>
       <div fxLayout="row" class="center-product-list" fxFlex="20px" fxShow.xs="true" fxShow.sm="true" fxShow.md="true"
         fxShow.lg="false" fxShow.xl="false">

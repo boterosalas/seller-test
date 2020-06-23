@@ -8,8 +8,8 @@
         #toolbarOptions (OnGetOrdersList)="getOrdersList($event)"
         (paginationListOrdens)="paginations($event)"
         (OnChangeSizeOrderTable)="changeSizeOrderTable($event)"
-        [Typeprofile]="3" [lengthOrder]="length"
-        [orderListLength]="false" (filterCalifications)="toggleFilterPorts()">
+        [Typeprofile]="null" [lengthOrder]="length"
+        (filterCalifications)="toggleFilterPorts()">
       </app-toolbar-search-pagination>
     </div>
 
