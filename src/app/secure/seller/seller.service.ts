@@ -73,19 +73,13 @@ export class SellerService implements CanActivate {
     public redirectToHome(): void {
         this.router.navigate([`/${RoutesConst.securehome}`]);
     }
-
-
-    getOrderList(params: any): Observable<[{}]> {
-        const varUnde = undefined;
-        console.log(params)
-        return new Observable(observer => {
-            this.http.get<any[]>(this.api.get('searchOrders', [params.idSeller, params.limit + `&idStatusOrder=${varUnde}`])).subscribe((data: any) => {
-                observer.next(data);
-            }, err => {
-                observer.error(err);
-            });
-        });
-    }
+    /**
+     * capturar el listado de seller paginado
+     *
+     * @param {*} params
+     * @returns {Observable<[{}]>}
+     * @memberof SellerService
+     */
     getAllSellersPaginated(params: any): Observable<[{}]> {
         return new Observable(observer => {
             this.http.get<any[]>(this.api.get('getAllSellersPaginated', [params.limit])).subscribe((data: any) => {
@@ -96,12 +90,14 @@ export class SellerService implements CanActivate {
         });
     }
 
-
-    public appplyAgreement(data: any): Observable<any> {
-        return new Observable(observer => {
-            observer.next(true);
-        });
+    /**
+     * funcion para guardar el listado de contratos seller
+     *
+     * @param {*} data
+     * @returns {Observable<any>}
+     * @memberof SellerService
+     */
+    public registersContract(data: any): Observable<any> {
+        return this.http.post(this.api.get('registersContract'), data);
     }
-
-
 }

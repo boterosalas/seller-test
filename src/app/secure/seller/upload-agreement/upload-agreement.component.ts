@@ -89,17 +89,22 @@ export class UploadAgreementComponent implements OnInit {
     this.getAllSeller();
     this.clearData();
   }
-
+  /**
+   * funcion para capturar todos los seller paginados
+   *
+   * @param {*} [params]
+   * @memberof UploadAgreementComponent
+   */
   getAllSeller(params?: any) {
     this.loadingService.viewSpinner();
     if (params === undefined) {
-        params = {
-          limit: this.limit  + '&paginationToken=' + encodeURI(this.paginationToken),
-        };
+      params = {
+        limit: this.limit + '&paginationToken=' + encodeURI(this.paginationToken),
+      };
     }
     this.sellerService.getAllSellersPaginated(params).subscribe((result: any) => {
       if (result) {
-          this.resultModel = JSON.parse(result.body);
+        this.resultModel = JSON.parse(result.body);
         if (this.callOne) {
           this.length = this.resultModel.Count;
           this.arrayPosition = [];
@@ -108,10 +113,10 @@ export class UploadAgreementComponent implements OnInit {
         }
         this.dataSource = new MatTableDataSource(this.resultModel.ViewModel);
         if (this.arraySelect.length > 0) {
-          this.arraySelect.forEach (select => {
+          this.arraySelect.forEach(select => {
             this.dataSource.data.forEach(rowGen => {
               if (rowGen.Id === select.Id) {
-                 this.selection.select(rowGen);
+                this.selection.select(rowGen);
               }
             });
           });
@@ -121,10 +126,10 @@ export class UploadAgreementComponent implements OnInit {
         }
 
         if (this.arrayNotSelect.length > 0) {
-          this.arrayNotSelect.forEach (select => {
+          this.arrayNotSelect.forEach(select => {
             this.dataSource.data.forEach(rowGen => {
               if (rowGen.Id === select.Id) {
-                 this.selection.deselect(rowGen);
+                this.selection.deselect(rowGen);
               }
             });
           });
@@ -136,46 +141,59 @@ export class UploadAgreementComponent implements OnInit {
       }
     });
   }
-
+  /**
+   * funcion para paginar el listado de seller
+   *
+   * @param {*} event
+   * @memberof UploadAgreementComponent
+   */
   paginations(event: any) {
     if (event && event.param && event.param.pageIndex >= 0) {
-        const index = event.param.pageIndex;
-        if (index === 0) {
-          this.paginationToken = '{}';
-        }
-        const isExistInitial = this.arrayPosition.includes('{}');
-        if (isExistInitial === false) {
-          this.arrayPosition.push('{}');
-        }
-        const isExist = this.arrayPosition.includes(this.paginationToken);
-        if (isExist === false) {
-          this.arrayPosition.push(this.paginationToken);
-        }
-        this.paginationToken = this.arrayPosition[index];
-        if (this.paginationToken === undefined) {
-          this.paginationToken = '{}';
-        }
-        const params = {
-          'limit': 10 + '&paginationToken=' + encodeURI(this.paginationToken),
-        };
-        this.getAllSeller(params);
+      const index = event.param.pageIndex;
+      if (index === 0) {
+        this.paginationToken = '{}';
+      }
+      const isExistInitial = this.arrayPosition.includes('{}');
+      if (isExistInitial === false) {
+        this.arrayPosition.push('{}');
+      }
+      const isExist = this.arrayPosition.includes(this.paginationToken);
+      if (isExist === false) {
+        this.arrayPosition.push(this.paginationToken);
+      }
+      this.paginationToken = this.arrayPosition[index];
+      if (this.paginationToken === undefined) {
+        this.paginationToken = '{}';
+      }
+      const params = {
+        'limit': 10 + '&paginationToken=' + encodeURI(this.paginationToken),
+      };
+      this.getAllSeller(params);
     }
   }
 
-
+  /**
+   * funcion para abrir el modal cargar acuerdos
+   *
+   * @memberof UploadAgreementComponent
+   */
   importAgreement() {
     const dialogRef = this.dialog.open(ModalLoadAgreementComponent, {
       width: '50%',
       minWidth: '280px',
       data: {
-        selectAll : !this.statusAllCheck,
-        arraySelect : this.arraySelect,
+        selectAll: !this.statusAllCheck,
+        arraySelect: this.arraySelect,
         arrayNotSelect: this.arrayNotSelect
       }
     });
   }
 
-
+  /**
+   * funcion para validar todos los check del listado
+   *
+   * @memberof UploadAgreementComponent
+   */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
@@ -186,7 +204,12 @@ export class UploadAgreementComponent implements OnInit {
     }
   }
 
-
+  /**
+   * funcion para manejar el check all
+   *
+   * @param {boolean} status
+   * @memberof UploadAgreementComponent
+   */
   masterToggle(status: boolean) {
     if (status) {
       if (this.selection.selected.length > 0) {
@@ -203,7 +226,13 @@ export class UploadAgreementComponent implements OnInit {
       this.statusAllCheck = !status;
     }
   }
-
+  /**
+   * funcion para cambiar stados de los check
+   *
+   * @param {*} row
+   * @param {*} status
+   * @memberof UploadAgreementComponent
+   */
   public changeStatus(row: any, status: any) {
     if (row) {
       if (status) {
@@ -227,7 +256,11 @@ export class UploadAgreementComponent implements OnInit {
     }
     this.isAllSelected();
   }
-
+  /**
+   * funcion para limpiar la data, un evento emitido para accionar la respuesta de limpiado
+   *
+   * @memberof UploadAgreementComponent
+   */
   clearData() {
     this.subModalLoad = this.shellComponent.eventEmitterOrders.clearTable.subscribe(
       (data: any) => {
@@ -241,6 +274,4 @@ export class UploadAgreementComponent implements OnInit {
         this.dialog.closeAll();
       });
   }
-
-
 }

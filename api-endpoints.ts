@@ -123,6 +123,8 @@ export const endpoints = {
       getTermsBySeller: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/GetContracts/{params}',
       // Actualizar contrato del vendedor
       updateTermsSeller: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/AcceptContract',
+      // Registrar contrato por medio del administrador
+      registersContract : 'https://yoix96dfrg.execute-api.us-east-1.amazonaws.com/contracts/RegisterContract',
       // Obtener si el vendedor ya acepto los terminos
       getValidationTerms: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/ValidateContract',
       // Obtener los datos del vendedor
@@ -314,6 +316,8 @@ export const endpoints = {
       getTermsBySeller: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/GetContracts/{params}',
       // Actualizar contrato del vendedor
       updateTermsSeller: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/AcceptContract',
+      // ACTUALIZAR CON EL DE PRODUCCION
+      registersContract : 'https://yoix96dfrg.execute-api.us-east-1.amazonaws.com/contracts/RegisterContract',
       // Obtener si el vendedor ya acepto los terminos
       getValidationTerms: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/ValidateContract',
       // Obtener los datos del vendedor
