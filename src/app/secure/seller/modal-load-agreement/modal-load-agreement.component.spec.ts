@@ -1,25 +1,25 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+// import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModalLoadAgreementComponent } from './modal-load-agreement.component';
+// import { ModalLoadAgreementComponent } from './modal-load-agreement.component';
 
-describe('ModalLoadAgreementComponent', () => {
-  let component: ModalLoadAgreementComponent;
-  let fixture: ComponentFixture<ModalLoadAgreementComponent>;
+// describe('ModalLoadAgreementComponent', () => {
+//   let component: ModalLoadAgreementComponent;
+//   let fixture: ComponentFixture<ModalLoadAgreementComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ModalLoadAgreementComponent ]
-    })
-    .compileComponents();
-  }));
+//   beforeEach(async(() => {
+//     TestBed.configureTestingModule({
+//       declarations: [ ModalLoadAgreementComponent ]
+//     })
+//     .compileComponents();
+//   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ModalLoadAgreementComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//   beforeEach(() => {
+//     fixture = TestBed.createComponent(ModalLoadAgreementComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });
