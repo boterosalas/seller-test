@@ -63,21 +63,13 @@ export class TermsService implements CanActivate {
                             if (data.Data && data.Data.StatusContract === true) {
                                 if (state.url !== '/' + RoutesConst.securehome) {
                                     this.router.navigate(['/' + RoutesConst.securehome]);
-                                } else {
-                                    this.router.navigate(['/']);
                                 }
                             } else {
                                     if (showModal) {
                                         this.openDialog(data.Data);
                                     } else {
                                         if (this.dialogRef && this.dialogRef.componentInstance) {
-                                            this.dialogRef.componentInstance.data = {
-                                                ContractUrl: 'https://s3.amazonaws.com/seller.center.exito.seller/Template/Acuerdo_Comercial_Marketplace_-_Actualizado_26-12-2018_Versi%C3%B3n_Mostrar.pdf',
-                                                DocumentType: 0,
-                                                Id: 34456,
-                                                StatusContract: true,
-                                            }
-                                            ;
+                                            this.dialogRef.componentInstance.data = data.Data;
                                           }
                                     }
                             }
@@ -132,11 +124,11 @@ export class TermsService implements CanActivate {
         this.dialogRef = dialogRef;
         const dialogIntance = dialogRef.componentInstance;
         dialogIntance.processFinish$.subscribe((val) => {
-            if (val) {
-                this.getSellerAgreement(this.state, false);
-            } else {
-                location.reload();
-            }
+            // if (val) {
+            //     this.getSellerAgreement(this.state, false);
+            // } else {
+            //     location.reload();
+            // }
           });
     }
 
