@@ -13,7 +13,7 @@ import { UnreadCaseResponse } from '@app/secure/seller-support-center/models/unr
 @Injectable()
 export class TermsService implements CanActivate {
 
-    localStorage_ModalContract = 'true';
+    modalContract = 'true';
     state: RouterStateSnapshot;
     constantes = new Const();
     private dialogRef: MatDialogRef<TermsComponent>;
@@ -53,8 +53,13 @@ export class TermsService implements CanActivate {
      * @returns {*}
      * @memberof TermsService
      */
-    getSellerAgreement(state: RouterStateSnapshot, showModal: boolean): any {
+    getSellerAgreement(state: RouterStateSnapshot, showModal: any): any {
         this.getUserInfo().then(resultPromise => {
+            if (localStorage.getItem('modalContract')) {
+                this.modalContract = localStorage.getItem('modalContract');
+            } else {
+                this.modalContract = 'true';
+            }
             if (resultPromise) {
                 this.http.get(this.api.get('getValidationTerms'), { headers: { valid: '' } }).subscribe((result: any) => {
                     if (result && result.body) {
@@ -65,13 +70,15 @@ export class TermsService implements CanActivate {
                                     this.router.navigate(['/' + RoutesConst.securehome]);
                                 }
                             } else {
-                                    if (showModal) {
+                                if (this.modalContract === 'true') {
+                                      if (showModal) {
                                         this.openDialog(data.Data);
                                     } else {
                                         if (this.dialogRef && this.dialogRef.componentInstance) {
                                             this.dialogRef.componentInstance.data = data.Data;
                                           }
                                     }
+                                }
                             }
                         } catch (e) {
                             console.error(e);
@@ -124,9 +131,12 @@ export class TermsService implements CanActivate {
         this.dialogRef = dialogRef;
         const dialogIntance = dialogRef.componentInstance;
         dialogIntance.processFinish$.subscribe((val) => {
-            if (val) {
+            if (val.responseContract) {
+                localStorage.setItem('modalContract', 'true');
                 this.getSellerAgreement(this.state, false);
+
             } else {
+                localStorage.setItem('modalContract', 'false');
                 location.reload();
             }
           });

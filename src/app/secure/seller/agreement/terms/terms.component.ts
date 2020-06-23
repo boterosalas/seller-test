@@ -158,17 +158,16 @@ export class TermsComponent implements OnInit, OnDestroy {
                 dataToSend.Ip = '';
                 dataToSend.ip = '';
             }
-            this.http.patch(this.api.get('updateTermsSeller'), dataToSend).subscribe( (data: any) => {
-                this.loadingService.closeSpinner();
+            this.http.patch(this.api.get('updateTermsSeller'), dataToSend).subscribe( (data: any) => {                
                 if (data && ( data.statusCode === 200 || data.statusCode === 201 ) ) {
-                    if (this.data && this.data.StatusContract) {
-                        this.processFinish$.next(false);
-                    } else {
-                        this.loadingService.closeSpinner();
-                        this.processFinish$.next(true);
-                        this.formTerms.reset();
+                    if (responseContract) {
+                        this.processFinish$.next({responseContract : true, reload: true });
                         const myDiv = document.getElementById('parrafo');
                         myDiv.scrollTop = 0;
+                    } else {
+                        this.processFinish$.next({responseContract : false, reload: false });
+                        this.loadingService.closeSpinner();
+                        this.dialogRef.close();
                     }
                 } else {
                     this.snackBar.open(this.msgError, 'Cerrar', {
