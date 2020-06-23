@@ -106,12 +106,11 @@ export class UploadAgreementComponent implements OnInit {
           this.arrayPosition.push('{}');
           this.callOne = false;
         }
-        console.log(this.resultModel);
         this.dataSource = new MatTableDataSource(this.resultModel.ViewModel);
         if (this.arraySelect.length > 0) {
           this.arraySelect.forEach (select => {
             this.dataSource.data.forEach(rowGen => {
-              if (rowGen.id === select.id) {
+              if (rowGen.Id === select.Id) {
                  this.selection.select(rowGen);
               }
             });
@@ -119,6 +118,16 @@ export class UploadAgreementComponent implements OnInit {
         }
         if (this.all) {
           this.dataSource.data.forEach(row => this.selection.select(row));
+        }
+
+        if (this.arrayNotSelect.length > 0) {
+          this.arrayNotSelect.forEach (select => {
+            this.dataSource.data.forEach(rowGen => {
+              if (rowGen.Id === select.Id) {
+                 this.selection.deselect(rowGen);
+              }
+            });
+          });
         }
         this.paginationToken = this.resultModel.PaginationToken ? this.resultModel.PaginationToken : '{}';
         this.loadingService.closeSpinner();
