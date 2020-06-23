@@ -19,7 +19,6 @@ export class DialogDesactiveOffertComponent implements OnInit {
     public dialogRef: MatDialogRef<DialogDesactiveOffertComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
-    console.log('data: ', this.data);
   }
 
   ngOnInit() {

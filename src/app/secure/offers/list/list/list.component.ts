@@ -60,6 +60,9 @@ export class ListComponent implements OnInit {
   // Domains images
   public domainImages = environment.domainImages;
 
+  public listErrorStatus: any = [];
+
+
   applyFilter = false;
 
   valueCheckdesactive: any;
@@ -291,30 +294,37 @@ export class ListComponent implements OnInit {
     dataToSend.paramsFilters.stock = this.paramData.stock || null;
     dataToSend.paramsFilters.product = this.paramData.product || null;
 
-    console.log('this.allOffer: ', this.allOffer);
     this.allOffer ? this.sumItemCount = this.totalOffers : this.sumItemCount = this.sumItemCount;
 
-    console.log('dataToSend: antes', dataToSend);
     const dialogRef = this.dialog.open(DialogDesactiveOffertComponent, {
       data: {
         count: this.sumItemCount
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result === true) {
-        // dataToSend.eans = this.listToSend || null;
+      if (result) {
         if (this.listToSend.length === 0) {
           dataToSend.eans = null;
         } else {
           dataToSend.eans = this.listToSend;
         }
         dataToSend.desactiveOffers = this.allOffer;
-        console.log('dataToSend dsps: ', dataToSend);
+        this.loadingService.viewSpinner();
+        this.offerService.desactiveMassiveOffers(dataToSend).subscribe(res => {
+          if (res) {
+            if ((res['body'].data.successful === res['body'].data.totalProcess) && (res['body'].data.error === 0)) {
+              this.openModal(1, null);
+            } else {
+              const { offerNotifyViewModels } = res['body'].data;
+              this.openModal(3, offerNotifyViewModels);
+            }
+          }
+          this.loadingService.closeSpinner();
+        });
         this.getListOffers();
       }
     });
     this.activeCheck = false;
-    // this.cleanAllFilter();
   }
 
   /**
@@ -346,7 +356,6 @@ export class ListComponent implements OnInit {
     this.listToSend.forEach(res => {
       this.listOffer.forEach(result => {
         if (result.ean === res) {
-          console.log('si');
           result['checked'] = true;
         }
       });
@@ -364,7 +373,6 @@ export class ListComponent implements OnInit {
 
   verifyProccesDesactiveOffert() {
     this.bulkLoadService.verifyStatusBulkLoad().subscribe((res) => {
-      console.log('res: ', res);
       try {
         if (res && res.status === 200) {
           const { status, checked } = res.body.data;
@@ -375,12 +383,12 @@ export class ListComponent implements OnInit {
             setTimeout(() => { this.openModal(status, null); });
           } else if (status === 3 && checked !== 'true') {
             const response = res.body.data.response;
-            // if (response) {
-            //   this.listErrorStatus = JSON.parse(response).Data.OfferNotify;
-            // } else {
-            //   this.listErrorStatus = null;
-            // }
-            // setTimeout(() => { this.openModal(status, this.listErrorStatus); });
+            if (response) {
+              this.listErrorStatus = JSON.parse(response).Data.OfferNotify;
+            } else {
+              this.listErrorStatus = null;
+            }
+            setTimeout(() => { this.openModal(status, this.listErrorStatus); });
           } else {
             this.loadingService.closeSpinner();
           }
@@ -409,7 +417,6 @@ export class ListComponent implements OnInit {
       listError: listError,
       typeStatus: type
     };
-    // this.cdr.detectChanges();
     const dialog = this.dialog.open(FinishUploadInformationComponent, {
       width: '70%',
       minWidth: '280px',

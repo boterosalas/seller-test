@@ -170,7 +170,6 @@ export class CitiesCoverageComponent implements OnInit {
    * @memberof CitiesCoverageComponent
    */
   public changeStatus(row: any, status: any) {
-    console.log(row, status);
     if (row) {
       row.Status = this.selection.isSelected(row);
     } else {

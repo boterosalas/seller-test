@@ -195,6 +195,10 @@ export const endpoints = {
       getPortsByCountryName: 'https://orba3qnrte.execute-api.us-east-1.amazonaws.com/dispatchport/GetDispatchPortsByCountryName/{params}',
       // Ruta basica para puertos
       managePort : 'https://orba3qnrte.execute-api.us-east-1.amazonaws.com/dispatchport',
+      // Desactivar masiva de Ofertas
+      // patchDesactiveOffer: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/disableoffersbyseller',
+      patchDesactiveOffer: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/disableoffersbyseller'
+
     },
   },
   // Endpoints production
