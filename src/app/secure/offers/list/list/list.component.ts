@@ -415,7 +415,7 @@ export class ListComponent implements OnInit {
     this.loadingService.closeSpinner();
     const intervalTime = 6000;
     const data = {
-      successText: this.languageService.instant('secure.offers.list.list.desactive_KO'),
+      successText: this.languageService.instant('secure.offers.list.list.desactive_OK'),
       failText: this.languageService.instant('secure.offers.list.list.desactive_KO'),
       processText: this.languageService.instant('secure.offers.list.list.desactive_in_progress'),
       initTime: 500,
