@@ -5,13 +5,13 @@
    <div class="deactivate_offers">
 
      <button mat-button color="primary" [matMenuTriggerFor]="menu">
-      <mat-icon>block</mat-icon> Desactivar oferta(s)</button>
+      <mat-icon>block</mat-icon> {{'secure.offers.list.list.desactive_offer' | translate}}</button>
      <mat-menu #menu="matMenu">
-       <button mat-menu-item (click)="someOffersSelected(); activeMultipleOffer()">Seleccionar ofertas</button>
-       <button mat-menu-item (click)="allOffersSelected(); openDialogDesactiveOffer()">Todas las ofertas</button>
+       <button mat-menu-item (click)="someOffersSelected(); activeMultipleOffer()">{{'secure.offers.list.list.selected_offer' | translate}}</button>
+       <button mat-menu-item (click)="allOffersSelected(); openDialogDesactiveOffer()">{{'secure.offers.list.list.all_offer' | translate}}</button>
      </mat-menu>
      <div *ngIf="activeCheck">
-       <button mat-raised-button color="warn" (click)="openDialogDesactiveOffer()">Confirmar desactiación.</button>
+       <button mat-raised-button color="warn" (click)="openDialogDesactiveOffer()">{{'secure.offers.list.list.confirm_desactive' | translate}}</button>
      </div>
    </div>
 
@@ -61,7 +61,7 @@
 
      <div *ngFor="let item of listOffer">
        <div style="padding-left: 3%;" *ngIf="activeCheck">
-         <mat-checkbox type="checkbox" [checked]="item.checked" (change)="onvalueCheckdesactiveChanged(item)">Check me!
+         <mat-checkbox type="checkbox" [checked]="item.checked" (change)="onvalueCheckdesactiveChanged(item)">{{'secure.offers.list.list.select_me' | translate}}
          </mat-checkbox>
        </div>
        <div>

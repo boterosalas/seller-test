@@ -694,6 +694,17 @@
     "secure.offers.list.list.averageFreightCost": "Costo de Flete Promedio: ",
     "secure.offers.list.list.warranty": "Garantía: ",
     "secure.offers.list.list.currency": "Tipo de moneda: ",
+    "secure.offers.list.list.desactive_offer": "Desactivar oferta(s)",
+    "secure.offers.list.list.selected_offer": "Seleccionar ofertas",
+    "secure.offers.list.list.all_offer": "Todas las ofertas",
+    "secure.offers.list.list.confirm_desactive": "Confirmar desactiación",
+    "secure.offers.list.list.select_me": "Seleccionar",
+    "secure.offers.list.list.desactive_OK": "Desactivación de ofertas exitosa",
+    "secure.offers.list.list.desactive_KO": "Desactivación de ofertas no exitosa, por favor revise los errores",
+    "secure.offers.list.list.desactive_in_progress": "Desactivación de ofertas en proceso",
+    "secure.offers.list.list.modal_desactive_1": "¿Estas seguro que deseas desactivar ",
+    "secure.offers.list.list.modal_desactive_2": "oferta(s)?",
+
 
     "secure.offers.list.components.detail_offer.return": "Volver",
     "secure.offers.list.components.detail_offer.averageFreightCost": "Costo de Flete Promedio",

@@ -13,6 +13,7 @@ import { DialogDesactiveOffertComponent } from './dialog-desactive-offert/dialog
 import { NullAstVisitor } from '@angular/compiler';
 import { BulkLoadService } from '../../bulk-load/bulk-load.service';
 import { FinishUploadInformationComponent } from '../../bulk-load/finish-upload-information/finish-upload-information.component';
+import { TranslateService } from '@ngx-translate/core';
 
 
 
@@ -88,6 +89,7 @@ export class ListComponent implements OnInit {
     public authService?: AuthService,
     public bulkLoadService?: BulkLoadService,
     public dialog?: MatDialog,
+    private languageService?: TranslateService,
   ) {
     this.paramData = new ModelFilter();
     this.user = {};
@@ -370,7 +372,10 @@ export class ListComponent implements OnInit {
     this.activeCheck = true;
   }
 
-
+  /**
+   * Funcion para validar el estado del proceso de desactivacion de ofertas
+   * @memberof ListComponent
+   */
   verifyProccesDesactiveOffert() {
     this.bulkLoadService.verifyStatusBulkLoad().subscribe((res) => {
       try {
@@ -400,18 +405,19 @@ export class ListComponent implements OnInit {
     });
   }
 
+  /**
+   * Metodo para abrir modal de OK, carga en proceso o con errores.
+   * @param {number} type
+   * @param {*} listError
+   * @memberof ListComponent
+   */
   openModal(type: number, listError: any) {
     this.loadingService.closeSpinner();
-    // if (this.arrayInformationForSend.length > 0) {
-    //   this.calculateIntervalTime();
-    // } else {
-    //   this.intervalTime = 6000;
-    // }
     const intervalTime = 6000;
     const data = {
-      successText: 'Desactivación de ofertas realizada exitosamente',
-      failText: 'Desactivación de ofertas con errores',
-      processText: 'Desactivación de ofertas en proceso',
+      successText: this.languageService.instant('secure.offers.list.list.desactive_KO'),
+      failText: this.languageService.instant('secure.offers.list.list.desactive_KO'),
+      processText: this.languageService.instant('secure.offers.list.list.desactive_in_progress'),
       initTime: 500,
       intervalTime: intervalTime,
       listError: listError,
@@ -429,7 +435,6 @@ export class ListComponent implements OnInit {
     dialogIntance.processFinish$.subscribe((val) => {
       dialog.disableClose = false;
     });
-    // this.configDialog(dialog);
   }
 
 }
