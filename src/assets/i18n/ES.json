@@ -1204,6 +1204,7 @@
     "secure.parametize.support_claims.list.error.orderNumber": "El número de orden es inválido",
     "secure.parametize.support_claims.list.error.rangeDate": "El rango de fechas debe de ser máximo 14 días",
     "secure.parametize.support_claims.search_orders_insert": "Ingresa el nombre del vendedor en la barra de búsqueda para ver las reclamaciones.",
+    "secure.parametize.support_claims.download": "Descargar reclamaciones",
 
     "secure.parametize.support_claims-filter.modal-title": "Filtro de reclamaciones",
     "secure.parametize.support_claims-filter.id": "ID",
