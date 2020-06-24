@@ -1187,6 +1187,7 @@
     "secure.parametize.support_claims.list.error.orderNumber": "The order number is invalid",
     "secure.parametize.support_claims.list.error.rangeDate": "The date range must be maximum of 14 days",
     "secure.parametize.support_claims.search_orders_insert": "Enter the seller's name in the search bar to view claims.",
+    "secure.parametize.support_claims.download": "Télécharger les revendications",
 
     "secure.parametize.support_claims-filter.modal-title": "Claims filter",
     "secure.parametize.support_claims-filter.id": "ID",
