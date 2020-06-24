@@ -42,6 +42,7 @@ import { DialogDesactiveOffertComponent } from './list/dialog-desactive-offert/d
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
     ListService
   ],
-  entryComponents: [DialogDesactiveOffertComponent]
+  exports: [ListComponent],
+  entryComponents: [DialogDesactiveOffertComponent, ListComponent]
 })
 export class ListModule { }
