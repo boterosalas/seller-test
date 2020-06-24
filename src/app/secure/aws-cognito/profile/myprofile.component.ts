@@ -47,6 +47,8 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     tomorrow = DateService.getTomorrowDate();
 
     otherUser: any;
+    userData: any;
+    isDisable: boolean;
 
     constructor(
         public router: Router,
@@ -64,10 +66,30 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     }
 
     ngOnInit() {
+        this.getAllDataUser();
         this.enableEndVacation = true;
         this.initUserForm();
         this.initVacationForm();
         this.userService.isAuthenticated(this);
+    }
+
+
+    /**
+     * Metodo que obtiene la información completa del usuario.
+     * @memberof MyProfileComponent
+     */
+    async getAllDataUser() {
+        this.loading.viewSpinner();
+        const sellerData = await this.profileService.getUser().toPromise().then(res => {
+            const body: any = res.body;
+            const userData = JSON.parse(body.body).Data;
+            if (userData.Status && userData.Status === 'Disable') {
+                this.isDisable = true;
+            } else {
+                this.isDisable = false;
+            }
+            this.loading.closeSpinner();
+        });
     }
 
     getPermissions() {

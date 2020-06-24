@@ -75,6 +75,10 @@ $color-primary: #3d5afe;
             }
           }
 
+          &.noneVacations{
+            pointer-events: none;
+          }
+
           &.vacations {
             text-align: right;
             width: 25%;

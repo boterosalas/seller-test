@@ -1193,6 +1193,7 @@
     "secure.parametize.support_claims.list.error.orderNumber": "El número de orden es inválido",
     "secure.parametize.support_claims.list.error.rangeDate": "El rango de fechas debe de ser máximo 14 días",
     "secure.parametize.support_claims.search_orders_insert": "Ingresa el nombre del vendedor en la barra de búsqueda para ver las reclamaciones.",
+    "secure.parametize.support_claims.download": "Descargar reclamaciones",
 
     "secure.parametize.support_claims-filter.modal-title": "Filtro de reclamaciones",
     "secure.parametize.support_claims-filter.id": "ID",
@@ -1206,6 +1207,17 @@
     "secure.parametize.support_claims-filter.last_post": "Última respuesta",
     "secure.parametize.support_claims-filter.sac_answer": "Respuesta servicio al cliente",
     "secure.parametize.support_claims-filter.seller_answer": "Respuesta vendedor",
+
+    "secure.parametize.support_claims-filter.modal-export.export-all": "Se exportará las reclamaciones asociadas a todos los vendedores.",
+    "secure.parametize.support_claims-filter.modal-export.not-select-seller": "No ha seleccionado ningún vendedor",
+    "secure.parametize.support_claims-filter.modal-export.text-message-send-email": "Te enviaremos las reclamaciones al siguiente correo electrónico.",
+    "secure.parametize.support_claims-filter.modal.export.confirmSend": "Se ha realizado la descarga del la(s) reclamacion(es) correctamente, revisa tu correo electrónico",
+    "secure.parametize.support_claims-filter.modal.export.editEmail": "Editar correo",
+    "secure.parametize.support_claims-filter.modal-export.applyFilter": "Aplicar filtros",
+    "secure.parametize.support_claims-filter.modal-export.exportAll": "Exportar todos",
+    "secure.parametize.support_claims-filter.modal-export.addSeller": "Agregar vendedor",
+    "secure.parametize.support_claims-filter.modal-export.searchSeller": "Buscar vendedor",
+    "secure.parametize.support_claims-filter.modal-export.titleExportReclaim": "Exportar reclamaciones",
 
     "secure.parametize.support_drop-down-menu-ID": "ID",
     "secure.parametize.support_drop-down-order-numer": "Número de pedido",
