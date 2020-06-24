@@ -1,24 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { StoresService } from '@app/secure/offers/stores/stores.service';
-import { Logger, LoadingService, ModalService } from '@app/core';
-import { MatSnackBar, PageEvent, MatSidenav, ErrorStateMatcher, MatChipInputEvent, MatDialog, MatDialogRef, MatTableDataSource } from '@angular/material';
-import { Router } from '@angular/router';
-import { RoutesConst, SearchFormEntity, InformationToForm } from '@app/shared';
-import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators } from '@angular/forms';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { trimField } from '../../../shared/util/validation-messages';
-
+import { Logger, LoadingService,  } from '@app/core';
+import { MatSidenav,  MatDialog, MatTableDataSource } from '@angular/material';
+import {  SearchFormEntity, InformationToForm } from '@app/shared';
 import { AuthService } from '@app/secure/auth/auth.routing';
-import { MenuModel, readFunctionality, visualizeFunctionality, enableFunctionality, sellerListName, disableFunctionality, vacationFunctionality, cancelVacacionFunctionality } from '@app/secure/auth/auth.consts';
-import { DateService } from '@app/shared/util/date.service';
-import * as moment from 'moment';
-import { TranslateService } from '@ngx-translate/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ModalLoadAgreementComponent } from '../modal-load-agreement/modal-load-agreement.component';
 import { SellerService } from '../seller.service';
-import { AnyKindOfDictionary } from 'lodash';
 import { ShellComponent } from '@app/core/shell';
 
 const log = new Logger('ManageSellerComponent');
@@ -80,7 +68,6 @@ export class UploadAgreementComponent implements OnInit {
     private dialog: MatDialog,
     public authService: AuthService,
     private sellerService: SellerService,
-    public modalLoadAgreementComponent: ModalLoadAgreementComponent,
     public shellComponent: ShellComponent,
     public loadingService: LoadingService,
   ) { }
