@@ -28,7 +28,7 @@ $underline: #909090;
 }
 
 .widthToolbar {
-  width: 45%;
+  width: 43%;
 
   @media (max-width: 600px) {
     width: 112%;
@@ -85,7 +85,7 @@ $underline: #909090;
     }
 
     font-size: 14px;
-
+    padding-top: 1%;
     &--item {
       height: 40px !important;
       max-height: 40px !important;
