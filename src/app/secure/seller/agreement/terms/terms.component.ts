@@ -8,6 +8,7 @@ import { BillingOrdersService } from '@app/secure/orders/billing-orders/billing-
 import { Router, NavigationStart } from '@angular/router';
 import { RoutesConst } from '@app/shared';
 import { Subject } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-terms',
@@ -36,6 +37,7 @@ export class TermsComponent implements OnInit, OnDestroy {
         @Inject(MAT_DIALOG_DATA) public data: any,
         private http: HttpClient,
         private api: EndpointService,
+        private languageService: TranslateService,
         private billingOrdersService: BillingOrdersService,
         private loadingService: LoadingService,
         private router: Router,
@@ -56,7 +58,7 @@ export class TermsComponent implements OnInit, OnDestroy {
     public closeDialog2(): void {
         this.loadingService.viewSpinner();
         this.billingOrdersService.getDownnLoadBilling([this.data.ContractUrl]).subscribe(result => {
-            this.showFile(result, 'Terminos y condiciones', 'application/pdf');
+            this.showFile(result, this.languageService.instant('secure.seller.contracts.terms_conditions'), 'application/pdf');
             this.loadingService.closeSpinner();
         });
     }
@@ -158,7 +160,7 @@ export class TermsComponent implements OnInit, OnDestroy {
                 dataToSend.Ip = '';
                 dataToSend.ip = '';
             }
-            this.http.patch(this.api.get('updateTermsSeller'), dataToSend).subscribe( (data: any) => {                
+            this.http.patch(this.api.get('updateTermsSeller'), dataToSend).subscribe( (data: any) => {
                 if (data && ( data.statusCode === 200 || data.statusCode === 201 ) ) {
                     if (responseContract) {
                         this.processFinish$.next({responseContract : true, reload: true });
@@ -170,7 +172,7 @@ export class TermsComponent implements OnInit, OnDestroy {
                         this.dialogRef.close();
                     }
                 } else {
-                    this.snackBar.open(this.msgError, 'Cerrar', {
+                    this.snackBar.open(this.languageService.instant('secure.seller.contracts.not_save_agreement'), this.languageService.instant('actions.close'), {
                       duration: 3000,
                     });
                 }

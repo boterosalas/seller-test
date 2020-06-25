@@ -1,19 +1,17 @@
 <!-- Dialogo de angular material para mostrar el contrato de trabajo -->
 <div class="dialog-container" *ngIf="chargueView">
     <h2 class="dialog-title">
-        Acuerdo Comercial Marketplace <span style="font-size: 14px; font-weight: 100;color: #b6b6b6;" *ngIf="data.TotalPending > 0">pendientes por revisar ({{data.TotalPending}})</span>
+        {{'secure.seller.contracts.marketplace_agreement'| translate}} <span class="terms-text-term-condition" *ngIf="data.TotalPending > 0">{{'secure.seller.contracts.pending_approval'| translate}} ({{data.TotalPending}})</span>
     </h2>
-    <div style="padding-bottom: 20px;">
-        <div style="text-align: center;">
+    <div class="padding-bottom-20">
+        <div class="text-center">
             <span>
-                Apreciado vendedor, en Marketplace buscando siempre la mejora
-                continua hemos actualizado nuestros términos y condiciones.
+                {{'secure.seller.contracts.dear_seller_we_have'| translate}}
             </span>
         </div>
-        <div style="text-align: center; font-weight: bold; padding: 5px;">
+        <div class="terms-text-head-subtitle">
             <span>
-                Por favor leer detenidamente el nuevo acuerdo comercial y/o
-                anexo y confírmanos tu aceptación en la parte inferior
+               {{'secure.seller.contracts.please_read_closely' | translate}}
             </span>
         </div>
     </div>
@@ -31,21 +29,20 @@
                 <mat-icon matPrefix class="material-icons">
                     person
                 </mat-icon>
-                <input matInput placeholder="Nombre completo de representante
-                    legal" formControlName="responsable">
+                <input matInput [placeholder]="'secure.seller.contracts.full_name_representative_legal' | translate" formControlName="responsable">
             </mat-form-field>
             <mat-form-field class="dialog-input">
                 <mat-icon matPrefix class="material-icons">
                     assignment_ind
                 </mat-icon>
-                <input matInput placeholder="Número de identificación
-                    representante legal" formControlName="identification">
+                <input matInput [placeholder]="'secure.seller.contracts.number_representative_legal'| translate" formControlName="identification">
             </mat-form-field>
 
             <div class="dialog-input dialog-check" fxLayout="row">
                 <mat-checkbox formControlName="accept" class="dialog-accept">
                 </mat-checkbox>
-                Acepto los términos y condiciones del acuerdo de Marketplace
+                {{'secure.seller.contracts.accept_terms_conditions'| translate}}
+                
             </div>
 
         </form>
@@ -55,22 +52,22 @@
     <div mat-dialog-actions>
         <div fxLayout="row" fxFlex="100" >
             <div fxFlex="50" fxLayoutAlign="start center">
-                <div style="padding: 5px;">
+                <div class="padding-5-btn">
                     <button type="button" id="btn-create-transporter"
-                        mat-stroked-button color="primary" [innerHTML]="'DESCARGAR'"
+                        mat-stroked-button color="primary" [innerHTML]="'actions.download' | translate"
                         (click)="closeDialog()"></button>
                 </div>
             </div>
             <div fxFlex="50" fxLayoutAlign="end center">
-                <div style="padding: 5px;">
+                <div class="padding-5-btn">
                     <button id="btn-create-transporter" (click)="saveTerms(true)"
-                        mat-raised-button color="primary" [innerHTML]="'ACEPTAR'"
+                        mat-raised-button color="primary" [innerHTML]="'actions.accept'| translate"
                         [disabled]="!formTerms.valid">
                     </button>
                 </div>
-                <div style="padding: 5px;">
+                <div class="padding-5-btn">
                     <button id="btn-create-transporter" (click)="saveTerms(false)"
-                        mat-raised-button color="default" [innerHTML]="'NO ACEPTAR'" [disabled]="!formTerms.valid">
+                        mat-raised-button color="default" [innerHTML]="'permissions.not_Accpet' | translate" [disabled]="!formTerms.valid">
                     </button>
                 </div>
             </div>
