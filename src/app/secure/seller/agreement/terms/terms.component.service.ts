@@ -66,9 +66,9 @@ export class TermsService implements CanActivate {
                         try {
                             const data = JSON.parse(result.body);
                             if (data.Data && data.Data.StatusContract === true) {
-                                if (state.url !== '/' + RoutesConst.securehome) {
-                                    this.router.navigate(['/' + RoutesConst.securehome]);
-                                }
+                                // if (state.url !== '/' + RoutesConst.securehome) {
+                                //     this.router.navigate(['/' + RoutesConst.securehome]);
+                                // }
                             } else {
                                 if (this.modalContract === 'true') {
                                       if (showModal) {
