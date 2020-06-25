@@ -83,6 +83,7 @@
     "permissions.Marcar": "Flag",
     "permissions.Ofertar": "Offer",
     "permissions.Aceptar": "Accpet",
+    "permissions.not_Accpet": "REFUSE",
     "permissions.Rechazar": "Refuse",
     "permissions.Consultartransportadora": "Browse shipping company",
     "permissions.Consultarzonas": "Browse zones",
@@ -578,7 +579,16 @@
     "secure.seller.contracts.lb_title_toolbar": "Agreements",
     "secure.seller.contracts.lb_subtitle_toolbar": "Agreement lookup",
     "secure.seller.contracts.txt_no_contract_seller": "There are no current Agreement associated to this seller",
-
+    "secure.seller.contracts.dear_seller_we_have": "Dear Seller, We have updated our terms and conditions",
+    "secure.seller.contracts.please_read_closely": "Please read closely the new agreement and/or attachments and confirm your acceptance below",
+    "secure.seller.contracts.marketplace_agreement": "Marketplace Agreement",
+    "secure.seller.contracts.pending_approval": "Pending for approval",
+    "secure.seller.contracts.full_name_representative_legal": "Full name of representative legal",
+    "secure.seller.contracts.number_representative_legal": "Identification number of legal representative",
+    "secure.seller.contracts.accept_terms_conditions": "I Accept the Terms & Conditions",
+    "secure.seller.contracts.not_save_agreement": "We couldn't safe your changes",
+    "secure.seller.contracts.terms_conditions": "Terms & Conditions",
+    
     "secure.offers.cities_coverage.save_daneCode_ok": "The available cities for dispatch have been saved succesfully.",
     "secure.offers.cities_coverage.save_daneCode_ko": "An error has occurren when trying to save the cities available for dispatch.",
 
@@ -1191,6 +1201,7 @@
     "secure.parametize.support_claims.list.error.orderNumber": "The order number is invalid",
     "secure.parametize.support_claims.list.error.rangeDate": "The date range must be maximum of 14 days",
     "secure.parametize.support_claims.search_orders_insert": "Enter the seller's name in the search bar to view claims.",
+    "secure.parametize.support_claims.download": "Télécharger les revendications",
 
     "secure.parametize.support_claims-filter.modal-title": "Claims filter",
     "secure.parametize.support_claims-filter.id": "ID",
@@ -1204,6 +1215,17 @@
     "secure.parametize.support_claims-filter.last_post": "Last post",
     "secure.parametize.support_claims-filter.sac_answer": "Customer service response",
     "secure.parametize.support_claims-filter.seller_answer": "Seller´s response",
+
+    "secure.parametize.support_claims-filter.modal-export.export-all": "The associated claims will be exported to all sellers",
+    "secure.parametize.support_claims-filter.modal-export.not-select-seller": "No seller selected",
+    "secure.parametize.support_claims-filter.modal-export.text-message-send-email": "Claims will be sent to the following email",
+    "secure.parametize.support_claims-filter.modal.export.confirmSend": "Claim(s) have been succesfully downloaded, check your email",
+    "secure.parametize.support_claims-filter.modal.export.editEmail": "Update Mail",
+    "secure.parametize.support_claims-filter.modal-export.applyFilter": "Apply filters",
+    "secure.parametize.support_claims-filter.modal-export.exportAll": "Export all",
+    "secure.parametize.support_claims-filter.modal-export.addSeller": "Add Seller",
+    "secure.parametize.support_claims-filter.modal-export.searchSeller": "Search for a seller",
+    "secure.parametize.support_claims-filter.modal-export.titleExportReclaim": "Export claims",
 
     "secure.parametize.port.port": "Port",
     "secure.parametize.port.search_port": "Search port",

@@ -15,6 +15,7 @@ import { CoreModule } from '@angular/flex-layout';
 import { UploadAgreementComponent } from './upload-agreement/upload-agreement.component';
 import { ModalLoadAgreementComponent } from './modal-load-agreement/modal-load-agreement.component';
 import { ngfModule } from 'angular-file/file-upload/ngf.module';
+import { TermsComponent } from './agreement/terms/terms.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { ngfModule } from 'angular-file/file-upload/ngf.module';
     providers: [
         SellerService,
         StoresService,
-        ModalLoadAgreementComponent
+        ModalLoadAgreementComponent,
+        TermsComponent
     ],
 })
 export class SellerModule { }

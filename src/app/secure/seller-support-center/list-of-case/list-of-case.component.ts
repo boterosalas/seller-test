@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { SellerSupportCenterService } from '../services/seller-support-center.service';
 import { ResponseCaseDialogComponent } from '@shared/components/response-case-dialog/response-case-dialog.component';
@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 import { FetchUnreadCaseDone } from '@app/store/notifications/actions';
 import { CoreState } from '@app/store';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ConfigurationState } from '@app/store/configuration';
 import { StoreService } from '@app/store/store.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -20,6 +20,7 @@ import { FormBuilder, FormGroup, FormControl, FormGroupDirective, NgForm, Valida
 import { DatePipe } from '@angular/common';
 import { CustomPaginator } from '@app/secure/products/list-products/listFilter/paginatorList';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import { ModalExportToReclaimComponent } from '../modal-export-to-reclaim/modal-export-to-reclaim.component';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -54,7 +55,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     ])
   ]
 })
-export class ListOfCaseComponent implements OnInit {
+export class ListOfCaseComponent implements OnInit, OnDestroy {
   options: any;
   filter: boolean;
   menuState: string;
@@ -66,9 +67,10 @@ export class ListOfCaseComponent implements OnInit {
   pageSize = 100;
   filterParams: any;
   unreadCase: number;
+  public subModalExport: Subscription;
 
   configDialog = {
-    width: '70%',
+    width: '85%',
     height: 'fit-content',
     data: null
   };
@@ -78,6 +80,7 @@ export class ListOfCaseComponent implements OnInit {
   public log: Logger;
 
   isAdmin: Boolean = false;
+  email: string;
   sellerId: any;
 
   sellerIdLogger: any;
@@ -337,6 +340,7 @@ export class ListOfCaseComponent implements OnInit {
       const response = JSON.parse(body.body);
       const userData = response.Data;
       this.sellerId = userData.IdSeller;
+      this.email = userData.Email;
       localStorage.setItem('typeProfile', userData.Profile);
       if (userData.Profile !== 'seller' && userData.Profile && userData.Profile !== null) {
         this.isAdmin = true;
@@ -516,5 +520,22 @@ export class ListOfCaseComponent implements OnInit {
    */
   redirectToListClaims(idFalse: any) {
     this.idDetail = idFalse;
+  }
+
+  /**
+   * funcion para llamar al modal y por medio de ciertos filtros exportar las reclamaciones
+   *
+   * @memberof ListOfCaseComponent
+   */
+  openModalExportByFilter() {
+    this.dialog.open(ModalExportToReclaimComponent, {
+      width: '70%',
+      minWidth: '280px',
+      data: { isAdmin: this.isAdmin, email: this.email }
+    });
+  }
+
+  ngOnDestroy() {
+    this.dialog.closeAll();
   }
 }

@@ -44,6 +44,9 @@ $node-radio: 2px;
 
   &__button {
     width: max-content;
+    @media only screen and (max-width: 600px) {
+      padding: 0;
+    }
   }
 
   &--ponter {

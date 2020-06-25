@@ -8,6 +8,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 export class EventEmitterSeller {
 
     eventSearchSeller = new EventEmitter<any>();
+    eventSearchSellerModal = new EventEmitter<any>();
 
     /**
      *  Evento eventEmitter que permite detectar cuando un usuario a realizado la busqueda de una tienda.
@@ -16,5 +17,9 @@ export class EventEmitterSeller {
      */
     searchSeller(seller: any) {
         this.eventSearchSeller.emit(seller);
+    }
+
+    searchSellerModal(seller: any) {
+        this.eventSearchSellerModal.emit(seller);
     }
 }
