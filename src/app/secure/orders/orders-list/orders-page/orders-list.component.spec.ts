@@ -158,7 +158,6 @@ describe('ordersList', () => {
                 { provide: OrderService, useValue: mockOrderService },
                 EndpointService,
                 { provide: LoadingService, useValue: mockLoadingService },
-                // { provide: SupportService, useValue: mockSupportService },
                 SupportService,
                 { provide: AuthService, useValue: mockAuthService },
                 UserParametersService,

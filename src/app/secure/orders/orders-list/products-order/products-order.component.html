@@ -1,6 +1,7 @@
 <div fxFlex fxLayout="column" fxFlex="100" class="content-product-detail">
   <div class="title-product-list">
-    <div fxFlex="56px" [fxFlex.sm]="order.allowShipping === true ? '44px' : '16px'" [fxFlex.xs]="order.allowShipping === true ? '44px' : '16px'" class="sc-text-normal">
+    <div fxFlex="56px" [fxFlex.sm]="order.allowShipping === true ? '44px' : '16px'"
+      [fxFlex.xs]="order.allowShipping === true ? '44px' : '16px'" class="sc-text-normal">
       <div class="center-product-list" *ngIf="Typeprofile === 0">
         <mat-checkbox class="sc-check-personal"
           *ngIf="order.allowShipping == true && order.idStatusOrder == const.OrderAsignado"
@@ -62,7 +63,8 @@
   </div>
 
   <div *ngFor="let product of order.products;let index=index" class="content-product-list">
-    <div fxFlex="56px" [fxFlex.sm]="order.allowShipping === true ? '44px' : '16px'" [fxFlex.xs]="order.allowShipping === true ? '44px' : '16px'">
+    <div fxFlex="56px" [fxFlex.sm]="order.allowShipping === true ? '44px' : '16px'"
+      [fxFlex.xs]="order.allowShipping === true ? '44px' : '16px'">
       <div class="center-product-list" *ngIf="Typeprofile === 0">
         <mat-checkbox id="check-product-detail-{{index}}" class="sc-check-personal"
           *ngIf="order.allowShipping == true && product.idStatusProduct == const.ProductAsignado"
@@ -78,6 +80,8 @@
             {{product.reference}}</p>
           <p class="sc-text-bold-order n-margin">{{'secure.orders.order_list.product_order.sku' | translate}}:
             {{product.sku}}</p>
+          <p class="sc-text-bold-order n-margin">{{'shared.ean' | translate}}:
+            {{product.ean}}</p>
         </div>
       </div>
     </div>
@@ -139,8 +143,10 @@
       class="item-title-table">
       <div>
         <p class="sc-text-order-carrier" *ngIf="!!product.carrier">Loc: {{product.carrier}}</p>
-        <p class="sc-text-order-carrier" *ngIf="!product.carrier && product.tracking && isInternational===true">Loc: INTERNATIONAL SHIPPING</p>
-        <p class="sc-text-order-carrier" *ngIf="!!product.internationalCarrier">Int: {{product.internationalCarrier}}</p>
+        <p class="sc-text-order-carrier" *ngIf="!product.carrier && product.tracking && isInternational===true">Loc:
+          INTERNATIONAL SHIPPING</p>
+        <p class="sc-text-order-carrier" *ngIf="!!product.internationalCarrier">Int: {{product.internationalCarrier}}
+        </p>
       </div>
     </div>
     <div fxShow fxHide.xs="true" fxHide.sm="true" fxHide.lt-md="true" fxHide.lg="false" fxHide.xl="false"
@@ -210,8 +216,9 @@
         </p>
       </div>
     </div>
-    <div *ngIf="order.allowShipping == true && order.idStatusOrder == const.OrderAsignado" class="left-Button" fxFlexOffset.lg="40%"
-      fxFlexOffset.xl="80%" fxFlex.xl="140px" fxFlex.lg="140px" fxFlex.sm="140px" fxFlex.md="140px" fxFlex.xs="initial">
+    <div *ngIf="order.allowShipping == true && order.idStatusOrder == const.OrderAsignado" class="left-Button"
+      fxFlexOffset.lg="40%" fxFlexOffset.xl="80%" fxFlex.xl="140px" fxFlex.lg="140px" fxFlex.sm="140px"
+      fxFlex.md="140px" fxFlex.xs="initial">
       <div *ngIf="Typeprofile === 0">
         <button id="send-from-product-order-{{order.orderNumber}}" (click)="openDialogSendOrder(order)"
           [disabled]="!order.sendAllProduct" class="full-button sc-default-button sc-button" mat-raised-button

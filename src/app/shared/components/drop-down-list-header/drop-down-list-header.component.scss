@@ -11,6 +11,10 @@ $line-color: #d3d3d3;
     font-weight: bold;
     height: 62px;
     border-bottom: 1px $line-color solid;
+    @media only screen and (max-width: 668px) {
+      // place-content: space-around !important;
+      padding-left: 3%;
+    }
 
     &--item-detail {
       text-overflow: ellipsis;
@@ -23,7 +27,19 @@ $line-color: #d3d3d3;
 
     @media only screen and (max-width: 668px) {
       &--item-header {
-        font-size: 10px;
+        font-size: 13px;
+      }
+      &--marginleft{
+        margin-left: 5%;
+      }
+      &--marginleft-admin{
+        margin-left: 25%;
+      }
+      .paddingLeft{
+        padding-left: 25%
+      }
+      &--item-header-none {
+        display: none;
       }
     }
   }

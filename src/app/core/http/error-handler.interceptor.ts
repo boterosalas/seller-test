@@ -36,7 +36,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
   openDialog(): void {
     this.userService.logout();
     const dialogRef = this.dialog.open(DialogTokenExpiredComponent, {
-      width: '30%',
+      width: '60%',
       disableClose: true,
       data: null
     });

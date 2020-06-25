@@ -1,0 +1,141 @@
+<div class="content-order my-content">
+
+  <div fxFlex class="container" fxLayout="row wrap" fxLayoutAlign="center
+    start">
+    <div fxFlex="100" class="light-content">
+      <app-toolbar-search-pagination 
+        [informationToForm]="informationToForm" [state]="null"
+        #toolbarOptions
+        (paginationListOrdens)="paginations($event)"
+        [Typeprofile]="null" [lengthOrder]="length"
+        (filterCalifications)="toggleFilterPorts()">
+      </app-toolbar-search-pagination>
+    </div>
+
+    <div class="container-port-main">
+      <div fxLayout="column" class="container-width-100">
+        <div fxLayout="row">
+          <div class="port-component-label-filter">
+            <div class="example-chip-list"></div>
+          </div>
+          <div class="port-component-button-add">
+            <div id="addButton" class="container-group-add-button">
+              <!-- arrayNotSelect.length > 0 || !this.statusAllCheck || arraySelect.length > 0 -->
+              <!-- arraySelect.length > 0 ? false : true && -->
+              <button mat-button (click)="importAgreement()" [disabled]=" arraySelect.length > 0 ? false : true && !statusAllCheck ? false : true ">
+                <mat-icon class="material-icons">
+                  playlist_add_check
+                </mat-icon>
+                {{'secure.seller.contracts.load-agreement.import'| translate}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabla de órdenes -->
+    <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="97" fxFlex.lg="97"
+      fxFlex.xl="97"
+      class="port-component-content-table-center-collection">
+      <mat-table #table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="expand">
+          <mat-header-cell fxFlex.lg="60px" fxFlex="70px" fxShow.xs="false"
+            fxShow.sm="false" fxShow.gt-lg="false"
+            fxShow="true" fxFlex.xl="250px" *matHeaderCellDef>
+          </mat-header-cell>
+          <mat-cell fxFlex="70px" fxFlex.lg="60px" fxShow.xs="false"
+            fxShow.sm="false" fxShow.gt-lg="false"
+            fxShow="true" *matCellDef="let element;let index=index">
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="all">
+          <mat-header-cell class='marginListAdminTotal' fxShow.xs="true"
+            fxShow.sm="true" fxShow.lg="true"
+            fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10"
+            fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
+            *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? masterToggle(statusAllCheck) :
+              null; changeStatus(null, $event.checked)"
+              [checked]="selection.hasValue()"
+              [indeterminate]="selection.hasValue() && !isAllSelectedCurrent">
+              {{'actions.all'| translate}}
+            </mat-checkbox>
+          </mat-header-cell>
+          <mat-cell class='marginListAdminTotal' fxShow.xs="true"
+            fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10"
+            fxFlex.xs="30" fxFlex.xl=""
+            *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()"
+              (change)="$event ? selection.toggle(row) : null;changeStatus(row,
+              $event.checked)"
+              [checked]="selection.isSelected(row)">
+            </mat-checkbox>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="id">
+          <mat-header-cell class='marginListAdminTotal' fxShow.xs="true"
+            fxShow.sm="true" fxShow.lg="true"
+            fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10"
+            fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
+            *matHeaderCellDef>
+            <span class="title-table-header upload-agreement-text-column" >{{'secure.seller.list.id'
+              | translate}}</span>
+          </mat-header-cell>
+          <mat-cell class='marginListAdminTotal' fxShow.xs="true"
+            fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10"
+            fxFlex.xs="30" fxFlex.xl=""
+            *matCellDef="let element">
+            <div></div>
+            <p class="sc-text-normal cup-text-country">{{element.IdSeller}}</p>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="nit">
+          <mat-header-cell class='marginListAdminTotal' fxShow.xs="false"
+            fxShow.sm="false" fxShow.lg="true"
+            fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10"
+            fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
+            *matHeaderCellDef>
+            <span class="title-table-header upload-agreement-text-column" >{{'secure.seller.list.nit'
+              | translate}}</span>
+          </mat-header-cell>
+          <mat-cell class='marginListAdminTotal' fxShow.xs="false"
+            fxShow.sm="false" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10"
+            fxFlex.xs="30" fxFlex.xl=""
+            *matCellDef="let element">
+            <p class="sc-text-normal">{{element.Nit}}</p>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <mat-header-cell class='marginListAdminTotal' fxShow.xs="false"
+            fxShow.sm="false" fxShow.lg="true"
+            fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10"
+            fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
+            *matHeaderCellDef>
+            <span class="title-table-header upload-agreement-text-column">{{'secure.seller.list.seller_name'
+              | translate}}</span>
+          </mat-header-cell>
+          <mat-cell class='marginListAdminTotal' fxShow.xs="false"
+            fxShow.sm="false" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10"
+            fxFlex.xs="30" fxFlex.xl=""
+            *matCellDef="let element">
+            <p class="sc-text-normal">{{element.Name}}</p>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Creación de las filas para la tabla -->
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row id="order-number-{{index}}" *matRowDef="let index=index; let
+          row; columns: displayedColumns;" matRipple
+          class="element-row personal-row-table" [cdkDetailRow]="row"
+          [cdkDetailRowTpl]="tpl" (click)="selection.toggle(row)">
+        </mat-row>
+      </mat-table>
+
+    </div>
+  </div>
+</div>
