@@ -111,7 +111,7 @@
         [pageIndex]="pageIndex" [pageSize]="pageSize">
       </app-case-toolbar>
       <div class="filterDesktop">
-        <button mat-icon-button (click)="openModalExportByFilter()">
+        <button mat-icon-button [matTooltip]="'secure.parametize.support_claims.download' | translate"  (click)="openModalExportByFilter()">
           <mat-icon>archive</mat-icon>
         </button>
         <button type="button" mat-button (click)="drawer.toggle()">
