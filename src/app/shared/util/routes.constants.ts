@@ -37,7 +37,8 @@ export class RoutesConst {
     static readonly oferHistoricalBulkLoadAdmin: any = 'historico-carga-ofertas-admin';
     static readonly oferTreeCategory: any = 'arbol-categorias';
     static readonly offerCitiesCoverage: any = 'ciudades-cobertura';
-    static readonly billingPayments: any = 'pagos';
+    static readonly billingPayments: any = 'detalle-pagos';
+    static readonly summaryPayments: any = 'resumen-pagos';
     static readonly sellerRegister: any = 'registrar';
     static readonly sellerManage: any = 'administrar';
     static readonly sellerAgreement: any = 'acuerdos';
@@ -121,6 +122,7 @@ export class RoutesConst {
 
 
     static readonly sellerCenterIntBillingPayments: any = RoutesConst.sellerCenterBilling + '/' + RoutesConst.billingPayments;
+    static readonly sellerCenterIntPaymentSummary: any = RoutesConst.sellerCenterBilling + '/' + RoutesConst.summaryPayments;
 
     static readonly sellerCenterIntSellerRegister: any = RoutesConst.sellerCenterSellers + '/' + RoutesConst.sellerRegister;
     static readonly sellerCenterIntSellerManage: any = RoutesConst.sellerCenterSellers + '/' + RoutesConst.sellerManage;

@@ -64,7 +64,7 @@ export class BillingComponent implements OnInit, OnDestroy {
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
     title: 'module.Facturación',
-    subtitle: 'menu.Pagos',
+    subtitle: 'menu.Detalle de Pagos',
     title_for_search: 'secure.billing.check_billing',
     btn_title: 'secure.billing.check_billing',
     type_form: 'billing',

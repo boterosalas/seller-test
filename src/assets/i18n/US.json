@@ -26,6 +26,8 @@
     "menu.Factura Electrónica": "Digital billing",
     "menu.Factura electrónica": "Digital billing",
     "menu.Pagos": "Payments",
+    "menu.Detalle de Pagos": "Detalle de pagos",
+    "menu.Resumen de Pagos": "Resumen de pagos",
     "menu.Listado de Ofertas": "Offers list",
     "menu.Listado de ofertas": "Offers list",
     "menu.Carga Masiva de Ofertas": "Bulk offers upload",
