@@ -27,7 +27,7 @@
                 <mat-icon class="material-icons">
                   playlist_add_check
                 </mat-icon>
-                Importar
+                {{'secure.seller.contracts.load-agreement.import'| translate}}
               </button>
             </div>
           </div>
@@ -60,7 +60,7 @@
               null; changeStatus(null, $event.checked)"
               [checked]="selection.hasValue()"
               [indeterminate]="selection.hasValue() && !isAllSelectedCurrent">
-              principal
+              {{'actions.all'| translate}}
             </mat-checkbox>
           </mat-header-cell>
           <mat-cell class='marginListAdminTotal' fxShow.xs="true"

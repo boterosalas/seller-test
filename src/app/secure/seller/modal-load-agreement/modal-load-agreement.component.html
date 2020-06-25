@@ -16,20 +16,18 @@
     <form #fomrLoadAgreement="ngForm" [formGroup]="form">
       <div>
         <div class="modal-load-agreement-padding-content">
-          <div class="modal-load-agreement-padding-margin-content"><span class="modal-load-agreement-content-text-type">Por favor seleccione que tipo
-              de acuerdo desea cargar</span></div>
+          <div class="modal-load-agreement-padding-margin-content"><span class="modal-load-agreement-content-text-type">{{'secure.seller.contracts.load-agreement.select-option-load'| translate}}</span></div>
           <div>
             <mat-radio-group aria-label="Seleccione una opción"
               formControlName="typeAgreement">
-              <mat-radio-button value=2 class="modal-load-agreement-text-option-type-agreement">Acuerdo</mat-radio-button>
-              <mat-radio-button value=1 class="modal-load-agreement-text-option-type-agreement">Anexo</mat-radio-button>
+              <mat-radio-button value=2 class="modal-load-agreement-text-option-type-agreement">{{'secure.seller.contracts.load-agreement.agreement'| translate}}</mat-radio-button>
+              <mat-radio-button value=1 class="modal-load-agreement-text-option-type-agreement">{{'secure.seller.contracts.load-agreement.Attached'| translate}}</mat-radio-button>
             </mat-radio-group>
           </div>
         </div>
         <div class="modal-load-agreement-content-load-file-padding">
-          <span class="modal-load-agreement-text-option-type-agreement">Adjuntar
-            archivos formato <strong>PDF</strong> (peso
-            maximo 3 MegaBytes)</span></div>
+          <span class="modal-load-agreement-text-option-type-agreement">{{'secure.seller.contracts.load-agreement.upload_file'| translate}}</span>
+        </div>
         <div fxLayout="row" class="load-file-container">
           <div fxFlex="100" class="text-aling-center-modal-load">
             <div class="inline-block">
@@ -91,6 +89,6 @@
     <button mat-button (click)="onNoClick()">{{'actions.cancel'| translate}}</button>
     <button type="button" mat-raised-button color="primary"
       [disabled]="!fomrLoadAgreement.form.valid || uploadAgreementBtn"
-      (click)="sendImportAgreement()">Importar acuerdos </button>
+      (click)="sendImportAgreement()">{{'secure.seller.contracts.load-agreement.import_agreement' | translate}} </button>
   </mat-dialog-actions>
 </div>

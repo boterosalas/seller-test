@@ -180,6 +180,8 @@
     "actions.previous_page": "Página anterior",
     "actions.view_attachments" : "Ver Adjunto",
     "actions.confirm_offer": "Confirmar Oferta",
+    "actions.all": "Todos",
+
 
     "errors.required": "Este campo es obligatorio",
     "errors.invalid_name": "Nombre invalido",
@@ -1257,5 +1259,13 @@
     "secure.quality.quality-score.qualityIssued" :"Mes emitido",
     "secure.quality.quality-score.text-empty-califications" :"Ingresa el nombre del vendedor en la barra de búsqueda para ver las calificaciones.",
     "secure.quality.quality-score.filter-title": "Consultar calificaciones",
-    "secure.quality.quality-score.message-send-quality": "La calificación del vendedor se ha enviado correctamente"
+    "secure.quality.quality-score.message-send-quality": "La calificación del vendedor se ha enviado correctamente",
+
+
+    "secure.seller.contracts.load-agreement.select-option-load":"Por favor seleccione que tipo de acuerdo que desea cargar",
+    "secure.seller.contracts.load-agreement.agreement":"Acuerdo",
+    "secure.seller.contracts.load-agreement.Attached":"Anexo",
+    "secure.seller.contracts.load-agreement.upload_file":"Adjuntar archivos formato PDF (peso maximo 3 MegaBytes)",
+    "secure.seller.contracts.load-agreement.import":"Importar",
+    "secure.seller.contracts.load-agreement.import_agreement":"Importar acuerdos"
 }
