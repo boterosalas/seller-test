@@ -82,6 +82,7 @@
     "permissions.Marcar": "Flag",
     "permissions.Ofertar": "Offer",
     "permissions.Aceptar": "Accpet",
+    "permissions.not_Accpet": "REFUSE",
     "permissions.Rechazar": "Refuse",
     "permissions.Consultartransportadora": "Browse shipping company",
     "permissions.Consultarzonas": "Browse zones",
@@ -574,7 +575,16 @@
     "secure.seller.contracts.lb_title_toolbar": "Agreements",
     "secure.seller.contracts.lb_subtitle_toolbar": "Agreement lookup",
     "secure.seller.contracts.txt_no_contract_seller": "There are no current Agreement associated to this seller",
-
+    "secure.seller.contracts.dear_seller_we_have": "Dear Seller, We have updated our terms and conditions",
+    "secure.seller.contracts.please_read_closely": "Please read closely the new agreement and/or attachments and confirm your acceptance below",
+    "secure.seller.contracts.marketplace_agreement": "Marketplace Agreement",
+    "secure.seller.contracts.pending_approval": "Pending for approval",
+    "secure.seller.contracts.full_name_representative_legal": "Full name of representative legal",
+    "secure.seller.contracts.number_representative_legal": "Identification number of legal representative",
+    "secure.seller.contracts.accept_terms_conditions": "I Accept the Terms & Conditions",
+    "secure.seller.contracts.not_save_agreement": "We couldn't safe your changes",
+    "secure.seller.contracts.terms_conditions": "Terms & Conditions",
+    
     "secure.offers.cities_coverage.save_daneCode_ok": "The available cities for dispatch have been saved succesfully.",
     "secure.offers.cities_coverage.save_daneCode_ko": "An error has occurren when trying to save the cities available for dispatch.",
 
