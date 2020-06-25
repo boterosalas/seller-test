@@ -5,9 +5,8 @@
     <div fxFlex="100" class="light-content">
       <app-toolbar-search-pagination 
         [informationToForm]="informationToForm" [state]="null"
-        #toolbarOptions (OnGetOrdersList)="getOrdersList($event)"
+        #toolbarOptions
         (paginationListOrdens)="paginations($event)"
-        (OnChangeSizeOrderTable)="changeSizeOrderTable($event)"
         [Typeprofile]="null" [lengthOrder]="length"
         (filterCalifications)="toggleFilterPorts()">
       </app-toolbar-search-pagination>
