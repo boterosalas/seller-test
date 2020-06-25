@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 
 
 import { MaterialModule } from '@app/material.module';
@@ -15,6 +15,7 @@ import { AuthService } from '@app/secure/auth/auth.routing';
 import { BulkLoadService } from '../../bulk-load/bulk-load.service';
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { of } from 'rxjs';
 
 const result = {
     body: {
@@ -89,8 +90,16 @@ fdescribe('ListComponent', () => {
     const mockAuthService = jasmine.createSpyObj('AuthService', ['getMenu']);
     const mockBulkLoadService = jasmine.createSpyObj('BulkLoadService', ['verifyStatusBulkLoad']);
 
+    const registerMenu = {
+        Functionalities: [{
+            NameFunctionality: 'Crear',
+            ShowFunctionality: true,
+            nameFunctionalityBack: 'Crear'
+        }],
+    };
 
-    beforeEach(async(() => {
+
+    beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 MaterialModule,
@@ -117,10 +126,11 @@ fdescribe('ListComponent', () => {
     }));
 
     beforeEach(() => {
+        mockAuthService.getMenu.and.returnValue(registerMenu);
         fixture = TestBed.createComponent(ListComponent);
         component = fixture.componentInstance;
-        mockListService.getOffers.and.returnValue(result);
-        mockBulkLoadService.verifyStatusBulkLoad.and.returnValue(resStatus);
+        mockListService.getOffers.and.returnValue(of(result));
+        mockBulkLoadService.verifyStatusBulkLoad.and.returnValue(of(resStatus));
         fixture.detectChanges();
     });
 
