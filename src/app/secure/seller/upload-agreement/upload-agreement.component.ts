@@ -269,4 +269,7 @@ export class UploadAgreementComponent implements OnInit {
     this.selection.clear();
     this.dialog.closeAll();
   }
+  toggleFilterPorts() {}
+  changeSizeOrderTable() {}
+  getOrdersList() {}
 }
