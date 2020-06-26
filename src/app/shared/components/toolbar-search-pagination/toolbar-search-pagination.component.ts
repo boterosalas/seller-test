@@ -47,7 +47,7 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   public filteredOptions: Observable<string[]>;
 
   @Input() searchSellerInput;
-  @Input() pageSizeOptions;
+  @Input() limitPaginate = [50, 100, 150];
 
 
   // Para identificar qué tipo de búsqueda se va a realizar.

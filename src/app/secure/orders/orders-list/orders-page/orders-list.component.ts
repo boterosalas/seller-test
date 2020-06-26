@@ -112,7 +112,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
 
 
   public length = 0;
-  public pageSize = 10;
+  public pageSize = 200;
   public querySearch = '';
 
 
@@ -368,9 +368,9 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   getOrdersListSinceFilterSearchOrder() {
     this.subFilterOrder = this.shellComponent.eventEmitterOrders.filterOrderList.subscribe(
       (data: any) => {
-        if (data && data.count > 0) {
+        if (data && data.data.count > 0) {
           if (data != null) {
-            if (data && data && data.viewModel && data.viewModel.length === 0) {
+            if (data && data.data && data.data.viewModel && data.data.viewModel.length === 0) {
               this.orderListLength = true;
             } else {
               this.orderListLength = false;
@@ -380,9 +380,9 @@ export class OrdersListComponent implements OnInit, OnDestroy {
             } else {
               this.numberElements = 0;
             }
-            this.length = data.count;
+            this.length = data.data.count;
             this.isClear = true;
-            this.dataSource = new MatTableDataSource(data.viewModel);
+            this.dataSource = new MatTableDataSource(data.data.viewModel);
             const paginator = this.toolbarOption.getPaginator();
             paginator.pageIndex = 0;
             this.dataSource.paginator = paginator;
@@ -544,19 +544,26 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     let stateCurrent = null;
     this.setCategoryName();
     this.orderService.getOrderList(this.params).subscribe((res: any) => {
+      console.log(res);
       if (res) {
-        if (params.state !== '') {
+        if (res.pendingResponse) {
+          this.getOrdersList(params);
+        } else {
+           if (params.state !== '') {
           stateCurrent = params.state;
           this.lastState = stateCurrent;
         }
         this.setTable(res);
         if (params && params.callOne) {
-          this.length = res.count;
+          this.length = res.data.count;
           this.isClear = true;
         }
         const paginator = { 'pageIndex': 0 };
-        this.addCheckOptionInProduct(res.viewModel, paginator);
+        this.addCheckOptionInProduct(res.data.viewModel, paginator);
         this.loadingService.closeSpinner();
+        }
+        console.log(res);
+       
       }
     });
   }
@@ -599,17 +606,12 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   setTable(res: any) {
     if (res) {
       if (this.onlyOne) {
-        this.length = res.count;
+        this.length = res.data.count;
         this.arrayPosition = [];
         this.arrayPosition.push('{}');
       }
-
-      // if (res.paginationTokens.length > 0) {
-      //   this.arrayPosition = [];
-      //   this.arrayPosition = res.paginationTokens;
-      // }
-      this.dataSource = new MatTableDataSource(res.viewModel);
-      this.savePaginationToken(res.paginationToken);
+      this.dataSource = new MatTableDataSource(res.data.viewModel);
+      this.savePaginationToken(res.data.paginationToken);
     } else {
       this.clearTable();
     }
@@ -709,14 +711,6 @@ export class OrdersListComponent implements OnInit, OnDestroy {
         res[index].products[j].checkProductToSend = false;
       }
     }
-
-    // Creo el elemento que permite pintar la tabla
-    // this.currentOrderList = res;
-    // // this.dataSource = new MatTableDataSource(res.viewModel);
-    // // paginator.pageIndex = 0;
-    // this.dataSource.paginator = paginator;
-    // this.dataSource.sort = this.sort;
-    // this.numberElements = this.dataSource.data.length;
 
     this.setTitleToolbar();
   }
