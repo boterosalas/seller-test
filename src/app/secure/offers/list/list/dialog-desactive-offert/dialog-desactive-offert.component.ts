@@ -14,11 +14,14 @@ export interface DialogData {
   styleUrls: ['./dialog-desactive-offert.component.scss']
 })
 export class DialogDesactiveOffertComponent implements OnInit {
+  public response: any;
+
 
   constructor(
     public dialogRef: MatDialogRef<DialogDesactiveOffertComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
+    this.response = data;
   }
 
   ngOnInit() {
