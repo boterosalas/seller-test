@@ -60,7 +60,7 @@
      </aside>
 
      <div *ngFor="let item of listOffer">
-       <div style="padding-left: 3%;" *ngIf="activeCheck">
+       <div class="checkSelected" *ngIf="activeCheck">
          <mat-checkbox type="checkbox" [checked]="item.checked" (change)="onvalueCheckdesactiveChanged(item)">{{'secure.offers.list.list.select_me' | translate}}
          </mat-checkbox>
        </div>

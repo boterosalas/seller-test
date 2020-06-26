@@ -81,7 +81,7 @@ const resStatus = {
 };
 
 
-fdescribe('ListComponent', () => {
+describe('ListComponent', () => {
     let component: ListComponent;
     let fixture: ComponentFixture<ListComponent>;
 

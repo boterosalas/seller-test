@@ -7,6 +7,10 @@
   display: flex;
 }
 
+.checkSelected{
+  padding-left: 3%;
+}
+
 :host ::ng-deep {
   mat-sidenav-container {
     position: relative;
