@@ -50,6 +50,7 @@
     "menu.Calificación de Vendedores": "Calificación de Vendedores",
     "menu.Solicitudes Pendientes": "Solicitudes Pendientes",
     "menu.Parametrizar Centros de Acopio": "Parametrizar Centros de Acopio",
+    "menu.Cargar Acuerdos": "Cargar acuerdos",
 
     "module.Documentación": "Documentación",
     "module.Ofertas": "Ofertas",
@@ -180,6 +181,8 @@
     "actions.previous_page": "Página anterior",
     "actions.view_attachments" : "Ver Adjunto",
     "actions.confirm_offer": "Confirmar Oferta",
+    "actions.all": "Todos",
+
 
     "errors.required": "Este campo es obligatorio",
     "errors.invalid_name": "Nombre invalido",
@@ -545,6 +548,9 @@
     "secure.seller.list.tooltip_enable": "Habilitar vendedor",
     "secure.seller.list.tooltip_disable": "Deshabilitar vendedor",
     "secure.seller.list.tooltip_vacations": "Programar vacaciones",
+
+
+    "secure.seller.uploadAgreement.selectAll": "Todos",
 
     "secure.seller.register_seller.tap_title_seller": "Formulario registro de nuevo vendedor",
     "secure.seller.register_seller.tap_title_update_seller": "Formulario editar vendedor",
@@ -1286,5 +1292,13 @@
     "secure.quality.quality-score.qualityIssued" :"Mes emitido",
     "secure.quality.quality-score.text-empty-califications" :"Ingresa el nombre del vendedor en la barra de búsqueda para ver las calificaciones.",
     "secure.quality.quality-score.filter-title": "Consultar calificaciones",
-    "secure.quality.quality-score.message-send-quality": "La calificación del vendedor se ha enviado correctamente"
+    "secure.quality.quality-score.message-send-quality": "La calificación del vendedor se ha enviado correctamente",
+
+
+    "secure.seller.contracts.load-agreement.select-option-load":"Por favor seleccione que tipo de acuerdo que desea cargar",
+    "secure.seller.contracts.load-agreement.agreement":"Acuerdo",
+    "secure.seller.contracts.load-agreement.Attached":"Anexo",
+    "secure.seller.contracts.load-agreement.upload_file":"Adjuntar archivos formato PDF (peso maximo 3 MegaBytes)",
+    "secure.seller.contracts.load-agreement.import":"Importar",
+    "secure.seller.contracts.load-agreement.import_agreement":"Importar acuerdos"
 }

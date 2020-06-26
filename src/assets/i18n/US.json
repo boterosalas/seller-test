@@ -50,6 +50,7 @@
     "menu.Calificación de Vendedores": "Quality Score",
     "menu.Solicitudes Pendientes": "Awaiting request",
     "menu.Parametrizar Centros de Acopio": "Parameterize collection centers",
+    "menu.Cargar Acuerdos": "Load Agreements",
 
     "module.Documentación": "Documentation",
     "module.Ofertas": "Offers",
@@ -180,6 +181,7 @@
     "actions.previous_page": "Previous page",
     "actions.view_attachments" : "View attachments",
     "actions.confirm_offer": "Approve Offer",
+    "actions.all": "All",
 
     "errors.required": "Field required",
     "errors.invalid_name": "Invalid name",
@@ -545,6 +547,8 @@
     "secure.seller.list.tooltip_enable": "Activate user",
     "secure.seller.list.tooltip_disable": "Disable user",
     "secure.seller.list.tooltip_vacations": "Program vacations",
+
+    "secure.seller.uploadAgreement.selectAll": "All",
 
     "secure.seller.register_seller.tap_title_seller": "New seller onboarding form",
     "secure.seller.register_seller.tap_title_update_seller": "Seller update form",
@@ -1286,5 +1290,11 @@
     "secure.quality.quality-score.qualityIssued" :"Quality issued",
     "secure.quality.quality-score.text-empty-califications" :"Enter the name of the seller in the search bar to see the quality score. ",
     "secure.quality.quality-score.filter-title": "Consultar calificaciones",
-    "secure.quality.quality-score.message-send-quality": "Seller rating has been successfully submitted"
+    "secure.quality.quality-score.message-send-quality": "Seller rating has been successfully submitted",
+    "secure.seller.contracts.load-agreement.select-option-load":"Please select the type of contract to upload",
+    "secure.seller.contracts.load-agreement.agreement":"Agreement",
+    "secure.seller.contracts.load-agreement.Attached":"Attached",
+    "secure.seller.contracts.load-agreement.upload_file":"Upload file on PDF (Max 3 MegaBytes)",
+    "secure.seller.contracts.load-agreement.import":"Import",
+    "secure.seller.contracts.load-agreement.import_agreement":"Import Agreement"
 }
