@@ -52,6 +52,7 @@
     "menu.Calificación de Vendedores": "Quality Score",
     "menu.Solicitudes Pendientes": "Awaiting request",
     "menu.Parametrizar Centros de Acopio": "Parameterize collection centers",
+    "menu.Cargar Acuerdos": "Load Agreements",
 
     "module.Documentación": "Documentation",
     "module.Ofertas": "Offers",
@@ -84,6 +85,7 @@
     "permissions.Marcar": "Flag",
     "permissions.Ofertar": "Offer",
     "permissions.Aceptar": "Accpet",
+    "permissions.not_Accpet": "REFUSE",
     "permissions.Rechazar": "Refuse",
     "permissions.Consultartransportadora": "Browse shipping company",
     "permissions.Consultarzonas": "Browse zones",
@@ -181,6 +183,7 @@
     "actions.previous_page": "Previous page",
     "actions.view_attachments" : "View attachments",
     "actions.confirm_offer": "Approve Offer",
+    "actions.all": "All",
 
     "errors.required": "Field required",
     "errors.invalid_name": "Invalid name",
@@ -547,6 +550,8 @@
     "secure.seller.list.tooltip_disable": "Disable user",
     "secure.seller.list.tooltip_vacations": "Program vacations",
 
+    "secure.seller.uploadAgreement.selectAll": "All",
+
     "secure.seller.register_seller.tap_title_seller": "New seller onboarding form",
     "secure.seller.register_seller.tap_title_update_seller": "Seller update form",
     "secure.seller.register_seller.tap_title_update_admin": "Admin update form",
@@ -582,6 +587,15 @@
     "secure.seller.contracts.lb_title_toolbar": "Agreements",
     "secure.seller.contracts.lb_subtitle_toolbar": "Agreement lookup",
     "secure.seller.contracts.txt_no_contract_seller": "There are no current Agreement associated to this seller",
+    "secure.seller.contracts.dear_seller_we_have": "Dear Seller, We have updated our terms and conditions",
+    "secure.seller.contracts.please_read_closely": "Please read closely the new agreement and/or attachments and confirm your acceptance below",
+    "secure.seller.contracts.marketplace_agreement": "Marketplace Agreement",
+    "secure.seller.contracts.pending_approval": "Pending for approval",
+    "secure.seller.contracts.full_name_representative_legal": "Full name of representative legal",
+    "secure.seller.contracts.number_representative_legal": "Identification number of legal representative",
+    "secure.seller.contracts.accept_terms_conditions": "I Accept the Terms & Conditions",
+    "secure.seller.contracts.not_save_agreement": "We couldn't safe your changes",
+    "secure.seller.contracts.terms_conditions": "Terms & Conditions",
 
     "secure.offers.cities_coverage.save_daneCode_ok": "The available cities for dispatch have been saved succesfully.",
     "secure.offers.cities_coverage.save_daneCode_ko": "An error has occurren when trying to save the cities available for dispatch.",
@@ -1196,6 +1210,7 @@
     "secure.parametize.support_claims.list.error.orderNumber": "The order number is invalid",
     "secure.parametize.support_claims.list.error.rangeDate": "The date range must be maximum of 14 days",
     "secure.parametize.support_claims.search_orders_insert": "Enter the seller's name in the search bar to view claims.",
+    "secure.parametize.support_claims.download": "Download claims",
 
     "secure.parametize.support_claims-filter.modal-title": "Claims filter",
     "secure.parametize.support_claims-filter.id": "ID",
@@ -1267,5 +1282,11 @@
     "secure.quality.quality-score.qualityIssued" :"Quality issued",
     "secure.quality.quality-score.text-empty-califications" :"Enter the name of the seller in the search bar to see the quality score. ",
     "secure.quality.quality-score.filter-title": "Consultar calificaciones",
-    "secure.quality.quality-score.message-send-quality": "Seller rating has been successfully submitted"
+    "secure.quality.quality-score.message-send-quality": "Seller rating has been successfully submitted",
+    "secure.seller.contracts.load-agreement.select-option-load":"Please select the type of contract to upload",
+    "secure.seller.contracts.load-agreement.agreement":"Agreement",
+    "secure.seller.contracts.load-agreement.Attached":"Attached",
+    "secure.seller.contracts.load-agreement.upload_file":"Upload file on PDF (Max 3 MegaBytes)",
+    "secure.seller.contracts.load-agreement.import":"Import",
+    "secure.seller.contracts.load-agreement.import_agreement":"Import Agreement"
 }

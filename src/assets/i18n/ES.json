@@ -52,6 +52,7 @@
     "menu.Calificación de Vendedores": "Calificación de Vendedores",
     "menu.Solicitudes Pendientes": "Solicitudes Pendientes",
     "menu.Parametrizar Centros de Acopio": "Parametrizar Centros de Acopio",
+    "menu.Cargar Acuerdos": "Cargar acuerdos",
 
     "module.Documentación": "Documentación",
     "module.Ofertas": "Ofertas",
@@ -84,6 +85,7 @@
     "permissions.Marcar": "Marcar",
     "permissions.Ofertar": "Ofertar",
     "permissions.Aceptar": "Aceptar",
+    "permissions.not_Accpet": "NO ACEPTAR",
     "permissions.Rechazar": "Rechazar",
     "permissions.Consultartransportadora": "Consultar transportadora",
     "permissions.Consultarzonas": "Consultar zonas",
@@ -181,6 +183,8 @@
     "actions.previous_page": "Página anterior",
     "actions.view_attachments" : "Ver Adjunto",
     "actions.confirm_offer": "Confirmar Oferta",
+    "actions.all": "Todos",
+
 
     "errors.required": "Este campo es obligatorio",
     "errors.invalid_name": "Nombre invalido",
@@ -547,6 +551,9 @@
     "secure.seller.list.tooltip_disable": "Deshabilitar vendedor",
     "secure.seller.list.tooltip_vacations": "Programar vacaciones",
 
+
+    "secure.seller.uploadAgreement.selectAll": "Todos",
+
     "secure.seller.register_seller.tap_title_seller": "Formulario registro de nuevo vendedor",
     "secure.seller.register_seller.tap_title_update_seller": "Formulario editar vendedor",
     "secure.seller.register_seller.tap_title_update_admin": "Formulario editar Administrador",
@@ -582,6 +589,15 @@
     "secure.seller.contracts.lb_title_toolbar": "Acuerdos",
     "secure.seller.contracts.lb_subtitle_toolbar": "Buscar acuerdos",
     "secure.seller.contracts.txt_no_contract_seller": "No hay acuerdos asociados a este vendendor",
+    "secure.seller.contracts.dear_seller_we_have": "Apreciado vendedor, en Marketplace buscando siempre la mejora continua hemos actualizado nuestros términos y condiciones.",
+    "secure.seller.contracts.please_read_closely": "Por favor leer detenidamente el nuevo acuerdo comercial y/o anexo y confírmanos tu aceptación en la parte inferior",
+    "secure.seller.contracts.marketplace_agreement": "Acuerdo Comercial Marketplace",
+    "secure.seller.contracts.pending_approval": "Pendientes por revisar",
+    "secure.seller.contracts.full_name_representative_legal": "Nombre completo de representante legal",
+    "secure.seller.contracts.number_representative_legal": "Número de identificación representante legal",
+    "secure.seller.contracts.accept_terms_conditions": "Acepto los términos y condiciones del acuerdo de Marketplace",
+    "secure.seller.contracts.not_save_agreement": "No se pudo guardar los términos",
+    "secure.seller.contracts.terms_conditions": "Términos y condiciones",
 
     "secure.offers.cities_coverage.save_daneCode_ok": "Se ha guardado con éxito la restricción de las ciudades sin cobertura.",
     "secure.offers.cities_coverage.save_daneCode_ko": "Se ha producido un error al intentar guardar la restricción de ciudades sin cobertura.",
@@ -1195,6 +1211,7 @@
     "secure.parametize.support_claims.list.error.orderNumber": "El número de orden es inválido",
     "secure.parametize.support_claims.list.error.rangeDate": "El rango de fechas debe de ser máximo 14 días",
     "secure.parametize.support_claims.search_orders_insert": "Ingresa el nombre del vendedor en la barra de búsqueda para ver las reclamaciones.",
+    "secure.parametize.support_claims.download": "Descargar reclamaciones",
 
     "secure.parametize.support_claims-filter.modal-title": "Filtro de reclamaciones",
     "secure.parametize.support_claims-filter.id": "ID",
@@ -1266,5 +1283,13 @@
     "secure.quality.quality-score.qualityIssued" :"Mes emitido",
     "secure.quality.quality-score.text-empty-califications" :"Ingresa el nombre del vendedor en la barra de búsqueda para ver las calificaciones.",
     "secure.quality.quality-score.filter-title": "Consultar calificaciones",
-    "secure.quality.quality-score.message-send-quality": "La calificación del vendedor se ha enviado correctamente"
+    "secure.quality.quality-score.message-send-quality": "La calificación del vendedor se ha enviado correctamente",
+
+
+    "secure.seller.contracts.load-agreement.select-option-load":"Por favor seleccione que tipo de acuerdo que desea cargar",
+    "secure.seller.contracts.load-agreement.agreement":"Acuerdo",
+    "secure.seller.contracts.load-agreement.Attached":"Anexo",
+    "secure.seller.contracts.load-agreement.upload_file":"Adjuntar archivos formato PDF (peso maximo 3 MegaBytes)",
+    "secure.seller.contracts.load-agreement.import":"Importar",
+    "secure.seller.contracts.load-agreement.import_agreement":"Importar acuerdos"
 }

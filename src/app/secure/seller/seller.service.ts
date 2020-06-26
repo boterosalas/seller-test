@@ -4,7 +4,8 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Router } from '@angular/router';
 import { RoutesConst, Const } from '@app/shared';
-import { UserParametersService } from '@app/core';
+import { UserParametersService, EndpointService } from '@app/core';
+import { HttpClient } from '@angular/common/http';
 
 
 @Injectable()
@@ -12,8 +13,12 @@ export class SellerService implements CanActivate {
 
     user = null;
     constantes: Const = new Const();
-    constructor(private router: Router,
-        public userParams: UserParametersService) {
+    constructor(
+        private router: Router,
+        public userParams: UserParametersService,
+        private http: HttpClient,
+        private api: EndpointService
+    ) {
     }
 
     /**
@@ -68,6 +73,31 @@ export class SellerService implements CanActivate {
     public redirectToHome(): void {
         this.router.navigate([`/${RoutesConst.securehome}`]);
     }
+    /**
+     * capturar el listado de seller paginado
+     *
+     * @param {*} params
+     * @returns {Observable<[{}]>}
+     * @memberof SellerService
+     */
+    getAllSellersPaginated(params: any): Observable<[{}]> {
+        return new Observable(observer => {
+            this.http.get<any[]>(this.api.get('getAllSellersPaginated', [params.limit])).subscribe((data: any) => {
+                observer.next(data);
+            }, err => {
+                observer.error(err);
+            });
+        });
+    }
 
-
+    /**
+     * funcion para guardar el listado de contratos seller
+     *
+     * @param {*} data
+     * @returns {Observable<any>}
+     * @memberof SellerService
+     */
+    public registersContract(data: any): Observable<any> {
+        return this.http.post(this.api.get('registersContract'), data);
+    }
 }
