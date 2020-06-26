@@ -2,6 +2,19 @@
    <app-toolbar [sidenav]="sidenav" [inDetail]="inDetail" [numberPages]="numberPages" [currentPageInput]="currentPage">
    </app-toolbar>
 
+   <div class="deactivate_offers">
+
+     <button mat-button color="primary" [matMenuTriggerFor]="menu">
+      <mat-icon>block</mat-icon> {{'secure.offers.list.list.desactive_offer' | translate}}</button>
+     <mat-menu #menu="matMenu">
+       <button mat-menu-item (click)="someOffersSelected(); activeMultipleOffer()">{{'secure.offers.list.list.selected_offer' | translate}}</button>
+       <button mat-menu-item (click)="allOffersSelected(); openDialogDesactiveOffer()">{{'secure.offers.list.list.all_offer' | translate}}</button>
+     </mat-menu>
+     <div *ngIf="activeCheck">
+       <button mat-raised-button color="primary" (click)="openDialogDesactiveOffer()">{{'secure.offers.list.list.confirm_desactive' | translate}}</button>
+     </div>
+   </div>
+
    <section id="section-list-offers" class="flexbox justify-start  flex-wrap"
      *ngIf="!viewDetailOffer && listOffer && readPermission">
 
@@ -11,7 +24,6 @@
                 (paramData.stock && paramData.stock !== null && paramData.stock !== undefined && paramData.stock !== '') ||
                 (paramData.pluVtex && paramData.pluVtex !== null && paramData.pluVtex !== undefined && paramData.pluVtex !== ''))">
        <span class="filter-tittle">{{'secure.offers.list.list.filter_answer' | translate}}</span>
-       <!-- <span class="filter-tittle" [innerHTML]="'Resultado de filtro: '"></span> -->
 
        <div class="filter-desc first flexbox align-center justify-between"
          *ngIf="paramData.product && paramData.product !== null && paramData.product !== undefined && paramData.product !== ''">
@@ -47,44 +59,54 @@
        </div>
      </aside>
 
-     <aside class="card-offer" *ngFor="let item of listOffer" (click)="openDetailOffer(item)">
+     <div *ngFor="let item of listOffer">
+       <div class="checkSelected" *ngIf="activeCheck">
+         <mat-checkbox type="checkbox" [checked]="item.checked" (change)="onvalueCheckdesactiveChanged(item)">{{'secure.offers.list.list.select_me' | translate}}
+         </mat-checkbox>
+       </div>
+       <div>
+         <aside class="card-offer" (click)="openDetailOffer(item)">
 
-       <div class="container-card-img flexbox align-center justify-center">
-         <img [src]="item.imageUrl" alt="">
-         <div class="sold-out flexbox justify-center align-center" *ngIf="item.stock === 0 || !item.stock">
-           <div class="flexbox justify-center align-center">
-             <p>{{'secure.offers.list.list.with_out_stock' | translate}}</p>
+           <div class="container-card-img flexbox align-center justify-center">
+             <img [src]="item.imageUrl" alt="">
+             <div class="sold-out flexbox justify-center align-center" *ngIf="item.stock === 0 || !item.stock">
+               <div class="flexbox justify-center align-center">
+                 <p>{{'secure.offers.list.list.with_out_stock' | translate}}</p>
+               </div>
+             </div>
            </div>
-         </div>
+
+
+           <div class="container-desc-card flexbox flex-wrap align-center">
+             <h3>{{'secure.offers.list.list.EAN_offert' | translate}} {{item.ean}}</h3>
+             <p *ngIf="item.discountPrice > 0" [innerHTML]="item.price | currency: '$' : 'symbol' : '1.2-2'"
+               class="price-strikethrough"></p>
+             <p [innerHTML]="item.discountPrice > 0 ? (item.discountPrice | currency: '$' : 'symbol' : '1.2-2') : (item.price | currency: '$' : 'symbol' : '1.2-2')"
+               class="price"></p>
+             <p [innerHTML]="item.name" class="name"></p>
+             <p [ngClass]="{'sold-out-text' : item.stock === 0 || !item.stock}"
+               [innerHTML]="item.stock > 0 ? (item.stock | number) + ['secure.offers.list.list.units' | translate] : ['secure.offers.list.list.with_out_stock' | translate]"
+               class="stock"></p>
+           </div>
+
+           <footer class="container-last-modification flexbox align-center">
+             <p
+               [innerHTML]="['secure.offers.list.components.detail_offer.last_modify' | translate] + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'">
+             </p>
+           </footer>
+           <footer class="container-last-modification mobile flexbox align-center">
+             <p
+               [innerHTML]="['secure.offers.list.components.detail_offer.last_mod' | translate] + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'">
+             </p>
+             <p [ngClass]="{'sold-out-text' : item.stock === 0 || !item.stock}"
+               [innerHTML]="item.stock > 0 ? (item.stock | number) + ['secure.offers.list.list.units' | translate] : ['secure.offers.list.list.with_out_stock' | translate]">
+             </p>
+           </footer>
+
+         </aside>
        </div>
+     </div>
 
-       <div class="container-desc-card flexbox flex-wrap align-center">
-         <h3>{{'secure.offers.list.list.EAN_offert' | translate}} {{item.ean}}</h3>
-         <p *ngIf="item.discountPrice > 0" [innerHTML]="item.price | currency: '$' : 'symbol' : '1.2-2'"
-           class="price-strikethrough"></p>
-         <p [innerHTML]="item.discountPrice > 0 ? (item.discountPrice | currency: '$' : 'symbol' : '1.2-2') : (item.price | currency: '$' : 'symbol' : '1.2-2')"
-           class="price"></p>
-         <p [innerHTML]="item.name" class="name"></p>
-         <p [ngClass]="{'sold-out-text' : item.stock === 0 || !item.stock}"
-           [innerHTML]="item.stock > 0 ? (item.stock | number) + ['secure.offers.list.list.units' | translate] : ['secure.offers.list.list.with_out_stock' | translate]"
-           class="stock"></p>
-       </div>
-
-       <footer class="container-last-modification flexbox align-center">
-         <p
-           [innerHTML]="['secure.offers.list.components.detail_offer.last_modify' | translate] + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'">
-         </p>
-       </footer>
-       <footer class="container-last-modification mobile flexbox align-center">
-         <p
-           [innerHTML]="['secure.offers.list.components.detail_offer.last_mod' | translate] + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'">
-         </p>
-         <p [ngClass]="{'sold-out-text' : item.stock === 0 || !item.stock}"
-           [innerHTML]="item.stock > 0 ? (item.stock | number) + ['secure.offers.list.list.units' | translate] : ['secure.offers.list.list.with_out_stock' | translate]">
-         </p>
-       </footer>
-
-     </aside>
 
    </section>
 
