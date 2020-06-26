@@ -56,6 +56,7 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   }
 
   @Input() customerFilterCalifications = false;
+  @Input() limitPaginate = [50, 100, 150];
 
 
 

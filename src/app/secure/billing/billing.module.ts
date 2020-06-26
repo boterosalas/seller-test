@@ -20,6 +20,7 @@ import { ProductDetailBillingModalComponent } from './product-detail-modal/produ
 import { DownloadBillingpayModalComponent } from './download-billingpay-modal/download-billingpay-modal.component';
 import { ToolbarOptionsModule } from '@app/shared/components';
 import { SummaryPaymentsComponent } from './summary-payments/summary-payments.component';
+import { FilterSummaryPaymentComponent } from './filter-summary-payment/filter-summary-payment.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { SummaryPaymentsComponent } from './summary-payments/summary-payments.co
     ProductDetailBillingModalComponent,
     BillingFulfillmentDetailComponent,
     DownloadBillingpayModalComponent,
-    SummaryPaymentsComponent
+    SummaryPaymentsComponent,
+    FilterSummaryPaymentComponent
   ],
   exports: [
     BillingComponent,
