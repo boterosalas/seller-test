@@ -2,132 +2,103 @@
   <div fxFlex class="container" fxLayout="row wrap" fxLayoutAlign="center
     start">
     <div fxFlex="100" class="light-content">
-      <app-toolbar-search-pagination
-        [informationToForm]="informationToForm" [state]="null"
-        #toolbarOptions
-        (filterCalifications)="toggleFilter()"
-        (paginationListOrdens)="paginations($event)"
-        [Typeprofile]="3" [lengthOrder]="length" [limitPaginate] = "[10,50,100]">
+      <app-toolbar-search-pagination [informationToForm]="informationToForm" [state]="null" #toolbarOptions
+        (filterCalifications)="toggleFilter()" (paginationListOrdens)="paginations($event)" [Typeprofile]="3"
+        [lengthOrder]="length" [limitPaginate]="[10,50,100]">
       </app-toolbar-search-pagination>
     </div>
-    <div style="width: 100%;">
-      <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="100" fxFlex.lg="100"
-        fxFlex.xl="100" style="padding: 24px;">
-        <!-- <mat-table #table [dataSource]="dataSource" matSort>
+    <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="97" fxFlex.lg="97" fxFlex.xl="97"
+      class="generic-component-content-table-center-collection">
+      <mat-table #table [dataSource]="dataSource" matSort>
 
-          <ng-container matColumnDef="check">
-            <mat-header-cell class='marginListAdminTotal' fxShow.xs="true"
-              fxShow.sm="true" fxShow.lg="true"
-              fxShow.xl="true" fxShow="true" fxFlex.lg="20" fxFlex.sm="20"
-              fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
-              *matHeaderCellDef>
-              <span class="title-table-header"></span>
-            </mat-header-cell>
-            <mat-cell class='marginListAdminTotal' fxShow.xs="true"
-              fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
-              fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20"
-              fxFlex.xs="20" fxFlex.xl=""
-              *matCellDef="let element">
-              <p class="sc-text-normal">1</p>
-            </mat-cell>
-          </ng-container>
+        <ng-container matColumnDef="check">
+          <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+            fxShow.xl="true" fxShow="true" fxFlex.lg="5" fxFlex.sm="5" fxFlex.md="5" fxFlex.xs="30" fxFlex.xl=""
+            *matHeaderCellDef>
 
-          <ng-container matColumnDef="number_bill">
-            <mat-header-cell class='marginListAdminTotal' fxShow.xs="true"
-              fxShow.sm="true" fxShow.lg="true"
-              fxShow.xl="true" fxShow="true" fxFlex.lg="20" fxFlex.sm="20"
-              fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
-              *matHeaderCellDef>
-              <span class="title-table-header"> Numero de Factura </span>
-            </mat-header-cell>
-            <mat-cell class='marginListAdminTotal' fxShow.xs="true"
-              fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
-              fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20"
-              fxFlex.xs="30" fxFlex.xl=""
-              *matCellDef="let element">
-              <p class="sc-text-normal">2</p>
-            </mat-cell>
-          </ng-container>
+          </mat-header-cell>
+          <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="5" fxFlex.sm="5" fxFlex.md="5" fxFlex.xs="20" fxFlex.xl=""
+            *matCellDef="let element">
+            <mat-checkbox></mat-checkbox>
+          </mat-cell>
+        </ng-container>
 
-          <ng-container matColumnDef="quantity_orders">
-            <mat-header-cell class='marginListAdminTotal' fxShow.xs="true"
-              fxShow.sm="true" fxShow.lg="true"
-              fxShow.xl="true" fxShow="true" fxFlex.lg="20" fxFlex.sm="20"
-              fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
-              *matHeaderCellDef>
-              <span class="title-table-header">Cantidad de pedidos </span>
-            </mat-header-cell>
-            <mat-cell class='marginListAdminTotal' fxShow.xs="true"
-              fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
-              fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20"
-              fxFlex.xs="30" fxFlex.xl=""
-              *matCellDef="let element">
-              <p class="sc-text-normal">2</p>
-            </mat-cell>
-          </ng-container>
+        <ng-container matColumnDef="number_bill">
+          <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+            fxShow.xl="true" fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
+            *matHeaderCellDef>
+            <span class="title-table-header"> Numero de Factura </span>
+          </mat-header-cell>
+          <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
+            *matCellDef="let element">
+            <p class="sc-text-normal">2</p>
+          </mat-cell>
+        </ng-container>
 
-          <ng-container matColumnDef="payment_date">
-            <mat-header-cell class='marginListAdminTotal' fxShow.xs="true"
-              fxShow.sm="true" fxShow.lg="true"
-              fxShow.xl="true" fxShow="true" fxFlex.lg="20" fxFlex.sm="20"
-              fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
-              *matHeaderCellDef>
-              <span class="title-table-header"> Fecha de Pago </span>
-            </mat-header-cell>
-            <mat-cell class='marginListAdminTotal' fxShow.xs="true"
-              fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
-              fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20"
-              fxFlex.xs="30" fxFlex.xl=""
-              *matCellDef="let element">
-              <p class="sc-text-normal">2</p>
-            </mat-cell>
-          </ng-container>
+        <ng-container matColumnDef="quantity_orders">
+          <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+            fxShow.xl="true" fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
+            *matHeaderCellDef>
+            <span class="title-table-header">Cantidad de pedidos </span>
+          </mat-header-cell>
+          <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
+            *matCellDef="let element">
+            <p class="sc-text-normal">2</p>
+          </mat-cell>
+        </ng-container>
 
-          <ng-container matColumnDef="total_discounted_value">
-            <mat-header-cell class='marginListAdminTotal' fxShow.xs="true"
-              fxShow.sm="true" fxShow.lg="true"
-              fxShow.xl="true" fxShow="true" fxFlex.lg="20" fxFlex.sm="20"
-              fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
-              *matHeaderCellDef>
-              <span class="title-table-header"> Valor total descontado </span>
-            </mat-header-cell>
-            <mat-cell class='marginListAdminTotal' fxShow.xs="true"
-              fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
-              fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20"
-              fxFlex.xs="30" fxFlex.xl=""
-              *matCellDef="let element">
-              <p class="sc-text-normal">2</p>
-            </mat-cell>
-          </ng-container>
+        <ng-container matColumnDef="payment_date">
+          <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+            fxShow.xl="true" fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
+            *matHeaderCellDef>
+            <span class="title-table-header"> Fecha de Pago </span>
+          </mat-header-cell>
+          <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
+            *matCellDef="let element">
+            <p class="sc-text-normal">2</p>
+          </mat-cell>
+        </ng-container>
 
-          <ng-container matColumnDef="total_to_pay">
-            <mat-header-cell class='marginListAdminTotal' fxShow.xs="true"
-              fxShow.sm="true" fxShow.lg="true"
-              fxShow.xl="true" fxShow="true" fxFlex.lg="20" fxFlex.sm="20"
-              fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
-              *matHeaderCellDef>
-              <span class="title-table-header">Total a Pagar</span>
-            </mat-header-cell>
-            <mat-cell class='marginListAdminTotal' fxShow.xs="true"
-              fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
-              fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20"
-              fxFlex.xs="30" fxFlex.xl=""
-              *matCellDef="let element">
-              <p class="sc-text-normal">2</p>
-            </mat-cell>
-          </ng-container>
+        <ng-container matColumnDef="total_discounted_value">
+          <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+            fxShow.xl="true" fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
+            *matHeaderCellDef>
+            <span class="title-table-header"> Valor total descontado </span>
+          </mat-header-cell>
+          <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
+            *matCellDef="let element">
+            <p class="sc-text-normal">2</p>
+          </mat-cell>
+        </ng-container>
 
-          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row id="order-number-{{index}}" *matRowDef="let index=index; let
-            row; columns: displayedColumns;" matRipple
-            class="element-row personal-row-table" [cdkDetailRow]="row"
-            [cdkDetailRowTpl]="tpl">
-          </mat-row>
-        </mat-table> -->
-      </div>
+        <ng-container matColumnDef="total_to_pay">
+          <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+            fxShow.xl="true" fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
+            *matHeaderCellDef>
+            <span class="title-table-header">Total a Pagar</span>
+          </mat-header-cell>
+          <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
+            *matCellDef="let element">
+            <p class="sc-text-normal">2</p>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row id="order-number-{{index}}" *matRowDef="let index=index; let
+          row; columns: displayedColumns;" matRipple class="element-row personal-row-table" [cdkDetailRow]="row"
+          [cdkDetailRowTpl]="tpl">
+        </mat-row>
+      </mat-table>
     </div>
   </div>
   <div>
-    <!-- <app-filter-summary-payment [stateSideNavOrder]="stateSideNavOrder" [informationToForm]="informationToForm"></app-filter-summary-payment> -->
+    <app-filter-summary-payment [stateSideNavOrder]="stateSideNavOrder" [informationToForm]="informationToForm">
+    </app-filter-summary-payment>
   </div>
 </div>

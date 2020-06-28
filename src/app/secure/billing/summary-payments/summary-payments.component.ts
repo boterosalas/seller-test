@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SearchFormEntity, InformationToForm } from '@app/shared';
-import { MatSidenav } from '@angular/material';
+import { MatSidenav, MatTableDataSource } from '@angular/material';
+import { OrderService } from '@app/secure/orders/orders-list/orders.service';
+import { LoadingService } from '@app/core';
 
 @Component({
   selector: 'app-summary-payments',
@@ -10,6 +12,19 @@ import { MatSidenav } from '@angular/material';
 export class SummaryPaymentsComponent implements OnInit {
 
   public stateSideNavOrder = false;
+
+  public statusAllCheck = true;
+  public arrayNotSelect = [];
+  public subModalLoad: any;
+  public limit = 50;
+  public resultModel: any;
+  public length = 0;
+  public dataSource: MatTableDataSource<any>;
+
+
+  public callOne = true;
+  public arrayPosition = [];
+  public paginationToken = '{}';
 
   public displayedColumns = [
     'check',
@@ -30,15 +45,101 @@ export class SummaryPaymentsComponent implements OnInit {
     information: new InformationToForm,
     count: null
   };
+  public pageSize = 50;
+  public querySearch = '';
 
-  constructor() { }
+
+  constructor(
+    private orderService: OrderService,
+    public loadingService: LoadingService,
+  ) { }
 
   ngOnInit() {
+    const paramsArray = {
+      'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
+      'idSeller': 11216,
+      'state': null,
+      'callOne': true
+    };
+    this.getAllSeller(paramsArray);
+  }
+
+  /**
+   * funcion para capturar todos los seller paginados
+   *
+   * @param {*} [params]
+   * @memberof UploadAgreementComponent
+   */
+  getAllSeller(params?: any) {
+    this.loadingService.viewSpinner();
+    if (params === undefined) {
+      params = {
+        limit: this.limit + '&paginationToken=' + encodeURI(this.paginationToken),
+      };
+    }
+    this.orderService.getOrderList(params).subscribe((result: any) => {
+      console.log(result);
+      if (result) {
+        this.resultModel = result.data;
+        console.log(this.resultModel);
+        if (this.callOne) {
+          this.length = this.resultModel.count;
+          this.arrayPosition = [];
+          this.arrayPosition.push('{}');
+          this.callOne = false;
+        }
+        this.dataSource = new MatTableDataSource(this.resultModel.viewModel);
+        this.paginationToken = this.resultModel.paginationToken ? this.resultModel.paginationToken : '{}';
+        this.loadingService.closeSpinner();
+      } else {
+        this.loadingService.closeSpinner();
+      }
+    });
+  }
+    /**
+   * funcion para paginar el listado de seller
+   *
+   * @param {*} event
+   * @memberof UploadAgreementComponent
+   */
+  paginations(event: any) {
+    if (event.param.pageSize !== this.limit) {
+      this.limit = event.param.pageSize;
+      this.allClear();
+    }
+    if (event && event.param && event.param.pageIndex >= 0) {
+      const index = event.param.pageIndex;
+      if (index === 0) {
+        this.paginationToken = '{}';
+      }
+      const isExistInitial = this.arrayPosition.includes('{}');
+      if (isExistInitial === false) {
+        this.arrayPosition.push('{}');
+      }
+      const isExist = this.arrayPosition.includes(this.paginationToken);
+      if (isExist === false) {
+        this.arrayPosition.push(this.paginationToken);
+      }
+      this.paginationToken = this.arrayPosition[index];
+      if (this.paginationToken === undefined) {
+        this.paginationToken = '{}';
+      }
+      const params = {
+        'limit': this.limit + '&paginationToken=' + encodeURI(this.paginationToken),
+      };
+      this.getAllSeller(params);
+    }
+  }
+
+  allClear() {
+    this.paginationToken = '{}';
+    this.arrayNotSelect = [];
+    this.arrayPosition = [];
+    this.getAllSeller(undefined);
   }
 
   toggleFilter() {
     this.stateSideNavOrder = !this.stateSideNavOrder;
-    // this.sidenavSearchOrder.toggle();
   }
 
 }
