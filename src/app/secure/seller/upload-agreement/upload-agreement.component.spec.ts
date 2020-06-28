@@ -131,7 +131,7 @@ describe('UploadAgreementComponent', () => {
         });
     }));
 
-    beforeEach((() => {
+    beforeEach(fakeAsync(() => {
         mockAuthService.getMenu.and.returnValue(registerMenu);
         fixture = TestBed.createComponent(UploadAgreementComponent);
         uploadAgreementComponent = fixture.componentInstance;
