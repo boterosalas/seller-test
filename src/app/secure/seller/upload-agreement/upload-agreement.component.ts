@@ -268,6 +268,7 @@ export class UploadAgreementComponent implements OnInit {
     this.getAllSeller(undefined);
     this.selection.clear();
     this.dialog.closeAll();
+    this.statusAllCheck = true;
   }
   toggleFilterPorts() {}
 }
