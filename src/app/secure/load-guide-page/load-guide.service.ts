@@ -23,7 +23,7 @@ export class LoadGuideService {
    * @returns {Observable<[{}]>}
    * @memberof LoadGuideService
    */
-  sendAllGuides(user, guide): Observable<[{}]> {
+  sendAllGuides(user: any, guide: any): Observable<any> {
     return new Observable(observer => {
       this.http.patch(this.api.get('sendAllGuides'), guide).subscribe((data: any) => {
         observer.next(data);
@@ -50,4 +50,8 @@ export class LoadGuideService {
       });
     });
   }
+
+  validateStatusLoadGuide(): Observable<any> {
+    return this.http.get(this.api.get('validateStatusLoadGuide'), { observe: 'response' });
+}
 }

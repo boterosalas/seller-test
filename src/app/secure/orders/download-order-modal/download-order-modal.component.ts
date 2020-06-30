@@ -153,12 +153,12 @@ export class DownloadOrderModalComponent implements OnInit {
 
 
   downloadGuide(form: any) {
-    const currentFiltersOrders = this.downloadOrderService.getCurrentFilterOrders();
-    currentFiltersOrders.idSeller = this.user.sellerId;
-    currentFiltersOrders.sellerName = this.user.sellerName;
-    currentFiltersOrders.email = form.get('email').value;
-    this.loadingService.viewSpinner();
-    this.downloadOrderService.downloadGuides(currentFiltersOrders).subscribe(res => {
+    const paramsDownloadGuide = {
+      'idSeller' : this.user.sellerId,
+      'sellerName' : this.user.sellerName,
+      'email': form.get('email').value
+    };
+    this.downloadOrderService.downloadGuides(`?sellerId=${this.user.sellerId}&email=${form.get('email').value}`).subscribe(res => {
       if (res != null && res.data !== false) {
         this.componentsService.openSnackBar(this.languageService.instant('secure.orders.download_order_modal.sn_download_guide'), this.languageService.instant('actions.close'), 10000);
         this.loadingService.closeSpinner();

@@ -55,6 +55,7 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
     if (typeStatus === 1 || typeStatus === 4 && this.data.listError === null) {
       !!this.request && timer(this.data.initTime, this.data.intervalTime).pipe(takeUntil(this.processFinish$), switchMap(() => this.request)).subscribe((res) => {
         try {
+          console.log(res);
           const { status, response } = res.body.data;
           if (status === 2) {
             this.Success = true;

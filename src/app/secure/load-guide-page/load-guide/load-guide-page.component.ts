@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
 import { LoadingService, LoggedInCallback, Logger, UserLoginService, UserParametersService } from '@app/core';
@@ -7,12 +7,13 @@ import { ComponentsService, LoadGuide, RoutesConst } from '@app/shared';
 import * as XLSX from 'xlsx';
 
 import { DownloadFormatComponent } from '../download-format/download-format.component';
-import { FinishUploadInformationComponent } from '../finish-upload-information/finish-upload-information.component';
+
 import { LoadGuideService } from '../load-guide.service';
 import { MenuModel, guideChargesName, loadFunctionality, downloadFunctionality } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { TranslateService } from '@ngx-translate/core';
 import { DownloadOrderModalComponent } from '@app/secure/orders/download-order-modal';
+import { FinishUploadInformationComponent } from '@app/secure/offers/bulk-load/finish-upload-information/finish-upload-information.component';
 
 // log component
 const log = new Logger('LoadGuideComponent');
@@ -69,6 +70,8 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
   // Sort para la tabla
   public sort: any;
 
+  intervalTime = 6000;
+
   // Permisos otorgados al componente.
   permissionComponent: MenuModel; // Menu componentes.
   load = loadFunctionality; // Cargar.
@@ -88,6 +91,7 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
     public userParams: UserParametersService,
     public authService: AuthService,
     private languageService: TranslateService,
+    private cdr: ChangeDetectorRef,
   ) {
     this.user = {};
   }
@@ -513,8 +517,15 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
       listOrderTracking: this.arrayInformationForSend
     };
     this.loadGuideService.sendAllGuides(this.user, jsonToSend).subscribe(res => {
-      this.openDialogSendOrder(res);
-      this.loadingService.closeSpinner();
+      console.log(res);
+      if (res && res.listError === null) {
+        this.validateStatus(1, null);
+      } else {
+        this.validateStatus(3, res.listError);
+      }
+      // console.log(res);
+      // this.openDialogSendOrder(res);
+      // this.loadingService.closeSpinner();
     }, err => {
       this.componentService.openSnackBar(this.languageService.instant('secure.load_guide_page.load_guide.error_has_uploading_guide'), this.languageService.instant('actions.accpet_min'), 10000);
       this.loadingService.closeSpinner();
@@ -537,6 +548,33 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
     });
     dialogRef.afterOpen().subscribe(result => {
       this.loadingService.closeSpinner();
+    });
+  }
+
+  validateStatus(type: any, listError: any) {
+    this.loadingService.closeSpinner();
+    this.intervalTime = 6000;
+    const data = {
+      successText: this.languageService.instant('modal.success.update.title'),
+      failText: this.languageService.instant('secure.products.Finish_upload_product_information.when_uploading_products'),
+      processText: this.languageService.instant('secure.products.Finish_upload_product_information.upload_progress'),
+      initTime: 500,
+      intervalTime: this.intervalTime,
+      listError: listError,
+      typeStatus: type
+    };
+    this.cdr.detectChanges();
+    const dialog = this.dialog.open(FinishUploadInformationComponent, {
+      width: '70%',
+      minWidth: '280px',
+      maxHeight: '80vh',
+      disableClose: type === 1,
+      data: data
+    });
+    const dialogIntance = dialog.componentInstance;
+    dialogIntance.request = this.loadGuideService.validateStatusLoadGuide();
+    dialogIntance.processFinish$.subscribe((val) => {
+      dialog.disableClose = false;
     });
   }
 }

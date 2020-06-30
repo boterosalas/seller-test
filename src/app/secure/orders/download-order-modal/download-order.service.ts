@@ -51,7 +51,7 @@ export class DownloadOrderService {
     });
   }
   /**
-   *  Método para realizar el consumo del servicio que permite enviar las órdenes
+   *  Método para realizar el consumo del servicio que permite enviar las guias
    *  al correo electronico del usuario.
    * @param {any} stringSearch
    * @returns {Observable<[{}]>}
@@ -59,10 +59,15 @@ export class DownloadOrderService {
    */
   downloadGuides(stringSearch: any): Observable<any> {
     return new Observable(observer => {
-      observer.next({data: true, error: []});
+      this.http.get(this.api.get('getallordersbysellerwithouttracking', [stringSearch]),
+      ).subscribe((data: any) => {
+        observer.next(data);
+      }, error => {
+        observer.error(error);
+      });
     });
     // return new Observable(observer => {
-    //   this.http.post(this.api.get('downloadGuides'), stringSearch).subscribe((data: any) => {
+    //   this.http.post(this.api.get('getallordersbysellerwithouttracking'), stringSearch).subscribe((data: any) => {
     //     observer.next(data);
     //   }, err => {
     //       observer.error(err);

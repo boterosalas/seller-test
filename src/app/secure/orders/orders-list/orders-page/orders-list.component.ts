@@ -134,7 +134,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   showMenssage = false;
   isClear = false;
   pageIndexChange = 0;
-  isFullSearch= true;
+  isFullSearch = true;
 
 
   typeProfile: number;
@@ -253,23 +253,23 @@ export class OrdersListComponent implements OnInit, OnDestroy {
 
   changeLanguage() {
     if (localStorage.getItem('culture_current') !== 'US') {
-    this.currentLanguage = 'ES';
-    localStorage.setItem('culture_current', 'ES');
+      this.currentLanguage = 'ES';
+      localStorage.setItem('culture_current', 'ES');
     } else {
-        this.currentLanguage = 'US';
-        localStorage.setItem('culture_current', 'US');
+      this.currentLanguage = 'US';
+      localStorage.setItem('culture_current', 'US');
     }
     this.languageService.onLangChange.subscribe((e: Event) => {
-        localStorage.setItem('culture_current', e['lang']);
-        const paramsArray = {
-          'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
-          'idSeller': this.idSeller,
-          'state': this.lastState,
-          'callOne': true
-        };
-        this.getOrdersList(paramsArray);
+      localStorage.setItem('culture_current', e['lang']);
+      const paramsArray = {
+        'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
+        'idSeller': this.idSeller,
+        'state': this.lastState,
+        'callOne': true
+      };
+      this.getOrdersList(paramsArray);
     });
-}
+  }
 
 
   /**
@@ -544,26 +544,23 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     let stateCurrent = null;
     this.setCategoryName();
     this.orderService.getOrderList(this.params).subscribe((res: any) => {
-      console.log(res);
       if (res) {
         if (res.pendingResponse) {
           this.getOrdersList(params);
         } else {
-           if (params.state !== '') {
-          stateCurrent = params.state;
-          this.lastState = stateCurrent;
+          if (params.state !== '') {
+            stateCurrent = params.state;
+            this.lastState = stateCurrent;
+            this.setTable(res);
+            if (params && params.callOne) {
+              this.length = res.data.count;
+              this.isClear = true;
+            }
+            const paginator = { 'pageIndex': 0 };
+            this.addCheckOptionInProduct(res.data.viewModel, paginator);
+            this.loadingService.closeSpinner();
+          }
         }
-        this.setTable(res);
-        if (params && params.callOne) {
-          this.length = res.data.count;
-          this.isClear = true;
-        }
-        const paginator = { 'pageIndex': 0 };
-        this.addCheckOptionInProduct(res.data.viewModel, paginator);
-        this.loadingService.closeSpinner();
-        }
-        console.log(res);
-       
       }
     });
   }
