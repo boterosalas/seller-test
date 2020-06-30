@@ -3,7 +3,7 @@ import { Logger } from '@app/core/util/logger.service';
 import { LoadingService, ModalService, UserParametersService } from '@app/core';
 import { ListProductService } from './list-products.service';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators } from '@angular/forms';
-import { ErrorStateMatcher, PageEvent, MatPaginatorIntl, MatSnackBar, MatPaginator } from '@angular/material';
+import { ErrorStateMatcher, PageEvent, MatPaginatorIntl, MatSnackBar, MatPaginator, MatDialog } from '@angular/material';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { ModelFilterProducts } from './listFilter/filter-products.model';
 import { Observable } from 'rxjs';
@@ -13,6 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { MatPaginatorI18nService } from '@app/shared/services/mat-paginator-i18n.service';
 import { UserInformation } from '@app/shared';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
+import { DownloadProductsComponent } from './download-products/download-products.component';
 
 export interface ListFilterProducts {
     name: string;
@@ -117,6 +118,7 @@ export class ListProductsComponent implements OnInit {
         public SUPPORT?: SupportService,
         public snackBar?: MatSnackBar,
         public authService?: AuthService,
+        public dialog?: MatDialog,
     ) {
     }
     ngOnInit() {
@@ -148,7 +150,7 @@ export class ListProductsComponent implements OnInit {
     saveIdCategory() {
         this.idcategory = [];
         this.keywords.forEach(element => {
-        this.listCategories.find(el => {
+            this.listCategories.find(el => {
                 if (element === el.Name) {
                     if (this.idcategory.find(id => id === el.Id)) {
                     } else {
@@ -196,6 +198,22 @@ export class ListProductsComponent implements OnInit {
             this.filterProduts.setErrors({ required: true });
         }
         this.saveIdCategory();
+    }
+
+    /**
+     * Metodo para abrir modal para la descarga de los productos solo admin
+     * @memberof ListProductsComponent
+     */
+    openDialogDownloadProducts() {
+        const dataToSend = {
+        };
+
+        const dialogRef = this.dialog.open(DownloadProductsComponent, {
+            data: {
+            }
+        });
+        dialogRef.afterClosed().subscribe(result => {
+        });
     }
 
 

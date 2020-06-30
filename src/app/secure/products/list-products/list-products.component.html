@@ -122,7 +122,7 @@
             (page)="pageEvent = changePaginatorProducts($event)"></mat-paginator>
         </div>
       </div>
-      <button mat-button>
+      <button mat-button (click)="openDialogDownloadProducts()">
         <mat-icon>archive</mat-icon>
         <small >{{'permissions.Descargar' | translate}}</small>
       </button>
