@@ -41,6 +41,11 @@ export class ListProductService {
     return this.http.get(this.api.get('getProductList', [params]));
   }
 
+  public getCateriesList(): Observable<{}> {
+    // return this.http.get(this.api.get('getProductList', [params]));
+    return this.http.get(this.api.get('getSellerCommissionCategory'));
+  }
+
   public getListProductsFilter(params?: any): Observable<{}> {
     let urlParams: any;
 
@@ -52,8 +57,9 @@ export class ListProductService {
     this.paramsData.page = params === undefined || params.page === undefined || params.page === null;
     this.paramsData.limit = params === undefined || params.limit === undefined || params.limit === null || params.limit === '' ? null : params.limit;
     this.paramsData.pluVtex = params === undefined || params.pluVtex === undefined || params.pluVtex === null;
+    this.paramsData.category = params === undefined || params.category === undefined || params.category === null;
 
-    urlParams = this.paramsData.initialDate + '/' + this.paramsData.finalDate + '/' + this.paramsData.ean + '/' + this.paramsData.productName + '/' + this.paramsData.creationDate + '/' + this.paramsData.page + '/' + this.paramsData.limit  + '/'  + this.paramsData.pluVtex;
+    urlParams = this.paramsData.initialDate + '/' + this.paramsData.finalDate + '/' + this.paramsData.ean + '/' + this.paramsData.productName + '/' + this.paramsData.creationDate + '/' + this.paramsData.page + '/' + this.paramsData.limit  + '/'  + this.paramsData.pluVtex + '/'  + this.paramsData.category;
 
     return this.http.get(this.api.get('getProductList', urlParams));
   }
