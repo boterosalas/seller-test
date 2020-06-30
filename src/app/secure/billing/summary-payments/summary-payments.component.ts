@@ -16,7 +16,7 @@ export class SummaryPaymentsComponent implements OnInit {
   public statusAllCheck = true;
   public arrayNotSelect = [];
   public subModalLoad: any;
-  public limit = 50;
+  public limit = 10;
   public resultModel: any;
   public length = 0;
   public dataSource: MatTableDataSource<any>;
@@ -45,7 +45,7 @@ export class SummaryPaymentsComponent implements OnInit {
     information: new InformationToForm,
     count: null
   };
-  public pageSize = 50;
+  public pageSize = 10;
   public querySearch = '';
 
 
@@ -74,14 +74,14 @@ export class SummaryPaymentsComponent implements OnInit {
     this.loadingService.viewSpinner();
     if (params === undefined) {
       params = {
-        limit: this.limit + '&paginationToken=' + encodeURI(this.paginationToken),
+        'limit': this.limit + '&paginationToken=' + encodeURI(this.paginationToken),
+        'idSeller': 11216,
+        'state': null,
       };
     }
     this.orderService.getOrderList(params).subscribe((result: any) => {
-      console.log(result);
       if (result) {
         this.resultModel = result.data;
-        console.log(this.resultModel);
         if (this.callOne) {
           this.length = this.resultModel.count;
           this.arrayPosition = [];
@@ -96,12 +96,8 @@ export class SummaryPaymentsComponent implements OnInit {
       }
     });
   }
-    /**
-   * funcion para paginar el listado de seller
-   *
-   * @param {*} event
-   * @memberof UploadAgreementComponent
-   */
+
+
   paginations(event: any) {
     if (event.param.pageSize !== this.limit) {
       this.limit = event.param.pageSize;
@@ -126,6 +122,8 @@ export class SummaryPaymentsComponent implements OnInit {
       }
       const params = {
         'limit': this.limit + '&paginationToken=' + encodeURI(this.paginationToken),
+        'idSeller': 11216,
+        'state': null,
       };
       this.getAllSeller(params);
     }
