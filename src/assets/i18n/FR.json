@@ -313,6 +313,7 @@
     "secure.billing.payment_number": "Payment order number",
     "secure.billing.concept": "Concept",
     "secure.billing.payment_date": "Payment date",
+    "secure.billing.transfer_request_date": "Transfer request date",
     "secure.billing.iva": "Added Value Tax",
     "secure.billing.amount_pay": "Amount due to pay",
     "secure.billing.movement_charge": "Movement charge",

@@ -11,6 +11,7 @@ import { BillingService } from '../billing.service';
 import { OrderBillingDetailModalComponent } from '../order-detail-modal/order-detail-modal.component';
 import { Router } from '@angular/router';
 import { RoutesConst } from '@app/shared';
+import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 
 // log component
 const log = new Logger('BillingComponent');
@@ -42,6 +43,7 @@ export class BillingComponent implements OnInit, OnDestroy {
     'orderPayment',
     'concept',
     'paymentDate',
+    'transferRequestDate',
     'commission',
     'iva',
     'valueToPay',
@@ -73,6 +75,7 @@ export class BillingComponent implements OnInit, OnDestroy {
   };
 
   public iva = (100 / 19);
+  isInternational = false;
 
   // Conceptos de facturación.
   public billingConcepts = Const.BILLING_CONCEPTS;
@@ -94,6 +97,7 @@ export class BillingComponent implements OnInit, OnDestroy {
     public component: ComponentsService,
     public shellComponent: ShellComponent,
     private userParams: UserParametersService,
+    private profileService: MyProfileService,
     public router?: Router,
     public userService?: UserLoginService,
     private loadingService?: LoadingService,
@@ -105,6 +109,7 @@ export class BillingComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userService.isAuthenticated(this);
     this.getDataUser();
+    this.getAllDataUser();
 
     // remove storage from export billing pay when refresh page
 
@@ -226,20 +231,22 @@ export class BillingComponent implements OnInit, OnDestroy {
         } else {
           this.orderListLength = false;
         }
-      }
-      this.loadingService.closeSpinner();
-      // Creo el elemento que permite pintar la tabla
+          // Creo el elemento que permite pintar la tabla
       this.dataSource = new MatTableDataSource(res);
-
       // se reccorre la respuesta de la lista y se pone la comision en negativo
-      this.dataSource.data.forEach(element => {
-        element.commission *= -1;
-      });
-
-      // this.paginator.pageIndex = 0;
+      if (this.dataSource.data) {
+        this.dataSource.data.forEach(element => {
+          element.commission *= -1;
+        });
+      }
       this.dataSource.paginator = $event.paginator;
       this.dataSource.sort = this.sort;
       this.numberElements = this.dataSource.data.length;
+      } else {
+        this.dataSource = new MatTableDataSource(null);
+      this.numberElements = 0;
+      }
+      this.loadingService.closeSpinner();
     }, err => {
       this.loadingService.closeSpinner();
       this.orderListLength = true;
@@ -267,6 +274,21 @@ export class BillingComponent implements OnInit, OnDestroy {
       // this.router.navigate([`/${RoutesConst.home}`]);
     } else {
       this.getUserData();
+    }
+  }
+
+  async getAllDataUser() {
+    const sellerData = await this.profileService.getUser().toPromise().then(res => {
+      const body: any = res.body;
+      const response = JSON.parse(body.body);
+      const userData = response.Data;
+      this.loadingService.closeSpinner();
+      return userData;
+    });
+    if (sellerData.Country === 'COLOMBIA') {
+      this.isInternational = false;
+    } else {
+      this.isInternational = true;
     }
   }
 

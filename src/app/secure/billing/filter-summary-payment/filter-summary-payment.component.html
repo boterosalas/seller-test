@@ -11,63 +11,49 @@
         </mat-toolbar>
       </mat-nav-list>
       <mat-card-content>
-        <!-- <form class="example-container" #createfilterCalisification="ngForm" [formGroup]="filterCalifications"
+        
+        <form class="example-container" #createfilterBillingSummary="ngForm" [formGroup]="filterBillingSummary"
           class="seller-filter-sidenav">
         <div>
             <div>
-              <div class="calification-list-style-text-select-filter">
-                <span>
-                  {{textSelector}}
-                </span>
-              </div>
-              <div>
-                <mat-radio-group >
-                  <mat-radio-button value="1" #rdCalification name="radio" class="calification-list-filter-selector-radio" (click)="selectorFilter(1)">Mes calificado</mat-radio-button>
-                  <mat-radio-button value="2" #rdEmit name="radio" class="calification-list-filter-selector-radio" (click)="selectorFilter(2)">Mes emitido</mat-radio-button>
-                </mat-radio-group>
-              </div>
-              <div class="calification-list-padding-container" [hidden]="showSelectorMouthQuality">
-                <div class="calification-list-color">
-                  <mat-icon class="mat-18 calification-list-vertical-aling">today</mat-icon>
-                  Fecha calificado <span class="calification-list-font-size">(MM/AAAA)</span>
-                </div>
-                <div class="calification-list-padding-left">
-                  <mat-form-field class="calification-list-width-complete">
-                    <input matInput [placeholder]="'secure.parametize.support_claims-filter.start-date' | translate"
-                      formControlName="dateInitQualityMonth" [errorStateMatcher]="matcher">
-                    <mat-error *ngIf="filterCalifications.get('dateInitQualityMonth').hasError('pattern')"
-                      [innerHTML]="'Fecha invalida'"></mat-error>
-                  </mat-form-field>
-    
-                  <mat-form-field class="calification-list-width-complete">
-                    <input matInput [placeholder]="'secure.parametize.support_claims-filter.end-date' | translate"
-                      formControlName="dateFinalQualityMonth" [errorStateMatcher]="matcher">
-                    <mat-error *ngIf="filterCalifications.get('dateFinalQualityMonth').hasError('pattern')"
-                      [innerHTML]="'Fecha invalida'"></mat-error>
-                  </mat-form-field>
-                </div>
-              </div>
-             <div [hidden]="showSelectorMouthEmit" class="calification-list-margin-date">
-              <div class="calification-list-color">
-                <mat-icon class="mat-18 calification-list-vertical-aling" >today</mat-icon>
-                Fecha Emitido <span class="calification-list-font-size">(MM/AAAA)</span>
-              </div>
-              <div class="calification-list-padding-left">
-                <mat-form-field class="calification-list-width-complete">
-                  <input matInput [placeholder]="'secure.parametize.support_claims-filter.start-date' | translate"
-                    formControlName="dateInitQualityIssued" [errorStateMatcher]="matcher">
-                  <mat-error *ngIf="filterCalifications.get('dateInitQualityIssued').hasError('pattern')"
-                    [innerHTML]="'Fecha invalida'"></mat-error>
-                </mat-form-field>
-  
-                <mat-form-field class="calification-list-width-complete">
-                  <input matInput [placeholder]="'secure.parametize.support_claims-filter.end-date' | translate"
-                    formControlName="dateFinalQualityIssued" [errorStateMatcher]="matcher">
-                  <mat-error *ngIf="filterCalifications.get('dateFinalQualityIssued').hasError('pattern')"
-                    [innerHTML]="'Fecha invalida'"></mat-error>
-                </mat-form-field>
-              </div>
-             </div>
+              <!-- <mat-form-field color="primary" class="modal-export-to-reclaim-width-90">
+                <input id="sinceDate-input"
+                  [placeholder]="'secure.billing.order_number' | translate" formControlName="date" name="date" [readonly]="true" matInput
+                  [matDatepicker]="date">
+                <mat-datepicker-toggle matPrefix [for]="date"></mat-datepicker-toggle>
+                <mat-datepicker touchUi="true" startView="year" #dateInitial></mat-datepicker>
+              </mat-form-field> -->
+
+              <!-- <mat-form-field color="primary" class="modal-export-to-reclaim-width-90">
+                <input id="sinceDate-input"
+                  [placeholder]="'secure.billing.order_number' | translate"
+                  formControlName="date" name="date" [readonly]="true" matInput
+                  [matDatepicker]="date">
+                <mat-datepicker-toggle matPrefix [for]="date"></mat-datepicker-toggle>
+                <mat-datepicker touchUi="true" startView="year" #date></mat-datepicker>
+              </mat-form-field> -->
+
+              <mat-form-field >
+                <input matInput [matDatepicker]="dp" [max]="dateMax" [formControl]="date">
+                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                <mat-datepicker #dp
+                                startView="multi-year"
+                                touchUi="true" 
+                                (yearSelected)="chosenYearHandler($event)"
+                                (monthSelected)="chosenMonthHandler($event, dp)"
+                                panelClass="example-month-picker">
+                </mat-datepicker>
+              </mat-form-field>
+              
+              <!-- <mat-form-field class="calification-list-width-complete">
+                <input matInput [placeholder]="'secure.billing.order_number' | translate"
+                  formControlName="date" [errorStateMatcher]="matcher">
+              </mat-form-field> -->
+<!-- 
+              <mat-form-field class="calification-list-width-complete">
+                <input matInput [placeholder]="'secure.parametize.support_claims-filter.start-date' | translate"
+                  formControlName="numberOrder" [errorStateMatcher]="matcher">
+              </mat-form-field> -->
             </div>
             <div>
               <div class="orders-search-option normal-theme calification-list-filter-btn-clear" >
@@ -75,14 +61,14 @@
                   <mat-icon>clear_all</mat-icon>
                   {{'filters.clear' | translate}}
                 </button>
-                <button  [disabled]="!createfilterCalisification.form.valid || !createfilterCalisification.form.touched" class="sc-button" mat-raised-button color="primary"
+                <button  [disabled]="!createfilterBillingSummary.form.valid || !createfilterBillingSummary.form.touched" class="sc-button" mat-raised-button color="primary"
                   type="submit" (click)="filterCalification(filterCalifications.value)">
                   {{'actions.apply' | translate}}
                 </button>
               </div>
             </div>
         </div>
-        </form> -->
+        </form>
       </mat-card-content>
     </mat-card>
   </mat-sidenav>
