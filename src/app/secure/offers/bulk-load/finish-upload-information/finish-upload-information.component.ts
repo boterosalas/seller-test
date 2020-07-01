@@ -53,9 +53,9 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
   ngAfterViewInit() {
     const typeStatus = this.data.typeStatus;
     if (typeStatus === 1 || typeStatus === 4 && this.data.listError === null) {
+      // tslint:disable-next-line: no-unused-expression
       !!this.request && timer(this.data.initTime, this.data.intervalTime).pipe(takeUntil(this.processFinish$), switchMap(() => this.request)).subscribe((res) => {
         try {
-          console.log(res);
           const { status, response } = res.body.data;
           if (status === 2) {
             this.Success = true;
@@ -63,17 +63,26 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
             this.processFinish$.next(res);
           } else if (status === 3) {
             if (response) {
-              if(JSON.parse(response).Data.OfferNotify){
-                this.listErrorStatus = JSON.parse(response).Data.OfferNotify;
-              } else if (JSON.parse(response).Data.ProductNotify){
-                this.listErrorStatus = JSON.parse(response).Data.ProductNotify;
+              if (JSON.parse(response).Data !== undefined) {
+                if (JSON.parse(response).Data.OfferNotify) {
+                  this.listErrorStatus = JSON.parse(response).Data.OfferNotify;
+                }
+                if (JSON.parse(response).Data.ProductNotify) {
+                  this.listErrorStatus = JSON.parse(response).Data.ProductNotify;
+                }
+                this.listError = this.mapItems(this.listErrorStatus);
+              } else {
+                if (JSON.parse(response).ListError) {
+                  this.listErrorStatus = JSON.parse(response).ListError;
+                }
+                this.listError = this.mapItemsLoadGuide(this.listErrorStatus);
               }
             } else {
               this.listErrorStatus = [length = 0];
             }
             this.Success = false;
             this.inProcess = false;
-            this.listError = this.mapItems(this.listErrorStatus);
+            
             this.countError = this.listErrorStatus.length;
             this.processFinish$.next(res);
           }
@@ -110,6 +119,21 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
         Ean: this.validateHeader(x.ean, x.Ean),
         Message: this.validateHeader(x.message, x.Message),
         Code: x.code
+      };
+    });
+  }
+  /**
+   * funcion para mapear la respuesta del servidor 
+   *
+   * @param {any[]} items
+   * @returns {any[]}
+   * @memberof FinishUploadInformationComponent
+   */
+  mapItemsLoadGuide(items: any[]): any[] {
+    return items.map(x => {
+      return {
+        Sku:  x.Sku,
+        Message:  x.Message
       };
     });
   }

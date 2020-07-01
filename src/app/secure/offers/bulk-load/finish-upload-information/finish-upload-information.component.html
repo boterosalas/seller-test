@@ -28,7 +28,8 @@
         <mat-list-item *ngFor="let error of listError">
           <mat-icon mat-list-icon class="icon-color-error" *ngIf="error.Code === 'PEX'">warning</mat-icon>
           <mat-icon mat-list-icon class="icon-color-error" *ngIf="error.Code !== 'PEX'">error</mat-icon>
-          <h4 matLine>{{'secure.offers.historical_admin.components.filter.EAN' | translate}}: {{error.Ean}}</h4>
+          <h4 matLine *ngIf="error.Ean">{{'secure.offers.historical_admin.components.filter.EAN' | translate}}: {{error.Ean}}</h4>
+          <h4 matLine *ngIf="error.Sku">{{'secure.orders.order_list.product_order.sku' | translate}}: {{error.Sku}}</h4>
           <p matLine *ngIf="error.Code !== 'PEX'">{{'secure.products.Finish_upload_product_information.error_ocurred' | translate}}:
             {{error.Message}}.</p>
           <p matLine *ngIf="error.Code === 'PEX'">{{error.Message}}.</p>

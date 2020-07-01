@@ -72,6 +72,7 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   @Input() idSeller: number;
   @Input() Typeprofile: number;
   @Input() state: number;
+  @Input() showLoading = true;
   @Input() set isClear(value: boolean) {
     if (value) {
       this.paginator.firstPage();
@@ -226,7 +227,9 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
    * @memberof SearchStoreComponent
    */
   public getAllSellers() {
-    this.loadingService.viewSpinner();
+    if (this.showLoading) {
+      this.loadingService.viewSpinner();
+    }
     if (this.isFullSearch) {
       this.storeService.getAllStoresFull(this.user).subscribe((res: any) => {
         if (res.status === 200) {
@@ -237,7 +240,9 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
         } else {
           this.listSellers = res.message;
         }
-        this.loadingService.closeSpinner();
+        if (this.showLoading) {
+          this.loadingService.closeSpinner();
+        }
       });
     } else {
       this.storeService.getAllStores(this.user).subscribe((res: any) => {
@@ -247,7 +252,9 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
         } else {
           this.listSellers = res.message;
         }
-        this.loadingService.closeSpinner();
+        if (this.showLoading) {
+          this.loadingService.closeSpinner();
+        }
       });
     }
   }

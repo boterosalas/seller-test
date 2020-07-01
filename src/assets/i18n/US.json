@@ -756,7 +756,7 @@
     "secure.offers.bulk_upload.bulk_upload.list_error_2": "has not been indexed yet, please try again later.",
 
     "secure.offers.bulk_upload.finish_upload_information.error_upload": "There have been",
-    "secure.offers.bulk_upload.finish_upload_information.error_upload_2": "event(s) when uploading the offer information.",
+    "secure.offers.bulk_upload.finish_upload_information.error_upload_2": "event(s) when uploading the information.",
 
     "secure.offers.bulk_upload.table_error.error_promise_delivery": "must have the following format (# to #), the numbers must be greater than 0.",
     "secure.offers.bulk_upload.table_error.error_currency": "must be either COP or USD.",

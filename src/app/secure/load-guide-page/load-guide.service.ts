@@ -50,8 +50,20 @@ export class LoadGuideService {
       });
     });
   }
-
+  /**
+   * funcion para validar el estado de la carga de guias
+   *
+   * @returns {Observable<any>}
+   * @memberof LoadGuideService
+   */
   validateStatusLoadGuide(): Observable<any> {
-    return this.http.get(this.api.get('validateStatusLoadGuide'), { observe: 'response' });
-}
+    return new Observable(observer => {
+      this.http.get(this.api.get('validateStatusLoadGuide'),
+      ).subscribe((data: any) => {
+        observer.next({'body': data});
+      }, error => {
+        observer.error(error);
+      });
+    });
+  }
 }
