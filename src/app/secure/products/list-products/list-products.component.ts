@@ -107,6 +107,7 @@ export class ListProductsComponent implements OnInit {
     idcategory: any;
     namecategory: any;
 
+    isAdmin = false;
 
     constructor(
         private languageService: TranslateService,
@@ -205,12 +206,29 @@ export class ListProductsComponent implements OnInit {
      * @memberof ListProductsComponent
      */
     openDialogDownloadProducts() {
+        console.log(22, this.filterProduts.controls.ean.value);
+        if (this.filterProduts.controls.initialDate.value) {
+            this.initialDateList = this.getDate(new Date(this.filterProduts.controls.initialDate.value));
+        } else {
+            this.initialDateList = null;
+        }
+        if (this.filterProduts.controls.finalDate.value) {
+            this.finalDateList = this.getDate(new Date(this.filterProduts.controls.finalDate.value));
+        } else {
+            this.finalDateList = null;
+        }
         const dataToSend = {
+            ean: this.eanList || null,
+            plu: this.pluVtexList || null,
+            product: this.nameProductList || null,
+            category: this.categoryList || null,
+            creationDate: this.creationDateList || null,
+            initialDate: this.initialDateList || null,
+            finalDate: this.finalDateList || null
         };
 
         const dialogRef = this.dialog.open(DownloadProductsComponent, {
-            data: {
-            }
+            data: dataToSend
         });
         dialogRef.afterClosed().subscribe(result => {
         });
@@ -225,6 +243,7 @@ export class ListProductsComponent implements OnInit {
         } else {
             this.permissionComponent = this.authService.getMenuProfiel(unitaryCreateName, 1);
             this.setPermission(1);
+            this.isAdmin = true;
         }
     }
 

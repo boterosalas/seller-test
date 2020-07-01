@@ -202,6 +202,8 @@ export const endpoints = {
       patchDesactiveOffer: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/disableoffersbyseller',
       // Exportar reclamaciones
       exportReclaim: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/downloadreport',
+      // Exportar reclamaciones
+      exportProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/report',
     },
   },
   // Endpoints production
@@ -401,6 +403,8 @@ export const endpoints = {
       patchDesactiveOffer: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/disableoffersbyseller',
       // Exportar reclamaciones
       exportReclaim: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/downloadreport',
+      // Exportar reclamaciones
+      exportProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/report',
     }
   }
 };

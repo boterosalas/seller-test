@@ -122,10 +122,12 @@
             (page)="pageEvent = changePaginatorProducts($event)"></mat-paginator>
         </div>
       </div>
-      <button mat-button (click)="openDialogDownloadProducts()">
+      <!--  Descargar productos admin -->
+      <button mat-button (click)="openDialogDownloadProducts()" *ngIf="isAdmin">
         <mat-icon>archive</mat-icon>
         <small >{{'permissions.Descargar' | translate}}</small>
       </button>
+      <!--  Filtro -->
       <button type="button" mat-button (click)="drawer.toggle()">
         <mat-icon>filter_list</mat-icon>
         <small class="sub-title-filter">{{'filters.filter' | translate}}</small>
