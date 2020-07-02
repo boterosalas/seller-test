@@ -102,12 +102,13 @@ export class ListProductsComponent implements OnInit {
 
 
     validateKey = true;
-    keywords = [];
+    keywords: Array<any> = [];
     listCategories2: any;
     idcategory: any;
-    namecategory: any;
+    namecategory: Array<any> = [];
 
     isAdmin = false;
+    dataChips: Array<any> = [];
 
     constructor(
         private languageService: TranslateService,
@@ -156,6 +157,7 @@ export class ListProductsComponent implements OnInit {
                     if (this.idcategory.find(id => id === el.Id)) {
                     } else {
                         this.idcategory.push(el.Id);
+                        this.namecategory.push(el.Name);
                     }
                 }
             });
@@ -216,6 +218,14 @@ export class ListProductsComponent implements OnInit {
             this.finalDateList = this.getDate(new Date(this.filterProduts.controls.finalDate.value));
         } else {
             this.finalDateList = null;
+        }
+
+        if (this.creationDateList === 'createDate') {
+            this.creationDateList = true;
+        } else if (this.creationDateList === 'updateDate') {
+            this.creationDateList = false;
+        } else {
+            this.creationDateList = null;
         }
         const dataToSend = {
             ean: this.eanList || null,
@@ -339,6 +349,8 @@ export class ListProductsComponent implements OnInit {
 
     // Funcion para limpiar formulario
     public cleanFilter() {
+        this.idcategory = [];
+        this.keywords = [];
         this.filterProduts.reset();
         this.cleanFilterListProducts();
         this.filterListProducts();
@@ -547,12 +559,6 @@ export class ListProductsComponent implements OnInit {
         this.pluVtexList = this.filterProduts.controls.pluVtex.value || null;
         this.categoryList = this.idcategory || null;
 
-        const data = [];
-        this.idcategory.forEach(el => {
-            if (el) {
-                data.push({ value: el, name: 'categoryList', nameFilter: 'category' });
-            }
-        });
 
         if (!fecha) {
             this.creationDateList = this.filterProduts.controls.creationDate.value || null;
@@ -560,12 +566,20 @@ export class ListProductsComponent implements OnInit {
         this.initialDateList = new Date(this.filterProduts.controls.initialDate.value) || null;
         this.finalDateList = new Date(this.filterProduts.controls.finalDate.value) || null;
 
-        data.push({ value: this.nameProductList, name: 'nameProductList', nameFilter: 'productName' });
-        data.push({ value: this.eanList, name: 'eanList', nameFilter: 'ean' });
-        data.push({ value: this.pluVtexList, name: 'pluVtexList', nameFilter: 'pluVtex' });
-        data.push({ value: this.creationDateList, name: 'creationDateList', nameFilter: 'creationDate' });
-        this.add(data);
-        console.log('data: ', data);
+        // const data = [];
+        this.dataChips.push({ value: this.nameProductList, name: 'nameProductList', nameFilter: 'productName' });
+        this.dataChips.push({ value: this.eanList, name: 'eanList', nameFilter: 'ean' });
+        this.dataChips.push({ value: this.pluVtexList, name: 'pluVtexList', nameFilter: 'pluVtex' });
+        this.dataChips.push({ value: this.creationDateList, name: 'creationDateList', nameFilter: 'creationDate' });
+        if (this.idcategory && this.idcategory.length > 0) {
+            this.namecategory.forEach(el => {
+                if (el) {
+                    this.dataChips.push({ value: el, name: 'categoryList', nameFilter: 'category' });
+                }
+            });
+        }
+        this.add(this.dataChips);
+        console.log('this.dataChips: ', this.dataChips);
     }
 
     public closeFilter() {
@@ -619,6 +633,7 @@ export class ListProductsComponent implements OnInit {
 
             }
         });
+        this.dataChips = [];
     }
 
     // Metodo para ir eliminando los filtros aplicados
