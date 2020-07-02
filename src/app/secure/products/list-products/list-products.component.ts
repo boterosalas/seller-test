@@ -547,18 +547,23 @@ export class ListProductsComponent implements OnInit {
         this.pluVtexList = this.filterProduts.controls.pluVtex.value || null;
         this.categoryList = this.idcategory || null;
 
+        const data = [];
+        this.idcategory.forEach(el => {
+            if (el) {
+                data.push({ value: el, name: 'categoryList', nameFilter: 'category' });
+            }
+        });
+
         if (!fecha) {
             this.creationDateList = this.filterProduts.controls.creationDate.value || null;
         }
         this.initialDateList = new Date(this.filterProduts.controls.initialDate.value) || null;
         this.finalDateList = new Date(this.filterProduts.controls.finalDate.value) || null;
 
-        const data = [];
         data.push({ value: this.nameProductList, name: 'nameProductList', nameFilter: 'productName' });
         data.push({ value: this.eanList, name: 'eanList', nameFilter: 'ean' });
         data.push({ value: this.pluVtexList, name: 'pluVtexList', nameFilter: 'pluVtex' });
         data.push({ value: this.creationDateList, name: 'creationDateList', nameFilter: 'creationDate' });
-        data.push({ value: this.categoryList, name: 'categoryList', nameFilter: 'category' });
         this.add(data);
         console.log('data: ', data);
     }
