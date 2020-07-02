@@ -208,7 +208,6 @@ export class ListProductsComponent implements OnInit {
      * @memberof ListProductsComponent
      */
     openDialogDownloadProducts() {
-        console.log(22, this.filterProduts.controls.ean.value);
         if (this.filterProduts.controls.initialDate.value) {
             this.initialDateList = this.getDate(new Date(this.filterProduts.controls.initialDate.value));
         } else {
@@ -579,7 +578,6 @@ export class ListProductsComponent implements OnInit {
             });
         }
         this.add(this.dataChips);
-        console.log('this.dataChips: ', this.dataChips);
     }
 
     public closeFilter() {
@@ -638,7 +636,6 @@ export class ListProductsComponent implements OnInit {
 
     // Metodo para ir eliminando los filtros aplicados
     public remove(productsFilter: ListFilterProducts): void {
-        console.log(productsFilter);
         if (productsFilter.nameFilter === 'creationDate') {
             this.filterProduts.controls.initialDate.setValue(null);
             this.filterProduts.controls.finalDate.setValue(null);

@@ -27,9 +27,7 @@ export class DownloadProductsComponent implements OnInit {
     private productsService: ListProductService,
     public dialogRef: MatDialogRef<DownloadProductsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) {
-    console.log('data: ', data);
-  }
+  ) {  }
 
   ngOnInit() {
     this.getDataUser().then(data => {
@@ -65,7 +63,6 @@ export class DownloadProductsComponent implements OnInit {
       email: this.myform.controls.email.value,
       filterList: this.filtersList
     };
-    console.log('dataTosend: ', dataToSend);
     this.productsService.sendEmailExportProducts(dataToSend).subscribe((res: any) => { });
   }
 
