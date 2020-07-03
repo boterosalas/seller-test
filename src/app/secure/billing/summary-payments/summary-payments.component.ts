@@ -6,6 +6,7 @@ import { LoadingService } from '@app/core';
 import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
+import { BillingService } from '../billing.service';
 
 @Component({
   selector: 'app-summary-payments',
@@ -40,8 +41,8 @@ export class SummaryPaymentsComponent implements OnInit {
     'total_to_pay'
   ];
 
-   // Configuración para el toolbar-options y el search de la pagina
-   public informationToForm: SearchFormEntity = {
+  // Configuración para el toolbar-options y el search de la pagina
+  public informationToForm: SearchFormEntity = {
     title: 'module.Facturación',
     subtitle: 'menu.Resumen de Pagos',
     btn_title: 'secure.billing.summaryPayment.search_summaryPayment',
@@ -53,11 +54,12 @@ export class SummaryPaymentsComponent implements OnInit {
 
   public pageSize = 10;
   public querySearch = '';
-  public idSeller= '';
+  public idSeller = '';
+  public disabledButton = false;
 
 
   constructor(
-    private orderService: OrderService,
+    private billingService: BillingService,
     private router: Router,
     public loadingService: LoadingService,
     private profileService: MyProfileService,
@@ -102,7 +104,7 @@ export class SummaryPaymentsComponent implements OnInit {
         'state': null,
       };
     }
-    this.orderService.getOrderList(params).subscribe((result: any) => {
+    this.billingService.getAllSummaryPayment().subscribe((result: any) => {
       if (result) {
         this.resultModel = result.data;
         if (this.callOne) {
@@ -180,10 +182,10 @@ export class SummaryPaymentsComponent implements OnInit {
       limit: this.limit,
       idSeller: this.idSeller,
     };
-    console.log(params);
   }
 
-  changeStatus(row: any, status: any ) {
+  changeStatus(row: any, status: any) {
+    this.disabledButton = true;
     if (row) {
       if (status) {
         this.arraySelect.push(row);
@@ -192,14 +194,17 @@ export class SummaryPaymentsComponent implements OnInit {
         this.arraySelect.splice(index, 1);
       }
     }
+    setTimeout(() => {
+      this.disabledButton = false;
+    }, 800);
   }
 
   sendDetailSummary() {
     const listOrder = [];
     this.arraySelect.forEach(element => {
-      listOrder.push(element.orderNumber) ;
+      listOrder.push(element.orderNumber);
     });
-    this.router.navigate(['securehome/seller-center/billing/detalle-pagos', {listOrder: listOrder.toString()} ] );
+    this.router.navigate(['securehome/seller-center/billing/detalle-pagos', { listOrder: listOrder.toString() }]);
   }
 
 }

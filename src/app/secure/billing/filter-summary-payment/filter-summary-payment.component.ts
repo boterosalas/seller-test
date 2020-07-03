@@ -61,7 +61,7 @@ export class FilterSummaryPaymentComponent implements OnInit {
   createFormControls() {
     this.filterBillingSummary = new FormGroup({
       date: this.date,
-      numberOrder: new FormControl('')
+      numberOrder: new FormControl('', Validators.compose([Validators.minLength(1)]))
     });
   }
 
@@ -103,13 +103,18 @@ export class FilterSummaryPaymentComponent implements OnInit {
       'orderNumbers': this.orderNumbers,
       'filterDate': dateFormt
     });
-    this.filterBillingSummary.reset();
+   this.clearForm();
     this.orderNumbers = [];
     this.toggleFilterSummaryPayment();
   }
 
   toggleFilterSummaryPayment() {
     this.sidenavSearchOrder.toggle();
+  }
+
+  clearForm() {
+    this.filterBillingSummary.controls.numberOrder.setValue('');
+    this.filterBillingSummary.controls.date.setValue(moment());
   }
 
 }

@@ -11,12 +11,9 @@
     <div class="container-port-main">
       <div fxLayout="column" class="container-width-100">
         <div fxLayout="row">
-          <div class="port-component-button-add">
+          <div class="summary-component-button-add">
             <div id="addButton" class="container-group-add-button">
-              <button mat-button (click)="sendDetailSummary()" style="margin-right: 30px;">
-                <!-- <mat-icon class="material-icons">
-                  visibility
-                </mat-icon> -->
+              <button mat-button (click)="sendDetailSummary()" class="summary-component-text-btn-show-details">
                 Ver detalle de las facturas seleccionadas
               </button>
             </div>
@@ -31,17 +28,16 @@
 
         <ng-container matColumnDef="check">
           <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true" fxFlex.lg="5" fxFlex.sm="5" fxFlex.md="5" fxFlex.xs="30" fxFlex.xl=""
+            fxShow.xl="true" fxShow="true" fxFlex.lg="5" fxFlex.sm="5" fxFlex.md="5" fxFlex.xs="5" fxFlex.xl=""
             *matHeaderCellDef>
 
           </mat-header-cell>
           <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
-            fxShow="true" fxFlex.lg="5" fxFlex.sm="5" fxFlex.md="5" fxFlex.xs="20" fxFlex.xl=""
+            fxShow="true" fxFlex.lg="5" fxFlex.sm="5" fxFlex.md="5" fxFlex.xs="5" fxFlex.xl=""
             *matCellDef="let row">
             <mat-checkbox (click)="$event.stopPropagation()"
-            (change)="$event ? selection.toggle(row) : null;changeStatus(row,
-            $event.checked)"
-            [checked]="selection.isSelected(row)"></mat-checkbox>
+            (change)="changeStatus(row,$event.checked)"
+            [checked]="selection.isSelected(row)" [disabled]="disabledButton"></mat-checkbox>
           </mat-cell>
         </ng-container>
 
@@ -59,12 +55,12 @@
         </ng-container>
 
         <ng-container matColumnDef="quantity_orders">
-          <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+          <mat-header-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="true" fxShow.lg="true"
             fxShow.xl="true" fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
             *matHeaderCellDef>
             <span class="title-table-header">Cantidad de pedidos </span>
           </mat-header-cell>
-          <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+          <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
             fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
             *matCellDef="let element">
             <p class="sc-text-normal">2</p>
@@ -72,12 +68,12 @@
         </ng-container>
 
         <ng-container matColumnDef="payment_date">
-          <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+          <mat-header-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="true" fxShow.lg="true"
             fxShow.xl="true" fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
             *matHeaderCellDef>
             <span class="title-table-header"> Fecha de Pago </span>
           </mat-header-cell>
-          <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+          <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
             fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
             *matCellDef="let element">
             <p class="sc-text-normal">2</p>
@@ -85,12 +81,12 @@
         </ng-container>
 
         <ng-container matColumnDef="total_discounted_value">
-          <mat-header-cell  class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+          <mat-header-cell  class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="true" fxShow.lg="true"
             fxShow.xl="true" fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
             *matHeaderCellDef>
             <span class="title-table-header" > Valor total descontado </span>
           </mat-header-cell>
-          <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+          <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
             fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
             *matCellDef="let element">
             <p class="sc-text-normal">2</p>

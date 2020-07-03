@@ -365,28 +365,13 @@ $color-red: #f44336;
   width: 100%
 }
 
-.port-component{
-  &-content-table-center-collection{
-    padding: 0px 40px 40px 40px;
-  }
-
-  &-color-icon-edit{
-    color: #5e5e5e;
-    cursor: pointer;
-  }
-
-  &-text-aling{
-    justify-content:center;
-  }
-
-  &-label-filter {
-    margin-top: 10px;
-    width: calc(100% - 166px);
-  }
-
+.summary-component{
   &-button-add {
     text-align: right;
     color: #485AFA;
     width: 100%;
+  }
+  &-text-btn-show-details{
+    margin-right: 30px;
   }
 }
