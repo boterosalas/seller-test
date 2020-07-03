@@ -47,62 +47,11 @@ export interface Brands {
 
 
 const params = {
-    body: {
-        'ViewModel': [
-            {
-                'VacationsLogs': null,
-                'AvailabilityLogs': null,
-                'Id': 11896,
-                'IdSeller': 11896,
-                'IdCognito': null,
-                'Name': 'intymen',
-                'Nit': '9003615455',
-                'Rut': null,
-                'ContactName': null,
-                'Email': null,
-                'PhoneNumber': null,
-                'Address': null,
-                'State': '',
-                'City': '',
-                'DaneCode': '',
-                'SincoDaneCode': null,
-                'IsLogisticsExito': false,
-                'IsShippingExito': false,
-                'GotoExito': false,
-                'GotoCarrulla': false,
-                'GotoCatalogo': false,
-                'ContractVersion': null,
-                'Contracts': null,
-                'Profile': 'seller',
-                'CreationDate': '2020-07-03T17:11:39.9701804Z',
-                'LastUpdate': '2020-07-03T17:11:39.9701808Z',
-                'Status': 0,
-                'Country': null,
-                'Payoneer': null,
-                'Policy': null,
-                'IdSalesForce': null,
-                'IsProcessSF': false,
-                'Reason': null,
-                'DaneCodesNonCoverage': null,
-                'IdDispatchPort': null
-            }
-        ]
-    }
-    ,
+    body: "{ 'ViewModel': ['Id': 11896,'IdSeller': 11896,'Name': 'intymen','Nit': '9003615455','State': '','City': '','Status': 0,}]}",
     headers: null,
     isBase64Encoded: false,
     statusCode: 200
 };
-
-
-
-
-
-
-
-
-
-
 
 
 describe('UploadAgreementComponent', () => {
