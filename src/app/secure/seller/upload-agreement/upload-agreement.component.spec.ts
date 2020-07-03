@@ -43,6 +43,68 @@ export interface Brands {
 }
 
 
+
+
+
+const params = {
+    body: {
+        'ViewModel': [
+            {
+                'VacationsLogs': null,
+                'AvailabilityLogs': null,
+                'Id': 11896,
+                'IdSeller': 11896,
+                'IdCognito': null,
+                'Name': 'intymen',
+                'Nit': '9003615455',
+                'Rut': null,
+                'ContactName': null,
+                'Email': null,
+                'PhoneNumber': null,
+                'Address': null,
+                'State': '',
+                'City': '',
+                'DaneCode': '',
+                'SincoDaneCode': null,
+                'IsLogisticsExito': false,
+                'IsShippingExito': false,
+                'GotoExito': false,
+                'GotoCarrulla': false,
+                'GotoCatalogo': false,
+                'ContractVersion': null,
+                'Contracts': null,
+                'Profile': 'seller',
+                'CreationDate': '2020-07-03T17:11:39.9701804Z',
+                'LastUpdate': '2020-07-03T17:11:39.9701808Z',
+                'Status': 0,
+                'Country': null,
+                'Payoneer': null,
+                'Policy': null,
+                'IdSalesForce': null,
+                'IsProcessSF': false,
+                'Reason': null,
+                'DaneCodesNonCoverage': null,
+                'IdDispatchPort': null
+            }
+        ]
+    }
+    ,
+    headers: null,
+    isBase64Encoded: false,
+    statusCode: 200
+};
+
+
+
+
+
+
+
+
+
+
+
+
 describe('UploadAgreementComponent', () => {
     const registerMenu = {
         Functionalities: [{
@@ -99,8 +161,8 @@ describe('UploadAgreementComponent', () => {
                 SharedModule
             ],
             declarations: [
-              UploadAgreementComponent,
-              ModalLoadAgreementComponent
+                UploadAgreementComponent,
+                ModalLoadAgreementComponent
             ],
             providers: [
                 { provide: SellerService, useValue: mockUploadService },
@@ -140,7 +202,7 @@ describe('UploadAgreementComponent', () => {
         dialogFixture = TestBed.createComponent(ModalLoadAgreementComponent);
         dialogComponent = dialogFixture.componentInstance;
         mockSupportService.getRegexFormSupport.and.returnValue(of(registerRegex));
-        mockUploadService.getAllSellersPaginated.and.returnValue(of(response));
+        mockUploadService.getAllSellersPaginated.and.returnValue(of(params));
         fixture.detectChanges();
     }));
 
