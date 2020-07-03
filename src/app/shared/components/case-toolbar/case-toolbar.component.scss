@@ -98,6 +98,7 @@ $underline: #909090;
 ::ng-deep .mat-paginator-container {
   min-height: 0 !important;
   margin-top: -5px;
+  flex-wrap: inherit !important;
 
   @media (max-width: 768px) {
     padding: 0 0px !important;
