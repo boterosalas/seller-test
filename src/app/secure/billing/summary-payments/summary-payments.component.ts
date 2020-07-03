@@ -3,6 +3,8 @@ import { SearchFormEntity, InformationToForm } from '@app/shared';
 import { MatSidenav, MatTableDataSource } from '@angular/material';
 import { OrderService } from '@app/secure/orders/orders-list/orders.service';
 import { LoadingService } from '@app/core';
+import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-summary-payments',
@@ -20,6 +22,8 @@ export class SummaryPaymentsComponent implements OnInit {
   public resultModel: any;
   public length = 0;
   public dataSource: MatTableDataSource<any>;
+  public selection = new SelectionModel<any>(true, []);
+  public arraySelect = [];
 
 
   public callOne = true;
@@ -39,19 +43,22 @@ export class SummaryPaymentsComponent implements OnInit {
    public informationToForm: SearchFormEntity = {
     title: 'module.Facturación',
     subtitle: 'menu.Resumen de Pagos',
-    btn_title: 'secure.orders.filter.title',
-    title_for_search: 'secure.orders.filter.title',
+    btn_title: 'secure.billing.summaryPayment.search_summaryPayment',
+    title_for_search: 'secure.billing.summaryPayment.search_summaryPayment',
     type_form: 'summaryPayment',
     information: new InformationToForm,
     count: null
   };
+
   public pageSize = 10;
   public querySearch = '';
+  public idSeller= '';
 
 
   constructor(
     private orderService: OrderService,
     public loadingService: LoadingService,
+    private profileService: MyProfileService,
   ) { }
 
   ngOnInit() {
@@ -62,6 +69,20 @@ export class SummaryPaymentsComponent implements OnInit {
       'callOne': true
     };
     this.getAllSeller(paramsArray);
+    this.getAllDataUser();
+  }
+
+  async getAllDataUser() {
+    const sellerData = await this.profileService.getUser().toPromise().then(res => {
+      const body: any = res.body;
+      const response = JSON.parse(body.body);
+      const userData = response.Data;
+      this.loadingService.closeSpinner();
+      return userData;
+    });
+    if (sellerData && sellerData.IdSeller) {
+      this.idSeller = sellerData.IdSeller;
+    }
   }
 
   /**
@@ -89,6 +110,15 @@ export class SummaryPaymentsComponent implements OnInit {
           this.callOne = false;
         }
         this.dataSource = new MatTableDataSource(this.resultModel.viewModel);
+        if (this.arraySelect.length > 0 && this.dataSource.data.length > 0) {
+          this.arraySelect.forEach(select => {
+            this.dataSource.data.forEach(rowGen => {
+              if (rowGen.id === select.id) {
+                this.selection.select(rowGen);
+              }
+            });
+          });
+        }
         this.paginationToken = this.resultModel.paginationToken ? this.resultModel.paginationToken : '{}';
         this.loadingService.closeSpinner();
       } else {
@@ -138,6 +168,28 @@ export class SummaryPaymentsComponent implements OnInit {
 
   toggleFilter() {
     this.stateSideNavOrder = !this.stateSideNavOrder;
+  }
+
+  filterListSummary(params: any) {
+    params = {
+      filterDate: params.filterDate,
+      orderNumbers: params.orderNumbers,
+      paginationToken: '{}',
+      limit: this.limit,
+      idSeller: this.idSeller,
+    };
+    console.log(params);
+  }
+
+  changeStatus(row: any, status: any ) {
+    if (row) {
+      if (status) {
+        this.arraySelect.push(row);
+      } else {
+        const index = this.arraySelect.findIndex(rows => rows === row);
+        this.arraySelect.splice(index, 1);
+      }
+    }
   }
 
 }

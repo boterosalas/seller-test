@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MatSidenav, MatDatepicker } from '@angular/material';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as _moment from 'moment';
@@ -11,10 +11,10 @@ import {default as _rollupMoment, Moment} from 'moment';
 const moment = _rollupMoment || _moment;
 export const MY_FORMATS = {
   parse: {
-    dateInput: 'MM/YYYY',
+    dateInput: 'YYYY/MM',
   },
   display: {
-    dateInput: 'MM/YYYY',
+    dateInput: 'YYYY/MM',
     monthYearLabel: 'MMM YYYY',
     dateA11yLabel: 'LL',
     monthYearA11yLabel: 'MMMM YYYY',
@@ -40,15 +40,17 @@ export class FilterSummaryPaymentComponent implements OnInit {
 
 
   public dateMax= new Date();
-  @ViewChild('sidenavSearchOrder') sidenavSearchOrder: MatSidenav;
-
-  _stateSideNavOrder = false;
+  public orderNumbers = [];
+  public _stateSideNavOrder = false;
   public filterBillingSummary: FormGroup;
+  public date = new FormControl(moment());
+
+  @ViewChild('sidenavSearchOrder') sidenavSearchOrder: MatSidenav;
   @Input() set stateSideNavOrder(value: boolean) {
     this.sidenavSearchOrder.toggle();
   }
-
   @Input() informationToForm: any;
+  @Output() OnGetFilter = new EventEmitter<object>();
 
   constructor() { }
 
@@ -58,12 +60,10 @@ export class FilterSummaryPaymentComponent implements OnInit {
 
   createFormControls() {
     this.filterBillingSummary = new FormGroup({
-      date: new FormControl(''),
+      date: this.date,
       numberOrder: new FormControl('')
     });
   }
-
-  date = new FormControl(moment());
 
   chosenYearHandler(normalizedYear: Moment) {
     const ctrlValue = this.date.value;
@@ -76,6 +76,40 @@ export class FilterSummaryPaymentComponent implements OnInit {
     ctrlValue.month(normalizedMonth.month());
     this.date.setValue(ctrlValue);
     datepicker.close();
+  }
+
+  filterSummary (form: any) {
+    let dateFormt = '';
+    if (form) {
+      if (form.date) {
+        dateFormt = form.date.format('YYYY/MM/DD');
+      }
+      if (form.numberOrder) {
+        let orderList = form.numberOrder;
+        orderList = orderList.trim();
+        if (orderList.search(',') === -1) {
+          this.orderNumbers.push(orderList);
+        } else {
+          const counter = orderList.split(',');
+          counter.forEach(element => {
+            if (element) {
+              this.orderNumbers.push(element);
+            }
+          });
+        }
+      }
+    }
+    this.OnGetFilter.emit({
+      'orderNumbers': this.orderNumbers,
+      'filterDate': dateFormt
+    });
+    this.filterBillingSummary.reset();
+    this.orderNumbers = [];
+    this.toggleFilterSummaryPayment();
+  }
+
+  toggleFilterSummaryPayment() {
+    this.sidenavSearchOrder.toggle();
   }
 
 }

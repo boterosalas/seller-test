@@ -5,6 +5,30 @@ import { Billing } from '@app/shared';
 import { Observable } from 'rxjs';
 import { DatePipe } from '@angular/common';
 
+
+const respuesta = {
+  data: {
+    count: 45,
+    paginationToken: '{}',
+    paginationTokens: [],
+    viewModel: [
+      {id: '637086675180158443'},
+      {id: '637058000530130075'},
+      {id: '637086494941759601'},
+      {id: '637130518760349731'},
+      {id: '637274208780966057'},
+      {id: '637058000520968788'},
+      {id: '637122970660242786'},
+      {id: '637281041614556441'},
+      {id: '637133443640064226'}
+    ]
+  },
+errors: [],
+message: '',
+pendingResponse: false,
+
+}
+
 @Injectable()
 export class BillingService {
 
@@ -141,6 +165,19 @@ export class BillingService {
           observer.error(err);
         });
     });
+  }
+
+  getAllSummaryPayment(): Observable<any> {
+    return new Observable(observer => {
+      observer.next(respuesta);
+    });
+    // return new Observable(observer => {
+    //   this.http.get(this.api.get('carries')).subscribe((data: any) => {
+    //     observer.next(data);
+    //   }, err => {
+    //     observer.error(err);
+    //   });
+    // });
   }
 
 }

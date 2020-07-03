@@ -331,6 +331,8 @@
     "secure.billing.Venta Marketplace": "Marketplace Sales",
     "secure.billing.Logistica Exito": "Exito Logistics",
 
+    "secure.billing.summaryPayment.search_summaryPayment": "Consultar resumen de pagos",
+
     "secure.client_information.client": "Client",
     "secure.client_information.address": "Address",
     "secure.client_information.phone": "Phone",

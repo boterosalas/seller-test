@@ -1,11 +1,11 @@
 <mat-sidenav-container>
-  <mat-sidenav #sidenavSearchOrder mode="over" position="end" opened="{{_stateSideNavOrder}}">
+  <mat-sidenav #sidenavSearchOrder mode="over" position="end" opened="{{_stateSideNavOrder}}" style="overflow-y: hidden;">
     <mat-card class="content-profile calification-list-93-height" >
       <mat-nav-list class="light-content">
-        <mat-toolbar color="primary" class="toolbar-title-search">
-          <h4 class="title-toolbar">{{informationToForm.title_for_search | translate}}</h4>
+        <mat-toolbar color="primary" class="toolbar-title-search" style="padding: 7px">
+          <h4 class="title-toolbar" style="font-size: 16px;">{{informationToForm.title_for_search | translate}}</h4>
           <button color="accent" [matTooltip]="'actions.close' | translate" matTooltipPosition="below" mat-icon-button
-            mat-button (click)="toggleFilterCalifications()">
+            mat-button (click)="toggleFilterSummaryPayment()">
             <mat-icon>close</mat-icon>
           </button>
         </mat-toolbar>
@@ -15,54 +15,35 @@
         <form class="example-container" #createfilterBillingSummary="ngForm" [formGroup]="filterBillingSummary"
           class="seller-filter-sidenav">
         <div>
-            <div>
-              <!-- <mat-form-field color="primary" class="modal-export-to-reclaim-width-90">
-                <input id="sinceDate-input"
-                  [placeholder]="'secure.billing.order_number' | translate" formControlName="date" name="date" [readonly]="true" matInput
-                  [matDatepicker]="date">
-                <mat-datepicker-toggle matPrefix [for]="date"></mat-datepicker-toggle>
-                <mat-datepicker touchUi="true" startView="year" #dateInitial></mat-datepicker>
-              </mat-form-field> -->
-
-              <!-- <mat-form-field color="primary" class="modal-export-to-reclaim-width-90">
-                <input id="sinceDate-input"
-                  [placeholder]="'secure.billing.order_number' | translate"
-                  formControlName="date" name="date" [readonly]="true" matInput
-                  [matDatepicker]="date">
-                <mat-datepicker-toggle matPrefix [for]="date"></mat-datepicker-toggle>
-                <mat-datepicker touchUi="true" startView="year" #date></mat-datepicker>
-              </mat-form-field> -->
-
-              <mat-form-field >
-                <input matInput [matDatepicker]="dp" [max]="dateMax" [formControl]="date">
-                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-                <mat-datepicker #dp
-                                startView="multi-year"
-                                touchUi="true" 
-                                (yearSelected)="chosenYearHandler($event)"
-                                (monthSelected)="chosenMonthHandler($event, dp)"
-                                panelClass="example-month-picker">
-                </mat-datepicker>
-              </mat-form-field>
-              
-              <!-- <mat-form-field class="calification-list-width-complete">
-                <input matInput [placeholder]="'secure.billing.order_number' | translate"
-                  formControlName="date" [errorStateMatcher]="matcher">
-              </mat-form-field> -->
-<!-- 
-              <mat-form-field class="calification-list-width-complete">
-                <input matInput [placeholder]="'secure.parametize.support_claims-filter.start-date' | translate"
-                  formControlName="numberOrder" [errorStateMatcher]="matcher">
-              </mat-form-field> -->
+            <div style="margin-left: 26px;">
+              <div>
+                <mat-form-field >
+                  <input matInput [matDatepicker]="dp" [max]="dateMax" [formControl]="date">
+                  <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                  <mat-datepicker #dp
+                                  startView="multi-year"
+                                  touchUi="true" 
+                                  (yearSelected)="chosenYearHandler($event)"
+                                  (monthSelected)="chosenMonthHandler($event, dp)"
+                                  panelClass="example-month-picker">
+                  </mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div style="padding-top: 10px;">
+                <mat-form-field class="calification-list-width-complete" style="width: 91%;">
+                  <input matInput [placeholder]="'secure.billing.order_number' | translate"
+                    formControlName="numberOrder" [errorStateMatcher]="matcher">
+                </mat-form-field>
+              </div>
             </div>
             <div>
               <div class="orders-search-option normal-theme calification-list-filter-btn-clear" >
-                <button  class="sc-button" mat-button type="button" (click)="clearForm()">
+                <button  class="sc-button" style="margin-right: 10px;" mat-button type="button" (click)="clearForm()">
                   <mat-icon>clear_all</mat-icon>
                   {{'filters.clear' | translate}}
                 </button>
                 <button  [disabled]="!createfilterBillingSummary.form.valid || !createfilterBillingSummary.form.touched" class="sc-button" mat-raised-button color="primary"
-                  type="submit" (click)="filterCalification(filterCalifications.value)">
+                  type="submit" (click)="filterSummary(filterBillingSummary.value)">
                   {{'actions.apply' | translate}}
                 </button>
               </div>

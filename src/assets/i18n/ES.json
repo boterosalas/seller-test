@@ -332,6 +332,8 @@
     "secure.billing.Venta Marketplace": "Venta MarketPlace",
     "secure.billing.Logistica Exito": "Logistica Exito",
 
+    "secure.billing.summaryPayment.search_summaryPayment": "Consultar resumen de pagos",
+
     "secure.client_information.client": "Cliente",
     "secure.client_information.address": "Dirección",
     "secure.client_information.phone": "Teléfono",
@@ -1293,4 +1295,5 @@
     "secure.seller.contracts.load-agreement.upload_file":"Adjuntar archivos formato PDF (peso maximo 3 MegaBytes)",
     "secure.seller.contracts.load-agreement.import":"Importar",
     "secure.seller.contracts.load-agreement.import_agreement":"Importar acuerdos"
+    
 }

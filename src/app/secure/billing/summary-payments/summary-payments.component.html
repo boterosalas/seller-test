@@ -7,6 +7,7 @@
         [lengthOrder]="length" [limitPaginate]="[10,50,100]">
       </app-toolbar-search-pagination>
     </div>
+  
     <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="97" fxFlex.lg="97" fxFlex.xl="97"
       class="generic-component-content-table-center-collection">
       <mat-table #table [dataSource]="dataSource" matSort>
@@ -19,8 +20,11 @@
           </mat-header-cell>
           <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
             fxShow="true" fxFlex.lg="5" fxFlex.sm="5" fxFlex.md="5" fxFlex.xs="20" fxFlex.xl=""
-            *matCellDef="let element">
-            <mat-checkbox></mat-checkbox>
+            *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()"
+            (change)="$event ? selection.toggle(row) : null;changeStatus(row,
+            $event.checked)"
+            [checked]="selection.isSelected(row)"></mat-checkbox>
           </mat-cell>
         </ng-container>
 
@@ -64,10 +68,10 @@
         </ng-container>
 
         <ng-container matColumnDef="total_discounted_value">
-          <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+          <mat-header-cell  class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
             fxShow.xl="true" fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
             *matHeaderCellDef>
-            <span class="title-table-header"> Valor total descontado </span>
+            <span class="title-table-header" > Valor total descontado </span>
           </mat-header-cell>
           <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
             fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
@@ -77,28 +81,36 @@
         </ng-container>
 
         <ng-container matColumnDef="total_to_pay">
-          <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+          <mat-header-cell class='marginListAdminTotal alingRight' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
             fxShow.xl="true" fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
             *matHeaderCellDef>
-            <span class="title-table-header">Total a Pagar</span>
+            <span class="title-table-header" style="width: 100%;">Total a Pagar</span>
           </mat-header-cell>
-          <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+          <mat-cell class='marginListAdminTotal alingRight' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
             fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
             *matCellDef="let element">
-            <p class="sc-text-normal">2</p>
+            <p class="sc-text-normal" style="width: 100%;">2</p>
           </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row id="order-number-{{index}}" *matRowDef="let index=index; let
           row; columns: displayedColumns;" matRipple class="element-row personal-row-table" [cdkDetailRow]="row"
-          [cdkDetailRowTpl]="tpl">
+          [cdkDetailRowTpl]="tpl" (click)="selection.toggle(row)">
         </mat-row>
       </mat-table>
+      <div *ngIf="dataSource && dataSource.data && dataSource.data.length > 0"  style="padding-top: 10px;">
+        <div fxLayout="row" fxLayoutAlign="end end" style="background-color: #f5f5f5;">
+          <span style="color: #5f5f5f;font-size: 13px;padding: 10px;font-weight: bold; margin-right: 21px;">Valor total Facturado</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="end end" style="background-color: #fbfbfb;">
+          <span style="font-size: 14px;padding: 10px;font-weight: bold;color: #999898;margin-right: 21px;">$ 234.56</span>
+        </div>
+      </div>
     </div>
   </div>
   <div>
-    <app-filter-summary-payment [stateSideNavOrder]="stateSideNavOrder" [informationToForm]="informationToForm">
+    <app-filter-summary-payment [stateSideNavOrder]="stateSideNavOrder" (OnGetFilter)="filterListSummary($event)" [informationToForm]="informationToForm">
     </app-filter-summary-payment>
   </div>
 </div>

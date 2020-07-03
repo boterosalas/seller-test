@@ -41,6 +41,10 @@ $color-red: #f44336;
   max-width: 390px !important;
 }
 
+.alingRight{
+  text-align: right;
+}
+
 .generic-component{
   &-content-table-center-collection{
     padding: 0px 40px 40px 40px;
@@ -349,4 +353,15 @@ $color-red: #f44336;
       opacity: 0.7;
     }
   }
+}
+
+
+.container-port-main{
+  width: 100%;
+  padding: 15px;
+  padding-right: 47px;
+}
+
+.container-width-100{
+  width: 100%
 }
