@@ -27,7 +27,7 @@
   <div mat-dialog-actions class="footer-dialog">
     <button mat-button [mat-dialog-close]="'false'" mat-stroked-button color="primary"
       (click)="onNoClick()">{{'actions.cancel_min' | translate}}</button>
-    <button mat-button [mat-dialog-close]="'true'" mat-raised-button color="primary"
-      (click)="onNoClickOk(); sendExportProducts()">{{'actions.accept' | translate}}</button>
+    <button mat-button [mat-dialog-close]="'true'" mat-raised-button color="primary" [disabled]="!f.form.valid"
+      (click)="sendExportProducts()">{{'actions.accept' | translate}}</button>
   </div>
 </div>

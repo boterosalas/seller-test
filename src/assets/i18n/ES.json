@@ -1055,6 +1055,7 @@
     "secure.products.list_products.modal.title": "Esta oferta sufre un cambio extremo de precio, ¿Deseas Continuar?",
     "secure.products.list_products.download.title": "Te enviaremos la descarga de productos al siguiente correo electrónico.",
     "secure.products.list_products.download.error": "Ocurrió un problema al realizar la descarga de los productos, por favor intenta nuevamente.",
+    "secure.products.list_products.download.ok": "Se ha realizado la descarga del los productos correctamente, revisa tu correo electrónico",
 
     "secure.parametize.title_toolbar": "Parametrización",
     "secure.parametize.brands.title_filter_brand": "Filtro Marcas",

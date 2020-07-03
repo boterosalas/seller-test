@@ -1,9 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { UserInformation } from '@app/shared';
+import { UserInformation, ComponentsService } from '@app/shared';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UserParametersService } from '@app/core';
+import { UserParametersService, LoadingService } from '@app/core';
 import { ListProductService } from '../list-products.service';
+import { TranslateService } from '@ngx-translate/core';
 
 export interface DialogData {
   data: any;
@@ -24,10 +25,13 @@ export class DownloadProductsComponent implements OnInit {
   constructor(
     public userParams: UserParametersService,
     private fb: FormBuilder,
+    private loadingService: LoadingService,
     private productsService: ListProductService,
+    public componentsService: ComponentsService,
+    private languageService: TranslateService,
     public dialogRef: MatDialogRef<DownloadProductsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) {  }
+  ) { }
 
   ngOnInit() {
     this.getDataUser().then(data => {
@@ -58,14 +62,40 @@ export class DownloadProductsComponent implements OnInit {
    * @memberof DownloadProductsComponent
    */
   sendExportProducts() {
+    this.loadingService.viewSpinner();
     this.filtersList = this.data;
     const dataToSend = {
       email: this.myform.controls.email.value,
-      filterList: this.filtersList
+      filtersList: this.filtersList
     };
-    this.productsService.sendEmailExportProducts(dataToSend).subscribe((res: any) => { });
+    this.productsService.sendEmailExportProducts(dataToSend).subscribe((res: any) => {
+      console.log(res);
+      if (res != null) {
+        if (res.data === true) {
+          this.componentsService.openSnackBar(this.languageService.instant('secure.products.list_products.download.ok'), this.languageService.instant('actions.close'), 10000);
+          this.onNoClick();
+          this.loadingService.closeSpinner();
+        } else {
+          this.componentsService.openSnackBar(this.languageService.instant('secure.products.list_products.download.error'), this.languageService.instant('actions.close'), 5000);
+          this.loadingService.closeSpinner();
+        }
+      } else {
+        this.componentsService.openSnackBar(this.languageService.instant('secure.products.list_products.download.error'), this.languageService.instant('actions.close'), 5000);
+        this.loadingService.closeSpinner();
+      }
+    }, err => {
+      this.componentsService.openSnackBar(this.languageService.instant('secure.products.list_products.download.error'), this.languageService.instant('actions.close'), 5000);
+      this.loadingService.closeSpinner();
+      this.onNoClick();
+    });
   }
 
+  /**
+   * Metodo para dar formato a la fecha dd-mm-yyyy
+   * @param {*} date
+   * @returns {*}
+   * @memberof DownloadProductsComponent
+   */
   public getDate(date: any): any {
     const day = this.addsZeroDate(date.getDate().toString());
     const months = this.addsZeroDate((date.getMonth() + 1).toString());
@@ -74,6 +104,12 @@ export class DownloadProductsComponent implements OnInit {
     return day + '-' + months + '-' + year;
   }
 
+  /**
+   * Metodo para agregar 0 a la fecha
+   * @param {*} param
+   * @returns {*}
+   * @memberof DownloadProductsComponent
+   */
   public addsZeroDate(param: any): any {
     if (param.length < 2) {
       return '0' + param;

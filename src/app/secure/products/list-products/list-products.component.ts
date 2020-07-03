@@ -230,7 +230,7 @@ export class ListProductsComponent implements OnInit {
             ean: this.eanList || null,
             plu: this.pluVtexList || null,
             product: this.nameProductList || null,
-            category: this.categoryList || null,
+            categories: this.categoryList || null,
             creationDate: this.creationDateList || null,
             initialDate: this.initialDateList || null,
             finalDate: this.finalDateList || null
