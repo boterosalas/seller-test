@@ -7,6 +7,23 @@
         [lengthOrder]="length" [limitPaginate]="[10,50,100]">
       </app-toolbar-search-pagination>
     </div>
+
+    <div class="container-port-main">
+      <div fxLayout="column" class="container-width-100">
+        <div fxLayout="row">
+          <div class="port-component-button-add">
+            <div id="addButton" class="container-group-add-button">
+              <button mat-button (click)="sendDetailSummary()" style="margin-right: 30px;">
+                <!-- <mat-icon class="material-icons">
+                  visibility
+                </mat-icon> -->
+                Ver detalle de las facturas seleccionadas
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   
     <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="97" fxFlex.lg="97" fxFlex.xl="97"
       class="generic-component-content-table-center-collection">

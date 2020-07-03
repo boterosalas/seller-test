@@ -5,6 +5,7 @@ import { OrderService } from '@app/secure/orders/orders-list/orders.service';
 import { LoadingService } from '@app/core';
 import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 import { SelectionModel } from '@angular/cdk/collections';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-summary-payments',
@@ -57,6 +58,7 @@ export class SummaryPaymentsComponent implements OnInit {
 
   constructor(
     private orderService: OrderService,
+    private router: Router,
     public loadingService: LoadingService,
     private profileService: MyProfileService,
   ) { }
@@ -190,6 +192,14 @@ export class SummaryPaymentsComponent implements OnInit {
         this.arraySelect.splice(index, 1);
       }
     }
+  }
+
+  sendDetailSummary() {
+    const listOrder = [];
+    this.arraySelect.forEach(element => {
+      listOrder.push(element.orderNumber) ;
+    });
+    this.router.navigate(['securehome/seller-center/billing/detalle-pagos', {listOrder: listOrder.toString()} ] );
   }
 
 }

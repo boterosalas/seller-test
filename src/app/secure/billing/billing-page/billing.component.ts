@@ -9,7 +9,7 @@ import { ShellComponent } from '@core/shell/shell.component';
 
 import { BillingService } from '../billing.service';
 import { OrderBillingDetailModalComponent } from '../order-detail-modal/order-detail-modal.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { RoutesConst } from '@app/shared';
 import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 
@@ -98,6 +98,7 @@ export class BillingComponent implements OnInit, OnDestroy {
     public shellComponent: ShellComponent,
     private userParams: UserParametersService,
     private profileService: MyProfileService,
+    private route: ActivatedRoute,
     public router?: Router,
     public userService?: UserLoginService,
     private loadingService?: LoadingService,
@@ -116,6 +117,12 @@ export class BillingComponent implements OnInit, OnDestroy {
     if (performance.navigation.type === 1) {
       localStorage.removeItem('currentFilterBillingPay');
     }
+    this.route.params.subscribe(params => {
+      console.log(params);
+      if ( params['listOrder'] != null) {
+      console.log('aqui');
+      }
+    });
 
   }
 

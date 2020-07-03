@@ -355,7 +355,6 @@ $color-red: #f44336;
   }
 }
 
-
 .container-port-main{
   width: 100%;
   padding: 15px;
@@ -364,4 +363,30 @@ $color-red: #f44336;
 
 .container-width-100{
   width: 100%
+}
+
+.port-component{
+  &-content-table-center-collection{
+    padding: 0px 40px 40px 40px;
+  }
+
+  &-color-icon-edit{
+    color: #5e5e5e;
+    cursor: pointer;
+  }
+
+  &-text-aling{
+    justify-content:center;
+  }
+
+  &-label-filter {
+    margin-top: 10px;
+    width: calc(100% - 166px);
+  }
+
+  &-button-add {
+    text-align: right;
+    color: #485AFA;
+    width: 100%;
+  }
 }
