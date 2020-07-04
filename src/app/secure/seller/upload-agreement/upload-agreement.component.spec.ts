@@ -47,7 +47,21 @@ export interface Brands {
 
 
 const params = {
-    body: JSON.stringify({ 'ViewModel': [{'Id': 11896, 'IdSeller': 11896, 'Name': 'intymen', 'Nit': '9003615455', 'State': '', 'City': '', 'Status': 0}]}),
+    body: JSON.stringify(
+        { 'ViewModel':
+                        [
+                            {
+                                'Id': 11896,
+                                'IdSeller': 11896,
+                                'Name': 'intymen',
+                                'Nit': '9003615455',
+                                'State': '',
+                                'City': '',
+                                'Status': 0
+                            }
+                        ],
+        'Count': 1
+    }),
     headers: null,
     isBase64Encoded: false,
     statusCode: 200

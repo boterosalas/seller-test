@@ -6,6 +6,7 @@
       <app-toolbar-search-pagination 
         [informationToForm]="informationToForm" [state]="null"
         #toolbarOptions
+        [loadSeller]="false"
         (paginationListOrdens)="paginations($event)"
         [Typeprofile]="null" [lengthOrder]="length"
         (filterCalifications)="toggleFilterPorts()">
