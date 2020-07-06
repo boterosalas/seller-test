@@ -69,6 +69,7 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   @Input() idSeller: number;
   @Input() Typeprofile: number;
   @Input() state: number;
+  @Input() loadSeller = true;
   @Input() set isClear(value: boolean) {
     if (value) {
       this.paginator.firstPage();
@@ -122,7 +123,9 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
           this.filter(val)
         )
       );
-    this.getAllSellers();
+      if (this.loadSeller) {
+        this.getAllSellers();
+      }
   }
 
   ngOnChanges(changes: SimpleChanges) {

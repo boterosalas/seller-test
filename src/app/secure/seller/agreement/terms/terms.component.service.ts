@@ -1,19 +1,20 @@
 
-import { Observable, Subject } from 'rxjs';
-import { Injectable, Output, EventEmitter } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Router } from '@angular/router';
 import { RoutesConst, Const } from '@app/shared';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { TermsComponent } from './terms.component';
 import { HttpClient } from '@angular/common/http';
-import { EndpointService, UserParametersService } from '@app/core';
+import { EndpointService, UserParametersService, LoadingService } from '@app/core';
 import { UnreadCaseResponse } from '@app/secure/seller-support-center/models/unread-case-response.model';
 
 @Injectable()
 export class TermsService implements CanActivate {
 
     modalContract = 'true';
+    dataResult: any;
     state: RouterStateSnapshot;
     constantes = new Const();
     private dialogRef: MatDialogRef<TermsComponent>;
@@ -22,6 +23,7 @@ export class TermsService implements CanActivate {
         public dialog: MatDialog,
         private http: HttpClient,
         private api: EndpointService,
+        private loadingService: LoadingService,
         private userParams: UserParametersService,
         public termsComponent: TermsComponent) {
         }
@@ -65,10 +67,12 @@ export class TermsService implements CanActivate {
                     if (result && result.body) {
                         try {
                             const data = JSON.parse(result.body);
+                            this.dataResult = data;
                             if (data.Data && data.Data.StatusContract === true) {
-                                // if (state.url !== '/' + RoutesConst.securehome) {
-                                //     this.router.navigate(['/' + RoutesConst.securehome]);
-                                // }
+                                if (this.dialogRef) {
+                                    location.reload();
+                                    this.dialogRef.close();
+                                }
                             } else {
                                 if (this.modalContract === 'true') {
                                       if (showModal) {
@@ -131,11 +135,13 @@ export class TermsService implements CanActivate {
         this.dialogRef = dialogRef;
         const dialogIntance = dialogRef.componentInstance;
         dialogIntance.processFinish$.subscribe((val) => {
-            if (val.responseContract) {
+            if (val.responseContract ) {
+                this.loadingService.closeSpinner();
                 localStorage.setItem('modalContract', 'true');
                 this.getSellerAgreement(this.state, false);
 
             } else {
+                this.loadingService.closeSpinner();
                 localStorage.setItem('modalContract', 'false');
                 location.reload();
             }

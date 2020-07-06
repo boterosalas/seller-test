@@ -144,7 +144,6 @@ export class TermsComponent implements OnInit, OnDestroy {
         if (!responseContract) {
             localStorage.setItem('showModalContract', 'false');
         }
-        if (this.formTerms.valid) {
             const dataToSend = {
                 IdRepresentative: this.formTerms.controls.identification.value,
                 Ip: this.navData.getIp(),
@@ -166,6 +165,7 @@ export class TermsComponent implements OnInit, OnDestroy {
                         this.processFinish$.next({responseContract : true, reload: true });
                         const myDiv = document.getElementById('parrafo');
                         myDiv.scrollTop = 0;
+                        this.formTerms.reset();
                     } else {
                         this.processFinish$.next({responseContract : false, reload: false });
                         this.loadingService.closeSpinner();
@@ -179,6 +179,5 @@ export class TermsComponent implements OnInit, OnDestroy {
             }, error => {
                 this.loadingService.closeSpinner();
             });
-        }
     }
 }
