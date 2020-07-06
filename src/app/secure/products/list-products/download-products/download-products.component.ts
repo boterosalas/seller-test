@@ -69,7 +69,6 @@ export class DownloadProductsComponent implements OnInit {
       filtersList: this.filtersList
     };
     this.productsService.sendEmailExportProducts(dataToSend).subscribe((res: any) => {
-      console.log(res);
       if (res != null) {
         if (res.data === true) {
           this.componentsService.openSnackBar(this.languageService.instant('secure.products.list_products.download.ok'), this.languageService.instant('actions.close'), 10000);
