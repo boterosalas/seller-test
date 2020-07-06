@@ -76,6 +76,7 @@ export class BillingComponent implements OnInit, OnDestroy {
 
   public iva = (100 / 19);
   isInternational = false;
+  stringOrderList= '';
 
   // Conceptos de facturación.
   public billingConcepts = Const.BILLING_CONCEPTS;
@@ -108,6 +109,11 @@ export class BillingComponent implements OnInit, OnDestroy {
    * @memberof BillingComponent
    */
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      if ( params['listBilling'] != null) {
+      this.filterBilling(params['listBilling']);
+      }
+    });
     this.userService.isAuthenticated(this);
     this.getDataUser();
     this.getAllDataUser();
@@ -117,13 +123,6 @@ export class BillingComponent implements OnInit, OnDestroy {
     if (performance.navigation.type === 1) {
       localStorage.removeItem('currentFilterBillingPay');
     }
-    this.route.params.subscribe(params => {
-      console.log(params);
-      if ( params['listOrder'] != null) {
-      console.log('aqui');
-      }
-    });
-
   }
 
   async getDataUser() {
@@ -229,7 +228,7 @@ export class BillingComponent implements OnInit, OnDestroy {
         lengthOrder: 100
       };
     }
-    const stringSearch = `?idSeller=${this.user.sellerId}&limit=${$event.lengthOrder}`;
+    const stringSearch = `?idSeller=${this.user.sellerId}&limit=${$event.lengthOrder}&billingNumber=${this.stringOrderList}`;
     this.loadingService.viewSpinner();
     this.billinService.getBilling(this.user, stringSearch).subscribe((res) => {
       if (res != null) {
@@ -296,6 +295,12 @@ export class BillingComponent implements OnInit, OnDestroy {
       this.isInternational = false;
     } else {
       this.isInternational = true;
+    }
+  }
+
+  filterBilling(orderList: any) {
+    if (orderList.length > 0) {
+      this.stringOrderList = orderList;
     }
   }
 

@@ -200,11 +200,11 @@ export class SummaryPaymentsComponent implements OnInit {
   }
 
   sendDetailSummary() {
-    const listOrder = [];
+    const listBilling = [];
     this.arraySelect.forEach(element => {
-      listOrder.push(element.orderNumber);
+      listBilling.push(element.orderNumber);
     });
-    this.router.navigate(['securehome/seller-center/billing/detalle-pagos', { listOrder: listOrder.toString() }]);
+    this.router.navigate(['securehome/seller-center/billing/detalle-pagos', { listBilling: listBilling.toString() }]);
   }
 
 }

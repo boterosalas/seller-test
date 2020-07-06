@@ -1,9 +1,9 @@
 <mat-sidenav-container>
-  <mat-sidenav #sidenavSearchOrder mode="over" position="end" opened="{{_stateSideNavOrder}}" style="overflow-y: hidden;">
-    <mat-card class="content-profile calification-list-93-height" >
+  <mat-sidenav #sidenavSearchOrder mode="over" position="end" opened="{{_stateSideNavOrder}}" class="filter-summary-overflow-y-hide">
+    <mat-card class="content-profile summary-list-93-height" >
       <mat-nav-list class="light-content">
-        <mat-toolbar color="primary" class="toolbar-title-search" style="padding: 7px">
-          <h4 class="title-toolbar" style="font-size: 16px;">{{informationToForm.title_for_search | translate}}</h4>
+        <mat-toolbar color="primary" class="toolbar-title-search filter-summary-padding-7">
+          <h4 class="title-toolbar filter-summary-font-16">{{informationToForm.title_for_search | translate}}</h4>
           <button color="accent" [matTooltip]="'actions.close' | translate" matTooltipPosition="below" mat-icon-button
             mat-button (click)="toggleFilterSummaryPayment()">
             <mat-icon>close</mat-icon>
@@ -15,7 +15,7 @@
         <form class="example-container" #createfilterBillingSummary="ngForm" [formGroup]="filterBillingSummary"
           class="seller-filter-sidenav">
         <div>
-            <div style="margin-left: 26px;">
+            <div class="filter-summary-margin-left-26">
               <div>
                 <mat-form-field >
                   <input matInput [matDatepicker]="dp" [max]="dateMax" [formControl]="date">
@@ -29,16 +29,16 @@
                   </mat-datepicker>
                 </mat-form-field>
               </div>
-              <div style="padding-top: 10px;">
-                <mat-form-field class="calification-list-width-complete" style="width: 91%;">
+              <div class="filter-summary-paddinf-top-10">
+                <mat-form-field class="summary-list-width-complete filter-summary-width-90">
                   <input matInput [placeholder]="'secure.billing.order_number' | translate"
                     formControlName="numberOrder" [errorStateMatcher]="matcher" pattern="[0-9,]+">
                 </mat-form-field>
               </div>
             </div>
             <div>
-              <div class="orders-search-option normal-theme calification-list-filter-btn-clear" >
-                <button  class="sc-button" style="margin-right: 10px;" mat-button type="button" (click)="clearForm()">
+              <div class="orders-search-option normal-theme summary-list-filter-btn-clear" >
+                <button  class="sc-button filter-summy-margin-right-10" mat-button type="button" (click)="clearForm()">
                   <mat-icon>clear_all</mat-icon>
                   {{'filters.clear' | translate}}
                 </button>
