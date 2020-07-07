@@ -517,15 +517,11 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
       listOrderTracking: this.arrayInformationForSend
     };
     this.loadGuideService.sendAllGuides(this.user, jsonToSend).subscribe(res => {
-      console.log(res);
       if (res && res.listError === null) {
         this.validateStatus(1, null);
       } else {
         this.validateStatus(3, res.listError);
       }
-      // console.log(res);
-      // this.openDialogSendOrder(res);
-      // this.loadingService.closeSpinner();
     }, err => {
       this.componentService.openSnackBar(this.languageService.instant('secure.load_guide_page.load_guide.error_has_uploading_guide'), this.languageService.instant('actions.accpet_min'), 10000);
       this.loadingService.closeSpinner();
