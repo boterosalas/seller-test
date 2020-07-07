@@ -1,47 +1,47 @@
-// import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-// import { UploadButtonComponent } from './upload-button.component';
-// import { MatIconModule } from '@angular/material';
-// import { By } from '@angular/platform-browser';
+import { UploadButtonComponent } from './upload-button.component';
+import { MatIconModule } from '@angular/material';
+import { By } from '@angular/platform-browser';
 
-// describe('UploadButtonComponent', () => {
-//   let component: UploadButtonComponent;
-//   let fixture: ComponentFixture<UploadButtonComponent>;
+describe('UploadButtonComponent', () => {
+  let component: UploadButtonComponent;
+  let fixture: ComponentFixture<UploadButtonComponent>;
 
-//   beforeEach(async(() => {
-//     TestBed.configureTestingModule({
-//       declarations: [UploadButtonComponent],
-//       imports: [MatIconModule]
-//     }).compileComponents();
-//   }));
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [UploadButtonComponent],
+      imports: [MatIconModule]
+    }).compileComponents();
+  }));
 
-//   beforeEach(() => {
-//     fixture = TestBed.createComponent(UploadButtonComponent);
-//     component = fixture.componentInstance;
-//     fixture.detectChanges();
-//   });
+  beforeEach(() => {
+    fixture = TestBed.createComponent(UploadButtonComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 
-// /*   it('should render the name of attached', async(() => {
+/*   it('should render the name of attached', async(() => {
 
-//     const file = {
-//       lastModified: 1,
-//       lastModifiedDate: new Date(),
-//       name: 'FileName.txt',
-//       size: 30000,
-//       type: 'String',
-//       webkitRelativePath: 'String',
-//       base64: 'String'
-//     };
+    const file = {
+      lastModified: 1,
+      lastModifiedDate: new Date(),
+      name: 'FileName.txt',
+      size: 30000,
+      type: 'String',
+      webkitRelativePath: 'String',
+      base64: 'String'
+    };
 
-//     component.attachments.push(file);
+    component.attachments.push(file);
 
-//     const compiled = fixture.debugElement.query(By.css('#attached-file-name'));
-//     fixture.detectChanges();
-//     expect(compiled).toBe(file.name);
-//   })); */
+    const compiled = fixture.debugElement.query(By.css('#attached-file-name'));
+    fixture.detectChanges();
+    expect(compiled).toBe(file.name);
+  })); */
 
-// });
+});
