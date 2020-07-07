@@ -2,7 +2,7 @@
    <app-toolbar [sidenav]="sidenav" [inDetail]="inDetail" [numberPages]="numberPages" [currentPageInput]="currentPage">
    </app-toolbar>
 
-   <div class="deactivate_offers">
+   <div class="deactivate_offers" *ngIf="!viewDetailOffer && listOffer">
 
      <button mat-button color="primary" [matMenuTriggerFor]="menu">
       <mat-icon>block</mat-icon> {{'secure.offers.list.list.desactive_offer' | translate}}</button>

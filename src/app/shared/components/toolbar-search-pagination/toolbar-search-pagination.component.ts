@@ -70,12 +70,20 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   @Input() downloadPermission: boolean;
   @Input() downloadBillingPay: boolean;
   @Input() idSeller: number;
-  @Input() Typeprofile: number;
+  // @Input() _Typeprofile: number;
   @Input() state: number;
   @Input() showLoading = true;
+  @Input() loadSeller = true;
   @Input() set isClear(value: boolean) {
     if (value) {
       this.paginator.firstPage();
+    }
+  }
+  _Typeprofile: number;
+  @Input() set Typeprofile(value: number) {
+    if (value) {
+      this.getAllSellers();
+      this._Typeprofile = value;
     }
   }
 
@@ -126,7 +134,6 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
           this.filter(val)
         )
       );
-    this.getAllSellers();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -141,7 +148,7 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
    * @memberof ToolbarOptionsComponent
    */
   toggleMenuOrderSearch() {
-    this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this.idSeller, this.Typeprofile, this.state);
+    this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this.idSeller, this._Typeprofile, this.state);
   }
   toggleMenuCalifications() {
     this.filterCalifications.emit();
