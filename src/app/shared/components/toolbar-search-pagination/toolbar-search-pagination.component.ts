@@ -80,9 +80,9 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   }
   _Typeprofile: number;
   @Input() set Typeprofile(value: number) {
-    if (value) {
-      this.getAllSellers();
+    if (value !== undefined) {
       this._Typeprofile = value;
+      this.getAllSellers();
     }
   }
 
