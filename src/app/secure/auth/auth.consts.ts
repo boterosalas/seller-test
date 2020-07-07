@@ -346,8 +346,9 @@ const DevolutionsModule = new ModuleModel(devolutionsModule, showAll, devolution
  * 5. Moderación.
  * 6. Listado de productos Admin
  * 7. Listado de productos Seller
+ * 7. Estados de productos Seller
  */
-export const productsModule = 'PRODUCTOS', unitaryCreateName = 'Creación Unitaria', bulkLoadProductName = 'Carga Masiva', moderateName = 'Moderación', listProductsName = 'Listado de productos';
+export const productsModule = 'PRODUCTOS', unitaryCreateName = 'Creación Unitaria', bulkLoadProductName = 'Carga Masiva', moderateName = 'Moderación', listProductsName = 'Listado de productos', productsPending = 'Productos pendientes';
 const ProductsModule = new ModuleModel(productsModule, showAll, productsModule.toLowerCase(), [
     // 1. Creación unitaria vendedor.
     new MenuModel(unitaryCreateName, showAll, unitaryCreateName.toLowerCase(), ProfileTypes.Vendedor, [
@@ -379,7 +380,11 @@ const ProductsModule = new ModuleModel(productsModule, showAll, productsModule.t
     // 7. Listado de productos. (Tipo administrador)
     new MenuModel(listProductsName, showAll, listProductsName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
-    ], RoutesConst.sellerCenterIntListProducts)
+    ], RoutesConst.sellerCenterIntListProducts),
+    // 8. Estados de productos Seller
+    new MenuModel(productsPending, showAll, productsPending.toLowerCase(), ProfileTypes.Vendedor, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
+    ], RoutesConst.sellerCenterIntPendingProducts)
 ]);
 
 /**

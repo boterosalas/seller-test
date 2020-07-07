@@ -29,7 +29,6 @@ import { ModalRuleOfferComponent } from './modal-rule-offer/modal-rule-offer.com
       ExpandedProductComponent,
       OfertExpandedProductComponent,
       ModalRuleOfferComponent,
-      ModalRuleOfferComponent
     ],
     exports: [
       ComboProductComponent,

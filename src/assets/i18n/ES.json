@@ -51,6 +51,7 @@
     "menu.Solicitudes Pendientes": "Solicitudes Pendientes",
     "menu.Parametrizar Centros de Acopio": "Parametrizar Centros de Acopio",
     "menu.Cargar Acuerdos": "Cargar acuerdos",
+    "menu.Productos pendientes": "Productos pendientes",
 
     "module.Documentación": "Documentación",
     "module.Ofertas": "Ofertas",
@@ -1053,6 +1054,11 @@
     "secure.products.create_product_unit.list_products.please_wait" : "Cargando, espere por favor...",
 
     "secure.products.list_products.modal.title": "Esta oferta sufre un cambio extremo de precio, ¿Deseas Continuar?",
+    "secure.products.pending_products_tab1": "Pendientes Modificación",
+    "secure.products.pending_products_tab2": "Pendientes Validación",
+    "secure.products.pending_products.filterPending": "Filtro productos en validación",
+    "secure.products.pending_products.filterModify": "Filtro productos para modificación",
+
 
     "secure.parametize.title_toolbar": "Parametrización",
     "secure.parametize.brands.title_filter_brand": "Filtro Marcas",

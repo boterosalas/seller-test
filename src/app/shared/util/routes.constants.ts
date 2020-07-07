@@ -59,6 +59,7 @@ export class RoutesConst {
     static readonly reportOffertAdmin: any = 'category-tree';
     static readonly listCalification: any = 'quality-score';
     static readonly port: any = 'port';
+    static readonly pendingProducts: any = 'productoss-pendientes';
 
 
     /* Support Center */
@@ -116,6 +117,7 @@ export class RoutesConst {
     static readonly sellerCenterProductModerationBulkLoad: any = RoutesConst.sellerCenterProducts + '/' + RoutesConst.productModerationBulkLoad;
     static readonly sellerCenterIntCreateUnutaryProduct: any = RoutesConst.sellerCenterProducts + '/' + RoutesConst.createUnutaryProduct;
     static readonly sellerCenterIntListProducts: any = RoutesConst.sellerCenterProducts + '/' + RoutesConst.listProducts;
+    static readonly sellerCenterIntPendingProducts: any = RoutesConst.sellerCenterProducts + '/' + RoutesConst.pendingProducts;
 
     static readonly sellerCenterIntListCalification: any = RoutesConst.sellerCenterCalification + '/' + RoutesConst.listCalification;
 
