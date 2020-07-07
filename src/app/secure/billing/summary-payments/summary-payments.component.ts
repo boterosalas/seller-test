@@ -69,15 +69,6 @@ export class SummaryPaymentsComponent implements OnInit {
 
   ngOnInit() {
     this.getAllDataUser();
-    const paramsArray = {
-      filterDate: moment(),
-      paginationToken: '{}',
-      limit: this.limit,
-      newLimit: null,
-      currentPage: null,
-      sellerId: this.idSeller
-    };
-    this.getAllSeller(paramsArray);
   }
 
   async getAllDataUser() {
@@ -89,7 +80,16 @@ export class SummaryPaymentsComponent implements OnInit {
       return userData;
     });
     if (sellerData && sellerData.IdSeller) {
-      this.idSeller = sellerData.IdSeller;
+      const paramsArray = {
+        filterDate: moment().format('YYYY/MM/DD'),
+        paginationToken: '{}',
+        limit: this.limit,
+        newLimit: null,
+        currentPage: null,
+        sellerId: sellerData.IdSeller
+      };
+      this.getAllSeller(paramsArray);
+      // this.idSeller = sellerData.IdSeller;
     }
   }
 
@@ -102,14 +102,23 @@ export class SummaryPaymentsComponent implements OnInit {
   getAllSeller(params?: any) {
     this.loadingService.viewSpinner();
     let query = {};
-    if (params === undefined) {
+    if (params !== undefined) {
       query = {
         filterDate: params.filterDate,
         paginationToken: params.paginationToken,
         limit: this.limit,
         newLimit: null,
         currentPage: null,
-        sellerId: this.idSeller
+        sellerId: params.sellerId
+      };
+    } else {
+      query = {
+        filterDate: moment().format('YYYY/MM/DD'),
+        paginationToken: '{}',
+        limit: this.limit,
+        newLimit: null,
+        currentPage: null,
+        sellerId: params.sellerId
       };
     }
     this.billingService.getAllSummaryPayment(query).subscribe((result: any) => {
