@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSidenav } from '@angular/material';
+import { MatSidenav, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 
 import { LoadingService, LoggedInCallback, ModalService, UserLoginService, UserParametersService } from '@app/core';
@@ -9,6 +9,11 @@ import { ListService } from '../list.service';
 import { environment } from '@env/environment';
 import { MenuModel, readFunctionality, updateFunctionality, offerListName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
+import { DialogDesactiveOffertComponent } from './dialog-desactive-offert/dialog-desactive-offert.component';
+import { NullAstVisitor } from '@angular/compiler';
+import { BulkLoadService } from '../../bulk-load/bulk-load.service';
+import { FinishUploadInformationComponent } from '../../bulk-load/finish-upload-information/finish-upload-information.component';
+import { TranslateService } from '@ngx-translate/core';
 
 
 
@@ -56,14 +61,24 @@ export class ListComponent implements OnInit {
   // Domains images
   public domainImages = environment.domainImages;
 
+  public listErrorStatus: any = [];
+
+
   applyFilter = false;
 
+  valueCheckdesactive: any;
   // Variables con los permisos que este componente posee.
   permissionComponent: MenuModel;
   read = readFunctionality;
   update = updateFunctionality;
   updatePermission: boolean;
   readPermission: boolean;
+  activeCheck: Boolean = false;
+  allOffer: Boolean = false;
+  totalOffers: any;
+  listToSend = [];
+  sumItemCount: number;
+
   // Fin de variables de permisos.
 
 
@@ -71,7 +86,10 @@ export class ListComponent implements OnInit {
     private loadingService?: LoadingService,
     private modalService?: ModalService,
     private offerService?: ListService,
-    public authService?: AuthService
+    public authService?: AuthService,
+    public bulkLoadService?: BulkLoadService,
+    public dialog?: MatDialog,
+    private languageService?: TranslateService,
   ) {
     this.paramData = new ModelFilter();
     this.user = {};
@@ -84,7 +102,7 @@ export class ListComponent implements OnInit {
    */
   ngOnInit() {
     this.getListOffers();
-    // offerListName
+    this.verifyProccesDesactiveOffert();
     this.permissionComponent = this.authService.getMenu(offerListName);
     this.updatePermission = this.getFunctionality(this.update);
     this.readPermission = this.getFunctionality(this.read);
@@ -174,9 +192,11 @@ export class ListComponent implements OnInit {
           const response = result.body.data;
           this.numberPages = this.paramData.limit === undefined || this.paramData.limit === null ? response.total / 30 : response.total / this.paramData.limit;
           this.numberPages = Math.ceil(this.numberPages);
+          this.totalOffers = response.total;
           this.listOffer = response.sellerOfferViewModels;
           this.addDomainImages();
           this.loadingService.closeSpinner();
+          this.setCheckedTrue();
         } else {
           this.loadingService.closeSpinner();
           this.modalService.showModal('errorService');
@@ -238,4 +258,183 @@ export class ListComponent implements OnInit {
     this.filterOffers(this.paramData);
     // this.getListOffers(this.paramData);
   }
+
+  /**
+   * Booleano que selecciona todas las ofertas para desactivar
+   * @memberof ListComponent
+   */
+  allOffersSelected() {
+    this.allOffer = true;
+  }
+
+  /**
+   * Booleano que selecciona algunas ofertas a desactivar
+   * @memberof ListComponent
+   */
+  someOffersSelected() {
+    this.allOffer = false;
+  }
+
+  /**
+   * Función para mostrar modal de confirmación de desactivacion de ofertas
+   * @memberof ListComponent
+   */
+  openDialogDesactiveOffer() {
+    const dataToSend = {
+      desactiveOffers: this.allOffer,
+      eans: null,
+      paramsFilters: {
+        ean: null,
+        plu: null,
+        product: null,
+        stock: null
+      }
+    };
+
+    dataToSend.paramsFilters.ean = this.paramData.ean || null;
+    dataToSend.paramsFilters.plu = this.paramData.pluVtex || null;
+    dataToSend.paramsFilters.stock = this.paramData.stock || null;
+    dataToSend.paramsFilters.product = this.paramData.product || null;
+
+    this.allOffer ? this.sumItemCount = this.totalOffers : this.sumItemCount = this.sumItemCount;
+
+    const dialogRef = this.dialog.open(DialogDesactiveOffertComponent, {
+      data: {
+        count: this.sumItemCount
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        if (this.listToSend.length === 0) {
+          dataToSend.eans = null;
+        } else {
+          dataToSend.eans = this.listToSend;
+        }
+        dataToSend.desactiveOffers = this.allOffer;
+        this.loadingService.viewSpinner();
+        this.offerService.desactiveMassiveOffers(dataToSend).subscribe(res => {
+          if (res) {
+            if ((res['body'].data.successful === res['body'].data.totalProcess) && (res['body'].data.error === 0)) {
+              this.openModal(1, null);
+            } else {
+              const { offerNotifyViewModels } = res['body'].data;
+              this.openModal(3, offerNotifyViewModels);
+            }
+          }
+          this.loadingService.closeSpinner();
+        });
+        this.getListOffers();
+      }
+    });
+    this.activeCheck = false;
+  }
+
+  /**
+   * Metodo que recibe como parametro el item del nfgor de los card de ofertas
+   * @param {*} statusOffer
+   * @memberof ListComponent
+   */
+  onvalueCheckdesactiveChanged(statusOffer: any) {
+    statusOffer.checked = !statusOffer.checked;
+    this.sumItemCount = 0;
+    this.listOffer.forEach(item => {
+      if (item.checked) {
+        this.listToSend.push(item.ean);
+      }
+      if (item.checked === false) {
+        this.listToSend.splice(item, 1);
+      }
+    });
+    const newListArray = Array.from(new Set(this.listToSend));
+    this.listToSend = newListArray;
+    this.sumItemCount = this.listToSend.length;
+  }
+
+  /**
+   * Metodo para checkear la oferta y no perderla al cambiar de pagina.
+   * @memberof ListComponent
+   */
+  setCheckedTrue() {
+    this.listToSend.forEach(res => {
+      this.listOffer.forEach(result => {
+        if (result.ean === res) {
+          result['checked'] = true;
+        }
+      });
+    });
+  }
+
+  /**
+   * Funcion para activar masivamente las ofertas a seleccionar
+   * @memberof ListComponent
+   */
+  activeMultipleOffer() {
+    this.activeCheck = true;
+  }
+
+  /**
+   * Funcion para validar el estado del proceso de desactivacion de ofertas
+   * @memberof ListComponent
+   */
+  verifyProccesDesactiveOffert() {
+    this.bulkLoadService.verifyStatusBulkLoad().subscribe((res) => {
+      try {
+        if (res && res.status === 200) {
+          const { status, checked } = res.body.data;
+          if ((status === 1 || status === 4) && checked !== 'true') {
+            const statusCurrent = 1;
+            setTimeout(() => { this.openModal(statusCurrent, null); });
+          } else if (status === 2 && checked !== 'true') {
+            setTimeout(() => { this.openModal(status, null); });
+          } else if (status === 3 && checked !== 'true') {
+            const response = res.body.data.response;
+            if (response) {
+              this.listErrorStatus = JSON.parse(response).Data.OfferNotify;
+            } else {
+              this.listErrorStatus = null;
+            }
+            setTimeout(() => { this.openModal(status, this.listErrorStatus); });
+          } else {
+            this.loadingService.closeSpinner();
+          }
+        }
+      } catch {
+        this.loadingService.viewSpinner();
+        this.modalService.showModal('errorService');
+      }
+    });
+  }
+
+  /**
+   * Metodo para abrir modal de OK, carga en proceso o con errores.
+   * @param {number} type
+   * @param {*} listError
+   * @memberof ListComponent
+   */
+  openModal(type: number, listError: any) {
+    this.loadingService.closeSpinner();
+    const intervalTime = 6000;
+    const data = {
+      successText: this.languageService.instant('secure.offers.list.list.desactive_OK'),
+      failText: this.languageService.instant('secure.offers.list.list.desactive_KO'),
+      processText: this.languageService.instant('secure.offers.list.list.desactive_in_progress'),
+      initTime: 500,
+      intervalTime: intervalTime,
+      listError: listError,
+      typeStatus: type
+    };
+    const dialog = this.dialog.open(FinishUploadInformationComponent, {
+      width: '70%',
+      minWidth: '280px',
+      maxHeight: '80vh',
+      disableClose: type === 1,
+      data: data
+    });
+    const dialogIntance = dialog.componentInstance;
+    dialogIntance.request = this.bulkLoadService.verifyStatusBulkLoad();
+    dialogIntance.processFinish$.subscribe((val) => {
+      dialog.disableClose = false;
+    });
+  }
+
 }

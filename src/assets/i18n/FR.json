@@ -50,6 +50,7 @@
     "menu.Calificación de Vendedores": "Quality Score",
     "menu.Solicitudes Pendientes": "Awaiting request",
     "menu.Parametrizar Centros de Acopio": "Parameterize collection centers",
+    "menu.Cargar Acuerdos": "Importer des accords",
 
     "module.Documentación": "Documentation",
     "module.Ofertas": "Offers",
@@ -82,6 +83,7 @@
     "permissions.Marcar": "Flag",
     "permissions.Ofertar": "Offer",
     "permissions.Aceptar": "Accpet",
+    "permissions.not_Accpet": "REFUSE",
     "permissions.Rechazar": "Refuse",
     "permissions.Consultartransportadora": "Browse shipping company",
     "permissions.Consultarzonas": "Browse zones",
@@ -179,6 +181,7 @@
     "actions.previous_page": "Previous page",
     "actions.view_attachments" : "View attachments",
     "actions.confirm_offer": "Approve Offer",
+    "actions.all": "All",
 
     "errors.required": "Field required",
     "errors.invalid_name": "Invalid name",
@@ -539,6 +542,8 @@
     "secure.seller.list.tooltip_disable": "Disable user",
     "secure.seller.list.tooltip_vacations": "Program vacations",
 
+    "secure.seller.uploadAgreement.selectAll": "All",
+
     "secure.seller.register_seller.tap_title_seller": "New seller onboarding form",
     "secure.seller.register_seller.tap_title_update_seller": "Seller update form",
     "secure.seller.register_seller.tap_title_update_admin": "Admin update form",
@@ -574,7 +579,16 @@
     "secure.seller.contracts.lb_title_toolbar": "Agreements",
     "secure.seller.contracts.lb_subtitle_toolbar": "Agreement lookup",
     "secure.seller.contracts.txt_no_contract_seller": "There are no current Agreement associated to this seller",
-
+    "secure.seller.contracts.dear_seller_we_have": "Cher vendeur, sur Marketplace toujours à la recherche d'une amélioration continue, nous avons mis à jour nos conditions générales.",
+    "secure.seller.contracts.please_read_closely": "Veuillez lire attentivement le nouvel accord commercial et / ou l'annexe et confirmez votre acceptation en bas",
+    "secure.seller.contracts.marketplace_agreement": "Accord commercial Marketplace",
+    "secure.seller.contracts.pending_approval": "En attendant l'examen",
+    "secure.seller.contracts.full_name_representative_legal": "Full name of representative legal",
+    "secure.seller.contracts.number_representative_legal": "Identification number of legal representative",
+    "secure.seller.contracts.accept_terms_conditions": "J'accepte les termes et conditions de l'accord Marketplace",
+    "secure.seller.contracts.not_save_agreement": "Conditions non enregistrées",
+    "secure.seller.contracts.terms_conditions": "Termes et conditions",
+    
     "secure.offers.cities_coverage.save_daneCode_ok": "The available cities for dispatch have been saved succesfully.",
     "secure.offers.cities_coverage.save_daneCode_ko": "An error has occurren when trying to save the cities available for dispatch.",
 
@@ -688,6 +702,16 @@
     "secure.offers.list.list.averageFreightCost": "Shipping Cost: ",
     "secure.offers.list.list.warranty": "Warranty: ",
     "secure.offers.list.list.currency": "Currency: ",
+    "secure.offers.list.list.desactive_offer": "Désactivation des offre(s)",
+    "secure.offers.list.list.selected_offer": "Sélectionnez les offres",
+    "secure.offers.list.list.all_offer": "Toutes les offres",
+    "secure.offers.list.list.confirm_desactive": "Confirmer la désactivation",
+    "secure.offers.list.list.select_me": "Pour sélectionner",
+    "secure.offers.list.list.desactive_OK": "Désactivation réussie des offres",
+    "secure.offers.list.list.desactive_KO": "Désactivation d'offres avec erreurs",
+    "secure.offers.list.list.desactive_in_progress": "Désactivation des offres en cours",
+    "secure.offers.list.list.modal_desactive_1": "Voulez-vous vraiment désactiver ",
+    "secure.offers.list.list.modal_desactive_2": "offre(s)",
 
     "secure.offers.list.components.detail_offer.return": "Back",
     "secure.offers.list.components.detail_offer.averageFreightCost": "Shipping Cost",
@@ -1250,5 +1274,14 @@
     "secure.quality.quality-score.qualityMonth" :"Quality month",
     "secure.quality.quality-score.qualityIssued" :"Quality issued",
     "secure.quality.quality-score.text-empty-califications" :"Enter the name of the seller in the search bar to see the quality score. ",
-    "secure.quality.quality-score.filter-title": "Consultar calificaciones"
+    "secure.quality.quality-score.filter-title": "Consultar calificaciones",
+
+    "secure.seller.contracts.load-agreement.select-option-load":"Veuillez sélectionner le type d'accord que vous souhaitez télécharger",
+    "secure.seller.contracts.load-agreement.agreement":"Accord",
+    "secure.seller.contracts.load-agreement.Attached":"Attaché",
+    "secure.seller.contracts.load-agreement.upload_file":"Joignez des fichiers au format PDF (poids maximum 3 mégaoctets)",
+    "secure.seller.contracts.load-agreement.import":"Importer",
+    "secure.seller.contracts.load-agreement.import_agreement":"Importer des accords"
+
+    
 }

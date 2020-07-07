@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { NavData } from '@app/shared/util/getNavData';
@@ -7,6 +7,8 @@ import { EndpointService, LoadingService } from '@app/core';
 import { BillingOrdersService } from '@app/secure/orders/billing-orders/billing-orders.service';
 import { Router, NavigationStart } from '@angular/router';
 import { RoutesConst } from '@app/shared';
+import { Subject } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-terms',
@@ -23,6 +25,7 @@ export class TermsComponent implements OnInit, OnDestroy {
     formTerms: FormGroup;
     chargueView = false;
 
+    processFinish$ = new Subject<any>();
     // tslint:disable-next-line:max-line-length
     textTerms: string;
     navData: NavData = new NavData();
@@ -34,11 +37,12 @@ export class TermsComponent implements OnInit, OnDestroy {
         @Inject(MAT_DIALOG_DATA) public data: any,
         private http: HttpClient,
         private api: EndpointService,
+        private languageService: TranslateService,
         private billingOrdersService: BillingOrdersService,
         private loadingService: LoadingService,
         private router: Router,
         private snackBar: MatSnackBar) {
-        this.textTerms = data;
+        this.textTerms = data.ContractUrl;
     }
 
     public chargePdf(charge: boolean): boolean {
@@ -53,8 +57,8 @@ export class TermsComponent implements OnInit, OnDestroy {
      */
     public closeDialog2(): void {
         this.loadingService.viewSpinner();
-        this.billingOrdersService.getDownnLoadBilling([this.textTerms]).subscribe(result => {
-            this.showFile(result, 'Terminos y condiciones', 'application/pdf');
+        this.billingOrdersService.getDownnLoadBilling([this.data.ContractUrl]).subscribe(result => {
+            this.showFile(result, this.languageService.instant('secure.seller.contracts.terms_conditions'), 'application/pdf');
             this.loadingService.closeSpinner();
         });
     }
@@ -107,7 +111,7 @@ export class TermsComponent implements OnInit, OnDestroy {
 
     /** funcion para abrir nueva ventana con la url del documento pdf de terminos */
     public closeDialog(): void {
-        window.open(this.textTerms, '_blank');
+        window.open(this.data.ContractUrl, '_blank');
     }
 
     /**
@@ -135,9 +139,11 @@ export class TermsComponent implements OnInit, OnDestroy {
      *
      * @memberof TermsComponent
      */
-    public saveTerms(): void {
+    public saveTerms(responseContract: boolean): void {
         this.loadingService.viewSpinner();
-        if (this.formTerms.valid) {
+        if (!responseContract) {
+            localStorage.setItem('showModalContract', 'false');
+        }
             const dataToSend = {
                 IdRepresentative: this.formTerms.controls.identification.value,
                 Ip: this.navData.getIp(),
@@ -145,24 +151,33 @@ export class TermsComponent implements OnInit, OnDestroy {
                 idRepresentative: this.formTerms.controls.identification.value,
                 ip: this.navData.getIp(),
                 nameRepresentative: this.formTerms.controls.responsable.value,
+                responseContract: responseContract,
+                documentType: this.data && this.data.DocumentType ? this.data.DocumentType : null,
+                id: this.data && this.data.Id ? this.data.Id : null,
             };
             if (!dataToSend.Ip) {
                 dataToSend.Ip = '';
                 dataToSend.ip = '';
             }
             this.http.patch(this.api.get('updateTermsSeller'), dataToSend).subscribe( (data: any) => {
-                this.loadingService.closeSpinner();
                 if (data && ( data.statusCode === 200 || data.statusCode === 201 ) ) {
-                    this.dialogRef.close();
+                    if (responseContract) {
+                        this.processFinish$.next({responseContract : true, reload: true });
+                        const myDiv = document.getElementById('parrafo');
+                        myDiv.scrollTop = 0;
+                        this.formTerms.reset();
+                    } else {
+                        this.processFinish$.next({responseContract : false, reload: false });
+                        this.loadingService.closeSpinner();
+                        this.dialogRef.close();
+                    }
                 } else {
-                    this.snackBar.open(this.msgError, 'Cerrar', {
+                    this.snackBar.open(this.languageService.instant('secure.seller.contracts.not_save_agreement'), this.languageService.instant('actions.close'), {
                       duration: 3000,
                     });
                 }
-                /* }, error => {*/
             }, error => {
                 this.loadingService.closeSpinner();
             });
-        }
     }
 }
