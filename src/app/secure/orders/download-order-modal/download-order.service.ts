@@ -66,13 +66,6 @@ export class DownloadOrderService {
         observer.error(error);
       });
     });
-    // return new Observable(observer => {
-    //   this.http.post(this.api.get('getallordersbysellerwithouttracking'), stringSearch).subscribe((data: any) => {
-    //     observer.next(data);
-    //   }, err => {
-    //       observer.error(err);
-    //   });
-    // });
   }
 
   /**
