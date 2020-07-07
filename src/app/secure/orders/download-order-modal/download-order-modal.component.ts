@@ -35,7 +35,6 @@ export class DownloadOrderModalComponent implements OnInit {
   // Inicializa el modal de tipo de financial
   public billingType = false;
   // loadingService: any;
-  // filtros aplicados a la consulta
   public filter: any;
 
   public type: any;

@@ -70,7 +70,6 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   @Input() downloadPermission: boolean;
   @Input() downloadBillingPay: boolean;
   @Input() idSeller: number;
-  // @Input() _Typeprofile: number;
   @Input() state: number;
   @Input() showLoading = true;
   @Input() loadSeller = true;
