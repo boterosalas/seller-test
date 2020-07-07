@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SearchFormEntity, InformationToForm } from '@app/shared';
 import { MatSidenav, MatTableDataSource } from '@angular/material';
-import { OrderService } from '@app/secure/orders/orders-list/orders.service';
 import { LoadingService } from '@app/core';
 import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 import { BillingService } from '../billing.service';
+import * as _moment from 'moment';
+const moment =  _moment;
 
 @Component({
   selector: 'app-summary-payments',
@@ -26,6 +27,7 @@ export class SummaryPaymentsComponent implements OnInit {
   public dataSource: MatTableDataSource<any>;
   public selection = new SelectionModel<any>(true, []);
   public arraySelect = [];
+  
 
 
   public callOne = true;
@@ -66,14 +68,16 @@ export class SummaryPaymentsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getAllDataUser();
     const paramsArray = {
-      'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
-      'idSeller': 11216,
-      'state': null,
-      'callOne': true
+      filterDate: moment(),
+      paginationToken: '{}',
+      limit: this.limit,
+      newLimit: null,
+      currentPage: null,
+      sellerId: this.idSeller
     };
     this.getAllSeller(paramsArray);
-    this.getAllDataUser();
   }
 
   async getAllDataUser() {
@@ -97,14 +101,18 @@ export class SummaryPaymentsComponent implements OnInit {
    */
   getAllSeller(params?: any) {
     this.loadingService.viewSpinner();
+    let query = {};
     if (params === undefined) {
-      params = {
-        'limit': this.limit + '&paginationToken=' + encodeURI(this.paginationToken),
-        'idSeller': 11216,
-        'state': null,
+      query = {
+        filterDate: params.filterDate,
+        paginationToken: params.paginationToken,
+        limit: this.limit,
+        newLimit: null,
+        currentPage: null,
+        sellerId: this.idSeller
       };
     }
-    this.billingService.getAllSummaryPayment().subscribe((result: any) => {
+    this.billingService.getAllSummaryPayment(query).subscribe((result: any) => {
       if (result) {
         this.resultModel = result.data;
         if (this.callOne) {

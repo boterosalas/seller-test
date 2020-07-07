@@ -199,7 +199,9 @@ export const endpoints = {
       // Ruta basica para puertos
       managePort : 'https://orba3qnrte.execute-api.us-east-1.amazonaws.com/dispatchport',
       // Exportar reclamaciones
-      exportReclaim : 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/downloadreport'
+      exportReclaim : 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/downloadreport',
+      // Listado de resumen de facturacion
+      getListAllSummaryBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/summary'
     },
   },
   // Endpoints production
@@ -396,7 +398,9 @@ export const endpoints = {
       // Ruta basica para puertos
       managePort : 'https://kouotxul6i.execute-api.us-east-1.amazonaws.com/dispatchport-pdn',
       // Exportar reclamaciones
-      exportReclaim : 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/downloadreport'
+      exportReclaim : 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/downloadreport',
+      // Listado de resumen de facturacion
+       getListAllSummaryBilling: ''
     }
   }
 };

@@ -167,17 +167,20 @@ export class BillingService {
     });
   }
 
-  getAllSummaryPayment(): Observable<any> {
+  getAllSummaryPayment(params: any): Observable<any> {
+    console.log(params);
     return new Observable(observer => {
-      observer.next(respuesta);
+      observer.next(true);
     });
     // return new Observable(observer => {
-    //   this.http.get(this.api.get('carries')).subscribe((data: any) => {
-    //     observer.next(data);
-    //   }, err => {
-    //     observer.error(err);
-    //   });
+    //   this.http.post<any>(this.api.get('getListAllSummaryBilling'), params)
+    //     .subscribe((data: any) => {
+    //       observer.next(data);
+    //     }, err => {
+    //       observer.error(err);
+    //     });
     // });
+
   }
 
 }
