@@ -106,12 +106,13 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   public dateOrderFinal = '';
   public idChannel = '';
   public orderNumber = '';
+  public idStatus = '';
   public identificationCard = '';
   public processedOrder = '';
 
 
   public length = 0;
-  public pageSize = 50;
+  public pageSize = 200;
   public querySearch = '';
 
 
@@ -133,7 +134,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   showMenssage = false;
   isClear = false;
   pageIndexChange = 0;
-  isFullSearch= true;
+  isFullSearch = true;
 
 
   typeProfile: number;
@@ -153,6 +154,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   currentRootPage: any;
   // Variable que almacena el objeto de paginación actual para listar las órdenes.
   currentEventPaginate: any;
+  // Variable para almacenar los filtros seleccionados
+  allFilter: any;
 
 
   // Configuración para el toolbar-options y el search de la pagina
@@ -250,23 +253,23 @@ export class OrdersListComponent implements OnInit, OnDestroy {
 
   changeLanguage() {
     if (localStorage.getItem('culture_current') !== 'US') {
-    this.currentLanguage = 'ES';
-    localStorage.setItem('culture_current', 'ES');
+      this.currentLanguage = 'ES';
+      localStorage.setItem('culture_current', 'ES');
     } else {
-        this.currentLanguage = 'US';
-        localStorage.setItem('culture_current', 'US');
+      this.currentLanguage = 'US';
+      localStorage.setItem('culture_current', 'US');
     }
     this.languageService.onLangChange.subscribe((e: Event) => {
-        localStorage.setItem('culture_current', e['lang']);
-        const paramsArray = {
-          'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
-          'idSeller': this.idSeller,
-          'state': this.lastState,
-          'callOne': true
-        };
-        this.getOrdersList(paramsArray);
+      localStorage.setItem('culture_current', e['lang']);
+      const paramsArray = {
+        'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
+        'idSeller': this.idSeller,
+        'state': this.lastState,
+        'callOne': true
+      };
+      this.getOrdersList(paramsArray);
     });
-}
+  }
 
 
   /**
@@ -365,9 +368,9 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   getOrdersListSinceFilterSearchOrder() {
     this.subFilterOrder = this.shellComponent.eventEmitterOrders.filterOrderList.subscribe(
       (data: any) => {
-        if (data && data.count > 0) {
+        if (data && data.data.count > 0) {
           if (data != null) {
-            if (data && data && data.viewModel && data.viewModel.length === 0) {
+            if (data && data.data && data.data.viewModel && data.data.viewModel.length === 0) {
               this.orderListLength = true;
             } else {
               this.orderListLength = false;
@@ -377,9 +380,9 @@ export class OrdersListComponent implements OnInit, OnDestroy {
             } else {
               this.numberElements = 0;
             }
-            this.length = data.count;
+            this.length = data.data.count;
             this.isClear = true;
-            this.dataSource = new MatTableDataSource(data.viewModel);
+            this.dataSource = new MatTableDataSource(data.data.viewModel);
             const paginator = this.toolbarOption.getPaginator();
             paginator.pageIndex = 0;
             this.dataSource.paginator = paginator;
@@ -402,10 +405,12 @@ export class OrdersListComponent implements OnInit, OnDestroy {
           this.dateOrderInitial = data.filter.dateOrderInitial;
           this.dateOrderFinal = data.filter.dateOrderFinal;
           this.idChannel = data.filter.idChannel;
+          this.idStatus = data.filter.idStatus;
           this.orderNumber = data.filter.orderNumber;
           this.identificationCard = data.filter.identificationCard;
           this.processedOrder = data.filter.processedOrder;
         }
+        this.allFilter = data.filter;
       });
   }
   /**
@@ -540,18 +545,22 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     this.setCategoryName();
     this.orderService.getOrderList(this.params).subscribe((res: any) => {
       if (res) {
-        if (params.state !== '') {
-          stateCurrent = params.state;
-          this.lastState = stateCurrent;
+        if (res.pendingResponse) {
+          this.getOrdersList(params);
+        } else {
+          if (params.state !== '') {
+            stateCurrent = params.state;
+            this.lastState = stateCurrent;
+            this.setTable(res);
+            if (params && params.callOne) {
+              this.length = res.data.count;
+              this.isClear = true;
+            }
+            const paginator = { 'pageIndex': 0 };
+            this.addCheckOptionInProduct(res.data.viewModel, paginator);
+            this.loadingService.closeSpinner();
+          }
         }
-        this.setTable(res);
-        if (params && params.callOne) {
-          this.length = res.count;
-          this.isClear = true;
-        }
-        const paginator = { 'pageIndex': 0 };
-        this.addCheckOptionInProduct(res.viewModel, paginator);
-        this.loadingService.closeSpinner();
       }
     });
   }
@@ -566,6 +575,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       this.dateOrderInitial = '';
       this.idChannel = '';
       this.orderNumber = '';
+      this.idStatus = '';
       this.identificationCard = '';
       this.processedOrder = '';
     }
@@ -576,6 +586,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       'dateOrderFinal': this.dateOrderFinal,
       'dateOrderInitial': this.dateOrderInitial,
       'idChannel': this.idChannel,
+      'idStatus': this.idStatus,
       'orderNumber': this.orderNumber,
       'identificationCard': this.identificationCard,
       'processedOrder': this.processedOrder,
@@ -592,17 +603,12 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   setTable(res: any) {
     if (res) {
       if (this.onlyOne) {
-        this.length = res.count;
+        this.length = res.data.count;
         this.arrayPosition = [];
         this.arrayPosition.push('{}');
       }
-
-      // if (res.paginationTokens.length > 0) {
-      //   this.arrayPosition = [];
-      //   this.arrayPosition = res.paginationTokens;
-      // }
-      this.dataSource = new MatTableDataSource(res.viewModel);
-      this.savePaginationToken(res.paginationToken);
+      this.dataSource = new MatTableDataSource(res.data.viewModel);
+      this.savePaginationToken(res.data.paginationToken);
     } else {
       this.clearTable();
     }
@@ -702,14 +708,6 @@ export class OrdersListComponent implements OnInit, OnDestroy {
         res[index].products[j].checkProductToSend = false;
       }
     }
-
-    // Creo el elemento que permite pintar la tabla
-    // this.currentOrderList = res;
-    // // this.dataSource = new MatTableDataSource(res.viewModel);
-    // // paginator.pageIndex = 0;
-    // this.dataSource.paginator = paginator;
-    // this.dataSource.sort = this.sort;
-    // this.numberElements = this.dataSource.data.length;
 
     this.setTitleToolbar();
   }
