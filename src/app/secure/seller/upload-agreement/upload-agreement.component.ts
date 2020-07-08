@@ -193,6 +193,11 @@ export class UploadAgreementComponent implements OnInit {
     } else {
       this.isAllSelectedCurrent = false;
     }
+    if (this.arraySelect.length === 0 && !this.all) {
+      this.selection.clear();
+      this.all = false;
+      this.statusAllCheck = true;
+    }
   }
 
   /**
@@ -229,13 +234,15 @@ export class UploadAgreementComponent implements OnInit {
       if (status) {
         this.arraySelect.push(row);
       } else {
-        const index = this.arraySelect.findIndex(rows => rows === row);
+        const index = this.arraySelect.findIndex(rows => rows.Id === row.Id);
         this.arraySelect.splice(index, 1);
+        this.selection.deselect(row);
       }
       if (!this.statusAllCheck) {
         if (status) {
           const index = this.arrayNotSelect.findIndex(rows => rows === row);
           this.arrayNotSelect.splice(index, 1);
+          this.selection.deselect(row);
         } else {
           this.arrayNotSelect.push(row);
         }
@@ -245,6 +252,7 @@ export class UploadAgreementComponent implements OnInit {
     } else {
       this.all = status;
     }
+
     this.isAllSelected();
   }
   /**

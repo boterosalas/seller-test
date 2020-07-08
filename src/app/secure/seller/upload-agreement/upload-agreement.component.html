@@ -20,8 +20,6 @@
           </div>
           <div class="port-component-button-add">
             <div id="addButton" class="container-group-add-button">
-              <!-- arrayNotSelect.length > 0 || !this.statusAllCheck || arraySelect.length > 0 -->
-              <!-- arraySelect.length > 0 ? false : true && -->
               <button mat-button (click)="importAgreement()" [disabled]=" arraySelect.length > 0 ? false : true && !statusAllCheck ? false : true ">
                 <mat-icon class="material-icons">
                   playlist_add_check
@@ -132,7 +130,7 @@
         <mat-row id="order-number-{{index}}" *matRowDef="let index=index; let
           row; columns: displayedColumns;" matRipple
           class="element-row personal-row-table" [cdkDetailRow]="row"
-          [cdkDetailRowTpl]="tpl" (click)="selection.toggle(row)">
+          [cdkDetailRowTpl]="tpl">
         </mat-row>
       </mat-table>
 
