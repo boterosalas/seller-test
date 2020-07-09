@@ -23,7 +23,7 @@
     </div>
   
     <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="97" fxFlex.lg="97" fxFlex.xl="97"
-      class="generic-component-content-table-center-collection">
+      class="generic-component-content-table-center-collection" *ngIf="resultModel && resultModel.count > 0">
       <mat-table #table [dataSource]="dataSource" matSort>
 
         <ng-container matColumnDef="check">
@@ -112,14 +112,17 @@
           [cdkDetailRowTpl]="tpl" >
         </mat-row>
       </mat-table>
-      <div *ngIf="dataSource && dataSource.data && dataSource.data.length > 0"  class="padding-top">
+      <div *ngIf="dataSource && dataSource.data && dataSource.data.count === 0"  class="padding-top">
         <div fxLayout="row" fxLayoutAlign="end end" class="background-color-greyblack">
           <span class="title-summaroty">Valor total Facturado</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="end end" class="background-color-grey">
-          <span class="text-total-summatory">$ 234.56</span>
+          <span class="text-total-summatory">$ {{summaryTotal}}</span>
         </div>
       </div>
+    </div>
+    <div *ngIf="resultModel && resultModel.count === 0">
+      no hay datos
     </div>
   </div>
   <div>

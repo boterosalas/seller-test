@@ -59,6 +59,8 @@ export class SummaryPaymentsComponent implements OnInit {
   public querySearch = '';
   public idSeller = '';
   public disabledButton = false;
+  public dateFilter = null;
+  // public dateFilter = moment().format('YYYY/MM/DD');
 
 
   constructor(
@@ -82,14 +84,14 @@ export class SummaryPaymentsComponent implements OnInit {
     });
     if (sellerData && sellerData.IdSeller) {
       const paramsArray = {
-        filterDate: null,
-        // filterDate: moment().format('YYYY/MM/DD'),
+        filterDate: this.dateFilter,
         paginationToken: '{}',
         limit: this.limit,
         newLimit: null,
         currentPage: null,
-        sellerId: sellerData.IdSeller
+        idSeller: sellerData.IdSeller
       };
+      this.idSeller = sellerData.IdSeller;
       this.getAllSeller(paramsArray);
       // this.idSeller = sellerData.IdSeller;
     }
@@ -105,26 +107,26 @@ export class SummaryPaymentsComponent implements OnInit {
     this.loadingService.viewSpinner();
     let query = {};
     if (params !== undefined) {
+      console.log(params)
       query = {
         filterDate: params.filterDate,
         paginationToken: params.paginationToken,
         limit: this.limit,
         newLimit: null,
         currentPage: null,
-        sellerId: params.sellerId
+        SellerId: params.idSeller
       };
     } else {
       query = {
-        filterDate: moment().format('YYYY/MM/DD'),
+        filterDate: this.dateFilter,
         paginationToken: '{}',
         limit: this.limit,
         newLimit: null,
         currentPage: null,
-        sellerId: params.sellerId
+        SellerId: this.idSeller
       };
     }
     this.billingService.getAllSummaryPayment(query).subscribe((result: any) => {
-      console.log(result);
       if (result) {
         this.resultModel = result.data;
         if (this.callOne) {
@@ -134,7 +136,7 @@ export class SummaryPaymentsComponent implements OnInit {
           this.callOne = false;
         }
         this.dataSource = new MatTableDataSource(this.resultModel.viewModel);
-        if (this.dataSource.data.length > 0) {
+        if ( this.dataSource && this.dataSource.data && this.dataSource.data.length > 0) {
           this.dataSource.data.forEach(element => {
             this.summaryTotal = this.summaryTotal + element.billingTotal;
           });
@@ -148,7 +150,6 @@ export class SummaryPaymentsComponent implements OnInit {
             });
           });
         }
-        console.log(this.summaryTotal);
         this.paginationToken = this.resultModel.paginationToken ? this.resultModel.paginationToken : '{}';
         this.loadingService.closeSpinner();
       } else {
@@ -161,7 +162,7 @@ export class SummaryPaymentsComponent implements OnInit {
   paginations(event: any) {
     if (event.param.pageSize !== this.limit) {
       this.limit = event.param.pageSize;
-      this.allClear();
+      // this.allClear();
     }
     if (event && event.param && event.param.pageIndex >= 0) {
       const index = event.param.pageIndex;
@@ -181,9 +182,12 @@ export class SummaryPaymentsComponent implements OnInit {
         this.paginationToken = '{}';
       }
       const params = {
-        'limit': this.limit + '&paginationToken=' + encodeURI(this.paginationToken),
-        'idSeller': 11216,
-        'state': null,
+        filterDate: this.dateFilter,
+        paginationToken: this.paginationToken,
+        limit: this.limit,
+        newLimit: null,
+        currentPage: null,
+        idSeller: this.idSeller
       };
       this.getAllSeller(params);
     }
@@ -193,7 +197,7 @@ export class SummaryPaymentsComponent implements OnInit {
     this.paginationToken = '{}';
     this.arrayNotSelect = [];
     this.arrayPosition = [];
-    this.getAllSeller(undefined);
+    this.getAllSeller();
   }
 
   toggleFilter() {
@@ -201,13 +205,15 @@ export class SummaryPaymentsComponent implements OnInit {
   }
 
   filterListSummary(params: any) {
+    this.dateFilter = params.filterDate;
     params = {
-      filterDate: params.filterDate,
-      orderNumbers: params.orderNumbers,
+      filterDate: this.dateFilter,
       paginationToken: '{}',
       limit: this.limit,
       idSeller: this.idSeller,
     };
+    console.log(params);
+    this.getAllSeller(params);
   }
 
   changeStatus(row: any, status: any) {

@@ -59,8 +59,7 @@ export class FilterSummaryPaymentComponent implements OnInit {
 
   createFormControls() {
     this.filterBillingSummary = new FormGroup({
-      date: this.date,
-      numberOrder: new FormControl('', Validators.compose([Validators.minLength(1)]))
+      date: this.date
     });
   }
 
@@ -83,28 +82,12 @@ export class FilterSummaryPaymentComponent implements OnInit {
       if (form.date) {
         dateFormt = form.date.format('YYYY/MM/DD');
       }
-      if (form.numberOrder) {
-        let orderList = form.numberOrder;
-        orderList = orderList.trim();
-        if (orderList.search(',') === -1) {
-          this.orderNumbers.push(orderList);
-        } else {
-          const counter = orderList.split(',');
-          counter.forEach(element => {
-            if (element) {
-              this.orderNumbers.push(element);
-            }
-          });
-        }
-      }
     }
     this.OnGetFilter.emit({
-      'orderNumbers': this.orderNumbers,
       'filterDate': dateFormt
     });
    this.clearForm();
-    this.orderNumbers = [];
-    this.toggleFilterSummaryPayment();
+   this.toggleFilterSummaryPayment();
   }
 
   toggleFilterSummaryPayment() {
@@ -112,7 +95,6 @@ export class FilterSummaryPaymentComponent implements OnInit {
   }
 
   clearForm() {
-    this.filterBillingSummary.controls.numberOrder.setValue('');
     this.filterBillingSummary.controls.date.setValue(moment());
   }
 

@@ -29,12 +29,6 @@
                   </mat-datepicker>
                 </mat-form-field>
               </div>
-              <div class="filter-summary-paddinf-top-10">
-                <mat-form-field class="summary-list-width-complete filter-summary-width-90">
-                  <input matInput [placeholder]="'secure.billing.order_number' | translate"
-                    formControlName="numberOrder" [errorStateMatcher]="matcher" pattern="[0-9,]+">
-                </mat-form-field>
-              </div>
             </div>
             <div>
               <div class="orders-search-option normal-theme summary-list-filter-btn-clear" >
@@ -42,7 +36,7 @@
                   <mat-icon>clear_all</mat-icon>
                   {{'filters.clear' | translate}}
                 </button>
-                <button  [disabled]="!createfilterBillingSummary.form.valid || !createfilterBillingSummary.form.touched" class="sc-button" mat-raised-button color="primary"
+                <button  class="sc-button" mat-raised-button color="primary"
                   type="submit" (click)="filterSummary(filterBillingSummary.value)">
                   {{'actions.apply' | translate}}
                 </button>
