@@ -6,6 +6,7 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { SharedModule } from '@app/shared/shared.module';
 import { PendingProductsComponent } from '../pending-products/pending-products.component';
 import { PendingProductsRoutingModule } from './pending-products.routing';
+import { PendingProductsService } from './pending-products.service';
 
 @NgModule({
     imports: [
@@ -26,6 +27,7 @@ import { PendingProductsRoutingModule } from './pending-products.routing';
     entryComponents: [
     ],
     providers: [
+        PendingProductsService
     ]
 })
 export class PendingProductsModule {
