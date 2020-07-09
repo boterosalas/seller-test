@@ -30,8 +30,24 @@ export class SearchOrderFormComponent implements OnInit {
 
   @Input() idSeller: number;
   @Input() typeProfiel: number;
-  @Input() state: number;
-  @Input() paginator: number;
+  showFilterStatus = false;
+   _state: number;
+  @Input() set state(value: number) {
+    if (value) {
+      if (value.toString() === '170') {
+        this.showFilterStatus = false;
+      } else if (value.toString() === '35') {
+        this.showFilterStatus = false;
+      } else {
+        this.showFilterStatus = true ;
+      }
+      this._state = value;
+    } else {
+      this.showFilterStatus = true ;
+      this._state = value;
+    }
+  }
+  @Input() paginator= 100;
 
   /**
    * Creates an instance of SearchOrderFormComponent.
@@ -162,14 +178,14 @@ export class SearchOrderFormComponent implements OnInit {
     if (stringSearch !== '') {
       let status = '';
       stringSearch += '&paginationToken=' + encodeURI('{}');
-      if (this.state && this.state !== undefined) {
-        status = '&idStatus=' + this.state;
+      if (this._state && this._state !== undefined) {
+        status = '&idStatus=' + this._state;
       }
       stringSearch += status;
       // Guardo el filtro aplicado por el usuario.
       this.searchOrderMenuService.setCurrentFilterOrders(objectSearch);
       // obtengo las órdenes con el filtro indicado
-      this.searchOrderMenuService.getOrdersFilter(100, stringSearch, this.idSeller).subscribe((res: any) => {
+      this.searchOrderMenuService.getOrdersFilter(this.paginator, stringSearch, this.idSeller).subscribe((res: any) => {
         if (res != null) {
           // indico a los elementos que esten suscriptos al evento.
           res.filter = {

@@ -135,14 +135,9 @@ export class DownloadOrderModalComponent implements OnInit {
   downloadOrdersByService(currentFiltersOrders: any): void {
     this.loadingService.viewSpinner();
     this.downloadOrderService.downloadOrders(currentFiltersOrders).subscribe(res => {
-      if (res != null) {
         this.componentsService.openSnackBar(this.languageService.instant('secure.orders.download_order_modal.sn_download_order'), this.languageService.instant('actions.close'), 10000);
         this.loadingService.closeSpinner();
-      } else {
-        this.componentsService.openSnackBar(this.languageService.instant('secure.orders.download_order_modal.sn_error_download'), this.languageService.instant('actions.close'), 5000);
-        this.loadingService.closeSpinner();
-      }
-      this.onNoClick();
+        this.onNoClick();
     }, err => {
       this.componentsService.openSnackBar(this.languageService.instant('secure.orders.download_order_modal.sn_error_download'), this.languageService.instant('actions.close'), 5000);
       this.loadingService.closeSpinner();
