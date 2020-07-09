@@ -1088,6 +1088,7 @@
     "secure.parametize.dialog.modal_placeholder_add_category": "In order to add, it is necessary to clic the (+).",
     "secure.parametize.dialog.modal_placeholder_rd_add_all": "Add all",
     "secure.parametize.dialog.modal_subtitle_content": "Assigned categories",
+    "secure.parametize.dialog.category_invalid": "Invalid category",
 
     "secure.parametize.commission.add": "Add tariffs exceptions",
     "secure.parametize.commission.delete": "Delete tariffs",

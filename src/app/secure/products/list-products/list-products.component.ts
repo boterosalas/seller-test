@@ -151,6 +151,7 @@ export class ListProductsComponent implements OnInit {
      */
     saveIdCategory() {
         this.idcategory = [];
+        this.namecategory = [];
         this.keywords.forEach(element => {
             this.listCategories.find(el => {
                 if (element === el.Name) {
@@ -244,6 +245,10 @@ export class ListProductsComponent implements OnInit {
     }
 
 
+    /**
+     * Función para obtener la información del usuario logueado
+     * @memberof ListProductsComponent
+     */
     async getDataUser() {
         this.user = await this.userParams.getUserData();
         if (this.user.sellerProfile === 'seller') {
@@ -256,6 +261,11 @@ export class ListProductsComponent implements OnInit {
         }
     }
 
+    /**
+     * Seteo permiso para editar
+     * @param {number} typeProfile
+     * @memberof ListProductsComponent
+     */
     setPermission(typeProfile: number) {
         this.editPermission = this.getFunctionality('Editar');
     }
@@ -290,7 +300,7 @@ export class ListProductsComponent implements OnInit {
                 this.listCategories2 = this.listCategories.filter(category => category.Name.toString().toLowerCase().includes(val.toLowerCase()));
                 const exist = this.listCategories2.find(category => category.Name === val);
                 if (!exist) {
-                    this.filterProduts.get('category').setErrors({ pattern: false });
+                    this.filterProduts.get('category').setErrors({ pattern: true });
                 } else {
                     this.filterProduts.get('category').setErrors(null);
                 }
@@ -411,6 +421,9 @@ export class ListProductsComponent implements OnInit {
     }
 
     public filterListProducts(params?: any, activeFilter?: any, showErrors: boolean = true) {
+        if (this.idcategory === [] || (this.idcategory && this.idcategory.length === 0)) {
+            this.idcategory = null;
+        }
         let urlParams2: any;
         let countFilter = 0;
         let fecha = 0;
@@ -596,10 +609,6 @@ export class ListProductsComponent implements OnInit {
             this.filterProduts.controls.category.setValue('');
             this.categoryList = null;
         }
-        if (!this.categoryVariable) {
-            this.filterProduts.controls.category.setValue('');
-            this.pluVtexList = null;
-        }
         if (!this.nameVariable) {
             this.filterProduts.controls.productName.setValue('');
             this.nameProductList = null;
@@ -636,11 +645,31 @@ export class ListProductsComponent implements OnInit {
 
     // Metodo para ir eliminando los filtros aplicados
     public remove(productsFilter: ListFilterProducts): void {
+
         if (productsFilter.nameFilter === 'creationDate') {
             this.filterProduts.controls.initialDate.setValue(null);
             this.filterProduts.controls.finalDate.setValue(null);
         }
+
         const index = this.listFilterProducts.indexOf(productsFilter);
+
+        if (productsFilter.nameFilter === 'category') {
+            this.namecategory.forEach(el => {
+                if (productsFilter.name === el) {
+                    const indice = this.namecategory.indexOf(el);
+                    const indice2 = this.idcategory.indexOf(el);
+                    const indice3 = this.keywords.indexOf(el);
+
+                    this.idcategory.splice(indice2, 1);
+                    this.namecategory.splice(indice, 1);
+                    this.keywords.splice(indice3, 1);
+                }
+            });
+            this.listFilterProducts.splice(index, 1);
+            // this.idcategory = null;
+            // this.namecategory = null;
+        }
+
         if (index >= 0) {
             this.listFilterProducts.splice(index, 1);
             this[productsFilter.value] = '';
