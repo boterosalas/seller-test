@@ -27,6 +27,7 @@ export class SummaryPaymentsComponent implements OnInit {
   public dataSource: MatTableDataSource<any>;
   public selection = new SelectionModel<any>(true, []);
   public arraySelect = [];
+  public summaryTotal= 0;
   
 
 
@@ -81,7 +82,8 @@ export class SummaryPaymentsComponent implements OnInit {
     });
     if (sellerData && sellerData.IdSeller) {
       const paramsArray = {
-        filterDate: moment().format('YYYY/MM/DD'),
+        filterDate: null,
+        // filterDate: moment().format('YYYY/MM/DD'),
         paginationToken: '{}',
         limit: this.limit,
         newLimit: null,
@@ -122,6 +124,7 @@ export class SummaryPaymentsComponent implements OnInit {
       };
     }
     this.billingService.getAllSummaryPayment(query).subscribe((result: any) => {
+      console.log(result);
       if (result) {
         this.resultModel = result.data;
         if (this.callOne) {
@@ -131,6 +134,11 @@ export class SummaryPaymentsComponent implements OnInit {
           this.callOne = false;
         }
         this.dataSource = new MatTableDataSource(this.resultModel.viewModel);
+        if (this.dataSource.data.length > 0) {
+          this.dataSource.data.forEach(element => {
+            this.summaryTotal = this.summaryTotal + element.billingTotal;
+          });
+        }
         if (this.arraySelect.length > 0 && this.dataSource.data.length > 0) {
           this.arraySelect.forEach(select => {
             this.dataSource.data.forEach(rowGen => {
@@ -140,6 +148,7 @@ export class SummaryPaymentsComponent implements OnInit {
             });
           });
         }
+        console.log(this.summaryTotal);
         this.paginationToken = this.resultModel.paginationToken ? this.resultModel.paginationToken : '{}';
         this.loadingService.closeSpinner();
       } else {

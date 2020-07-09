@@ -50,7 +50,7 @@
           <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
             fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
             *matCellDef="let element">
-            <p class="sc-text-normal">2</p>
+            <p class="sc-text-normal">{{element.billingNumber}}</p>
           </mat-cell>
         </ng-container>
 
@@ -63,7 +63,7 @@
           <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
             fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
             *matCellDef="let element">
-            <p class="sc-text-normal">2</p>
+            <p class="sc-text-normal">{{element.totalOrders}}</p>
           </mat-cell>
         </ng-container>
 
@@ -76,7 +76,7 @@
           <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
             fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
             *matCellDef="let element">
-            <p class="sc-text-normal">2</p>
+            <p class="sc-text-normal">{{element.paymentDate | date}}</p>
           </mat-cell>
         </ng-container>
 
@@ -89,7 +89,7 @@
           <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
             fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
             *matCellDef="let element">
-            <p class="sc-text-normal">2</p>
+            <p class="sc-text-normal">{{element.discountedTotalValue}}</p>
           </mat-cell>
         </ng-container>
 
@@ -102,7 +102,7 @@
           <mat-cell class='marginListAdminTotal alingRight' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
             fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl=""
             *matCellDef="let element">
-            <p class="sc-text-normal width-100" >2</p>
+            <p class="sc-text-normal width-100">{{element.billingTotal}}</p>
           </mat-cell>
         </ng-container>
 
