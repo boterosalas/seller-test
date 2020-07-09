@@ -1,0 +1,134 @@
+@import '_variables';
+
+.container-card-img {
+  width: 100%;
+  height: 45%;
+  max-height: 157px;
+  min-height: 157px;
+  position: relative;
+
+  img {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+.cardImageAling {
+  padding-bottom: 30px;
+
+  @media screen and (max-width: 600px) {
+    padding-left: 50px;
+    padding-bottom: 1px;
+  }
+}
+
+.example-card {
+  border: 1px solid #D3D3D3;
+  width: 240px;
+  margin: 10px 6px;
+  border-radius: 10px;
+  cursor: pointer;
+  padding-left: 0px;
+  padding-right: 0px;
+  min-height: 330px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.container-desc-card {
+  height: 45%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px 5px 5px 20px;
+
+  h3,
+  p {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  h3 {
+    font-size: 12px;
+    color: $color-gray1;
+    padding: 0.25em;
+    font-weight: 300;
+  }
+
+  p {
+    font-size: 12px;
+    color: $color-gray2;
+    padding: 0.25em;
+
+    &.name {
+      color: black;
+      white-space: normal;
+      font-size: 16px;
+      font-weight: 300;
+      height: auto;
+      min-height: 60px;
+    }
+  }
+}
+
+.best-offer {
+  font-size: $font-size-principal;
+  font-weight: bold;
+  color: white;
+  background-color: #5D5D5D;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  height: 30px;
+  padding-left: 3px;
+  padding-right: 10px;
+  position: absolute;
+  top: 92%;
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .container-desc-card {
+    height: 85%;
+    width: 65%;
+    padding: 5% 3% 3% 5%;
+
+    p {
+      &.stock {
+        display: none;
+      }
+
+      &.name {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+
+.mat-card-content{
+    .mfooter {
+      display: block;
+      margin: 0;
+      padding: 10px 10px 5px 23px;
+      border-top: 1px dotted $color-gray-light;
+      p{
+        margin-bottom: 4px;
+        margin-top: 4px;
+        color: $color-gray-light;
+        font-size: $font-size-principal - 4;
+      }
+  }
+}
+
+.bleft{
+  position: absolute;
+  left: 0;
+  color: $color-gray-light;
+}

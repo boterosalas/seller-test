@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Output } from '@angular/core';
 import { EndpointService } from '@app/core';
 import { Order } from '@app/shared';
 import { Observable } from 'rxjs/Observable';
+import { EventEmitter } from '@angular/core';
 
 @Injectable()
 /**
@@ -10,10 +11,16 @@ import { Observable } from 'rxjs/Observable';
  */
 export class PendingProductsService {
 
+  @Output() change: EventEmitter<boolean> = new EventEmitter();
+
   constructor(
     private http: HttpClient,
     private api: EndpointService
   ) { }
+
+  public changeEmitter(): void {
+    this.change.emit(false); // Todo el que este subscrito a esta variable va a obtener el cambio de la misma
+  }
 
   /**
    * Método para realiar la consulta de los productos pendientes por modificación.

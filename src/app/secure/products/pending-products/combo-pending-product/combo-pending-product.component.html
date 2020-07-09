@@ -1,0 +1,36 @@
+<button class="bleft" mat-icon-button *ngIf="productsExpanded && showProducts"  (click)="backTolist()">
+  <mat-icon class="material-icons">
+    arrow_back
+  </mat-icon>
+  {{'secure.products.create_product_unit.list_products.combo_product.back' | translate}}
+</button>
+
+<div class="cardImageAling" fxLayout.xs="column" fxLayoutAlign.xs="space-between center" *ngFor="let products of productsList; let i = index ">
+  <div (click)="openInformation(products.ean)" *ngIf="showImage === false">
+
+    <mat-card class="example-card">
+      <div class="container-card-img flexbox align-center justify-center">
+        <img src="{{products.imageUrl1}}">
+      </div>
+      <mat-card-content>
+        <div class="container-desc-card flexbox flex-wrap align-center">
+          <h3>EAN: {{products.ean}}</h3>
+          <p class="name">{{products.name}}</p>
+        </div>
+        <mat-card-footer class="mfooter">
+            <p>{{'secure.products.create_product_unit.list_products.combo_product.creation_date' | translate}}: {{products.createdDate}}</p>
+            <p>{{'secure.products.create_product_unit.list_products.combo_product.modification_date' | translate}}: {{products.updatedDate}}</p>
+        </mat-card-footer>
+      </mat-card-content>
+      <!-- <div class="best-offer" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="products.bestOffer !== '0.00'">
+        <p>{{'secure.products.create_product_unit.list_products.combo_product.best_offer' | translate}}: </p>
+        <p [innerHTML]="products.bestOffer | currency: '$' : 'symbol' : '1.2-2'"> </p>
+      </div> -->
+    </mat-card>
+  </div>
+</div>
+
+
+<!-- <div class="full-width">
+  <app-expanded-product [offerPermission]="offerPermission" [editPermission]="editPermission" *ngIf="productsExpanded && showProducts" [productsExpanded]="productsExpanded"></app-expanded-product>
+</div> -->

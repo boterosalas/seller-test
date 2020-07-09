@@ -7,6 +7,7 @@ import { SharedModule } from '@app/shared/shared.module';
 import { PendingProductsComponent } from '../pending-products/pending-products.component';
 import { PendingProductsRoutingModule } from './pending-products.routing';
 import { PendingProductsService } from './pending-products.service';
+import { ComboPendingProductComponent } from './combo-pending-product/combo-pending-product.component';
 
 @NgModule({
     imports: [
@@ -19,10 +20,12 @@ import { PendingProductsService } from './pending-products.service';
         PendingProductsRoutingModule
     ],
     declarations: [
-        PendingProductsComponent
+        PendingProductsComponent,
+        ComboPendingProductComponent
     ],
     exports: [
-        PendingProductsComponent
+        PendingProductsComponent,
+        ComboPendingProductComponent
     ],
     entryComponents: [
     ],

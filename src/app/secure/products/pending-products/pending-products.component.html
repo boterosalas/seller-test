@@ -1,61 +1,70 @@
 <mat-tab-group dynamicHeight mat-stretch-tabs>
   <mat-tab [label]="'secure.products.pending_products_tab1' | translate">
     <mat-drawer #drawer [mode]="'over'" [position]="'end'" class="example-sidenav" [disableClose]="true">
-      <form class="basic-info" #createfilterProdutsPending="ngForm" [formGroup]="filterProdutsPending" class="seller-filter-sidenav"
-        *ngIf="filterProdutsPending">
+      <form class="basic-info" #createfilterProdutsPending="ngForm" [formGroup]="filterProdutsPending"
+        class="seller-filter-sidenav" *ngIf="filterProdutsPending">
         <div fxLayout="row" fxLayoutAlign="space-between center">
           <h3>{{'secure.products.pending_products.filterModify' | translate}}</h3>
-          <button id="closeMenuApplication" type="button" color="primary" [matTooltip]="'actions.close' | translate" matTooltipPosition="below"
-            mat-icon-button mat-button (click)="drawer.toggle() && closeFilter()">
+          <button id="closeMenuApplication" type="button" color="primary" [matTooltip]="'actions.close' | translate"
+            matTooltipPosition="below" mat-icon-button mat-button (click)="drawer.toggle() && closeFilter()">
             <mat-icon>clear</mat-icon>
           </button>
         </div>
-  
+
         <div fxLayout="column" fxLayoutAlign="space-between" fxLayout.xs="column">
           <mat-form-field color="primary">
-            <input matInput [placeholder]="'secure.products.create_product_unit.list_products.product_name' | translate" formControlName="productName" [errorStateMatcher]="matcher">
+            <input matInput [placeholder]="'secure.products.create_product_unit.list_products.product_name' | translate"
+              formControlName="productName" [errorStateMatcher]="matcher">
             <mat-hint></mat-hint>
             <mat-error *ngIf="filterProdutsPending.get('productName').hasError('pattern')">
-                {{'secure.products.create_product_unit.list_products.product_name_invalid' | translate}}
+              {{'secure.products.create_product_unit.list_products.product_name_invalid' | translate}}
             </mat-error>
           </mat-form-field>
           <mat-form-field color="primary">
-            <input matInput [placeholder]="'shared.ean' | translate" formControlName="ean" [errorStateMatcher]="matcher">
+            <input matInput [placeholder]="'shared.ean' | translate" formControlName="ean"
+              [errorStateMatcher]="matcher">
             <mat-hint></mat-hint>
           </mat-form-field>
-  
+
           <div>
-            <mat-radio-group formControlName="creationDate" [(ngModel)]="optionDates" fxLayout="row" fxLayoutAlign="space-between center"
-              fxLayout.xs="column" fxLayoutAlign.xs="space-between" class="radioDate" (change)="changeDates()">
-              <mat-radio-button value="createDate">{{'secure.products.create_product_unit.list_products.creation_date' | translate}}</mat-radio-button>
+            <mat-radio-group formControlName="creationDate" [(ngModel)]="optionDates" fxLayout="row"
+              fxLayoutAlign="space-between center" fxLayout.xs="column" fxLayoutAlign.xs="space-between"
+              class="radioDate" (change)="changeDates()">
+              <mat-radio-button value="createDate">
+                {{'secure.products.create_product_unit.list_products.creation_date' | translate}}</mat-radio-button>
               <!-- <mat-radio-button value="updateDate">{{'secure.products.create_product_unit.list_products.modification_date' | translate}}</mat-radio-button> -->
             </mat-radio-group>
             <mat-error *ngIf="filterProdutsPending.controls.creationDate.hasError('date')">
-                {{'secure.products.create_product_unit.list_products.ending_date' | translate}}
+              {{'secure.products.create_product_unit.list_products.ending_date' | translate}}
             </mat-error>
           </div>
           <div *ngIf="optionDates">
             <div fxLayout="row" fxLayoutAlign="space-between center">
               <mat-form-field class="classDatapicker">
-                <input matInput [matDatepicker]="picker" [placeholder]="'core.shell.search_order_menu.search_order_form.from' | translate" disabled formControlName="initialDate">
+                <input matInput [matDatepicker]="picker"
+                  [placeholder]="'core.shell.search_order_menu.search_order_form.from' | translate" disabled
+                  formControlName="initialDate">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker disabled="false"></mat-datepicker>
               </mat-form-field>
-  
+
               <mat-form-field class="classDatapicker">
-                <input matInput [matDatepicker]="picker1" [placeholder]="'core.shell.search_order_menu.search_order_form.to' | translate" disabled formControlName="finalDate">
+                <input matInput [matDatepicker]="picker1"
+                  [placeholder]="'core.shell.search_order_menu.search_order_form.to' | translate" disabled
+                  formControlName="finalDate">
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker #picker1 disabled="false"></mat-datepicker>
               </mat-form-field>
             </div>
           </div>
-  
-  
+
+
           <div fxLayout="row" fxLayoutAlign="space-between center" class="buttonsSend">
-            <button mat-stroked-button color="primary" type="button" (click)="cleanAllFilter()">{{'filters.clear' | translate}} </button>
+            <button mat-stroked-button color="primary" type="button"
+              (click)="cleanAllFilter()">{{'filters.clear' | translate}} </button>
             <!-- <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterSeller.form.valid || (!product.value && !ean.value && !stock.value)"></button> -->
             <button mat-flat-button color="primary" type="submit" (click)="filterApply(drawer)"
-            [disabled]="!createfilterProdutsPending.form.valid || !createfilterProdutsPending.form.touched">{{'filters.filter' | translate}}</button>
+              [disabled]="!createfilterProdutsPending.form.valid || !createfilterProdutsPending.form.touched">{{'filters.filter' | translate}}</button>
           </div>
         </div>
       </form>
@@ -65,22 +74,26 @@
         <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
           <!--  Titulo del toolbar desktop-->
           <p class="seller-list-title" fxShow [fxShow.xs]="false">
-              {{'secure.products.bulk_upload.title_module' | translate}}
+            {{'secure.products.bulk_upload.title_module' | translate}}
             <small class="sub-title">| {{'secure.products.pending_products_tab1' | translate}}</small>
           </p>
           <!--  Titulo del toolbar -->
           <p class="seller-list-title" fxShow="false" [fxShow.xs]="true">
-              {{'secure.products.pending_products_tab1' | translate}}
+            {{'secure.products.pending_products_tab1' | translate}}
           </p>
           <div class="hide-page">
-            <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = changePaginatorProducts($event)"></mat-paginator>
+            <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+              (page)="pageEvent = changePaginatorProducts($event)"></mat-paginator>
           </div>
         </div>
         <button type="button" mat-button (click)="drawer.toggle()">
           <mat-icon>filter_list</mat-icon>
-          <small class="sub-title-filter" >{{'filters.filter' | translate}}</small>
+          <small class="sub-title-filter">{{'filters.filter' | translate}}</small>
         </button>
       </mat-toolbar>
+    </div>
+    <div class="prodList">
+      <app-combo-pending-product [productsList]="productsList" class="listCombo"></app-combo-pending-product>
     </div>
   </mat-tab>
   <mat-tab [label]="'secure.products.pending_products_tab2' | translate">
@@ -88,20 +101,21 @@
       <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
         <!--  Titulo del toolbar desktop-->
         <p class="seller-list-title" fxShow [fxShow.xs]="false">
-            {{'secure.products.bulk_upload.title_module' | translate}}
+          {{'secure.products.bulk_upload.title_module' | translate}}
           <small class="sub-title">| {{'secure.products.pending_products_tab2' | translate}}</small>
         </p>
         <!--  Titulo del toolbar -->
         <p class="seller-list-title" fxShow="false" [fxShow.xs]="true">
-            {{'secure.products.pending_products_tab2' | translate}}
+          {{'secure.products.pending_products_tab2' | translate}}
         </p>
         <div class="hide-page">
-          <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = changePaginatorProducts($event)"></mat-paginator>
+          <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+            (page)="pageEvent = changePaginatorProducts($event)"></mat-paginator>
         </div>
       </div>
       <button type="button" mat-button (click)="drawer.toggle()">
         <mat-icon>filter_list</mat-icon>
-        <small class="sub-title-filter" >{{'filters.filter' | translate}}</small>
+        <small class="sub-title-filter">{{'filters.filter' | translate}}</small>
       </button>
     </mat-toolbar>
   </mat-tab>

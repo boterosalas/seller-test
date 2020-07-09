@@ -3,9 +3,10 @@ import { MatPaginatorIntl, MatPaginator, ErrorStateMatcher } from '@angular/mate
 import { MatPaginatorI18nService } from '@app/shared/services/mat-paginator-i18n.service';
 import { readFunctionality } from '@app/secure/auth/auth.consts';
 import { FormGroupDirective, NgForm, FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Logger, LoadingService } from '@app/core';
+import { Logger, LoadingService, UserParametersService } from '@app/core';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { PendingProductsService } from './pending-products.service';
+import { UserInformation } from '@app/shared';
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -29,6 +30,8 @@ const log = new Logger('PendingProductsComponent');
   ],
 })
 export class PendingProductsComponent implements OnInit {
+  productsList: any = [];
+
   read = readFunctionality;
   validateRegex: any;
   public filterProdutsPending: FormGroup;
@@ -36,20 +39,33 @@ export class PendingProductsComponent implements OnInit {
   public pageSize = 50;
   public idSeller = '';
 
+  public user: UserInformation;
+  isAdmin = false;
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
   constructor(
     private pendingProductsService: PendingProductsService,
+    public userParams: UserParametersService,
     private loadingService: LoadingService,
     public SUPPORT?: SupportService,
     private fb?: FormBuilder,
-  ) { }
+  ) {
+    this.getDataUser();
+   }
 
   ngOnInit() {
     this.validateFormSupport();
-    this.getPendingProductsModify('hola');
+    this.getAllPendingProducts();
   }
+
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
+    if (this.user.sellerProfile === 'seller') {
+    } else {
+        this.isAdmin = true;
+    }
+}
 
   /**
    * Metodo para crear el formulario
@@ -100,6 +116,7 @@ export class PendingProductsComponent implements OnInit {
     // this.setCategoryName();
     this.pendingProductsService.getPendingProductsModify(params).subscribe((res: any) => {
       if (res) {
+        this.productsList = res.viewModel;
         // if (params.state !== '') {
         //   stateCurrent = params.state;
         //   this.lastState = stateCurrent;
@@ -119,8 +136,7 @@ export class PendingProductsComponent implements OnInit {
   getAllPendingProducts() {
     const paramsArray = {
       'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
-      'idSeller': this.idSeller,
-
+      'idSeller': this.user.sellerId
     };
     this.getPendingProductsModify(paramsArray);
   }
