@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { ListProductsComponent } from './list-products.component';
@@ -12,6 +11,8 @@ import { OfertExpandedProductComponent } from './ofert-product/ofert-product.com
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { SharedModule } from '@app/shared/shared.module';
 import { ModalRuleOfferComponent } from './modal-rule-offer/modal-rule-offer.component';
+import { DownloadProductsComponent } from './download-products/download-products.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
     imports: [
@@ -29,6 +30,7 @@ import { ModalRuleOfferComponent } from './modal-rule-offer/modal-rule-offer.com
       ExpandedProductComponent,
       OfertExpandedProductComponent,
       ModalRuleOfferComponent,
+      DownloadProductsComponent,
     ],
     exports: [
       ComboProductComponent,
@@ -37,7 +39,8 @@ import { ModalRuleOfferComponent } from './modal-rule-offer/modal-rule-offer.com
       ModalRuleOfferComponent
     ],
     entryComponents: [
-      ModalRuleOfferComponent
+      ModalRuleOfferComponent,
+      DownloadProductsComponent
     ],
     providers: [
       ListProductService

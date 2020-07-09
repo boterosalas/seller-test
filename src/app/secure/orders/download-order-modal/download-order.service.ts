@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { EndpointService } from '@app/core';
 import { Observable } from 'rxjs';
 
+
 @Injectable()
 /**
  * Clase OrderService
@@ -46,6 +47,23 @@ export class DownloadOrderService {
         observer.next(data);
       }, err => {
           observer.error(err);
+      });
+    });
+  }
+  /**
+   *  Método para realizar el consumo del servicio que permite enviar las guias
+   *  al correo electronico del usuario.
+   * @param {any} stringSearch
+   * @returns {Observable<[{}]>}
+   * @memberof OrderService
+   */
+  downloadGuides(stringSearch: any): Observable<any> {
+    return new Observable(observer => {
+      this.http.get(this.api.get('getallordersbysellerwithouttracking', [stringSearch]),
+      ).subscribe((data: any) => {
+        observer.next(data);
+      }, error => {
+        observer.error(error);
       });
     });
   }

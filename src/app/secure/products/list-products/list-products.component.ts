@@ -3,22 +3,27 @@ import { Logger } from '@app/core/util/logger.service';
 import { LoadingService, ModalService, UserParametersService } from '@app/core';
 import { ListProductService } from './list-products.service';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators } from '@angular/forms';
-import { ErrorStateMatcher, PageEvent, MatPaginatorIntl, MatSnackBar, MatPaginator } from '@angular/material';
+import { ErrorStateMatcher, PageEvent, MatPaginatorIntl, MatSnackBar, MatPaginator, MatDialog } from '@angular/material';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { ModelFilterProducts } from './listFilter/filter-products.model';
-import { CustomPaginator } from './listFilter/paginatorList';
-
-import { ReturnStatement } from '@angular/compiler';
-import { MenuModel, listProductsName, readFunctionality, offerFuncionality, updateFunctionality, unitaryCreateName  } from '@app/secure/auth/auth.consts';
+import { Observable } from 'rxjs';
+import { MenuModel, listProductsName, readFunctionality, offerFuncionality, updateFunctionality, unitaryCreateName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { TranslateService } from '@ngx-translate/core';
 import { MatPaginatorI18nService } from '@app/shared/services/mat-paginator-i18n.service';
 import { UserInformation } from '@app/shared';
+import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
+import { DownloadProductsComponent } from './download-products/download-products.component';
 
 export interface ListFilterProducts {
     name: string;
     value: string;
     nameFilter: string;
+}
+
+export interface FilterList {
+    Id: string;
+    Name: string;
 }
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -47,6 +52,8 @@ export class ListProductsComponent implements OnInit {
     value = '';
     productsList: any = [];
     public filterProduts: FormGroup;
+    public filterCategory: FormGroup;
+
     public matcher: MyErrorStateMatcher;
     public paramsData: ModelFilterProducts;
     nameProductList: any;
@@ -57,8 +64,9 @@ export class ListProductsComponent implements OnInit {
     fechaInicial: any;
     fechaFinal: any;
     pluVtexList: any;
+    categoryList: any;
     showProducts = false;
-     // user info
+    // user info
     public user: UserInformation;
 
     eanVariable = false;
@@ -66,6 +74,7 @@ export class ListProductsComponent implements OnInit {
     nameVariable = false;
     fechaInicialVariable = false;
     fechaFinalVariable = false;
+    categoryVariable = false;
 
     visible = true;
     selectable = true;
@@ -88,6 +97,18 @@ export class ListProductsComponent implements OnInit {
     editPermission = false;
     permissionComponent: MenuModel;
     @ViewChild(MatPaginator) paginator: MatPaginator;
+    listCategories: any;
+    categoryInfo: any;
+
+
+    validateKey = true;
+    keywords: Array<any> = [];
+    listCategories2: any;
+    idcategory: any;
+    namecategory: Array<any> = [];
+
+    isAdmin = false;
+    dataChips: Array<any> = [];
 
     constructor(
         private languageService: TranslateService,
@@ -99,33 +120,160 @@ export class ListProductsComponent implements OnInit {
         public SUPPORT?: SupportService,
         public snackBar?: MatSnackBar,
         public authService?: AuthService,
-    ) { }
+        public dialog?: MatDialog,
+    ) {
+    }
     ngOnInit() {
         this.offerPermission = this.authService.getPermissionForMenu(listProductsName, this.offer);
         this.editPermission = this.authService.getPermissionForMenu(unitaryCreateName, 'Editar');
         this.getDataUser();
         this.validateFormSupport();
+        this.refreshCategoryTree();
     }
 
+    /**
+     * Metodo para obtener el listado de categorías
+     * @memberof ListProductsComponent
+     */
+    public getCategoriesList() {
+        this.loadingService.viewSpinner();
+        this.productsService.getCateriesList().subscribe((result: any) => {
+            if (result.statusCode === 200) {
+                const body = JSON.parse(result.body);
+                this.listCategories = body.Data;
+            }
+        });
+    }
+
+    /**
+     * Funcion para guardar arreglo de categorias
+     * @memberof ListProductsComponent
+     */
+    saveIdCategory() {
+        this.idcategory = [];
+        this.namecategory = [];
+        this.keywords.forEach(element => {
+            this.listCategories.find(el => {
+                if (element === el.Name) {
+                    if (this.idcategory.find(id => id === el.Id)) {
+                    } else {
+                        this.idcategory.push(el.Id);
+                        this.namecategory.push(el.Name);
+                    }
+                }
+            });
+        });
+    }
+
+    /**
+     * Función para ir guardando las categorías como chips.
+     * @memberof ListProductsComponent
+     */
+    public saveKeyword(): void {
+        let word = this.filterProduts.controls.category.value;
+        if (word) {
+            word = word.trim();
+            if (word.search(',') === -1) {
+                this.keywords.push(word);
+            } else {
+                const counter = word.split(',');
+                counter.forEach(element => {
+                    if (element) {
+                        this.keywords.push(element);
+                    }
+                });
+            }
+            this.filterProduts.controls.category.clearValidators();
+            this.filterProduts.controls.category.reset();
+            this.validateKey = this.keywords.length > 0 ? false : true;
+        }
+        this.saveIdCategory();
+    }
+
+    /**
+     * Funcion para eliminar las categorias en el filtro de listado de productos.
+     * @param {number} indexOfValue
+     * @memberof ListProductsComponent
+     */
+    public deleteKeywork(indexOfValue: number): void {
+        this.keywords.splice(indexOfValue, 1);
+        this.validateKey = this.keywords.length > 0 ? false : true;
+        if (this.keywords.length < 1) {
+            this.filterProduts.setErrors({ required: true });
+        }
+        this.saveIdCategory();
+    }
+
+    /**
+     * Metodo para abrir modal para la descarga de los productos solo admin
+     * @memberof ListProductsComponent
+     */
+    openDialogDownloadProducts() {
+        if (this.filterProduts.controls.initialDate.value) {
+            this.initialDateList = this.getDate(new Date(this.filterProduts.controls.initialDate.value));
+        } else {
+            this.initialDateList = null;
+        }
+        if (this.filterProduts.controls.finalDate.value) {
+            this.finalDateList = this.getDate(new Date(this.filterProduts.controls.finalDate.value));
+        } else {
+            this.finalDateList = null;
+        }
+
+        if (this.creationDateList === 'createDate') {
+            this.creationDateList = true;
+        } else if (this.creationDateList === 'updateDate') {
+            this.creationDateList = false;
+        } else {
+            this.creationDateList = null;
+        }
+        const dataToSend = {
+            ean: this.eanList || null,
+            plu: this.pluVtexList || null,
+            product: this.nameProductList || null,
+            categories: this.categoryList || null,
+            creationDate: this.creationDateList || null,
+            initialDate: this.initialDateList || null,
+            finalDate: this.finalDateList || null
+        };
+
+        const dialogRef = this.dialog.open(DownloadProductsComponent, {
+            data: dataToSend
+        });
+        dialogRef.afterClosed().subscribe(result => {
+        });
+    }
+
+
+    /**
+     * Función para obtener la información del usuario logueado
+     * @memberof ListProductsComponent
+     */
     async getDataUser() {
         this.user = await this.userParams.getUserData();
         if (this.user.sellerProfile === 'seller') {
-          this.permissionComponent = this.authService.getMenuProfiel(unitaryCreateName, 0);
-          this.setPermission(0);
+            this.permissionComponent = this.authService.getMenuProfiel(unitaryCreateName, 0);
+            this.setPermission(0);
         } else {
-          this.permissionComponent = this.authService.getMenuProfiel(unitaryCreateName, 1);
-          this.setPermission(1);
+            this.permissionComponent = this.authService.getMenuProfiel(unitaryCreateName, 1);
+            this.setPermission(1);
+            this.isAdmin = true;
         }
-      }
+    }
 
-      setPermission(typeProfile: number) {
+    /**
+     * Seteo permiso para editar
+     * @param {number} typeProfile
+     * @memberof ListProductsComponent
+     */
+    setPermission(typeProfile: number) {
         this.editPermission = this.getFunctionality('Editar');
-      }
+    }
 
-      public getFunctionality(functionality: string): boolean {
+    public getFunctionality(functionality: string): boolean {
         const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
         return permission && permission.ShowFunctionality;
-      }
+    }
 
     onEnter(value: string) {
         this.value = value;
@@ -138,14 +286,30 @@ export class ListProductsComponent implements OnInit {
     createFormControls() {
         this.filterProduts = this.fb.group({
             productName: new FormControl('', Validators.compose([Validators.pattern(this.getValue('nameProduct'))])),
-            /* ean: new FormControl('', Validators.compose([, Validators.pattern(this.getValue('ean'))])),
-             nit: new FormControl('', [Validators.pattern('^[0-9]*$')]), */
             ean: new FormControl(''),
             pluVtex: new FormControl('', Validators.compose([Validators.pattern(this.getValue('integerNumber'))])),
             initialDate: { disabled: true, value: '' },
             finalDate: { disabled: true, value: '' },
             creationDate: new FormControl('', []),
+            category: new FormControl(''),
             matcher: new MyErrorStateMatcher()
+        });
+
+        this.filterProduts.get('category').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
+            if (!!val && val.length >= 2) {
+                this.listCategories2 = this.listCategories.filter(category => category.Name.toString().toLowerCase().includes(val.toLowerCase()));
+                const exist = this.listCategories2.find(category => category.Name === val);
+                if (!exist) {
+                    this.filterProduts.get('category').setErrors({ pattern: true });
+                } else {
+                    this.filterProduts.get('category').setErrors(null);
+                }
+            } else if (!val) {
+                this.listCategories2 = [];
+                this.filterProduts.get('category').setErrors(null);
+            } else {
+                this.filterProduts.get('category').setErrors(null);
+            }
         });
     }
 
@@ -171,6 +335,7 @@ export class ListProductsComponent implements OnInit {
         this.initialDateList = null;
         this.finalDateList = null;
         this.pluVtexList = null;
+        this.categoryList = null;
         this.listFilterProducts = [];
 
     }
@@ -193,6 +358,8 @@ export class ListProductsComponent implements OnInit {
 
     // Funcion para limpiar formulario
     public cleanFilter() {
+        this.idcategory = [];
+        this.keywords = [];
         this.filterProduts.reset();
         this.cleanFilterListProducts();
         this.filterListProducts();
@@ -254,8 +421,9 @@ export class ListProductsComponent implements OnInit {
     }
 
     public filterListProducts(params?: any, activeFilter?: any, showErrors: boolean = true) {
-        // this.applyFilter = true;
-        // let urlParams: any;
+        if (this.idcategory === [] || (this.idcategory && this.idcategory.length === 0)) {
+            this.idcategory = null;
+        }
         let urlParams2: any;
         let countFilter = 0;
         let fecha = 0;
@@ -263,6 +431,7 @@ export class ListProductsComponent implements OnInit {
         this.finalDateList = null;
         this.nameProductList = this.filterProduts.controls.productName.value || null;
         this.pluVtexList = this.filterProduts.controls.pluVtex.value || null;
+        this.categoryList = this.idcategory || null;
         this.eanList = this.filterProduts.controls.ean.value || null;
         this.creationDateList = this.filterProduts.controls.creationDate.value || null;
         if (this.filterProduts.controls.initialDate.value) {
@@ -295,6 +464,13 @@ export class ListProductsComponent implements OnInit {
             countFilter++;
         } else {
             this.eanVariable = false;
+            countFilter++;
+        }
+        if (this.categoryList) {
+            this.categoryVariable = true;
+            countFilter++;
+        } else {
+            this.categoryVariable = false;
             countFilter++;
         }
         if (this.eanList) {
@@ -335,7 +511,6 @@ export class ListProductsComponent implements OnInit {
                 const final = this.fechaFinal.getTime();
                 if (final < inicial) {
                     fecha++;
-                    // alert('La fecha inicial NO debe ser mayor a la fecha final');
                     if (showErrors) {
                         this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.you_must_initial'), this.languageService.instant('actions.close'), {
                             duration: 3000,
@@ -346,7 +521,6 @@ export class ListProductsComponent implements OnInit {
             } else {
                 fecha++;
                 if (showErrors) {
-                    // alert('Debes igresar fecha inicial y final para realizar filtro');
                     this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.you_must_initial'), this.languageService.instant('actions.close'), {
                         duration: 3000,
                     });
@@ -358,11 +532,9 @@ export class ListProductsComponent implements OnInit {
             this.initialDateList = null;
             this.finalDateList = null;
         }
-
         if (countFilter) {
-            urlParams2 = `${this.initialDateList}/${this.finalDateList}/${this.eanList}/${this.nameProductList}/${this.creationDateList}/${page}/${limit}/${this.pluVtexList}`;
+            urlParams2 = `${this.initialDateList}/${this.finalDateList}/${this.eanList}/${this.nameProductList}/${this.creationDateList}/${page}/${limit}/${this.pluVtexList}/${this.categoryList}`;
         }
-
         this.loadingService.viewSpinner(); // Mostrar el spinner
         if (params && !fecha) {
             params.toggle();
@@ -397,19 +569,28 @@ export class ListProductsComponent implements OnInit {
         this.nameProductList = this.filterProduts.controls.productName.value || null;
         this.eanList = this.filterProduts.controls.ean.value || null;
         this.pluVtexList = this.filterProduts.controls.pluVtex.value || null;
+        this.categoryList = this.idcategory || null;
+
+
         if (!fecha) {
             this.creationDateList = this.filterProduts.controls.creationDate.value || null;
         }
         this.initialDateList = new Date(this.filterProduts.controls.initialDate.value) || null;
         this.finalDateList = new Date(this.filterProduts.controls.finalDate.value) || null;
 
-        const data = [];
-        data.push({ value: this.nameProductList, name: 'nameProductList', nameFilter: 'productName' });
-        data.push({ value: this.eanList, name: 'eanList', nameFilter: 'ean' });
-        data.push({ value: this.pluVtexList, name: 'pluVtexList', nameFilter: 'pluVtex' });
-        data.push({ value: this.creationDateList, name: 'creationDateList', nameFilter: 'creationDate' });
-        this.add(data);
-
+        // const data = [];
+        this.dataChips.push({ value: this.nameProductList, name: 'nameProductList', nameFilter: 'productName' });
+        this.dataChips.push({ value: this.eanList, name: 'eanList', nameFilter: 'ean' });
+        this.dataChips.push({ value: this.pluVtexList, name: 'pluVtexList', nameFilter: 'pluVtex' });
+        this.dataChips.push({ value: this.creationDateList, name: 'creationDateList', nameFilter: 'creationDate' });
+        if (this.idcategory && this.idcategory.length > 0) {
+            this.namecategory.forEach(el => {
+                if (el) {
+                    this.dataChips.push({ value: el, name: 'categoryList', nameFilter: 'category' });
+                }
+            });
+        }
+        this.add(this.dataChips);
     }
 
     public closeFilter() {
@@ -423,6 +604,10 @@ export class ListProductsComponent implements OnInit {
         if (!this.pluVariable) {
             this.filterProduts.controls.pluVtex.setValue('');
             this.pluVtexList = null;
+        }
+        if (!this.categoryVariable) {
+            this.filterProduts.controls.category.setValue('');
+            this.categoryList = null;
         }
         if (!this.nameVariable) {
             this.filterProduts.controls.productName.setValue('');
@@ -455,15 +640,36 @@ export class ListProductsComponent implements OnInit {
 
             }
         });
+        this.dataChips = [];
     }
 
     // Metodo para ir eliminando los filtros aplicados
     public remove(productsFilter: ListFilterProducts): void {
+
         if (productsFilter.nameFilter === 'creationDate') {
             this.filterProduts.controls.initialDate.setValue(null);
             this.filterProduts.controls.finalDate.setValue(null);
         }
+
         const index = this.listFilterProducts.indexOf(productsFilter);
+
+        if (productsFilter.nameFilter === 'category') {
+            this.namecategory.forEach(el => {
+                if (productsFilter.name === el) {
+                    const indice = this.namecategory.indexOf(el);
+                    const indice2 = this.idcategory.indexOf(el);
+                    const indice3 = this.keywords.indexOf(el);
+
+                    this.idcategory.splice(indice2, 1);
+                    this.namecategory.splice(indice, 1);
+                    this.keywords.splice(indice3, 1);
+                }
+            });
+            this.listFilterProducts.splice(index, 1);
+            // this.idcategory = null;
+            // this.namecategory = null;
+        }
+
         if (index >= 0) {
             this.listFilterProducts.splice(index, 1);
             this[productsFilter.value] = '';
@@ -490,5 +696,13 @@ export class ListProductsComponent implements OnInit {
         } else {
             this.filterProduts.controls.creationDate.setErrors(null);
         }
+    }
+
+    public refreshCategoryTree() {
+        this.getCategoriesList();
+        this.languageService.onLangChange.subscribe((e: Event) => {
+            localStorage.setItem('culture_current', e['lang']);
+            this.getCategoriesList();
+        });
     }
 }

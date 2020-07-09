@@ -166,7 +166,8 @@ export class ToolbarOptionsComponent implements OnInit {
     const dialogRef = this.dialog.open(DownloadOrderModalComponent, {
       data: {
         limit: this.lengthOrder,
-        billingType: this.billingType
+        billingType: this.billingType,
+        type: 1
       },
     });
     dialogRef.afterClosed().subscribe(result => {
