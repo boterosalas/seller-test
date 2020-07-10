@@ -175,7 +175,9 @@ export class ListProductsComponent implements OnInit {
         if (word) {
             word = word.trim();
             if (word.search(',') === -1) {
-                this.keywords.push(word);
+                if (this.invalidCategory === false) {
+                    this.keywords.push(word);
+                }
             } else {
                 const counter = word.split(',');
                 counter.forEach(element => {
