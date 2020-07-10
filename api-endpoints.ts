@@ -206,7 +206,7 @@ export const endpoints = {
       // GetProducs para modificaciones
       getProductsPendingModify: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productsrejected?idSeller={sellerId}&limit={limit}',
       // GetProducs by EAN para modificaciones
-      getEANPendingModify: 'http://localhost:63435/api/productswaiting/getunitproductprocess?idSeller={sellerId}&ean={ean}&reference={reference}',
+      getEANPendingModify: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productsrejected/{params}',
       // Exportar productos
       exportProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/report',
     },
@@ -412,7 +412,7 @@ export const endpoints = {
       // GetProducs para modificaciones
       getProductsPendingModify: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productsrejected/{params}',
       // GetProducs by EAN para modificaciones
-      getEANPendingModify: 'http://localhost:63435/api/productswaiting/getunitproductprocess?idSeller={sellerId}&ean={ean}&reference={reference}',
+      getEANPendingModify: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productsrejected/{params}',
       // Exportar productos
       exportProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/report',
     }

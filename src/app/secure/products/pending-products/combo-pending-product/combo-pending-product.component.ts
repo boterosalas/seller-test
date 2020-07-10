@@ -15,17 +15,18 @@ const log = new Logger('ComboProductComponent');
 })
 export class ComboPendingProductComponent implements OnInit {
 
-  @Input() productsList: any;
+  @Input() public productsList: any;
   @Input() showProducts: boolean;
   @Input() offerPermission: boolean;
   @Input() editPermission: boolean;
 
-  public productsExpanded: any;
+  public productsPendindgExpanded: any;
   public showImage = false;
 
   public infoProduct: any;
 
   public user: UserInformation;
+
 
   constructor(
     private pendingProductsService?: PendingProductsService,
@@ -33,6 +34,7 @@ export class ComboPendingProductComponent implements OnInit {
     public snackBar?: MatSnackBar,
     public userParams?: UserParametersService,
   ) {
+    console.log(1, this.infoProduct, this.productsList);
     this.getDataUser();
     this.infoProduct = this.productsList;
   }
@@ -43,7 +45,7 @@ export class ComboPendingProductComponent implements OnInit {
         this.backTolist();
       }
     });
-    console.log(this.infoProduct, this.productsList);
+    console.log(2, this.infoProduct, this.productsList);
   }
 
   async getDataUser() {
@@ -51,29 +53,42 @@ export class ComboPendingProductComponent implements OnInit {
   }
 
   public backTolist(): void {
-    this.productsExpanded = null;
+    this.productsPendindgExpanded = null;
     this.showImage = false;
   }
 
   public openInformation(params?: any): void {
     console.log('params: ', params);
 
-    this.loadingService.viewSpinner();
+    // this.loadingService.viewSpinner();
     this.pendingProductsService.getEANProductsModify(params).subscribe((result: any) => {
+      console.log('res data: ', result.data);
+      console.log('res: ', result);
       this.loadingService.closeSpinner();
       this.showImage = true;
-      this.productsExpanded = result.data.list;
+      this.productsPendindgExpanded = result.data;
     });
   }
 
-  setparams() {
+  setparams(params: any) {
     const paramsArray = {
-      'ean': 1001114217562,
-      'idSeller': 11811,
-      'reference': null
+      idSeller: 11811,
+      ean: 1001114217562,
+      reference: null
     };
+    const sellerId = 11811;
+    const eanParam = 1001114217562;
+    const reference = null;
+    console.log(params);
 
-    this.openInformation(paramsArray);
+    console.log(params.parentReference);
+    if (!params.parentReference || params.parentReference === '') {
+      params.parentReference = null;
+    }
+
+    const paramsServv = `${sellerId}/${params.ean}/${params.parentReference}`;
+
+    this.openInformation(paramsServv);
   }
 
 }

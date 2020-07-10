@@ -42,6 +42,7 @@ export class PendingProductsComponent implements OnInit {
   public user: UserInformation;
   isAdmin = false;
 
+  showProducts = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
@@ -114,8 +115,10 @@ export class PendingProductsComponent implements OnInit {
     // this.params = this.setParameters(params);
     // let stateCurrent = null;
     // this.setCategoryName();
+    this.showProducts = false;
     this.pendingProductsService.getPendingProductsModify(params).subscribe((res: any) => {
       if (res) {
+        this.showProducts = true;
         this.productsList = res.viewModel;
         // if (params.state !== '') {
         //   stateCurrent = params.state;

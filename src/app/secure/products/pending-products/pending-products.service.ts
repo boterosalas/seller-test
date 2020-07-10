@@ -31,7 +31,7 @@ export class PendingProductsService {
    * @memberof OrderService
    */
   getPendingProductsModify(params: any): Observable<[{}]> {
-    let filter = '';
+    const filter = '';
     // if (params) {
     //   if ( params.dateOrderInitial && params.dateOrderInitial !== '') {
     //     filter += `&dateOrderInitial=${params.dateOrderInitial}`;
@@ -68,15 +68,9 @@ export class PendingProductsService {
    * @returns {Observable<[{}]>}
    * @memberof PendingProductsService
    */
-  getEANProductsModify(params: any): Observable<[{}]> {
-    let filter = '';
-    return new Observable(observer => {
-      this.http.get<Order[]>(this.api.get('getEANPendingModify', [params.idSeller, params.ean, params.reference  + filter])).subscribe((data: any) => {
-        observer.next(data);
-      }, err => {
-        observer.error(err);
-      });
-    });
+  getEANProductsModify(params?: any): Observable<{}> {
+    // return this.http.get(this.api.get('getProductList', [params]));
+    return this.http.get(this.api.get('getEANPendingModify', [params]));
   }
 
 }

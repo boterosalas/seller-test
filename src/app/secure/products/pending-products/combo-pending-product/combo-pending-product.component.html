@@ -1,4 +1,4 @@
-<button class="bleft" mat-icon-button *ngIf="productsExpanded && showProducts"  (click)="backTolist()">
+<button class="bleft" mat-icon-button *ngIf="productsPendindgExpanded && showProducts"  (click)="backTolist()">
   <mat-icon class="material-icons">
     arrow_back
   </mat-icon>
@@ -6,7 +6,7 @@
 </button>
 
 <div class="cardImageAling" fxLayout.xs="column" fxLayoutAlign.xs="space-between center" *ngFor="let products of productsList; let i = index ">
-  <div (click)="setparams()" *ngIf="showImage === false">
+  <div (click)="setparams(products)" *ngIf="showImage === false">
 
     <mat-card class="example-card">
       <div class="container-card-img flexbox align-center justify-center">
@@ -31,6 +31,6 @@
 </div>
 
 
-<!-- <div class="full-width">
-  <app-expanded-product [offerPermission]="offerPermission" [editPermission]="editPermission" *ngIf="productsExpanded && showProducts" [productsExpanded]="productsExpanded"></app-expanded-product>
-</div> -->
+<div class="full-width">
+  <app-expanded-pending-products  *ngIf="productsPendindgExpanded && showProducts" [productsPendindgExpanded]="productsPendindgExpanded"></app-expanded-pending-products>
+</div>

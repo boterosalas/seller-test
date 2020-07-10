@@ -8,6 +8,7 @@ import { PendingProductsComponent } from '../pending-products/pending-products.c
 import { PendingProductsRoutingModule } from './pending-products.routing';
 import { PendingProductsService } from './pending-products.service';
 import { ComboPendingProductComponent } from './combo-pending-product/combo-pending-product.component';
+import { ExpandedPendingProductsComponent } from './expanded-pending-products/expanded-pending-products.component';
 
 @NgModule({
     imports: [
@@ -21,11 +22,13 @@ import { ComboPendingProductComponent } from './combo-pending-product/combo-pend
     ],
     declarations: [
         PendingProductsComponent,
-        ComboPendingProductComponent
+        ComboPendingProductComponent,
+        ExpandedPendingProductsComponent
     ],
     exports: [
         PendingProductsComponent,
-        ComboPendingProductComponent
+        ComboPendingProductComponent,
+        ExpandedPendingProductsComponent
     ],
     entryComponents: [
     ],
