@@ -72,19 +72,21 @@
         <mat-form-field color="primary">
           <input matInput [placeholder]="'secure.parametize.dialog.modal_placeholder_category' | translate"
             [matAutocomplete]="auto" formControlName="category" (keyup.enter)="saveKeyword()">
-            <mat-hint></mat-hint>
-            <mat-error *ngIf="filterProduts.get('category').hasError('pattern')">
-              {{'secure.parametize.dialog.category_invalid' | translate}}
-            </mat-error>
+          <mat-hint></mat-hint>
+          <mat-error *ngIf="filterProduts.get('category').hasError('pattern')">
+            {{'secure.parametize.dialog.category_invalid' | translate}}
+          </mat-error>
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let category of listCategories2" [value]="category.Name">
               {{category.Name}}
             </mat-option>
           </mat-autocomplete>
           <mat-icon matSuffix [matTooltip]="'secure.parametize.port.btn_add_port' | translate"
+            [ngClass]="invalidCategory ? 'disabledIconAddKeyCategoryFilter': ''"
             class="material-icons add-keyword-icon vertical-align-top" (click)="saveKeyword()">
             add_circle_outline
           </mat-icon>
+
         </mat-form-field>
         <div class="example-chip-list">
           <mat-chip-list #chipList>
@@ -94,8 +96,6 @@
             </mat-chip>
           </mat-chip-list>
         </div>
-
-
 
         <div fxLayout="row" fxLayoutAlign="space-between center" class="buttonsSend">
           <button mat-stroked-button color="primary" type="button"
@@ -129,7 +129,7 @@
       <!--  Descargar productos admin -->
       <button mat-button (click)="openDialogDownloadProducts()" *ngIf="isAdmin">
         <mat-icon>archive</mat-icon>
-        <small >{{'permissions.Descargar' | translate}}</small>
+        <small>{{'permissions.Descargar' | translate}}</small>
       </button>
       <!--  Filtro -->
       <button type="button" mat-button (click)="drawer.toggle()">

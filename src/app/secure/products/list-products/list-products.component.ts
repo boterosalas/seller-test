@@ -109,6 +109,7 @@ export class ListProductsComponent implements OnInit {
 
     isAdmin = false;
     dataChips: Array<any> = [];
+    invalidCategory: Boolean = false;
 
     constructor(
         private languageService: TranslateService,
@@ -301,8 +302,10 @@ export class ListProductsComponent implements OnInit {
                 const exist = this.listCategories2.find(category => category.Name === val);
                 if (!exist) {
                     this.filterProduts.get('category').setErrors({ pattern: true });
+                    this.invalidCategory = true;
                 } else {
                     this.filterProduts.get('category').setErrors(null);
+                    this.invalidCategory = false;
                 }
             } else if (!val) {
                 this.listCategories2 = [];
