@@ -86,7 +86,6 @@ export class FilterSummaryPaymentComponent implements OnInit {
     this.OnGetFilter.emit({
       'filterDate': dateFormt
     });
-   this.clearForm();
    this.toggleFilterSummaryPayment();
   }
 
@@ -95,6 +94,10 @@ export class FilterSummaryPaymentComponent implements OnInit {
   }
 
   clearForm() {
+    this.OnGetFilter.emit({
+      'filterDate': moment().format('YYYY/MM/DD')
+    });
+    this.toggleFilterSummaryPayment();
     this.filterBillingSummary.controls.date.setValue(moment());
   }
 

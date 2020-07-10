@@ -168,10 +168,6 @@ export class BillingService {
   }
 
   getAllSummaryPayment(params: any): Observable<any> {
-    console.log(params);
-    // return new Observable(observer => {
-    //   observer.next(true);
-    // });
     return new Observable(observer => {
       this.http.post<any>(this.api.get('getListAllSummaryBilling'), params)
         .subscribe((data: any) => {

@@ -7,12 +7,20 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 import { BillingService } from '../billing.service';
 import * as _moment from 'moment';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 const moment =  _moment;
 
 @Component({
   selector: 'app-summary-payments',
   templateUrl: './summary-payments.component.html',
-  styleUrls: ['./summary-payments.component.scss']
+  styleUrls: ['./summary-payments.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('void', style({ height: '0px', minHeight: '0', visibility: 'hidden' })),
+      state('*', style({ height: '*', visibility: 'visible' })),
+      transition('void <=> *', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class SummaryPaymentsComponent implements OnInit {
 
@@ -28,9 +36,6 @@ export class SummaryPaymentsComponent implements OnInit {
   public selection = new SelectionModel<any>(true, []);
   public arraySelect = [];
   public summaryTotal= 0;
-  
-
-
   public callOne = true;
   public arrayPosition = [];
   public paginationToken = '{}';
@@ -59,8 +64,7 @@ export class SummaryPaymentsComponent implements OnInit {
   public querySearch = '';
   public idSeller = '';
   public disabledButton = false;
-  public dateFilter = null;
-  // public dateFilter = moment().format('YYYY/MM/DD');
+  public dateFilter = moment().format('YYYY/MM/DD');
 
 
   constructor(
@@ -93,7 +97,6 @@ export class SummaryPaymentsComponent implements OnInit {
       };
       this.idSeller = sellerData.IdSeller;
       this.getAllSeller(paramsArray);
-      // this.idSeller = sellerData.IdSeller;
     }
   }
 
@@ -107,7 +110,6 @@ export class SummaryPaymentsComponent implements OnInit {
     this.loadingService.viewSpinner();
     let query = {};
     if (params !== undefined) {
-      console.log(params)
       query = {
         filterDate: params.filterDate,
         paginationToken: params.paginationToken,
@@ -138,13 +140,13 @@ export class SummaryPaymentsComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.resultModel.viewModel);
         if ( this.dataSource && this.dataSource.data && this.dataSource.data.length > 0) {
           this.dataSource.data.forEach(element => {
-            this.summaryTotal = this.summaryTotal + element.billingTotal;
+            this.summaryTotal = this.summaryTotal + parseFloat(element.billingTotal);
           });
         }
         if (this.arraySelect.length > 0 && this.dataSource.data.length > 0) {
           this.arraySelect.forEach(select => {
             this.dataSource.data.forEach(rowGen => {
-              if (rowGen.id === select.id) {
+              if (rowGen.billingNumber === select.billingNumber) {
                 this.selection.select(rowGen);
               }
             });
@@ -162,7 +164,6 @@ export class SummaryPaymentsComponent implements OnInit {
   paginations(event: any) {
     if (event.param.pageSize !== this.limit) {
       this.limit = event.param.pageSize;
-      // this.allClear();
     }
     if (event && event.param && event.param.pageIndex >= 0) {
       const index = event.param.pageIndex;
@@ -206,18 +207,17 @@ export class SummaryPaymentsComponent implements OnInit {
 
   filterListSummary(params: any) {
     this.dateFilter = params.filterDate;
+    this.callOne = true;
     params = {
       filterDate: this.dateFilter,
       paginationToken: '{}',
       limit: this.limit,
       idSeller: this.idSeller,
     };
-    console.log(params);
     this.getAllSeller(params);
   }
 
   changeStatus(row: any, status: any) {
-    this.disabledButton = true;
     if (row) {
       if (status) {
         this.arraySelect.push(row);
@@ -226,17 +226,13 @@ export class SummaryPaymentsComponent implements OnInit {
         this.arraySelect.splice(index, 1);
       }
     }
-    setTimeout(() => {
-      this.disabledButton = false;
-    }, 800);
   }
 
   sendDetailSummary() {
     const listBilling = [];
     this.arraySelect.forEach(element => {
-      listBilling.push(element.orderNumber);
+      listBilling.push(element.billingNumber);
     });
     this.router.navigate(['securehome/seller-center/billing/detalle-pagos', { listBilling: listBilling.toString() }]);
   }
-
 }
