@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Logger, LoadingService } from '@app/core';
+import { Logger, LoadingService, UserParametersService } from '@app/core';
 import { ListProductService } from '../../list-products/list-products.service';
 import { MatSnackBar } from '@angular/material';
 import { PendingProductsService } from '../pending-products.service';
+import { UserInformation } from '@app/shared';
 
 const log = new Logger('ComboProductComponent');
 
@@ -22,11 +23,19 @@ export class ComboPendingProductComponent implements OnInit {
   public productsExpanded: any;
   public showImage = false;
 
+  public infoProduct: any;
+
+  public user: UserInformation;
+
   constructor(
     private pendingProductsService?: PendingProductsService,
     private loadingService?: LoadingService,
     public snackBar?: MatSnackBar,
-  ) { }
+    public userParams?: UserParametersService,
+  ) {
+    this.getDataUser();
+    this.infoProduct = this.productsList;
+  }
 
   ngOnInit() {
     this.pendingProductsService.change.subscribe(data => {
@@ -34,6 +43,11 @@ export class ComboPendingProductComponent implements OnInit {
         this.backTolist();
       }
     });
+    console.log(this.infoProduct, this.productsList);
+  }
+
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
   }
 
   public backTolist(): void {
@@ -41,13 +55,25 @@ export class ComboPendingProductComponent implements OnInit {
     this.showImage = false;
   }
 
-  // public openInformation(params?: any): void {
-  //   this.loadingService.viewSpinner();
-  //   this.productsService.getListProductsExpanded(params).subscribe((result: any) => {
-  //     this.loadingService.closeSpinner();
-  //     this.showImage = true;
-  //     this.productsExpanded = result.data.list;
-  //   });
-  // }
+  public openInformation(params?: any): void {
+    console.log('params: ', params);
+
+    this.loadingService.viewSpinner();
+    this.pendingProductsService.getEANProductsModify(params).subscribe((result: any) => {
+      this.loadingService.closeSpinner();
+      this.showImage = true;
+      this.productsExpanded = result.data.list;
+    });
+  }
+
+  setparams() {
+    const paramsArray = {
+      'ean': 1001114217562,
+      'idSeller': 11811,
+      'reference': null
+    };
+
+    this.openInformation(paramsArray);
+  }
 
 }

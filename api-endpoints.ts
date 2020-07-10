@@ -125,7 +125,7 @@ export const endpoints = {
       // Actualizar contrato del vendedor
       updateTermsSeller: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/AcceptContract',
       // Registrar contrato por medio del administrador
-      registersContract : 'https://yoix96dfrg.execute-api.us-east-1.amazonaws.com/contracts/RegisterContract',
+      registersContract: 'https://yoix96dfrg.execute-api.us-east-1.amazonaws.com/contracts/RegisterContract',
       // Obtener si el vendedor ya acepto los terminos
       getValidationTerms: 'https://ypkstb19j4.execute-api.us-east-1.amazonaws.com/SellerCmd/ValidateContract',
       // Obtener los datos del vendedor
@@ -205,6 +205,8 @@ export const endpoints = {
       exportReclaim: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/downloadreport',
       // GetProducs para modificaciones
       getProductsPendingModify: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productsrejected?idSeller={sellerId}&limit={limit}',
+      // GetProducs by EAN para modificaciones
+      getEANPendingModify: 'http://localhost:63435/api/productswaiting/getunitproductprocess?idSeller={sellerId}&ean={ean}&reference={reference}',
       // Exportar productos
       exportProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/report',
     },
@@ -328,7 +330,7 @@ export const endpoints = {
       // Actualizar contrato del vendedor
       updateTermsSeller: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/AcceptContract',
       // ACTUALIZAR CON EL DE PRODUCCION
-      registersContract : 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/Register/RegisterContract',
+      registersContract: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/Register/RegisterContract',
       // Obtener si el vendedor ya acepto los terminos
       getValidationTerms: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/ValidateContract',
       // Obtener los datos del vendedor
@@ -409,6 +411,8 @@ export const endpoints = {
       exportReclaim: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/downloadreport',
       // GetProducs para modificaciones
       getProductsPendingModify: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productsrejected/{params}',
+      // GetProducs by EAN para modificaciones
+      getEANPendingModify: 'http://localhost:63435/api/productswaiting/getunitproductprocess?idSeller={sellerId}&ean={ean}&reference={reference}',
       // Exportar productos
       exportProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/report',
     }

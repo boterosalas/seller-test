@@ -6,7 +6,7 @@
 </button>
 
 <div class="cardImageAling" fxLayout.xs="column" fxLayoutAlign.xs="space-between center" *ngFor="let products of productsList; let i = index ">
-  <div (click)="openInformation(products.ean)" *ngIf="showImage === false">
+  <div (click)="setparams()" *ngIf="showImage === false">
 
     <mat-card class="example-card">
       <div class="container-card-img flexbox align-center justify-center">

@@ -109,7 +109,7 @@ export class PendingProductsComponent implements OnInit {
 
   getPendingProductsModify(params?: any) {
     console.log('params: ', params);
-    // this.loadingService.viewSpinner();
+    this.loadingService.viewSpinner();
     // this.isClear = false;
     // this.params = this.setParameters(params);
     // let stateCurrent = null;

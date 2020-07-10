@@ -61,4 +61,22 @@ export class PendingProductsService {
       });
     });
   }
+
+  /**
+   * Obtener información al detalle del producto por EAN
+   * @param {*} params
+   * @returns {Observable<[{}]>}
+   * @memberof PendingProductsService
+   */
+  getEANProductsModify(params: any): Observable<[{}]> {
+    let filter = '';
+    return new Observable(observer => {
+      this.http.get<Order[]>(this.api.get('getEANPendingModify', [params.idSeller, params.ean, params.reference  + filter])).subscribe((data: any) => {
+        observer.next(data);
+      }, err => {
+        observer.error(err);
+      });
+    });
+  }
+
 }
