@@ -6,6 +6,7 @@ import * as _ from 'lodash';
 
 /* our own custom components */
 import { OrderDevolutionsModel, FAKE } from '@app/shared';
+import { Subject } from 'rxjs';
 
 /**
  * Component
@@ -27,6 +28,7 @@ export class InValidationModalComponent {
   public order: OrderDevolutionsModel;
 
   public showMessage= false;
+  processFinish$ = new Subject<any>();
 
   /**
    * Creates an instance of ProductPendingDevolutionModalComponent.
@@ -52,8 +54,8 @@ export class InValidationModalComponent {
     this.dialogRef.close(false);
   }
 
-    /**
-   * funcion para descargar el archivo .zip por medio de una url 
+  /**
+   * funcion para descargar el archivo .zip por medio de una url
    *
    * @param {string} urlDownload
    * @memberof ProductDevolutionModalComponent

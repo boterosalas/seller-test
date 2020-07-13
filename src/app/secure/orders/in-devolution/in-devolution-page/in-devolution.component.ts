@@ -77,6 +77,8 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
   // user info
   public user: UserInformation;
 
+  currentLanguage: string;
+
   // suscriptions vars
   private subFilterOrderPending: any;
   // Lista de opciones para realizar el rechazo de una solicitud
@@ -138,6 +140,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
       }
     });
     this.clearData();
+    this.changeLanguage();
   }
 
   async getDataUser() {
@@ -152,6 +155,21 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
     this.toolbarOption.getOrdersList();
     this.getOrdersListSinceFilterSearchOrder();
     this.getReasonsRejection();
+  }
+
+  changeLanguage() {
+    if (localStorage.getItem('culture_current') !== 'US') {
+      this.currentLanguage = 'ES';
+      localStorage.setItem('culture_current', 'ES');
+    } else {
+      this.currentLanguage = 'US';
+      localStorage.setItem('culture_current', 'US');
+    }
+    this.languageService.onLangChange.subscribe((e: Event) => {
+      localStorage.setItem('culture_current', e['lang']);
+      this.getOrdersList(this.event);
+      this.getReasonsRejection();
+    });
   }
 
   setPermission(typeProfile: number) {
@@ -234,6 +252,7 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
    * @param item
    */
   openModalCommentOrder(item: any): void {
+    console.log(item);
     const dialogRef = this.dialog.open(ViewCommentComponent, {
       width: '50%',
       data: {
@@ -241,9 +260,10 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
         order: item
       },
     });
-    dialogRef.afterClosed().subscribe(result => {
-      log.info('The modal comment order was closed');
-    });
+    const dialogIntance = dialogRef.componentInstance;
+      dialogIntance.processFinish$.subscribe((val) => {
+        item.registryTranslations = val.registryTranslations;
+      });
   }
 
   /**

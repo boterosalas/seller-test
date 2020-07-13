@@ -64,4 +64,15 @@ export class InDevolutionService {
         });
     });
   }
+
+  getAllCommentRefuse(params: any): Observable<any> {
+    return new Observable(observer => {
+      this.http.post(this.api.get('getAllCommentRefuse'), params)
+        .subscribe((data: any) => {
+          observer.next(data);
+        }, err => {
+          observer.error(err);
+        });
+    });
+  }
 }

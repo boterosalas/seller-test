@@ -27,6 +27,7 @@ import { MenuModel, readFunctionality, acceptFuncionality, refuseFuncionality, p
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
+import { TranslateService } from '@ngx-translate/core';
 
 // log component
 const log = new Logger('PendingDevolutionComponent');
@@ -135,6 +136,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
     public processedOrder= '';
     public lastState: number;
     public querySearch = '';
+    public currentLanguage: string;
 
   constructor(
     public shellComponent: ShellComponent,
@@ -144,7 +146,8 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
     public userParams: UserParametersService,
     private loadingService: LoadingService,
     private authService: AuthService,
-    public eventsSeller: EventEmitterSeller
+    public eventsSeller: EventEmitterSeller,
+    private languageService: TranslateService,
   ) { }
 
   /**
@@ -188,6 +191,23 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
     }
     this.getOrdersListSinceFilterSearchOrder();
     this.getReasonsRejection();
+    this.changeLanguage();
+  }
+
+
+  changeLanguage() {
+    if (localStorage.getItem('culture_current') !== 'US') {
+      this.currentLanguage = 'ES';
+      localStorage.setItem('culture_current', 'ES');
+    } else {
+      this.currentLanguage = 'US';
+      localStorage.setItem('culture_current', 'US');
+    }
+    this.languageService.onLangChange.subscribe((e: Event) => {
+      localStorage.setItem('culture_current', e['lang']);
+      this.getOrdersList(this.event);
+      this.getReasonsRejection();
+    });
   }
 
   setPermission(typeProfile: number) {
@@ -482,9 +502,10 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
         order: item
       },
     });
-    dialogRef.afterClosed().subscribe(() => {
-      log.info('The modal comment order was closed');
-    });
+    const dialogIntance = dialogRef.componentInstance;
+      dialogIntance.processFinish$.subscribe((val) => {
+        item.registryTranslations = val.registryTranslations;
+      });
   }
 
   /**
