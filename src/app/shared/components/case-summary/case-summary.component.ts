@@ -20,6 +20,9 @@ export class CaseSummaryComponent implements OnInit {
   @Input() disabledClass: false;
 
   @Output() clickResponse = new EventEmitter<any>();
+  @Output() idDetail = new EventEmitter<any>();
+
+  // idDetail = false;
 
   configDialog = {
     width: '50%',
@@ -34,13 +37,13 @@ export class CaseSummaryComponent implements OnInit {
   constructor(public dialog: MatDialog,
     public translateService: TranslateService,
     public redirecServ: CaseSupportCenterService
-    ) {
-    if (localStorage.getItem('typeProfile') === 'seller') {
+  ) {
+    if (localStorage.getItem('typeProfile') === 'seller' || localStorage.getItem('typeProfile') === null || localStorage.getItem('typeProfile') === undefined || localStorage.getItem('typeProfile') === '') {
       this.disableButtonAnswer = false;
     } else {
       this.disableButtonAnswer = true;
     }
-   }
+  }
 
   ngOnInit() {
     this.productsConfig = productsConfig;
@@ -64,7 +67,8 @@ export class CaseSummaryComponent implements OnInit {
 
   // Metodo para reidrigir al detalle de seguimiento.
   redirecToDetail(caseId: any) {
-    this.redirecServ.redirectToDetailsServ(caseId, this.case.sellerId);
+    // this.redirecServ.redirectToDetailsServ(caseId, this.case.sellerId);
+    this.idDetail.emit(caseId);
   }
 }
 

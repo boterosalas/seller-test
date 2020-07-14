@@ -21,8 +21,6 @@
           <input matInput [placeholder]="'secure.seller.list.seller_name' | translate" formControlName="sellerName" [errorStateMatcher]="matcher"
             (matChipInputTokenEnd)="add($event)" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
             <mat-error *ngIf="filterSeller.get('sellerName').hasError('trim')">{{'errors.invalid_name' | translate}}</mat-error>
-          <!-- <mat-hint></mat-hint>
-  <mat-error *ngIf="filterForm.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error> -->
         </mat-form-field>
         <mat-form-field>
           <input matInput [placeholder]="'secure.seller.list.nit' | translate" formControlName="nit" [errorStateMatcher]="matcher" (matChipInputTokenEnd)="add($event)"
@@ -32,7 +30,6 @@
         </mat-form-field>
         <div fxLayout="row" fxLayoutAlign="space-between center">
           <button mat-stroked-button color="primary" (click)="cleanFilter()">{{'filters.clear' | translate}}</button>
-          <!-- <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterSeller.form.valid || (!product.value && !ean.value && !stock.value)"></button> -->
           <button mat-flat-button color="primary" type="submit" (click)="drawer.toggle() && filterListSeller()">{{'filters.filter' | translate}}</button>
         </div>
 
@@ -53,8 +50,6 @@
           <p class="seller-list-title" fxShow="false" [fxShow.xs]="true">
             {{'secure.seller.list.toolbar_title_phone' | translate}}
           </p>
-          <!-- <mat-paginator [length]="sellerLength" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
-          </mat-paginator> -->
         </div>
         <button type="button" mat-button (click)="drawer.toggle()">
           <mat-icon>filter_list</mat-icon>
@@ -162,7 +157,7 @@
                       </mat-icon>
                     </button>
                   </div>
-                  <div id="vacations" class="label-container vacations">
+                  <div id="vacations" class="label-container vacations" [ngClass]="{noneVacations: seller.Status == 'Disable' }">
                     <p class="title-list">{{'secure.seller.list.vacations' | translate}}
                     </p>
                     <label class="label-result flex-end-center" *ngIf="!!seller.StartVacations && !!seller.EndVacations; else ProgramDate">

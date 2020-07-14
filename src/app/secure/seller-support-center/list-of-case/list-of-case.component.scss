@@ -12,7 +12,27 @@ $underline-color: #19a695;
 }
 
 .filter-content {
-  margin: 59px 32px;
+  margin: 16% 8%;
+}
+
+.drawer-container {
+  padding-right: 0px;
+  padding-left: 0px;
+  background-color: white;
+
+  @media (max-width: 600px) {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  @media (max-width: 768px) {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+}
+
+.disabledDiv {
+  pointer-events: none;
 }
 
 .support-center-case {
@@ -52,10 +72,17 @@ $underline-color: #19a695;
   visibility: hidden;
 }
 
+.borde-line-toolbar {
+  border-bottom: 1px solid #e0e0e0;
+  @media screen and (min-width: 667px) and (max-width: 1000px) {
+    margin: 1% 2%;
+    height: 96px;  }
+}
+
 .ticket-toolbar {
   background-color: white;
   padding: 0px 32px;
-  border-bottom: 1px solid #e0e0e0;
+  // border-bottom: 1px solid #e0e0e0;
   height: 45px !important;
   max-height: 45px;
   justify-content: space-between;
@@ -64,6 +91,15 @@ $underline-color: #19a695;
     height: auto !important;
     max-height: inherit !important;
     padding-bottom: 16px;
+    padding: 0px 0px !important;
+
+  }
+  @media (max-width: 768px) {
+    height: auto !important;
+    max-height: inherit !important;
+    padding-bottom: 0px;
+    padding: 0px 0px !important;
+
   }
 }
 
@@ -74,6 +110,13 @@ $underline-color: #19a695;
     background-color: #fff;
     border-bottom: 1px solid #e0e0e0;
     height: 80%;
+
+    @media (max-width: 600px) {
+      display: inline-block !important;
+    }
+    @media (max-width: 768px) {
+      display: inline-block !important;
+    }
 
     & .toolbar-options-table {
       width: 100%;
@@ -136,8 +179,9 @@ $underline-color: #19a695;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  font-size: 22px;
-  margin-bottom: 40px;
+  font-size: 20px;
+  margin-bottom: 6%;
+  margin-top: 6%;
 
   &--title {
     font-weight: bold;
@@ -150,8 +194,15 @@ $underline-color: #19a695;
   }
 }
 
-.styleToolbar{
-  width: 92%;
+.styleToolbar {
+  width: 88%;
+
+  @media only screen and (max-width: 600px) {
+    width: 88%;
+  }
+  @media only screen and (min-width: 667) and (max-width: 768px) {
+    width: 100%;
+  }
 }
 
 .example-sidenav {
@@ -160,9 +211,23 @@ $underline-color: #19a695;
   @media only screen and (max-width: 600px) {
     width: 80%;
   }
+  @media only screen and (max-width: 768px) {
+    width: 80%;
+  }
 }
 
-.filter-control{
+.toolbar-content {
+  @media only screen and (max-width: 600px) {
+    display: content !important;
+    padding: 0px 0px !important;
+  }
+  @media only screen and (max-width: 768px) {
+    display: content !important;
+    padding: 0px 0px !important;
+  }
+}
+
+.filter-control {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -182,23 +247,96 @@ $underline-color: #19a695;
   &--btn-send {
     background-color: $accent-color;
     color: white;
+
     &:hover {
       background-color: white;
       color: $accent-color;
     }
   }
- }
+}
 
 
-  .search-container {
-    width: 70%;
-    padding-left: 20px;
+.search-container {
+  width: 70%;
+  padding-left: 20px;
+}
+
+.classNewFilter {
+  height: 61px;
+  margin-top: 1px;
+  background-color: white;
+  /* width: 5%; */
+  float: left;
+  width: 8%;
+  margin-bottom: 3px;
+
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
+  @media only screen and (max-width: 768px) {
+    // display: none;
+  }
+}
+
+.orders-no-data {
+  margin: 2% 10%;
+  flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  background-color: #fff;
+  box-shadow: 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0px 1px 1px -4px rgba(0, 0, 0, 0.14), 0px 1px 1px 0px rgba(0, 0, 0, 0.12);
+  flex-direction: column;
+
+  & .icon-not-found {
+    font-size: 40px;
+    height: 40px;
+    width: 40px;
+    color: #5D5D5D;
+  }
+  & p{
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+.filterMobile {
+  @media only screen and (max-width: 600px) {
+    margin-top: 6%
+  }
+  @media only screen and (max-width: 768px) {
+    margin-top: 6%
   }
 
-  .classNewFilter {
-    height: 61px;
-    margin-top: 1px;
-    background-color: white;
-    /* width: 5%; */
-    float: left;
+  @media only screen and (min-width: 600px) {
+    display: none;
   }
+  @media screen and (min-width: 667px) and (max-width: 1000px) {
+    margin-top: 0px;
+    display: block !important;
+  }
+}
+
+.filterMobile2 {
+  @media screen and (min-width: 667px) and (max-width: 1000px) {
+    margin-top: 7%;
+    display: block !important;
+  }
+  @media only screen and (max-width: 600px) {
+    margin-top: 19%
+  }
+
+  @media only screen and (min-width: 600px) {
+    display: none;
+  }
+}
+
+.filterDesktop {
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
+}

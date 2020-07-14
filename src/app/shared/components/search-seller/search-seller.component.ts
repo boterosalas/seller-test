@@ -25,17 +25,33 @@ export class SearchSellerComponent implements OnInit, OnChanges {
     public user: any;
     // variable que almacena la lista de tiendas disponibles para buscar
     public listSellers: any;
+    public _clearSearch = false;
 
     // variable que almacena los resultados obtenidos al realizar el filtro del autocomplete
     public filteredOptions: Observable<string[]>;
 
     @Input() searchSellerInput;
 
+    @Input() loadSpinner = true;
+    @Input() widthComplete = false;
+    @Input() emitModal: boolean;
+
+    @Input() set clearSearch(value: any) {
+        if (value) {
+            this._clearSearch = value;
+            if (value === true) {
+                this.searchClear();
+            }
+        }
+    }
+
+
     // Para identificar qué tipo de búsqueda se va a realizar.
     @Input() isFullSearch: boolean;
 
     constructor(
         public eventsSeller: EventEmitterSeller,
+        public eventsSellerModal: EventEmitterSeller,
         public storeService: StoresService,
         public shell: ShellComponent,
         private loadingService: LoadingService
@@ -60,6 +76,7 @@ export class SearchSellerComponent implements OnInit, OnChanges {
             );
         // consulto las tiendas disponibles
         this.getAllSellers();
+
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -74,7 +91,9 @@ export class SearchSellerComponent implements OnInit, OnChanges {
      * @memberof SearchStoreComponent
      */
     public getAllSellers() {
-        this.loadingService.viewSpinner();
+        // if (this.loadSpinner) {
+        //     this.loadingService.viewSpinner();
+        // }
         if (this.isFullSearch) {
             this.storeService.getAllStoresFull(this.user).subscribe((res: any) => {
                 if (res.status === 200) {
@@ -152,7 +171,16 @@ export class SearchSellerComponent implements OnInit, OnChanges {
      */
     public viewStoreInformation(search_seller: StoreModel) {
         // llamo el eventEmitter que se emplea para notificar cuando una tienda ha sido consultada
-        this.eventsSeller.searchSeller(search_seller);
+        if (this.emitModal) {
+            this.eventsSellerModal.searchSellerModal(search_seller);
+        } else {
+            this.eventsSeller.searchSeller(search_seller);
+        }
+
+    }
+
+    searchClear() {
+        this.textForSearch.reset();
     }
 
 }

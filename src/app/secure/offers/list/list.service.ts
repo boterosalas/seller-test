@@ -47,4 +47,14 @@ export class ListService {
     });
   }
 
+  /**
+   * Servicio patch desactivar masiva de ofertas
+   * @param {{}} body
+   * @returns {Observable<{}>}
+   * @memberof ListService
+   */
+  desactiveMassiveOffers(body: {}): Observable<{}> {
+    return this.http.patch(this.api.get('patchDesactiveOffer'), body, { observe: 'response' });
+  }
+
 }

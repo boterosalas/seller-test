@@ -47,7 +47,7 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   public filteredOptions: Observable<string[]>;
 
   @Input() searchSellerInput;
-  @Input() pageSizeOptions;
+  @Input() limitPaginate = [50, 100, 150];
 
 
   // Para identificar qué tipo de búsqueda se va a realizar.
@@ -70,11 +70,19 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   @Input() downloadPermission: boolean;
   @Input() downloadBillingPay: boolean;
   @Input() idSeller: number;
-  @Input() Typeprofile: number;
   @Input() state: number;
+  @Input() showLoading = true;
+  @Input() loadSeller = true;
   @Input() set isClear(value: boolean) {
     if (value) {
       this.paginator.firstPage();
+    }
+  }
+  _Typeprofile: number;
+  @Input() set Typeprofile(value: number) {
+    if (value !== undefined) {
+      this._Typeprofile = value;
+      this.getAllSellers();
     }
   }
 
@@ -93,6 +101,8 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   // Limite de registros
   // lengthOrder = 100;
   @Input() lengthOrder: number;
+  // tamaño del limite de busqueda, ej. 50, 100, 200
+  @Input() limitSizeList: number;
   // Numero de paginas por defecto
   pageSizeOrder: number;
 
@@ -125,7 +135,6 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
           this.filter(val)
         )
       );
-    this.getAllSellers();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -140,7 +149,7 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
    * @memberof ToolbarOptionsComponent
    */
   toggleMenuOrderSearch() {
-    this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this.idSeller, this.Typeprofile, this.state);
+    this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this.idSeller, this._Typeprofile, this.state, this.limitSizeList);
   }
   toggleMenuCalifications() {
     this.filterCalifications.emit();
@@ -155,7 +164,8 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
       data: {
         limit: this.lengthOrder,
         billingType: this.billingType,
-        filter: this.allFilter
+        filter: this.allFilter,
+        type: 1
       },
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -225,7 +235,9 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
    * @memberof SearchStoreComponent
    */
   public getAllSellers() {
-    this.loadingService.viewSpinner();
+    if (this.showLoading) {
+      this.loadingService.viewSpinner();
+    }
     if (this.isFullSearch) {
       this.storeService.getAllStoresFull(this.user).subscribe((res: any) => {
         if (res.status === 200) {
@@ -236,7 +248,9 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
         } else {
           this.listSellers = res.message;
         }
-        this.loadingService.closeSpinner();
+        if (this.showLoading) {
+          this.loadingService.closeSpinner();
+        }
       });
     } else {
       this.storeService.getAllStores(this.user).subscribe((res: any) => {
@@ -246,7 +260,9 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
         } else {
           this.listSellers = res.message;
         }
-        this.loadingService.closeSpinner();
+        if (this.showLoading) {
+          this.loadingService.closeSpinner();
+        }
       });
     }
   }

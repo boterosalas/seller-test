@@ -1,4 +1,4 @@
-import { async } from '@angular/core/testing';
+import { async, fakeAsync } from '@angular/core/testing';
 import { LoadingService } from '@app/core';
 import { Observable, of } from 'rxjs';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
@@ -77,7 +77,7 @@ describe('ListZonesComponent', () => {
     const matSnackBar: MatSnackBar = null;
     const loadingService = new LoadingService();
 
-    beforeEach(async(() => {
+    beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             declarations: [
                 ListZonesComponent,
@@ -105,7 +105,7 @@ describe('ListZonesComponent', () => {
         }).compileComponents();
     }));
 
-    beforeEach(() => {
+    beforeEach(async() => {
         fixture = TestBed.createComponent(ListZonesComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();

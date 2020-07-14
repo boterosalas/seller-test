@@ -54,7 +54,7 @@ describe('SearchBillingFormComponent', () => {
   };
 
 
-  beforeEach(async(() => {
+  beforeEach((async() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
@@ -82,19 +82,20 @@ describe('SearchBillingFormComponent', () => {
       .compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach( async function() {
     fixture = TestBed.createComponent(SearchBillingFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create', (done) => {
     expect(component).toBeTruthy();
+    done();
   });
 
   describe('User log in', () => {
 
-    beforeEach(() => {
+    beforeEach(async () => {
       const mockUser = Object.assign({}, userData);
       const responseGetUser = {
         body: {
@@ -107,7 +108,7 @@ describe('SearchBillingFormComponent', () => {
       mockBillingService.getBilling.and.returnValue(of(responseGetBilling));
     });
 
-    it('valid initial date', () => {
+    it('valid initial date', (done) => {
       const initialDate = fixture.debugElement.query(By.css('#input-filter-paymentDateInitial'));
       expect(initialDate).toBeTruthy();
       const initialDateNativeElement = initialDate.nativeElement;
@@ -115,6 +116,7 @@ describe('SearchBillingFormComponent', () => {
       initialDateNativeElement.dispatchEvent(new Event('input'));
       fixture.detectChanges();
       expect(component.myform.controls.paymentDateInitial.errors).toBeNull();
+      done();
     });
 
     it('invalid initial date', (done) => {

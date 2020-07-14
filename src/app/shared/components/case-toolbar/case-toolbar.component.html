@@ -1,5 +1,5 @@
 <mat-toolbar class="ticket-toolbar">
-  <mat-toolbar-row>
+  <mat-toolbar-row class="toolbarIpad">
     <div class="toolbar-brand">
       <span class="toolbar-brand--title">
         {{'secure.parametize.support_claims.title.claim' | translate}}
@@ -10,21 +10,20 @@
       </small>
     </div>
     <span class="example-spacer"></span>
+    <div *ngIf="isAdmin" class="widthToolbar">
+      <app-search-seller id="contet-searc-store" class="search-content">
+      </app-search-seller>
+    </div>
     <div class="toolbar-content">
-      <mat-sidenav-content class="toolbar-right" fxLayout="row" fxLayoutAlign="center center">
-        <div class="toolbar-right--item toolbar-item--vertical-center">
-          <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
-            [pageSizeOptions]="[5, 10, 25, 50, 100]">
-          </mat-paginator>
-        </div>
-
-        <!-- <div class="toolbar-right--item">
-          <button mat-button (click)="onToggleFilter()">
-            <mat-icon>filter_list</mat-icon>
-            {{'secure.parametize.support_claims.filter' | translate}}
-          </button>
-        </div> -->
-      </mat-sidenav-content>
+      <mat-sidenav-container>
+        <mat-sidenav-content class="toolbar-right">
+          <div class="toolbar-right--item toolbar-item--vertical-center">
+            <mat-paginator #paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
+              [pageSizeOptions]="[5, 10, 25, 50, 100]">
+            </mat-paginator>
+          </div>
+        </mat-sidenav-content>
+      </mat-sidenav-container>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>

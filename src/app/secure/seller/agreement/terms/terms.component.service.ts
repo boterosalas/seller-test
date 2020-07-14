@@ -4,30 +4,29 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Router } from '@angular/router';
 import { RoutesConst, Const } from '@app/shared';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { TermsComponent } from './terms.component';
 import { HttpClient } from '@angular/common/http';
-import { EndpointService, UserParametersService } from '@app/core';
+import { EndpointService, UserParametersService, LoadingService } from '@app/core';
 import { UnreadCaseResponse } from '@app/secure/seller-support-center/models/unread-case-response.model';
 
 @Injectable()
 export class TermsService implements CanActivate {
 
-    // Contrato actual
-    // srcPdf = 'https://s3.amazonaws.com/seller.center.exito.seller/Template/Acuerdo_Comercial_Marketplace_-_Actualizado_26-12-2018_Versi%C3%B3n_Mostrar.pdf';
-    // srcPdf = 'https://s3.amazonaws.com/seller.center.exito.seller/Template/Acuerdo_Comercial_Marketplace_-_Actualizado_10-09-2019_Versi%C3%B3n_Mostrar.pdf';
-    // Contrato nuevo NOVIEMBRE
-    srcPdf = 'https://s3.amazonaws.com/seller.center.exito.seller/Template/Acuerdo_Comercial_Marketplace_-_Actualizado_26-11-2019_Versi%C3%B3n_Mostrar.pdf';
-
+    modalContract = 'true';
+    dataResult: any;
+    state: RouterStateSnapshot;
     constantes = new Const();
+    private dialogRef: MatDialogRef<TermsComponent>;
 
     constructor(private router: Router,
         public dialog: MatDialog,
         private http: HttpClient,
         private api: EndpointService,
-        private userParams: UserParametersService) {
-
-    }
+        private loadingService: LoadingService,
+        private userParams: UserParametersService,
+        public termsComponent: TermsComponent) {
+        }
 
     /**
      * Funcion la cual se conecta con los enrutadores de angular para poder ejecutar validaciones previas al direccionamiento,
@@ -42,8 +41,9 @@ export class TermsService implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): Observable<boolean> | Promise<boolean> | boolean {
+        this.state = state;
         if (state.url !== '/' + RoutesConst.sellerCenterLogout) {
-            this.getSellerAgreement(state);
+            this.getSellerAgreement(state, true);
         }
         return true;
     }
@@ -55,18 +55,33 @@ export class TermsService implements CanActivate {
      * @returns {*}
      * @memberof TermsService
      */
-    getSellerAgreement(state: RouterStateSnapshot): any {
+    getSellerAgreement(state: RouterStateSnapshot, showModal: any): any {
         this.getUserInfo().then(resultPromise => {
+            if (localStorage.getItem('modalContract')) {
+                this.modalContract = localStorage.getItem('modalContract');
+            } else {
+                this.modalContract = 'true';
+            }
             if (resultPromise) {
-                this.http.get(this.api.get('getValidationTerms'), { headers: { valid: 'hola' } }).subscribe((result: any) => {
+                this.http.get(this.api.get('getValidationTerms'), { headers: { valid: '' } }).subscribe((result: any) => {
                     if (result && result.body) {
                         try {
                             const data = JSON.parse(result.body);
-                            if (!data.Data) {
-                                if (state.url !== '/' + RoutesConst.securehome) {
-                                    this.router.navigate(['/' + RoutesConst.securehome]);
-                                } else {
-                                    this.openDialog(data.src);
+                            this.dataResult = data;
+                            if (data.Data && data.Data.StatusContract === true) {
+                                if (this.dialogRef) {
+                                    location.reload();
+                                    this.dialogRef.close();
+                                }
+                            } else {
+                                if (this.modalContract === 'true') {
+                                      if (showModal) {
+                                        this.openDialog(data.Data);
+                                    } else {
+                                        if (this.dialogRef && this.dialogRef.componentInstance) {
+                                            this.dialogRef.componentInstance.data = data.Data;
+                                          }
+                                    }
                                 }
                             }
                         } catch (e) {
@@ -110,15 +125,27 @@ export class TermsService implements CanActivate {
      * @param {string} data
      * @memberof TermsService
      */
-    openDialog(data: string): void {
+    openDialog(data: any): void {
         const dialogRef = this.dialog.open(TermsComponent, {
             width: '80%',
             height: '90%',
-            data: this.srcPdf,
+            data: data,
             disableClose: true
         });
-        dialogRef.afterClosed().subscribe(result => {
-        });
+        this.dialogRef = dialogRef;
+        const dialogIntance = dialogRef.componentInstance;
+        dialogIntance.processFinish$.subscribe((val) => {
+            if (val.responseContract ) {
+                this.loadingService.closeSpinner();
+                localStorage.setItem('modalContract', 'true');
+                this.getSellerAgreement(this.state, false);
+
+            } else {
+                this.loadingService.closeSpinner();
+                localStorage.setItem('modalContract', 'false');
+                location.reload();
+            }
+          });
     }
 
     public getPendingDevolutions(): Observable<UnreadCaseResponse> {

@@ -1,3 +1,4 @@
+$color-gray1: #5D5D5D;
 .form-ofert {
   display: grid !important;
 }
@@ -23,6 +24,10 @@
 
 ::ng-deep .mat-input-element {
   padding-bottom: 5px;
+}
+
+::ng-deep .mat-select-value {
+   color: $color-gray1;
 }
 
 .ofert-option {

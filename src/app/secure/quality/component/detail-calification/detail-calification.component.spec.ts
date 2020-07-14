@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { LoadingService, ModalService, EndpointService, UserParametersService, CognitoUtil, UserLoginService } from '@app/core';
@@ -251,7 +251,7 @@ describe('DetailCalificationComponent', () => {
   let supportService: SupportService;
 
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule,
@@ -289,7 +289,7 @@ describe('DetailCalificationComponent', () => {
     });
   }));
 
-  beforeEach(() => {
+  beforeEach(fakeAsync(() => {
     mockAuthService.getMenu.and.returnValue(registerMenu);
     fixture = TestBed.createComponent(DetailCalificationComponent);
     detailCalificationComponent = fixture.componentInstance;
@@ -302,7 +302,7 @@ describe('DetailCalificationComponent', () => {
     mockCalificationService.notificate.and.returnValue(of(responseNotificate));
     detailCalificationComponent.detailByElemet = detail;
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(detailCalificationComponent).toBeTruthy();
@@ -318,7 +318,6 @@ describe('DetailCalificationComponent', () => {
         detailCalificationComponent.setClassColorByCalification(1);
     });
     it('recalculate ', () => {
-        
         detailCalificationComponent.recalculateQualitative();
     });
     it('notificate ', () => {

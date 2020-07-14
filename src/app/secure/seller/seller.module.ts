@@ -12,11 +12,17 @@ import { MatSidenav, MatSidenavModule } from '@angular/material';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { CoreModule } from '@angular/flex-layout';
+import { UploadAgreementComponent } from './upload-agreement/upload-agreement.component';
+import { ModalLoadAgreementComponent } from './modal-load-agreement/modal-load-agreement.component';
+import { ngfModule } from 'angular-file/file-upload/ngf.module';
+import { TermsComponent } from './agreement/terms/terms.component';
 
 
 @NgModule({
     declarations: [
         SellerListComponent,
+        UploadAgreementComponent,
+        ModalLoadAgreementComponent,
     ],
     imports: [
         CommonModule,
@@ -26,15 +32,19 @@ import { CoreModule } from '@angular/flex-layout';
         MaterialModule,
         SellerRoutingModule,
         MatSidenavModule,
-        SharedModule
+        SharedModule,
+        ngfModule
     ],
     exports: [
     ],
     entryComponents: [
+        ModalLoadAgreementComponent
     ],
     providers: [
         SellerService,
-        StoresService
+        StoresService,
+        ModalLoadAgreementComponent,
+        TermsComponent
     ],
 })
 export class SellerModule { }

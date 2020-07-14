@@ -1,5 +1,5 @@
 /* 3rd party components */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 /* our own custom components */
@@ -17,7 +17,7 @@ describe('BillingProductsOrderComponent', () => {
   let fixture: ComponentFixture<BillingProductsOrderComponent>;
   const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
@@ -41,8 +41,9 @@ describe('BillingProductsOrderComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create', (done) => {
     expect(component).toBeTruthy();
+    done();
   });
 
   describe('With order', () => {
@@ -56,31 +57,35 @@ describe('BillingProductsOrderComponent', () => {
       }];
     });
 
-    it('open modal', () => {
+    it('open modal', (done) => {
       component.openModalDetailProduct(component.order);
+      done();
     });
 
 
-    it('exist products Information', () => {
+    it('exist products Information', (done) => {
       expect(component.order).not.toBeNull();
+      done();
     });
 
-    it('detail name product', () => {
+    it('detail name product', (done) => {
       const detailproduct = fixture.debugElement.query(By.css('#detailName'));
       expect(detailproduct).toBeTruthy();
       const detailproductNative = detailproduct.nativeElement;
       detailproductNative.innerHTML = 'Videojuego Grand Theft Auto V PS4';
       fixture.detectChanges();
       expect(component.order.detailName).not.toBeNull();
+      done();
     });
 
-    it('ean product', () => {
+    it('ean product', (done) => {
       const ean = fixture.debugElement.query(By.css('#ean'));
       expect(ean).toBeTruthy();
       const eanNative = ean.nativeElement;
       eanNative.innerHTML = 'MP02080000000035';
       fixture.detectChanges();
       expect(component.order.ean).not.toBeNull();
+      done();
     });
 
     it('quantity product', () => {
@@ -92,13 +97,14 @@ describe('BillingProductsOrderComponent', () => {
       expect(component.order.quantity).not.toBeNull();
     });
 
-    it('totalShippingCost product', () => {
+    it('totalShippingCost product', (done) => {
       const totalShippingCost = fixture.debugElement.query(By.css('#totalShippingCost'));
       expect(totalShippingCost).toBeTruthy();
       const totalShippingCostNative = totalShippingCost.nativeElement;
       totalShippingCostNative.innerHTML = '2731';
       fixture.detectChanges();
       expect(component.order.totalShippingCost).not.toBeNull();
+      done();
     });
 
     it('price product', () => {
@@ -113,7 +119,7 @@ describe('BillingProductsOrderComponent', () => {
   });
 
   describe('Without orders', () => {
-    beforeEach(() => {
+    beforeEach(fakeAsync(() => {
       component.order = [{
         detailName: '',
         ean: '',
@@ -121,19 +127,21 @@ describe('BillingProductsOrderComponent', () => {
         totalShippingCost: '',
         price: ''
       }];
-    });
+    }));
 
-    it('exist products Information', () => {
+    it('exist products Information', (done) => {
       expect(component.order).not.toBeNull();
+      done();
     });
 
-    it('detail name product', () => {
+    it('detail name product', (done) => {
       const detailproduct = fixture.debugElement.query(By.css('#detailName'));
       expect(detailproduct).toBeTruthy();
       const detailproductNative = detailproduct.nativeElement;
       detailproductNative.innerHTML = '';
       fixture.detectChanges();
       expect(component.order.detailName).toBeUndefined();
+      done();
     });
 
     it('ean product', () => {
@@ -154,22 +162,24 @@ describe('BillingProductsOrderComponent', () => {
       expect(component.order.quantity).toBeUndefined();
     });
 
-    it('totalShippingCost product', () => {
+    it('totalShippingCost product', (done) => {
       const totalShippingCost = fixture.debugElement.query(By.css('#totalShippingCost'));
       expect(totalShippingCost).toBeTruthy();
       const totalShippingCostNative = totalShippingCost.nativeElement;
       totalShippingCostNative.innerHTML = '';
       fixture.detectChanges();
       expect(component.order.totalShippingCost).toBeUndefined();
+      done();
     });
 
-    it('price product', () => {
+    it('price product', (done) => {
       const price = fixture.debugElement.query(By.css('#price'));
       expect(price).toBeTruthy();
       const priceNative = price.nativeElement;
       priceNative.innerHTML = '';
       fixture.detectChanges();
       expect(component.order.price).toBeUndefined();
+      done();
     });
 
   });
