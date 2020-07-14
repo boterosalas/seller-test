@@ -45,8 +45,8 @@
     <mat-icon matPrefix color="accent">sort</mat-icon>
     <mat-select id="select-status" formControlName="idStatusOrder"
       [placeholder]="'core.shell.search_order_menu.search_envios_exito_form.filter_status' | translate">
-      <mat-option *ngFor="let status of listOrderStatus" value="{{status.IdStatusOrder}}">
-        {{status.StatusOrder}}
+      <mat-option *ngFor="let status of listOrderStatus" value="{{status.idStatusOrder}}">
+        {{status.statusOrder}}
       </mat-option>
     </mat-select>
   </mat-form-field>
