@@ -18,14 +18,10 @@
           <p class="name">{{products.name}}</p>
         </div>
         <mat-card-footer class="mfooter">
-            <p>{{'secure.products.create_product_unit.list_products.combo_product.creation_date' | translate}}: {{products.createdDate}}</p>
-            <p>{{'secure.products.create_product_unit.list_products.combo_product.modification_date' | translate}}: {{products.updatedDate}}</p>
+            <p>{{'secure.products.create_product_unit.list_products.combo_product.creation_date' | translate}}: {{products.dateProcess}}</p>
+            <!-- <p>{{'secure.products.create_product_unit.list_products.combo_product.modification_date' | translate}}: {{products.updatedDate}}</p> -->
         </mat-card-footer>
       </mat-card-content>
-      <!-- <div class="best-offer" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="products.bestOffer !== '0.00'">
-        <p>{{'secure.products.create_product_unit.list_products.combo_product.best_offer' | translate}}: </p>
-        <p [innerHTML]="products.bestOffer | currency: '$' : 'symbol' : '1.2-2'"> </p>
-      </div> -->
     </mat-card>
   </div>
 </div>
