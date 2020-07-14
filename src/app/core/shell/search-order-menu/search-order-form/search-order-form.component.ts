@@ -158,7 +158,6 @@ export class SearchOrderFormComponent implements OnInit {
    */
   filterOrder(data: any) {
     // Obtengo la información del usuario
-    // this.user = this.userService.getUser();
     const datePipe = new DatePipe(this.locale);
     this.loadingService.viewSpinner();
     // aplico el formato para la fecha a emplear en la consulta
