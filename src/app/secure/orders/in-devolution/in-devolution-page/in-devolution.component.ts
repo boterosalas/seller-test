@@ -252,7 +252,6 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
    * @param item
    */
   openModalCommentOrder(item: any): void {
-    console.log(item);
     const dialogRef = this.dialog.open(ViewCommentComponent, {
       width: '50%',
       data: {

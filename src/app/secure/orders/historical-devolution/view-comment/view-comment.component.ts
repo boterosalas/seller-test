@@ -1,7 +1,9 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { HistoricalDevolutionEntity, UserInformation, FAKE } from '@app/shared';
 import * as _ from 'lodash';
+import { Subject } from 'rxjs';
+import { HistoricalDevolutionService } from '../historical-devolution.service';
 
 interface DialogData {
   user: UserInformation;
@@ -13,13 +15,15 @@ interface DialogData {
   templateUrl: './view-comment.component.html',
   styleUrls: ['./view-comment.component.scss']
 })
-export class ViewCommentComponent {
+export class ViewCommentComponent implements OnInit {
   public historical: HistoricalDevolutionEntity;
   public message: string;
+  processFinish$ = new Subject<any>();
 
   constructor(
+    public historicalDevolutionService: HistoricalDevolutionService,
     public dialogRef: MatDialogRef<ViewCommentComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     /**
      * _.cloneDeep permite clonar el json y no generar error de binding en la vista orders-list,
@@ -28,6 +32,23 @@ export class ViewCommentComponent {
     this.historical = _.cloneDeep(data.historical);
     this.historical = this.historical || (FAKE.FAKEPENDINGDEVOLUTION as HistoricalDevolutionEntity);
     this.getMessage();
+  }
+
+
+  ngOnInit() {
+    this.getAllCommentRefuse();
+  }
+
+  getAllCommentRefuse() {
+    const params = {
+      TypeTranslation:  'Commentary',
+      Content : this.data.historical
+    };
+    this.historicalDevolutionService.getAllCommentRefuse(params).subscribe((res: any) => {
+      if (res) {
+        this.processFinish$.next(res);
+      }
+    });
   }
 
   /**
