@@ -74,11 +74,9 @@ export class ComboPendingProductComponent implements OnInit {
     const paramsArray = {
       idSeller: 11811,
       ean: 1001114217562,
-      reference: null
     };
     const sellerId = 11811;
     const eanParam = 1001114217562;
-    const reference = null;
     console.log(params);
 
     console.log(params.parentReference);
@@ -86,7 +84,7 @@ export class ComboPendingProductComponent implements OnInit {
       params.parentReference = null;
     }
 
-    const paramsServv = `${sellerId}/${params.ean}/${params.parentReference}`;
+    const paramsServv = `${sellerId}/${params.ean}`;
 
     this.openInformation(paramsServv);
   }
