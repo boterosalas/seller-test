@@ -78,6 +78,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
   public paginationToken = '{}';
 
   public log: Logger;
+  public loadingSpinner = true;
 
   isAdmin: Boolean = false;
   email: string;
@@ -387,6 +388,9 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
             this.refreshPaginator(this.length, res.body.data.page, res.body.data.pageSize);
             this.paginationToken = res.body.paginationToken;
             this.cases = res.body.data.cases;
+            this.cases.forEach(element => {
+              element.statusLoad = false;
+            });
             this.loadingService.closeSpinner();
           }
         }
@@ -533,6 +537,14 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
       minWidth: '280px',
       data: { isAdmin: this.isAdmin, email: this.email }
     });
+  }
+
+  loadDataDetails(item: any) {
+    item.statusLoad = true;
+    this.sellerSupportService.getDetailTranslation(item).subscribe(
+      res => {
+        item.statusLoad = false;
+      });
   }
 
   ngOnDestroy() {

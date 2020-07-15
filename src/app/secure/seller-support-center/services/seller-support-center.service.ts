@@ -52,4 +52,19 @@ export class SellerSupportCenterService {
   //   const URL = this._api.get('getPendinOrders');
   //   return this._http.get<UnreadCaseResponse>(URL);
   // }
+
+
+  getDetailTranslation(item: any): Observable<any> {
+    return new Observable(observer => {
+      observer.next(true);
+    });
+    // return new Observable(observer => {
+    //   this._http.post(this._api.get('getDetailTranslationReclaim'), item)
+    //     .subscribe((data: any) => {
+    //       observer.next(data);
+    //     }, err => {
+    //       observer.error(err);
+    //     });
+    // });
+  }
 }

@@ -9,6 +9,7 @@
     <span class="ticket-content__title ticket-content--bottom-space">
       {{'secure.parametize.support_claims.tracing' | translate}}
     </span>
+    {{case | json}}
 
     <app-conversation>
       <ng-container *ngIf="!case.followLast || case.followLast.length == 0">
