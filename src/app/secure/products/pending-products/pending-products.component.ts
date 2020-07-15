@@ -8,7 +8,11 @@ import { SupportService } from '@app/secure/support-modal/support.service';
 import { PendingProductsService } from './pending-products.service';
 import { UserInformation } from '@app/shared';
 
-
+export interface ListFilterProductsModify {
+  name: string;
+  value: string;
+  nameFilter: string;
+}
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -43,8 +47,20 @@ export class PendingProductsComponent implements OnInit {
   isAdmin = false;
 
   showProducts = false;
+  eanVariable = false;
+  nameVariable = false;
+
+  nameProductList: any;
+  eanList: any;
+
+  listFilterProductsModify: ListFilterProductsModify[] = [];
+
+  dataChips: Array<any> = [];
+
+  removable = true;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  paramsArray: { limit: string; idSeller: string; };
   constructor(
     private pendingProductsService: PendingProductsService,
     public userParams: UserParametersService,
@@ -53,20 +69,23 @@ export class PendingProductsComponent implements OnInit {
     private fb?: FormBuilder,
   ) {
     this.getDataUser();
-   }
+  }
 
   ngOnInit() {
     this.validateFormSupport();
     this.getAllPendingProducts();
   }
 
+  /**
+   * Función para traer informacion del usuario
+   */
   async getDataUser() {
     this.user = await this.userParams.getUserData();
     if (this.user.sellerProfile === 'seller') {
     } else {
-        this.isAdmin = true;
+      this.isAdmin = true;
     }
-}
+  }
 
   /**
    * Metodo para crear el formulario
@@ -76,9 +95,6 @@ export class PendingProductsComponent implements OnInit {
     this.filterProdutsPending = this.fb.group({
       productName: new FormControl('', Validators.compose([Validators.pattern(this.getValue('nameProduct'))])),
       ean: new FormControl(''),
-      initialDate: { disabled: true, value: '' },
-      finalDate: { disabled: true, value: '' },
-      creationDate: new FormControl('', []),
       matcher: new MyErrorStateMatcher()
     });
   }
@@ -108,6 +124,11 @@ export class PendingProductsComponent implements OnInit {
     return null;
   }
 
+  /**
+   * Metodo para consultar el listado de productos pdte modificación
+   * @param {*} [params]
+   * @memberof PendingProductsComponent
+   */
   getPendingProductsModify(params?: any) {
     console.log('params: ', params);
     this.loadingService.viewSpinner();
@@ -134,14 +155,94 @@ export class PendingProductsComponent implements OnInit {
         this.loadingService.closeSpinner();
       }
     });
+    this.filterProductsModify();
   }
 
+  /**
+   * Metodo para obtener el listado de productos pdtes modificacion
+   * @memberof PendingProductsComponent
+   */
   getAllPendingProducts() {
-    const paramsArray = {
+    this.paramsArray = {
       'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
-      'idSeller': this.user.sellerId
+      'idSeller': this.user.sellerId + '&ean=' + null + '&name=' + null
     };
-    this.getPendingProductsModify(paramsArray);
+    this.getPendingProductsModify(this.paramsArray);
+  }
+
+  /**
+   * Metodo para cerrar el filtro de productos pendientes modificacion
+   * @memberof PendingProductsComponent
+   */
+  public closeFilter() {
+    if (!this.eanVariable) {
+      this.filterProdutsPending.controls.ean.setValue('');
+      this.eanList = null;
+    }
+    if (!this.nameVariable) {
+      this.filterProdutsPending.controls.productName.setValue('');
+      this.nameProductList = null;
+    }
+    this.getAllPendingProducts();
+  }
+
+  public filterApply() {
+    this.paramsArray = {
+      'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
+      'idSeller': this.user.sellerId + '&ean=' + this.filterProdutsPending.controls.ean.value + '&name=' + this.filterProdutsPending.controls.productName.value
+    };
+    this.getPendingProductsModify(this.paramsArray);
+    // this.pagepaginator = 0;
+    // this.paginator.firstPage();
+    // this.filterListProducts(param, true);
+  }
+
+  public cleanFilter() {
+    this.filterProdutsPending.reset();
+    this.getAllPendingProducts();
+    this.cleanFilterListProductsModify();
+  }
+
+  public cleanFilterListProductsModify(): void {
+    this.nameProductList = null;
+    this.eanList = null;
+    this.listFilterProductsModify = [];
+  }
+
+  public filterProductsModify() {
+    this.cleanFilterListProductsModify();
+    this.nameProductList = this.filterProdutsPending.controls.productName.value || null;
+    this.eanList = this.filterProdutsPending.controls.ean.value || null;
+
+    // const data = [];
+    this.dataChips.push({ value: this.nameProductList, name: 'nameProductList', nameFilter: 'productName' });
+    this.dataChips.push({ value: this.eanList, name: 'eanList', nameFilter: 'ean' });
+    this.add(this.dataChips);
+  }
+
+  public remove(productsFilterModify: ListFilterProductsModify): void {
+
+    const index = this.listFilterProductsModify.indexOf(productsFilterModify);
+
+    if (index >= 0) {
+      this.listFilterProductsModify.splice(index, 1);
+      this[productsFilterModify.value] = '';
+      this.filterProdutsPending.controls[productsFilterModify.nameFilter].setValue(null);
+    }
+
+  }
+
+  public add(data: any): void {
+    data.forEach(element => {
+      const value = element.value;
+      if (value) {
+        if ((value || '')) {
+          this.listFilterProductsModify.push({ name: element.value, value: element.name, nameFilter: element.nameFilter });
+        }
+
+      }
+    });
+    this.dataChips = [];
   }
 
 }
