@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginatorIntl, MatPaginator, ErrorStateMatcher } from '@angular/material';
+import { MatPaginatorIntl, MatPaginator, ErrorStateMatcher, PageEvent } from '@angular/material';
 import { MatPaginatorI18nService } from '@app/shared/services/mat-paginator-i18n.service';
 import { readFunctionality } from '@app/secure/auth/auth.consts';
 import { FormGroupDirective, NgForm, FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -40,7 +40,7 @@ export class PendingProductsComponent implements OnInit {
   validateRegex: any;
   public filterProdutsPending: FormGroup;
 
-  public pageSize = 50;
+  public pageSize = 200;
   public idSeller = '';
 
   public user: UserInformation;
@@ -58,6 +58,11 @@ export class PendingProductsComponent implements OnInit {
   dataChips: Array<any> = [];
 
   removable = true;
+
+  length = 0;
+  pageSizeOptions: number[] = [200, 300, 400];
+  pageEvent: PageEvent;
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   paramsArray: { limit: string; idSeller: string; };
@@ -138,9 +143,11 @@ export class PendingProductsComponent implements OnInit {
     // this.setCategoryName();
     this.showProducts = false;
     this.pendingProductsService.getPendingProductsModify(params).subscribe((res: any) => {
+      console.log('res: ', res);
       if (res) {
         this.showProducts = true;
         this.productsList = res.viewModel;
+        this.length = res.count;
         // if (params.state !== '') {
         //   stateCurrent = params.state;
         //   this.lastState = stateCurrent;
@@ -187,6 +194,7 @@ export class PendingProductsComponent implements OnInit {
   }
 
   public filterApply() {
+    console.log(22, this.filterProdutsPending.controls);
     this.paramsArray = {
       'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
       'idSeller': this.user.sellerId + '&ean=' + this.filterProdutsPending.controls.ean.value + '&name=' + this.filterProdutsPending.controls.productName.value
@@ -229,7 +237,7 @@ export class PendingProductsComponent implements OnInit {
       this[productsFilterModify.value] = '';
       this.filterProdutsPending.controls[productsFilterModify.nameFilter].setValue(null);
     }
-
+    this.filterApply();
   }
 
   public add(data: any): void {
@@ -243,6 +251,11 @@ export class PendingProductsComponent implements OnInit {
       }
     });
     this.dataChips = [];
+  }
+
+  public changePaginatorProducts(param: any): any {
+    this.pageSize = param.pageSize;
+    this.getPendingProductsModify();
   }
 
 }
