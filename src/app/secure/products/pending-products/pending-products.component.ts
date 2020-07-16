@@ -66,9 +66,12 @@ export class PendingProductsComponent implements OnInit {
   public callOne = true;
   public arrayPosition = [];
   public paginationToken = '{}';
+  public limit = 10;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   paramsArray: { limit: string; idSeller: string; };
+  ean = '';
+  nameProduct = '';
   constructor(
     private pendingProductsService: PendingProductsService,
     public userParams: UserParametersService,
@@ -81,7 +84,7 @@ export class PendingProductsComponent implements OnInit {
 
   ngOnInit() {
     this.validateFormSupport();
-    this.getAllPendingProducts();
+    this.getPendingProductsModify();
   }
 
   /**
@@ -142,15 +145,16 @@ export class PendingProductsComponent implements OnInit {
     this.loadingService.viewSpinner();
     // let dataToSend: any;
     if (params !== undefined) {
+      console.log(2222);
       this.paramsArray = {
         'limit': this.pageSize + '&paginationToken=' + this.paginationToken,
-        'idSeller': this.user.sellerId + '&ean=' + params.controls.ean.value + '&name=' + params.controls.productName.value
+        'idSeller': this.user.sellerId + '&ean=' + this.ean + '&name=' + this.nameProduct
       };
     } else {
       console.log(2);
       this.paramsArray = {
         'limit': this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken),
-        'idSeller': this.user.sellerId
+        'idSeller': this.user.sellerId + '&ean=' + this.ean + '&name=' + this.nameProduct
       };
     }
     this.showProducts = false;
@@ -166,21 +170,42 @@ export class PendingProductsComponent implements OnInit {
         this.showProducts = true;
         this.productsList = res.viewModel;
         this.length = res.count;
-        // if (params.state !== '') {
-        //   stateCurrent = params.state;
-        //   this.lastState = stateCurrent;
-        // }
-        // this.setTable(res);
-        // if (params && params.callOne) {
-        //   this.length = res.count;
-        //   this.isClear = true;
-        // }
-        // const paginator = { 'pageIndex': 0 };
-        // this.addCheckOptionInProduct(res.viewModel, paginator);
+        this.paginationToken = res.paginationToken;
+       
         this.loadingService.closeSpinner();
       }
     });
     this.filterProductsModify();
+  }
+
+  paginations(event: any) {
+    console.log('event: ', event);
+    if (event.pageSize !== this.limit) {
+      this.limit = event.pageSize;
+    }
+    if (event && event && event.pageIndex >= 0) {
+      const index = event.pageIndex;
+      if (index === 0) {
+        this.paginationToken = '{}';
+      }
+      const isExistInitial = this.arrayPosition.includes('{}');
+      if (isExistInitial === false) {
+        this.arrayPosition.push('{}');
+      }
+      const isExist = this.arrayPosition.includes(this.paginationToken);
+      if (isExist === false) {
+        this.arrayPosition.push(this.paginationToken);
+      }
+      this.paginationToken = this.arrayPosition[index];
+      if (this.paginationToken === undefined) {
+        this.paginationToken = '{}';
+      }
+      this.paramsArray = {
+        'limit': this.pageSize + '&paginationToken=' + this.paginationToken,
+        'idSeller': this.user.sellerId + '&ean=' + this.ean + '&name=' + this.nameProduct
+      };
+      this.getPendingProductsModify(this.paramsArray);
+    }
   }
 
   /**
@@ -212,15 +237,14 @@ export class PendingProductsComponent implements OnInit {
   }
 
   public filterApply() {
+    this.ean = this.filterProdutsPending.controls.ean.value;
+    this.nameProduct = this.filterProdutsPending.controls.productName.value;
     console.log(22, this.filterProdutsPending.controls);
     this.paramsArray = {
       'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
-      'idSeller': this.user.sellerId + '&ean=' + this.filterProdutsPending.controls.ean.value + '&name=' + this.filterProdutsPending.controls.productName.value
+      'idSeller': this.user.sellerId + '&ean=' + this.ean + '&name=' + this.nameProduct
     };
     this.getPendingProductsModify(this.filterProdutsPending);
-    // this.pagepaginator = 0;
-    // this.paginator.firstPage();
-    // this.filterListProducts(param, true);
   }
 
   public cleanFilter() {

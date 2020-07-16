@@ -52,7 +52,7 @@
             </p>
             <div class="hide-page">
               <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-                (page)="pageEvent = changePaginatorProducts($event)"></mat-paginator>
+                (page)="pageEvent = paginations($event)"></mat-paginator>
             </div>
           </div>
           <button type="button" mat-button (click)="drawer.toggle()">
@@ -93,7 +93,7 @@
         </p>
         <div class="hide-page">
           <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-            (page)="pageEvent = changePaginatorProducts($event)"></mat-paginator>
+            (page)="pageEvent = paginations($event)"></mat-paginator>
         </div>
       </div>
       <button type="button" mat-button (click)="drawer.toggle()">
