@@ -40,7 +40,7 @@ export class PendingProductsComponent implements OnInit {
   validateRegex: any;
   public filterProdutsPending: FormGroup;
 
-  public pageSize = 200;
+  public pageSize = 30;
   public idSeller = '';
 
   public user: UserInformation;
@@ -60,9 +60,12 @@ export class PendingProductsComponent implements OnInit {
   removable = true;
 
   length = 0;
-  pageSizeOptions: number[] = [200, 300, 400];
+  pageSizeOptions: number[] = [30, 60, 120, 600];
   pageEvent: PageEvent;
 
+  public callOne = true;
+  public arrayPosition = [];
+  public paginationToken = '{}';
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   paramsArray: { limit: string; idSeller: string; };
@@ -137,14 +140,29 @@ export class PendingProductsComponent implements OnInit {
   getPendingProductsModify(params?: any) {
     console.log('params: ', params);
     this.loadingService.viewSpinner();
-    // this.isClear = false;
-    // this.params = this.setParameters(params);
-    // let stateCurrent = null;
-    // this.setCategoryName();
+    // let dataToSend: any;
+    if (params !== undefined) {
+      this.paramsArray = {
+        'limit': this.pageSize + '&paginationToken=' + this.paginationToken,
+        'idSeller': this.user.sellerId + '&ean=' + params.controls.ean.value + '&name=' + params.controls.productName.value
+      };
+    } else {
+      console.log(2);
+      this.paramsArray = {
+        'limit': this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken),
+        'idSeller': this.user.sellerId
+      };
+    }
     this.showProducts = false;
-    this.pendingProductsService.getPendingProductsModify(params).subscribe((res: any) => {
+    this.pendingProductsService.getPendingProductsModify(this.paramsArray).subscribe((res: any) => {
       console.log('res: ', res);
       if (res) {
+        if (this.callOne) {
+          this.length = res.count;
+          this.arrayPosition = [];
+          this.arrayPosition.push('{}');
+          this.callOne = false;
+        }
         this.showProducts = true;
         this.productsList = res.viewModel;
         this.length = res.count;
@@ -199,7 +217,7 @@ export class PendingProductsComponent implements OnInit {
       'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
       'idSeller': this.user.sellerId + '&ean=' + this.filterProdutsPending.controls.ean.value + '&name=' + this.filterProdutsPending.controls.productName.value
     };
-    this.getPendingProductsModify(this.paramsArray);
+    this.getPendingProductsModify(this.filterProdutsPending);
     // this.pagepaginator = 0;
     // this.paginator.firstPage();
     // this.filterListProducts(param, true);
