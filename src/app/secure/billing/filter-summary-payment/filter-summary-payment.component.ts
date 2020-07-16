@@ -56,27 +56,47 @@ export class FilterSummaryPaymentComponent implements OnInit {
   ngOnInit() {
     this.createFormControls();
   }
-
-  createFormControls() {
+/**
+ * funcion para crear el formulario
+ *
+ * @memberof FilterSummaryPaymentComponent
+ */
+createFormControls() {
     this.filterBillingSummary = new FormGroup({
       date: this.date
     });
   }
-
-  chosenYearHandler(normalizedYear: Moment) {
+/**
+ * funcion para seleccionar años y mes en el datePicker
+ *
+ * @param {Moment} normalizedYear
+ * @memberof FilterSummaryPaymentComponent
+ */
+chosenYearHandler(normalizedYear: Moment) {
     const ctrlValue = this.date.value;
     ctrlValue.year(normalizedYear.year());
     this.date.setValue(ctrlValue);
   }
-
-  chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
+/**
+ * funcion para seleccionar años y mes en el datePicker
+ *
+ * @param {Moment} normalizedMonth
+ * @param {MatDatepicker<Moment>} datepicker
+ * @memberof FilterSummaryPaymentComponent
+ */
+chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
     const ctrlValue = this.date.value;
     ctrlValue.month(normalizedMonth.month());
     this.date.setValue(ctrlValue);
     datepicker.close();
   }
-
-  filterSummary (form: any) {
+/**
+ * filtrar por fecha
+ *
+ * @param {*} form
+ * @memberof FilterSummaryPaymentComponent
+ */
+filterSummary (form: any) {
     let dateFormt = '';
     if (form) {
       if (form.date) {
@@ -88,12 +108,20 @@ export class FilterSummaryPaymentComponent implements OnInit {
     });
    this.toggleFilterSummaryPayment();
   }
-
-  toggleFilterSummaryPayment() {
+/**
+ * funcion mostrar filter
+ *
+ * @memberof FilterSummaryPaymentComponent
+ */
+toggleFilterSummaryPayment() {
     this.sidenavSearchOrder.toggle();
   }
-
-  clearForm() {
+/**
+ * funcion para limpiar el formulario
+ *
+ * @memberof FilterSummaryPaymentComponent
+ */
+clearForm() {
     this.OnGetFilter.emit({
       'filterDate': moment().format('YYYY/MM/DD')
     });

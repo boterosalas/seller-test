@@ -160,8 +160,13 @@ export class SummaryPaymentsComponent implements OnInit {
     });
   }
 
-
-  paginations(event: any) {
+/**
+ * funcion para capturar el evento cuando se pasa de pagina
+ *
+ * @param {*} event
+ * @memberof SummaryPaymentsComponent
+ */
+paginations(event: any) {
     if (event.param.pageSize !== this.limit) {
       this.limit = event.param.pageSize;
     }
@@ -193,19 +198,32 @@ export class SummaryPaymentsComponent implements OnInit {
       this.getAllSeller(params);
     }
   }
-
-  allClear() {
+/**
+ * funcion para limpiar la lista
+ *
+ * @memberof SummaryPaymentsComponent
+ */
+allClear() {
     this.paginationToken = '{}';
     this.arrayNotSelect = [];
     this.arrayPosition = [];
     this.getAllSeller();
   }
-
-  toggleFilter() {
+/**
+ * funcion para mostrar el toggle filter
+ *
+ * @memberof SummaryPaymentsComponent
+ */
+toggleFilter() {
     this.stateSideNavOrder = !this.stateSideNavOrder;
   }
-
-  filterListSummary(params: any) {
+/**
+ *  funcion filtrar el listado
+ *
+ * @param {*} params
+ * @memberof SummaryPaymentsComponent
+ */
+filterListSummary(params: any) {
     this.dateFilter = params.filterDate;
     this.callOne = true;
     params = {
@@ -216,8 +234,14 @@ export class SummaryPaymentsComponent implements OnInit {
     };
     this.getAllSeller(params);
   }
-
-  changeStatus(row: any, status: any) {
+/**
+ * funcion para cambiar status de los checkBox
+ *
+ * @param {*} row
+ * @param {*} status
+ * @memberof SummaryPaymentsComponent
+ */
+changeStatus(row: any, status: any) {
     if (row) {
       if (status) {
         this.arraySelect.push(row);
@@ -227,8 +251,12 @@ export class SummaryPaymentsComponent implements OnInit {
       }
     }
   }
-
-  sendDetailSummary() {
+/**
+ * funcion para enviar el numero de pagos ha detalles de pagos
+ *
+ * @memberof SummaryPaymentsComponent
+ */
+sendDetailSummary() {
     const listBilling = [];
     this.arraySelect.forEach(element => {
       listBilling.push(element.billingNumber);
