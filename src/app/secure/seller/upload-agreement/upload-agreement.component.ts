@@ -30,6 +30,7 @@ export class UploadAgreementComponent implements OnInit {
   public subModalLoad: any;
   public limit = 50;
   public resultModel: any;
+  public disabledBtn = false;
 
 
   public callOne = true;
@@ -193,6 +194,11 @@ export class UploadAgreementComponent implements OnInit {
     } else {
       this.isAllSelectedCurrent = false;
     }
+    if (this.arraySelect.length === 0 && !this.all) {
+      this.selection.clear();
+      this.all = false;
+      this.statusAllCheck = true;
+    }
   }
 
   /**
@@ -225,26 +231,33 @@ export class UploadAgreementComponent implements OnInit {
    * @memberof UploadAgreementComponent
    */
   public changeStatus(row: any, status: any) {
+    this.disabledBtn = true;
     if (row) {
       if (status) {
         this.arraySelect.push(row);
+        this.disabledBtn = false;
       } else {
-        const index = this.arraySelect.findIndex(rows => rows === row);
+        const index = this.arraySelect.findIndex(rows => rows.Id === row.Id);
         this.arraySelect.splice(index, 1);
+        this.selection.deselect(row);
       }
       if (!this.statusAllCheck) {
         if (status) {
           const index = this.arrayNotSelect.findIndex(rows => rows === row);
           this.arrayNotSelect.splice(index, 1);
+          this.selection.deselect(row);
         } else {
           this.arrayNotSelect.push(row);
+          this.disabledBtn = false;
         }
       } else {
         this.arrayNotSelect = [];
       }
     } else {
       this.all = status;
+      this.disabledBtn = false;
     }
+
     this.isAllSelected();
   }
   /**
@@ -268,6 +281,7 @@ export class UploadAgreementComponent implements OnInit {
     this.getAllSeller(undefined);
     this.selection.clear();
     this.dialog.closeAll();
+    this.statusAllCheck = true;
   }
   toggleFilterPorts() {}
 }

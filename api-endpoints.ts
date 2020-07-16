@@ -21,6 +21,7 @@ export const endpoints = {
       acceptOrDeniedDevolution: 'https://v1kfqoa8yd.execute-api.us-east-1.amazonaws.com/RequestAcceptOrDenied',
       recordProcesSedOrder: 'https://4nu4lf5m80.execute-api.us-east-1.amazonaws.com/RecordProcesSedOrder',
       getallordersbysellerwithouttracking: 'https://cbihc9u6fa.execute-api.us-east-1.amazonaws.com/GetAllOrdersBySellerWithoutTracking{stringParam}',
+      validateStatusLoadGuide: 'https://tew99ut1y2.execute-api.us-east-1.amazonaws.com/SendAllGuides/status',
       getBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing{stringParams}',
       exportBillingPays: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing',
       searchBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing?idSeller={sellerId}&limit={limit}',
@@ -196,11 +197,17 @@ export const endpoints = {
       getDownlaodLabel: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/orders/{params}/sticker',
       // Obtener puertos por país
       getPortsByCountryName: 'https://orba3qnrte.execute-api.us-east-1.amazonaws.com/dispatchport/GetDispatchPortsByCountryName/{params}',
+      // Get para consultar todos los estados de las ordenes
+      getIdOrders: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/statusorders',
       // Ruta basica para puertos
-      managePort : 'https://orba3qnrte.execute-api.us-east-1.amazonaws.com/dispatchport',
+      managePort: 'https://orba3qnrte.execute-api.us-east-1.amazonaws.com/dispatchport',
+      // Desactivar masiva de Ofertas
+      patchDesactiveOffer: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/disableoffersbyseller',
       // Exportar reclamaciones
-      exportReclaim : 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/downloadreport',
-      // Listado de resumen de facturacion
+      exportReclaim: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/downloadreport',
+      // Exportar reclamaciones
+      exportProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/report',
+      //
       getListAllSummaryBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/summary'
     },
   },
@@ -221,6 +228,7 @@ export const endpoints = {
       acceptOrDeniedDevolution: 'https://geddaxinw4.execute-api.us-east-1.amazonaws.com/refuseoracceptdevolution-pdn', // TODO: Faltante en api end points
       recordProcesSedOrder: 'https://cfa1kdi5yj.execute-api.us-east-1.amazonaws.com/recordproccessedorder-pdn',
       getallordersbysellerwithouttracking: 'https://e06ayaf6s9.execute-api.us-east-1.amazonaws.com/getallordersbysellerwithouttracking-pdn{stringParam}',
+      validateStatusLoadGuide: 'https://vaf1d3c2ic.execute-api.us-east-1.amazonaws.com/sendallguides-pdn/status',
       // Billing Mock
       getBilling: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn{stringParams}',
       exportBillingPays: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn',
@@ -306,9 +314,9 @@ export const endpoints = {
       getRegexBasic: 'https://wpamkgir31.execute-api.us-east-1.amazonaws.com/regex-pdn/{params}',
       // Post Guardar informacion creacion unitaria de producto
       postSaveInformationUnitCreation: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn',
-       //
-       postUnitSaveInformationUnitCreation: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/unitproduct',
-       patchUnitSaveInformationUnitCreation: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/unitproduct',
+      //
+      postUnitSaveInformationUnitCreation: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/unitproduct',
+      patchUnitSaveInformationUnitCreation: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/unitproduct',
       // Download billing.
       exportBilling: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn',
       // Billing orders visualize.
@@ -322,7 +330,7 @@ export const endpoints = {
       // Actualizar contrato del vendedor
       updateTermsSeller: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/AcceptContract',
       // ACTUALIZAR CON EL DE PRODUCCION
-      registersContract : 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/Register/RegisterContract',
+      registersContract : 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/RegisterContract',
       // Obtener si el vendedor ya acepto los terminos
       getValidationTerms: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/ValidateContract',
       // Obtener los datos del vendedor
@@ -391,16 +399,22 @@ export const endpoints = {
       upsertQualification: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller',
       // consultar las ordenes por tipo de filtros
       ordersSummaryStatus: 'https://2l1pous4cl.execute-api.us-east-1.amazonaws.com/OrdersSummaryStatus-pdn/{params}',
-       // Descargar rotulos
-       getDownlaodLabel: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/orders/{params}/sticker',
+      // Descargar rotulos
+      getDownlaodLabel: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/orders/{params}/sticker',
       // Obtener puertos por país
       getPortsByCountryName: 'https://kouotxul6i.execute-api.us-east-1.amazonaws.com/dispatchport-pdn/GetDispatchPortsByCountryName/{params}',
+      // Get para consultar todos los estados de las ordenes
+      getIdOrders: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/statusorders',
       // Ruta basica para puertos
-      managePort : 'https://kouotxul6i.execute-api.us-east-1.amazonaws.com/dispatchport-pdn',
+      managePort: 'https://kouotxul6i.execute-api.us-east-1.amazonaws.com/dispatchport-pdn',
+      // Desactivar masiva de Ofertas
+      patchDesactiveOffer: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/disableoffersbyseller',
       // Exportar reclamaciones
-      exportReclaim : 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/downloadreport',
+      exportReclaim: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/downloadreport',
       // Listado de resumen de facturacion
-       getListAllSummaryBilling: ''
+       getListAllSummaryBilling: '',
+       //
+      exportProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/report',
     }
   }
 };

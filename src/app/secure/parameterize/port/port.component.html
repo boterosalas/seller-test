@@ -5,7 +5,7 @@
       <app-toolbar-search-pagination [isClear]="isClear" [informationToForm]="informationToForm" [state]="lastState"
         #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (paginationListOrdens)="paginations($event)"
         (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [Typeprofile]="3" [lengthOrder]="length"
-        [orderListLength]="true" (filterCalifications)="toggleFilterPorts()">
+        [orderListLength]="true" [limitPaginate]="[50, 100, 150]" (filterCalifications)="toggleFilterPorts()">
       </app-toolbar-search-pagination>
     </div>
 

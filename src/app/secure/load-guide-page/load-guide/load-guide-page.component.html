@@ -47,8 +47,8 @@
                 mat-menu-item>
                 <span>{{'secure.products.bulk_upload.upload_file' | translate}}</span>
               </button>
-              <a *ngIf="getFunctionality(download)" download id="download-file-guide-button"
-                href="assets/format_guide/Format_Guide.xlsx" mat-menu-item>
+              <a (click)="openModalDownloadFormat()" download id="download-file-guide-button"
+                 mat-menu-item>
                 {{'secure.products.bulk_upload.download_format' | translate}}</a>
               <button *ngIf="fileName != ''" (click)="resetVariableUploadFile()" id="download-order-button"
                 mat-menu-item>

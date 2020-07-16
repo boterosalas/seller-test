@@ -274,6 +274,7 @@
     "core.shell.search_order_menu.search_billing_form.invoice_number": "Invoice number",
 
     "core.shell.search_order_menu.search_envios_exito_form.filter_channel": "Filter by channel",
+    "core.shell.search_order_menu.search_envios_exito_form.filter_status": "Filter by status",
     "core.shell.search_order_menu.search_envios_exito_form.none": "None",
     "core.shell.search_order_menu.search_envios_exito_form.exito": "Éxito",
     "core.shell.search_order_menu.search_envios_exito_form.carulla": "Carulla",
@@ -430,9 +431,12 @@
     "secure.orders.download_order_modal.title_3": "invoices",
     "secure.orders.download_order_modal.title_4": "to the following e-mail address",
     "secure.orders.download_order_modal.btn_send_order": "Send orders",
+    "secure.orders.download_order_modal.btn_send_guide": "Send guides",
     "secure.orders.download_order_modal.btn_send_invoice": "Send invoices",
     "secure.orders.download_order_modal.sn_download_order": "The orders have been downloaded correctly, check your inbox.",
+    "secure.orders.download_order_modal.sn_download_guide": "The guides have been downloaded correctly, check your inbox.",
     "secure.orders.download_order_modal.sn_error_download": "An error has occurred when downloading the orders.",
+    "secure.orders.download_order_modal.sn_error_download_guide": "An error has occurred when downloading the guides.",
 
     "secure.orders.order_list.detail_modal.order_date": "Order date",
     "secure.orders.order_list.detail_modal.deadline": "Maximum delivery date",
@@ -459,6 +463,7 @@
     "secure.orders.order_list.product_detail.cost": "Cost",
     "secure.orders.order_list.product_detail.freight": "Freight",
     "secure.orders.order_list.product_detail.guide": "Tracking number",
+    "secure.orders.order_list.product_detail.guides": "Tracking numbers",
 
     "secure.orders.order_list.product_order.conveyor": "Freight company",
     "secure.orders.order_list.product_order.delivery_type": "Delivery type",
@@ -714,6 +719,16 @@
     "secure.offers.list.list.averageFreightCost": "Shipping Cost: ",
     "secure.offers.list.list.warranty": "Warranty: ",
     "secure.offers.list.list.currency": "Currency: ",
+    "secure.offers.list.list.desactive_offer": "Désactivation des offre(s)",
+    "secure.offers.list.list.selected_offer": "Sélectionnez les offres",
+    "secure.offers.list.list.all_offer": "Toutes les offres",
+    "secure.offers.list.list.confirm_desactive": "Confirmer la désactivation",
+    "secure.offers.list.list.select_me": "Pour sélectionner",
+    "secure.offers.list.list.desactive_OK": "Désactivation réussie des offres",
+    "secure.offers.list.list.desactive_KO": "Désactivation d'offres avec erreurs",
+    "secure.offers.list.list.desactive_in_progress": "Désactivation des offres en cours",
+    "secure.offers.list.list.modal_desactive_1": "Voulez-vous vraiment désactiver ",
+    "secure.offers.list.list.modal_desactive_2": "offre(s)",
 
     "secure.offers.list.components.detail_offer.return": "Back",
     "secure.offers.list.components.detail_offer.averageFreightCost": "Shipping Cost",
@@ -747,7 +762,7 @@
     "secure.offers.bulk_upload.bulk_upload.list_error_2": "has not been indexed yet, please try again later.",
 
     "secure.offers.bulk_upload.finish_upload_information.error_upload": "There have been",
-    "secure.offers.bulk_upload.finish_upload_information.error_upload_2": "event(s) when uploading the offer information.",
+    "secure.offers.bulk_upload.finish_upload_information.error_upload_2": "event(s) when uploading the information.",
 
     "secure.offers.bulk_upload.table_error.error_promise_delivery": "must have the following format (# to #), the numbers must be greater than 0.",
     "secure.offers.bulk_upload.table_error.error_currency": "must be either COP or USD.",
@@ -1046,6 +1061,9 @@
     "secure.products.create_product_unit.list_products.please_wait" : "Loading, wait please ...",
 
     "secure.products.list_products.modal.title": "This offer undergoes an extreme price change, do you wish to continue?",
+    "secure.products.list_products.download.title": "Nous vous enverrons le téléchargement du produit à l'adresse e-mail suivante.",
+    "secure.products.list_products.download.error": "Un problème est survenu lors du téléchargement des produits, veuillez réessayer.",
+    "secure.products.list_products.download.ok": "Se ha realizado la descarga del los productos correctamente, revisa tu correo electrónico",
 
     "secure.parametize.title_toolbar": "Configuration",
     "secure.parametize.brands.title_filter_brand": "Brand filter",
@@ -1075,6 +1093,7 @@
     "secure.parametize.dialog.modal_placeholder_add_category": "In order to add, it is necessary to clic the (+).",
     "secure.parametize.dialog.modal_placeholder_rd_add_all": "Add all",
     "secure.parametize.dialog.modal_subtitle_content": "Assigned categories",
+    "secure.parametize.dialog.category_invalid": "Catégorie invalide",
 
     "secure.parametize.commission.add": "Add tariffs exceptions",
     "secure.parametize.commission.delete": "Delete tariffs",
