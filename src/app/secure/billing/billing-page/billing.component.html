@@ -82,12 +82,12 @@
           </mat-cell>
         </ng-container>
 
-        <!-- paymentDate Column -->
+        <!-- transfer request date Column -->
         <ng-container matColumnDef="transferRequestDate">
           
           <mat-header-cell fxShow.xs="false" [ngClass]="isInternational ? 'showColumn' : 'hiddenColumn'" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px" fxFlex.md="15%"
             fxFlex.lg="15%" fxFlex.xs="50%" *matHeaderCellDef mat-sort-header>
-            <span class="title-table-header" style="text-align: left;">{{'secure.billing.transfer_request_date' | translate}} </span>
+            <span class="title-table-header text-aling-right" >{{'secure.billing.transfer_request_date' | translate}} </span>
           </mat-header-cell>
           <mat-cell fxShow.xs="false" [ngClass]="isInternational ? 'showColumn' : 'hiddenColumn'" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px" fxFlex.md="15%"
             fxFlex.lg="15%" fxFlex.xs="50%" *matCellDef="let element">
