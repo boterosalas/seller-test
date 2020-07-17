@@ -117,7 +117,12 @@
           <span class="title-summaroty">{{'secure.billing.summaryPayment.total_invoiced_value'| translate}}</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="end end" class="background-color-grey">
-          <span class="text-total-summatory">$ {{summaryTotal}}</span>
+          <span class="text-total-summatory" *ngIf="typeSeller === 'National'">
+            <p [innerHTML]="summaryTotal | currency: '$' : 'symbol' : '1.0'"> </p>
+          </span>
+          <span class="text-total-summatory" *ngIf="typeSeller === 'International'">
+            <p [innerHTML]="summaryTotal | currency: '$' : 'symbol' : '1.2-2'"> </p>
+          </span>
         </div>
       </div>
     </div>

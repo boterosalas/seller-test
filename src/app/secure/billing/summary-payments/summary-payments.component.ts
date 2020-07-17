@@ -39,6 +39,7 @@ export class SummaryPaymentsComponent implements OnInit {
   public callOne = true;
   public arrayPosition = [];
   public paginationToken = '{}';
+  public typeSeller = '';
 
   public displayedColumns = [
     'check',
@@ -109,6 +110,7 @@ export class SummaryPaymentsComponent implements OnInit {
   getAllSeller(params?: any) {
     this.loadingService.viewSpinner();
     let query = {};
+    this.summaryTotal = 0;
     if (params !== undefined) {
       query = {
         filterDate: params.filterDate,
@@ -140,7 +142,8 @@ export class SummaryPaymentsComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.resultModel.viewModel);
         if ( this.dataSource && this.dataSource.data && this.dataSource.data.length > 0) {
           this.dataSource.data.forEach(element => {
-            this.summaryTotal = this.summaryTotal + parseFloat(element.billingTotal);
+            this.summaryTotal = this.summaryTotal + element.billingTotalObject;
+            this.typeSeller = element.sellerType;
           });
         }
         if (this.arraySelect.length > 0 && this.dataSource.data.length > 0) {
@@ -233,6 +236,7 @@ filterListSummary(params: any) {
       idSeller: this.idSeller,
     };
     this.getAllSeller(params);
+    this.loadingService.viewSpinner();
   }
 /**
  * funcion para cambiar status de los checkBox
