@@ -146,6 +146,8 @@ export class PendingProductsComponent implements OnInit {
     // let dataToSend: any;
     if (params !== undefined) {
       console.log(2222);
+      // if (this.paginationToken === '{}') {
+      this.paginationToken = encodeURI(this.paginationToken);
       this.paramsArray = {
         'limit': this.pageSize + '&paginationToken=' + this.paginationToken,
         'idSeller': this.user.sellerId + '&ean=' + this.ean + '&name=' + this.nameProduct
@@ -169,9 +171,9 @@ export class PendingProductsComponent implements OnInit {
         }
         this.showProducts = true;
         this.productsList = res.viewModel;
-        this.length = res.count;
+        // this.length = res.count;
         this.paginationToken = res.paginationToken;
-       
+
         this.loadingService.closeSpinner();
       }
     });
@@ -186,7 +188,7 @@ export class PendingProductsComponent implements OnInit {
     if (event && event && event.pageIndex >= 0) {
       const index = event.pageIndex;
       if (index === 0) {
-        this.paginationToken = '{}';
+        this.paginationToken = encodeURI('{}');
       }
       const isExistInitial = this.arrayPosition.includes('{}');
       if (isExistInitial === false) {
@@ -198,7 +200,7 @@ export class PendingProductsComponent implements OnInit {
       }
       this.paginationToken = this.arrayPosition[index];
       if (this.paginationToken === undefined) {
-        this.paginationToken = '{}';
+        this.paginationToken = encodeURI('{}');
       }
       this.paramsArray = {
         'limit': this.pageSize + '&paginationToken=' + this.paginationToken,
