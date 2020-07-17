@@ -123,6 +123,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
   hasErrorDate: boolean;
   filterListCasesFilter: any;
   activeInit = false;
+  currentLanguage: string;
 
   idDetail: any;
 
@@ -173,14 +174,23 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
     // tslint:disable-next-line: deprecation
     this.store.select(reduxState => reduxState.notification.unreadCases)
       .subscribe(unreadCase => (this.unreadCase = unreadCase));
+      this.changeLanguage();
+  }
 
-    this.translateService.onLangChange.subscribe(e => {
-      setTimeout(() => {
-        this.paramsFilter = {};
-        this.loadCases([]);
-      }, 350);
+  changeLanguage() {
+    if (localStorage.getItem('culture_current') !== 'US') {
+      this.currentLanguage = 'ES';
+      localStorage.setItem('culture_current', 'ES');
+    } else {
+      this.currentLanguage = 'US';
+      localStorage.setItem('culture_current', 'US');
+    }
+    this.translateService.onLangChange.subscribe((e: Event) => {
+      localStorage.setItem('culture_current', e['lang']);
+      this.loadCases(this.paramsFilter);
     });
   }
+
 
   /**
    * Metodo para crear control del formulario del filtro.
