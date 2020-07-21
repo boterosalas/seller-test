@@ -53,18 +53,7 @@ export class SellerSupportCenterService {
   //   return this._http.get<UnreadCaseResponse>(URL);
   // }
 
-
-  getDetailTranslation(item: any): Observable<any> {
-    return new Observable(observer => {
-      observer.next(true);
-    });
-    // return new Observable(observer => {
-    //   this._http.post(this._api.get('getDetailTranslationReclaim'), item)
-    //     .subscribe((data: any) => {
-    //       observer.next(data);
-    //     }, err => {
-    //       observer.error(err);
-    //     });
-    // });
+  getDetailTranslation(params: any): Observable<any> {
+    return this._http.get(this._api.get('getDetailTranslationReclaim', ['234567890']));
   }
 }

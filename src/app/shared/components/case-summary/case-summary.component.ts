@@ -11,7 +11,12 @@ const productsConfig = require('./products-list-configuration.json');
   styleUrls: ['./case-summary.component.scss']
 })
 export class CaseSummaryComponent implements OnInit {
-  @Input() case: Case;
+  // @Input() case: Case;
+  case = [];
+  @Input() set _case(value: any) {
+    this.case = value;
+    console.log(value);
+  }
 
   @Input() disabled: false;
 

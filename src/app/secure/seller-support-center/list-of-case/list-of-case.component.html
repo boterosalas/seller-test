@@ -155,7 +155,7 @@
                 </span>
               </div>
               <div *ngIf="!item.statusLoad">
-                <app-case-summary (clickResponse)="onEmitResponse($event)" [case]="item" (idDetail)="redirectToDetailClaims($event)"
+                <app-case-summary (clickResponse)="onEmitResponse($event)" [_case]="item" (idDetail)="redirectToDetailClaims($event)"
                 [disabledClass]="item.status === 'Cerrado'" [indexParent]="i"></app-case-summary>
               </div>
             </ng-container>

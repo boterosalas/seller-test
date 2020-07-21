@@ -83,6 +83,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
   isAdmin: Boolean = false;
   email: string;
   sellerId: any;
+  translate: any;
 
   sellerIdLogger: any;
 
@@ -553,6 +554,9 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
     item.statusLoad = true;
     this.sellerSupportService.getDetailTranslation(item).subscribe(
       res => {
+        console.log(res);
+        item.description = res.data.description;
+        item.followLast = res.data.followLast;
         item.statusLoad = false;
       });
   }
