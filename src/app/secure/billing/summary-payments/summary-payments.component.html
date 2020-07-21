@@ -8,12 +8,12 @@
       </app-toolbar-search-pagination>
     </div>
 
-    <div class="container-port-main" *ngIf="resultModel && resultModel.count > 0">
+    <div class="container-port-main" >
       <div fxLayout="column" class="container-width-100">
         <div fxLayout="row">
           <div class="summary-component-button-add">
             <div id="addButton" class="container-group-add-button">
-              <button mat-button (click)="sendDetailSummary()" class="summary-component-text-btn-show-details">
+              <button mat-button (click)="sendDetailSummary()" [disabled]="arraySelect.length === 0" class="summary-component-text-btn-show-details">
                 {{'secure.billing.summaryPayment.text_btn_details' | translate}}
               </button>
             </div>
@@ -23,7 +23,7 @@
     </div>
   
     <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="97" fxFlex.lg="97" fxFlex.xl="97"
-      class="generic-component-content-table-center-collection" *ngIf="resultModel && resultModel.count > 0">
+      class="generic-component-content-table-center-collection" >
       <mat-table #table [dataSource]="dataSource" matSort>
 
         <ng-container matColumnDef="check">
