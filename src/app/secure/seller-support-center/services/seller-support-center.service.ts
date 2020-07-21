@@ -53,7 +53,7 @@ export class SellerSupportCenterService {
   //   return this._http.get<UnreadCaseResponse>(URL);
   // }
 
-  getDetailTranslation(params: any): Observable<any> {
-    return this._http.get(this._api.get('getDetailTranslationReclaim', ['234567890']));
+  getDetailTranslation(caseId: any): Observable<any> {
+    return this._http.get(this._api.get('getDetailTranslationReclaim', [caseId]));
   }
 }

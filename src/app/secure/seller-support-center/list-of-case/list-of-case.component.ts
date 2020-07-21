@@ -552,7 +552,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
 
   loadDataDetails(item: any) {
     item.statusLoad = true;
-    this.sellerSupportService.getDetailTranslation(item).subscribe(
+    this.sellerSupportService.getDetailTranslation(item.caseId).subscribe(
       res => {
         console.log(res);
         item.description = res.data.description;
