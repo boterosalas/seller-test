@@ -323,7 +323,7 @@ export class PendingProductsComponent implements OnInit {
       'limit': this.pageSize2 + '&paginationToken=' + encodeURI('{}'),
       'idSeller': this.user.sellerId + '&ean=' + null + '&name=' + null
     };
-    this.getPendingProductsValidation(this.paramsArray);
+    this.getPendingProductsValidation(this.paramsArray2);
   }
 
   /**
@@ -431,8 +431,8 @@ export class PendingProductsComponent implements OnInit {
     this.eanList2 = this.filterProdutsValidation.controls.ean2.value || null;
 
     // const data = [];
-    this.dataChips2.push({ value: this.nameProductList2, name: 'nameProductList', nameFilter: 'productName' });
-    this.dataChips2.push({ value: this.eanList2, name: 'eanList', nameFilter: 'ean' });
+    this.dataChips2.push({ value: this.nameProductList2, name: 'nameProductList2', nameFilter: 'productName2' });
+    this.dataChips2.push({ value: this.eanList2, name: 'eanList2', nameFilter: 'ean2' });
     this.add2(this.dataChips2);
   }
 
@@ -451,12 +451,15 @@ export class PendingProductsComponent implements OnInit {
   public removeValidation(productsFilterValidation: ListFilterProductsModify): void {
     console.log('productsFilterValidation: ', productsFilterValidation);
     const index = this.listFilterProductsValidation.indexOf(productsFilterValidation);
+    console.log('index: ', index);
 
     if (index >= 0) {
+      console.log('entró');
       this.listFilterProductsValidation.splice(index, 1);
       this[productsFilterValidation.value] = '';
-      this.filterProdutsPending.controls[productsFilterValidation.nameFilter].setValue(null);
+      this.filterProdutsValidation.controls[productsFilterValidation.nameFilter].setValue(null);
     }
+    console.log(this.filterProdutsValidation);
     this.filterApply2();
   }
 
@@ -483,7 +486,7 @@ export class PendingProductsComponent implements OnInit {
 
       }
     });
-    this.dataChips = [];
+    this.dataChips2 = [];
   }
 
   // public changePaginatorProducts(param: any): any {
