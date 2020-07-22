@@ -59,7 +59,7 @@ export class RoutesConst {
     static readonly reportOffertAdmin: any = 'category-tree';
     static readonly listCalification: any = 'quality-score';
     static readonly port: any = 'port';
-    static readonly pendingProducts: any = 'productoss-pendientes';
+    static readonly pendingProducts: any = 'productos-pendientes';
 
 
     /* Support Center */

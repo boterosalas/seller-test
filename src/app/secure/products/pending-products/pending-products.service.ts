@@ -32,27 +32,6 @@ export class PendingProductsService {
    */
   getPendingProductsModify(params: any): Observable<[{}]> {
     const filter = '';
-    // if (params) {
-    //   if ( params.dateOrderInitial && params.dateOrderInitial !== '') {
-    //     filter += `&dateOrderInitial=${params.dateOrderInitial}`;
-    //   }
-    //   if (params.dateOrderFinal && params.dateOrderFinal !== '') {
-    //     filter += `&dateOrderFinal=${params.dateOrderFinal}`;
-    //   }
-    //   if (params.idChannel && params.idChannel !== '') {
-    //     filter += `&idChannel=${params.idChannel}`;
-    //   }
-
-    //   if (params.orderNumber && params.orderNumber !== '') {
-    //     filter += `&orderNumber=${params.orderNumber}`;
-    //   }
-    //   if (params.identificationCard && params.identificationCard !== '') {
-    //     filter += `&identificationCard=${params.identificationCard}`;
-    //   }
-    //   if (params.processedOrder && params.processedOrder !== '') {
-    //     filter += `&processedOrder=${params.processedOrder}`;
-    //   }
-    // }
     return new Observable(observer => {
       this.http.get<Order[]>(this.api.get('getProductsPendingModify', [params.idSeller, params.limit + filter ])).subscribe((data: any) => {
         observer.next(data);
@@ -63,7 +42,24 @@ export class PendingProductsService {
   }
 
   /**
-   * Obtener información al detalle del producto por EAN
+   * Método para realiar la consulta de los productos pendientes por validación.
+   * @param {*} params
+   * @returns {Observable<[{}]>}
+   * @memberof PendingProductsService
+   */
+  getPendingProductsValidation(params: any): Observable<[{}]> {
+    const filter = '';
+    return new Observable(observer => {
+      this.http.get<Order[]>(this.api.get('getProductsPendingValidation', [params.idSeller, params.limit + filter ])).subscribe((data: any) => {
+        observer.next(data);
+      }, err => {
+        observer.error(err);
+      });
+    });
+  }
+
+  /**
+   * Obtener información al detalle del producto por EAN productos en modificacion
    * @param {*} params
    * @returns {Observable<[{}]>}
    * @memberof PendingProductsService
@@ -71,6 +67,17 @@ export class PendingProductsService {
   getEANProductsModify(params?: any): Observable<{}> {
     // return this.http.get(this.api.get('getProductList', [params]));
     return this.http.get(this.api.get('getEANPendingModify', [params]));
+  }
+
+  /**
+   * Obtener información al detalle del producto por EAN para productos en validación
+   * @param {*} [params]
+   * @returns {Observable<{}>}
+   * @memberof PendingProductsService
+   */
+  getEANProductsValidation(params?: any): Observable<{}> {
+    // return this.http.get(this.api.get('getProductList', [params]));
+    return this.http.get(this.api.get('getEANPendingValidation', [params]));
   }
 
 }
