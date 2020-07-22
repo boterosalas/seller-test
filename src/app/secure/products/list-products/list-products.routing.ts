@@ -4,12 +4,13 @@ import { Route } from '@app/core';
 import { RoutesConst } from './../../../shared';
 import { ListProductsComponent } from './list-products.component';
 import { AuthService } from '@app/secure/auth/auth.routing';
+import { TabProductComponent } from './tab-product/tab-product.component';
 
 const routes: Routes = [
   Route.withShell([
     {
       path: `${RoutesConst.sellerCenterIntListProducts}`,
-      component: ListProductsComponent,
+      component: TabProductComponent,
       data: { title: 'Listado de productos' },
       // canActivate: [TermsService]
       canActivate: [AuthService]
