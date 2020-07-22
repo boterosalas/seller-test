@@ -53,6 +53,7 @@ export class ListProductsComponent implements OnInit {
     productsList: any = [];
     public filterProduts: FormGroup;
     public filterCategory: FormGroup;
+    public myProduct = false;
 
     public matcher: MyErrorStateMatcher;
     public paramsData: ModelFilterProducts;
@@ -538,7 +539,7 @@ export class ListProductsComponent implements OnInit {
             this.finalDateList = null;
         }
         if (countFilter) {
-            urlParams2 = `${this.initialDateList}/${this.finalDateList}/${this.eanList}/${this.nameProductList}/${this.creationDateList}/${page}/${limit}/${this.pluVtexList}/${this.categoryList}`;
+            urlParams2 = `?&initialDate=${this.initialDateList}&finalDate=${this.finalDateList}&ean=${this.eanList}&productName=${this.nameProductList}&creationDate=${this.creationDateList}&page=${page}&limit=${limit}&pluVtex=${this.pluVtexList}&categories=${this.categoryList}&myProducts=${this.myProduct}`;
         }
         this.loadingService.viewSpinner(); // Mostrar el spinner
         if (params && !fecha) {
