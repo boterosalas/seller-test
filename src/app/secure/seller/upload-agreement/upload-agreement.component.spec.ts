@@ -43,6 +43,31 @@
 // }
 
 
+
+
+
+// const params = {
+//     body: JSON.stringify(
+//         { 'ViewModel':
+//                         [
+//                             {
+//                                 'Id': 11896,
+//                                 'IdSeller': 11896,
+//                                 'Name': 'intymen',
+//                                 'Nit': '9003615455',
+//                                 'State': '',
+//                                 'City': '',
+//                                 'Status': 0
+//                             }
+//                         ],
+//         'Count': 1
+//     }),
+//     headers: null,
+//     isBase64Encoded: false,
+//     statusCode: 200
+// };
+
+
 // describe('UploadAgreementComponent', () => {
 //     const registerMenu = {
 //         Functionalities: [{
@@ -99,8 +124,8 @@
 //                 SharedModule
 //             ],
 //             declarations: [
-//               UploadAgreementComponent,
-//               ModalLoadAgreementComponent
+//                 UploadAgreementComponent,
+//                 ModalLoadAgreementComponent
 //             ],
 //             providers: [
 //                 { provide: SellerService, useValue: mockUploadService },
@@ -140,7 +165,7 @@
 //         dialogFixture = TestBed.createComponent(ModalLoadAgreementComponent);
 //         dialogComponent = dialogFixture.componentInstance;
 //         mockSupportService.getRegexFormSupport.and.returnValue(of(registerRegex));
-//         mockUploadService.getAllSellersPaginated.and.returnValue(of(response));
+//         mockUploadService.getAllSellersPaginated.and.returnValue(of(params));
 //         fixture.detectChanges();
 //     }));
 

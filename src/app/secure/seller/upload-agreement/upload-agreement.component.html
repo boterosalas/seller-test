@@ -6,6 +6,7 @@
       <app-toolbar-search-pagination 
         [informationToForm]="informationToForm" [state]="null"
         #toolbarOptions
+        [loadSeller]="false"
         (paginationListOrdens)="paginations($event)"
         [Typeprofile]="null" [lengthOrder]="length"
         (filterCalifications)="toggleFilterPorts()">
@@ -65,9 +66,8 @@
             fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10"
             fxFlex.xs="30" fxFlex.xl=""
             *matCellDef="let row">
-            <mat-checkbox (click)="$event.stopPropagation()"
-              (change)="$event ? selection.toggle(row) : null;changeStatus(row,
-              $event.checked)"
+            <mat-checkbox  [disabled]="disabledBtn" (click)="$event.stopPropagation()"
+              (change)="changeStatus(row,$event.checked)"
               [checked]="selection.isSelected(row)">
             </mat-checkbox>
           </mat-cell>

@@ -18,6 +18,7 @@
 //     TestBed.configureTestingModule({
 //       imports: [
 //         CaseFilterModuleTest,
+//         RouterTestingModule,
 //         TranslateModule.forRoot({}),
 //       ],
 //       providers: []
