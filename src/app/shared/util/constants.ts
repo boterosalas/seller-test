@@ -123,12 +123,18 @@ export class Const {
   static readonly OrderAsignado = 35;
   static readonly OrderEntregado = 60;
   static readonly OrderEnProcesoDeEnvio = 170;
+  static readonly OrderCancelado = 80;
+  static readonly OrderPagadoCanceldo = 120;
+  // static readonly OrderCancelado = 50;
+  static readonly OrderDevolucionPendienteValidacion = 73;
 
   static readonly NameOrderAsignado = 'Asignado';
   static readonly NameOrderEntregado = 'Entregado';
   static readonly NameOrderEnProcesoDeEnvio = 'EnProcesoDeEnvio';
   static readonly NameOrderEnFacturadoEnviado = 'FacturadoEnviado';
-
+  static readonly NameOrderCancelado = 'Cancelado';
+  static readonly NameOrderPagadoCanceldo = 'PagadoCancelado';
+  static readonly NameOrderDevolucionPendienteValidacion = 'DevolucionPendienteValidacion';
 
   /**
    * Estados para las órdenes y los productos en la app
@@ -140,6 +146,9 @@ export class Const {
   static readonly AppOrderEnviado = 'En envío';
   static readonly AppOrderAsignado = 'Asignado';
   static readonly AppOrderEntregado = 'Entregado';
+  static readonly AppOrderCancelado = 'Cancelado';
+  static readonly AppOrderPagadoCanceldo  = 'Pagado Cancelado';
+  static readonly AppOrderDevolucionPendienteValidacion  = 'Devolución Pendiente Validación';
   static readonly AppOrderFacturadoEnviado = 'Facturado Enviado';
 
   // Constantes para los estados de las solicitudes de devolución

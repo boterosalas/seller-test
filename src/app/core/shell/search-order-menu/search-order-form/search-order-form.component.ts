@@ -30,8 +30,28 @@ export class SearchOrderFormComponent implements OnInit {
 
   @Input() idSeller: number;
   @Input() typeProfiel: number;
-  @Input() state: number;
-  @Input() paginator: number;
+  showFilterStatus = false;
+   _state: number;
+  @Input() set state(value: number) {
+    if (value) {
+      if (value.toString() === '170') {
+        this.showFilterStatus = false;
+      } else if (value.toString() === '35') {
+        this.showFilterStatus = false;
+      } else {
+        this.showFilterStatus = true ;
+      }
+      this._state = value;
+    } else {
+      this.showFilterStatus = true ;
+      this._state = value;
+    }
+  }
+  @Input() paginator= 100;
+
+  // Variable para guardar los estados de las ordenes.
+  public listOrderStatus: any[];
+
 
   /**
    * Creates an instance of SearchOrderFormComponent.
@@ -62,6 +82,7 @@ export class SearchOrderFormComponent implements OnInit {
     // Obtengo la información del usuario
     this.getDataUser();
     this.createForm();
+    this.getOrdersStatus();
   }
 
   async getDataUser() {
@@ -80,7 +101,7 @@ export class SearchOrderFormComponent implements OnInit {
       'identificationCard': [null, Validators.compose([])],
       // 'typeOrder': [null, Validators.compose([])],
       'idChannel': [null, Validators.compose([])],
-      'idStatus': [null, Validators.compose([])],
+      'idStatusOrder': [null, Validators.compose([])],
       'orderNumber': [null, Validators.compose([Validators.minLength(1), Validators.maxLength(30)])],
     });
   }
@@ -113,13 +134,30 @@ export class SearchOrderFormComponent implements OnInit {
   }
 
   /**
+   * Metodo para consultar todos los estados de las ordenes.
+   * @memberof SearchOrderFormComponent
+   */
+  getOrdersStatus() {
+    this.loadingService.viewSpinner();
+    this.searchOrderMenuService.getIdOrders().subscribe((res: any) => {
+      if (res && res.status === 200 || res.status === 201) {
+        this.listOrderStatus = res.body.data;
+      } else {
+        this.componentsService.openSnackBar(this.languageService.instant('public.auth.forgot.error_try_again'), this.languageService.instant('actions.close'), 3000);
+      }
+      this.loadingService.closeSpinner();
+    }, err => {
+      this.componentsService.openSnackBar(this.languageService.instant('errors.error_check_orders'), this.languageService.instant('actions.close'), 3000);
+    });
+  }
+
+  /**
    * Método para filtrar las órdenes
    * @param {any} data
    * @memberof SearchOrderFormComponent
    */
   filterOrder(data: any) {
     // Obtengo la información del usuario
-    // this.user = this.userService.getUser();
     const datePipe = new DatePipe(this.locale);
     this.loadingService.viewSpinner();
     // aplico el formato para la fecha a emplear en la consulta
@@ -141,9 +179,9 @@ export class SearchOrderFormComponent implements OnInit {
       stringSearch += `&idChannel=${data.value.idChannel}`;
       objectSearch.idChannel = data.value.idChannel;
     }
-    if (data.value.idStatus !== null && data.value.idStatus !== '') {
-      stringSearch += `&idStatus=${data.value.idStatus}`;
-      objectSearch.idStatus = data.value.idStatus;
+    if (data.value.idStatusOrder !== null && data.value.idStatusOrder !== '') {
+      stringSearch += `&idStatusOrder=${data.value.idStatusOrder}`;
+      objectSearch.idStatusOrder = data.value.idStatusOrder;
     }
     if (data.value.orderNumber !== null && data.value.orderNumber !== '') {
       stringSearch += `&orderNumber=${data.value.orderNumber}`;
@@ -162,25 +200,25 @@ export class SearchOrderFormComponent implements OnInit {
     if (stringSearch !== '') {
       let status = '';
       stringSearch += '&paginationToken=' + encodeURI('{}');
-      if (this.state && this.state !== undefined) {
-        status = '&idStatus=' + this.state;
+      if (this._state && this._state !== undefined) {
+        status = '&idStatus=' + this._state;
       }
       stringSearch += status;
       // Guardo el filtro aplicado por el usuario.
       this.searchOrderMenuService.setCurrentFilterOrders(objectSearch);
       // obtengo las órdenes con el filtro indicado
-      this.searchOrderMenuService.getOrdersFilter(100, stringSearch, this.idSeller).subscribe((res: any) => {
+      this.searchOrderMenuService.getOrdersFilter(this.paginator, stringSearch, this.idSeller).subscribe((res: any) => {
         if (res != null) {
           // indico a los elementos que esten suscriptos al evento.
           res.filter = {
-            dateOrderFinal : dateOrderFinal,
+            dateOrderFinal: dateOrderFinal,
             dateOrderInitial: dateOrderInitial,
             idChannel: data.value.idChannel,
-            idStatus: data.value.idStatus,
+            idStatusOrder: data.value.idStatusOrder,
             orderNumber: data.value.orderNumber,
             identificationCard: data.value.identificationCard,
             processedOrder: data.value.processedOrder
-           };
+          };
           this.shellComponent.eventEmitterOrders.filterOrderListResponse(res);
           this.toggleMenu();
           this.loadingService.closeSpinner();

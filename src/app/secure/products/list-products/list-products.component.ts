@@ -53,6 +53,7 @@ export class ListProductsComponent implements OnInit {
     productsList: any = [];
     public filterProduts: FormGroup;
     public filterCategory: FormGroup;
+    public myProduct = false;
 
     public matcher: MyErrorStateMatcher;
     public paramsData: ModelFilterProducts;
@@ -109,6 +110,7 @@ export class ListProductsComponent implements OnInit {
 
     isAdmin = false;
     dataChips: Array<any> = [];
+    invalidCategory: Boolean = false;
 
     constructor(
         private languageService: TranslateService,
@@ -174,7 +176,9 @@ export class ListProductsComponent implements OnInit {
         if (word) {
             word = word.trim();
             if (word.search(',') === -1) {
-                this.keywords.push(word);
+                if (this.invalidCategory === false) {
+                    this.keywords.push(word);
+                }
             } else {
                 const counter = word.split(',');
                 counter.forEach(element => {
@@ -301,8 +305,10 @@ export class ListProductsComponent implements OnInit {
                 const exist = this.listCategories2.find(category => category.Name === val);
                 if (!exist) {
                     this.filterProduts.get('category').setErrors({ pattern: true });
+                    this.invalidCategory = true;
                 } else {
                     this.filterProduts.get('category').setErrors(null);
+                    this.invalidCategory = false;
                 }
             } else if (!val) {
                 this.listCategories2 = [];
@@ -534,7 +540,7 @@ export class ListProductsComponent implements OnInit {
             this.finalDateList = null;
         }
         if (countFilter) {
-            urlParams2 = `${this.initialDateList}/${this.finalDateList}/${this.eanList}/${this.nameProductList}/${this.creationDateList}/${page}/${limit}/${this.pluVtexList}/${this.categoryList}`;
+            urlParams2 = `?&initialDate=${this.initialDateList}&finalDate=${this.finalDateList}&ean=${this.eanList}&productName=${this.nameProductList}&creationDate=${this.creationDateList}&page=${page}&limit=${limit}&pluVtex=${this.pluVtexList}&categories=${this.categoryList}&myProducts=${this.myProduct}`;
         }
         this.loadingService.viewSpinner(); // Mostrar el spinner
         if (params && !fecha) {

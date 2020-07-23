@@ -394,14 +394,19 @@ const ProductsModule = new ModuleModel(productsModule, showAll, productsModule.t
  * Para incluir un menu en el modulo de facturación o funcionalidad en algun menu ya creado. por favor actualizar este objeto la version y fechas.
  *
  * Modulo de facturación que posee menus:
- * 1. Pagos.
+ * 1. Detalle de Pagos.
+ * 2. Resumen de Pagos.
  */
-export const billingModule = 'FACTURACIÓN', paidName = 'Pagos';
+export const billingModule = 'FACTURACIÓN', paidName = 'Detalle de Pagos', paymentSummary = 'Resumen de Pagos';
 const BillingModule = new ModuleModel(billingModule, showAll, billingModule.toLowerCase(), [
-    // 1. Pagos.
+    // 1. Detalle de Pagos.
     new MenuModel(paidName, showAll, paidName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality)
-    ], RoutesConst.sellerCenterIntBillingPayments)
+    ], RoutesConst.sellerCenterIntBillingPayments),
+    // 2. Resumen de Pagos
+    new MenuModel(paymentSummary, showAll, paymentSummary.toLowerCase(), ProfileTypes.Vendedor, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality)
+    ], RoutesConst.sellerCenterIntPaymentSummary)
 ]);
 
 /**

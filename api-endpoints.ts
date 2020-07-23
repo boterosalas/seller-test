@@ -197,6 +197,8 @@ export const endpoints = {
       getDownlaodLabel: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/orders/{params}/sticker',
       // Obtener puertos por país
       getPortsByCountryName: 'https://orba3qnrte.execute-api.us-east-1.amazonaws.com/dispatchport/GetDispatchPortsByCountryName/{params}',
+      // Get para consultar todos los estados de las ordenes
+      getIdOrders: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/statusorders',
       // Ruta basica para puertos
       managePort: 'https://orba3qnrte.execute-api.us-east-1.amazonaws.com/dispatchport',
       // Desactivar masiva de Ofertas
@@ -213,6 +215,8 @@ export const endpoints = {
       getEANPendingValidation: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productswaiting/{params}',
       // Exportar productos
       exportProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/report',
+      // Listado de resumen de facturacion
+      getListAllSummaryBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/summary'
     },
   },
   // Endpoints production
@@ -334,7 +338,7 @@ export const endpoints = {
       // Actualizar contrato del vendedor
       updateTermsSeller: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/AcceptContract',
       // ACTUALIZAR CON EL DE PRODUCCION
-      registersContract: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/Register/RegisterContract',
+      registersContract : 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/RegisterContract',
       // Obtener si el vendedor ya acepto los terminos
       getValidationTerms: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/ValidateContract',
       // Obtener los datos del vendedor
@@ -407,6 +411,8 @@ export const endpoints = {
       getDownlaodLabel: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/orders/{params}/sticker',
       // Obtener puertos por país
       getPortsByCountryName: 'https://kouotxul6i.execute-api.us-east-1.amazonaws.com/dispatchport-pdn/GetDispatchPortsByCountryName/{params}',
+      // Get para consultar todos los estados de las ordenes
+      getIdOrders: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/statusorders',
       // Ruta basica para puertos
       managePort: 'https://kouotxul6i.execute-api.us-east-1.amazonaws.com/dispatchport-pdn',
       // Desactivar masiva de Ofertas
@@ -421,6 +427,8 @@ export const endpoints = {
       getEANPendingValidation: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productswaiting/{params}',
       // Exportar productos
       exportProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/report',
+      // Listado de resumen de facturacion
+      getListAllSummaryBilling: '',
     }
   }
 };

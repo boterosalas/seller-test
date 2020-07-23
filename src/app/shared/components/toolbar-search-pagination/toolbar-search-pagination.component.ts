@@ -101,6 +101,8 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   // Limite de registros
   // lengthOrder = 100;
   @Input() lengthOrder: number;
+  // tamaño del limite de busqueda, ej. 50, 100, 200
+  @Input() limitSizeList: number;
   // Numero de paginas por defecto
   pageSizeOrder: number;
 
@@ -147,7 +149,7 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
    * @memberof ToolbarOptionsComponent
    */
   toggleMenuOrderSearch() {
-    this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this.idSeller, this._Typeprofile, this.state);
+    this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this.idSeller, this._Typeprofile, this.state, this.limitSizeList);
   }
   toggleMenuCalifications() {
     this.filterCalifications.emit();
