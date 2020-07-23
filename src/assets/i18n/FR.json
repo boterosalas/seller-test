@@ -1051,7 +1051,8 @@
     "secure.products.list_products.modal.title": "This offer undergoes an extreme price change, do you wish to continue?",
     "secure.products.list_products.download.title": "Nous vous enverrons le téléchargement du produit à l'adresse e-mail suivante.",
     "secure.products.list_products.download.error": "Un problème est survenu lors du téléchargement des produits, veuillez réessayer.",
-    "secure.products.list_products.download.ok": "Se ha realizado la descarga del los productos correctamente, revisa tu correo electrónico",
+    "secure.products.list_products.download.ok": "Les produits ont été téléchargés, vérifiez votre email",
+    "secure.products.list_products.download.tooltip_category": "Ajouter une catégorie",
 
     "secure.parametize.title_toolbar": "Configuration",
     "secure.parametize.brands.title_filter_brand": "Brand filter",
