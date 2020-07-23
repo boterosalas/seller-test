@@ -1,5 +1,5 @@
 <mat-drawer-container style="height: 80%;" class="drawer-container" [hasBackdrop]="true">
-  <mat-drawer #drawer [mode]="'over'" [position]="'end'" class="example-sidenav" [disableClose]="true">
+  <mat-drawer  #drawer [mode]="'over'" [position]="'end'" class="example-sidenav" [disableClose]="false">
     <form class="basic-info" #createfilterProduts="ngForm" [formGroup]="filterProduts" class="seller-filter-sidenav"
       *ngIf="filterProduts">
       <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -109,7 +109,7 @@
   </mat-drawer>
 
   <div class="height-full">
-    <mat-toolbar class="tree-toolbar">
+    <mat-toolbar id="matToolbar" class="tree-toolbar">
       <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
         <!--  Titulo del toolbar -->
         <p class="seller-list-title" fxShow [fxShow.xs]="false">
@@ -132,7 +132,7 @@
         <small>{{'permissions.Descargar' | translate}}</small>
       </button>
       <!--  Filtro -->
-      <button type="button" mat-button (click)="drawer.toggle()">
+      <button type="button" mat-button (click)="toggle(showFilter)">
         <mat-icon>filter_list</mat-icon>
         <small class="sub-title-filter">{{'filters.filter' | translate}}</small>
       </button>

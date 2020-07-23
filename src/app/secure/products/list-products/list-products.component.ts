@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { Logger } from '@app/core/util/logger.service';
 import { LoadingService, ModalService, UserParametersService } from '@app/core';
 import { ListProductService } from './list-products.service';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators } from '@angular/forms';
-import { ErrorStateMatcher, PageEvent, MatPaginatorIntl, MatSnackBar, MatPaginator, MatDialog } from '@angular/material';
+import { ErrorStateMatcher, PageEvent, MatPaginatorIntl, MatSnackBar, MatPaginator, MatDialog, MatSidenav, MatToolbar } from '@angular/material';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { ModelFilterProducts } from './listFilter/filter-products.model';
 import { Observable } from 'rxjs';
@@ -48,7 +48,7 @@ const log = new Logger('ListProductsComponent');
     ],
 })
 
-export class ListProductsComponent implements OnInit {
+export class ListProductsComponent implements OnInit, AfterViewInit {
     value = '';
     productsList: any = [];
     public filterProduts: FormGroup;
@@ -76,6 +76,7 @@ export class ListProductsComponent implements OnInit {
     fechaInicialVariable = false;
     fechaFinalVariable = false;
     categoryVariable = false;
+    showFilter = true;
 
     visible = true;
     selectable = true;
@@ -98,6 +99,7 @@ export class ListProductsComponent implements OnInit {
     editPermission = false;
     permissionComponent: MenuModel;
     @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild('drawer') drawer: MatSidenav;
     listCategories: any;
     categoryInfo: any;
 
@@ -131,6 +133,19 @@ export class ListProductsComponent implements OnInit {
         this.getDataUser();
         this.validateFormSupport();
         this.refreshCategoryTree();
+        this.closedDraw ();
+    }
+
+    closedDraw() {
+        this.drawer.closedStart.subscribe(res => {
+            const principalToolbar = document.getElementById('principal-toolbar');
+            const matToolbar = document.getElementById('matToolbar');
+            if (principalToolbar && principalToolbar.classList.contains('prueba')) {
+                principalToolbar.classList.remove('prueba');
+            }
+                matToolbar.classList.remove('notFixed');
+            
+        });
     }
 
     /**
@@ -711,4 +726,15 @@ export class ListProductsComponent implements OnInit {
             this.getCategoriesList();
         });
     }
+
+    ngAfterViewInit() {
+       }
+
+       toggle(showFilter: boolean) {
+           this.drawer.toggle();
+           const element = document.getElementById('principal-toolbar');
+           const matToolbar = document.getElementById('matToolbar');
+            element.classList.add('prueba');
+            matToolbar.classList.add('notFixed');
+       }
 }

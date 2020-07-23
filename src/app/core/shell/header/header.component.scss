@@ -7,6 +7,12 @@
     overflow: hidden;
     z-index: 2;
   }
+  .prueba{
+    z-index: inherit;
+    background-color: $color-white;
+    position: absolute;
+    overflow: hidden;
+  }
   .mat-toolbar-row,
   .mat-toolbar-single-row {
     height: 64px;
