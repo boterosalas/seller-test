@@ -412,7 +412,7 @@ export const endpoints = {
       // Exportar reclamaciones
       exportReclaim: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/downloadreport',
       // Listado de resumen de facturacion
-       getListAllSummaryBilling: '',
+       getListAllSummaryBilling: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/summary',
        //
       exportProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/report',
     }
