@@ -257,6 +257,7 @@ export class ListProductsComponent implements OnInit {
         console.log('user: ', this.user);
         console.log('this.isAdmin: ', this.isAdmin);
         if (this.user.sellerProfile !== 'seller' && this.user.sellerProfile && this.user.sellerProfile !== null) {
+            console.log('Entro');
             this.permissionComponent = this.authService.getMenuProfiel(unitaryCreateName, 1);
             this.setPermission(1);
             this.isAdmin = true;
