@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginatorIntl, MatPaginator, ErrorStateMatcher, PageEvent } from '@angular/material';
 import { MatPaginatorI18nService } from '@app/shared/services/mat-paginator-i18n.service';
-import { readFunctionality } from '@app/secure/auth/auth.consts';
+import { readFunctionality, unitaryCreateName, MenuModel } from '@app/secure/auth/auth.consts';
 import { FormGroupDirective, NgForm, FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Logger, LoadingService, UserParametersService } from '@app/core';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { PendingProductsService } from './pending-products.service';
 import { UserInformation } from '@app/shared';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 export interface ListFilterProductsModify {
   name: string;
@@ -74,6 +75,9 @@ export class PendingProductsComponent implements OnInit {
   pageSizeOptions2: number[] = [30, 60, 120, 600];
   pageEvent: PageEvent;
 
+  editPermission = false;
+  permissionComponent: MenuModel;
+
   public callOne = true;
   public arrayPosition = [];
   public paginationToken = '{}';
@@ -95,6 +99,7 @@ export class PendingProductsComponent implements OnInit {
     private loadingService: LoadingService,
     public SUPPORT?: SupportService,
     private fb?: FormBuilder,
+    public authService?: AuthService,
   ) {
     this.getDataUser();
   }
@@ -103,6 +108,7 @@ export class PendingProductsComponent implements OnInit {
     this.validateFormSupport();
     this.getPendingProductsModify();
     this.getPendingProductsValidation();
+    this.editPermission = this.authService.getPermissionForMenu(unitaryCreateName, 'Editar');
   }
 
   /**
@@ -111,9 +117,27 @@ export class PendingProductsComponent implements OnInit {
   async getDataUser() {
     this.user = await this.userParams.getUserData();
     if (this.user.sellerProfile === 'seller') {
+      this.permissionComponent = this.authService.getMenuProfiel(unitaryCreateName, 0);
+      this.setPermission(0);
     } else {
+      this.permissionComponent = this.authService.getMenuProfiel(unitaryCreateName, 1);
+      this.setPermission(1);
       this.isAdmin = true;
     }
+  }
+
+  /**
+   * Seteo permiso para editar
+   * @param {number} typeProfile
+   * @memberof PendingProductsComponent
+   */
+  setPermission(typeProfile: number) {
+    this.editPermission = this.getFunctionality('Editar');
+  }
+
+  public getFunctionality(functionality: string): boolean {
+    const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+    return permission && permission.ShowFunctionality;
   }
 
   /**

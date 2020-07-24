@@ -15,7 +15,7 @@ export class ExpandedPendingProductsComponent implements OnInit {
 
   @Input() public productsPendindgExpanded: any;
   // @Input() offerPermission: boolean;
-  // @Input() editPermission: boolean;
+  @Input() editPermission: boolean;
 
   /* arreglo q contiene las imagenes grandes y pequeñas */
   public images = [];
@@ -36,7 +36,7 @@ export class ExpandedPendingProductsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('product: ', this.productsPendindgExpanded);
+    console.log('editPermission: ', this.editPermission);
     this.createArrayImages();
     this.applyOffert();
     this.getDataUser();

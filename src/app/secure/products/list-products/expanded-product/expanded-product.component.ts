@@ -36,6 +36,7 @@ export class ExpandedProductComponent implements OnInit {
 
 
     ngOnInit() {
+    console.log('editPermission: ', this.editPermission);
         this.createArrayImages();
         this.applyOffert();
         this.getDataUser();
