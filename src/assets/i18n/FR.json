@@ -1064,6 +1064,8 @@
     "secure.products.list_products.download.title": "Nous vous enverrons le téléchargement du produit à l'adresse e-mail suivante.",
     "secure.products.list_products.download.error": "Un problème est survenu lors du téléchargement des produits, veuillez réessayer.",
     "secure.products.list_products.download.ok": "Se ha realizado la descarga del los productos correctamente, revisa tu correo electrónico",
+    "secure.products.list_products.my_products": "My products",
+    "secure.products.list_products.all_products": "All products",
 
     "secure.parametize.title_toolbar": "Configuration",
     "secure.parametize.brands.title_filter_brand": "Brand filter",

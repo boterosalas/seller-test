@@ -144,7 +144,6 @@ export class ListProductsComponent implements OnInit, AfterViewInit {
                 principalToolbar.classList.remove('prueba');
             }
                 matToolbar.classList.remove('notFixed');
-            
         });
     }
 

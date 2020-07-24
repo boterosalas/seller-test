@@ -66,9 +66,9 @@ export class AppComponent implements OnInit, AfterViewChecked, LoggedInCallback 
 
         if (classtop2) {
           if (window.scrollY > 45) {
-            classtop2.classList.add('top-toolbar');
+            classtop2.classList.add('top-toolbar-product');
           } else {
-            classtop2.classList.remove('top-toolbar');
+            classtop2.classList.remove('top-toolbar-product');
           }
         }
         if (classtop3) {
