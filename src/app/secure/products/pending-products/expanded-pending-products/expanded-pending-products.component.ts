@@ -38,10 +38,10 @@ export class ExpandedPendingProductsComponent implements OnInit {
   ngOnInit() {
     console.log('editPermission: ', this.editPermission);
     this.createArrayImages();
-    this.applyOffert();
+    // this.applyOffert();
     this.getDataUser();
-    // const startswithModel = !!this.productsPendindgExpanded.model && (this.productsPendindgExpanded.model.toString() as string).toLowerCase().startsWith('modelo');
-        // this.productsPendindgExpanded.model = startswithModel ? (this.productsPendindgExpanded.model.toString() as string).slice(6, this.productsPendindgExpanded.model.length) : this.productsPendindgExpanded.model;
+    const startswithModel = !!this.productsPendindgExpanded.model && (this.productsPendindgExpanded.model.toString() as string).toLowerCase().startsWith('modelo');
+        this.productsPendindgExpanded.model = startswithModel ? (this.productsPendindgExpanded.model.toString() as string).slice(6, this.productsPendindgExpanded.model.length) : this.productsPendindgExpanded.model;
   }
 
   async getDataUser() {
@@ -69,9 +69,9 @@ export class ExpandedPendingProductsComponent implements OnInit {
     this.imageLength = this.images.length;
   }
 
-  applyOffert(): void {
-    this.applyOffer = this.productsPendindgExpanded;
-  }
+  // applyOffert(): void {
+  //   this.applyOffer = this.productsPendindgExpanded;
+  // }
   editProduct(productsPendindgExpanded: any) {
     this.router.navigate(['securehome/products/creacion-unitaria', { ean: productsPendindgExpanded.ean, reference: productsPendindgExpanded.reference }]);
   }

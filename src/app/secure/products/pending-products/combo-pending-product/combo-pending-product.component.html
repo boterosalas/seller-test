@@ -27,5 +27,5 @@
 
 
 <div class="full-width">
-  <app-expanded-pending-products  *ngIf="productsPendindgExpanded && showProducts" [productsPendindgExpanded]="productsPendindgExpanded"></app-expanded-pending-products>
+  <app-expanded-pending-products [editPermission]="editPermission" *ngIf="productsPendindgExpanded && showProducts" [productsPendindgExpanded]="productsPendindgExpanded"></app-expanded-pending-products>
 </div>

@@ -45,7 +45,6 @@ export class ComboPendingProductComponent implements OnInit {
         this.backTolist();
       }
     });
-    console.log(2, this.infoProduct, this.productsList);
   }
 
   async getDataUser() {
@@ -58,12 +57,8 @@ export class ComboPendingProductComponent implements OnInit {
   }
 
   public openInformation(params?: any): void {
-    console.log('params: ', params);
-
     this.loadingService.viewSpinner();
     this.pendingProductsService.getEANProductsModify(params).subscribe((result: any) => {
-      console.log('res data: ', result.data);
-      console.log('res: ', result);
       this.showImage = true;
       this.productsPendindgExpanded = result.data;
       this.loadingService.closeSpinner();
