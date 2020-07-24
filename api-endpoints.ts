@@ -338,7 +338,7 @@ export const endpoints = {
       // Actualizar contrato del vendedor
       updateTermsSeller: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/AcceptContract',
       // ACTUALIZAR CON EL DE PRODUCCION
-      registersContract : 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/RegisterContract',
+      registersContract: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/RegisterContract',
       // Obtener si el vendedor ya acepto los terminos
       getValidationTerms: 'https://84urxspbpg.execute-api.us-east-1.amazonaws.com/seller-pdn/ValidateContract',
       // Obtener los datos del vendedor
@@ -420,6 +420,8 @@ export const endpoints = {
       // Exportar reclamaciones
       exportReclaim: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/downloadreport',
       // GetProducs para modificaciones
+      getProductsPendingModify: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productsrejected?idSeller={sellerId}&limit={limit}',
+      // GetProducts pendiente validacion
       getProductsPendingValidation: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productswaiting?idSeller={sellerId}&limit={limit}',
       // GetProducs by EAN para modificaciones
       getEANPendingModify: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productsrejected/{params}',
@@ -428,7 +430,7 @@ export const endpoints = {
       // Exportar productos
       exportProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/report',
       // Listado de resumen de facturacion
-      getListAllSummaryBilling: '',
+      getListAllSummaryBilling: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/summary',
     }
   }
 };

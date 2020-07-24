@@ -118,6 +118,7 @@ export class PendingProductsComponent implements OnInit {
     this.user = await this.userParams.getUserData();
     if (this.user.sellerProfile === 'seller') {
       this.permissionComponent = this.authService.getMenuProfiel(unitaryCreateName, 0);
+      console.log('this.permissionComponent: ', this.permissionComponent);
       this.setPermission(0);
     } else {
       this.permissionComponent = this.authService.getMenuProfiel(unitaryCreateName, 1);
@@ -132,11 +133,15 @@ export class PendingProductsComponent implements OnInit {
    * @memberof PendingProductsComponent
    */
   setPermission(typeProfile: number) {
+    console.log(this.getFunctionality());
     this.editPermission = this.getFunctionality('Editar');
+    console.log('this.editPermission_', this.editPermission);
+
   }
 
-  public getFunctionality(functionality: string): boolean {
+  public getFunctionality(functionality?: string): boolean {
     const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+    console.log('permission: ', permission);
     return permission && permission.ShowFunctionality;
   }
 

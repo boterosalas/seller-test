@@ -384,6 +384,7 @@ const ProductsModule = new ModuleModel(productsModule, showAll, productsModule.t
     // 8. Estados de productos Seller
     new MenuModel(productsPending, showAll, productsPending.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
+        new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality), // Editar.
     ], RoutesConst.sellerCenterIntPendingProducts)
 ]);
 

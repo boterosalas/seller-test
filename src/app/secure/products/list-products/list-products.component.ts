@@ -257,6 +257,7 @@ export class ListProductsComponent implements OnInit {
         this.user = await this.userParams.getUserData();
         if (this.user.sellerProfile === 'seller') {
             this.permissionComponent = this.authService.getMenuProfiel(unitaryCreateName, 0);
+            console.log('this.permissionComponent: ', this.permissionComponent);
             this.setPermission(0);
         } else {
             this.permissionComponent = this.authService.getMenuProfiel(unitaryCreateName, 1);

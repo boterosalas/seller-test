@@ -58,6 +58,7 @@ export interface ProductModel {
     IsCombo: boolean;
     EanCombo: any;
     ModifyImage: any;
+    ParentReference: any;
 }
 
 /**
@@ -170,7 +171,8 @@ export class ProcessService {
         MetaDescription: null,
         IsCombo: null,
         EanCombo: null,
-        ModifyImage: 0
+        ModifyImage: 0,
+        ParentReference: null
     };
 
     /**
@@ -283,6 +285,7 @@ export class ProcessService {
             this.productData.AssignEan = !data.AssignEan;
             this.productData.HasEAN = !data.AssignEan;
             this.views.showEan = true;
+            this.productData.ParentReference = data.ParentReference;
         }
         if (data.CategorySelected) {
             this.views.showCat = true;
@@ -413,7 +416,6 @@ export class ProcessService {
             this.productData.ModifyImage = 0;
             return this.http.post(this.api.get('postUnitSaveInformationUnitCreation'), this.productData);
         }
-
     }
 
     resetProduct() {
@@ -459,7 +461,8 @@ export class ProcessService {
             MetaDescription: null,
             IsCombo: null,
             EanCombo: null,
-            ModifyImage: 0
+            ModifyImage: 0,
+            ParentReference: null
         };
         this.views.showCat = false;
     }
