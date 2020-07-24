@@ -254,7 +254,10 @@ export class ListProductsComponent implements OnInit {
      */
     async getDataUser() {
         this.user = await this.userParams.getUserData();
+        console.log('user: ', this.user);
+        console.log('this.isAdmin: ', this.isAdmin);
         if (this.user.sellerProfile !== 'seller' && this.user.sellerProfile && this.user.sellerProfile !== null) {
+            console.log('Entro');
             this.permissionComponent = this.authService.getMenuProfiel(unitaryCreateName, 1);
             this.setPermission(1);
             this.isAdmin = true;
@@ -262,6 +265,7 @@ export class ListProductsComponent implements OnInit {
             this.permissionComponent = this.authService.getMenuProfiel(unitaryCreateName, 0);
             this.setPermission(0);
         }
+        console.log('this.isAdmin after: ', this.isAdmin);
     }
 
     /**
