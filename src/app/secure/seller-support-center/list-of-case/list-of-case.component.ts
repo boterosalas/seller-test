@@ -553,8 +553,13 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
       data: { isAdmin: this.isAdmin, email: this.email }
     });
   }
-
-  loadDataDetails(item: any) {
+/**
+ * funcion para mostrar el detalle individual al hacer click
+ *
+ * @param {*} item
+ * @memberof ListOfCaseComponent
+ */
+loadDataDetails(item: any) {
     item.statusLoad = true;
     this.sellerSupportService.getDetailTranslation(item.caseId).subscribe(
       res => {
