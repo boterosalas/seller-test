@@ -14,20 +14,18 @@ const log = new Logger('ExpandedPendingProductsComponent');
 export class ExpandedPendingProductsComponent implements OnInit {
 
   @Input() public productsPendindgExpanded: any;
-  // @Input() offerPermission: boolean;
   @Input() editPermission: boolean;
 
   /* arreglo q contiene las imagenes grandes y pequeñas */
   public images = [];
   public listKeywords = [];
 
-  public applyOffer: any;
-
   /* variable que contiene la ruta de la imagen grande */
   public imageMax: string;
   imageLength: number;
   public user: UserInformation;
   public showOfer: boolean;
+  avaibleProductPending: Boolean = false;
 
 
   constructor(
@@ -36,12 +34,10 @@ export class ExpandedPendingProductsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('editPermission: ', this.editPermission);
     this.createArrayImages();
-    // this.applyOffert();
     this.getDataUser();
     const startswithModel = !!this.productsPendindgExpanded.model && (this.productsPendindgExpanded.model.toString() as string).toLowerCase().startsWith('modelo');
-        this.productsPendindgExpanded.model = startswithModel ? (this.productsPendindgExpanded.model.toString() as string).slice(6, this.productsPendindgExpanded.model.length) : this.productsPendindgExpanded.model;
+    this.productsPendindgExpanded.model = startswithModel ? (this.productsPendindgExpanded.model.toString() as string).slice(6, this.productsPendindgExpanded.model.length) : this.productsPendindgExpanded.model;
   }
 
   async getDataUser() {
@@ -69,11 +65,10 @@ export class ExpandedPendingProductsComponent implements OnInit {
     this.imageLength = this.images.length;
   }
 
-  // applyOffert(): void {
-  //   this.applyOffer = this.productsPendindgExpanded;
-  // }
   editProduct(productsPendindgExpanded: any) {
-    this.router.navigate(['securehome/products/creacion-unitaria', { ean: productsPendindgExpanded.ean, reference: productsPendindgExpanded.reference }]);
+    console.log(22, productsPendindgExpanded);
+    this.avaibleProductPending = true;
+    this.router.navigate(['securehome/products/creacion-unitaria', { ean: productsPendindgExpanded.ean, reference: productsPendindgExpanded.reference, pendingProduct: this.avaibleProductPending }]);
   }
 
 }

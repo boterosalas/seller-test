@@ -30,6 +30,8 @@ export class ValidateEanComponent {
   public copy = null;
   @Input() ean: any;
   @Input() reference: any;
+  @Input() pendingProduct: any;
+
   public productEdit = false;
 
   constructor(private fb: FormBuilder, private service: EanServicesService, private process: ProcessService,

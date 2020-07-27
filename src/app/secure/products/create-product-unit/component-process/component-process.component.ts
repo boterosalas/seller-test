@@ -12,6 +12,7 @@ import { ListProductService } from '../../list-products/list-products.service';
 import { EanServicesService } from '../validate-ean/ean-services.service';
 import { TranslateService } from '@ngx-translate/core';
 import { FinishUploadInformationComponent } from '@app/secure/offers/bulk-load/finish-upload-information/finish-upload-information.component';
+import { PendingProductsService } from '../../pending-products/pending-products.service';
 
 
 @Component({
@@ -39,16 +40,18 @@ export class ComponentProcessComponent implements OnInit {
   modalService: any;
   constantes = new Const();
   saving = false;
-  isAdmin= false;
+  isAdmin = false;
   editFirstStep = true;
   public user: UserInformation;
   @Input() ean: string;
   @Input() reference: any;
+  @Input() pendingProduct: any;
   detailProduct: any;
   editProduct = false;
   intervalTime = 6000;
   public listErrorStatus: any = [];
   @ViewChild('stepper') stepper: MatStepper;
+  user2: UserInformation;
 
   constructor(private fb: FormBuilder,
     private loadingService: LoadingService,
@@ -60,6 +63,7 @@ export class ComponentProcessComponent implements OnInit {
     private service: EanServicesService,
     private cdr: ChangeDetectorRef,
     private languageService: TranslateService,
+    private pendingProductsService: PendingProductsService,
     public userService: UserLoginService) {
     this.options = fb.group({
       hideRequired: false,
@@ -99,32 +103,57 @@ export class ComponentProcessComponent implements OnInit {
   }
 
   getDetailProduct() {
-    if (this.ean) {
-      this.stepper.selectedIndex = 1;
-      this.editFirstStep = false;
-      this.isLinear = false;
-      this.service.validateEan(this.ean).subscribe(res => {
-        if (res['data']) {
-          if (this.reference === '' || this.reference === null || this.reference === ' ') {
-            this.reference = 'null';
-          }
-          const params = this.ean + '/' + this.reference;
-           this.productsService.getProductsDetails(params).subscribe((result: any) => {
+    console.log('pendingProduct: ', this.pendingProduct);
+    if (this.pendingProduct) {
+      console.log('entra al true');
+      if (this.ean) {
+        this.stepper.selectedIndex = 1;
+        this.editFirstStep = false;
+        this.isLinear = false;
+        if (this.reference === '' || this.reference === null || this.reference === ' ') {
+          this.reference = 'null';
+        }
+        const params = localStorage.getItem('userId') + '/' + this.ean + '/' + this.reference;
+        this.pendingProductsService.getEANProductsModify(params).subscribe((result: any) => {
+          console.log('result: ', result);
           if (result && result.data.brand) {
             this.detailProduct = result.data;
             this.detailProduct.reference = this.reference;
           }
         });
-        } else {
-          this.detailProduct = null;
-          this.router.navigate([`/`]);
-        }
-      });
+      }
     } else {
-      this.stepper.selectedIndex = 0;
-      this.isLinear = true;
-      this.editFirstStep = true;
+      console.log('false pending');
+      if (this.ean) {
+        this.stepper.selectedIndex = 1;
+        this.editFirstStep = false;
+        this.isLinear = false;
+        this.service.validateEan(this.ean).subscribe(res => {
+          if (res['data']) {
+            if (this.reference === '' || this.reference === null || this.reference === ' ') {
+              this.reference = 'null';
+            }
+            const params = this.ean + '/' + this.reference;
+            this.productsService.getProductsDetails(params).subscribe((result: any) => {
+              console.log('result 2: ', result);
+              if (result && result.data.brand) {
+                this.detailProduct = result.data;
+                this.detailProduct.reference = this.reference;
+              }
+            });
+          } else {
+            console.log('entra al else');
+            this.detailProduct = null;
+            // this.router.navigate([`/`]);
+          }
+        });
+      } else {
+        this.stepper.selectedIndex = 0;
+        this.isLinear = true;
+        this.editFirstStep = true;
+      }
     }
+
 
   }
 
@@ -145,7 +174,8 @@ export class ComponentProcessComponent implements OnInit {
 
   async getDataUser() {
     this.userParams.getUserData().then(data => {
-      if (data.sellerProfile === this.constantes.administrator ) {
+      this.user2 = data;
+      if (data.sellerProfile === this.constantes.administrator) {
         this.isAdmin = true;
         if (this.ean === undefined) {
           this.isAdmin = false;
@@ -163,7 +193,7 @@ export class ComponentProcessComponent implements OnInit {
 
   public stepClick(event: any): void {
     try {
-      if (event && event.previouslySelectedStep && event.previouslySelectedStep.completed !== true ) {
+      if (event && event.previouslySelectedStep && event.previouslySelectedStep.completed !== true) {
         event.previouslySelectedStep.completed = true;
       }
       if (event && event.selectedIndex === 2) {
@@ -201,7 +231,7 @@ export class ComponentProcessComponent implements OnInit {
     } else if (!this.views.showImg) {
       this.imageFormGroup.controls.imageCtrl.setValue(null);
     }
-    if (this.eanFormGroup.valid && this.categoryFormGroup.valid && this.basicInfoFormGroup.valid && this.especificFormGroup.valid && this.imageFormGroup.valid ) {
+    if (this.eanFormGroup.valid && this.categoryFormGroup.valid && this.basicInfoFormGroup.valid && this.especificFormGroup.valid && this.imageFormGroup.valid) {
       this.isLinear = false;
     } else {
       this.isLinear = true;
@@ -222,15 +252,15 @@ export class ComponentProcessComponent implements OnInit {
       this.process.saveInformationUnitreation(this.ean).subscribe(result => {
         const data = result;
         if (this.isAdmin) {
-            this.verificateStatus();
+          this.verificateStatus();
         } else {
           if (result && result['body'] && result['body'].data && result['body'].data.productNotify) {
             if (result['body'].data.error === 0) {
               this.process.resetProduct();
             }
-            this.openDialogSendOrder2(result['body'].data.productNotify, result['body'].data.error, this.ean );
+            this.openDialogSendOrder2(result['body'].data.productNotify, result['body'].data.error, this.ean);
           } else if (result && result['data']) {
-               if (result['data'].error === 0) {
+            if (result['data'].error === 0) {
               this.process.resetProduct();
             }
             this.openDialogSendOrder2(data['data'].productNotify, result['data'].error, this.ean);
@@ -309,7 +339,7 @@ export class ComponentProcessComponent implements OnInit {
    */
   openDialogSendOrder2(res: any, error: any, ean: any): void {
     const sendModal = {
-      productNotifyViewModel : res,
+      productNotifyViewModel: res,
       error: error,
       ean: ean
     };
