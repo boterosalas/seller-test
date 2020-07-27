@@ -63,7 +63,7 @@ export class SearchBillingFormComponent implements OnInit {
     this.myform = this.fb.group({
       'paymentDateInitial': [null, Validators.compose([])],
       'paymentDateFinal': [null, Validators.compose([])],
-      'billingNumber': [null, Validators.compose([Validators.minLength(1), Validators.maxLength(30)])],
+      'billingNumber': [null, Validators.compose([Validators.minLength(1)])],
     });
   }
 

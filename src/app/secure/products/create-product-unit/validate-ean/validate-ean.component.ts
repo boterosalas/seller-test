@@ -29,6 +29,7 @@ export class ValidateEanComponent {
   public showButton = false; // Variable que se conecta con el servicio que habilita los botonoes
   public copy = null;
   @Input() ean: any;
+  @Input() reference: any;
   public productEdit = false;
 
   constructor(private fb: FormBuilder, private service: EanServicesService, private process: ProcessService,
@@ -107,6 +108,7 @@ export class ValidateEanComponent {
       Ean: this.eanGroup.controls.eanCtrl.value,
       HasEan: this.eanGroup.controls.associateEan.value,
       AssignEan: this.eanGroup.controls.associateEan.value,
+      ParentReference: this.reference
     };
     this.process.validaData(data);
 

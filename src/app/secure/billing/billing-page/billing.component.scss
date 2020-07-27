@@ -94,6 +94,12 @@ $amber: mat-palette($mat-amber);
     padding-left: 0px;
     padding-right: 0px;
   }
+  .hiddenColumn{
+    display: none !important;
+  }
+  .showColumn{
+    display: flex !important;
+  }
 }
 
 .expand{
@@ -114,4 +120,8 @@ $amber: mat-palette($mat-amber);
     flex: initial !important;
     place-content: center flex-end !important;
   }
+}
+
+.text-aling-right{
+  text-align: left;
 }

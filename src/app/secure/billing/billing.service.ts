@@ -5,6 +5,30 @@ import { Billing } from '@app/shared';
 import { Observable } from 'rxjs';
 import { DatePipe } from '@angular/common';
 
+
+const respuesta = {
+  data: {
+    count: 45,
+    paginationToken: '{}',
+    paginationTokens: [],
+    viewModel: [
+      {id: '637086675180158443', orderNumber: '1'},
+      {id: '637058000530130075', orderNumber: '2'},
+      {id: '637086494941759601', orderNumber: '3'},
+      {id: '637130518760349731', orderNumber: '4'},
+      {id: '637274208780966057', orderNumber: '5'},
+      {id: '637058000520968788', orderNumber: '6'},
+      {id: '637122970660242786', orderNumber: '7'},
+      {id: '637281041614556441', orderNumber: '8'},
+      {id: '637133443640064226', orderNumber: '9'}
+    ]
+  },
+errors: [],
+message: '',
+pendingResponse: false,
+
+}
+
 @Injectable()
 export class BillingService {
 
@@ -141,6 +165,18 @@ export class BillingService {
           observer.error(err);
         });
     });
+  }
+
+  getAllSummaryPayment(params: any): Observable<any> {
+    return new Observable(observer => {
+      this.http.post<any>(this.api.get('getListAllSummaryBilling'), params)
+        .subscribe((data: any) => {
+          observer.next(data);
+        }, err => {
+          observer.error(err);
+        });
+    });
+
   }
 
 }

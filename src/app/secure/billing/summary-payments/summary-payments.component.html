@@ -1,0 +1,138 @@
+<div class="content-order my-content">
+  <div fxFlex class="container" fxLayout="row wrap" fxLayoutAlign="center
+    start">
+    <div fxFlex="100" class="light-content">
+      <app-toolbar-search-pagination [informationToForm]="informationToForm" [state]="null" #toolbarOptions
+        (filterCalifications)="toggleFilter()" (paginationListOrdens)="paginations($event)" [Typeprofile]="3"
+        [lengthOrder]="length" [limitPaginate]="[10,50,100]">
+      </app-toolbar-search-pagination>
+    </div>
+
+    <div class="container-port-main" >
+      <div fxLayout="column" class="container-width-100">
+        <div fxLayout="row">
+          <div class="summary-component-button-add">
+            <div id="addButton" class="container-group-add-button">
+              <button mat-button (click)="sendDetailSummary()" [disabled]="arraySelect.length === 0" class="summary-component-text-btn-show-details">
+                {{'secure.billing.summaryPayment.text_btn_details' | translate}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="97" fxFlex.lg="97" fxFlex.xl="97"
+      class="generic-component-content-table-center-collection" >
+      <mat-table #table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="check">
+          <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+            fxShow.xl="true" fxShow="true" fxFlex.lg="5" fxFlex.sm="5" fxFlex.md="5" fxFlex.xs="5" fxFlex.xl=""
+            *matHeaderCellDef>
+
+          </mat-header-cell>
+          <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="5" fxFlex.sm="5" fxFlex.md="5" fxFlex.xs="5" fxFlex.xl=""
+            *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()"
+            (change)="changeStatus(row,$event.checked)"
+            [checked]="selection.isSelected(row)" ></mat-checkbox>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="number_bill">
+          <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+            fxShow.xl="true" fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+            *matHeaderCellDef>
+            <span class="title-table-header"> {{'secure.billing.summaryPayment.invoice_iD'| translate}}</span>
+          </mat-header-cell>
+          <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+            *matCellDef="let element">
+            <p class="sc-text-normal">{{element.billingNumber}}</p>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="quantity_orders">
+          <mat-header-cell class='marginListAdminTotal alingCenter' fxShow.xs="false" fxShow.sm="true" fxShow.lg="true"
+            fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
+            *matHeaderCellDef>
+            <span class="title-table-header width-100">{{'secure.billing.summaryPayment.number_orders'| translate}} </span>
+          </mat-header-cell>
+          <mat-cell class='marginListAdminTotal alingCenter' fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
+            *matCellDef="let element">
+            <p class="sc-text-normal width-100">{{element.totalOrders}}</p>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="payment_date">
+          <mat-header-cell class='marginListAdminTotal alingCenter' fxShow.xs="false" fxShow.sm="true" fxShow.lg="true"
+            fxShow.xl="true" fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+            *matHeaderCellDef>
+            <span class="title-table-header width-100">{{'secure.billing.summaryPayment.payment_date'| translate }}</span>
+          </mat-header-cell>
+          <mat-cell class='marginListAdminTotal alingCenter' fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+            *matCellDef="let element">
+            <p class="sc-text-normal width-100">{{element.paymentDate | date}}</p>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="total_discounted_value">
+          <mat-header-cell  class='marginListAdminTotal alingRight' fxShow.xs="false" fxShow.sm="true" fxShow.lg="true"
+            fxShow.xl="true" fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+            *matHeaderCellDef>
+            <span class="title-table-header width-100"> {{'secure.billing.summaryPayment.discounted_total_value'| translate}}</span>
+          </mat-header-cell>
+          <mat-cell class='marginListAdminTotal alingRight' fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+            *matCellDef="let element">
+            <p class="sc-text-normal width-100 font-weight-price"> ${{element.discountedTotalValue}}</p>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="total_to_pay">
+          <mat-header-cell class='marginListAdminTotal alingRight' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+            fxShow.xl="true" fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+            *matHeaderCellDef>
+            <span class="title-table-header width-100" >{{'secure.billing.summaryPayment.total_to_Pay' | translate}}</span>
+          </mat-header-cell>
+          <mat-cell class='marginListAdminTotal alingRight' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+            *matCellDef="let element">
+            <p class="sc-text-normal width-100 font-weight-price">${{element.billingTotal}}</p>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row id="order-number-{{index}}" *matRowDef="let index=index; let
+          row; columns: displayedColumns;" matRipple class="element-row personal-row-table" [cdkDetailRow]="row"
+          [cdkDetailRowTpl]="tpl" >
+        </mat-row>
+      </mat-table>
+      <div *ngIf="resultModel && resultModel.count > 0"  class="padding-top">
+        <div fxLayout="row" fxLayoutAlign="end end" class="background-color-greyblack">
+          <span class="title-summaroty">{{'secure.billing.summaryPayment.total_invoiced_value'| translate}}</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="end end" class="background-color-grey">
+          <span class="text-total-summatory" *ngIf="typeSeller === 'National'">
+            <p [innerHTML]="summaryTotal | currency: '$' : 'symbol' : '1.0'"> </p>
+          </span>
+          <span class="text-total-summatory" *ngIf="typeSeller === 'International'">
+            <p [innerHTML]="summaryTotal | currency: '$' : 'symbol' : '1.2-2'"> </p>
+          </span>
+        </div>
+      </div>
+    </div>
+      <div [@detailExpand] class="orders-no-data" *ngIf="resultModel && resultModel.count === 0">
+        <mat-icon class="icon-not-found" color="primary">info</mat-icon>
+        <p>{{'secure.billing.no_payment' | translate}}</p>
+      </div>
+  </div>
+  <div>
+    <app-filter-summary-payment [stateSideNavOrder]="stateSideNavOrder" (OnGetFilter)="filterListSummary($event)" [informationToForm]="informationToForm">
+    </app-filter-summary-payment>
+  </div>
+</div>
