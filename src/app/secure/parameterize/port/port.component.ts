@@ -170,6 +170,9 @@ export class PortComponent implements OnInit {
         Id: x.Id,
         Name: x.Name,
         Address: x.Address,
+        City: x.City,
+        CountryIso2: x.CountryIso2,
+        PostalCode: x.PostalCode,
         Phone: x.Phone,
         Tariff: x.Tariff,
         ShippingCost: x.ShippingCost,
@@ -241,6 +244,9 @@ export class PortComponent implements OnInit {
       name: new FormControl('', Validators.compose([Validators.required])),
       country: new FormControl(''),
       address: new FormControl('', Validators.compose([Validators.required])),
+      city: new FormControl('', Validators.compose([Validators.required])),
+      countryIso2: new FormControl('', Validators.compose([Validators.required])),
+      postalCode: new FormControl('', Validators.compose([Validators.required])),
       phone: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
       insuranceFreight: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatFiveDecimal)])),
       preparation: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatTwoDecimal)])),
@@ -334,6 +340,9 @@ export class PortComponent implements OnInit {
     if (this.data && this.data.data !== null && this.data.typeModal === 2) {
       this.resetFormModal();
       this.formPort.controls['name'].setValue(this.data.data.Name);
+      this.formPort.controls['city'].setValue(this.data.data.City);
+      this.formPort.controls['countryIso2'].setValue(this.data.data.CountryIso2);
+      this.formPort.controls['postalCode'].setValue(this.data.data.PostalCode);
       this.formPort.controls['address'].setValue(this.data.data.Address);
       this.formPort.controls['phone'].setValue(this.data.data.Phone);
       this.formPort.controls['insuranceFreight'].setValue(this.data.data.InsuranceFreight);
@@ -380,6 +389,9 @@ export class PortComponent implements OnInit {
         id: this.idPort,
         name: this.body.name,
         address: this.body.address,
+        city: this.body.city,
+        countryIso2: this.body.countryIso2,
+        postalCode: this.body.postalCode,
         phone: this.body.phone,
         tariff: this.body.tariff,
         shippingCost: this.body.shippingCost.toString(),

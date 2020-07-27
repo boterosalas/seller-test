@@ -268,7 +268,6 @@
           class="port-component-aling-padding-left">
           <mat-form-field class="port-component-width-95">
             <input formControlName="address" matInput [placeholder]="'secure.parametize.port.address' | translate">
-
             <mat-error *ngIf="formPort.get('address').hasError('required')">{{'errors.required' | translate}}
             </mat-error>
           </mat-form-field>
@@ -279,6 +278,38 @@
             <mat-error *ngIf="formPort.get('phone').hasError('pattern')">{{'errors.format_invalidate' | translate}}
             </mat-error>
             <mat-error *ngIf="formPort.get('phone').hasError('required')">{{'errors.required' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row wrap" class="margin-top-11">
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50"
+          class="port-component-aling-padding-left">
+          <mat-form-field class="port-component-width-95">
+            <input formControlName="city" matInput [placeholder]="'secure.parametize.port.city' | translate">
+            <mat-error *ngIf="formPort.get('city').hasError('required')">{{'errors.required' | translate}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
+          <mat-form-field class="port-component-width-95">
+            <input formControlName="countryIso2" matInput [placeholder]="'secure.parametize.port.prefix' | translate">
+            <mat-error *ngIf="formPort.get('countryIso2').hasError('required')">{{'errors.required' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row wrap" class="margin-top-11">
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50"
+          class="port-component-aling-padding-left">
+          <mat-form-field class="port-component-width-95">
+            <input formControlName="postalCode" matInput [placeholder]="'secure.parametize.port.postalCode' | translate">
+            <mat-error *ngIf="formPort.get('postalCode').hasError('required')">{{'errors.required' | translate}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
+          <mat-form-field class="port-component-width-95">
+            <input formControlName="countryIso2" matInput [placeholder]="'secure.parametize.port.prefix' | translate">
+            <mat-error *ngIf="formPort.get('countryIso2').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
         </div>
       </div>
