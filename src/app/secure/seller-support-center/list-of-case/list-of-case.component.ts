@@ -554,7 +554,6 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
     item.statusLoad = true;
     this.sellerSupportService.getDetailTranslation(item.caseId).subscribe(
       res => {
-        console.log(res);
         item.description = res.data.description;
         item.followLast = res.data.followLast;
         item.statusLoad = false;
