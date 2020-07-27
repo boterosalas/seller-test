@@ -55,6 +55,7 @@ export class ListProductsComponent implements OnInit, AfterViewInit {
     public filterCategory: FormGroup;
     // public myProduct = false;
     @Input() myProduct = false;
+    @Input() showTabs = true;
 
     public matcher: MyErrorStateMatcher;
     public paramsData: ModelFilterProducts;
@@ -134,17 +135,19 @@ export class ListProductsComponent implements OnInit, AfterViewInit {
         this.getDataUser();
         this.validateFormSupport();
         this.refreshCategoryTree();
-        this.closedDraw ();
+        if (this.showTabs) {
+            this.closedDraw();
+        }
     }
 
     closedDraw() {
         this.drawer.closedStart.subscribe(res => {
             const principalToolbar = document.getElementById('principal-toolbar');
             const matToolbar = document.getElementById('matToolbar');
-            if (principalToolbar && principalToolbar.classList.contains('prueba')) {
-                principalToolbar.classList.remove('prueba');
+            if (principalToolbar && principalToolbar.classList.contains('tabsShowZindex')) {
+                principalToolbar.classList.remove('tabsShowZindex');
             }
-                matToolbar.classList.remove('notFixed');
+            matToolbar.classList.remove('notFixed');
         });
     }
 
@@ -159,7 +162,7 @@ export class ListProductsComponent implements OnInit, AfterViewInit {
                 const body = JSON.parse(result.body);
                 this.listCategories = body.Data;
             }
-        this.loadingService.closeSpinner();
+            this.loadingService.closeSpinner();
         });
     }
 
@@ -729,13 +732,15 @@ export class ListProductsComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-       }
+    }
 
-       toggle(showFilter: boolean) {
-           this.drawer.toggle();
-           const element = document.getElementById('principal-toolbar');
-           const matToolbar = document.getElementById('matToolbar');
-            element.classList.add('prueba');
+    toggle(showFilter: boolean) {
+        this.drawer.toggle();
+        if (this.showTabs) {
+            const element = document.getElementById('principal-toolbar');
+            const matToolbar = document.getElementById('matToolbar');
+            element.classList.add('tabsShowZindex');
             matToolbar.classList.add('notFixed');
-       }
+        }
+    }
 }
