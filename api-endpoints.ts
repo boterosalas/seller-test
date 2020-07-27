@@ -207,10 +207,12 @@ export const endpoints = {
       exportReclaim: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/downloadreport',
       // Exportar productos
       exportProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/report',
-      //
+      // Detalle de reclaciones
       getDetailTranslationReclaim: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/get-case-expanded/{params}',
-      //
-      getListAllSummaryBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/summary'
+      // Listado facturacion sumatoria
+      getListAllSummaryBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/summary',
+      // Obtener comentarios de solicitud de devolución
+      getAllCommentRefuse: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch/translation'
     },
   },
   // Endpoints production
@@ -415,10 +417,12 @@ export const endpoints = {
       exportReclaim: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/downloadreport',
       //
       exportProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/report',
-      //
+      // Detalle de reclaciones
       getDetailTranslationReclaim: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/get-case-expanded/{params} ',
       // Listado de resumen de facturacion
       getListAllSummaryBilling: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/summary',
+      // Obtener comentarios de solicitud de devolución
+      getAllCommentRefuse: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn/translation'
     }
   }
 };
