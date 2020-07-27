@@ -1,6 +1,6 @@
 /* 3rd party components */
-import {MatDialogRef, MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
-import {Component, Inject, OnInit} from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { Component, Inject, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 /* our own custom components */
 import { OrderDevolutionsModel, FAKE } from '@app/shared';
@@ -35,11 +35,15 @@ export class ViewCommentComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  /**
+   * funcion para consultar los comentarios devoluciones
+   *
+   * @memberof ViewCommentComponent
+   */
   getAllCommentRefuse() {
     const params = {
-      TypeTranslation:  'Commentary',
-      Content : this.data.order
+      TypeTranslation: 'Commentary',
+      Content: this.data.order
     };
     this.pendingDevolutionService.getAllCommentRefuse(params).subscribe((res: any) => {
       if (res) {

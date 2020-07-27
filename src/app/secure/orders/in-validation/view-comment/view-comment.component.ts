@@ -37,11 +37,15 @@ export class ViewCommentComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  /**
+   * funcion para consultar los comentarios devoluciones
+   *
+   * @memberof ViewCommentComponent
+   */
   getAllCommentRefuse() {
     const params = {
-      TypeTranslation:  'Commentary',
-      Content : this.data.order
+      TypeTranslation: 'Commentary',
+      Content: this.data.order
     };
     this.inValidationService.getAllCommentRefuse(params).subscribe((res: any) => {
       if (res) {
@@ -50,12 +54,12 @@ export class ViewCommentComponent implements OnInit {
         this.order = this.order || FAKE.FAKEPENDINGDEVOLUTION;
         this.processFinish$.next(res);
       } else {
-          this.load = false;
-          this.snackBar.open(this.languageService.instant('secure.orders.send.error_ocurred_processing'), this.languageService.instant('actions.close'), {
-            duration: 3000,
-          });
-          this.onNoClick();
-        }
+        this.load = false;
+        this.snackBar.open(this.languageService.instant('secure.orders.send.error_ocurred_processing'), this.languageService.instant('actions.close'), {
+          duration: 3000,
+        });
+        this.onNoClick();
+      }
     });
   }
 

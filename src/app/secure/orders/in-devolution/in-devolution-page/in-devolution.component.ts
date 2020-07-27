@@ -156,8 +156,12 @@ export class InDevolutionComponent implements OnInit, OnDestroy {
     this.getOrdersListSinceFilterSearchOrder();
     this.getReasonsRejection();
   }
-
-  changeLanguage() {
+/**
+ * funcion para escuchar el evento al cambiar de idioma
+ *
+ * @memberof InDevolutionComponent
+ */
+changeLanguage() {
     if (localStorage.getItem('culture_current') !== 'US') {
       this.currentLanguage = 'ES';
       localStorage.setItem('culture_current', 'ES');

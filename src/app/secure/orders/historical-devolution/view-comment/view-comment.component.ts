@@ -39,11 +39,15 @@ export class ViewCommentComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  /**
+   * funcion para consultar los comentarios devoluciones
+   *
+   * @memberof ViewCommentComponent
+   */
   getAllCommentRefuse() {
     const params = {
-      TypeTranslation:  'Commentary',
-      Content : this.data.historical
+      TypeTranslation: 'Commentary',
+      Content: this.data.historical
     };
     this.historicalDevolutionService.getAllCommentRefuse(params).subscribe((res: any) => {
       if (res) {

@@ -106,6 +106,12 @@ export class CategoryTreeComponent implements OnInit {
       this.showChildrens(category);
     }
   }
+
+  /**
+   * funcion para escuchar el evento al cambiar de idioma
+   *
+   * @memberof CategoryTreeComponent
+   */
   changeLanguage() {
     this.validateCulture(localStorage.getItem('culture_current'));
     this.languageService.onLangChange.subscribe((e: Event) => {

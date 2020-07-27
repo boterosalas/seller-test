@@ -95,8 +95,14 @@ export class PendingDevolutionService {
         });
     });
   }
-
-  getAllCommentRefuse(params: any): Observable<any> {
+/**
+ * funcion para consultar los comentarios devoluciones
+ *
+ * @param {*} params
+ * @returns {Observable<any>}
+ * @memberof PendingDevolutionService
+ */
+getAllCommentRefuse(params: any): Observable<any> {
     return new Observable(observer => {
       this.http.post(this.api.get('getAllCommentRefuse'), params)
         .subscribe((data: any) => {

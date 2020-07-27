@@ -175,9 +175,13 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
     // tslint:disable-next-line: deprecation
     this.store.select(reduxState => reduxState.notification.unreadCases)
       .subscribe(unreadCase => (this.unreadCase = unreadCase));
-      this.changeLanguage();
+    this.changeLanguage();
   }
-
+  /**
+   * funcion para escuchar el evento al cambiar de idioma
+   *
+   * @memberof ListOfCaseComponent
+   */
   changeLanguage() {
     if (localStorage.getItem('culture_current') !== 'US') {
       this.currentLanguage = 'ES';
