@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, Input } from '@angular/core';
 import { Logger } from '@app/core/util/logger.service';
 import { LoadingService, ModalService, UserParametersService } from '@app/core';
 import { ListProductService } from './list-products.service';
@@ -53,7 +53,8 @@ export class ListProductsComponent implements OnInit, AfterViewInit {
     productsList: any = [];
     public filterProduts: FormGroup;
     public filterCategory: FormGroup;
-    public myProduct = false;
+    // public myProduct = false;
+    @Input() myProduct = false;
 
     public matcher: MyErrorStateMatcher;
     public paramsData: ModelFilterProducts;
@@ -158,6 +159,7 @@ export class ListProductsComponent implements OnInit, AfterViewInit {
                 const body = JSON.parse(result.body);
                 this.listCategories = body.Data;
             }
+        this.loadingService.closeSpinner();
         });
     }
 
