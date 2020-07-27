@@ -1292,6 +1292,7 @@
     "secure.parametize.port.city": "City",
     "secure.parametize.port.prefix": "Prefijo del país",
     "secure.parametize.port.postalCode": "Postal Code",
+    "secure.parametize.port.province": "Province",
     "secure.parametize.port.action": "action",
     "secure.parametize.port.apply": "Apply",
     "secure.parametize.port.btn_add_port": "Add port",

@@ -1298,6 +1298,7 @@
     "secure.parametize.port.city": "Ciudad",
     "secure.parametize.port.prefix": "Prefijo del país",
     "secure.parametize.port.postalCode": "Código postal",
+    "secure.parametize.port.province": "Provincia",
     "secure.parametize.port.action": "Acción",
     "secure.parametize.port.apply": "Aplica",
     "secure.parametize.port.btn_add_port": "Agregar centro de acopio",

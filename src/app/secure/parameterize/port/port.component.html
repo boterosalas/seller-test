@@ -308,8 +308,8 @@
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
           <mat-form-field class="port-component-width-95">
-            <input formControlName="countryIso2" matInput [placeholder]="'secure.parametize.port.prefix' | translate">
-            <mat-error *ngIf="formPort.get('countryIso2').hasError('required')">{{'errors.required' | translate}}</mat-error>
+            <input formControlName="province" matInput [placeholder]="'secure.parametize.port.province' | translate">
+            <mat-error *ngIf="formPort.get('province').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
         </div>
       </div>

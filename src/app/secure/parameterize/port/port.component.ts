@@ -173,6 +173,7 @@ export class PortComponent implements OnInit {
         City: x.City,
         CountryIso2: x.CountryIso2,
         PostalCode: x.PostalCode,
+        Province: x.Province,
         Phone: x.Phone,
         Tariff: x.Tariff,
         ShippingCost: x.ShippingCost,
@@ -247,6 +248,7 @@ export class PortComponent implements OnInit {
       city: new FormControl('', Validators.compose([Validators.required])),
       countryIso2: new FormControl('', Validators.compose([Validators.required])),
       postalCode: new FormControl('', Validators.compose([Validators.required])),
+      province: new FormControl('', Validators.compose([Validators.required])),
       phone: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
       insuranceFreight: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatFiveDecimal)])),
       preparation: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatTwoDecimal)])),
@@ -343,6 +345,7 @@ export class PortComponent implements OnInit {
       this.formPort.controls['city'].setValue(this.data.data.City);
       this.formPort.controls['countryIso2'].setValue(this.data.data.CountryIso2);
       this.formPort.controls['postalCode'].setValue(this.data.data.PostalCode);
+      this.formPort.controls['province'].setValue(this.data.data.Province);
       this.formPort.controls['address'].setValue(this.data.data.Address);
       this.formPort.controls['phone'].setValue(this.data.data.Phone);
       this.formPort.controls['insuranceFreight'].setValue(this.data.data.InsuranceFreight);
@@ -392,6 +395,7 @@ export class PortComponent implements OnInit {
         city: this.body.city,
         countryIso2: this.body.countryIso2,
         postalCode: this.body.postalCode,
+        province: this.body.province,
         phone: this.body.phone,
         tariff: this.body.tariff,
         shippingCost: this.body.shippingCost.toString(),
