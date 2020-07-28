@@ -52,6 +52,7 @@ export class ComponentProcessComponent implements OnInit {
   public listErrorStatus: any = [];
   @ViewChild('stepper') stepper: MatStepper;
   user2: UserInformation;
+  idProductProcess = null;
 
   constructor(private fb: FormBuilder,
     private loadingService: LoadingService,
@@ -120,6 +121,7 @@ export class ComponentProcessComponent implements OnInit {
             this.detailProduct = result.data;
             this.detailProduct.reference = this.reference;
           }
+          this.idProductProcess = result.data.idProductProcess;
         });
       }
     } else {
@@ -249,7 +251,9 @@ export class ComponentProcessComponent implements OnInit {
     // call to the bulk load product service
     if (!this.saving) {
       this.saving = true;
-      this.process.saveInformationUnitreation(this.ean).subscribe(result => {
+      console.log('this.ean: ', this.ean);
+      this.process.saveInformationUnitreation(this.ean, this.idProductProcess).subscribe(result => {
+        console.log('res save product: ', result);
         const data = result;
         if (this.isAdmin) {
           this.verificateStatus();
