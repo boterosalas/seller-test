@@ -32,10 +32,11 @@ export class ViewCommentComponent implements OnInit {
   ) {
     // _.cloneDeep permite clonar el json y no generar error de binding en la vista orders-list,
     // ya que al usar el mimso json estaba presentando cambios en ambas vistas
-    this.getAllCommentRefuse();
+    // this.getAllCommentRefuse();
   }
 
   ngOnInit() {
+    this.getAllCommentRefuse();
   }
   /**
    * funcion para consultar los comentarios devoluciones

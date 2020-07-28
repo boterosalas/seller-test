@@ -28,12 +28,13 @@ export class ViewCommentComponent implements OnInit {
     public dialogRef: MatDialogRef<ViewCommentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.getAllCommentRefuse();
+    // this.getAllCommentRefuse();
     // _.cloneDeep permite clonar el json y no generar error de binding en la vista orders-list,
     // ya que al usar el mimso json estaba presentando cambios en ambas vistas
   }
 
   ngOnInit() {
+    this.getAllCommentRefuse();
   }
   /**
    * funcion para consultar los comentarios devoluciones
