@@ -14,7 +14,9 @@ export class CaseSummaryComponent implements OnInit {
   // @Input() case: Case;
   case = [];
   @Input() set _case(value: any) {
-    this.case = value;
+    if (value) {
+      this.case = value;
+    }
   }
 
   @Input() disabled: false;

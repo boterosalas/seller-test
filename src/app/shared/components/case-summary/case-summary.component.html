@@ -1,4 +1,4 @@
-<div class="ticket-content">
+<div class="ticket-content" *ngIf="case">
   <div class="ticket-content__item ticket-detail ticket-detail--col">
     <app-basic-card class="ticket-content--bottom-space"
       [title]=" translateService.instant('secure.parametize.support_claims.description')"
