@@ -70,9 +70,10 @@ export class PortComponent implements OnInit {
   separatorKeysCodes = [];
   filter = null;
   mapInitialPortList: any;
-  PortRegex = { formatTwoDecimal: '', formatFiveDecimal: '', formatIntegerNumber: '' };
+  PortRegex = { formatTwoDecimal: '', formatFiveDecimal: '', formatIntegerNumber: '', CategoryName: '' };
   method = '';
   show = false;
+  validateCountry = true;
 
   length = 0;
 
@@ -249,10 +250,10 @@ export class PortComponent implements OnInit {
       country: new FormControl(''),
       address: new FormControl('', Validators.compose([Validators.required])),
       nameCountry: new FormControl(''),
-      city: new FormControl('', Validators.compose([Validators.required])),
-      countryIso2: new FormControl('', Validators.compose([Validators.required])),
+      city: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.CategoryName)])),
+      countryIso2: new FormControl('', Validators.compose([Validators.required , Validators.pattern(this.PortRegex.CategoryName)])),
       postalCode: new FormControl('', Validators.compose([Validators.required])),
-      province: new FormControl('', Validators.compose([Validators.required])),
+      province: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.CategoryName)])),
       phone: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
       insuranceFreight: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatFiveDecimal)])),
       preparation: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatTwoDecimal)])),
@@ -306,15 +307,19 @@ export class PortComponent implements OnInit {
         console.log(this.filterCountryAddress);
         const exist = this.filterCountryAddress.find(countryAddress => countryAddress.CountryName === val);
         if (!exist) {
+          this.validateCountry = true;
           this.formPort.get('nameCountry').setErrors({ pattern: false });
         } else {
           this.formPort.get('nameCountry').setErrors(null);
+          this.validateCountry = false;
         }
       } else if (!val) {
         this.filterCountryAddress = [];
         this.formPort.get('nameCountry').setErrors(null);
+        this.validateCountry = true;
       } else {
         this.formPort.get('nameCountry').setErrors(null);
+        this.validateCountry = true;
       }
     });
   }

@@ -329,6 +329,8 @@
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
           <mat-form-field class="port-component-width-95">
             <input formControlName="countryIso2" matInput [placeholder]="'secure.parametize.port.prefix' | translate">
+            <mat-error *ngIf="formPort.get('countryIso2').hasError('pattern')">{{'errors.format_invalidate' | translate}}
+            </mat-error>
             <mat-error *ngIf="formPort.get('countryIso2').hasError('required')">{{'errors.required' | translate}}
             </mat-error>
           </mat-form-field>
@@ -339,12 +341,16 @@
           class="port-component-aling-padding-left">
           <mat-form-field class="port-component-width-95">
             <input formControlName="city" matInput [placeholder]="'secure.parametize.port.city' | translate">
+            <mat-error *ngIf="formPort.get('city').hasError('pattern')">{{'errors.format_invalidate' | translate}}
+            </mat-error>
             <mat-error *ngIf="formPort.get('city').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
           <mat-form-field class="port-component-width-95">
             <input formControlName="province" matInput [placeholder]="'secure.parametize.port.province' | translate">
+            <mat-error *ngIf="formPort.get('province').hasError('pattern')">{{'errors.format_invalidate' | translate}}
+            </mat-error>
             <mat-error *ngIf="formPort.get('province').hasError('required')">{{'errors.required' | translate}}
             </mat-error>
           </mat-form-field>
@@ -475,7 +481,7 @@
   <mat-divider></mat-divider>
   <mat-dialog-actions align="end">
     <button mat-button (click)="onNoClick()">{{'actions.cancel'| translate}}</button>
-    <button type="button" mat-raised-button color="primary" [disabled]="!f.form.valid || validateKey"
+    <button type="button" mat-raised-button color="primary" [disabled]="!f.form.valid || validateKey || validateCountry"
       (click)="savePort()">{{'actions.accept' | translate}}</button>
   </mat-dialog-actions>
 </ng-template>
