@@ -53,6 +53,7 @@ export class PortComponent implements OnInit {
   public filterPort: FormGroup;
   keywords = [];
   countries = countries;
+  countriesAdress = countries;
   filterCountryFilter = [];
   filterCountryName = [];
   filterCountryApply = [];
@@ -247,7 +248,7 @@ export class PortComponent implements OnInit {
       name: new FormControl('', Validators.compose([Validators.required])),
       country: new FormControl(''),
       address: new FormControl('', Validators.compose([Validators.required])),
-      nameCountry: new FormControl('', Validators.compose([Validators.required])),
+      nameCountry: new FormControl(''),
       city: new FormControl('', Validators.compose([Validators.required])),
       countryIso2: new FormControl('', Validators.compose([Validators.required])),
       postalCode: new FormControl('', Validators.compose([Validators.required])),
@@ -269,6 +270,7 @@ export class PortComponent implements OnInit {
     this.formPort.get('country').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
       if (!!val && val.length >= 2) {
         this.filterCountryApply = this.countries.filter(country => country.CountryName.toString().toLowerCase().includes(val.toLowerCase()));
+        console.log(this.filterCountryApply);
         const exist = this.filterCountryApply.find(country => country.CountryName === val);
         if (!exist) {
           this.formPort.get('country').setErrors({ pattern: false });
@@ -300,8 +302,9 @@ export class PortComponent implements OnInit {
     });
     this.formPort.get('nameCountry').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
       if (!!val && val.length >= 2) {
-        this.filterCountryAddress = this.countries.filter(country => country.CountryName.toString().toLowerCase().includes(val.toLowerCase()));
-        const exist = this.filterCountryAddress.find(country => country.CountryName === val);
+        this.filterCountryAddress = this.countriesAdress.filter(countryAddress => countryAddress.CountryName.toString().toLowerCase().includes(val.toLowerCase()));
+        console.log(this.filterCountryAddress);
+        const exist = this.filterCountryAddress.find(countryAddress => countryAddress.CountryName === val);
         if (!exist) {
           this.formPort.get('nameCountry').setErrors({ pattern: false });
         } else {
