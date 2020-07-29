@@ -56,6 +56,7 @@ export class PortComponent implements OnInit {
   filterCountryFilter = [];
   filterCountryName = [];
   filterCountryApply = [];
+  filterCountryAddress = [];
   validateKey = true;
   countryCurrent: string;
   body: any;
@@ -172,6 +173,7 @@ export class PortComponent implements OnInit {
         Address: x.Address,
         City: x.City,
         CountryIso2: x.CountryIso2,
+        CountryName: x.CountryName,
         PostalCode: x.PostalCode,
         Province: x.Province,
         Phone: x.Phone,
@@ -245,6 +247,7 @@ export class PortComponent implements OnInit {
       name: new FormControl('', Validators.compose([Validators.required])),
       country: new FormControl(''),
       address: new FormControl('', Validators.compose([Validators.required])),
+      nameCountry: new FormControl('', Validators.compose([Validators.required])),
       city: new FormControl('', Validators.compose([Validators.required])),
       countryIso2: new FormControl('', Validators.compose([Validators.required])),
       postalCode: new FormControl('', Validators.compose([Validators.required])),
@@ -293,6 +296,22 @@ export class PortComponent implements OnInit {
         this.filterPort.get('countryFilter').setErrors(null);
       } else {
         this.filterPort.get('countryFilter').setErrors(null);
+      }
+    });
+    this.formPort.get('nameCountry').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
+      if (!!val && val.length >= 2) {
+        this.filterCountryAddress = this.countries.filter(country => country.CountryName.toString().toLowerCase().includes(val.toLowerCase()));
+        const exist = this.filterCountryAddress.find(country => country.CountryName === val);
+        if (!exist) {
+          this.formPort.get('nameCountry').setErrors({ pattern: false });
+        } else {
+          this.formPort.get('nameCountry').setErrors(null);
+        }
+      } else if (!val) {
+        this.filterCountryAddress = [];
+        this.formPort.get('nameCountry').setErrors(null);
+      } else {
+        this.formPort.get('nameCountry').setErrors(null);
       }
     });
   }
@@ -347,6 +366,7 @@ export class PortComponent implements OnInit {
       this.formPort.controls['postalCode'].setValue(this.data.data.PostalCode);
       this.formPort.controls['province'].setValue(this.data.data.Province);
       this.formPort.controls['address'].setValue(this.data.data.Address);
+      this.formPort.controls['nameCountry'].setValue(this.data.data.CountryName);
       this.formPort.controls['phone'].setValue(this.data.data.Phone);
       this.formPort.controls['insuranceFreight'].setValue(this.data.data.InsuranceFreight);
       this.formPort.controls['preparation'].setValue(this.data.data.Preparation);
@@ -392,6 +412,7 @@ export class PortComponent implements OnInit {
         id: this.idPort,
         name: this.body.name,
         address: this.body.address,
+        countryName: this.body.nameCountry,
         city: this.body.city,
         countryIso2: this.body.countryIso2,
         postalCode: this.body.postalCode,

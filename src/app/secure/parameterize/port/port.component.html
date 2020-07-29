@@ -35,7 +35,7 @@
       <mat-table #table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="expand">
           <mat-header-cell fxFlex.lg="60px" fxFlex="70px" fxShow.xs="false" fxShow.sm="false" fxShow.gt-lg="false"
-            fxShow="true" fxFlex.xl="250px" *matHeaderCellDef >
+            fxShow="true" fxFlex.xl="250px" *matHeaderCellDef>
           </mat-header-cell>
           <mat-cell fxFlex="70px" fxFlex.lg="60px" fxShow.xs="false" fxShow.sm="false" fxShow.gt-lg="false"
             fxShow="true" *matCellDef="let element;let index=index">
@@ -47,7 +47,7 @@
         <ng-container matColumnDef="name">
           <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
             fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
-            *matHeaderCellDef >
+            *matHeaderCellDef>
             <span class="title-table-header">{{'shared.name' | translate}}</span>
           </mat-header-cell>
           <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
@@ -59,7 +59,7 @@
         <ng-container matColumnDef="collection_center">
           <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
             fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
-            *matHeaderCellDef >
+            *matHeaderCellDef>
             <span class="title-table-header">{{'secure.parametize.port.country' | translate}}</span>
           </mat-header-cell>
           <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
@@ -72,7 +72,7 @@
         <ng-container matColumnDef="address">
           <mat-header-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
             fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
-            *matHeaderCellDef >
+            *matHeaderCellDef>
             <span class="title-table-header">{{'secure.parametize.port.address' | translate}}</span>
           </mat-header-cell>
           <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true"
@@ -84,7 +84,7 @@
         <ng-container matColumnDef="phone">
           <mat-header-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
             fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
-            *matHeaderCellDef >
+            *matHeaderCellDef>
             <span class="title-table-header">{{'secure.parametize.port.phone' | translate}}</span>
           </mat-header-cell>
           <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true"
@@ -96,7 +96,7 @@
         <ng-container matColumnDef="action">
           <mat-header-cell class="port-component-text-aling" fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
             fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
-            *matHeaderCellDef >
+            *matHeaderCellDef>
             <span class="title-table-header">{{'secure.parametize.port.action' | translate}}</span>
           </mat-header-cell>
           <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
@@ -112,44 +112,67 @@
           class="element-row personal-row-table" [cdkDetailRow]="row" [cdkDetailRowTpl]="tpl">
         </mat-row>
       </mat-table>
-    
+
     </div>
     <div [@detailExpand] class="orders-no-data" *ngIf="length == 0">
       <mat-icon class="icon-not-found" color="primary">info</mat-icon>
       <p>{{'secure.parametize.port.no_found_port' | translate}}
       </p>
     </div>
-      <!-- Fila desplegable para la tabla -->
-      <ng-template #tpl let-element>
-        <div class="content-detail-order mat-row  overFlow-Hidden" [@detailExpand]>
-          <div fxLayout="row wrap" class="container-port-padding-button">
-            <div fxFlex.lg="40" fxFlex.sm="100" fxFlex.md="40" fxFlex.xs="100" fxFlex.xl="40">
-              <div fxLayout="column" class="container-port-details">
-                <div class="container-port-padding"><span class="port-title-text-detail">{{'secure.parametize.port.province' | translate}}: </span> <span class="port-result-text-detail">{{element.Province}}</span></div>
-                <div class="container-port-padding"><span class="port-title-text-detail">{{'secure.parametize.port.city' | translate}}: </span> <span class="port-result-text-detail">{{element.City}}</span></div>
-                <div class="container-port-padding"><span class="port-title-text-detail">{{'secure.parametize.port.prefix' | translate}}: </span> <span class="port-result-text-detail">{{element.CountryIso2}}</span></div>
-                <div class="container-port-padding"><span class="port-title-text-detail">{{'secure.parametize.port.postalCode' | translate}}: </span> <span class="port-result-text-detail">{{element.PostalCode}}</span></div>
-                <div class="container-port-padding"><span class="port-title-text-detail">{{'secure.parametize.port.tariff' | translate}}: </span> <span class="port-result-text-detail">{{element.Tariff}}</span></div>
-                <div class="container-port-padding"><span class="port-title-text-detail">{{'secure.parametize.port.shippingCost' | translate}}: </span> <span class="port-result-text-detail">{{element.ShippingCost}}</span></div>
-                <div class="container-port-padding"><span class="port-title-text-detail">{{'secure.parametize.port.tariffByKg' | translate}}: </span> <span class="port-result-text-detail">{{element.NegotiatedShippingCost}}</span></div>
-                <div class="container-port-padding"><span class="port-title-text-detail">{{'secure.parametize.port.insurance_freight' | translate}}: </span> <span class="port-result-text-detail">{{element.InsuranceFreight}}</span></div>
-                <div class="container-port-padding"><span class="port-title-text-detail">{{'secure.parametize.port.preparation' | translate}}: </span> <span class="port-result-text-detail">{{element.Preparation}}</span></div>
-                <div class="container-port-padding"><span class="port-title-text-detail">{{'secure.parametize.port.national_transportation' | translate}}: </span> <span class="port-result-text-detail">{{element.NationalTransport}}</span></div>
-                <div class="container-port-padding"><span class="port-title-text-detail">{{'secure.parametize.port.insurance_CIF' | translate}}: </span> <span class="port-result-text-detail">{{element.InsuranceCif}}</span></div>
-                
-              </div>
+    <!-- Fila desplegable para la tabla -->
+    <ng-template #tpl let-element>
+      <div class="content-detail-order mat-row  overFlow-Hidden" [@detailExpand]>
+        <div fxLayout="row wrap" class="container-port-padding-button">
+          <div fxFlex.lg="40" fxFlex.sm="100" fxFlex.md="40" fxFlex.xs="100" fxFlex.xl="40">
+            <div fxLayout="column" class="container-port-details">
+              <div class="container-port-padding"><span
+                  class="port-title-text-detail">{{'secure.parametize.port.province' | translate}}: </span> <span
+                  class="port-result-text-detail">{{element.Province}}</span></div>
+              <div class="container-port-padding"><span
+                  class="port-title-text-detail">{{'secure.parametize.port.city' | translate}}: </span> <span
+                  class="port-result-text-detail">{{element.City}}</span></div>
+              <div class="container-port-padding"><span
+                  class="port-title-text-detail">{{'secure.parametize.port.prefix' | translate}}: </span> <span
+                  class="port-result-text-detail">{{element.CountryIso2}}</span></div>
+              <div class="container-port-padding"><span
+                  class="port-title-text-detail">{{'secure.parametize.port.postalCode' | translate}}: </span> <span
+                  class="port-result-text-detail">{{element.PostalCode}}</span></div>
+              <div class="container-port-padding"><span
+                  class="port-title-text-detail">{{'secure.parametize.port.tariff' | translate}}: </span> <span
+                  class="port-result-text-detail">{{element.Tariff}}</span></div>
+              <div class="container-port-padding"><span
+                  class="port-title-text-detail">{{'secure.parametize.port.shippingCost' | translate}}: </span> <span
+                  class="port-result-text-detail">{{element.ShippingCost}}</span></div>
+              <div class="container-port-padding"><span
+                  class="port-title-text-detail">{{'secure.parametize.port.tariffByKg' | translate}}: </span> <span
+                  class="port-result-text-detail">{{element.NegotiatedShippingCost}}</span></div>
+              <div class="container-port-padding"><span
+                  class="port-title-text-detail">{{'secure.parametize.port.insurance_freight' | translate}}: </span>
+                <span class="port-result-text-detail">{{element.InsuranceFreight}}</span></div>
+              <div class="container-port-padding"><span
+                  class="port-title-text-detail">{{'secure.parametize.port.preparation' | translate}}: </span> <span
+                  class="port-result-text-detail">{{element.Preparation}}</span></div>
+              <div class="container-port-padding"><span
+                  class="port-title-text-detail">{{'secure.parametize.port.national_transportation' | translate}}:
+                </span> <span class="port-result-text-detail">{{element.NationalTransport}}</span></div>
+              <div class="container-port-padding"><span
+                  class="port-title-text-detail">{{'secure.parametize.port.insurance_CIF' | translate}}: </span> <span
+                  class="port-result-text-detail">{{element.InsuranceCif}}</span></div>
+
             </div>
-            <div fxFlex.lg="60" fxFlex.sm="100" fxFlex.md="60" fxFlex.xs="100" fxFlex.xl="60">
-              <div fxLayout="row">
-                <div class="container-title-collection-center">{{'secure.parametize.port.country' | translate}}</div>
-              </div>
-              <div fxLayout="row wrap" class="max-height-overflox-y">
-                <div fxFlex="50" *ngFor="let country of element.Country"  class="port-result-text-detail width-and-padding">{{country}}</div>
-              </div>
+          </div>
+          <div fxFlex.lg="60" fxFlex.sm="100" fxFlex.md="60" fxFlex.xs="100" fxFlex.xl="60">
+            <div fxLayout="row">
+              <div class="container-title-collection-center">{{'secure.parametize.port.country' | translate}}</div>
+            </div>
+            <div fxLayout="row wrap" class="max-height-overflox-y">
+              <div fxFlex="50" *ngFor="let country of element.Country"
+                class="port-result-text-detail width-and-padding">{{country}}</div>
             </div>
           </div>
         </div>
-      </ng-template>
+      </div>
+    </ng-template>
   </div>
 </div>
 
@@ -235,10 +258,9 @@
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50"
           class="port-component-aling-padding-left">
           <mat-form-field class="field port-component-width-90">
-            <input matInput [placeholder]="'shared.name' | translate"
-               formControlName="name">
-               <mat-error *ngIf="formPort.get('name').hasError('required')">{{'errors.required' | translate}}
-              </mat-error>
+            <input matInput [placeholder]="'shared.name' | translate" formControlName="name">
+            <mat-error *ngIf="formPort.get('name').hasError('required')">{{'errors.required' | translate}}
+            </mat-error>
           </mat-form-field>
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
@@ -251,8 +273,8 @@
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
-          <mat-icon matSuffix  [matTooltip]="'secure.parametize.port.btn_add_port' | translate" class="material-icons add-keyword-icon vertical-align-top"
-            (click)="saveKeyword()">
+          <mat-icon matSuffix [matTooltip]="'secure.parametize.port.btn_add_port' | translate"
+            class="material-icons add-keyword-icon vertical-align-top" (click)="saveKeyword()">
             add_circle_outline
           </mat-icon>
         </div>
@@ -272,17 +294,42 @@
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50"
           class="port-component-aling-padding-left">
           <mat-form-field class="port-component-width-95">
-            <input formControlName="address" matInput [placeholder]="'secure.parametize.port.address' | translate">
-            <mat-error *ngIf="formPort.get('address').hasError('required')">{{'errors.required' | translate}}
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
-          <mat-form-field class="port-component-width-95">
             <input formControlName="phone" matInput [placeholder]="'shared.phone' | translate">
             <mat-error *ngIf="formPort.get('phone').hasError('pattern')">{{'errors.format_invalidate' | translate}}
             </mat-error>
             <mat-error *ngIf="formPort.get('phone').hasError('required')">{{'errors.required' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
+
+        </div>
+      </div>
+
+      <div fxLayout="row wrap" class="margin-top-11">
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100"
+          class="port-component-container-header">
+          <span class="port-component-text-title">
+            <mat-icon class="mat-18 vertical-align-and-color-icon">location_on</mat-icon>
+            Dirección del Centro de Acopio
+          </span>
+        </div>
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50"
+          class="port-component-aling-padding-left">
+          <mat-form-field class="field port-component-width-90">
+            <input matInput [placeholder]="'secure.parametize.port.country' | translate" [matAutocomplete]="auto"
+              formControlName="nameCountry" (keyup.enter)="saveKeyword()">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let country of filterCountryAddress" [value]="country.CountryName">
+                {{country.CountryName}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
+          <mat-form-field class="port-component-width-95">
+            <input formControlName="countryIso2" matInput [placeholder]="'secure.parametize.port.prefix' | translate">
+            <mat-error *ngIf="formPort.get('countryIso2').hasError('required')">{{'errors.required' | translate}}
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -291,14 +338,14 @@
           class="port-component-aling-padding-left">
           <mat-form-field class="port-component-width-95">
             <input formControlName="city" matInput [placeholder]="'secure.parametize.port.city' | translate">
-            <mat-error *ngIf="formPort.get('city').hasError('required')">{{'errors.required' | translate}}
-            </mat-error>
+            <mat-error *ngIf="formPort.get('city').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
           <mat-form-field class="port-component-width-95">
-            <input formControlName="countryIso2" matInput [placeholder]="'secure.parametize.port.prefix' | translate">
-            <mat-error *ngIf="formPort.get('countryIso2').hasError('required')">{{'errors.required' | translate}}</mat-error>
+            <input formControlName="province" matInput [placeholder]="'secure.parametize.port.province' | translate">
+            <mat-error *ngIf="formPort.get('province').hasError('required')">{{'errors.required' | translate}}
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -306,15 +353,17 @@
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50"
           class="port-component-aling-padding-left">
           <mat-form-field class="port-component-width-95">
-            <input formControlName="postalCode" matInput [placeholder]="'secure.parametize.port.postalCode' | translate">
+            <input formControlName="postalCode" matInput
+              [placeholder]="'secure.parametize.port.postalCode' | translate">
             <mat-error *ngIf="formPort.get('postalCode').hasError('required')">{{'errors.required' | translate}}
             </mat-error>
           </mat-form-field>
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
           <mat-form-field class="port-component-width-95">
-            <input formControlName="province" matInput [placeholder]="'secure.parametize.port.province' | translate">
-            <mat-error *ngIf="formPort.get('province').hasError('required')">{{'errors.required' | translate}}</mat-error>
+            <input formControlName="address" matInput [placeholder]="'secure.parametize.port.address' | translate">
+            <mat-error *ngIf="formPort.get('address').hasError('required')">{{'errors.required' | translate}}
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -413,7 +462,8 @@
           class="port-component-aling-padding-left">
           <mat-form-field class="port-component-width-95">
             <input formControlName="tariff" matInput [placeholder]="'secure.parametize.port.tariff' | translate">
-            <mat-error *ngIf="formPort.get('tariff').hasError('pattern')">{{'secure.parametize.port.error_format_five_decimal' | translate}}
+            <mat-error *ngIf="formPort.get('tariff').hasError('pattern')">
+              {{'secure.parametize.port.error_format_five_decimal' | translate}}
             </mat-error>
             <mat-error *ngIf="formPort.get('tariff').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
