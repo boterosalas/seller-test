@@ -59,6 +59,7 @@ export class ComboPendingProductComponent implements OnInit {
   public openInformation(params?: any): void {
     this.loadingService.viewSpinner();
     this.pendingProductsService.getEANProductsModify(params).subscribe((result: any) => {
+      console.log('res combo: ', result);
       this.showImage = true;
       this.productsPendindgExpanded = result.data;
       this.loadingService.closeSpinner();

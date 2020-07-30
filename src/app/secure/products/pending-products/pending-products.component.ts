@@ -213,6 +213,7 @@ export class PendingProductsComponent implements OnInit {
     }
     this.showProducts = false;
     this.pendingProductsService.getPendingProductsModify(this.paramsArray).subscribe((res: any) => {
+      console.log('res: modify', res);
       if (res) {
         if (this.callOne) {
           this.length = res.count;
@@ -250,6 +251,7 @@ export class PendingProductsComponent implements OnInit {
     }
     this.showProducts = false;
     this.pendingProductsService.getPendingProductsValidation(this.paramsArray2).subscribe((res: any) => {
+      console.log('res: validation', res);
       if (res) {
         if (this.callOne2) {
           this.length2 = res.count;
