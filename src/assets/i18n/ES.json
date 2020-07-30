@@ -1296,7 +1296,7 @@
     "secure.parametize.port.collection_center": "Centro de acopio",
     "secure.parametize.port.address": "Dirección",
     "secure.parametize.port.city": "Ciudad",
-    "secure.parametize.port.prefix": "Prefijo del país",
+    "secure.parametize.port.prefix": "Código ISO del país",
     "secure.parametize.port.postalCode": "Código postal",
     "secure.parametize.port.province": "Provincia",
     "secure.parametize.port.action": "Acción",

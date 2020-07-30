@@ -138,10 +138,12 @@ export class PortComponent implements OnInit {
       this.filter = params.countryFilter;
     }
     this.portCollectionService.getAllPort(this.filter).subscribe((res: any) => {
+    
       this.loadingService.closeSpinner();
       if (!!res && !!res.status && res.status === 200) {
         if (res && res.body && res.body.body) {
           this.initialPortList = JSON.parse(res.body.body).Data;
+          console.log(this.initialPortList);
           if (JSON.stringify(this.initialPortList) !== '{}') {
             this.mapInitialPortList = this.mapItems(this.initialPortList);
             this.dataSource = new MatTableDataSource(this.mapInitialPortList);
