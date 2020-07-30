@@ -45,18 +45,18 @@
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="name">
-          <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
+          <mat-header-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+            fxShow.xl="true" fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="20" fxFlex.xl=""
             *matHeaderCellDef>
             <span class="title-table-header">{{'shared.name' | translate}}</span>
           </mat-header-cell>
-          <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
-            fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
+          <mat-cell  fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="20" fxFlex.xl=""
             *matCellDef="let element">
             <p class="sc-text-normal">{{element.Name}}</p>
           </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="collection_center">
+        <!-- <ng-container matColumnDef="collection_center">
           <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
             fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
             *matHeaderCellDef>
@@ -68,41 +68,55 @@
             <div></div>
             <p class="sc-text-normal cup-text-country">{{element.CountryString}}</p>
           </mat-cell>
-        </ng-container>
+        </ng-container> -->
         <ng-container matColumnDef="address">
-          <mat-header-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
+          <mat-header-cell  fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
+            fxShow.xl="true" fxShow="true" fxFlex.lg="40" fxFlex.sm="40" fxFlex.md="40" fxFlex.xs="30" fxFlex.xl=""
             *matHeaderCellDef>
             <span class="title-table-header">{{'secure.parametize.port.address' | translate}}</span>
           </mat-header-cell>
-          <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true"
-            fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
+          <mat-cell  fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="40" fxFlex.sm="40" fxFlex.md="40" fxFlex.xs="30" fxFlex.xl=""
             *matCellDef="let element">
-            <p class="sc-text-normal">{{element.Address}}</p>
+            <p class="sc-text-normal" style="margin-right: 20px;">
+              <span *ngIf="element.Address" style="font-weight: bold;">{{element.Address}}</span>
+              <span *ngIf="element.PostalCode" style="font-weight: bold;">, {{element.PostalCode}}</span>
+              <span *ngIf="!element.PostalCode" style="color:#b6b6b6">, (No tiene Código Postal)</span>
+              <span *ngIf="element.City" style="font-weight: bold;">, {{element.City}}</span>
+              <span *ngIf="!element.City" style="color:#b6b6b6">, (No tiene ciudad)</span>
+              <span *ngIf="element.Province" style="font-weight: bold;">, {{element.Province}}</span>
+              <span *ngIf="!element.Province" style="color:#b6b6b6">, (No tiene Provincia/Estado)</span>
+              <span *ngIf="element.CountryName" style="font-weight: bold;">, {{element.CountryName}} 
+                <span *ngIf="element.CountryIso2" style="font-weight: bold;">({{element.CountryIso2}})</span>
+                <span *ngIf="!element.CountryIso2" style="color:#b6b6b6">(No tiene)</span>
+              </span>
+              <span *ngIf="!element.CountryName" style="color:#b6b6b6">, (No tiene País)</span>
+              
+            </p>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="phone">
-          <mat-header-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
+          <mat-header-cell  fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
+            fxShow.xl="true" fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
             *matHeaderCellDef>
             <span class="title-table-header">{{'secure.parametize.port.phone' | translate}}</span>
           </mat-header-cell>
-          <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true"
-            fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
             *matCellDef="let element">
             <p class="sc-text-normal">{{element.Phone}}</p>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="action">
           <mat-header-cell class="port-component-text-aling" fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
+            fxShow.xl="true" fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
             *matHeaderCellDef>
             <span class="title-table-header">{{'secure.parametize.port.action' | translate}}</span>
           </mat-header-cell>
-          <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
-            fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element"
+          <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element"
             class="port-component-text-aling">
-            <mat-icon class="mat-18 port-component-color-icon-edit" (click)="upsetPort(2, element)">edit</mat-icon>
+            <mat-icon class="mat-18 port-component-color-icon-edit" style="color:#485AFA" (click)="upsetPort(2, element)">edit</mat-icon>
           </mat-cell>
         </ng-container>
 
@@ -125,18 +139,6 @@
         <div fxLayout="row wrap" class="container-port-padding-button">
           <div fxFlex.lg="40" fxFlex.sm="100" fxFlex.md="40" fxFlex.xs="100" fxFlex.xl="40">
             <div fxLayout="column" class="container-port-details">
-              <div class="container-port-padding"><span
-                  class="port-title-text-detail">{{'secure.parametize.port.province' | translate}}: </span> <span
-                  class="port-result-text-detail">{{element.Province}}</span></div>
-              <div class="container-port-padding"><span
-                  class="port-title-text-detail">{{'secure.parametize.port.city' | translate}}: </span> <span
-                  class="port-result-text-detail">{{element.City}}</span></div>
-              <div class="container-port-padding"><span
-                  class="port-title-text-detail">{{'secure.parametize.port.prefix' | translate}}: </span> <span
-                  class="port-result-text-detail">{{element.CountryIso2}}</span></div>
-              <div class="container-port-padding"><span
-                  class="port-title-text-detail">{{'secure.parametize.port.postalCode' | translate}}: </span> <span
-                  class="port-result-text-detail">{{element.PostalCode}}</span></div>
               <div class="container-port-padding"><span
                   class="port-title-text-detail">{{'secure.parametize.port.tariff' | translate}}: </span> <span
                   class="port-result-text-detail">{{element.Tariff}}</span></div>
@@ -264,36 +266,6 @@
           </mat-form-field>
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
-          <mat-form-field class="field port-component-width-90">
-            <input matInput [placeholder]="'secure.parametize.port.country' | translate" [matAutocomplete]="autoApply"
-              formControlName="country" (keyup.enter)="saveKeyword()">
-              <!-- {{filterCountryApply | json}} -->
-            <mat-autocomplete #autoApply="matAutocomplete">
-              <mat-option *ngFor="let country of filterCountryApply" [value]="country.CountryName">
-                {{country.CountryName}}
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
-          <mat-icon matSuffix [matTooltip]="'secure.parametize.port.btn_add_port' | translate"
-            class="material-icons add-keyword-icon vertical-align-top" (click)="saveKeyword()">
-            add_circle_outline
-          </mat-icon>
-        </div>
-      </div>
-      <div fxLayout="row" fxLayout.xs="column"
-        [ngClass]="validateKey ? 'port-componente-container-scroll-hide' : 'port-component-container-scroll-country-apply'">
-        <div class="port-component-container-chips-country">
-          <mat-chip-list>
-            <mat-chip *ngFor="let key of keywords; let i = index" (removed)="deleteKeywork(i)">
-              {{key}}
-              <mat-icon class="material-icons" matChipRemove>cancel</mat-icon>
-            </mat-chip>
-          </mat-chip-list>
-        </div>
-      </div>
-      <div fxLayout="row wrap" class="margin-top-11">
-        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50"
-          class="port-component-aling-padding-left">
           <mat-form-field class="port-component-width-95">
             <input formControlName="phone" matInput [placeholder]="'shared.phone' | translate">
             <mat-error *ngIf="formPort.get('phone').hasError('pattern')">{{'errors.format_invalidate' | translate}}
@@ -301,19 +273,8 @@
             <mat-error *ngIf="formPort.get('phone').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
         </div>
-        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
-
-        </div>
       </div>
-
       <div fxLayout="row wrap" class="margin-top-11">
-        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100"
-          class="port-component-container-header">
-          <span class="port-component-text-title">
-            <mat-icon class="mat-18 vertical-align-and-color-icon">location_on</mat-icon>
-            Dirección del Centro de Acopio
-          </span>
-        </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50"
           class="port-component-aling-padding-left">
           <mat-form-field class="field port-component-width-90">
@@ -328,7 +289,7 @@
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
           <mat-form-field class="port-component-width-95">
-            <input formControlName="countryIso2" matInput [placeholder]="'secure.parametize.port.prefix' | translate">
+            <input formControlName="countryIso2" matInput style="text-transform: uppercase" [placeholder]="'secure.parametize.port.prefix' | translate">
             <mat-error *ngIf="formPort.get('countryIso2').hasError('pattern')">{{'errors.format_invalidate' | translate}}
             </mat-error>
             <mat-error *ngIf="formPort.get('countryIso2').hasError('required')">{{'errors.required' | translate}}
@@ -425,6 +386,41 @@
             <mat-error *ngIf="formPort.get('nationalTransport').hasError('required')">{{'errors.required' | translate}}
             </mat-error>
           </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100"
+          class="port-component-container-header">
+          <span class="port-component-text-title">
+            <mat-icon class="mat-18 vertical-and-color">local_shipping</mat-icon>
+            Paises a los que aplica
+          </span>
+        </div>
+          <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="60" fxFlex.lg="60" fxFlex.xl="60" class="port-component-aling-padding-left">
+          <mat-form-field class="field port-component-width-90">
+            <input matInput [placeholder]="'secure.parametize.port.country' | translate" [matAutocomplete]="autoApply"
+              formControlName="country" (keyup.enter)="saveKeyword()">
+            <mat-autocomplete #autoApply="matAutocomplete">
+              <mat-option *ngFor="let country of filterCountryApply" [value]="country.CountryName">
+                {{country.CountryName}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <mat-icon matSuffix [matTooltip]="'secure.parametize.port.btn_add_port' | translate"
+            class="material-icons add-keyword-icon vertical-align-top" (click)="saveKeyword()">
+            add_circle_outline
+          </mat-icon>
+        </div>
+      </div>
+       <div fxLayout="row" fxLayout.xs="column"
+        [ngClass]="validateKey ? 'port-componente-container-scroll-hide' : 'port-component-container-scroll-country-apply'">
+        <div class="port-component-container-chips-country">
+          <mat-chip-list>
+            <mat-chip *ngFor="let key of keywords; let i = index" (removed)="deleteKeywork(i)">
+              {{key}}
+              <mat-icon class="material-icons" matChipRemove>cancel</mat-icon>
+            </mat-chip>
+          </mat-chip-list>
         </div>
       </div>
       <div fxLayout="row wrap">

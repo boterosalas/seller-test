@@ -70,7 +70,7 @@ export class PortComponent implements OnInit {
   separatorKeysCodes = [];
   filter = null;
   mapInitialPortList: any;
-  PortRegex = { formatTwoDecimal: '', formatFiveDecimal: '', formatIntegerNumber: '', CategoryName: '' };
+  PortRegex = { formatTwoDecimal: '', formatFiveDecimal: '', formatIntegerNumber: '', CategoryName: '', formatTwoLetter: '' };
   method = '';
   show = false;
   validateCountry = true;
@@ -80,7 +80,6 @@ export class PortComponent implements OnInit {
   public displayedColumns = [
     'expand',
     'name',
-    'collection_center',
     'address',
     'phone',
     'action'
@@ -251,7 +250,7 @@ export class PortComponent implements OnInit {
       address: new FormControl('', Validators.compose([Validators.required])),
       nameCountry: new FormControl(''),
       city: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.CategoryName)])),
-      countryIso2: new FormControl('', Validators.compose([Validators.required , Validators.pattern(this.PortRegex.CategoryName)])),
+      countryIso2: new FormControl('', Validators.compose([Validators.required , Validators.pattern(this.PortRegex.formatTwoLetter)])),
       postalCode: new FormControl('', Validators.compose([Validators.required])),
       province: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.CategoryName)])),
       phone: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
