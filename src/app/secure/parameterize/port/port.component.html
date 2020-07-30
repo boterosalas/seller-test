@@ -45,14 +45,12 @@
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="name">
-          <mat-header-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="20" fxFlex.xl=""
-            *matHeaderCellDef>
+          <mat-header-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="20" fxFlex.xl="" *matHeaderCellDef>
             <span class="title-table-header">{{'shared.name' | translate}}</span>
           </mat-header-cell>
-          <mat-cell  fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
-            fxShow="true" fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="20" fxFlex.xl=""
-            *matCellDef="let element">
+          <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="20"
+            fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="20" fxFlex.xl="" *matCellDef="let element">
             <p class="sc-text-normal">{{element.Name}}</p>
           </mat-cell>
         </ng-container>
@@ -70,14 +68,12 @@
           </mat-cell>
         </ng-container> -->
         <ng-container matColumnDef="address">
-          <mat-header-cell  fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true" fxFlex.lg="40" fxFlex.sm="40" fxFlex.md="40" fxFlex.xs="30" fxFlex.xl=""
-            *matHeaderCellDef>
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="40" fxFlex.sm="40" fxFlex.md="40" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
             <span class="title-table-header">{{'secure.parametize.port.address' | translate}}</span>
           </mat-header-cell>
-          <mat-cell  fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true"
-            fxShow="true" fxFlex.lg="40" fxFlex.sm="40" fxFlex.md="40" fxFlex.xs="30" fxFlex.xl=""
-            *matCellDef="let element">
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="40"
+            fxFlex.sm="40" fxFlex.md="40" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
             <p class="sc-text-normal" style="margin-right: 20px;">
               <span *ngIf="element.Address" style="font-weight: bold;">{{element.Address}}</span>
               <span *ngIf="element.PostalCode" style="font-weight: bold;">, {{element.PostalCode}}</span>
@@ -86,24 +82,22 @@
               <span *ngIf="!element.City" style="color:#b6b6b6">, (No tiene ciudad)</span>
               <span *ngIf="element.Province" style="font-weight: bold;">, {{element.Province}}</span>
               <span *ngIf="!element.Province" style="color:#b6b6b6">, (No tiene Provincia/Estado)</span>
-              <span *ngIf="element.CountryName" style="font-weight: bold;">, {{element.CountryName}} 
+              <span *ngIf="element.CountryName" style="font-weight: bold;">, {{element.CountryName}}
                 <span *ngIf="element.CountryIso2" style="font-weight: bold;">({{element.CountryIso2}})</span>
                 <span *ngIf="!element.CountryIso2" style="color:#b6b6b6">(No tiene)</span>
               </span>
               <span *ngIf="!element.CountryName" style="color:#b6b6b6">, (No tiene País)</span>
-              
+
             </p>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="phone">
-          <mat-header-cell  fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
-            *matHeaderCellDef>
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
             <span class="title-table-header">{{'secure.parametize.port.phone' | translate}}</span>
           </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true"
-            fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
-            *matCellDef="let element">
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
             <p class="sc-text-normal">{{element.Phone}}</p>
           </mat-cell>
         </ng-container>
@@ -116,7 +110,8 @@
           <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
             fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element"
             class="port-component-text-aling">
-            <mat-icon class="mat-18 port-component-color-icon-edit" style="color:#485AFA" (click)="upsetPort(2, element)">edit</mat-icon>
+            <mat-icon class="mat-18 port-component-color-icon-edit" style="color:#485AFA"
+              (click)="upsetPort(2, element)">edit</mat-icon>
           </mat-cell>
         </ng-container>
 
@@ -289,8 +284,10 @@
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
           <mat-form-field class="port-component-width-95">
-            <input formControlName="countryIso2" matInput style="text-transform: uppercase" [placeholder]="'secure.parametize.port.prefix' | translate">
-            <mat-error *ngIf="formPort.get('countryIso2').hasError('pattern')">{{'errors.format_invalidate' | translate}}
+            <input formControlName="countryIso2" matInput style="text-transform: uppercase"
+              [placeholder]="'secure.parametize.port.prefix' | translate">
+            <mat-error *ngIf="formPort.get('countryIso2').hasError('pattern')">
+              {{'errors.format_invalidate' | translate}}
             </mat-error>
             <mat-error *ngIf="formPort.get('countryIso2').hasError('required')">{{'errors.required' | translate}}
             </mat-error>
@@ -396,8 +393,9 @@
             Paises a los que aplica
           </span>
         </div>
-          <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="60" fxFlex.lg="60" fxFlex.xl="60" class="port-component-aling-padding-left">
-          <mat-form-field class="field port-component-width-90">
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100"
+          class="port-component-aling-padding-left">
+          <mat-form-field class="field port-component-width-95">
             <input matInput [placeholder]="'secure.parametize.port.country' | translate" [matAutocomplete]="autoApply"
               formControlName="country" (keyup.enter)="saveKeyword()">
             <mat-autocomplete #autoApply="matAutocomplete">
@@ -412,7 +410,7 @@
           </mat-icon>
         </div>
       </div>
-       <div fxLayout="row" fxLayout.xs="column"
+      <div fxLayout="row" fxLayout.xs="column"
         [ngClass]="validateKey ? 'port-componente-container-scroll-hide' : 'port-component-container-scroll-country-apply'">
         <div class="port-component-container-chips-country">
           <mat-chip-list>
@@ -423,7 +421,7 @@
           </mat-chip-list>
         </div>
       </div>
-      <div fxLayout="row wrap">
+      <div fxLayout="row wrap" style="margin-top: 10px;">
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100"
           class="port-component-container-header">
           <span class="port-component-text-title">

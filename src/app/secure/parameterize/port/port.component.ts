@@ -250,7 +250,7 @@ export class PortComponent implements OnInit {
       address: new FormControl('', Validators.compose([Validators.required])),
       nameCountry: new FormControl(''),
       city: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.CategoryName)])),
-      countryIso2: new FormControl('', Validators.compose([Validators.required , Validators.pattern(this.PortRegex.formatTwoLetter)])),
+      countryIso2: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatTwoLetter)])),
       postalCode: new FormControl('', Validators.compose([Validators.required])),
       province: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.CategoryName)])),
       phone: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
@@ -331,19 +331,19 @@ export class PortComponent implements OnInit {
     let word = this.formPort.controls.country.value;
     if (word) {
       word = word.trim();
-        if (word.search(',') === -1) {
-          this.keywords.push(word);
-        } else {
-          const counter = word.split(',');
-          counter.forEach(element => {
-            if (element) {
-              this.keywords.push(element);
-            }
-          });
-        }
-        this.formPort.controls.country.clearValidators();
-        this.formPort.controls.country.reset();
-        this.validateKey = this.keywords.length > 0 ? false : true;
+      if (word.search(',') === -1) {
+        this.keywords.push(word);
+      } else {
+        const counter = word.split(',');
+        counter.forEach(element => {
+          if (element) {
+            this.keywords.push(element);
+          }
+        });
+      }
+      this.formPort.controls.country.clearValidators();
+      this.formPort.controls.country.reset();
+      this.validateKey = this.keywords.length > 0 ? false : true;
     }
   }
   /**
