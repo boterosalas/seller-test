@@ -29,6 +29,8 @@ export class DropDownBoxComponent implements OnInit {
 
   @Output() opened = new EventEmitter();
 
+  @Output() showDetail = new EventEmitter();
+
   panelOpenState = false;
   hideStatus: any;
 

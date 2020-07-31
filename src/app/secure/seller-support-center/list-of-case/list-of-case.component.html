@@ -144,7 +144,7 @@
 
         <ng-container *itemDropDownList>
           <app-drop-down-box *ngFor="let item of cases; let i = index" [data]="item" [read]="item.read"
-            (opened)="markAsRead($event)" (click)="loadDataDetails(item)" [index]="i">
+            (opened)="markAsRead($event)" (showDetail)="consultDetails($event, item)" [index]="i">
             <ng-container *itemCaseList >
               <div *ngIf="item.statusLoad" class="text-aling-center">
                 <div class="margin-bottom-10">

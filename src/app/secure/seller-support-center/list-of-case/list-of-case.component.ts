@@ -523,6 +523,12 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
     }
   }
 
+  consultDetails(showDetails: boolean, item: any) {
+    if (showDetails) {
+      this.loadDataDetails(item);
+    }
+  }
+
   /**
    * Metodo para ir al detalle de las reclamaciones
    * @param {*} id
