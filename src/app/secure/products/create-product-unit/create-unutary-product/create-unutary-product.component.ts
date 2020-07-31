@@ -23,7 +23,6 @@ export class CreateUnutaryProductComponent implements OnInit {
         this.reference = params['reference'];
         this.pendingProduct = params['pendingProduct'];
       }
-      console.log(10, this.pendingProduct);
     });
   }
 

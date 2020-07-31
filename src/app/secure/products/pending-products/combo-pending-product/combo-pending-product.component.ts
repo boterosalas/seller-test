@@ -19,13 +19,21 @@ export class ComboPendingProductComponent implements OnInit {
   @Input() showProducts: boolean;
   @Input() offerPermission: boolean;
   @Input() editPermission: boolean;
+  @Input() sellerId: any;
+  @Input() indexTab: any;
 
   public productsPendindgExpanded: any;
+  public productsPendindgValidationExpanded: any;
+
   public showImage = false;
 
   public infoProduct: any;
 
   public user: UserInformation;
+
+  public showProductValidation = false;
+  public showProductModify = false;
+  matTabIndex: number;
 
 
   constructor(
@@ -34,9 +42,9 @@ export class ComboPendingProductComponent implements OnInit {
     public snackBar?: MatSnackBar,
     public userParams?: UserParametersService,
   ) {
-    console.log(1, this.infoProduct, this.productsList);
     this.getDataUser();
     this.infoProduct = this.productsList;
+    this.matTabIndex = this.indexTab;
   }
 
   ngOnInit() {
@@ -51,38 +59,69 @@ export class ComboPendingProductComponent implements OnInit {
     this.user = await this.userParams.getUserData();
   }
 
+  /**
+   * Metodo para volver al listado de productos
+   * @memberof ComboPendingProductComponent
+   */
   public backTolist(): void {
     this.productsPendindgExpanded = null;
     this.showImage = false;
   }
 
+  /**
+   * Información detalle productos rechazados pendiente modificación
+   * @param {*} [params]
+   * @memberof ComboPendingProductComponent
+   */
   public openInformation(params?: any): void {
     this.loadingService.viewSpinner();
     this.pendingProductsService.getEANProductsModify(params).subscribe((result: any) => {
-      console.log('res combo: ', result);
       this.showImage = true;
       this.productsPendindgExpanded = result.data;
       this.loadingService.closeSpinner();
     });
   }
 
-  setparams(params: any) {
-    const paramsArray = {
-      idSeller: 11811,
-      ean: 1001114217562,
-    };
-    const sellerId = 11811;
-    const eanParam = 1001114217562;
-    console.log(params);
+  /**
+   * Información detalle de productos pendiente de validación
+   * @param {*} [params]
+   * @memberof ComboPendingProductComponent
+   */
+  public openInfoProductValidation(params?: any) {
+    this.loadingService.viewSpinner();
+    this.pendingProductsService.getEANProductsValidation(params).subscribe((result: any) => {
+      this.showImage = true;
+      this.productsPendindgValidationExpanded = result.data;
+      this.loadingService.closeSpinner();
+    });
+  }
 
-    console.log(params.parentReference);
+
+  /**
+   * Seteo de parametros y envio data para la carga del servicio para ionformacion expandida productos rechazados para modificación
+   * @param {*} params
+   * @memberof ComboPendingProductComponent
+   */
+  setparams(params: any) {
     if (!params.parentReference || params.parentReference === '') {
       params.parentReference = null;
     }
+    const paramsServ = `${this.sellerId}/${params.ean}`;
+    this.openInformation(paramsServ);
 
-    const paramsServv = `${sellerId}/${params.ean}`;
+  }
 
-    this.openInformation(paramsServv);
+  /**
+   * Seteo de parametros y envio data para la carga del servicio para ionformacion expandida productos en validación
+   * @param {*} params
+   * @memberof ComboPendingProductComponent
+   */
+  setparams2(params: any) {
+    if (!params.parentReference || params.parentReference === '') {
+      params.parentReference = null;
+    }
+    const paramsServ = `${this.sellerId}/${params.ean}`;
+    this.openInfoProductValidation(paramsServ);
   }
 
 }

@@ -1,4 +1,4 @@
-<mat-tab-group mat-stretch-tabs style="height: 80vh">
+<mat-tab-group mat-stretch-tabs style="height: 80vh" (selectedTabChange)="setMatTab($event)">
   <mat-tab [label]="'secure.products.pending_products_tab1' | translate">
     <mat-drawer-container class="example-container" autosize>
       <mat-drawer #drawer [mode]="'over'" [position]="'end'" class="example-sidenav" [disableClose]="true">
@@ -73,7 +73,7 @@
           </mat-chip-list>
         </div>
         <div class="prodList">
-          <app-combo-pending-product [showProducts]="showProducts" [editPermission]="editPermission" [productsList]="productsList" class="listCombo">
+          <app-combo-pending-product [indexTab]="indexTab" [sellerId]="sellerId" [showProducts]="showProducts" [editPermission]="editPermission" [productsList]="productsList" class="listCombo">
           </app-combo-pending-product>
         </div>
       </div>
@@ -153,7 +153,7 @@
         </mat-chip-list>
       </div>
       <div class="prodList">
-        <app-combo-pending-product [showProducts]="showProducts" [productsList]="productsList2" class="listCombo">
+        <app-combo-pending-product [indexTab]="indexTab"  [showProducts]="showProducts" [productsList]="productsList2" [sellerId]="sellerId" class="listCombo">
         </app-combo-pending-product>
       </div>
     </div>

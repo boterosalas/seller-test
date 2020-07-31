@@ -14,6 +14,7 @@ const log = new Logger('ExpandedPendingProductsComponent');
 export class ExpandedPendingProductsComponent implements OnInit {
 
   @Input() public productsPendindgExpanded: any;
+  @Input() public productsPendindgValidationExpanded: any;
   @Input() editPermission: boolean;
 
   /* arreglo q contiene las imagenes grandes y pequeñas */
@@ -27,18 +28,32 @@ export class ExpandedPendingProductsComponent implements OnInit {
   public showOfer: boolean;
   avaibleProductPending: Boolean = false;
 
-
   constructor(
     private router: Router,
     private userParams?: UserParametersService,
-  ) { }
+  ) {
+    if (this.productsPendindgExpanded) {
+      this.productsPendindgExpanded = this.productsPendindgExpanded;
+    }
+    if (this.productsPendindgValidationExpanded) {
+      this.productsPendindgExpanded = this.productsPendindgValidationExpanded;
+    }
+  }
 
   ngOnInit() {
     this.createArrayImages();
     this.getDataUser();
-    const startswithModel = !!this.productsPendindgExpanded.model && (this.productsPendindgExpanded.model.toString() as string).toLowerCase().startsWith('modelo');
-    this.productsPendindgExpanded.model = startswithModel ? (this.productsPendindgExpanded.model.toString() as string).slice(6, this.productsPendindgExpanded.model.length) : this.productsPendindgExpanded.model;
+    if (this.productsPendindgExpanded) {
+      const startswithModel = !!this.productsPendindgExpanded.model && (this.productsPendindgExpanded.model.toString() as string).toLowerCase().startsWith('modelo');
+      this.productsPendindgExpanded.model = startswithModel ? (this.productsPendindgExpanded.model.toString() as string).slice(6, this.productsPendindgExpanded.model.length) : this.productsPendindgExpanded.model;
+    }
+    if (this.productsPendindgValidationExpanded) {
+      this.productsPendindgExpanded = this.productsPendindgValidationExpanded;
+      const startswithModel = !!this.productsPendindgValidationExpanded.model && (this.productsPendindgValidationExpanded.model.toString() as string).toLowerCase().startsWith('modelo');
+      this.productsPendindgValidationExpanded.model = startswithModel ? (this.productsPendindgValidationExpanded.model.toString() as string).slice(6, this.productsPendindgValidationExpanded.model.length) : this.productsPendindgValidationExpanded.model;
+    }
   }
+
 
   async getDataUser() {
     this.user = await this.userParams.getUserData();
@@ -53,20 +68,28 @@ export class ExpandedPendingProductsComponent implements OnInit {
   }
 
   public createArrayImages(): void {
-    const minImages: any[] = this.productsPendindgExpanded.smallImage;
-    const maxImages: any[] = this.productsPendindgExpanded.mediumImage;
-    let i = 0;
-    for (i; i < this.productsPendindgExpanded.mediumImage.length; i++) {
-      const min = minImages[i];
-      const max = maxImages[i];
-      this.images.push({ min, max });
+
+    if (this.productsPendindgExpanded) {
+      const minImages: any[] = this.productsPendindgExpanded.smallImage;
+      const maxImages: any[] = this.productsPendindgExpanded.mediumImage;
+      let i = 0;
+      for (i; i < this.productsPendindgExpanded.mediumImage.length; i++) {
+        const min = minImages[i];
+        const max = maxImages[i];
+        this.images.push({ min, max });
+      }
+      this.imageMax = this.images[0] && this.images[0]['max'];
+      this.imageLength = this.images.length;
     }
-    this.imageMax = this.images[0] && this.images[0]['max'];
-    this.imageLength = this.images.length;
   }
 
+
+  /**
+   * Metodo para editar productos en creación unitaria
+   * @param {*} productsPendindgExpanded
+   * @memberof ExpandedPendingProductsComponent
+   */
   editProduct(productsPendindgExpanded: any) {
-    console.log(22, productsPendindgExpanded);
     this.avaibleProductPending = true;
     this.router.navigate(['securehome/products/creacion-unitaria', { ean: productsPendindgExpanded.ean, reference: productsPendindgExpanded.reference, pendingProduct: this.avaibleProductPending }]);
   }

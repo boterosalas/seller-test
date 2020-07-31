@@ -64,7 +64,7 @@ const result = {
 };
 
 
-fdescribe('ComboPendingProductComponent', () => {
+describe('ComboPendingProductComponent', () => {
     let component: ComboPendingProductComponent;
     let fixture: ComponentFixture<ComboPendingProductComponent>;
 

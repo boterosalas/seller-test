@@ -21,12 +21,7 @@ import { PendingProductsService } from '../../pending-products/pending-products.
   styleUrls: ['./component-process.component.scss']
 })
 export class ComponentProcessComponent implements OnInit {
-  // isLinear = false;
-  /* eanCtrl: FormGroup;
-  categoryCtrl: FormGroup;
-  basicInfoCtrl: FormGroup;
-  especificCtrl: FormGroup;
-  imageCtrl: FormGroup; */
+
   isLinear = true;
   eanFormGroup: FormGroup;
   categoryFormGroup: FormGroup;
@@ -104,9 +99,7 @@ export class ComponentProcessComponent implements OnInit {
   }
 
   getDetailProduct() {
-    console.log('pendingProduct: ', this.pendingProduct);
     if (this.pendingProduct) {
-      console.log('entra al true');
       if (this.ean) {
         this.stepper.selectedIndex = 1;
         this.editFirstStep = false;
@@ -116,7 +109,6 @@ export class ComponentProcessComponent implements OnInit {
         }
         const params = localStorage.getItem('userId') + '/' + this.ean + '/' + this.reference;
         this.pendingProductsService.getEANProductsModify(params).subscribe((result: any) => {
-          console.log('result: ', result);
           if (result && result.data.brand) {
             this.detailProduct = result.data;
             this.detailProduct.reference = this.reference;
@@ -125,7 +117,6 @@ export class ComponentProcessComponent implements OnInit {
         });
       }
     } else {
-      console.log('false pending');
       if (this.ean) {
         this.stepper.selectedIndex = 1;
         this.editFirstStep = false;
@@ -137,16 +128,13 @@ export class ComponentProcessComponent implements OnInit {
             }
             const params = this.ean + '/' + this.reference;
             this.productsService.getProductsDetails(params).subscribe((result: any) => {
-              console.log('result 2: ', result);
               if (result && result.data.brand) {
                 this.detailProduct = result.data;
                 this.detailProduct.reference = this.reference;
               }
             });
           } else {
-            console.log('entra al else');
             this.detailProduct = null;
-            // this.router.navigate([`/`]);
           }
         });
       } else {
@@ -251,9 +239,7 @@ export class ComponentProcessComponent implements OnInit {
     // call to the bulk load product service
     if (!this.saving) {
       this.saving = true;
-      console.log('this.ean: ', this.ean);
       this.process.saveInformationUnitreation(this.ean, this.idProductProcess).subscribe(result => {
-        console.log('res save product: ', result);
         const data = result;
         if (this.isAdmin) {
           this.verificateStatus();

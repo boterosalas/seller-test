@@ -46,6 +46,7 @@ export class PendingProductsComponent implements OnInit {
   public pageSize = 30;
   public pageSize2 = 30;
   public idSeller = '';
+  public sellerId: any;
 
   public user: UserInformation;
   isAdmin = false;
@@ -93,6 +94,8 @@ export class PendingProductsComponent implements OnInit {
   nameProduct = '';
   ean2 = '';
   nameProduct2 = '';
+
+  indexTab: number;
   constructor(
     private pendingProductsService: PendingProductsService,
     public userParams: UserParametersService,
@@ -117,8 +120,8 @@ export class PendingProductsComponent implements OnInit {
   async getDataUser() {
     this.user = await this.userParams.getUserData();
     if (this.user.sellerProfile === 'seller') {
+      this.sellerId = this.user.sellerId;
       this.permissionComponent = this.authService.getMenuProfiel(unitaryCreateName, 0);
-      console.log('this.permissionComponent: ', this.permissionComponent);
       this.setPermission(0);
     } else {
       this.permissionComponent = this.authService.getMenuProfiel(unitaryCreateName, 1);
@@ -133,15 +136,12 @@ export class PendingProductsComponent implements OnInit {
    * @memberof PendingProductsComponent
    */
   setPermission(typeProfile: number) {
-    console.log(this.getFunctionality());
     this.editPermission = this.getFunctionality('Editar');
-    console.log('this.editPermission_', this.editPermission);
 
   }
 
   public getFunctionality(functionality?: string): boolean {
     const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
-    console.log('permission: ', permission);
     return permission && permission.ShowFunctionality;
   }
 
@@ -197,7 +197,7 @@ export class PendingProductsComponent implements OnInit {
    * @memberof PendingProductsComponent
    */
   getPendingProductsModify(params?: any, limit?: any) {
-    console.log('params2: ', params);
+    // this.rejected = true;
     this.loadingService.viewSpinner();
     if (params !== undefined) {
       this.paginationToken = encodeURI(this.paginationToken);
@@ -213,7 +213,6 @@ export class PendingProductsComponent implements OnInit {
     }
     this.showProducts = false;
     this.pendingProductsService.getPendingProductsModify(this.paramsArray).subscribe((res: any) => {
-      console.log('res: modify', res);
       if (res) {
         if (this.callOne) {
           this.length = res.count;
@@ -236,6 +235,7 @@ export class PendingProductsComponent implements OnInit {
    * @memberof PendingProductsComponent
    */
   getPendingProductsValidation(params?: any) {
+    // this.validation = true;
     this.loadingService.viewSpinner();
     if (params !== undefined) {
       this.paginationToken2 = encodeURI(this.paginationToken2);
@@ -251,7 +251,6 @@ export class PendingProductsComponent implements OnInit {
     }
     this.showProducts = false;
     this.pendingProductsService.getPendingProductsValidation(this.paramsArray2).subscribe((res: any) => {
-      console.log('res: validation', res);
       if (res) {
         if (this.callOne2) {
           this.length2 = res.count;
@@ -274,7 +273,6 @@ export class PendingProductsComponent implements OnInit {
    * @memberof PendingProductsComponent
    */
   paginations(event: any) {
-    console.log('event: ', event);
     if (event.pageSize !== this.limit) {
       this.limit = event.pageSize;
     }
@@ -480,17 +478,13 @@ export class PendingProductsComponent implements OnInit {
   }
 
   public removeValidation(productsFilterValidation: ListFilterProductsModify): void {
-    console.log('productsFilterValidation: ', productsFilterValidation);
     const index = this.listFilterProductsValidation.indexOf(productsFilterValidation);
-    console.log('index: ', index);
 
     if (index >= 0) {
-      console.log('entró');
       this.listFilterProductsValidation.splice(index, 1);
       this[productsFilterValidation.value] = '';
       this.filterProdutsValidation.controls[productsFilterValidation.nameFilter].setValue(null);
     }
-    console.log(this.filterProdutsValidation);
     this.filterApply2();
   }
 
@@ -520,9 +514,23 @@ export class PendingProductsComponent implements OnInit {
     this.dataChips2 = [];
   }
 
-  // public changePaginatorProducts(param: any): any {
-  //   this.pageSize = param.pageSize;
-  //   this.getPendingProductsModify();
-  // }
+
+
+  /**
+   * Mirar evento del matTab
+   * @param {*} event
+   * @memberof PendingProductsComponent
+   */
+  setMatTab(event: any) {
+    this.indexTab = 0;
+    if (event.index === 0) {
+      this.indexTab = event.index;
+    } else if (event.index === 1) {
+      this.indexTab = event.index;
+    }
+  }
+
 
 }
+
+
