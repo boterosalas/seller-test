@@ -41,8 +41,6 @@ export class ExpandedPendingProductsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.createArrayImages();
-    this.getDataUser();
     if (this.productsPendindgExpanded) {
       const startswithModel = !!this.productsPendindgExpanded.model && (this.productsPendindgExpanded.model.toString() as string).toLowerCase().startsWith('modelo');
       this.productsPendindgExpanded.model = startswithModel ? (this.productsPendindgExpanded.model.toString() as string).slice(6, this.productsPendindgExpanded.model.length) : this.productsPendindgExpanded.model;
@@ -52,6 +50,8 @@ export class ExpandedPendingProductsComponent implements OnInit {
       const startswithModel = !!this.productsPendindgValidationExpanded.model && (this.productsPendindgValidationExpanded.model.toString() as string).toLowerCase().startsWith('modelo');
       this.productsPendindgValidationExpanded.model = startswithModel ? (this.productsPendindgValidationExpanded.model.toString() as string).slice(6, this.productsPendindgValidationExpanded.model.length) : this.productsPendindgValidationExpanded.model;
     }
+    this.createArrayImages();
+    this.getDataUser();
   }
 
 

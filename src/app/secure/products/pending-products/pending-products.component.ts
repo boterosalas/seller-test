@@ -200,19 +200,26 @@ export class PendingProductsComponent implements OnInit {
     // this.rejected = true;
     this.loadingService.viewSpinner();
     if (params !== undefined) {
+      console.log(12);
+      if (limit === undefined) {
+        limit = this.pageSize;
+      }
       this.paginationToken = encodeURI(this.paginationToken);
       this.paramsArray = {
         'limit': limit + '&paginationToken=' + this.paginationToken,
         'idSeller': this.user.sellerId + '&ean=' + this.ean + '&name=' + this.nameProduct
       };
     } else {
+      console.log(13);
       this.paramsArray = {
         'limit': this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken),
         'idSeller': this.user.sellerId + '&ean=' + this.ean + '&name=' + this.nameProduct
       };
     }
     this.showProducts = false;
+    console.log('this.paramsArray: ', this.paramsArray);
     this.pendingProductsService.getPendingProductsModify(this.paramsArray).subscribe((res: any) => {
+      console.log('res', res);
       if (res) {
         if (this.callOne) {
           this.length = res.count;
@@ -226,6 +233,8 @@ export class PendingProductsComponent implements OnInit {
         this.loadingService.closeSpinner();
       }
       this.filterProductsModify();
+      this.loadingService.closeSpinner();
+
     });
   }
 
@@ -396,6 +405,7 @@ export class PendingProductsComponent implements OnInit {
     this.ean = this.filterProdutsPending.controls.ean.value;
     this.nameProduct = this.filterProdutsPending.controls.productName.value;
     this.paginationToken = '{}';
+    console.log(1, this.pageSize);
     this.paramsArray = {
       'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
       'idSeller': this.user.sellerId + '&ean=' + this.ean + '&name=' + this.nameProduct
