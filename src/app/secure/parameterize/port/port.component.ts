@@ -423,7 +423,7 @@ export class PortComponent implements OnInit {
         address: this.body.address,
         countryName: this.body.nameCountry,
         city: this.body.city,
-        countryIso2: this.body.countryIso2,
+        countryIso2: this.body.countryIso2.toUpperCase(),
         postalCode: this.body.postalCode,
         province: this.body.province,
         phone: this.body.phone,
