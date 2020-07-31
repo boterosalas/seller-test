@@ -64,7 +64,7 @@ const result = {
 };
 
 
-describe('ComboPendingProductComponent', () => {
+fdescribe('ComboPendingProductComponent', () => {
     let component: ComboPendingProductComponent;
     let fixture: ComponentFixture<ComboPendingProductComponent>;
 
@@ -110,4 +110,15 @@ describe('ComboPendingProductComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+    it('Seteo info', () => {
+        const paramsArray = {
+            idSeller: 11811,
+            ean: 1001114217562,
+          };
+        component.openInformation(paramsArray);
+        component.openInfoProductValidation(paramsArray);
+        component.setparams(paramsArray);
+        component.setparams2(paramsArray);
+        component.backTolist();
+      });
 });
