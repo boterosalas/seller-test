@@ -143,7 +143,6 @@ export class PortComponent implements OnInit {
       if (!!res && !!res.status && res.status === 200) {
         if (res && res.body && res.body.body) {
           this.initialPortList = JSON.parse(res.body.body).Data;
-          console.log(this.initialPortList);
           if (JSON.stringify(this.initialPortList) !== '{}') {
             this.mapInitialPortList = this.mapItems(this.initialPortList);
             this.dataSource = new MatTableDataSource(this.mapInitialPortList);
@@ -272,7 +271,6 @@ export class PortComponent implements OnInit {
     this.formPort.get('country').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
       if (!!val && val.length >= 2) {
         this.filterCountryApply = this.countries.filter(country => country.CountryName.toString().toLowerCase().includes(val.toLowerCase()));
-        console.log(this.filterCountryApply);
         const exist = this.filterCountryApply.find(country => country.CountryName === val);
         if (!exist) {
           this.formPort.get('country').setErrors({ pattern: false });
@@ -305,7 +303,6 @@ export class PortComponent implements OnInit {
     this.formPort.get('nameCountry').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
       if (!!val && val.length >= 2) {
         this.filterCountryAddress = this.countriesAdress.filter(countryAddress => countryAddress.CountryName.toString().toLowerCase().includes(val.toLowerCase()));
-        console.log(this.filterCountryAddress);
         const exist = this.filterCountryAddress.find(countryAddress => countryAddress.CountryName === val);
         if (!exist) {
           this.validateCountry = true;

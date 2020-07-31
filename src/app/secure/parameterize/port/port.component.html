@@ -74,19 +74,19 @@
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="40"
             fxFlex.sm="40" fxFlex.md="40" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
-            <p class="sc-text-normal" style="margin-right: 20px;">
-              <span *ngIf="element.Address" style="font-weight: bold;">{{element.Address}}</span>
-              <span *ngIf="element.PostalCode" style="font-weight: bold;">, {{element.PostalCode}}</span>
-              <span *ngIf="!element.PostalCode" style="color:#b6b6b6">, (No tiene Código Postal)</span>
-              <span *ngIf="element.City" style="font-weight: bold;">, {{element.City}}</span>
-              <span *ngIf="!element.City" style="color:#b6b6b6">, (No tiene ciudad)</span>
-              <span *ngIf="element.Province" style="font-weight: bold;">, {{element.Province}}</span>
-              <span *ngIf="!element.Province" style="color:#b6b6b6">, (No tiene Provincia/Estado)</span>
-              <span *ngIf="element.CountryName" style="font-weight: bold;">, {{element.CountryName}}
-                <span *ngIf="element.CountryIso2" style="font-weight: bold;">({{element.CountryIso2}})</span>
-                <span *ngIf="!element.CountryIso2" style="color:#b6b6b6">(No tiene)</span>
+            <p class="sc-text-normal" class="container-margin-right-20">
+              <span *ngIf="element.Address" class="text-font-weight">{{element.Address}}</span>
+              <span *ngIf="element.PostalCode" class="text-font-weight">, {{element.PostalCode}}</span>
+              <span *ngIf="!element.PostalCode" class="color-text-empty">, (No tiene Código Postal)</span>
+              <span *ngIf="element.City" class="text-font-weight">, {{element.City}}</span>
+              <span *ngIf="!element.City" class="color-text-empty">, (No tiene ciudad)</span>
+              <span *ngIf="element.Province" class="text-font-weight">, {{element.Province}}</span>
+              <span *ngIf="!element.Province" class="color-text-empty">, (No tiene Provincia/Estado)</span>
+              <span *ngIf="element.CountryName" class="text-font-weight">, {{element.CountryName}}
+                <span *ngIf="element.CountryIso2" class="text-font-weight">({{element.CountryIso2}})</span>
+                <span *ngIf="!element.CountryIso2" class="color-text-empty">(No tiene)</span>
               </span>
-              <span *ngIf="!element.CountryName" style="color:#b6b6b6">, (No tiene País)</span>
+              <span *ngIf="!element.CountryName" class="color-text-empty">, (No tiene País)</span>
 
             </p>
           </mat-cell>
@@ -110,7 +110,7 @@
           <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
             fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element"
             class="port-component-text-aling">
-            <mat-icon class="mat-18 port-component-color-icon-edit" style="color:#485AFA"
+            <mat-icon class="mat-18 port-component-color-icon-edit color-icon-edi"
               (click)="upsetPort(2, element)">edit</mat-icon>
           </mat-cell>
         </ng-container>
@@ -284,7 +284,7 @@
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
           <mat-form-field class="port-component-width-95">
-            <input formControlName="countryIso2" matInput style="text-transform: uppercase"
+            <input formControlName="countryIso2" matInput class="text-transform-uppercase"
               [placeholder]="'secure.parametize.port.prefix' | translate">
             <mat-error *ngIf="formPort.get('countryIso2').hasError('pattern')">
               {{'errors.format_invalidate' | translate}}
@@ -421,7 +421,7 @@
           </mat-chip-list>
         </div>
       </div>
-      <div fxLayout="row wrap" style="margin-top: 10px;">
+      <div fxLayout="row wrap" class="container-margin-top-10">
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100"
           class="port-component-container-header">
           <span class="port-component-text-title">
