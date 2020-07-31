@@ -439,8 +439,12 @@ export class CategoriesComponent implements OnInit {
     });
     this.loadingService.closeSpinner();
   }
-
-  changeLanguage() {
+/**
+ * funcion para escuchar el evento al cambiar de idioma
+ *
+ * @memberof CategoriesComponent
+ */
+changeLanguage() {
     this.languageService.onLangChange.subscribe((e: Event) => {
         localStorage.setItem('culture_current', e['lang']);
         this.getTree();

@@ -13,6 +13,7 @@ import { ViewCommentComponent } from '../view-comment/view-comment.component';
 import { LoadingService } from '@app/core/global/loading/loading.service';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { MenuModel, validationName, readFunctionality } from '@app/secure/auth/auth.consts';
+import { TranslateService } from '@ngx-translate/core';
 
 // log component
 const log = new Logger('InValidationComponent');
@@ -67,6 +68,9 @@ export class InValidationComponent implements OnInit, OnDestroy {
   // suscriptions vars
   private subFilterOrderPending: any;
 
+  currentLanguage: string;
+  event: any;
+
   permissionComponent: MenuModel;
 
   /**
@@ -96,19 +100,39 @@ export class InValidationComponent implements OnInit, OnDestroy {
     private inValidationService: InValidationService,
     public userParams: UserParametersService,
     private loadingService: LoadingService,
-    private authService: AuthService
+    private authService: AuthService,
+    private languageService: TranslateService,
   ) { }
 
   ngOnInit() {
     this.permissionComponent = this.authService.getMenu(validationName);
     // this.getFunctionalities();
     this.getDataUser();
+    this.changeLanguage();
   }
 
   async getDataUser() {
     this.user = await this.userParams.getUserData();
     this.toolbarOption.getOrdersList();
     this.getOrdersListSinceFilterSearchOrder();
+  }
+/**
+ * funcion para escuchar el evento al cambiar de idioma
+ *
+ * @memberof InValidationComponent
+ */
+changeLanguage() {
+    if (localStorage.getItem('culture_current') !== 'US') {
+      this.currentLanguage = 'ES';
+      localStorage.setItem('culture_current', 'ES');
+    } else {
+      this.currentLanguage = 'US';
+      localStorage.setItem('culture_current', 'US');
+    }
+    this.languageService.onLangChange.subscribe((e: Event) => {
+      localStorage.setItem('culture_current', e['lang']);
+      this.getOrdersList(this.event);
+    });
   }
 
 
@@ -173,6 +197,7 @@ export class InValidationComponent implements OnInit, OnDestroy {
         lengthOrder: 100
       };
     }
+    this.event = $event;
     const stringSearch = `limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusInValidation}`;
     this.loadingService.viewSpinner();
     this.inValidationService.getOrders(stringSearch).subscribe((res: any) => {
@@ -245,8 +270,9 @@ export class InValidationComponent implements OnInit, OnDestroy {
         order: item
       },
     });
-    dialogRef.afterClosed().subscribe(result => {
-      log.info('The modal detail order was closed');
+    const dialogIntance = dialogRef.componentInstance;
+    dialogIntance.processFinish$.subscribe((val) => {
+      item.registryTranslations = val.registryTranslations;
     });
   }
 
@@ -263,8 +289,9 @@ export class InValidationComponent implements OnInit, OnDestroy {
         order: item
       },
     });
-    dialogRef.afterClosed().subscribe(result => {
-      log.info('The modal comment order was closed');
+    const dialogIntance = dialogRef.componentInstance;
+    dialogIntance.processFinish$.subscribe((val) => {
+      item.registryTranslations = val.registryTranslations;
     });
   }
 }
