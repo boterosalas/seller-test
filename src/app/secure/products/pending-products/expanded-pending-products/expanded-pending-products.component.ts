@@ -41,6 +41,7 @@ export class ExpandedPendingProductsComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.productsPendindgExpanded);
     if (this.productsPendindgExpanded) {
       const startswithModel = !!this.productsPendindgExpanded.model && (this.productsPendindgExpanded.model.toString() as string).toLowerCase().startsWith('modelo');
       this.productsPendindgExpanded.model = startswithModel ? (this.productsPendindgExpanded.model.toString() as string).slice(6, this.productsPendindgExpanded.model.length) : this.productsPendindgExpanded.model;
