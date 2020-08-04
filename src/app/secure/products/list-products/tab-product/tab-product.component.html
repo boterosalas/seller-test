@@ -1,13 +1,13 @@
 <div *ngIf="showTabs">
   <mat-tab-group>
     <mat-tab id="tab1" [label]="'secure.products.list_products.my_products'| translate">
-      <app-list-products style="width: 100%;" [myProduct]="true"></app-list-products>
+      <app-list-products class="width-100-percent" [myProduct]="true"></app-list-products>
     </mat-tab>
     <mat-tab id="tab2" [label]="'secure.products.list_products.all_products'| translate">
-      <app-list-products style="width: 100%;"  [myProduct]="false"></app-list-products>
+      <app-list-products class="width-100-percent"  [myProduct]="false"></app-list-products>
     </mat-tab>
   </mat-tab-group>
 </div>
 <div *ngIf="!showTabs">
-  <app-list-products style="width: 100%;" [showTabs]="showTabs" [myProduct]="false"></app-list-products>
+  <app-list-products class="width-100-percent" [showTabs]="showTabs" [myProduct]="false"></app-list-products>
 </div>
