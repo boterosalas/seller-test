@@ -25,7 +25,7 @@ const result = {
     bestOffer: null,
     brand: '1A',
     category: '50195',
-    colour: '',
+    colour: 'Beige',
     createdDate: '31/07/2020',
     description: '1',
     ean: 'IZ20000065877',
@@ -84,11 +84,17 @@ fdescribe('ExpandedPendingProductsComponent', () => {
         fixture = TestBed.createComponent(ExpandedPendingProductsComponent);
         mockUserParameterService.getUserData.and.returnValue(of(data));
         component = fixture.componentInstance;
+        component.productsPendindgExpanded = result;
         fixture.detectChanges();
     });
 
     it('should create', () => {
-        component.productsPendindgExpanded = result;
         expect(component).toBeTruthy();
+    });
+    it('functions of components', () => {
+        console.log('res: ', result);
+        component.avaibleProductPending = true;
+        component.editProduct(result);
+        component.createArrayImages();
     });
 });
