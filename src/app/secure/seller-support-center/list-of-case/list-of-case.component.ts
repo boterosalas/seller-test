@@ -78,10 +78,12 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
   public paginationToken = '{}';
 
   public log: Logger;
+  public loadingSpinner = true;
 
   isAdmin: Boolean = false;
   email: string;
   sellerId: any;
+  translate: any;
 
   sellerIdLogger: any;
 
@@ -122,6 +124,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
   hasErrorDate: boolean;
   filterListCasesFilter: any;
   activeInit = false;
+  currentLanguage: string;
 
   idDetail: any;
 
@@ -172,14 +175,27 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
     // tslint:disable-next-line: deprecation
     this.store.select(reduxState => reduxState.notification.unreadCases)
       .subscribe(unreadCase => (this.unreadCase = unreadCase));
-
-    this.translateService.onLangChange.subscribe(e => {
-      setTimeout(() => {
-        this.paramsFilter = {};
-        this.loadCases([]);
-      }, 350);
+    this.changeLanguage();
+  }
+  /**
+   * funcion para escuchar el evento al cambiar de idioma
+   *
+   * @memberof ListOfCaseComponent
+   */
+  changeLanguage() {
+    if (localStorage.getItem('culture_current') !== 'US') {
+      this.currentLanguage = 'ES';
+      localStorage.setItem('culture_current', 'ES');
+    } else {
+      this.currentLanguage = 'US';
+      localStorage.setItem('culture_current', 'US');
+    }
+    this.translateService.onLangChange.subscribe((e: Event) => {
+      localStorage.setItem('culture_current', e['lang']);
+      this.loadCases(this.paramsFilter);
     });
   }
+
 
   /**
    * Metodo para crear control del formulario del filtro.
@@ -387,6 +403,9 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
             this.refreshPaginator(this.length, res.body.data.page, res.body.data.pageSize);
             this.paginationToken = res.body.paginationToken;
             this.cases = res.body.data.cases;
+            this.cases.forEach(element => {
+              element.statusLoad = false;
+            });
             this.loadingService.closeSpinner();
           }
         }
@@ -504,6 +523,12 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
     }
   }
 
+  consultDetails(showDetails: boolean, item: any) {
+    if (showDetails) {
+      this.loadDataDetails(item);
+    }
+  }
+
   /**
    * Metodo para ir al detalle de las reclamaciones
    * @param {*} id
@@ -533,6 +558,21 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
       minWidth: '280px',
       data: { isAdmin: this.isAdmin, email: this.email }
     });
+  }
+/**
+ * funcion para mostrar el detalle individual al hacer click
+ *
+ * @param {*} item
+ * @memberof ListOfCaseComponent
+ */
+loadDataDetails(item: any) {
+    item.statusLoad = true;
+    this.sellerSupportService.getDetailTranslation(item.caseId).subscribe(
+      res => {
+        item.description = res.data.description;
+        item.followLast = res.data.followLast;
+        item.statusLoad = false;
+      });
   }
 
   ngOnDestroy() {

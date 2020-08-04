@@ -53,9 +53,11 @@ export class PortComponent implements OnInit {
   public filterPort: FormGroup;
   keywords = [];
   countries = countries;
+  countriesAdress = countries;
   filterCountryFilter = [];
   filterCountryName = [];
   filterCountryApply = [];
+  filterCountryAddress = [];
   validateKey = true;
   countryCurrent: string;
   body: any;
@@ -68,16 +70,16 @@ export class PortComponent implements OnInit {
   separatorKeysCodes = [];
   filter = null;
   mapInitialPortList: any;
-  PortRegex = { formatTwoDecimal: '', formatFiveDecimal: '', formatIntegerNumber: '' };
+  PortRegex = { formatTwoDecimal: '', formatFiveDecimal: '', formatIntegerNumber: '', CategoryName: '', formatTwoLetter: '' };
   method = '';
   show = false;
+  validateCountry = true;
 
   length = 0;
 
   public displayedColumns = [
     'expand',
     'name',
-    'collection_center',
     'address',
     'phone',
     'action'
@@ -136,6 +138,7 @@ export class PortComponent implements OnInit {
       this.filter = params.countryFilter;
     }
     this.portCollectionService.getAllPort(this.filter).subscribe((res: any) => {
+    
       this.loadingService.closeSpinner();
       if (!!res && !!res.status && res.status === 200) {
         if (res && res.body && res.body.body) {
@@ -170,6 +173,11 @@ export class PortComponent implements OnInit {
         Id: x.Id,
         Name: x.Name,
         Address: x.Address,
+        City: x.City,
+        CountryIso2: x.CountryIso2,
+        CountryName: x.CountryName,
+        PostalCode: x.PostalCode,
+        Province: x.Province,
         Phone: x.Phone,
         Tariff: x.Tariff,
         ShippingCost: x.ShippingCost,
@@ -241,6 +249,11 @@ export class PortComponent implements OnInit {
       name: new FormControl('', Validators.compose([Validators.required])),
       country: new FormControl(''),
       address: new FormControl('', Validators.compose([Validators.required])),
+      nameCountry: new FormControl(''),
+      city: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.CategoryName)])),
+      countryIso2: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatTwoLetter)])),
+      postalCode: new FormControl('', Validators.compose([Validators.required])),
+      province: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.CategoryName)])),
       phone: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatIntegerNumber)])),
       insuranceFreight: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatFiveDecimal)])),
       preparation: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.PortRegex.formatTwoDecimal)])),
@@ -287,6 +300,26 @@ export class PortComponent implements OnInit {
         this.filterPort.get('countryFilter').setErrors(null);
       }
     });
+    this.formPort.get('nameCountry').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
+      if (!!val && val.length >= 2) {
+        this.filterCountryAddress = this.countriesAdress.filter(countryAddress => countryAddress.CountryName.toString().toLowerCase().includes(val.toLowerCase()));
+        const exist = this.filterCountryAddress.find(countryAddress => countryAddress.CountryName === val);
+        if (!exist) {
+          this.validateCountry = true;
+          this.formPort.get('nameCountry').setErrors({ pattern: false });
+        } else {
+          this.formPort.get('nameCountry').setErrors(null);
+          this.validateCountry = false;
+        }
+      } else if (!val) {
+        this.filterCountryAddress = [];
+        this.formPort.get('nameCountry').setErrors(null);
+        this.validateCountry = true;
+      } else {
+        this.formPort.get('nameCountry').setErrors(null);
+        this.validateCountry = true;
+      }
+    });
   }
   /**
    * funcion para salvar los paises en chips y almacenarlos en una variable global para su utilidad
@@ -297,19 +330,19 @@ export class PortComponent implements OnInit {
     let word = this.formPort.controls.country.value;
     if (word) {
       word = word.trim();
-        if (word.search(',') === -1) {
-          this.keywords.push(word);
-        } else {
-          const counter = word.split(',');
-          counter.forEach(element => {
-            if (element) {
-              this.keywords.push(element);
-            }
-          });
-        }
-        this.formPort.controls.country.clearValidators();
-        this.formPort.controls.country.reset();
-        this.validateKey = this.keywords.length > 0 ? false : true;
+      if (word.search(',') === -1) {
+        this.keywords.push(word);
+      } else {
+        const counter = word.split(',');
+        counter.forEach(element => {
+          if (element) {
+            this.keywords.push(element);
+          }
+        });
+      }
+      this.formPort.controls.country.clearValidators();
+      this.formPort.controls.country.reset();
+      this.validateKey = this.keywords.length > 0 ? false : true;
     }
   }
   /**
@@ -334,7 +367,12 @@ export class PortComponent implements OnInit {
     if (this.data && this.data.data !== null && this.data.typeModal === 2) {
       this.resetFormModal();
       this.formPort.controls['name'].setValue(this.data.data.Name);
+      this.formPort.controls['city'].setValue(this.data.data.City);
+      this.formPort.controls['countryIso2'].setValue(this.data.data.CountryIso2);
+      this.formPort.controls['postalCode'].setValue(this.data.data.PostalCode);
+      this.formPort.controls['province'].setValue(this.data.data.Province);
       this.formPort.controls['address'].setValue(this.data.data.Address);
+      this.formPort.controls['nameCountry'].setValue(this.data.data.CountryName);
       this.formPort.controls['phone'].setValue(this.data.data.Phone);
       this.formPort.controls['insuranceFreight'].setValue(this.data.data.InsuranceFreight);
       this.formPort.controls['preparation'].setValue(this.data.data.Preparation);
@@ -380,6 +418,11 @@ export class PortComponent implements OnInit {
         id: this.idPort,
         name: this.body.name,
         address: this.body.address,
+        countryName: this.body.nameCountry,
+        city: this.body.city,
+        countryIso2: this.body.countryIso2.toUpperCase(),
+        postalCode: this.body.postalCode,
+        province: this.body.province,
         phone: this.body.phone,
         tariff: this.body.tariff,
         shippingCost: this.body.shippingCost.toString(),

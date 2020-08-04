@@ -269,7 +269,7 @@ $color-red: #f44336;
 }
 
 .max-height-overflox-y{
-  max-height: 190px;
+  max-height: 170px;
   overflow-y: auto;
 }
 
@@ -335,4 +335,28 @@ $color-red: #f44336;
       opacity: 0.7;
     }
   }
+}
+
+.color-text-empty{
+  color:#b6b6b6
+}
+
+.text-font-weight{
+  font-weight: bold;
+}
+
+.container-margin-right-20{
+  margin-right: 20px;
+}
+
+.container-margin-top-10{
+  margin-top: 10px;
+}
+
+.color-icon-edit{
+  color:#485AFA
+}
+
+.text-transform-uppercase{
+  text-transform: uppercase
 }
