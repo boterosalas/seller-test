@@ -250,8 +250,12 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       }
     }
   }
-
-  changeLanguage() {
+/**
+ * funcion para escuchar el evento al cambiar de idioma
+ *
+ * @memberof OrdersListComponent
+ */
+changeLanguage() {
     if (localStorage.getItem('culture_current') !== 'US') {
       this.currentLanguage = 'ES';
       localStorage.setItem('culture_current', 'ES');

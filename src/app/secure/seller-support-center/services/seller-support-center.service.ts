@@ -52,4 +52,8 @@ export class SellerSupportCenterService {
   //   const URL = this._api.get('getPendinOrders');
   //   return this._http.get<UnreadCaseResponse>(URL);
   // }
+
+  getDetailTranslation(caseId: any): Observable<any> {
+    return this._http.get(this._api.get('getDetailTranslationReclaim', [caseId]));
+  }
 }

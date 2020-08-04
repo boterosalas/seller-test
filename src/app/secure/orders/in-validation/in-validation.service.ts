@@ -63,4 +63,21 @@ export class InValidationService {
         });
     });
   }
+/**
+ * funcion para consultar los comentarios devoluciones
+ *
+ * @param {*} params
+ * @returns {Observable<any>}
+ * @memberof InValidationService
+ */
+getAllCommentRefuse(params: any): Observable<any> {
+    return new Observable(observer => {
+      this.http.post(this.api.get('getAllCommentRefuse'), params)
+        .subscribe((data: any) => {
+          observer.next(data);
+        }, err => {
+          observer.error(err);
+        });
+    });
+  }
 }
