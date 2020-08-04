@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Logger } from '@app/core/util/logger.service';
 import { LoadingService, ModalService, UserParametersService } from '@app/core';
 import { ListProductService } from './list-products.service';
@@ -48,7 +48,7 @@ const log = new Logger('ListProductsComponent');
     ],
 })
 
-export class ListProductsComponent implements OnInit, AfterViewInit {
+export class ListProductsComponent implements OnInit {
     value = '';
     productsList: any = [];
     public filterProduts: FormGroup;
@@ -139,7 +139,11 @@ export class ListProductsComponent implements OnInit, AfterViewInit {
             this.closedDraw();
         }
     }
-
+    /**
+     * funcion para cerrar el contenedor de filtros
+     *
+     * @memberof ListProductsComponent
+     */
     closedDraw() {
         this.drawer.closedStart.subscribe(res => {
             const principalToolbar = document.getElementById('principal-toolbar');
@@ -732,9 +736,13 @@ export class ListProductsComponent implements OnInit, AfterViewInit {
         });
     }
 
-    ngAfterViewInit() {
-    }
 
+    /**
+     *
+     * funcion para mostar el contenedor de filtros
+     * @param {boolean} showFilter
+     * @memberof ListProductsComponent
+     */
     toggle(showFilter: boolean) {
         this.drawer.toggle();
         if (this.showTabs) {
