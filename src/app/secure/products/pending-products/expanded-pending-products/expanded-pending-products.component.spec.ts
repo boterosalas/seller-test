@@ -53,7 +53,7 @@ const result = {
     updatedDate: '31/07/2020',
     urlImage: 'https://teknopolis.vteximg.com.br/arquivos/ids/181738-1000-1000/17478.jpg',
 };
-fdescribe('ExpandedPendingProductsComponent', () => {
+describe('ExpandedPendingProductsComponent', () => {
     let component: ExpandedPendingProductsComponent;
     let fixture: ComponentFixture<ExpandedPendingProductsComponent>;
 
@@ -92,7 +92,6 @@ fdescribe('ExpandedPendingProductsComponent', () => {
         expect(component).toBeTruthy();
     });
     it('functions of components', () => {
-        console.log('res: ', result);
         component.avaibleProductPending = true;
         component.editProduct(result);
         component.createArrayImages();

@@ -71,12 +71,20 @@
 //     sellerEmail: 'ccbustamante221@misena.edu.co',
 //   };
 
-// describe('PendingProductsComponent', () => {
+//   const registerMenu = {
+//     Functionalities: [{
+//         NameFunctionality: 'Crear',
+//         ShowFunctionality: true,
+//         nameFunctionalityBack: 'Crear'
+//     }],
+// };
+
+// fdescribe('PendingProductsComponent', () => {
 //     let component: PendingProductsComponent;
 //     let fixture: ComponentFixture<PendingProductsComponent>;
 
 
-//     const mockAuthService = jasmine.createSpyObj('AuthService', ['getMenu']);
+//     const mockAuthService = jasmine.createSpyObj('AuthService', ['getPermissionForMenu', 'getMenuProfiel', 'getMenu']);
 //     const mockUserParameterService = jasmine.createSpyObj('UserParametersService', ['getUserData']);
 //     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
 //     const mockSupportService = jasmine.createSpyObj('SupportService', ['getRegexFormSupport']);
@@ -114,15 +122,18 @@
 
 //     beforeEach(() => {
 //         fixture = TestBed.createComponent(PendingProductsComponent);
+//         mockAuthService.getMenu.and.returnValue(of(registerMenu));
 //         mockSupportService.getRegexFormSupport.and.returnValue(of(registerRegex));
 //         mockPendingProductsService.getPendingProductsModify.and.returnValue(of(resModify));
 //         mockPendingProductsService.getPendingProductsValidation.and.returnValue(of(resValidation));
 //         mockUserParameterService.getUserData.and.returnValue(of(data));
+//         // component.sellerId = 11618;
 //         component = fixture.componentInstance;
 //         fixture.detectChanges();
 //     });
 
 //     it('should create', () => {
+//         // component.sellerId = 11618;
 //         expect(component).toBeTruthy();
 //     });
 // });

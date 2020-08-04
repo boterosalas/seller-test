@@ -140,13 +140,19 @@ export class PendingProductsComponent implements OnInit {
 
   }
 
+  /**
+   * Metodo para obtener los permisos y funcionabilidades del menu
+   * @param {string} [functionality]
+   * @returns {boolean}
+   * @memberof PendingProductsComponent
+   */
   public getFunctionality(functionality?: string): boolean {
     const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
     return permission && permission.ShowFunctionality;
   }
 
   /**
-   * Metodo para crear el formulario
+   * Metodo para crear el formulario productos pendiente modificacion
    * @memberof PendingProductsComponent
    */
   createFormControls() {
@@ -157,6 +163,10 @@ export class PendingProductsComponent implements OnInit {
     });
   }
 
+  /**
+   * Metodo para crear form productos pendiente validación filtros
+   * @memberof PendingProductsComponent
+   */
   createFormControls2() {
     this.filterProdutsValidation = this.fb.group({
       productName2: new FormControl('', Validators.compose([Validators.pattern(this.getValue('nameProduct'))])),
@@ -200,7 +210,6 @@ export class PendingProductsComponent implements OnInit {
     // this.rejected = true;
     this.loadingService.viewSpinner();
     if (params !== undefined) {
-      console.log(12);
       if (limit === undefined) {
         limit = this.pageSize;
       }
@@ -210,16 +219,13 @@ export class PendingProductsComponent implements OnInit {
         'idSeller': this.user.sellerId + '&ean=' + this.ean + '&name=' + this.nameProduct
       };
     } else {
-      console.log(13);
       this.paramsArray = {
         'limit': this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken),
         'idSeller': this.user.sellerId + '&ean=' + this.ean + '&name=' + this.nameProduct
       };
     }
     this.showProducts = false;
-    console.log('this.paramsArray: ', this.paramsArray);
     this.pendingProductsService.getPendingProductsModify(this.paramsArray).subscribe((res: any) => {
-      console.log('res', res);
       if (res) {
         if (this.callOne) {
           this.length = res.count;
@@ -405,7 +411,6 @@ export class PendingProductsComponent implements OnInit {
     this.ean = this.filterProdutsPending.controls.ean.value;
     this.nameProduct = this.filterProdutsPending.controls.productName.value;
     this.paginationToken = '{}';
-    console.log(1, this.pageSize);
     this.paramsArray = {
       'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
       'idSeller': this.user.sellerId + '&ean=' + this.ean + '&name=' + this.nameProduct
@@ -429,12 +434,20 @@ export class PendingProductsComponent implements OnInit {
     this.getPendingProductsValidation(this.filterProdutsValidation);
   }
 
+  /**
+   * Metodo para limpiar formualrio y llamar servicio principal productos rechazados
+   * @memberof PendingProductsComponent
+   */
   public cleanFilter() {
     this.filterProdutsPending.reset();
     this.getAllPendingProducts();
     this.cleanFilterListProductsModify();
   }
 
+  /**
+   *  Metodo para limpiar formualrio y llamar servicio principal productos validacion
+   * @memberof PendingProductsComponent
+   */
   public cleanFilter2() {
     this.filterProdutsValidation.reset();
     this.getAllPendingProductsValidattion();
@@ -453,6 +466,10 @@ export class PendingProductsComponent implements OnInit {
     this.listFilterProductsValidation = [];
   }
 
+  /**
+   * Metodo para aplicar filtros productos rechazados
+   * @memberof PendingProductsComponent
+   */
   public filterProductsModify() {
     this.cleanFilterListProductsModify();
     this.nameProductList = this.filterProdutsPending.controls.productName.value || null;
@@ -464,6 +481,10 @@ export class PendingProductsComponent implements OnInit {
     this.add(this.dataChips);
   }
 
+  /**
+   * Metodo para aplicar filtros productos validacion
+   * @memberof PendingProductsComponent
+   */
   public filterProductsModify2() {
     this.cleanFilterListProductsModify();
     this.nameProductList2 = this.filterProdutsValidation.controls.productName2.value || null;
@@ -475,6 +496,11 @@ export class PendingProductsComponent implements OnInit {
     this.add2(this.dataChips2);
   }
 
+  /**
+   * Metodo para ir eliminando chips de filtros productos rechazados
+   * @param {ListFilterProductsModify} productsFilterModify
+   * @memberof PendingProductsComponent
+   */
   public remove(productsFilterModify: ListFilterProductsModify): void {
 
     const index = this.listFilterProductsModify.indexOf(productsFilterModify);
@@ -487,6 +513,11 @@ export class PendingProductsComponent implements OnInit {
     this.filterApply();
   }
 
+  /**
+   * Metodo para ir eliminando chips de filtros productos validación
+   * @param {ListFilterProductsModify} productsFilterValidation
+   * @memberof PendingProductsComponent
+   */
   public removeValidation(productsFilterValidation: ListFilterProductsModify): void {
     const index = this.listFilterProductsValidation.indexOf(productsFilterValidation);
 
@@ -498,6 +529,11 @@ export class PendingProductsComponent implements OnInit {
     this.filterApply2();
   }
 
+  /**
+   * Metodo para añadir los chips de los filtros rechazados
+   * @param {*} data
+   * @memberof PendingProductsComponent
+   */
   public add(data: any): void {
     data.forEach(element => {
       const value = element.value;
@@ -511,6 +547,11 @@ export class PendingProductsComponent implements OnInit {
     this.dataChips = [];
   }
 
+  /**
+   * Metodo para añadir los chips de los filtros validacion
+   * @param {*} data
+   * @memberof PendingProductsComponent
+   */
   public add2(data: any): void {
     data.forEach(element => {
       const value = element.value;
