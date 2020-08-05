@@ -432,7 +432,7 @@ export const endpoints = {
       // GetProducs by EAN para validacion
       getEANPendingValidation: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productswaiting/{params}',
       // Exportar productos
-      exportProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/report',
+      exportProducts: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/report',
       // Listado de resumen de facturacion
       getListAllSummaryBilling: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/summary',
       // Detalle de reclaciones
