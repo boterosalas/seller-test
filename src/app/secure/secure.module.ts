@@ -43,6 +43,8 @@ import { CoreStoreModule } from '../store';
 import { ListReportsModule } from './reports/reports.module';
 import { QualityModule } from './quality/quality.module';
 import { QuotingSellerModule } from './offers/quoting/seller/quoting-seller.module';
+import { BillingOrdersAdminComponent } from './orders/billing-orders-admin/billing-orders-admin.component';
+import { BillingOrdersAdminModule } from './orders/billing-orders-admin/billing-orders-admin.module';
 
 @NgModule({
   declarations: [],
@@ -84,7 +86,8 @@ import { QuotingSellerModule } from './offers/quoting/seller/quoting-seller.modu
     ListReportsModule,
     QualityModule,
     CitiesCoverageModule,
-    QuotingSellerModule
+    QuotingSellerModule,
+    BillingOrdersAdminModule
   ],
   providers: [AuthService, SellerSupportCenterService]
 })

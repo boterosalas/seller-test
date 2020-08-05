@@ -132,7 +132,7 @@ const showAll = false;
  * 4. Cargar guias
  * 5. Facturación electronica.
  */
-export const orderModule = 'ÓRDENES', allName = 'Todas', toSendName = 'Por enviar', sendedName = 'Enviadas', onlineBillName = 'Factura Electrónica', dashboardName = 'Dashboard', guideChargesName = 'Cargar guías';
+export const orderModule = 'ÓRDENES', allName = 'Todas', toSendName = 'Por enviar', sendedName = 'Enviadas', onlineBillName = 'Factura Electrónica', dashboardName = 'Dashboard', guideChargesName = 'Cargar guías', billingSeller = 'Facturación vendedor';
 export const readFunctionality = 'Consultar';
 export const downloadFunctionality = 'Descargar';
 export const updateFunctionality = 'Editar';
@@ -228,6 +228,11 @@ const OrdersModule = new ModuleModel(orderModule, showAll, orderModule.toLowerCa
         new FunctionalitiesModel(attachmentFunctionality, showAll, attachmentFunctionality), // Adjuntar.
         new FunctionalitiesModel(sendFunctionality, showAll, sendFunctionality) // Enviar.
     ], RoutesConst.sellerCenterIntOrderBillingOrders),
+    // 13. Facturación vendedor admin
+    new MenuModel(billingSeller, showAll, billingSeller.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+        new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.
+    ], RoutesConst.sellerCenterIntOrderBillingOrdersAdmin),
 ]);
 
 /**
