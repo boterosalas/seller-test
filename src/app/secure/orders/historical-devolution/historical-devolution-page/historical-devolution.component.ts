@@ -263,7 +263,7 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
    * @param {HistoricalDevolutionEntity} item
    * @memberof HistoricalDevolutionComponent
    */
-  public openModalCommentOrder(item: HistoricalDevolutionEntity): void {
+  public openModalCommentOrder(item: any): void {
     const dialogRef = this.dialog.open(ViewCommentComponent, {
       width: '50%',
       data: {
@@ -271,8 +271,9 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
         historical: item
       }
     });
-    dialogRef.afterClosed().subscribe(() => {
-      log.info('The modal comment order was closed');
+    const dialogIntance = dialogRef.componentInstance;
+    dialogIntance.processFinish$.subscribe((val) => {
+      item.registryTranslations = val.registryTranslations;
     });
   }
 
@@ -331,6 +332,7 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
   changeLanguage() {
     this.getAdminHistoric();
     this.languageService.onLangChange.subscribe((e: Event) => {
+      this.__loadingService.viewSpinner();
       localStorage.setItem('culture_current', e['lang']);
       this.getOrdersList(this.event);
       this.clearData();

@@ -1,0 +1,50 @@
+<mat-sidenav-container>
+  <mat-sidenav #sidenavSearchOrder mode="over" position="end" opened="{{_stateSideNavOrder}}" class="filter-summary-overflow-y-hide">
+    <mat-card class="content-profile summary-list-93-height" >
+      <mat-nav-list class="light-content">
+        <mat-toolbar color="primary" class="toolbar-title-search filter-summary-padding-7">
+          <h4 class="title-toolbar filter-summary-font-16">{{informationToForm.title_for_search | translate}}</h4>
+          <button color="accent" [matTooltip]="'actions.close' | translate" matTooltipPosition="below" mat-icon-button
+            mat-button (click)="toggleFilterSummaryPayment()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-toolbar>
+      </mat-nav-list>
+      <mat-card-content>
+        
+        <form class="example-container" #createfilterBillingSummary="ngForm" [formGroup]="filterBillingSummary"
+          class="seller-filter-sidenav">
+        <div>
+            <div class="filter-summary-margin-left-26">
+              <div>
+                <mat-form-field >
+                  <input matInput [matDatepicker]="dp" [max]="dateMax" [formControl]="date">
+                  <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                  <mat-datepicker #dp
+                                  startView="multi-year"
+                                  touchUi="true" 
+                                  (yearSelected)="chosenYearHandler($event)"
+                                  (monthSelected)="chosenMonthHandler($event, dp)"
+                                  panelClass="example-month-picker">
+                  </mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <div>
+              <div class="orders-search-option normal-theme summary-list-filter-btn-clear" >
+                <button  class="sc-button filter-summy-margin-right-10" mat-button type="button" (click)="clearForm()">
+                  <mat-icon>clear_all</mat-icon>
+                  {{'filters.clear' | translate}}
+                </button>
+                <button  class="sc-button" mat-raised-button color="primary"
+                  type="submit" (click)="filterSummary(filterBillingSummary.value)">
+                  {{'actions.apply' | translate}}
+                </button>
+              </div>
+            </div>
+        </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </mat-sidenav>
+</mat-sidenav-container>

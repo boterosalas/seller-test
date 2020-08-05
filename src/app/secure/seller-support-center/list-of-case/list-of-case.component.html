@@ -144,10 +144,20 @@
 
         <ng-container *itemDropDownList>
           <app-drop-down-box *ngFor="let item of cases; let i = index" [data]="item" [read]="item.read"
-            (opened)="markAsRead($event)" [index]="i">
-            <ng-container *itemCaseList>
-              <app-case-summary (clickResponse)="onEmitResponse($event)" [case]="item" (idDetail)="redirectToDetailClaims($event)"
+            (opened)="markAsRead($event)" (showDetail)="consultDetails($event, item)" [index]="i">
+            <ng-container *itemCaseList >
+              <div *ngIf="item.statusLoad" class="text-aling-center">
+                <div class="margin-bottom-10">
+                  <mat-spinner [diameter]="30" class="margin-loading"></mat-spinner>
+                </div>
+                <span>
+                  {{'secure.products.create_product_unit.list_products.please_wait' | translate}}
+                </span>
+              </div>
+              <div *ngIf="!item.statusLoad">
+                <app-case-summary (clickResponse)="onEmitResponse($event)" [_case]="item" (idDetail)="redirectToDetailClaims($event)"
                 [disabledClass]="item.status === 'Cerrado'" [indexParent]="i"></app-case-summary>
+              </div>
             </ng-container>
           </app-drop-down-box>
         </ng-container>

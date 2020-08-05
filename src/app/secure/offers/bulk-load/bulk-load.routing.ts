@@ -18,6 +18,7 @@ const routes: Routes = [
       canActivate: [AuthService]
     },
     {
+
       path: `${RoutesConst.sellerCenterIntOferBulkLoad}`,
       component: BulkLoadComponent,
       data: { title: 'Cargar masiva de Ofertas' },

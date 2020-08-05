@@ -34,14 +34,14 @@
       </div>
     </div>
     <div fxFlex.xs="100" fxFlex.sm="300px" fxFlex fxLayoutAlign="end start"  [hidden]="_showContainerDetail" >
-      <mat-paginator [ngClass]="{'hidden-pagination': orderListLength == true}" class="order-pagination" fxFlex.xs="300px"
+      <mat-paginator [ngClass]="{'hidden-pagination': orderListLength == true}" class="order-pagination" fxFlex.xs="100%"
         fxFlex.sm="300px" fxFlex.md="auto" fxFlex.lg="400px" fxFlex.xl="400px" class="paginator-style orders-paginate"
         itemsPerPageLabel="" #paginator 
         [length]="lengthOrder"  [pageSizeOptions]="limitPaginate" (page)="pageEvent = changePaginatorOrdens($event)">
       </mat-paginator>
       <div fxLayout="row" class="center-product-list" fxFlex="20px" fxShow.xs="true" fxShow.sm="true" fxShow.md="true"
         fxShow.lg="false" fxShow.xl="false">
-        <button id="more-options-for-search-orden" class="button-toolbar" mat-icon-button
+        <button id="more-options-for-search-orden" class="button-toolbar margin-toolbar-aling" mat-icon-button
           [matMenuTriggerFor]="toolbarOptions">
           <mat-icon>more_vert</mat-icon>
         </button>

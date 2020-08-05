@@ -11,6 +11,7 @@ import { InValidationComponent } from './in-validation-page/in-validation.compon
 import { InValidationRoutingModule } from './in-validation.routing';
 import { ViewCommentComponent } from './view-comment/view-comment.component';
 import { ToolbarOptionsModule } from '@app/shared/components';
+import { InValidationService } from './in-validation.service';
 
 
 @NgModule({
@@ -37,6 +38,8 @@ import { ToolbarOptionsModule } from '@app/shared/components';
         InValidationModalComponent,
         ViewCommentComponent
     ],
-    providers: []
+    providers: [
+        InValidationService
+    ]
 })
 export class InValidationModule { }

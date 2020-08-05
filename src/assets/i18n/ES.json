@@ -26,6 +26,8 @@
     "menu.Factura Electrónica": "Factura electrónica",
     "menu.Factura electrónica": "Factura electrónica",
     "menu.Pagos": "Pagos",
+    "menu.Detalle de Pagos": "Detalle de pagos",
+    "menu.Resumen de Pagos": "Resumen de pagos",
     "menu.Listado de Ofertas": "Listado de ofertas",
     "menu.Listado de ofertas": "Listado de ofertas",
     "menu.Carga Masiva de Ofertas": "Carga masiva de ofertas",
@@ -313,6 +315,7 @@
     "secure.billing.payment_number": "# Orden de pago",
     "secure.billing.concept": "Concepto",
     "secure.billing.payment_date": "Fecha de pago",
+    "secure.billing.transfer_request_date": "Fecha de solicitud de transferencia",
     "secure.billing.iva": "IVA",
     "secure.billing.amount_pay": "Valor a pagar",
     "secure.billing.movement_charge": "Cobro movimiento",
@@ -322,13 +325,23 @@
     "secure.billing.refresh_payment": "Cargar todos los pagos en el botón: FACTURACIÓN",
     "secure.billing.amount": "Cantidad",
     "secure.billing.total_freight": "Flete total",
-    "secure.billing.total_cost": "Costo total",
+    "secure.billing.total_cost": "Valor del producto",
     "secure.billing.send_payment": "Enviar pagos",
     "secure.billing.send_payment_information": "Te enviaremos los pagos al siguiente correo electrónico.",
     "secure.billing.correctly_download": "Se ha realizado la descarga de los pagos correctamente, revisa tu correo electrónico",
     "secure.billing.error_download": "Se ha presentado un error al realizar la descarga de los pagos",
     "secure.billing.Venta Marketplace": "Venta MarketPlace",
     "secure.billing.Logistica Exito": "Logistica Exito",
+
+    "secure.billing.summaryPayment.text_btn_details": "Ver detalle de las facturas seleccionadas",
+    "secure.billing.summaryPayment.invoice_iD": "Número de Factura",
+    "secure.billing.summaryPayment.number_orders": "Cantidad de pedidos",
+    "secure.billing.summaryPayment.payment_date": "Fecha de Pago",
+    "secure.billing.summaryPayment.discounted_total_value": "Valor total descontado",
+    "secure.billing.summaryPayment.total_to_Pay": "Total a Pagar",
+    "secure.billing.summaryPayment.total_invoiced_value": "Valor total Facturado",
+
+    "secure.billing.summaryPayment.search_summaryPayment": "Consultar resumen de pagos",
 
     "secure.client_information.client": "Cliente",
     "secure.client_information.address": "Dirección",
@@ -1282,6 +1295,10 @@
     "secure.parametize.port.country": "País",
     "secure.parametize.port.collection_center": "Centro de acopio",
     "secure.parametize.port.address": "Dirección",
+    "secure.parametize.port.city": "Ciudad",
+    "secure.parametize.port.prefix": "Código ISO del país",
+    "secure.parametize.port.postalCode": "Código postal",
+    "secure.parametize.port.province": "Provincia",
     "secure.parametize.port.action": "Acción",
     "secure.parametize.port.apply": "Aplica",
     "secure.parametize.port.btn_add_port": "Agregar centro de acopio",
@@ -1315,4 +1332,5 @@
     "secure.seller.contracts.load-agreement.upload_file":"Adjuntar archivos formato PDF (peso maximo 3 MegaBytes)",
     "secure.seller.contracts.load-agreement.import":"Importar",
     "secure.seller.contracts.load-agreement.import_agreement":"Importar acuerdos"
+    
 }

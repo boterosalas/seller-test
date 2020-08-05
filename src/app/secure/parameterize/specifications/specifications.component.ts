@@ -77,8 +77,12 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit() {
     }
-
-    changeLanguage() {
+/**
+ * funcion para escuchar el evento al cambiar de idioma
+ *
+ * @memberof SpecificationsParamComponent
+ */
+changeLanguage() {
         if (localStorage.getItem('culture_current') !== 'US') {
         this.isDisabled = false;
         this.currentLanguage = 'ES';

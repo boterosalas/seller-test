@@ -53,6 +53,7 @@ export class ListProductsComponent implements OnInit {
     productsList: any = [];
     public filterProduts: FormGroup;
     public filterCategory: FormGroup;
+    public myProduct = false;
 
     public matcher: MyErrorStateMatcher;
     public paramsData: ModelFilterProducts;
