@@ -1,0 +1,21 @@
+.bulk-load-billing-component{
+    &-button-add {
+      text-align: right;
+      color: #485AFA;
+      width: 100%;
+    }
+    &-text-btn-show-details{
+      margin-right: 30px;
+    }
+
+    &-container-width-100{
+        width: 100%
+      }
+
+    &-container-port-main{
+        width: 100%;
+        padding: 15px;
+        padding-right: 47px;
+      }
+  }
+
