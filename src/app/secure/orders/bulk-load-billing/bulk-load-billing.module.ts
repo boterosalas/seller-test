@@ -9,6 +9,7 @@ import { SharedModule } from '@app/shared/shared.module';
 import { BulkLoadBillingComponent } from './bulk-load-billing.component';
 import { BulkLoadBillingRoutingModule } from './bulk-load-billing.routing';
 import { BulkLoadBillingService } from './bulk-load-billing.service';
+import { ngfModule } from 'angular-file';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { BulkLoadBillingService } from './bulk-load-billing.service';
     BulkLoadBillingRoutingModule,
     MatToolbarModule,
     MaterialModule,
-    SharedModule
+    SharedModule,
+    ngfModule
   ],
   declarations: [
     BulkLoadBillingComponent,

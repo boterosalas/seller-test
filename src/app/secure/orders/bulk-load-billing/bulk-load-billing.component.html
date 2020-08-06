@@ -1,4 +1,4 @@
-<div class="content-order my-content">
+<!-- <div class="content-order my-content">
   <div fxFlex class="container" fxLayout="row wrap" fxLayoutAlign="center
     start">
     <div fxFlex="100" class="light-content">
@@ -8,18 +8,75 @@
       </app-toolbar-search-pagination>
     </div>
 
-    <div class="bulk-load-billing-component-container-port-main" >
-      <div fxLayout="column" class="bulk-load-billing-component-container-width-100">
-        <div fxLayout="row">
-          <div class="bulk-load-billing-component-button-add">
-            <div id="addButton" class="container-group-add-button">
-              <button mat-button (click)="sendDetailSummary()" class="bulk-load-billing-component-text-btn-show-details">
-                ADJUNTAR FACTURAS
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+ 
+
+    <div>
+
+
+
+      
     </div>
+  </div>
+</div> -->
+
+
+<div class="load-file-container" fxLayout="column" fxLayoutAlign="space-around center">
+  <h1 mat-dialog-title>{{'shared.components.load_file.title' | translate}}</h1>
+  <div mat-dialog-content>
+      <p>
+          {{'shared.components.load_file.subtitle' | translate}} <strong>{{'shared.components.load_file.subtitle2' | translate}}</strong>{{'shared.components.load_file.subtitle3' | translate}}
+      </p>
+      <p>{{'shared.components.load_file.subtitle4' | translate}}</p>
+
+      <div class="logo" fxLayout="row" fxLayoutAlign="center center" *ngIf="false">
+          <div class="container-logo" fxLayout="row" fxLayoutAlign="center center">
+              <mat-icon class="material-icons">
+                  shopping_cart
+              </mat-icon>
+          </div>
+          <span class="seller">
+              &nbsp;Seller
+          </span>
+          <span class="load-file-gray">
+              &nbsp;Center
+          </span>
+          <span class="point">
+              .
+          </span>
+      </div>
+
+      <div class="inline-block">
+          <div ngfDrop selectable="1" [(validDrag)]="validComboDrag" [(files)]="files" [(file)]="file" [maxSize]="maxSize" accept="application/pdf"
+              [(lastInvalids)]="lastInvalids" [(dragFiles)]="dragFiles" class="well my-drop-zone" fxLayout="column" id="pdf"
+              fxLayoutAlign="center center" [class.invalid-drag]="validComboDrag===false" [class.valid-drag]="validComboDrag"
+              (filesChange)="lastFileAt=getDate()">
+              <strong *ngIf="!files.length && !lastInvalids?.length">{{'shared.components.load_file.text1' | translate}}</strong>
+              <strong *ngIf="files?.length && !lastInvalids?.length">{{files[files.length - 1].name}} - {{ files[files.length - 1].size/1024/1024 | number:'.2' }} MB</strong>
+              <strong *ngIf="lastInvalids?.length">{{'shared.components.load_file.text2' | translate}}</strong>
+              <mat-icon class="material-icons" *ngIf="!files.length && !lastInvalids?.length">
+                  attach_file
+              </mat-icon>
+              <mat-icon class="material-icons check" *ngIf="files.length && !lastInvalids?.length">
+                  check_circle
+              </mat-icon>
+              <mat-icon class="material-icons error" *ngIf="lastInvalids?.length">
+                  not_interested
+              </mat-icon>
+              <div class="button-fake" fxLayout="column" fxLayoutAlign="center center">
+                  <span>
+                      {{'shared.components.load_file.text3' | translate}}
+                  </span>
+              </div>
+          </div>
+          <mat-progress-bar mode="indeterminate" *ngIf="showProgress"></mat-progress-bar>
+      </div>
+
+      <ngfFormData [files]="files" postName="file" [(FormData)]="sendableFormData"></ngfFormData>
+      <ngfUploadStatus [(percent)]="progress" [httpEvent]="httpEvent"></ngfUploadStatus>
+  </div>
+
+  <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+      <button mat-button [mat-dialog-close]="null" [disabled]="showProgress">{{'actions.cancel' | translate}}</button>
+      <button mat-button (click)="saveFile()" [disabled]="(!(files.length && !lastInvalids?.length) || showProgress)" cdkFocusInitial mat-raised-button color="primary">{{'actions.save' | translate}}</button>
   </div>
 </div>

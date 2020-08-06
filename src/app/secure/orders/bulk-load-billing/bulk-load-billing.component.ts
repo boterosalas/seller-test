@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchFormEntity, InformationToForm } from '@app/shared';
+import { Subscription } from 'rxjs';
+import { HttpEvent } from '@angular/common/http';
 
 @Component({
   selector: 'app-bulk-load-billing',
@@ -8,6 +10,21 @@ import { SearchFormEntity, InformationToForm } from '@app/shared';
 })
 export class BulkLoadBillingComponent implements OnInit {
 
+
+  accept = '*';
+  files: File[] = [];
+  progress: number;
+  hasBaseDropZoneOver = false;
+  httpEmitter: Subscription;
+  httpEvent: HttpEvent<Event>;
+  lastFileAt: Date;
+  maxSize = 3145728;
+  lastInvalids: any;
+  dataToSend: any;
+  showProgress = false;
+  validComboDrag = true;
+  dragFiles = true;
+  file = null;
 
   public informationToForm: SearchFormEntity = {
     title: 'secure.orders.orders',
