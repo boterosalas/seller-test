@@ -67,6 +67,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
   pageSize = 100;
   filterParams: any;
   unreadCase: number;
+  caseId = '';
   public subModalExport: Subscription;
 
   configDialog = {
@@ -567,7 +568,10 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
  */
 loadDataDetails(item: any) {
     item.statusLoad = true;
-    this.sellerSupportService.getDetailTranslation(item.caseId).subscribe(
+    if (item && item.caseId) {
+      this.caseId = item.caseId.trim();
+    }
+    this.sellerSupportService.getDetailTranslation(this.caseId).subscribe(
       res => {
         item.description = res.data.description;
         item.followLast = res.data.followLast;
