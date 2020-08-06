@@ -95,6 +95,8 @@ export class PendingProductsComponent implements OnInit {
   ean2 = '';
   nameProduct2 = '';
 
+  separatorKeysCodes: number[] = [];
+
   indexTab: number;
   constructor(
     private pendingProductsService: PendingProductsService,
@@ -287,7 +289,7 @@ export class PendingProductsComponent implements OnInit {
    * @param {*} event
    * @memberof PendingProductsComponent
    */
-  paginations(event: any) {
+  paginations(event: any): any {
     if (event.pageSize !== this.limit) {
       this.limit = event.pageSize;
     }
@@ -321,7 +323,7 @@ export class PendingProductsComponent implements OnInit {
    * @param {*} event
    * @memberof PendingProductsComponent
    */
-  paginations2(event: any) {
+  paginations2(event: any): any {
     if (event.pageSize !== this.limit) {
       this.limit = event.pageSize;
     }
