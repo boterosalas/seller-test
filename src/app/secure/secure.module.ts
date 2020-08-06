@@ -43,6 +43,7 @@ import { CoreStoreModule } from '../store';
 import { ListReportsModule } from './reports/reports.module';
 import { QualityModule } from './quality/quality.module';
 import { QuotingSellerModule } from './offers/quoting/seller/quoting-seller.module';
+import { PendingProductsModule } from './products/pending-products/pending-products.module';
 
 @NgModule({
   declarations: [],
@@ -84,7 +85,8 @@ import { QuotingSellerModule } from './offers/quoting/seller/quoting-seller.modu
     ListReportsModule,
     QualityModule,
     CitiesCoverageModule,
-    QuotingSellerModule
+    QuotingSellerModule,
+    PendingProductsModule
   ],
   providers: [AuthService, SellerSupportCenterService]
 })

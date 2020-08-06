@@ -6,7 +6,7 @@
   <mat-step [stepControl]="eanFormGroup" [optional]="isOptional" [editable]="editFirstStep" [completed] ="eanFormGroup.valid">
     <form [formGroup]="eanFormGroup">
       <ng-template matStepLabel>{{'shared.ean' | translate}}</ng-template>
-      <app-validate-ean [ean]="ean" [reference]="reference"></app-validate-ean>
+      <app-validate-ean [ean]="ean" [reference]="reference" [pendingProduct]="pendingProduct"></app-validate-ean>
     </form>
   </mat-step>
 

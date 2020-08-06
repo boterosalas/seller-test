@@ -509,7 +509,8 @@ export class ListProductsComponent implements OnInit {
         } else {
             this.eanVariable = false;
             countFilter++;
-        } if (this.creationDateList === null) {
+        }
+        if (this.creationDateList === null) {
         } else if (this.creationDateList === 'createDate') {
             this.fechaFinalVariable = true;
             this.creationDateList = true;

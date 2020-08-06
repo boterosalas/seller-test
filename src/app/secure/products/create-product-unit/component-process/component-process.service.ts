@@ -407,10 +407,18 @@ export class ProcessService {
      * @returns {Observable<{}>}
      * @memberof ProcessService
      */
-    public saveInformationUnitreation(ean: any): Observable<{}> {
+    public saveInformationUnitreation(ean: any, productProcess?: any): Observable<{}> {
         this.sendFieldMeta();
+        let dataToSend;
         if (ean) {
             this.productData.ModifyImage = 1;
+            if (productProcess) {
+                const idProductProcess = {
+                    idProductProcess: productProcess
+                };
+                dataToSend = Object.assign(this.productData, idProductProcess);
+                return this.http.post(this.api.get('postUnitSaveInformationUnitCreation'), dataToSend);
+            }
             return this.http.patch(this.api.get('patchUnitSaveInformationUnitCreation'), this.productData, { observe: 'response' });
         } else {
             this.productData.ModifyImage = 0;
