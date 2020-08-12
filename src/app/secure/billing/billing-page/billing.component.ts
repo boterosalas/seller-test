@@ -12,6 +12,8 @@ import { OrderBillingDetailModalComponent } from '../order-detail-modal/order-de
 import { Router, ActivatedRoute } from '@angular/router';
 import { RoutesConst } from '@app/shared';
 import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
+import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
+import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 
 // log component
 const log = new Logger('BillingComponent');
@@ -76,7 +78,14 @@ export class BillingComponent implements OnInit, OnDestroy {
 
   public iva = (100 / 19);
   isInternational = false;
-  stringOrderList= '';
+  stringOrderList = '';
+  isFullSearch = true;
+  typeProfile: number;
+  searchSubscription: any;
+  public pageSize = 50;
+  idSeller: any;
+  nameSeller: string;
+  onlyOne: boolean;
 
   // Conceptos de facturación.
   public billingConcepts = Const.BILLING_CONCEPTS;
@@ -94,6 +103,7 @@ export class BillingComponent implements OnInit, OnDestroy {
    */
   constructor(
     public dialog: MatDialog,
+    public eventsSeller: EventEmitterSeller,
     public billinService: BillingService,
     public component: ComponentsService,
     public shellComponent: ShellComponent,
@@ -109,9 +119,11 @@ export class BillingComponent implements OnInit, OnDestroy {
    * @memberof BillingComponent
    */
   ngOnInit() {
+    this.eventEmitSearch();
+
     this.route.params.subscribe(params => {
-      if ( params['listBilling'] != null) {
-      this.filterBilling(params['listBilling']);
+      if (params['listBilling'] != null) {
+        this.filterBilling(params['listBilling']);
       }
     });
     this.userService.isAuthenticated(this);
@@ -127,8 +139,12 @@ export class BillingComponent implements OnInit, OnDestroy {
 
   async getDataUser() {
     this.user = !!this.user ? this.user : await this.userParams.getUserData();
-    this.toolbarOption.getOrdersList();
-    this.getOrdersListSinceFilterSearchOrder();
+    if (this.user) {
+      this.toolbarOption.getOrdersList();
+      this.getOrdersListSinceFilterSearchOrder();
+      this.loadingService.closeSpinner();
+    }
+
   }
 
   /**
@@ -140,11 +156,24 @@ export class BillingComponent implements OnInit, OnDestroy {
     this.user = !!this.user ? this.user : await this.userParams.getUserData();
 
     if (this.user.sellerProfile !== 'seller') {
-      this.router.navigate([`/${RoutesConst.securehome}`]);
+      this.setPermission(1);
+      // this.router.navigate([`/${RoutesConst.securehome}`]);
     } else {
+      this.setPermission(0);
       // this.getOrdersList(Event);
       // this.getLastSales();
     }
+  }
+
+  setPermission(typeProfile: number) {
+    // Permisos del componente.
+    this.typeProfile = typeProfile;
+    // this.readPermission = this.getFunctionality(this.read);
+    // this.downloadPermission = this.getFunctionality(this.download);
+    // this.sendPermission = this.getFunctionality(this.send);
+    // this.attachmentPermission = this.getFunctionality(this.attachment);
+    // this.marketPermission = this.getFunctionality(this.market);
+    // this.visualizePermission = this.getFunctionality(this.visualizeFunctionality);
   }
 
   /**
@@ -189,10 +218,10 @@ export class BillingComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   getOrdersListSinceFilterSearchOrder() {
+    console.log('entra a este q no se q es');
     this.loadingService.viewSpinner();
     this.subFilterOrderBilling = this.shellComponent.eventEmitterOrders.filterBillingList.subscribe(
       (data: any) => {
-        this.loadingService.closeSpinner();
         if (data != null) {
           if (data.length === 0) {
             this.orderListLength = true;
@@ -211,6 +240,7 @@ export class BillingComponent implements OnInit, OnDestroy {
           this.dataSource.paginator = paginator;
           this.dataSource.sort = this.sort;
           this.numberElements = this.dataSource.data.length;
+          this.loadingService.closeSpinner();
         }
       });
   }
@@ -222,13 +252,13 @@ export class BillingComponent implements OnInit, OnDestroy {
    * @memberof BillingComponent
    */
   getOrdersList($event: any) {
-
+    console.log('entra aqui: ', $event);
     if ($event == null) {
       $event = {
         lengthOrder: 100
       };
     }
-    const stringSearch = `?idSeller=${this.user.sellerId}&limit=${$event.lengthOrder}&billingNumber=${this.stringOrderList}`;
+    const stringSearch = `?idSeller=${$event.idSeller}&limit=${$event.limit}`;
     this.loadingService.viewSpinner();
     this.billinService.getBilling(this.user, stringSearch).subscribe((res) => {
       if (res != null) {
@@ -237,22 +267,27 @@ export class BillingComponent implements OnInit, OnDestroy {
         } else {
           this.orderListLength = false;
         }
-          // Creo el elemento que permite pintar la tabla
-      this.dataSource = new MatTableDataSource(res);
-      // se reccorre la respuesta de la lista y se pone la comision en negativo
-      if (this.dataSource.data) {
-        this.dataSource.data.forEach(element => {
-          element.commission *= -1;
-        });
-      }
-      this.dataSource.paginator = $event.paginator;
-      this.dataSource.sort = this.sort;
-      this.numberElements = this.dataSource.data.length;
+        // Creo el elemento que permite pintar la tabla
+        this.dataSource = new MatTableDataSource(res['viewModel']);
+        console.log('this.dataSource: ', this.dataSource);
+        // se reccorre la respuesta de la lista y se pone la comision en negativo
+        if (this.dataSource.data) {
+          this.dataSource.data.forEach(element => {
+            element.commission *= -1;
+          });
+        }
+        this.dataSource.paginator = $event.paginator;
+        this.dataSource.sort = this.sort;
+        this.numberElements = this.dataSource.data.length;
+        this.loadingService.closeSpinner();
+
       } else {
+        console.log('entra al else');
         this.dataSource = new MatTableDataSource(null);
-      this.numberElements = 0;
+        this.numberElements = 0;
+        this.loadingService.closeSpinner();
+
       }
-      this.loadingService.closeSpinner();
     }, err => {
       this.loadingService.closeSpinner();
       this.orderListLength = true;
@@ -302,6 +337,29 @@ export class BillingComponent implements OnInit, OnDestroy {
     if (orderList.length > 0) {
       this.stringOrderList = orderList;
     }
+  }
+
+  eventEmitSearch() {
+    this.searchSubscription = this.eventsSeller.eventSearchSeller.subscribe((seller: StoreModel) => {
+      console.log(1, seller);
+      this.idSeller = seller.IdSeller;
+      this.nameSeller = seller.Name;
+      this.onlyOne = true;
+
+      if (seller.Country === 'COLOMBIA') {
+        this.isInternational = false;
+      } else {
+        this.isInternational = true;
+      }
+      
+      const paramsArray = {
+        'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
+        'idSeller': this.idSeller,
+        'callOne': true,
+      };
+      this.getOrdersList(paramsArray);
+      
+    });
   }
 
 }

@@ -3,7 +3,7 @@
     <div fxFlex="100" class="light-content">
       <!-- Toolbar para los dropdown de filtro de estado para las órdenes -->
       <!-- Toolbar de las opciones para los pagos -->
-      <app-toolbar-options #toolbarOptions [billingType]="true" [informationToForm]="informationToForm" [downloadBillingPay]="true" (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)"></app-toolbar-options>
+      <app-toolbar-search-pagination #toolbarOptions [billingType]="true" [Typeprofile]="typeProfile" [informationToForm]="informationToForm" [downloadBillingPay]="true" (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)"></app-toolbar-search-pagination>
       <!-- Toolbar de las opciones para los pagos -->
     </div>
 

@@ -232,7 +232,7 @@ const OrdersModule = new ModuleModel(orderModule, showAll, orderModule.toLowerCa
     new MenuModel(billingSeller, showAll, billingSeller.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.
-    ], RoutesConst.sellerCenterIntOrderBillingOrdersAdmin),
+    ], RoutesConst.sellerCenterIntBillingPayments),
 ]);
 
 /**
