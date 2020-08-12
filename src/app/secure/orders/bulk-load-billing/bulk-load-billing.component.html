@@ -34,12 +34,24 @@
                     </div>
               
                     <div class="inline-block">
-                        <div ngfDrop selectable="1" multiple="1" [(validDrag)]="validComboDrag" [(files)]="files" [(file)]="file" [maxSize]="maxSize" accept="application/pdf"
+                        <div ngfDrop selectable="1" multiple="1" [(validDrag)]="validComboDrag" [(files)]="files" [(file)]="file"  accept="application/pdf"
                             [(lastInvalids)]="lastInvalids" [(dragFiles)]="dragFiles" class="well my-drop-zone" fxLayout="column" id="pdf"
                             fxLayoutAlign="center center" [class.invalid-drag]="validComboDrag===false" [class.valid-drag]="validComboDrag"
-                            (filesChange)="lastFileAt=getDate()">
+                            (filesChange)="lastFileAt=getDate(); changeValue(files) ">
                             
                             <img src="../../../../../assets/img/upload_files.png" alt="upload">
+                            <div style="text-align: center;" *ngIf="files.length">
+                                <div><span>Archivo(s) cargado(s) previamente, por favor verique el listado</span></div>
+                                <div style="font-size: 14px;"><span><strong>Recuerde que solo se podra hacer la carga solo una vez</strong></span></div>
+                                <div fxLayout="row" style="margin-top: 40px;">
+                                   <div fxFlex="50">
+                                    <mat-icon  class="mat-18" style="color:green; vertical-align: sub;">done</mat-icon> Total a Guardar ({{filesValidate.length -  filesErrors}})
+                                   </div>
+                                   <div fxFlex="50">
+                                    <mat-icon  class="mat-18" style="color:red; vertical-align: sub;">remove_circle_outline</mat-icon> Total de errores ({{filesErrors}})
+                                   </div>
+                                </div>
+                            </div>
                             <!-- <strong *ngIf="lastInvalids?.length">{{'shared.components.load_file.text2' | translate}}</strong> -->
                             <!-- <mat-icon class="material-icons" *ngIf="!files.length && !lastInvalids?.length">
                                 attach_file
@@ -65,11 +77,23 @@
                     <ngfUploadStatus [(percent)]="progress" [httpEvent]="httpEvent"></ngfUploadStatus>
                 </div>
                 <!-- <p style="width: 100%;font-size: 13px;color: #757474;text-align: center;">{{'shared.components.load_file.subtitle4' | translate}}</p> -->
-                <p style="width: 100%;font-size: 13px;color: #757474;text-align: center;">Archivo PDF de máximo <strong>3 Megabytes</strong> y que solo podrá ser enviado una vez.</p>
+                <div style="width: 100%;font-size: 13px;color: #757474;">
+                    <div style="cursor: pointer; margin-top: 5px;"> 
+                        <span (click)="showRecommendations(showShowRecommendationsContainer)">
+                            <span><mat-icon class="material-icons mat-18" style="vertical-align: middle; font-size: 20px;">assignment_late</mat-icon></span><strong>Recomendaciones para cargar las facturas </strong>
+                        </span>
+                    </div>
+                    <div *ngIf="showShowRecommendationsContainer">
+                        <div style="margin-left: 28px;"><span style="color: #485AFA ;"><strong>* </strong></span>Formato permitido <strong>PDF</strong></div>
+                        <div style="margin-left: 28px;"><span style="color: #485AFA ;"><strong>* </strong></span>Tamaño maximo del archivo <strong>3 Megabytes</strong></div>
+                        <div style="margin-left: 28px;"><span style="color: #485AFA ;"><strong>* </strong></span>El nombre del archivo de la factura debe ser el numero de factura </div>
+                    </div>
+                </div>
+               
             </div>
         </div>
         <div fxFlex="50">
-            <div *ngIf="true">
+            <div *ngIf="false">
                 <div style="padding-left: 37%;padding-right: 25%; padding-top: 16%;">
                     <mat-icon style="font-size: 200px;width: 200px;height: 200px; color: #efefef;" class="material-icons material-icons-outlined">sticky_note_2</mat-icon>
                 </div>
@@ -77,29 +101,30 @@
                     <span style="color: #757474;">No posee archivos para cargar</span>
                 </div>
             </div>
-            <div *ngIf="false" style="margin-top: 30px;">
+            <div *ngIf="true" style="margin-top: 30px;">
                 <div style="text-align: center; margin-bottom: 15px;">
-                    <span style="color: #757474; ">Lista de facturas para cargar (<span style="color: green ;">{{files.length}}</span>)</span>
+                    <span style="color: #757474; ">Lista de facturas para cargar ({{files.length}}) </span>
                 </div>
                 <div class="container-load-files" style="width: 100%;">
-                    <div fxLayout="row" style="width: 100%;padding: 10px;vertical-align: middle;justify-content: center; border-bottom: 1px solid #e0e0e0;" *ngFor='let fileList of files'>
+                    <div fxLayout="row" style="width: 100%;padding: 10px;vertical-align: middle;justify-content: center; border-bottom: 1px solid #e0e0e0;" *ngFor='let fileList of filesValidate; let i = index'>
                       
                         <div fxFlex="75" class="cup-text-name-pdf" style="font-size: 14px;">
                             <mat-icon style="color: #485AFA; opacity: 0.5; vertical-align: middle;">note_add</mat-icon> <span style="vertical-align: sub; cursor: pointer;" [matTooltip]="fileList.name"> {{fileList.name}}</span>
                         </div>
                         <div fxFlex="15" style="margin-left: 10px;" style="font-size: 14px; text-align: center;">
-                            <span style="vertical-align: sub;">{{fileList.size/1024/1024 | number:'.2'}} MB</span>
+                            <span style="vertical-align: sub;" [ngClass]="fileList.refuse ? 'sizeRefuse' : ''">{{fileList.size/1024/1024 | number:'.2'}} MB</span>
                         </div>
                         <div fxFlex="10">
-                            <mat-icon class="mat-18" style="color: #757474; cursor: pointer;" [matTooltip]="'permissions.Eliminar' | translate" >delete</mat-icon>
-                            <mat-icon class="mat-18" style="color:green;" >done</mat-icon>
+                            <mat-icon class="mat-18" style="color: #757474; cursor: pointer;" [matTooltip]="'permissions.Eliminar' | translate" (click)="deleteFile(i, fileList)" >delete</mat-icon>
+                            <mat-icon *ngIf="!fileList.refuse" class="mat-18" style="color:green;" >done</mat-icon>
+                            <mat-icon *ngIf="fileList.refuse" class="mat-18" style="color:red; cursor: pointer;" matTooltip="Peso maximo permitido 3 MB" >remove_circle_outline</mat-icon>
                         </div>
                     </div>
                 </div>
-                <div>
+                <div style="margin-top: 10px;">
                     <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
-                        <button mat-button [disabled]="showProgress" mat-raised-button style="text-transform: uppercase ">{{'filters.clear' | translate}}</button>
-                        <button mat-button (click)="saveFile()" [disabled]="(!(files.length && !lastInvalids?.length) || showProgress)" cdkFocusInitial mat-raised-button color="primary">{{'actions.save' | translate}}</button>
+                        <button mat-button (click)="clearListFiles()" mat-raised-button style="text-transform: uppercase ">{{'filters.clear' | translate}}</button>
+                        <button mat-button (click)="saveFile()" [disabled]="invalidsFile" cdkFocusInitial mat-raised-button color="primary">{{'actions.save' | translate}}</button>
                     </div>
                 </div>
             </div>

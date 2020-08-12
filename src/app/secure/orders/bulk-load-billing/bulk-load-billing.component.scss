@@ -87,23 +87,10 @@ $blue: #485AFA;
         width: 100%;
         .my-drop-zone {
             border: dashed 2px $lightgray;
-            min-height: 370px;
+            min-height: 340px;
             color: $gray;
             padding: 2em;
             cursor: pointer;
-            mat-icon {
-                font-size: 60px;
-                height: 60px;
-                width: 60px;
-                color: $gray;
-                margin: 0.2em;
-                &.check {
-                    color: green;
-                }
-                &.error {
-                    color: red;
-                }
-            }
             .button-fake {
                 border-radius: 4px;
                 width: 150px;
@@ -135,8 +122,8 @@ $blue: #485AFA;
 
 
 .container-load-files{
-    height: 330px;
-    max-height: 330px;
+    height: 305px;
+    max-height: 305px;
     contain: content;
     overflow-y: auto;
     overflow-x: hidden;
@@ -149,4 +136,8 @@ $blue: #485AFA;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+}
+
+.sizeRefuse{
+    color: red;
 }
