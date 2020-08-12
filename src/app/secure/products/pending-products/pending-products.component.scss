@@ -3,13 +3,13 @@
 .no-products {
   justify-content: center;
   width: 100%;
-  height: 70vh;
+  height: 100vh;
 }
 
 .example-chip-list {
   margin: 1%;
   position: sticky;
-  top: 64px;
+  top: 50px;
   // background: white;
   z-index: 1;
   padding: 1%;
@@ -40,10 +40,6 @@
       }
     }
   }
-}
-
-.notFixed{
-  position: relative;
 }
 
 .icon-face {
@@ -79,6 +75,7 @@
   padding-right: 2%;
   margin: 0 auto;
   width: 100%;
+  padding-bottom: 5%;
 }
 
 .example-sidenav {
@@ -96,7 +93,7 @@
 }
 
 .seller-filter-sidenav {
-  padding-top: 5%;
+  padding-top: 20%;
   padding-right: 8%;
   padding-left: 8%;
   padding-bottom: 5%;
@@ -147,10 +144,9 @@
   flex-wrap: wrap;
   width: 100%;
   // justify-content: center;
-  margin-top: 3%;
+  // margin-top: 2%;
   position: relative;
 }
 
-.disabledIconAddKeyCategoryFilter{
-  pointer-events: none;
-}
+
+

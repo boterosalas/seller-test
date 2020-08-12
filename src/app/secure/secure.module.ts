@@ -45,6 +45,7 @@ import { QualityModule } from './quality/quality.module';
 import { QuotingSellerModule } from './offers/quoting/seller/quoting-seller.module';
 import { BillingOrdersAdminComponent } from './orders/billing-orders-admin/billing-orders-admin.component';
 import { BillingOrdersAdminModule } from './orders/billing-orders-admin/billing-orders-admin.module';
+import { PendingProductsModule } from './products/pending-products/pending-products.module';
 
 @NgModule({
   declarations: [],
@@ -87,7 +88,8 @@ import { BillingOrdersAdminModule } from './orders/billing-orders-admin/billing-
     QualityModule,
     CitiesCoverageModule,
     QuotingSellerModule,
-    BillingOrdersAdminModule
+    BillingOrdersAdminModule,
+    PendingProductsModule
   ],
   providers: [AuthService, SellerSupportCenterService]
 })

@@ -22,15 +22,15 @@
     <!-- {{module.Menus}} -->
     <div class="content-menu-list" *ngIf="user">
       <div *ngFor="let module of modules">
-        <mat-expansion-panel class="expansion-menu-list" expanded="false" *ngIf="showModule(module)">
-          <mat-expansion-panel-header id="matExpansion-item-button-ordenes">
+        <mat-expansion-panel [id]="'ver-'+(('module.' + getPersonalityName(module.NameModule)) | translate)" class="expansion-menu-list" expanded="false" *ngIf="showModule(module)">
+          <mat-expansion-panel-header >
             <mat-panel-title>
               {{('module.' + getPersonalityName(module.NameModule)) | translate}}
             </mat-panel-title>
           </mat-expansion-panel-header>
 
           <div *ngFor="let menu of module.Menus">
-            <mat-list-item (click)="toggleMenu()" [routerLink]="['/' + menu.UrlRedirect]" *ngIf="showMenu(menu)">
+            <mat-list-item [id]="'ver-'+(('menu.' + menu.NameMenu) | translate)" (click)="toggleMenu()" [routerLink]="['/' + menu.UrlRedirect]" *ngIf="showMenu(menu)">
               <h6 matLine>{{('menu.' + menu.NameMenu) | translate}}</h6>
               <app-notification-circle *ngIf="menu.NameMenu === 'Solicitudes pendientes'" [value]="pending"
                 id="circle-notification-toolbar"></app-notification-circle>
@@ -38,7 +38,7 @@
                 id="circle-notification-toolbar"></app-notification-circle>
             </mat-list-item>
 
-            <a mat-list-item id="matlist-item-button-seller-documentation" href="{{menu.UrlRedirect}}"
+            <a mat-list-item [id]="'ver-'+(('module.' + getPersonalityName(module.NameModule)) | translate)" href="{{menu.UrlRedirect}}" [id]="('menu.' + menu.NameMenu) | translate"
               *ngIf="showMenu(menu, true)" target="_blank">
               <h3 matLine style="margin-left:50px;">{{('menu.' + menu.NameMenu) | translate}}</h3>
             </a>

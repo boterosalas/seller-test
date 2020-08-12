@@ -54,6 +54,7 @@
     "menu.Parametrizar Centros de Acopio": "Parameterize collection centers",
     "menu.Cargar Acuerdos": "Importer des accords",
     "menu.Facturación vendedor": "Facturación vendedor",
+    "menu.Productos pendientes": "Produits en attente",
 
     "module.Documentación": "Documentation",
     "module.Ofertas": "Offers",
@@ -1062,8 +1063,12 @@
     "secure.products.create_product_unit.list_products.please_wait" : "Loading, wait please ...",
 
     "secure.products.list_products.modal.title": "This offer undergoes an extreme price change, do you wish to continue?",
+    "secure.products.pending_products_tab1": "Pendientes Modificación",
+    "secure.products.pending_products_tab2": "Pendientes Validación",
     "secure.products.list_products.download.title": "Nous vous enverrons le téléchargement du produit à l'adresse e-mail suivante.",
     "secure.products.list_products.download.error": "Un problème est survenu lors du téléchargement des produits, veuillez réessayer.",
+    "secure.products.list_products.my_products": "Mes produits",
+    "secure.products.list_products.all_products": "Tous les produits",
     "secure.products.list_products.download.ok": "Les produits ont été téléchargés, vérifiez votre email",
     "secure.products.list_products.download.tooltip_category": "Ajouter une catégorie",
 
