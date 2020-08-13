@@ -1,6 +1,15 @@
 :host ::ng-deep {
     .mat-tab-label-size {
         min-width: 50%;
+        font-weight: bold;
+    }
+    .mat-tab-label{
+        &:focus{
+            font-weight: bold;
+        }
+    }
+    .mat-tab-label-active{
+        font-weight: bold;
     }
 }
 
