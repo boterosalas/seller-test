@@ -32,7 +32,7 @@ export class BulkLoadBillingComponent implements OnInit {
   dragFiles = true;
   file = null;
   filesErrors = 0;
-  showShowRecommendationsContainer= false;
+  showShowRecommendationsContainer = false;
   invalidsFile = true;
   arrayListFilesBase64Name = [];
   arrayFilesErrors: any;
@@ -63,8 +63,8 @@ export class BulkLoadBillingComponent implements OnInit {
 
   public saveFile(): void {
     // if ((!this.lastInvalids || !this.lastInvalids.length) && this.files.length) {
-      this.uploadFiles();
-      
+    this.uploadFiles();
+
     // }
   }
 
@@ -72,7 +72,7 @@ export class BulkLoadBillingComponent implements OnInit {
     this.arrayListFilesBase64Name = [];
     this.arrayFilesBase64 = await this.getBase64(this.filesValidate).then(res => {
       setTimeout(() => {
-        this.bulkLoadBillingService.sendBulkLoadBilling(res).subscribe( (results: any) => {
+        this.bulkLoadBillingService.sendBulkLoadBilling(res).subscribe((results: any) => {
           console.log(results);
         });
       }, 1000);
@@ -91,22 +91,22 @@ export class BulkLoadBillingComponent implements OnInit {
         }
         let bodyToSend = {};
         let base64File = '';
-         const reader = new FileReader();
-         reader.readAsDataURL(file);
-         reader.onload = () => {
-           base64File = (reader.result).toString();
-           bodyToSend = {
-              IdOrder: idOrder,
-              Base64Pdf:  base64File.slice(base64File.search('base64') + 7, base64File.length)
-            };
-            this.arrayListFilesBase64Name.push(bodyToSend);
-         };
-         reader.onerror = error => this.arrayFilesErrors(error);
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          base64File = (reader.result).toString();
+          bodyToSend = {
+            IdOrder: idOrder,
+            Base64Pdf: base64File.slice(base64File.search('base64') + 7, base64File.length)
+          };
+          this.arrayListFilesBase64Name.push(bodyToSend);
+        };
+        reader.onerror = error => this.arrayFilesErrors(error);
       });
-        resolve(this.arrayListFilesBase64Name);
+      resolve(this.arrayListFilesBase64Name);
     });
 
-}
+  }
 
   public getDate(): Date {
     return new Date();
@@ -121,10 +121,10 @@ export class BulkLoadBillingComponent implements OnInit {
         file.refuse = false;
       } else {
         file.refuse = true;
-        this.filesErrors ++;
+        this.filesErrors++;
       }
     });
-   this.validateErrors();
+    this.validateErrors();
     this.filesValidate = files;
   }
 
@@ -136,7 +136,7 @@ export class BulkLoadBillingComponent implements OnInit {
 
   deleteFile(index: number, file: any) {
     if (file && file.refuse) {
-      this.filesErrors --;
+      this.filesErrors--;
     }
     this.filesValidate.splice(index, 1);
     this.validateErrors();
