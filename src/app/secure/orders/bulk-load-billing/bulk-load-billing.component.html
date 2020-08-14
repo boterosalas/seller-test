@@ -78,8 +78,8 @@
                 </div>
                 <!-- <p style="width: 100%;font-size: 13px;color: #757474;text-align: center;">{{'shared.components.load_file.subtitle4' | translate}}</p> -->
                 <div style="width: 100%;font-size: 13px;color: #757474;">
-                    <div style="cursor: pointer; margin-top: 5px;"> 
-                        <span (click)="showRecommendations(showShowRecommendationsContainer)">
+                    <div style=" margin-top: 5px;"> 
+                        <span (click)="showRecommendations(showShowRecommendationsContainer)" style="cursor: pointer;">
                             <span><mat-icon class="material-icons mat-18" style="vertical-align: middle; font-size: 20px;">assignment_late</mat-icon></span><strong>Recomendaciones para cargar las facturas </strong>
                         </span>
                     </div>
@@ -93,7 +93,7 @@
             </div>
         </div>
         <div fxFlex="50">
-            <div *ngIf="false">
+            <div *ngIf="filesValidate.length === 0">
                 <div style="padding-left: 37%;padding-right: 25%; padding-top: 16%;">
                     <mat-icon style="font-size: 200px;width: 200px;height: 200px; color: #efefef;" class="material-icons material-icons-outlined">sticky_note_2</mat-icon>
                 </div>
@@ -101,7 +101,7 @@
                     <span style="color: #757474;">No posee archivos para cargar</span>
                 </div>
             </div>
-            <div *ngIf="true" style="margin-top: 30px;">
+            <div *ngIf="filesValidate.length > 0" style="margin-top: 30px;">
                 <div style="text-align: center; margin-bottom: 15px;">
                     <span style="color: #757474; ">Lista de facturas para cargar ({{files.length}}) </span>
                 </div>

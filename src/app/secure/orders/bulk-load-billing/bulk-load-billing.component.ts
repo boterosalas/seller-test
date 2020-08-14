@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { SearchFormEntity, InformationToForm, CommonService } from '@app/shared';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription, Observable, timer, Subject } from 'rxjs';
 import { HttpEvent } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
+import { takeUntil } from 'rxjs/operators';
+import { BulkLoadBillingService } from './bulk-load-billing.service';
+import { result } from 'lodash';
 
 @Component({
   selector: 'app-bulk-load-billing',
@@ -31,8 +34,12 @@ export class BulkLoadBillingComponent implements OnInit {
   filesErrors = 0;
   showShowRecommendationsContainer= false;
   invalidsFile = true;
-  prueba = [];
-  errorePruebas: any;
+  arrayListFilesBase64Name = [];
+  arrayFilesErrors: any;
+
+  arrayFilesBase64: any;
+
+  processFinish$ = new Subject<any>();
 
   public informationToForm: SearchFormEntity = {
     title: 'secure.orders.orders',
@@ -46,7 +53,9 @@ export class BulkLoadBillingComponent implements OnInit {
   constructor(
     private service: CommonService,
     public snackBar: MatSnackBar,
-    private languageService: TranslateService
+    private languageService: TranslateService,
+    private cdr: ChangeDetectorRef,
+    private bulkLoadBillingService: BulkLoadBillingService
   ) { }
 
   ngOnInit() {
@@ -55,78 +64,49 @@ export class BulkLoadBillingComponent implements OnInit {
   public saveFile(): void {
     // if ((!this.lastInvalids || !this.lastInvalids.length) && this.files.length) {
       this.uploadFiles();
-    // }
-  }
-
-   uploadFiles() {
-    if (this.filesValidate && this.filesValidate.length > 0) {
-      this.getBase64(this.filesValidate).subscribe(
-        res => {
-          setTimeout(() => {
-            console.log(this.prueba);
-          }, 5000 );
-        }
-      );
-        // this.getBase64(this.filesValidate).toPromise().then(data => {
-        //   console.log(data);
-        //   // const bodyToSend = {
-        //   //     IdOrder: 1,
-        //   //     Base64Pdf: data.slice(data.search('base64') + 7, data.length)
-        //   //   };
-        //   // this.prueba.push(bodyToSend);
-        // });
-  
       
-    }
-    // const lengthFiles = document.getElementById('pdf').getElementsByTagName('input')[0].files.length;
-    // let file = document.getElementById('pdf').getElementsByTagName('input')[0].files[lengthFiles - 1];
-    // console.log(this.files);
-    // if (!file) {
-    //   file = this.files[this.files.length - 1];
     // }
-    // this.showProgress = true;
-    // this.getBase64(file).then(data => {
-    //   try {
-   
-    //     this.service.postBillOrders(bodyToSend).subscribe(result => {
-    //       if (result.body.data) {
-    //         // Success
-    //         this.snackBar.open(result.body.message, this.languageService.instant('actions.close'), {
-    //           duration: 3000,
-    //         });
-    //       } else {
-    //         // Error
-    //         this.snackBar.open(result.body.message, this.languageService.instant('actions.close'), {
-    //           duration: 3000,
-    //         });
-    //       }
-    //       this.showProgress = false;
-    //     }, error => {
-    //       // Error
-    //       this.snackBar.open(this.languageService.instant('shared.components.load_file.snackbar_ko'), this.languageService.instant('actions.close'), {
-    //         duration: 3000,
-    //       });
-    //       this.showProgress = false;
-    //     });
-    //   } catch (e) {
-    //   }
-    // });
   }
 
-  public getBase64(files: any): any {
-    // return new Promise((resolve, reject) => {
-      return new Observable(observer => {
-        files.forEach(file => {
+  async uploadFiles() {
+    this.arrayListFilesBase64Name = [];
+    this.arrayFilesBase64 = await this.getBase64(this.filesValidate).then(res => {
+      setTimeout(() => {
+        this.bulkLoadBillingService.sendBulkLoadBilling(res).subscribe( (results: any) => {
+          console.log(results);
+        });
+      }, 1000);
+    });
+
+  }
+
+
+
+  async getBase64(files: any): Promise<any> {
+    return new Promise<any>(async (resolve) => {
+      files.forEach(file => {
+        let idOrder = '';
+        if (file && file.name) {
+          idOrder = file.name.split('.')[0];
+        }
+        let bodyToSend = {};
+        let base64File = '';
          const reader = new FileReader();
          reader.readAsDataURL(file);
-         reader.onload = () => this.prueba.push(reader.result);
-         reader.onerror = error => this.errorePruebas(error);
+         reader.onload = () => {
+           base64File = (reader.result).toString();
+           bodyToSend = {
+              IdOrder: idOrder,
+              Base64Pdf:  base64File.slice(base64File.search('base64') + 7, base64File.length)
+            };
+            this.arrayListFilesBase64Name.push(bodyToSend);
+         };
+         reader.onerror = error => this.arrayFilesErrors(error);
       });
-        observer.next(this.prueba);
-      });
-    //  resolve(this.prueba);
-    // });
-  }
+        resolve(this.arrayListFilesBase64Name);
+    });
+
+}
 
   public getDate(): Date {
     return new Date();

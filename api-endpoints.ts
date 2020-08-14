@@ -212,7 +212,9 @@ export const endpoints = {
       // Listado facturacion sumatoria
       getListAllSummaryBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/summary',
       // Obtener comentarios de solicitud de devolución
-      getAllCommentRefuse: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch/translation'
+      getAllCommentRefuse: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch/translation',
+      //
+      setMassiveBillOrderAsync: 'https://blmce0zwq7.execute-api.us-east-1.amazonaws.com/orders-bill/setmassivebillorderasync'
     },
   },
   // Endpoints production
