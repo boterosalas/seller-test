@@ -26,6 +26,18 @@ $blue: #485AFA;
     font-size: 14px;
   }
 
+  &-margin-top-40{
+    margin-top: 40px;
+  }
+  &-done-green{
+    color:green;
+    vertical-align: sub;
+  }
+  &-remove-red{
+    color:red;
+    vertical-align: sub;
+  }
+
   &-container-port-main {
     width: 100%;
     padding: 15px;
@@ -99,6 +111,96 @@ $blue: #485AFA;
       color: #787777;
       font-weight: 600;
     }
+  }
+
+  &-color-here-blue{
+    color: #485AFA;
+  }
+
+  &-text-remommnedation{
+    width: 100%;
+    font-size: 13px;
+    color: $gray;
+  }
+
+  &-margin-top-5{
+    margin-top: 5px;
+  }
+  &-cursor-Pointer{
+    cursor: pointer;
+  }
+  &-icon-recommendation{
+    vertical-align: middle;
+    font-size: 20px;
+  }
+
+  &-margin-left-28{
+    margin-left: 28px;
+  }
+  &-asteric-recommnedation-color{
+    color: #485AFA ;
+  }
+  &-padding-margin-list-file-empty{
+    padding-left: 37%;
+    padding-right: 25%;
+    padding-top: 16%;
+  }
+
+  &-icon-list-empty-file{
+    font-size: 200px !important;
+    width: 200px;
+    height: 200px;
+    color: #efefef;
+  }
+
+  &-text-color-grey{
+    color: $gray;
+  }
+
+  &-margin-top-30{
+    margin-top: 30px;
+  }
+
+  &-title-list-files{
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  &-for-list-files{
+    width: 100%;
+    padding: 10px;
+    vertical-align: middle;
+    justify-content: center;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  &-icon-add-note{
+    color: #485AFA;
+    opacity: 0.5;
+    vertical-align: middle;
+  }
+
+  &-text-name-file{
+    vertical-align: sub;
+    cursor: pointer;
+  }
+  &-container-size-file{
+    font-size: 14px;
+    text-align: center;
+    margin-left: 10px;
+  }
+
+  &-vertical-align-sub{
+    vertical-align: sub;
+  }
+  &-icon-done-list{
+    color:green;
+  }
+  &-icon-delete-list{
+    color:red;
+  }
+  &-text-transform-uppercase{
+    text-transform: uppercase 
   }
 }
 

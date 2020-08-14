@@ -16,4 +16,9 @@ export class BulkLoadBillingService {
   public sendBulkLoadBilling(body: any): Observable<{}> {
     return this.http.patch(this.api.get('setMassiveBillOrderAsync'), body);
   }
+
+  public verifyStatusBulkLoad(): Observable<any> {
+    return this.http.get(this.api.get('getstatussetmassivebilling'), { observe: 'response' });
+  }
+
 }

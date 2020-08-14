@@ -2,11 +2,13 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { SearchFormEntity, InformationToForm, CommonService } from '@app/shared';
 import { Subscription, Observable, timer, Subject } from 'rxjs';
 import { HttpEvent } from '@angular/common/http';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { takeUntil } from 'rxjs/operators';
 import { BulkLoadBillingService } from './bulk-load-billing.service';
 import { result } from 'lodash';
+import { LoadingService } from '@app/core';
+import { FinishUploadInformationComponent } from '@app/secure/offers/bulk-load/finish-upload-information/finish-upload-information.component';
 
 @Component({
   selector: 'app-bulk-load-billing',
@@ -55,7 +57,9 @@ export class BulkLoadBillingComponent implements OnInit {
     public snackBar: MatSnackBar,
     private languageService: TranslateService,
     private cdr: ChangeDetectorRef,
-    private bulkLoadBillingService: BulkLoadBillingService
+    private bulkLoadBillingService: BulkLoadBillingService,
+    private loadingService: LoadingService,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -73,7 +77,11 @@ export class BulkLoadBillingComponent implements OnInit {
     this.arrayFilesBase64 = await this.getBase64(this.filesValidate).then(res => {
       setTimeout(() => {
         this.bulkLoadBillingService.sendBulkLoadBilling(res).subscribe((results: any) => {
-          console.log(results);
+          if (results) {
+            if (results.data) {
+            this.openModal(1, null);
+            }
+          }
         });
       }, 1000);
     });
@@ -152,6 +160,33 @@ export class BulkLoadBillingComponent implements OnInit {
     } else {
       this.invalidsFile = false;
     }
+  }
+
+  openModal(type: number, listError: any) {
+    this.loadingService.closeSpinner();
+    const intervalTime = 6000;
+    const data = {
+      successText: this.languageService.instant('secure.products.Finish_upload_product_information.successful_upload'),
+      failText: this.languageService.instant('secure.products.Finish_upload_product_information.error_upload'),
+      processText: this.languageService.instant('secure.products.Finish_upload_product_information.upload_progress'),
+      initTime: 500,
+      intervalTime: intervalTime,
+      listError: listError,
+      typeStatus: type,
+      showExport : false
+    };
+    const dialog = this.dialog.open(FinishUploadInformationComponent, {
+      width: '70%',
+      minWidth: '280px',
+      maxHeight: '80vh',
+      disableClose: type === 1,
+      data: data
+    });
+    const dialogIntance = dialog.componentInstance;
+    dialogIntance.request = this.bulkLoadBillingService.verifyStatusBulkLoad();
+    dialogIntance.processFinish$.subscribe((val) => {
+      dialog.disableClose = false;
+    });
   }
 
 }

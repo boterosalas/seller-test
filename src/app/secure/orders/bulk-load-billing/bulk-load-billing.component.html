@@ -8,7 +8,7 @@
       </app-toolbar-search-pagination>
     </div>
     <div fxLayout="row" class="bulk-load-billing-component-container-width-100"></div>
-    <div fxFlex="50">
+    <div fxFlex="50" fxFlex.xs="100%" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
       <div class="bulk-load-billing-component-load-file-container bulk-load-billing-component-margin-top-15"  fxLayout="column" fxLayoutAlign="space-around center">
         <div mat-dialog-content class="bulk-load-billing-component-container-width-100">
           <div class="bulk-load-billing-component-logo" fxLayout="row" fxLayoutAlign="center center" *ngIf="false">
@@ -38,19 +38,19 @@
                 <div><span>Archivo(s) cargado(s) previamente, por favor verique el listado</span></div>
                 <div class="bulk-load-billing-component-font-size-14"><span><strong>Recuerde que solo se podra hacer la carga solo una
                       vez</strong></span></div>
-                <div fxLayout="row" style="margin-top: 40px;">
+                <div fxLayout="row" class="bulk-load-billing-component-margin-top-40">
                   <div fxFlex="50">
-                    <mat-icon class="mat-18" style="color:green; vertical-align: sub;">done</mat-icon> Total a Guardar
+                    <mat-icon class="mat-18 bulk-load-billing-component-done-green">done</mat-icon> Total a Guardar
                     ({{filesValidate.length -  filesErrors}})
                   </div>
                   <div fxFlex="50">
-                    <mat-icon class="mat-18" style="color:red; vertical-align: sub;">remove_circle_outline</mat-icon>
+                    <mat-icon class="mat-18 bulk-load-billing-component-remove-red">remove_circle_outline</mat-icon>
                     Total de errores ({{filesErrors}})
                   </div>
                 </div>
               </div>
               <div *ngIf="!files.length && !lastInvalids?.length">Arraste y suelte los archivos <span
-                  style="color: #485AFA;"><strong>aqui</strong></span> o explore en su archivos</div>
+                   class="bulk-load-billing-component-color-here-blue"><strong>aqui</strong></span> o explore en su archivos</div>
             </div>
             <mat-progress-bar mode="indeterminate" *ngIf="showProgress"></mat-progress-bar>
           </div>
@@ -58,66 +58,64 @@
           <ngfFormData [files]="files" postName="file" [(FormData)]="sendableFormData"></ngfFormData>
           <ngfUploadStatus [(percent)]="progress" [httpEvent]="httpEvent"></ngfUploadStatus>
         </div>
-        <div style="width: 100%;font-size: 13px;color: #757474;">
-          <div style=" margin-top: 5px;">
-            <span (click)="showRecommendations(showShowRecommendationsContainer)" style="cursor: pointer;">
+        <div class="bulk-load-billing-component-text-remommnedation">
+          <div class="bulk-load-billing-component-margin-top-5">
+            <span (click)="showRecommendations(showShowRecommendationsContainer)" class="bulk-load-billing-component-cursor-Pointer">
               <span>
-                <mat-icon class="material-icons mat-18" style="vertical-align: middle; font-size: 20px;">assignment_late
+                <mat-icon class="material-icons mat-18 bulk-load-billing-component-icon-recommendation" >assignment_late
                 </mat-icon>
               </span><strong>Recomendaciones para cargar las facturas </strong>
             </span>
           </div>
           <div *ngIf="showShowRecommendationsContainer">
-            <div style="margin-left: 28px;"><span style="color: #485AFA ;"><strong>* </strong></span>Formato permitido
+            <div class="bulk-load-billing-component-margin-left-28"><span class="bulk-load-billing-component-asteric-recommnedation-color"><strong>* </strong></span>Formato permitido
               <strong>PDF</strong></div>
-            <div style="margin-left: 28px;"><span style="color: #485AFA ;"><strong>* </strong></span>Tamaño maximo del
+            <div class="bulk-load-billing-component-margin-left-28"><span class="bulk-load-billing-component-asteric-recommnedation-color"><strong>* </strong></span>Tamaño maximo del
               archivo <strong>3 Megabytes</strong></div>
-            <div style="margin-left: 28px;"><span style="color: #485AFA ;"><strong>* </strong></span>El nombre del
+            <div class="bulk-load-billing-component-margin-left-28"><span class="bulk-load-billing-component-asteric-recommnedation-color"><strong>* </strong></span>El nombre del
               archivo de la factura debe ser el numero de factura </div>
           </div>
         </div>
       </div>
     </div>
-    <div fxFlex="50">
+    <div fxFlex="50" fxFlex.xs="100%" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
       <div *ngIf="filesValidate.length === 0">
-        <div style="padding-left: 37%;padding-right: 25%; padding-top: 16%;">
-          <mat-icon style="font-size: 200px;width: 200px;height: 200px; color: #efefef;"
-            class="material-icons material-icons-outlined">sticky_note_2</mat-icon>
+        <div class="bulk-load-billing-component-padding-margin-list-file-empty">
+          <mat-icon 
+            class="material-icons material-icons-outlined bulk-load-billing-component-icon-list-empty-file">sticky_note_2</mat-icon>
         </div>
-        <div style="text-align: center;">
-          <span style="color: #757474;">No posee archivos para cargar</span>
+        <div class="bulk-load-billing-component-text-aling-center">
+          <span class="bulk-load-billing-component-text-color-grey">No posee archivos para cargar</span>
         </div>
       </div>
-      <div *ngIf="filesValidate.length > 0" style="margin-top: 30px;">
-        <div style="text-align: center; margin-bottom: 15px;">
-          <span style="color: #757474; ">Lista de facturas para cargar ({{files.length}}) </span>
+      <div *ngIf="filesValidate.length > 0" class="bulk-load-billing-component-margin-top-30">
+        <div class="bulk-load-billing-component-title-list-files">
+          <span class="bulk-load-billing-component-text-color-grey">Lista de facturas para cargar ({{files.length}}) </span>
         </div>
-        <div class="container-load-files" style="width: 100%;">
-          <div fxLayout="row"
-            style="width: 100%;padding: 10px;vertical-align: middle;justify-content: center; border-bottom: 1px solid #e0e0e0;"
-            *ngFor='let fileList of filesValidate; let i = index'>
+        <div class="container-load-files bulk-load-billing-component-container-width-100">
+          <div fxLayout="row" class="bulk-load-billing-component-for-list-files" *ngFor='let fileList of filesValidate; let i = index'>
 
-            <div fxFlex="75" class="cup-text-name-pdf" style="font-size: 14px;">
-              <mat-icon style="color: #485AFA; opacity: 0.5; vertical-align: middle;">note_add</mat-icon> <span
-                style="vertical-align: sub; cursor: pointer;" [matTooltip]="fileList.name"> {{fileList.name}}</span>
+            <div fxFlex="75" class="cup-text-name-pdf bulk-load-billing-component-font-size-14" >
+              <mat-icon class="bulk-load-billing-component-icon-add-note">note_add</mat-icon> <span
+              class="bulk-load-billing-component-text-name-file" [matTooltip]="fileList.name"> {{fileList.name}}</span>
             </div>
-            <div fxFlex="15" style="margin-left: 10px;" style="font-size: 14px; text-align: center;">
-              <span style="vertical-align: sub;"
-                [ngClass]="fileList.refuse ? 'sizeRefuse' : ''">{{fileList.size/1024/1024 | number:'.2'}} MB</span>
+            <div fxFlex="15"class="bulk-load-billing-component-container-size-file" >
+              <span 
+                [ngClass]="fileList.refuse ? 'sizeRefuse bulk-load-billing-component-vertical-align-sub' : 'bulk-load-billing-component-vertical-align-sub'">{{fileList.size/1024/1024 | number:'.2'}} MB</span>
             </div>
             <div fxFlex="10">
-              <mat-icon class="mat-18" style="color: #757474; cursor: pointer;"
+              <mat-icon class="mat-18 bulk-load-billing-component-text-color-grey  bulk-load-billing-component-cursor-Pointer" 
                 [matTooltip]="'permissions.Eliminar' | translate" (click)="deleteFile(i, fileList)">delete</mat-icon>
-              <mat-icon *ngIf="!fileList.refuse" class="mat-18" style="color:green;">done</mat-icon>
-              <mat-icon *ngIf="fileList.refuse" class="mat-18" style="color:red; cursor: pointer;"
+              <mat-icon *ngIf="!fileList.refuse" class="mat-18 bulk-load-billing-component-icon-done-list" >done</mat-icon>
+              <mat-icon *ngIf="fileList.refuse" class="mat-18 bulk-load-billing-component-icon-delete-list bulk-load-billing-component-cursor-Pointer" 
                 matTooltip="Peso maximo permitido 3 MB">remove_circle_outline</mat-icon>
             </div>
           </div>
         </div>
-        <div style="margin-top: 10px;">
+        <div class="bulk-load-billing-component-margin-top-15">
           <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
             <button mat-button (click)="clearListFiles()" mat-raised-button
-              style="text-transform: uppercase ">{{'filters.clear' | translate}}</button>
+              class="bulk-load-billing-component-text-transform-uppercase">{{'filters.clear' | translate}}</button>
             <button mat-button (click)="saveFile()" [disabled]="invalidsFile" cdkFocusInitial mat-raised-button
               color="primary">{{'actions.save' | translate}}</button>
           </div>
