@@ -87,7 +87,7 @@
         <mat-icon>file_download</mat-icon>
         {{'actions.download' | translate}}
       </button>
-      <button fxShow.xs="false" *ngIf="_Typeprofile == 1 && !customerFilterCalifications"  [disabled]="idSeller? 'false': 'true'" fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button btn-filter input-search-black"
+      <button fxShow.xs="false" *ngIf="_Typeprofile == 1 && !customerFilterCalifications && !billingType"  [disabled]="idSeller? 'false': 'true'" fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button btn-filter input-search-black"
         id="search-order-button" (click)="toggleMenuOrderSearch()" style="top: 11px" mat-button color="primary">
         <mat-icon>filter_list</mat-icon>
         {{'filters.filter' | translate}}
@@ -103,10 +103,11 @@
         <mat-icon>filter_list</mat-icon>
         {{'filters.filter' | translate}}
       </button>
-      <button fxShow.xs="false"  *ngIf="_Typeprofile == 0"  fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button btn-filter input-search-black"
+      <button fxShow.xs="false"  *ngIf="_Typeprofile && billingType"  fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button btn-filter input-search-black"
         id="search-order-button" (click)="toggleMenuOrderSearch()" style="top: 11px" mat-button color="primary">
         <mat-icon>filter_list</mat-icon>
         {{'filters.filter' | translate}}
       </button>
     </div>
   </div>
+  

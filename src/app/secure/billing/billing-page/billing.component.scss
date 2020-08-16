@@ -1,3 +1,12 @@
+$color-gray: #757474;
+$color-light-gray: #9E9E9E;
+$color-light-gray2: #EFEDED;
+$primary-color: #757474;
+$accent-color: #485afa;
+$title-color: black;
+$hint-color: #909090;
+$underline-color: #19a695;
+
 @import '~@angular/material/theming'; // always include only once per project
 @include mat-core();
 $green: mat-palette($mat-green);
@@ -124,4 +133,78 @@ $amber: mat-palette($mat-amber);
 
 .text-aling-right{
   text-align: left;
+}
+
+.filterDesktop {
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
+}
+
+.filter-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 20px;
+  margin-bottom: 6%;
+  margin-top: 6%;
+
+  &--title {
+    font-weight: bold;
+    color: $title-color;
+  }
+
+  &--close {
+    color: $accent-color;
+    cursor: pointer;
+  }
+}
+
+.example-sidenav {
+  width: 26%;
+  padding: 3% 2%;
+
+  @media only screen and (max-width: 600px) {
+    width: 80%;
+  }
+}
+
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.search-form {
+  // padding: 5% 5%;
+  height: 81%;
+  position: relative;
+  & mat-icon {
+    margin-right: 20px;
+  }
+  & .orders-search-option {
+    position: absolute;
+    bottom: 10px;
+    left: 0px;
+  }
+}
+
+.disabledIconAddKeyCategoryFilter{
+  pointer-events: none;
+}
+
+.example-chip-list {
+  margin: 1%;
+  position: sticky;
+  top: 64px;
+  // background: white;
+  z-index: 1;
+  padding: 1%;
+  & mat-icon {
+    margin-right: 0px;
+  }
 }

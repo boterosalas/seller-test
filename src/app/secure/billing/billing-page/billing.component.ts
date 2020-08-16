@@ -14,6 +14,9 @@ import { RoutesConst } from '@app/shared';
 import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import { isEmpty } from 'lodash';
 
 // log component
 const log = new Logger('BillingComponent');
@@ -87,6 +90,21 @@ export class BillingComponent implements OnInit, OnDestroy {
   nameSeller: string;
   onlyOne: boolean;
 
+  // seller que se obtiene del buscador
+  sellerIdSearch: any;
+
+  public arrayPosition = [];
+  public paginationToken = '{}';
+  length: number;
+  public callOne = true;
+  public myform: FormGroup;
+
+  invalidOrder: Boolean = false;
+  keywords: Array<any> = [];
+  validateKey = true;
+  removable = true;
+  public locale = 'es-CO';
+
   // Conceptos de facturación.
   public billingConcepts = Const.BILLING_CONCEPTS;
   // Método que permite crear la fila de detalle de la tabla
@@ -111,9 +129,12 @@ export class BillingComponent implements OnInit, OnDestroy {
     private profileService: MyProfileService,
     private route: ActivatedRoute,
     public router?: Router,
+    private fb?: FormBuilder,
     public userService?: UserLoginService,
     private loadingService?: LoadingService,
-  ) { }
+  ) {
+    // this.getDataUser();
+  }
 
   /**
    * @memberof BillingComponent
@@ -127,22 +148,127 @@ export class BillingComponent implements OnInit, OnDestroy {
       }
     });
     this.userService.isAuthenticated(this);
-    this.getDataUser();
-    this.getAllDataUser();
+    // this.getAllDataUser();
+    this.getOrdersList();
+    // this.getOrdersListSinceFilterSearchOrder();
 
     // remove storage from export billing pay when refresh page
 
     if (performance.navigation.type === 1) {
       localStorage.removeItem('currentFilterBillingPay');
     }
+    this.createForm();
+  }
+
+  createForm() {
+    // Estructura para los datos del formulario de consulta.
+    this.myform = this.fb.group({
+      'paymentDateInitial': [null, Validators.compose([])],
+      'paymentDateFinal': [null, Validators.compose([])],
+      'billingNumber': [null, Validators.compose([Validators.minLength(1)])],
+      'orderNumber': [null, Validators.compose([Validators.minLength(1)])],
+    });
+  }
+
+  clearForm() {
+    this.myform.reset();
+  }
+
+  filterOrder() {
+    // Formatear la fechas.
+    const datePipe = new DatePipe(this.locale);
+
+    // Formatear la fechas.
+    const paymentDateInitial = datePipe.transform(this.myform.controls.paymentDateInitial.value, 'yyyy/MM/dd');
+    const paymentDateFinal = datePipe.transform(this.myform.controls.paymentDateFinal.value, 'yyyy/MM/dd');
+
+    // String que indicara los parametros de la consulta.
+    let stringSearch = '';
+    const objectSearch: any = {};
+
+    if (!isEmpty(paymentDateInitial) && !isEmpty(paymentDateFinal)) {
+      // paymentDateInitial
+      stringSearch += `&paymentDateInitial=${paymentDateInitial}`;
+      objectSearch.paymentDateInitial = paymentDateInitial;
+      // paymentDateFinal
+      stringSearch += `&paymentDateFinal=${paymentDateFinal}`;
+      objectSearch.paymentDateFinal = paymentDateFinal;
+    }
+
+    if (!isEmpty(this.myform.controls.billingNumber.value)) {
+      stringSearch += `&billingNumber=${this.myform.controls.billingNumber.value}`;
+      objectSearch.billingNumber = this.myform.controls.billingNumber.value;
+    }
+    if (!isEmpty(this.keywords)) {
+      const strintArray = this.keywords.toString();
+      stringSearch += `&orderNumber=${strintArray}`;
+      objectSearch.orderNumber = strintArray;
+    }
+
+    console.log('stringSearch: ', stringSearch);
+
+    this.getOrdersList(null, stringSearch);
+  }
+
+
+  /**
+   * Función para ir guardando las categorías como chips.
+   * @memberof BillingComponent
+   */
+  public saveKeyword(): void {
+    let word = this.myform.controls.orderNumber.value;
+    if (word) {
+      word = word.trim();
+      if (word.search(',') === -1) {
+        if (this.invalidOrder === false) {
+          this.keywords.push(word);
+        }
+      } else {
+        const counter = word.split(',');
+        counter.forEach(element => {
+          if (element) {
+            this.keywords.push(element);
+          }
+        });
+      }
+      this.myform.controls.orderNumber.clearValidators();
+      this.myform.controls.orderNumber.reset();
+      this.validateKey = this.keywords.length > 0 ? false : true;
+    }
+    console.log(0, this.keywords);
+  }
+
+  /**
+   * Metodo para eliminar chips dentro del filtro
+   * @param {number} indexOfValue
+   * @memberof BillingComponent
+   */
+  public deleteKeywork(indexOfValue: number): void {
+    this.keywords.splice(indexOfValue, 1);
+    this.validateKey = this.keywords.length > 0 ? false : true;
+    if (this.keywords.length < 1) {
+      this.myform.setErrors({ required: true });
+    }
   }
 
   async getDataUser() {
-    this.user = !!this.user ? this.user : await this.userParams.getUserData();
-    if (this.user) {
-      this.toolbarOption.getOrdersList();
+    this.user = await this.userParams.getUserData();
+    // if (this.user) {
+    //   this.toolbarOption.getOrdersList();
+    //   this.getOrdersListSinceFilterSearchOrder();
+    //   this.loadingService.closeSpinner();
+    // }
+    if (this.user.sellerProfile !== 'seller') {
+      this.setPermission(1);
+      // this.router.navigate([`/${RoutesConst.securehome}`]);
+    } else {
+      this.idSeller = this.user.sellerId;
+      this.getOrdersList();
       this.getOrdersListSinceFilterSearchOrder();
       this.loadingService.closeSpinner();
+      this.setPermission(0);
+      // this.getOrdersList(Event);
+      // this.getLastSales();
     }
 
   }
@@ -152,18 +278,18 @@ export class BillingComponent implements OnInit, OnDestroy {
    * @description Método que carga los datos del vendedor para obtener la sellerId.
    * @memberof DashboardComponent
    */
-  public async getUserData() {
-    this.user = !!this.user ? this.user : await this.userParams.getUserData();
+  // public async getUserData() {
+  //   this.user = !!this.user ? this.user : await this.userParams.getUserData();
 
-    if (this.user.sellerProfile !== 'seller') {
-      this.setPermission(1);
-      // this.router.navigate([`/${RoutesConst.securehome}`]);
-    } else {
-      this.setPermission(0);
-      // this.getOrdersList(Event);
-      // this.getLastSales();
-    }
-  }
+  //   if (this.user.sellerProfile !== 'seller') {
+  //     this.setPermission(1);
+  //     // this.router.navigate([`/${RoutesConst.securehome}`]);
+  //   } else {
+  //     this.setPermission(0);
+  //     // this.getOrdersList(Event);
+  //     // this.getLastSales();
+  //   }
+  // }
 
   setPermission(typeProfile: number) {
     // Permisos del componente.
@@ -224,6 +350,7 @@ export class BillingComponent implements OnInit, OnDestroy {
       (data: any) => {
         if (data != null) {
           if (data.length === 0) {
+            console.log('here 1');
             this.orderListLength = true;
           } else {
             this.orderListLength = false;
@@ -251,22 +378,38 @@ export class BillingComponent implements OnInit, OnDestroy {
    * @param {any} $event
    * @memberof BillingComponent
    */
-  getOrdersList($event: any) {
-    console.log('entra aqui: ', $event);
-    if ($event == null) {
-      $event = {
-        lengthOrder: 100
-      };
-    }
-    const stringSearch = `?idSeller=${$event.idSeller}&limit=${$event.limit}`;
+  getOrdersList($event?: any, paramsFIlter?: any) {
     this.loadingService.viewSpinner();
+    let sellerid;
+    let limit;
+    if ($event) {
+      console.log('entra aqui: ', $event);
+      sellerid = $event.idSeller;
+      limit = $event.limit;
+    } else {
+      console.log('else: ', this.idSeller);
+      sellerid = this.idSeller;
+      limit = this.pageSize + '&paginationToken=' + encodeURI('{}');
+    }
+    let stringSearch = `?idSeller=${sellerid}&limit=${limit}`;
+    if (paramsFIlter) {
+      stringSearch = `?idSeller=${sellerid}&limit=${limit}${paramsFIlter}`;
+
+    }
     this.billinService.getBilling(this.user, stringSearch).subscribe((res) => {
       if (res != null) {
-        if (res.length === 0) {
-          this.orderListLength = true;
-        } else {
-          this.orderListLength = false;
+        if (this.callOne) {
+          this.length = res['count'];
+          if (res.length === 0) {
+            this.orderListLength = true;
+          } else {
+            this.orderListLength = false;
+          }
+          this.arrayPosition = [];
+          this.arrayPosition.push('{}');
+          this.callOne = false;
         }
+        this.paginationToken = res['paginationToken'];
         // Creo el elemento que permite pintar la tabla
         this.dataSource = new MatTableDataSource(res['viewModel']);
         console.log('this.dataSource: ', this.dataSource);
@@ -276,13 +419,13 @@ export class BillingComponent implements OnInit, OnDestroy {
             element.commission *= -1;
           });
         }
-        this.dataSource.paginator = $event.paginator;
+        // this.dataSource.paginator = $event.paginator;
         this.dataSource.sort = this.sort;
         this.numberElements = this.dataSource.data.length;
         this.loadingService.closeSpinner();
 
       } else {
-        console.log('entra al else');
+        this.loadingService.closeSpinner();
         this.dataSource = new MatTableDataSource(null);
         this.numberElements = 0;
         this.loadingService.closeSpinner();
@@ -292,6 +435,38 @@ export class BillingComponent implements OnInit, OnDestroy {
       this.loadingService.closeSpinner();
       this.orderListLength = true;
     });
+  }
+
+  paginations(event: any) {
+    const index = event.param.pageIndex;
+    if (event.param.pageSize !== this.pageSize) {
+      this.pageSize = event.param.pageSize;
+      if (this.arrayPosition && this.arrayPosition.length > 0) {
+        this.arrayPosition = [];
+      }
+    } else {
+    }
+    if (index === 0) {
+      this.paginationToken = '{}';
+    }
+    const isExistInitial = this.arrayPosition.includes('{}');
+    if (isExistInitial === false) {
+      this.arrayPosition.push('{}');
+    }
+    const isExist = this.arrayPosition.includes(this.paginationToken);
+    if (isExist === false) {
+      this.arrayPosition.push(this.paginationToken);
+    }
+
+    this.paginationToken = this.arrayPosition[index];
+    if (this.paginationToken === undefined) {
+      this.paginationToken = '{}';
+    }
+    const params = {
+      'limit': this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken),
+      'idSeller': this.idSeller,
+    };
+    this.getOrdersList(params);
   }
 
   /**
@@ -314,7 +489,7 @@ export class BillingComponent implements OnInit, OnDestroy {
     if (!isLoggedIn) {
       // this.router.navigate([`/${RoutesConst.home}`]);
     } else {
-      this.getUserData();
+      this.getDataUser();
     }
   }
 
@@ -345,20 +520,19 @@ export class BillingComponent implements OnInit, OnDestroy {
       this.idSeller = seller.IdSeller;
       this.nameSeller = seller.Name;
       this.onlyOne = true;
-
+      localStorage.setItem('sellerIdSearch', seller.IdSeller);
       if (seller.Country === 'COLOMBIA') {
         this.isInternational = false;
       } else {
         this.isInternational = true;
       }
-      
+      this.sellerIdSearch = this.idSeller;
       const paramsArray = {
         'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
-        'idSeller': this.idSeller,
-        'callOne': true,
+        'idSeller': this.idSeller
       };
+      this.callOne = true;
       this.getOrdersList(paramsArray);
-      
     });
   }
 
