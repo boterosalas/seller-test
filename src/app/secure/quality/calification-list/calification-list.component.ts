@@ -170,7 +170,6 @@ export class CalificationListComponent implements OnInit {
    */
   eventEmitSearch() {
     this.searchSubscription = this.eventsSeller.eventSearchSeller.subscribe((seller: StoreModel) => {
-      console.log(1, seller);
       this.idSeller = seller.IdSeller;
       this.nameSeller = seller.Name;
       this.onlyOne = true;

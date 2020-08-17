@@ -104,6 +104,10 @@ export class BillingComponent implements OnInit, OnDestroy {
   validateKey = true;
   removable = true;
   public locale = 'es-CO';
+  activeSearch: Boolean = false;
+  paramsArray: any;
+  // variable que me dice si hay datos o no.
+  noData: boolean;
 
   // Conceptos de facturación.
   public billingConcepts = Const.BILLING_CONCEPTS;
@@ -133,7 +137,7 @@ export class BillingComponent implements OnInit, OnDestroy {
     public userService?: UserLoginService,
     private loadingService?: LoadingService,
   ) {
-    // this.getDataUser();
+    this.getAllDataUser();
   }
 
   /**
@@ -148,9 +152,7 @@ export class BillingComponent implements OnInit, OnDestroy {
       }
     });
     this.userService.isAuthenticated(this);
-    // this.getAllDataUser();
     this.getOrdersList();
-    // this.getOrdersListSinceFilterSearchOrder();
 
     // remove storage from export billing pay when refresh page
 
@@ -170,10 +172,25 @@ export class BillingComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Función para limpiar formulario.
+   * @memberof BillingComponent
+   */
   clearForm() {
+    this.callOne = true;
+    this.keywords = [];
     this.myform.reset();
+    if (this.activeSearch) {
+      this.getOrdersList(this.paramsArray);
+    } else {
+      this.getOrdersList();
+    }
   }
 
+  /**
+   * Metodo para filtrar pagos.
+   * @memberof BillingComponent
+   */
   filterOrder() {
     // Formatear la fechas.
     const datePipe = new DatePipe(this.locale);
@@ -204,9 +221,6 @@ export class BillingComponent implements OnInit, OnDestroy {
       stringSearch += `&orderNumber=${strintArray}`;
       objectSearch.orderNumber = strintArray;
     }
-
-    console.log('stringSearch: ', stringSearch);
-
     this.getOrdersList(null, stringSearch);
   }
 
@@ -235,7 +249,6 @@ export class BillingComponent implements OnInit, OnDestroy {
       this.myform.controls.orderNumber.reset();
       this.validateKey = this.keywords.length > 0 ? false : true;
     }
-    console.log(0, this.keywords);
   }
 
   /**
@@ -251,26 +264,22 @@ export class BillingComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Método que carga los datos del vendedor
+   * @memberof BillingComponent
+   */
   async getDataUser() {
     this.user = await this.userParams.getUserData();
-    // if (this.user) {
-    //   this.toolbarOption.getOrdersList();
-    //   this.getOrdersListSinceFilterSearchOrder();
-    //   this.loadingService.closeSpinner();
-    // }
     if (this.user.sellerProfile !== 'seller') {
       this.setPermission(1);
+      this.activeSearch = true;
       // this.router.navigate([`/${RoutesConst.securehome}`]);
     } else {
+      this.activeSearch = false;
       this.idSeller = this.user.sellerId;
       this.getOrdersList();
-      this.getOrdersListSinceFilterSearchOrder();
-      this.loadingService.closeSpinner();
       this.setPermission(0);
-      // this.getOrdersList(Event);
-      // this.getLastSales();
     }
-
   }
 
   /**
@@ -294,12 +303,6 @@ export class BillingComponent implements OnInit, OnDestroy {
   setPermission(typeProfile: number) {
     // Permisos del componente.
     this.typeProfile = typeProfile;
-    // this.readPermission = this.getFunctionality(this.read);
-    // this.downloadPermission = this.getFunctionality(this.download);
-    // this.sendPermission = this.getFunctionality(this.send);
-    // this.attachmentPermission = this.getFunctionality(this.attachment);
-    // this.marketPermission = this.getFunctionality(this.market);
-    // this.visualizePermission = this.getFunctionality(this.visualizeFunctionality);
   }
 
   /**
@@ -343,34 +346,32 @@ export class BillingComponent implements OnInit, OnDestroy {
    *
    * @memberof OrdersListComponent
    */
-  getOrdersListSinceFilterSearchOrder() {
-    console.log('entra a este q no se q es');
-    this.loadingService.viewSpinner();
-    this.subFilterOrderBilling = this.shellComponent.eventEmitterOrders.filterBillingList.subscribe(
-      (data: any) => {
-        if (data != null) {
-          if (data.length === 0) {
-            console.log('here 1');
-            this.orderListLength = true;
-          } else {
-            this.orderListLength = false;
-          }
-          this.dataSource = new MatTableDataSource(data);
+  // getOrdersListSinceFilterSearchOrder() {
+  //   this.loadingService.viewSpinner();
+  //   this.subFilterOrderBilling = this.shellComponent.eventEmitterOrders.filterBillingList.subscribe(
+  //     (data: any) => {
+  //       if (data != null) {
+  //         if (data.length === 0) {
+  //           this.orderListLength = true;
+  //         } else {
+  //           this.orderListLength = false;
+  //         }
+  //         this.dataSource = new MatTableDataSource(data);
 
-          // se reccorre la respuesta de la lista y se pone la comision en negativo
-          this.dataSource.data.forEach(element => {
-            element.commission *= -1;
-          });
+  //         // se reccorre la respuesta de la lista y se pone la comision en negativo
+  //         this.dataSource.data.forEach(element => {
+  //           element.commission *= -1;
+  //         });
 
-          const paginator = this.toolbarOption.getPaginator();
-          paginator.pageIndex = 0;
-          this.dataSource.paginator = paginator;
-          this.dataSource.sort = this.sort;
-          this.numberElements = this.dataSource.data.length;
-          this.loadingService.closeSpinner();
-        }
-      });
-  }
+  //         const paginator = this.toolbarOption.getPaginator();
+  //         paginator.pageIndex = 0;
+  //         this.dataSource.paginator = paginator;
+  //         this.dataSource.sort = this.sort;
+  //         this.numberElements = this.dataSource.data.length;
+  //         this.loadingService.closeSpinner();
+  //       }
+  //     });
+  // }
 
   /**
    * Funcionalidad para consultar la lista de devoluciones pendientes.
@@ -383,16 +384,15 @@ export class BillingComponent implements OnInit, OnDestroy {
     let sellerid;
     let limit;
     if ($event) {
-      console.log('entra aqui: ', $event);
       sellerid = $event.idSeller;
       limit = $event.limit;
     } else {
-      console.log('else: ', this.idSeller);
       sellerid = this.idSeller;
       limit = this.pageSize + '&paginationToken=' + encodeURI('{}');
     }
     let stringSearch = `?idSeller=${sellerid}&limit=${limit}`;
     if (paramsFIlter) {
+      this.callOne = true;
       stringSearch = `?idSeller=${sellerid}&limit=${limit}${paramsFIlter}`;
 
     }
@@ -411,21 +411,25 @@ export class BillingComponent implements OnInit, OnDestroy {
         }
         this.paginationToken = res['paginationToken'];
         // Creo el elemento que permite pintar la tabla
-        this.dataSource = new MatTableDataSource(res['viewModel']);
-        console.log('this.dataSource: ', this.dataSource);
+        if (res['viewModel']) {
+          this.dataSource = new MatTableDataSource(res['viewModel']);
+        } else {
+          this.noData = true;
+        }
+
         // se reccorre la respuesta de la lista y se pone la comision en negativo
         if (this.dataSource.data) {
           this.dataSource.data.forEach(element => {
             element.commission *= -1;
           });
+          this.numberElements = this.dataSource.data.length;
         }
         // this.dataSource.paginator = $event.paginator;
         this.dataSource.sort = this.sort;
-        this.numberElements = this.dataSource.data.length;
         this.loadingService.closeSpinner();
-
+        console.log(this.dataSource, this.dataSource.data);
       } else {
-        this.loadingService.closeSpinner();
+        // this.loadingService.closeSpinner();
         this.dataSource = new MatTableDataSource(null);
         this.numberElements = 0;
         this.loadingService.closeSpinner();
@@ -478,13 +482,13 @@ export class BillingComponent implements OnInit, OnDestroy {
     this.dataSource.paginator = $event.paginator;
   }
 
-  /* tslint:disable-next-line:jsdoc-format
-    * @method isLoggedIn
-    * @description Metodo para validar si el usuario esta logeado
-    * @param message
-    * @param isLoggedIn
-    * @memberof DashboardComponent
-    */
+
+  /**
+   * Metodo para validar si el usuarioe está logueado
+   * @param {string} message
+   * @param {boolean} isLoggedIn
+   * @memberof BillingComponent
+   */
   public isLoggedIn(message: string, isLoggedIn: boolean) {
     if (!isLoggedIn) {
       // this.router.navigate([`/${RoutesConst.home}`]);
@@ -498,7 +502,7 @@ export class BillingComponent implements OnInit, OnDestroy {
       const body: any = res.body;
       const response = JSON.parse(body.body);
       const userData = response.Data;
-      this.loadingService.closeSpinner();
+      // this.loadingService.closeSpinner();
       return userData;
     });
     if (sellerData.Country === 'COLOMBIA') {
@@ -514,12 +518,16 @@ export class BillingComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Evento que escucha el buscador y trae información del seller
+   * @memberof BillingComponent
+   */
   eventEmitSearch() {
     this.searchSubscription = this.eventsSeller.eventSearchSeller.subscribe((seller: StoreModel) => {
-      console.log(1, seller);
       this.idSeller = seller.IdSeller;
       this.nameSeller = seller.Name;
       this.onlyOne = true;
+      this.activeSearch = true;
       localStorage.setItem('sellerIdSearch', seller.IdSeller);
       if (seller.Country === 'COLOMBIA') {
         this.isInternational = false;
@@ -527,12 +535,12 @@ export class BillingComponent implements OnInit, OnDestroy {
         this.isInternational = true;
       }
       this.sellerIdSearch = this.idSeller;
-      const paramsArray = {
+      this.paramsArray = {
         'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
         'idSeller': this.idSeller
       };
       this.callOne = true;
-      this.getOrdersList(paramsArray);
+      this.getOrdersList(this.paramsArray);
     });
   }
 
