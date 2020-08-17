@@ -144,15 +144,18 @@ export class BillingComponent implements OnInit, OnDestroy {
    * @memberof BillingComponent
    */
   ngOnInit() {
-    this.eventEmitSearch();
+    // this.eventEmitSearch();
 
     this.route.params.subscribe(params => {
       if (params['listBilling'] != null) {
-        this.filterBilling(params['listBilling']);
+        console.log('entra');
+        this.getOrdersList(null, `&billingNumber=${params['listBilling']}`);
+        this.myform.controls['billingNumber'].setValue(params['listBilling']);
+      } else {
+        console.log('entra al else');
+        this.userService.isAuthenticated(this);
       }
     });
-    this.userService.isAuthenticated(this);
-    this.getOrdersList();
 
     // remove storage from export billing pay when refresh page
 
@@ -192,6 +195,7 @@ export class BillingComponent implements OnInit, OnDestroy {
    * @memberof BillingComponent
    */
   filterOrder() {
+    this.dataSource = null;
     // Formatear la fechas.
     const datePipe = new DatePipe(this.locale);
 
@@ -396,7 +400,9 @@ export class BillingComponent implements OnInit, OnDestroy {
       stringSearch = `?idSeller=${sellerid}&limit=${limit}${paramsFIlter}`;
 
     }
-    this.billinService.getBilling(this.user, stringSearch).subscribe((res) => {
+    console.log(11, stringSearch);
+    this.billinService.getBilling(stringSearch).subscribe((res) => {
+      console.log('res: ', res);
       if (res != null) {
         if (this.callOne) {
           this.length = res['count'];
@@ -418,16 +424,16 @@ export class BillingComponent implements OnInit, OnDestroy {
         }
 
         // se reccorre la respuesta de la lista y se pone la comision en negativo
-        if (this.dataSource.data) {
+        if (this.dataSource) {
           this.dataSource.data.forEach(element => {
             element.commission *= -1;
           });
           this.numberElements = this.dataSource.data.length;
+          this.dataSource.sort = this.sort;
         }
         // this.dataSource.paginator = $event.paginator;
-        this.dataSource.sort = this.sort;
         this.loadingService.closeSpinner();
-        console.log(this.dataSource, this.dataSource.data);
+        console.log(this.dataSource);
       } else {
         // this.loadingService.closeSpinner();
         this.dataSource = new MatTableDataSource(null);

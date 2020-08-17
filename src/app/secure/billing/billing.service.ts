@@ -60,11 +60,10 @@ export class BillingService {
    * @returns {Observable<Billing[]>}
    * @memberof BillingService
    */
-  getBilling(user: any, stringSearch: any): Observable<Billing[]> {
+  getBilling(stringSearch: any): Observable<Billing[]> {
     return new Observable(observer => {
       // Id del vendedor.
-      this.sellerId = user.sellerId;
-      this.sellerName = user.sellerName;
+   
       this.http.get(this.api.get('getBilling', [stringSearch])).subscribe((data: any) => {
         observer.next(data);
       }, error => {
