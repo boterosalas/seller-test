@@ -144,15 +144,13 @@ export class BillingComponent implements OnInit, OnDestroy {
    * @memberof BillingComponent
    */
   ngOnInit() {
-    // this.eventEmitSearch();
+    this.eventEmitSearch();
 
     this.route.params.subscribe(params => {
       if (params['listBilling'] != null) {
-        console.log('entra');
         this.getOrdersList(null, `&billingNumber=${params['listBilling']}`);
         this.myform.controls['billingNumber'].setValue(params['listBilling']);
       } else {
-        console.log('entra al else');
         this.userService.isAuthenticated(this);
       }
     });
@@ -286,24 +284,6 @@ export class BillingComponent implements OnInit, OnDestroy {
     }
   }
 
-  /**
-   * @method getUserData
-   * @description Método que carga los datos del vendedor para obtener la sellerId.
-   * @memberof DashboardComponent
-   */
-  // public async getUserData() {
-  //   this.user = !!this.user ? this.user : await this.userParams.getUserData();
-
-  //   if (this.user.sellerProfile !== 'seller') {
-  //     this.setPermission(1);
-  //     // this.router.navigate([`/${RoutesConst.securehome}`]);
-  //   } else {
-  //     this.setPermission(0);
-  //     // this.getOrdersList(Event);
-  //     // this.getLastSales();
-  //   }
-  // }
-
   setPermission(typeProfile: number) {
     // Permisos del componente.
     this.typeProfile = typeProfile;
@@ -345,39 +325,6 @@ export class BillingComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Evento que permite obtener los resultados obtenidos al momento de realizar
-   * el filtro de órdenes en la opcion search-order-menu.
-   *
-   * @memberof OrdersListComponent
-   */
-  // getOrdersListSinceFilterSearchOrder() {
-  //   this.loadingService.viewSpinner();
-  //   this.subFilterOrderBilling = this.shellComponent.eventEmitterOrders.filterBillingList.subscribe(
-  //     (data: any) => {
-  //       if (data != null) {
-  //         if (data.length === 0) {
-  //           this.orderListLength = true;
-  //         } else {
-  //           this.orderListLength = false;
-  //         }
-  //         this.dataSource = new MatTableDataSource(data);
-
-  //         // se reccorre la respuesta de la lista y se pone la comision en negativo
-  //         this.dataSource.data.forEach(element => {
-  //           element.commission *= -1;
-  //         });
-
-  //         const paginator = this.toolbarOption.getPaginator();
-  //         paginator.pageIndex = 0;
-  //         this.dataSource.paginator = paginator;
-  //         this.dataSource.sort = this.sort;
-  //         this.numberElements = this.dataSource.data.length;
-  //         this.loadingService.closeSpinner();
-  //       }
-  //     });
-  // }
-
-  /**
    * Funcionalidad para consultar la lista de devoluciones pendientes.
    *
    * @param {any} $event
@@ -400,9 +347,7 @@ export class BillingComponent implements OnInit, OnDestroy {
       stringSearch = `?idSeller=${sellerid}&limit=${limit}${paramsFIlter}`;
 
     }
-    console.log(11, stringSearch);
     this.billinService.getBilling(stringSearch).subscribe((res) => {
-      console.log('res: ', res);
       if (res != null) {
         if (this.callOne) {
           this.length = res['count'];
@@ -433,7 +378,6 @@ export class BillingComponent implements OnInit, OnDestroy {
         }
         // this.dataSource.paginator = $event.paginator;
         this.loadingService.closeSpinner();
-        console.log(this.dataSource);
       } else {
         // this.loadingService.closeSpinner();
         this.dataSource = new MatTableDataSource(null);
