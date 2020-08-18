@@ -424,11 +424,11 @@ export const endpoints = {
       // Exportar reclamaciones
       exportReclaim: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/downloadreport',
       // GetProducs para modificaciones
-      getProductsPendingModify: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productsrejected?idSeller={sellerId}&limit={limit}',
+      getProductsPendingModify: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn/productsrejected?idSeller={sellerId}&limit={limit}',
       // GetProducts pendiente validacion
-      getProductsPendingValidation: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productswaiting?idSeller={sellerId}&limit={limit}',
+      getProductsPendingValidation: ' https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn/productswaiting?idSeller={sellerId}&limit={limit}',
       // GetProducs by EAN para modificaciones
-      getEANPendingModify: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productsrejected/{params}',
+      getEANPendingModify: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn/productsrejected/{params}',
       // GetProducs by EAN para validacion
       getEANPendingValidation: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productswaiting/{params}',
       // Exportar productos
