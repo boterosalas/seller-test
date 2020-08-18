@@ -213,9 +213,9 @@ export const endpoints = {
       getListAllSummaryBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/summary',
       // Obtener comentarios de solicitud de devolución
       getAllCommentRefuse: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch/translation',
-      //
+      // enviar array de archivos para ser procesados y guardados
       setMassiveBillOrderAsync: 'https://blmce0zwq7.execute-api.us-east-1.amazonaws.com/orders-bill/setmassivebillorderasync',
-      //
+      // consultar status de carga masiva de facturas
       getstatussetmassivebilling: 'https://blmce0zwq7.execute-api.us-east-1.amazonaws.com/orders-bill/getstatussetmassivebilling'
     },
   },
@@ -426,7 +426,11 @@ export const endpoints = {
       // Listado de resumen de facturacion
       getListAllSummaryBilling: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/summary',
       // Obtener comentarios de solicitud de devolución
-      getAllCommentRefuse: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn/translation'
+      getAllCommentRefuse: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn/translation',
+      // enviar array de archivos para ser procesados y guardados
+      setMassiveBillOrderAsync: 'https://t4xxi6ge3e.execute-api.us-east-1.amazonaws.com/orders-bill-pdn/setmassivebillorderasync',
+      // consultar status de carga masiva de facturas
+      getstatussetmassivebilling: 'https://t4xxi6ge3e.execute-api.us-east-1.amazonaws.com/orders-bill-pdn/getstatussetmassivebilling'
     }
   }
 };

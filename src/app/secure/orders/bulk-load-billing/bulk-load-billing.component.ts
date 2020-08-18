@@ -1,12 +1,10 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { SearchFormEntity, InformationToForm, CommonService } from '@app/shared';
-import { Subscription, Observable, timer, Subject } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { SearchFormEntity, InformationToForm } from '@app/shared';
+import { Subscription} from 'rxjs';
 import { HttpEvent } from '@angular/common/http';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
-import { takeUntil } from 'rxjs/operators';
 import { BulkLoadBillingService } from './bulk-load-billing.service';
-import { result } from 'lodash';
 import { LoadingService } from '@app/core';
 import { FinishUploadInformationComponent } from '@app/secure/offers/bulk-load/finish-upload-information/finish-upload-information.component';
 
@@ -38,10 +36,8 @@ export class BulkLoadBillingComponent implements OnInit {
   invalidsFile = true;
   arrayListFilesBase64Name = [];
   arrayFilesErrors: any;
-
   arrayFilesBase64: any;
-
-  processFinish$ = new Subject<any>();
+  sendableFormData: FormData;
 
   public informationToForm: SearchFormEntity = {
     title: 'secure.orders.orders',
@@ -53,43 +49,58 @@ export class BulkLoadBillingComponent implements OnInit {
     count: null
   };
   constructor(
-    private service: CommonService,
     public snackBar: MatSnackBar,
     private languageService: TranslateService,
-    private cdr: ChangeDetectorRef,
     private bulkLoadBillingService: BulkLoadBillingService,
     private loadingService: LoadingService,
     public dialog: MatDialog,
-  ) { }
+  ) {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
+  /**
+   * funcion para guardar el listado de archivos pre-cargados
+   *
+   * @memberof BulkLoadBillingComponent
+   */
   public saveFile(): void {
-    // if ((!this.lastInvalids || !this.lastInvalids.length) && this.files.length) {
     this.uploadFiles();
-
-    // }
   }
 
+  /**
+   * funcion para cargar varias facturas async
+   *
+   * @memberof BulkLoadBillingComponent
+   */
   async uploadFiles() {
     this.arrayListFilesBase64Name = [];
+    this.loadingService.viewSpinner();
     this.arrayFilesBase64 = await this.getBase64(this.filesValidate).then(res => {
       setTimeout(() => {
         this.bulkLoadBillingService.sendBulkLoadBilling(res).subscribe((results: any) => {
           if (results) {
             if (results.data) {
-            this.openModal(1, null);
+              this.loadingService.closeSpinner();
+              this.openModal(1, null);
+            } else {
+              this.loadingService.closeSpinner();
+              this.snackBar.open(this.languageService.instant('error'), this.languageService.instant('actions.close'), {
+                duration: 3000,
+              });
             }
           }
         });
       }, 1000);
     });
-
   }
 
 
-
+  /**
+   * funcion para transformar un listado de archivos a base 64
+   *
+   * @param {*} files
+   * @returns {Promise<any>}
+   * @memberof BulkLoadBillingComponent
+   */
   async getBase64(files: any): Promise<any> {
     return new Promise<any>(async (resolve) => {
       files.forEach(file => {
@@ -116,10 +127,21 @@ export class BulkLoadBillingComponent implements OnInit {
 
   }
 
+  /**
+   * funcion para tomar la fecha actual
+   *
+   * @returns {Date}
+   * @memberof BulkLoadBillingComponent
+   */
   public getDate(): Date {
     return new Date();
   }
-
+  /**
+   * funcion para calcular el tamaño del archivo max 3 mb, cambiarlo y devolverlo para hacer la validacion
+   *
+   * @param {*} files
+   * @memberof BulkLoadBillingComponent
+   */
   public changeValue(files: any) {
     console.log(files);
     this.filesErrors = 0;
@@ -135,13 +157,23 @@ export class BulkLoadBillingComponent implements OnInit {
     this.validateErrors();
     this.filesValidate = files;
   }
-
+  /**
+   * funcion para limpiar la lista de archivos
+   *
+   * @memberof BulkLoadBillingComponent
+   */
   clearListFiles() {
     this.files = [];
     this.filesValidate = [];
     this.file = [];
   }
-
+  /**
+   * funcion para eliminar un archivo de la lista antes de guardar
+   *
+   * @param {number} index
+   * @param {*} file
+   * @memberof BulkLoadBillingComponent
+   */
   deleteFile(index: number, file: any) {
     if (file && file.refuse) {
       this.filesErrors--;
@@ -149,11 +181,20 @@ export class BulkLoadBillingComponent implements OnInit {
     this.filesValidate.splice(index, 1);
     this.validateErrors();
   }
-
+  /**
+   * funcion para mostrar/ocultar las recomendaciones
+   *
+   * @param {boolean} show
+   * @memberof BulkLoadBillingComponent
+   */
   showRecommendations(show: boolean) {
     this.showShowRecommendationsContainer = !show;
   }
-
+  /**
+   * funcion para validar los errores y habilitar el boton para guardar
+   *
+   * @memberof BulkLoadBillingComponent
+   */
   validateErrors() {
     if (this.filesErrors > 0) {
       this.invalidsFile = true;
@@ -161,7 +202,13 @@ export class BulkLoadBillingComponent implements OnInit {
       this.invalidsFile = false;
     }
   }
-
+  /**
+   * funcion para abrir el modal de carga de procesos y status
+   *
+   * @param {number} type
+   * @param {*} listError
+   * @memberof BulkLoadBillingComponent
+   */
   openModal(type: number, listError: any) {
     this.loadingService.closeSpinner();
     const intervalTime = 6000;
@@ -173,7 +220,7 @@ export class BulkLoadBillingComponent implements OnInit {
       intervalTime: intervalTime,
       listError: listError,
       typeStatus: type,
-      showExport : false
+      showExport: false
     };
     const dialog = this.dialog.open(FinishUploadInformationComponent, {
       width: '70%',
@@ -187,6 +234,8 @@ export class BulkLoadBillingComponent implements OnInit {
     dialogIntance.processFinish$.subscribe((val) => {
       dialog.disableClose = false;
     });
+    dialog.afterClosed().subscribe(result => {
+      this.clearListFiles();
+    });
   }
-
 }
