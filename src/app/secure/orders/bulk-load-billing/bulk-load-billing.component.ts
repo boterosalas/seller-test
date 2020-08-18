@@ -143,7 +143,6 @@ export class BulkLoadBillingComponent implements OnInit {
    * @memberof BulkLoadBillingComponent
    */
   public changeValue(files: any) {
-    console.log(files);
     this.filesErrors = 0;
     files.forEach(file => {
       const size = parseFloat(((file.size) / 1024 / 1024).toFixed(3));
