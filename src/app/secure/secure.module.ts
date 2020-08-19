@@ -43,8 +43,6 @@ import { CoreStoreModule } from '../store';
 import { ListReportsModule } from './reports/reports.module';
 import { QualityModule } from './quality/quality.module';
 import { QuotingSellerModule } from './offers/quoting/seller/quoting-seller.module';
-import { BillingOrdersAdminComponent } from './orders/billing-orders-admin/billing-orders-admin.component';
-import { BillingOrdersAdminModule } from './orders/billing-orders-admin/billing-orders-admin.module';
 import { PendingProductsModule } from './products/pending-products/pending-products.module';
 
 @NgModule({
@@ -88,7 +86,6 @@ import { PendingProductsModule } from './products/pending-products/pending-produ
     QualityModule,
     CitiesCoverageModule,
     QuotingSellerModule,
-    BillingOrdersAdminModule,
     PendingProductsModule
   ],
   providers: [AuthService, SellerSupportCenterService]
