@@ -33,23 +33,22 @@
               [class.invalid-drag]="validComboDrag===false" [class.valid-drag]="validComboDrag"
               (filesChange)="lastFileAt=getDate(); changeValue(files) ">
               <img src="../../../../../assets/img/upload_files.png" alt="upload">
-              <div class="bulk-load-billing-component-text-aling-center" *ngIf="files.length">
-                <div><span>Archivo(s) cargado(s) previamente, por favor verique el listado</span></div>
-                <div class="bulk-load-billing-component-font-size-14"><span><strong>Recuerde que solo se podra hacer la carga solo una
-                      vez</strong></span></div>
+              <div class="bulk-load-billing-component-text-aling-center bulk-load-billing-component-container-width-100" *ngIf="files.length">
+                <div><span>{{'secure.orders.bulk.billing.please_list_verique' | translate}}</span></div>
+                <div class="bulk-load-billing-component-font-size-14"><span><strong>{{'secure.orders.bulk.billing.once_the_single_charge' | translate}}</strong></span></div>
                 <div fxLayout="row" class="bulk-load-billing-component-margin-top-40">
                   <div fxFlex="50">
-                    <mat-icon class="mat-18 bulk-load-billing-component-done-green">done</mat-icon> Total a Guardar
+                    <mat-icon class="mat-18 bulk-load-billing-component-done-green">done</mat-icon> {{'secure.orders.bulk.billing.total_to_Save' | translate}}
                     ({{filesValidate.length -  filesErrors}})
                   </div>
                   <div fxFlex="50">
                     <mat-icon class="mat-18 bulk-load-billing-component-remove-red">remove_circle_outline</mat-icon>
-                    Total de errores ({{filesErrors}})
+                    {{'secure.orders.bulk.billing.total_error' | translate}} ({{filesErrors}})
                   </div>
                 </div>
               </div>
-              <div *ngIf="!files.length && !lastInvalids?.length">Arraste y suelte los archivos <span
-                   class="bulk-load-billing-component-color-here-blue"><strong>aqui</strong></span> o explore en su archivos</div>
+              <div *ngIf="!files.length && !lastInvalids?.length">{{'secure.orders.bulk.billing.you_or_navigate_your_files' | translate}} <span
+                   class="bulk-load-billing-component-color-here-blue"><strong>{{'secure.orders.bulk.billing.here' | translate}}</strong></span>{{'secure.orders.bulk.billing.to_your_files' | translate}} </div>
             </div>
             <mat-progress-bar mode="indeterminate" *ngIf="showProgress"></mat-progress-bar>
           </div>
@@ -63,16 +62,14 @@
               <span>
                 <mat-icon class="material-icons mat-18 bulk-load-billing-component-icon-recommendation" >assignment_late
                 </mat-icon>
-              </span><strong>Recomendaciones para cargar las facturas </strong>
+              </span><strong>{{'secure.orders.bulk.billing.recommendations_for_loading_bills' | translate}} </strong>
             </span>
           </div>
           <div *ngIf="showShowRecommendationsContainer">
-            <div class="bulk-load-billing-component-margin-left-28"><span class="bulk-load-billing-component-asteric-recommnedation-color"><strong>* </strong></span>Formato permitido
+            <div class="bulk-load-billing-component-margin-left-28"><span class="bulk-load-billing-component-asteric-recommnedation-color"><strong>* </strong></span>{{'secure.orders.bulk.billing.allowed_format'| translate}}
               <strong>PDF</strong></div>
-            <div class="bulk-load-billing-component-margin-left-28"><span class="bulk-load-billing-component-asteric-recommnedation-color"><strong>* </strong></span>Tamaño maximo del
-              archivo <strong>3 Megabytes</strong></div>
-            <div class="bulk-load-billing-component-margin-left-28"><span class="bulk-load-billing-component-asteric-recommnedation-color"><strong>* </strong></span>El nombre del
-              archivo de la factura debe ser el numero de factura </div>
+            <div class="bulk-load-billing-component-margin-left-28"><span class="bulk-load-billing-component-asteric-recommnedation-color"><strong>* </strong></span>{{'secure.orders.bulk.billing.maximum_file_size_megabytes'| translate}} <strong>3 {{'secure.orders.bulk.billing.megabytes' | translate}}</strong></div>
+            <div class="bulk-load-billing-component-margin-left-28"><span class="bulk-load-billing-component-asteric-recommnedation-color"><strong>* </strong></span>{{'secure.orders.bulk.billing.name_file_invoice_invoice_number' | translate}} </div>
           </div>
         </div>
       </div>
@@ -84,12 +81,12 @@
             class="material-icons material-icons-outlined bulk-load-billing-component-icon-list-empty-file">sticky_note_2</mat-icon>
         </div>
         <div class="bulk-load-billing-component-text-aling-center">
-          <span class="bulk-load-billing-component-text-color-grey">No posee archivos para cargar</span>
+          <span class="bulk-load-billing-component-text-color-grey">{{'secure.orders.bulk.billing.you_have_no_files_to_upload' | translate}}</span>
         </div>
       </div>
       <div *ngIf="filesValidate.length > 0" class="bulk-load-billing-component-margin-top-30">
         <div class="bulk-load-billing-component-title-list-files">
-          <span class="bulk-load-billing-component-text-color-grey">Lista de facturas para cargar ({{files.length}}) </span>
+          <span class="bulk-load-billing-component-text-color-grey">{{'secure.orders.bulk.billing.it_have_files_upload' | translate}} ({{files.length}}) </span>
         </div>
         <div class="container-load-files bulk-load-billing-component-container-width-100">
           <div fxLayout="row" class="bulk-load-billing-component-for-list-files" *ngFor='let fileList of filesValidate; let i = index'>

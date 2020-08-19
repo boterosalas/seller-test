@@ -53,6 +53,7 @@
     "menu.Solicitudes Pendientes": "Awaiting request",
     "menu.Parametrizar Centros de Acopio": "Parameterize collection centers",
     "menu.Cargar Acuerdos": "Load Agreements",
+    "menu.Carga masiva de Facturas": "Bulk Load Invoices",
 
     "module.Documentación": "Documentation",
     "module.Ofertas": "Offers",
@@ -1323,5 +1324,20 @@
     "secure.seller.contracts.load-agreement.Attached":"Attached",
     "secure.seller.contracts.load-agreement.upload_file":"Upload file on PDF (Max 3 MegaBytes)",
     "secure.seller.contracts.load-agreement.import":"Import",
-    "secure.seller.contracts.load-agreement.import_agreement":"Import Agreement"
+    "secure.seller.contracts.load-agreement.import_agreement":"Import Agreement",
+
+    "secure.orders.bulk.billing.please_list_verique": "File (s) loaded (s) above, please list verique",
+    "secure.orders.bulk.billing.once_the_single_charge": "Remember only be made once the single charge",
+    "secure.orders.bulk.billing.total_to_Save": "Total to Save",
+    "secure.orders.bulk.billing.total_error": "Total error",
+    "secure.orders.bulk.billing.you_or_navigate_your_files": "You carry over effects and drop files",
+    "secure.orders.bulk.billing.here": "here",
+    "secure.orders.bulk.billing.to_your_files": " or navigate to your file",
+    "secure.orders.bulk.billing.recommendations_for_loading_bills": "Recommendations for loading bills",
+    "secure.orders.bulk.billing.allowed_format": "Allowed format",
+    "secure.orders.bulk.billing.maximum_file_size_megabytes": "Maximum file size of 3 megabytes",
+    "secure.orders.bulk.billing.megabytes": "Megabytes",
+    "secure.orders.bulk.billing.name_file_invoice_invoice_number": "The name of the file of the invoice must be the invoice number",
+    "secure.orders.bulk.billing.you_have_no_files_to_upload": "You have no files to upload",
+    "secure.orders.bulk.billing.it_have_files_upload": "It does not have files to upload"
 }

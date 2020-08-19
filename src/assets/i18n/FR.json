@@ -53,6 +53,7 @@
     "menu.Solicitudes Pendientes": "Awaiting request",
     "menu.Parametrizar Centros de Acopio": "Parameterize collection centers",
     "menu.Cargar Acuerdos": "Importer des accords",
+    "menu.Carga masiva de Facturas": "Les factures de chargement en vrac",
 
     "module.Documentación": "Documentation",
     "module.Ofertas": "Offers",
@@ -1307,7 +1308,20 @@
     "secure.seller.contracts.load-agreement.Attached":"Attaché",
     "secure.seller.contracts.load-agreement.upload_file":"Joignez des fichiers au format PDF (poids maximum 3 mégaoctets)",
     "secure.seller.contracts.load-agreement.import":"Importer",
-    "secure.seller.contracts.load-agreement.import_agreement":"Importer des accords"
+    "secure.seller.contracts.load-agreement.import_agreement":"Importer des accords",
 
-    
+    "secure.orders.bulk.billing.please_list_verique": "Fichier (s) chargé (s) ci-dessus, s'il vous plaît liste verique",
+    "secure.orders.bulk.billing.once_the_single_charge": "Rappelez-vous être fait une seule fois la seule charge",
+    "secure.orders.bulk.billing.total_to_Save": "Total à Save",
+    "secure.orders.bulk.billing.total_error": "erreur totale",
+    "secure.orders.bulk.billing.you_or_navigate_your_files": "Vous reporterez effets et déposer des fichiers",
+    "secure.orders.bulk.billing.here": "ici",
+    "secure.orders.bulk.billing.to_your_files": " ou accédez à votre fichiers",
+    "secure.orders.bulk.billing.recommendations_for_loading_bills": "Recommandations pour les factures de chargement",
+    "secure.orders.bulk.billing.allowed_format": "Format permis",
+    "secure.orders.bulk.billing.maximum_file_size_megabytes": "Taille maximale du fichier",
+    "secure.orders.bulk.billing.megabytes": "Megabytes",
+    "secure.orders.bulk.billing.name_file_invoice_invoice_number": "Le nom du fichier de la facture doit être le numéro de facture",
+    "secure.orders.bulk.billing.you_have_no_files_to_upload": "Il n'a pas les fichiers à télécharger",
+    "secure.orders.bulk.billing.it_have_files_upload": "Liste des factures à charge"
 }

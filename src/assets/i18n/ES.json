@@ -53,6 +53,7 @@
     "menu.Solicitudes Pendientes": "Solicitudes Pendientes",
     "menu.Parametrizar Centros de Acopio": "Parametrizar Centros de Acopio",
     "menu.Cargar Acuerdos": "Cargar acuerdos",
+    "menu.Carga masiva de Facturas": "Carga masiva de Facturas",
 
     "module.Documentación": "Documentación",
     "module.Ofertas": "Ofertas",
@@ -1331,6 +1332,24 @@
     "secure.seller.contracts.load-agreement.Attached":"Anexo",
     "secure.seller.contracts.load-agreement.upload_file":"Adjuntar archivos formato PDF (peso maximo 3 MegaBytes)",
     "secure.seller.contracts.load-agreement.import":"Importar",
-    "secure.seller.contracts.load-agreement.import_agreement":"Importar acuerdos"
-    
+    "secure.seller.contracts.load-agreement.import_agreement":"Importar acuerdos",
+
+
+    "secure.orders.bulk.billing.please_list_verique": "Archivo(s) cargado(s) previamente, por favor verique el listado",
+    "secure.orders.bulk.billing.once_the_single_charge": "Recuerde que solo se podra hacer la carga solo una vez",
+    "secure.orders.bulk.billing.total_to_Save": "Total a Guardar",
+    "secure.orders.bulk.billing.total_error": "Total de errores",
+    "secure.orders.bulk.billing.you_or_navigate_your_files": "Arraste y suelte los archivos",
+    "secure.orders.bulk.billing.here": "aquí",
+    "secure.orders.bulk.billing.to_your_files": " o explore en su archivos",
+    "secure.orders.bulk.billing.recommendations_for_loading_bills": "Recomendaciones para cargar las facturas",
+    "secure.orders.bulk.billing.allowed_format": "Formato permitido",
+    "secure.orders.bulk.billing.maximum_file_size_megabytes": "Tamaño maximo del archivo",
+    "secure.orders.bulk.billing.megabytes": "Megabytes",
+    "secure.orders.bulk.billing.name_file_invoice_invoice_number": "El nombre del archivo de la factura debe ser el numero de factura",
+    "secure.orders.bulk.billing.you_have_no_files_to_upload": "No posee archivos para cargar",
+    "secure.orders.bulk.billing.it_have_files_upload": "Lista de facturas para cargar"
+
+
+
 }
