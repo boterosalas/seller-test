@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Logger } from '@app/core/util/logger.service';
 import { LoadingService, ModalService, UserParametersService } from '@app/core';
 import { ListProductService } from './list-products.service';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators } from '@angular/forms';
-import { ErrorStateMatcher, PageEvent, MatPaginatorIntl, MatSnackBar, MatPaginator, MatDialog } from '@angular/material';
+import { ErrorStateMatcher, PageEvent, MatPaginatorIntl, MatSnackBar, MatPaginator, MatDialog, MatSidenav, MatToolbar } from '@angular/material';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { ModelFilterProducts } from './listFilter/filter-products.model';
 import { Observable } from 'rxjs';
@@ -53,7 +53,9 @@ export class ListProductsComponent implements OnInit {
     productsList: any = [];
     public filterProduts: FormGroup;
     public filterCategory: FormGroup;
-    public myProduct = false;
+    // public myProduct = false;
+    @Input() myProduct = false;
+    @Input() showTabs = true;
 
     public matcher: MyErrorStateMatcher;
     public paramsData: ModelFilterProducts;
@@ -76,6 +78,7 @@ export class ListProductsComponent implements OnInit {
     fechaInicialVariable = false;
     fechaFinalVariable = false;
     categoryVariable = false;
+    showFilter = true;
 
     visible = true;
     selectable = true;
@@ -98,6 +101,7 @@ export class ListProductsComponent implements OnInit {
     editPermission = false;
     permissionComponent: MenuModel;
     @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild('drawer') drawer: MatSidenav;
     listCategories: any;
     categoryInfo: any;
 
@@ -131,6 +135,24 @@ export class ListProductsComponent implements OnInit {
         this.getDataUser();
         this.validateFormSupport();
         this.refreshCategoryTree();
+        if (this.showTabs) {
+            this.closedDraw();
+        }
+    }
+    /**
+     * funcion para cerrar el contenedor de filtros
+     *
+     * @memberof ListProductsComponent
+     */
+    closedDraw() {
+        this.drawer.closedStart.subscribe(res => {
+            const principalToolbar = document.getElementById('principal-toolbar');
+            const matToolbar = document.getElementById('matToolbar');
+            if (principalToolbar && principalToolbar.classList.contains('tabsShowZindex')) {
+                principalToolbar.classList.remove('tabsShowZindex');
+            }
+            matToolbar.classList.remove('notFixed');
+        });
     }
 
     /**
@@ -144,6 +166,7 @@ export class ListProductsComponent implements OnInit {
                 const body = JSON.parse(result.body);
                 this.listCategories = body.Data;
             }
+            this.loadingService.closeSpinner();
         });
     }
 
@@ -486,7 +509,8 @@ export class ListProductsComponent implements OnInit {
         } else {
             this.eanVariable = false;
             countFilter++;
-        } if (this.creationDateList === null) {
+        }
+        if (this.creationDateList === null) {
         } else if (this.creationDateList === 'createDate') {
             this.fechaFinalVariable = true;
             this.creationDateList = true;
@@ -540,7 +564,7 @@ export class ListProductsComponent implements OnInit {
             this.finalDateList = null;
         }
         if (countFilter) {
-            urlParams2 = `${this.initialDateList}/${this.finalDateList}/${this.eanList}/${this.nameProductList}/${this.creationDateList}/${page}/${limit}/${this.pluVtexList}/${this.categoryList}`;
+            urlParams2 = `?&initialDate=${this.initialDateList}&finalDate=${this.finalDateList}&ean=${this.eanList}&productName=${this.nameProductList}&creationDate=${this.creationDateList}&page=${page}&limit=${limit}&pluVtex=${this.pluVtexList}&categories=${this.categoryList}&myProducts=${this.myProduct}`;
         }
         this.loadingService.viewSpinner(); // Mostrar el spinner
         if (params && !fecha) {
@@ -711,5 +735,22 @@ export class ListProductsComponent implements OnInit {
             localStorage.setItem('culture_current', e['lang']);
             this.getCategoriesList();
         });
+    }
+
+
+    /**
+     *
+     * funcion para mostar el contenedor de filtros
+     * @param {boolean} showFilter
+     * @memberof ListProductsComponent
+     */
+    toggle(showFilter: boolean) {
+        this.drawer.toggle();
+        if (this.showTabs) {
+            const element = document.getElementById('principal-toolbar');
+            const matToolbar = document.getElementById('matToolbar');
+            element.classList.add('tabsShowZindex');
+            matToolbar.classList.add('notFixed');
+        }
     }
 }

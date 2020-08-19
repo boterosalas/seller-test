@@ -53,6 +53,7 @@
     "menu.Solicitudes Pendientes": "Awaiting request",
     "menu.Parametrizar Centros de Acopio": "Parameterize collection centers",
     "menu.Cargar Acuerdos": "Load Agreements",
+    "menu.Productos pendientes": "Pending products",
 
     "module.Documentación": "Documentation",
     "module.Ofertas": "Offers",
@@ -732,7 +733,7 @@
     "secure.offers.list.list.confirm_desactive": "Confirm deactivation",
     "secure.offers.list.list.select_me": "To select",
     "secure.offers.list.list.desactive_OK": "Successful deactivation of offers",
-    "secure.offers.list.list.desactive_KO": "Deactivation of offers not successful, please check the errors",
+    "secure.offers.list.list.desactive_KO": "Desactivation of offers not successful, please check the errors",
     "secure.offers.list.list.desactive_in_progress": "Deactivation of offers in process",
     "secure.offers.list.list.modal_desactive_1": "Are you sure you want to deactivate ",
     "secure.offers.list.list.modal_desactive_2": "offer(s)",
@@ -1069,8 +1070,12 @@
     "secure.products.create_product_unit.list_products.please_wait" : "Loading, wait please ...",
 
     "secure.products.list_products.modal.title": "This offer undergoes an extreme price change, do you wish to continue?",
+    "secure.products.pending_products_tab1": "Pending modification",
+    "secure.products.pending_products_tab2": "Pending validation",
     "secure.products.list_products.download.title": "The file will be downloaded and sent to the following Email.",
     "secure.products.list_products.download.error": "There's been an error with the download, please try again.",
+    "secure.products.list_products.my_products": "My products",
+    "secure.products.list_products.all_products": "All products",
     "secure.products.list_products.download.ok": "The products have been downloaded, check your email",
     "secure.products.list_products.download.tooltip_category": "Add category",
 

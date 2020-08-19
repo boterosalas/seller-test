@@ -675,6 +675,10 @@ export class ProductBasicInfoComponent implements OnInit {
 
     public getSonData(): any {
         const sonData = [];
+        let children: any;
+        if (this._detailProduct && this._detailProduct.productType === 'Clothing' && this._detailProduct.children ) {
+            children = this._detailProduct.children;
+        }
         for (let i = 0; i < this.sonList.length; i++) {
             sonData.push({
                 Ean: this.sonList[i].form.controls.Ean.value,
@@ -682,7 +686,8 @@ export class ProductBasicInfoComponent implements OnInit {
                 Size: this.sonList[i].form.controls.Size.value,
                 Color: this.languageService.instant(this.sonList[i].colorSelected),
                 HexColourCodePDP: this.sonList[i].colorPick.replace('#', ''),
-                HexColourName: this.sonList[i].form.controls.HexColorCodeName.value
+                HexColourName: this.sonList[i].form.controls.HexColorCodeName.value,
+                idProductProcess: children[i].idProductProcess
             });
         }
         return sonData;

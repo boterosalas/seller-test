@@ -210,6 +210,11 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
       transform: translateY(-47px);
       transition:  all .4s ease 0s;
   }
+  .top-toolbar-product{
+    border-top: 1px solid $color-gray5;
+      transform: translateY(-96px);
+      transition:  all .4s ease 0s;
+  }
   .top-toolbar-calification{
     border-top: 1px solid $color-gray5;
       transform: translateY(-127px);
