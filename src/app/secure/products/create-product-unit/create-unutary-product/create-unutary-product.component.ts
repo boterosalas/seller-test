@@ -10,6 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class CreateUnutaryProductComponent implements OnInit {
   ean: string;
   reference: any;
+  pendingProduct: any;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -20,6 +21,7 @@ export class CreateUnutaryProductComponent implements OnInit {
       if ( params['ean'] != null) {
         this.ean = params['ean'];
         this.reference = params['reference'];
+        this.pendingProduct = params['pendingProduct'];
       }
     });
   }

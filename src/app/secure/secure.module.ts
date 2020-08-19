@@ -45,6 +45,7 @@ import { QualityModule } from './quality/quality.module';
 import { QuotingSellerModule } from './offers/quoting/seller/quoting-seller.module';
 import { BulkLoadBillingComponent } from './orders/bulk-load-billing/bulk-load-billing.component';
 import { BulkLoadBillingModule } from './orders/bulk-load-billing/bulk-load-billing.module';
+import { PendingProductsModule } from './products/pending-products/pending-products.module';
 
 @NgModule({
   
@@ -86,7 +87,7 @@ import { BulkLoadBillingModule } from './orders/bulk-load-billing/bulk-load-bill
     QualityModule,
     CitiesCoverageModule,
     QuotingSellerModule,
-    BulkLoadBillingModule
+    PendingProductsModule
   ],
   providers: [AuthService, SellerSupportCenterService]
 })

@@ -1,0 +1,162 @@
+<mat-tab-group mat-stretch-tabs style="height: 80vh" (selectedTabChange)="setMatTab($event)">
+  <mat-tab [label]="'secure.products.pending_products_tab1' | translate">
+    <mat-drawer-container class="example-container" autosize>
+      <mat-drawer #drawer [mode]="'over'" [position]="'end'" class="example-sidenav" [disableClose]="true">
+        <form class="basic-info" #createfilterProdutsPending="ngForm" [formGroup]="filterProdutsPending"
+          class="seller-filter-sidenav" *ngIf="filterProdutsPending">
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <h3>{{'secure.products.pending_products.filterModify' | translate}}</h3>
+            <button id="closeMenuApplication" type="button" color="primary" [matTooltip]="'actions.close' | translate"
+              matTooltipPosition="below" mat-icon-button mat-button (click)="drawer.toggle() && closeFilter()">
+              <mat-icon>clear</mat-icon>
+            </button>
+          </div>
+
+          <div fxLayout="column" fxLayoutAlign="space-between" fxLayout.xs="column">
+            <mat-form-field color="primary">
+              <input matInput
+                [placeholder]="'secure.products.create_product_unit.list_products.product_name' | translate"
+                formControlName="productName" [errorStateMatcher]="matcher">
+              <mat-hint></mat-hint>
+              <mat-error *ngIf="filterProdutsPending.get('productName').hasError('pattern')">
+                {{'secure.products.create_product_unit.list_products.product_name_invalid' | translate}}
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field color="primary">
+              <input matInput [placeholder]="'shared.ean' | translate" formControlName="ean"
+                [errorStateMatcher]="matcher">
+              <mat-hint></mat-hint>
+            </mat-form-field>
+
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="buttonsSend">
+              <button mat-stroked-button color="primary" type="button"
+                (click)="cleanFilter()">{{'filters.clear' | translate}} </button>
+              <!-- <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterSeller.form.valid || (!product.value && !ean.value && !stock.value)"></button> -->
+              <button mat-flat-button color="primary" (click)="drawer.toggle() && filterApply()"
+                [disabled]="!createfilterProdutsPending.form.valid || !createfilterProdutsPending.form.touched">{{'filters.filter' | translate}}</button>
+            </div>
+          </div>
+        </form>
+      </mat-drawer>
+      <div class="height-full">
+        <mat-toolbar class="tree-toolbar">
+          <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
+            <!--  Titulo del toolbar desktop-->
+            <p class="seller-list-title" fxShow [fxShow.xs]="false">
+              {{'secure.products.bulk_upload.title_module' | translate}}
+              <small class="sub-title">| {{'secure.products.pending_products_tab1' | translate}}</small>
+            </p>
+            <!--  Titulo del toolbar -->
+            <p class="seller-list-title" fxShow="false" [fxShow.xs]="true">
+              {{'secure.products.pending_products_tab1' | translate}}
+            </p>
+            <div class="hide-page">
+              <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+                (page)="pageEvent = paginations($event)"></mat-paginator>
+            </div>
+          </div>
+          <button type="button" mat-button (click)="drawer.toggle()">
+            <mat-icon>filter_list</mat-icon>
+            <small class="sub-title-filter">{{'filters.filter' | translate}}</small>
+          </button>
+        </mat-toolbar>
+      </div>
+      <div fxLayout="column">
+        <div class="example-chip-list">
+          <mat-chip-list #chipList>
+            <mat-chip *ngFor="let products of listFilterProductsModify" [selectable]="selectable"
+              [removable]="removable" (removed)="remove(products)">
+              {{products.name}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" disabled>
+          </mat-chip-list>
+        </div>
+        <div class="prodList">
+          <app-combo-pending-product [indexTab]="indexTab" [sellerId]="sellerId" [showProducts]="showProducts" [editPermission]="editPermission" [productsList]="productsList" class="listCombo">
+          </app-combo-pending-product>
+        </div>
+      </div>
+    </mat-drawer-container>
+  </mat-tab>
+  <mat-tab [label]="'secure.products.pending_products_tab2' | translate">
+    <mat-drawer-container class="example-container" autosize>
+      <mat-drawer #drawer2 [mode]="'over'" [position]="'end'" class="example-sidenav" [disableClose]="true">
+        <form class="basic-info" #createfilterProdutsValidation="ngForm" [formGroup]="filterProdutsValidation"
+          class="seller-filter-sidenav" *ngIf="filterProdutsValidation">
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <h3>{{'secure.products.pending_products.filterModify' | translate}}</h3>
+            <button id="closeMenuApplication" type="button" color="primary" [matTooltip]="'actions.close' | translate"
+              matTooltipPosition="below" mat-icon-button mat-button (click)="drawer2.toggle() && closeFilter2()">
+              <mat-icon>clear</mat-icon>
+            </button>
+          </div>
+
+          <div fxLayout="column" fxLayoutAlign="space-between" fxLayout.xs="column">
+            <mat-form-field color="primary">
+              <input matInput
+                [placeholder]="'secure.products.create_product_unit.list_products.product_name' | translate"
+                formControlName="productName2" [errorStateMatcher]="matcher">
+              <mat-hint></mat-hint>
+              <mat-error *ngIf="filterProdutsValidation.get('productName2').hasError('pattern')">
+                {{'secure.products.create_product_unit.list_products.product_name_invalid' | translate}}
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field color="primary">
+              <input matInput [placeholder]="'shared.ean' | translate" formControlName="ean2"
+                [errorStateMatcher]="matcher">
+              <mat-hint></mat-hint>
+            </mat-form-field>
+
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="buttonsSend">
+              <button mat-stroked-button color="primary" type="button"
+                (click)="cleanFilter2()">{{'filters.clear' | translate}} </button>
+              <!-- <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterSeller.form.valid || (!product.value && !ean.value && !stock.value)"></button> -->
+              <button mat-flat-button color="primary" (click)="drawer2.toggle() && filterApply2()"
+                [disabled]="!createfilterProdutsValidation.form.valid || !createfilterProdutsValidation.form.touched">{{'filters.filter' | translate}}</button>
+            </div>
+          </div>
+        </form>
+      </mat-drawer>
+      <div class="height-full">
+      <mat-toolbar class="tree-toolbar">
+        <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
+          <!--  Titulo del toolbar desktop-->
+          <p class="seller-list-title" fxShow [fxShow.xs]="false">
+            {{'secure.products.bulk_upload.title_module' | translate}}
+            <small class="sub-title">| {{'secure.products.pending_products_tab2' | translate}}</small>
+          </p>
+          <!--  Titulo del toolbar -->
+          <p class="seller-list-title" fxShow="false" [fxShow.xs]="true">
+            {{'secure.products.pending_products_tab2' | translate}}
+          </p>
+          <div class="hide-page">
+            <mat-paginator [length]="length2" [pageSize]="pageSize2" [pageSizeOptions]="pageSizeOptions2"
+              (page)="pageEvent = paginations2($event)"></mat-paginator>
+          </div>
+        </div>
+        <button type="button" mat-button (click)="drawer2.toggle()">
+          <mat-icon>filter_list</mat-icon>
+          <small class="sub-title-filter">{{'filters.filter' | translate}}</small>
+        </button>
+      </mat-toolbar>
+    </div>
+    <div fxLayout="column">
+      <div class="example-chip-list">
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let products of listFilterProductsValidation" [selectable]="selectable"
+            [removable]="removable" (removed)="removeValidation(products)">
+            {{products.name}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" disabled>
+        </mat-chip-list>
+      </div>
+      <div class="prodList">
+        <app-combo-pending-product [indexTab]="indexTab"  [showProducts]="showProducts" [productsList]="productsList2" [sellerId]="sellerId" class="listCombo">
+        </app-combo-pending-product>
+      </div>
+    </div>
+    </mat-drawer-container>
+  </mat-tab>
+</mat-tab-group>
