@@ -64,6 +64,9 @@ export const OFFERS_HEADERS_ADDRESS_FR = 'Adresse de collecte';
 export const OFFERS_HEADERS_CODIGO_DANE = 'Ciudad de Recogida';
 export const OFFERS_HEADERS_DANECODE = 'Picking City';
 export const OFFERS_HEADERS_DANECODE_FR = 'Ville de collecte';
+export const OFFERS_HEADERS_SKU_ES = 'SKU Vendedor';
+export const OFFERS_HEADERS_SKU_EN = 'Seller SKU';
+export const OFFERS_HEADERS_SKU_FR = 'Vendeur SKU';
 
 
 // log component
@@ -149,7 +152,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     warranty: '',
     price: '',
     address: '',
-    daneCode: ''
+    daneCode: '',
+    atleastonealphanumeric: ''
   };
 
 
@@ -357,7 +361,11 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             res[0][j] === OFFERS_HEADERS_AMOUNT_COMBO_FR ||
             res[0][j] === OFFERS_HEADERS_CURRENCY_FR ||
             res[0][j] === OFFERS_HEADERS_ADDRESS_FR ||
-            res[0][j] === OFFERS_HEADERS_DANECODE_FR
+            res[0][j] === OFFERS_HEADERS_DANECODE_FR ||
+            res[0][j] === OFFERS_HEADERS_SKU_ES ||
+            res[0][j] === OFFERS_HEADERS_SKU_EN ||
+            res[0][j] === OFFERS_HEADERS_SKU_FR
+
           ) {
             this.arrayNecessaryData[i].push(res[i][j]);
           }
@@ -437,7 +445,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             iCantidadCombo: this.validateSubTitle(this.arrayNecessaryData, 'Amount in combo', 'Cantidad en combo', 'Bundle stock'),
             iCurrency: this.validateSubTitle(this.arrayNecessaryData, 'Currency', 'Tipo de moneda', 'Type de monnaie'),
             iAddress: this.validateSubTitle(this.arrayNecessaryData, 'Picking Address', 'Direccion de Recogida', 'Adresse de collecte'),
-            iDaneCode: this.validateSubTitle(this.arrayNecessaryData, 'Picking City', 'Ciudad de Recogida', 'Ville de collecte')
+            iDaneCode: this.validateSubTitle(this.arrayNecessaryData, 'Picking City', 'Ciudad de Recogida', 'Ville de collecte'),
+            iSellerSku: this.validateSubTitle(this.arrayNecessaryData, 'Seller SKU', 'SKU Vendedor', 'Vendeur SKU')
           };
           if (this.arrayNecessaryData.length > this.limitRowExcel) {
             this.loadingService.closeSpinner();
@@ -911,6 +920,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       Currency: res[index][iVal.iCurrency] ? res[index][iVal.iCurrency] : 'COP',
       Address: res[index][iVal.iAddress],
       DaneCode: res[index][iVal.iDaneCode],
+      SellerSku: res[index][iVal.iSellerSku]
       // Currency: 'COP'
     };
     this.arrayInformationForSend.push(newObjectForSend);
@@ -943,6 +953,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       Currency: res[index][iVal.iCurrency] ? res[index][iVal.iCurrency] : '',
       Address: res[index][iVal.iAddress],
       DaneCode: res[index][iVal.iDaneCode],
+      SellerSku: res[index][iVal.iSellerSku],
       errorRow: false
     };
 
@@ -992,6 +1003,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       this.arrayInformation[index].errorAddress = false;
       this.arrayInformation[index].errorDaneCode = false;
       this.arrayInformation[index].errorRow = false;
+      this.arrayInformation[index].errorSellerSku = false;
     }
   }
 
@@ -1368,13 +1380,15 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
   public validateFormSupport(): void {
     this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
       let dataOffertRegex = JSON.parse(res.body.body);
-      dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'ofertas');
+      dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'ofertas' || data.Module === 'transversal');
       for (const val in this.offertRegex) {
         if (!!val) {
+          console.log('val: ', val);
           const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
           this.offertRegex[val] = element && `${element.Value}`;
         }
       }
+      console.log('this.offertRegex: ', this.offertRegex);
     });
   }
 
