@@ -200,28 +200,6 @@ const OrdersModule = new ModuleModel(orderModule, showAll, orderModule.toLowerCa
         new FunctionalitiesModel(loadFunctionality, showAll, loadFunctionality), // Cargar
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.
     ], RoutesConst.sellerCenterIntOrderLoadGuide),
-    // 8. Devoluciones (rol vendedor - Consultar, Aceptar, Rechazar)
-    // new MenuModel(devolutionName, showAll, devolutionName.toLowerCase(), ProfileTypes.Vendedor, [
-    //     new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
-    //     new FunctionalitiesModel(acceptFuncionality, showAll, acceptFuncionality), // Aceptar.
-    //     new FunctionalitiesModel(refuseFuncionality, showAll, refuseFuncionality), // Rechazar.
-    // ], RoutesConst.sellerCenterIntOrderInDevolution),
-    // // 9. Devoluciones (Rol administrador - Consultar)
-    // new MenuModel(devolutionNameAdmin, showAll, devolutionNameAdmin.toLowerCase(), ProfileTypes.Administrador, [
-    //     new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
-    //     new FunctionalitiesModel(visualizeFunctionality, showAll, visualizeFunctionality), // Visualizar.
-    // ], RoutesConst.sellerCenterIntOrderInDevolution),
-    // // 10. Validaciónes (Consultar)
-    // new MenuModel(validationName, showAll, validationName.toLowerCase(), ProfileTypes.Vendedor, [
-    //     new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
-    // ], RoutesConst.sellerCenterIntOrderInValidation),
-    // // 11. Solicitudes PEndientes (Consultar, Aceptar, Rechazar)
-    // new MenuModel(pendingName, showAll, pendingName.toLowerCase(), ProfileTypes.Vendedor, [
-    //     new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
-    //     new FunctionalitiesModel(acceptFuncionality, showAll, acceptFuncionality), // Aceptar.
-    //     new FunctionalitiesModel(refuseFuncionality, showAll, refuseFuncionality), // Rechazar.
-    // ], RoutesConst.sellerCenterIntOrderInPendingDevolution),
-    // 12. Facturación electronica (Consultar, Descargar).
     new MenuModel(onlineBillName, showAll, onlineBillName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality), // Descargar.

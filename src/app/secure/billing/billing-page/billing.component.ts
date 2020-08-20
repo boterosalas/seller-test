@@ -275,7 +275,6 @@ export class BillingComponent implements OnInit, OnDestroy {
     if (this.user.sellerProfile !== 'seller') {
       this.setPermission(1);
       this.activeSearch = true;
-      // this.router.navigate([`/${RoutesConst.securehome}`]);
     } else {
       this.activeSearch = false;
       this.idSeller = this.user.sellerId;
@@ -376,10 +375,8 @@ export class BillingComponent implements OnInit, OnDestroy {
           this.numberElements = this.dataSource.data.length;
           this.dataSource.sort = this.sort;
         }
-        // this.dataSource.paginator = $event.paginator;
         this.loadingService.closeSpinner();
       } else {
-        // this.loadingService.closeSpinner();
         this.dataSource = new MatTableDataSource(null);
         this.numberElements = 0;
         this.loadingService.closeSpinner();
@@ -452,7 +449,6 @@ export class BillingComponent implements OnInit, OnDestroy {
       const body: any = res.body;
       const response = JSON.parse(body.body);
       const userData = response.Data;
-      // this.loadingService.closeSpinner();
       return userData;
     });
     if (sellerData.Country === 'COLOMBIA') {
