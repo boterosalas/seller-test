@@ -442,7 +442,7 @@ export class PendingProductsComponent implements OnInit {
    */
   public cleanFilter() {
     this.filterProdutsPending.reset();
-    this.getAllPendingProducts();
+    this.filterApply();
     this.cleanFilterListProductsModify();
   }
 
@@ -452,7 +452,7 @@ export class PendingProductsComponent implements OnInit {
    */
   public cleanFilter2() {
     this.filterProdutsValidation.reset();
-    this.getAllPendingProductsValidattion();
+    this.filterApply2();
     this.cleanFilterListProductsModify2();
   }
 

@@ -65,6 +65,7 @@ export class ComboPendingProductComponent implements OnInit {
    */
   public backTolist(): void {
     this.productsPendindgExpanded = null;
+    this.productsPendindgValidationExpanded = null;
     this.showImage = false;
   }
 

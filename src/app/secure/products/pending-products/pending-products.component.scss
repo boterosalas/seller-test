@@ -13,6 +13,9 @@
   // background: white;
   z-index: 1;
   padding: 1%;
+  & mat-chip {
+      margin: 10px 10px;
+  }
 }
 
 .tree-toolbar {
@@ -21,6 +24,11 @@
   position: fixed;
   z-index: 2;
   background-color: white;
+
+  @media only screen and (max-width: 600px) {
+    // top: 112px;
+    top: 15.4%;
+  }
 
   & .toolbar-options-table {
     align-items: center;
@@ -129,6 +137,9 @@
 
 .height-full {
   height: 5%;
+  @media only screen and (max-width: 600px) {
+    height: 0%;
+  }
 }
 
 /*
@@ -146,6 +157,9 @@
   // justify-content: center;
   // margin-top: 2%;
   position: relative;
+  @media only screen and (max-width: 767px) {
+    margin-top: 10% !important;
+  }
 }
 
 
