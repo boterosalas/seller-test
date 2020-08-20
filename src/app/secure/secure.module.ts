@@ -87,6 +87,7 @@ import { PendingProductsModule } from './products/pending-products/pending-produ
     QualityModule,
     CitiesCoverageModule,
     QuotingSellerModule,
+    BulkLoadBillingModule,
     PendingProductsModule
   ],
   providers: [AuthService, SellerSupportCenterService]
