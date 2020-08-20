@@ -430,13 +430,13 @@ export const endpoints = {
       // GetProducs by EAN para modificaciones
       getEANPendingModify: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn/productsrejected/{params}',
       // GetProducs by EAN para validacion
-      getEANPendingValidation: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productswaiting/{params}',
+      getEANPendingValidation: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn/productswaiting/{params}',
       // Exportar productos
       exportProducts: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/report',
       // Listado de resumen de facturacion
       getListAllSummaryBilling: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/summary',
       // Detalle de reclaciones
-      getDetailTranslationReclaim: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/get-case-expanded/{params} ',
+      getDetailTranslationReclaim: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/get-case-expanded/{params}',
       // Obtener comentarios de solicitud de devolución
       getAllCommentRefuse: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn/translation'
     }
