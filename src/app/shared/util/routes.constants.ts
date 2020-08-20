@@ -61,6 +61,7 @@ export class RoutesConst {
     static readonly reportOffertAdmin: any = 'category-tree';
     static readonly listCalification: any = 'quality-score';
     static readonly port: any = 'port';
+    static readonly billingSeller: any = 'facturacion-vendedor';
     static readonly pendingProducts: any = 'productos-pendientes';
 
 
@@ -105,6 +106,7 @@ export class RoutesConst {
     static readonly sellerCenterIntOrderBillingOrders: any = RoutesConst.sellerCenterOrders + '/' + RoutesConst.orderInBillingOrders;
     static readonly sellerCenterIntBulkLoadBilling: any = RoutesConst.sellerCenterOrders + '/' + RoutesConst.orderInBulkLoadBilling;
     static readonly sellerCenterIntOrderHistoricalDevolution: any = RoutesConst.sellerCenterOrders + '/' + RoutesConst.orderHistoricalDevolution;
+    static readonly sellerCenterIntOrderBillingOrdersAdmin: any = RoutesConst.sellerCenterOrders + '/' + RoutesConst.billingSeller;
 
     static readonly sellerCenterIntOfersList: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferList;
     static readonly sellerCenterIntOfersListAdmin: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferListAdmin;

@@ -54,6 +54,7 @@
     "menu.Parametrizar Centros de Acopio": "Parameterize collection centers",
     "menu.Cargar Acuerdos": "Load Agreements",
     "menu.Carga masiva de Facturas": "Bulk Load Invoices",
+    "menu.Facturación vendedor": "Facturación vendedor",
     "menu.Productos pendientes": "Pending products",
 
     "module.Documentación": "Documentation",
@@ -274,6 +275,8 @@
     "core.shell.search_order_menu.search_billing_form.initial_date": "Inicial payment date",
     "core.shell.search_order_menu.search_billing_form.final_date": "Final payment date",
     "core.shell.search_order_menu.search_billing_form.invoice_number": "Invoice number",
+    "core.shell.search_order_menu.search_billing_form.tooltip_pedido": "Agregar # pedido(s)",
+
 
     "core.shell.search_order_menu.search_envios_exito_form.filter_channel": "Filter by channel",
     "core.shell.search_order_menu.search_envios_exito_form.filter_status": "Filter by status",
@@ -333,6 +336,8 @@
     "secure.billing.error_download": "An error has occurred when downloading the payment information",
     "secure.billing.Venta Marketplace": "Marketplace Sales",
     "secure.billing.Logistica Exito": "Exito Logistics",
+    "secure.billing.no_data_admin": "Ingresa el nombre del vendedor en la barra de búsqueda para ver el detalle de las facturas",
+
 
     "secure.billing.summaryPayment.text_btn_details": "View details for selected invoices",
     "secure.billing.summaryPayment.invoice_iD": "Invoice ID",

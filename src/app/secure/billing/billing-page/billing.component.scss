@@ -1,7 +1,17 @@
+$color-gray: #757474;
+$color-light-gray: #9E9E9E;
+$color-light-gray2: #EFEDED;
+$primary-color: #757474;
+$accent-color: #485afa;
+$title-color: black;
+$hint-color: #909090;
+$underline-color: #19a695;
+
 @import '~@angular/material/theming'; // always include only once per project
 @include mat-core();
 $green: mat-palette($mat-green);
 $amber: mat-palette($mat-amber);
+
 :host ::ng-deep .content-order {
   & .container {
     padding: 0px;
@@ -11,70 +21,89 @@ $amber: mat-palette($mat-amber);
     display: flex;
     padding-bottom: 50px;
   }
+
   & .toolbar-orders-options-table {
     & .toolbar-options {
       padding-left: 0px;
+
       & .title-toolbar {
         padding-left: 30px;
       }
     }
+
     padding-left: 0px;
   }
+
   & .orders-paginate {
     & .mat-paginator-container {
       flex-wrap: nowrap;
     }
   }
+
   & .toolbar-options-table {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     width: 100%;
+
     & .toolbar-paginate {
       display: flex;
       align-items: center;
       justify-content: center;
+
       & .paginator-style {
         background-color: transparent;
       }
     }
   }
+
   & .mat-header-row {
     align-items: center;
     justify-content: center;
   }
+
   & .mat-header-row,
   .mat-row {
     align-items: center;
     justify-content: center;
   }
+
   & .center-product-list {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100%;
   }
+
   & .sc-valueToPay-text {
     color: #5ea223;
   }
+
   & .sc-commission-text {
     color: #F44336;
   }
+
   & .bold {
     font-weight: bold;
-  } // Estilos para la tabla expandible
+  }
+
+  // Estilos para la tabla expandible
   & .element-row {
     position: relative;
   }
+
   & .element-row:not(.expanded) {
     cursor: pointer;
   }
+
   & .element-row:not(.expanded):hover {
     background: #eaeaea;
   }
+
   & .element-row.expanded {
     opacity: 0.7;
   }
+
   & .orders-no-data {
     flex-wrap: wrap;
     display: flex;
@@ -84,44 +113,145 @@ $amber: mat-palette($mat-amber);
     background-color: #fff;
     box-shadow: 0px 1px 1px -2px rgba(0, 0, 0, 0.2), 0px 1px 1px -4px rgba(0, 0, 0, 0.14), 0px 1px 1px 0px rgba(0, 0, 0, 0.12);
     flex-direction: column;
+
     & .icon-not-found {
       font-size: 40px;
       height: 40px;
       width: 40px;
     }
   }
+
   & .content-detail-order {
     padding-left: 0px;
     padding-right: 0px;
   }
-  .hiddenColumn{
-    display: none !important;
+
+  .hiddenColumn {
+    display: none;
+
+    @media only screen and (min-width: 600px) {
+      display: none !important;
+    }
   }
-  .showColumn{
-    display: flex !important;
+
+  .showColumn {
+    display: flex;
+
+    @media only screen and (min-width: 600px) {
+      display: flex !important;
+    }
   }
 }
 
-.expand{
+.expand {
   margin-right: 10px;
 }
 
 @media only screen and (max-width: 1279px) {
 
-  .toolbar-paginate{
+  .toolbar-paginate {
     max-width: initial !important;
   }
 
-  .toolbar-paginate{
+  .toolbar-paginate {
     justify-content: flex-end;
   }
-  
-  .toolbar-cont{
+
+  .toolbar-cont {
     flex: initial !important;
     place-content: center flex-end !important;
   }
 }
 
-.text-aling-right{
+.text-aling-right {
   text-align: left;
+}
+
+.filterBilling {
+  border-bottom: 1px solid #e0e0e0;
+
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
+
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
+
+  & button {
+    & mat-icon {
+      color: #a1a199;
+    }
+
+    padding-top: 10%;
+    padding-left: 0px;
+  }
+}
+
+.filter-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 20px;
+  margin-bottom: 6%;
+  margin-top: 6%;
+
+  &--title {
+    font-weight: bold;
+    color: $title-color;
+  }
+
+  &--close {
+    color: $accent-color;
+    cursor: pointer;
+  }
+}
+
+.example-sidenav {
+  width: 26%;
+  padding: 3% 2%;
+
+  @media only screen and (max-width: 600px) {
+    width: 80%;
+  }
+}
+
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.search-form {
+  // padding: 5% 5%;
+  height: 81%;
+  position: relative;
+
+  & mat-icon {
+    margin-right: 20px;
+  }
+
+  & .orders-search-option {
+    position: absolute;
+    bottom: 10px;
+    left: 0px;
+  }
+}
+
+.disabledIconAddKeyCategoryFilter {
+  pointer-events: none;
+}
+
+.example-chip-list {
+  margin: 1%;
+  position: sticky;
+  top: 64px;
+  // background: white;
+  z-index: 1;
+  padding: 1%;
+
+  & mat-icon {
+    margin-right: 0px;
+  }
 }
