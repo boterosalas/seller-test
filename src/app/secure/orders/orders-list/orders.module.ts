@@ -19,7 +19,9 @@ import { LoadFileComponent } from '@app/shared/components/load-file/load-file';
 import { MaterialModule } from '@app/material.module';
 import { ngfModule } from 'angular-file';
 import { ToolbarOptionsModule } from '@app/shared/components';
-// import { SearchSellerComponent } from '@app/shared/components/search-seller/search-seller.component';
+import { ListOrderComponent } from './orders-page/component/list-order/list-order.component';
+import { BoxListComponent } from './orders-page/component/box-list/box-list.component';
+
 
 @NgModule({
   imports: [
@@ -42,7 +44,9 @@ import { ToolbarOptionsModule } from '@app/shared/components';
     ProductsOrderComponent,
     SendOrderComponent,
     FormProductComponent,
-    LoadFileComponent
+    LoadFileComponent,
+    ListOrderComponent,
+    BoxListComponent,
   ],
   entryComponents: [
     ConfirmAlertComponent,

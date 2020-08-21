@@ -1,0 +1,6 @@
+<div>
+  <div>Cabecera</div>
+  <ng-container *ngFor="let item of items" >
+    <ng-container [ngTemplateOutlet]="item.tpl"></ng-container>
+  </ng-container>
+</div>

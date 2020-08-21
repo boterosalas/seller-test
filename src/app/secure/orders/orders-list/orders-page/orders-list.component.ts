@@ -117,6 +117,14 @@ export class OrdersListComponent implements OnInit, OnDestroy {
 
 
 
+// ------------------------------------------------------------
+dataListOrder = [];
+
+
+
+
+
+
   // Variables con los permisos que este componente posee.
   permissionComponent: MenuModel;
   read = readFunctionality;
@@ -612,6 +620,7 @@ changeLanguage() {
         this.arrayPosition.push('{}');
       }
       this.dataSource = new MatTableDataSource(res.data.viewModel);
+      this.dataListOrder = res.data.viewModel;
       this.savePaginationToken(res.data.paginationToken);
     } else {
       this.clearTable();

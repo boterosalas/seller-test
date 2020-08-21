@@ -1,11 +1,36 @@
 <div class="content-order my-content">
+  <div fxFlex class="container" fxLayout="row wrap" fxLayoutAlign="center
+    start">
+    <div fxFlex="100" class="light-content">
+      <app-toolbar-search-pagination [isClear]="isClear"
+        [informationToForm]="informationToForm" [state]="lastState"
+        [idSeller]="idSeller" #toolbarOptions
+        (OnGetOrdersList)="getOrdersList($event)"
+        (paginationListOrdens)="paginations($event)"
+        [isFullSearch]="isFullSearch" [pageIndexChange]="pageIndexChange"
+        (OnChangeSizeOrderTable)="changeSizeOrderTable($event)"
+        [downloadPermission]="downloadPermission"
+        [Typeprofile]="typeProfile" [allFilter]="allFilter"
+        [showLoading]="false" [limitPaginate]="[200, 300, 400]"
+        [lengthOrder]="length" [limitSizeList]= 'pageSize'></app-toolbar-search-pagination>
+    </div>
+
+
+    <ng-template [ngIf]="dataListOrder">
+      <app-list-order [data]="dataListOrder" style="width: 100%;">
+        <ng-container *itemDropDownList>
+         <app-box-list *ngFor="let item of dataListOrder; let i = index" [data]="item"></app-box-list>
+        </ng-container>
+      </app-list-order>
+    </ng-template>
+  </div>
+</div>
+
+<!-- -------------------------------------------------------------------------------- -->
+<!-- <div class="content-order my-content">
 
   <div fxFlex class="container" fxLayout="row wrap" fxLayoutAlign="center start">
     <div fxFlex="100" class="light-content">
-      <!-- Toolbar para los dropdown de filtro de estado para las órdenes -->
-      <!-- Toolbar de las opciones para la orden -->
-      <!-- <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [downloadPermission]="downloadPermission"></app-toolbar-options> -->
-      <!-- Toolbar de las opciones para la orden -->
       <app-toolbar-search-pagination [isClear]="isClear" [informationToForm]="informationToForm" [state]="lastState"
         [idSeller]="idSeller" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)"
         (paginationListOrdens)="paginations($event)" [isFullSearch]="isFullSearch" [pageIndexChange]="pageIndexChange"
@@ -13,13 +38,9 @@
         [Typeprofile]="typeProfile" [allFilter]= "allFilter" [showLoading]="false" [limitPaginate]="[200, 300, 400]" [lengthOrder]="length" [limitSizeList] = 'pageSize'></app-toolbar-search-pagination>
     </div>
 
-    <!-- Tabla de órdenes -->
-    <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="97" fxFlex.lg="97" fxFlex.xl="97" class="content-table-orders">
-
-      <!-- matSort: Permite filtrar la tabla por los titulos de las columnas -->
-      <mat-table #table [dataSource]="dataSource" matSort *ngIf="readPermission">
-
-        <!-- Check column -->
+    <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="97" fxFlex.lg="97" fxFlex.xl="97" class="content-table-orders"> -->
+<!-- matSort: Permite filtrar la tabla por los titulos de las columnas -->
+<!-- <mat-table #table [dataSource]="dataSource" matSort *ngIf="readPermission">
         <ng-container matColumnDef="select">
           <mat-header-cell fxShow="{{optionCheckInTable}}" class="center-product-list" fxFlex="40px" fxFlex.lg="100px"
             fxFlex.xl="250px" *matHeaderCellDef>
@@ -36,7 +57,6 @@
           </mat-cell>
         </ng-container>
 
-        <!-- expand Column -->
         <ng-container matColumnDef="expand">
           <mat-header-cell fxFlex.lg="40px" fxFlex="70px" fxShow.xs="false" fxShow.sm="false" fxShow.gt-lg="false"
             fxShow="true" fxFlex.xl="250px" *matHeaderCellDef mat-sort-header>
@@ -48,8 +68,6 @@
             </button>
           </mat-cell>
         </ng-container>
-
-        <!-- Flag Column -->
         <ng-container matColumnDef="flag">
           <mat-header-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true"
             fxFlex.lg="130px" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="250px" *matHeaderCellDef>
@@ -69,7 +87,6 @@
         </ng-container>
 
 
-        <!-- orderNumber Column -->
         <ng-container matColumnDef="orderNumber">
           <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdmin'" fxFlex.sm="" fxFlex.md="" fxFlex.lg=""
             fxFlex.xs="" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
@@ -93,7 +110,7 @@
 
         </ng-container>
 
-        <!-- dateOrder Column -->
+
         <ng-container matColumnDef="dateOrder">
           <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdmin'" fxFlex.sm="" fxFlex.md="" fxFlex.lg=""
             fxFlex.xs="" fxShow.xs="false" fxShow.sm="true" fxShow.gt-lg="false" fxShow="true" fxFlex.xl="250px"
@@ -106,7 +123,7 @@
           </mat-cell>
         </ng-container>
 
-        <!-- dateMaxDeliveryOrder Column -->
+
         <ng-container matColumnDef="dateMaxDeliveryOrder">
           <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdmin'" fxShow.xs="false" fxShow.sm="true"
             fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="70"
@@ -119,7 +136,7 @@
           </mat-cell>
         </ng-container>
 
-        <!-- statusOrder Column -->
+
         <ng-container matColumnDef="statusOrder">
           <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdmin'" fxShow.xs="false" fxShow.sm="true"
             fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="70"
@@ -178,7 +195,7 @@
           </mat-cell>
         </ng-container>
 
-        <!-- channel Column -->
+
         <ng-container matColumnDef="channel">
           <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdminTotal'" fxShow.xs="false"
             fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10"
@@ -191,7 +208,6 @@
           </mat-cell>
         </ng-container>
 
-        <!-- Acciones Column -->
         <ng-container matColumnDef="detailOrder">
           <mat-header-cell [ngClass]="typeProfile == 0 ?  'center-product-list showTableAction' : 'hideTableAction'"
             fxFlex.lg="" fxFlex.sm="" fxFlex.md="" fxFlex.xs="" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
@@ -239,18 +255,16 @@
         </ng-container>
 
 
-        <!-- Creación de las filas para la tabla -->
+
         <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
 
         <mat-row id="order-number-{{index}}" *matRowDef="let index=index; let row; columns: displayedColumns;" matRipple
           class="element-row personal-row-table" [cdkDetailRow]="row" [cdkDetailRowTpl]="tpl">
         </mat-row>
 
-      </mat-table>
-
-
-      <!-- Elemento para informar que no hay información -->
-      <div [@detailExpand] class="orders-no-data" *ngIf="orderListLength && typeProfile == 0">
+      </mat-table> -->
+<!-- Elemento para informar que no hay información -->
+<!-- <div [@detailExpand] class="orders-no-data" *ngIf="orderListLength && typeProfile == 0">
         <mat-icon class="icon-not-found" color="primary">info</mat-icon>
         <p>{{'secure.orders.order_list.order_page.no_orders_found' | translate}}
         </p>
@@ -267,20 +281,18 @@
         <div *ngIf="showMenssage == false">
           <p>{{'secure.orders.order_list.order_page.search_orders_insert' | translate}}</p>
         </div>
-      </div>
-    </div>
+      </div> -->
+<!-- </div> -->
 
-    <!-- Fila desplegable para la tabla -->
-    <ng-template #tpl let-element>
+<!-- Fila desplegable para la tabla -->
+<!-- <ng-template #tpl let-element>
       <div class="content-detail-order mat-row " [@detailExpand] style="overflow: hidden ">
         <div fxFlex="100" fxLayout="column ">
-          <!-- Client Information -->
           <app-client-information [order]="element" [isInternational]="isInternational"></app-client-information>
-          <!-- Product Information -->
           <app-products-order  [user]="user" [Typeprofile]="typeProfile" [isInternational]="isInternational"
             [dataSource]="dataSource" [order]="element"></app-products-order>
         </div>
       </div>
-    </ng-template>
-  </div>
-</div>
+    </ng-template> -->
+<!-- </div>
+</div> -->
