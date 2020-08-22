@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchFormEntity, InformationToForm } from '@app/shared';
-import { Subscription} from 'rxjs';
+import { Subscription } from 'rxjs';
 import { HttpEvent } from '@angular/common/http';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 import { BulkLoadBillingService } from './bulk-load-billing.service';
 import { LoadingService } from '@app/core';
 import { FinishUploadInformationComponent } from '@app/secure/offers/bulk-load/finish-upload-information/finish-upload-information.component';
+
 
 @Component({
   selector: 'app-bulk-load-billing',
@@ -32,6 +33,7 @@ export class BulkLoadBillingComponent implements OnInit {
   dragFiles = true;
   file = null;
   filesErrors = 0;
+  filesSuccess = 0;
   showShowRecommendationsContainer = false;
   invalidsFile = true;
   arrayListFilesBase64Name = [];
@@ -54,9 +56,9 @@ export class BulkLoadBillingComponent implements OnInit {
     private bulkLoadBillingService: BulkLoadBillingService,
     private loadingService: LoadingService,
     public dialog: MatDialog,
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
   /**
    * funcion para guardar el listado de archivos pre-cargados
    *
@@ -143,18 +145,32 @@ export class BulkLoadBillingComponent implements OnInit {
    * @memberof BulkLoadBillingComponent
    */
   public changeValue(files: any) {
-    this.filesErrors = 0;
     files.forEach(file => {
       const size = parseFloat(((file.size) / 1024 / 1024).toFixed(3));
       if (size < 3.000) {
         file.refuse = false;
       } else {
         file.refuse = true;
+      }
+      const isExist = this.filesValidate.find(x => x.name === file.name) !== undefined ? true : false;
+      if (isExist) {
+        file.fileExist = true;
+      } else {
+        file.fileExist = false;
+      }
+
+      if (file.fileExist || file.refuse) {
         this.filesErrors++;
       }
+
+      if (!file.fileExist && !file.refuse) {
+        this.filesSuccess++;
+      }
+
+      this.filesValidate.push(file);
     });
     this.validateErrors();
-    this.filesValidate = files;
+    this.files = [];
   }
   /**
    * funcion para limpiar la lista de archivos
@@ -177,6 +193,12 @@ export class BulkLoadBillingComponent implements OnInit {
     if (file && file.refuse) {
       this.filesErrors--;
     }
+    if (file && file.fileExist) {
+      this.filesErrors--;
+    }
+    if (file && !file.refuse && !file.fileExist) {
+      this.filesSuccess--;
+    }
     this.filesValidate.splice(index, 1);
     this.validateErrors();
   }
@@ -195,6 +217,7 @@ export class BulkLoadBillingComponent implements OnInit {
    * @memberof BulkLoadBillingComponent
    */
   validateErrors() {
+    console.log(this.filesErrors);
     if (this.filesErrors > 0) {
       this.invalidsFile = true;
     } else {
