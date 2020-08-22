@@ -69,7 +69,7 @@
           <mat-icon>clear_all</mat-icon>
           {{'filters.clear' | translate}}
         </button>
-        <button id="apply-filter-button" [disabled]="!f.form.valid" class="sc-button" mat-raised-button color="primary"
+        <button id="apply-filter-button" [disabled]="!f.form.valid || !f.form.touched" class="sc-button" mat-raised-button color="primary"
           type="button" (click)="drawer.toggle() && filterOrder()">
           {{'actions.apply' | translate}}
         </button>
