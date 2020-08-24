@@ -5,7 +5,7 @@
       <mat-expansion-panel-header>
         <div [ngClass]="read ? '' : 'bold-text'" class="case-list-detail" fxLayout fxLayout.xs="row"
           fxLayoutAlign="center center" fxLayoutGap="10px" fxLayoutGap.xs="0">
-          <div class="case-list-detail--item-detail" fxFlex="5%" fxLayoutAlign="center center" class="no-select">
+          <div class="case-list-detail--item-detail" fxFlex="3%" fxLayoutAlign="center center" class="no-select">
             <span [ngClass]="
                 !panelOpenState
                   ? 'item-detail-arrow'
@@ -15,14 +15,14 @@
             </span>
           </div>
           
-          <div class="case-list-detail--item-detail" fxFlex="10%" id="dpbox-case-id-{{index}}">
+          <div class="case-list-detail--item-detail" fxFlex="5%" id="dpbox-case-id-{{index}}">
               <button id="flag-order-{{index}}"
               (click)="stopPropagation($event);recordProcesSedOrder(data.id,data.processedOrder, data.idSeller)"
               mat-icon-button>
               <mat-icon [ngClass]="{'active': data.processedOrder}" class="sc-icon-flag">flag</mat-icon>
               </button>
           </div>
-          <div class="case-list-detail--item-detail" fxFlex="15%" id="dpbox-case-number-{{index}}">
+          <div class="case-list-detail--item-detail" fxFlex="20%" id="dpbox-case-number-{{index}}">
               <p class="sc-text-bold-order id-order">
                 <mat-icon matSuffix class="icon-forSend"
                   [ngClass]="{'active': data.allowShipping && data.idStatusOrder == const.OrderAsignado}">
@@ -37,7 +37,7 @@
                   {{data.orderNumber}}
               </p>
           </div>
-          <div class="case-list-detail--item-detail noneMobile" fxFlex="30%" id="dpbox-case-detail-{{index}}">
+          <div class="case-list-detail--item-detail noneMobile" fxFlex="15%" id="dpbox-case-detail-{{index}}">
             <p class="sc-date-content-table">{{getDateWithOutGMT(data.dateOrder) | date}} </p>
           </div>
           <div class="case-list-detail--item-detail noneMobile" fxFlex="15%" id="dpbox-case-date-{{index}}">
@@ -94,8 +94,8 @@
             </div>
 
           </div>
-          <div class="case-list-detail--item-detail case-list-detail--content-center" fxFlex="5%" *ngIf="hideStatus">
-            <p class="sc-text-normal">{{orden.channel}}</p>
+          <div class="case-list-detail--item-detail case-list-detail--content-center" fxFlex="10%">
+            <p class="sc-text-normal">{{data.channel}}</p>
           </div>
           <div class="case-list-detail--item-detail case-list-detail--content-center noneMobile" fxFlex="5%">
             <!-- <div class="center-product-list" *ngIf="typeProfile == 0"> -->

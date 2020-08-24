@@ -455,7 +455,7 @@
     "secure.orders.download_order_modal.sn_error_download_guide": "Se ha presentado un error al realizar la descarga de las guías.",
 
     "secure.orders.order_list.detail_modal.order_date": "Fecha de pedido",
-    "secure.orders.order_list.detail_modal.deadline": "Fecha maxima de entrega",
+    "secure.orders.order_list.detail_modal.deadline": "Fecha max. de entrega",
     "secure.orders.order_list.detail_modal.order_type": "Tipo de orden",
     "secure.orders.order_list.detail_modal.channel": "Canal",
 

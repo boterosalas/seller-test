@@ -1,5 +1,37 @@
 <div>
-  <div>Cabecera</div>
+  <div fxLayout="row" style="height: 62px;align-items: center; border-bottom: 1px #d3d3d3 solid;">
+    <div fxFlex="15" style="margin-right: 4px;"></div>
+    <div fxFlex="20" style="margin-right: 10px;">
+      <span style="font-weight: bold;font-size: 12px;color: #757474;">
+        {{'secure.orders.order' | translate}}
+      </span>
+    </div>
+    <div fxFlex="15" style="margin-right: 10px;">
+      <span style="font-weight: bold;font-size: 12px;color: #757474;">
+        {{'secure.orders.order_list.detail_modal.order_date' | translate}}
+      </span>
+    </div>
+    <div fxFlex="15" style="margin-right: 10px;">
+      <span style="font-weight: bold;font-size: 12px;color: #757474;">
+        {{'secure.orders.order_list.detail_modal.deadline' | translate}}
+      </span>
+    </div>
+    <div fxFlex="13">
+      <span style="font-weight: bold;font-size: 12px;color: #757474;">
+        {{'shared.status' | translate}}
+      </span>
+    </div>
+    <div fxFlex="9" style="margin-right: 10px;">
+      <span style="font-weight: bold;font-size: 12px;color: #757474;">
+        {{'secure.orders.order_list.detail_modal.channel' | translate}}
+      </span>
+    </div>
+    <div fxFlex="5" style="margin-right: 10px;">
+      <span style="font-weight: bold;font-size: 12px;color: #757474;">
+        {{'shared.actions' | translate}}
+      </span>
+    </div>
+  </div>
   <ng-container *ngFor="let item of items" >
     <ng-container [ngTemplateOutlet]="item.tpl"></ng-container>
   </ng-container>
