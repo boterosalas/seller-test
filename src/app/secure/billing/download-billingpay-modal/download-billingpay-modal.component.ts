@@ -48,8 +48,6 @@ export class DownloadBillingpayModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private languageService: TranslateService
   ) {
-    // Capturo el limite de registros indicados por el usuario
-    // this.limitLengthBillingpay = data.limit;
   }
 
   /**
