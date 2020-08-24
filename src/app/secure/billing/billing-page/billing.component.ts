@@ -178,6 +178,7 @@ export class BillingComponent implements OnInit, OnDestroy {
    * @memberof BillingComponent
    */
   clearForm() {
+    this.noData = false;
     this.callOne = true;
     this.keywords = [];
     this.myform.reset();
@@ -193,6 +194,7 @@ export class BillingComponent implements OnInit, OnDestroy {
    * @memberof BillingComponent
    */
   filterOrder() {
+    this.callOne = true;
     this.dataSource = null;
     // Formatear la fechas.
     const datePipe = new DatePipe(this.locale);
@@ -362,6 +364,7 @@ export class BillingComponent implements OnInit, OnDestroy {
         this.paginationToken = res['paginationToken'];
         // Creo el elemento que permite pintar la tabla
         if (res['viewModel']) {
+          this.noData = false;
           this.dataSource = new MatTableDataSource(res['viewModel']);
         } else {
           this.noData = true;

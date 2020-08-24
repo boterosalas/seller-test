@@ -179,6 +179,10 @@ $blue: #485AFA;
     opacity: 0.5;
     vertical-align: middle;
   }
+  &-icon-add-note-duplicate{
+    color: red;
+    vertical-align: middle;
+  }
 
   &-text-name-file{
     vertical-align: sub;
@@ -195,9 +199,11 @@ $blue: #485AFA;
   }
   &-icon-done-list{
     color:green;
+    vertical-align: middle;
   }
   &-icon-delete-list{
     color:red;
+    vertical-align: middle;
   }
   &-text-transform-uppercase{
     text-transform: uppercase 
