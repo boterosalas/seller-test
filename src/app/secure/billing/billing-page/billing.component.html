@@ -69,8 +69,8 @@
           <mat-icon>clear_all</mat-icon>
           {{'filters.clear' | translate}}
         </button>
-        <button id="apply-filter-button" [disabled]="!f.form.valid || !f.form.touched" class="sc-button" mat-raised-button color="primary"
-          type="button" (click)="drawer.toggle() && filterOrder()">
+        <button id="apply-filter-button" [disabled]="!f.form.valid || !f.form.touched" class="sc-button"
+          mat-raised-button color="primary" type="button" (click)="drawer.toggle() && filterOrder()">
           {{'actions.apply' | translate}}
         </button>
       </div>
@@ -84,16 +84,48 @@
     <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between stretch">
       <!-- Toolbar para los dropdown de filtro de estado para las órdenes -->
       <!-- Toolbar de las opciones para los pagos -->
-      <app-toolbar-search-pagination fxFlex="95%" #toolbarOptions (paginationListOrdens)="paginations($event)"
+      <app-toolbar-search-pagination fxFlex="87%" fxFlex.xs="100%" #toolbarOptions (paginationListOrdens)="paginations($event)"
         [billingType]="true" [Typeprofile]="typeProfile" [informationToForm]="informationToForm"
-        [downloadBillingPay]="true" [limitPaginate]="[50, 100, 200]" [lengthOrder]="length"
+        [downloadBillingPay]="false" [limitPaginate]="[50, 100, 200]" [lengthOrder]="length"
         (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)">
       </app-toolbar-search-pagination>
-      <div class="filterBilling" fxFlex="7%">
+      <div class="filterBilling" fxFlex="15%" fxShow.xs="false">
+        <button type="button" mat-button (click)="openModalDownloadBillPay()">
+          <mat-icon>file_download</mat-icon>
+          <small class="sub-title-filter">{{'actions.download' | translate}}</small>
+        </button>
         <button type="button" mat-button (click)="drawer.toggle()">
           <mat-icon>filter_list</mat-icon>
           <small class="sub-title-filter">{{'filters.filter' | translate}}</small>
         </button>
+      </div>
+      <div fxLayout="row" class="center-product-list-2" fxFlex="20px" fxShow.xs="true" fxShow.sm="true" fxShow.md="true"
+        fxShow.lg="false" fxShow.xl="false">
+        <button id="more-options-for-search-orden" class="margin-toolbar-aling" mat-icon-button
+          *ngIf="!billingType" [matMenuTriggerFor]="toolbarOptions">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #toolbarOptions="matMenu">
+          <div class="options-dropdwon">
+            <button id="close-more-options-for-search-orden" color="primary" mat-icon-button matSuffix>
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+          <button id="search-order-button" mat-menu-item (click)="drawer.toggle()">
+            <mat-icon>filter_list</mat-icon>
+            <span class="acction-text">{{'filters.filter' | translate}}</span>
+          </button>
+          <button [disabled]="orderListLength" class="acction-text" (click)="openModalDownloadBillPay()"
+            id="download-order-button" mat-menu-item>
+            <mat-icon>file_download</mat-icon>
+            <span>{{'actions.download' | translate}}</span>
+          </button>
+          <!-- <div class="options-dropdwon">
+            <button id="close-more-options-for-search-orden" color="primary" mat-button matSuffix>
+              Cerrar
+            </button>
+          </div> -->
+        </mat-menu>
       </div>
 
       <!-- Toolbar de las opciones para los pagos -->

@@ -49,7 +49,7 @@ export class DownloadBillingpayModalComponent implements OnInit {
     private languageService: TranslateService
   ) {
     // Capturo el limite de registros indicados por el usuario
-    this.limitLengthBillingpay = data.limit;
+    // this.limitLengthBillingpay = data.limit;
   }
 
   /**
@@ -96,8 +96,9 @@ export class DownloadBillingpayModalComponent implements OnInit {
   */
   downloadPay(form: any) {
     const email = form.get('email').value;
-    this.loadingService.viewSpinner();
-    this.billService.downloadBillingPay(email)
+    this.data.dataTosend.email = email;
+    const downloadBilling = this.data.dataTosend;
+    this.billService.downloadBillingPay(downloadBilling)
     .subscribe(
       res => {
         this.loadingService.closeSpinner();

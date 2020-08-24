@@ -41,7 +41,7 @@
       </mat-paginator>
       <div fxLayout="row" class="center-product-list" fxFlex="20px" fxShow.xs="true" fxShow.sm="true" fxShow.md="true"
         fxShow.lg="false" fxShow.xl="false">
-        <button id="more-options-for-search-orden" class="button-toolbar margin-toolbar-aling" mat-icon-button
+        <button id="more-options-for-search-orden" class="button-toolbar margin-toolbar-aling" mat-icon-button *ngIf="!billingType"
           [matMenuTriggerFor]="toolbarOptions">
           <mat-icon>more_vert</mat-icon>
         </button>

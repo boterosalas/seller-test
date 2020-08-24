@@ -17,6 +17,7 @@ import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { isEmpty } from 'lodash';
+import { DownloadBillingpayModalComponent } from '../download-billingpay-modal/download-billingpay-modal.component';
 
 // log component
 const log = new Logger('BillingComponent');
@@ -108,11 +109,14 @@ export class BillingComponent implements OnInit, OnDestroy {
   paramsArray: any;
   // variable que me dice si hay datos o no.
   noData: boolean;
+  paymentDateInitial: string;
+  paymentDateFinal: string;
 
   // Conceptos de facturación.
   public billingConcepts = Const.BILLING_CONCEPTS;
   // Método que permite crear la fila de detalle de la tabla
   isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
+
 
   /**
    * Creates an instance of BillingComponent.
@@ -200,20 +204,20 @@ export class BillingComponent implements OnInit, OnDestroy {
     const datePipe = new DatePipe(this.locale);
 
     // Formatear la fechas.
-    const paymentDateInitial = datePipe.transform(this.myform.controls.paymentDateInitial.value, 'yyyy/MM/dd');
-    const paymentDateFinal = datePipe.transform(this.myform.controls.paymentDateFinal.value, 'yyyy/MM/dd');
+    this.paymentDateInitial = datePipe.transform(this.myform.controls.paymentDateInitial.value, 'yyyy/MM/dd');
+    this.paymentDateFinal = datePipe.transform(this.myform.controls.paymentDateFinal.value, 'yyyy/MM/dd');
 
     // String que indicara los parametros de la consulta.
     let stringSearch = '';
     const objectSearch: any = {};
 
-    if (!isEmpty(paymentDateInitial) && !isEmpty(paymentDateFinal)) {
+    if (!isEmpty(this.paymentDateInitial) && !isEmpty(this.paymentDateFinal)) {
       // paymentDateInitial
-      stringSearch += `&paymentDateInitial=${paymentDateInitial}`;
-      objectSearch.paymentDateInitial = paymentDateInitial;
+      stringSearch += `&paymentDateInitial=${this.paymentDateInitial}`;
+      objectSearch.paymentDateInitial = this.paymentDateInitial;
       // paymentDateFinal
-      stringSearch += `&paymentDateFinal=${paymentDateFinal}`;
-      objectSearch.paymentDateFinal = paymentDateFinal;
+      stringSearch += `&paymentDateFinal=${this.paymentDateFinal}`;
+      objectSearch.paymentDateFinal = this.paymentDateFinal;
     }
 
     if (!isEmpty(this.myform.controls.billingNumber.value)) {
@@ -490,6 +494,25 @@ export class BillingComponent implements OnInit, OnDestroy {
       };
       this.callOne = true;
       this.getOrdersList(this.paramsArray);
+    });
+  }
+
+  openModalDownloadBillPay(): void {
+    const dataTosend = {
+      paymentDateInitial: this.paymentDateInitial,
+      paymentDateFinal: this.paymentDateFinal,
+      idSeller: this.idSeller,
+      billingNumber: this.myform.controls.billingNumber.value,
+      orderNumber: this.keywords.toString(),
+      email: null
+    };
+    const dialogRef = this.dialog.open(DownloadBillingpayModalComponent, {
+      data: {
+        dataTosend
+      },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      log.info('The modal detail billing was closed');
     });
   }
 
