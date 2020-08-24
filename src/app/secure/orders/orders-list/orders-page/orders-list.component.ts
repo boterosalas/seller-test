@@ -183,6 +183,7 @@ dataListOrder = [];
   private searchSubscription: any;
   public userCurrent: any;
   public isInternational = false;
+  public arrayPermission: any;
   currentLanguage: string;
   // Método que permite crear la fila de detalle de la tabla
   isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
@@ -336,6 +337,14 @@ changeLanguage() {
     this.attachmentPermission = this.getFunctionality(this.attachment);
     this.marketPermission = this.getFunctionality(this.market);
     this.visualizePermission = this.getFunctionality(this.visualizeFunctionality);
+    this.arrayPermission = {
+     read : this.readPermission,
+     download : this.downloadPermission,
+     send: this.sendPermission,
+     attachment: this.attachmentPermission,
+     market: this.marketPermission,
+     visualize: this.visualizePermission
+    };
   }
 
   /**
@@ -826,47 +835,6 @@ changeLanguage() {
     dialogRef.afterClosed().subscribe(result => {
       log.info('The modal OrderDetailModalComponent was closed');
     });
-  }
-
-  /**
-   * Método para marcar una orden y actualizar el registro mediante un servicio web
-   * @param {any} orderId
-   * @param {any} currentValue
-   * @memberof OrdersListComponent
-   */
-  recordProcesSedOrder(orderId: any, currentValue: any, idSeller: number) {
-
-    const closeSnack = this.languageService.instant('actions.close');
-    if (currentValue === true) {
-      currentValue = false;
-    } else {
-      currentValue = true;
-    }
-    const data = {
-      idOrder: orderId,
-      value: currentValue,
-      SellerId: idSeller
-    };
-    this.orderService.recordProcesSedOrder(data)
-      .subscribe((result: any) => {
-        if (result.status === 200) {
-          // encuentro el objeto de la orden en el array
-          const currentOrder = this.dataSource.data.find(x => x.id === orderId);
-          // obtengo el index donde se encuentra el objeto
-          const index = this.dataSource.data.indexOf(currentOrder);
-          // edito el valor del la variable processedOrder al valor mandado al servidor
-          this.dataSource.data[index].processedOrder = currentValue;
-
-          if (currentValue) {
-            const message = this.languageService.instant('secure.orders.order_list.order_page.successfully_mark');
-            this.componentService.openSnackBar(message, closeSnack, 10000);
-
-          } else {
-            const message = this.languageService.instant('secure.orders.order_list.order_page.successfully_remove_mark');
-            this.componentService.openSnackBar(message, closeSnack, 10000);
-          }
-        }
-      });
   }
 
   /**

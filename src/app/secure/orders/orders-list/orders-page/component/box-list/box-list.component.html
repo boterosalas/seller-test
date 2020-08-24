@@ -3,7 +3,7 @@
     <mat-expansion-panel [expanded]="isOpen" (opened)="opened.emit(data); this.panelOpenState = true; read = true; showDetail.emit(panelOpenState)"
       (closed)="panelOpenState = false; showDetail.emit(panelOpenState)">
       <mat-expansion-panel-header>
-        <div [ngClass]="read ? '' : 'bold-text'" class="case-list-detail" fxLayout fxLayout.xs="row"
+        <div class="case-list-detail" fxLayout fxLayout.xs="row"
           fxLayoutAlign="center center" fxLayoutGap="10px" fxLayoutGap.xs="0">
           <div class="case-list-detail--item-detail" fxFlex="3%" fxLayoutAlign="center center" class="no-select">
             <span [ngClass]="
@@ -43,7 +43,7 @@
           <div class="case-list-detail--item-detail noneMobile" fxFlex="15%" id="dpbox-case-date-{{index}}">
             <p class="sc-date-content-table">{{getDateWithOutGMT(data.dateMaxDeliveryOrder) | date}} </p>
           </div>
-          <div class="case-list-detail--item-detail noneMobile" fxFlex="10%" id="dpbox-case-status-{{index}}">
+          <div class="case-list-detail--item-detail noneMobile" style="font-size: 14px;" fxFlex="10%" id="dpbox-case-status-{{index}}">
             
             <div class="mat-icon-status-order">
 
@@ -98,7 +98,6 @@
             <p class="sc-text-normal">{{data.channel}}</p>
           </div>
           <div class="case-list-detail--item-detail case-list-detail--content-center noneMobile" fxFlex="5%">
-            <!-- <div class="center-product-list" *ngIf="typeProfile == 0"> -->
             <div class="center-product-list">
               <button id="dropdown-button-order-{{index}}" color="primary" (click)="stopPropagation($event)"
                 class="sc-button-toolbar no-button button-toolbar" mat-button [matMenuTriggerFor]="orderOptions">
@@ -117,12 +116,12 @@
                   <span>{{'actions.download_label' | translate}}</span>
                 </button>
                 <button id="add-billing-button-order-{{index}}" (click)="openLoadFile(data)" mat-menu-item
-                  [disabled]="data.billUrl" *ngIf="attachmentPermission">
+                  [disabled]="data.billUrl" *ngIf="arrayPermission.attachment">
                   <mat-icon>note_add</mat-icon>
                   <span>{{'actions.attach_invoice' | translate}}</span>
                 </button>
                 <button
-                  *ngIf="data.allowShipping == true && data.idStatusOrder == const.OrderAsignado && sendPermission"
+                  *ngIf="data.allowShipping == true && data.idStatusOrder == const.OrderAsignado && arrayPermission.send"
                   id="send-button-order-{{index}}" (click)="openDialogSendOrder(data)" mat-menu-item>
                   <mat-icon>local_shipping</mat-icon>
                   <span>{{'actions.send' | translate}}</span>

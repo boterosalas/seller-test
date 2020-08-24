@@ -13,7 +13,7 @@
     <ng-template [ngIf]="dataListOrder">
       <app-list-order [data]="dataListOrder" style="width: 100%;">
         <ng-container *itemDropDownList>
-         <app-box-list *ngFor="let item of dataListOrder; let i = index" [data]="item"></app-box-list>
+         <app-box-list *ngFor="let item of dataListOrder; let i = index" [data]="item" [isInternational]="isInternational" [arrayPermission]="arrayPermission"></app-box-list>
         </ng-container>
       </app-list-order>
     </ng-template>
