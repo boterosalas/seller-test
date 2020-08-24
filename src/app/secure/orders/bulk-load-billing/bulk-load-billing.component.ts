@@ -40,6 +40,7 @@ export class BulkLoadBillingComponent implements OnInit {
   arrayFilesErrors: any;
   arrayFilesBase64: any;
   sendableFormData: FormData;
+  messageErrorMaxSize = this.languageService.instant('secure.orders.bulk.billing.maximum_file_size_megabytes') + ' 3.000 ' + this.languageService.instant('secure.orders.bulk.billing.megabytes');
 
   public informationToForm: SearchFormEntity = {
     title: 'secure.orders.orders',

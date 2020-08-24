@@ -107,14 +107,14 @@
 
             <div fxFlex="75" class="cup-text-name-pdf bulk-load-billing-component-font-size-14" >
               <mat-icon *ngIf="!fileList.fileExist"  class="bulk-load-billing-component-icon-add-note">note_add</mat-icon> 
-              <mat-icon *ngIf="fileList.fileExist" class="bulk-load-billing-component-icon-add-note-duplicate" >cancel</mat-icon> 
+              <mat-icon *ngIf="fileList.fileExist" class="bulk-load-billing-component-icon-add-note-duplicate bulk-load-billing-component-cursor-Pointer" [matTooltip]="'secure.orders.bulk.billing.duplicate_name' | translate" >cancel</mat-icon> 
               <span class="bulk-load-billing-component-text-name-file" [matTooltip]="fileList.name"> {{fileList.name}}</span>
             </div>
             <div fxFlex="15"class="bulk-load-billing-component-container-size-file" >
               <span 
                 [ngClass]="fileList.refuse ? 'sizeRefuse bulk-load-billing-component-vertical-align-sub' : 'bulk-load-billing-component-vertical-align-sub'">{{fileList.size/1024/1024 | number:'.2'}} MB</span>
                 <mat-icon *ngIf="!fileList.refuse" class="mat-18 bulk-load-billing-component-icon-done-list" >done</mat-icon>
-                <mat-icon *ngIf="fileList.refuse" class="mat-18 bulk-load-billing-component-icon-delete-list bulk-load-billing-component-cursor-Pointer" 
+                <mat-icon *ngIf="fileList.refuse" [matTooltip]="messageErrorMaxSize" class="mat-18 bulk-load-billing-component-icon-delete-list bulk-load-billing-component-cursor-Pointer" 
                   >remove_circle_outline</mat-icon>
             </div>
             <div fxFlex="10">
