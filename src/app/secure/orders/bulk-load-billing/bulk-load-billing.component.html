@@ -33,22 +33,36 @@
               [class.invalid-drag]="validComboDrag===false" [class.valid-drag]="validComboDrag"
               (filesChange)="lastFileAt=getDate(); changeValue(files) ">
               <img src="../../../../../assets/img/upload_files.png" alt="upload">
-              <div class="bulk-load-billing-component-text-aling-center bulk-load-billing-component-container-width-100" *ngIf="files.length">
+              <div class="bulk-load-billing-component-text-aling-center bulk-load-billing-component-container-width-100" *ngIf="filesValidate.length">
                 <div><span>{{'secure.orders.bulk.billing.please_list_verique' | translate}}</span></div>
                 <div class="bulk-load-billing-component-font-size-14"><span><strong>{{'secure.orders.bulk.billing.once_the_single_charge' | translate}}</strong></span></div>
                 <div fxLayout="row" class="bulk-load-billing-component-margin-top-40">
                   <div fxFlex="50">
                     <mat-icon class="mat-18 bulk-load-billing-component-done-green">done</mat-icon> {{'secure.orders.bulk.billing.total_to_Save' | translate}}
-                    ({{filesValidate.length -  filesErrors}})
+                    ({{filesSuccess}})
                   </div>
                   <div fxFlex="50">
                     <mat-icon class="mat-18 bulk-load-billing-component-remove-red">remove_circle_outline</mat-icon>
                     {{'secure.orders.bulk.billing.total_error' | translate}} ({{filesErrors}})
                   </div>
                 </div>
+                <div fxLayout="row">
+                  <div fxFlex="100" class="bulk-load-billing-component-margin-top-15">
+                    <button mat-button  mat-raised-button color="primary">{{'shared.components.load_file.text3' | translate}}</button>
+                  </div>
+                </div>
+               
               </div>
-              <div *ngIf="!files.length && !lastInvalids?.length">{{'secure.orders.bulk.billing.you_or_navigate_your_files' | translate}} <span
-                   class="bulk-load-billing-component-color-here-blue"><strong>{{'secure.orders.bulk.billing.here' | translate}}</strong></span>{{'secure.orders.bulk.billing.to_your_files' | translate}} </div>
+              <div *ngIf="!filesValidate.length && !lastInvalids?.length">{{'secure.orders.bulk.billing.you_or_navigate_your_files' | translate}} <span
+                   class="bulk-load-billing-component-color-here-blue"><strong>{{'secure.orders.bulk.billing.here' | translate}}</strong></span>{{'secure.orders.bulk.billing.to_your_files' | translate}}
+              </div>
+              <div *ngIf="!filesValidate.length && !lastInvalids?.length">
+                <div fxLayout="row">
+                  <div fxFlex="100" class="bulk-load-billing-component-margin-top-15">
+                    <button mat-button  mat-raised-button color="primary">{{'shared.components.load_file.text3' | translate}}</button>
+                  </div>
+                </div>
+              </div>
             </div>
             <mat-progress-bar mode="indeterminate" *ngIf="showProgress"></mat-progress-bar>
           </div>
@@ -86,25 +100,26 @@
       </div>
       <div *ngIf="filesValidate.length > 0" class="bulk-load-billing-component-margin-top-30">
         <div class="bulk-load-billing-component-title-list-files">
-          <span class="bulk-load-billing-component-text-color-grey">{{'secure.orders.bulk.billing.it_have_files_upload' | translate}} ({{files.length}}) </span>
+          <span class="bulk-load-billing-component-text-color-grey">{{'secure.orders.bulk.billing.it_have_files_upload' | translate}} ({{filesValidate.length}}) </span>
         </div>
         <div class="container-load-files bulk-load-billing-component-container-width-100">
           <div fxLayout="row" class="bulk-load-billing-component-for-list-files" *ngFor='let fileList of filesValidate; let i = index'>
 
             <div fxFlex="75" class="cup-text-name-pdf bulk-load-billing-component-font-size-14" >
-              <mat-icon class="bulk-load-billing-component-icon-add-note">note_add</mat-icon> <span
-              class="bulk-load-billing-component-text-name-file" [matTooltip]="fileList.name"> {{fileList.name}}</span>
+              <mat-icon *ngIf="!fileList.fileExist"  class="bulk-load-billing-component-icon-add-note">note_add</mat-icon> 
+              <mat-icon *ngIf="fileList.fileExist" class="bulk-load-billing-component-icon-add-note-duplicate bulk-load-billing-component-cursor-Pointer" [matTooltip]="'secure.orders.bulk.billing.duplicate_name' | translate" >cancel</mat-icon> 
+              <span class="bulk-load-billing-component-text-name-file" [matTooltip]="fileList.name"> {{fileList.name}}</span>
             </div>
             <div fxFlex="15"class="bulk-load-billing-component-container-size-file" >
               <span 
                 [ngClass]="fileList.refuse ? 'sizeRefuse bulk-load-billing-component-vertical-align-sub' : 'bulk-load-billing-component-vertical-align-sub'">{{fileList.size/1024/1024 | number:'.2'}} MB</span>
+                <mat-icon *ngIf="!fileList.refuse" class="mat-18 bulk-load-billing-component-icon-done-list" >done</mat-icon>
+                <mat-icon *ngIf="fileList.refuse" [matTooltip]="messageErrorMaxSize" class="mat-18 bulk-load-billing-component-icon-delete-list bulk-load-billing-component-cursor-Pointer" 
+                  >remove_circle_outline</mat-icon>
             </div>
             <div fxFlex="10">
               <mat-icon class="mat-18 bulk-load-billing-component-text-color-grey  bulk-load-billing-component-cursor-Pointer" 
                 [matTooltip]="'permissions.Eliminar' | translate" (click)="deleteFile(i, fileList)">delete</mat-icon>
-              <mat-icon *ngIf="!fileList.refuse" class="mat-18 bulk-load-billing-component-icon-done-list" >done</mat-icon>
-              <mat-icon *ngIf="fileList.refuse" class="mat-18 bulk-load-billing-component-icon-delete-list bulk-load-billing-component-cursor-Pointer" 
-                matTooltip="Peso maximo permitido 3 MB">remove_circle_outline</mat-icon>
             </div>
           </div>
         </div>
