@@ -264,6 +264,25 @@
           </td>
         </ng-container>
 
+         <!-- SellerSku Column -->
+         <ng-container matColumnDef="SellerSku">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>error ean combo
+              </p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorSellerSku == true }" *matCellDef="let element">
+            <div class="information" *ngIf="element.SellerSku != undefined && element.SellerSku != ''">
+              <p class="sc-text-normal">{{element.SellerSku}}</p>
+            </div>
+            <div class="information" *ngIf="element.SellerSku == undefined || element.SellerSku == ''">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
+
 
         <!-- Cantidad en combo Column -->
         <ng-container matColumnDef="ComboQuantity">
