@@ -90,6 +90,7 @@ export class BillingComponent implements OnInit, OnDestroy {
   idSeller: any;
   nameSeller: string;
   onlyOne: boolean;
+  billingType: any;
 
   // seller que se obtiene del buscador
   sellerIdSearch: any;
