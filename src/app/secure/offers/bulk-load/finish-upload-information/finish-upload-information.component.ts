@@ -82,7 +82,7 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
             }
             this.Success = false;
             this.inProcess = false;
-            
+
             this.countError = this.listErrorStatus.length;
             this.processFinish$.next(res);
           }
@@ -122,8 +122,9 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
       };
     });
   }
+
   /**
-   * funcion para mapear la respuesta del servidor 
+   * funcion para mapear la respuesta del servidor
    *
    * @param {any[]} items
    * @returns {any[]}
@@ -132,8 +133,8 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
   mapItemsLoadGuide(items: any[]): any[] {
     return items.map(x => {
       return {
-        Sku:  x.Sku,
-        Message:  x.Message
+        Sku: x.Sku,
+        Message: x.Message
       };
     });
   }
@@ -204,19 +205,19 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
     });
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
   }
-/**
- * validar si sale el boton y no
- *
- * @param {*} list
- * @returns
- * @memberof FinishUploadInformationComponent
- */
-typeErrorShowButton(list: any) {
+  /**
+   * validar si sale el boton y no
+   *
+   * @param {*} list
+   * @returns
+   * @memberof FinishUploadInformationComponent
+   */
+  typeErrorShowButton(list: any) {
     let countPex = 0;
     if (list && list.length > 0) {
       list.forEach(element => {
         if (element.Code === 'PEX') {
-          countPex ++;
+          countPex++;
         }
       });
     }

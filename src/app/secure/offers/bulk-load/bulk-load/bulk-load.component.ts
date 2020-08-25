@@ -448,6 +448,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             iDaneCode: this.validateSubTitle(this.arrayNecessaryData, 'Picking City', 'Ciudad de Recogida', 'Ville de collecte'),
             iSellerSku: this.validateSubTitle(this.arrayNecessaryData, 'Seller SKU', 'SKU Vendedor', 'Vendeur SKU')
           };
+          console.log('ival: ', iVal);
           if (this.arrayNecessaryData.length > this.limitRowExcel) {
             this.loadingService.closeSpinner();
             this.componentService
