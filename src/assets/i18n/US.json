@@ -781,6 +781,7 @@
     "secure.offers.bulk_upload.table_error.address": "The Picking Address may not have over 30 characters.",
     "secure.offers.bulk_upload.table_error.dane_code": "The code entered is invalid.",
     "secure.offers.bulk_upload.table_error.periodicity": "The periodicity is invalid.",
+    "secure.offers.bulk_upload.table_error.sellerSku": "Seller SKU is invalid.",
 
     "secure.offers.bulk_upload.table_load.title_offer_charge": "Upload the offers again",
     "secure.offers.bulk_upload.table_load.ean_combo": "EAN Combo",
@@ -788,7 +789,7 @@
     "secure.offers.bulk_upload.table_load.address": "Picking Address",
     "secure.offers.bulk_upload.table_load.dane_code": "Picking City",
     "secure.offers.bulk_upload.table_load.Periodicity": "Periodicity",
-
+    "secure.offers.bulk_upload.table_load.sellerSku": "Seller SKU",
 
     "secure.offers.cities_coverage.title": "Cities Availiable for Dispatch",
     "secure.offers.cities_coverage.get_error": "There was an error trying to get the cities. Try again later.",

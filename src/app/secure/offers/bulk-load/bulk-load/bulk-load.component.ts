@@ -677,6 +677,25 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
                   this.listLog.push(itemLog);
                   errorInCell = true;
                 }
+              } else if (j === iVal.iSellerSku) {
+                const isSellerSku = this.validFormat(res[i][j], 'atleastonealphanumeric');
+                if (!isSellerSku && isSellerSku === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'InvalidSellerSku',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: j === iVal.iSellerSku ? 'SellerSku' : null
+                  };
+
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
 
               } else if (j === iVal.iGarantia) {
                 const iGarantia = this.validFormat(res[i][j], 'greaterWarranty');
@@ -1191,6 +1210,13 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             valueReturn = false;
           }
           break;
+        case 'atleastonealphanumeric':
+          if ((inputtxt.match(this.offertRegex.atleastonealphanumeric))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
       }
     }
     return valueReturn;
@@ -1258,28 +1284,28 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
   /* Massive offer load Internacional lenguaje FRANCES*/
   downloadFormatMassiveOfferLoadInternational_FR(culture: any) {
     if (culture === 'FR') {
-    const emptyFile = [{
-      'EAN': undefined,
-      'Stock': undefined,
-      'Prix': undefined,
-      'Prix réduit': undefined,
-      'Coût moyen d\'envoie': undefined,
-      'Temps de livraison': undefined,
-      'Livraison gratuite': undefined,
-      'Indicateur d\'expédition Éxito': undefined,
-      'Mise à Jour du Stock': undefined,
-      'Cotation du fret': undefined,
-      'Garantie': undefined,
-      'Ean combo': undefined,
-      'Bundle stock': undefined,
-      'Type de monnaie': undefined,
-      'Adresse de collecte': undefined,
-      'Collection City': undefined,
-    }];
-    log.info(emptyFile);
-    this.exportAsExcelFile(emptyFile, 'Offrir le format de téléchargement');
+      const emptyFile = [{
+        'EAN': undefined,
+        'Stock': undefined,
+        'Prix': undefined,
+        'Prix réduit': undefined,
+        'Coût moyen d\'envoie': undefined,
+        'Temps de livraison': undefined,
+        'Livraison gratuite': undefined,
+        'Indicateur d\'expédition Éxito': undefined,
+        'Mise à Jour du Stock': undefined,
+        'Cotation du fret': undefined,
+        'Garantie': undefined,
+        'Ean combo': undefined,
+        'Bundle stock': undefined,
+        'Type de monnaie': undefined,
+        'Adresse de collecte': undefined,
+        'Collection City': undefined,
+      }];
+      log.info(emptyFile);
+      this.exportAsExcelFile(emptyFile, 'Offrir le format de téléchargement');
+    }
   }
-}
 
   /**
    * Método que genera el dato json en el formato que emplea excel para.

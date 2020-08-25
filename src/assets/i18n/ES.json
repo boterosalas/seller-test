@@ -787,6 +787,7 @@
     "secure.offers.bulk_upload.table_error.address": "La Dirección de Recogida no puede tener mas de 30 caracteres.",
     "secure.offers.bulk_upload.table_error.dane_code": "El código DANE ingresado es inválido.",
     "secure.offers.bulk_upload.table_error.periodicity": "La periodicidad ingresada es inválida.",
+    "secure.offers.bulk_upload.table_error.sellerSku": "El vendedor SKU es inválido.",
 
     "secure.offers.bulk_upload.table_load.title_offer_charge": "Vuelve a cargar todas las ofertas",
     "secure.offers.bulk_upload.table_load.ean_combo": "Ean Combo",
@@ -794,6 +795,7 @@
     "secure.offers.bulk_upload.table_load.address": "Dirección de Recogida",
     "secure.offers.bulk_upload.table_load.dane_code": "Ciudad de Recogida",
     "secure.offers.bulk_upload.table_load.Periodicity": "Periodicidad",
+    "secure.offers.bulk_upload.table_load.sellerSku": "SKU vendedor",
 
     "secure.offers.cities_coverage.title": "Ciudades disponibles para despacho",
     "secure.offers.cities_coverage.get_error": "Se produjo un error al tratar de obtener las ciudades. Intentalo nuevamente.",
