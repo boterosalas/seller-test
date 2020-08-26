@@ -4,12 +4,13 @@
       (closed)="panelOpenState = false; showDetail.emit(panelOpenState)">
       <mat-expansion-panel-header>
         <div class="case-list-detail" fxLayout fxLayout.xs="row"
-          fxLayoutAlign="center center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+        style="align-items: center;" fxLayoutGap="10px" fxLayoutGap.xs="0">
+          <div fxFlex="3%"></div>
           <div class="case-list-detail--item-detail" fxFlex="3%" fxLayoutAlign="center center" class="no-select">
             <span [ngClass]="
                 !panelOpenState
                   ? 'item-detail-arrow'
-                  : 'item-detail-arrow--active'
+                  : 'item-detail-arrow--active arrow-active'
               ">
               <mat-icon>keyboard_arrow_up</mat-icon>
             </span>
@@ -97,18 +98,14 @@
           <div class="case-list-detail--item-detail case-list-detail--content-center" fxFlex="10%">
             <p class="sc-text-normal">{{data.channel}}</p>
           </div>
-          <div class="case-list-detail--item-detail case-list-detail--content-center noneMobile" fxFlex="5%">
-            <div class="center-product-list">
+          <div class="case-list-detail--item-detail case-list-detail--content-center noneMobile" fxFlex="10%">
+            <div class="center-product-list content-table-orders">
               <button id="dropdown-button-order-{{index}}" color="primary" (click)="stopPropagation($event)"
                 class="sc-button-toolbar no-button button-toolbar" mat-button [matMenuTriggerFor]="orderOptions">
                 <mat-icon matPrefix>arrow_drop_down</mat-icon>
                 <span>{{'shared.actions' | translate}}</span>
               </button>
               <mat-menu #orderOptions="matMenu">
-                <button id="print-rot-order-{{index}}" mat-menu-item>
-                  <mat-icon>description</mat-icon>
-                  <span>{{'actions.print_receipt' | translate}}</span>
-                </button>
                 <button id="print-rot-button-order-{{index}}"
                   *ngIf="isInternational && data.statusOrder == const.NameOrderAsignado"
                   (click)="downloadLabel(data)" mat-menu-item>
@@ -117,7 +114,7 @@
                 </button>
                 <button id="add-billing-button-order-{{index}}" (click)="openLoadFile(data)" mat-menu-item
                   [disabled]="data.billUrl" *ngIf="arrayPermission.attachment">
-                  <mat-icon>note_add</mat-icon>
+                  <mat-icon [class]="data.billUrl ?'mat-icon material-icons disable-btn-send' : 'mat-icon status-green material-icons '">note_add</mat-icon>
                   <span>{{'actions.attach_invoice' | translate}}</span>
                 </button>
                 <button

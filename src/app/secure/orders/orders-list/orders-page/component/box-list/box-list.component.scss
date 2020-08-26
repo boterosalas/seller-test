@@ -3,6 +3,7 @@ $accent-color: #485afa;
 $title-color: black;
 $hint-color: #9e9e9e;
 $line-color: #d3d3d3;
+$color-gray1:#909090;
 
 .item-detail-arrow {
   transform: rotate(180deg);
@@ -81,4 +82,31 @@ $line-color: #d3d3d3;
 
 .sc-text-bold-order{
   font-size: 14px;
+}
+
+.arrow-active{
+  color: $accent-color
+}
+
+.content-table-orders{
+  .mat-icon.mat-primary{
+    color:$color-gray1;
+  }
+
+
+  .sc-date-content-table{
+    color:$color-gray1;
+    font-size: 14px;
+  }
+
+  .sc-status-order-table .status-orange, .sc-status-order-table .status-green{
+    padding-right: 5px;
+  }
+
+  .title-table-header{
+    color: #757474
+  }
+
+
+
 }

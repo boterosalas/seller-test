@@ -487,7 +487,9 @@
     "secure.orders.order_list.product_order.fulfillment": "fulfillment",
     "secure.orders.order_list.product_order.ref": "Ref",
     "secure.orders.order_list.product_order.sku": "SKU",
+    "secure.orders.order_list.product_order.sku_seller": "SKU vendedor",
     "secure.orders.order_list.product_order.total": "Total",
+    "secure.orders.order_list.product_order.see_total_records_download": "Visualiza todos tus pedidos descargando tu reporte de órdenes",
 
     "secure.orders.order_list.send_order.title_order": "Enviar órden",
     "secure.orders.order_list.send_order.no_send_products": "La orden no posee mas productos para ser enviados.",

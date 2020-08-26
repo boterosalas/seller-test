@@ -389,6 +389,7 @@ changeLanguage() {
   getOrdersListSinceFilterSearchOrder() {
     this.subFilterOrder = this.shellComponent.eventEmitterOrders.filterOrderList.subscribe(
       (data: any) => {
+        console.log(data);
         if (data && data.data.count > 0) {
           if (data != null) {
             if (data && data.data && data.data.viewModel && data.data.viewModel.length === 0) {
@@ -396,30 +397,34 @@ changeLanguage() {
             } else {
               this.orderListLength = false;
             }
-            if (this.dataSource && this.dataSource.data && this.dataSource.data.length > 0) {
-              this.numberElements = this.dataSource.data.length;
+            if (this.dataListOrder && this.dataListOrder && this.dataListOrder.length > 0) {
+              this.numberElements = this.dataListOrder.length;
             } else {
               this.numberElements = 0;
             }
             this.length = data.data.count;
             this.isClear = true;
             this.dataSource = new MatTableDataSource(data.data.viewModel);
+            this.dataListOrder = data.data.viewModel;
             const paginator = this.toolbarOption.getPaginator();
             paginator.pageIndex = 0;
             this.dataSource.paginator = paginator;
             this.dataSource.sort = this.sort;
             this.setTitleToolbar();
+            this.loadingService.closeSpinner();
           }
         } else {
           this.orderListLength = true;
           this.length = 0;
           this.isClear = true;
           this.dataSource = new MatTableDataSource();
+          this.dataListOrder = [];
           const paginator = this.toolbarOption.getPaginator();
           paginator.pageIndex = 0;
           this.dataSource.paginator = paginator;
           this.dataSource.sort = this.sort;
           this.setTitleToolbar();
+          this.loadingService.closeSpinner();
         }
 
         if (data && data.filter) {
@@ -579,7 +584,7 @@ changeLanguage() {
             }
             const paginator = { 'pageIndex': 0 };
             this.addCheckOptionInProduct(res.data.viewModel, paginator);
-            this.loadingService.closeSpinner();
+           
           }
         }
       }
@@ -629,8 +634,13 @@ changeLanguage() {
         this.arrayPosition.push('{}');
       }
       this.dataSource = new MatTableDataSource(res.data.viewModel);
+      //borrar por si lo hace el back
+      res.data.viewModel.forEach(element => {
+        element.statusLoad = false;
+      });
       this.dataListOrder = res.data.viewModel;
       this.savePaginationToken(res.data.paginationToken);
+      this.loadingService.closeSpinner();
     } else {
       this.clearTable();
     }
@@ -883,6 +893,14 @@ changeLanguage() {
         this.languageService.instant('actions.close'), 4000);
       log.error(error);
     });
+  }
+
+  isOpened(data:  any) {
+  }
+
+  consultDetails($event: any, item: any) {
+    console.log($event);
+    item.statusLoad = true;
   }
 
   /**
