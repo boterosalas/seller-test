@@ -33,6 +33,14 @@
       <mat-hint></mat-hint>
       <mat-error *ngIf="filterForm.get('pluVtex').hasError('pattern')">{{'errors.invalid_plu' | translate}}</mat-error>
     </mat-form-field>
+    <!-- Campo nuevo SellerSKU -->
+    <mat-form-field>
+      <input matInput 
+        [placeholder]="'secure.offers.bulk_upload.table_load.sellerSku' | translate" formControlName="sellerSku"
+        [errorStateMatcher]="matcher">
+      <mat-hint></mat-hint>
+      <!-- <mat-error *ngIf="filterForm.get('sellerSku').hasError('pattern')">{{'secure.offers.bulk_upload.table_error.sellerSku | translate}}</mat-error> -->
+    </mat-form-field>
 
     <article class="container-radio-buttons flexbox align-center justify-between">
       <div class="inputGroup flexbox align-center justify-center">
@@ -50,7 +58,7 @@
       <button mat-stroked-button color="primary" type="button" (click)="cleanFilter()"
         [innerHTML]="['filters.clear' | translate]">{{'filters.clear' | translate}}</button>
       <button mat-flat-button color="primary" type="submit" [innerHTML]="['filters.filter' | translate]"
-        [disabled]="!filterOffers.form.valid || (!product.value && !ean.value && !stock.value && !pluVtex.value)">{{'filters.filter' | translate}}</button>
+        [disabled]="!filterOffers.form.valid || (!product.value && !ean.value && !stock.value && !pluVtex.value && !sellerSku.value)">{{'filters.filter' | translate}}</button>
     </article>
 
   </form>

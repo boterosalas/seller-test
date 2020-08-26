@@ -219,6 +219,7 @@ export class ListAdminComponent implements OnInit {
     this.paramData.ean = params.ean !== undefined && params.ean !== null ? params.ean.trim() : params.ean;
     this.paramData.pluVtex = params.pluVtex !== undefined && params.pluVtex !== null ? params.pluVtex.trim() : params.pluVtex;
     this.paramData.stock = params.stock;
+    this.paramData.sellerSku = params.sellerSku;
     this.paramData.currentPage = this.currentPage;
     this.getListAdminOffers(this.paramData);
     this.sidenav.toggle();
@@ -241,13 +242,16 @@ export class ListAdminComponent implements OnInit {
       case 'filterPluVtex':
         this.paramData.pluVtex = undefined;
         break;
+      case 'filterSellerSku':
+        this.paramData.sellerSku = undefined;
+        break;
       case 'filterStock':
         this.paramData.stock = undefined;
         break;
     }
     this.filterRemove = filter;
 
-    if (this.paramData.product === undefined && this.paramData.ean === undefined && this.paramData.stock === undefined && this.paramData.pluVtex === undefined) {
+    if (this.paramData.product === undefined && this.paramData.ean === undefined && this.paramData.stock === undefined && this.paramData.pluVtex === undefined && this.paramData.sellerSku === undefined) {
       this.filterActive = false;
     }
     this.getListAdminOffers(this.paramData);
@@ -291,6 +295,7 @@ export class ListAdminComponent implements OnInit {
     this.paramData.stock = null;
     this.paramData.product = null;
     this.paramData.pluVtex = null;
+    this.paramData.sellerSku = null;
     this.filterOffers(this.paramData);
     // this.getListOffers(this.paramData);
   }

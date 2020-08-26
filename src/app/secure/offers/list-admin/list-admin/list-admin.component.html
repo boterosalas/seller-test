@@ -34,6 +34,14 @@
          </span>
        </div>
 
+       <div class="filter-desc flexbox align-center justify-between"
+         *ngIf="paramData.sellerSku && paramData.sellerSku !== null && paramData.sellerSku !== undefined && paramData.sellerSku !== ''">
+         <span [innerHTML]="paramData.sellerSku"></span>
+         <span class="icon flexbox align-center justify-center" (click)="removeFilter('filterSellerSku')">
+           <mat-icon>add_circle</mat-icon>
+         </span>
+       </div>
+
       <div class="filter-desc flexbox align-center justify-between"
         *ngIf="paramData.stock && paramData.stock !== null && paramData.stock !== undefined && paramData.stock !== ''">
         <span [innerHTML]="paramData.stock == '1' ? ['secure.offers.list.list.with_stock' | translate] : paramData.stock == 0 ? ['secure.offers.list.list.with_out_stock' | translate] : '' "></span>

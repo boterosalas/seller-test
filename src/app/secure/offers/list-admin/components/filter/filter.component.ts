@@ -65,6 +65,7 @@ export class FilterComponent implements OnInit, OnChanges {
     public ean: FormControl;
     public pluVtex: FormControl;
     public stock: FormControl;
+    public sellerSku: FormControl;
     public matcher: MyErrorStateMatcher;
     public regexNoSpaces = /^((?! \s+|\s+$).)*$/;
     public regexOnlyNumber = /^[0-9]*$/;
@@ -74,6 +75,7 @@ export class FilterComponent implements OnInit, OnChanges {
     productList: any;
     stockList: any;
     pluVtexList: any;
+    sellerSkuList: any;
 
     /**
      * Creates an instance of FilterComponent.
@@ -111,6 +113,9 @@ export class FilterComponent implements OnInit, OnChanges {
             case 'filterPluVtex':
                 this.pluVtex.setValue(undefined);
                 break;
+            case 'filterSellerSku':
+                this.sellerSku.setValue(undefined);
+                break;
             case 'filterStock':
                 this.stock.setValue(undefined);
                 break;
@@ -130,6 +135,7 @@ export class FilterComponent implements OnInit, OnChanges {
         this.ean = new FormControl('', [Validators.pattern(this.regexNoSpaces)]);
         this.pluVtex = new FormControl('', [Validators.pattern(this.regexOnlyNumber)]);
         this.stock = new FormControl('', []);
+        this.sellerSku = new FormControl('', []);
         this.matcher = new MyErrorStateMatcher();
     }
 
@@ -143,7 +149,8 @@ export class FilterComponent implements OnInit, OnChanges {
             product: this.product,
             ean: this.ean,
             stock: this.stock,
-            pluVtex: this.pluVtex
+            pluVtex: this.pluVtex,
+            sellerSku: this.sellerSku
         });
     }
 
@@ -185,6 +192,7 @@ export class FilterComponent implements OnInit, OnChanges {
         this.stockList = null;
         this.pluVtexList = null;
         this.listFilterOfferts = [];
+        this.sellerSkuList = null;
     }
 
 }
