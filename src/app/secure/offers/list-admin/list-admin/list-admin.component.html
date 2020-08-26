@@ -6,6 +6,7 @@
 
     <aside class="filters flexbox flex-wrap align-center" *ngIf="filterActive && ((paramData.product && paramData.product !== null && paramData.product !== undefined && paramData.product !== '') ||
       (paramData.ean && paramData.ean !== null && paramData.ean !== undefined && paramData.ean !== '') ||
+      (paramData.sellerSku && paramData.sellerSku !== null && paramData.sellerSku !== undefined && paramData.sellerSku !== '') ||
       (paramData.stock && paramData.stock !== null && paramData.stock !== undefined && paramData.stock !== ''))">
       <span class="filter-tittle">{{'secure.offers.list.list.filter_answer' | translate}}</span>
       <!-- <span class="filter-tittle" [innerHTML]="'Resultado de filtro: '"></span> -->
