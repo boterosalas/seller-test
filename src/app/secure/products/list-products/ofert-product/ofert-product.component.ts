@@ -52,7 +52,8 @@ export class OfertExpandedProductComponent implements OnInit {
     offertRegex = {
         formatNumber: '',
         promiseDelivery: '',
-        price: ''
+        price: '',
+        sellerSku: ''
     };
 
     dataUpdateOffer = {
@@ -123,26 +124,20 @@ export class OfertExpandedProductComponent implements OnInit {
                 Validators.required,
                 Validators.pattern(this.offertRegex.formatNumber)
             ]),
+            SellerSku: new FormControl('', [
+                Validators.required,
+                Validators.pattern(this.offertRegex.sellerSku)
+            ]),
             ofertOption: new FormControl(''),
             IsUpdatedStock: new FormControl(''),
-            Combos: this.fb.array([]), /*
-            ofertPriceComponet: new FormControl('', [Validators.required,
-                Validators.pattern(this.formatNumber)]),
-            ComboQuantity: new FormControl('', [Validators.required,
-                Validators.pattern(this.formatNumber)]),*/
+            Combos: this.fb.array([]),
             Currency: new FormControl('')
         });
 
-        // Borrar esta linea, para Internacional
-        // this.ofertProduct.get('Currency').disable();
-
         this.matcher = new MyErrorStateMatcher();
-        // tslint:disable-next-line:no-shadowed-variable
         this.applyOffer.eanesCombos.forEach((element: any) => {
             this.addItem(element.nameCombo, element.ean);
         });
-        // this.ofertProduct.controls.IsUpdatedStock.disable();
-        // this.disableUpdate();
         this.ofertProduct.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
             this.changeTypeCurrency(val);
             if (val === 'USD' && this.authService.completeUserData.country !== 'Colombia') {
@@ -358,7 +353,8 @@ export class OfertExpandedProductComponent implements OnInit {
                 IsFreeShipping: null,
                 IsFreightCalculator: null,
                 PromiseDelivery: null,
-                IsLogisticsExito: 0
+                IsLogisticsExito: 0,
+                SellerSku: null
             });
         });
         return result;
@@ -378,9 +374,6 @@ export class OfertExpandedProductComponent implements OnInit {
                 this.convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
                 this.validateNumberOrder = Number(promiseSplited[2]) > Number(promiseSplited[0]);
                 if (this.validateNumberOrder !== true) {
-                    // this.snackBar.open('El primer número no debe ser mayor al segundo en la Promesa de Entrega.', 'Cerrar', {
-                    //     duration: 5000,
-                    // });
                     this.ofertProduct.controls.PromiseDelivery.setErrors({ 'startIsGreaterThanEnd': true });
                 }
             }
@@ -418,7 +411,6 @@ export class OfertExpandedProductComponent implements OnInit {
             Price: this.ofertProduct.controls.Price.value,
             DiscountPrice: this.ofertProduct.controls.DiscountPrice.value,
             AverageFreightCost: this.ofertProduct.controls.IsFreightCalculator.value,
-            // PromiseDelivery: this.ofertProduct.controls.PromiseDelivery.value,
             PromiseDelivery: this.convertPromise,
             Warranty: this.ofertProduct.controls.Warranty.value,
             IsFreeShipping: this.ofertProduct.controls.ofertOption.value === 'IsFreeShipping' ? '1' : '0',
@@ -427,8 +419,7 @@ export class OfertExpandedProductComponent implements OnInit {
             IsLogisticsExito: this.ofertProduct.controls.ofertOption.value === 'IsLogisticsExito' ? '1' : '0',
             IsUpdatedStock: this.ofertProduct.controls.IsUpdatedStock.value === true ? '1' : '0',
             Periodicity: this.ofertProduct.controls.Periodicity.value,
-            // ComboQuantity: this.Combos.controls.ComboQuantity.value,
-            // EanCombo: this.ofertProduct.controls.EanCombo.value,
+            SellerSku: this.ofertProduct.controls.SellerSku.value,
             Currency: this.ofertProduct.controls.Currency.value,
         };
         let aryOfAry = [data];
@@ -442,13 +433,6 @@ export class OfertExpandedProductComponent implements OnInit {
         this.bulkLoadService.setOffersProducts(this.dataUpdateOffer).subscribe(
             (result: any) => {
                 if (result.status === 200 || result.status === 201) {
-                    // this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.offer_has_been_correctly'), this.languageService.instant('actions.close'), {
-                    //     duration: 5000,
-                    // });
-
-                    // Le dice al servicio que cambie la variable, para que aquel que este suscrito, lo cambie.
-                    // window.location.reload();
-
                     if (result.body.data.error > 0) {
                         if (result.body.data.offerNotifyViewModels) {
                             const errorRule = result.body.data.offerNotifyViewModels;
@@ -464,16 +448,15 @@ export class OfertExpandedProductComponent implements OnInit {
                         });
                         this.loadingService.closeSpinner();
                         this.listService.changeEmitter();
+                        console.log('here antes');
                         window.location.reload();
+                        console.log('here dsps');
                     }
-                    // window.location.reload();
                 } else {
                     log.error(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.error_trying_apply_offer'));
                     this.modalService.showModal('errorService');
                 }
                 this.loadingService.closeSpinner();
-                // window.location.reload();
-
             }, error => {
                 this.loadingService.closeSpinner();
                 window.location.reload();
@@ -497,7 +480,6 @@ export class OfertExpandedProductComponent implements OnInit {
             });
         } else {
             this.showButton = false;
-            // this.sendDataToService();
         }
     }
 
@@ -514,6 +496,7 @@ export class OfertExpandedProductComponent implements OnInit {
         this.ofertProduct.controls.Periodicity.reset();
         this.ofertProduct.controls.IsFreightCalculator.reset();
         this.ofertProduct.controls.Warranty.reset();
+        this.ofertProduct.controls.SellerSku.reset();
         this.ofertProduct.controls.ofertOption.reset();
         this.ofertProduct.controls.IsUpdatedStock.reset();
         if (this.applyOffer.eanesCombos.length !== 0) {
@@ -575,13 +558,14 @@ export class OfertExpandedProductComponent implements OnInit {
     public validateFormSupport(): void {
         this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
             let dataOffertRegex = JSON.parse(res.body.body);
-            dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'ofertas');
+            dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'ofertas' || data.Module === 'transversal');
             for (const val in this.offertRegex) {
                 if (!!val) {
                     const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
                     this.offertRegex[val] = element && `${element.Value}`;
                 }
             }
+            console.log(this.offertRegex);
             this.createFormControls();
         });
     }
