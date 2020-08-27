@@ -63,7 +63,7 @@
       <div class="center-product-list" *ngIf="Typeprofile === 0">
         <mat-checkbox id="check-product-detail-{{index}}" class="sc-check-personal"
           *ngIf="order.allowShipping == true && product.idStatusProduct == const.ProductAsignado"
-          [disabled]="product.tracking != null" (change)="validateCheckProductForSendAll(order)"
+          [disabled]="product.tracking != null" (change)="validateCheckProductForSendAll(product, order)"
           [(ngModel)]="product.checkProductToSend"></mat-checkbox>
       </div>
     </div>
@@ -165,17 +165,14 @@
         <span>{{'shared.actions' | translate}}</span>
       </button>
       <mat-menu #orderOptions="matMenu">
-        {{product.idStatusProduct }}
-        {{order.allowShipping}}
-        {{const.ProductAsignado}}
         <button id="send-product-inDetail-{{index}}"
-          [disabled]="order.allowShipping == false && product.idStatusProduct !== const.ProductAsignado"
+          *ngIf="order.allowShipping == true && product.idStatusProduct == const.ProductAsignado"
           (click)="openDialogSendOrder(order,true)" mat-menu-item>
-          <mat-icon [class]="order.allowShipping == true && product.idStatusProduct == const.ProductAsignado ?'mat-icon material-icons disable-btn-send' : 'mat-icon status-green material-icons '">local_shipping</mat-icon>
+          <mat-icon >local_shipping</mat-icon>
           <span>{{'actions.send' | translate}}</span>
         </button>
         <button id="dropdown-product-viewDetail-{{index}}" (click)="openModalDetailProduct(product)" fxShow.xs="true"
-          fxShow.sm="true" fxShow.gt-lg="false" fxShow="false" mat-menu-item>
+          fxShow.sm="true" fxShow.gt-lg="false" mat-menu-item>
           <mat-icon>more_vert</mat-icon>
           <span>{{'actions.show_detail' | translate}}</span>
         </button>
