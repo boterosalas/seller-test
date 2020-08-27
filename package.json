@@ -103,7 +103,7 @@
     "@types/hammerjs": "^2.0.35",
     "@types/jasmine": "~2.8.6",
     "@types/jasminewd2": "~2.0.3",
-    "@types/lodash": "^4.14.116",
+    "@types/lodash": "4.14.159",
     "@types/node": "~8.9.4",
     "@types/pdfjs-dist": "0.1.2",
     "@types/selenium-webdriver": "2.44.26",
