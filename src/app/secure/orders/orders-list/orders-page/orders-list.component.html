@@ -15,7 +15,7 @@
         <ng-container *itemDropDownList>
           <app-box-list *ngFor="let item of dataListOrder; let i = index" [data]="item"
             [isInternational]="isInternational" [arrayPermission]="arrayPermission" (opened)="isOpened($event)"
-            (showDetail)="consultDetails($event, item)" [user]="user">
+            (showDetail)="consultDetails($event, item)" [user]="user" [typeProfile]="typeProfile">
             <ng-container *appContentDropDownDetailOrderDirective>
               <div *ngIf="item.statusLoad" class="content-detail-order content-table-orders">
                 <app-client-information [order]="item" [isInternational]="isInternational"></app-client-information>
@@ -24,6 +24,20 @@
               </div>
             </ng-container>
           </app-box-list>
+          <div [@detailExpand] class="orders-no-data" *ngIf="orderListLength && typeProfile == 0">
+            <mat-icon class="icon-not-found" color="primary">info</mat-icon>
+            <p>{{'secure.orders.order_list.order_page.no_orders_found' | translate}}
+            </p>
+          </div>
+          <div [@detailExpand] class="orders-no-data" *ngIf="orderListLength && typeProfile == 1 ">
+            <mat-icon class="icon-not-found" color="primary">info</mat-icon>
+            <div *ngIf="showMenssage == true && idSeller">
+              <p>No se han encontrado &oacute;rdenes</p>
+            </div>
+            <div *ngIf="showMenssage == false">
+              <p>{{'secure.orders.order_list.order_page.search_orders_insert' | translate}}</p>
+            </div>
+          </div>
         </ng-container>
       </app-list-order>
     </ng-template>

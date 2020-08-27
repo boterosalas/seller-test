@@ -31,6 +31,8 @@ export class BoxListComponent implements OnInit {
 
   @Input() user;
 
+  @Input() typeProfile;
+
   @Input() isInternational;
 
   @Input() arrayPermission;

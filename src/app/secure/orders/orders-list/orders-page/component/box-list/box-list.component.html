@@ -100,7 +100,7 @@
           </div>
           <div class="case-list-detail--item-detail case-list-detail--content-center noneMobile" fxFlex="10%">
             <div class="center-product-list content-table-orders">
-              <button id="dropdown-button-order-{{index}}" color="primary" (click)="stopPropagation($event)"
+              <button id="dropdown-button-order-{{index}}" color="primary" *ngIf="typeProfile === 0" (click)="stopPropagation($event)"
                 class="sc-button-toolbar no-button button-toolbar" mat-button [matMenuTriggerFor]="orderOptions">
                 <mat-icon matPrefix>arrow_drop_down</mat-icon>
                 <span>{{'shared.actions' | translate}}</span>

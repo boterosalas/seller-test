@@ -165,8 +165,11 @@
         <span>{{'shared.actions' | translate}}</span>
       </button>
       <mat-menu #orderOptions="matMenu">
+        {{product.idStatusProduct }}
+        {{order.allowShipping}}
+        {{const.ProductAsignado}}
         <button id="send-product-inDetail-{{index}}"
-          [disabled]="order.allowShipping == true && product.idStatusProduct == const.ProductAsignado"
+          [disabled]="(order.allowShipping == true) && (product.idStatusProduct == const.ProductAsignado)"
           (click)="openDialogSendOrder(order,true)" mat-menu-item>
           <mat-icon [class]="order.allowShipping == true && product.idStatusProduct == const.ProductAsignado ?'mat-icon material-icons disable-btn-send' : 'mat-icon status-green material-icons '">local_shipping</mat-icon>
           <span>{{'actions.send' | translate}}</span>
