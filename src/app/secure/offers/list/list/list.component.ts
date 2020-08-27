@@ -189,7 +189,6 @@ export class ListComponent implements OnInit {
    * @memberof ListComponent
    */
   getListOffers(params?: any) {
-    console.log(1, params);
     this.loadingService.viewSpinner();
     this.offerService.getOffers(params).subscribe(
       (result: any) => {

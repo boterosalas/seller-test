@@ -41,6 +41,7 @@ export interface Oferts {
   Periodicity?: number;
   EanCombo?: string;
   ComboQuantity?: number;
+  SellerSku?: any;
 }
 
 const log = new Logger('DetailOfferComponent');
@@ -91,6 +92,7 @@ export class DetailOfferComponent implements OnInit {
   public IsFreightCalculator: FormControl;
   public Warranty: FormControl;
   public Periodicity: FormControl;
+  public SellerSku: FormControl;
   // public IsLogisticsExito: FormControl;
   public IsUpdatedStock: FormControl;
   public Currency: FormControl;
@@ -109,7 +111,8 @@ export class DetailOfferComponent implements OnInit {
     currency: '',
     isUpdatedStock: '',
     discountPrice: '',
-    price: ''
+    price: '',
+    sellerSku: ''
   };
 
   dataUpdateOffer = {
@@ -289,7 +292,7 @@ export class DetailOfferComponent implements OnInit {
   public validateFormSupport(): void {
     this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
       let dataOffertRegex = JSON.parse(res.body.body);
-      dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'ofertas');
+      dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'ofertas' || data.Module === 'transversal');
       for (const val in this.offertRegex) {
         if (!!val) {
           const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
@@ -312,6 +315,7 @@ export class DetailOfferComponent implements OnInit {
     }
     this.Ean = new FormControl(this.dataOffer.ean);
     this.Stock = new FormControl(this.dataOffer.stock, [Validators.pattern(this.offertRegex.formatNumber)]);
+    this.SellerSku = new FormControl(this.dataOffer.sellerSku, [Validators.pattern(this.offertRegex.sellerSku)]);
     this.Price = new FormControl(this.dataOffer.price, [Validators.pattern(this.offertRegex.formatNumber)]);
     this.DiscountPrice = new FormControl(priceCurrent, [Validators.pattern(this.offertRegex.formatNumber)]);
     this.AverageFreightCost = new FormControl(this.dataOffer.shippingCost, [Validators.pattern(this.offertRegex.formatNumber)]);
@@ -384,7 +388,7 @@ export class DetailOfferComponent implements OnInit {
       IsFreightCalculator: this.IsFreightCalculator,
       Warranty: this.Warranty,
       Periodicity: this.Periodicity,
-      // IsLogisticsExito: this.IsLogisticsExito,
+      SellerSku: this.SellerSku,
       IsUpdatedStock: this.IsUpdatedStock,
       Currency: this.Currency,
       Combos: this.fb.array([]),
@@ -639,7 +643,7 @@ export class DetailOfferComponent implements OnInit {
         IsFreeShipping: this.formUpdateOffer.controls['IsFreeShipping'].value,
         IsEnviosExito: this.formUpdateOffer.controls['IsEnviosExito'].value,
         IsFreightCalculator: this.formUpdateOffer.controls['IsFreightCalculator'].value,
-        // IsLogisticsExito: this.formUpdateOffer.controls['IsLogisticsExito'].value,
+        SellerSku: this.params[0].SellerSku,
         IsLogisticsExito: '0',
         IsUpdatedStock: this.params[0].IsUpdatedStock,
         Currency: this.formUpdateOffer.controls['Currency'].value
@@ -659,7 +663,8 @@ export class DetailOfferComponent implements OnInit {
           'IsFreeShipping': null,
           'IsFreightCalculator': null,
           'PromiseDelivery': null,
-          'IsLogisticsExito': '0'
+          'IsLogisticsExito': '0',
+          'SellerSku': null
         });
       });
     }

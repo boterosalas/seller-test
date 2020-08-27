@@ -448,7 +448,6 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             iDaneCode: this.validateSubTitle(this.arrayNecessaryData, 'Picking City', 'Ciudad de Recogida', 'Ville de collecte'),
             iSellerSku: this.validateSubTitle(this.arrayNecessaryData, 'Seller SKU', 'SKU Vendedor', 'Vendeur SKU')
           };
-          console.log('ival: ', iVal);
           if (this.arrayNecessaryData.length > this.limitRowExcel) {
             this.loadingService.closeSpinner();
             this.componentService
@@ -1410,12 +1409,10 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'ofertas' || data.Module === 'transversal');
       for (const val in this.offertRegex) {
         if (!!val) {
-          console.log('val: ', val);
           const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
           this.offertRegex[val] = element && `${element.Value}`;
         }
       }
-      console.log('this.offertRegex: ', this.offertRegex);
     });
   }
 

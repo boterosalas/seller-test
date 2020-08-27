@@ -448,9 +448,7 @@ export class OfertExpandedProductComponent implements OnInit {
                         });
                         this.loadingService.closeSpinner();
                         this.listService.changeEmitter();
-                        console.log('here antes');
                         window.location.reload();
-                        console.log('here dsps');
                     }
                 } else {
                     log.error(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.error_trying_apply_offer'));
@@ -565,7 +563,6 @@ export class OfertExpandedProductComponent implements OnInit {
                     this.offertRegex[val] = element && `${element.Value}`;
                 }
             }
-            console.log(this.offertRegex);
             this.createFormControls();
         });
     }
