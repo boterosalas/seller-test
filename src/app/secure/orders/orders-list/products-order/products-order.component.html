@@ -32,19 +32,19 @@
       </div>
     </div>
     <div fxFlex.sm="10" fxFlex.md="10" fxFlex.lg="10" fxFlex.xs="10" fxShow fxHide.xs="true" fxHide.sm="true"
-      fxHide.lt-md="true" fxHide.lg="false" fxHide.xl="false" class=" sc-text-normal" style="text-align: center;">
+      fxHide.lt-md="true" fxHide.lg="false" fxHide.xl="false" class=" sc-text-normal text-center" >
       <div class="title-table-product">
         <p>{{'secure.orders.order_list.product_order.delivery_type' | translate}}</p>
       </div>
     </div>
     <div fxFlex.sm="10" fxFlex.md="10" fxFlex.lg="10" fxFlex.xs="10" fxShow fxHide.xs="true" fxHide.sm="false"
-      fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="sc-text-normal " style="text-align: center;">
+      fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="sc-text-normal text-center" >
       <div class="title-table-product">
         <p>{{'secure.orders.order_list.product_detail.cost' | translate}}</p>
       </div>
     </div>
     <div fxFlex.sm="10" fxFlex.md="10" fxFlex.lg="10" fxFlex.xs="10" fxShow fxHide.xs="true" fxHide.sm="false"
-      fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="sc-text-normal " style="text-align: center;">
+      fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="sc-text-normal text-center" >
       <div class="title-table-product">
         <p>{{'secure.orders.order_list.product_detail.freight' | translate}}</p>
       </div>
@@ -52,7 +52,7 @@
     <div fxFlex.sm="10" fxFlex.md="10" fxFlex.lg="10" fxFlex.xs="10" fxShow fxHide.xs="true" fxHide.sm="true"
       fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class=" sc-text-normal">
       <div class="title-table-product">
-        <p style="padding-left: 22px;" *ngIf="Typeprofile === 0">{{'shared.actions' | translate}}</p>
+        <p class="padding-left-22" *ngIf="Typeprofile === 0">{{'shared.actions' | translate}}</p>
       </div>
     </div>
   </div>
@@ -71,16 +71,13 @@
       <div class="productName-table-option">
         <div class="product-name n-margin">
           {{product.nameProduct}}
-          <p class="sc-text-bold-order n-margin"><span
-              style="font-weight: bold;">{{'secure.orders.order_list.product_order.ref' | translate}}</span>:
+          <p class="sc-text-bold-order n-margin"><span class="font-weight">{{'secure.orders.order_list.product_order.ref' | translate}}</span>:
             {{product.reference}}</p>
-          <p class="sc-text-bold-order n-margin"><span
-              style="font-weight: bold;">{{'secure.orders.order_list.product_order.sku' | translate}}:</span>
+          <p class="sc-text-bold-order n-margin"><span class="font-weight">{{'secure.orders.order_list.product_order.sku' | translate}}:</span>
             {{product.sku}}</p>
-          <p class="sc-text-bold-order n-margin"><span style="font-weight: bold;">{{'shared.ean' | translate}}</span>:
+          <p class="sc-text-bold-order n-margin"><span class="font-weight">{{'shared.ean' | translate}}</span>:
             {{product.ean}}</p>
-          <p class="sc-text-bold-order n-margin" *ngIf="product.sellerSku"><span
-              style="font-weight: bold;">{{'secure.orders.order_list.product_order.sku_seller' | translate}}:</span>
+          <p class="sc-text-bold-order n-margin" *ngIf="product.sellerSku"><span class="font-weight">{{'secure.orders.order_list.product_order.sku_seller' | translate}}:</span>
             {{product.sellerSku}}</p>
         </div>
       </div>
@@ -137,7 +134,7 @@
     </div>
     <div fxFlex.sm="11" fxFlex.md="11" fxFlex.lg="11" fxFlex.xs="11" fxShow fxHide.xs="true" fxHide.sm="true"
       fxHide.lt-md="true" fxHide.lg="false" fxHide.xl="false">
-      <div style="text-align: center;">
+      <div class="text-center">
         <p class="sc-text-order" *ngIf="product.fulfillment == true">
           {{'secure.orders.order_list.product_order.fulfillment' | translate}}</p>
         <p class="sc-text-order" *ngIf="product.enviosExito == true">
@@ -148,13 +145,13 @@
     </div>
     <div fxFlex.sm="10" fxFlex.md="10" fxFlex.lg="10" fxFlex.xs="10" fxShow fxHide.xs="true" fxHide.sm="false"
       fxHide.md="false" fxHide.lg="false" fxHide.xl="false">
-      <div style="text-align: center;">
+      <div class="text-center">
         <p class="sc-text-normal">${{product.costProduct | number}}</p>
       </div>
     </div>
     <div fxFlex.sm="10" fxFlex.md="10" fxFlex.lg="10" fxFlex.xs="10" fxShow fxHide.xs="true" fxHide.sm="false"
       fxHide.md="false" fxHide.lg="false" fxHide.xl="false">
-      <div style="text-align: center;">
+      <div class="text-center">
         <p class="sc-text-normal">${{product.costShippingProduct | number}}</p>
       </div>
     </div>
@@ -182,13 +179,13 @@
 
   <div fxLayout="row wrap" fxLayoutAlign.xs="center space-evenly" fxLayoutGap.xs="17px">
     <div fxFlex.xs="initial" fxFlex.sm="96px" fxFlex.md="230px" fxFlex.lg="873px" fxFlexOffset.sm="34px">
-      <div class="total-product-text" style=" text-align: right; width: 100%;">
-        <p class="sc-text-bold-order" style="width: 100%;padding-right: 40px; font-weight: bold;">
+      <div class="total-product-text container-text-total" >
+        <p class="sc-text-bold-order total-container" >
           {{'secure.orders.order_list.product_order.total' | translate}}:</p>
       </div>
     </div>
     <div fxFlex.xs="initial" fxFlex.sm="127px" fxFlex.md="230px" fxFlex.lg="127px">
-      <div style="text-align: center;">
+      <div class="text-center">
         <p>
           <span class="cost-item-table" fxShow fxHide.xs="false" fxHide.sm="false" fxHide.lt-md="true" fxHide.lg="true"
             fxHide.xl="true">{{'secure.orders.order_list.product_detail.cost' | translate}}:</span>
@@ -197,7 +194,7 @@
       </div>
     </div>
     <div fxFlex.xs="initial" fxFlex.sm="127px" fxFlex.md="230px" fxFlex.lg="127px">
-      <div style="text-align: center;">
+      <div class="text-center">
         <p>
           <span class="cost-item-table" fxShow fxHide.xs="false" fxHide.sm="false" fxHide.lt-md="true" fxHide.lg="true"
             fxHide.xl="true">
