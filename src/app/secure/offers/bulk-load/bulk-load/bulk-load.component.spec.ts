@@ -40,6 +40,7 @@ const arrayInformation = [
         Warranty: '',
         IsLogisticsExito: '',
         IsUpdatedStock: '',
+        SellerSku: '',
         errorRow: false
     }
 ];
@@ -100,7 +101,8 @@ const statusResponse = {
     url: ''
 };
 
-describe('BulkLoadComponent', () => {
+
+fdescribe('BulkLoadComponent', () => {
     const registerMenu = {
         Functionalities: [{
             NameFunctionality: 'Crear',
@@ -186,6 +188,7 @@ describe('BulkLoadComponent', () => {
         supportService = TestBed.get(SupportService);
         dialogFixture = TestBed.createComponent(DialogWithFormComponent);
         mockBulkLoadService.verifyStatusBulkLoad.and.returnValue(of(statusResponse));
+
         const responseRegex = {
             body: {
                 body: JSON.stringify({ Data: responseRegexbody })
@@ -209,7 +212,7 @@ describe('BulkLoadComponent', () => {
             fixture.detectChanges();
             bulkLoadComponent.resetVariableUploadFile();
             fixture.detectChanges();
-            expect(bulkLoadComponent.numberElements ).toEqual(0);
+            expect(bulkLoadComponent.numberElements).toEqual(0);
         });
         it('Reset uploadFile', () => {
             fixture.detectChanges();
@@ -251,7 +254,7 @@ describe('BulkLoadComponent', () => {
             bulkLoadComponent.EanArray = [{ iVal: '', ean: '6581480417371', totalPrice: 300000 }];
             bulkLoadComponent.validExistEan(ean, price, iVal, cantidadCombo);
             fixture.detectChanges();
-            expect(bulkLoadComponent.EanArray ).not.toBeNull();
+            expect(bulkLoadComponent.EanArray).not.toBeNull();
         });
         it('valida exist ean price text', () => {
             fixture.detectChanges();
@@ -262,7 +265,7 @@ describe('BulkLoadComponent', () => {
             bulkLoadComponent.EanArray = [{ iVal: '', ean: '6581480417371', totalPrice: 300000 }];
             bulkLoadComponent.validExistEan(ean, price, iVal, cantidadCombo);
             fixture.detectChanges();
-            expect(bulkLoadComponent.EanArray ).not.toBeNull();
+            expect(bulkLoadComponent.EanArray).not.toBeNull();
         });
         it('validate exist ean text', () => {
             fixture.detectChanges();
@@ -273,7 +276,7 @@ describe('BulkLoadComponent', () => {
             bulkLoadComponent.EanArray = [{ iVal: '', ean: '6581480417371', totalPrice: 'test_price' }];
             bulkLoadComponent.validExistEan(ean, price, iVal, cantidadCombo);
             fixture.detectChanges();
-            expect(bulkLoadComponent.EanArray ).not.toBeNull();
+            expect(bulkLoadComponent.EanArray).not.toBeNull();
         });
         afterAll(() => {
             TestBed.resetTestingModule();
@@ -288,6 +291,7 @@ describe('BulkLoadComponent', () => {
                 EAN: 6581480417371,
                 Stock: 10,
                 Price: 300000,
+                SellerSku: 1,
                 DiscountPrice: 250000,
                 AverageFreightCost: 8000,
                 PromiseDelivery: '1 a 2',
@@ -311,6 +315,7 @@ describe('BulkLoadComponent', () => {
                 errorWarranty: true,
                 errorIsLogisticsExito: true,
                 errorIsUpdatedStock: true,
+                errorSellerSku: true,
                 ComboQuantity: '',
                 EanCombo: '',
                 errorEanCombo: true,
@@ -337,6 +342,7 @@ describe('BulkLoadComponent', () => {
                 IsEnviosExito: 0,
                 IsFreightCalculator: 0,
                 Warranty: 2,
+                SellerSku: 1,
                 IsLogisticsExito: 0,
                 IsUpdatedStock: 0,
                 errorRow: true,
@@ -353,6 +359,7 @@ describe('BulkLoadComponent', () => {
                 errorWarranty: true,
                 errorIsLogisticsExito: true,
                 errorIsUpdatedStock: true,
+                errorSellerSku: true,
                 ComboQuantity: '',
                 EanCombo: '',
                 errorEanCombo: true,
@@ -381,6 +388,11 @@ describe('BulkLoadComponent', () => {
             bulkLoadComponent.downloadFormatMassiveOfferLoad('es');
             fixture.detectChanges();
         });
+        it('international FR', () => {
+            fixture.detectChanges();
+            bulkLoadComponent.downloadFormatMassiveOfferLoad('fr');
+            fixture.detectChanges();
+        });
         it('calculate interval time size file(5) > 0 ', () => {
             bulkLoadComponent.arrayInformationForSend.length = 5;
             fixture.detectChanges();
@@ -394,6 +406,191 @@ describe('BulkLoadComponent', () => {
             bulkLoadComponent.calculateIntervalTime();
             fixture.detectChanges();
             expect(bulkLoadComponent.arrayInformationForSend).not.toBeNull();
+        });
+        afterAll(() => {
+            TestBed.resetTestingModule();
+        });
+    });
+    describe('validPrice', () => {
+        beforeEach(() => {
+            bulkLoadComponent.EanArray = [
+                { iVal: '', ean: 6581480417371, totalPrice: 300000 },
+                { iVal: '', ean: '6581480417372', totalPrice: 450000 }];
+            bulkLoadComponent.arrayInformation = [{
+                EAN: 6581480417371,
+                Stock: 10,
+                Price: 300000,
+                DiscountPrice: 250000,
+                AverageFreightCost: 8000,
+                PromiseDelivery: '1 a 2',
+                IsFreeShipping: 0,
+                IsEnviosExito: 0,
+                IsFreightCalculator: 0,
+                Warranty: 2,
+                SellerSku: 1,
+                IsLogisticsExito: 0,
+                IsUpdatedStock: 0,
+                errorRow: true,
+                Currency: true,
+                errorEan: true,
+                errorStock: true,
+                errorPrice: true,
+                errorDiscountPrice: true,
+                errorAverageFreightCost: true,
+                errorPromiseDelivery: true,
+                errorIsFreeShipping: true,
+                errorIsEnviosExito: true,
+                errorIsFreightCalculator: true,
+                errorWarranty: true,
+                errorIsLogisticsExito: true,
+                errorIsUpdatedStock: true,
+                errorSellerSku: true,
+                ComboQuantity: '',
+                EanCombo: '',
+                errorEanCombo: true,
+                errorComboQuantity: true,
+                errorCurrency: true,
+                Periodicity: 1,
+                Address: '',
+                DaneCode: 12
+            }];
+        });
+        it('validPrice', () => {
+            const currency = 'COP';
+            fixture.detectChanges();
+            bulkLoadComponent.validPrice(12000, currency);
+            fixture.detectChanges();
+        });
+        it('validatePrices', () => {
+            fixture.detectChanges();
+            bulkLoadComponent.validatePrices();
+            fixture.detectChanges();
+        });
+        it('setErrrorColumns', () => {
+            fixture.detectChanges();
+            bulkLoadComponent.setErrrorColumns();
+            fixture.detectChanges();
+        });
+        afterAll(() => {
+            TestBed.resetTestingModule();
+        });
+    });
+    describe('validFormat ', () => {
+        beforeEach(() => {
+        });
+        it('validFormat', () => {
+            const eanRegex = /^([A-Za-z0-9]{0,16})$/;
+            fixture.detectChanges();
+            bulkLoadComponent.validFormat('1 - 20', 'formatPromEntrega');
+            bulkLoadComponent.validFormat('28095', 'alphanumeric');
+            bulkLoadComponent.validFormat('COP', 'currency');
+            bulkLoadComponent.validFormat('12094', 'greaterThanZero');
+            bulkLoadComponent.validFormat('1', 'boolean');
+            bulkLoadComponent.validFormat('96', 'greaterWarranty');
+            bulkLoadComponent.validFormat('Avenida Siempre Viva 837', 'address');
+            bulkLoadComponent.validFormat('05001000', 'daneCode');
+            bulkLoadComponent.validFormat('1', 'formatPeriodicity');
+            bulkLoadComponent.validFormat('1', 'atleastonealphanumeric');
+            fixture.detectChanges();
+        });
+        afterAll(() => {
+            TestBed.resetTestingModule();
+        });
+    });
+    describe('validFormat error', () => {
+        beforeEach(() => {
+        });
+        it('validFormat error', () => {
+            const eanRegex = /^([A-Za-z0-9]{0,16})$/;
+            let valueReturn: Boolean = false;
+            fixture.detectChanges();
+            bulkLoadComponent.validFormat(undefined, 'formatPromEntrega');
+            bulkLoadComponent.validFormat('/*-+', 'formatPromEntrega');
+            bulkLoadComponent.validFormat('-123.5', 'formatNumber');
+            bulkLoadComponent.validFormat('/*-+', 'alphanumeric');
+            bulkLoadComponent.validFormat('FR', 'currency');
+            bulkLoadComponent.validFormat('0', 'greaterThanZero');
+            bulkLoadComponent.validFormat('a', 'boolean');
+            bulkLoadComponent.validFormat('-5', 'greaterWarranty');
+            bulkLoadComponent.validFormat('', 'address');
+            bulkLoadComponent.validFormat('asdf/*-', 'daneCode');
+            bulkLoadComponent.validFormat(undefined, 'formatPeriodicity');
+            bulkLoadComponent.validFormat('/*-+', 'atleastonealphanumeric');
+            fixture.detectChanges();
+        });
+        afterAll(() => {
+            TestBed.resetTestingModule();
+        });
+    });
+    describe('validateDataFromFile', () => {
+        beforeEach(() => {
+        });
+        it('validateDataFromFile', () => {
+            const res = [
+                [{
+                    0: 'EAN',
+                    1: 'Nombre del Producto',
+                    2: 'Modelo',
+                    3: 'Inventario',
+                    4: 'Precio',
+                    5: 'Precio con Descuento',
+                    6: 'Costo de Flete Promedio',
+                    7: 'Promesa de Entrega',
+                    8: 'Free Shipping',
+                    9: 'Indicador Envios Exito',
+                    10: 'Actualizacion de Inventario',
+                    11: 'Cotizador de Flete',
+                    12: 'Garantia',
+                    13: 'Ean combo',
+                    14: 'Cantidad en combo',
+                    15: 'Tipo de moneda',
+                    16: 'Direccion de Recogida',
+                    17: 'Ciudad de Recogida',
+                    18: 'Periodicidad',
+                    19: 'SKU Vendedor'
+                }],
+                [{
+                    0: 'IZ20000020932',
+                    1: 'Tenis deportivos cambio 1',
+                    2: '2020',
+                    3: '25095',
+                    4: '12095',
+                    5: '12094',
+                    6: '10096',
+                    7: '1 - 20',
+                    8: '0',
+                    9: '0',
+                    10: '1',
+                    11: '0',
+                    12: '96',
+                    13: null,
+                    14: null,
+                    15: 'COP',
+                    16: 'Avenida Siempre Viva 837',
+                    17: '05001000',
+                    18: '1',
+                    19: '/*-'
+                }]
+            ];
+
+            const file = {
+                bubbles: true,
+                cancelBubble: false,
+                cancelable: false,
+                composed: false,
+                currentTarget: null,
+                defaultPrevented: false,
+                eventPhase: 0,
+                isTrusted: true,
+                path: null,
+                returnValue: true,
+                srcElement: null,
+                target: null,
+                timeStamp: 71849.04499999902,
+                type: 'change'
+            };
+            bulkLoadComponent.validateDataFromFile(res, file);
+            fixture.detectChanges();
         });
         afterAll(() => {
             TestBed.resetTestingModule();
