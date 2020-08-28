@@ -150,19 +150,7 @@ export class BoxListComponent implements OnInit {
 
       });
       dialogRef.afterClosed().subscribe(result => {
-        if (result !== false) {
-
-          // // encuentro el objeto de la orden en el array
-          // const currentOrder = this.dataSource.data.find(x => x.id === result.id);
-          // // obtengo el index donde se encuentra el objeto
-          // const index = this.dataSource.data.indexOf(currentOrder);
-          // // edito el valor del la variable processedOrder al valor mandado al servidor
-          // this.dataSource.data[index] = result;
-
-          // // let data = JSON.stringify(this.currentOrderList);
-          // // this.dataSource = new MatTableDataSource(JSON.parse(data));
-          // this.dataSource._updateChangeSubscription();
-        } else {
+        if (result !== false) {} else {
           const message = this.languageService.instant('secure.orders.order_list.order_page.info_no_send_products');
         }
         this.loadingService.closeProgressBar();
