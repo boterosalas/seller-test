@@ -218,7 +218,6 @@ export class BulkLoadBillingComponent implements OnInit {
    * @memberof BulkLoadBillingComponent
    */
   validateErrors() {
-    console.log(this.filesErrors);
     if (this.filesErrors > 0) {
       this.invalidsFile = true;
     } else {

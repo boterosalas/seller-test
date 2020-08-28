@@ -108,7 +108,6 @@ export class ProductsOrderComponent {
    * @memberof ProductsOrderComponent
    */
   checkAllProductInOrder(item: any) {
-    console.log(item);
 
     if (item && item.products && item.products.length > 0) {
       if (item.sendAllProduct === true) {

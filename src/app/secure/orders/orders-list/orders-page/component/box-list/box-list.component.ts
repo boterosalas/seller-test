@@ -151,7 +151,6 @@ export class BoxListComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result !== false) {
-          console.log(result);
 
           // // encuentro el objeto de la orden en el array
           // const currentOrder = this.dataSource.data.find(x => x.id === result.id);

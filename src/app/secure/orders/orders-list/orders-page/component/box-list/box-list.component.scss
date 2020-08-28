@@ -8,11 +8,13 @@ $color-gray1:#909090;
 .item-detail-arrow {
   transform: rotate(180deg);
   transition: 0.35s;
+
   &--active {
     transform: rotate(0deg);
     transition: 0.35s;
   }
 }
+
 .no-select {
   user-select: none !important;
 }
@@ -35,6 +37,7 @@ $color-gray1:#909090;
   font-size: 14px;
   height: 62px;
   margin-bottom: 2px;
+
   @media (max-width: 600px) {
     place-content: space-around !important;
   }
@@ -46,24 +49,36 @@ $color-gray1:#909090;
     overflow: hidden;
     width: inherit;
     max-width: 30%;
+
     @media (max-width: 600px) {
       max-width: 25% !important;
     }
+
     @media (max-width: 768px) {
       white-space: break-spaces;
     }
   }
 
-  &--content-center {
+  &-content-center {
+    align-items: center;
+  }
+  &-text-center {
     text-align: center;
   }
 }
+
 .case-list-expandable {
   height: 62px;
 }
+
+.width-100{
+  width: 100%;
+}
+
 .mat-expansion-panel-header {
   padding: 0;
 }
+
 ::ng-deep .mat-expansion-indicator::after {
   display: none !important;
   visibility: hidden !important;
@@ -73,40 +88,42 @@ $color-gray1:#909090;
   @media (max-width: 600px) {
     max-width: 100% !important;
 
-    .noneMobile{
+    .noneMobile {
       display: none;
     }
   }
 }
 
 
-.sc-text-bold-order{
+.sc-text-bold-order {
   font-size: 14px;
 }
 
-.arrow-active{
+.arrow-active {
   color: $accent-color
 }
 
-.content-table-orders{
-  .mat-icon.mat-primary{
-    color:$color-gray1;
+.content-table-orders {
+  .mat-icon.mat-primary {
+    color: $color-gray1;
   }
 
 
-  .sc-date-content-table{
-    color:$color-gray1;
+  .sc-date-content-table {
+    color: $color-gray1;
     font-size: 14px;
   }
 
-  .sc-status-order-table .status-orange, .sc-status-order-table .status-green{
+  .sc-status-order-table .status-orange,
+  .sc-status-order-table .status-green {
     padding-right: 5px;
   }
 
-  .title-table-header{
+  .title-table-header {
     color: #757474
   }
+}
 
-
-
+.font-size-14{
+  font-size: 14px;
 }

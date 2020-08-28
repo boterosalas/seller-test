@@ -1,5 +1,5 @@
 :host ::ng-deep .content-send-order {
-  height: 620px; // overflow: auto; // padding: 20px;
+  height: 550px; // overflow: auto; // padding: 20px;
   flex-wrap: wrap;
   background-color: white; // padding-bottom: 59px;
   position: relative;
@@ -71,7 +71,7 @@
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      height: 80px;
+      height: 100px;
     }
     & .dropdown-content-header-panel {
       display: flex;

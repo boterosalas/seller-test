@@ -389,7 +389,6 @@ changeLanguage() {
   getOrdersListSinceFilterSearchOrder() {
     this.subFilterOrder = this.shellComponent.eventEmitterOrders.filterOrderList.subscribe(
       (data: any) => {
-        console.log(data);
         if (data && data.data.count > 0) {
           if (data != null) {
             if (data && data.data && data.data.viewModel && data.data.viewModel.length === 0) {
@@ -899,7 +898,6 @@ changeLanguage() {
   }
 
   consultDetails($event: any, item: any) {
-    console.log($event);
     item.statusLoad = true;
   }
 
