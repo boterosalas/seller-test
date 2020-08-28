@@ -144,20 +144,9 @@ export class BillingService {
     localStorage.setItem('currentFilterBillingPay', JSON.stringify(objParamsFilter));
   }
 
-  downloadBillingPay(email: string): Observable<[{}]> {
-    const paramsFilter = this.getCurrentFilterPay();
-
-    const exportData = {
-      PaymentDateInitial: paramsFilter.dateInitial === undefined ? null : paramsFilter.dateInitial,
-      PaymentDateFinal: paramsFilter.dateFinal === undefined ? null : paramsFilter.dateFinal,
-      IdSeller: this.sellerId,
-      BillingNumber: paramsFilter.bill === undefined ? null : paramsFilter.bill,
-      Email: email,
-      SellerName: this.sellerName
-    };
-
+  downloadBillingPay(params: any): Observable<[{}]> {
     return new Observable(observer => {
-      this.http.post<any>(this.api.get('exportBillingPays'), exportData)
+      this.http.post<any>(this.api.get('exportBillingPays'), params)
         .subscribe((data: any) => {
           observer.next(data);
         }, err => {

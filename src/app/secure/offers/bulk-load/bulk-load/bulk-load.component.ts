@@ -1245,28 +1245,28 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
   /* Massive offer load Internacional lenguaje FRANCES*/
   downloadFormatMassiveOfferLoadInternational_FR(culture: any) {
     if (culture === 'FR') {
-    const emptyFile = [{
-      'EAN': undefined,
-      'Stock': undefined,
-      'Prix': undefined,
-      'Prix réduit': undefined,
-      'Coût moyen d\'envoie': undefined,
-      'Temps de livraison': undefined,
-      'Livraison gratuite': undefined,
-      'Indicateur d\'expédition Éxito': undefined,
-      'Mise à Jour du Stock': undefined,
-      'Cotation du fret': undefined,
-      'Garantie': undefined,
-      'Ean combo': undefined,
-      'Bundle stock': undefined,
-      'Type de monnaie': undefined,
-      'Adresse de collecte': undefined,
-      'Collection City': undefined,
-    }];
-    log.info(emptyFile);
-    this.exportAsExcelFile(emptyFile, 'Offrir le format de téléchargement');
+      const emptyFile = [{
+        'EAN': undefined,
+        'Stock': undefined,
+        'Prix': undefined,
+        'Prix réduit': undefined,
+        'Coût moyen d\'envoie': undefined,
+        'Temps de livraison': undefined,
+        'Livraison gratuite': undefined,
+        'Indicateur d\'expédition Éxito': undefined,
+        'Mise à Jour du Stock': undefined,
+        'Cotation du fret': undefined,
+        'Garantie': undefined,
+        'Ean combo': undefined,
+        'Bundle stock': undefined,
+        'Type de monnaie': undefined,
+        'Adresse de collecte': undefined,
+        'Collection City': undefined,
+      }];
+      log.info(emptyFile);
+      this.exportAsExcelFile(emptyFile, 'Offrir le format de téléchargement');
+    }
   }
-}
 
   /**
    * Método que genera el dato json en el formato que emplea excel para.

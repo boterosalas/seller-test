@@ -172,10 +172,14 @@ $amber: mat-palette($mat-amber);
 
   @media only screen and (max-width: 600px) {
     display: none;
+    border-bottom: 1px solid #e0e0e0;
+
   }
 
   @media only screen and (max-width: 768px) {
     display: none;
+    border-bottom: 1px solid #e0e0e0;
+
   }
 
   & button {
@@ -183,7 +187,7 @@ $amber: mat-palette($mat-amber);
       color: #a1a199;
     }
 
-    padding-top: 10%;
+    padding-top: 5%;
     padding-left: 0px;
   }
 }
@@ -216,6 +220,37 @@ $amber: mat-palette($mat-amber);
   }
 }
 
+.center-product-list-2 {
+  @media only screen and (max-width: 600px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin-top: 9%;
+    border-bottom: 1px solid #e0e0e0;
+    padding-right: 5%;
+
+    & mat-icon {
+      margin-bottom: 50%;
+    }
+  }
+}
+
+.idbutton {
+  margin-top: 100%;
+}
+
+.margin-toolbar-aling {
+  border-radius: 0px !important;
+}
+
+.options-dropdwon {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+}
+
 .example-section {
   display: flex;
   align-content: center;
@@ -224,7 +259,6 @@ $amber: mat-palette($mat-amber);
 }
 
 .search-form {
-  // padding: 5% 5%;
   height: 81%;
   position: relative;
 
