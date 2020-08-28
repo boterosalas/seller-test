@@ -1,0 +1,137 @@
+<div class="content-order my-content">
+  <div fxFlex class="container" fxLayout="row wrap" fxLayoutAlign="center
+      start">
+    <div fxFlex="100" class="light-content">
+      <app-toolbar-search-pagination [informationToForm]="informationToForm" [state]="null" #toolbarOptions
+        [Typeprofile]="3" [limitPaginate]="[10,50,100]" [showContainerDetail]="true">
+      </app-toolbar-search-pagination>
+    </div>
+    <div fxLayout="row" class="bulk-load-billing-component-container-width-100"></div>
+    <div fxFlex="50" fxFlex.xs="100%" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
+      <div class="bulk-load-billing-component-load-file-container bulk-load-billing-component-margin-top-15"  fxLayout="column" fxLayoutAlign="space-around center">
+        <div mat-dialog-content class="bulk-load-billing-component-container-width-100">
+          <div class="bulk-load-billing-component-logo" fxLayout="row" fxLayoutAlign="center center" *ngIf="false">
+            <div class="container-logo" fxLayout="row" fxLayoutAlign="center center">
+              <mat-icon class="material-icons">
+                shopping_cart
+              </mat-icon>
+            </div>
+            <span class="seller">
+              &nbsp;Seller
+            </span>
+            <span class="load-file-gray">
+              &nbsp;Center
+            </span>
+            <span class="point">
+              .
+            </span>
+          </div>
+          <div class="inline-block">
+            <div ngfDrop selectable="1" multiple="1" [(validDrag)]="validComboDrag" [(files)]="files" [(file)]="file"
+              accept="application/pdf" [(lastInvalids)]="lastInvalids" [(dragFiles)]="dragFiles"
+              class="well my-drop-zone" fxLayout="column" id="pdf" fxLayoutAlign="center center"
+              [class.invalid-drag]="validComboDrag===false" [class.valid-drag]="validComboDrag"
+              (filesChange)="lastFileAt=getDate(); changeValue(files) ">
+              <img src="../../../../../assets/img/upload_files.png" alt="upload">
+              <div class="bulk-load-billing-component-text-aling-center bulk-load-billing-component-container-width-100" *ngIf="filesValidate.length">
+                <div><span>{{'secure.orders.bulk.billing.please_list_verique' | translate}}</span></div>
+                <div class="bulk-load-billing-component-font-size-14"><span><strong>{{'secure.orders.bulk.billing.once_the_single_charge' | translate}}</strong></span></div>
+                <div fxLayout="row" class="bulk-load-billing-component-margin-top-40">
+                  <div fxFlex="50">
+                    <mat-icon class="mat-18 bulk-load-billing-component-done-green">done</mat-icon> {{'secure.orders.bulk.billing.total_to_Save' | translate}}
+                    ({{filesSuccess}})
+                  </div>
+                  <div fxFlex="50">
+                    <mat-icon class="mat-18 bulk-load-billing-component-remove-red">remove_circle_outline</mat-icon>
+                    {{'secure.orders.bulk.billing.total_error' | translate}} ({{filesErrors}})
+                  </div>
+                </div>
+                <div fxLayout="row">
+                  <div fxFlex="100" class="bulk-load-billing-component-margin-top-15">
+                    <button mat-button  mat-raised-button color="primary">{{'shared.components.load_file.text3' | translate}}</button>
+                  </div>
+                </div>
+               
+              </div>
+              <div *ngIf="!filesValidate.length && !lastInvalids?.length">{{'secure.orders.bulk.billing.you_or_navigate_your_files' | translate}} <span
+                   class="bulk-load-billing-component-color-here-blue"><strong>{{'secure.orders.bulk.billing.here' | translate}}</strong></span>{{'secure.orders.bulk.billing.to_your_files' | translate}}
+              </div>
+              <div *ngIf="!filesValidate.length && !lastInvalids?.length">
+                <div fxLayout="row">
+                  <div fxFlex="100" class="bulk-load-billing-component-margin-top-15">
+                    <button mat-button  mat-raised-button color="primary">{{'shared.components.load_file.text3' | translate}}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <mat-progress-bar mode="indeterminate" *ngIf="showProgress"></mat-progress-bar>
+          </div>
+
+          <ngfFormData [files]="files" postName="file" [(FormData)]="sendableFormData"></ngfFormData>
+          <ngfUploadStatus [(percent)]="progress" [httpEvent]="httpEvent"></ngfUploadStatus>
+        </div>
+        <div class="bulk-load-billing-component-text-remommnedation">
+          <div class="bulk-load-billing-component-margin-top-5">
+            <span (click)="showRecommendations(showShowRecommendationsContainer)" class="bulk-load-billing-component-cursor-Pointer">
+              <span>
+                <mat-icon class="material-icons mat-18 bulk-load-billing-component-icon-recommendation" >assignment_late
+                </mat-icon>
+              </span><strong>{{'secure.orders.bulk.billing.recommendations_for_loading_bills' | translate}} </strong>
+            </span>
+          </div>
+          <div *ngIf="showShowRecommendationsContainer">
+            <div class="bulk-load-billing-component-margin-left-28"><span class="bulk-load-billing-component-asteric-recommnedation-color"><strong>* </strong></span>{{'secure.orders.bulk.billing.allowed_format'| translate}}
+              <strong>PDF</strong></div>
+            <div class="bulk-load-billing-component-margin-left-28"><span class="bulk-load-billing-component-asteric-recommnedation-color"><strong>* </strong></span>{{'secure.orders.bulk.billing.maximum_file_size_megabytes'| translate}} <strong>3 {{'secure.orders.bulk.billing.megabytes' | translate}}</strong></div>
+            <div class="bulk-load-billing-component-margin-left-28"><span class="bulk-load-billing-component-asteric-recommnedation-color"><strong>* </strong></span>{{'secure.orders.bulk.billing.name_file_invoice_invoice_number' | translate}} </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="50" fxFlex.xs="100%" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
+      <div *ngIf="filesValidate.length === 0">
+        <div class="bulk-load-billing-component-padding-margin-list-file-empty">
+          <mat-icon 
+            class="material-icons material-icons-outlined bulk-load-billing-component-icon-list-empty-file">sticky_note_2</mat-icon>
+        </div>
+        <div class="bulk-load-billing-component-text-aling-center">
+          <span class="bulk-load-billing-component-text-color-grey">{{'secure.orders.bulk.billing.you_have_no_files_to_upload' | translate}}</span>
+        </div>
+      </div>
+      <div *ngIf="filesValidate.length > 0" class="bulk-load-billing-component-margin-top-30">
+        <div class="bulk-load-billing-component-title-list-files">
+          <span class="bulk-load-billing-component-text-color-grey">{{'secure.orders.bulk.billing.it_have_files_upload' | translate}} ({{filesValidate.length}}) </span>
+        </div>
+        <div class="container-load-files bulk-load-billing-component-container-width-100">
+          <div fxLayout="row" class="bulk-load-billing-component-for-list-files" *ngFor='let fileList of filesValidate; let i = index'>
+
+            <div fxFlex="75" class="cup-text-name-pdf bulk-load-billing-component-font-size-14" >
+              <mat-icon *ngIf="!fileList.fileExist"  class="bulk-load-billing-component-icon-add-note">note_add</mat-icon> 
+              <mat-icon *ngIf="fileList.fileExist" class="bulk-load-billing-component-icon-add-note-duplicate bulk-load-billing-component-cursor-Pointer" [matTooltip]="'secure.orders.bulk.billing.duplicate_name' | translate" >cancel</mat-icon> 
+              <span class="bulk-load-billing-component-text-name-file" [matTooltip]="fileList.name"> {{fileList.name}}</span>
+            </div>
+            <div fxFlex="15"class="bulk-load-billing-component-container-size-file" >
+              <span 
+                [ngClass]="fileList.refuse ? 'sizeRefuse bulk-load-billing-component-vertical-align-sub' : 'bulk-load-billing-component-vertical-align-sub'">{{fileList.size/1024/1024 | number:'.2'}} MB</span>
+                <mat-icon *ngIf="!fileList.refuse" class="mat-18 bulk-load-billing-component-icon-done-list" >done</mat-icon>
+                <mat-icon *ngIf="fileList.refuse" [matTooltip]="messageErrorMaxSize" class="mat-18 bulk-load-billing-component-icon-delete-list bulk-load-billing-component-cursor-Pointer" 
+                  >remove_circle_outline</mat-icon>
+            </div>
+            <div fxFlex="10">
+              <mat-icon class="mat-18 bulk-load-billing-component-text-color-grey  bulk-load-billing-component-cursor-Pointer" 
+                [matTooltip]="'permissions.Eliminar' | translate" (click)="deleteFile(i, fileList)">delete</mat-icon>
+            </div>
+          </div>
+        </div>
+        <div class="bulk-load-billing-component-margin-top-15">
+          <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+            <button mat-button (click)="clearListFiles()" mat-raised-button
+              class="bulk-load-billing-component-text-transform-uppercase">{{'filters.clear' | translate}}</button>
+            <button mat-button (click)="saveFile()" [disabled]="invalidsFile" cdkFocusInitial mat-raised-button
+              color="primary">{{'actions.save' | translate}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

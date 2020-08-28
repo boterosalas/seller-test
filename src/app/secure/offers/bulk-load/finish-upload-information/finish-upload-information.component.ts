@@ -32,6 +32,7 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
   listError: any;
   listErrorStatus: any;
   pex = false;
+  showExport = true;
 
   request: Observable<any>;
   content: TemplateRef<any>;
@@ -82,6 +83,9 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
             }
             this.Success = false;
             this.inProcess = false;
+            if (this.data.showExport !== undefined) {
+              this.showExport =  this.data.showExport;
+            }
 
             this.countError = this.listErrorStatus.length;
             this.processFinish$.next(res);
@@ -102,6 +106,9 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
       this.listError = this.mapItems(this.data.listError);
       this.pex = this.typeErrorShowButton(this.listError);
       this.countError = this.data.listError.length;
+      if (this.data && this.data.showExport) {
+        this.showExport = this.data.showExport;
+      }
       this.cdr.detectChanges();
     }
     this.cdr.detectChanges();

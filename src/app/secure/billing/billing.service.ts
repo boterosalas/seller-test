@@ -12,20 +12,20 @@ const respuesta = {
     paginationToken: '{}',
     paginationTokens: [],
     viewModel: [
-      {id: '637086675180158443', orderNumber: '1'},
-      {id: '637058000530130075', orderNumber: '2'},
-      {id: '637086494941759601', orderNumber: '3'},
-      {id: '637130518760349731', orderNumber: '4'},
-      {id: '637274208780966057', orderNumber: '5'},
-      {id: '637058000520968788', orderNumber: '6'},
-      {id: '637122970660242786', orderNumber: '7'},
-      {id: '637281041614556441', orderNumber: '8'},
-      {id: '637133443640064226', orderNumber: '9'}
+      { id: '637086675180158443', orderNumber: '1' },
+      { id: '637058000530130075', orderNumber: '2' },
+      { id: '637086494941759601', orderNumber: '3' },
+      { id: '637130518760349731', orderNumber: '4' },
+      { id: '637274208780966057', orderNumber: '5' },
+      { id: '637058000520968788', orderNumber: '6' },
+      { id: '637122970660242786', orderNumber: '7' },
+      { id: '637281041614556441', orderNumber: '8' },
+      { id: '637133443640064226', orderNumber: '9' }
     ]
   },
-errors: [],
-message: '',
-pendingResponse: false,
+  errors: [],
+  message: '',
+  pendingResponse: false,
 
 }
 
@@ -60,11 +60,10 @@ export class BillingService {
    * @returns {Observable<Billing[]>}
    * @memberof BillingService
    */
-  getBilling(user: any, stringSearch: any): Observable<Billing[]> {
+  getBilling(stringSearch: any): Observable<Billing[]> {
     return new Observable(observer => {
       // Id del vendedor.
-      this.sellerId = user.sellerId;
-      this.sellerName = user.sellerName;
+
       this.http.get(this.api.get('getBilling', [stringSearch])).subscribe((data: any) => {
         observer.next(data);
       }, error => {
@@ -145,20 +144,9 @@ export class BillingService {
     localStorage.setItem('currentFilterBillingPay', JSON.stringify(objParamsFilter));
   }
 
-  downloadBillingPay(email: string): Observable<[{}]> {
-    const paramsFilter = this.getCurrentFilterPay();
-
-    const exportData = {
-      PaymentDateInitial: paramsFilter.dateInitial === undefined ? null : paramsFilter.dateInitial,
-      PaymentDateFinal: paramsFilter.dateFinal === undefined ? null : paramsFilter.dateFinal,
-      IdSeller: this.sellerId,
-      BillingNumber: paramsFilter.bill === undefined ? null : paramsFilter.bill,
-      Email: email,
-      SellerName: this.sellerName
-    };
-
+  downloadBillingPay(params: any): Observable<[{}]> {
     return new Observable(observer => {
-      this.http.post<any>(this.api.get('exportBillingPays'), exportData)
+      this.http.post<any>(this.api.get('exportBillingPays'), params)
         .subscribe((data: any) => {
           observer.next(data);
         }, err => {

@@ -40,7 +40,7 @@
   </div>
   <div>
     <mat-dialog-actions align="end">
-      <button id="export-to-excel-button" *ngIf="countError > 0" mat-raised-button color="primary"
+      <button id="export-to-excel-button" *ngIf="countError > 0 && showExport" mat-raised-button color="primary"
         (click)="exportAsExcelFile(listError,'OffersLog')">{{'actions.export_excel' | translate}}
       </button>
       <button id="btn-confirmation" type="submit" *ngIf="countError > 0 && pex" mat-raised-button color="primary"

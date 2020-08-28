@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { LoadingService, ModalService, EndpointService, UserParametersService, CognitoUtil, UserLoginService } from '@app/core';
@@ -180,7 +180,7 @@ describe('CalificationListComponent', () => {
     });
   }));
 
-  beforeEach(() => {
+  beforeEach(fakeAsync(() => {
     mockAuthService.getMenu.and.returnValue(registerMenu);
     fixture = TestBed.createComponent(CalificationListComponent);
     calificationComponent = fixture.componentInstance;
@@ -196,16 +196,17 @@ describe('CalificationListComponent', () => {
       dateInitQualityMonth: '202002'
     });
     fixture.detectChanges();
-  });
+  }));
 
   // it('should create', () => {
   //   expect(calificationComponent).toBeTruthy();
   // });
   describe('diferentes calificaciones', () => {
-    beforeEach(() => {
-    });
+    beforeEach(fakeAsync(() => {
+      mockCalificationService.getListCalificationsBySeller.and.returnValue(of(model));
+    }));
 
-    it('', () => {
+    it('1', () => {
       const params = {
         'limit': 50 + '&paginationToken={}',
         'idSeller': 10108,
@@ -216,18 +217,18 @@ describe('CalificationListComponent', () => {
       };
       calificationComponent.getCalificationsBySeller(params);
     });
-    it('', () => {
+    it('2', () => {
       calificationComponent.contentDetails('202020', 101008);
     });
-    it('', () => {
+    it('3', () => {
       calificationComponent.clearForm();
     });
-    it('', () => {
+    it('4', () => {
       calificationComponent.arrayPosition = [{}, {}];
       fixture.detectChanges();
       calificationComponent.validateArrayPositionPaginationToken();
     });
-    it('', () => {
+    it('5', () => {
     calificationComponent.backListCalifications();
     });
   });

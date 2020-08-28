@@ -43,10 +43,12 @@ import { CoreStoreModule } from '../store';
 import { ListReportsModule } from './reports/reports.module';
 import { QualityModule } from './quality/quality.module';
 import { QuotingSellerModule } from './offers/quoting/seller/quoting-seller.module';
+import { BulkLoadBillingComponent } from './orders/bulk-load-billing/bulk-load-billing.component';
+import { BulkLoadBillingModule } from './orders/bulk-load-billing/bulk-load-billing.module';
 import { PendingProductsModule } from './products/pending-products/pending-products.module';
 
 @NgModule({
-  declarations: [],
+  
   imports: [
     AwsCognitoModule,
     ErrorModule,
@@ -78,7 +80,6 @@ import { PendingProductsModule } from './products/pending-products/pending-produ
     BillingOrdersModule,
     ListProductModule,
     SellerModule,
-    BillingOrdersModule,
     ParameterizeModule,
     SellerSupportCenterModule,
     CoreStoreModule,
@@ -86,6 +87,7 @@ import { PendingProductsModule } from './products/pending-products/pending-produ
     QualityModule,
     CitiesCoverageModule,
     QuotingSellerModule,
+    BulkLoadBillingModule,
     PendingProductsModule
   ],
   providers: [AuthService, SellerSupportCenterService]
