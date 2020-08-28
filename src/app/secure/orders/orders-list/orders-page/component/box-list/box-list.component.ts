@@ -42,9 +42,6 @@ export class BoxListComponent implements OnInit {
   @Output() showDetail = new EventEmitter();
 
   public const = Const;
-
-
-
   panelOpenState = false;
   hideStatus: any;
 
@@ -73,7 +70,6 @@ export class BoxListComponent implements OnInit {
    */
 
   recordProcesSedOrder(orderId: any, currentValue: any, idSeller: number) {
-
     const closeSnack = this.languageService.instant('actions.close');
     if (currentValue === true) {
       currentValue = false;
@@ -100,7 +96,13 @@ export class BoxListComponent implements OnInit {
         }
       });
   }
-
+  /**
+   * formato de fecha
+   *
+   * @param {*} date
+   * @returns {*}
+   * @memberof BoxListComponent
+   */
   public getDateWithOutGMT(date: any): any {
     const timezone = new Date().getTimezoneOffset();
     const time = new Date(date).getTime();
@@ -150,7 +152,7 @@ export class BoxListComponent implements OnInit {
 
       });
       dialogRef.afterClosed().subscribe(result => {
-        if (result !== false) {} else {
+        if (result !== false) { } else {
           const message = this.languageService.instant('secure.orders.order_list.order_page.info_no_send_products');
         }
         this.loadingService.closeProgressBar();

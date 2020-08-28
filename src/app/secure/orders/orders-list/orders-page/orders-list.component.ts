@@ -117,8 +117,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
 
 
 
-// ------------------------------------------------------------
-dataListOrder = [];
+  // ------------------------------------------------------------
+  dataListOrder = [];
 
 
 
@@ -185,7 +185,6 @@ dataListOrder = [];
   public isInternational = false;
   public arrayPermission: any;
   currentLanguage: string;
-  // Método que permite crear la fila de detalle de la tabla
   isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
 
 
@@ -259,12 +258,12 @@ dataListOrder = [];
       }
     }
   }
-/**
- * funcion para escuchar el evento al cambiar de idioma
- *
- * @memberof OrdersListComponent
- */
-changeLanguage() {
+  /**
+   * funcion para escuchar el evento al cambiar de idioma
+   *
+   * @memberof OrdersListComponent
+   */
+  changeLanguage() {
     if (localStorage.getItem('culture_current') !== 'US') {
       this.currentLanguage = 'ES';
       localStorage.setItem('culture_current', 'ES');
@@ -338,12 +337,12 @@ changeLanguage() {
     this.marketPermission = this.getFunctionality(this.market);
     this.visualizePermission = this.getFunctionality(this.visualizeFunctionality);
     this.arrayPermission = {
-     read : this.readPermission,
-     download : this.downloadPermission,
-     send: this.sendPermission,
-     attachment: this.attachmentPermission,
-     market: this.marketPermission,
-     visualize: this.visualizePermission
+      read: this.readPermission,
+      download: this.downloadPermission,
+      send: this.sendPermission,
+      attachment: this.attachmentPermission,
+      market: this.marketPermission,
+      visualize: this.visualizePermission
     };
   }
 
@@ -466,34 +465,21 @@ changeLanguage() {
     this.subStateOrder = this.route.params.subscribe(params => {
       this.currentRootPage = params['category'];
       if (this.currentRootPage !== undefined) {
-        /**
-         *  logica para obtener la categoria seleccionada
-         */
         const category = RoutesConst.CATEGORYLIST.filter(item => item.id === this.currentRootPage);
-
-        // si el valor pasado el la url concuerda con la lista de categorías almacenadas,
-        // paso a consultar las órdenes con la categoría indicada
         if (category[0] !== undefined) {
           this.currentCategory = category[0];
-
-          // Aplico el filtro par consultar las órdenes en el estado this.currentRootPage, el cual se esta indicando por el usuario
           const data = {
             idStatusOrder: this.currentRootPage
           };
           this.orderService.setCurrentFilterOrders(data);
-          // obtengo las órdenes con la función del componente ToolbarOptionsComponent
           this.toolbarOption.getOrdersList(this.currentRootPage);
           this.setTitleToolbar();
         } else {
-          //  obtengo las órdenes sin ningun estado en especifico
-          // limpio los filtros aplicados para consultar las órdenes
           this.orderService.setCurrentFilterOrders({});
           this.getAllOrderList();
         }
       } else {
-        // limpio los filtros aplicados para consultar las órdenes
         this.orderService.setCurrentFilterOrders({});
-        // obtengo las órdenes con la función del componente ToolbarOptionsComponent
         this.toolbarOption.getOrdersList();
       }
     });
@@ -583,7 +569,7 @@ changeLanguage() {
             }
             const paginator = { 'pageIndex': 0 };
             this.addCheckOptionInProduct(res.data.viewModel, paginator);
-           
+
           }
         }
       }
@@ -675,8 +661,6 @@ changeLanguage() {
     if (event.param.pageSize !== this.pageSize) {
       this.pageSize = event.param.pageSize;
       if (this.arrayPosition && this.arrayPosition.length > 0) {
-        // this.querySearch = '&currentPage=' + this.arrayPosition.length + '&newLimit=' + this.pageSize;
-        // this.pageIndexChange = this.arrayPosition.length - 1;
         this.arrayPosition = [];
         this.isClear = true;
       }
@@ -717,9 +701,7 @@ changeLanguage() {
    * @memberof OrdersListComponent
    */
   addCheckOptionInProduct(res: any, paginator: any) {
-    // Logica para crear el contador de órdenes
     if (res != null) {
-      // si no hay órdenes, muestro el cotenedor de no se han encontrado órdenes
       if (res.length === 0) {
         this.orderListLength = true;
       } else {
@@ -729,13 +711,9 @@ changeLanguage() {
       this.orderListLength = true;
       res = [];
     }
-    // Logica para agregar la opción check en un producto
     for (let index = 0; index < res.length; index++) {
-
-      // Agrego la opción que habilitara el botón de enviar todo al seleccionar todos los checks
       res[index].sendAllProduct = false;
       for (let j = 0; j < res[index].products.length; j++) {
-        // agrego la opción de check a cada uno de los productos.
         res[index].products[j].checkProductToSend = false;
       }
     }
@@ -809,16 +787,9 @@ changeLanguage() {
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result !== false) {
-
-          // encuentro el objeto de la orden en el array
           const currentOrder = this.dataSource.data.find(x => x.id === result.id);
-          // obtengo el index donde se encuentra el objeto
           const index = this.dataSource.data.indexOf(currentOrder);
-          // edito el valor del la variable processedOrder al valor mandado al servidor
           this.dataSource.data[index] = result;
-
-          // let data = JSON.stringify(this.currentOrderList);
-          // this.dataSource = new MatTableDataSource(JSON.parse(data));
           this.dataSource._updateChangeSubscription();
         } else {
           const message = this.languageService.instant('secure.orders.order_list.order_page.info_no_send_products');
@@ -894,7 +865,7 @@ changeLanguage() {
     });
   }
 
-  isOpened(data:  any) {
+  isOpened(data: any) {
   }
 
   consultDetails($event: any, item: any) {
