@@ -103,9 +103,8 @@ export class DetailCaseComponent implements OnInit {
       ResponseCaseDialogComponent,
       this.configDialog
     );
-    this.loadingService.viewSpinner();
-
     dialogRef.afterClosed().subscribe(result => {
+    this.loadingService.viewSpinner();
       if (result !== undefined) {
         this.sellerSupportService
           .patchCaseResponse(result.data)
