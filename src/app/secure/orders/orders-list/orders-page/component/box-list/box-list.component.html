@@ -1,6 +1,6 @@
 <div class="case-list-content">
   <mat-accordion class="case-list-expandable">
-    <mat-expansion-panel [class]="width-100"  [expanded]="isOpen" (opened)="opened.emit(data); this.panelOpenState = true; read = true; showDetail.emit(panelOpenState)"
+    <mat-expansion-panel class="width-100"  [expanded]="isOpen" (opened)="opened.emit(data); this.panelOpenState = true; read = true; showDetail.emit(panelOpenState)"
       (closed)="panelOpenState = false; showDetail.emit(panelOpenState)">
       <mat-expansion-panel-header>
         <div class="case-list-detail case-list-detail-content-center" fxLayout fxLayout.xs="row"
@@ -124,7 +124,7 @@
                   <span>{{'actions.send' | translate}}</span>
                 </button>
                 <button id="viewDetail-button-order-{{index}}" fxShow.xs="true" fxShow.sm="true" fxShow.gt-lg="false"
-                  fxShow="false" (click)="openModalDetailOrder(orden)" mat-menu-item>
+                  fxShow="false" (click)="openModalDetailOrder(data)" mat-menu-item>
                   <mat-icon>more_vert</mat-icon>
                   <span>{{'actions.show_detail' | translate}}</span>
                 </button>
