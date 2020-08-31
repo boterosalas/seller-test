@@ -102,7 +102,7 @@ const statusResponse = {
 };
 
 
-fdescribe('BulkLoadComponent', () => {
+describe('BulkLoadComponent', () => {
     const registerMenu = {
         Functionalities: [{
             NameFunctionality: 'Crear',
