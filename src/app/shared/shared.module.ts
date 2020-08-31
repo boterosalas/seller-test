@@ -47,6 +47,7 @@ import { HttpClient } from '@angular/common/http';
 import { SelectLanguageComponent } from './components/select-language/select-language.component';
 import { UploadButtonComponent } from './components/upload-button/upload-button.component';
 import { PortsComponent } from './components/ports/ports.component';
+import { ContentDropDownDetailOrderDirective } from '@app/secure/orders/orders-list/orders-page/component/box-list/content-drop-down-detail-order.directive';
 
 export function createTranslateLaoder(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -98,7 +99,8 @@ export function createTranslateLaoder(http: HttpClient) {
     CitiesComponent,
     SelectLanguageComponent,
     UploadButtonComponent,
-    PortsComponent
+    PortsComponent,
+    ContentDropDownDetailOrderDirective
   ],
   exports: [
     MaterialModule,
@@ -132,7 +134,8 @@ export function createTranslateLaoder(http: HttpClient) {
     NotificationCircleComponent,
     TranslateModule,
     SelectLanguageComponent,
-    UploadButtonComponent
+    UploadButtonComponent,
+    ContentDropDownDetailOrderDirective
   ],
   entryComponents: [
     ResponseCaseDialogComponent,

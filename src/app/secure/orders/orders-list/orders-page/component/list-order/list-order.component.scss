@@ -1,0 +1,32 @@
+.list-order-component{
+    &-text-recommendation-downLoad-orders{
+        text-align: center;
+        width: 100%;
+        background-color: #ecefef;
+        padding-bottom: 5px;
+        padding-top: 5px;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    &-container-list-orders{
+        height: 62px;
+        align-items: center;
+        border-bottom: 1px #d3d3d3 solid;
+    }
+
+    &-margin-right-4{
+        margin-right: 4px;
+    }
+
+    &-margin-right-10{
+        margin-right: 10px;
+    }
+
+    &-text-column{
+        font-weight: bold;
+        font-size: 12px;
+        color: #757474;
+    }
+
+}

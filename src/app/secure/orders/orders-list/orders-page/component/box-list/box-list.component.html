@@ -1,0 +1,142 @@
+<div class="case-list-content">
+  <mat-accordion class="case-list-expandable">
+    <mat-expansion-panel class="width-100"  [expanded]="isOpen" (opened)="opened.emit(data); this.panelOpenState = true; read = true; showDetail.emit(panelOpenState)"
+      (closed)="panelOpenState = false; showDetail.emit(panelOpenState)">
+      <mat-expansion-panel-header>
+        <div class="case-list-detail case-list-detail-content-center" fxLayout fxLayout.xs="row"
+        fxLayoutGap="10px" fxLayoutGap.xs="0">
+          <div fxFlex="3%"></div>
+          <div class="case-list-detail--item-detail" fxFlex="3%" fxLayoutAlign="center center" class="no-select">
+            <span [ngClass]="
+                !panelOpenState
+                  ? 'item-detail-arrow'
+                  : 'item-detail-arrow--active arrow-active'
+              ">
+              <mat-icon>keyboard_arrow_up</mat-icon>
+            </span>
+          </div>
+          
+          <div class="case-list-detail--item-detail" fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" fxFlex="5%" id="dpbox-case-id-{{index}}">
+              <button id="flag-order-{{index}}"
+              (click)="stopPropagation($event);recordProcesSedOrder(data.id,data.processedOrder, data.idSeller)"
+              mat-icon-button>
+              <mat-icon [ngClass]="{'active': data.processedOrder}" class="sc-icon-flag">flag</mat-icon>
+              </button>
+          </div>
+          <div class="case-list-detail--item-detail"   fxFlex="20"  fxFlex.sm="25" fxFlex.md="25" fxFlex.lg="20" fxFlex.xs="25" id="dpbox-case-number-{{index}}">
+              <p class="sc-text-bold-order id-order">
+                <mat-icon fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" matSuffix class="icon-forSend"
+                  [ngClass]="{'active': data.allowShipping && data.idStatusOrder == const.OrderAsignado}">
+                  local_shipping
+                </mat-icon>
+                <mat-icon matSuffix fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" [matTooltip]="'secure.orders.order_list.order_page.with_invoice' | translate"
+                  *ngIf="data.billUrl" class="icon-forSend" aria-label="Example icon-button with a heart icon">
+                  description</mat-icon>
+                <mat-icon matSuffix fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" [matTooltip]="'secure.orders.order_list.order_page.without_invoice' | translate"
+                  *ngIf="!data.billUrl" class="icon-forSend active" aria-label="Example icon-button with a heart icon">
+                  description</mat-icon>
+                  {{data.orderNumber}}
+              </p>
+          </div>
+          <div fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" class="case-list-detail--item-detail noneMobile" fxFlex="15%" id="dpbox-case-detail-{{index}}">
+            <p class="sc-date-content-table">{{getDateWithOutGMT(data.dateOrder) | date}} </p>
+          </div>
+          <div fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" class="case-list-detail--item-detail noneMobile" fxFlex="15%" id="dpbox-case-date-{{index}}">
+            <p class="sc-date-content-table">{{getDateWithOutGMT(data.dateMaxDeliveryOrder) | date}} </p>
+          </div>
+          <div class="case-list-detail--item-detail noneMobile font-size-14"  fxFlex="10" fxFlex.sm="20" fxFlex.md="20" fxFlex.lg="10" fxFlex.xs="20" id="dpbox-case-status-{{index}}">
+            
+            <div class="mat-icon-status-order">
+
+              <p class="sc-status-order-table" *ngIf="data.statusOrder == const.NameOrderAsignado">
+                <mat-icon [ngClass]="{'status-orange': data.statusOrder === const.NameOrderAsignado}">notifications
+                </mat-icon>
+                {{'secure.orders.assigned.' + const.AppOrderAsignado | translate}}
+              </p>
+    
+              <p class="sc-status-order-table" *ngIf="data.statusOrder == const.NameOrderEntregado">
+                <mat-icon [ngClass]="{'status-orange': data.statusOrder === const.NameOrderEntregado}">
+                  notifications
+                </mat-icon>
+                {{'secure.orders.delivered.' + const.AppOrderEntregado | translate}}
+              </p>
+    
+              <p class="sc-status-order-table" *ngIf="data.statusOrder == const.NameOrderEnProcesoDeEnvio">
+                <mat-icon [ngClass]="{'status-green': data.statusOrder === const.NameOrderEnProcesoDeEnvio}">
+                  notifications
+                </mat-icon>
+                {{'secure.orders.sent.' + const.AppOrderEnviado | translate}}
+              </p>
+    
+              <p class="sc-status-order-table" *ngIf="data.statusOrder == const.NameOrderEnFacturadoEnviado">
+                <mat-icon [ngClass]="{'status-green': data.statusOrder === const.NameOrderEnFacturadoEnviado}">
+                  notifications
+                </mat-icon>
+                {{'secure.orders.sent.' + const.AppOrderFacturadoEnviado | translate}}
+              </p>
+              <p class="sc-status-order-table" *ngIf="data.statusOrder == const.NameOrderCancelado">
+                <mat-icon [ngClass]="{'status-green': data.statusOrder === const.NameOrderCancelado}">
+                  notifications
+                </mat-icon>
+                {{'secure.orders.sent.' + const.AppOrderCancelado | translate}}
+              </p>
+              <p class="sc-status-order-table" *ngIf="data.statusOrder == const.NameOrderPagadoCanceldo">
+                <mat-icon [ngClass]="{'status-green': data.statusOrder === const.NameOrderPagadoCanceldo}">
+                  notifications
+                </mat-icon>
+                {{'secure.orders.sent.' + const.AppOrderPagadoCanceldo | translate}}
+              </p>
+              <p class="sc-status-order-table" *ngIf="data.statusOrder == const.NameOrderDevolucionPendienteValidacion">
+                <mat-icon [ngClass]="{'status-green': data.statusOrder === const.NameOrderDevolucionPendienteValidacion}">
+                  notifications
+                </mat-icon>
+                {{'secure.orders.sent.' + const.AppOrderDevolucionPendienteValidacion | translate}}
+              </p>
+            </div>
+
+          </div>
+          <div class="case-list-detail--item-detail case-list-detail-text-center" fxFlex="10%" fxFlex.sm="15" fxFlex.md="15" fxFlex.lg="10" fxFlex.xs="15">
+            <p class="sc-text-normal">{{data.channel}}</p>
+          </div>
+          <div class="case-list-detail--item-detail case-list-detail-text-center noneMobile" fxFlex="10%" fxFlex.sm="20" fxFlex.md="20" fxFlex.lg="10" fxFlex.xs="20">
+            <div class="center-product-list content-table-orders">
+              <button id="dropdown-button-order-{{index}}" color="primary" *ngIf="typeProfile === 0" (click)="stopPropagation($event)"
+                class="sc-button-toolbar no-button button-toolbar" mat-button [matMenuTriggerFor]="orderOptions">
+                <mat-icon matPrefix>arrow_drop_down</mat-icon>
+                <span>{{'shared.actions' | translate}}</span>
+              </button>
+              <mat-menu #orderOptions="matMenu">
+                <button id="print-rot-button-order-{{index}}"
+                  *ngIf="isInternational && data.statusOrder == const.NameOrderAsignado"
+                  (click)="downloadLabel(data)" mat-menu-item>
+                  <mat-icon>label_outline</mat-icon>
+                  <span>{{'actions.download_label' | translate}}</span>
+                </button>
+                <button id="add-billing-button-order-{{index}}" (click)="openLoadFile(data)" mat-menu-item
+                  [disabled]="data.billUrl" *ngIf="arrayPermission.attachment">
+                  <mat-icon [class]="data.billUrl ?'mat-icon material-icons disable-btn-send' : 'mat-icon status-green material-icons '">note_add</mat-icon>
+                  <span>{{'actions.attach_invoice' | translate}}</span>
+                </button>
+                <button
+                  *ngIf="data.allowShipping == true && data.idStatusOrder == const.OrderAsignado && arrayPermission.send"
+                  id="send-button-order-{{index}}" (click)="openDialogSendOrder(data)" mat-menu-item>
+                  <mat-icon>local_shipping</mat-icon>
+                  <span>{{'actions.send' | translate}}</span>
+                </button>
+                <button id="viewDetail-button-order-{{index}}" fxShow.xs="true" fxShow.sm="true" fxShow.gt-lg="false"
+                  fxShow="false" (click)="openModalDetailOrder(data)" mat-menu-item>
+                  <mat-icon>more_vert</mat-icon>
+                  <span>{{'actions.show_detail' | translate}}</span>
+                </button>
+              </mat-menu>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel-header>
+
+      <ng-container *ngFor="let item of items">
+        <ng-container [ngTemplateOutlet]="item.tpl"></ng-container>
+      </ng-container>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

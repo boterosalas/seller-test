@@ -455,7 +455,7 @@
     "secure.orders.download_order_modal.sn_error_download_guide": "Se ha presentado un error al realizar la descarga de las guías.",
 
     "secure.orders.order_list.detail_modal.order_date": "Fecha de pedido",
-    "secure.orders.order_list.detail_modal.deadline": "Fecha maxima de entrega",
+    "secure.orders.order_list.detail_modal.deadline": "Fecha max. de entrega",
     "secure.orders.order_list.detail_modal.order_type": "Tipo de orden",
     "secure.orders.order_list.detail_modal.channel": "Canal",
 
@@ -487,7 +487,9 @@
     "secure.orders.order_list.product_order.fulfillment": "fulfillment",
     "secure.orders.order_list.product_order.ref": "Ref",
     "secure.orders.order_list.product_order.sku": "SKU",
+    "secure.orders.order_list.product_order.sku_seller": "SKU vendedor",
     "secure.orders.order_list.product_order.total": "Total",
+    "secure.orders.order_list.product_order.see_total_records_download": "Visualiza todos tus pedidos descargando tu reporte de órdenes",
 
     "secure.orders.order_list.send_order.title_order": "Enviar órden",
     "secure.orders.order_list.send_order.no_send_products": "La orden no posee mas productos para ser enviados.",

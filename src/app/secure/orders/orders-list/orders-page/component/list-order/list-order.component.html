@@ -1,0 +1,43 @@
+<div>
+  <div fxLayout="row">
+    <div class="list-order-component-text-recommendation-downLoad-orders">
+    {{'secure.orders.order_list.product_order.see_total_records_download' | translate }}
+    </div>
+  </div>
+  <div fxLayout="row" class="list-order-component-container-list-orders">
+    <div fxFlex="13"  fxFlex.sm="5" fxFlex.md="13" fxFlex.lg="13" fxFlex.xs="5" class="list-order-component-margin-right-4"></div>
+    <div fxFlex="20" class="list-order-component-margin-right-10">
+      <span class="list-order-component-text-column">
+        {{'secure.orders.order' | translate}}
+      </span>
+    </div>
+    <div fxFlex="15" class="list-order-component-margin-right-10" fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true">
+      <span class="list-order-component-text-column">
+        {{'secure.orders.order_list.detail_modal.order_date' | translate}}
+      </span>
+    </div>
+    <div fxFlex="15" class="list-order-component-margin-right-10" fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true">
+      <span class="list-order-component-text-column">
+        {{'secure.orders.order_list.detail_modal.deadline' | translate}}
+      </span>
+    </div>
+    <div fxFlex="13" fxFlex.sm="30" fxFlex.md="22" fxFlex.lg="13" fxFlex.xs="30">
+      <span class="list-order-component-text-column">
+        {{'shared.status' | translate}}
+      </span>
+    </div>
+    <div fxFlex="10" fxFlex.sm="20" fxFlex.md="15" fxFlex.lg="10" fxFlex.xs="30" class="list-order-component-margin-right-10">
+      <span class="list-order-component-text-column">
+        {{'secure.orders.order_list.detail_modal.channel' | translate}}
+      </span>
+    </div>
+    <div fxFlex="5" class="list-order-component-margin-right-10">
+      <span class="list-order-component-text-column">
+        {{'shared.actions' | translate}}
+      </span>
+    </div>
+  </div>
+  <ng-container *ngFor="let item of items" >
+    <ng-container [ngTemplateOutlet]="item.tpl"></ng-container>
+  </ng-container>
+</div>

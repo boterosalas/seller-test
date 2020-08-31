@@ -435,6 +435,10 @@
     "secure.orders.sent.product.En envío": "Sent",
     "secure.orders.sent.product.Facturado Enviado": "Sent",
 
+    "secure.orders.sent.Cancelado": "Cancel",
+    "secure.orders.sent.Pagado Cancelado": "Pagado Cancelado",
+    "secure.orders.sent.Devolución Pendiente Validación": "Devolución Pendiente Validación",
+
     "secure.orders.billing_orders.subtitle_toolbar": "Search for an invoice",
     "secure.orders.billing_orders.txt_serch_order": "Enter order number",
     "secure.orders.billing_orders.txt_no_order": "Enter the order number in the search bar to find a specific invoice",
@@ -485,7 +489,9 @@
     "secure.orders.order_list.product_order.fulfillment": "fulfillment",
     "secure.orders.order_list.product_order.ref": "Ref",
     "secure.orders.order_list.product_order.sku": "SKU",
+    "secure.orders.order_list.product_order.sku_seller": "Seller SKU",
     "secure.orders.order_list.product_order.total": "Total",
+    "secure.orders.order_list.product_order.see_total_records_download": "View all your orders by downloading the order report  ",
 
     "secure.orders.order_list.send_order.title_order": "Send Order",
     "secure.orders.order_list.send_order.no_send_products": "The order doesn't contain any more products left for sending.",

@@ -4,6 +4,7 @@
 $green: mat-palette($mat-green);
 $amber: mat-palette($mat-amber);
 $blue: mat-palette($mat-indigo);
+
 .acction-text {
   color: map-get($blue, A400) !important;
 }
@@ -26,6 +27,13 @@ $blue: mat-palette($mat-indigo);
   padding-right: 10px;
 }
 
+:host ::ng-deep {
+  .mat-expansion-panel-content {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
 :host ::ng-deep .content-order {
   & .container {
     min-width: 300px;
@@ -35,59 +43,74 @@ $blue: mat-palette($mat-indigo);
     padding: 0;
     // padding: 0 0 200px;
   }
+
   & .sales-card {
     & .state-cancel {
       color: red;
       font-weight: bold;
     }
+
     & .state-pendind {
       color: map-get($amber, 800);
       font-weight: bold;
     }
+
     & .state-delivered {
       color: map-get($green, 400);
       font-weight: bold;
     }
+
     & .header-sales {
       position: relative;
+
       & .sales-options {
         position: absolute;
         right: 0;
         top: 10px;
       }
     }
+
     margin-bottom: 20px;
+
     & .info-product {
       padding: 10px;
+
       & .price {
         color: red;
         font-weight: bold;
         font-size: 15px;
       }
+
       & .price-after {
         text-decoration: line-through;
         color: #9b9b9b;
       }
     }
+
     & .info-seller {
       padding: 10px;
+
       & .name-seller {
         color: #000;
       }
     }
+
     & .options-sales {
       display: flex;
       align-items: center;
       justify-content: center;
     }
   }
+
   & .content-products {
     display: flex;
     flex-wrap: wrap;
+
     & mat-card {
       box-shadow: none;
     }
   }
+
   & .example-header {
     min-height: 64px;
     padding: 8px 24px 0;
@@ -96,53 +119,66 @@ $blue: mat-palette($mat-indigo);
   & .mat-table {
     overflow: auto;
   }
+
   & .mat-column-select {
     overflow: visible;
   }
+
   // Configuración para el contenedor de la tabla principal
   & .content-table-orders {
     padding: 10px 20px;
   }
+
   // Configuración para el toolbar que contiene las opciones del usuario en la vista órdenes
   & .toolbar-orders-options-table {
     & .toolbar-options {
 
       padding-left: 0;
-      /* Para 480px */  
-      @media only screen and (max-width: 500px) and (min-width: 341px) {  
+
+      /* Para 480px */
+      @media only screen and (max-width: 500px) and (min-width: 341px) {
         text-align: center;
-      } 
+      }
+
       & .title-toolbar {
         padding-right: 100px;
-        @media only screen and (max-width: 500px) and (min-width: 341px) {  
+
+        @media only screen and (max-width: 500px) and (min-width: 341px) {
           padding-right: 0px;
-        } 
+        }
       }
     }
+
     padding-left: 0;
   }
+
   & .orders-paginate {
     & .mat-paginator-container {
       flex-wrap: nowrap;
     }
   }
+
   & .toolbar-options-table {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     width: 100%;
+
     & .toolbar-paginate {
       display: flex;
       align-items: center;
       justify-content: center;
+
       & .paginator-style {
         background-color: transparent;
       }
+
       @media (max-width: 425px) {
         & .mat-paginator-page-size {
           display: none;
         }
       }
+
       @media (max-width: 1024px) {
         & .mat-paginator-page-size {
           display: none;
@@ -150,32 +186,40 @@ $blue: mat-palette($mat-indigo);
       }
     }
   }
+
   // quitar sombra de los botones fab
   .mat-mini-fab:not([class*=mat-elevation-z]) {
     box-shadow: none !important;
   }
+
   & .element-row {
     position: relative;
   }
+
   & .element-row:not(.expanded) {
     cursor: pointer;
   }
+
   & .element-row:not(.expanded):hover {
     background: #eaeaea;
   }
+
   & .element-row.expanded {
     // border-bottom-color: transparent;
     opacity: 0.7;
   }
+
   & .center-product-list {
     display: flex;
     align-items: center;
     // justify-content: center;
     height: 100%;
-    @media only screen and (max-width: 500px) and (min-width: 341px) {  
+
+    @media only screen and (max-width: 500px) and (min-width: 341px) {
       margin-top: 8px;
-    } 
+    }
   }
+
   & .content-detail-order {
     background-color: #f4f4f4;
     padding: 0px !important;
@@ -185,19 +229,23 @@ $blue: mat-palette($mat-indigo);
     width: 10%;
     padding-left: 40px;
   }
+
   & .detail-product-name {
     color: #000;
     font-weight: bold;
     margin-top: 2px;
     margin-bottom: 0px;
   }
+
   & .product-button {
     font-size: 11px;
+
     & mat-icon {
       font-size: 18px;
       color: rgb(161, 161, 153);
     }
   }
+
   & .orders-no-data {
     flex-wrap: wrap;
     display: flex;
@@ -207,64 +255,79 @@ $blue: mat-palette($mat-indigo);
     background-color: #fff;
     box-shadow: 0 1px 1px -2px rgba(0, 0, 0, 0.2), 0px 1px 1px -4px rgba(0, 0, 0, 0.14), 0px 1px 1px 0px rgba(0, 0, 0, 0.12);
     flex-direction: column;
+
     & .icon-not-found {
       font-size: 40px;
       height: 40px;
       width: 40px;
     }
   }
+
   & .mat-table {
     padding: 0;
   }
+
   & .mat-icon-status-order {
     & mat-icon {
       font-size: 14px;
     }
   }
+
   & .option-table-button {
     display: flex;
     align-items: center;
     justify-content: center;
   }
+
   & .cell-options-button {
     padding-top: 10px;
     padding-bottom: 10px;
   }
+
   & .list-length-order {
     font-size: 12px;
     height: 58px;
     padding-bottom: 0px;
+
     & .mat-input-wrapper {
       line-height: 1.8;
     }
   }
+
   & .hidden-pagination {
     display: none !important;
   }
+
   & .sc-icon-flag {
     font-size: 16px;
     color: #c2c2c2;
   }
+
   & .sc-icon-flag.active {
     color: #5ea223;
   }
+
   & .mat-header-row {
     align-items: center;
     justify-content: center;
   }
+
   & .mat-header-row,
   .mat-row {
     align-items: center;
     justify-content: center;
   }
+
   & .icon-forSend {
     color: #c2c2c2;
     font-size: 16px;
     margin-right: 5px;
   }
+
   & .icon-forSend.active {
     color: #5ea223;
   }
+
   & .id-order {
     display: flex;
     margin-top: 15px;
@@ -272,51 +335,55 @@ $blue: mat-palette($mat-indigo);
   }
 }
 
-.content-table-orders{
-  .mat-icon.mat-primary{
-    color:$color-gray1;
+.content-table-orders {
+  .mat-icon.mat-primary {
+    color: $color-gray1;
   }
 
-  .mat-button.mat-primary{
+  .mat-button.mat-primary {
     color: $color-gray-light;
   }
-  
-  .sc-date-content-table{
-    color:$color-gray1;
+
+  .sc-date-content-table {
+    color: $color-gray1;
     font-size: 14px;
   }
 
-  .sc-status-order-table .status-orange, .sc-status-order-table .status-green{
+  .sc-status-order-table .status-orange,
+  .sc-status-order-table .status-green {
     padding-right: 5px;
   }
 
-  .title-table-header{
+  .title-table-header {
     color: #757474
   }
 
 }
 
 
-.sc-status-order-table{
-  p{
+.sc-status-order-table {
+  p {
     margin: 0;
   }
 }
 
 
-.hideTableAction{
+.hideTableAction {
   display: none;
 }
 
-.showTableAction{
+.showTableAction {
   display: inline-block;
 }
 
-.marginListAdmin{
+.marginListAdmin {
   max-width: 191px;
 }
-.marginListAdminTotal{
+
+.marginListAdminTotal {
   max-width: 352px !important;
 }
 
-
+.width-100{
+  width: 100%;
+}
