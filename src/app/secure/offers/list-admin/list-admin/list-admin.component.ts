@@ -297,7 +297,6 @@ export class ListAdminComponent implements OnInit {
     this.paramData.pluVtex = null;
     this.paramData.sellerSku = null;
     this.filterOffers(this.paramData);
-    // this.getListOffers(this.paramData);
   }
 
 }

@@ -19,7 +19,7 @@
       <input id="sinceDate-input"
         [placeholder]="'secure.offers.historical_admin.components.filter.placeholder_initial_date' | translate"
         formControlName="dateInitial" name="dateInitial" [readonly]="true" matInput [matDatepicker]="dateInitial"
-        (dateChange)="setMaxDateRange();validateFinalRange();" (click)="openDateInitial()">
+        (dateChange)="setMaxDateRange();validateFinalRange()" (click)="openDateInitial()">
       <mat-datepicker-toggle matPrefix [for]="dateInitial"></mat-datepicker-toggle>
       <mat-datepicker touchUi="true" startView="year" #dateInitial></mat-datepicker>
     </mat-form-field>
@@ -34,6 +34,9 @@
       <mat-datepicker-toggle matPrefix [for]="dateFinal"></mat-datepicker-toggle>
       <mat-datepicker touchUi="true" startView="year" #dateFinal></mat-datepicker>
       <mat-error *ngIf="rangeError">{{'errors.error_date' | translate}}</mat-error>
+      <mat-error *ngIf="historicalFilterForm.controls.dateFinal.hasError('matDatepickerMin')">
+        {{'secure.products.create_product_unit.list_products.ending_date' | translate}}
+      </mat-error>
     </mat-form-field>
     <!-- /Input date final -->
 

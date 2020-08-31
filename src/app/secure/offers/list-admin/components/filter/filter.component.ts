@@ -69,6 +69,7 @@ export class FilterComponent implements OnInit, OnChanges {
     public matcher: MyErrorStateMatcher;
     public regexNoSpaces = /^((?! \s+|\s+$).)*$/;
     public regexOnlyNumber = /^[0-9]*$/;
+    public regexSellerSku = /^(?=.*[A-Za-z\d])[A-Za-z\d!\"#$%&'()*+/\\_:.<>=?¡¿[\\]|°¬{}^~-]+/;
 
     listFilterOfferts: any[];
     eanList: any;
@@ -135,7 +136,7 @@ export class FilterComponent implements OnInit, OnChanges {
         this.ean = new FormControl('', [Validators.pattern(this.regexNoSpaces)]);
         this.pluVtex = new FormControl('', [Validators.pattern(this.regexOnlyNumber)]);
         this.stock = new FormControl('', []);
-        this.sellerSku = new FormControl('', []);
+        this.sellerSku = new FormControl('', [Validators.pattern(this.regexSellerSku)]);
         this.matcher = new MyErrorStateMatcher();
     }
 

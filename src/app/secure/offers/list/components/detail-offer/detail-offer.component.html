@@ -103,25 +103,21 @@
       <div fxLayout="row wrap" *ngIf="dataOffer.offerComponents.length > 0">
         <div fxLayout="row" class="titleListCombo">{{'secure.offers.bulk_upload.table_load.component_list' | translate}}
           <span class="countCombo">({{dataOffer.offerComponents.length}})</span></div>
-        <div fxLayout="row wrap" style="height: 170px; overflow-y: scroll;" fxFlex="100">
-          <div fxFlex="100" style="height: auto;" *ngFor="let detailOfers of dataOffer.offerComponents">
+        <div fxLayout="row wrap" class="beforeNameCombo" fxFlex="100">
+          <div fxFlex="100" id="idListComponent" *ngFor="let detailOfers of dataOffer.offerComponents">
             <div class="nameCombo">
               <mat-icon matPrefix class="alingIcon">move_to_inbox</mat-icon>
               <span class="colorTitleCombo">{{detailOfers.productName}}</span>
               <div fxLayout="row">
-                <div fxFlex="50"
-                  style="background-color: #eeeeee; margin-right: 5px; margin-left: 28px; height: 25px;padding-left: 7px;padding-top: 4px;  font-weight: bold; color: #868383; ">
+                <div fxFlex="50" id="idPrice">
                   {{'secure.offers.historical_admin.historical_admin.price' | translate}}</div>
-                <div fxFlex="50"
-                  style="background-color: #eeeeee; margin-right: 5px; height: 25px;padding-left: 7px;padding-top: 4px;  font-weight: bold; color: #868383; ">
+                <div fxFlex="50" id="idQuantyCombo">
                   {{'secure.offers.bulk_upload.table_load.quantity_combo' | translate}}</div>
               </div>
               <div fxLayout="row">
-                <div fxFlex="50"
-                  style="background-color: #f8f8f8; margin-right: 5px; margin-left: 28px; height: 25px;padding-left: 7px;padding-top: 4px;">
+                <div fxFlex="50" id="Price2">
                   {{detailOfers.price}}</div>
-                <div fxFlex="50"
-                  style="background-color: #f8f8f8; margin-right: 5px; height: 25px;padding-left: 7px;padding-top: 4px;">
+                <div fxFlex="50" id="idQuantyCombo2">
                   {{detailOfers.quantity}}</div>
               </div>
             </div>
@@ -274,13 +270,13 @@
             {{'secure.offers.bulk_upload.table_load.component_list' | translate}}<span
               class="countCombo">({{Combos.controls.length}})</span></div>
 
-          <div fxLayout="row wrap" style="height: 170px; overflow-y: scroll; overflow-x: hidden; margin-bottom: 26px;"
+          <div fxLayout="row wrap" class="classListComponents"
             fxFlex="100">
-            <div fxFlex="100" style="height: auto;" *ngFor="let comp of Combos.controls">
+            <div fxFlex="100" id="idListComponent" *ngFor="let comp of Combos.controls">
               <ng-container [formGroup]="comp">
                 <div class="nameCombo">
                   <mat-icon matPrefix class="alingIcon">move_to_inbox</mat-icon>
-                  <span style="color: #5D5D5D;"><b>{{comp.get('nameCombo').value}}</b></span>
+                  <span><b>{{comp.get('nameCombo').value}}</b></span>
                 </div>
                 <div>
                   <mat-form-field color="primary" class="marginInput">

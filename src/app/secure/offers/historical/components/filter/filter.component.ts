@@ -83,7 +83,7 @@ export class FilterComponent implements OnInit {
   createForm() {
     this.historicalFilterForm = this.fb.group({
       'dateInitial': [null, Validators.compose([Validators.required])],
-      'dateFinal': new FormControl(null, Validators.compose([Validators.required, Validators.pattern(this.regexNoSpaces)])),
+      'dateFinal': new FormControl(null, Validators.compose([Validators.required])),
       'ean': [null, Validators.compose([Validators.pattern(this.regexNoSpaces)])]
     });
   }
@@ -117,6 +117,8 @@ export class FilterComponent implements OnInit {
     if (this.historicalFilterForm.value.dateFinal != null && this.historicalFilterForm.value.dateInitial != null) {
       if ((this.historicalFilterForm.value.dateFinal.getTime() - this.historicalFilterForm.value.dateInitial.getTime()) > (1000 * 60 * 60 * 24 * (this.rangeDays++))) {
         this.rangeError = true;
+      } else {
+        this.rangeError = false;
       }
     }
   }
