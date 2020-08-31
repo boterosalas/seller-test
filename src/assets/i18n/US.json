@@ -436,8 +436,8 @@
     "secure.orders.sent.product.Facturado Enviado": "Sent",
 
     "secure.orders.sent.Cancelado": "Cancel",
-    "secure.orders.sent.Pagado Cancelado": "Pagado Cancelado",
-    "secure.orders.sent.Devolución Pendiente Validación": "Devolución Pendiente Validación",
+    "secure.orders.sent.Pagado Cancelado": "Paid Canceled",
+    "secure.orders.sent.Devolución Pendiente Validación": "Return pending validation",
 
     "secure.orders.billing_orders.subtitle_toolbar": "Search for an invoice",
     "secure.orders.billing_orders.txt_serch_order": "Enter order number",

@@ -15,7 +15,7 @@
         <ng-container *itemDropDownList>
           <app-box-list *ngFor="let item of dataListOrder; let i = index" [data]="item"
             [isInternational]="isInternational" [arrayPermission]="arrayPermission" (opened)="isOpened($event)"
-            (showDetail)="consultDetails($event, item)" [user]="user" [typeProfile]="typeProfile">
+            (showDetail)="consultDetails($event, item)" [user]="user" [index]="i" [typeProfile]="typeProfile">
             <ng-container *appContentDropDownDetailOrderDirective>
               <div *ngIf="item.statusLoad" class="content-detail-order content-table-orders">
                 <app-client-information [order]="item" [isInternational]="isInternational"></app-client-information>
