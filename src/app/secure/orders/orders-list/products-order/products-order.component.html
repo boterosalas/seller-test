@@ -112,6 +112,24 @@
           </mat-icon>
           {{'secure.orders.sent.' + const.AppOrderFacturadoEnviado | translate}}
         </p>
+        <p class="sc-status-order-table" *ngIf="product.statusProduct == const.NameOrderCancelado">
+          <mat-icon [ngClass]="{'status-green': product.statusProduct === const.NameOrderCancelado}">
+            notifications
+          </mat-icon>
+          {{'secure.orders.sent.' + const.AppOrderCancelado | translate}}
+        </p>
+        <p class="sc-status-order-table" *ngIf="product.statusProduct == const.NameOrderPagadoCanceldo">
+          <mat-icon [ngClass]="{'status-green': product.statusProduct === const.NameOrderPagadoCanceldo}">
+            notifications
+          </mat-icon>
+          {{'secure.orders.sent.' + const.AppOrderPagadoCanceldo | translate}}
+        </p>
+        <p class="sc-status-order-table" *ngIf="product.statusProduct == const.NameOrderDevolucionPendienteValidacion">
+          <mat-icon [ngClass]="{'status-green': product.statusProduct === const.NameOrderDevolucionPendienteValidacion}">
+            notifications
+          </mat-icon>
+          {{'secure.orders.sent.' + const.AppOrderDevolucionPendienteValidacion | translate}}
+        </p>
       </div>
     </div>
     <div fxFlex.sm="12" fxFlex.md="12" fxFlex.lg="12" fxFlex.xs="12" fxShow fxHide.xs="true" fxHide.sm="true"
