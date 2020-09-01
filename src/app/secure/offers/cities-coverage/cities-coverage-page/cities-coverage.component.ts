@@ -45,6 +45,7 @@ export class CitiesCoverageComponent implements OnInit {
   /** Modelo de ciudades selecciondas */
   public selection = new SelectionModel<CitiesEntity>(true, []);
   allData: CitiesEntity[];
+  activePrincipal: Boolean = true;
 
   /**
    * Creates an instance of CitiesCoverageComponent.
@@ -73,6 +74,16 @@ export class CitiesCoverageComponent implements OnInit {
     this.getDepartments();
   }
 
+  /**
+   * Metodo para activar boton principal luego de haber seleccionado alguna ciudad.
+   * @param {*} event
+   * @memberof CitiesCoverageComponent
+   */
+  activeCheckPrincipal(event: any) {
+    if (event) {
+      this.activePrincipal = false;
+    }
+  }
   /**
    *
    *
