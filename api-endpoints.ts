@@ -220,7 +220,11 @@ export const endpoints = {
       // Detalle de reclaciones
       getDetailTranslationReclaim: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/get-case-expanded/{params}',
       // Obtener comentarios de solicitud de devolución
-      getAllCommentRefuse: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch/translation'
+      getAllCommentRefuse: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch/translation',
+      // enviar array de archivos para ser procesados y guardados
+      setMassiveBillOrderAsync: 'https://blmce0zwq7.execute-api.us-east-1.amazonaws.com/orders-bill/setmassivebillorderasync',
+      // consultar status de carga masiva de facturas
+      getstatussetmassivebilling: 'https://blmce0zwq7.execute-api.us-east-1.amazonaws.com/orders-bill/getstatussetmassivebilling'
     },
   },
   // Endpoints production
@@ -438,7 +442,11 @@ export const endpoints = {
       // Detalle de reclaciones
       getDetailTranslationReclaim: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/get-case-expanded/{params}',
       // Obtener comentarios de solicitud de devolución
-      getAllCommentRefuse: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn/translation'
+      getAllCommentRefuse: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn/translation',
+      // enviar array de archivos para ser procesados y guardados
+      setMassiveBillOrderAsync: 'https://t4xxi6ge3e.execute-api.us-east-1.amazonaws.com/orders-bill-pdn/setmassivebillorderasync',
+      // consultar status de carga masiva de facturas
+      getstatussetmassivebilling: 'https://t4xxi6ge3e.execute-api.us-east-1.amazonaws.com/orders-bill-pdn/getstatussetmassivebilling'
     }
   }
 };

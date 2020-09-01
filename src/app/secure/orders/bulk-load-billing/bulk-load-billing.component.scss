@@ -1,0 +1,273 @@
+$size: 260%;
+$gray: #757474;
+$lightgray: lightgray;
+$blue: #485AFA;
+
+.bulk-load-billing-component {
+  &-button-add {
+    text-align: right;
+    color: #485AFA;
+    width: 100%;
+  }
+
+  &-text-btn-show-details {
+    margin-right: 30px;
+  }
+
+  &-container-width-100 {
+    width: 100%
+  }
+
+  &-text-aling-center{
+    text-align: center;
+  }
+
+  &-font-size-14{
+    font-size: 14px;
+  }
+
+  &-margin-top-40{
+    margin-top: 40px;
+  }
+  &-done-green{
+    color:green;
+    vertical-align: sub;
+  }
+  &-remove-red{
+    color:red;
+    vertical-align: sub;
+  }
+
+  &-container-port-main {
+    width: 100%;
+    padding: 15px;
+    padding-right: 47px;
+  }
+
+  &-margin-top-15 {
+    margin-top: 15px;
+  }
+
+  &-load-file-container {
+    padding: 1em;
+
+    .mat-dialog-actions {
+      width: 100%;
+    }
+
+    .mat-dialog-content {
+      p {
+        color: #787777;
+      }
+    }
+
+    .inline-block {
+      display: inline-block;
+      width: 100%;
+
+      .my-drop-zone {
+        border: dashed 2px $lightgray;
+        min-height: 340px;
+        color: $gray;
+        padding: 2em;
+        cursor: pointer;
+
+        .button-fake {
+          border-radius: 4px;
+          width: 150px;
+          height: 37px;
+          font-size: 12px;
+          cursor: pointer;
+          background-color: $blue;
+          color: white;
+        }
+      }
+    }
+  }
+
+  &-logo {
+    width: 100%;
+    display: flex;
+    .container-logo {
+      background-color: #f4e000;
+      border-radius: 500px;
+      width: 80px;
+      height: 80px;
+      .material-icons {
+        font-size: $size;
+        display: contents;
+      }
+    }
+    .seller {
+      font-size: $size;
+    }
+    .point {
+      font-size: $size;
+      color: #a81a13;
+      font-weight: bold;
+    }
+    .load-file-gray {
+      font-size: $size;
+      color: #787777;
+      font-weight: 600;
+    }
+  }
+
+  &-color-here-blue{
+    color: #485AFA;
+  }
+
+  &-text-remommnedation{
+    width: 100%;
+    font-size: 13px;
+    color: $gray;
+  }
+
+  &-margin-top-5{
+    margin-top: 5px;
+  }
+  &-cursor-Pointer{
+    cursor: pointer;
+  }
+  &-icon-recommendation{
+    vertical-align: middle;
+    font-size: 20px;
+  }
+
+  &-margin-left-28{
+    margin-left: 28px;
+  }
+  &-asteric-recommnedation-color{
+    color: #485AFA ;
+  }
+  &-padding-margin-list-file-empty{
+    padding-left: 37%;
+    padding-right: 25%;
+    padding-top: 16%;
+  }
+
+  &-icon-list-empty-file{
+    font-size: 200px !important;
+    width: 200px;
+    height: 200px;
+    color: #efefef;
+  }
+
+  &-text-color-grey{
+    color: $gray;
+  }
+
+  &-margin-top-30{
+    margin-top: 30px;
+  }
+
+  &-title-list-files{
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  &-for-list-files{
+    width: 100%;
+    padding: 10px;
+    vertical-align: middle;
+    justify-content: center;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  &-icon-add-note{
+    color: #485AFA;
+    opacity: 0.5;
+    vertical-align: middle;
+  }
+  &-icon-add-note-duplicate{
+    color: red;
+    vertical-align: middle;
+  }
+
+  &-text-name-file{
+    vertical-align: sub;
+    cursor: pointer;
+  }
+  &-container-size-file{
+    font-size: 14px;
+    text-align: center;
+    margin-left: 10px;
+  }
+
+  &-vertical-align-sub{
+    vertical-align: sub;
+  }
+  &-icon-done-list{
+    color:green;
+    vertical-align: middle;
+  }
+  &-icon-delete-list{
+    color:red;
+    vertical-align: middle;
+  }
+  &-text-transform-uppercase{
+    text-transform: uppercase 
+  }
+}
+
+
+
+
+
+
+/* Default class applied to drop zones on over */
+
+.invalid-drag {
+  border: dotted 3px red;
+}
+
+.valid-drag {
+  border: dotted 3px green;
+}
+
+.previewIcon {
+  width: 100px;
+  height: 100px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+
+
+.material-icons-outlined {
+  font-family: 'Material Icons Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+
+.container-load-files {
+  height: 305px;
+  max-height: 305px;
+  contain: content;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.cup-text-name-pdf {
+  width: 250px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.sizeRefuse {
+  color: red;
+}
