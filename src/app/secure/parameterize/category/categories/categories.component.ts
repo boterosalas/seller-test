@@ -24,10 +24,6 @@ export class CategoriesComponent implements OnInit {
   categoryRegex = {
     Commission: '',
     Id: '',
-    IdCarulla: '',
-    IdCatalogos: '',
-    IdExito: '',
-    IdMarketplace: '',
     IdParent: '',
     Name: '',
     IdVTEX: '',
@@ -153,10 +149,6 @@ export class CategoriesComponent implements OnInit {
     this.form = this.fb.group({
       Commission: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.Commission), positiveNumber])],
       Id: ['', Validators.pattern(this.categoryRegex.Id)],
-      IdCarulla: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.IdCarulla)])],
-      IdCatalogos: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.IdCatalogos)])],
-      IdExito: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.IdExito)])],
-      IdMarketplace: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.IdMarketplace)])],
       IdParent: ['', Validators.pattern(this.categoryRegex.IdParent)],
       NameParent: [''],
       Name: ['', Validators.compose([Validators.required, trimField, Validators.pattern(this.categoryRegex.Name)])],
@@ -457,22 +449,6 @@ changeLanguage() {
 
   get Id(): FormControl {
     return this.form.get('Id') as FormControl;
-  }
-
-  get IdCarulla(): FormControl {
-    return this.form.get('IdCarulla') as FormControl;
-  }
-
-  get IdCatalogos(): FormControl {
-    return this.form.get('IdCatalogos') as FormControl;
-  }
-
-  get IdExito(): FormControl {
-    return this.form.get('IdExito') as FormControl;
-  }
-
-  get IdMarketplace(): FormControl {
-    return this.form.get('IdMarketplace') as FormControl;
   }
 
   get IdParent(): FormControl {
