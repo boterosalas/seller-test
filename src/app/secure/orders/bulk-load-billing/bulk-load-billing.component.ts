@@ -193,10 +193,7 @@ export class BulkLoadBillingComponent implements OnInit {
    * @memberof BulkLoadBillingComponent
    */
   deleteFile(index: number, file: any) {
-    if (file && file.refuse) {
-      this.filesErrors--;
-    }
-    if (file && file.fileExist) {
+    if (file && file.refuse || file.fileExist) {
       this.filesErrors--;
     }
     if (file && !file.refuse && !file.fileExist) {
