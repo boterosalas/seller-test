@@ -5,7 +5,7 @@
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <div class="filter-header">
           <span class="filter-header--title">
-            {{'secure.billing.check_billing'| translate}}
+            {{'secure.orders.bulk.billing.name_filter_billing'| translate}}
           </span>
         </div>
         <button id="closeMenuApplication" type="button" color="primary" [matTooltip]="'actions.close' | translate"
@@ -53,7 +53,7 @@
             add_circle_outline
           </mat-icon>
         </mat-form-field>
-        <div class="example-chip-list">
+        <div class="chip-list-billingOrder">
           <mat-chip-list #chipList>
             <mat-chip *ngFor="let key of keywords; let i = index" (removed)="deleteKeywork(i)">
               {{key}}

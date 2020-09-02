@@ -1342,5 +1342,6 @@
     "secure.orders.bulk.billing.name_file_invoice_invoice_number": "Le nom du fichier de la facture doit être le numéro de facture",
     "secure.orders.bulk.billing.you_have_no_files_to_upload": "Il n'a pas les fichiers à télécharger",
     "secure.orders.bulk.billing.it_have_files_upload": "Liste des factures à charge",
-    "secure.orders.bulk.billing.duplicate_name": "Vous avez des fichiers téléchargés avec le même nom"
+    "secure.orders.bulk.billing.duplicate_name": "Vous avez des fichiers téléchargés avec le même nom",
+    "secure.orders.bulk.billing.name_filter_billing": "Filtre de Facturation"
 }
