@@ -1357,10 +1357,11 @@
     "secure.orders.bulk.billing.allowed_format": "Formato permitido",
     "secure.orders.bulk.billing.maximum_file_size_megabytes": "Tamaño máximo del archivo",
     "secure.orders.bulk.billing.megabytes": "Megabytes",
-    "secure.orders.bulk.billing.name_file_invoice_invoice_number": "El nombre del archivo debe ser el número de factura",
+    "secure.orders.bulk.billing.name_file_invoice_invoice_number": "El nombre del archivo de la factura debe ser el numero de factura",
     "secure.orders.bulk.billing.you_have_no_files_to_upload": "No posee archivos para cargar",
     "secure.orders.bulk.billing.it_have_files_upload": "Lista de facturas para cargar",
-    "secure.orders.bulk.billing.duplicate_name": "Tiene archivos cargados con el mismo nombre"
+    "secure.orders.bulk.billing.duplicate_name": "Tiene archivos cargados con el mismo nombre",
+    "secure.orders.bulk.billing.name_filter_billing": "Filtro de Facturación"
 
 
 
