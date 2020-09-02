@@ -182,6 +182,8 @@ export class BulkLoadBillingComponent implements OnInit {
     this.files = [];
     this.filesValidate = [];
     this.file = [];
+    this.filesErrors = 0;
+    this.filesSuccess = 0;
   }
   /**
    * funcion para eliminar un archivo de la lista antes de guardar
@@ -255,6 +257,7 @@ export class BulkLoadBillingComponent implements OnInit {
     dialogIntance.request = this.bulkLoadBillingService.verifyStatusBulkLoad();
     dialogIntance.processFinish$.subscribe((val) => {
       dialog.disableClose = false;
+      this.clearListFiles();
     });
     dialog.afterClosed().subscribe(result => {
       this.clearListFiles();
