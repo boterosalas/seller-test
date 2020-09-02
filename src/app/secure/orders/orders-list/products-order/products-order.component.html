@@ -138,6 +138,10 @@
         <p class="sc-text-order-international" *ngIf="!!product.tracking">Loc: <strong>{{product.tracking}}</strong></p>
         <p class="sc-text-order-international" *ngIf="!!product.internationalTracking">Int:
           <strong>{{product.internationalTracking}}</strong></p>
+          <br>
+      </div>
+      <div >
+        <span class="sc-text-order-international">{{product.dateDelivery | date}}</span>
       </div>
     </div>
     <div fxFlex.sm="12" fxFlex.md="12" fxFlex.lg="12" fxFlex.xs="12" fxShow fxHide.xs="true" fxHide.sm="true"
