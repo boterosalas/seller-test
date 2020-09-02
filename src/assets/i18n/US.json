@@ -1350,5 +1350,6 @@
     "secure.orders.bulk.billing.name_file_invoice_invoice_number": "The name of the file of the invoice must be the invoice number",
     "secure.orders.bulk.billing.you_have_no_files_to_upload": "You have no files to upload",
     "secure.orders.bulk.billing.it_have_files_upload": "It does not have files to upload",
-    "secure.orders.bulk.billing.duplicate_name": "You've uploaded Files with the same name"
+    "secure.orders.bulk.billing.duplicate_name": "You've uploaded Files with the same name",
+    "secure.orders.bulk.billing.name_filter_billing": "Billing Filter"
 }
