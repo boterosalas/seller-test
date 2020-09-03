@@ -22,7 +22,7 @@
     <div fxFlex.sm="12" fxFlex.md="12" fxFlex.lg="12" fxFlex.xs="12" fxShow fxHide.xs="true" fxHide.sm="true"
       fxHide.lt-md="true" fxHide.lg="false" fxHide.xl="false" class=" sc-text-normal">
       <div class="title-table-product">
-        <p class="text-center">{{'secure.orders.order_list.product_detail.guide' | translate}}</p>
+        <p>{{'secure.orders.order_list.product_detail.guide' | translate}}</p>
       </div>
     </div>
     <div fxFlex.sm="12" fxFlex.md="12" fxFlex.lg="12" fxFlex.xs="12" fxShow fxHide.xs="true" fxHide.sm="true"
@@ -134,7 +134,7 @@
     </div>
     <div fxFlex.sm="12" fxFlex.md="12" fxFlex.lg="12" fxFlex.xs="12" fxShow fxHide.xs="true" fxHide.sm="true"
       fxHide.lt-md="true" fxHide.lg="false" fxHide.xl="false">
-      <div class="text-center margin-top-13">
+      <div class=" margin-top-13">
         <span class="sc-text-order-international" *ngIf="!!product.tracking">
           Loc: <strong>{{product.tracking}}</strong>
         </span>
@@ -143,7 +143,7 @@
         </span>
         <br>
         <span class="sc-text-order-international cursor-pointer" [matTooltip]="'secure.orders.order_list.order_page.date_tracking_guide' | translate" *ngIf="!!product.dateDelivery">
-          Fecha de envío Guía <strong>{{product.dateDelivery | date}}</strong>
+          <strong>{{product.dateDelivery | date}}</strong>
         </span>
       </div>
     </div>
