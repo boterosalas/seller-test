@@ -240,17 +240,9 @@ export class ProductBasicInfoComponent implements OnInit {
                 ]),
             IsCombo: new FormControl(false, []),
             EanCombo: new FormControl('', [Validators.pattern(this.getValue('ean'))]),
-            Model: new FormControl('',
-                [
-                    Validators.required, Validators.pattern(this.getValue('modelProduct'))
-                ]),
             Brand: new FormControl('',
                 [
                     Validators.required, Validators.pattern(this.getValue('brandProduct'))
-                ]),
-            Detail: new FormControl('',
-                [
-                    Validators.required, Validators.pattern(this.getValue('detailProduct'))
                 ]),
             MeasurementUnit: new FormControl('', [Validators.required]),
             ConversionFactor: new FormControl('', [Validators.required, Validators.pattern(this.getValue('factConversionProduct'))]),
@@ -651,8 +643,6 @@ export class ProductBasicInfoComponent implements OnInit {
         const data = {
             Name: this.formBasicInfo.controls.Name.value,
             Brand: this.formBasicInfo.controls.Brand.value.toUpperCase(),
-            Details: this.formBasicInfo.controls.Detail.value,
-            Model: this.formBasicInfo.controls.Model.value,
             SkuShippingSize: this.formBasicInfo.controls.shippingSize.value,
             IsCombo: this.formBasicInfo.controls.IsCombo.value,
             PackageWidth: packingData.controls.WidthPacking.value,
@@ -785,8 +775,6 @@ export class ProductBasicInfoComponent implements OnInit {
                 const productDateSize = this.formBasicInfo.controls.product as FormGroup;
                 this.formBasicInfo.controls.Name.setValue(detailProduct.name);
                 this.formBasicInfo.controls.Brand.setValue(detailProduct.brand);
-                this.formBasicInfo.controls.Model.setValue(detailProduct.model);
-                this.formBasicInfo.controls.Detail.setValue(detailProduct.details);
                 this.formBasicInfo.controls.MeasurementUnit.setValue(detailProduct.measurementUnit);
                 this.formBasicInfo.controls.ConversionFactor.setValue(detailProduct.conversionFactor);
                 this.formBasicInfo.controls.shippingSize.setValue(detailProduct.skuShippingSize);
