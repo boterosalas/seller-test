@@ -410,8 +410,8 @@ export class PendingProductsComponent implements OnInit {
    */
   public filterApply() {
     this.callOne = true;
-    this.ean = this.filterProdutsPending.controls.ean.value;
-    this.nameProduct = this.filterProdutsPending.controls.productName.value;
+    this.ean = encodeURIComponent(this.filterProdutsPending.controls.ean.value);
+    this.nameProduct = encodeURIComponent(this.filterProdutsPending.controls.productName.value);
     this.paginationToken = '{}';
     this.paramsArray = {
       'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
@@ -427,8 +427,8 @@ export class PendingProductsComponent implements OnInit {
   public filterApply2() {
     this.paginationToken2 = '{}';
     this.callOne2 = true;
-    this.ean2 = this.filterProdutsValidation.controls.ean2.value;
-    this.nameProduct2 = this.filterProdutsValidation.controls.productName2.value;
+    this.ean2 = encodeURIComponent(this.filterProdutsValidation.controls.ean2.value);
+    this.nameProduct2 = encodeURIComponent(this.filterProdutsValidation.controls.productName2.value);
     this.paramsArray = {
       'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
       'idSeller': this.user.sellerId + '&ean=' + this.ean2 + '&name=' + this.nameProduct2
