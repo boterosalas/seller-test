@@ -15,6 +15,9 @@ import { AuthService } from '@app/secure/auth/auth.routing';
 import { MenuModel, validationName, readFunctionality } from '@app/secure/auth/auth.consts';
 import { TranslateService } from '@ngx-translate/core';
 
+import { StoreModel } from '@app/secure/offers/stores/models/store.model';
+import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
+
 // log component
 const log = new Logger('InValidationComponent');
 
@@ -55,6 +58,7 @@ export class InValidationComponent implements OnInit, OnDestroy {
     'comment',
     'detailOrder'
   ];
+  private searchSubscription: any;
   // contendra la Información para la tabla
   public dataSource: MatTableDataSource<any>;
   // Método para el check de la tabla
@@ -72,11 +76,10 @@ export class InValidationComponent implements OnInit, OnDestroy {
   event: any;
 
   permissionComponent: MenuModel;
+  readPermission: any;
+  typeProfile: any;
+  idSeller: number;
 
-  /**
-   * Attribute that represent the read access
-   */
-  read = readFunctionality;
   // canRead = false;
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
@@ -102,12 +105,18 @@ export class InValidationComponent implements OnInit, OnDestroy {
     private loadingService: LoadingService,
     private authService: AuthService,
     private languageService: TranslateService,
+    public eventsSeller: EventEmitterSeller,
   ) { }
 
   ngOnInit() {
-    this.permissionComponent = this.authService.getMenu(validationName);
-    // this.getFunctionalities();
+    this.searchSubscription = this.eventsSeller.eventSearchSeller.subscribe((seller: StoreModel) => {
+      this.idSeller = seller.IdSeller;
+      if (this.event) {
+        this.getOrdersList(this.event);
+      }
+    });
     this.getDataUser();
+    this.clearData();
     this.changeLanguage();
   }
 
@@ -115,6 +124,18 @@ export class InValidationComponent implements OnInit, OnDestroy {
     this.user = await this.userParams.getUserData();
     this.toolbarOption.getOrdersList();
     this.getOrdersListSinceFilterSearchOrder();
+    if (this.user.sellerProfile === 'seller') {
+      this.permissionComponent = this.authService.getMenuProfiel(validationName, 0);
+      this.setPermission(0);
+    } else {
+      this.permissionComponent = this.authService.getMenuProfiel(validationName, 1);
+      this.setPermission(1);
+    }
+  }
+
+  setPermission(typeProfile: number) {
+    this.typeProfile = typeProfile;
+    this.readPermission = this.getFunctionality(readFunctionality);
   }
 /**
  * funcion para escuchar el evento al cambiar de idioma
@@ -133,6 +154,13 @@ changeLanguage() {
       localStorage.setItem('culture_current', e['lang']);
       this.getOrdersList(this.event);
     });
+  }
+
+  clearData() {
+    this.subFilterOrderPending = this.shellComponent.eventEmitterOrders.clearTable.subscribe(
+      (data: any) => {
+        this.getOrdersList(this.event);
+      });
   }
 
 
@@ -198,7 +226,7 @@ changeLanguage() {
       };
     }
     this.event = $event;
-    const stringSearch = `limit=${$event.lengthOrder}&reversionRequestStatusId=${Const.StatusInValidation}`;
+    const stringSearch = `limit=${$event.lengthOrder}&idSeller=${this.idSeller}&reversionRequestStatusId=${Const.StatusInValidation}`;
     this.loadingService.viewSpinner();
     this.inValidationService.getOrders(stringSearch).subscribe((res: any) => {
       this.loadingService.closeSpinner();
