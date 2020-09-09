@@ -411,13 +411,14 @@ export class CategoriesComponent implements OnInit {
       failText: this.languageService.instant('secure.parametize.category.categories.not_create_category'),
       processText: this.languageService.instant('secure.parametize.category.categories.create_in_process'),
       initTime: 500,
-      intervalTime: 5000
+      intervalTime: 10000
     };
     const dialog = this.dialog.open(CreateProcessDialogComponent, {
       width: '70%',
       minWidth: '280px',
       maxHeight: '80vh',
-      data: data
+      disableClose : true,
+      data: data,
     });
     const dialogIntance = dialog.componentInstance;
     dialogIntance.request = this.categoryService.verifyStatusOfCreateCategory();
