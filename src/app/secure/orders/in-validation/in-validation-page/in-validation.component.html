@@ -4,42 +4,15 @@
     <div fxFlex="100" class="light-content">
       <!-- Toolbar para los dropdown de filtro de estado para las órdenes -->
       <!-- Toolbar de las opciones para la orden -->
-      <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)"></app-toolbar-options>
+      <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [idSeller]="idSeller" [Typeprofile]="typeProfile"></app-toolbar-options>
       <!-- Toolbar de las opciones para la orden -->
     </div>
 
     <!-- Tabla de órdenes -->
-    <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="95" fxFlex.lg="95" fxFlex.xl="95" class="content-table-orders" *ngIf="getFunctionality(read)">
+    <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="95" fxFlex.lg="95" fxFlex.xl="95" class="content-table-orders" *ngIf="readPermission" >
 
       <!-- matSort: Permite filtrar la tabla por los titulos de las columnas -->
       <mat-table #table [dataSource]="dataSource" matSort>
-
-        <!-- Check column -->
-        <!-- <ng-container matColumnDef="select">
-          <mat-header-cell class="center-product-list" fxFlex=" fxFlex.lg="" *matHeaderCellDef>
-            <mat-checkbox class="sc-check-personal" [disabled]="orderListLength" (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
-              [indeterminate]="selection.hasValue() && !isAllSelected()">
-            </mat-checkbox>
-          </mat-header-cell>
-          <mat-cell fxFlex=" fxFlex.lg="" *matCellDef="let row" class="center-product-list">
-            <mat-checkbox class="sc-check-personal" id="check-order-{{row.orderNumber}}" (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-              [checked]="selection.isSelected(row)">
-            </mat-checkbox>
-          </mat-cell>
-        </ng-container> -->
-
-        <!-- Plus Column -->
-        <!-- <ng-container matColumnDef="plus">
-          <mat-header-cell fxFlex.lg="" fxFlex=" fxShow.xs="false" fxShow.sm="false" fxShow.gt-xl="false" fxShow="true" *matHeaderCellDef
-            mat-sort-header>
-          </mat-header-cell>
-          <mat-cell fxFlex=" fxFlex.lg="" fxShow.xs="false" fxShow.sm="false" fxShow.gt-xl="false" fxShow="true" *matCellDef="let element">
-            <button mat-icon-button>
-              <mat-icon>add</mat-icon>
-            </button>
-          </mat-cell>
-        </ng-container> -->
-
 
         <!-- orderNumber Column -->
         <ng-container matColumnDef="orderNumber">
