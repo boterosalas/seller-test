@@ -137,6 +137,9 @@
             <mat-error *ngIf="formUpdateOffer.get('SellerSku').hasError('required')"
               [innerHTML]="['errors.error_required' | translate]">
             </mat-error>
+            <mat-error *ngIf="formUpdateOffer.get('SellerSku').hasError('pattern')"
+              [innerHTML]="['secure.offers.bulk_upload.table_error.sellerSku' | translate]">
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field>

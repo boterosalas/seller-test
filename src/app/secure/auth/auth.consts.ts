@@ -308,10 +308,15 @@ const DevolutionsModule = new ModuleModel(devolutionsModule, showAll, devolution
     new MenuModel(validationName, showAll, validationName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
     ], RoutesConst.sellerCenterIntOrderInValidation),
-    // 5. Historico de devoluciones
+    // 5. Validaciones (administrador)
+    new MenuModel(validationName, showAll, validationName.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+    ], RoutesConst.sellerCenterIntOrderInValidation),
+    // 6. Historico de devoluciones
     new MenuModel(historicDevolution, showAll, historicDevolution.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
     ], RoutesConst.sellerCenterIntOrderHistoricalDevolution),
+    // 7. historico administrador
     new MenuModel(historicDevolution, showAll, historicDevolution.toLowerCase(), ProfileTypes.Administrador, [
       new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
   ], RoutesConst.sellerCenterIntOrderHistoricalDevolution),
