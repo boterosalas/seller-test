@@ -18,6 +18,9 @@
           <mat-error *ngIf="filterProduts.get('productName').hasError('pattern')">
             {{'secure.products.create_product_unit.list_products.product_name_invalid' | translate}}
           </mat-error>
+          <mat-error *ngIf="filterProduts.get('productName').hasError('maxlength')">
+            {{'errors.error_product_length' | translate}}
+          </mat-error>
         </mat-form-field>
         <mat-form-field color="primary">
           <input matInput [placeholder]="'shared.ean' | translate" formControlName="ean" [errorStateMatcher]="matcher">

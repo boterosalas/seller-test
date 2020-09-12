@@ -234,6 +234,7 @@
     "errors.error_promise": "La promesa de entrega no es válida.",
     "errors.quoting_postal_code_invalid": "Campo invalido (8 caraceteres separados por coma)",
     "errors.error_product": "Producto inválido.",
+    "errors.error_product_length": "Formato inválido, maximo 120 caracteres.",
     "errors.blank_email": "El correo electrónico no puede estar en blanco",
     "errors.error_guide": "Mínimo 5 caracteres, Maximo 20 caracteres.",
     "errors.error_check_payment": "Se ha presentado un error al consultar los pagos.",

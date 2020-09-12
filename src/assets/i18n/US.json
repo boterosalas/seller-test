@@ -233,6 +233,7 @@
     "errors.error_promise": "The delivery promise entered is invalid.",
     "errors.quoting_postal_code_invalid": "Invalid field (8 characters maximum, separated by a comma)",
     "errors.error_product": "Invalid product.",
+    "errors.error_product_length": "Invalid format, maximum 120 characters.",
     "errors.blank_email": "The e-mail address can not be blank",
     "errors.error_guide": "5 characters minimum, 20 characters maximum.",
     "errors.error_check_payment": "An error has occurred when browsing payments.",

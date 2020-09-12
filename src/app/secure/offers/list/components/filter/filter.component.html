@@ -1,6 +1,6 @@
 <section id="section-filter-offers" class="flexbox flex-wrap">
 
-  <form novalidate #filterOffers="ngForm" [formGroup]="filterForm" (ngSubmit)="list.filterOffers(filterForm.value)"
+  <form novalidate *ngIf="filterForm" #filterOffers="ngForm" [formGroup]="filterForm" (ngSubmit)="list.filterOffers(filterForm.value)"
     class="flexbox flex-wrap justify-center">
 
     <article class="flexbox align-center justify-between">
@@ -17,6 +17,8 @@
         formControlName="product" [errorStateMatcher]="matcher">
       <mat-hint></mat-hint>
       <mat-error *ngIf="filterForm.get('product').hasError('pattern')">{{'errors.error_product' | translate}}
+      </mat-error>
+      <mat-error *ngIf="filterForm.controls.product.errors && filterForm.controls.product.errors.maxlength"> {{'errors.error_product_length' | translate}}
       </mat-error>
     </mat-form-field>
     <mat-form-field>

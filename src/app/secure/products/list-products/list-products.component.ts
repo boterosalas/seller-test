@@ -313,7 +313,7 @@ export class ListProductsComponent implements OnInit {
      */
     createFormControls() {
         this.filterProduts = this.fb.group({
-            productName: new FormControl('', Validators.compose([Validators.pattern(this.getValue('nameProduct'))])),
+            productName: new FormControl('', Validators.compose([Validators.maxLength(120), Validators.pattern(this.getValue('nameProduct'))])),
             ean: new FormControl(''),
             pluVtex: new FormControl('', Validators.compose([Validators.pattern(this.getValue('integerNumber'))])),
             initialDate: { disabled: true, value: '' },
