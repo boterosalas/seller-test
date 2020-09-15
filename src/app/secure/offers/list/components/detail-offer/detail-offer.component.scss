@@ -8,6 +8,27 @@ $color-blue: #485AFA;
 $color-white-opacity: rgba(255, 255, 255, 0.7);
 $color-green: #6FB63E;
 
+.detailMask {
+  width: 26%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @media screen and (max-width: 768px) {
+    width: 46%;
+  }
+}
+
+.titleMask {
+  width: 25%;
+}
+
+.maskSellerSku {
+  width: 100%;
+  display: flex;
+  color: #5D5D5D;
+}
+
+
 :host ::ng-deep {
   .mat-select-value {
     color: $color-gray1;
@@ -169,8 +190,9 @@ $color-green: #6FB63E;
             font-size: 20px;
             margin: initial;
             color: #6e7ccc;
-            span{
-                color: #5D5D5D;
+
+            span {
+              color: #5D5D5D;
             }
           }
         }
