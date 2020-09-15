@@ -147,7 +147,17 @@ export class ListComponent implements OnInit {
     this.paramData.stock = params.stock;
     this.paramData.sellerSku = params.sellerSku;
     this.paramData.currentPage = this.currentPage;
-    this.getListOffers(this.paramData);
+    this.paramData.product = this.paramData.product;
+    const dataToSend = {
+      currentPage: this.paramData.currentPage,
+      ean: this.paramData.ean,
+      limit: undefined,
+      pluVtex: this.paramData.pluVtex,
+      product: encodeURIComponent(this.paramData.product),
+      sellerSku: encodeURIComponent(this.paramData.sellerSku),
+      stock: this.paramData.stock
+    };
+    this.getListOffers(dataToSend);
     this.sidenav.toggle();
   }
 
