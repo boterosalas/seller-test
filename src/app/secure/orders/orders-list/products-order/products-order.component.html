@@ -28,7 +28,7 @@
     <div fxFlex.sm="12" fxFlex.md="12" fxFlex.lg="12" fxFlex.xs="12" fxShow fxHide.xs="true" fxHide.sm="true"
       fxHide.lt-md="true" fxHide.lg="false" fxHide.xl="false" class=" sc-text-normal">
       <div class="title-table-product">
-        <p>{{'secure.orders.order_list.product_order.conveyor' | translate}}</p>
+        <p class="text-center">{{'secure.orders.order_list.product_order.conveyor' | translate}}</p>
       </div>
     </div>
     <div fxFlex.sm="10" fxFlex.md="10" fxFlex.lg="10" fxFlex.xs="10" fxShow fxHide.xs="true" fxHide.sm="true"
@@ -134,14 +134,21 @@
     </div>
     <div fxFlex.sm="12" fxFlex.md="12" fxFlex.lg="12" fxFlex.xs="12" fxShow fxHide.xs="true" fxHide.sm="true"
       fxHide.lt-md="true" fxHide.lg="false" fxHide.xl="false">
-      <div>
-        <p class="sc-text-order-international" *ngIf="!!product.tracking">Loc: <strong>{{product.tracking}}</strong></p>
-        <p class="sc-text-order-international" *ngIf="!!product.internationalTracking">Int:
-          <strong>{{product.internationalTracking}}</strong></p>
+      <div class=" margin-top-13">
+        <span class="sc-text-order-international" *ngIf="!!product.tracking">
+          Loc: <strong>{{product.tracking}}</strong>
+        </span>
+        <span class="sc-text-order-international" *ngIf="!!product.internationalTracking">
+          Int: <strong>{{product.internationalTracking}}</strong>
+        </span>
+        <br>
+        <span class="sc-text-order-international cursor-pointer" [matTooltip]="'secure.orders.order_list.order_page.date_tracking_guide' | translate" *ngIf="!!product.dateDelivery">
+          <strong>{{product.dateDelivery | date}}</strong>
+        </span>
       </div>
     </div>
     <div fxFlex.sm="12" fxFlex.md="12" fxFlex.lg="12" fxFlex.xs="12" fxShow fxHide.xs="true" fxHide.sm="true"
-      fxHide.lt-md="true" fxHide.lg="false" fxHide.xl="false">
+      fxHide.lt-md="true" fxHide.lg="false" fxHide.xl="false" class="text-center">
       <div>
         <p class="sc-text-order-carrier" *ngIf="!!product.carrier">Loc: {{product.carrier}}</p>
         <p class="sc-text-order-carrier" *ngIf="!product.carrier && product.tracking && isInternational===true">Loc:

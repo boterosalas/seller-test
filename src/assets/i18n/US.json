@@ -476,6 +476,7 @@
     "secure.orders.order_list.order_page.successfully_mark": "The order has been flagged correctly",
     "secure.orders.order_list.order_page.successfully_remove_mark": "The order has been unflagged correctly",
     "secure.orders.order_list.order_page.search_orders_insert": "Enter the name of the seller in the search bar to see the orders.",
+    "secure.orders.order_list.order_page.date_tracking_guide": "The date shows the day when the tracking guide was uploaded",
 
     "secure.orders.order_list.product_detail.product": "Product",
     "secure.orders.order_list.product_detail.cost": "Cost",
