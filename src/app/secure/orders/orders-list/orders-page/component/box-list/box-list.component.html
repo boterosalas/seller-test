@@ -99,7 +99,7 @@
             <p class="sc-text-normal">{{data.channel}}</p>
           </div>
           <div class="case-list-detail--item-detail case-list-detail-text-center noneMobile" fxFlex="10%" fxFlex.sm="20" fxFlex.md="20" fxFlex.lg="10" fxFlex.xs="20">
-            <div class="center-product-list content-table-orders">
+            <div class="center-product-list content-table-orders" *ngIf="arrayPermission.attachment || arrayPermission.send ">
               <button id="dropdown-button-order-{{index}}" color="primary" *ngIf="typeProfile === 0" (click)="stopPropagation($event)"
                 class="sc-button-toolbar no-button button-toolbar" mat-button [matMenuTriggerFor]="orderOptions">
                 <mat-icon matPrefix>arrow_drop_down</mat-icon>

@@ -32,6 +32,7 @@ export class CreateProcessDialogComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
+    // tslint:disable-next-line: no-unused-expression
     !!this.request && timer(this.data.initTime, this.data.intervalTime).pipe(takeUntil(this.processFinish$), switchMap(() => this.request)).subscribe((res) => {
       try {
         const response = JSON.parse(res.body.body).Data;
