@@ -4,28 +4,23 @@
     <span class="sc-title">{{'secure.orders.order_list.send_order.title_order' |
       translate}}: {{order.orderNumber}}
     </span>
-    <a id="close-finish-send-order" [matTooltip]="'actions.close' | translate"
-      mat-icon-button matTooltipPosition="below" mat-button>
+    <a id="close-finish-send-order" [matTooltip]="'actions.close' | translate" mat-icon-button
+      matTooltipPosition="below" mat-button>
       <mat-icon (click)="onNoClick()">close</mat-icon>
     </a>
   </div>
-  <mat-toolbar *ngIf="getLengthProductForSend()> 1"
-    class="mat-toolbar-options-send">
+  <mat-toolbar *ngIf="getLengthProductForSend()> 1" class="mat-toolbar-options-send">
     <div fxFlex.gt-sm="50px" fxFlex.xs="34px" fxFlex="34px">
       <div class="center-product-list">
-        <mat-checkbox [checked]="order.sendAllProduct"
-          (change)="checkAllProductInOrder(order)"></mat-checkbox>
+        <mat-checkbox [checked]="order.sendAllProduct" (change)="checkAllProductInOrder(order)"></mat-checkbox>
         <!-- <p class="sc-text-normal">Seleccionar todo:</p> -->
       </div>
     </div>
     <form #myF="ngForm" [formGroup]="sendAllForm">
       <div fxFlex.gt-sm="230px" fxFlex.xs="120px">
         <div class="center-product-list">
-          <mat-form-field class="select-send-options sc-text-normal"
-            id="quantity-product" color="accent">
-            <mat-select name="Transporter" required
-              formControlName="Transporter"
-              [placeholder]="'secure.orders.order_list.product_order.conveyor' |
+          <mat-form-field class="select-send-options sc-text-normal" id="quantity-product" color="accent">
+            <mat-select name="Transporter" required formControlName="Transporter" [placeholder]="'secure.orders.order_list.product_order.conveyor' |
               translate">
               <mat-option *ngFor="let trans of Carries" [value]="trans.name">{{trans.name}}</mat-option>
             </mat-select>
@@ -35,8 +30,8 @@
       <div fxFlex.gt-sm="230px" fxFlex.xs="150px">
         <div class="center-product-list">
           <mat-form-field class="textarea-send-options sc-text-normal">
-            <textarea name="Guide" required formControlName="Guide" matInput
-              [placeholder]="'secure.orders.order_list.product_detail.guide'| translate"></textarea>
+            <input name="Guide" required formControlName="Guide" matInput
+            [placeholder]="'secure.orders.order_list.product_detail.guide'| translate">
             <mat-error>{{'errors.error_guide' | translate}}</mat-error>
           </mat-form-field>
         </div>
@@ -44,18 +39,14 @@
       </div>
       <div fxFlex.gt-sm="170px" fxFlex.xs="34px">
         <div class="center-product-list">
-          <button id="finish-send-button-order-{{order.orderNumber}}"
-            fxShow.gt-sm="true" fxShow="false"
-            (click)="sendAllProductsOrder(order)"
-            [disabled]="!myF.form.valid" class="sc-button" mat-raised-button
+          <button id="finish-send-button-order-{{order.orderNumber}}" fxShow.gt-sm="true" fxShow="false"
+            (click)="sendAllProductsOrder(order)" [disabled]="!myF.form.valid" class="sc-button" mat-raised-button
             color="accent">
             <mat-icon>local_shipping</mat-icon>
             {{'actions.send_all' | translate}}
           </button>
-          <button mat-mini-fab color="accent"
-            (click)="sendAllProductsOrder(order)" [disabled]="!myF.form.valid"
-            fxShow.gt-sm="false"
-            fxShow="true">
+          <button mat-mini-fab color="accent" (click)="sendAllProductsOrder(order)" [disabled]="!myF.form.valid"
+            fxShow.gt-sm="false" fxShow="true">
             <mat-icon>local_shipping</mat-icon>
           </button>
         </div>
@@ -64,78 +55,67 @@
   </mat-toolbar>
   <div class="container-product-list">
 
-    <div [@detailExpand] class="orders-no-data"*ngIf="getLengthProductForSend()
+    <div [@detailExpand] class="orders-no-data" *ngIf="getLengthProductForSend()
       == 0">
       <mat-icon class="icon-not-found" color="primary">info</mat-icon>
       <p>{{'secure.orders.order_list.send_order.no_send_products' | translate}}
       </p>
-      <button id="load-all-orders-button" (click)="onNoClick();" mat-button
-        color="primary">
+      <button id="load-all-orders-button" (click)="onNoClick();" mat-button color="primary">
         {{'actions.close' | translate}}
       </button>
     </div>
     <ng-container *ngFor="let product of order.products">
-        <mat-card [@detailExpand] *ngIf="product.tracking == null"
-          class="example-card"
-          [hidden]="product.tracking != null" fxFlex="100">
-          <mat-card-header>
-          </mat-card-header>
-          <mat-card-content>
-            <mat-accordion>
-              <mat-expansion-panel
-                [expanded]="order.sendAllProduct == false && product.fulfillment
-                == false && product.enviosExito == false"
-                [disabled]="order.sendAllProduct == true || product.fulfillment
+      <mat-card [@detailExpand] *ngIf="product.tracking == null" class="example-card"
+        [hidden]="product.tracking != null" fxFlex="100">
+        <mat-card-header>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-accordion>
+            <mat-expansion-panel [expanded]="order.sendAllProduct == false && product.fulfillment
+                == false && product.enviosExito == false" [disabled]="order.sendAllProduct == true || product.fulfillment
                 == false" class="mat-expansion">
-                <mat-expansion-panel-header class="expansion-header-panel">
-                  <mat-panel-title class="check-content-header-panel">
-                    <div *ngIf="getLengthProductForSend()> 1" fxFlex="50px"
-                      class="center-product-list">
-                      <mat-checkbox [disabled]="!order.sendAllProduct"
-                        (change)="validateCheckProductForSendAll(order)"
-                        [(ngModel)]="product.checkProductToSend"></mat-checkbox>
-                    </div>
-                    <mat-card-subtitle class="mat-subtitle">
-                      <b>{{product.nameProduct}}</b>
-                      <br> {{'secure.orders.order_list.product_order.ref' |
+              <mat-expansion-panel-header class="expansion-header-panel">
+                <mat-panel-title class="check-content-header-panel">
+                  <div *ngIf="getLengthProductForSend()> 1" fxFlex="50px" class="center-product-list">
+                    <mat-checkbox [disabled]="!order.sendAllProduct" (change)="validateCheckProductForSendAll(order)"
+                      [(ngModel)]="product.checkProductToSend"></mat-checkbox>
+                  </div>
+                  <mat-card-subtitle class="mat-subtitle">
+                    <strong>{{product.nameProduct}}</strong>
+                    <br> {{'secure.orders.order_list.product_order.ref' |
                       translate}}: {{product.reference}}
-                      <br>
-                      <span>{{'secure.orders.order_list.product_order.sku' |
+                    <br>
+                    <span>{{'secure.orders.order_list.product_order.sku' |
                         translate}}: {{product.sku}}</span>
-                      <br>
-                      <span>{{'secure.billing.amount' | translate}}:
-                        {{product.quantity}}</span>
-                      <br>
-                      <span *ngIf="product.fulfillment == true">{{'secure.orders.order_list.send_order.full_fillment'
+                    <br>
+                    <span>{{'secure.billing.amount' | translate}}:
+                      {{product.quantity}}</span>
+                    <br>
+                    <span *ngIf="product.fulfillment == true">{{'secure.orders.order_list.send_order.full_fillment'
                         | translate}}</span>
-                      <span *ngIf="product.enviosExito == true">{{'secure.orders.order_list.send_order.envios_exito'
+                    <span *ngIf="product.enviosExito == true">{{'secure.orders.order_list.send_order.envios_exito'
                         | translate}}</span>
-                      <span
-                        *ngIf="product.fulfillment == false &&
+                    <span *ngIf="product.fulfillment == false &&
                         product.enviosExito == false">{{'secure.orders.order_list.send_order.standar'
                         | translate}}</span>
-                    </mat-card-subtitle>
+                  </mat-card-subtitle>
 
-                  </mat-panel-title>
-                  <mat-panel-description fxShow.gt-sm="true" fxShow="false"
-                    class="dropdown-content-header-panel">
-                    <span class="sku-product sc-link-text">
-                      {{'secure.orders.order_list.send_order.send_products' |
+                </mat-panel-title>
+                <mat-panel-description fxShow.gt-sm="true" fxShow="false" class="dropdown-content-header-panel">
+                  <span class="sku-product sc-link-text">
+                    {{'secure.orders.order_list.send_order.send_products' |
                       translate}}</span>
-                  </mat-panel-description>
+                </mat-panel-description>
 
-                </mat-expansion-panel-header>
-                <!-- componente empleado para validar el formulario de envio de un producto. -->
-                <app-form-product
-                  (OnProductIsSend)="updateTrackingAndCarrierForProduct($event)"
-                  [carries]="Carries"
-                  [isInternational]="isInternational"
-                  [product]="product" [order]="order" [user]="user"
-                  [dialogRef]="dialogRef"></app-form-product>
-              </mat-expansion-panel>
-            </mat-accordion>
-          </mat-card-content>
-        </mat-card>
+              </mat-expansion-panel-header>
+              <!-- componente empleado para validar el formulario de envio de un producto. -->
+              <app-form-product (OnProductIsSend)="updateTrackingAndCarrierForProduct($event)" [carries]="Carries"
+                [isInternational]="isInternational" [product]="product" [order]="order" [user]="user"
+                [dialogRef]="dialogRef"></app-form-product>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </mat-card-content>
+      </mat-card>
     </ng-container>
   </div>
 </div>

@@ -1,10 +1,12 @@
 $color-gray1: #5D5D5D;
+
 .form-ofert {
   display: grid !important;
 }
 
 .ofert-information {
   margin-bottom: 15px;
+
   @media screen and (max-width: 600px) {
     width: 100%
   }
@@ -27,7 +29,15 @@ $color-gray1: #5D5D5D;
 }
 
 ::ng-deep .mat-select-value {
-   color: $color-gray1;
+  color: $color-gray1;
+}
+
+.optionsSend{
+  width: 100%
+}
+
+.optionsUpdate{
+  padding-right: 100px;
 }
 
 .ofert-option {

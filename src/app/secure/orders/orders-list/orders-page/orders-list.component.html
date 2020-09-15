@@ -1,286 +1,45 @@
 <div class="content-order my-content">
-
-  <div fxFlex class="container" fxLayout="row wrap" fxLayoutAlign="center start">
+  <div fxFlex class="container" fxLayout="row wrap" fxLayoutAlign="center
+    start">
     <div fxFlex="100" class="light-content">
-      <!-- Toolbar para los dropdown de filtro de estado para las órdenes -->
-      <!-- Toolbar de las opciones para la orden -->
-      <!-- <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [downloadPermission]="downloadPermission"></app-toolbar-options> -->
-      <!-- Toolbar de las opciones para la orden -->
       <app-toolbar-search-pagination [isClear]="isClear" [informationToForm]="informationToForm" [state]="lastState"
         [idSeller]="idSeller" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)"
         (paginationListOrdens)="paginations($event)" [isFullSearch]="isFullSearch" [pageIndexChange]="pageIndexChange"
         (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [downloadPermission]="downloadPermission"
-        [Typeprofile]="typeProfile" [allFilter]= "allFilter" [showLoading]="false" [limitPaginate]="[50, 100, 150]" [lengthOrder]="length" [limitSizeList] = 'pageSize'></app-toolbar-search-pagination>
+        [Typeprofile]="typeProfile" [allFilter]="allFilter" [showLoading]="false" [limitPaginate]="[50, 100, 150]"
+        [lengthOrder]="length" [limitSizeList]='pageSize'></app-toolbar-search-pagination>
     </div>
 
-    <!-- Tabla de órdenes -->
-    <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="97" fxFlex.lg="97" fxFlex.xl="97" class="content-table-orders">
-
-      <!-- matSort: Permite filtrar la tabla por los titulos de las columnas -->
-      <mat-table #table [dataSource]="dataSource" matSort *ngIf="readPermission">
-
-        <!-- Check column -->
-        <ng-container matColumnDef="select">
-          <mat-header-cell fxShow="{{optionCheckInTable}}" class="center-product-list" fxFlex="40px" fxFlex.lg="100px"
-            fxFlex.xl="250px" *matHeaderCellDef>
-            <mat-checkbox class="sc-check-personal" [disabled]="orderListLength"
-              (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
-              [indeterminate]="selection.hasValue() && !isAllSelected()">
-            </mat-checkbox>
-          </mat-header-cell>
-          <mat-cell fxShow="{{optionCheckInTable}}" fxFlex="40px" fxFlex.lg="100px"
-            *matCellDef="let row;let index=index" class="center-product-list">
-            <mat-checkbox class="sc-check-personal" id="check-option-order-{{index}}" (click)="$event.stopPropagation()"
-              (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
-            </mat-checkbox>
-          </mat-cell>
-        </ng-container>
-
-        <!-- expand Column -->
-        <ng-container matColumnDef="expand">
-          <mat-header-cell fxFlex.lg="40px" fxFlex="70px" fxShow.xs="false" fxShow.sm="false" fxShow.gt-lg="false"
-            fxShow="true" fxFlex.xl="250px" *matHeaderCellDef mat-sort-header>
-          </mat-header-cell>
-          <mat-cell fxFlex="70px" fxFlex.lg="40px" fxShow.xs="false" fxShow.sm="false" fxShow.gt-lg="false"
-            fxShow="true" *matCellDef="let element;let index=index">
-            <button id="expand-row-number-{{index}}" mat-icon-button>
-              <mat-icon style="font-weight: bold;" color="primary">expand_more</mat-icon>
-            </button>
-          </mat-cell>
-        </ng-container>
-
-        <!-- Flag Column -->
-        <ng-container matColumnDef="flag">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true"
-            fxFlex.lg="130px" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="250px" *matHeaderCellDef>
-            <div class="center-product-list"></div>
-          </mat-header-cell>
-          <mat-cell fxFlex.xl="250px" fxFlex.lg="130px" fxFlex.sm="60px" fxFlex.md="110px" fxFlex.xs="60px"
-            *matCellDef="let element;let index=index">
-
-            <div class="center-product-list">
-              <button *ngIf="marketPermission" id="flag-order-{{index}}"
-                (click)="stopPropagation($event);recordProcesSedOrder(element.id,element.processedOrder, element.idSeller)"
-                mat-icon-button>
-                <mat-icon [ngClass]="{'active': element.processedOrder}" class="sc-icon-flag">flag</mat-icon>
-              </button>
-            </div>
-          </mat-cell>
-        </ng-container>
-
-
-        <!-- orderNumber Column -->
-        <ng-container matColumnDef="orderNumber">
-          <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdmin'" fxFlex.sm="" fxFlex.md="" fxFlex.lg=""
-            fxFlex.xs="" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
-            <span class="title-table-header">{{'secure.orders.order' | translate}}</span>
-          </mat-header-cell>
-          <mat-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl="" *matCellDef="let element">
-            <p class="sc-text-bold-order id-order">
-              <mat-icon matSuffix class="icon-forSend"
-                [ngClass]="{'active': element.allowShipping && element.idStatusOrder == const.OrderAsignado}">
-                local_shipping
-              </mat-icon>
-              <mat-icon matSuffix [matTooltip]="'secure.orders.order_list.order_page.with_invoice' | translate"
-                *ngIf="element.billUrl" class="icon-forSend" aria-label="Example icon-button with a heart icon">
-                description</mat-icon>
-              <mat-icon matSuffix [matTooltip]="'secure.orders.order_list.order_page.without_invoice' | translate"
-                *ngIf="!element.billUrl" class="icon-forSend active" aria-label="Example icon-button with a heart icon">
-                description</mat-icon>
-              {{element.orderNumber}}
+    <ng-template [ngIf]="dataListOrder">
+      <app-list-order [data]="dataListOrder" class="width-100">
+        <ng-container *itemDropDownList>
+          <app-box-list *ngFor="let item of dataListOrder; let i = index" [data]="item"
+            [isInternational]="isInternational" [arrayPermission]="arrayPermission" (opened)="isOpened($event)"
+            (showDetail)="consultDetails($event, item)" [user]="user" [index]="i" [typeProfile]="typeProfile">
+            <ng-container *appContentDropDownDetailOrderDirective>
+              <div *ngIf="item.statusLoad" class="content-detail-order content-table-orders">
+                <app-client-information [order]="item" [isInternational]="isInternational"></app-client-information>
+                <app-products-order  [user]="user" [Typeprofile]="typeProfile" [isInternational]="isInternational"
+                  [dataSource]="dataListOrder" [order]="item"></app-products-order>
+              </div>
+            </ng-container>
+          </app-box-list>
+          <div [@detailExpand] class="orders-no-data" *ngIf="orderListLength && typeProfile == 0">
+            <mat-icon class="icon-not-found" color="primary">info</mat-icon>
+            <p>{{'secure.orders.order_list.order_page.no_orders_found' | translate}}
             </p>
-          </mat-cell>
-
-        </ng-container>
-
-        <!-- dateOrder Column -->
-        <ng-container matColumnDef="dateOrder">
-          <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdmin'" fxFlex.sm="" fxFlex.md="" fxFlex.lg=""
-            fxFlex.xs="" fxShow.xs="false" fxShow.sm="true" fxShow.gt-lg="false" fxShow="true" fxFlex.xl="250px"
-            *matHeaderCellDef mat-sort-header>
-            <span class="title-table-header">{{'secure.orders.order_list.detail_modal.order_date' | translate}}</span>
-          </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.gt-lg="false" fxShow="true" fxFlex.sm="" fxFlex.md=""
-            fxFlex.lg="" fxFlex.xs="70" fxFlex.xl="250px" *matCellDef="let element">
-            <p class="sc-date-content-table">{{getDateWithOutGMT(element.dateOrder) | date}} </p>
-          </mat-cell>
-        </ng-container>
-
-        <!-- dateMaxDeliveryOrder Column -->
-        <ng-container matColumnDef="dateMaxDeliveryOrder">
-          <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdmin'" fxShow.xs="false" fxShow.sm="true"
-            fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="70"
-            fxFlex.xl="" *matHeaderCellDef mat-sort-header>
-            <span class="title-table-header">{{'secure.orders.order_list.detail_modal.deadline' | translate}}</span>
-          </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm=""
-            fxFlex.md="" fxFlex.lg="" fxFlex.xl="" fxFlex.xs="70" *matCellDef="let element">
-            <p class="sc-date-content-table">{{getDateWithOutGMT(element.dateMaxDeliveryOrder) | date}} </p>
-          </mat-cell>
-        </ng-container>
-
-        <!-- statusOrder Column -->
-        <ng-container matColumnDef="statusOrder">
-          <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdmin'" fxShow.xs="false" fxShow.sm="true"
-            fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="70"
-            fxFlex.xl="" *matHeaderCellDef mat-sort-header>
-            <span class="title-table-header">{{'shared.status' | translate}}</span>
-          </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm=""
-            fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl="" *matCellDef="let element">
-            <div class="mat-icon-status-order">
-
-              <p class="sc-status-order-table" *ngIf="element.statusOrder == const.NameOrderAsignado">
-                <mat-icon [ngClass]="{'status-orange': element.statusOrder === const.NameOrderAsignado}">notifications
-                </mat-icon>
-                {{'secure.orders.assigned.' + const.AppOrderAsignado | translate}}
-              </p>
-
-              <p class="sc-status-order-table" *ngIf="element.statusOrder == const.NameOrderEntregado">
-                <mat-icon [ngClass]="{'status-orange': element.statusOrder === const.NameOrderEntregado}">
-                  notifications
-                </mat-icon>
-                {{'secure.orders.delivered.' + const.AppOrderEntregado | translate}}
-              </p>
-
-              <p class="sc-status-order-table" *ngIf="element.statusOrder == const.NameOrderEnProcesoDeEnvio">
-                <mat-icon [ngClass]="{'status-green': element.statusOrder === const.NameOrderEnProcesoDeEnvio}">
-                  notifications
-                </mat-icon>
-                {{'secure.orders.sent.' + const.AppOrderEnviado | translate}}
-              </p>
-
-              <p class="sc-status-order-table" *ngIf="element.statusOrder == const.NameOrderEnFacturadoEnviado">
-                <mat-icon [ngClass]="{'status-green': element.statusOrder === const.NameOrderEnFacturadoEnviado}">
-                  notifications
-                </mat-icon>
-                {{'secure.orders.sent.' + const.AppOrderFacturadoEnviado | translate}}
-              </p>
-              <p class="sc-status-order-table" *ngIf="element.statusOrder == const.NameOrderCancelado">
-                <mat-icon [ngClass]="{'status-green': element.statusOrder === const.NameOrderCancelado}">
-                  notifications
-                </mat-icon>
-                {{'secure.orders.sent.' + const.AppOrderCancelado | translate}}
-              </p>
-              <p class="sc-status-order-table" *ngIf="element.statusOrder == const.NameOrderPagadoCanceldo">
-                <mat-icon [ngClass]="{'status-green': element.statusOrder === const.NameOrderPagadoCanceldo}">
-                  notifications
-                </mat-icon>
-                {{'secure.orders.sent.' + const.AppOrderPagadoCanceldo | translate}}
-              </p>
-              <p class="sc-status-order-table" *ngIf="element.statusOrder == const.NameOrderDevolucionPendienteValidacion">
-                <mat-icon [ngClass]="{'status-green': element.statusOrder === const.NameOrderDevolucionPendienteValidacion}">
-                  notifications
-                </mat-icon>
-                {{'secure.orders.sent.' + const.AppOrderDevolucionPendienteValidacion | translate}}
-              </p>
+          </div>
+          <div [@detailExpand] class="orders-no-data" *ngIf="orderListLength && typeProfile == 1 ">
+            <mat-icon class="icon-not-found" color="primary">info</mat-icon>
+            <div *ngIf="showMenssage == true && idSeller">
+              <p>No se han encontrado &oacute;rdenes</p>
             </div>
-          </mat-cell>
-        </ng-container>
-
-        <!-- channel Column -->
-        <ng-container matColumnDef="channel">
-          <mat-header-cell [ngClass]="typeProfile == 0 ?  '' : 'marginListAdminTotal'" fxShow.xs="false"
-            fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10"
-            fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
-            <span class="title-table-header">{{'secure.orders.order_list.detail_modal.channel' | translate}}</span>
-          </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
-            fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
-            <p class="sc-text-normal">{{element.channel}}</p>
-          </mat-cell>
-        </ng-container>
-
-        <!-- Acciones Column -->
-        <ng-container matColumnDef="detailOrder">
-          <mat-header-cell [ngClass]="typeProfile == 0 ?  'center-product-list showTableAction' : 'hideTableAction'"
-            fxFlex.lg="" fxFlex.sm="" fxFlex.md="" fxFlex.xs="" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
-            <span class="title-table-header">{{'shared.actions' | translate}}</span>
-          </mat-header-cell>
-          <mat-cell fxFlex.lg="" fxFlex.sm="" fxFlex.md="" fxFlex.xl="" fxFlex.xs=""
-            *matCellDef="let element;let index=index">
-            <div class="center-product-list" *ngIf="typeProfile == 0">
-              <button id="dropdown-button-order-{{index}}" color="primary" (click)="stopPropagation($event)"
-                class="sc-button-toolbar no-button button-toolbar" mat-button [matMenuTriggerFor]="orderOptions">
-                <mat-icon matPrefix>arrow_drop_down</mat-icon>
-                <span>{{'shared.actions' | translate}}</span>
-              </button>
-              <mat-menu #orderOptions="matMenu">
-                <button id="print-rot-order-{{index}}" mat-menu-item>
-                  <mat-icon>description</mat-icon>
-                  <span>{{'actions.print_receipt' | translate}}</span>
-                </button>
-                <button id="print-rot-button-order-{{index}}"
-                  *ngIf="isInternational && element.statusOrder == const.NameOrderAsignado"
-                  (click)="downloadLabel(element)" mat-menu-item>
-                  <mat-icon>label_outline</mat-icon>
-                  <span>{{'actions.download_label' | translate}}</span>
-                </button>
-                <button id="add-billing-button-order-{{index}}" (click)="openLoadFile(element)" mat-menu-item
-                  [disabled]="element.billUrl" *ngIf="attachmentPermission">
-                  <mat-icon>note_add</mat-icon>
-                  <span>{{'actions.attach_invoice' | translate}}</span>
-                </button>
-                <button
-                  *ngIf="element.allowShipping == true && element.idStatusOrder == const.OrderAsignado && sendPermission"
-                  id="send-button-order-{{index}}" (click)="openDialogSendOrder(element)" mat-menu-item>
-                  <mat-icon>local_shipping</mat-icon>
-                  <span>{{'actions.send' | translate}}</span>
-                </button>
-                <button id="viewDetail-button-order-{{index}}" fxShow.xs="true" fxShow.sm="true" fxShow.gt-lg="false"
-                  fxShow="false" (click)="openModalDetailOrder(element)" mat-menu-item>
-                  <mat-icon>more_vert</mat-icon>
-                  <span>{{'actions.show_detail' | translate}}</span>
-                </button>
-              </mat-menu>
+            <div *ngIf="showMenssage == false">
+              <p>{{'secure.orders.order_list.order_page.search_orders_insert' | translate}}</p>
             </div>
-
-          </mat-cell>
+          </div>
         </ng-container>
-
-
-        <!-- Creación de las filas para la tabla -->
-        <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
-
-        <mat-row id="order-number-{{index}}" *matRowDef="let index=index; let row; columns: displayedColumns;" matRipple
-          class="element-row personal-row-table" [cdkDetailRow]="row" [cdkDetailRowTpl]="tpl">
-        </mat-row>
-
-      </mat-table>
-
-
-      <!-- Elemento para informar que no hay información -->
-      <div [@detailExpand] class="orders-no-data" *ngIf="orderListLength && typeProfile == 0">
-        <mat-icon class="icon-not-found" color="primary">info</mat-icon>
-        <p>{{'secure.orders.order_list.order_page.no_orders_found' | translate}}
-        </p>
-        <button id="load-all-orders-button" (click)="getAllOrderList()" mat-button
-          color="primary">
-          {{'secure.orders.order_list.order_page.load_all_orders' | translate}}
-        </button>
-      </div>
-      <div [@detailExpand] class="orders-no-data" *ngIf="orderListLength && typeProfile == 1 ">
-        <mat-icon class="icon-not-found" color="primary">info</mat-icon>
-        <div *ngIf="showMenssage == true && idSeller">
-          <p>No se han encontrado &oacute;rdenes</p>
-        </div>
-        <div *ngIf="showMenssage == false">
-          <p>{{'secure.orders.order_list.order_page.search_orders_insert' | translate}}</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Fila desplegable para la tabla -->
-    <ng-template #tpl let-element>
-      <div class="content-detail-order mat-row " [@detailExpand] style="overflow: hidden ">
-        <div fxFlex="100" fxLayout="column ">
-          <!-- Client Information -->
-          <app-client-information [order]="element" [isInternational]="isInternational"></app-client-information>
-          <!-- Product Information -->
-          <app-products-order  [user]="user" [Typeprofile]="typeProfile" [isInternational]="isInternational"
-            [dataSource]="dataSource" [order]="element"></app-products-order>
-        </div>
-      </div>
+      </app-list-order>
     </ng-template>
   </div>
 </div>

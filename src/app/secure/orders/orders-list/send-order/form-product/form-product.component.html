@@ -12,7 +12,8 @@
   <div fxFlex.gt-sm="230px" fxFlex.xs="200px">
     <div class="center-product-list">
       <mat-form-field fxFlex.gt-sm="230px" fxFlex.xs="200px">
-        <textarea required name="Guide" class="textarea-guide" formControlName="Guide" matInput [placeholder]="'secure.orders.order_list.product_detail.guide' | translate"></textarea>
+        <input required name="Guide" class="textarea-guide" formControlName="Guide" matInput [placeholder]="'secure.orders.order_list.product_detail.guide' | translate" />
+        <!-- <textarea required name="Guide" class="textarea-guide" formControlName="Guide" matInput [placeholder]="'secure.orders.order_list.product_detail.guide' | translate"></textarea> -->
         <mat-error>{{'errors.error_guide' | translate}}</mat-error>
       </mat-form-field>
     </div>

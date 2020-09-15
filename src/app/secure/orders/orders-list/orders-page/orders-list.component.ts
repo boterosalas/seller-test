@@ -117,6 +117,14 @@ export class OrdersListComponent implements OnInit, OnDestroy {
 
 
 
+  // ------------------------------------------------------------
+  dataListOrder = [];
+
+
+
+
+
+
   // Variables con los permisos que este componente posee.
   permissionComponent: MenuModel;
   read = readFunctionality;
@@ -175,8 +183,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   private searchSubscription: any;
   public userCurrent: any;
   public isInternational = false;
+  public arrayPermission: any;
   currentLanguage: string;
-  // Método que permite crear la fila de detalle de la tabla
   isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
 
 
@@ -250,12 +258,12 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       }
     }
   }
-/**
- * funcion para escuchar el evento al cambiar de idioma
- *
- * @memberof OrdersListComponent
- */
-changeLanguage() {
+  /**
+   * funcion para escuchar el evento al cambiar de idioma
+   *
+   * @memberof OrdersListComponent
+   */
+  changeLanguage() {
     if (localStorage.getItem('culture_current') !== 'US') {
       this.currentLanguage = 'ES';
       localStorage.setItem('culture_current', 'ES');
@@ -328,6 +336,14 @@ changeLanguage() {
     this.attachmentPermission = this.getFunctionality(this.attachment);
     this.marketPermission = this.getFunctionality(this.market);
     this.visualizePermission = this.getFunctionality(this.visualizeFunctionality);
+    this.arrayPermission = {
+      read: this.readPermission,
+      download: this.downloadPermission,
+      send: this.sendPermission,
+      attachment: this.attachmentPermission,
+      market: this.marketPermission,
+      visualize: this.visualizePermission
+    };
   }
 
   /**
@@ -379,30 +395,34 @@ changeLanguage() {
             } else {
               this.orderListLength = false;
             }
-            if (this.dataSource && this.dataSource.data && this.dataSource.data.length > 0) {
-              this.numberElements = this.dataSource.data.length;
+            if (this.dataListOrder && this.dataListOrder && this.dataListOrder.length > 0) {
+              this.numberElements = this.dataListOrder.length;
             } else {
               this.numberElements = 0;
             }
             this.length = data.data.count;
             this.isClear = true;
             this.dataSource = new MatTableDataSource(data.data.viewModel);
+            this.dataListOrder = data.data.viewModel;
             const paginator = this.toolbarOption.getPaginator();
             paginator.pageIndex = 0;
             this.dataSource.paginator = paginator;
             this.dataSource.sort = this.sort;
             this.setTitleToolbar();
+            this.loadingService.closeSpinner();
           }
         } else {
           this.orderListLength = true;
           this.length = 0;
           this.isClear = true;
           this.dataSource = new MatTableDataSource();
+          this.dataListOrder = [];
           const paginator = this.toolbarOption.getPaginator();
           paginator.pageIndex = 0;
           this.dataSource.paginator = paginator;
           this.dataSource.sort = this.sort;
           this.setTitleToolbar();
+          this.loadingService.closeSpinner();
         }
 
         if (data && data.filter) {
@@ -445,34 +465,21 @@ changeLanguage() {
     this.subStateOrder = this.route.params.subscribe(params => {
       this.currentRootPage = params['category'];
       if (this.currentRootPage !== undefined) {
-        /**
-         *  logica para obtener la categoria seleccionada
-         */
         const category = RoutesConst.CATEGORYLIST.filter(item => item.id === this.currentRootPage);
-
-        // si el valor pasado el la url concuerda con la lista de categorías almacenadas,
-        // paso a consultar las órdenes con la categoría indicada
         if (category[0] !== undefined) {
           this.currentCategory = category[0];
-
-          // Aplico el filtro par consultar las órdenes en el estado this.currentRootPage, el cual se esta indicando por el usuario
           const data = {
             idStatusOrder: this.currentRootPage
           };
           this.orderService.setCurrentFilterOrders(data);
-          // obtengo las órdenes con la función del componente ToolbarOptionsComponent
           this.toolbarOption.getOrdersList(this.currentRootPage);
           this.setTitleToolbar();
         } else {
-          //  obtengo las órdenes sin ningun estado en especifico
-          // limpio los filtros aplicados para consultar las órdenes
           this.orderService.setCurrentFilterOrders({});
           this.getAllOrderList();
         }
       } else {
-        // limpio los filtros aplicados para consultar las órdenes
         this.orderService.setCurrentFilterOrders({});
-        // obtengo las órdenes con la función del componente ToolbarOptionsComponent
         this.toolbarOption.getOrdersList();
       }
     });
@@ -562,7 +569,7 @@ changeLanguage() {
             }
             const paginator = { 'pageIndex': 0 };
             this.addCheckOptionInProduct(res.data.viewModel, paginator);
-            this.loadingService.closeSpinner();
+
           }
         }
       }
@@ -612,7 +619,13 @@ changeLanguage() {
         this.arrayPosition.push('{}');
       }
       this.dataSource = new MatTableDataSource(res.data.viewModel);
+      //borrar por si lo hace el back
+      res.data.viewModel.forEach(element => {
+        element.statusLoad = false;
+      });
+      this.dataListOrder = res.data.viewModel;
       this.savePaginationToken(res.data.paginationToken);
+      this.loadingService.closeSpinner();
     } else {
       this.clearTable();
     }
@@ -648,8 +661,6 @@ changeLanguage() {
     if (event.param.pageSize !== this.pageSize) {
       this.pageSize = event.param.pageSize;
       if (this.arrayPosition && this.arrayPosition.length > 0) {
-        // this.querySearch = '&currentPage=' + this.arrayPosition.length + '&newLimit=' + this.pageSize;
-        // this.pageIndexChange = this.arrayPosition.length - 1;
         this.arrayPosition = [];
         this.isClear = true;
       }
@@ -690,9 +701,7 @@ changeLanguage() {
    * @memberof OrdersListComponent
    */
   addCheckOptionInProduct(res: any, paginator: any) {
-    // Logica para crear el contador de órdenes
     if (res != null) {
-      // si no hay órdenes, muestro el cotenedor de no se han encontrado órdenes
       if (res.length === 0) {
         this.orderListLength = true;
       } else {
@@ -702,13 +711,9 @@ changeLanguage() {
       this.orderListLength = true;
       res = [];
     }
-    // Logica para agregar la opción check en un producto
     for (let index = 0; index < res.length; index++) {
-
-      // Agrego la opción que habilitara el botón de enviar todo al seleccionar todos los checks
       res[index].sendAllProduct = false;
       for (let j = 0; j < res[index].products.length; j++) {
-        // agrego la opción de check a cada uno de los productos.
         res[index].products[j].checkProductToSend = false;
       }
     }
@@ -782,16 +787,9 @@ changeLanguage() {
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result !== false) {
-
-          // encuentro el objeto de la orden en el array
           const currentOrder = this.dataSource.data.find(x => x.id === result.id);
-          // obtengo el index donde se encuentra el objeto
           const index = this.dataSource.data.indexOf(currentOrder);
-          // edito el valor del la variable processedOrder al valor mandado al servidor
           this.dataSource.data[index] = result;
-
-          // let data = JSON.stringify(this.currentOrderList);
-          // this.dataSource = new MatTableDataSource(JSON.parse(data));
           this.dataSource._updateChangeSubscription();
         } else {
           const message = this.languageService.instant('secure.orders.order_list.order_page.info_no_send_products');
@@ -817,47 +815,6 @@ changeLanguage() {
     dialogRef.afterClosed().subscribe(result => {
       log.info('The modal OrderDetailModalComponent was closed');
     });
-  }
-
-  /**
-   * Método para marcar una orden y actualizar el registro mediante un servicio web
-   * @param {any} orderId
-   * @param {any} currentValue
-   * @memberof OrdersListComponent
-   */
-  recordProcesSedOrder(orderId: any, currentValue: any, idSeller: number) {
-
-    const closeSnack = this.languageService.instant('actions.close');
-    if (currentValue === true) {
-      currentValue = false;
-    } else {
-      currentValue = true;
-    }
-    const data = {
-      idOrder: orderId,
-      value: currentValue,
-      SellerId: idSeller
-    };
-    this.orderService.recordProcesSedOrder(data)
-      .subscribe((result: any) => {
-        if (result.status === 200) {
-          // encuentro el objeto de la orden en el array
-          const currentOrder = this.dataSource.data.find(x => x.id === orderId);
-          // obtengo el index donde se encuentra el objeto
-          const index = this.dataSource.data.indexOf(currentOrder);
-          // edito el valor del la variable processedOrder al valor mandado al servidor
-          this.dataSource.data[index].processedOrder = currentValue;
-
-          if (currentValue) {
-            const message = this.languageService.instant('secure.orders.order_list.order_page.successfully_mark');
-            this.componentService.openSnackBar(message, closeSnack, 10000);
-
-          } else {
-            const message = this.languageService.instant('secure.orders.order_list.order_page.successfully_remove_mark');
-            this.componentService.openSnackBar(message, closeSnack, 10000);
-          }
-        }
-      });
   }
 
   /**
@@ -906,6 +863,13 @@ changeLanguage() {
         this.languageService.instant('actions.close'), 4000);
       log.error(error);
     });
+  }
+
+  isOpened(data: any) {
+  }
+
+  consultDetails($event: any, item: any) {
+    item.statusLoad = true;
   }
 
   /**

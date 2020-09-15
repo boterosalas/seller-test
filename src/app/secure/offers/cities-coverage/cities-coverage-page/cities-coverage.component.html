@@ -3,7 +3,7 @@
     <h4>{{'secure.offers.cities_coverage.title' | translate}}</h4>
     <mat-form-field>
       <mat-select [placeholder]="'secure.seller.register_seller.lb_state_form' | translate"
-        (selectionChange)="getCities($event.value)">
+        (selectionChange)="getCities($event.value); activeCheckPrincipal($event.value)">
         <mat-option *ngFor="let state of states" [value]="state">
           {{state}}
         </mat-option>
@@ -15,7 +15,8 @@
         <th mat-header-cell *matHeaderCellDef>
           <mat-checkbox (change)="$event ? masterToggle() : null; changeStatus(null, $event.checked)"
             [checked]="selection.hasValue() && isAllSelected()"
-            [indeterminate]="selection.hasValue() && !isAllSelected()">
+            [indeterminate]="selection.hasValue() && !isAllSelected()"
+            [disabled]="activePrincipal">
             principal
           </mat-checkbox>
         </th>
@@ -50,7 +51,7 @@
     </div>
 
     <div class="button__save">
-      <button mat-flat-button
+      <button mat-flat-button [disabled]="activePrincipal"
         (click)="saveCities(selection.selected)">{{'secure.products.create_product_unit.component_process.save' | translate}}</button>
     </div>
   </div>

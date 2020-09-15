@@ -5,6 +5,7 @@ import { Const, Order } from '@app/shared';
 
 import { OrdersListComponent } from '../orders-page/orders-list.component';
 import { ProductDetailModalComponent } from '../product-detail-modal/product-detail-modal.component';
+import { AnalysisOptions } from 'aws-sdk/clients/cloudsearch';
 
 // log component
 const log = new Logger('ProductOrderComponent');
@@ -50,21 +51,29 @@ export class ProductsOrderComponent {
    * @param {Order} item
    * @memberof ProductsOrderComponent
    */
-  validateCheckProductForSendAll(item: Order) {
-    /* Encuentro en el objeto de la tabla actual la orden seleccionada */
-    for (let index = 0; index < this.dataSource.data.length; index++) {
-      if (this.dataSource.data[index].orderNumber === item.orderNumber) {
+  validateCheckProductForSendAll(product: any, item: any) {
 
-        for (let j = 0; j < this.dataSource.data[index].products.length; j++) {
-          /*  si un elemento check esta en false, desactivo el boton enviar todo. */
-          if (this.dataSource.data[index].products[j].checkProductToSend === false) {
-            this.dataSource.data[index].sendAllProduct = false;
-          }
+    let isAllChecked = true;
 
-        }
-        /* Luego de validar el estado false de los check, paso a validar el estado true para ver si el boton se puede activar o no. */
-        this.validateAllCheckProducts(item);
+    if (product && product.length > 0) {
+      if (product.checkProductToSend === true) {
+        product.checkProductToSend = false;
+        item.sendAllProduct = false;
+      } else {
+        product.checkProductToSend = true;
       }
+    }
+
+    item.products.forEach(element => {
+      if (element.checkProductToSend === false) {
+        isAllChecked = false;
+      }
+    });
+
+    if (isAllChecked) {
+      item.sendAllProduct = true;
+    } else {
+      item.sendAllProduct = false;
     }
   }
 
@@ -100,21 +109,19 @@ export class ProductsOrderComponent {
    */
   checkAllProductInOrder(item: any) {
 
-    for (let index = 0; index < this.dataSource.data.length; index++) {
-      if (this.dataSource.data[index].orderNumber === item.orderNumber) {
-        if (this.dataSource.data[index].sendAllProduct === true) {
-          for (let j = 0; j < this.dataSource.data[index].products.length; j++) {
-            this.dataSource.data[index].products[j].checkProductToSend = false;
-          }
-          this.dataSource.data[index].sendAllProduct = false;
-        } else {
-          this.dataSource.data[index].sendAllProduct = true;
-
-          for (let j = 0; j < this.dataSource.data[index].products.length; j++) {
-            this.dataSource.data[index].products[j].checkProductToSend = true;
-          }
-        }
+    if (item && item.products && item.products.length > 0) {
+      if (item.sendAllProduct === true) {
+        item.products.forEach(element => {
+          element.checkProductToSend = false;
+        });
+        item.sendAllProduct = false;
+      } else {
+        item.products.forEach(element => {
+          element.checkProductToSend = true;
+        });
+        item.sendAllProduct = true;
       }
+
     }
   }
 

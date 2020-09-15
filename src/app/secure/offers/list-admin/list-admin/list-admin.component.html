@@ -6,6 +6,7 @@
 
     <aside class="filters flexbox flex-wrap align-center" *ngIf="filterActive && ((paramData.product && paramData.product !== null && paramData.product !== undefined && paramData.product !== '') ||
       (paramData.ean && paramData.ean !== null && paramData.ean !== undefined && paramData.ean !== '') ||
+      (paramData.sellerSku && paramData.sellerSku !== null && paramData.sellerSku !== undefined && paramData.sellerSku !== '') ||
       (paramData.stock && paramData.stock !== null && paramData.stock !== undefined && paramData.stock !== ''))">
       <span class="filter-tittle">{{'secure.offers.list.list.filter_answer' | translate}}</span>
       <!-- <span class="filter-tittle" [innerHTML]="'Resultado de filtro: '"></span> -->
@@ -30,6 +31,14 @@
          *ngIf="paramData.pluVtex && paramData.pluVtex !== null && paramData.pluVtex !== undefined && paramData.pluVtex !== ''">
          <span [innerHTML]="paramData.pluVtex"></span>
          <span class="icon flexbox align-center justify-center" (click)="removeFilter('filterPluVtex')">
+           <mat-icon>add_circle</mat-icon>
+         </span>
+       </div>
+
+       <div class="filter-desc flexbox align-center justify-between"
+         *ngIf="paramData.sellerSku && paramData.sellerSku !== null && paramData.sellerSku !== undefined && paramData.sellerSku !== ''">
+         <span [innerHTML]="paramData.sellerSku"></span>
+         <span class="icon flexbox align-center justify-center" (click)="removeFilter('filterSellerSku')">
            <mat-icon>add_circle</mat-icon>
          </span>
        </div>

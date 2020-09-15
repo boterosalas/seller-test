@@ -91,11 +91,20 @@
         </mat-select>
     </mat-form-field>
     </div>
-    <div fxFlex="28%" class="ofert-information"></div>
+    <div fxFlex="28%" class="ofert-information">
+      <mat-form-field color="primary" fxFlex="80%">
+        <mat-icon matPrefix>dehaze</mat-icon>
+        <input matInput [placeholder]="'secure.offers.bulk_upload.table_load.sellerSku' | translate" formControlName="SellerSku" [errorStateMatcher]="matcher">
+        <mat-hint></mat-hint>
+        <mat-error *ngIf="ofertProduct.get('SellerSku').hasError('pattern')">{{'secure.offers.bulk_upload.table_error.sellerSku' | translate}}</mat-error>
+        <mat-error *ngIf="ofertProduct.get('SellerSku').hasError('required')">{{'secure.products.create_product_unit.list_products.ofert_product.mandatory_warranty' | translate}}</mat-error>
+      </mat-form-field>
+    </div>
   </div>
 
+
   <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-evenly center" class="ofert-option">
-    <div style="width: 100%">
+    <div class="optionsSend">
       <mat-radio-group formControlName="ofertOption">
         <mat-radio-button value="IsFreeShipping" class="radio-ofert">{{'secure.offers.historical_admin.historical_admin.free_shipping' | translate}}</mat-radio-button>
         <mat-radio-button value="IsEnviosExito" class="radio-ofert">{{'secure.products.create_product_unit.list_products.ofert_product.envios_exito_indicator' | translate}}</mat-radio-button>
@@ -107,7 +116,7 @@
       </mat-slide-toggle>
       <mat-checkbox formControlName="ofertOption" value="IsEnviosExito" class="radio-ofert">Indicador Envíos Éxito</mat-checkbox> -->
     </div>
-    <div style="padding-right: 100px;">
+    <div class="optionsUpdate">
       <mat-slide-toggle formControlName="IsUpdatedStock">
           {{'secure.products.create_product_unit.list_products.ofert_product.stock_update' | translate}}
       </mat-slide-toggle>

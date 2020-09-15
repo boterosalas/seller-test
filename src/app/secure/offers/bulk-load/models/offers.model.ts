@@ -15,6 +15,7 @@ export class ModelOffers {
         public IsUpdatedStock: any,
         public Address: any,
         public DaneCode: any,
+        public SellerSku: any,
         public errorRow: boolean,
         public Currency?: boolean,
         public errorEan?: boolean,
@@ -37,5 +38,6 @@ export class ModelOffers {
         public errorCurrency?: boolean,
         public errorAddress?: boolean,
         public errorDaneCode?: boolean,
+        public errorSellerSku?: boolean,
     ) { }
 }

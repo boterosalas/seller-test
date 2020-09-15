@@ -263,23 +263,6 @@ describe('CategoriesComponent', () => {
       expect(component.Id).toBeTruthy();
     });
 
-    it('Should e exist IdCarulla', () => {
-      expect(component.IdCarulla).toBeTruthy();
-    });
-
-    it('Should e exist IdCatalogos', (done) => {
-      expect(component.IdCatalogos).toBeTruthy();
-      done();
-    });
-
-    it('Should e exist IdExito', () => {
-      expect(component.IdExito).toBeTruthy();
-    });
-
-    it('Should e exist IdMarketplace', () => {
-      expect(component.IdMarketplace).toBeTruthy();
-    });
-
     it('Should e exist IdParent', () => {
       expect(component.IdParent).toBeTruthy();
     });

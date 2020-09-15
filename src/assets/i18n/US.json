@@ -435,6 +435,10 @@
     "secure.orders.sent.product.En envío": "Sent",
     "secure.orders.sent.product.Facturado Enviado": "Sent",
 
+    "secure.orders.sent.Cancelado": "Cancel",
+    "secure.orders.sent.Pagado Cancelado": "Paid Canceled",
+    "secure.orders.sent.Devolución Pendiente Validación": "Return pending validation",
+
     "secure.orders.billing_orders.subtitle_toolbar": "Search for an invoice",
     "secure.orders.billing_orders.txt_serch_order": "Enter order number",
     "secure.orders.billing_orders.txt_no_order": "Enter the order number in the search bar to find a specific invoice",
@@ -472,6 +476,7 @@
     "secure.orders.order_list.order_page.successfully_mark": "The order has been flagged correctly",
     "secure.orders.order_list.order_page.successfully_remove_mark": "The order has been unflagged correctly",
     "secure.orders.order_list.order_page.search_orders_insert": "Enter the name of the seller in the search bar to see the orders.",
+    "secure.orders.order_list.order_page.date_tracking_guide": "The date shows the day when the tracking guide was uploaded",
 
     "secure.orders.order_list.product_detail.product": "Product",
     "secure.orders.order_list.product_detail.cost": "Cost",
@@ -485,7 +490,9 @@
     "secure.orders.order_list.product_order.fulfillment": "fulfillment",
     "secure.orders.order_list.product_order.ref": "Ref",
     "secure.orders.order_list.product_order.sku": "SKU",
+    "secure.orders.order_list.product_order.sku_seller": "Seller SKU",
     "secure.orders.order_list.product_order.total": "Total",
+    "secure.orders.order_list.product_order.see_total_records_download": "View all your orders by downloading the order report  ",
 
     "secure.orders.order_list.send_order.title_order": "Send Order",
     "secure.orders.order_list.send_order.no_send_products": "The order doesn't contain any more products left for sending.",
@@ -787,6 +794,7 @@
     "secure.offers.bulk_upload.table_error.address": "The Picking Address may not have over 30 characters.",
     "secure.offers.bulk_upload.table_error.dane_code": "The code entered is invalid.",
     "secure.offers.bulk_upload.table_error.periodicity": "The periodicity is invalid.",
+    "secure.offers.bulk_upload.table_error.sellerSku": "Seller SKU is invalid.",
 
     "secure.offers.bulk_upload.table_load.title_offer_charge": "Upload the offers again",
     "secure.offers.bulk_upload.table_load.ean_combo": "EAN Combo",
@@ -794,7 +802,7 @@
     "secure.offers.bulk_upload.table_load.address": "Picking Address",
     "secure.offers.bulk_upload.table_load.dane_code": "Picking City",
     "secure.offers.bulk_upload.table_load.Periodicity": "Periodicity",
-
+    "secure.offers.bulk_upload.table_load.sellerSku": "Seller SKU",
 
     "secure.offers.cities_coverage.title": "Cities Availiable for Dispatch",
     "secure.offers.cities_coverage.get_error": "There was an error trying to get the cities. Try again later.",
@@ -1162,7 +1170,7 @@
     "secure.parametize.category.categories.modal_create_title": "Create category",
     "secure.parametize.category.categories.lb_comission_form": "Default commission value",
     "secure.parametize.category.categories.lb_parent_name_category_form": "Parent category name",
-    "secure.parametize.category.categories.lb_id_vtex_form": "ID VTEX",
+    "secure.parametize.category.categories.lb_id_vtex_form": "ID VTEX Éxito",
     "secure.parametize.category.categories.lb_id_carulla_form": "ID Carulla",
     "secure.parametize.category.categories.lb_vtex_id_carulla_form": "VTEX ID Carulla",
     "secure.parametize.category.categories.lb_id_exito_form": "ID Éxito",

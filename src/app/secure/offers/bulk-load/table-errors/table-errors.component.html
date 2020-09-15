@@ -107,6 +107,14 @@
               #{{item.fila}}</span> {{'secure.offers.bulk_upload.table_error.sum_price' | translate}}
           </p>
 
+          <p matLine *ngIf="item.type == 'InvalidSellerSku'" style="white-space: normal;overflow: visible;">
+            {{'secure.products.table_errors_product.column_data' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | translate}}
+              #{{item.fila}}</span>  {{'secure.offers.bulk_upload.table_error.sellerSku' | translate}}
+          </p>
+
           <p matLine *ngIf="item.type == 'InvalidPriceOfferCombo'" style="white-space: normal;overflow: visible;">
             {{'secure.products.table_errors_product.column_data' | translate}}
             <span class="error-string">{{'secure.products.table_errors_product.column' | translate}}

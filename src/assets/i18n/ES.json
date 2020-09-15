@@ -455,7 +455,7 @@
     "secure.orders.download_order_modal.sn_error_download_guide": "Se ha presentado un error al realizar la descarga de las guías.",
 
     "secure.orders.order_list.detail_modal.order_date": "Fecha de pedido",
-    "secure.orders.order_list.detail_modal.deadline": "Fecha maxima de entrega",
+    "secure.orders.order_list.detail_modal.deadline": "Fecha max. de entrega",
     "secure.orders.order_list.detail_modal.order_type": "Tipo de orden",
     "secure.orders.order_list.detail_modal.channel": "Canal",
 
@@ -474,6 +474,7 @@
     "secure.orders.order_list.order_page.successfully_mark": "Se ha marcado la orden correctamente",
     "secure.orders.order_list.order_page.successfully_remove_mark": "Se ha removido la marca de la orden correctamente",
     "secure.orders.order_list.order_page.search_orders_insert": "Ingresa el nombre del vendedor en la barra de búsqueda para ver las ordenes.",
+    "secure.orders.order_list.order_page.date_tracking_guide": "El dato de la fecha corresponde al día en que el vendedor cargó la guía en el Seller.",
 
     "secure.orders.order_list.product_detail.product": "Producto",
     "secure.orders.order_list.product_detail.cost": "Costo",
@@ -487,7 +488,9 @@
     "secure.orders.order_list.product_order.fulfillment": "fulfillment",
     "secure.orders.order_list.product_order.ref": "Ref",
     "secure.orders.order_list.product_order.sku": "SKU",
+    "secure.orders.order_list.product_order.sku_seller": "SKU vendedor",
     "secure.orders.order_list.product_order.total": "Total",
+    "secure.orders.order_list.product_order.see_total_records_download": "Visualiza todos tus pedidos descargando tu reporte de órdenes",
 
     "secure.orders.order_list.send_order.title_order": "Enviar órden",
     "secure.orders.order_list.send_order.no_send_products": "La orden no posee mas productos para ser enviados.",
@@ -791,6 +794,7 @@
     "secure.offers.bulk_upload.table_error.address": "La Dirección de Recogida no puede tener mas de 30 caracteres.",
     "secure.offers.bulk_upload.table_error.dane_code": "El código DANE ingresado es inválido.",
     "secure.offers.bulk_upload.table_error.periodicity": "La periodicidad ingresada es inválida.",
+    "secure.offers.bulk_upload.table_error.sellerSku": "El vendedor SKU es inválido.",
 
     "secure.offers.bulk_upload.table_load.title_offer_charge": "Vuelve a cargar todas las ofertas",
     "secure.offers.bulk_upload.table_load.ean_combo": "Ean Combo",
@@ -798,6 +802,7 @@
     "secure.offers.bulk_upload.table_load.address": "Dirección de Recogida",
     "secure.offers.bulk_upload.table_load.dane_code": "Ciudad de Recogida",
     "secure.offers.bulk_upload.table_load.Periodicity": "Periodicidad",
+    "secure.offers.bulk_upload.table_load.sellerSku": "SKU vendedor",
 
     "secure.offers.cities_coverage.title": "Ciudades disponibles para despacho",
     "secure.offers.cities_coverage.get_error": "Se produjo un error al tratar de obtener las ciudades. Intentalo nuevamente.",
@@ -1169,7 +1174,7 @@
     "secure.parametize.category.categories.modal_create_title": "Crear una categoría",
     "secure.parametize.category.categories.lb_comission_form": "Comisión por defecto",
     "secure.parametize.category.categories.lb_parent_name_category_form": "Parent category name",
-    "secure.parametize.category.categories.lb_id_vtex_form": "VTEX ID",
+    "secure.parametize.category.categories.lb_id_vtex_form": "VTEX ID Éxito",
     "secure.parametize.category.categories.lb_id_carulla_form": "Carulla ID",
     "secure.parametize.category.categories.lb_vtex_id_carulla_form": "VTEX ID Carulla",
     "secure.parametize.category.categories.lb_id_exito_form": "Éxito ID",

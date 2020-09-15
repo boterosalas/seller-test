@@ -167,13 +167,11 @@ export class SendOrderComponent implements OnInit {
    * @memberof SendOrderComponent
    */
   validateCheckProductForSendAll(item: any) {
-    log.info('--validateCheckProductForSendAll');
     for (let j = 0; j < this.order.products.length; j++) {
       // si un elemento check esta en false, desactivo el boton enviar todo.
       if (this.order.products[j].checkProductToSend === false) {
         this.order.sendAllProduct = false;
         this.sendAllForm.disable();
-        log.info(this.languageService.instant('secure.orders.send.check_without'));
       }
     }
     // Luego de validar el estado false de los check, paso a validar el estado true para ver si el boton se puede activar o no.
@@ -292,11 +290,6 @@ export class SendOrderComponent implements OnInit {
         numberElements += 1;
       }
     }
-    if (numberElements === 0) {
-      log.info(this.languageService.instant('secure.orders.send.no_more_sent_products'));
-    } else {
-      log.info(this.languageService.instant('secure.orders.send.total_sent_order'), numberElements);
-    }
     return numberElements;
   }
 
@@ -307,7 +300,6 @@ export class SendOrderComponent implements OnInit {
   getCarries() {
     this.loadingService.viewSpinner();
     this.orderService.getCarries().subscribe((res: any) => {
-      // this.Carries = res;
       res.forEach(el => {
         if (this.allUser.Country && this.allUser.Country !== 'COLOMBIA') {
           if (el.name === 'INTERNATIONAL SHIPPING') {
