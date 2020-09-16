@@ -27,8 +27,14 @@
         <mat-icon class="flexbox align-center justify-center">close</mat-icon>
       </button>
     </div>
-    <p class="ean flexbox align-center" *ngIf="!isUpdateOffer && isUpdateOffer === false">
-      {{'secure.offers.bulk_upload.table_load.sellerSku' | translate}}: {{dataOffer.sellerSku}}</p>
+    <div class="maskSellerSku" *ngIf="!isUpdateOffer && isUpdateOffer === false" >
+        <div class="titleMask">
+          {{'secure.offers.bulk_upload.table_load.sellerSku' | translate}}: 
+        </div>
+        <div class="detailMask">
+          {{dataOffer.sellerSku}}
+        </div>
+    </div>
     <p class="name">{{dataOffer.name}}</p>
     <div class="container-data-offer" *ngIf="!isUpdateOffer && isUpdateOffer === false">
       <p *ngIf="dataOffer.discountPrice > 0" [innerHTML]="dataOffer.price | currency: '$' : 'symbol' : '1.2-2'"
@@ -132,11 +138,8 @@
         <div class="flexbox flex-wrap align-center justify-between">
           <mat-form-field>
             <input matInput [placeholder]="['secure.offers.bulk_upload.table_load.sellerSku' | translate]"
-              id="detail-offer-stock" formControlName="SellerSku" required>
+              id="detail-offer-stock" formControlName="SellerSku">
             <mat-hint></mat-hint>
-            <mat-error *ngIf="formUpdateOffer.get('SellerSku').hasError('required')"
-              [innerHTML]="['errors.error_required' | translate]">
-            </mat-error>
             <mat-error *ngIf="formUpdateOffer.get('SellerSku').hasError('pattern')"
               [innerHTML]="['secure.offers.bulk_upload.table_error.sellerSku' | translate]">
             </mat-error>
@@ -273,8 +276,7 @@
             {{'secure.offers.bulk_upload.table_load.component_list' | translate}}<span
               class="countCombo">({{Combos.controls.length}})</span></div>
 
-          <div fxLayout="row wrap" class="classListComponents"
-            fxFlex="100">
+          <div fxLayout="row wrap" class="classListComponents" fxFlex="100">
             <div fxFlex="100" id="idListComponent" *ngFor="let comp of Combos.controls">
               <ng-container [formGroup]="comp">
                 <div class="nameCombo">
