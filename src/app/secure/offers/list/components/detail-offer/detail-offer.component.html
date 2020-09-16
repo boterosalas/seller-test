@@ -138,11 +138,8 @@
         <div class="flexbox flex-wrap align-center justify-between">
           <mat-form-field>
             <input matInput [placeholder]="['secure.offers.bulk_upload.table_load.sellerSku' | translate]"
-              id="detail-offer-stock" formControlName="SellerSku" required>
+              id="detail-offer-stock" formControlName="SellerSku">
             <mat-hint></mat-hint>
-            <mat-error *ngIf="formUpdateOffer.get('SellerSku').hasError('required')"
-              [innerHTML]="['errors.error_required' | translate]">
-            </mat-error>
             <mat-error *ngIf="formUpdateOffer.get('SellerSku').hasError('pattern')"
               [innerHTML]="['secure.offers.bulk_upload.table_error.sellerSku' | translate]">
             </mat-error>
