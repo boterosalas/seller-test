@@ -125,7 +125,6 @@ export class OfertExpandedProductComponent implements OnInit {
                 Validators.pattern(this.offertRegex.formatNumber)
             ]),
             SellerSku: new FormControl('', [
-                Validators.required,
                 Validators.pattern(this.offertRegex.sellerSku)
             ]),
             ofertOption: new FormControl(''),
