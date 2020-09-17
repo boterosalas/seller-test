@@ -7,6 +7,7 @@ import { RoutesConst } from './../../shared';
 import { AuthService } from '../auth/auth.routing';
 import { CategoriesComponent } from './category/categories/categories.component';
 import { PortComponent } from './port/port.component';
+import { ExceptionComponent } from './exception/exception.component';
 
 const routes: Routes = [
   Route.withShell([
@@ -32,6 +33,12 @@ const routes: Routes = [
       component: PortComponent,
       canActivate: [AuthService],
       data: {title: 'Port'}
+    },
+    {
+      path: `${RoutesConst.sellerCenterIntException}`,
+      component: ExceptionComponent,
+      canActivate: [AuthService],
+      data: {title: 'Excepción por comisión'}
     }
   ])
 ];

@@ -18,6 +18,7 @@ import { CreateProcessDialogComponent } from '../../shared/components/create-pro
 import { PortComponent } from './port/port.component';
 import { ModalPortComponent } from './port/modal-port/modal-port.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { ExceptionComponent } from './exception/exception.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
     CategoryTreeComponent,
     PortComponent,
     ModalPortComponent,
+    ExceptionComponent,
   ],
   imports: [
     CommonModule,
