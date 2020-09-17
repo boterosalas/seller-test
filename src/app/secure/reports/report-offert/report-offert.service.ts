@@ -15,17 +15,16 @@ export class ReportOffertService {
         const exportData = {
             Email: email,
         };
-
         return this.http.post<any>(this.api.get('reportsOfferAdmin'), exportData, { observe: 'response' });
+    }
 
-        /*
+    downloadReportErrorVtexAdmin(email: string): Observable<{}> {
+        const exportData = {
+            Email: email,
+        };
         return new Observable(observer => {
-            this.http.post<any>(this.api.get('reportsOfferAdmin'), exportData,  {observe: 'response' })
-                .subscribe((data: any) => {
-                    observer.next(data);
-                }, err => {
-                    observer.error(err);
-                });
-        }); */
+            observer.next(exportData);
+          });
+        // return this.http.post<any>(this.api.get('reportsOfferAdmin'), exportData, { observe: 'response' });
     }
 }

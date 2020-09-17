@@ -7,6 +7,8 @@ import { ReportOffertComponent } from './report-offert/report-offert.component';
 import { ListReportRoutingModule } from './reports.routing';
 import { DownloadModalOffertReportComponent } from './report-offert/download-modal-offert-report/download-modal-offert-report.component';
 import { ReportOffertService } from './report-offert/report-offert.service';
+import { ReportErrorsVtexComponent } from './report-errors-vtex/report-errors-vtex.component';
+import { DownloadModalErrorVtexComponent } from './report-errors-vtex/download-modal-error-vtex/download-modal-error-vtex.component';
 
 @NgModule({
     imports: [
@@ -19,13 +21,16 @@ import { ReportOffertService } from './report-offert/report-offert.service';
     ],
     declarations: [
         ReportOffertComponent,
-        DownloadModalOffertReportComponent
+        DownloadModalOffertReportComponent,
+        ReportErrorsVtexComponent,
+        DownloadModalErrorVtexComponent
     ],
     exports: [
         ReportOffertComponent
     ],
     entryComponents: [
-        DownloadModalOffertReportComponent
+        DownloadModalOffertReportComponent,
+        DownloadModalErrorVtexComponent
     ],
     providers: [
         ReportOffertService
