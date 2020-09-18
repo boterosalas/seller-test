@@ -1,3 +1,32 @@
+<div>
+  <mat-toolbar class="tree-toolbar">
+    <div class="normal-theme toolbar-options-table flexbox justify-start align-center" fxLayout.xs="column">
+      <!-- Titulo del toolbar -->
+      <p class="tree-title">
+        {{'secure.parametize.support_claims.title.claim' | translate}}
+        <small class="sub-title">| {{'secure.parametize.support_claims.title.claim_search' | translate}}</small>
+      </p>
+
+      <!-- Componente para realizar la busqueda de una tienda -->
+      <div class="search-container">
+        <app-search-seller id="contet-searc-store" class="search-content">
+        </app-search-seller>
+      </div>
+
+    </div>
+  </mat-toolbar>
+</div>
+
 <p>
   exception works!
 </p>
+
+<app-exception-brand   [currentStoreSelect]="12390"></app-exception-brand>
+
+<div *ngIf="currentStoreSelect">
+  1. {{currentStoreSelect.IdSeller}}
+
+</div>
+
+
+

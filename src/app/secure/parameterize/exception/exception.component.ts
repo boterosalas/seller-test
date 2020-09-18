@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LoadingService } from '@app/core';
+import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 
 @Component({
   selector: 'app-exception',
@@ -7,11 +9,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExceptionComponent implements OnInit {
 
-  public tree: any;
 
-  constructor() { }
+  currentStoreSelect: any;
+
+  constructor(
+    private emitterSeller: EventEmitterSeller,
+    private loadingService: LoadingService,
+  ) { }
 
   ngOnInit() {
+    this.selectSeller();
+  }
+
+  selectSeller() {
+    this.loadingService.viewSpinner();
+    this.emitterSeller.eventSearchSeller.subscribe(data => {
+      if (data) {
+        this.currentStoreSelect = data;
+        console.log(this.currentStoreSelect);
+      }
+      this.loadingService.closeSpinner();
+    });
   }
 
 }

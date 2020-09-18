@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ParameterizeRouting } from './parameterize.routing';
 import { SpecificationsParamComponent, FocusDirective } from './specifications/specifications.component';
@@ -19,6 +19,9 @@ import { PortComponent } from './port/port.component';
 import { ModalPortComponent } from './port/modal-port/modal-port.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { ExceptionComponent } from './exception/exception.component';
+import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
+import { ExceptionBrandComponent } from '../offers/stores/tree/components/exception-brand/exception-brand.component';
+import { StoresModule } from '../offers';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,7 @@ import { ExceptionComponent } from './exception/exception.component';
     ParameterizeRouting,
     ReactiveFormsModule,
     FormsModule,
+    StoresModule,
     CurrencyMaskModule
   ],
   exports: [
@@ -48,7 +52,8 @@ import { ExceptionComponent } from './exception/exception.component';
   providers: [
     ParamSpecsService,
     BrandService,
-    CategoryTreeService
+    CategoryTreeService,
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
   ],
   entryComponents: [
     AddDialogComponent,
@@ -57,6 +62,7 @@ import { ExceptionComponent } from './exception/exception.component';
     DialogWithFormComponent,
     CreateProcessDialogComponent,
     ModalPortComponent
-  ]
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class ParameterizeModule { }

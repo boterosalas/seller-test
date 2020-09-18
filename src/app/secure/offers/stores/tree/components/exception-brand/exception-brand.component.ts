@@ -35,6 +35,7 @@ export class ExceptionBrandComponent implements OnInit {
   // @Input() currentStoreSelect: any;
 
   @Input() set currentStoreSelect(value: number) {
+    console.log(value);
     if (value !== undefined) {
       this.currentStoreSelect_Id = value;
       this.getExceptionBrandComision();
