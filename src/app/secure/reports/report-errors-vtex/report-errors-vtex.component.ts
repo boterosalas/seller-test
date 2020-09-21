@@ -16,12 +16,12 @@ export class ReportErrorsVtexComponent implements OnInit {
   ngOnInit() {
   }
 
-  openModalDownloadReportErrorsVtex(): void {
+  openModalDownloadReportErrorsVtex() {
     const dialogRef = this.dialog.open(DownloadModalErrorVtexComponent, {
       data: {
       },
     });
-    dialogRef.afterClosed().subscribe(result => {});
+    dialogRef.afterClosed().subscribe(result => { });
   }
-
 }
+

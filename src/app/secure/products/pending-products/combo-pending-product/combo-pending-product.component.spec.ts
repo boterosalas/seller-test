@@ -69,7 +69,7 @@ describe('ComboPendingProductComponent', () => {
     let fixture: ComponentFixture<ComboPendingProductComponent>;
 
     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
-    const mockPendingProductsService = jasmine.createSpyObj('PendingProductsService', ['getEANProductsModify']);
+    const mockPendingProductsService = jasmine.createSpyObj('PendingProductsService', ['getEANProductsModify', 'getEANProductsValidation']);
     const mockUserParameterService = jasmine.createSpyObj('UserParametersService', ['getUserData']);
     const mockMatSnackBar = jasmine.createSpyObj('MatSnackBar', ['open']);
 
@@ -102,8 +102,9 @@ describe('ComboPendingProductComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ComboPendingProductComponent);
         mockUserParameterService.getUserData.and.returnValue(of(data));
-        mockPendingProductsService.getEANProductsModify.and.returnValue(of(result));
         component = fixture.componentInstance;
+        // mockPendingProductsService.getEANProductsModify.and.returnValue(of(result));
+        // mockPendingProductsService.getEANProductsValidation.and.returnValue(of(result));
         fixture.detectChanges();
     });
 
@@ -115,10 +116,9 @@ describe('ComboPendingProductComponent', () => {
             idSeller: 11811,
             ean: 1001114217562,
           };
-        component.openInformation(paramsArray);
-        component.openInfoProductValidation(paramsArray);
-        component.setparams(paramsArray);
-        component.setparams2(paramsArray);
+        component.sellerId = 11811;
+        // component.setparams(paramsArray);
+        // component.setparams2(paramsArray);
         component.backTolist();
       });
 });

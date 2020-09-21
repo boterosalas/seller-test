@@ -14,8 +14,8 @@ import { ReportOffertService } from '../../report-offert/report-offert.service';
 export class DownloadModalErrorVtexComponent implements OnInit {
 
 
-public user: UserInformation;
-public myform: FormGroup;
+  public user: UserInformation;
+  public myform: FormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<DownloadModalErrorVtexComponent>,
@@ -51,16 +51,19 @@ public myform: FormGroup;
 
 
   downloadReportOffertADmin(form: any) {
-    const email = form.get('email').value;
+    const params = '?&email=' + form.get('email').value;
     this.loadingService.viewSpinner();
-    this.reporOffertService.downloadReportErrorVtexAdmin(email).subscribe(
+    this.reporOffertService.downloadReportErrorVtexAdmin(params).subscribe(
       (result: any) => {
-        console.log(result);
-        // if (result && (result.status === 200 || result.status === 201)) {
-        //   this.componentService.openSnackBar(this.languageService.instant('secure.reports.report-offert.download-modal-offert-ts.ok'), this.languageService.instant('actions.close'), 10000);
-        // } else {
-        //   this.componentService.openSnackBar(this.languageService.instant('secure.reports.report-offert.download-modal-offert-ts.ko'), this.languageService.instant('actions.close'), 5000);
-        // }
+        if (result) {
+          if (result.data) {
+            this.componentService.openSnackBar(this.languageService.instant('secure.reports.report-vtex.download-modal-vtex-ts.ok'), this.languageService.instant('actions.close'), 10000);
+          } else {
+            this.componentService.openSnackBar(this.languageService.instant('secure.reports.report-vtex.download-modal-vtex-ts.ko'), this.languageService.instant('actions.close'), 5000);
+          }
+        } else {
+          this.componentService.openSnackBar(this.languageService.instant('secure.reports.report-vtex.download-modal-vtex-ts.ko'), this.languageService.instant('actions.close'), 5000);
+        }
         this.onNoClick();
         this.loadingService.closeSpinner();
       }

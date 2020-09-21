@@ -19,12 +19,6 @@ export class ReportOffertService {
     }
 
     downloadReportErrorVtexAdmin(email: string): Observable<{}> {
-        const exportData = {
-            Email: email,
-        };
-        return new Observable(observer => {
-            observer.next(exportData);
-          });
-        // return this.http.post<any>(this.api.get('reportsOfferAdmin'), exportData, { observe: 'response' });
+        return this.http.get(this.api.get('reportErrorsVtex', [email]));
     }
 }

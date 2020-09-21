@@ -47,6 +47,7 @@
     "menu.Cargar guías": "Cargar guías",
     "menu.Menu": "Menú",
     "menu.Reporte de ofertas": "Reporte de ofertas",
+    "menu.Reporte de errores en VTEX": "Reporte de errores en VTEX",
     "menu.Historico de devoluciones": "Histórico de devoluciones",
     "menu.Ciudades con Cobertura": "Ciudades con Cobertura",
     "menu.Calificación de Vendedores": "Calificación de Vendedores",
@@ -1335,6 +1336,8 @@
 
     "secure.reports.report-offert.download-modal-offert-ts.ok": "Se ha realizado la descarga del reporte de ofertas correctamente, revisa tu correo electrónico en unos minutos.",
     "secure.reports.report-offert.download-modal-offert-ts.ko": "Se ha presentado un error al realizar la descarga del reporte de ofertas.",
+    "secure.reports.report-vtex.download-modal-vtex-ts.ok": "Solicitud enviada exitosamente. En unos minutos recibirá un correo con el archivo solicitado.",
+    "secure.reports.report-vtex.download-modal-vtex-ts.ko": "Se ha presentado un error al realizar la descarga del reporte de errores en VTEX",
 
     "secure.quality.quality-score.quality" :"Calificación",
     "secure.quality.quality-score.qualityMonth" :"Mes calificado",
