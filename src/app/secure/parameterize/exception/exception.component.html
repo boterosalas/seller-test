@@ -21,7 +21,9 @@
   exception works!
 </p>
 
-<app-exception-brand   [currentStoreSelect]="12390"></app-exception-brand>
+<div *ngIf="activeException">
+  <app-exception-brand  [currentStoreSelect]="currentStoreSelect.IdSeller"></app-exception-brand>
+</div>
 
 <div *ngIf="currentStoreSelect">
   1. {{currentStoreSelect.IdSeller}}

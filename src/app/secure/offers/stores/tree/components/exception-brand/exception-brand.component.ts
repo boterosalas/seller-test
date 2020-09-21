@@ -62,7 +62,7 @@ export class ExceptionBrandComponent implements OnInit {
 
   regex;
 
-  typeException = ['Marca'];
+  typeException = ['Marca', 'PLU'];
   // Objeto para enviar a la creacion de la excepcion de marca.
   // createData: {
   //   Type: number,

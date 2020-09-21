@@ -36,6 +36,7 @@ import { StoresModule } from '../offers';
     PortComponent,
     ModalPortComponent,
     ExceptionComponent,
+    ExceptionBrandComponent
   ],
   imports: [
     CommonModule,
@@ -43,8 +44,9 @@ import { StoresModule } from '../offers';
     ParameterizeRouting,
     ReactiveFormsModule,
     FormsModule,
-    StoresModule,
-    CurrencyMaskModule
+    // StoresModule,
+    CurrencyMaskModule,
+    // ExceptionBrandComponent
   ],
   exports: [
     CategoryTreeComponent

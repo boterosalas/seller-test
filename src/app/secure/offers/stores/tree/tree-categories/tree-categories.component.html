@@ -6,7 +6,7 @@
   <!-- Componente empleado cuando no se posee una tienda seleccionada -->
   <app-no-content *ngIf="currentStoreSelect.Name === ''"></app-no-content>
 
-  <app-exception-brand *ngIf="informationForTreeIsLoad == true && currentStoreSelect" [currentStoreSelect]="currentStoreSelect.IdSeller"></app-exception-brand>
+  <!-- <app-exception-brand *ngIf="informationForTreeIsLoad == true && currentStoreSelect" [currentStoreSelect]="currentStoreSelect.IdSeller"></app-exception-brand> -->
 
   <!-- Componente que se visualiza cuando se ha indicado una tienda para consultar -->
   <app-tree-component [updateFunction]="updateFunction" *ngIf="informationForTreeIsLoad == true"  [arbol]="arbol" (currentTreeOutput)="receiveDataTree($event)"></app-tree-component>

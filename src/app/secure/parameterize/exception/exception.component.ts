@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingService } from '@app/core';
+import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 
 @Component({
@@ -10,7 +11,9 @@ import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.servi
 export class ExceptionComponent implements OnInit {
 
 
-  currentStoreSelect: any;
+  currentStoreSelect: StoreModel = new StoreModel(0, '');
+
+  activeException: Boolean = false;
 
   constructor(
     private emitterSeller: EventEmitterSeller,
@@ -26,6 +29,7 @@ export class ExceptionComponent implements OnInit {
     this.emitterSeller.eventSearchSeller.subscribe(data => {
       if (data) {
         this.currentStoreSelect = data;
+        this.activeException = true;
         console.log(this.currentStoreSelect);
       }
       this.loadingService.closeSpinner();

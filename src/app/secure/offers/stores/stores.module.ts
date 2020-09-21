@@ -40,7 +40,7 @@ import { ModalErrorsComponent } from './tree/components/modal-errors/modal-error
     TreeToolbarComponent,
     SearchStoreComponent,
     InputCommisionComponent,
-    ExceptionBrandComponent,
+    // ExceptionBrandComponent,
     ModalErrorsComponent
   ],
   providers: [

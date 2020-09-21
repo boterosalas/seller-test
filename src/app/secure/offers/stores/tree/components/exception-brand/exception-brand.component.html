@@ -102,6 +102,42 @@
             </button>
           </mat-form-field>
         </div>
+        <div fxLayout="row" fxLayoutAlign="space-evenly center" class="widthBrand">
+          <mat-form-field class="half-width">
+            <input matInput [placeholder]="'secure.parametize.support_claims-filter.start-date' | translate" [matAutocomplete]="auto" formControlName="Brand"
+              id="brandProduct" required>
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let brand of filterBrands" [value]="brand.Name">
+                {{brand.Name}}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="form.get('Brand').hasError('required')">
+              {{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
+            <mat-error *ngIf="form.get('Brand').hasError('pattern')">
+              {{'secure.products.create_product_unit.basic_information.brand_invalidate' | translate}}</mat-error>
+            <mat-error *ngIf="form.get('Brand').hasError('minLength')">
+              {{'secure.products.create_product_unit.basic_information.brand_invalidate' | translate}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="half-width">
+            <input matInput required id="exception" type="number" [placeholder]="'secure.parametize.support_claims-filter.end-date' | translate" autocomplete="false"
+              formControlName="Commission">
+            <mat-error *ngIf="form.get('Commission').hasError('pattern') || form.get('Commission').hasError('trim')">
+              {{'error.exception_brand.number_int' | translate}}</mat-error>
+            <mat-error *ngIf="form.get('Commission').hasError('max')">{{'error.exception_brand.max_error' | translate}}
+            </mat-error>
+            <mat-error *ngIf="form.get('Commission').hasError('min')">{{'error.exception_brand.min_error' | translate}}
+            </mat-error>
+            <button mat-button mat-icon-button matSuffix *ngIf="!form.value.Id" [disabled]="!form.valid"
+              (click)="addBrand()">
+              <!-- <button mat-button mat-icon-button matSuffix 
+                      (click)="addBrand()"> -->
+              <mat-icon>
+                add_circle_outline
+              </mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
 
         <div *ngIf="actionsEdit" fxLayout="row" fxLayoutAlign="space-between center" class="buttonsSend">
           <button mat-flat-button color="default" type="button"
