@@ -69,7 +69,7 @@ describe('ComboPendingProductComponent', () => {
     let fixture: ComponentFixture<ComboPendingProductComponent>;
 
     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
-    const mockPendingProductsService = jasmine.createSpyObj('PendingProductsService', ['getEANProductsModify', 'getEANProductsValidation']);
+    const mockPendingProductsService = jasmine.createSpyObj('PendingProductsService', ['changeEmitter', 'getPendingProductsModify' , 'getPendingProductsValidation', 'getEANProductsModify', 'getEANProductsValidation']);
     const mockUserParameterService = jasmine.createSpyObj('UserParametersService', ['getUserData']);
     const mockMatSnackBar = jasmine.createSpyObj('MatSnackBar', ['open']);
 
@@ -105,6 +105,7 @@ describe('ComboPendingProductComponent', () => {
         component = fixture.componentInstance;
         // mockPendingProductsService.getEANProductsModify.and.returnValue(of(result));
         // mockPendingProductsService.getEANProductsValidation.and.returnValue(of(result));
+        // mockPendingProductsService.change.and.returnValue(of(result));
         fixture.detectChanges();
     });
 

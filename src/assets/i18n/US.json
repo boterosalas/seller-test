@@ -1332,6 +1332,8 @@
     "secure.reports.report-offert.download-modal-offert-ts.ok": "The download has started successfully. Check your e-mail.",
     "secure.reports.report-offert.download-modal-offert-ts.ko": "And error has occurred when downloading the file.",
 
+    "secure.reports.report-vtex.download-modal-vtex-ts.ok":"Request sent successfully. In a few minutes you will receive an email with the requested file.",
+
     "secure.quality.quality-score.quality" :"Quality",
     "secure.quality.quality-score.qualityMonth" :"Quality month",
     "secure.quality.quality-score.qualityIssued" :"Quality issued",
