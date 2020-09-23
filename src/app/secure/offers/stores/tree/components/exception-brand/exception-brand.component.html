@@ -102,40 +102,37 @@
             </button>
           </mat-form-field>
         </div>
-        <div fxLayout="row" fxLayoutAlign="space-evenly center" class="widthBrand">
-          <mat-form-field class="half-width">
-            <input matInput [placeholder]="'secure.parametize.support_claims-filter.start-date' | translate" [matAutocomplete]="auto" formControlName="Brand"
-              id="brandProduct" required>
-            <mat-autocomplete #auto="matAutocomplete">
-              <mat-option *ngFor="let brand of filterBrands" [value]="brand.Name">
-                {{brand.Name}}
-              </mat-option>
-            </mat-autocomplete>
-            <mat-error *ngIf="form.get('Brand').hasError('required')">
-              {{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
-            <mat-error *ngIf="form.get('Brand').hasError('pattern')">
-              {{'secure.products.create_product_unit.basic_information.brand_invalidate' | translate}}</mat-error>
-            <mat-error *ngIf="form.get('Brand').hasError('minLength')">
-              {{'secure.products.create_product_unit.basic_information.brand_invalidate' | translate}}</mat-error>
+
+        <div class="dateException widthBrand" fxLayout="row" fxLayoutAlign="space-evenly center">
+          <!-- Fecha Inicial -->
+          <mat-form-field id="paymentDate-input-search-order" color="accent" fxFlex="20%">
+            <input id="input-filter-paymentDateInitial" [max]="form.value.DateInitial" formControlName="DateInitial"
+              [placeholder]="'secure.parametize.support_claims-filter.start-date' | translate" matInput
+              [matDatepicker]="DateInitial" class="datePicker">
+            <mat-datepicker-toggle id="paymentDate-Perfix" matPrefix [for]="DateInitial">
+            </mat-datepicker-toggle>
+            <mat-datepicker touchUi="true" startView="year" #DateInitial></mat-datepicker>
           </mat-form-field>
 
-          <mat-form-field class="half-width">
-            <input matInput required id="exception" type="number" [placeholder]="'secure.parametize.support_claims-filter.end-date' | translate" autocomplete="false"
-              formControlName="Commission">
-            <mat-error *ngIf="form.get('Commission').hasError('pattern') || form.get('Commission').hasError('trim')">
-              {{'error.exception_brand.number_int' | translate}}</mat-error>
-            <mat-error *ngIf="form.get('Commission').hasError('max')">{{'error.exception_brand.max_error' | translate}}
-            </mat-error>
-            <mat-error *ngIf="form.get('Commission').hasError('min')">{{'error.exception_brand.min_error' | translate}}
-            </mat-error>
-            <button mat-button mat-icon-button matSuffix *ngIf="!form.value.Id" [disabled]="!form.valid"
-              (click)="addBrand()">
-              <!-- <button mat-button mat-icon-button matSuffix 
-                      (click)="addBrand()"> -->
-              <mat-icon>
-                add_circle_outline
-              </mat-icon>
-            </button>
+          <!-- Hora inicial -->
+          <mat-form-field fxFlex="20%">
+            <input matInput id="TimeInitial" type="datetime-local" placeholder="Hora inicio" autocomplete="false"
+              formControlName="TimeInitial">
+          </mat-form-field>
+
+          <!-- Fecha final -->
+          <mat-form-field id="paymentDate-input-search-order" color="accent" fxFlex="20%">
+            <input id="input-filter-paymentDateFinal" [min]="form.value.DateFinal" formControlName="DateFinal"
+              [placeholder]="'secure.parametize.support_claims-filter.end-date' | translate" matInput
+              [matDatepicker]="DateFinal">
+            <mat-datepicker-toggle id="paymentDate-Perfix" matPrefix [for]="DateFinal"></mat-datepicker-toggle>
+            <mat-datepicker touchUi="true" startView="year" #DateFinal></mat-datepicker>
+          </mat-form-field>
+
+          <!-- Hora final -->
+          <mat-form-field fxFlex="20%">
+            <input matInput id="TimeFinal" type="number" placeholder="Hora fin" autocomplete="false"
+              formControlName="TimeFinal">
           </mat-form-field>
         </div>
 

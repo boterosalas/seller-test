@@ -1,5 +1,21 @@
 $color-gray: #BCBCBC;
 
+
+::ng-deep .mat-dialog-content{
+  padding: 0 5% !important;
+}
+
+
+.dateException{
+  display: flex;
+  width: 100%;
+  margin-top: 2%;
+}
+
+// .datePicker{
+//   margin-right: 1%;
+// }
+
 .options {
   color: $color-gray;
 

@@ -188,7 +188,12 @@ export class ExceptionBrandComponent implements OnInit {
     this.form = this.fb.group({
       Id: [''],
       Brand: ['', Validators.compose([trimField, Validators.minLength(2)])],
-      Commission: ['', Validators.compose([trimField, Validators.max(100), Validators.min(0), Validators.pattern(this.regex)])]
+      Commission: ['', Validators.compose([trimField, Validators.max(100), Validators.min(0), Validators.pattern(this.regex)])],
+      DateInitial: [''],
+      TimeInitial: [''],
+      DateFinal: [''],
+      TimeFinal: ['']
+
     });
     this.Commission.disable();
     this.Brand.valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
@@ -558,5 +563,21 @@ export class ExceptionBrandComponent implements OnInit {
 
   get Commission(): FormControl {
     return this.form.get('Commission') as FormControl;
+  }
+
+  get DateInitial(): FormControl {
+    return this.form.get('DateInitial') as FormControl;
+  }
+
+  get DateFinal(): FormControl {
+    return this.form.get('DateFinal') as FormControl;
+  }
+
+  get TimeInitial(): FormControl {
+    return this.form.get('TimeInitial') as FormControl;
+  }
+
+  get TimeFinal(): FormControl {
+    return this.form.get('TimeFinal') as FormControl;
   }
 }
