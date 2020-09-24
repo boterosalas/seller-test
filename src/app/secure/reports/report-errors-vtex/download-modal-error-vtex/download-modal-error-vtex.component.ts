@@ -56,7 +56,7 @@ export class DownloadModalErrorVtexComponent implements OnInit {
     this.reporOffertService.downloadReportErrorVtexAdmin(params).subscribe(
       (result: any) => {
         if (result) {
-          if (result.data) {
+          if (result.data === true) {
             this.componentService.openSnackBar(this.languageService.instant('secure.reports.report-vtex.download-modal-vtex-ts.ok'), this.languageService.instant('actions.close'), 10000);
           } else {
             this.componentService.openSnackBar(this.languageService.instant('secure.reports.report-vtex.download-modal-vtex-ts.ko'), this.languageService.instant('actions.close'), 5000);
