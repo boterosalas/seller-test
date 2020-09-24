@@ -32,6 +32,7 @@ export class ExceptionBrandComponent implements OnInit {
   body: any;
   IdVtex: any;
   addException: boolean;
+  typeValue: any;
   // @Input() currentStoreSelect: any;
 
   @Input() set currentStoreSelect(value: number) {
@@ -46,7 +47,8 @@ export class ExceptionBrandComponent implements OnInit {
   public user: UserInformation;
 
   displayedColumns = ['Brand', 'Commission', 'options'];
-  displayedColumnsInModal = ['Brand', 'Commission'];
+  // displayedColumns = ['TypeException', 'Description', 'InitialDate', 'FinalDate', 'options'];
+  displayedColumnsInModal = ['Brand', 'InitialDate', 'FinalDate', 'Commission'];
   validation = new BehaviorSubject(true);
   brands = [];
   selectedBrands = [];
@@ -62,7 +64,10 @@ export class ExceptionBrandComponent implements OnInit {
 
   regex;
 
-  typeException = ['Marca', 'PLU'];
+  typeException = [
+    { name: 'Marca', value: 1 },
+    { name: 'PLU', value: 2 }
+  ];
   // Objeto para enviar a la creacion de la excepcion de marca.
   // createData: {
   //   Type: number,
@@ -102,6 +107,11 @@ export class ExceptionBrandComponent implements OnInit {
 
   changeType(val: any) {
 
+  }
+
+  prueba() {
+    console.log(this.form.controls.TimeInitial.value);
+    console.log(this.form);
   }
 
   /**
@@ -189,11 +199,8 @@ export class ExceptionBrandComponent implements OnInit {
       Id: [''],
       Brand: ['', Validators.compose([trimField, Validators.minLength(2)])],
       Commission: ['', Validators.compose([trimField, Validators.max(100), Validators.min(0), Validators.pattern(this.regex)])],
-      DateInitial: [''],
-      TimeInitial: [''],
-      DateFinal: [''],
-      TimeFinal: ['']
-
+      InitialDate: [''],
+      FinalDate: ['']
     });
     this.Commission.disable();
     this.Brand.valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
@@ -345,10 +352,10 @@ export class ExceptionBrandComponent implements OnInit {
    */
   addBrand() {
     // Capturar valores del formulario.
-    const { Brand, Commission } = this.form.value;
+    const { Brand, Commission, InitialDate, FinalDate } = this.form.value;
     // Objeto nuevo que tiene Brand y Comision
     if (this.selectedBrands.length === 0) {
-      this.selectedBrands.push(Object.assign({ Brand, Commission }, {}));
+      this.selectedBrands.push(Object.assign({ Brand, Commission, InitialDate, FinalDate }, {}));
     } else {
       this.selectedBrands.forEach(el => {
         if (el.Brand === this.form.controls.Brand.value) {
@@ -361,7 +368,7 @@ export class ExceptionBrandComponent implements OnInit {
         }
       });
       if (this.addException !== true) {
-        this.selectedBrands.push(Object.assign({ Brand, Commission }, {}));
+        this.selectedBrands.push(Object.assign({ Brand, Commission, InitialDate, FinalDate }, {}));
       }
     }
     this.selectedBrandsSources.data = this.selectedBrands;
@@ -432,10 +439,11 @@ export class ExceptionBrandComponent implements OnInit {
       this.preDataSource.push(element);
     });
     this.createData = {
-      'Type': 1,
+      'Type': this.typeValue,
       'IdSeller': sellerId,
       'ExceptionValues': this.preDataSource
     };
+    console.log('this.createData: ', this.createData);
     this.exceptionBrandService.createExceptionBrand(this.createData).subscribe(res => {
       const resCreate = JSON.parse(res['body'].body);
       // const resDialog = res;
@@ -565,12 +573,12 @@ export class ExceptionBrandComponent implements OnInit {
     return this.form.get('Commission') as FormControl;
   }
 
-  get DateInitial(): FormControl {
-    return this.form.get('DateInitial') as FormControl;
+  get InitialDate(): FormControl {
+    return this.form.get('InitialDate') as FormControl;
   }
 
-  get DateFinal(): FormControl {
-    return this.form.get('DateFinal') as FormControl;
+  get FinalDate(): FormControl {
+    return this.form.get('FinalDate') as FormControl;
   }
 
   get TimeInitial(): FormControl {

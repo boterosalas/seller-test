@@ -54,9 +54,9 @@
       <form [formGroup]="typeForm" class="full-width justify-content-center dis-flex">
         <mat-form-field class="half-width">
           <mat-label>Tipo de excepción</mat-label>
-          <mat-select formControlName="type">
-            <mat-option *ngFor="let type of typeException" [value]="type">
-              {{type}}
+          <mat-select formControlName="type" [(ngModel)]="typeValue">
+            <mat-option *ngFor="let type of typeException" value="{{type.value}}">
+              {{type.name}}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -105,22 +105,34 @@
 
         <div class="dateException widthBrand" fxLayout="row" fxLayoutAlign="space-evenly center">
           <!-- Fecha Inicial -->
-          <mat-form-field id="paymentDate-input-search-order" color="accent" fxFlex="20%">
-            <input id="input-filter-paymentDateInitial" [max]="form.value.DateInitial" formControlName="DateInitial"
-              [placeholder]="'secure.parametize.support_claims-filter.start-date' | translate" matInput
+          <!-- <mat-form-field id="paymentDate-input-search-order" color="accent" fxFlex="20%">
+
+            <input  [max]="form.value.DateInitial" formControlName="DateInitial"
+              [placeholder]="'secure.parametize.support_claims-filter.start-date' | translate" matInput type="datetime-local"
               [matDatepicker]="DateInitial" class="datePicker">
             <mat-datepicker-toggle id="paymentDate-Perfix" matPrefix [for]="DateInitial">
             </mat-datepicker-toggle>
             <mat-datepicker touchUi="true" startView="year" #DateInitial></mat-datepicker>
-          </mat-form-field>
+          </mat-form-field> -->
 
           <!-- Hora inicial -->
-          <mat-form-field fxFlex="20%">
-            <input matInput id="TimeInitial" type="datetime-local" placeholder="Hora inicio" autocomplete="false"
-              formControlName="TimeInitial">
+          <!-- <mat-form-field fxFlex="20%"> -->
+            <!-- <input matInput id="TimeInitial" type="datetime-local" placeholder="Hora inicio" autocomplete="false"
+              formControlName="TimeInitial"> -->
+          <!-- </mat-form-field> -->
+
+          <mat-form-field>
+            <input matInput type="datetime-local" placeholder="Hora inicio" autocomplete="false" 
+            formControlName="InitialDate">
           </mat-form-field>
 
-          <!-- Fecha final -->
+          <mat-form-field>
+            <input matInput type="datetime-local" placeholder="Hora inicio" autocomplete="false" 
+            formControlName="FinalDate">
+          </mat-form-field>
+          
+
+          <!-- Fecha final
           <mat-form-field id="paymentDate-input-search-order" color="accent" fxFlex="20%">
             <input id="input-filter-paymentDateFinal" [min]="form.value.DateFinal" formControlName="DateFinal"
               [placeholder]="'secure.parametize.support_claims-filter.end-date' | translate" matInput
@@ -129,11 +141,11 @@
             <mat-datepicker touchUi="true" startView="year" #DateFinal></mat-datepicker>
           </mat-form-field>
 
-          <!-- Hora final -->
+           Hora final 
           <mat-form-field fxFlex="20%">
             <input matInput id="TimeFinal" type="number" placeholder="Hora fin" autocomplete="false"
               formControlName="TimeFinal">
-          </mat-form-field>
+          </mat-form-field> -->
         </div>
 
         <div *ngIf="actionsEdit" fxLayout="row" fxLayoutAlign="space-between center" class="buttonsSend">
@@ -150,6 +162,16 @@
         <ng-container matColumnDef="Brand">
           <th mat-header-cell *matHeaderCellDef> Marca </th>
           <td mat-cell *matCellDef="let element"> {{element.Brand}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="InitialDate">
+          <th mat-header-cell *matHeaderCellDef> Fecha y hora inicial </th>
+          <td mat-cell *matCellDef="let element"> {{element.InitialDate}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="FinalDate">
+          <th mat-header-cell *matHeaderCellDef> Fecha y hora final </th>
+          <td mat-cell *matCellDef="let element"> {{element.FinalDate}} </td>
         </ng-container>
 
         <ng-container matColumnDef="Commission">
