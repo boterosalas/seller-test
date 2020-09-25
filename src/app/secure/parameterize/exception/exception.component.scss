@@ -11,10 +11,10 @@
 
 @media screen and (min-width: 600px) {
     .tree-title {
-        width: 35%;
+        width: 70%;
     }
     .search-container {
-        width: 60%;
+        width: 500px;
         padding: 0.4em;
     }
     .list-container {
@@ -23,4 +23,18 @@
     .agreement {
         margin: 2em;
     }
+}
+
+
+    .search-store {
+        width: 150% !important;
+    }
+
+
+.ticket-toolbar {
+    background-color: white;
+    padding: 0px 32px;
+    height: 45px !important;
+    max-height: 45px;
+    justify-content: space-between;
 }

@@ -14,6 +14,7 @@ import { ExceptionBrandService } from './exception-brand.service';
 import { UserInformation } from '@app/shared';
 import { templateJitUrl } from '@angular/compiler';
 import { ModalErrorsComponent } from '../modal-errors/modal-errors.component';
+import { element } from '@angular/core/src/render3/instructions';
 
 const log = new Logger('ExceptionBrandComponent');
 
@@ -46,8 +47,8 @@ export class ExceptionBrandComponent implements OnInit {
   /* Información del usuario*/
   public user: UserInformation;
 
-  displayedColumns = ['Brand', 'Commission', 'options'];
-  // displayedColumns = ['TypeException', 'Description', 'InitialDate', 'FinalDate', 'options'];
+  // displayedColumns = ['Brand', 'Commission', 'options'];
+  displayedColumns = ['Type', 'Description', 'InitialDate', 'FinalDate', 'Commission', 'options'];
   displayedColumnsInModal = ['Brand', 'InitialDate', 'FinalDate', 'Commission'];
   validation = new BehaviorSubject(true);
   brands = [];
@@ -65,7 +66,7 @@ export class ExceptionBrandComponent implements OnInit {
   regex;
 
   typeException = [
-    { name: 'Marca', value: 1 },
+    { name: 'MARCA', value: 1 },
     { name: 'PLU', value: 2 }
   ];
   // Objeto para enviar a la creacion de la excepcion de marca.
@@ -110,7 +111,6 @@ export class ExceptionBrandComponent implements OnInit {
   }
 
   prueba() {
-    console.log(this.form.controls.TimeInitial.value);
     console.log(this.form);
   }
 
@@ -162,6 +162,7 @@ export class ExceptionBrandComponent implements OnInit {
         }
         return 0;
       });
+      // tslint:disable-next-line: no-shadowed-variable
       this.brands = this.brands.map(element => {
         const newElement = { Name: element.Name, IdVTEX: element.IdVTEX };
         return newElement;
@@ -179,6 +180,7 @@ export class ExceptionBrandComponent implements OnInit {
     this.regexService.getRegexInformationBasic(null).subscribe(res => {
       const { Data } = !!res && !!res.body && !!res.body.body && JSON.parse(res.body.body);
       if (!!Data && Data.length) {
+        // tslint:disable-next-line: no-shadowed-variable
         this.regex = Data.find(element => {
           if (element.Identifier === 'formatNumber' && element.Module === 'ofertas') {
             return element;
@@ -200,7 +202,8 @@ export class ExceptionBrandComponent implements OnInit {
       Brand: ['', Validators.compose([trimField, Validators.minLength(2)])],
       Commission: ['', Validators.compose([trimField, Validators.max(100), Validators.min(0), Validators.pattern(this.regex)])],
       InitialDate: [''],
-      FinalDate: ['']
+      FinalDate: [''],
+      Plu: ['', Validators.pattern(this.regex)]
     });
     this.Commission.disable();
     this.Brand.valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
@@ -230,7 +233,9 @@ export class ExceptionBrandComponent implements OnInit {
    * @param {*} [element]
    * @memberof ExceptionBrandComponent
    */
+  // tslint:disable-next-line: no-shadowed-variable
   openDialog(action: string, element?: any) {
+    console.log(action, element);
     this.form.setValidators(null);
     const data = !!(action === 'edit') ? this.putDataForUpdate(element) : !!(action === 'create') ? this.putDataForCreate() : this.putDataForDelete();
     const dialogRef = this.dialog.open(DialogWithFormComponent, {
@@ -258,6 +263,7 @@ export class ExceptionBrandComponent implements OnInit {
    * @param {*} element
    * @memberof ExceptionBrandComponent
    */
+  // tslint:disable-next-line: no-shadowed-variable
   configDialog(dialog: any, data: any, element: any) {
     if (element && element.IdVTEX) {
       this.IdVtex = element.IdVTEX;
@@ -273,6 +279,7 @@ export class ExceptionBrandComponent implements OnInit {
           this.createException();
           break;
         case 'edit':
+          console.log(element);
           this.updateData = {
             'IdSeller': sellerId,
             'ExceptionValues': [{
@@ -314,12 +321,18 @@ export class ExceptionBrandComponent implements OnInit {
    * @returns
    * @memberof ExceptionBrandComponent
    */
+  // tslint:disable-next-line: no-shadowed-variable
   putDataForUpdate(element: any) {
-    const { Id, Brand, Commission } = element;
+    const { Id, Brand, Commission, InitialDate, FinalDate } = element;
     this.typeForm.patchValue(element);
     this.form.patchValue(element);
+    console.log(this.form);
+    this.typeValue = element.TypeId;
+    console.log(element.InitialDate);
+    element.InitialDate = '2020-09-25T16:35';
     this.form.controls.Brand.disable();
-    const initialValue = Object.assign({ Id, Brand, Commission }, {});
+    const initialValue = Object.assign({ Id, Brand, Commission, InitialDate, FinalDate }, {});
+    console.log(44, initialValue);
     this.form.setValidators(validateDataToEqual(initialValue));
     const form = this.form;
     const title = this.languageService.instant('secure.parametize.commission.edit');
@@ -351,6 +364,9 @@ export class ExceptionBrandComponent implements OnInit {
    * @memberof ExceptionBrandComponent
    */
   addBrand() {
+    let dateInitial;
+    let dateFinal;
+
     // Capturar valores del formulario.
     const { Brand, Commission, InitialDate, FinalDate } = this.form.value;
     // Objeto nuevo que tiene Brand y Comision
@@ -366,6 +382,7 @@ export class ExceptionBrandComponent implements OnInit {
         } else {
           this.addException = false;
         }
+        console.log('el.InitialDate: ', el.InitialDate);
       });
       if (this.addException !== true) {
         this.selectedBrands.push(Object.assign({ Brand, Commission, InitialDate, FinalDate }, {}));
@@ -374,6 +391,18 @@ export class ExceptionBrandComponent implements OnInit {
     this.selectedBrandsSources.data = this.selectedBrands;
     this.form.reset();
     this.validation.next(false);
+    this.selectedBrands.forEach(el2 => {
+      if (el2.InitialDate) {
+        // let dateInitial;
+        dateInitial = el2.InitialDate.replace('T', ' ');
+        el2.InitialDate = dateInitial;
+      }
+      if (el2.FinalDate) {
+        // let dateFinal;
+        dateFinal = el2.FinalDate.replace('T', ' ');
+        el2.FinalDate = dateFinal;
+      }
+    });
   }
 
   /**
@@ -410,6 +439,7 @@ export class ExceptionBrandComponent implements OnInit {
         if (dataComision.Data.length > 0) {
           const dataSourceException = dataComision.Data[0].ExceptionValues;
           this.dataSource = new MatTableDataSource(dataSourceException);
+          console.log(1, this.dataSource);
           this.loadingService.closeSpinner();
         } else {
           // this.modalService.showModal('errorService');
@@ -437,6 +467,10 @@ export class ExceptionBrandComponent implements OnInit {
       });
       element.IdVTEX = vtexId;
       this.preDataSource.push(element);
+    });
+    console.log(22, this.preDataSource);
+    this.preDataSource.forEach(el => {
+      console.log(el);
     });
     this.createData = {
       'Type': this.typeValue,
@@ -581,11 +615,8 @@ export class ExceptionBrandComponent implements OnInit {
     return this.form.get('FinalDate') as FormControl;
   }
 
-  get TimeInitial(): FormControl {
-    return this.form.get('TimeInitial') as FormControl;
+  get Plu(): FormControl {
+    return this.form.get('Plu') as FormControl;
   }
 
-  get TimeFinal(): FormControl {
-    return this.form.get('TimeFinal') as FormControl;
-  }
 }
