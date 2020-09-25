@@ -11,7 +11,7 @@
 
 @media screen and (min-width: 600px) {
     .tree-title {
-        width: 70%;
+        width: 35%;
     }
     .search-container {
         width: 500px;
@@ -37,4 +37,8 @@
     height: 45px !important;
     max-height: 45px;
     justify-content: space-between;
+}
+
+#widthTitileExc{
+    width: 100%;
 }

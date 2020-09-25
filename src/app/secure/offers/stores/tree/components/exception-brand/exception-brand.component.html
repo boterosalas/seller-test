@@ -67,7 +67,7 @@
     <div class="full-width">
       <form [formGroup]="typeForm" class="full-width justify-content-center dis-flex">
         <mat-form-field class="half-width">
-          <mat-label>Tipo de excepción</mat-label>
+          <mat-label>Tipo de excepción {{typeValue}}</mat-label>
           <mat-select formControlName="type" [(ngModel)]="typeValue">
             <mat-option *ngFor="let type of typeException" value="{{type.value}}">
               {{type.name}}
@@ -81,7 +81,7 @@
     <form class="full-width space-between" [formGroup]="form" *ngIf="typeForm.get('type').value">
       <div fxLayout="column" fxLayoutAlign="space-around center" class="widthBrand">
         <div fxLayout="row" fxLayoutAlign="space-evenly center" class="widthBrand">
-          <mat-form-field class="half-width" *ngIf="typeValue === '1'">
+          <mat-form-field class="half-width" *ngIf="typeValue === 'MARCA'">
             <input matInput [placeholder]="'shared.brand' | translate" [matAutocomplete]="auto" formControlName="Brand"
               id="brandProduct">
             <mat-autocomplete #auto="matAutocomplete">
@@ -97,7 +97,7 @@
               {{'secure.products.create_product_unit.basic_information.brand_invalidate' | translate}}</mat-error>
           </mat-form-field>
 
-          <mat-form-field class="half-width" *ngIf="typeValue === '2'">
+          <mat-form-field class="half-width" *ngIf="typeValue === 'PLU'">
             <input matInput [placeholder]="'secure.products.bulk_upload.filter.plu' | translate" formControlName="Plu"
               id="brandProduct">
             <mat-error *ngIf="form.get('Plu').hasError('pattern')">
@@ -113,7 +113,7 @@
             </mat-error>
             <mat-error *ngIf="form.get('Commission').hasError('min')">{{'error.exception_brand.min_error' | translate}}
             </mat-error>
-            <button mat-button mat-icon-button matSuffix *ngIf="!form.value.Id" [disabled]="!form.valid"
+            <button mat-button mat-icon-button matSuffix *ngIf="!form.value.Id"
               (click)="addBrand()">
               <!-- <button mat-button mat-icon-button matSuffix 
                       (click)="addBrand()"> -->

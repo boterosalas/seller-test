@@ -66,8 +66,8 @@ export class ExceptionBrandComponent implements OnInit {
   regex;
 
   typeException = [
-    { name: 'MARCA', value: 1 },
-    { name: 'PLU', value: 2 }
+    { name: 'MARCA', value: 'MARCA' },
+    { name: 'PLU', value: 'PLU' }
   ];
   // Objeto para enviar a la creacion de la excepcion de marca.
   // createData: {
@@ -205,7 +205,7 @@ export class ExceptionBrandComponent implements OnInit {
       FinalDate: [''],
       Plu: ['', Validators.pattern(this.regex)]
     });
-    this.Commission.disable();
+    // this.Commission.disable();
     this.Brand.valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
       if (!!val && val.length >= 2) {
         this.filterBrands = this.brands.filter(brand => brand.Name.toString().toLowerCase().includes(val.toLowerCase()));
@@ -237,6 +237,12 @@ export class ExceptionBrandComponent implements OnInit {
   openDialog(action: string, element?: any) {
     console.log(action, element);
     this.form.setValidators(null);
+    if (element && element.InitialDate) {
+      element.InitialDate = element.InitialDate.replace(' ', 'T');
+    }
+    if (element && element.FinalDate) {
+      element.FinalDate = element.FinalDate.replace(' ', 'T');
+    }
     const data = !!(action === 'edit') ? this.putDataForUpdate(element) : !!(action === 'create') ? this.putDataForCreate() : this.putDataForDelete();
     const dialogRef = this.dialog.open(DialogWithFormComponent, {
       data: data,
@@ -326,10 +332,7 @@ export class ExceptionBrandComponent implements OnInit {
     const { Id, Brand, Commission, InitialDate, FinalDate } = element;
     this.typeForm.patchValue(element);
     this.form.patchValue(element);
-    console.log(this.form);
-    this.typeValue = element.TypeId;
-    console.log(element.InitialDate);
-    element.InitialDate = '2020-09-25T16:35';
+    this.typeValue = element.TypeName;
     this.form.controls.Brand.disable();
     const initialValue = Object.assign({ Id, Brand, Commission, InitialDate, FinalDate }, {});
     console.log(44, initialValue);
@@ -468,12 +471,8 @@ export class ExceptionBrandComponent implements OnInit {
       element.IdVTEX = vtexId;
       this.preDataSource.push(element);
     });
-    console.log(22, this.preDataSource);
-    this.preDataSource.forEach(el => {
-      console.log(el);
-    });
     this.createData = {
-      'Type': this.typeValue,
+      'Type': this.typeValue === 'MARCA' ? 1 : 2,
       'IdSeller': sellerId,
       'ExceptionValues': this.preDataSource
     };
@@ -505,6 +504,7 @@ export class ExceptionBrandComponent implements OnInit {
    * @memberof ExceptionBrandComponent
    */
   public updateException(dataUpdate: any) {
+    console.log('dataUpdate: ', dataUpdate);
     this.loadingService.viewSpinner();
     this.exceptionBrandService.updateExceptionBrand(dataUpdate).subscribe(res => {
       const resUpdate = JSON.parse(res['body'].body);
@@ -538,12 +538,16 @@ export class ExceptionBrandComponent implements OnInit {
   confirmationEdit() {
     const sellerId = this.currentStoreSelect_Id.toString();
     this.body = this.form.value;
+    console.log('body: ', this.body);
     this.updateData = {
       'IdSeller': sellerId,
+      'Type': this.typeValue === 'MARCA' ? 1 : 2,
       'ExceptionValues': [{
         'Id': this.body.Id,
         'Commission': this.body.Commission,
-        'IdVtex': this.IdVtex
+        'IdVtex': this.IdVtex,
+        'InitialDate': this.InitialDate.value === this.InitialDate.value ? this.InitialDate.value.replace('T', ' ') : null,
+        'FinalDate': this.FinalDate.value === this.FinalDate.value ? this.FinalDate.value.replace('T', ' ') : null,
       }]
     };
     this.updateException(this.updateData);

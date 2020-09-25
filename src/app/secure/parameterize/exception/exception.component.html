@@ -1,6 +1,6 @@
 <div>
   <mat-toolbar class="tree-toolbar">
-    <div class="normal-theme toolbar-options-table flexbox justify-start align-center" fxLayout.xs="column">
+    <div class="normal-theme toolbar-options-table flexbox justify-start align-center" fxLayout.xs="column" id="widthTitileExc">
       <!-- Titulo del toolbar -->
       <p class="tree-title">
         {{'menu.Excepción por comisión' | translate}}
@@ -17,9 +17,7 @@
   </mat-toolbar>
 </div>
 
-<p>
-  exception works!
-</p>
+
 
 <div *ngIf="activeException">
   <app-exception-brand  [currentStoreSelect]="currentStoreSelect.IdSeller"></app-exception-brand>
