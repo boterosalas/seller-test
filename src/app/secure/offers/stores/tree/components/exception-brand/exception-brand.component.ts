@@ -371,10 +371,10 @@ export class ExceptionBrandComponent implements OnInit {
     let dateFinal;
 
     // Capturar valores del formulario.
-    const { Brand, Commission, InitialDate, FinalDate } = this.form.value;
+    const { Brand, Plu, Commission, InitialDate, FinalDate } = this.form.value;
     // Objeto nuevo que tiene Brand y Comision
     if (this.selectedBrands.length === 0) {
-      this.selectedBrands.push(Object.assign({ Brand, Commission, InitialDate, FinalDate }, {}));
+      this.selectedBrands.push(Object.assign({ Brand, Plu, Commission, InitialDate, FinalDate }, {}));
     } else {
       this.selectedBrands.forEach(el => {
         if (el.Brand === this.form.controls.Brand.value) {
@@ -392,6 +392,8 @@ export class ExceptionBrandComponent implements OnInit {
       }
     }
     this.selectedBrandsSources.data = this.selectedBrands;
+    console.log(this.selectedBrandsSources.data);
+    console.log(this.selectedBrandsSources);
     this.form.reset();
     this.validation.next(false);
     this.selectedBrands.forEach(el2 => {
@@ -413,6 +415,7 @@ export class ExceptionBrandComponent implements OnInit {
    * @param {*} element
    * @memberof ExceptionBrandComponent
    */
+  // tslint:disable-next-line: no-shadowed-variable
   deleteElement(element: any) {
     this.openDialog('delete', element);
   }
@@ -422,6 +425,7 @@ export class ExceptionBrandComponent implements OnInit {
    * @param {*} element
    * @memberof ExceptionBrandComponent
    */
+  // tslint:disable-next-line: no-shadowed-variable
   removeElement(element: any) {
     const index = this.preDataSource.findIndex(value => value === element);
     // tslint:disable-next-line:no-unused-expression

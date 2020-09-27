@@ -148,9 +148,21 @@
     <ng-container *ngIf="selectedBrands.length > 0">
       <table mat-table [dataSource]="selectedBrandsSources">
         <ng-container matColumnDef="Brand">
-          <th mat-header-cell *matHeaderCellDef> Marca </th>
-          <td mat-cell *matCellDef="let element"> {{element.Brand}} </td>
+          <th mat-header-cell *matHeaderCellDef> Excepción </th>
+          <td mat-cell *matCellDef="let element"> 
+            <span *ngIf="element.Brand">
+              {{element.Brand}}
+            </span> 
+            <span *ngIf="element.Plu">
+              {{element.Plu}}
+            </span> 
+          </td>
         </ng-container>
+
+        <!-- <ng-container matColumnDef="Plu">
+          <th mat-header-cell *matHeaderCellDef> Plu </th>
+          <td mat-cell *matCellDef="let element"> {{element.Plu}} </td>
+        </ng-container> -->
 
         <ng-container matColumnDef="InitialDate">
           <th mat-header-cell *matHeaderCellDef> Fecha y hora inicial </th>
