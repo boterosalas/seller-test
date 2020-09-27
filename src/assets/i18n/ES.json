@@ -634,7 +634,7 @@
     "secure.offers.stores.txt_no_seller": "Ingrese el nombre de la tienda en la  barra de búsqueda para ver las categorías.",
     "secure.offers.stores.treee.components.exception_brand_create_ok": "Agregó correctamente una excepción por marca.",
     "secure.offers.stores.treee.components.exception_brand_create_ko": "Error al tratar de crear una excepción por marca. Intentalo de nuevo.",
-    "secure.offers.stores.treee.components.exception_brand_create_kos": "Error al tratar de crear las excepciones por marca. Intentalo de nuevo.",
+    "secure.offers.stores.treee.components.exception_brand_create_kos": "Error al tratar de crear las excepciones por MARCA/PLU. Intentalo de nuevo.",
     "secure.offers.stores.treee.components.exception_brand_update_ok": "Editó correctamente una excepción por marca.",
     "secure.offers.stores.treee.components.exception_brand_update_ko": "Error al tratar de editar una excepción por marca. Intentalo de nuevo.",
     "secure.offers.stores.treee.components.exception_brand_delete_ok": "Eliminó correctamente una excepción por marca.",

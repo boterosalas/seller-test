@@ -111,7 +111,9 @@ export class ExceptionBrandComponent implements OnInit {
   }
 
   prueba() {
-    console.log(this.form);
+    this.form.reset();
+    this.typeForm.reset();
+    this.typeValue = null;
   }
 
   /**
@@ -499,6 +501,7 @@ export class ExceptionBrandComponent implements OnInit {
       }
       this.loadingService.closeSpinner();
       this.preDataSource = [];
+      this.prueba();
     });
   }
 
@@ -536,13 +539,22 @@ export class ExceptionBrandComponent implements OnInit {
   }
 
   /**
+   * Disable select type
+   * @memberof ExceptionBrandComponent
+   */
+  disableType() {
+    this.typeForm.controls.type.disable();
+  }
+
+  /**
    * Funcion que llama al servicio de editar y se pasa los parametros requeridos
    * @memberof ExceptionBrandComponent
    */
   confirmationEdit() {
+    this.disableType();
     const sellerId = this.currentStoreSelect_Id.toString();
     this.body = this.form.value;
-    console.log('body: ', this.body);
+    console.log('body: ', this.body, this.InitialDate, this.FinalDate);
     this.updateData = {
       'IdSeller': sellerId,
       'Type': this.typeValue === 'MARCA' ? 1 : 2,
@@ -550,8 +562,8 @@ export class ExceptionBrandComponent implements OnInit {
         'Id': this.body.Id,
         'Commission': this.body.Commission,
         'IdVtex': this.IdVtex,
-        'InitialDate': this.InitialDate.value === this.InitialDate.value ? this.InitialDate.value.replace('T', ' ') : null,
-        'FinalDate': this.FinalDate.value === this.FinalDate.value ? this.FinalDate.value.replace('T', ' ') : null,
+        'InitialDate': this.body.InitialDate === this.body.InitialDate ? this.body.InitialDate.replace('T', ' ') : null,
+        'FinalDate': this.body.FinalDate === this.body.FinalDate ? this.body.FinalDate.replace('T', ' ') : null,
       }]
     };
     this.updateException(this.updateData);

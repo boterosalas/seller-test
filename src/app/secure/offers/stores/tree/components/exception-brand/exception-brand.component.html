@@ -68,7 +68,7 @@
       <form [formGroup]="typeForm" class="full-width justify-content-center dis-flex">
         <mat-form-field class="half-width">
           <mat-label>Tipo de excepción {{typeValue}}</mat-label>
-          <mat-select formControlName="type" [(ngModel)]="typeValue">
+          <mat-select formControlName="type" [(ngModel)]="typeValue" (change)="disableType()">
             <mat-option *ngFor="let type of typeException" value="{{type.value}}">
               {{type.name}}
             </mat-option>
@@ -127,7 +127,7 @@
         <div class="dateException widthBrand" fxLayout="row" fxLayoutAlign="space-evenly center">
           <mat-form-field fxFlex="40%">
             <input matInput type="datetime-local" placeholder="Hora inicio" autocomplete="false"
-              formControlName="InitialDate" (change)="prueba()">
+              formControlName="InitialDate">
           </mat-form-field>
 
           <mat-form-field fxFlex="40%">

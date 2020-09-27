@@ -23,9 +23,12 @@
   <app-exception-brand  [currentStoreSelect]="currentStoreSelect.IdSeller"></app-exception-brand>
 </div>
 
-<div *ngIf="currentStoreSelect">
-  1. {{currentStoreSelect.IdSeller}}
 
+<div class="orders-no-data" *ngIf="!activeException" >
+  <mat-icon class="icon-not-found" color="primary">info</mat-icon>
+  <div>
+    <p>Ingrese el nombre de la tienda en la  barra de búsqueda para ver las excepciones.</p>
+  </div>
 </div>
 
 
