@@ -1,8 +1,8 @@
 <ng-container *ngIf="canRead">
   <div class="header__wrapper">
     <!-- <div>{{'secure.parametize.category.categories.exception'| translate}}</div> -->
-    <div>{{'secure.parametize.category.categories.exception' | translate}}</div>
-    <div *ngIf="canUpdate" fxShow="true" [fxShow.xs]="false">
+    <div ></div>
+    <div *ngIf="canUpdate" fxShow="true" [fxShow.xs]="false" >
       <button mat-stroked-button color="primary"
         (click)="openDialog('create')">{{'secure.parametize.commission.add' | translate}}</button>
     </div>
@@ -10,6 +10,7 @@
       <button mat-stroked-button color="primary" (click)="openDialog('create')">{{'actions.add'| translate}}</button>
     </div>
   </div>
+
 
   <div class="table-wrapper">
     <div class="example-container">
@@ -127,12 +128,16 @@
         <div class="dateException widthBrand" fxLayout="row" fxLayoutAlign="space-evenly center">
           <mat-form-field fxFlex="40%">
             <input matInput type="datetime-local" placeholder="Hora inicio" autocomplete="false"
-              formControlName="InitialDate">
+              formControlName="InitialDate" (change)="minorDate()">
+              <mat-error *ngIf="form.get('InitialDate').hasError('minorDate')">Fecha inicial mayor a la actual
+              </mat-error>
           </mat-form-field>
 
           <mat-form-field fxFlex="40%">
             <input matInput type="datetime-local" placeholder="Hora inicio" autocomplete="false"
-              formControlName="FinalDate">
+              formControlName="FinalDate" (change)="compareDate()">
+              <mat-error *ngIf="form.get('FinalDate').hasError('minorDate2')">La fecha final no puede ser menor a la fecha inicial
+              </mat-error>
           </mat-form-field>
         </div>
 

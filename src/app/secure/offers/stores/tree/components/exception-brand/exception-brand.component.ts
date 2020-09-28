@@ -4,7 +4,7 @@ import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import { validateDataToEqual, trimField } from '@app/shared/util/validation-messages';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
 import { LoadingService, ModalService, Logger } from '@app/core';
 import { AuthService } from '@app/secure/auth/auth.routing';
@@ -15,6 +15,8 @@ import { UserInformation } from '@app/shared';
 import { templateJitUrl } from '@angular/compiler';
 import { ModalErrorsComponent } from '../modal-errors/modal-errors.component';
 import { element } from '@angular/core/src/render3/instructions';
+import { MediaChange, ObservableMedia } from '@angular/flex-layout';
+import { DatePipe } from '@angular/common';
 
 const log = new Logger('ExceptionBrandComponent');
 
@@ -37,7 +39,6 @@ export class ExceptionBrandComponent implements OnInit {
   // @Input() currentStoreSelect: any;
 
   @Input() set currentStoreSelect(value: number) {
-    console.log(value);
     if (value !== undefined) {
       this.currentStoreSelect_Id = value;
       this.getExceptionBrandComision();
@@ -47,7 +48,6 @@ export class ExceptionBrandComponent implements OnInit {
   /* Información del usuario*/
   public user: UserInformation;
 
-  // displayedColumns = ['Brand', 'Commission', 'options'];
   displayedColumns = ['Type', 'Description', 'InitialDate', 'FinalDate', 'Commission', 'options'];
   displayedColumnsInModal = ['Brand', 'InitialDate', 'FinalDate', 'Commission'];
   validation = new BehaviorSubject(true);
@@ -58,7 +58,6 @@ export class ExceptionBrandComponent implements OnInit {
   canRead = false;
   canUpdate = false;
   actionsEdit = false;
-  // preDataSource = [{ Brand: '123', Commission: 12, type: 'Marca', Id: 1 }];
   preDataSource = [];
 
   dataSource: MatTableDataSource<any>;
@@ -69,16 +68,15 @@ export class ExceptionBrandComponent implements OnInit {
     { name: 'MARCA', value: 'MARCA' },
     { name: 'PLU', value: 'PLU' }
   ];
-  // Objeto para enviar a la creacion de la excepcion de marca.
-  // createData: {
-  //   Type: number,
-  //   SellerId: string,
-  //   ExceptionValue: any
-  // };
 
   createData: any;
   updateData: any;
   deleteData: any;
+
+  currentScreenWidth: String = '';
+  flexMediaWatcher: Subscription;
+
+  public locale = 'es-CO';
 
   constructor(private dialog: MatDialog,
     private fb: FormBuilder,
@@ -88,7 +86,8 @@ export class ExceptionBrandComponent implements OnInit {
     private exceptionBrandService: ExceptionBrandService,
     private modalService: ModalService,
     private snackBar: MatSnackBar,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private media: ObservableMedia) {
     this.typeForm = this.fb.group({
       type: ['']
     });
@@ -100,6 +99,13 @@ export class ExceptionBrandComponent implements OnInit {
     });
     this.getPermissions();
     this.validatePermissions();
+    // Metodo para validar el tamaño de la pantalla y ocultar o no columnas.
+    this.flexMediaWatcher = media.subscribe((change: MediaChange) => {
+      if (change.mqAlias !== this.currentScreenWidth) {
+        this.currentScreenWidth = change.mqAlias;
+        this.setupTableColummns();
+      }
+    });
   }
 
   ngOnInit() {
@@ -110,7 +116,71 @@ export class ExceptionBrandComponent implements OnInit {
 
   }
 
-  prueba() {
+  /**
+   * Metodo para validar que la fecha inicial no sea menor a la fecha actual.
+   * @memberof ExceptionBrandComponent
+   */
+  minorDate() {
+    const datePipe = new DatePipe(this.locale);
+
+    const dateInitial = datePipe.transform(this.InitialDate.value, 'dd/MM/yyyy');
+
+    if (dateInitial && (dateInitial < this.getDate2())) {
+      this.InitialDate.setErrors({ minorDate: true });
+    } else {
+      this.InitialDate.setErrors(null);
+    }
+  }
+
+  /**
+   * Metodo para comparar fechas y mostrar error que la fecha final no sea mayor a la inicial
+   * @memberof ExceptionBrandComponent
+   */
+  public compareDate() {
+    const datePipe = new DatePipe(this.locale);
+
+    const dateInitial = datePipe.transform(this.InitialDate.value, 'dd/MM/yyyy');
+    const dateFinal = datePipe.transform(this.FinalDate.value, 'dd/MM/yyyy');
+
+    if (dateInitial && (dateInitial > dateFinal)) {
+      this.FinalDate.setErrors({ minorDate2: true });
+    } else {
+      this.FinalDate.setErrors(null);
+    }
+  }
+
+  private getDate2(): any {
+    let today: any = new Date();
+    let dd: any = today.getDate();
+    let mm = today.getMonth() + 1;
+    const yyyy = today.getFullYear();
+
+    if (dd < 10) {
+      dd = '0' + dd;
+    }
+
+    if (mm < 10) {
+      mm = '0' + mm;
+    }
+
+    today = dd + '-' + mm + '-' + yyyy;
+    return today;
+  }
+
+  setupTableColummns() {
+    if (this.currentScreenWidth === 'xs') {
+      this.displayedColumns = ['Type', 'Description', 'Commission', 'options'];
+      this.displayedColumnsInModal = ['Brand', 'Commission'];
+
+    } else {
+      this.displayedColumns = ['Type', 'Description', 'InitialDate', 'FinalDate', 'Commission', 'options'];
+      this.displayedColumnsInModal = ['Brand', 'InitialDate', 'FinalDate', 'Commission'];
+
+
+    }
+  }
+
+  resetForms() {
     this.form.reset();
     this.typeForm.reset();
     this.typeValue = null;
@@ -237,7 +307,6 @@ export class ExceptionBrandComponent implements OnInit {
    */
   // tslint:disable-next-line: no-shadowed-variable
   openDialog(action: string, element?: any) {
-    console.log(action, element);
     this.form.setValidators(null);
     if (element && element.InitialDate) {
       element.InitialDate = element.InitialDate.replace(' ', 'T');
@@ -287,7 +356,6 @@ export class ExceptionBrandComponent implements OnInit {
           this.createException();
           break;
         case 'edit':
-          console.log(element);
           this.updateData = {
             'IdSeller': sellerId,
             'ExceptionValues': [{
@@ -337,7 +405,6 @@ export class ExceptionBrandComponent implements OnInit {
     this.typeValue = element.TypeName;
     this.form.controls.Brand.disable();
     const initialValue = Object.assign({ Id, Brand, Commission, InitialDate, FinalDate }, {});
-    console.log(44, initialValue);
     this.form.setValidators(validateDataToEqual(initialValue));
     const form = this.form;
     const title = this.languageService.instant('secure.parametize.commission.edit');
@@ -387,15 +454,12 @@ export class ExceptionBrandComponent implements OnInit {
         } else {
           this.addException = false;
         }
-        console.log('el.InitialDate: ', el.InitialDate);
       });
       if (this.addException !== true) {
         this.selectedBrands.push(Object.assign({ Brand, Commission, InitialDate, FinalDate }, {}));
       }
     }
     this.selectedBrandsSources.data = this.selectedBrands;
-    console.log(this.selectedBrandsSources.data);
-    console.log(this.selectedBrandsSources);
     this.form.reset();
     this.validation.next(false);
     this.selectedBrands.forEach(el2 => {
@@ -448,7 +512,6 @@ export class ExceptionBrandComponent implements OnInit {
         if (dataComision.Data.length > 0) {
           const dataSourceException = dataComision.Data[0].ExceptionValues;
           this.dataSource = new MatTableDataSource(dataSourceException);
-          console.log(1, this.dataSource);
           this.loadingService.closeSpinner();
         } else {
           // this.modalService.showModal('errorService');
@@ -482,7 +545,6 @@ export class ExceptionBrandComponent implements OnInit {
       'IdSeller': sellerId,
       'ExceptionValues': this.preDataSource
     };
-    console.log('this.createData: ', this.createData);
     this.exceptionBrandService.createExceptionBrand(this.createData).subscribe(res => {
       const resCreate = JSON.parse(res['body'].body);
       // const resDialog = res;
@@ -501,7 +563,7 @@ export class ExceptionBrandComponent implements OnInit {
       }
       this.loadingService.closeSpinner();
       this.preDataSource = [];
-      this.prueba();
+      this.resetForms();
     });
   }
 
@@ -511,7 +573,6 @@ export class ExceptionBrandComponent implements OnInit {
    * @memberof ExceptionBrandComponent
    */
   public updateException(dataUpdate: any) {
-    console.log('dataUpdate: ', dataUpdate);
     this.loadingService.viewSpinner();
     this.exceptionBrandService.updateExceptionBrand(dataUpdate).subscribe(res => {
       const resUpdate = JSON.parse(res['body'].body);
@@ -543,7 +604,7 @@ export class ExceptionBrandComponent implements OnInit {
    * @memberof ExceptionBrandComponent
    */
   disableType() {
-    this.typeForm.controls.type.disable();
+    this.Type.disable();
   }
 
   /**
@@ -554,7 +615,6 @@ export class ExceptionBrandComponent implements OnInit {
     this.disableType();
     const sellerId = this.currentStoreSelect_Id.toString();
     this.body = this.form.value;
-    console.log('body: ', this.body, this.InitialDate, this.FinalDate);
     this.updateData = {
       'IdSeller': sellerId,
       'Type': this.typeValue === 'MARCA' ? 1 : 2,
@@ -637,6 +697,10 @@ export class ExceptionBrandComponent implements OnInit {
 
   get Plu(): FormControl {
     return this.form.get('Plu') as FormControl;
+  }
+
+  get Type(): FormControl {
+    return this.form.get('type') as FormControl;
   }
 
 }
