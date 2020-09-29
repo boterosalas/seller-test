@@ -30,7 +30,6 @@ export class ExceptionComponent implements OnInit {
       if (data) {
         this.currentStoreSelect = data;
         this.activeException = true;
-        console.log(this.currentStoreSelect);
       }
       this.loadingService.closeSpinner();
     });

@@ -418,14 +418,12 @@ export class ExceptionBrandComponent implements OnInit {
    */
   // tslint:disable-next-line: no-shadowed-variable
   putDataForUpdate(element: any) {
-    console.log(2, element);
     const { Id, Brand, Commission, InitialDate, FinalDate } = element;
     this.typeForm.patchValue(element);
     this.form.patchValue(element);
     this.typeValue = element.TypeName;
     const initialValue = Object.assign({ Id, Brand, Commission, InitialDate, FinalDate }, {});
     this.form.setValidators(validateDataToEqual(initialValue));
-    console.log(this.form);
     if (element && element.TypeId === 2) {
       this.form.controls['Plu'].setValue(element.IdVTEX);
     }
@@ -561,14 +559,12 @@ export class ExceptionBrandComponent implements OnInit {
           vtexId = el.IdVTEX;
         }
       });
-      console.log('ele: ', element, element.Name);
       if (!element.Name) {
         vtexId = element.Plu;
       }
       element.IdVTEX = vtexId;
       this.preDataSource.push(element);
     });
-    console.log();
     this.createData = {
       'Type': this.typeValue === 'MARCA' ? 1 : 2,
       'IdSeller': sellerId,
