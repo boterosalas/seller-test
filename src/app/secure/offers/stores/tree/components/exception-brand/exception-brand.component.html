@@ -123,14 +123,6 @@
             </mat-error>
             <mat-error *ngIf="form.get('Commission').hasError('min')">{{'error.exception_brand.min_error' | translate}}
             </mat-error>
-            <!-- <button mat-button mat-icon-button matSuffix *ngIf="!form.value.Id"
-              (click)="addBrand()">
-               <button mat-button mat-icon-button matSuffix 
-                      (click)="addBrand()"> -->
-            <!-- <mat-icon>
-                add_circle_outline
-              </mat-icon>
-            </button> -->
           </mat-form-field>
         </div>
 
@@ -155,8 +147,6 @@
             <button mat-button mat-icon-button matSuffix *ngIf="!form.value.Id"
               [matTooltip]="'secure.parametize.commission.addTariffs' | translate" matTooltipPosition="below"
               (click)="addBrand()">
-              <!-- <button mat-button mat-icon-button matSuffix 
-                      (click)="addBrand()"> -->
               <mat-icon>
                 add_circle_outline
               </mat-icon>
