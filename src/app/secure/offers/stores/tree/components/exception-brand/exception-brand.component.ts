@@ -534,6 +534,9 @@ export class ExceptionBrandComponent implements OnInit {
         if (dataComision.Data.length > 0) {
           const dataSourceException = dataComision.Data[0].ExceptionValues;
           this.dataSource = new MatTableDataSource(dataSourceException);
+          console.log(1, dataSourceException);
+          console.log(2, this.dataSource);
+
           this.loadingService.closeSpinner();
         } else {
           // this.modalService.showModal('errorService');
