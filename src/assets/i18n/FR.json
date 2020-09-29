@@ -949,7 +949,7 @@
     "secure.products.create_product_unit.basic_information.metre": "Metre",
     "secure.products.create_product_unit.basic_information.Unit": "Unit",
     "secure.products.create_product_unit.basic_information.write_description_here": "Write your description here…",
-    "secure.products.create_product_unit.basic_information.only_up_to_20_keywords": "Only up to 20 keywords are valid.",
+    "secure.products.create_product_unit.basic_information.only_up_to_20_keywords": "Only up to 500 characters.",
     "secure.products.create_product_unit.basic_information.order_to_add_necessary": "In order to add more variations it is necessary for the last variation to have correct data",
     "secure.products.create_product_unit.basic_information.mesasuring":"Measuring unit",
     "secure.products.create_product_unit.basic_information.ean_son":"Child EAN",
@@ -1317,6 +1317,8 @@
 
     "secure.reports.report-offert.download-modal-offert-ts.ok": "The download has started successfully. Check your e-mail.",
     "secure.reports.report-offert.download-modal-offert-ts.ko": "And error has occurred when downloading the file.",
+
+    "secure.reports.report-vtex.download-modal-vtex-ts.ok":"Demande envoyée avec succès. Dans quelques minutes, vous recevrez un email avec le fichier demandé.",
 
     "secure.quality.quality-score.quality" :"Quality",
     "secure.quality.quality-score.qualityMonth" :"Quality month",

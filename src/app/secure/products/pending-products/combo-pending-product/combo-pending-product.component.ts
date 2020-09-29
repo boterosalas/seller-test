@@ -37,7 +37,7 @@ export class ComboPendingProductComponent implements OnInit {
 
 
   constructor(
-    private pendingProductsService?: PendingProductsService,
+    private pendingProductsService: PendingProductsService,
     private loadingService?: LoadingService,
     public snackBar?: MatSnackBar,
     public userParams?: UserParametersService,

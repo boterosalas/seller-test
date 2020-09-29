@@ -1,0 +1,32 @@
+<mat-drawer-container class="drawer-container height-80" [hasBackdrop]="true">
+  <div class="height-full">
+    <mat-toolbar class="tree-toolbar">
+      <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
+        <p fxShow [fxShow.xs]="false">
+          Reportes
+          <small class="sub-title">| Reporte de errores en VTEX</small>
+        </p>
+        <p fxShow="false" [fxShow.xs]="true">
+          Reporte de errores en VTEX
+        </p>
+      </div>
+    </mat-toolbar>
+  </div>
+  <div fxLayout="column">
+    <div fxLayout="column" class="downloadReports">
+      <div class="icon-face" >
+            <mat-icon class="material-icons cursor-pointer" (click)="openModalDownloadReportErrorsVtex()">cloud_download</mat-icon>
+      </div>
+      <div class="text-aling-center">
+        <label class="icon-face-text">
+          Da clic al icono para descargar el reporte de errores en comunicación de las cuentas <br> exito.com y carulla.com en VTEX.
+        </label>
+      </div>
+      <div class="container-text-2">
+      <label class="text-stylus">
+        Ten presente que el reporte tiene capacidad para descargar 1000 registros por cada sitio, debes <br> gestionar en el Seller y esperar la indexación en VTEX para obtener información adicional a este <br> reporte.
+      </label>
+      </div>
+    </div>
+  </div>
+</mat-drawer-container>
