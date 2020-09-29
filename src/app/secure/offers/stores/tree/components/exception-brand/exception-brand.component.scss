@@ -5,6 +5,9 @@ $color-gray: #BCBCBC;
   padding: 0 5% !important;
 }
 
+.disabledDiv {
+  pointer-events: none;
+}
 
 .dateException{
   display: flex;

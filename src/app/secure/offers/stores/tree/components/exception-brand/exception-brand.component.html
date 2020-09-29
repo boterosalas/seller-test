@@ -67,8 +67,8 @@
 
     <div class="full-width">
       <form [formGroup]="typeForm" class="full-width justify-content-center dis-flex">
-        <mat-form-field class="half-width">
-          <mat-label>Tipo de excepción {{typeValue}}</mat-label>
+        <mat-form-field class="half-width" [ngClass]="{disabledDiv: disableInputType}">
+          <mat-label>Tipo de excepción</mat-label>
           <mat-select formControlName="type" [(ngModel)]="typeValue" (change)="disableType()">
             <mat-option *ngFor="let type of typeException" value="{{type.value}}">
               {{type.name}}
@@ -98,7 +98,7 @@
               {{'secure.products.create_product_unit.basic_information.brand_invalidate' | translate}}</mat-error>
           </mat-form-field>
 
-          <mat-form-field class="half-width" *ngIf="typeValue === 'PLU'">
+          <mat-form-field class="half-width" *ngIf="typeValue === 'PLU'" [ngClass]="{disabledDiv: disableInputType}">
             <input matInput [placeholder]="'secure.products.bulk_upload.filter.plu' | translate" formControlName="Plu"
               id="brandProduct">
             <mat-error *ngIf="form.get('Plu').hasError('pattern')">
@@ -114,14 +114,14 @@
             </mat-error>
             <mat-error *ngIf="form.get('Commission').hasError('min')">{{'error.exception_brand.min_error' | translate}}
             </mat-error>
-            <button mat-button mat-icon-button matSuffix *ngIf="!form.value.Id"
+            <!-- <button mat-button mat-icon-button matSuffix *ngIf="!form.value.Id"
               (click)="addBrand()">
-              <!-- <button mat-button mat-icon-button matSuffix 
+               <button mat-button mat-icon-button matSuffix 
                       (click)="addBrand()"> -->
-              <mat-icon>
+              <!-- <mat-icon>
                 add_circle_outline
               </mat-icon>
-            </button>
+            </button> -->
           </mat-form-field>
         </div>
 
@@ -139,6 +139,17 @@
               <mat-error *ngIf="form.get('FinalDate').hasError('minorDate2')">La fecha final no puede ser menor a la fecha inicial
               </mat-error>
           </mat-form-field>
+
+          <div > 
+            <button mat-button mat-icon-button matSuffix *ngIf="!form.value.Id" matTooltip="Añadir excepción" matTooltipPosition="below"
+              (click)="addBrand()">
+              <!-- <button mat-button mat-icon-button matSuffix 
+                      (click)="addBrand()"> -->
+              <mat-icon>
+                add_circle_outline
+              </mat-icon>
+            </button>
+          </div>
         </div>
 
         <div *ngIf="actionsEdit" fxLayout="row" fxLayoutAlign="space-between center" class="buttonsSend">
@@ -163,11 +174,6 @@
             </span> 
           </td>
         </ng-container>
-
-        <!-- <ng-container matColumnDef="Plu">
-          <th mat-header-cell *matHeaderCellDef> Plu </th>
-          <td mat-cell *matCellDef="let element"> {{element.Plu}} </td>
-        </ng-container> -->
 
         <ng-container matColumnDef="InitialDate">
           <th mat-header-cell *matHeaderCellDef> Fecha y hora inicial </th>

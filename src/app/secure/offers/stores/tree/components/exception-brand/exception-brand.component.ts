@@ -73,6 +73,8 @@ export class ExceptionBrandComponent implements OnInit {
   updateData: any;
   deleteData: any;
 
+  disableInputType: Boolean = false;
+
   currentScreenWidth: String = '';
   flexMediaWatcher: Subscription;
 
@@ -167,6 +169,10 @@ export class ExceptionBrandComponent implements OnInit {
     return today;
   }
 
+  /**
+   * Metodo para cambiar las columnas dependiendo el tamaño de la pantalla
+   * @memberof ExceptionBrandComponent
+   */
   setupTableColummns() {
     if (this.currentScreenWidth === 'xs') {
       this.displayedColumns = ['Type', 'Description', 'Commission', 'options'];
@@ -193,6 +199,7 @@ export class ExceptionBrandComponent implements OnInit {
   close() {
     this.dialog.closeAll();
     this.form.reset();
+    this.resetForms();
   }
 
   /**
@@ -291,7 +298,7 @@ export class ExceptionBrandComponent implements OnInit {
       } else if (!val) {
         this.filterBrands = [];
         this.Brand.setErrors({ required: true });
-        this.Commission.disable();
+        // this.Commission.disable();
       } else {
         this.Brand.setErrors({ pattern: true });
       }
@@ -307,6 +314,18 @@ export class ExceptionBrandComponent implements OnInit {
    */
   // tslint:disable-next-line: no-shadowed-variable
   openDialog(action: string, element?: any) {
+    if (action && (action === 'create')) {
+      this.disableInputType = false;
+      this.form.controls.Brand.enable();
+      this.typeForm.controls.type.enable();
+      this.form.controls.Plu.enable();
+    }
+
+    if (action && (action === 'edit')) {
+      this.form.controls.Brand.disable();
+      this.typeForm.controls.type.disable();
+      this.form.controls.Plu.disable();
+    }
     this.form.setValidators(null);
     if (element && element.InitialDate) {
       element.InitialDate = element.InitialDate.replace(' ', 'T');
@@ -399,13 +418,18 @@ export class ExceptionBrandComponent implements OnInit {
    */
   // tslint:disable-next-line: no-shadowed-variable
   putDataForUpdate(element: any) {
+    console.log(2, element);
     const { Id, Brand, Commission, InitialDate, FinalDate } = element;
     this.typeForm.patchValue(element);
     this.form.patchValue(element);
     this.typeValue = element.TypeName;
-    this.form.controls.Brand.disable();
     const initialValue = Object.assign({ Id, Brand, Commission, InitialDate, FinalDate }, {});
     this.form.setValidators(validateDataToEqual(initialValue));
+    console.log(this.form);
+    if (element && element.TypeId === 2) {
+      this.form.controls['Plu'].setValue(element.IdVTEX);
+    }
+    this.disableInputType = true;
     const form = this.form;
     const title = this.languageService.instant('secure.parametize.commission.edit');
     const showButtons = false;
@@ -537,9 +561,14 @@ export class ExceptionBrandComponent implements OnInit {
           vtexId = el.IdVTEX;
         }
       });
+      console.log('ele: ', element, element.Name);
+      if (!element.Name) {
+        vtexId = element.Plu;
+      }
       element.IdVTEX = vtexId;
       this.preDataSource.push(element);
     });
+    console.log();
     this.createData = {
       'Type': this.typeValue === 'MARCA' ? 1 : 2,
       'IdSeller': sellerId,
@@ -599,20 +628,12 @@ export class ExceptionBrandComponent implements OnInit {
     });
   }
 
-  /**
-   * Disable select type
-   * @memberof ExceptionBrandComponent
-   */
-  disableType() {
-    this.Type.disable();
-  }
 
   /**
    * Funcion que llama al servicio de editar y se pasa los parametros requeridos
    * @memberof ExceptionBrandComponent
    */
   confirmationEdit() {
-    this.disableType();
     const sellerId = this.currentStoreSelect_Id.toString();
     this.body = this.form.value;
     this.updateData = {
