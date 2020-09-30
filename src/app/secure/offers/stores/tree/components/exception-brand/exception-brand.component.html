@@ -11,8 +11,7 @@
     </div>
   </div>
 
-
-  <div class="table-wrapper">
+  <div class="table-wrapper" *ngIf="!showMessageNoData">
     <div class="example-container">
       <table mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="Type">
@@ -65,7 +64,7 @@
     </div>
   </div>
 
-  <div class="orders-no-data" *ngIf="dataSource.length === 0">
+  <div class="orders-no-data" *ngIf="showMessageNoData">
     <mat-icon class="icon-not-found" color="primary">info</mat-icon>
     <div>
       <p>La tienda seleccionada no posee excepción por comisión. Añade una excepción o busca otra tienda.</p>

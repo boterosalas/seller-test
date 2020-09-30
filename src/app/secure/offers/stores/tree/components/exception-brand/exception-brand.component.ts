@@ -78,6 +78,8 @@ export class ExceptionBrandComponent implements OnInit {
   currentScreenWidth: String = '';
   flexMediaWatcher: Subscription;
 
+  showMessageNoData: Boolean = true;
+
   public locale = 'es-CO';
 
   constructor(private dialog: MatDialog,
@@ -526,16 +528,19 @@ export class ExceptionBrandComponent implements OnInit {
    * @memberof ExceptionBrandComponent
    */
   public getExceptionBrandComision() {
+    this.showMessageNoData = false;
     this.loadingService.viewSpinner();
     this.exceptionBrandService.getExceptionBrand(this.currentStoreSelect_Id).subscribe(res => {
       if (res['status'] === 200 || res['status'] === 201) {
         const data = res['body']['body'];
         const dataComision = JSON.parse(data);
         if (dataComision.Data.length > 0) {
+          this.showMessageNoData = false;
           const dataSourceException = dataComision.Data[0].ExceptionValues;
           this.dataSource = new MatTableDataSource(dataSourceException);
           this.loadingService.closeSpinner();
         } else {
+          this.showMessageNoData = true;
           // this.modalService.showModal('errorService');
         }
       } else {
@@ -559,7 +564,6 @@ export class ExceptionBrandComponent implements OnInit {
           vtexId = el.IdVTEX;
         }
       });
-      console.log('element.Name: ', element.Name);
       if (element.Name === undefined) {
         vtexId = element.Plu;
       }
