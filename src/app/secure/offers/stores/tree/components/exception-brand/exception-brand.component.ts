@@ -534,9 +534,6 @@ export class ExceptionBrandComponent implements OnInit {
         if (dataComision.Data.length > 0) {
           const dataSourceException = dataComision.Data[0].ExceptionValues;
           this.dataSource = new MatTableDataSource(dataSourceException);
-          console.log(1, dataSourceException);
-          console.log(2, this.dataSource);
-
           this.loadingService.closeSpinner();
         } else {
           // this.modalService.showModal('errorService');
@@ -562,7 +559,8 @@ export class ExceptionBrandComponent implements OnInit {
           vtexId = el.IdVTEX;
         }
       });
-      if (!element.Name) {
+      console.log('element.Name: ', element.Name);
+      if (element.Name === undefined) {
         vtexId = element.Plu;
       }
       element.IdVTEX = vtexId;
