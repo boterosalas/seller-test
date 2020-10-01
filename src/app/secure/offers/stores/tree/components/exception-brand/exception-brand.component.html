@@ -87,7 +87,7 @@
 
     </div>
 
-    <form class="full-width space-between" [formGroup]="form" *ngIf="typeForm.get('type').value">
+    <form class="full-width space-between" [formGroup]="form" *ngIf="typeForm.get('type').value" #f="ngForm">
       <div fxLayout="column" fxLayoutAlign="space-around center" class="widthBrand">
         <div fxLayout="row" fxLayoutAlign="space-evenly center" class="widthBrand">
           <mat-form-field class="half-width" *ngIf="typeValue === 'MARCA'">
@@ -144,7 +144,7 @@
 
           <div>
             <button mat-button mat-icon-button matSuffix *ngIf="!form.value.Id"
-              [matTooltip]="'secure.parametize.commission.addTariffs' | translate" matTooltipPosition="below"
+              [matTooltip]="'secure.parametize.commission.addTariffs' | translate" matTooltipPosition="below" [disabled]="!f.form.valid"
               (click)="addBrand()">
               <mat-icon>
                 add_circle_outline

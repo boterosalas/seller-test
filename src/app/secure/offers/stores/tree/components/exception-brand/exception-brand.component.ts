@@ -131,6 +131,8 @@ export class ExceptionBrandComponent implements OnInit {
     } else {
       this.InitialDate.setErrors(null);
     }
+
+    this.compareDate();
   }
 
   /**
@@ -310,6 +312,7 @@ export class ExceptionBrandComponent implements OnInit {
     if (element && element.FinalDate) {
       element.FinalDate = element.FinalDate.replace(' ', 'T');
     }
+
     const data = !!(action === 'edit') ? this.putDataForUpdate(element) : !!(action === 'create') ? this.putDataForCreate() : this.putDataForDelete();
     const dialogRef = this.dialog.open(DialogWithFormComponent, {
       data: data,
@@ -607,6 +610,17 @@ export class ExceptionBrandComponent implements OnInit {
   confirmationEdit() {
     const sellerId = this.currentStoreSelect_Id.toString();
     this.body = this.form.value;
+    if (this.body.InitialDate) {
+      this.body.InitialDate = this.body.InitialDate.replace('T', ' ');
+    } else {
+      this.body.InitialDate = null;
+    }
+
+    if (this.body.FinalDate) {
+      this.body.FinalDate = this.body.FinalDate.replace('T', ' ');
+    } else {
+      this.body.FinalDate = null;
+    }
     this.updateData = {
       'IdSeller': sellerId,
       'Type': this.typeValue === 'MARCA' ? 1 : 2,
@@ -614,8 +628,8 @@ export class ExceptionBrandComponent implements OnInit {
         'Id': this.body.Id,
         'Commission': this.body.Commission,
         'IdVtex': this.IdVtex,
-        'InitialDate': this.body.InitialDate === this.body.InitialDate ? this.body.InitialDate.replace('T', ' ') : null,
-        'FinalDate': this.body.FinalDate === this.body.FinalDate ? this.body.FinalDate.replace('T', ' ') : null,
+        'InitialDate': this.body.InitialDate,
+        'FinalDate': this.body.FinalDate
       }]
     };
     this.updateException(this.updateData);
