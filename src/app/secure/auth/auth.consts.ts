@@ -281,7 +281,7 @@ const OffersModule = new ModuleModel(offersModule, showAll, offersModule.toLower
  * 5. Validacion
  * 6. Historico de devoluciones
  */
-export const devolutionsModule = 'DEVOLUCIONES', pendingName = 'Solicitudes pendientes', devolutionName = 'En devolución', validationName = 'En validación', historicDevolution = 'Historico de devoluciones';
+export const devolutionsModule = 'DEVOLUCIONES', pendingName = 'Solicitudes pendientes', devolutionName = 'En devolución', validationName = 'En validación', historicDevolution = 'Historico de devoluciones', listCancelOrders = 'Listado de cancelaciones';
 const DevolutionsModule = new ModuleModel(devolutionsModule, showAll, devolutionsModule.toLowerCase(), [
     // 1. Solicitudes pendientes
     new MenuModel(pendingName, showAll, pendingName.toLowerCase(), ProfileTypes.Vendedor, [
@@ -320,6 +320,9 @@ const DevolutionsModule = new ModuleModel(devolutionsModule, showAll, devolution
     new MenuModel(historicDevolution, showAll, historicDevolution.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
     ], RoutesConst.sellerCenterIntOrderHistoricalDevolution),
+    new MenuModel(listCancelOrders, showAll, listCancelOrders.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+    ], RoutesConst.sellerCenterListCancelOrders),
 ]);
 
 
