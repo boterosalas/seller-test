@@ -127,7 +127,7 @@
 
         <div class="dateException widthBrand" fxLayout="row" fxLayoutAlign="space-evenly center">
           <mat-form-field fxFlex="40%">
-            <input matInput type="datetime-local" placeholder="Hora inicio" autocomplete="false"
+            <input matInput type="datetime-local" [placeholder]="'secure.dashboard.seller-rating.date_issued_initial_filter' | translate" autocomplete="false"
               formControlName="InitialDate" (change)="minorDate()">
             <mat-error *ngIf="form.get('InitialDate').hasError('minorDate')">La fecha inicial no debe ser menor a la
               actual.
@@ -135,7 +135,7 @@
           </mat-form-field>
 
           <mat-form-field fxFlex="40%">
-            <input matInput type="datetime-local" placeholder="Hora inicio" autocomplete="false"
+            <input matInput type="datetime-local" [placeholder]="'secure.dashboard.seller-rating.date_issued_final_filter' | translate" autocomplete="false"
               formControlName="FinalDate" (change)="compareDate()">
             <mat-error *ngIf="form.get('FinalDate').hasError('minorDate2')">
               {{'secure.products.create_product_unit.list_products.ending_date' | translate}}
