@@ -108,14 +108,14 @@
 
           <mat-form-field class="half-width" *ngIf="typeValue === 'PLU'" [ngClass]="{disabledDiv: disableInputType}">
             <input matInput [placeholder]="'secure.products.bulk_upload.filter.plu' | translate" formControlName="Plu"
-              id="brandProduct">
+              id="pluProduct">
             <mat-error *ngIf="form.get('Plu').hasError('pattern')">
               {{'errors.invalid_plu' | translate}}</mat-error>
           </mat-form-field>
 
           <mat-form-field class="half-width">
-            <input matInput required id="exception" type="number" [placeholder]="'shared.commission' | translate"
-              autocomplete="false" formControlName="Commission">
+            <input matInput id="exception" [placeholder]="'shared.commission' | translate" autocomplete="false"
+              formControlName="Commission">
             <mat-error *ngIf="form.get('Commission').hasError('pattern') || form.get('Commission').hasError('trim')">
               {{'error.exception_brand.number_int' | translate}}</mat-error>
             <mat-error *ngIf="form.get('Commission').hasError('max')">{{'error.exception_brand.max_error' | translate}}
@@ -125,27 +125,32 @@
           </mat-form-field>
         </div>
 
-        <div class="dateException widthBrand" fxLayout="row" fxLayoutAlign="space-evenly center">
+        <div class="dateException" fxLayout="row" fxLayoutAlign="space-evenly center">
           <mat-form-field fxFlex="40%">
-            <input matInput type="datetime-local" [placeholder]="'secure.dashboard.seller-rating.date_issued_initial_filter' | translate" autocomplete="false"
-              formControlName="InitialDate" (change)="minorDate()">
+            <input matInput type="datetime-local"
+              [placeholder]="'secure.dashboard.seller-rating.date_issued_initial_filter' | translate"
+              autocomplete="false" formControlName="InitialDate" (change)="minorDate()">
             <mat-error *ngIf="form.get('InitialDate').hasError('minorDate')">La fecha inicial no debe ser menor a la
               actual.
             </mat-error>
           </mat-form-field>
 
           <mat-form-field fxFlex="40%">
-            <input matInput type="datetime-local" [placeholder]="'secure.dashboard.seller-rating.date_issued_final_filter' | translate" autocomplete="false"
+            <input matInput type="datetime-local"
+              [placeholder]="'secure.dashboard.seller-rating.date_issued_final_filter' | translate" autocomplete="false"
               formControlName="FinalDate" (change)="compareDate()">
             <mat-error *ngIf="form.get('FinalDate').hasError('minorDate2')">
               {{'secure.products.create_product_unit.list_products.ending_date' | translate}}
+            </mat-error>
+            <mat-error *ngIf="form.get('FinalDate').hasError('required')">
+              La fecha Inicial debe ser obligatoria.
             </mat-error>
           </mat-form-field>
 
           <div>
             <button mat-button mat-icon-button matSuffix *ngIf="!form.value.Id"
-              [matTooltip]="'secure.parametize.commission.addTariffs' | translate" matTooltipPosition="below" [disabled]="!f.form.valid"
-              (click)="addBrand()">
+              [matTooltip]="'secure.parametize.commission.addTariffs' | translate" matTooltipPosition="below"
+              [disabled]="!f.form.valid" (click)="addBrand()">
               <mat-icon>
                 add_circle_outline
               </mat-icon>

@@ -131,7 +131,6 @@ export class ExceptionBrandComponent implements OnInit {
     } else {
       this.InitialDate.setErrors(null);
     }
-
     this.compareDate();
   }
 
@@ -147,6 +146,12 @@ export class ExceptionBrandComponent implements OnInit {
       this.FinalDate.setErrors({ minorDate2: true });
     } else {
       this.FinalDate.setErrors(null);
+    }
+
+    if (dateFinal && (this.InitialDate.value === '')) {
+      this.FinalDate.setErrors({ required: true });
+    } else {
+      this.InitialDate.setErrors(null);
     }
   }
 
@@ -260,7 +265,7 @@ export class ExceptionBrandComponent implements OnInit {
   initForm() {
     this.form = this.fb.group({
       Id: [''],
-      Brand: ['', Validators.compose([trimField, Validators.minLength(2)])],
+      Brand: ['', Validators.compose([Validators.minLength(2)])],
       Commission: ['', Validators.compose([trimField, Validators.max(100), Validators.min(0), Validators.pattern(this.regex)])],
       InitialDate: [''],
       FinalDate: [''],
