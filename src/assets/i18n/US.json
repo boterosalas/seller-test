@@ -557,6 +557,9 @@
     "secure.orders.send.error_ocurred_product": "An error has occurred when sending the product",
     "secure.orders.send.cant_not_sent": "The product can not be sent",
 
+    "secure.orders.list-cancels.tab1": "Pending cancellations", 
+    "secure.orders.list-cancels.tab2": "Cancellations Record", 
+
     "secure.seller.list.enabled_title_modal": "Enable user",
     "secure.seller.list.disabled_title_modal": "Disable user",
     "secure.seller.list.vacation_title_modal": "Program vacations",

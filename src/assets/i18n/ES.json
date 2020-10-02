@@ -555,6 +555,9 @@
     "secure.orders.send.error_ocurred_product": "Se ha presentado un error al enviar el producto",
     "secure.orders.send.cant_not_sent": "El producto seleccionado no puede ser enviado",
 
+    "secure.orders.list-cancels.tab1": "Cancelaciones pendientes", 
+    "secure.orders.list-cancels.tab2": "Histórico de cancelaciones", 
+
     "secure.seller.list.enabled_title_modal": "Activación",
     "secure.seller.list.disabled_title_modal": "Desactivación",
     "secure.seller.list.vacation_title_modal": "Vacaciones",
