@@ -322,7 +322,8 @@ export class ExceptionBrandComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogWithFormComponent, {
       data: data,
       width: '55%',
-      minWidth: '280px'
+      minWidth: '280px',
+      disableClose: true
     });
     if (action === 'edit') {
       this.actionsEdit = true;
