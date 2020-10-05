@@ -320,9 +320,16 @@ const DevolutionsModule = new ModuleModel(devolutionsModule, showAll, devolution
     new MenuModel(historicDevolution, showAll, historicDevolution.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
     ], RoutesConst.sellerCenterIntOrderHistoricalDevolution),
+    // 8. Listado cancelaciones admin
     new MenuModel(listCancelOrders, showAll, listCancelOrders.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
     ], RoutesConst.sellerCenterListCancelOrders),
+    // 9. Listado cancelaciones vendedor
+    new MenuModel(listCancelOrders, showAll, listCancelOrders.toLowerCase(), ProfileTypes.Vendedor, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+        new FunctionalitiesModel(acceptFuncionality, showAll, acceptFuncionality), // Aceptar.
+        new FunctionalitiesModel(refuseFuncionality, showAll, refuseFuncionality), // Rechazar.
+    ], RoutesConst.sellerCenterListCancelOrders)
 ]);
 
 

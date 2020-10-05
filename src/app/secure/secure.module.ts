@@ -94,6 +94,6 @@ import { ListCancelsOrdersModule } from './orders/list-cancels-orders/list-cance
     ListCancelsOrdersModule
   ],
   providers: [AuthService, SellerSupportCenterService],
-  declarations: [ListCancelsOrdersComponent]
+  declarations: []
 })
 export class SecureModule { }

@@ -7,6 +7,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SharedModule } from '@app/shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { HistoricalDevolutionModule } from '..';
+import { HistoricalDevolutionComponent } from '../historical-devolution/historical-devolution-page/historical-devolution.component';
+import { InValidationComponent } from '../in-validation/in-validation-page/in-validation.component';
+import { InValidationModule } from '../in-validation/in-validation.module';
 import { ListCancelsOrdersComponent } from './list-cancels-orders.component';
 import { ListCancelOrderRoutingModule } from './list-cancels-orders.routing';
 
@@ -21,10 +25,14 @@ import { ListCancelOrderRoutingModule } from './list-cancels-orders.routing';
         BrowserAnimationsModule,
         ListCancelOrderRoutingModule,
         TranslateModule,
-        MatTabsModule
+        MatTabsModule,
+        HistoricalDevolutionModule,
+        InValidationModule
     ],
     declarations: [
-        // ListCancelsOrdersComponent
+        ListCancelsOrdersComponent,
+        // InValidationComponent,
+        // HistoricalDevolutionComponent
     ],
     exports: [
 
