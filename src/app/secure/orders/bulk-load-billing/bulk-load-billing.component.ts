@@ -181,6 +181,10 @@ export class BulkLoadBillingComponent implements OnInit {
     console.log('this.countSizeFile: ', this.countSizeFile);
   }
 
+  /**
+   * Función para validar que los archivos no superen el peso maximo de 7mb
+   * @memberof BulkLoadBillingComponent
+   */
   calculateCount() {
     if (this.countSizeFile > 7.000) {
       this.snackBar.open(this.languageService.instant('secure.orders.bulk.billing.maximum_All_file_size'), this.languageService.instant('actions.close'), {
