@@ -20,12 +20,12 @@
                 </mat-form-field>
                 <mat-form-field>
                   <input matInput [placeholder]="'secure.dashboard.seller-rating.date_issued_final_filter' | translate"
-                    formControlName="dateQualificationFinal" [errorStateMatcher]="matcher" (blur)="compareDate()">
+                    formControlName="dateQualificationFinal" [errorStateMatcher]="matcher" (keypress)="compareDate()">
                   <mat-error *ngIf="filterSellerRating.get('dateQualificationFinal').hasError('pattern')">
                     {{'secure.dashboard.seller-rating.date_issued_final_filter_error' | translate}}</mat-error>
                 </mat-form-field>
         
-                <button type="button" mat-button class="btn_filter_rating" (click)="getFilterSellerRating()" [disabled]="disableButton === true">
+                <button type="button" mat-button class="btn_filter_rating" (click)="getFilterSellerRating()" [disabled]="!createfilterSellerRating.form.valid || !createfilterSellerRating.form.touched">
                   <mat-icon>filter_list</mat-icon>
                   <small class="sub-title-filter">{{'filters.filter' | translate}}</small>
                 </button>
