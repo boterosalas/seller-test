@@ -127,8 +127,14 @@
           <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
             <button mat-button (click)="clearListFiles()" mat-raised-button
               class="bulk-load-billing-component-text-transform-uppercase">{{'filters.clear' | translate}}</button>
-            <button mat-button (click)="saveFile()" [disabled]="invalidsFile || allFileError" cdkFocusInitial mat-raised-button
-              color="primary">{{'actions.save' | translate}}</button>
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+                <p *ngIf="countSizeFile > 0" class="marginLabelSize">
+                  {{'secure.orders.bulk.billing.size_file' | translate}}{{countSizeFile}}{{'secure.orders.bulk.billing.size_file_MB' | translate}}
+                </p>
+                <button mat-button (click)="saveFile()" [disabled]="invalidsFile || allFileError" cdkFocusInitial mat-raised-button
+                color="primary">{{'actions.save' | translate}}</button>
+              </div>
+           
           </div>
         </div>
       </div>
