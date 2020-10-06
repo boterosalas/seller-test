@@ -70,7 +70,8 @@ export class ExceptionBrandService {
    * @memberof ExceptionBrandService
    */
   public getExceptionBrand(param: any): Observable<{}> {
-    return this.http.get(`${this.api.get('getExceptionBrand')}/GetComsnExcsBySeller/${param}`, { observe: 'response' });
+    // return this.http.get(`${this.api.get('getExceptionBrand')}/GetComsnExcsBySeller/${param}`, { observe: 'response' });
+    return this.http.get(`${this.api.get('getExceptionBrand')}/GetAllComsnExcsBySeller/${param}`, { observe: 'response' });
   }
 
   /**

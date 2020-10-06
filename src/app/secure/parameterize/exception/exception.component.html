@@ -1,0 +1,35 @@
+<div>
+  <mat-toolbar class="tree-toolbar">
+    <div class="normal-theme toolbar-options-table flexbox justify-start align-center" fxLayout.xs="column" id="widthTitileExc">
+      <!-- Titulo del toolbar -->
+      <p class="tree-title">
+        {{'menu.Excepción por comisión' | translate}}
+        <small class="sub-title">| Buscar excepción</small>
+      </p>
+
+      <!-- Componente para realizar la busqueda de una tienda -->
+      <div class="search-container">
+        <app-search-seller id="contet-searc-store" class="search-content">
+        </app-search-seller>
+      </div>
+
+    </div>
+  </mat-toolbar>
+</div>
+
+
+
+<div *ngIf="activeException" class="marginComission">
+  <app-exception-brand  [currentStoreSelect]="currentStoreSelect.IdSeller"></app-exception-brand>
+</div>
+
+
+<div class="orders-no-data" *ngIf="!activeException" >
+  <mat-icon class="icon-not-found" color="primary">info</mat-icon>
+  <div>
+    <p>Ingrese el nombre de la tienda en la  barra de búsqueda para ver las excepciones.</p>
+  </div>
+</div>
+
+
+

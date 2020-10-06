@@ -56,6 +56,7 @@
     "menu.Carga masiva de Facturas": "Les factures de chargement en vrac",
     "menu.Facturación vendedor": "Facturación vendedor",
     "menu.Productos pendientes": "Produits en attente",
+    "menu.Excepción por comisión": "Exception de commission",
 
     "module.Documentación": "Documentation",
     "module.Ofertas": "Offers",
@@ -233,6 +234,7 @@
     "errors.error_promise": "The delivery promise entered is invalid.",
     "errors.quoting_postal_code_invalid": "Invalid field (8 characters maximum, separated by a comma)",
     "errors.error_product": "Invalid product.",
+    "errors.error_product_length": "Invalid format, maximum 120 characters.",
     "errors.blank_email": "The e-mail address can not be blank",
     "errors.error_guide": "5 characters minimum, 20 characters maximum.",
     "errors.error_check_payment": "An error has occurred when browsing payments.",
@@ -626,7 +628,7 @@
     "secure.offers.stores.txt_no_seller": "Enter the store name in the search bar to see the categories.",
     "secure.offers.stores.treee.components.exception_brand_create_ok": "Brand exception has been added correctly.",
     "secure.offers.stores.treee.components.exception_brand_create_ko": "An error has occurred when trying to create a brand exception. Please try again.",
-    "secure.offers.stores.treee.components.exception_brand_create_kos": "An error has occurred when trying to create exceptions by brands. Please try again.",
+    "secure.offers.stores.treee.components.exception_brand_create_kos": "An error has occurred when trying to create exceptions by Brands/Plu. Please try again.",
     "secure.offers.stores.treee.components.exception_brand_update_ok": "The brand exception has been modified correctly.",
     "secure.offers.stores.treee.components.exception_brand_update_ko": "An error has occurred when trying to modify the brand exception. Please try again.",
     "secure.offers.stores.treee.components.exception_brand_delete_ok": "You have eliminated the brand exception correctly.",
@@ -947,7 +949,7 @@
     "secure.products.create_product_unit.basic_information.metre": "Metre",
     "secure.products.create_product_unit.basic_information.Unit": "Unit",
     "secure.products.create_product_unit.basic_information.write_description_here": "Write your description here…",
-    "secure.products.create_product_unit.basic_information.only_up_to_20_keywords": "Only up to 20 keywords are valid.",
+    "secure.products.create_product_unit.basic_information.only_up_to_20_keywords": "Only up to 500 characters.",
     "secure.products.create_product_unit.basic_information.order_to_add_necessary": "In order to add more variations it is necessary for the last variation to have correct data",
     "secure.products.create_product_unit.basic_information.mesasuring":"Measuring unit",
     "secure.products.create_product_unit.basic_information.ean_son":"Child EAN",
@@ -1121,6 +1123,13 @@
     "secure.parametize.commission.message": "Are you sure you want to remove this tariffis?",
     "secure.parametize.commission.edit": "Edit tariffis",
     "secure.parametize.commission.addTariffs": "Add tariffs",
+    "secure.parametize.commission.type-exception": "Exception type",
+    "secure.parametize.commission.error-date-1": "The start date must not be less than the current date",
+    "secure.parametize.commission.exception": "Exception",
+    "secure.parametize.commission.date-time-1": "Start date and Start time",
+    "secure.parametize.commission.date-time-2": "End date and Start time",
+    "secure.parametize.commission.not-foun-data-exception": "Le magasin sélectionné n'a pas d'exception pour la commission. Ajoutez une exception ou trouvez un autre magasin.",
+    "secure.parametize.commission.date-init-required": "La date de début doit être obligatoire.",
 
     "secure.parametize.dialogAddSpecs.modal_title": "Add specifications to a group",
     "secure.parametize.dialogAddSpecs.modal_text_1": "Enter a name for the specification and select whether its mandatory or not in order to create the product. You must determine whether this specification will be an input or list type.",
@@ -1315,6 +1324,8 @@
 
     "secure.reports.report-offert.download-modal-offert-ts.ok": "The download has started successfully. Check your e-mail.",
     "secure.reports.report-offert.download-modal-offert-ts.ko": "And error has occurred when downloading the file.",
+
+    "secure.reports.report-vtex.download-modal-vtex-ts.ok":"Demande envoyée avec succès. Dans quelques minutes, vous recevrez un email avec le fichier demandé.",
 
     "secure.quality.quality-score.quality" :"Quality",
     "secure.quality.quality-score.qualityMonth" :"Quality month",

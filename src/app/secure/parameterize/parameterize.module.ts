@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ParameterizeRouting } from './parameterize.routing';
 import { SpecificationsParamComponent, FocusDirective } from './specifications/specifications.component';
@@ -18,6 +18,10 @@ import { CreateProcessDialogComponent } from '../../shared/components/create-pro
 import { PortComponent } from './port/port.component';
 import { ModalPortComponent } from './port/modal-port/modal-port.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { ExceptionComponent } from './exception/exception.component';
+import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
+import { ExceptionBrandComponent } from '../offers/stores/tree/components/exception-brand/exception-brand.component';
+import { StoresModule } from '../offers';
 
 @NgModule({
   declarations: [
@@ -31,6 +35,8 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
     CategoryTreeComponent,
     PortComponent,
     ModalPortComponent,
+    ExceptionComponent,
+    ExceptionBrandComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +44,9 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
     ParameterizeRouting,
     ReactiveFormsModule,
     FormsModule,
-    CurrencyMaskModule
+    // StoresModule,
+    CurrencyMaskModule,
+    // ExceptionBrandComponent
   ],
   exports: [
     CategoryTreeComponent
@@ -46,7 +54,8 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
   providers: [
     ParamSpecsService,
     BrandService,
-    CategoryTreeService
+    CategoryTreeService,
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
   ],
   entryComponents: [
     AddDialogComponent,
@@ -55,6 +64,7 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
     DialogWithFormComponent,
     CreateProcessDialogComponent,
     ModalPortComponent
-  ]
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class ParameterizeModule { }

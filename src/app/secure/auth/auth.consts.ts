@@ -132,7 +132,7 @@ const showAll = false;
  * 4. Cargar guias
  * 5. Facturación electronica.
  */
-export const orderModule = 'ÓRDENES', allName = 'Todas', toSendName = 'Por enviar', sendedName = 'Enviadas', onlineBillName = 'Factura Electrónica', dashboardName = 'Dashboard', guideChargesName = 'Cargar guías', bulkLoadBilling = 'Carga masiva de Facturas' , billingSeller = 'Facturación vendedor';
+export const orderModule = 'ÓRDENES', allName = 'Todas', toSendName = 'Por enviar', sendedName = 'Enviadas', onlineBillName = 'Factura Electrónica', dashboardName = 'Dashboard', guideChargesName = 'Cargar guías', bulkLoadBilling = 'Carga masiva de Facturas', billingSeller = 'Facturación vendedor';
 export const readFunctionality = 'Consultar';
 export const downloadFunctionality = 'Descargar';
 export const updateFunctionality = 'Editar';
@@ -318,8 +318,8 @@ const DevolutionsModule = new ModuleModel(devolutionsModule, showAll, devolution
     ], RoutesConst.sellerCenterIntOrderHistoricalDevolution),
     // 7. historico administrador
     new MenuModel(historicDevolution, showAll, historicDevolution.toLowerCase(), ProfileTypes.Administrador, [
-      new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
-  ], RoutesConst.sellerCenterIntOrderHistoricalDevolution),
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+    ], RoutesConst.sellerCenterIntOrderHistoricalDevolution),
 ]);
 
 
@@ -495,7 +495,7 @@ const DocumentModule = new ModuleModel(documentModule, showAll, documentModule.t
  * 4. Perfiles.
  * 5. Marcas.
  */
-export const paramModule = 'PARAMETRIZACIÓN', quoteName = 'Cotizador', transportName = 'transportadora', zonesName = 'zonas', specsName = 'Especificaciones', categoriesTreeName = 'Asignar comisión', profileName = 'Perfiles', categoryName = 'Árbol de categorías', brandName = 'Marcas' , portName = 'Parametrizar Centros de Acopio';
+export const paramModule = 'PARAMETRIZACIÓN', quoteName = 'Cotizador', transportName = 'transportadora', zonesName = 'zonas', specsName = 'Especificaciones', categoriesTreeName = 'Asignar comisión', profileName = 'Perfiles', categoryName = 'Árbol de categorías', brandName = 'Marcas', portName = 'Parametrizar Centros de Acopio', exception = 'Excepción por comisión';
 const ParamModule = new ModuleModel(paramModule, showAll, paramModule.toLowerCase(), [
     // 1. Cotizador.
     new MenuModel(quoteName, showAll, quoteName.toLowerCase(), ProfileTypes.Administrador, [
@@ -541,12 +541,17 @@ const ParamModule = new ModuleModel(paramModule, showAll, paramModule.toLowerCas
         new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality), // Editar.
         new FunctionalitiesModel(createFunctionality, showAll, createFunctionality) // Crear.
     ], RoutesConst.sellerCenterIntCategoryTree),
-        // 7. Parametrizar Centros de Acopio
-        new MenuModel(portName, showAll, portName.toLowerCase(), ProfileTypes.Administrador, [
-            new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
-            new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality), // Editar.
-            new FunctionalitiesModel(createFunctionality, showAll, createFunctionality) // Crear.
-        ], RoutesConst.sellerCenterIntPort)
+    // 7. Parametrizar Centros de Acopio
+    new MenuModel(portName, showAll, portName.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+        new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality), // Editar.
+        new FunctionalitiesModel(createFunctionality, showAll, createFunctionality) // Crear.
+    ], RoutesConst.sellerCenterIntPort),
+    new MenuModel(exception, showAll, exception.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+        new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality), // Editar.
+        new FunctionalitiesModel(createFunctionality, showAll, createFunctionality) // Crear.
+    ], RoutesConst.sellerCenterIntException)
 ]);
 
 export const reclaModule = 'RECLAMACIONES', listreclamaciones = 'Listar Reclamaciones';
@@ -566,12 +571,16 @@ const ReclaModule = new ModuleModel(reclaModule, showAll, reclaModule.toLowerCas
  * 1. Reporte de ofertas.
  */
 
-export const reportModule = 'REPORTES', reportOffertAdmin = 'Reporte de ofertas';
+export const reportModule = 'REPORTES', reportOffertAdmin = 'Reporte de ofertas', reportErrorsVtex = 'Reporte de errores en VTEX';
 const ReportModule = new ModuleModel(reportModule, showAll, reportModule.toLowerCase(), [
     new MenuModel(reportOffertAdmin, showAll, reportOffertAdmin.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality) // Descargar
-    ], RoutesConst.sellerCenterIntOfferReportOffert)]);
+    ], RoutesConst.sellerCenterIntOfferReportOffert),
+    new MenuModel(reportErrorsVtex, showAll, reportErrorsVtex.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+        new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality) // Descargar
+    ], RoutesConst.sellerCenterIntReportsErrorsVtex)]);
 
 
 /**

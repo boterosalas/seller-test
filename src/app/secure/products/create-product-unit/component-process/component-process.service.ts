@@ -24,9 +24,7 @@ export interface ProductModel {
     HasEAN: boolean;
     Name: string;
     Brand: string;
-    Details: string;
     Seller: string;
-    Model: string;
     SkuShippingSize: string;
     PackageWidth: number;
     PackageHeight: number;
@@ -138,9 +136,7 @@ export class ProcessService {
         HasEAN: false,
         Name: null,
         Brand: null,
-        Details: null,
         Seller: 'Marketplace',
-        Model: null,
         SkuShippingSize: null,
         PackageWidth: null,
         PackageHeight: null,
@@ -298,8 +294,6 @@ export class ProcessService {
             this.views.showInfo = true;
             this.productData.Name = data.Name;
             this.productData.Brand = data.Brand;
-            this.productData.Details = data.Details;
-            this.productData.Model = data.Model;
             this.productData.SkuShippingSize = data.SkuShippingSize;
             this.productData.PackageWidth = data.PackageWidth;
             this.productData.PackageHeight = data.PackageHeight;
@@ -385,14 +379,11 @@ export class ProcessService {
      * @memberof ProcessService
      */
     public sendFieldMeta(): void {
-        if (this.productData.Name.match(this.productData.Brand) && this.productData.Name.match(this.productData.Model)) {
+        if (this.productData.Name.match(this.productData.Brand)) {
             this.productData.MetaTitle = '##ProductName## - Compras por Internet ##site##';
             this.productData.MetaDescription = 'Compra por Internet ##ProductName##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + this.productData.CategoryName;
         } else if (this.productData.Name.match(this.productData.Brand)) {
             this.productData.MetaTitle = '##ProductName####ProductModel## - Compras por Internet ##site##';
-            this.productData.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + this.productData.CategoryName;
-        } else if (this.productData.Name.match(this.productData.Model)) {
-            this.productData.MetaTitle = '##ProductName####BrandName## - Compras por Internet ##site##';
             this.productData.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + this.productData.CategoryName;
         } else {
             this.productData.MetaTitle = '##ProductName####ProductModel####BrandName## - Compras por Internet ##site##';
@@ -436,9 +427,7 @@ export class ProcessService {
             HasEAN: false,
             Name: null,
             Brand: null,
-            Details: null,
             Seller: 'Marketplace',
-            Model: null,
             SkuShippingSize: null,
             PackageWidth: null,
             PackageHeight: null,

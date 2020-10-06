@@ -1,7 +1,7 @@
 <ng-container *ngIf="canRead">
   <div class="header__wrapper">
     <!-- <div>{{'secure.parametize.category.categories.exception'| translate}}</div> -->
-    <div>{{'secure.parametize.category.categories.exception' | translate}}</div>
+    <div></div>
     <div *ngIf="canUpdate" fxShow="true" [fxShow.xs]="false">
       <button mat-stroked-button color="primary"
         (click)="openDialog('create')">{{'secure.parametize.commission.add' | translate}}</button>
@@ -11,12 +11,28 @@
     </div>
   </div>
 
-  <div class="table-wrapper">
+  <div class="table-wrapper" *ngIf="!showMessageNoData">
     <div class="example-container">
       <table mat-table [dataSource]="dataSource">
-        <ng-container matColumnDef="Brand">
-          <th mat-header-cell *matHeaderCellDef> {{'shared.brand' | translate}} </th>
+        <ng-container matColumnDef="Type">
+          <th mat-header-cell *matHeaderCellDef> {{'secure.parametize.commission.type-exception' | translate}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.TypeName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Description">
+          <th mat-header-cell *matHeaderCellDef> {{'shared.descripcion' | translate}} </th>
           <td mat-cell *matCellDef="let element"> {{element.Brand}} </td>
+        </ng-container>
+        <ng-container matColumnDef="InitialDate">
+          <th mat-header-cell *matHeaderCellDef>
+            {{'secure.dashboard.seller-rating.date_issued_initial_filter' | translate}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.InitialDate | date : 'dd/MM/yyyy HH:mm'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="FinalDate">
+          <th mat-header-cell *matHeaderCellDef>
+            {{'secure.dashboard.seller-rating.date_issued_final_filter' | translate}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.FinalDate | date : 'dd/MM/yyyy HH:mm'}} </td>
         </ng-container>
 
         <ng-container matColumnDef="Commission">
@@ -48,15 +64,22 @@
     </div>
   </div>
 
+  <div class="orders-no-data" *ngIf="showMessageNoData">
+    <mat-icon class="icon-not-found" color="primary">info</mat-icon>
+    <div>
+      <p>{{'secure.parametize.commission.not-foun-data-exception' | translate}}</p>
+    </div>
+  </div>
+
   <ng-template #dialogContent>
 
     <div class="full-width">
       <form [formGroup]="typeForm" class="full-width justify-content-center dis-flex">
-        <mat-form-field class="half-width">
-          <mat-label>Tipo de excepción</mat-label>
-          <mat-select formControlName="type">
-            <mat-option *ngFor="let type of typeException" [value]="type">
-              {{type}}
+        <mat-form-field class="half-width" [ngClass]="{disabledDiv: disableInputType}">
+          <mat-label>{{'secure.parametize.commission.type-exception' | translate}}</mat-label>
+          <mat-select formControlName="type" [(ngModel)]="typeValue" (change)="disableType()">
+            <mat-option *ngFor="let type of typeException" value="{{type.value}}">
+              {{type.name}}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -64,12 +87,12 @@
 
     </div>
 
-    <form class="full-width space-between" [formGroup]="form" *ngIf="typeForm.get('type').value">
+    <form class="full-width space-between" [formGroup]="form" *ngIf="typeForm.get('type').value" #f="ngForm">
       <div fxLayout="column" fxLayoutAlign="space-around center" class="widthBrand">
         <div fxLayout="row" fxLayoutAlign="space-evenly center" class="widthBrand">
-          <mat-form-field class="half-width">
+          <mat-form-field class="half-width" *ngIf="typeValue === 'MARCA'">
             <input matInput [placeholder]="'shared.brand' | translate" [matAutocomplete]="auto" formControlName="Brand"
-              id="brandProduct" required>
+              id="brandProduct">
             <mat-autocomplete #auto="matAutocomplete">
               <mat-option *ngFor="let brand of filterBrands" [value]="brand.Name">
                 {{brand.Name}}
@@ -83,8 +106,15 @@
               {{'secure.products.create_product_unit.basic_information.brand_invalidate' | translate}}</mat-error>
           </mat-form-field>
 
+          <mat-form-field class="half-width" *ngIf="typeValue === 'PLU'" [ngClass]="{disabledDiv: disableInputType}">
+            <input matInput [placeholder]="'secure.products.bulk_upload.filter.plu' | translate" formControlName="Plu"
+              id="pluProduct">
+            <mat-error *ngIf="form.get('Plu').hasError('pattern')">
+              {{'errors.invalid_plu' | translate}}</mat-error>
+          </mat-form-field>
+
           <mat-form-field class="half-width">
-            <input matInput required id="exception" type="number" placeholder="Comisión" autocomplete="false"
+            <input matInput id="exception" [placeholder]="'shared.commission' | translate" autocomplete="false"
               formControlName="Commission">
             <mat-error *ngIf="form.get('Commission').hasError('pattern') || form.get('Commission').hasError('trim')">
               {{'error.exception_brand.number_int' | translate}}</mat-error>
@@ -92,15 +122,39 @@
             </mat-error>
             <mat-error *ngIf="form.get('Commission').hasError('min')">{{'error.exception_brand.min_error' | translate}}
             </mat-error>
-            <button mat-button mat-icon-button matSuffix *ngIf="!form.value.Id" [disabled]="!form.valid"
-              (click)="addBrand()">
-              <!-- <button mat-button mat-icon-button matSuffix 
-                      (click)="addBrand()"> -->
+          </mat-form-field>
+        </div>
+
+        <div class="dateException" fxLayout="row" fxLayoutAlign="space-evenly center">
+          <mat-form-field fxFlex="40%">
+            <input matInput type="datetime-local"
+              [placeholder]="'secure.dashboard.seller-rating.date_issued_initial_filter' | translate"
+              autocomplete="false" formControlName="InitialDate" (change)="minorDate()">
+            <mat-error *ngIf="form.get('InitialDate').hasError('minorDate')">{{'secure.parametize.commission.error-date-1' | translate}}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="40%">
+            <input matInput type="datetime-local"
+              [placeholder]="'secure.dashboard.seller-rating.date_issued_final_filter' | translate" autocomplete="false"
+              formControlName="FinalDate" (change)="compareDate()">
+            <mat-error *ngIf="form.get('FinalDate').hasError('minorDate2')">
+              {{'secure.products.create_product_unit.list_products.ending_date' | translate}}
+            </mat-error>
+            <mat-error *ngIf="form.get('FinalDate').hasError('required')">
+              {{'secure.parametize.commission.date-init-required' | translate}}
+            </mat-error>
+          </mat-form-field>
+
+          <div>
+            <button mat-button mat-icon-button matSuffix *ngIf="!form.value.Id"
+              [matTooltip]="'secure.parametize.commission.addTariffs' | translate" matTooltipPosition="below"
+              [disabled]="!f.form.valid" (click)="addBrand()">
               <mat-icon>
                 add_circle_outline
               </mat-icon>
             </button>
-          </mat-form-field>
+          </div>
         </div>
 
         <div *ngIf="actionsEdit" fxLayout="row" fxLayoutAlign="space-between center" class="buttonsSend">
@@ -115,12 +169,29 @@
     <ng-container *ngIf="selectedBrands.length > 0">
       <table mat-table [dataSource]="selectedBrandsSources">
         <ng-container matColumnDef="Brand">
-          <th mat-header-cell *matHeaderCellDef> Marca </th>
-          <td mat-cell *matCellDef="let element"> {{element.Brand}} </td>
+          <th mat-header-cell *matHeaderCellDef> {{'secure.parametize.commission.exception' | translate}} </th>
+          <td mat-cell *matCellDef="let element">
+            <span *ngIf="element.Brand">
+              {{element.Brand}}
+            </span>
+            <span *ngIf="element.Plu">
+              {{element.Plu}}
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="InitialDate">
+          <th mat-header-cell *matHeaderCellDef> Fecha y hora inicial </th>
+          <td mat-cell *matCellDef="let element"> {{element.InitialDate | date : 'dd/MM/yyyy HH:mm'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="FinalDate">
+          <th mat-header-cell *matHeaderCellDef> Fecha y hora final </th>
+          <td mat-cell *matCellDef="let element"> {{element.FinalDate | date : 'dd/MM/yyyy HH:mm'}} </td>
         </ng-container>
 
         <ng-container matColumnDef="Commission">
-          <th mat-header-cell *matHeaderCellDef> Comisión </th>
+          <th mat-header-cell *matHeaderCellDef> {{'shared.commission' | translate}} </th>
           <td mat-cell *matCellDef="let element"> {{element.Commission}} </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumnsInModal;"></tr>

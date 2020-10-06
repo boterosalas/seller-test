@@ -56,9 +56,9 @@ export class ProductBasicInfoComponent implements OnInit {
     public descrip: string;
     _detailProduct: any;
     inputRequired = true;
-    isEdit= false;
-    disabledEanChildren= false;
-    show= false;
+    isEdit = false;
+    disabledEanChildren = false;
+    show = false;
     isManual = false;
     BrandsRegex = { brandsName: '', formatIntegerNumber: '' };
     @Input() set detailProduct(value: any) {
@@ -86,9 +86,9 @@ export class ProductBasicInfoComponent implements OnInit {
         { Name: 'secure.products.create_product_unit.basic_information.green', Label: 'Verde', color: '#2E7D32', border: '#1B5E20', hexColorCode: 32768 },
         { Name: 'secure.products.create_product_unit.basic_information.orange', Label: 'Naranja', color: '#FF8F00', border: '#FF6F00', hexColorCode: 16750899 },
         { Name: 'secure.products.create_product_unit.basic_information.pink', Label: 'Rosa', color: '#E91E63', border: '#C2185B', hexColorCode: 15572666 },
-        { Name: 'secure.products.create_product_unit.basic_information.purple', Label: 'Morado',  color: '#6639B6', border: '#670167', hexColorCode: 8388736 },
-        { Name: 'secure.products.create_product_unit.basic_information.red', Label: 'Rojo',  color: '#c62828', border: '#b71c1c', hexColorCode: 16711680 },
-        { Name: 'secure.products.create_product_unit.basic_information.silver', Label: 'Plata',  color: '#BDBDBD', border: '#9E9E9E', hexColorCode: 12632256 },
+        { Name: 'secure.products.create_product_unit.basic_information.purple', Label: 'Morado', color: '#6639B6', border: '#670167', hexColorCode: 8388736 },
+        { Name: 'secure.products.create_product_unit.basic_information.red', Label: 'Rojo', color: '#c62828', border: '#b71c1c', hexColorCode: 16711680 },
+        { Name: 'secure.products.create_product_unit.basic_information.silver', Label: 'Plata', color: '#BDBDBD', border: '#9E9E9E', hexColorCode: 12632256 },
         { Name: 'secure.products.create_product_unit.basic_information.golden', Label: 'Dorado', color: '#FFB300', border: '#FFA000', hexColorCode: 15590005 },
         { Name: 'secure.products.create_product_unit.basic_information.multicolored', Label: 'Multicolor', color: '#FFB300', border: '#bdbdbd', hexColorCode: 986895, multicolor: true },
     ];
@@ -240,17 +240,9 @@ export class ProductBasicInfoComponent implements OnInit {
                 ]),
             IsCombo: new FormControl(false, []),
             EanCombo: new FormControl('', [Validators.pattern(this.getValue('ean'))]),
-            Model: new FormControl('',
-                [
-                    Validators.required, Validators.pattern(this.getValue('modelProduct'))
-                ]),
             Brand: new FormControl('',
                 [
                     Validators.required, Validators.pattern(this.getValue('brandProduct'))
-                ]),
-            Detail: new FormControl('',
-                [
-                    Validators.required, Validators.pattern(this.getValue('detailProduct'))
                 ]),
             MeasurementUnit: new FormControl('', [Validators.required]),
             ConversionFactor: new FormControl('', [Validators.required, Validators.pattern(this.getValue('factConversionProduct'))]),
@@ -380,31 +372,25 @@ export class ProductBasicInfoComponent implements OnInit {
         let word = this.formBasicInfo.controls.Keyword.value;
         if (word) {
             word = word.trim();
-            if (this.keywords.length < 20) {
-                if (word.search(',') === -1) {
-                    this.keywords.push(word);
-                } else {
-                    const counter = word.split(',');
-                    counter.forEach(element => {
-                        if (element) {
-                            this.keywords.push(element);
-                        }
-                    });
-                }
-                this.detectForm();
-                this.formBasicInfo.controls.Keyword.clearValidators();
-                this.formBasicInfo.controls.Keyword.reset();
+            if (word.search(',') === -1) {
+                this.keywords.push(word);
             } else {
-                this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.basic_information.only_up_to_20_keywords'), 'Cerrar', {
-                    duration: 3000,
+                const counter = word.split(',');
+                counter.forEach(element => {
+                    if (element) {
+                        this.keywords.push(element);
+                    }
                 });
             }
+            this.detectForm();
+            this.formBasicInfo.controls.Keyword.clearValidators();
+            this.formBasicInfo.controls.Keyword.reset();
         }
         if (!this.isEdit) {
             this.validatorKeyWord();
         }
 
-        if (this.keywords.length === 0 ) {
+        if (this.keywords.length === 0) {
             this.validatorKeyWord();
         }
     }
@@ -626,6 +612,10 @@ export class ProductBasicInfoComponent implements OnInit {
         }
     }
 
+    setValidatorKeywords() {
+        this.formBasicInfo.controls['Keyword'].setValidators([Validators.required, Validators.pattern(this.getValue('keyWordsProduct'))]);
+    }
+
     public checkVerify(value: boolean) {
         if (this.combos && this.combos.length === 0) {
             this.combos = [];
@@ -651,8 +641,6 @@ export class ProductBasicInfoComponent implements OnInit {
         const data = {
             Name: this.formBasicInfo.controls.Name.value,
             Brand: this.formBasicInfo.controls.Brand.value.toUpperCase(),
-            Details: this.formBasicInfo.controls.Detail.value,
-            Model: this.formBasicInfo.controls.Model.value,
             SkuShippingSize: this.formBasicInfo.controls.shippingSize.value,
             IsCombo: this.formBasicInfo.controls.IsCombo.value,
             PackageWidth: packingData.controls.WidthPacking.value,
@@ -676,7 +664,7 @@ export class ProductBasicInfoComponent implements OnInit {
     public getSonData(): any {
         const sonData = [];
         let children: any;
-        if (this._detailProduct && this._detailProduct.productType === 'Clothing' && this._detailProduct.children ) {
+        if (this._detailProduct && this._detailProduct.productType === 'Clothing' && this._detailProduct.children) {
             children = this._detailProduct.children;
         }
         for (let i = 0; i < this.sonList.length; i++) {
@@ -785,8 +773,6 @@ export class ProductBasicInfoComponent implements OnInit {
                 const productDateSize = this.formBasicInfo.controls.product as FormGroup;
                 this.formBasicInfo.controls.Name.setValue(detailProduct.name);
                 this.formBasicInfo.controls.Brand.setValue(detailProduct.brand);
-                this.formBasicInfo.controls.Model.setValue(detailProduct.model);
-                this.formBasicInfo.controls.Detail.setValue(detailProduct.details);
                 this.formBasicInfo.controls.MeasurementUnit.setValue(detailProduct.measurementUnit);
                 this.formBasicInfo.controls.ConversionFactor.setValue(detailProduct.conversionFactor);
                 this.formBasicInfo.controls.shippingSize.setValue(detailProduct.skuShippingSize);
@@ -799,14 +785,14 @@ export class ProductBasicInfoComponent implements OnInit {
                 productDateSize.controls.LongProduct.setValue(detailProduct.productLength);
                 productDateSize.controls.WeightProduct.setValue(detailProduct.productWeight);
                 this.formBasicInfo.controls.Description.setValue(detailProduct.description);
-                if (detailProduct.keyWords !== null && detailProduct.keyWords !== undefined ) {
+                if (detailProduct.keyWords !== null && detailProduct.keyWords !== undefined) {
                     this.formBasicInfo.controls.Keyword.setValue(detailProduct.keyWords);
                     this.inputRequired = false;
                 } else {
                     this.formBasicInfo.controls.Keyword.setValue(null);
                     this.inputRequired = true;
                 }
-                if ( detailProduct.children && detailProduct.children.length > 0) {
+                if (detailProduct.children && detailProduct.children.length > 0) {
                     this.setChildren(detailProduct);
                 }
                 this.saveKeyword();
@@ -814,18 +800,18 @@ export class ProductBasicInfoComponent implements OnInit {
             }
         }
     }
-/**
- * setea los hijos registrados en el formulario
- *
- * @param {*} detailProduct
- * @memberof ProductBasicInfoComponent
- */
-setChildren(detailProduct: any) {
+    /**
+     * setea los hijos registrados en el formulario
+     *
+     * @param {*} detailProduct
+     * @memberof ProductBasicInfoComponent
+     */
+    setChildren(detailProduct: any) {
         if (detailProduct && detailProduct.children && detailProduct.children.length > 0) {
             for (let i = 0; i < detailProduct.children.length; i++) {
                 const newForm = {
                     form: new FormGroup({
-                        Ean: new FormControl({value: detailProduct.children[i].ean, disabled: true},
+                        Ean: new FormControl({ value: detailProduct.children[i].ean, disabled: true },
                             [
                                 Validators.required, Validators.pattern(this.getValue('ean'))
                             ]),
@@ -841,7 +827,7 @@ setChildren(detailProduct: any) {
                             [
                                 Validators.required, Validators.pattern(this.getValue('hexColorNameProduct'))
                             ]),
-                        associateEanSon: new FormControl({value: false, disabled: true}
+                        associateEanSon: new FormControl({ value: false, disabled: true }
                         )
                     }),
                     Show: false,
@@ -896,13 +882,13 @@ setChildren(detailProduct: any) {
     setValidateBrands() {
         this.formBasicInfo.controls['Brand'].setValue('');
         this.formBasicInfo.get('Brand').setErrors(null);
-       if (this.isManual) {
-        this.formBasicInfo.controls['Brand'].setValidators([Validators.required, Validators.pattern(this.BrandsRegex.brandsName)]);
-       } else {
-        this.formBasicInfo.controls['Brand'].setValidators([
-            Validators.required, Validators.pattern(this.getValue('brandProduct'))
-        ]);
-       }
+        if (this.isManual) {
+            this.formBasicInfo.controls['Brand'].setValidators([Validators.required, Validators.pattern(this.BrandsRegex.brandsName)]);
+        } else {
+            this.formBasicInfo.controls['Brand'].setValidators([
+                Validators.required, Validators.pattern(this.getValue('brandProduct'))
+            ]);
+        }
     }
 
 

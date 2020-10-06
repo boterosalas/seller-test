@@ -59,10 +59,12 @@ export class RoutesConst {
     static readonly listProducts: any = 'listado-productos';
     static readonly categoryTree: any = 'category-tree';
     static readonly reportOffertAdmin: any = 'category-tree';
+    static readonly reportErrorsVtexAdmin: any = 'report-error-vtex';
     static readonly listCalification: any = 'quality-score';
     static readonly port: any = 'port';
     static readonly billingSeller: any = 'facturacion-vendedor';
     static readonly pendingProducts: any = 'productos-pendientes';
+    static readonly excepctionCommision: any = 'excepcion-comision';
 
 
     /* Support Center */
@@ -116,6 +118,7 @@ export class RoutesConst {
     static readonly sellerCenterIntOferTreeCategory: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferTreeCategory;
     static readonly sellerCenterIntOfferQuoting: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.quoting;
     static readonly sellerCenterIntOfferReportOffert: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.reportOffertAdmin;
+    static readonly sellerCenterIntReportsErrorsVtex: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.reportErrorsVtexAdmin;
     static readonly sellerCenterIntOfferCitiesCoverage: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.offerCitiesCoverage;
 
     static readonly sellerCenterIntProductBulkLoad: any = RoutesConst.sellerCenterProducts + '/' + RoutesConst.productBulkLoad;
@@ -139,6 +142,7 @@ export class RoutesConst {
     static readonly sellerCenterIntUploadAgreement: any = RoutesConst.sellerCenterSellers + '/' + RoutesConst.uploadAgreement;
     static readonly sellerCenterIntCategoryTree: any = RoutesConst.securehome + '/' + RoutesConst.categoryTree;
     static readonly sellerCenterIntPort: any = RoutesConst.securehome + '/' + RoutesConst.port;
+    static readonly sellerCenterIntException: any = RoutesConst.securehome + '/' + RoutesConst.excepctionCommision;
 
     static readonly sellerCenterIntShipmentsExitoHist: any = RoutesConst.sellerCenterShipmentsExito + '/' + RoutesConst.shipmentsExitoHist;
     static readonly sellerCenterIntShipmentsExitoOffice: any = RoutesConst.sellerCenterShipmentsExito + '/' + RoutesConst.shipmentsExitoOffice;

@@ -24,7 +24,7 @@ export class ImageUrlComponent implements OnInit {
   public valImage: any;
   formatimage: any;
   createImage: FormGroup;
-  public formatImg = /^([^\s]+(\.jpg)$)/;
+  public formatImg = /^([^\s]+(\.(?:jpg|JPG|png|PNG))$)/;
   arrayImageDadClothing: any;
   @Input() set setImag(value: any) {
     if (value) {

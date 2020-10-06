@@ -14,6 +14,7 @@ import {
 /* our own custom components */
 import { ListComponent } from '../../list/list.component';
 import { ModelFilter } from './filter.model';
+import { SupportService } from '@app/secure/support-modal/support.service';
 
 
 /**
@@ -70,7 +71,7 @@ export class FilterComponent implements OnInit, OnChanges {
     public matcher: MyErrorStateMatcher;
     public regexNoSpaces = /^((?! \s+|\s+$).)*$/;
     public regexOnlyNumber = /^[0-9]*$/;
-    public regexSellerSku = /^(?=.*[A-Za-z\d])[A-Za-z\d!\"#$%&'()*+/\\_:.<>=?¡¿[\\]|°¬{}^~-]+/;
+    public regexSellerSku = /^(([a-zA-Z0-9].)|([^a-zA-Z0-9]+[a-zA-Z0-9])).*$/;
 
     listFilterOfferts: any[];
     eanList: any;
@@ -79,14 +80,22 @@ export class FilterComponent implements OnInit, OnChanges {
     pluVtexList: any;
     sellerSkuList: any;
 
+    offertRegexFilter = {
+        nameProduct: '',
+        sellerSku: '',
+        number: ''
+    };
+
     /**
      * Creates an instance of FilterComponent.
      * @param {ListComponent} list
      * @memberof FilterComponent
      */
     constructor(
-        public list: ListComponent
-    ) { }
+        public list: ListComponent,
+        public SUPPORT: SupportService,
+    ) {
+    }
 
     /**
      * @method ngOnInit
@@ -94,8 +103,7 @@ export class FilterComponent implements OnInit, OnChanges {
      * @memberof FilterComponent
      */
     ngOnInit() {
-        this.createFormControls();
-        this.createForm();
+        this.validateFormSupport();
     }
 
     /**
@@ -133,12 +141,27 @@ export class FilterComponent implements OnInit, OnChanges {
      * @description Metodo para crear los controles el formulario
      */
     createFormControls() {
-        this.product = new FormControl('', [Validators.pattern(this.regexNoSpaces)]);
-        this.ean = new FormControl('', [Validators.pattern(this.regexNoSpaces)]);
-        this.pluVtex = new FormControl('', [Validators.pattern(this.regexOnlyNumber)]);
-        this.sellerSku = new FormControl('', [Validators.pattern(this.regexSellerSku)]);
+        this.product = new FormControl('', Validators.compose([Validators.maxLength(120), Validators.pattern(this.offertRegexFilter.nameProduct)]));
+        this.ean = new FormControl('');
+        this.pluVtex = new FormControl('', [Validators.pattern(this.offertRegexFilter.number)]);
+        this.sellerSku = new FormControl('', [Validators.pattern(this.offertRegexFilter.sellerSku)]);
         this.stock = new FormControl('', []);
         this.matcher = new MyErrorStateMatcher();
+    }
+
+    public validateFormSupport(): void {
+        this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
+            let dataOffertRegex = JSON.parse(res.body.body);
+            dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'productos' || data.Module === 'transversal');
+            for (const val in this.offertRegexFilter) {
+                if (!!val) {
+                    const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
+                    this.offertRegexFilter[val] = element && `${element.Value}`;
+                }
+            }
+            this.createFormControls();
+            this.createForm();
+        });
     }
 
     /**

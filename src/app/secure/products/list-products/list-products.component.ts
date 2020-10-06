@@ -313,7 +313,7 @@ export class ListProductsComponent implements OnInit {
      */
     createFormControls() {
         this.filterProduts = this.fb.group({
-            productName: new FormControl('', Validators.compose([Validators.pattern(this.getValue('nameProduct'))])),
+            productName: new FormControl('', Validators.compose([Validators.maxLength(120), Validators.pattern(this.getValue('nameProduct'))])),
             ean: new FormControl(''),
             pluVtex: new FormControl('', Validators.compose([Validators.pattern(this.getValue('integerNumber'))])),
             initialDate: { disabled: true, value: '' },
@@ -564,7 +564,7 @@ export class ListProductsComponent implements OnInit {
             this.finalDateList = null;
         }
         if (countFilter) {
-            urlParams2 = `?&initialDate=${this.initialDateList}&finalDate=${this.finalDateList}&ean=${this.eanList}&productName=${this.nameProductList}&creationDate=${this.creationDateList}&page=${page}&limit=${limit}&pluVtex=${this.pluVtexList}&categories=${this.categoryList}&myProducts=${this.myProduct}`;
+            urlParams2 = `?&initialDate=${this.initialDateList}&finalDate=${this.finalDateList}&ean=${encodeURIComponent(this.eanList)}&productName=${encodeURIComponent(this.nameProductList)}&creationDate=${this.creationDateList}&page=${page}&limit=${limit}&pluVtex=${this.pluVtexList}&categories=${this.categoryList}&myProducts=${this.myProduct}`;
         }
         this.loadingService.viewSpinner(); // Mostrar el spinner
         if (params && !fecha) {

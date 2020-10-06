@@ -487,8 +487,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   iNombreProd: this.arrayNecessaryData[0].indexOf('Product Name'),
                   iCategoria: this.arrayNecessaryData[0].indexOf('Category'),
                   iMarca: this.arrayNecessaryData[0].indexOf('Brand'),
-                  iModelo: this.arrayNecessaryData[0].indexOf('Model'),
-                  iDetalles: this.arrayNecessaryData[0].indexOf('Product Details'),
                   iDescripcion: this.arrayNecessaryData[0].indexOf('Description'),
                   iMetaTitulo: this.arrayNecessaryData[0].indexOf('Meta Title'),
                   iMetaDescripcion: this.arrayNecessaryData[0].indexOf('Meta Description'),
@@ -528,8 +526,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   iNombreProd: this.arrayNecessaryData[0].indexOf('Nombre del producto'),
                   iCategoria: this.arrayNecessaryData[0].indexOf('Categoria'),
                   iMarca: this.arrayNecessaryData[0].indexOf('Marca'),
-                  iModelo: this.arrayNecessaryData[0].indexOf('Modelo'),
-                  iDetalles: this.arrayNecessaryData[0].indexOf('Detalles'),
                   iDescripcion: this.arrayNecessaryData[0].indexOf('Descripcion'),
                   iMetaTitulo: this.arrayNecessaryData[0].indexOf('Meta Titulo'),
                   iMetaDescripcion: this.arrayNecessaryData[0].indexOf('Meta Descripcion'),
@@ -570,8 +566,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                     iNombreProd: this.arrayNecessaryData[0].indexOf('Nom du produit'),
                     iCategoria: this.arrayNecessaryData[0].indexOf('Catégorie'),
                     iMarca: this.arrayNecessaryData[0].indexOf('Marque'),
-                    iModelo: this.arrayNecessaryData[0].indexOf('Modèle'),
-                    iDetalles: this.arrayNecessaryData[0].indexOf('Détails'),
                     iDescripcion: this.arrayNecessaryData[0].indexOf('Description'),
                     iMetaTitulo: this.arrayNecessaryData[0].indexOf('Meta Titulo'),
                     iMetaDescripcion: this.arrayNecessaryData[0].indexOf('Description de la méta'),
@@ -614,8 +608,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   iNombreProd: this.arrayNecessaryData[0].indexOf('Product Name'),
                   iCategoria: this.arrayNecessaryData[0].indexOf('Category'),
                   iMarca: this.arrayNecessaryData[0].indexOf('Brand'),
-                  iModelo: this.arrayNecessaryData[0].indexOf('Model'),
-                  iDetalles: this.arrayNecessaryData[0].indexOf('Product Details'),
                   iDescripcion: this.arrayNecessaryData[0].indexOf('Description'),
                   iMetaTitulo: this.arrayNecessaryData[0].indexOf('Meta Title'),
                   iMetaDescripcion: this.arrayNecessaryData[0].indexOf('Meta Description'),
@@ -655,8 +647,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   iNombreProd: this.arrayNecessaryData[0].indexOf('Nombre del producto'),
                   iCategoria: this.arrayNecessaryData[0].indexOf('Categoria'),
                   iMarca: this.arrayNecessaryData[0].indexOf('Marca'),
-                  iModelo: this.arrayNecessaryData[0].indexOf('Modelo'),
-                  iDetalles: this.arrayNecessaryData[0].indexOf('Detalles'),
                   iDescripcion: this.arrayNecessaryData[0].indexOf('Descripcion'),
                   iMetaTitulo: this.arrayNecessaryData[0].indexOf('Meta Titulo'),
                   iMetaDescripcion: this.arrayNecessaryData[0].indexOf('Meta Descripcion'),
@@ -697,8 +687,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                     iNombreProd: this.arrayNecessaryData[0].indexOf('Nom du produit'),
                     iCategoria: this.arrayNecessaryData[0].indexOf('Catégorie'),
                     iMarca: this.arrayNecessaryData[0].indexOf('Marque'),
-                    iModelo: this.arrayNecessaryData[0].indexOf('Modèle'),
-                    iDetalles: this.arrayNecessaryData[0].indexOf('Détails'),
                     iDescripcion: this.arrayNecessaryData[0].indexOf('Description'),
                     iMetaTitulo: this.arrayNecessaryData[0].indexOf('Meta Titulo'),
                     iMetaDescripcion: this.arrayNecessaryData[0].indexOf('Description de la méta'),
@@ -1005,23 +993,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   fila: row,
                   positionRowPrincipal: i,
                   dato: j === iVal.iPalabrasClave ? 'KeyWords' : null
-                };
-                this.listLog.push(itemLog);
-                errorInCell = true;
-              }
-            } else if (j === iVal.iModelo || j === iVal.iDetalles) {
-              const limitChars = this.validFormat(res[i][j], 'formatlimitChars');
-              if (!limitChars && limitChars === false) {
-                this.countErrors += 1;
-                const row = i + 1, column = j + 1;
-                const itemLog = {
-                  row: this.arrayInformation.length,
-                  column: j,
-                  type: 'invalidFormat',
-                  columna: column,
-                  fila: row,
-                  positionRowPrincipal: i,
-                  dato: j === iVal.iModelo ? 'Model' : j === iVal.iDetalles ? 'Details' : null
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
@@ -1338,8 +1309,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       Name: res[i][iVal.iNombreProd] ? res[i][iVal.iNombreProd].trim() : null,
       Category: res[i][iVal.iCategoria] ? res[i][iVal.iCategoria].trim() : null,
       Brand: res[i][iVal.iMarca] ? res[i][iVal.iMarca].trim() : null,
-      Model: res[i][iVal.iModelo] ? res[i][iVal.iModelo].trim() : null,
-      Details: res[i][iVal.iDetalles] ? res[i][iVal.iDetalles].trim() : null,
       Description: res[i][iVal.iDescripcion] ? res[i][iVal.iDescripcion].trim().replace(regex, '\'') : null,
       MetaTitle: res[i][iVal.iMetaTitulo] ? res[i][iVal.iMetaTitulo].trim() : null,
       // MetaTitle: null,
@@ -1387,8 +1356,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           k !== iVal.iNombreProd &&
           k !== iVal.iCategoria &&
           k !== iVal.iMarca &&
-          k !== iVal.iModelo &&
-          k !== iVal.iDetalles &&
           k !== iVal.iDescripcion &&
           k !== iVal.iMetaTitulo &&
           k !== iVal.iMetaDescripcion &&
@@ -1453,14 +1420,11 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
         if (newObjectForSend.Name) {
           if (element.Id === parseFloat(newObjectForSend.Category)) {
             // newObjectForSend.Category = element.Name;
-            if (newObjectForSend.Name.match(newObjectForSend.Brand) && newObjectForSend.Name.match(newObjectForSend.Model)) {
+            if (newObjectForSend.Name.match(newObjectForSend.Brand)) {
               newObjectForSend.MetaTitle = '##ProductName## - Compras por Internet ##site##';
               newObjectForSend.MetaDescription = 'Compra por Internet ##ProductName##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + element.Name;
             } else if (newObjectForSend.Name.match(newObjectForSend.Brand)) {
               newObjectForSend.MetaTitle = '##ProductName####ProductModel## - Compras por Internet ##site##';
-              newObjectForSend.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + element.Name;
-            } else if (newObjectForSend.Name.match(newObjectForSend.Model)) {
-              newObjectForSend.MetaTitle = '##ProductName####BrandName## - Compras por Internet ##site##';
               newObjectForSend.MetaDescription = 'Compra por Internet ##ProductName## ##ProductModel##. ##site## tienda Online de Colombia con lo mejor de ##BrandName## en ' + element.Name;
             } else {
               newObjectForSend.MetaTitle = '##ProductName####ProductModel####BrandName## - Compras por Internet ##site##';
@@ -1530,8 +1494,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       Name: res[index][iVal.iNombreProd],
       Category: res[index][iVal.iCategoria],
       Brand: res[index][iVal.iMarca],
-      Model: res[index][iVal.iModelo],
-      Details: res[index][iVal.iDetalles],
       Description: res[index][iVal.iDescripcion],
       MetaTitle: res[index][iVal.iMetaTitulo],
       MetaDescription: res[index][iVal.iMetaDescripcion],
@@ -1598,8 +1560,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       this.arrayInformation[index].errorName = false;
       this.arrayInformation[index].errorCategory = false;
       this.arrayInformation[index].errorBrand = false;
-      this.arrayInformation[index].errorModel = false;
-      this.arrayInformation[index].errorDetails = false;
       this.arrayInformation[index].errorDescription = false;
       this.arrayInformation[index].errorMetaTitle = false;
       this.arrayInformation[index].errorMetaDescription = false;
@@ -2179,8 +2139,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
         'Nombre del producto': undefined,
         'Categoria': undefined,
         'Marca': undefined,
-        'Modelo': undefined,
-        'Detalles': undefined,
         'Descripcion': undefined,
         'Palabras Clave': undefined,
         'Alto del empaque': undefined,
@@ -2213,8 +2171,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
         'Product Name': undefined,
         'Category': undefined,
         'Brand': undefined,
-        'Model': undefined,
-        'Product Details': undefined,
         'Description': undefined,
         'Keywords': undefined,
         'Package Height': undefined,
@@ -2246,8 +2202,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
         'Nom du produit': undefined,
         'Catégorie': undefined,
         'Marque': undefined,
-        'Modèle': undefined,
-        'Détails': undefined,
         'Description': undefined,
         'Mots-clés': undefined,
         'Hauteur de l\'emballage': undefined,
@@ -2298,8 +2252,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           'Nombre del producto': undefined,
           'Categoria': undefined,
           'Marca': undefined,
-          'Modelo': undefined,
-          'Detalles': undefined,
           'Descripcion': undefined,
           'Palabras Clave': undefined,
           'Talla': undefined,
@@ -2337,8 +2289,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           'Product Name': undefined,
           'Category': undefined,
           'Brand': undefined,
-          'Model': undefined,
-          'Product Details': undefined,
           'Description': undefined,
           'Keywords': undefined,
           'Size': undefined,
@@ -2376,8 +2326,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           'Nom du produit': undefined,
           'Catégorie': undefined,
           'Marque': undefined,
-          'Modèle': undefined,
-          'Détails': undefined,
           'Description': undefined,
           'Mots-clés': undefined,
           'Taille': undefined,
@@ -2417,8 +2365,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           'Nombre del producto': undefined,
           'Categoria': undefined,
           'Marca': undefined,
-          'Modelo': undefined,
-          'Detalles': undefined,
           'Descripcion': undefined,
           'Palabras Clave': undefined,
           'Talla': undefined,
@@ -2455,8 +2401,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           'Product Name': undefined,
           'Category': undefined,
           'Brand': undefined,
-          'Model': undefined,
-          'Product Details': undefined,
           'Description': undefined,
           'Keywords': undefined,
           'Size': undefined,
@@ -2494,8 +2438,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           'Nom du produit': undefined,
           'Catégorie': undefined,
           'Marque': undefined,
-          'Modèle': undefined,
-          'Détails': undefined,
           'Description': undefined,
           'Mots-clés': undefined,
           'Taille': undefined,

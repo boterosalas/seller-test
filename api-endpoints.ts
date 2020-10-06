@@ -224,7 +224,9 @@ export const endpoints = {
       // enviar array de archivos para ser procesados y guardados
       setMassiveBillOrderAsync: 'https://blmce0zwq7.execute-api.us-east-1.amazonaws.com/orders-bill/setmassivebillorderasync',
       // consultar status de carga masiva de facturas
-      getstatussetmassivebilling: 'https://blmce0zwq7.execute-api.us-east-1.amazonaws.com/orders-bill/getstatussetmassivebilling'
+      getstatussetmassivebilling: 'https://blmce0zwq7.execute-api.us-east-1.amazonaws.com/orders-bill/getstatussetmassivebilling',
+      // enviar por correo un reporte con los errores en vtex
+      reportErrorsVtex: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/reportfailsendvtex/{params}',
     },
   },
   // Endpoints production
@@ -446,7 +448,9 @@ export const endpoints = {
       // enviar array de archivos para ser procesados y guardados
       setMassiveBillOrderAsync: 'https://t4xxi6ge3e.execute-api.us-east-1.amazonaws.com/orders-bill-pdn/setmassivebillorderasync',
       // consultar status de carga masiva de facturas
-      getstatussetmassivebilling: 'https://t4xxi6ge3e.execute-api.us-east-1.amazonaws.com/orders-bill-pdn/getstatussetmassivebilling'
+      getstatussetmassivebilling: 'https://t4xxi6ge3e.execute-api.us-east-1.amazonaws.com/orders-bill-pdn/getstatussetmassivebilling',
+      // enviar por correo un reporte con los errores en vtex
+      reportErrorsVtex: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/reportfailsendvtex/{params}',
     }
   }
 };
