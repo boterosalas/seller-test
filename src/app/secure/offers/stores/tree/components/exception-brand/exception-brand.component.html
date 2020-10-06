@@ -15,7 +15,7 @@
     <div class="example-container">
       <table mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="Type">
-          <th mat-header-cell *matHeaderCellDef> Tipo excepción </th>
+          <th mat-header-cell *matHeaderCellDef> {{'secure.parametize.commission.type-exception' | translate}} </th>
           <td mat-cell *matCellDef="let element"> {{element.TypeName}} </td>
         </ng-container>
 
@@ -67,7 +67,7 @@
   <div class="orders-no-data" *ngIf="showMessageNoData">
     <mat-icon class="icon-not-found" color="primary">info</mat-icon>
     <div>
-      <p>La tienda seleccionada no posee excepción por comisión. Añade una excepción o busca otra tienda.</p>
+      <p>{{'secure.parametize.commission.not-foun-data-exception' | translate}}</p>
     </div>
   </div>
 
@@ -76,7 +76,7 @@
     <div class="full-width">
       <form [formGroup]="typeForm" class="full-width justify-content-center dis-flex">
         <mat-form-field class="half-width" [ngClass]="{disabledDiv: disableInputType}">
-          <mat-label>Tipo de excepción</mat-label>
+          <mat-label>{{'secure.parametize.commission.type-exception' | translate}}</mat-label>
           <mat-select formControlName="type" [(ngModel)]="typeValue" (change)="disableType()">
             <mat-option *ngFor="let type of typeException" value="{{type.value}}">
               {{type.name}}
@@ -130,8 +130,7 @@
             <input matInput type="datetime-local"
               [placeholder]="'secure.dashboard.seller-rating.date_issued_initial_filter' | translate"
               autocomplete="false" formControlName="InitialDate" (change)="minorDate()">
-            <mat-error *ngIf="form.get('InitialDate').hasError('minorDate')">La fecha inicial no debe ser menor a la
-              actual.
+            <mat-error *ngIf="form.get('InitialDate').hasError('minorDate')">{{'secure.parametize.commission.error-date-1' | translate}}
             </mat-error>
           </mat-form-field>
 
@@ -143,7 +142,7 @@
               {{'secure.products.create_product_unit.list_products.ending_date' | translate}}
             </mat-error>
             <mat-error *ngIf="form.get('FinalDate').hasError('required')">
-              La fecha Inicial debe ser obligatoria.
+              {{'secure.parametize.commission.date-init-required' | translate}}
             </mat-error>
           </mat-form-field>
 
@@ -170,7 +169,7 @@
     <ng-container *ngIf="selectedBrands.length > 0">
       <table mat-table [dataSource]="selectedBrandsSources">
         <ng-container matColumnDef="Brand">
-          <th mat-header-cell *matHeaderCellDef> Excepción </th>
+          <th mat-header-cell *matHeaderCellDef> {{'secure.parametize.commission.exception' | translate}} </th>
           <td mat-cell *matCellDef="let element">
             <span *ngIf="element.Brand">
               {{element.Brand}}

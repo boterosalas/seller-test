@@ -1135,6 +1135,13 @@
     "secure.parametize.commission.message": "Estás seguro que deseas eliminar esta excepción",
     "secure.parametize.commission.edit": "Editar excepción",
     "secure.parametize.commission.addTariffs": "Agregar excepción",
+    "secure.parametize.commission.type-exception": "Tipo excepción",
+    "secure.parametize.commission.error-date-1": "La fecha inicial no debe ser menor a la actual",
+    "secure.parametize.commission.exception": "Excepción",
+    "secure.parametize.commission.date-time-1": "Fecha y hora inicial",
+    "secure.parametize.commission.date-time-2": "Fecha y hora final",
+    "secure.parametize.commission.not-foun-data-exception": "La tienda seleccionada no posee excepción por comisión. Añade una excepción o busca otra tienda.",
+    "secure.parametize.commission.date-init-required": "La fecha Inicial debe ser obligatoria.",
 
     "secure.parametize.dialogAddSpecs.modal_title": "Agregar especificaciones",
     "secure.parametize.dialogAddSpecs.modal_text_1": "Ingresa un nombre para la especificación y selecciona si esta es obligatoria u opcional para proceder. Debes determinar si esta especificación será de ingreso de texto o estará restringida a una lista desplegable.",
