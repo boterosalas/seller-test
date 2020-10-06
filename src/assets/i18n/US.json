@@ -1360,6 +1360,7 @@
     "secure.orders.bulk.billing.it_have_files_upload": "It does not have files to upload",
     "secure.orders.bulk.billing.duplicate_name": "You've uploaded Files with the same name",
     "secure.orders.bulk.billing.name_filter_billing": "Billing Filter",
-    "secure.orders.bulk.billing.maximum_All_file_size": "Files should not exceed 7 MB."
-
+    "secure.orders.bulk.billing.maximum_All_file_size": "Files should not exceed 7 MB.",
+    "secure.orders.bulk.billing.size_file": "File size: ",
+    "secure.orders.bulk.billing.size_file_MB": "MB"
 }

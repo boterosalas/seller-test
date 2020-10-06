@@ -1345,6 +1345,7 @@
     "secure.orders.bulk.billing.it_have_files_upload": "Liste des factures à charge",
     "secure.orders.bulk.billing.duplicate_name": "Vous avez des fichiers téléchargés avec le même nom",
     "secure.orders.bulk.billing.name_filter_billing": "Filtre de Facturation",
-    "secure.orders.bulk.billing.maximum_All_file_size": "Les fichiers ne doivent pas dépasser 7 MO."
-
+    "secure.orders.bulk.billing.maximum_All_file_size": "Les fichiers ne doivent pas dépasser 7 MO.",
+    "secure.orders.bulk.billing.size_file": "Taille du fichier: ",
+    "secure.orders.bulk.billing.size_file_MB": "MO"
 }
