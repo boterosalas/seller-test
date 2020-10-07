@@ -8,7 +8,7 @@
     <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column">
       <mat-form-field class="name-product field">
         <input matInput [placeholder]="'secure.products.create_product_unit.list_products.product_name' | translate" class="input-name-product" formControlName="Name"
-          (change)="detectForm()" id="nameProduct" autofocus required>
+          (change)="detectForm()" id="nameProduct" maxlength="120" autofocus required>
         <mat-error *ngIf="formBasicInfo.get('Name').hasError('pattern')">{{'secure.products.create_product_unit.basic_information.format_invalidate' | translate}}</mat-error>
         <mat-error *ngIf="formBasicInfo.get('Name').hasError('required')">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
       </mat-form-field>
@@ -196,7 +196,6 @@
     </ng-container>
 
     <div style="flex-wrap: wrap; display: flex;">
-
         <mat-chip-list>
             <mat-chip
             *ngFor="let ean of combos; let i = index"
@@ -207,26 +206,7 @@
         </mat-chip-list>
     </div>
     <mat-divider></mat-divider>
-
   </form>
-
-  <!-- FORM KEYWORD-->
-  <!-- <form [formGroup]="formKeyword" (ngSubmit)="saveKeyword()" class="form-keyword">
-  
-  </form> -->
-  <!-- <div style="flex-wrap: wrap; display: flex;">
-    <div *ngFor="let key of keywords; let i = index">
-      <span>
-        {{key}}
-      </span>
-      <button mat-icon-button (click)="deleteKeywork(i)">
-        <mat-icon class="material-icons">
-          close
-        </mat-icon>
-      </button>
-    </div>
-  </div>
-  <mat-divider></mat-divider> -->
 
   <!-- BUTTON TO ADD SONS -->
   <div  fxLayout="row" fxLayoutAlign="space-between center" *ngIf="productData.ProductType === 'Clothing'"
