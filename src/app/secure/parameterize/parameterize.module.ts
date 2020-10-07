@@ -22,6 +22,7 @@ import { ExceptionComponent } from './exception/exception.component';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
 import { ExceptionBrandComponent } from '../offers/stores/tree/components/exception-brand/exception-brand.component';
 import { StoresModule } from '../offers';
+import { ModalResultLoadExceptionComponent } from './exception/modal-result-load-exception/modal-result-load-exception.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { StoresModule } from '../offers';
     PortComponent,
     ModalPortComponent,
     ExceptionComponent,
-    ExceptionBrandComponent
+    ExceptionBrandComponent,
+    ModalResultLoadExceptionComponent
   ],
   imports: [
     CommonModule,
@@ -63,7 +65,8 @@ import { StoresModule } from '../offers';
     DeleteDialogSpecsComponent,
     DialogWithFormComponent,
     CreateProcessDialogComponent,
-    ModalPortComponent
+    ModalPortComponent,
+    ModalResultLoadExceptionComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

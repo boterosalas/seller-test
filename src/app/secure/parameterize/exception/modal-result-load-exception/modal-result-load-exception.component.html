@@ -1,0 +1,30 @@
+<div *ngIf="data">
+  <div fxLayout="row wrap">
+    <div fxFlex="80" style="font-size: 16px; text-align: left;">
+      <strong>Carga masiva de comisiones</strong> (<span style="color: #818186;font-size: 13px">{{data.fileName}}</span>)
+    </div>
+    <div fxFlex="20" style="text-align: right;">
+      <mat-icon>close</mat-icon>
+    </div>
+  </div>
+  <div fxLayout="row wrap">
+    <div fxFlex="40">
+      <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="gappx">
+        <div>{{data.countErrors}} Errores detectados</div>
+        <div>2</div>
+      </div>
+    </div>
+  </div>
+  <!-- <div></div>
+  <div fxLayout="row ">
+    <div fxFlex="40">
+      <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="gappx">
+        <div>1</div>
+        <div style="font-size: 13px;">{{'secure.products.table_errors_product.selected_file' | translate}}: <strong>{{data.fileName}}</strong></div>
+      </div>
+      <div></div>
+    </div>
+    <div fxFlex="60">2</div>
+  </div>
+  <div></div> -->
+</div>

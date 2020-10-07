@@ -54,19 +54,6 @@
             <p class="sc-text-normal">{{element.Name}}</p>
           </mat-cell>
         </ng-container>
-        <!-- <ng-container matColumnDef="collection_center">
-          <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
-            *matHeaderCellDef>
-            <span class="title-table-header">{{'secure.parametize.port.country' | translate}}</span>
-          </mat-header-cell>
-          <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
-            fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
-            *matCellDef="let element">
-            <div></div>
-            <p class="sc-text-normal cup-text-country">{{element.CountryString}}</p>
-          </mat-cell>
-        </ng-container> -->
         <ng-container matColumnDef="address">
           <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
             fxFlex.lg="40" fxFlex.sm="40" fxFlex.md="40" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
@@ -87,7 +74,6 @@
                 <span *ngIf="!element.CountryIso2" class="color-text-empty">(No tiene)</span>
               </span>
               <span *ngIf="!element.CountryName" class="color-text-empty">, (No tiene País)</span>
-
             </p>
           </mat-cell>
         </ng-container>

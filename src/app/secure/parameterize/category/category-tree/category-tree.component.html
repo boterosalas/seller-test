@@ -17,7 +17,7 @@
                 <mat-icon id="btn-add-category" [ngClass]="(isDisabled === false) ? 'disabled' : 'enabled'" [matTooltip]="'secure.parametize.category.category_tree.tooltip_add_son' | translate">control_point</mat-icon>
             </div>
             <div id="category" [ngClass]="(category.Show && category.Son.length > 0) ? 'txtCategory--selected': 'container-name'" (click)="eventName(category)" class="row__name row__btn">
-             {{category.Id}} - {{category.Name}}
+             <span *ngIf="category.Id">{{category.Id}} -</span> {{category.Name}}
             </div>
           </div>
             <ng-container *ngIf="category.Son.length > 0  && category.Show">
