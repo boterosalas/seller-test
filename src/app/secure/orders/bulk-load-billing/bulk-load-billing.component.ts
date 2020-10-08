@@ -79,9 +79,7 @@ export class BulkLoadBillingComponent implements OnInit {
   async uploadFiles() {
     this.arrayListFilesBase64Name = [];
     this.loadingService.viewSpinner();
-    console.log('this.arrayFilesBase64: ', this.arrayFilesBase64);
     this.arrayFilesBase64 = await this.getBase64(this.filesValidate).then(res => {
-      console.log('res: ', res);
       setTimeout(() => {
         this.bulkLoadBillingService.sendBulkLoadBilling(res).subscribe((results: any) => {
           if (results) {
@@ -178,7 +176,6 @@ export class BulkLoadBillingComponent implements OnInit {
     this.calculateCount();
     this.validateErrors();
     this.files = [];
-    console.log('this.countSizeFile: ', this.countSizeFile);
   }
 
   /**
@@ -226,7 +223,6 @@ export class BulkLoadBillingComponent implements OnInit {
     }
     this.filesValidate.splice(index, 1);
     this.validateErrors();
-    console.log('this.countSizeFile: ', this.countSizeFile);
   }
   /**
    * funcion para mostrar/ocultar las recomendaciones
