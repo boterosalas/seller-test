@@ -129,7 +129,7 @@
               class="bulk-load-billing-component-text-transform-uppercase">{{'filters.clear' | translate}}</button>
               <div fxLayout="row" fxLayoutAlign="space-between center">
                 <p *ngIf="countSizeFile > 0" class="marginLabelSize">
-                  {{'secure.orders.bulk.billing.size_file' | translate}}{{countSizeFile}}{{'secure.orders.bulk.billing.size_file_MB' | translate}}
+                  {{'secure.orders.bulk.billing.size_file' | translate}}{{countSizeFile | number: '1.1-3'}}{{'secure.orders.bulk.billing.size_file_MB' | translate}}
                 </p>
                 <button mat-button (click)="saveFile()" [disabled]="invalidsFile || allFileError" cdkFocusInitial mat-raised-button
                 color="primary">{{'actions.save' | translate}}</button>
