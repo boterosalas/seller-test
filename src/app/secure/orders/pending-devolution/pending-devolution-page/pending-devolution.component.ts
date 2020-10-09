@@ -97,13 +97,13 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
   public reasonRejection: Array<ListReasonRejectionResponseEntity>;
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
-    title: 'secure.orders.orders',
-    subtitle: 'menu.Solicitudes pendientes',
+    title: 'menu.Devoluciones',
+    subtitle: 'secure.orders.list-cancels.tab1',
     btn_title: 'secure.orders.filter.title_filter',
     title_for_search: 'secure.orders.filter.title_filter',
     type_form: 'pending-devolution',
     information: {
-      reversionRequestStatusId: Const.StatusPendingDevolution
+      reversionRequestStatusId: Const.StatusPendingCancels
     },
     count: ''
   };
@@ -314,7 +314,7 @@ changeLanguage() {
       'dateOrderInitial': this.dateOrderInitial,
       'orderNumber': this.orderNumber,
       'identificationCard': this.identificationCard,
-      'reversionRequestStatusId': Const.StatusPendingDevolution
+      'reversionRequestStatusId': Const.StatusPendingCancels
     };
     return paramsArray;
   }
@@ -332,11 +332,6 @@ changeLanguage() {
         this.arrayPosition = [];
         this.arrayPosition.push('{}');
       }
-
-      // if (res.paginationTokens.length > 0) {
-      //   this.arrayPosition = [];
-      //   this.arrayPosition = res.paginationTokens;
-      // }
       this.dataSource = new MatTableDataSource(res.viewModel);
       this.savePaginationToken(res.paginationToken);
     } else {
@@ -383,8 +378,6 @@ changeLanguage() {
     if (event.paginator.pageSize !== this.pageSize) {
       this.pageSize = event.paginator.pageSize;
       if (this.arrayPosition && this.arrayPosition.length > 0) {
-        // this.querySearch = '&currentPage=' + this.arrayPosition.length + '&newLimit=' + this.pageSize;
-        // this.pageIndexChange = this.arrayPosition.length - 1;
         this.arrayPosition = [];
         this.isClear = true;
       }

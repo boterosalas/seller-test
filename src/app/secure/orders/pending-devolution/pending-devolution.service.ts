@@ -32,6 +32,7 @@ export class PendingDevolutionService {
   // }
 
   getOrders(params: any): Observable<[{}]> {
+    console.log(1, params);
     let filter = params.limit + `&reversionRequestStatusId=${params.reversionRequestStatusId}` ;
     if (params) {
       if ( params.dateOrderInitial && params.dateOrderInitial !== '') {
@@ -53,7 +54,7 @@ export class PendingDevolutionService {
     }
     return new Observable(observer => {
       // pendingDevolutionSearchTemporal
-      this.http.get(this.api.get('pendingDevolutionSearchTemporal', [filter])).subscribe((data: any) => {
+      this.http.get(this.api.get('pendingDevolution', [filter])).subscribe((data: any) => {
         observer.next(data);
       }, errorMessage => {
         observer.error(errorMessage);

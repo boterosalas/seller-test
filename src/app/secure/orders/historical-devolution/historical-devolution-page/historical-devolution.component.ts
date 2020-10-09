@@ -81,7 +81,7 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
 
   // Configuración para el toolbar-options y el search del componente
   public informationToForm: SearchFormEntity = {
-    title: 'module.Órdenes',
+    title: 'menu.Devoluciones',
     subtitle: 'menu.Historico de devoluciones',
     btn_title: 'secure.orders.historical_devolutions.filter.title_filter',
     title_for_search: 'secure.orders.historical_devolutions.filter.title_filter',

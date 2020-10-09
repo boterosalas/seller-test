@@ -11,6 +11,7 @@ import { HistoricalDevolutionModule } from '..';
 import { HistoricalDevolutionComponent } from '../historical-devolution/historical-devolution-page/historical-devolution.component';
 import { InValidationComponent } from '../in-validation/in-validation-page/in-validation.component';
 import { InValidationModule } from '../in-validation/in-validation.module';
+import { PendingDevolutionModule } from '../pending-devolution/pending-devolution.module';
 import { ListCancelsOrdersComponent } from './list-cancels-orders.component';
 import { ListCancelOrderRoutingModule } from './list-cancels-orders.routing';
 
@@ -27,7 +28,8 @@ import { ListCancelOrderRoutingModule } from './list-cancels-orders.routing';
         TranslateModule,
         MatTabsModule,
         HistoricalDevolutionModule,
-        InValidationModule
+        InValidationModule,
+        PendingDevolutionModule
     ],
     declarations: [
         ListCancelsOrdersComponent,
