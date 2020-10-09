@@ -6,16 +6,6 @@
         [Typeprofile]="3" [limitPaginate]="[10,50,100]" [showContainerDetail]="true">
       </app-toolbar-search-pagination>
     </div>
-    <div class="warningFile">
-      <h4>
-        <mat-icon color="warn">warning</mat-icon>
-        {{'secure.orders.bulk.billing.maximum_All_file_size' | translate}}
-        <mat-icon color="warn">
-          warning
-        </mat-icon>
-      </h4>
-
-    </div>
     <div fxLayout="row" class="bulk-load-billing-component-container-width-100"></div>
     <div fxFlex="50" fxFlex.xs="100%" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
       <div class="bulk-load-billing-component-load-file-container bulk-load-billing-component-margin-top-15"
@@ -100,10 +90,6 @@
           </div>
           <div *ngIf="showShowRecommendationsContainer">
             <div class="bulk-load-billing-component-margin-left-28"><span
-              class="bulk-load-billing-component-asteric-recommnedation-color"><strong>*
-              </strong></span><strong>{{'secure.orders.bulk.billing.maximum_All_file_size'| translate}}
-            </strong></div>
-            <div class="bulk-load-billing-component-margin-left-28"><span
                 class="bulk-load-billing-component-asteric-recommnedation-color"><strong>*
                 </strong></span>{{'secure.orders.bulk.billing.allowed_format'| translate}}
               <strong>PDF</strong></div>
@@ -111,6 +97,10 @@
                 class="bulk-load-billing-component-asteric-recommnedation-color"><strong>*
                 </strong></span>{{'secure.orders.bulk.billing.maximum_file_size_megabytes'| translate}} <strong>3
                 {{'secure.orders.bulk.billing.megabytes' | translate}}</strong></div>
+            <div class="bulk-load-billing-component-margin-left-28"><span
+                class="bulk-load-billing-component-asteric-recommnedation-color"><strong>*
+                </strong></span><strong>{{'secure.orders.bulk.billing.maximum_All_file_size'| translate}}
+              </strong></div>
             <div class="bulk-load-billing-component-margin-left-28"><span
                 class="bulk-load-billing-component-asteric-recommnedation-color"><strong>*
                 </strong></span>{{'secure.orders.bulk.billing.name_file_invoice_invoice_number' | translate}} </div>
