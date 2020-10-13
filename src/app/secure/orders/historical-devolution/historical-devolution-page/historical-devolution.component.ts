@@ -160,7 +160,6 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
   getAdminHistoric() {
     this.searchSubscriptionHistoric = this.eventsSeller.eventSearchSellerHistoric
       .subscribe((seller: StoreModel) => {
-        console.log(18, seller);
         this.changeLanguage();
         this.idSeller = seller.IdSeller;
         const paramsArray = {
@@ -211,11 +210,8 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
   //     $event.lengthOrder = 100;
   //   }
   public getOrdersList(params: any): void {
-    console.log('params: ', params);
     const filter = this.filterParamsHistoricoDevoluciones;
-
     let stringSearch;
-
     if (filter && !_.isEmpty(filter)) {
       stringSearch = this.setParameters(params);
       // stringSearch += `paginationToken=${encodeURI(this.paginationToken)}`;
@@ -230,12 +226,9 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
     } else {
       stringSearch = `limit=${50}&paginationToken=${encodeURI(this.paginationToken)}&idSeller=${this.idSeller}&reversionRequestStatusId=${Const.StatusHistoricDevolution}`;
     }
-
-    console.log('string: ', stringSearch);
     this.__loadingService.viewSpinner();
     this.__historicalService.getHistorical(stringSearch)
       .subscribe(data => {
-        console.log('data: ', data);
         // guardo el filtro actual para la paginación.
         // this.currentEventPaginate = $event;
         if (data && data['count'] > 0) {
@@ -243,9 +236,7 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
           this.orderListLength = false;
           this.savePaginationToken(data['paginationToken']);
           this.numberElements = this.dataSource.data.length;
-          console.log(this.numberElements);
           if (params && params.callOne) {
-            console.log('entra aqui call one');
             this.lengthOrder = data['count'];
             this.isClear = true;
           }
@@ -258,7 +249,6 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
           this.__loadingService.closeSpinner();
         }
         this.dataSource.sort = this.sort;
-        console.log(this.dataSource, this.sort);
 
         // this.orderListLength = isEmpty(data) ? true : false;
         // Creo el elemento que permite pintar la tabla
@@ -278,7 +268,6 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
   }
 
   setParameters(params: any) {
-    console.log('params: ', params);
     if (params && params.callOne) {
       this.paginationToken = '{}';
       this.arrayPosition = [];

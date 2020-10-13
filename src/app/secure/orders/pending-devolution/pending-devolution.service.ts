@@ -32,7 +32,6 @@ export class PendingDevolutionService {
   // }
 
   getOrders(params: any): Observable<[{}]> {
-    console.log(1, params);
     let filter = params.limit + `&reversionRequestStatusId=${params.reversionRequestStatusId}` ;
     if (params) {
       if ( params.dateOrderInitial && params.dateOrderInitial !== '') {

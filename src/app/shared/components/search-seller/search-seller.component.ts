@@ -171,14 +171,11 @@ export class SearchSellerComponent implements OnInit, OnChanges {
      * @memberof SearchStoreComponent
      */
     public viewStoreInformation(search_seller: StoreModel) {
-        console.log(0, search_seller);
         // llamo el eventEmitter que se emplea para notificar cuando una tienda ha sido consultada
         if (this.emitModal) {
-            console.log(66);
             this.eventsSellerModal.searchSellerModal(search_seller);
         } else {
             this.eventsSeller.searchSeller(search_seller);
-            console.log(99);
             this.eventSearchSellerHistoric.searchSellerHistoric(search_seller);
         }
 

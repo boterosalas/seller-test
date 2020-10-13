@@ -275,12 +275,10 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
 
 
   getOrdersList(params?: any) {
-    console.log('params 1: ', params);
     this.loadingService.viewSpinner();
     this.isClear = false;
     this.params = this.setParameters(params);
     this.pendingDevolutionService.getOrders(this.params).subscribe((res: any) => {
-      console.log('res_: ', res);
       if (res && res.count > 0) {
         this.setTable(res);
         this.orderListLength = false;
@@ -300,7 +298,6 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
   }
 
   setParameters(params: any) {
-    console.log('params: ', params);
     if (params && params.callOne) {
       this.paginationToken = '{}';
       this.arrayPosition = [];

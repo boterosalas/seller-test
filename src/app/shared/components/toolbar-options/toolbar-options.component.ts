@@ -272,7 +272,6 @@ export class ToolbarOptionsComponent implements OnInit {
    * @memberof SearchStoreComponent
    */
   public viewStoreInformation(search_seller: StoreModel) {
-    console.log('event toolbar: ', search_seller);
     if (this.searchComponent === true) {
       this.eventSearchSellerHistoric.searchSellerHistoric(search_seller);
     } else {

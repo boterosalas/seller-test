@@ -21,7 +21,6 @@ export class EventEmitterSeller {
     }
 
     searchSellerHistoric(seller: any) {
-        console.log('entra qui');
         this.eventSearchSellerHistoric.emit(seller);
     }
 

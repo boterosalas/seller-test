@@ -229,7 +229,6 @@ changeLanguage() {
     const stringSearch = `limit=${$event.lengthOrder}&idSeller=${this.idSeller}&reversionRequestStatusId=${Const.StatusPendingCancels}`;
     this.loadingService.viewSpinner();
     this.inValidationService.getOrders(stringSearch).subscribe((res: any) => {
-      console.log('res: ', res);
       if (res != null) {
         if (res.length === 0) {
           this.orderListLength = true;
