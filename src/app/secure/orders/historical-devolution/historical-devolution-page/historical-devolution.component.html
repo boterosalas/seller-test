@@ -5,9 +5,9 @@
     <div fxFlex="100" class="light-content">
       <!-- Toolbar para los dropdown de filtro de estado para las órdenes -->
       <!-- Toolbar de las opciones para la orden -->
-      <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions [idSeller]="idSeller"
-        (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)"
-        [Typeprofile]="typeProfile">
+      <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions [idSeller]="idSeller" [_lengthOrder]="lengthOrder"
+        (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event); paginations($event)"
+        [Typeprofile]="typeProfile" [searchComponent]="searchHistorical">
       </app-toolbar-options>
       <!-- Toolbar de las opciones para la orden -->
     </div>

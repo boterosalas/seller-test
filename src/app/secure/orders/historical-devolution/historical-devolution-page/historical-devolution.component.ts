@@ -62,7 +62,7 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
 
   public typeProfile: number;
   // Suscriptions vars
-  public searchSubscription: any;
+  public searchSubscriptionHistoric: any;
   // Id del seller
   public idSeller: any;
 
@@ -106,6 +106,17 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
   public filterParamsHistoricoDevoluciones: DataForm;
 
   public paginationToken = '{}';
+  lengthOrder = 0;
+  isClear = false;
+  public arrayPosition = [];
+  dateReversionRequestInitial = '';
+  dateReversionRequestFinal = '';
+  identificationCard = '';
+  orderNumber = '';
+  public pageSize = 50;
+  resolutionDate = '';
+  public params: any;
+  searchHistorical: Boolean = true;
 
   /**
    * Creates an instance of HistoricalDevolutionComponent.
@@ -130,6 +141,7 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.searchHistorical = true;
     this.getDataUser();
     this.changeLanguage();
 
@@ -146,14 +158,20 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
   }
 
   getAdminHistoric() {
-    this.searchSubscription = this.eventsSeller.eventSearchSeller
+    this.searchSubscriptionHistoric = this.eventsSeller.eventSearchSellerHistoric
       .subscribe((seller: StoreModel) => {
-        // this.changeLanguage();
+        console.log(18, seller);
+        this.changeLanguage();
         this.idSeller = seller.IdSeller;
-        if (this.event) {
-          // this.changeLanguage();
-          this.getOrdersList(this.event);
-        }
+        const paramsArray = {
+          'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
+          'callOne': true,
+          'lengthOrder': 50
+        };
+        // if (this.event) {
+        // this.changeLanguage();
+        this.getOrdersList(paramsArray);
+        // }
       });
   }
 
@@ -192,21 +210,23 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
   //   if (!$event) {
   //     $event.lengthOrder = 100;
   //   }
-    public getOrdersList(params: any): void {
+  public getOrdersList(params: any): void {
+    console.log('params: ', params);
     const filter = this.filterParamsHistoricoDevoluciones;
 
-    let stringSearch = '';
+    let stringSearch;
 
     if (filter && !_.isEmpty(filter)) {
-      stringSearch += `paginationToken=${encodeURI(this.paginationToken)}`;
-      stringSearch += `limit=${50}`;
-      stringSearch += `&idSeller=${this.idSeller}`;
-      stringSearch += (filter.reversionRequestStatusId) ? `&reversionRequestStatusId=${filter.reversionRequestStatusId}` : '';
-      stringSearch += (filter.dateReversionRequestInitial) ? `&dateReversionRequestInitial=${filter.dateReversionRequestInitial}` : '';
-      stringSearch += (filter.dateReversionRequestFinal) ? `&dateReversionRequestFinal=${filter.dateReversionRequestFinal}` : '';
-      stringSearch += (filter.orderNumber) ? `&orderNumber=${filter.orderNumber}` : '';
-      stringSearch += (filter.identificationCard) ? `&identificationCard=${filter.identificationCard}` : '';
-      stringSearch += (filter.resolutionDate) ? `&resolutionDate=${filter.resolutionDate}` : '';
+      stringSearch = this.setParameters(params);
+      // stringSearch += `paginationToken=${encodeURI(this.paginationToken)}`;
+      // stringSearch += `limit=${50}`;
+      // stringSearch += `&idSeller=${this.idSeller}`;
+      // stringSearch += (filter.reversionRequestStatusId) ? `&reversionRequestStatusId=${filter.reversionRequestStatusId}` : '';
+      // stringSearch += (filter.dateReversionRequestInitial) ? `&dateReversionRequestInitial=${filter.dateReversionRequestInitial}` : '';
+      // stringSearch += (filter.dateReversionRequestFinal) ? `&dateReversionRequestFinal=${filter.dateReversionRequestFinal}` : '';
+      // stringSearch += (filter.orderNumber) ? `&orderNumber=${filter.orderNumber}` : '';
+      // stringSearch += (filter.identificationCard) ? `&identificationCard=${filter.identificationCard}` : '';
+      // stringSearch += (filter.resolutionDate) ? `&resolutionDate=${filter.resolutionDate}` : '';
     } else {
       stringSearch = `limit=${50}&paginationToken=${encodeURI(this.paginationToken)}&idSeller=${this.idSeller}&reversionRequestStatusId=${Const.StatusHistoricDevolution}`;
     }
@@ -218,17 +238,37 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
         console.log('data: ', data);
         // guardo el filtro actual para la paginación.
         // this.currentEventPaginate = $event;
+        if (data && data['count'] > 0) {
+          this.dataSource = new MatTableDataSource(data['viewModel']);
+          this.orderListLength = false;
+          this.savePaginationToken(data['paginationToken']);
+          this.numberElements = this.dataSource.data.length;
+          console.log(this.numberElements);
+          if (params && params.callOne) {
+            console.log('entra aqui call one');
+            this.lengthOrder = data['count'];
+            this.isClear = true;
+          }
+          this.__loadingService.closeSpinner();
+        } else {
+          this.lengthOrder = 0;
+          this.isClear = true;
+          this.orderListLength = true;
+          this.dataSource = new MatTableDataSource(null);
+          this.__loadingService.closeSpinner();
+        }
+        this.dataSource.sort = this.sort;
+        console.log(this.dataSource, this.sort);
 
-        this.orderListLength = isEmpty(data) ? true : false;
+        // this.orderListLength = isEmpty(data) ? true : false;
         // Creo el elemento que permite pintar la tabla
-        this.dataSource = new MatTableDataSource(data['viewModel']);
 
         // this.paginator.pageIndex = 0;
         // this.dataSource.paginator = $event.paginator;
-        this.dataSource.sort = this.sort;
-        this.numberElements = this.dataSource.data.length;
 
-        this.__loadingService.closeSpinner();
+
+
+        // this.__loadingService.closeSpinner();
       },
         () => {
           this.orderListLength = true;
@@ -237,10 +277,76 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
       );
   }
 
+  setParameters(params: any) {
+    console.log('params: ', params);
+    if (params && params.callOne) {
+      this.paginationToken = '{}';
+      this.arrayPosition = [];
+    }
+    if (params && params.clear) {
+      this.dateReversionRequestInitial = '';
+      this.dateReversionRequestFinal = '';
+      this.orderNumber = '';
+      this.identificationCard = '';
+    }
+    const paramsArray = {
+      'limit': 'limit=' + this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken),
+      'idSeller': this.idSeller,
+      'dateReversionRequestInitial': this.dateReversionRequestInitial,
+      'dateReversionRequestFinal': this.dateReversionRequestFinal,
+      'orderNumber': this.orderNumber,
+      'identificationCard': this.identificationCard,
+      'resolutionDate': this.resolutionDate,
+      'reversionRequestStatusId': Const.StatusHistoricDevolution
+    };
+    return paramsArray;
+  }
+
   savePaginationToken(paginationToken: string) {
     if (paginationToken) {
       this.paginationToken = paginationToken;
     }
+  }
+
+  paginations(event: any) {
+    const index = event.paginator.pageIndex;
+    if (event.paginator.pageSize !== this.pageSize) {
+      this.pageSize = event.paginator.pageSize;
+      if (this.arrayPosition && this.arrayPosition.length > 0) {
+        this.arrayPosition = [];
+        this.isClear = true;
+      }
+    } else {
+      // this.querySearch = '';
+    }
+    if (index === 0) {
+      this.paginationToken = '{}';
+    }
+    const isExistInitial = this.arrayPosition.includes('{}');
+    if (isExistInitial === false) {
+      this.arrayPosition.push('{}');
+    }
+    const isExist = this.arrayPosition.includes(this.paginationToken);
+    if (isExist === false) {
+      this.arrayPosition.push(this.paginationToken);
+    }
+
+    this.paginationToken = this.arrayPosition[index];
+    if (this.paginationToken === undefined) {
+      this.paginationToken = '{}';
+      this.isClear = true;
+    }
+    const params = {
+      'limit': 'limit=' + this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken),
+      'idSeller': this.idSeller,
+      'dateReversionRequestInitial': this.dateReversionRequestInitial,
+      'dateReversionRequestFinal': this.dateReversionRequestFinal,
+      'orderNumber': this.orderNumber,
+      'identificationCard': this.identificationCard,
+      'resolutionDate': this.resolutionDate,
+      'reversionRequestStatusId': Const.StatusHistoricDevolution
+    };
+    this.getOrdersList(params);
   }
 
   /**
@@ -250,8 +356,8 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
    * @memberof HistoricalDevolutionComponent
    */
   changeSizeOrderTable($event: { paginator: MatPaginator, filter: any }): void {
-    this.changePageSizeTable($event);
-    this.dataSource.paginator = $event.paginator;
+    // this.changePageSizeTable($event);
+    // this.dataSource.paginator = $event.paginator;
   }
 
   /**

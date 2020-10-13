@@ -48,12 +48,13 @@ export class ToolbarOptionsComponent implements OnInit {
   // Variable que almacena la configuración para el formulario
   @Input() informationToForm: SearchFormEntity;
   @Input() billingType: boolean;
+  @Input() searchComponent: Boolean = false;
   @Input() downloadPermission: boolean;
   @Input() downloadBillingPay: boolean;
   @Input() set idSeller(value: number) {
-  if (value !== undefined ) {
-    this._idSeller = value;
-  }
+    if (value !== undefined) {
+      this._idSeller = value;
+    }
   }
   @Input() Typeprofile: number;
 
@@ -68,12 +69,12 @@ export class ToolbarOptionsComponent implements OnInit {
   @Input() isFullSearch: boolean;
   // Limite de registros
   lengthOrder = 100;
-  @Input() set _lengthOrder (value: number){
+  @Input() set _lengthOrder(value: number) {
     if (value !== undefined) {
       this.lengthOrder = value;
     }
   }
-  state= undefined;
+  state = undefined;
 
   public user: any;
 
@@ -98,6 +99,7 @@ export class ToolbarOptionsComponent implements OnInit {
     private loadingService: LoadingService,
     public storeService: StoresService,
     public eventsSeller: EventEmitterSeller,
+    public eventSearchSellerHistoric: EventEmitterSeller,
   ) {
     this.textForSearch = new FormControl();
     this.isFullSearch = true;
@@ -270,8 +272,12 @@ export class ToolbarOptionsComponent implements OnInit {
    * @memberof SearchStoreComponent
    */
   public viewStoreInformation(search_seller: StoreModel) {
-    // llamo el eventEmitter que se emplea para notificar cuando una tienda ha sido consultada
-    this.eventsSeller.searchSeller(search_seller);
+    console.log('event toolbar: ', search_seller);
+    if (this.searchComponent === true) {
+      this.eventSearchSellerHistoric.searchSellerHistoric(search_seller);
+    } else {
+      this.eventsSeller.searchSeller(search_seller);
+    }
   }
 
   public filter(val: string): string[] {

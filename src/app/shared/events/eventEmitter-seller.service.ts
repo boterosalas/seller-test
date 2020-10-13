@@ -8,6 +8,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 export class EventEmitterSeller {
 
     eventSearchSeller = new EventEmitter<any>();
+    eventSearchSellerHistoric = new EventEmitter<any>();
     eventSearchSellerModal = new EventEmitter<any>();
 
     /**
@@ -17,6 +18,11 @@ export class EventEmitterSeller {
      */
     searchSeller(seller: any) {
         this.eventSearchSeller.emit(seller);
+    }
+
+    searchSellerHistoric(seller: any) {
+        console.log('entra qui');
+        this.eventSearchSellerHistoric.emit(seller);
     }
 
     searchSellerModal(seller: any) {
