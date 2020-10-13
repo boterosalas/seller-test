@@ -105,6 +105,8 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
 
   public filterParamsHistoricoDevoluciones: DataForm;
 
+  public paginationToken = '{}';
+
   /**
    * Creates an instance of HistoricalDevolutionComponent.
    * @param {AuthService} authService
@@ -182,23 +184,22 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
    * @param $event
    * @memberof HistoricalDevolutionComponent
    */
-  public getOrdersList($event: {
-    lengthOrder: number;
-    paginator: MatPaginator;
-    category: any;
-  }): void {
-    if (!$event) {
-      $event.lengthOrder = 100;
-    }
-
-    this.event = $event;
-
+  // public getOrdersList($event: {
+  //   lengthOrder: number;
+  //   paginator: MatPaginator;
+  //   category: any;
+  // }): void {
+  //   if (!$event) {
+  //     $event.lengthOrder = 100;
+  //   }
+    public getOrdersList(params: any): void {
     const filter = this.filterParamsHistoricoDevoluciones;
 
     let stringSearch = '';
 
     if (filter && !_.isEmpty(filter)) {
-      stringSearch += `limit=${$event.lengthOrder}`;
+      stringSearch += `paginationToken=${encodeURI(this.paginationToken)}`;
+      stringSearch += `limit=${50}`;
       stringSearch += `&idSeller=${this.idSeller}`;
       stringSearch += (filter.reversionRequestStatusId) ? `&reversionRequestStatusId=${filter.reversionRequestStatusId}` : '';
       stringSearch += (filter.dateReversionRequestInitial) ? `&dateReversionRequestInitial=${filter.dateReversionRequestInitial}` : '';
@@ -207,21 +208,23 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
       stringSearch += (filter.identificationCard) ? `&identificationCard=${filter.identificationCard}` : '';
       stringSearch += (filter.resolutionDate) ? `&resolutionDate=${filter.resolutionDate}` : '';
     } else {
-      stringSearch = `limit=${$event.lengthOrder}&idSeller=${this.idSeller}&reversionRequestStatusId=${Const.StatusHistoricDevolution}`;
+      stringSearch = `limit=${50}&paginationToken=${encodeURI(this.paginationToken)}&idSeller=${this.idSeller}&reversionRequestStatusId=${Const.StatusHistoricDevolution}`;
     }
 
+    console.log('string: ', stringSearch);
     this.__loadingService.viewSpinner();
     this.__historicalService.getHistorical(stringSearch)
       .subscribe(data => {
+        console.log('data: ', data);
         // guardo el filtro actual para la paginación.
-        this.currentEventPaginate = $event;
+        // this.currentEventPaginate = $event;
 
         this.orderListLength = isEmpty(data) ? true : false;
         // Creo el elemento que permite pintar la tabla
-        this.dataSource = new MatTableDataSource(data);
+        this.dataSource = new MatTableDataSource(data['viewModel']);
 
         // this.paginator.pageIndex = 0;
-        this.dataSource.paginator = $event.paginator;
+        // this.dataSource.paginator = $event.paginator;
         this.dataSource.sort = this.sort;
         this.numberElements = this.dataSource.data.length;
 
@@ -232,6 +235,12 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
           // log.error(this.dataSource);
         }
       );
+  }
+
+  savePaginationToken(paginationToken: string) {
+    if (paginationToken) {
+      this.paginationToken = paginationToken;
+    }
   }
 
   /**
