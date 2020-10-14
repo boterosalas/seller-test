@@ -407,16 +407,32 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
   private getOrdersListSinceFilterSearchOrder(): void {
     this.subFilterHistoricalDevolution = this.shellComponent.eventEmitterOrders.filterHistoricalDevolutionWithStatus
       .subscribe((data: HistoricalDevolutionEntity[]) => {
-        if (data !== null) {
-          this.orderListLength = data.length === 0;
-          this.dataSource = new MatTableDataSource(data);
+        // if (data !== null) {
+        //   this.orderListLength = data.length === 0;
+        //   this.dataSource = new MatTableDataSource(data['viewModel']);
+        //   console.log(localStorage);
+        //   const paginator = this.toolbarOption.getPaginator() as any;
+        //   paginator.pageIndex = 0;
+        //   this.dataSource.paginator = paginator;
+        //   this.dataSource.sort = this.sort;
+        //   this.numberElements = this.dataSource.data.length;
 
-          const paginator = this.toolbarOption.getPaginator() as any;
-          paginator.pageIndex = 0;
-          this.dataSource.paginator = paginator;
-          this.dataSource.sort = this.sort;
-          this.numberElements = this.dataSource.data.length;
-        }
+          if (data && data['count'] > 0) {
+            this.dataSource = new MatTableDataSource(data['viewModel']);
+            this.orderListLength = false;
+            this.savePaginationToken(data['paginationToken']);
+            this.numberElements = this.dataSource.data.length;
+            // if (params && params.callOne) {
+              this.lengthOrder = data['count'];
+              this.isClear = true;
+            // }
+          } else {
+            this.lengthOrder = 0;
+            this.isClear = true;
+            this.orderListLength = true;
+            this.dataSource = new MatTableDataSource(null);
+          }
+        // }
       });
   }
 

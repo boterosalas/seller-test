@@ -5,6 +5,7 @@ import { ShellComponent } from '../../shell.component';
 import * as _ from 'lodash';
 import { SearchOrderMenuService } from '../search-order-menu.service';
 import { DatePipe } from '@angular/common';
+import { LoadingService } from '@app/core/global';
 
 interface DataForm {
   dateReversionRequestInitial?: Date | string;
@@ -39,6 +40,7 @@ export class SearchHistoricalDevolutionFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private shellComponent: ShellComponent,
+    private __loadingService: LoadingService,
     private __searchOrderMenuService: SearchOrderMenuService
   ) { }
 
@@ -134,19 +136,23 @@ export class SearchHistoricalDevolutionFormComponent implements OnInit {
     }
 
     if (!_.isEmpty(objectQuery)) {
+      console.log('here');
       stringQuery += `&idSeller=${this.idSeller}`;
+      console.log('stringQuery: ', stringQuery);
+
       // Guardo el filtro aplicado por el usuario.
-      this.__searchOrderMenuService.setCurrentFilterOrders(objectQuery);
-      this.__searchOrderMenuService
-        .getHistoricalDevolutionFilter(100, stringQuery)
-        .subscribe(data => {
+      this.__searchOrderMenuService.setCurrentFilterOrders(stringQuery);
+      this.__loadingService.viewSpinner();
+      this.__searchOrderMenuService.getHistoricalDevolutionFilter(`limit=${50}`, stringQuery).subscribe(data => {
           if (data) {
-            this.shellComponent.eventEmitterOrders.filterParams.emit(objectQuery);
+            this.shellComponent.eventEmitterOrders.filterParams.emit(stringQuery);
             // indico a los elementos que esten suscriptos al evento.
             this.shellComponent.eventEmitterOrders.filterHistoricalDevolutionWithStatusResponse(data);
             this.shellComponent.sidenavSearchOrder.toggle();
+            this.__loadingService.closeSpinner();
           }
         });
     }
   }
 }
+
