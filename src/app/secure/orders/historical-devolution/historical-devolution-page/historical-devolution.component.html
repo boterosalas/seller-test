@@ -78,7 +78,7 @@
             <p class="sc-date-content-table" *ngIf="element.reversionRequestStatusId === 3">
               {{'secure.orders.historical_devolutions.historical_devolutions_page.resolution.rejected' | translate}}
             </p>
-            <p class="sc-date-content-table" *ngIf="element.reversionRequestStatusId === 4">
+            <p class="sc-date-content-table" *ngIf="element.reversionRequestStatusId === 4 || element.reversionRequestStatusId === 10">
               {{'secure.orders.historical_devolutions.historical_devolutions_page.resolution.rejected_validation' | translate}}
             </p>
           </mat-cell>

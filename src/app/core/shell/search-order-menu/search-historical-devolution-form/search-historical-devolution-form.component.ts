@@ -136,9 +136,7 @@ export class SearchHistoricalDevolutionFormComponent implements OnInit {
     }
 
     if (!_.isEmpty(objectQuery)) {
-      console.log('here');
       stringQuery += `&idSeller=${this.idSeller}`;
-      console.log('stringQuery: ', stringQuery);
 
       // Guardo el filtro aplicado por el usuario.
       this.__searchOrderMenuService.setCurrentFilterOrders(stringQuery);
