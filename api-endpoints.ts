@@ -228,7 +228,11 @@ export const endpoints = {
       // enviar por correo un reporte con los errores en vtex
       reportErrorsVtex: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/reportfailsendvtex/{params}',
       // archivo en s3 formato carga masiva de excepcion
-      uploadMasiveUpload: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates-Dev/FormatChargeCommissions.xlsx'
+      uploadMasiveUpload: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates-Dev/FormatChargeCommissions.xlsx',
+      // verificar el estado de la carga masiva para excepciones PLU
+      verificateStatusException : 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/GetMassiveComsnExcStatus',
+      // enviar data en formato json al back
+      sendDataJsonReadExcel : 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/MassiveComsnExc'
     },
   },
   // Endpoints production
@@ -454,7 +458,11 @@ export const endpoints = {
       // enviar por correo un reporte con los errores en vtex
       reportErrorsVtex: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/reportfailsendvtex/{params}',
       // archivo en s3 formato carga masiva de excepcion
-      uploadMasiveUpload: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates/FormatChargeCommissions.xlsx'
+      uploadMasiveUpload: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates/FormatChargeCommissions.xlsx',
+      // verificar el estado de la carga masiva para excepciones PLU
+      verificateStatusException : 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/GetMassiveComsnExcStatus',
+       // enviar data en formato json al back
+       sendDataJsonReadExcel : 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/MassiveComsnExc'
     }
   }
 };

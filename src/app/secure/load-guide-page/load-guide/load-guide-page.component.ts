@@ -557,7 +557,8 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
       initTime: 500,
       intervalTime: this.intervalTime,
       listError: listError,
-      typeStatus: type
+      typeStatus: type,
+      responseDiferent : false
     };
     this.cdr.detectChanges();
     const dialog = this.dialog.open(FinishUploadInformationComponent, {

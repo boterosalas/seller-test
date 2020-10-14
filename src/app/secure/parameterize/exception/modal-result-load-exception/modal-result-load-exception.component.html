@@ -1,30 +1,75 @@
 <div *ngIf="data">
   <div fxLayout="row wrap">
-    <div fxFlex="80" style="font-size: 16px; text-align: left;">
-      <strong>Carga masiva de comisiones</strong> (<span style="color: #818186;font-size: 13px">{{data.fileName}}</span>)
+    <div fxFlex="80" class="modal-result-load-exception-container">
+      <strong>Carga masiva de comisiones</strong> (<span
+        class="modal-result-load-exception-text-title">{{data.fileName}}</span>)
     </div>
-    <div fxFlex="20" style="text-align: right;">
-      <mat-icon>close</mat-icon>
+    <div fxFlex="20" class="modal-result-load-exception-text-aling-right">
+      <mat-icon (click)="onNoClick()"
+        class="modal-result-load-exception-cursor-pointer">close</mat-icon>
     </div>
   </div>
+  <mat-divider></mat-divider>
   <div fxLayout="row wrap">
-    <div fxFlex="40">
+    <div class="modal-result-load-exception-width-100">
       <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="gappx">
-        <div>{{data.countErrors}} Errores detectados</div>
-        <div>2</div>
+        <div class="modal-result-load-exception-width-100">
+          <div class="error-list-content">
+            <div>
+              <p class="wrap modal-result-load-exception-font-text" matLine>Por
+                favor corrige los errores en el archivo y vuelve a
+                realizar la carga de las comisiones. (<span>{{data.countErrors}}
+                  Errores</span>)</p>
+            </div>
+          </div>
+        </div>
+        <div class="generic-component-container-scroll
+          modal-result-load-exception-width-100">
+          <div *ngFor="let item of data.listErrors">
+            <div fxLayout="row wrap"
+              class="modal-result-load-exception-container-errors">
+              <div fxFlex="100"
+                class="moda-result-load-exception-container-errors-padding">
+                <mat-icon class="modal-result-load-exception-color-icon">cancel</mat-icon>
+                <span *ngIf="item.type == 'invalidFormat'" class="modal-result-load-exception-message-1-error">
+                  {{'secure.products.table_errors_product.column_data' |
+                  translate}}
+                  <span class="error-string">{{'secure.products.table_errors_product.column'
+                    | translate}} (<span class="modal-result-load-exception-text-color-data">{{item.dato}}</span>) # <strong>{{ item.columna
+                      }}</strong></span>
+                  {{'secure.products.table_errors_product.for' | translate}}
+                  <span class="error-string">{{'secure.products.table_errors_product.row'
+                    | translate}} #<strong>{{item.fila}}</strong></span>
+                  no cumple con el
+                  <span class="modal-result-load-exception-pointer-color-recommendation" [matTooltip]="item.message"
+                    matTooltipPosition="above">
+                    formato requerido.
+                  </span>
+                </span>
+                <span *ngIf="item.type == 'dateNotFound'" class="modal-result-load-exception-white-space-font-size">
+                  {{'secure.products.table_errors_product.column_data' |
+                  translate}}
+                  <span class="error-string">{{'secure.products.table_errors_product.column'
+                    | translate}} (<span class="modal-result-load-exception-text-message-2-errors">{{item.dato}}</span>)
+                    #<strong>{{ item.columna }}</strong></span>
+                  {{'secure.products.table_errors_product.for' | translate}}
+                  <span class="error-string">{{'secure.products.table_errors_product.row'
+                    | translate}} #<strong>{{item.fila}}</strong></span>
+                  {{'secure.products.table_errors_product.mandatory' |
+                  translate}}
+                </span>
+                <span *ngIf="item.type == 'errorBack'" class="modal-result-load-exception-white-space-font-size">
+                  {{item.message}}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <!-- <div></div>
-  <div fxLayout="row ">
-    <div fxFlex="40">
-      <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="gappx">
-        <div>1</div>
-        <div style="font-size: 13px;">{{'secure.products.table_errors_product.selected_file' | translate}}: <strong>{{data.fileName}}</strong></div>
-      </div>
-      <div></div>
-    </div>
-    <div fxFlex="60">2</div>
-  </div>
-  <div></div> -->
+  <mat-divider></mat-divider>
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">{{'actions.cancel'| translate}}</button>
+  </mat-dialog-actions>
 </div>

@@ -64,19 +64,24 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
             this.processFinish$.next(res);
           } else if (status === 3) {
             if (response) {
-              if (JSON.parse(response).Data !== undefined) {
-                if (JSON.parse(response).Data.OfferNotify) {
-                  this.listErrorStatus = JSON.parse(response).Data.OfferNotify;
-                }
-                if (JSON.parse(response).Data.ProductNotify) {
-                  this.listErrorStatus = JSON.parse(response).Data.ProductNotify;
-                }
-                this.listError = this.mapItems(this.listErrorStatus);
+              if (this.data.responseDiferent) {
+                this.listErrorStatus = response.ListError;
+                this.listError = this.mapItemsResponseDiferent(this.listErrorStatus);
               } else {
-                if (JSON.parse(response).ListError) {
-                  this.listErrorStatus = JSON.parse(response).ListError;
+                if (JSON.parse(response).Data !== undefined) {
+                  if (JSON.parse(response).Data.OfferNotify) {
+                    this.listErrorStatus = JSON.parse(response).Data.OfferNotify;
+                  }
+                  if (JSON.parse(response).Data.ProductNotify) {
+                    this.listErrorStatus = JSON.parse(response).Data.ProductNotify;
+                  }
+                  this.listError = this.mapItems(this.listErrorStatus);
+                } else {
+                  if (JSON.parse(response).ListError) {
+                    this.listErrorStatus = JSON.parse(response).ListError;
+                  }
+                  this.listError = this.mapItemsLoadGuide(this.listErrorStatus);
                 }
-                this.listError = this.mapItemsLoadGuide(this.listErrorStatus);
               }
             } else {
               this.listErrorStatus = [length = 0];
@@ -84,7 +89,7 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
             this.Success = false;
             this.inProcess = false;
             if (this.data.showExport !== undefined) {
-              this.showExport =  this.data.showExport;
+              this.showExport = this.data.showExport;
             }
 
             this.countError = this.listErrorStatus.length;
@@ -106,7 +111,7 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
       this.listError = this.mapItems(this.data.listError);
       this.pex = this.typeErrorShowButton(this.listError);
       this.countError = this.data.listError.length;
-      if (this.data && this.data.showExport) {
+      if (this.data && this.data.showExport !== undefined) {
         this.showExport = this.data.showExport;
       }
       this.cdr.detectChanges();
@@ -126,6 +131,14 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
         Ean: this.validateHeader(x.ean, x.Ean),
         Message: this.validateHeader(x.message, x.Message),
         Code: x.code
+      };
+    });
+  }
+  mapItemsResponseDiferent(items: any[]): any[] {
+    return items.map(x => {
+      return {
+        Message: this.validateHeader(x.message, x.Message),
+        Code: 'ResponseDiferent'
       };
     });
   }

@@ -241,7 +241,8 @@ export class BulkLoadBillingComponent implements OnInit {
       intervalTime: intervalTime,
       listError: listError,
       typeStatus: type,
-      showExport: false
+      showExport: false,
+      responseDiferent : false
     };
     const dialog = this.dialog.open(FinishUploadInformationComponent, {
       width: '70%',

@@ -1,25 +1,25 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+// import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModalResultLoadExceptionComponent } from './modal-result-load-exception.component';
+// import { ModalResultLoadExceptionComponent } from './modal-result-load-exception.component';
 
-describe('ModalResultLoadExceptionComponent', () => {
-  let component: ModalResultLoadExceptionComponent;
-  let fixture: ComponentFixture<ModalResultLoadExceptionComponent>;
+// describe('ModalResultLoadExceptionComponent', () => {
+//   let component: ModalResultLoadExceptionComponent;
+//   let fixture: ComponentFixture<ModalResultLoadExceptionComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ModalResultLoadExceptionComponent ]
-    })
-    .compileComponents();
-  }));
+//   beforeEach(async(() => {
+//     TestBed.configureTestingModule({
+//       declarations: [ ModalResultLoadExceptionComponent ]
+//     })
+//     .compileComponents();
+//   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ModalResultLoadExceptionComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//   beforeEach(() => {
+//     fixture = TestBed.createComponent(ModalResultLoadExceptionComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });

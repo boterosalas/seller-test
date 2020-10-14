@@ -3,12 +3,15 @@ import { LoadingService, Logger } from '@app/core';
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 import { EndpointService } from '@app/core';
-import { MatDialog, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatSnackBar, MatTableDataSource } from '@angular/material';
 import * as XLSX from 'xlsx';
 import { TranslateService } from '@ngx-translate/core';
 import { ComponentsService } from '@app/shared';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { ModalResultLoadExceptionComponent } from './modal-result-load-exception/modal-result-load-exception.component';
+import { FinishUploadInformationComponent } from '@app/secure/offers/bulk-load/finish-upload-information/finish-upload-information.component';
+import { ExceptionBrandService } from '@app/secure/offers/stores/tree/components/exception-brand/exception-brand.service';
+import * as moment from 'moment';
 
 const log = new Logger('BulkLoadProductComponent');
 const EXCEL_EXTENSION = '.xlsx';
@@ -45,11 +48,17 @@ export class ExceptionComponent implements OnInit {
   public sort: any;
   public iVal: any;
   public data: any;
+  public listErrorStatus: any;
 
   public exceptionRegex = {
     ean: '',
     number: '',
-    validateDate: ''
+    validateDate: '',
+    hours: '',
+    formatNumerHours: '',
+    maxNumerOneHundred: '',
+    maxTwoDigNinetyNine: '',
+    numberAndPoint: ''
   };
 
   @ViewChild('fileUploadOption') inputFileUpload: any;
@@ -61,15 +70,54 @@ export class ExceptionComponent implements OnInit {
     public SUPPORT: SupportService,
     private languageService: TranslateService,
     public componentService: ComponentsService,
+    private exceptionBrandService: ExceptionBrandService,
     public dialog: MatDialog,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
     this.selectSeller();
     this.validateFormSupport();
+    this.verifyExceptLoad();
     this.url = this.api.get('uploadMasiveUpload');
   }
-
+  /**
+   * funcion para verificcar es estado de la carga por usuario logeado
+   *
+   * @memberof ExceptionComponent
+   */
+  verifyExceptLoad() {
+    this.exceptionBrandService.verifyStatusBulkLoad().subscribe((res) => {
+      try {
+        if (res && res.status === 200) {
+          const { status, checked } = res.body.data;
+          if ((status === 1 || status === 4) && checked === 'true') {
+            const statusCurrent = 1;
+            setTimeout(() => { this.openModalStatus(statusCurrent, null); });
+          } else if (status === 2 && checked === 'true') {
+            setTimeout(() => { this.openModalStatus(status, null); });
+          } else if (status === 3 && checked === 'true') {
+            const response = res.body.data.response;
+            if (response) {
+              this.listErrorStatus = response.ListError;
+            } else {
+              this.listErrorStatus = null;
+            }
+            setTimeout(() => { this.openModalStatus(status, this.listErrorStatus); });
+          } else {
+            this.loadingService.closeSpinner();
+          }
+        }
+      } catch {
+        this.loadingService.viewSpinner();
+      }
+    });
+  }
+  /**
+   * funcion para seleccionar a un vendedor en especifico
+   *
+   * @memberof ExceptionComponent
+   */
   selectSeller() {
     this.loadingService.viewSpinner();
     this.emitterSeller.eventSearchSeller.subscribe(data => {
@@ -81,12 +129,18 @@ export class ExceptionComponent implements OnInit {
       this.loadingService.closeSpinner();
     });
   }
-
+  /**
+   * funcion para leer el archivo cargado
+   *
+   * @param {*} evt
+   * @memberof ExceptionComponent
+   */
   onFileChange(evt: any) {
     /*1. Limpio las variables empleadas en el proceso de carga.*/
     this.resetVariableUploadFile();
     /*2. Capturo los datos del excel*/
     this.readFileUpload(evt).then(data => {
+      this.loadingService.viewSpinner();
       /*3. Valido los datos del excel*/
       this.validateDataFromFile(data, evt);
       this.resetUploadFIle();
@@ -97,7 +151,11 @@ export class ExceptionComponent implements OnInit {
       this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), 'Aceptar', 4000);
     });
   }
-
+  /**
+   * funcion para limpiar las variables de carga del archivo
+   *
+   * @memberof ExceptionComponent
+   */
   resetVariableUploadFile() {
     /*Limpio las variables empleadas para visualizar los resultados de la carga*/
     this.listLog = [];
@@ -109,10 +167,14 @@ export class ExceptionComponent implements OnInit {
     this.numberElements = 0;
     this.fileName = '';
     this.arrayNecessaryData = [];
-    /*Se llama el metodo que finaliza la carga*/
-    this.finishProcessUpload();
   }
-
+  /**
+   * funcion para leer el archivo cargado
+   *
+   * @param {*} evt
+   * @returns {Promise<any>}
+   * @memberof ExceptionComponent
+   */
   readFileUpload(evt: any): Promise<any> {
     return new Promise((resolve, reject) => {
       // this.loadingService.viewSpinner();
@@ -150,19 +212,6 @@ export class ExceptionComponent implements OnInit {
     });
   }
 
-  finishProcessUpload() {
-    /* almaceno el numero de filas cargadas correctamente */
-    this.countRowUpload = this.arrayInformationForSend.length;
-    /* opción para visualizar el contenedor de no se ha cargado información */
-    this.orderListLength = this.arrayInformationForSend.length === 0 ? true : false;
-    /* Creo el elemento que permite pintar la tabla */
-    const data = JSON.stringify(this.arrayInformation);
-    this.dataSource = new MatTableDataSource(JSON.parse(data));
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    this.numberElements = this.dataSource.data.length;
-    this.loadingService.closeSpinner();
-  }
 
   resetUploadFIle() {
     this.inputFileUpload.nativeElement.value = '';
@@ -250,7 +299,14 @@ export class ExceptionComponent implements OnInit {
       this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.no_information_contains'), 'Aceptar', 10000);
     }
   }
-
+  /**
+   * funcion verificar cada columna del excel y lo valida con las diferentes regex
+   *
+   * @param {*} res
+   * @param {*} iVal
+   * @param {*} numCol
+   * @memberof ExceptionComponent
+   */
   createTable(res: any, iVal: any, numCol: any) {
     for (let i = 0; i < res.length; i++) {
       let errorInCell = false;
@@ -270,7 +326,8 @@ export class ExceptionComponent implements OnInit {
                   columna: column,
                   fila: row,
                   positionRowPrincipal: i,
-                  dato: 'PLU'
+                  dato: 'PLU',
+                  message: 'El campo debe de ser numérico'
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
@@ -288,7 +345,8 @@ export class ExceptionComponent implements OnInit {
                   columna: column,
                   fila: row,
                   positionRowPrincipal: i,
-                  dato: 'Ean'
+                  dato: 'Ean',
+                  message: 'El campo debe de tener entre 5 y 16 dígitos'
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
@@ -306,7 +364,8 @@ export class ExceptionComponent implements OnInit {
                   columna: column,
                   fila: row,
                   positionRowPrincipal: i,
-                  dato: 'ID Vendedor'
+                  dato: 'ID Vendedor',
+                  message: 'El campo debe de ser numérico'
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
@@ -324,7 +383,8 @@ export class ExceptionComponent implements OnInit {
                   columna: column,
                   fila: row,
                   positionRowPrincipal: i,
-                  dato: 'Comision'
+                  dato: 'Comision',
+                  message: 'En el campo de comisión debe recibir un número de 0 a 100 y debe recibir decimales hasta dos dígitos, separados por un punto (00.00)'
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
@@ -342,7 +402,8 @@ export class ExceptionComponent implements OnInit {
                   columna: column,
                   fila: row,
                   positionRowPrincipal: i,
-                  dato: 'Fecha Inicio'
+                  dato: 'Fecha Inicio',
+                  message: 'El formato de fecha debe recibir esta estructura (dd/mm/aaaa 00:00)'
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
@@ -360,7 +421,8 @@ export class ExceptionComponent implements OnInit {
                   columna: column,
                   fila: row,
                   positionRowPrincipal: i,
-                  dato: 'Fecha final'
+                  dato: 'Fecha final',
+                  message: 'El formato de fecha debe recibir esta estructura (dd/mm/aaaa 00:00)'
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
@@ -376,7 +438,8 @@ export class ExceptionComponent implements OnInit {
               columna: column,
               fila: row,
               positionRowPrincipal: i,
-              dato: j === iVal.iPLU ? 'PLU' : j === iVal.iEAN ? 'EAN' : j === iVal.iIDVendedor ? 'ID Vendedor' : j === iVal.iFechaInicial ? 'Fecha inicial' : j === iVal.iFechaFinal ? 'Fecha final' : j === iVal.iComision ? 'Comisión' : null
+              dato: j === iVal.iPLU ? 'PLU' : j === iVal.iEAN ? 'EAN' : j === iVal.iIDVendedor ? 'ID Vendedor' : j === iVal.iFechaInicial ? 'Fecha inicial' : j === iVal.iFechaFinal ? 'Fecha final' : j === iVal.iComision ? 'Comisión' : null,
+              message: 'El campo no puede estar vacío'
             };
             this.listLog.push(itemLog);
             errorInCell = true;
@@ -389,9 +452,47 @@ export class ExceptionComponent implements OnInit {
       this.addInfoTosend(res, i, iVal, errorInCell);
       errorInCell = false;
     }
-    this.setDataDialog();
+    if (this.listLog.length > 0) {
+      this.setDataDialog();
+    } else {
+      this.arrayInformationForSend.splice(0, 1);
+      this.exceptionBrandService.sendDataJsonReadExcel(this.arrayInformationForSend).subscribe(results => {
+        if (results) {
+          const body = JSON.parse(results.body);
+          if (body) {
+            if (body.Data !== false) {
+              this.openModalStatus(1, null);
+            } else {
+              const itemLog = {
+                type: 'errorBack',
+                dato: 'validación',
+                message: body.Message
+              };
+              this.listLog.push(itemLog);
+              this.countErrors += 1;
+              this.setDataDialog();
+            }
+          } else {
+            this.snackBar.open(this.languageService.instant('public.auth.forgot.error_try_again'), this.languageService.instant('actions.close'), {
+              duration: 3000,
+            });
+          }
+        } else {
+          this.snackBar.open(this.languageService.instant('public.auth.forgot.error_try_again'), this.languageService.instant('actions.close'), {
+            duration: 3000,
+          });
+        }
+      });
+    }
   }
-
+  /**
+   * funcion para validar el formato
+   *
+   * @param {*} inputtxt
+   * @param {string} [validation]
+   * @returns
+   * @memberof ExceptionComponent
+   */
   validFormat(inputtxt: any, validation?: string) {
     let valueReturn: boolean;
 
@@ -427,15 +528,22 @@ export class ExceptionComponent implements OnInit {
     }
     return valueReturn;
   }
-
+  /**
+   * funcion para validar la comision 
+   *
+   * @param {*} inputtxt
+   * @param {string} [validation]
+   * @returns
+   * @memberof ExceptionComponent
+   */
   public validateComision(inputtxt: any, validation?: string) {
     let valueReturn: boolean;
     inputtxt = (inputtxt.toString()).trim();
-    if (inputtxt.match('^[0-9.]*$')) {
+    if (inputtxt.match(this.exceptionRegex.numberAndPoint)) {
       const validateFloat = inputtxt.toString().includes('.');
       if (validateFloat) {
         const valueNumericInt = inputtxt.split('.');
-        if ((valueNumericInt[0].match('^([0-9]|[0-9][0-9]|100)?$'))) {
+        if ((valueNumericInt[0].match(this.exceptionRegex.maxNumerOneHundred))) {
           if (parseInt(valueNumericInt[0], 0) === 100) {
             if (parseInt(valueNumericInt[1], 0) === 0) {
               valueReturn = true;
@@ -443,7 +551,7 @@ export class ExceptionComponent implements OnInit {
               valueReturn = false;
             }
           } else {
-            if ((valueNumericInt[1].match('^([0-9]{1,2})$'))) {
+            if ((valueNumericInt[1].match(this.exceptionRegex.maxTwoDigNinetyNine))) {
               valueReturn = true;
             } else {
               valueReturn = false;
@@ -453,7 +561,7 @@ export class ExceptionComponent implements OnInit {
           valueReturn = false;
         }
       } else {
-        if ((inputtxt.match('^([0-9]|[0-9][0-9]|100)?$'))) {
+        if ((inputtxt.match(this.exceptionRegex.maxNumerOneHundred))) {
           valueReturn = true;
         } else {
           valueReturn = false;
@@ -462,19 +570,26 @@ export class ExceptionComponent implements OnInit {
     } else {
       valueReturn = false;
     }
-   return valueReturn;
+    return valueReturn;
   }
-
+  /**
+   * funcion para validar la fecha y la hora
+   *
+   * @param {*} inputtxt
+   * @param {string} [validation]
+   * @returns
+   * @memberof ExceptionComponent
+   */
   public validateFecha(inputtxt: any, validation?: string) {
     let valueReturn: boolean;
     inputtxt.trim();
-    if (inputtxt.match('^[0-9/: ]*$')) {
+    if (inputtxt.match(this.exceptionRegex.formatNumerHours)) {
       const valueDateAndHours = inputtxt.split(' ');
       if (valueDateAndHours[1] === undefined) {
         valueReturn = false;
       } else {
         if (valueDateAndHours[0].match(this.exceptionRegex.validateDate)) {
-          if (valueDateAndHours[1].match('^([01][0-9]|2[0-3]):[0-5][0-9]$')) {
+          if (valueDateAndHours[1].match(this.exceptionRegex.hours)) {
             valueReturn = true;
           } else {
             valueReturn = false;
@@ -488,7 +603,14 @@ export class ExceptionComponent implements OnInit {
     }
     return valueReturn;
   }
-
+  /**
+   * funcion para almacenar la informacion carga del archivo del excel en array
+   *
+   * @param {*} res
+   * @param {*} index
+   * @param {*} iVal
+   * @memberof ExceptionComponent
+   */
   addRowToTable(res: any, index: any, iVal: any) {
     const newObject: any = {
       PLU: res[index][iVal.iPLU],
@@ -500,29 +622,103 @@ export class ExceptionComponent implements OnInit {
     };
     this.arrayInformation.push(newObject);
   }
-
+  /**
+   * funcion para almacenar la informacion carga del archivo del excel en array
+   *
+   * @param {*} res
+   * @param {*} i
+   * @param {*} iVal
+   * @param {boolean} [errorInCell=false]
+   * @memberof ExceptionComponent
+   */
   addInfoTosend(res: any, i: any, iVal: any, errorInCell: boolean = false) {
     const newObjectForSend = {
-      PLU: res[i][iVal.iPLU] ? res[i][iVal.iPLU].trim() : null,
+      IdVTEX: res[i][iVal.iPLU] ? res[i][iVal.iPLU].trim() : null,
       EAN: res[i][iVal.iEAN] ? res[i][iVal.iEAN].trim() : null,
-      IDVendedor: res[i][iVal.iIDVendedor] ? res[i][iVal.iIDVendedor].trim() : null,
-      fechaInicial: res[i][iVal.iFechaInicial] ? res[i][iVal.iFechaInicial].trim() : null,
-      fechaFinal: res[i][iVal.iFechaFinal] ? res[i][iVal.iFechaFinal].trim() : null,
-      comision: res[i][iVal.iComision] ? res[i][iVal.iComision].trim() : null,
+      SellerId: res[i][iVal.iIDVendedor] ? res[i][iVal.iIDVendedor].trim() : null,
+      InitialDate: res[i][iVal.iFechaInicial] ? res[i][iVal.iFechaInicial].trim() : null,
+      FinalDate: res[i][iVal.iFechaFinal] ? res[i][iVal.iFechaFinal].trim() : null,
+      Commission: res[i][iVal.iComision] ? res[i][iVal.iComision].trim() : null,
     };
     this.arrayInformationForSend.push(newObjectForSend);
   }
-
+  /**
+   * funcion para llamar el modal de errores en el front (no llega al back)
+   *
+   * @memberof ExceptionComponent
+   */
   public setDataDialog(): void {
-    this.data = { listErrors: this.listLog, countErrors: this.countErrors , data: this.arrayInformationForSend, fileName: this.fileName };
-    const dialogRef = this.dialog.open(ModalResultLoadExceptionComponent, {
-      width: '80%',
+    this.loadingService.closeSpinner();
+    this.data = { listErrors: this.listLog, countErrors: this.countErrors, data: this.arrayInformationForSend, fileName: this.fileName };
+    const dialog = this.dialog.open(ModalResultLoadExceptionComponent, {
+      width: '60%',
       minWidth: '20%',
       data: this.data
     });
+    dialog.afterClosed().subscribe(result => {
+      this.clearListFiles();
+    });
+  }
+  /**
+   * funcion para mostar el modal de estado de carga 
+   *
+   * @param {number} type
+   * @param {*} listError
+   * @memberof ExceptionComponent
+   */
+  openModalStatus(type: number, listError: any) {
+    this.loadingService.closeSpinner();
+    const intervalTime = 6000;
+    const data = {
+      successText: this.languageService.instant('secure.products.Finish_upload_product_information.successful_upload'),
+      failText: this.languageService.instant('secure.products.Finish_upload_product_information.error_upload'),
+      processText: this.languageService.instant('secure.products.Finish_upload_product_information.upload_progress'),
+      initTime: 500,
+      intervalTime: intervalTime,
+      listError: listError,
+      typeStatus: type,
+      showExport: false,
+      responseDiferent: true
+    };
+    const dialog = this.dialog.open(FinishUploadInformationComponent, {
+      width: '70%',
+      minWidth: '280px',
+      maxHeight: '80vh',
+      disableClose: type === 1,
+      data: data
+    });
+    const dialogIntance = dialog.componentInstance;
+    dialogIntance.request = this.exceptionBrandService.verifyStatusBulkLoad();
+    dialogIntance.processFinish$.subscribe((val) => {
+      dialog.disableClose = false;
+      this.clearListFiles();
+    });
+    dialog.afterClosed().subscribe(result => {
+      this.clearListFiles();
+    });
+  }
+  /**
+   * funcion para limpiar las variables de carga de archivos
+   *
+   * @memberof ExceptionComponent
+   */
+  clearListFiles() {
+    this.listLog = [];
+    this.countErrors = 0;
+    this.countRowUpload = 0;
+    this.arrayInformation = [];
+    this.arrayInformationForSend = [];
+    this.orderListLength = true;
+    this.numberElements = 0;
+    this.fileName = '';
+    this.arrayNecessaryData = [];
   }
 
-
+  /**
+   * funcion para consultar las regex en la base de datos
+   *
+   * @memberof ExceptionComponent
+   */
   public validateFormSupport(): void {
     this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
       let dataRegex = JSON.parse(res.body.body);

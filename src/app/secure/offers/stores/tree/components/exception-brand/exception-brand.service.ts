@@ -100,4 +100,13 @@ export class ExceptionBrandService {
     // return this.http.delete<any>(this.api.get('deleteComission', param));
 
   }
+
+
+  public sendDataJsonReadExcel(data: any): Observable<any> {
+    return this.http.post(this.api.get('sendDataJsonReadExcel'), data);
+}
+
+  verifyStatusBulkLoad(): Observable<any> {
+    return this.http.get(this.api.get('verificateStatusException') , { observe: 'response' });
+  }
 }
