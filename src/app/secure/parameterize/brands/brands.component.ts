@@ -553,7 +553,7 @@ export class BrandsComponent implements OnInit {
         this.body = this.form.value;
         this.loading.viewSpinner();
         if (this.body && this.body.idBrands) {
-            this.brandService.changeStatusBrands({ Id: this.body.idBrands, Name: this.body.nameBrands.toUpperCase(), UpdateStatus: false }).subscribe(result => {
+            this.brandService.changeStatusBrands({ Id: this.body.idBrands, Name: encodeURIComponent(this.body.nameBrands.toUpperCase()), UpdateStatus: false }).subscribe(result => {
                 const errorMessage = JSON.parse(result.body);
                 
                 if (result.statusCode === 200 || result.statusCode === 201) {
@@ -572,7 +572,7 @@ export class BrandsComponent implements OnInit {
                 }
             });
         } else {
-            this.brandService.createBrands({ Name: this.body.nameBrands }).subscribe(result => {
+            this.brandService.createBrands({ Name: encodeURIComponent(this.body.nameBrands) }).subscribe(result => {
                 const errorMessage = JSON.parse(result.body);
 
                 if (result.statusCode === 200 || result.statusCode === 201) {
@@ -599,7 +599,7 @@ export class BrandsComponent implements OnInit {
      * @memberof BrandsComponent
      */
     public validateExist(event: any) {
-        this.newBrands = event.target.value.toUpperCase();
+        this.newBrands = encodeURIComponent(event.target.value.toUpperCase());
         if (this.newBrands && this.newBrands !== '' && this.newBrands !== undefined && this.newBrands !== null) {
             if (this.newBrands !== this.changeNameBrands) {
                 this.urlParams = `null/${this.newBrands}/null/null`;
