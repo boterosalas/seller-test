@@ -660,7 +660,7 @@ export class ExceptionComponent implements OnInit, OnDestroy {
     });
   }
   /**
-   * funcion para mostar el modal de estado de carga 
+   * funcion para mostar el modal de estado de carga
    *
    * @param {number} type
    * @param {*} listError

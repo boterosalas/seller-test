@@ -41,6 +41,8 @@ export class BulkLoadBillingComponent implements OnInit {
   arrayFilesBase64: any;
   sendableFormData: FormData;
   messageErrorMaxSize = this.languageService.instant('secure.orders.bulk.billing.maximum_file_size_megabytes') + ' 3.000 ' + this.languageService.instant('secure.orders.bulk.billing.megabytes');
+  countSizeFile = 0;
+  allFileError: Boolean = false;
 
   public informationToForm: SearchFormEntity = {
     title: 'secure.orders.orders',
@@ -91,6 +93,7 @@ export class BulkLoadBillingComponent implements OnInit {
               });
             }
           }
+          this.countSizeFile = 0;
         });
       }, 1000);
     });
@@ -167,11 +170,27 @@ export class BulkLoadBillingComponent implements OnInit {
       if (!file.fileExist && !file.refuse) {
         this.filesSuccess++;
       }
-
+      this.countSizeFile = this.countSizeFile + size;
       this.filesValidate.push(file);
     });
+    this.calculateCount();
     this.validateErrors();
     this.files = [];
+  }
+
+  /**
+   * Función para validar que los archivos no superen el peso maximo de 7mb
+   * @memberof BulkLoadBillingComponent
+   */
+  calculateCount() {
+    if (this.countSizeFile > 7.000) {
+      this.snackBar.open(this.languageService.instant('secure.orders.bulk.billing.maximum_All_file_size'), this.languageService.instant('actions.close'), {
+        duration: 5000,
+      });
+      this.allFileError = true;
+    } else {
+      this.allFileError = false;
+    }
   }
   /**
    * funcion para limpiar la lista de archivos
@@ -193,6 +212,9 @@ export class BulkLoadBillingComponent implements OnInit {
    * @memberof BulkLoadBillingComponent
    */
   deleteFile(index: number, file: any) {
+    const sizeFile = parseFloat(((file.size) / 1024 / 1024).toFixed(3));
+    this.countSizeFile = this.countSizeFile - sizeFile;
+    this.calculateCount();
     if (file && file.refuse || file.fileExist) {
       this.filesErrors--;
     }
