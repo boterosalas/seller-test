@@ -125,7 +125,7 @@ $amber: mat-palette($mat-amber);
     opacity: 0.7;
   }
   & .center-product-list {
-    display: flex;
+    display: flex !important;
     align-items: center;
     // justify-content: center;
     height: 100%;

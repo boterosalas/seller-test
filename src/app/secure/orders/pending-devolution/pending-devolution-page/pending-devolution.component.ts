@@ -85,7 +85,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
   // user info
   public user: UserInformation;
   //
-  lengthOrder= 0;
+  lengthOrder = 0;
   public pageSize = 50;
   isClear = false;
   // suscriptions vars
@@ -97,46 +97,46 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
   public reasonRejection: Array<ListReasonRejectionResponseEntity>;
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
-    title: 'secure.orders.orders',
-    subtitle: 'menu.Solicitudes pendientes',
+    title: 'menu.Devoluciones',
+    subtitle: 'secure.orders.list-cancels.tab1',
     btn_title: 'secure.orders.filter.title_filter',
     title_for_search: 'secure.orders.filter.title_filter',
     type_form: 'pending-devolution',
     information: {
-      reversionRequestStatusId: Const.StatusPendingDevolution
+      reversionRequestStatusId: Const.StatusPendingCancels
     },
     count: ''
   };
-    // Variables con los permisos que este componente posee.
-    permissionComponent: MenuModel;
-    read = readFunctionality;
-    accept = acceptFuncionality;
-    refuse = refuseFuncionality;
-    readPermission: boolean;
-    acceptPermission: boolean;
-    refusePermission: boolean;
-    typeProfile: number;
+  // Variables con los permisos que este componente posee.
+  permissionComponent: MenuModel;
+  read = readFunctionality;
+  accept = acceptFuncionality;
+  refuse = refuseFuncionality;
+  readPermission: boolean;
+  acceptPermission: boolean;
+  refusePermission: boolean;
+  typeProfile: number;
 
-    public length = 0;
-    public idSeller = '';
-    public event: any;
-    public paginationToken = '{}';
-    public params: any;
-    public onlyOne = true;
-    public onlyOneCall = true;
-    public call = true;
-    public positionPagination: any;
-    public arrayPosition = [];
-    public listOrdens: any;
-    public dateOrderInitial = '';
-    public dateOrderFinal = '';
-    public idChannel= '';
-    public orderNumber = '';
-    public identificationCard= '';
-    public processedOrder= '';
-    public lastState: number;
-    public querySearch = '';
-    public currentLanguage: string;
+  public length = 0;
+  public idSeller = '';
+  public event: any;
+  public paginationToken = '{}';
+  public params: any;
+  public onlyOne = true;
+  public onlyOneCall = true;
+  public call = true;
+  public positionPagination: any;
+  public arrayPosition = [];
+  public listOrdens: any;
+  public dateOrderInitial = '';
+  public dateOrderFinal = '';
+  public idChannel = '';
+  public orderNumber = '';
+  public identificationCard = '';
+  public processedOrder = '';
+  public lastState: number;
+  public querySearch = '';
+  public currentLanguage: string;
 
   constructor(
     public shellComponent: ShellComponent,
@@ -165,9 +165,9 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
           'callOne': true,
           'lengthOrder': 100
         };
-          this.getOrdersList(paramsArray);
+        this.getOrdersList(paramsArray);
       });
-      this.clearTable();
+    this.clearTable();
   }
 
   ngOnDestroy() {
@@ -194,12 +194,12 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
     this.changeLanguage();
   }
 
-/**
- * funcion para escuchar el evento al cambiar de idioma
- *
- * @memberof PendingDevolutionComponent
- */
-changeLanguage() {
+  /**
+   * funcion para escuchar el evento al cambiar de idioma
+   *
+   * @memberof PendingDevolutionComponent
+   */
+  changeLanguage() {
     if (localStorage.getItem('culture_current') !== 'US') {
       this.currentLanguage = 'ES';
       localStorage.setItem('culture_current', 'ES');
@@ -242,11 +242,11 @@ changeLanguage() {
         if (data && data.count > 0) {
           this.dataSource = new MatTableDataSource(data.viewModel);
           this.lengthOrder = data.count;
-            const paginator = this.toolbarOption.getPaginator();
-            paginator.pageIndex = 0;
-            this.dataSource.paginator = paginator;
-            this.dataSource.sort = this.sort;
-            this.orderListLength = false;
+          const paginator = this.toolbarOption.getPaginator();
+          paginator.pageIndex = 0;
+          this.dataSource.paginator = paginator;
+          this.dataSource.sort = this.sort;
+          this.orderListLength = false;
         } else {
           this.lengthOrder = data.count;
           this.dataSource = new MatTableDataSource(null);
@@ -286,13 +286,14 @@ changeLanguage() {
           this.lengthOrder = res.count;
           this.isClear = true;
         }
+        this.loadingService.closeSpinner();
       } else {
         this.lengthOrder = 0;
         this.isClear = true;
         this.orderListLength = true;
         this.dataSource = new MatTableDataSource(null);
+        this.loadingService.closeSpinner();
       }
-      this.loadingService.closeSpinner();
     });
   }
 
@@ -314,7 +315,7 @@ changeLanguage() {
       'dateOrderInitial': this.dateOrderInitial,
       'orderNumber': this.orderNumber,
       'identificationCard': this.identificationCard,
-      'reversionRequestStatusId': Const.StatusPendingDevolution
+      'reversionRequestStatusId': Const.StatusPendingCancels
     };
     return paramsArray;
   }
@@ -332,11 +333,6 @@ changeLanguage() {
         this.arrayPosition = [];
         this.arrayPosition.push('{}');
       }
-
-      // if (res.paginationTokens.length > 0) {
-      //   this.arrayPosition = [];
-      //   this.arrayPosition = res.paginationTokens;
-      // }
       this.dataSource = new MatTableDataSource(res.viewModel);
       this.savePaginationToken(res.paginationToken);
     } else {
@@ -383,8 +379,6 @@ changeLanguage() {
     if (event.paginator.pageSize !== this.pageSize) {
       this.pageSize = event.paginator.pageSize;
       if (this.arrayPosition && this.arrayPosition.length > 0) {
-        // this.querySearch = '&currentPage=' + this.arrayPosition.length + '&newLimit=' + this.pageSize;
-        // this.pageIndexChange = this.arrayPosition.length - 1;
         this.arrayPosition = [];
         this.isClear = true;
       }
@@ -482,7 +476,13 @@ changeLanguage() {
     };
     this.pendingDevolutionService.acceptOrDeniedDevolution(information).subscribe(res => {
       if (res) {
-        this.getOrdersList(this.currentEventPaginate);
+        const paramsArray = {
+          'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
+          'callOne': true,
+          'lengthOrder': 100,
+          'clear': true
+        };
+        this.getOrdersList(paramsArray);
         this.dialogAcceptDevolution();
       } else {
         this.componentsService.openSnackBar('Se ha presentado un error al aceptar la solicitud.', 'Aceptar', 12000);
@@ -507,9 +507,9 @@ changeLanguage() {
       },
     });
     const dialogIntance = dialogRef.componentInstance;
-      dialogIntance.processFinish$.subscribe((val) => {
-        item.registryTranslations = val.registryTranslations;
-      });
+    dialogIntance.processFinish$.subscribe((val) => {
+      item.registryTranslations = val.registryTranslations;
+    });
   }
 
   /**
@@ -554,7 +554,13 @@ changeLanguage() {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        this.getOrdersList(this.currentEventPaginate);
+        const paramsArray = {
+          'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
+          'callOne': true,
+          'lengthOrder': 100,
+          'clear': true
+        };
+        this.getOrdersList(paramsArray);
       }
       log.info('The modal detail order was closed');
     });

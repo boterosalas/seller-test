@@ -88,9 +88,9 @@ export class SearchOrderMenuService {
     });
   }
 
-  getHistoricalDevolutionFilter(limit: number, stringSearch: string): Observable<HistoricalDevolutionEntity[]> {
+  getHistoricalDevolutionFilter(limit: any, stringSearch: string): Observable<HistoricalDevolutionEntity[]> {
     return new Observable(obs => {
-      this.http.get<HistoricalDevolutionEntity[]>(this.api.get('searchPendingDevolution', ['', limit + stringSearch]))
+      this.http.get<HistoricalDevolutionEntity[]>(this.api.get('pendingDevolution', [limit + stringSearch]))
         .subscribe(data => obs.next(data), err => obs.error(err));
     });
   }

@@ -58,6 +58,7 @@
     "menu.Facturación vendedor": "Facturación vendedor",
     "menu.Productos pendientes": "Productos pendientes",
     "menu.Excepción por comisión": "Excepción por comisión",
+    "menu.Listado de cancelaciones": "Listado de cancelaciones",
 
     "module.Documentación": "Documentación",
     "module.Ofertas": "Ofertas",
@@ -543,6 +544,7 @@
     "secure.orders.historical_devolutions.historical_devolutions_page.date_resolution": "Fecha de resolución",
     "secure.orders.historical_devolutions.historical_devolutions_page.resolution.approved": "Aprobado",
     "secure.orders.historical_devolutions.historical_devolutions_page.resolution.rejected": "Rechazado",
+    "secure.orders.historical_devolutions.historical_devolutions_page.resolution.rejected_validation": "Rechazo en validación",
     "secure.orders.historical_devolutions.filter.title_filter": "Consultar histórico de devoluciones",
     "secure.orders.historical_devolutions.filter.resolution": "Filtrar por resolución",
 
@@ -553,6 +555,9 @@
     "secure.orders.send.send_correctly": "Se ha enviado el producto correctamente",
     "secure.orders.send.error_ocurred_product": "Se ha presentado un error al enviar el producto",
     "secure.orders.send.cant_not_sent": "El producto seleccionado no puede ser enviado",
+
+    "secure.orders.list-cancels.tab1": "Cancelaciones pendientes", 
+    "secure.orders.list-cancels.tab2": "Histórico de cancelaciones", 
 
     "secure.seller.list.enabled_title_modal": "Activación",
     "secure.seller.list.disabled_title_modal": "Desactivación",

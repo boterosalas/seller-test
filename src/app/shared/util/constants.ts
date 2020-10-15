@@ -163,6 +163,7 @@ export class Const {
 
   // Constantes para estaods de historico de devolucion
   static readonly StatusHistoricDevolution = -1;
+  static readonly StatusPendingCancels = -2;
 
   // Conceptos de facturación para los pagos.
   static readonly BILLING_CONCEPTS = {

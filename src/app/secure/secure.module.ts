@@ -46,9 +46,11 @@ import { QuotingSellerModule } from './offers/quoting/seller/quoting-seller.modu
 import { BulkLoadBillingComponent } from './orders/bulk-load-billing/bulk-load-billing.component';
 import { BulkLoadBillingModule } from './orders/bulk-load-billing/bulk-load-billing.module';
 import { PendingProductsModule } from './products/pending-products/pending-products.module';
+import { ListCancelsOrdersComponent } from './orders/list-cancels-orders/list-cancels-orders.component';
+import { ListCancelsOrdersModule } from './orders/list-cancels-orders/list-cancels-orders.module';
 
 @NgModule({
-  
+
   imports: [
     AwsCognitoModule,
     ErrorModule,
@@ -88,8 +90,10 @@ import { PendingProductsModule } from './products/pending-products/pending-produ
     CitiesCoverageModule,
     QuotingSellerModule,
     BulkLoadBillingModule,
-    PendingProductsModule
+    PendingProductsModule,
+    ListCancelsOrdersModule
   ],
-  providers: [AuthService, SellerSupportCenterService]
+  providers: [AuthService, SellerSupportCenterService],
+  declarations: []
 })
-export class SecureModule {}
+export class SecureModule { }

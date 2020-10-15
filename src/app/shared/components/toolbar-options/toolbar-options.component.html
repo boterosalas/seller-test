@@ -8,7 +8,7 @@
           </p>
         </button>
         <div fxFlex="160px" *ngIf="Typeprofile == 1">
-          <form id="search-store-form" class="search-store mat-typography" style="width: 300% !important;" (keydown)="keyDownFunction($event)">
+          <form id="search-store-form" class="search-store mat-typography" style="width: 280% !important;" (keydown)="keyDownFunction($event)">
             <mat-form-field class="input-search">
               <!-- Icon search -->
               <mat-icon id="icon-search-store" class="icon-search" matPrefix>search</mat-icon>
@@ -37,7 +37,7 @@
           </mat-paginator>
 
           <div fxLayout="row" class="center-product-list" fxFlex="20px" fxShow.xs="true" fxShow.sm="true" fxShow.md="true"
-            fxShow.lg="false" fxShow.xl="false">
+            fxShow.lg="false" fxShow.xl="false" *ngIf="!hideOptionsHistorical">
             <button id="more-options-for-search-orden" class="button-toolbar" mat-icon-button [matMenuTriggerFor]="toolbarOptions">
               <mat-icon>more_vert</mat-icon>
             </button>
