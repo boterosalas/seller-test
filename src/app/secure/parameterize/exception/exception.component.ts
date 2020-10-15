@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { LoadingService, Logger } from '@app/core';
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
@@ -23,7 +23,7 @@ const EXCEL_EXTENSION = '.xlsx';
   templateUrl: './exception.component.html',
   styleUrls: ['./exception.component.scss']
 })
-export class ExceptionComponent implements OnInit {
+export class ExceptionComponent implements OnInit, OnDestroy {
 
 
 
@@ -529,7 +529,7 @@ export class ExceptionComponent implements OnInit {
     return valueReturn;
   }
   /**
-   * funcion para validar la comision 
+   * funcion para validar la comision
    *
    * @param {*} inputtxt
    * @param {string} [validation]
@@ -730,6 +730,10 @@ export class ExceptionComponent implements OnInit {
         }
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.dialog.closeAll();
   }
 
 }

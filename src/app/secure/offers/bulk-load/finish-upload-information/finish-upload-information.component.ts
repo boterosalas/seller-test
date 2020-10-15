@@ -2,7 +2,7 @@ import { Component, Inject, TemplateRef, AfterViewInit, OnDestroy, ChangeDetecto
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
-import { Subject, Observable, timer } from 'rxjs';
+import { Subject, Observable, timer, Subscription } from 'rxjs';
 import { takeUntil, switchMap } from 'rxjs/operators';
 
 const EXCEL_EXTENSION = '.xlsx';
@@ -36,6 +36,7 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
 
   request: Observable<any>;
   content: TemplateRef<any>;
+  subs: Subscription = new Subscription();
 
   /**
    * Creates an instance of FinishUploadInformationComponent.
@@ -261,6 +262,7 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
    */
   ngOnDestroy() {
     this.processFinish$.next(null);
+    this.dialogRef.close();
   }
 
 }
