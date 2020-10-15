@@ -7,7 +7,7 @@
       <!-- Toolbar de las opciones para la orden -->
       <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions [idSeller]="idSeller" [_lengthOrder]="lengthOrder"
         (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event); paginations($event)"
-        [Typeprofile]="typeProfile" [searchComponent]="searchHistorical">
+        [Typeprofile]="typeProfile" [searchComponent]="searchHistorical" [hideOptionsHistorical]="searchHistorical">
       </app-toolbar-options>
       <!-- Toolbar de las opciones para la orden -->
     </div>

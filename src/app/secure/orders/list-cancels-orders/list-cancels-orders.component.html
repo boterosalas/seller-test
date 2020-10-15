@@ -1,4 +1,4 @@
-<div>
+<div  *ngIf="user">
   <mat-tab-group mat-stretch-tabs>
     <mat-tab id="tab1" style="font-weight: bold;">
       <ng-template mat-tab-label *ngIf="user.sellerProfile === 'seller'">

@@ -76,8 +76,6 @@ export class SearchHistoricalDevolutionFormComponent implements OnInit {
   public clearForm() {
     this.myform.reset();
     this.shellComponent.eventEmitterOrders.filterParams.emit();
-    // this.shellComponent.eventEmitterOrders.getClear();
-    // this.shellComponent.sidenavSearchOrder.toggle();
     this.filterHistorical(this.myform);
   }
 
@@ -92,7 +90,6 @@ export class SearchHistoricalDevolutionFormComponent implements OnInit {
     let { dateReversionRequestInitial, dateReversionRequestFinal, resolutionDate }: DataForm = myform.value;
 
     // Obtengo la información del usuario
-    // this.user = this.userService.getUser();
     const datePipe = new DatePipe(this.locale);
 
     // aplico el formato para la fecha a emplear en la consulta

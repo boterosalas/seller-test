@@ -33,8 +33,6 @@ import { ListCancelOrderRoutingModule } from './list-cancels-orders.routing';
     ],
     declarations: [
         ListCancelsOrdersComponent,
-        // InValidationComponent,
-        // HistoricalDevolutionComponent
     ],
     exports: [
 

@@ -300,8 +300,6 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
    * @memberof HistoricalDevolutionComponent
    */
   changeSizeOrderTable($event: { paginator: MatPaginator, filter: any }): void {
-    // this.changePageSizeTable($event);
-    // this.dataSource.paginator = $event.paginator;
   }
 
   /**

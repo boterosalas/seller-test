@@ -49,6 +49,7 @@ export class ToolbarOptionsComponent implements OnInit {
   @Input() informationToForm: SearchFormEntity;
   @Input() billingType: boolean;
   @Input() searchComponent: Boolean = false;
+  @Input() hideOptionsHistorical: Boolean = false;
   @Input() downloadPermission: boolean;
   @Input() downloadBillingPay: boolean;
   @Input() set idSeller(value: number) {
