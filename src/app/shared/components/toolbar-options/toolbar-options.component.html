@@ -37,7 +37,7 @@
           </mat-paginator>
 
           <div fxLayout="row" class="center-product-list" fxFlex="20px" fxShow.xs="true" fxShow.sm="true" fxShow.md="true"
-            fxShow.lg="false" fxShow.xl="false" *ngIf="hideOptionsHistorical === 'false'">
+            fxShow.lg="false" fxShow.xl="false" *ngIf="!hideOptionsHistorical">
             <button id="more-options-for-search-orden" class="button-toolbar" mat-icon-button [matMenuTriggerFor]="toolbarOptions">
               <mat-icon>more_vert</mat-icon>
             </button>
