@@ -76,8 +76,9 @@ export class SearchHistoricalDevolutionFormComponent implements OnInit {
   public clearForm() {
     this.myform.reset();
     this.shellComponent.eventEmitterOrders.filterParams.emit();
-    this.shellComponent.eventEmitterOrders.getClear();
-    this.shellComponent.sidenavSearchOrder.toggle();
+    // this.shellComponent.eventEmitterOrders.getClear();
+    // this.shellComponent.sidenavSearchOrder.toggle();
+    this.filterHistorical(this.myform);
   }
 
   /**

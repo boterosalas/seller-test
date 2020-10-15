@@ -75,7 +75,7 @@ export class ToolbarLinkComponent implements OnInit {
       .subscribe(
         notificationState => {
           this.unreadCase = notificationState.unreadCases;
-          this.sumadevolution = notificationState.sumaUnreadDevolutions;
+          this.sumadevolution = notificationState.unreadDevolutions;
           this.devolution = notificationState.unreadDevolutions;
           this.pending = notificationState.unreadPendings;
         }

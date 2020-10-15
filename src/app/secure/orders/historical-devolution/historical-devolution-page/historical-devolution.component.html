@@ -36,7 +36,7 @@
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.xl=""
             fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" *matCellDef="let element">
-            <p class="sc-date-content-table">{{element.orderDate | date}} </p>
+            <p class="sc-date-content-table">{{element.orderDate | date:'M/d/yy'}} </p>
           </mat-cell>
         </ng-container>
 
@@ -48,7 +48,7 @@
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.xl=""
             fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" *matCellDef="let element">
-            <p class="sc-date-content-table">{{element.creationDate | date}} </p>
+            <p class="sc-date-content-table">{{element.creationDate | date:'M/d/yy'}} </p>
           </mat-cell>
         </ng-container>
 

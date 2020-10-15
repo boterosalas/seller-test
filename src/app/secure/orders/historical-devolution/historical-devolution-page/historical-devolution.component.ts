@@ -360,6 +360,8 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
    * @memberof HistoricalDevolutionComponent
    */
   private getOrdersListSinceFilterSearchOrder(): void {
+    this.numberElements = 0;
+    this.lengthOrder = 0;
     this.subFilterHistoricalDevolution = this.shellComponent.eventEmitterOrders.filterHistoricalDevolutionWithStatus
       .subscribe((data: HistoricalDevolutionEntity[]) => {
         if (data && data['count'] > 0) {
