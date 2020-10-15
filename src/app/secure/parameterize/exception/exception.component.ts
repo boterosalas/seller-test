@@ -177,7 +177,7 @@ export class ExceptionComponent implements OnInit, OnDestroy {
    */
   readFileUpload(evt: any): Promise<any> {
     return new Promise((resolve, reject) => {
-      // this.loadingService.viewSpinner();
+      this.loadingService.viewSpinner();
       let data: any;
       /* wire up file reader */
       const target: DataTransfer = <DataTransfer>(evt.target);
