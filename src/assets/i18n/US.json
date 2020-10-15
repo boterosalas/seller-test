@@ -1136,6 +1136,13 @@
     "secure.parametize.commission.message": "Are you sure you want to remove this tariffis?",
     "secure.parametize.commission.edit": "Edit tariffis",
     "secure.parametize.commission.addTariffs": "Add tariffs",
+    "secure.parametize.commission.type-exception": "Type d'exception",
+    "secure.parametize.commission.error-date-1": "La date de début ne doit pas être inférieure à la date actuelle",
+    "secure.parametize.commission.exception": "Exception",
+    "secure.parametize.commission.date-time-1": "Date et heure de début",
+    "secure.parametize.commission.date-time-2": "Date et heure de fin",
+    "secure.parametize.commission.not-foun-data-exception": "The selected store does not have an exception for commission. Add an exception or find another store.",
+    "secure.parametize.commission.date-init-required": "The Start date must be mandatory.",
 
     "secure.parametize.dialogAddSpecs.modal_title": "Add specifications to a group",
     "secure.parametize.dialogAddSpecs.modal_text_1": "Enter a name for the specification and select whether its mandatory or not in order to create the product. You must determine whether this specification will be an input or list type.",
@@ -1369,5 +1376,8 @@
     "secure.orders.bulk.billing.you_have_no_files_to_upload": "You have no files to upload",
     "secure.orders.bulk.billing.it_have_files_upload": "It does not have files to upload",
     "secure.orders.bulk.billing.duplicate_name": "You've uploaded Files with the same name",
-    "secure.orders.bulk.billing.name_filter_billing": "Billing Filter"
+    "secure.orders.bulk.billing.name_filter_billing": "Billing Filter",
+    "secure.orders.bulk.billing.maximum_All_file_size": "Files should not exceed 7 MB.",
+    "secure.orders.bulk.billing.size_file": "File size: ",
+    "secure.orders.bulk.billing.size_file_MB": "MB"
 }
