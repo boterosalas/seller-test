@@ -476,7 +476,13 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
     };
     this.pendingDevolutionService.acceptOrDeniedDevolution(information).subscribe(res => {
       if (res) {
-        this.getOrdersList(this.currentEventPaginate);
+        const paramsArray = {
+          'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
+          'callOne': true,
+          'lengthOrder': 100,
+          'clear': true
+        };
+        this.getOrdersList(paramsArray);
         this.dialogAcceptDevolution();
       } else {
         this.componentsService.openSnackBar('Se ha presentado un error al aceptar la solicitud.', 'Aceptar', 12000);
@@ -548,7 +554,13 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        this.getOrdersList(this.currentEventPaginate);
+        const paramsArray = {
+          'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
+          'callOne': true,
+          'lengthOrder': 100,
+          'clear': true
+        };
+        this.getOrdersList(paramsArray);
       }
       log.info('The modal detail order was closed');
     });

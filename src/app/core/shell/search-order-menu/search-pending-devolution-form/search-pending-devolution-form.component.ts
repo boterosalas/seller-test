@@ -10,6 +10,7 @@ import { ShellComponent } from '@core/shell/shell.component';
 
 import { SearchOrderMenuService } from '../search-order-menu.service';
 import { TranslateService } from '@ngx-translate/core';
+import { LoadingService } from '@app/core/global';
 
 
 // log component
@@ -50,6 +51,7 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
     private route: Router,
     public searchOrderMenuService: SearchOrderMenuService,
     private shellComponent: ShellComponent,
+    private loadingService: LoadingService,
     private languageService: TranslateService,
     private fb: FormBuilder) {
   }
@@ -112,6 +114,7 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
    * @memberof SearchOrderFormComponent
    */
   filterOrder(data: any) {
+    this.loadingService.viewSpinner();
     // Obtengo la información del usuario
     // this.user = this.userService.getUser();
     const datePipe = new DatePipe(this.locale);
@@ -147,7 +150,7 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
 
     if (stringSearch !== '') {
 
-      stringSearch += `&reversionRequestStatusId=${this.informationToForm.information.reversionRequestStatusId}` + `&idSeller=${this.idSeller}` ;
+      stringSearch += `&reversionRequestStatusId=${this.informationToForm.information.reversionRequestStatusId}` + `&idSeller=${this.idSeller}`;
 
       // Guardo el filtro aplicado por el usuario.
       this.searchOrderMenuService.setCurrentFilterOrders(objectSearch);
@@ -156,19 +159,20 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
         this.searchOrderMenuService.getOrdersPendingDevolutionFilterTempo(stringSearch).subscribe((res: any) => {
           if (res != null) {
             res.filter = {
-              dateOrderFinal : dateReversionRequestFinal,
+              dateOrderFinal: dateReversionRequestFinal,
               dateOrderInitial: dateReversionRequestInitial,
               idChannel: data.value.idChannel,
               orderNumber: data.value.orderNumber,
               identificationCard: data.value.identificationCard,
               processedOrder: data.value.processedOrder
-             };
+            };
             // indico a los elementos que esten suscriptos al evento.
             this.shellComponent.eventEmitterOrders.filterOrdersWithStatusResponse(res);
             this.toggleMenu();
           } else {
             this.componentsService.openSnackBar(this.languageService.instant('secure.orders.order_list.order_page.no_orders_found'), this.languageService.instant('actions.close'), 5000);
           }
+          this.loadingService.closeSpinner();
         }, err => {
           this.componentsService.openSnackBar(this.languageService.instant('errors.error_check_orders'), this.languageService.instant('actions.close'), 5000);
         });
@@ -182,6 +186,7 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
           } else {
             this.componentsService.openSnackBar(this.languageService.instant('secure.orders.order_list.order_page.no_orders_found'), this.languageService.instant('actions.close'), 5000);
           }
+          this.loadingService.closeSpinner();
         }, err => {
           this.componentsService.openSnackBar(this.languageService.instant('errors.error_check_orders'), this.languageService.instant('actions.close'), 5000);
         });
