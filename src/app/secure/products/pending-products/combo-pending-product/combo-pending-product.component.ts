@@ -4,6 +4,7 @@ import { ListProductService } from '../../list-products/list-products.service';
 import { MatSnackBar } from '@angular/material';
 import { PendingProductsService } from '../pending-products.service';
 import { UserInformation } from '@app/shared';
+import { TranslateService } from '@ngx-translate/core';
 
 const log = new Logger('ComboProductComponent');
 
@@ -34,6 +35,7 @@ export class ComboPendingProductComponent implements OnInit {
   public showProductValidation = false;
   public showProductModify = false;
   matTabIndex: number;
+  tooltipDetail: string;
 
 
   constructor(
@@ -41,10 +43,12 @@ export class ComboPendingProductComponent implements OnInit {
     private loadingService?: LoadingService,
     public snackBar?: MatSnackBar,
     public userParams?: UserParametersService,
+    private languageService?: TranslateService,
   ) {
     this.getDataUser();
     this.infoProduct = this.productsList;
     this.matTabIndex = this.indexTab;
+    console.log(55, this.infoProduct);
   }
 
   ngOnInit() {
@@ -109,7 +113,6 @@ export class ComboPendingProductComponent implements OnInit {
     }
     const paramsServ = `${this.sellerId}/${params.ean}`;
     this.openInformation(paramsServ);
-
   }
 
   /**
@@ -123,6 +126,22 @@ export class ComboPendingProductComponent implements OnInit {
     }
     const paramsServ = `${this.sellerId}/${params.ean}`;
     this.openInfoProductValidation(paramsServ);
+  }
+
+  /**
+   * 
+   * @param {*} params: Se recibe toda la informacion del producto
+   * @returns
+   * @memberof ComboPendingProductComponent
+   */
+  makeTooltipDetail(params: any) {
+    let concatInfo = '';
+    if (params) {
+      concatInfo = `${this.languageService.instant('secure.seller.list.reason')}: ${params.Reason}`  +  ' || '  + `${this.languageService.instant('secure.seller.list.observation')}: ${params.Comment}`;
+    } else {
+      concatInfo = null;
+    }
+    return concatInfo;
   }
 
 }
