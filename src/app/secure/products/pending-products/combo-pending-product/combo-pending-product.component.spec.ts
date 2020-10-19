@@ -118,18 +118,6 @@ describe('ComboPendingProductComponent', () => {
             ean: 1001114217562,
         };
         component.sellerId = 11811;
-        // component.setparams(paramsArray);
-        // component.setparams2(paramsArray);
         component.backTolist();
-    });
-    it('openInformation', () => {
-        component.openInformation(result.body.data);
-        component.showImage = true;
-        component.productsPendindgExpanded = result.body.data;
-    });
-    it('openInfoProductValidation', () => {
-        component.openInfoProductValidation(result.body.data);
-        component.showImage = true;
-        component.productsPendindgExpanded = result.body.data;
     });
 });
