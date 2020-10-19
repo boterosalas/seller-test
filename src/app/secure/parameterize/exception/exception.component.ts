@@ -403,7 +403,7 @@ export class ExceptionComponent implements OnInit, OnDestroy {
                   fila: row,
                   positionRowPrincipal: i,
                   dato: 'Fecha Inicio',
-                  message: 'El formato de fecha debe recibir esta estructura (dd/mm/aaaa 00:00)'
+                  message: 'El formato de fecha debe recibir esta estructura (aaaa/mm/dd hh:ss)'
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
@@ -422,7 +422,7 @@ export class ExceptionComponent implements OnInit, OnDestroy {
                   fila: row,
                   positionRowPrincipal: i,
                   dato: 'Fecha final',
-                  message: 'El formato de fecha debe recibir esta estructura (dd/mm/aaaa 00:00)'
+                  message: 'El formato de fecha debe recibir esta estructura (aaaa/mm/dd hh:ss)'
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
