@@ -48,7 +48,6 @@ export class ComboPendingProductComponent implements OnInit {
     this.getDataUser();
     this.infoProduct = this.productsList;
     this.matTabIndex = this.indexTab;
-    console.log(55, this.infoProduct);
   }
 
   ngOnInit() {
@@ -129,7 +128,7 @@ export class ComboPendingProductComponent implements OnInit {
   }
 
   /**
-   * 
+   * Función que concatena el motivo y la observación para el tooltip.
    * @param {*} params: Se recibe toda la informacion del producto
    * @returns
    * @memberof ComboPendingProductComponent
@@ -137,7 +136,7 @@ export class ComboPendingProductComponent implements OnInit {
   makeTooltipDetail(params: any) {
     let concatInfo = '';
     if (params) {
-      concatInfo = `${this.languageService.instant('secure.seller.list.reason')}: ${params.Reason}`  +  ' || '  + `${this.languageService.instant('secure.seller.list.observation')}: ${params.Comment}`;
+      concatInfo = `${this.languageService.instant('secure.seller.list.reason')}: ${params.reason}`  +  ' || '  + `${this.languageService.instant('secure.seller.list.observation')}: ${params.comment}`;
     } else {
       concatInfo = null;
     }

@@ -69,7 +69,7 @@ describe('ComboPendingProductComponent', () => {
     let fixture: ComponentFixture<ComboPendingProductComponent>;
 
     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
-    const mockPendingProductsService = jasmine.createSpyObj('PendingProductsService', ['changeEmitter', 'getPendingProductsModify' , 'getPendingProductsValidation', 'getEANProductsModify', 'getEANProductsValidation']);
+    const mockPendingProductsService = jasmine.createSpyObj('PendingProductsService', ['changeEmitter', 'getPendingProductsModify', 'getPendingProductsValidation', 'getEANProductsModify', 'getEANProductsValidation']);
     const mockUserParameterService = jasmine.createSpyObj('UserParametersService', ['getUserData']);
     const mockMatSnackBar = jasmine.createSpyObj('MatSnackBar', ['open']);
 
@@ -116,10 +116,20 @@ describe('ComboPendingProductComponent', () => {
         const paramsArray = {
             idSeller: 11811,
             ean: 1001114217562,
-          };
+        };
         component.sellerId = 11811;
         // component.setparams(paramsArray);
         // component.setparams2(paramsArray);
         component.backTolist();
-      });
+    });
+    it('openInformation', () => {
+        component.openInformation(result.body.data);
+        component.showImage = true;
+        component.productsPendindgExpanded = result.body.data;
+    });
+    it('openInfoProductValidation', () => {
+        component.openInfoProductValidation(result.body.data);
+        component.showImage = true;
+        component.productsPendindgExpanded = result.body.data;
+    });
 });
