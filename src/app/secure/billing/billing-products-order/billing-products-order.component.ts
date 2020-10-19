@@ -28,6 +28,7 @@ export class BillingProductsOrderComponent {
 
   // Inputs pasados por el controlador padre
   @Input() order: any;
+  @Input() isInternational: any;
 
   /**
    * Creates an instance of BillingProductsOrderComponent.

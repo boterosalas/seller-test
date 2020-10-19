@@ -325,7 +325,7 @@
       <div class="content-detail-order mat-row " [@detailExpand] style="overflow: hidden ">
         <div fxFlex="100" fxLayout="column">
           <!-- Product Information -->
-          <app-billing-products-order *ngIf="element.concept === billingConcepts.marketplaceSale" [order]="element">
+          <app-billing-products-order [isInternational]="isInternational" *ngIf="element.concept === billingConcepts.marketplaceSale" [order]="element">
           </app-billing-products-order>
           <!-- Detail fulfillment -->
           <app-billing-fulfillment-detail *ngIf="element.concept === billingConcepts.logisticsExito" [data]="element">

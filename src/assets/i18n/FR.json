@@ -488,6 +488,7 @@
     "secure.orders.order_list.product_order.sku": "SKU",
     "secure.orders.order_list.product_order.sku_seller": "Vendeur SKU",
     "secure.orders.order_list.product_order.total": "Total",
+    "secure.orders.order_list.product_order.subTotal": "Subtotal",
     "secure.orders.order_list.product_order.see_total_records_download": "Consultez toutes vos commandes en téléchargeant votre rapport de commande",
 
     "secure.orders.order_list.send_order.title_order": "Send Order",
