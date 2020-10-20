@@ -163,97 +163,9 @@
         </button>
       </mat-menu>
     </div>
-
-
-
-
-
-    <div style="padding: 5px;">
+    <div style="padding: 5px;" *ngIf="i > 1">
       <mat-divider></mat-divider>
     </div>
-    
-
-
-    <div style="display: flex;" fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false">
-      <div fxFlex="30">
-        <p id="detailName" class="sc-text-normal">{{product.detailName}}</p>
-      </div>
-      <div fxFlex="15" class="item-title-table">
-        <div>
-          <p id="ean" class="sc-text-normal">{{product.ean}}</p>
-        </div>
-      </div>
-      <div fxFlex="10" fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
-        class="item-title-table">
-        <div>
-          <p id="quantity" class="sc-text-normal">{{product.quantity}}</p>
-        </div>
-      </div>
-      <div fxFlex="10" style="margin-right: 5px;" fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false"
-        fxHide.lg="false" fxHide.xl="false" class="item-title-table">
-        <div>
-          <p style="text-align: right;" id="totalShippingCost" class="sc-text-normal">{{product.totalShippingCost | currency: '$' :
-            'symbol' : '1.0-0'}}</p>
-        </div>
-      </div>
-      <div fxFlex="15" fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
-        class="item-title-table">
-        <div>
-          <p id="price" style="text-align: right;" class="sc-text-normal">{{product.price
-            * product.quantity | currency: '$' : 'symbol' : '1.0-0'}}</p>
-        </div>
-      </div>
-      <div fxFlex="15" fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
-        class="item-title-table">
-        <div>
-          <p id="subtotal" style="text-align: right;" class="sc-text-normal">000000000000</p>
-        </div>
-      </div>
-    </div>
-    <div fxHide.xs="false" fxHide.sm="true" fxHide.md="true" fxHide.lg="true" fxHide.xl="true">
-      <div style="font-size: 11px;">
-          <div style="padding:5px">
-            <span style="font-weight: bold;">{{'shared.product' | translate}}</span> : {{product.detailName}}
-          </div>
-          <div style="padding:5px">
-            <span style="font-weight: bold;">{{'shared.ean' | translate}}</span> : {{product.ean}}
-          </div>
-          <div style="padding:5px">
-            <span style="font-weight: bold;">{{'secure.billing.amount' | translate}}</span> : {{product.quantity}}
-          </div>
-          <div style="padding:5px">
-            <span style="font-weight: bold;">{{'secure.billing.total_freight' | translate}}</span> : {{product.totalShippingCost | currency: '$' : 'symbol' : '1.0-0'}}
-          </div>
-          <div style="padding:5px">
-            <span style="font-weight: bold;">{{'secure.billing.total_cost' | translate}}</span> : {{product.price * product.quantity | currency: '$' : 'symbol' : '1.0-0'}}
-          </div>
-      </div>
-    </div>
-    
-
-    <div class="item-action-table" fxShow.xs="false" fxShow.sm="false" fxShow.lg="false" fxShow.xl="false" fxShow="false">
-
-      <button id="dropdown-product-order-{{product.sku}}" color="primary" class="button-toolbar" mat-button
-        [matMenuTriggerFor]="orderOptions">
-        <mat-icon>arrow_drop_down</mat-icon>
-        <span>{{'shared.actions' | translate}}</span>
-      </button>
-      <mat-menu #orderOptions="matMenu">
-
-        <button id="dropdown-product-viewDetail-{{product.sku}}" (click)="openModalDetailProduct(product)"
-          fxShow.xs="true" fxShow.sm="true" fxShow.gt-lg="false" fxShow="false" mat-menu-item>
-          <mat-icon>more_vert</mat-icon>
-          <span>{{'actions.show_detail' | translate}}</span>
-        </button>
-      </mat-menu>
-    </div>
-
-
-
-
-
-
-
   </div>
   <div fxLayout="row" style="padding-top: 20px;padding-bottom: 20px;">
     <div fxFlex="80" style="font-size: 14px;">
