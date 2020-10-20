@@ -1384,7 +1384,7 @@
     "secure.orders.bulk.billing.it_have_files_upload": "Lista de facturas para cargar",
     "secure.orders.bulk.billing.duplicate_name": "Tiene archivos cargados con el mismo nombre",
     "secure.orders.bulk.billing.name_filter_billing": "Filtro de Facturación",
-    "secure.orders.bulk.billing.maximum_All_file_size": "Los archivos no pueden superar 7Mb.",
+    "secure.orders.bulk.billing.maximum_All_file_size": "Los archivos no pueden pesar mas de 7mb.",
     "secure.orders.bulk.billing.size_file": "Tamaño de los archivos: ",
     "secure.orders.bulk.billing.size_file_MB": "MB"
 

@@ -8,15 +8,12 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
 import { LoadingService, ModalService, Logger } from '@app/core';
 import { AuthService } from '@app/secure/auth/auth.routing';
-import { categoriesTreeName, readException, editException } from '@app/secure/auth/auth.consts';
+import { exception, readFunctionality, updateFunctionality } from '@app/secure/auth/auth.consts';
 import { TranslateService } from '@ngx-translate/core';
 import { ExceptionBrandService } from './exception-brand.service';
 import { UserInformation } from '@app/shared';
-import { templateJitUrl } from '@angular/compiler';
 import { ModalErrorsComponent } from '../modal-errors/modal-errors.component';
-import { element } from '@angular/core/src/render3/instructions';
 import { MediaChange, ObservableMedia } from '@angular/flex-layout';
-import { DatePipe } from '@angular/common';
 
 const log = new Logger('ExceptionBrandComponent');
 
@@ -194,8 +191,8 @@ export class ExceptionBrandComponent implements OnInit {
    * @memberof ExceptionBrandComponent
    */
   getPermissions() {
-    this.canRead = this.authService.getPermissionForMenu(categoriesTreeName, readException);
-    this.canUpdate = this.authService.getPermissionForMenu(categoriesTreeName, editException);
+    this.canRead = this.authService.getPermissionForMenu(exception, readFunctionality);
+    this.canUpdate = this.authService.getPermissionForMenu(exception, updateFunctionality);
   }
 
   /**
