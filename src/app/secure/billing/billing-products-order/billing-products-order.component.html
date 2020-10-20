@@ -1,10 +1,38 @@
 <div fxFlex fxLayout="column" fxFlex="100" class="content-product-detail">
-  {{order | json}}
+  <!-- {{order | json}} -->
+  <div fxHide.sm="true" fxHide.md="true" fxHide.lg="true" fxHide.xl="true">
+    <div fxLayout="row wrap">
+      <div fxFlex="100" style="padding: 5px; font-size: 12px;">
+        <span style="font-weight: bold;">{{'secure.billing.order_number' | translate}}: </span> {{order.orderNumber || '------'}}
+      </div>
+      <div fxFlex="100" style="padding: 5px; font-size: 12px;">
+        <span style="font-weight: bold;">{{'secure.billing.payment_number' | translate}}:</span> {{ order.payOrderNumber || '------' }}
+      </div>
+      <div fxFlex="100" style="padding: 5px; font-size: 12px;">
+        <span style="font-weight: bold;">{{'secure.billing.concept' | translate}}:</span>  {{ 'secure.billing.'+ order.concept | translate}}
+      </div>
+      <div fxFlex="100" style="padding: 5px; font-size: 12px;">
+        <span style="font-weight: bold;">{{'secure.billing.payment_date' | translate}}:</span>  {{ order.paymentDate | date }}
+      </div>
+      <div fxFlex="100" style="padding: 5px; font-size: 12px;">
+        <span style="font-weight: bold;">{{'shared.commission' | translate}}:</span>  <span class="sc-commission-text">{{ order.commission | currency:'COP' }}</span>
+      </div>
+      <div fxFlex="100" style="padding: 5px; font-size: 12px;">
+        <span style="font-weight: bold;">{{'secure.billing.iva' | translate}}:</span>  <span class="sc-commission-text">{{ order.iva | currency:'COP' }}</span>
+      </div>
+      <div fxFlex="100" style="padding: 5px; font-size: 12px;">
+        <span style="font-weight: bold;">{{'secure.billing.amount_pay' | translate}}:</span>  <span class="sc-valueToPay-text">{{ order.billingTotal | currency:'COP' }}</span>
+      </div>
+    </div>
+  </div>
   <div style="padding-top: 20px;padding-bottom: 20px;">
     <div *ngIf="!isInternational">
-      <span style="font-size: 12px; color: #5D5D5D;"> <strong> Envios Exitos: </strong> 
-        <span *ngIf="order.enviosExito">Si. *El flete NO se toma en cuenta para tu pago.</span>
-        <span *ngIf="!order.enviosExito">NO. *El flete SI se tendrá en cuenta para tu pago.</span>
+      <span style="font-size: 12px; color: #5D5D5D;"> <strong> Envios Exitos:
+        </strong>
+        <span *ngIf="order.enviosExito">Si. *El flete NO se toma en cuenta para
+          tu pago.</span>
+        <span *ngIf="!order.enviosExito">NO. *El flete SI se tendrá en cuenta
+          para tu pago.</span>
       </span>
     </div>
     <div *ngIf="isInternational">
@@ -13,89 +41,222 @@
   </div>
   <mat-divider></mat-divider>
   <div class="title-product-list">
-    <div class="sc-text-normal" fxFlex="30">
+    <div class="sc-text-normal" fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
+      fxFlex="30">
       <div class="title-table-product">
         <p>{{'shared.product' | translate}}</p>
       </div>
     </div>
-    <div fxFlex="15" class="sc-text-normal item-title-table" >
+    <div fxFlex="15" fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="sc-text-normal
+      item-title-table">
       <div class="title-table-product">
         <p>{{'shared.ean' | translate}}</p>
       </div>
     </div>
-    <div fxShow fxFlex="10" fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="sc-text-normal item-title-table">
+    <div fxShow fxFlex="10" fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
+      class="sc-text-normal
+      item-title-table">
       <div class="title-table-product">
         <p>{{'secure.billing.amount' | translate}}</p>
       </div>
     </div>
-    <div fxShow fxFlex="10" fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="sc-text-normal item-title-table">
+    <div fxShow fxFlex="10" fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
+      class="sc-text-normal
+      item-title-table">
       <div class="title-table-product">
-        <p style="text-align: right;">{{'secure.billing.total_freight' | translate}}</p>
+        <p style="text-align: right;">{{'secure.billing.total_freight' |
+          translate}}</p>
       </div>
     </div>
-    <div fxShow fxFlex="15" fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="sc-text-normal item-title-table">
+    <div fxShow fxFlex="15" fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
+      class="sc-text-normal
+      item-title-table">
       <div class="title-table-product">
-        <p style="text-align: right;">{{'secure.billing.total_cost' | translate}}</p>
+        <p style="text-align: right;">{{'secure.billing.total_cost' |
+          translate}}</p>
       </div>
     </div>
-    <div fxShow fxFlex="15" fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="sc-text-normal item-title-table">
+    <div fxShow fxFlex="15" fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
+      class="sc-text-normal
+      item-title-table">
       <div class="title-table-product">
-        <p style="text-align: right;">{{'secure.orders.order_list.product_order.subTotal' | translate}}</p>
+        <p style="text-align: right;">{{'secure.orders.order_list.product_order.subTotal'
+          | translate}}</p>
       </div>
     </div>
   </div>
+  <div style="font-size: 13px; color: #5D5D5D" fxHide.xs="false" fxHide.sm="true" fxHide.md="true" fxHide.lg="true" fxHide.xl="true">
+    Lista de productos
+  </div>
 
-  <div *ngFor="let product of order.detail" class="content-product-list">
-
-    <div fxFlex="30">
-      <p id="detailName" class="sc-text-normal">{{product.detailName}}</p>
-    </div>
-    <div fxFlex="15" class="item-title-table">
-      <div>
-        <p id="ean" class="sc-text-normal">{{product.ean}}</p>
+  <div *ngFor="let product of order.detail; let i = index" class="content-product-list">
+    <div style="display: flex;" fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false">
+      <div fxFlex="30">
+        <p id="detailName" class="sc-text-normal">{{product.detailName}}</p>
+      </div>
+      <div fxFlex="15" class="item-title-table">
+        <div>
+          <p id="ean" class="sc-text-normal">{{product.ean}}</p>
+        </div>
+      </div>
+      <div fxFlex="10" fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
+        class="item-title-table">
+        <div>
+          <p id="quantity" class="sc-text-normal">{{product.quantity}}</p>
+        </div>
+      </div>
+      <div fxFlex="10" style="margin-right: 5px;" fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false"
+        fxHide.lg="false" fxHide.xl="false" class="item-title-table">
+        <div>
+          <p style="text-align: right;" id="totalShippingCost" class="sc-text-normal">{{product.totalShippingCost | currency: '$' :
+            'symbol' : '1.0-0'}}</p>
+        </div>
+      </div>
+      <div fxFlex="15" fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
+        class="item-title-table">
+        <div>
+          <p id="price" style="text-align: right;" class="sc-text-normal">{{product.price
+            * product.quantity | currency: '$' : 'symbol' : '1.0-0'}}</p>
+        </div>
+      </div>
+      <div fxFlex="15" fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
+        class="item-title-table">
+        <div>
+          <p id="subtotal" style="text-align: right;" class="sc-text-normal">000000000000</p>
+        </div>
       </div>
     </div>
-    <div  fxFlex="10" fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="item-title-table">
-      <div>
-        <p id="quantity" class="sc-text-normal">{{product.quantity}}</p>
+    <div fxHide.xs="false" fxHide.sm="true" fxHide.md="true" fxHide.lg="true" fxHide.xl="true">
+      <div style="font-size: 11px;">
+          <div style="padding:5px">
+            <span style="font-weight: bold;">{{'shared.product' | translate}}</span> : {{product.detailName}}
+          </div>
+          <div style="padding:5px">
+            <span style="font-weight: bold;">{{'shared.ean' | translate}}</span> : {{product.ean}}
+          </div>
+          <div style="padding:5px">
+            <span style="font-weight: bold;">{{'secure.billing.amount' | translate}}</span> : {{product.quantity}}
+          </div>
+          <div style="padding:5px">
+            <span style="font-weight: bold;">{{'secure.billing.total_freight' | translate}}</span> : {{product.totalShippingCost | currency: '$' : 'symbol' : '1.0-0'}}
+          </div>
+          <div style="padding:5px">
+            <span style="font-weight: bold;">{{'secure.billing.total_cost' | translate}}</span> : {{product.price * product.quantity | currency: '$' : 'symbol' : '1.0-0'}}
+          </div>
       </div>
     </div>
-    <div fxFlex="10" style="margin-right: 5px;" fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="item-title-table">
-      <div>
-        <p style="text-align: right;" id="totalShippingCost" class="sc-text-normal">{{product.totalShippingCost | currency: '$' : 'symbol' : '1.0-0'}}</p>
-      </div>
-    </div>
-    <div fxFlex="15" fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="item-title-table">
-      <div>
-        <p id="price" style="text-align: right;" class="sc-text-normal">{{product.price * product.quantity | currency: '$' : 'symbol' : '1.0-0'}}</p>
-      </div>
-    </div>
-    <div fxFlex="15" fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="item-title-table">
-      <div>
-        <p id="subtotal" style="text-align: right;" class="sc-text-normal">000000000000</p>
-      </div>
-    </div>
-
     
 
-    <div class="item-action-table" fxShow.xs="true" fxShow.sm="true" fxShow.lg="false" fxShow.xl="false" fxShow="false">
+    <div class="item-action-table" fxShow.xs="false" fxShow.sm="false" fxShow.lg="false" fxShow.xl="false" fxShow="false">
 
-      <button id="dropdown-product-order-{{product.sku}}" color="primary" class="button-toolbar" mat-button [matMenuTriggerFor]="orderOptions">
+      <button id="dropdown-product-order-{{product.sku}}" color="primary" class="button-toolbar" mat-button
+        [matMenuTriggerFor]="orderOptions">
         <mat-icon>arrow_drop_down</mat-icon>
         <span>{{'shared.actions' | translate}}</span>
       </button>
       <mat-menu #orderOptions="matMenu">
 
-        <button id="dropdown-product-viewDetail-{{product.sku}}" (click)="openModalDetailProduct(product)" fxShow.xs="true" fxShow.sm="true"
-          fxShow.gt-lg="false" fxShow="false" mat-menu-item>
+        <button id="dropdown-product-viewDetail-{{product.sku}}" (click)="openModalDetailProduct(product)"
+          fxShow.xs="true" fxShow.sm="true" fxShow.gt-lg="false" fxShow="false" mat-menu-item>
           <mat-icon>more_vert</mat-icon>
           <span>{{'actions.show_detail' | translate}}</span>
         </button>
       </mat-menu>
     </div>
+
+
+
+
+
+    <div style="padding: 5px;">
+      <mat-divider></mat-divider>
+    </div>
+    
+
+
+    <div style="display: flex;" fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false">
+      <div fxFlex="30">
+        <p id="detailName" class="sc-text-normal">{{product.detailName}}</p>
+      </div>
+      <div fxFlex="15" class="item-title-table">
+        <div>
+          <p id="ean" class="sc-text-normal">{{product.ean}}</p>
+        </div>
+      </div>
+      <div fxFlex="10" fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
+        class="item-title-table">
+        <div>
+          <p id="quantity" class="sc-text-normal">{{product.quantity}}</p>
+        </div>
+      </div>
+      <div fxFlex="10" style="margin-right: 5px;" fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false"
+        fxHide.lg="false" fxHide.xl="false" class="item-title-table">
+        <div>
+          <p style="text-align: right;" id="totalShippingCost" class="sc-text-normal">{{product.totalShippingCost | currency: '$' :
+            'symbol' : '1.0-0'}}</p>
+        </div>
+      </div>
+      <div fxFlex="15" fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
+        class="item-title-table">
+        <div>
+          <p id="price" style="text-align: right;" class="sc-text-normal">{{product.price
+            * product.quantity | currency: '$' : 'symbol' : '1.0-0'}}</p>
+        </div>
+      </div>
+      <div fxFlex="15" fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
+        class="item-title-table">
+        <div>
+          <p id="subtotal" style="text-align: right;" class="sc-text-normal">000000000000</p>
+        </div>
+      </div>
+    </div>
+    <div fxHide.xs="false" fxHide.sm="true" fxHide.md="true" fxHide.lg="true" fxHide.xl="true">
+      <div style="font-size: 11px;">
+          <div style="padding:5px">
+            <span style="font-weight: bold;">{{'shared.product' | translate}}</span> : {{product.detailName}}
+          </div>
+          <div style="padding:5px">
+            <span style="font-weight: bold;">{{'shared.ean' | translate}}</span> : {{product.ean}}
+          </div>
+          <div style="padding:5px">
+            <span style="font-weight: bold;">{{'secure.billing.amount' | translate}}</span> : {{product.quantity}}
+          </div>
+          <div style="padding:5px">
+            <span style="font-weight: bold;">{{'secure.billing.total_freight' | translate}}</span> : {{product.totalShippingCost | currency: '$' : 'symbol' : '1.0-0'}}
+          </div>
+          <div style="padding:5px">
+            <span style="font-weight: bold;">{{'secure.billing.total_cost' | translate}}</span> : {{product.price * product.quantity | currency: '$' : 'symbol' : '1.0-0'}}
+          </div>
+      </div>
+    </div>
+    
+
+    <div class="item-action-table" fxShow.xs="false" fxShow.sm="false" fxShow.lg="false" fxShow.xl="false" fxShow="false">
+
+      <button id="dropdown-product-order-{{product.sku}}" color="primary" class="button-toolbar" mat-button
+        [matMenuTriggerFor]="orderOptions">
+        <mat-icon>arrow_drop_down</mat-icon>
+        <span>{{'shared.actions' | translate}}</span>
+      </button>
+      <mat-menu #orderOptions="matMenu">
+
+        <button id="dropdown-product-viewDetail-{{product.sku}}" (click)="openModalDetailProduct(product)"
+          fxShow.xs="true" fxShow.sm="true" fxShow.gt-lg="false" fxShow="false" mat-menu-item>
+          <mat-icon>more_vert</mat-icon>
+          <span>{{'actions.show_detail' | translate}}</span>
+        </button>
+      </mat-menu>
+    </div>
+
+
+
+
+
+
+
   </div>
   <div fxLayout="row" style="padding-top: 20px;padding-bottom: 20px;">
-    <div fxFlex="80" style="font-size: 14px;"> 
+    <div fxFlex="80" style="font-size: 14px;">
       <span>SUBTOTAL</span>
     </div>
     <div style="text-align: right; font-size: 12px;" class="sc-valueToPay-text" fxFlex="15">
@@ -104,25 +265,25 @@
   </div>
   <mat-divider></mat-divider>
   <div fxLayout="row" style="padding-bottom: 5px; padding-top: 5px;">
-    <div fxFlex="80" style="font-size: 13px; color: #5D5D5D;"> 
+    <div fxFlex="80" style="font-size: 13px; color: #5D5D5D;">
       <span>Descuento por comisión</span>
     </div>
-    <div style="text-align: right; font-size: 12px;" class="sc-commission-text " fxFlex="15">
+    <div style="text-align: right; font-size: 12px;" class="sc-commission-text" fxFlex="15">
       <span>{{order.commission | currency: '$' : 'symbol' : '1.0-0'}}</span>
     </div>
   </div>
   <div fxLayout="row">
-    <div fxFlex="80" style="font-size: 13px; color: #5D5D5D;"> 
+    <div fxFlex="80" style="font-size: 13px; color: #5D5D5D;">
       <span>Descuento por IVA</span>
     </div>
-    <div style="text-align: right; font-size: 12px;" class="sc-commission-text " fxFlex="15">
+    <div style="text-align: right; font-size: 12px;" class="sc-commission-text" fxFlex="15">
       <span>{{order.iva | currency: '$' : 'symbol' : '1.0-0'}}</span>
     </div>
   </div>
   <mat-divider></mat-divider>
   <div>
     <div fxLayout="row" style="padding-top: 20px;padding-bottom: 10px;">
-      <div fxFlex="80" style="font-size: 14px;"> 
+      <div fxFlex="80" style="font-size: 14px;">
         <span><strong>TOTAL A PAGAR</strong></span>
       </div>
       <div style="text-align: right; font-size: 12px;" class="sc-valueToPay-text" fxFlex="15">
