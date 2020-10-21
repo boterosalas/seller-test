@@ -446,11 +446,11 @@ export class ExceptionComponent implements OnInit, OnDestroy {
           }
         }
       }
-      if (errorInCell) {
-        this.addRowToTable(res, i, iVal);
-      }
-      this.addInfoTosend(res, i, iVal, errorInCell);
+      // if (errorInCell) {
+      //   this.addRowToTable(res, i, iVal);
+      // }
       errorInCell = false;
+      this.addInfoTosend(res, i, iVal, errorInCell);
     }
     if (this.listLog.length > 0) {
       this.setDataDialog();
