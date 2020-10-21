@@ -452,9 +452,9 @@ export class ExceptionComponent implements OnInit, OnDestroy {
       errorInCell = false;
       this.addInfoTosend(res, i, iVal, errorInCell);
     }
-    if (this.listLog.length > 0) {
-      this.setDataDialog();
-    } else {
+    // if (this.listLog.length > 0) {
+    //   this.setDataDialog();
+    // } else {
       this.arrayInformationForSend.splice(0, 1);
       this.exceptionBrandService.sendDataJsonReadExcel(this.arrayInformationForSend).subscribe(results => {
         if (results) {
@@ -483,7 +483,7 @@ export class ExceptionComponent implements OnInit, OnDestroy {
           });
         }
       });
-    }
+    // }
   }
   /**
    * funcion para validar el formato
