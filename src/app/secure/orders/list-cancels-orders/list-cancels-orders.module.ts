@@ -8,12 +8,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from '@app/shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { HistoricalDevolutionModule } from '..';
-import { HistoricalDevolutionComponent } from '../historical-devolution/historical-devolution-page/historical-devolution.component';
-import { InValidationComponent } from '../in-validation/in-validation-page/in-validation.component';
 import { InValidationModule } from '../in-validation/in-validation.module';
 import { PendingDevolutionModule } from '../pending-devolution/pending-devolution.module';
 import { ListCancelsOrdersComponent } from './list-cancels-orders.component';
 import { ListCancelOrderRoutingModule } from './list-cancels-orders.routing';
+import { DownloadReportHistCancelsComponent } from './download-report-hist-cancels/download-report-hist-cancels.component';
+import { DownloadReportListCancelsComponent } from './download-report-list-cancels/download-report-list-cancels.component';
 
 
 
@@ -33,6 +33,8 @@ import { ListCancelOrderRoutingModule } from './list-cancels-orders.routing';
     ],
     declarations: [
         ListCancelsOrdersComponent,
+        DownloadReportHistCancelsComponent,
+        DownloadReportListCancelsComponent,
     ],
     exports: [
 

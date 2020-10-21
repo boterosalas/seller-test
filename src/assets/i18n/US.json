@@ -560,6 +560,8 @@
 
     "secure.orders.list-cancels.tab1": "Pending cancellations", 
     "secure.orders.list-cancels.tab2": "Cancellations Record", 
+    "secure.orders.list-cancels.tab1-title-download": "We will send you the Cancellations download to email", 
+    "secure.orders.list-cancels.tab2-title-download": "We will send you the download of History of cancellations to email", 
 
     "secure.seller.list.enabled_title_modal": "Enable user",
     "secure.seller.list.disabled_title_modal": "Disable user",

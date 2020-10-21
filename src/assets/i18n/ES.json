@@ -558,6 +558,8 @@
 
     "secure.orders.list-cancels.tab1": "Cancelaciones pendientes", 
     "secure.orders.list-cancels.tab2": "Histórico de cancelaciones", 
+    "secure.orders.list-cancels.tab1-title-download": "Te enviaremos la descarga de Cancelaciones al siguiente correo electrónico", 
+    "secure.orders.list-cancels.tab2-title-download": "Te enviaremos la descarga de Histórico de cancelaciones al siguiente correo electrónico", 
 
     "secure.seller.list.enabled_title_modal": "Activación",
     "secure.seller.list.disabled_title_modal": "Desactivación",
