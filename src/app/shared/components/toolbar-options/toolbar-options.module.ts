@@ -6,8 +6,8 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@app/material.module';
 import { DownloadOrderModalModule } from '@secure/orders/download-order-modal/download-order-modal.module';
 import { ToolbarOptionsComponent } from './toolbar-options.component';
-import { SharedModule } from '@app/shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { DownloadListCancelsModalModule } from '@app/secure/orders/list-cancels-orders/download-report-list-cancels/download-report-list-cancels.module';
 
 
 
@@ -19,7 +19,8 @@ import { TranslateModule } from '@ngx-translate/core';
     ReactiveFormsModule,
     MaterialModule,
     DownloadOrderModalModule,
-    TranslateModule
+    TranslateModule,
+    DownloadListCancelsModalModule
   ],
   declarations: [
     ToolbarOptionsComponent,

@@ -562,6 +562,10 @@
     "secure.orders.list-cancels.tab2": "Cancellations Record", 
     "secure.orders.list-cancels.tab1-title-download": "We will send you the Cancellations download to email", 
     "secure.orders.list-cancels.tab2-title-download": "We will send you the download of History of cancellations to email", 
+    "secure.orders.list-cancels-tab1-msg-ok": "Pending cancellations have been downloaded successfully, check your email.",
+    "secure.orders.list-cancels-tab1-msg-ko": "The download of the cancellation Overview has been done correctly, check your email.",
+    "secure.orders.list-cancels-tab2-msg-ok": "An error occurred while downloading pending cancellations.",
+    "secure.orders.list-cancels-tab2-msg-ko": "An error occurred when downloading the cancellation overview.",
 
     "secure.seller.list.enabled_title_modal": "Enable user",
     "secure.seller.list.disabled_title_modal": "Disable user",

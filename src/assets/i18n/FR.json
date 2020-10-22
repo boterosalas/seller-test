@@ -554,6 +554,10 @@
     "secure.orders.list-cancels.tab2": "Historique des annulations", 
     "secure.orders.list-cancels.tab1-title-download": "Nous vous enverrons le téléchargement des annulations par e-mail", 
     "secure.orders.list-cancels.tab2-title-download": "Nous vous enverrons le téléchargement de l'historique des annulations par e-mail", 
+    "secure.orders.list-cancels-tab1-msg-ok": "Les annulations en attente ont été téléchargées avec succès, vérifiez votre e-mail.",
+    "secure.orders.list-cancels-tab1-msg-ko": "Le téléchargement de l'historique des annulations a été effectué correctement, vérifiez votre email.",
+    "secure.orders.list-cancels-tab2-msg-ok": "Une erreur s'est produite lors du téléchargement des annulations en cours.",
+    "secure.orders.list-cancels-tab2-msg-ko": "Une erreur s'est produite lors du téléchargement de l'historique des annulations.",
 
     "secure.seller.list.enabled_title_modal": "Enable user",
     "secure.seller.list.disabled_title_modal": "Disable user",

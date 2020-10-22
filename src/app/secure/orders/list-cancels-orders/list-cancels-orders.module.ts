@@ -12,9 +12,6 @@ import { InValidationModule } from '../in-validation/in-validation.module';
 import { PendingDevolutionModule } from '../pending-devolution/pending-devolution.module';
 import { ListCancelsOrdersComponent } from './list-cancels-orders.component';
 import { ListCancelOrderRoutingModule } from './list-cancels-orders.routing';
-import { DownloadReportHistCancelsComponent } from './download-report-hist-cancels/download-report-hist-cancels.component';
-import { DownloadReportListCancelsComponent } from './download-report-list-cancels/download-report-list-cancels.component';
-
 
 
 @NgModule({
@@ -33,8 +30,6 @@ import { DownloadReportListCancelsComponent } from './download-report-list-cance
     ],
     declarations: [
         ListCancelsOrdersComponent,
-        DownloadReportHistCancelsComponent,
-        DownloadReportListCancelsComponent,
     ],
     exports: [
 

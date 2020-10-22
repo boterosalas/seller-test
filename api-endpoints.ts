@@ -232,7 +232,9 @@ export const endpoints = {
       // verificar el estado de la carga masiva para excepciones PLU
       verificateStatusException : 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/GetMassiveComsnExcStatus',
       // enviar data en formato json al back
-      sendDataJsonReadExcel : 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/MassiveComsnExc'
+      sendDataJsonReadExcel : 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/MassiveComsnExc',
+      // Descargable del listado/historico de cancelaciones
+      exportListCancel: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch/report'
     },
   },
   // Endpoints production
@@ -462,7 +464,9 @@ export const endpoints = {
       // verificar el estado de la carga masiva para excepciones PLU
       verificateStatusException : 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/GetMassiveComsnExcStatus',
        // enviar data en formato json al back
-       sendDataJsonReadExcel : 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/MassiveComsnExc'
+       sendDataJsonReadExcel : 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/MassiveComsnExc',
+       // Descargable del listado/historico de cancelaciones
+       exportListCancel: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch/report'
     }
   }
 };

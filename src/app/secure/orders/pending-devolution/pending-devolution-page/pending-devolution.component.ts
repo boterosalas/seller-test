@@ -138,6 +138,8 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
   public querySearch = '';
   public currentLanguage: string;
 
+  hideOptionsListCancel: Boolean = true;
+
   constructor(
     public shellComponent: ShellComponent,
     public dialog: MatDialog,
@@ -155,6 +157,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
    * @memberof PendingDevolutionComponent
    */
   ngOnInit() {
+    this.hideOptionsListCancel = true;
     // this.permissionComponent = this.authService.getMenu(pendingName);
     this.getDataUser(pendingName);
     this.searchSubscription = this.eventsSeller.eventSearchSeller

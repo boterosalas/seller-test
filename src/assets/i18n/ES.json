@@ -560,6 +560,10 @@
     "secure.orders.list-cancels.tab2": "Histórico de cancelaciones", 
     "secure.orders.list-cancels.tab1-title-download": "Te enviaremos la descarga de Cancelaciones al siguiente correo electrónico", 
     "secure.orders.list-cancels.tab2-title-download": "Te enviaremos la descarga de Histórico de cancelaciones al siguiente correo electrónico", 
+    "secure.orders.list-cancels-tab1-msg-ok": "Se ha realizado la descarga de las cancelaciones pendientes correctamente, revisa tu correo electrónico.",
+    "secure.orders.list-cancels-tab2-msg-ok": "Se ha realizado la descarga del histórico de cancelaciones correctamente, revisa tu correo electrónico.",
+    "secure.orders.list-cancels-tab1-msg-ko": "Se ha presentado un error al realizar la descarga de las cancelaciones pendientes.",
+    "secure.orders.list-cancels-tab2-msg-ko": "Se ha presentado un error al realizar la descarga del histórico de cancelaciones.",
 
     "secure.seller.list.enabled_title_modal": "Activación",
     "secure.seller.list.disabled_title_modal": "Desactivación",

@@ -1,5 +1,8 @@
 <div *ngIf="formListPending">
-  <h2 mat-dialog-title>{{'secure.orders.list-cancels.tab1-title-download' | translate}}</h2>
+  <h2 mat-dialog-title *ngIf="filtersList && filtersList.typeReport === 1">
+    {{'secure.orders.list-cancels.tab1-title-download' | translate}}</h2>
+  <h2 mat-dialog-title *ngIf="filtersList && filtersList.typeReport === 2">
+    {{'secure.orders.list-cancels.tab2-title-download' | translate}}</h2>
 
   <mat-dialog-content>
     <form #f="ngForm" [formGroup]="formListPending" class="form-login">
@@ -28,6 +31,10 @@
     <button mat-button [mat-dialog-close]="'false'" mat-stroked-button color="primary"
       (click)="onNoClick()">{{'actions.cancel_min' | translate}}</button>
     <button mat-button [mat-dialog-close]="'true'" mat-raised-button color="primary" [disabled]="!f.form.valid"
-      (click)="sendExportDevolution()">{{'actions.accept' | translate}}</button>
+      *ngIf="filtersList && filtersList.typeReport === 1"
+      (click)="sendExportDevolutionList()">{{'actions.accept' | translate}}</button>
+    <button mat-button [mat-dialog-close]="'true'" mat-raised-button color="primary" [disabled]="!f.form.valid"
+      *ngIf="filtersList && filtersList.typeReport === 2"
+      (click)="sendExportDevolutionHistoric()">{{'actions.accept' | translate}}</button>
   </div>
 </div>
