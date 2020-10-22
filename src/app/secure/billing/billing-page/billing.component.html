@@ -244,7 +244,7 @@
           <mat-cell fxShow.xs="false" [ngClass]="isInternational ? 'hiddenColumn' : 'showColumn'" fxShow.sm="true"
             fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px" fxFlex.md="15%" fxFlex.lg="15%"
             fxFlex.xs="50%" *matCellDef="let element">
-            <p class="sc-text-normal sc-commission-text">{{ element.iva | currency:'COP' }}</p>
+            <p class="sc-text-normal sc-commission-text">-{{ element.iva | currency:'COP' }}</p>
 
           </mat-cell>
         </ng-container>
