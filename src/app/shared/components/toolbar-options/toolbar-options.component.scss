@@ -249,3 +249,9 @@ $height-input: 25px;
   color: #000000 !important;
   caret-color: #000000;
 }
+
+#more-options-for-search-orden-historical{
+  @media only screen and (min-width: 600px) {
+    display: none;
+  }
+}

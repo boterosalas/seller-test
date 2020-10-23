@@ -41,7 +41,41 @@
           </mat-paginator>
 
           <div fxLayout="row" class="center-product-list" fxFlex="20px" fxShow.xs="true" fxShow.sm="true"
-            fxShow.md="true" fxShow.lg="false" fxShow.xl="false" *ngIf="!hideOptionsHistorical">
+            fxShow.md="false" fxShow.lg="false" fxShow.xl="false"
+            *ngIf="hideOptionsHistorical || hideOptionsListCancel">
+            <button id="more-options-for-search-orden-historical" class="button-toolbar" mat-icon-button
+              [matMenuTriggerFor]="toolbarOptionsHistorical">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #toolbarOptionsHistorical="matMenu">
+              <div style="display: flex;">
+                <button id="search-order-button" (click)="toggleMenuOrderSearch()" mat-menu-item>
+                  <mat-icon>filter_list</mat-icon>
+                  <span class="acction-text">Filtrar</span>
+                </button>
+                <div class="options-dropdwon">
+                  <button id="close-more-options-for-search-orden" color="primary" mat-icon-button matSuffix>
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </div>
+              </div>
+
+              <button [disabled]="orderListLength" (click)="openModalDownloadListCancels()" class="acction-text"
+                *ngIf="hideOptionsListCancel" id="download-order-button" mat-menu-item>
+                <mat-icon>file_download</mat-icon>
+                <span>{{'actions.download' | translate}}</span>
+              </button>
+              <button [disabled]="orderListLength" (click)="openModalDownloadHistCancels()" class="acction-text"
+                *ngIf="hideOptionsHistorical" id="download-order-button" mat-menu-item>
+                <mat-icon>file_download</mat-icon>
+                <span>{{'actions.download' | translate}}</span>
+              </button>
+            </mat-menu>
+          </div>
+
+          <div fxLayout="row" class="center-product-list" fxFlex="20px" fxShow.xs="true" fxShow.sm="true"
+            fxShow.md="true" fxShow.lg="false" fxShow.xl="false"
+            *ngIf="!hideOptionsHistorical && !hideOptionsListCancel">
             <button id="more-options-for-search-orden" class="button-toolbar" mat-icon-button
               [matMenuTriggerFor]="toolbarOptions">
               <mat-icon>more_vert</mat-icon>
