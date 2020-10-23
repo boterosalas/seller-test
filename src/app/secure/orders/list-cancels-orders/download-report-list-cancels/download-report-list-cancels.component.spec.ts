@@ -8,22 +8,15 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { LoadingService, UserParametersService } from '@app/core';
 import { MaterialModule } from '@app/material.module';
 import { ComponentsService } from '@app/shared';
-import { SharedModule } from '@app/shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { DownloadReportListCancelsComponent } from './download-report-list-cancels.component';
 import { ListDownloadOrdersService } from './download-report-list-cancels.service';
 
-fdescribe('DownloadReportListCancelsComponent', () => {
+describe('DownloadReportListCancelsComponent', () => {
   let component: DownloadReportListCancelsComponent;
   let fixture: ComponentFixture<DownloadReportListCancelsComponent>;
-
-  const currentSeller = {
-    email: 'ccbustamante221@misena.edu.co',
-    idSeller: '11618',
-    sellerName: 'la tienda de cristian 2019 vs 512',
-  };
 
   const data = {
     sellerId: '11618',
@@ -44,13 +37,6 @@ fdescribe('DownloadReportListCancelsComponent', () => {
   };
   const dataToSendDownloadHistKo = {
     data: false
-  };
-
-  const dataToSendDownloadHist = {
-    typeReport: 2,
-    sellerId: data.sellerId,
-    email: data.sellerEmail,
-    filtersReport: null
   };
 
   const mockDialogRef = jasmine.createSpyObj('MatDialogRef', ['close', 'afterClosed', 'componentInstance']);
