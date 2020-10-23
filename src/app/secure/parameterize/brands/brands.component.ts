@@ -141,6 +141,7 @@ export class BrandsComponent implements OnInit {
         const limit = this.pageSize;
         const IdVTEX = 'null';
         const Status = 'null';
+        let filterName = '';
         this.filterBrandsControlsName = this.filterBrands.controls['filterBrandsId'].value;
         this.filterBrandsControlsId = this.filterBrands.controls['filterBrandsName'].value;
         if (this.filterBrandsControlsName) {
@@ -158,6 +159,13 @@ export class BrandsComponent implements OnInit {
         if (page || limit) {
             this.countFilter++;
         } else { this.countFilter = 0; }
+
+        if (this.filterBrandsName === '/') {
+            filterName = encodeURIComponent(this.filterBrandsName);
+        } else {
+            filterName = escape(this.filterBrandsName);
+        }
+        this.filterBrandsName = filterName;
 
         this.urlParams = `${this.filterBrandsId}/${this.filterBrandsName}/${Status}/${IdVTEX}/${page}/${limit}`;
         this.loading.viewSpinner();
@@ -482,6 +490,7 @@ export class BrandsComponent implements OnInit {
         this.pagepaginator = 0;
         this.paginator.firstPage();
         this.listFilterBrands = [];
+        let filterName = '';
         if (this.filterBrands.controls['filterBrandsId'].value) {
             this.filterBrandsId = <number>this.filterBrands.controls['filterBrandsId'].value;
         } else {
@@ -553,7 +562,13 @@ export class BrandsComponent implements OnInit {
         this.body = this.form.value;
         this.loading.viewSpinner();
         if (this.body && this.body.idBrands) {
-            this.brandService.changeStatusBrands({ Id: this.body.idBrands, Name: this.body.nameBrands.toUpperCase(), UpdateStatus: false }).subscribe(result => {
+            let nameUpdate = '';
+            if(this.body.nameBrands.toUpperCase() === '/'){
+                nameUpdate = encodeURIComponent(this.body.nameBrands.toUpperCase());
+            } else {
+                nameUpdate = escape(this.body.nameBrands.toUpperCase());
+            }
+            this.brandService.changeStatusBrands({ Id: this.body.idBrands, Name: nameUpdate , UpdateStatus: false }).subscribe(result => {
                 const errorMessage = JSON.parse(result.body);
                 
                 if (result.statusCode === 200 || result.statusCode === 201) {
@@ -572,7 +587,13 @@ export class BrandsComponent implements OnInit {
                 }
             });
         } else {
-            this.brandService.createBrands({ Name: this.body.nameBrands }).subscribe(result => {
+            let nameCreate = ''
+            if(this.body.nameBrands.toUpperCase() === '/'){
+                nameCreate = encodeURIComponent(this.body.nameBrands.toUpperCase());
+            } else {
+                nameCreate = escape(this.body.nameBrands.toUpperCase());
+            }
+            this.brandService.createBrands({ Name: nameCreate }).subscribe(result => {
                 const errorMessage = JSON.parse(result.body);
 
                 if (result.statusCode === 200 || result.statusCode === 201) {
@@ -599,7 +620,10 @@ export class BrandsComponent implements OnInit {
      * @memberof BrandsComponent
      */
     public validateExist(event: any) {
-        this.newBrands = event.target.value.toUpperCase();
+        this.newBrands = escape(event.target.value.toUpperCase());
+        if(this.newBrands === '/'){
+            this.newBrands = encodeURIComponent(this.newBrands)
+        }
         if (this.newBrands && this.newBrands !== '' && this.newBrands !== undefined && this.newBrands !== null) {
             if (this.newBrands !== this.changeNameBrands) {
                 this.urlParams = `null/${this.newBrands}/null/null`;

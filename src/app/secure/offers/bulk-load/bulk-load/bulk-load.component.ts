@@ -1097,7 +1097,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(FinishUploadInformationComponent, {
       width: '95%',
       data: {
-        response: res
+        response: res,
+        responseDiferent : false
       },
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -1512,7 +1513,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       initTime: 500,
       intervalTime: this.intervalTime,
       listError: listError,
-      typeStatus: type
+      typeStatus: type,
+      responseDiferent : false
     };
     this.cdr.detectChanges();
     const dialog = this.dialog.open(FinishUploadInformationComponent, {

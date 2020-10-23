@@ -83,16 +83,19 @@ export class BulkLoadBillingComponent implements OnInit {
       setTimeout(() => {
         this.bulkLoadBillingService.sendBulkLoadBilling(res).subscribe((results: any) => {
           if (results) {
-            if (results.data) {
+            if (results.error > 0) {
+              this.loadingService.closeSpinner();
+              this.openModal(3, results.listError);
+            } else {
               this.loadingService.closeSpinner();
               this.openModal(1, null);
-            } else {
+            }
+          } else {
               this.loadingService.closeSpinner();
               this.snackBar.open(this.languageService.instant('error'), this.languageService.instant('actions.close'), {
                 duration: 3000,
               });
             }
-          }
           this.countSizeFile = 0;
         });
       }, 1000);
@@ -263,7 +266,8 @@ export class BulkLoadBillingComponent implements OnInit {
       intervalTime: intervalTime,
       listError: listError,
       typeStatus: type,
-      showExport: false
+      showExport: false,
+      responseDiferent : false
     };
     const dialog = this.dialog.open(FinishUploadInformationComponent, {
       width: '70%',

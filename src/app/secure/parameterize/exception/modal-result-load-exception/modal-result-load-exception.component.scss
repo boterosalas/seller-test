@@ -1,0 +1,70 @@
+.modal-result-load-exception{
+  &-container{
+    font-size: 16px;
+    text-align: left;
+  }
+  &-text-title{
+    color:#818186;
+    font-size: 13px
+  }
+  &-text-aling-right{
+    text-align: right;
+  }
+  &-cursor-pointer{
+    cursor: pointer;
+  }
+  &-width-100{
+    width: 100%;
+  }
+  &-font-text{
+    font-size: 15px;
+    font-weight: bold;
+  }
+  &-container-errors{
+    padding: 5px;
+    width: 100%;
+  }
+  &-container-errors-padding{
+    margin-left: 20px;
+    margin-right: 20px;
+    background-color: #fbfbfb;
+    padding: 10px;
+  }
+  &-color-icon{
+    color: red;
+    vertical-align: middle;
+  }
+  &-message-1-error{
+    white-space:normal;
+    overflow: visible;
+    font-size: 13px;
+  }
+  &-text-color-data{
+    font-weight: bold;
+    color:#3d5afe;
+  }
+  &-pointer-color-recommendation{
+    color: #3d5afe;
+    font-weight: bold;
+    cursor:pointer;
+  }
+  &-white-space-font-size{
+    white-space:normal;
+    overflow: visible;
+    font-size: 13px;
+  }
+  &-text-message-2-errors{
+    font-weight: bold;
+    color:#3d5afe;
+  }
+}
+
+
+.generic-component-container-scroll{
+    max-height: 200px;
+    contain: content;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: inline-block;
+    margin-bottom: 22px;
+  }
