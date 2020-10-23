@@ -403,7 +403,7 @@ export class ExceptionComponent implements OnInit, OnDestroy {
                   fila: row,
                   positionRowPrincipal: i,
                   dato: 'Fecha Inicio',
-                  message: 'El formato de fecha debe recibir esta estructura (dd/mm/aaaa 00:00)'
+                  message: 'El formato de fecha debe recibir esta estructura (aaaa/mm/dd hh:ss)'
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
@@ -422,7 +422,7 @@ export class ExceptionComponent implements OnInit, OnDestroy {
                   fila: row,
                   positionRowPrincipal: i,
                   dato: 'Fecha final',
-                  message: 'El formato de fecha debe recibir esta estructura (dd/mm/aaaa 00:00)'
+                  message: 'El formato de fecha debe recibir esta estructura (aaaa/mm/dd hh:ss)'
                 };
                 this.listLog.push(itemLog);
                 errorInCell = true;
@@ -446,15 +446,15 @@ export class ExceptionComponent implements OnInit, OnDestroy {
           }
         }
       }
-      if (errorInCell) {
-        this.addRowToTable(res, i, iVal);
-      }
-      this.addInfoTosend(res, i, iVal, errorInCell);
+      // if (errorInCell) {
+      //   this.addRowToTable(res, i, iVal);
+      // }
       errorInCell = false;
+      this.addInfoTosend(res, i, iVal, errorInCell);
     }
-    if (this.listLog.length > 0) {
-      this.setDataDialog();
-    } else {
+    // if (this.listLog.length > 0) {
+    //   this.setDataDialog();
+    // } else {
       this.arrayInformationForSend.splice(0, 1);
       this.exceptionBrandService.sendDataJsonReadExcel(this.arrayInformationForSend).subscribe(results => {
         if (results) {
@@ -483,7 +483,7 @@ export class ExceptionComponent implements OnInit, OnDestroy {
           });
         }
       });
-    }
+    // }
   }
   /**
    * funcion para validar el formato

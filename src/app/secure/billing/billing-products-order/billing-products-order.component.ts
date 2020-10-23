@@ -26,7 +26,7 @@ const log = new Logger('BillingProductsOrderComponent');
  */
 export class BillingProductsOrderComponent {
 
-  // Inputs pasados por el controlador padre
+
   @Input() order: any;
 
   /**
