@@ -82,8 +82,7 @@
       </div>
     </div>
     <div fxShow fxFlex="10" fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
-      class="sc-text-normal
-      item-title-table">
+     [class]="isInternational ? 'max-billing-products-20 sc-text-normal item-title-table' : 'max-billing-products-10 sc-text-normal item-title-table' ">
       <div class="title-table-product billing-products-order-text-align-right">
         <p>{{'secure.orders.order_list.product_order.subTotal'
           | translate}}</p>
@@ -131,7 +130,7 @@
         </div>
       </div>
       <div fxFlex="10" fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
-        class="item-title-table">
+         [class]="isInternational ? 'max-billing-products-20 sc-text-normal item-title-table' : 'max-billing-products-10 sc-text-normal item-title-table' ">
         <div class="billing-products-order-text-align-right">
           <p id="subtotal" class="billing-products-order-text-align-right" class="sc-text-normal">
             {{product.subtotal | currency: '$' : 'symbol' : '1.0-0'}}</p>
