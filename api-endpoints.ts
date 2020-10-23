@@ -466,7 +466,7 @@ export const endpoints = {
        // enviar data en formato json al back
        sendDataJsonReadExcel : 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/MassiveComsnExc',
        // Descargable del listado/historico de cancelaciones
-       exportListCancel: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch/report'
+       exportListCancel: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn/report'
     }
   }
 };
