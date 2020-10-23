@@ -14,7 +14,7 @@
 
 <div class="cardImageAling" fxLayout.xs="column" fxLayoutAlign.xs="space-between center" *ngFor="let products of productsList; let i = index ">
   <div (click)="setparams(products)" *ngIf="showImage === false && indexTab !== 1">
-    <mat-card class="example-card" [matTooltip]="makeTooltipDetail(products)" matTooltipPosition="above">
+    <mat-card class="example-card" [matTooltip]="makeTooltipDetail(products)" matTooltipPosition="below">
       <div class="container-card-img flexbox align-center justify-center">
         <img src="{{products.imageUrl}}">
       </div>
