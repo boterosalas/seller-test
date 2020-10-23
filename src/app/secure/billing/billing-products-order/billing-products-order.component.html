@@ -35,6 +35,9 @@
     <div class="billing-product-size-text">
       <span><strong>{{'secure.billing.invoice' | translate}}: </strong></span>{{order.billingNumber}}
     </div>
+    <div class="billing-product-size-text billing-product-order-padding-subtotal" *ngIf="!isInternational">
+      <span class="billing-product-color-message">Si la columna de Envíos Exito es No. El flete se tomará en cuenta para tu pago.</span>
+    </div>
   </div>
   <div class="title-product-list">
     <div class="sc-text-normal" fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
@@ -67,7 +70,7 @@
       fxHide.lg="false" fxHide.xl="false" class="sc-text-normal
       item-title-table">
       <div class="title-table-product billing-products-order-text-align-center">
-        <p>Envios Exitos</p>
+        <p>Envios Exito</p>
       </div>
     </div>
     <div fxShow fxFlex="10" fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
@@ -152,9 +155,18 @@
           <span class="billing-product-order-font-weight-bold">{{'secure.billing.total_freight' | translate}}</span> :
           {{product.totalShippingCost | currency: '$' : 'symbol' : '1.0-0'}}
         </div>
+        <div class="billing-products-order-padding-5" *ngIf="!isInternational">
+              <span *ngIf="product.enviosExito" class="billing-product-order-font-weight-bold">Envios Exito: Si</span>
+              <span *ngIf="!product.enviosExito" class="billing-product-order-font-weight-bold">Envios Exito: No</span>
+        </div>
         <div class="billing-products-order-padding-5">
           <span class="billing-product-order-font-weight-bold">{{'secure.billing.total_cost' | translate}}</span> :
           {{product.price * product.quantity | currency: '$' : 'symbol' : '1.0-0'}}
+        </div>
+        <div class="billing-products-order-padding-5">
+          <span class="billing-product-order-font-weight-bold">{{'secure.orders.order_list.product_order.subTotal'
+            | translate}}</span> :
+            {{product.subtotal | currency: '$' : 'symbol' : '1.0-0'}}
         </div>
       </div>
 
