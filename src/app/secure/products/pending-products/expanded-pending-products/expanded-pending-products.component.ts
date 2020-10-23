@@ -72,7 +72,6 @@ export class ExpandedPendingProductsComponent implements OnInit {
   }
 
   public createArrayImages(): void {
-
     if (this.productsPendindgExpanded) {
       const minImages: any[] = this.productsPendindgExpanded.smallImage;
       const maxImages: any[] = this.productsPendindgExpanded.mediumImage;
