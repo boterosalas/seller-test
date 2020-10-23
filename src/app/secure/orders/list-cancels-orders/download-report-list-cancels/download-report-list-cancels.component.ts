@@ -96,6 +96,7 @@ export class DownloadReportListCancelsComponent implements OnInit {
         this.componentService.openSnackBar(this.languageService.instant('secure.orders.list-cancels-tab1-msg-ko'), this.languageService.instant('actions.close'), 5000);
         this.loadingService.closeSpinner();
       }
+      localStorage.setItem('currentFilter', null);
     }, err => {
       this.componentService.openSnackBar(this.languageService.instant('secure.orders.list-cancels-tab1-msg-ko'), this.languageService.instant('actions.close'), 5000);
       this.loadingService.closeSpinner();
@@ -135,6 +136,7 @@ export class DownloadReportListCancelsComponent implements OnInit {
         this.componentService.openSnackBar(this.languageService.instant('secure.orders.list-cancels-tab2-msg-ko'), this.languageService.instant('actions.close'), 5000);
         this.loadingService.closeSpinner();
       }
+      localStorage.setItem('currentFilter', null);
     }, err => {
       this.componentService.openSnackBar(this.languageService.instant('secure.orders.list-cancels-tab2-msg-ko'), this.languageService.instant('actions.close'), 5000);
       this.loadingService.closeSpinner();
