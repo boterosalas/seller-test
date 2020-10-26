@@ -675,7 +675,7 @@ export class ProductBasicInfoComponent implements OnInit {
                 Color: this.languageService.instant(this.sonList[i].colorSelected),
                 HexColourCodePDP: this.sonList[i].colorPick.replace('#', ''),
                 HexColourName: this.sonList[i].form.controls.HexColorCodeName.value,
-                idProductProcess: children[i].idProductProcess
+                idProductProcess: children !== undefined ? children[i].idProductProcess : null
             });
         }
         return sonData;
