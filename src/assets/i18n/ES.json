@@ -294,6 +294,7 @@
     "core.shell.search_order_menu.search_order_form.from": "Desde",
     "core.shell.search_order_menu.search_order_form.to": "Hasta",
     "core.shell.search_order_menu.search_order_form.only_markerd_order": "Solo mis órdenes marcadas",
+    "core.shell.search_order_menu.search_order_form.ordersWithoutInvoice": "Órdenes sin Factura",
 
 
     "public.seller_center": "Seller Center",

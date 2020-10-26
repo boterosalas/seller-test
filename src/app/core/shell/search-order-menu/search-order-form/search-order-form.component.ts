@@ -98,6 +98,7 @@ export class SearchOrderFormComponent implements OnInit {
       'dateOrderInitial': { disabled: true, value: '' },
       'dateOrderFinal': { disabled: true, value: '' },
       'processedOrder': [null, Validators.compose([])],
+      'noBills': [null, Validators.compose([])],
       'identificationCard': [null, Validators.compose([])],
       // 'typeOrder': [null, Validators.compose([])],
       'idChannel': [null, Validators.compose([])],
@@ -197,6 +198,10 @@ export class SearchOrderFormComponent implements OnInit {
       stringSearch += `&processedOrder=${data.value.processedOrder}`;
       objectSearch.processedOrder = data.value.processedOrder;
     }
+    if (data.value.noBills !== null && data.value.noBills !== '') {
+      stringSearch += `&bill=${data.value.noBills}`;
+      objectSearch.bill = data.value.noBills;
+    }
     if (stringSearch !== '') {
       let status = '';
       stringSearch += '&paginationToken=' + encodeURI('{}');
@@ -205,6 +210,8 @@ export class SearchOrderFormComponent implements OnInit {
       }
       stringSearch += status;
       // Guardo el filtro aplicado por el usuario.
+      console.log(objectSearch);
+      console.log(stringSearch);
       this.searchOrderMenuService.setCurrentFilterOrders(objectSearch);
       // obtengo las órdenes con el filtro indicado
       this.searchOrderMenuService.getOrdersFilter(this.paginator, stringSearch, this.idSeller).subscribe((res: any) => {
@@ -217,7 +224,8 @@ export class SearchOrderFormComponent implements OnInit {
             idStatusOrder: data.value.idStatusOrder,
             orderNumber: data.value.orderNumber,
             identificationCard: data.value.identificationCard,
-            processedOrder: data.value.processedOrder
+            processedOrder: data.value.processedOrder,
+            noBills: data.value.noBills
           };
           this.shellComponent.eventEmitterOrders.filterOrderListResponse(res);
           this.toggleMenu();

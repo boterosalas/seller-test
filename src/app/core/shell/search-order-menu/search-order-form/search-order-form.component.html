@@ -57,6 +57,11 @@
       {{'core.shell.search_order_menu.search_order_form.only_markerd_order' | translate}}
     </mat-slide-toggle>
   </section>
+  <section class="example-section normal-theme">
+    <mat-slide-toggle color="primary" id="noBills-input-search-order" formControlName="noBills">
+      {{'core.shell.search_order_menu.search_order_form.ordersWithoutInvoice' | translate}}
+    </mat-slide-toggle>
+  </section>
 
   <div class="orders-search-option normal-theme">
     <button id="clear-filter-button" class="sc-button" mat-button (click)="clearForm()">

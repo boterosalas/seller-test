@@ -109,6 +109,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   public idStatus = '';
   public identificationCard = '';
   public processedOrder = '';
+  public bill = '';
 
 
   public length = 0;
@@ -433,6 +434,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
           this.orderNumber = data.filter.orderNumber;
           this.identificationCard = data.filter.identificationCard;
           this.processedOrder = data.filter.processedOrder;
+          this.bill = data.filter.bill;
         }
         this.allFilter = data.filter;
       });
@@ -589,6 +591,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       this.idStatus = '';
       this.identificationCard = '';
       this.processedOrder = '';
+      this.bill = '';
     }
     const paramsArray = {
       'limit': this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken) + this.querySearch,
@@ -601,6 +604,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       'orderNumber': this.orderNumber,
       'identificationCard': this.identificationCard,
       'processedOrder': this.processedOrder,
+      'bill': this.bill,
     };
     return paramsArray;
   }
@@ -689,7 +693,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       'idSeller': this.idSeller,
       'state': this.lastState,
       'dateOrderFinal': this.dateOrderFinal,
-      'dateOrderInitial': this.dateOrderInitial
+      'dateOrderInitial': this.dateOrderInitial,
+      'bill': this.bill
     };
     this.getOrdersList(params);
   }
