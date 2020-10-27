@@ -440,6 +440,7 @@
     "secure.orders.sent.Cancelado": "Cancel",
     "secure.orders.sent.Pagado Cancelado": "Paid Canceled",
     "secure.orders.sent.Devolución Pendiente Validación": "Return pending validation",
+    "secure.orders.sent.Despacho Vendedor Int": "International Seller Shipped",
 
     "secure.orders.billing_orders.subtitle_toolbar": "Search for an invoice",
     "secure.orders.billing_orders.txt_serch_order": "Enter order number",
