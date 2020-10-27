@@ -440,6 +440,7 @@
     "secure.orders.sent.Cancelado": "Cancelado",
     "secure.orders.sent.Pagado Cancelado": "Pagado Cancelado",
     "secure.orders.sent.Devolución Pendiente Validación": "Devolución Pendiente Validación",
+    "secure.orders.sent.Despacho Vendedor Int": "Despacho Vendedor Int",
 
     "secure.orders.billing_orders.subtitle_toolbar": "Buscar factura",
     "secure.orders.billing_orders.txt_serch_order": "Ingrese número de orden",

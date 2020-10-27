@@ -101,6 +101,7 @@ export class Const {
   static readonly ProductRechazadoDespacho = 55;
   static readonly ProductSinInventario = 185;
   static readonly ProductSinInventarioNotificado = 185;
+  static readonly ProductDespachoInter = 48;
 
 
   static readonly NameProductAsignado = 'Asignado';
@@ -114,6 +115,8 @@ export class Const {
   static readonly NameProductRechazadoDespacho = 'RechazadoDespacho';
   static readonly NameProductSinInventario = 'SinInventario';
   static readonly NameProductSinInventarioNotificado = 'SinInventarioNotificado';
+  static readonly NameProductDespachoInter = 'DespachoVendedorInt';
+
 
   /**
    * Estados para las órdenes
@@ -127,6 +130,7 @@ export class Const {
   static readonly OrderPagadoCanceldo = 120;
   // static readonly OrderCancelado = 50;
   static readonly OrderDevolucionPendienteValidacion = 73;
+  static readonly OrderDespachoInter = 48;
 
   static readonly NameOrderAsignado = 'Asignado';
   static readonly NameOrderEntregado = 'Entregado';
@@ -135,6 +139,8 @@ export class Const {
   static readonly NameOrderCancelado = 'Cancelado';
   static readonly NameOrderPagadoCanceldo = 'PagadoCancelado';
   static readonly NameOrderDevolucionPendienteValidacion = 'DevolucionPendienteValidacion';
+  static readonly NameOrderDespachoInt = 'DespachoVendedorInt';
+
 
   /**
    * Estados para las órdenes y los productos en la app
@@ -150,6 +156,7 @@ export class Const {
   static readonly AppOrderPagadoCanceldo  = 'Pagado Cancelado';
   static readonly AppOrderDevolucionPendienteValidacion  = 'Devolución Pendiente Validación';
   static readonly AppOrderFacturadoEnviado = 'Facturado Enviado';
+  static readonly AppOrderDespachoInt= 'Despacho Vendedor Int';
 
   // Constantes para los estados de las solicitudes de devolución
   static readonly StatusInDevolution = 9;
