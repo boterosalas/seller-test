@@ -439,6 +439,7 @@
     "secure.orders.sent.Cancelado": "Annulé",
     "secure.orders.sent.Pagado Cancelado": "Paiment annulé",
     "secure.orders.sent.Devolución Pendiente Validación": "Retour En attente de validation",
+    "secure.orders.sent.Despacho Vendedor Int": "Expédition du vendeur internationals",
 
     "secure.orders.billing_orders.subtitle_toolbar": "Search for an invoice",
     "secure.orders.billing_orders.txt_serch_order": "Enter order number",
