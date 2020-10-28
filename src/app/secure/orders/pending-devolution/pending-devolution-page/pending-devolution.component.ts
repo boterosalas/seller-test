@@ -158,7 +158,6 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.hideOptionsListCancel = true;
-    // this.permissionComponent = this.authService.getMenu(pendingName);
     this.getDataUser(pendingName);
     this.searchSubscription = this.eventsSeller.eventSearchSeller
       .subscribe((seller: StoreModel) => {

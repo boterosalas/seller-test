@@ -9,7 +9,7 @@
           </p>
         </button>
         <div fxFlex="160px" *ngIf="Typeprofile == 1">
-          <form id="search-store-form" class="search-store mat-typography" style="width: 280% !important;"
+          <form id="search-store-form" class="search-store mat-typography widthToolbarSearch" 
             (keydown)="keyDownFunction($event)">
             <mat-form-field class="input-search">
               <!-- Icon search -->
@@ -48,7 +48,7 @@
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #toolbarOptionsHistorical="matMenu">
-              <div style="display: flex;">
+              <div class="filterMobileFlex">
                 <button id="search-order-button" (click)="toggleMenuOrderSearch()" mat-menu-item>
                   <mat-icon>filter_list</mat-icon>
                   <span class="acction-text">Filtrar</span>
