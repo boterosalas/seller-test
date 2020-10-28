@@ -6,7 +6,8 @@
 }
 
 .content-product-detail {
-  padding-left: 54px;
+  padding-right: 40px;
+  padding-left: 40px;
   padding-bottom: 10px;
   background-color: rgba(#eAeAeA, .5);
   @media (max-width: 933px) {
@@ -86,4 +87,88 @@
 
 .bold {
   font-weight: bold;
+}
+
+.billing-products-order-table{
+  padding: 5px;
+  font-size: 12px;
+}
+.billing-products-order-font-weight{
+  font-weight: bold;
+}
+.billing-product-padding-20{
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.billing-product-size-text{
+  font-size: 13px;
+}
+.billing-products-order-size-text-two-color{
+  font-size: 12px;
+  color: #5D5D5D;
+}
+
+.billing-products-order-text-align-right{
+  text-align: right;
+}
+.billing-products-order-text-align-center{
+  text-align: center;
+}
+
+.billing-products-order-display-flex{
+  display: flex;
+}
+
+.billing-products-order-right-5{
+  margin-right: 5px;
+}
+
+.billing-products-order-size-text-detail-product{
+  font-size: 11px;
+}
+.billing-products-order-padding-5{
+  padding:5px
+}
+
+.billing-product-order-font-weight-bold{
+  font-weight: bold;
+}
+
+.billing-product-order-padding-content{
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.billing-product-order-font-size-14{
+  font-size: 14px;
+}
+.billing-product-order-text-along-right{
+  text-align: right;
+  font-size: 12px;
+}
+.billing-product-order-padding-subtotal{
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+.billing-product-order-padding-top-padding-btt{
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+.billing-product-order-text-size-14{
+  font-size: 14px;
+}
+.billing-product-order-text-aling-right-font-size{
+  text-align: right; font-size: 12px;
+}
+
+.billing-product-color-message{
+  color: #5D5D5D;
+  font-size: 13px;
+}
+.max-billing-products-20{
+  max-width: 20% !important;
+}
+
+.max-billing-products-10{
+  max-width: 10% !important;
 }

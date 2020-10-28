@@ -334,6 +334,11 @@
     "secure.billing.amount": "Cantidad",
     "secure.billing.total_freight": "Flete total",
     "secure.billing.total_cost": "Valor del producto",
+    "secure.billing.list_products": "Lista de productos",
+    "secure.billing.subtotal": "SUBTOTAL",
+    "secure.billing.vat_discount": "Descuento por IVA",
+    "secure.billing.comissionFee": "Descuento por comisión",
+    "secure.billing.total_be_paid": "TOTAL A PAGAR",
     "secure.billing.send_payment": "Enviar pagos",
     "secure.billing.send_payment_information": "Te enviaremos los pagos al siguiente correo electrónico.",
     "secure.billing.correctly_download": "Se ha realizado la descarga de los pagos correctamente, revisa tu correo electrónico",
@@ -440,6 +445,7 @@
     "secure.orders.sent.Cancelado": "Cancelado",
     "secure.orders.sent.Pagado Cancelado": "Pagado Cancelado",
     "secure.orders.sent.Devolución Pendiente Validación": "Devolución Pendiente Validación",
+    "secure.orders.sent.Despacho Vendedor Int": "Despacho Vendedor Int",
 
     "secure.orders.billing_orders.subtitle_toolbar": "Buscar factura",
     "secure.orders.billing_orders.txt_serch_order": "Ingrese número de orden",
@@ -494,6 +500,7 @@
     "secure.orders.order_list.product_order.sku": "SKU",
     "secure.orders.order_list.product_order.sku_seller": "SKU vendedor",
     "secure.orders.order_list.product_order.total": "Total",
+    "secure.orders.order_list.product_order.subTotal": "Subtotal",
     "secure.orders.order_list.product_order.see_total_records_download": "Visualiza todos tus pedidos descargando tu reporte de órdenes",
 
     "secure.orders.order_list.send_order.title_order": "Enviar órden",

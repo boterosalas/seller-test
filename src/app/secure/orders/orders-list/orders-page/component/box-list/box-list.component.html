@@ -44,7 +44,7 @@
           <div fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" class="case-list-detail--item-detail noneMobile" fxFlex="15%" id="dpbox-case-date-{{index}}">
             <p class="sc-date-content-table">{{getDateWithOutGMT(data.dateMaxDeliveryOrder) | date}} </p>
           </div>
-          <div class="case-list-detail--item-detail noneMobile font-size-14"  fxFlex="10" fxFlex.sm="20" fxFlex.md="20" fxFlex.lg="10" fxFlex.xs="20" id="dpbox-case-status-{{index}}">
+          <div class="case-list-detail--item-detail noneMobile font-size-14 maxWidStatus"  fxFlex="10" fxFlex.sm="20" fxFlex.md="20" fxFlex.lg="10" fxFlex.xs="20" id="dpbox-case-status-{{index}}">
             
             <div class="mat-icon-status-order">
 
@@ -92,10 +92,16 @@
                 </mat-icon>
                 {{'secure.orders.sent.' + const.AppOrderDevolucionPendienteValidacion | translate}}
               </p>
+              <p class="sc-status-order-table" *ngIf="data.statusOrder == const.NameOrderDespachoInt">
+                <mat-icon [ngClass]="{'status-green': data.statusOrder === const.NameOrderDespachoInt}">
+                  notifications
+                </mat-icon>
+                {{'secure.orders.sent.' + const.AppOrderDespachoInt | translate}}
+              </p>
             </div>
 
           </div>
-          <div class="case-list-detail--item-detail case-list-detail-text-center" fxFlex="10%" fxFlex.sm="15" fxFlex.md="15" fxFlex.lg="10" fxFlex.xs="15">
+          <div class="case-list-detail--item-detail case-list-detail-text-center" fxFlex="6%" fxFlex.sm="15" fxFlex.md="15" fxFlex.lg="10" fxFlex.xs="15">
             <p class="sc-text-normal">{{data.channel}}</p>
           </div>
           <div class="case-list-detail--item-detail case-list-detail-text-center noneMobile" fxFlex="10%" fxFlex.sm="20" fxFlex.md="20" fxFlex.lg="10" fxFlex.xs="20">
