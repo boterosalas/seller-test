@@ -52,6 +52,7 @@ export class SearchSellerComponent implements OnInit, OnChanges {
     constructor(
         public eventsSeller: EventEmitterSeller,
         public eventsSellerModal: EventEmitterSeller,
+        public eventSearchSellerHistoric: EventEmitterSeller,
         public storeService: StoresService,
         public shell: ShellComponent,
         private loadingService: LoadingService
@@ -175,6 +176,7 @@ export class SearchSellerComponent implements OnInit, OnChanges {
             this.eventsSellerModal.searchSellerModal(search_seller);
         } else {
             this.eventsSeller.searchSeller(search_seller);
+            this.eventSearchSellerHistoric.searchSellerHistoric(search_seller);
         }
 
     }

@@ -274,52 +274,21 @@ const OffersModule = new ModuleModel(offersModule, showAll, offersModule.toLower
  * Para incluir un menu en el modulo de ofertas un menu o funcionalidad en algun menu ya creado. por favor actualizar este objeto la version y fechas.
  *
  * Modulo de devoluciones que posee menus:
- * 1. Solicitudes pendientes (vendedor)
- * 2. Solicitudes pendientes (administrador)
- * 3. En devolucion
- * 4. En devolucion (administrator)
- * 5. Validacion
- * 6. Historico de devoluciones
+ * 1. Listado cancelaciones admin
+ * 2. Listado cancelaciones vendedor
  */
-export const devolutionsModule = 'DEVOLUCIONES', pendingName = 'Solicitudes pendientes', devolutionName = 'En devolución', validationName = 'En validación', historicDevolution = 'Historico de devoluciones';
+export const devolutionsModule = 'DEVOLUCIONES', pendingName = 'Solicitudes pendientes', devolutionName = 'En devolución', validationName = 'En validación', historicDevolution = 'Historico de devoluciones', listCancelOrders = 'Listado de cancelaciones';
 const DevolutionsModule = new ModuleModel(devolutionsModule, showAll, devolutionsModule.toLowerCase(), [
-    // 1. Solicitudes pendientes
-    new MenuModel(pendingName, showAll, pendingName.toLowerCase(), ProfileTypes.Vendedor, [
+    // 1. Listado cancelaciones admin
+    new MenuModel(listCancelOrders, showAll, listCancelOrders.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+    ], RoutesConst.sellerCenterListCancelOrders),
+    // 2. Listado cancelaciones vendedor
+    new MenuModel(listCancelOrders, showAll, listCancelOrders.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(acceptFuncionality, showAll, acceptFuncionality), // Aceptar.
         new FunctionalitiesModel(refuseFuncionality, showAll, refuseFuncionality), // Rechazar.
-    ], RoutesConst.sellerCenterIntOrderInPendingDevolution),
-    // 2. Solicitudes pendientes
-    new MenuModel(pendingName, showAll, pendingName.toLowerCase(), ProfileTypes.Administrador, [
-        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
-    ], RoutesConst.sellerCenterIntOrderInPendingDevolution),
-    // 2. Devoluciones (rol vendedor - Consultar, Aceptar, Rechazar)
-    new MenuModel(devolutionName, showAll, devolutionName.toLowerCase(), ProfileTypes.Vendedor, [
-        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
-        new FunctionalitiesModel(acceptFuncionality, showAll, acceptFuncionality), // Aceptar.
-        new FunctionalitiesModel(refuseFuncionality, showAll, refuseFuncionality), // Rechazar.
-    ], RoutesConst.sellerCenterIntOrderInDevolution),
-    // 3. Devoluciones (Rol administrador - Consultar)
-    new MenuModel(devolutionName, showAll, devolutionName.toLowerCase(), ProfileTypes.Administrador, [
-        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
-        new FunctionalitiesModel(visualizeFunctionality, showAll, visualizeFunctionality), // Visualizar.
-    ], RoutesConst.sellerCenterIntOrderInDevolution),
-    // 4. Validaciónes (Consultar)
-    new MenuModel(validationName, showAll, validationName.toLowerCase(), ProfileTypes.Vendedor, [
-        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
-    ], RoutesConst.sellerCenterIntOrderInValidation),
-    // 5. Validaciones (administrador)
-    new MenuModel(validationName, showAll, validationName.toLowerCase(), ProfileTypes.Administrador, [
-        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
-    ], RoutesConst.sellerCenterIntOrderInValidation),
-    // 6. Historico de devoluciones
-    new MenuModel(historicDevolution, showAll, historicDevolution.toLowerCase(), ProfileTypes.Vendedor, [
-        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
-    ], RoutesConst.sellerCenterIntOrderHistoricalDevolution),
-    // 7. historico administrador
-    new MenuModel(historicDevolution, showAll, historicDevolution.toLowerCase(), ProfileTypes.Administrador, [
-        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
-    ], RoutesConst.sellerCenterIntOrderHistoricalDevolution),
+    ], RoutesConst.sellerCenterListCancelOrders)
 ]);
 
 

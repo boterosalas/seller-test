@@ -65,6 +65,7 @@ export class RoutesConst {
     static readonly billingSeller: any = 'facturacion-vendedor';
     static readonly pendingProducts: any = 'productos-pendientes';
     static readonly excepctionCommision: any = 'excepcion-comision';
+    static readonly listCancelOrders: any = 'listado-cancelaciones';
 
 
     /* Support Center */
@@ -109,6 +110,8 @@ export class RoutesConst {
     static readonly sellerCenterIntBulkLoadBilling: any = RoutesConst.sellerCenterOrders + '/' + RoutesConst.orderInBulkLoadBilling;
     static readonly sellerCenterIntOrderHistoricalDevolution: any = RoutesConst.sellerCenterOrders + '/' + RoutesConst.orderHistoricalDevolution;
     static readonly sellerCenterIntOrderBillingOrdersAdmin: any = RoutesConst.sellerCenterOrders + '/' + RoutesConst.billingSeller;
+    static readonly sellerCenterListCancelOrders: any = RoutesConst.sellerCenterOrders + '/' + RoutesConst.listCancelOrders;
+
 
     static readonly sellerCenterIntOfersList: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferList;
     static readonly sellerCenterIntOfersListAdmin: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferListAdmin;

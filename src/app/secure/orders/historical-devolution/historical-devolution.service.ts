@@ -6,7 +6,7 @@ import { HistoricalDevolutionEntity } from '@app/shared';
 
 @Injectable()
 export class HistoricalDevolutionService {
-  constructor(private http: HttpClient, private api: EndpointService) {}
+  constructor(private http: HttpClient, private api: EndpointService) { }
 
   getHistorical(
     stringSearch: string
@@ -18,20 +18,22 @@ export class HistoricalDevolutionService {
           (data) => {
             // Validación debido a que a veces el endpoint solo responde un status 200.
             data = !data ? [] : data;
-            observer.next(data);
+            if (data) {
+              observer.next(data);
+            }
           },
           err => observer.error(err)
         );
     });
   }
-/**
- * funcion para consultar los comentarios devoluciones
- *
- * @param {*} params
- * @returns {Observable<any>}
- * @memberof HistoricalDevolutionService
- */
-getAllCommentRefuse(params: any): Observable<any> {
+  /**
+   * funcion para consultar los comentarios devoluciones
+   *
+   * @param {*} params
+   * @returns {Observable<any>}
+   * @memberof HistoricalDevolutionService
+   */
+  getAllCommentRefuse(params: any): Observable<any> {
     return new Observable(observer => {
       this.http.post(this.api.get('getAllCommentRefuse'), params)
         .subscribe((data: any) => {

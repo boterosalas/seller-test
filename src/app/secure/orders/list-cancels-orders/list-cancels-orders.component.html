@@ -1,0 +1,17 @@
+<div  *ngIf="user">
+  <mat-tab-group mat-stretch-tabs>
+    <mat-tab id="tab1" style="font-weight: bold;">
+      <ng-template mat-tab-label *ngIf="user.sellerProfile === 'seller'">
+        <span [matBadge]="devolution" matBadgeOverlap="false" matBadgeColor="warn">{{'secure.orders.list-cancels.tab1'| translate}}</span>
+      </ng-template>
+      <ng-template mat-tab-label *ngIf="user.sellerProfile !== 'seller'">
+        <span>{{'secure.orders.list-cancels.tab1'| translate}}</span>
+      </ng-template>
+      <app-pending-devolution></app-pending-devolution>
+    </mat-tab>
+    <mat-tab id="tab2" style="font-weight: bold;" [label]="'secure.orders.list-cancels.tab2'| translate">
+      <app-historical-devolution></app-historical-devolution>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+

@@ -34,7 +34,7 @@
               <h6 matLine>{{('menu.' + menu.NameMenu) | translate}}</h6>
               <app-notification-circle *ngIf="menu.NameMenu === 'Solicitudes pendientes'" [value]="pending"
                 id="circle-notification-toolbar"></app-notification-circle>
-              <app-notification-circle *ngIf="menu.NameMenu === 'En devolución'" [value]="devolution"
+              <app-notification-circle *ngIf="menu.NameMenu === 'Listado de cancelaciones'" [value]="devolution"
                 id="circle-notification-toolbar"></app-notification-circle>
             </mat-list-item>
 

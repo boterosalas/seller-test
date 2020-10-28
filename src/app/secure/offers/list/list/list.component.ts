@@ -437,7 +437,8 @@ export class ListComponent implements OnInit {
       initTime: 500,
       intervalTime: intervalTime,
       listError: listError,
-      typeStatus: type
+      typeStatus: type,
+      responseDiferent : false
     };
     const dialog = this.dialog.open(FinishUploadInformationComponent, {
       width: '70%',

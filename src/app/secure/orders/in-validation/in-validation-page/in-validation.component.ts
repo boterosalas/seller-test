@@ -83,8 +83,8 @@ export class InValidationComponent implements OnInit, OnDestroy {
   // canRead = false;
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
-    title: 'secure.orders.orders',
-    subtitle: 'menu.En validación',
+    title: 'menu.Devoluciones',
+    subtitle: 'secure.orders.list-cancels.tab1',
     btn_title: 'secure.orders.filter.title_filter',
     title_for_search: 'secure.orders.filter.title_filter',
     type_form: 'pending-devolution',
@@ -226,10 +226,9 @@ changeLanguage() {
       };
     }
     this.event = $event;
-    const stringSearch = `limit=${$event.lengthOrder}&idSeller=${this.idSeller}&reversionRequestStatusId=${Const.StatusInValidation}`;
+    const stringSearch = `limit=${$event.lengthOrder}&idSeller=${this.idSeller}&reversionRequestStatusId=${Const.StatusPendingCancels}`;
     this.loadingService.viewSpinner();
     this.inValidationService.getOrders(stringSearch).subscribe((res: any) => {
-      this.loadingService.closeSpinner();
       if (res != null) {
         if (res.length === 0) {
           this.orderListLength = true;
@@ -238,11 +237,12 @@ changeLanguage() {
         }
       }
       // Creo el elemento que permite pintar la tabla
-      this.dataSource = new MatTableDataSource(res);
+      this.dataSource = new MatTableDataSource(res.viewModel);
       // this.paginator.pageIndex = 0;
       this.dataSource.paginator = $event.paginator;
       this.dataSource.sort = this.sort;
       this.numberElements = this.dataSource.data.length;
+      this.loadingService.closeSpinner();
     }, err => {
       this.orderListLength = true;
       log.error(this.dataSource);

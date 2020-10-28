@@ -31,6 +31,6 @@ export class TabProductComponent implements OnInit, AfterViewInit {
     } else {
       this.showTabs = false;
     }
-}
+  }
 
 }
