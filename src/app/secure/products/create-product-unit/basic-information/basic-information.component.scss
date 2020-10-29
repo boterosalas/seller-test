@@ -17,8 +17,8 @@ $color-red: #f44336;
 }
 
 @mixin color-size() {
-    height: 42px;
-    width: 42px;
+    height: 34px;
+    width: 34px;
 }
 
 @mixin multi-co() {
@@ -187,8 +187,8 @@ $color-red: #f44336;
         @include color-size();
         padding: 0.3em;
         .color-round-picker {
-            width: 37px;
-            height: 37px;
+            width: 20px;
+            height: 20px;
             border-radius: 25px;
             border: 1px solid;
             transition: width 0.1s, height 0.1s;
@@ -198,8 +198,8 @@ $color-red: #f44336;
             cursor: pointer;
         }
         .select-color {
-            border-color: $blue-page !important;
-            border: 2px solid;
+            // border-color: $blue-page !important;
+            // border: 2px solid;
             @include color-size();
         }
     }
@@ -333,4 +333,23 @@ $color-red: #f44336;
     .fieldBrands{
         width: 100%;
     }
+  }
+
+
+  .basic-information-component-container{
+    width: 75px;
+    height: 50px;
+    cursor: pointer;
+    // border: 1px solid #FFFFFF;
+    // border: 1px solid;
+    // border-radius: 5px;
+  }
+  .basic-information-component-container:hover{
+    border: 1px solid black;
+    // border-color: black;
+  }
+
+  .text-select-color{
+      color: #d4d3d3;
+      font-size: 8px;
   }
