@@ -61,6 +61,7 @@ export class ProductBasicInfoComponent implements OnInit {
     disabledEanChildren = false;
     show = false;
     isManual = false;
+    borderColor = '';
     BrandsRegex = { brandsName: '', formatIntegerNumber: '' };
     @Input() set detailProduct(value: any) {
         if (value) {
@@ -783,7 +784,6 @@ export class ProductBasicInfoComponent implements OnInit {
                         { code: 'EFB810', name: 'Dorado' },
                         { code: 'FFCC13', name: 'Mostaza Oscuro' },
                         { code: 'FFDB58', name: 'Mostaza' },
-                        
                         { code: 'FFFF00', name: 'Amarillo' },
                         { code: 'F7FE2E', name: 'Amarillo Medio' },
                         { code: 'F4FA58', name: 'Amarillo Claro' },
@@ -839,6 +839,10 @@ export class ProductBasicInfoComponent implements OnInit {
                         { code: 'ECE2C6', name: 'Arena' },
                         { code: 'E0E094', name: 'Beige Oscuro' },
                     ];
+
+                    this.listColorProducts = this.mapItems(
+                        this.listColorProducts
+                    );
                 } else {
                     this.listColorProducts = [];
                 }
@@ -849,8 +853,46 @@ export class ProductBasicInfoComponent implements OnInit {
         });
     }
 
-    select (code: string) {
-        console.log(code);
+
+    mapItems(items: any[]): any[] {
+        return items.map(x => {
+            return {
+                code: x.code,
+                name: x.name,
+                selected: false,
+                colorText : this.colorText(x.code),
+                border: this.colorBorder (x.code)
+            };
+        });
+    }
+
+    colorText(code: string) {
+        let colorText = '';
+        if (code === 'FFCC13' || code === 'FFDB58' || code === 'FFFF00' || code === 'F7FE2E' || code === 'F4FA58' || code === 'E6D690' || code === 'E3E4E5' || code === 'ECE2C6' || code === 'FFFFFF' || code === 'C2C2C2' || code === 'F9F9E7' || code === 'F5F5DC' || code === 'FFEDAE' || code === 'F2D3BC' || code === 'E0E094' || code === 'F2D3BC' || code === 'FFBCA4' || code === '19FF74') {
+            colorText = '5d5c5c ';
+        } else {
+            colorText = 'e9e8e8';
+        }
+        return colorText;
+    }
+
+    colorBorder ( code: string) {
+        let colorBorder = '';
+        if (code === 'FFFFFF' || code === 'F9F9E7') {
+            colorBorder = '1px solid #d4d2d2';
+        } else {
+            colorBorder = '1px solid #' + code;
+        }
+        return colorBorder;
+    }
+
+    select (code: string, selected: boolean) {
+        this.listColorProducts.forEach(element => {
+            element.selected = false;
+            if (element.code === code) {
+                element.selected = !selected ;
+            }
+        });
     }
 
     /**

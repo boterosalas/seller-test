@@ -354,13 +354,14 @@
         </div>
 
         <div fxLayout="row wrap" fxLayoutAlign="start stretch"  fxLayout.xs="column">
-          <div style="padding: 1px;"  *ngFor="let color of listColorProducts">
-         
-            <div (click)="select(color.code)" [matTooltip]="color.name" class="basic-information-component-container" [ngStyle]="{'background-color': '#' + color.code, 'border-color':'1 px solid #' + color.code, 'transition' : 'border-color .5s'}">
-              <div><mat-icon style="color: #485AFA;font-size: 19px; width: 100%;text-align: right;">check_circle</mat-icon></div>
-              <div style="margin-left: 2px;">
-                
-                <span class="text-select-color">{{color.name}}</span>
+          <div  style="padding: 1px;" *ngFor="let color of listColorProducts">
+            <div (click)="select(color.code, color.selected)" class="basic-information-component-container" [ngStyle]="{'background-color': '#' + color.code, 'border': color.border  ,'transition' : 'transform .5s'}">
+              <div style="height: 22px;"><mat-icon style="color: #485AFA;font-size: 19px; width: 100%;text-align: right;" *ngIf="color.selected">check_circle</mat-icon></div>
+              <div style="height: 10px;margin-left: 2px;" class="text-select-color" [ngStyle]="{'color': '#'+ color.colorText}">
+                {{color.name}}
+              </div>
+              <div style="height: 10px; margin-left: 2px;font-size: 6px;" class="text-select-color" [ngStyle]="{'color': '#'+ color.colorText}">
+                #{{color.code}}
               </div>
             </div>
           </div>
