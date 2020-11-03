@@ -494,7 +494,7 @@ export class ProductBasicInfoComponent implements OnInit {
                 listColor: this.mapItems(this.listColorProducts)
             };
             // let t = newForm.form.controls.HexColorCodePDP.disable();
-            // t = newForm.form.controls.HexColorCodeName.enable();
+            newForm.form.controls.HexColorCodeName.enable();
             this.sonList.push(newForm);
             this.valInputEan = newForm.form.controls.Ean;
             const views = this.process.getViews();
@@ -681,7 +681,7 @@ export class ProductBasicInfoComponent implements OnInit {
                 Size: this.sonList[i].form.controls.Size.value,
                 Color: this.sonList[i].colorSelected,
                 HexColourName: this.sonList[i].form.controls.HexColorCodeName.value,
-                idProductProcess: children[i].idProductProcess
+                // idProductProcess: children[i].idProductProcess
             });
         }
         return sonData;
@@ -704,7 +704,6 @@ export class ProductBasicInfoComponent implements OnInit {
         if (!this.sonList.length) {
             valid = false;
         }
-        console.log(this.sonList);
         return valid;
     }
 
@@ -896,6 +895,7 @@ export class ProductBasicInfoComponent implements OnInit {
             }
         });
         son.colorSelected = code;
+        son.colorPick = code;
         console.log(son);
         this.detectForm();
     }
@@ -993,7 +993,7 @@ export class ProductBasicInfoComponent implements OnInit {
                     colorSelected: detailProduct.children[i].color
                 };
                 // let t = newForm.form.controls.HexColorCodePDP.disable();
-                // t = newForm.form.controls.HexColorCodeName.enable();
+                newForm.form.controls.HexColorCodeName.enable();
                 this.sonList.push(newForm);
                 this.valInputEan = newForm.form.controls.Ean;
             }
