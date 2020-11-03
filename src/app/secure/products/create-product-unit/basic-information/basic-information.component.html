@@ -354,8 +354,8 @@
         </div>
 
         <div fxLayout="row wrap" fxLayoutAlign="start stretch"  fxLayout.xs="column">
-          <div  style="padding: 1px;" *ngFor="let color of listColorProducts">
-            <div (click)="select(color.code, color.selected)" class="basic-information-component-container" [ngStyle]="{'background-color': '#' + color.code, 'border': color.border  ,'transition' : 'transform .5s'}">
+          <div  style="padding: 1px;" *ngFor="let color of son.listColor">
+            <div (click)="select(color.code, color.name ,color.selected, son)" class="basic-information-component-container" [ngStyle]="{'background-color': '#' + color.code, 'border': color.border  ,'transition' : 'transform .5s'}">
               <div style="height: 22px;"><mat-icon style="color: #485AFA;font-size: 19px; width: 100%;text-align: right;" *ngIf="color.selected">check_circle</mat-icon></div>
               <div style="height: 10px;margin-left: 2px;" class="text-select-color" [ngStyle]="{'color': '#'+ color.colorText}">
                 {{color.name}}

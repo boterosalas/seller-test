@@ -10,6 +10,7 @@ import { LoadingService } from '@app/core';
 import { trimField, withArray } from '@app/shared/util/validation-messages';
 import { TranslateService } from '@ngx-translate/core';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import _ from 'lodash';
 
 /**
  * exporta funcion para mostrar los errores de validacion del formulario
@@ -476,10 +477,10 @@ export class ProductBasicInfoComponent implements OnInit {
                         [
                             Validators.required, Validators.pattern(this.getValue('sizeProduct'))
                         ]),
-                    HexColorCodePDP: new FormControl('',
-                        [
-                            Validators.required,
-                        ]),
+                    // HexColorCodePDP: new FormControl('',
+                    //     [
+                    //         Validators.required,
+                    //     ]),
                     HexColorCodeName: new FormControl('',
                         [
                             Validators.required, Validators.pattern(this.getValue('hexColorNameProduct'))
@@ -490,9 +491,10 @@ export class ProductBasicInfoComponent implements OnInit {
                 Show: true,
                 colorPick: null,
                 colorPick2: null,
+                listColor: this.mapItems(this.listColorProducts)
             };
-            let t = newForm.form.controls.HexColorCodePDP.disable();
-            t = newForm.form.controls.HexColorCodeName.enable();
+            // let t = newForm.form.controls.HexColorCodePDP.disable();
+            // t = newForm.form.controls.HexColorCodeName.enable();
             this.sonList.push(newForm);
             this.valInputEan = newForm.form.controls.Ean;
             const views = this.process.getViews();
@@ -512,7 +514,7 @@ export class ProductBasicInfoComponent implements OnInit {
             if (!this.sonList[this.sonList.length - 1].form.valid) {
                 this.sonList[this.sonList.length - 1].form.controls.Ean.markAsDirty();
                 this.sonList[this.sonList.length - 1].form.controls.Size.markAsDirty();
-                this.sonList[this.sonList.length - 1].form.controls.HexColorCodePDP.markAsDirty();
+                // this.sonList[this.sonList.length - 1].form.controls.HexColorCodePDP.markAsDirty();
                 this.sonList[this.sonList.length - 1].form.controls.HexColorCodeName.markAsDirty();
                 this.sonList[this.sonList.length - 1].dirty = true;
                 this.sonList[this.sonList.length - 1].Show = true;
@@ -677,8 +679,7 @@ export class ProductBasicInfoComponent implements OnInit {
                 Ean: this.sonList[i].form.controls.Ean.value,
                 HasEAN: !this.sonList[i].form.controls.associateEanSon.value,
                 Size: this.sonList[i].form.controls.Size.value,
-                Color: this.languageService.instant(this.sonList[i].colorSelected),
-                HexColourCodePDP: this.sonList[i].colorPick.replace('#', ''),
+                Color: this.sonList[i].colorSelected,
                 HexColourName: this.sonList[i].form.controls.HexColorCodeName.value,
                 idProductProcess: children[i].idProductProcess
             });
@@ -703,6 +704,7 @@ export class ProductBasicInfoComponent implements OnInit {
         if (!this.sonList.length) {
             valid = false;
         }
+        console.log(this.sonList);
         return valid;
     }
 
@@ -886,13 +888,16 @@ export class ProductBasicInfoComponent implements OnInit {
         return colorBorder;
     }
 
-    select (code: string, selected: boolean) {
-        this.listColorProducts.forEach(element => {
+    select (code: string, name: string , selected: boolean, son: any) {
+        son.listColor.forEach(element => {
             element.selected = false;
             if (element.code === code) {
                 element.selected = !selected ;
             }
         });
+        son.colorSelected = code;
+        console.log(son);
+        this.detectForm();
     }
 
     /**
@@ -971,10 +976,10 @@ export class ProductBasicInfoComponent implements OnInit {
                             [
                                 Validators.required, Validators.pattern(this.getValue('sizeProduct'))
                             ]),
-                        HexColorCodePDP: new FormControl('#' + detailProduct.children[i].hexColourCodePDP,
-                            [
-                                Validators.required,
-                            ]),
+                        // HexColorCodePDP: new FormControl('#' + detailProduct.children[i].hexColourCodePDP,
+                        //     [
+                        //         Validators.required,
+                        //     ]),
                         HexColorCodeName: new FormControl(detailProduct.children[i].color,
                             [
                                 Validators.required, Validators.pattern(this.getValue('hexColorNameProduct'))
@@ -987,8 +992,8 @@ export class ProductBasicInfoComponent implements OnInit {
                     colorPick2: null,
                     colorSelected: detailProduct.children[i].color
                 };
-                let t = newForm.form.controls.HexColorCodePDP.disable();
-                t = newForm.form.controls.HexColorCodeName.enable();
+                // let t = newForm.form.controls.HexColorCodePDP.disable();
+                // t = newForm.form.controls.HexColorCodeName.enable();
                 this.sonList.push(newForm);
                 this.valInputEan = newForm.form.controls.Ean;
             }

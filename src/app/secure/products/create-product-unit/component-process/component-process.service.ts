@@ -39,7 +39,7 @@ export interface ProductModel {
     Children: ProductModel[];
     Size: string;
     Color: string;
-    HexColourCodePDP: string;
+    // HexColourCodePDP: string;
     HexColourName: string;
     // Image: Array<any>;
     MeasurementUnit: string;
@@ -151,7 +151,7 @@ export class ProcessService {
         Children: null,
         Size: null,
         Color: null,
-        HexColourCodePDP: null,
+        // HexColourCodePDP: null,
         HexColourName: null,
         // Image: null,
         // ImageChildren: null,
@@ -310,7 +310,7 @@ export class ProcessService {
             this.productData.Color = data.Color;
             this.productData.MeasurementUnit = data.MeasurementUnit;
             this.productData.ConversionFactor = data.ConversionFactor;
-            this.productData.HexColourCodePDP = data.HexColourCodePDP;
+            // this.productData.HexColourCodePDP = data.HexColourCodePDP;
             this.productData.HexColourName = data.HexColourName;
         }
         if (data.Features) {
@@ -401,20 +401,25 @@ export class ProcessService {
     public saveInformationUnitreation(ean: any, productProcess?: any): Observable<{}> {
         this.sendFieldMeta();
         let dataToSend;
-        if (ean) {
-            this.productData.ModifyImage = 1;
-            if (productProcess) {
-                const idProductProcess = {
-                    idProductProcess: productProcess
-                };
-                dataToSend = Object.assign(this.productData, idProductProcess);
-                return this.http.post(this.api.get('postUnitSaveInformationUnitCreation'), dataToSend);
-            }
-            return this.http.patch(this.api.get('patchUnitSaveInformationUnitCreation'), this.productData, { observe: 'response' });
-        } else {
-            this.productData.ModifyImage = 0;
-            return this.http.post(this.api.get('postUnitSaveInformationUnitCreation'), this.productData);
-        }
+        // if (ean) {
+        //     this.productData.ModifyImage = 1;
+        //     if (productProcess) {
+        //         const idProductProcess = {
+        //             idProductProcess: productProcess
+        //         };
+        //         dataToSend = Object.assign(this.productData, idProductProcess);
+        //         return this.http.post(this.api.get('postUnitSaveInformationUnitCreation'), dataToSend);
+        //     }
+        //     return this.http.patch(this.api.get('patchUnitSaveInformationUnitCreation'), this.productData, { observe: 'response' });
+        // } else {
+        //     this.productData.ModifyImage = 0;
+        //     return this.http.post(this.api.get('postUnitSaveInformationUnitCreation'), this.productData);
+        // }
+        console.log(this.productData);
+        return new Observable(observer => {
+            observer.next(this.productData);
+          });
+    
     }
 
     resetProduct() {
@@ -442,7 +447,7 @@ export class ProcessService {
             Children: null,
             Size: null,
             Color: null,
-            HexColourCodePDP: null,
+            // HexColourCodePDP: null,
             HexColourName: null,
             // Image: null,
             // ImageChildren: null,
