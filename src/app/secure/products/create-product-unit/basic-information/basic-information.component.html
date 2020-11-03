@@ -349,11 +349,14 @@
               {{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
           </mat-form-field>
         </div>
-        <div fxLayout="row">
-          <div>Listado de colores</div>
+        <div fxLayout="row" style="margin-top: 22px;">
+          <div>
+            <span>Listado de colores </span>
+            <span style="font-size: 12px;"> Color seleccionado:  </span><span>{{son.colorSelected}}</span>
+          </div> 
         </div>
 
-        <div fxLayout="row wrap" fxLayoutAlign="start stretch"  fxLayout.xs="column">
+        <div fxLayout="row wrap" class="basic-information-component-container-color" fxLayoutAlign="start stretch"  fxLayout.xs="column" style="margin-bottom: 40px;">
           <div  style="padding: 1px;" *ngFor="let color of son.listColor">
             <div (click)="select(color.code, color.name ,color.selected, son)" class="basic-information-component-container" [ngStyle]="{'background-color': '#' + color.code, 'border': color.border  ,'transition' : 'transform .5s'}">
               <div style="height: 22px;"><mat-icon style="color: #485AFA;font-size: 19px; width: 100%;text-align: right;" *ngIf="color.selected">check_circle</mat-icon></div>
@@ -365,48 +368,6 @@
               </div>
             </div>
           </div>
-          <!-- <div *ngIf="listColorProducts.length > 0">
-            <div class="container-color" fxLayout="column" *ngFor="let color of listColorProducts">
-                <div class="color-round-picker" [ngStyle]="{'background-color': color.code, 'border-color': color.code}"
-                *ngIf="!color.multicolor" [matTooltip]="color.name | translate" (click)="selectColor(color, son)">
-                </div>
-            </div>
-          </div> -->
-          <!-- <div class="field">
-            <label class="label-color">{{'secure.products.bulk_upload.color' | translate}}</label>
-            <div class="full-width flex-container">
-              <div class="container-color" *ngFor="let color of colorList">
-                <div class="color-round-picker"
-                  [ngStyle]="{'background-color': color.color, 'border-color': color.border}" *ngIf="!color.multicolor"
-                  [matTooltip]="color.Name | translate" (click)="selectColor(color, son)"
-                  [ngClass]="{'select-color': color.Label === son.colorSelected}">
-                </div>
-                <div class="material-icons multi-color" (click)="selectColor(color, son)"
-                  [ngClass]="{'select-color': color.Label === son.colorSelected}" *ngIf="color.multicolor"
-                  [matTooltip]="color.Name | translate">
-                  <div class="multi-one"></div>
-                  <div class="multi-two"></div>
-                  <div class="multi-three"></div>
-                  <div class="multi-four"></div>
-                  <div class="multi-five"></div>
-                  <div class="multi-six"></div>
-                </div>
-              </div>
-            </div>
-          </div> -->
-          <!-- 
-          <mat-form-field class="field">
-            <mat-icon matPrefix class="material-icons color-prefix-icon"
-              [ngStyle]="{'border-color': invertColor(son.colorPick), 'background-color': son.colorPick }"></mat-icon>
-            <input matInput [placeholder]="'secure.products.create_product_unit.basic_information.colorPDP' | translate" [value]="son.colorPick" formControlName="HexColorCodePDP"
-              id="HexColorCodePDP">
-            <mat-icon matSuffix class="material-icons color-icon-picker" [cpPosition]="'left'"
-              [(colorPicker)]="son.colorPick" (colorPickerChange)="detectForm()" [style.background]="colorPick"
-              [cpOutputFormat]="hex" [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', '#f44336']">
-              palette
-            </mat-icon>
-            <div class="basic-info-error" *ngIf="!son.colorPick && son.dirty">{{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</div>
-          </mat-form-field> -->
         </div>
 
         <mat-form-field class="category-product field">

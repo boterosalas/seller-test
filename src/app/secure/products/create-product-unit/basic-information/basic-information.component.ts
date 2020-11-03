@@ -681,7 +681,7 @@ export class ProductBasicInfoComponent implements OnInit {
                 Size: this.sonList[i].form.controls.Size.value,
                 Color: this.sonList[i].colorSelected,
                 HexColourName: this.sonList[i].form.controls.HexColorCodeName.value,
-                // idProductProcess: children[i].idProductProcess
+                idProductProcess: children !== undefined ? children[i].idProductProcess : null
             });
         }
         return sonData;
