@@ -855,11 +855,13 @@ export class ProductBasicInfoComponent implements OnInit {
     }
 
 
+    //CAMBIAR X.NAME POR LABEL
     mapItems(items: any[]): any[] {
         return items.map(x => {
             return {
                 code: x.code,
                 name: x.name,
+                label: x.name,
                 selected: false,
                 colorText : this.colorText(x.code),
                 border: this.colorBorder (x.code)
@@ -892,11 +894,16 @@ export class ProductBasicInfoComponent implements OnInit {
             element.selected = false;
             if (element.code === code) {
                 element.selected = !selected ;
+                if (!selected === false) {
+                    son.colorSelected = null;
+                    son.colorPick = null;
+                } else {
+                    son.colorSelected = name;
+                    son.colorPick = code;
+                    son.name = name;
+                }
             }
         });
-        son.colorSelected = code;
-        son.colorPick = code;
-        console.log(son);
         this.detectForm();
     }
 
@@ -966,6 +973,7 @@ export class ProductBasicInfoComponent implements OnInit {
     setChildren(detailProduct: any) {
         if (detailProduct && detailProduct.children && detailProduct.children.length > 0) {
             for (let i = 0; i < detailProduct.children.length; i++) {
+                const list = this.mapItems(this.listColorProducts);
                 const newForm = {
                     form: new FormGroup({
                         Ean: new FormControl({ value: detailProduct.children[i].ean, disabled: true },
@@ -990,7 +998,8 @@ export class ProductBasicInfoComponent implements OnInit {
                     Show: false,
                     colorPick: '#' + detailProduct.children[i].hexColourCodePDP,
                     colorPick2: null,
-                    colorSelected: detailProduct.children[i].color
+                    colorSelected: detailProduct.children[i].color,
+                    listColor: this.setChildenColor(list, detailProduct.children[i].color)
                 };
                 // let t = newForm.form.controls.HexColorCodePDP.disable();
                 newForm.form.controls.HexColorCodeName.enable();
@@ -998,6 +1007,17 @@ export class ProductBasicInfoComponent implements OnInit {
                 this.valInputEan = newForm.form.controls.Ean;
             }
         }
+    }
+
+
+    setChildenColor(list: any, color: string) {
+        list.forEach(element => {
+            if (element.label === color) {
+                element.selected = true;
+            }
+        });
+        console.log(list);
+        return list;
     }
 
     addEanCombo() {

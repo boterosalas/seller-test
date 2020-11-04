@@ -352,7 +352,9 @@
         <div fxLayout="row" style="margin-top: 22px;">
           <div>
             <span>Listado de colores </span>
-            <span style="font-size: 12px;"> Color seleccionado:  </span><span>{{son.colorSelected}}</span>
+            <span *ngIf="son.colorSelected">
+              <span style="font-size: 12px;"> (Color seleccionado:  </span><span style="font-size: 12px;">{{son.colorSelected}})</span>
+            </span>
           </div> 
         </div>
 
