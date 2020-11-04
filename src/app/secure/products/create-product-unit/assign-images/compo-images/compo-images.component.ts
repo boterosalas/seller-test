@@ -11,7 +11,9 @@ public urlArrayDad: any = ['', '', '', '', ''];
 @Output() toPpal = new EventEmitter();
 _arrayImageDadClothing: any = ['', '', '', '', ''];
 _arrayImageDadTecnology: any = ['', '', '', '', ''];
+@Input() hijosArrTmp: any;
 @Input() set arrayImageDadClothing (value: any){
+    console.log(44, this.arrayImageDadClothing);
     if (value) {
         this._arrayImageDadClothing = value;
     }
@@ -27,10 +29,13 @@ _arrayImageDadTecnology: any = ['', '', '', '', ''];
 constructor() {
     }
 
-    ngOnInit() {
+    ngOnInit(
+    ) {
+        console.log('hijosArrTmp: ', this.hijosArrTmp);
     }
     // Funcion para colocar los combos de las imagenes en grupos de 5.
     setImgUrl(dataImage: any) {
+        console.log(66, dataImage);
         this.urlArrayDad[dataImage[0]] = dataImage[1];
         this.toPpal.emit(this.urlArrayDad);
       }

@@ -1,4 +1,4 @@
-<div class="comboImage">
+<div class="comboImage" *ngIf="createImage">
   <!-- <form #createImageProductEan="ngForm" [formGroup]="createImage" class="distancedivImage">
     <mat-card class="createImagenPU">
       <img mat-card-image [src]="valueImagenDad">
@@ -10,16 +10,21 @@
         formato de la imagen es invalido</mat-error>
     </mat-form-field>
   </form> -->
-  
-  <form #createImageProductEan="ngForm" [formGroup]="createImage">
-  <mat-card class="createImagenPU">
-    <img mat-card-image src={{imgUrl}}>
-  </mat-card>
 
-  <mat-form-field class="example-full-width">
-    <input matInput #inputImage_ formControlName="inputImage" [placeholder]="'secure.products.create_product_unit.assing_images_url.image' | translate" (keyup)="sendChange(inputImage_.value)">
-    <mat-error  *ngIf="createImage.get('inputImage').hasError('pattern')">{{'secure.products.create_product_unit.assing_images_url.format_invalidate' | translate}}</mat-error>
-    <mat-error  *ngIf="createImage.controls.inputImage.errors &&  createImage.controls.inputImage.errors.validFormatImage">{{'secure.products.create_product_unit.assing_images_url.imagen_invalidate' | translate}}</mat-error>
-  </mat-form-field>
-</form>
+  <form #createImageProductEan="ngForm" [formGroup]="createImage">
+    <mat-card class="createImagenPU">
+      <img mat-card-image src={{imgUrl}}>
+    </mat-card>
+
+    <mat-form-field class="example-full-width">
+      <input matInput #inputImage_ formControlName="inputImage"
+        [placeholder]="'secure.products.create_product_unit.assing_images_url.image' | translate"
+        (keyup)="sendChange(inputImage_.value)" (change)="pruebaINdex(inputImage_.value)">
+      <mat-error *ngIf="createImage.get('inputImage').hasError('pattern')">
+        {{'secure.products.create_product_unit.assing_images_url.format_invalidate' | translate}}</mat-error>
+      <mat-error
+        *ngIf="createImage.controls.inputImage.errors &&  createImage.controls.inputImage.errors.validFormatImage">
+        {{'secure.products.create_product_unit.assing_images_url.imagen_invalidate' | translate}}</mat-error>
+    </mat-form-field>
+  </form>
 </div>

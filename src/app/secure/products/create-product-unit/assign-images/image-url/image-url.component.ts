@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { AsignateimageService } from '@app/secure/products/create-product-unit/assign-images/assign-images.component.service';
 import { ErrorStateMatcher } from '@angular/material';
+import { SupportService } from '@app/secure/support-modal/support.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -26,6 +27,8 @@ export class ImageUrlComponent implements OnInit {
   createImage: FormGroup;
   public formatImg = /^([^\s]+(\.(?:jpg|JPG|png|PNG))$)/;
   arrayImageDadClothing: any;
+  arrayDuplicatedImege: any;
+  matrixImagen: any;
   @Input() set setImag(value: any) {
     if (value) {
       this.sendChange(value);
@@ -35,7 +38,7 @@ export class ImageUrlComponent implements OnInit {
     }
   }
 
-  @Input() set setImagTec(value: any){
+  @Input() set setImagTec(value: any) {
     if (value) {
       this.sendChange(value);
       if (this.createImage && this.createImage.controls) {
@@ -44,14 +47,33 @@ export class ImageUrlComponent implements OnInit {
     }
   }
 
-  constructor(private fb: FormBuilder, private service: AsignateimageService) {
-    this.createImage = this.fb.group({
-      inputImage: ['', Validators.pattern(this.formatImg)],
-    });
+  imageRegex = { imageProduct: '' };
+
+
+  constructor(
+    private fb: FormBuilder, private service: AsignateimageService,
+    public SUPPORT?: SupportService,
+  ) {
+    this.validateFormSupport();
+
+    // this.createImage = this.fb.group({
+    //   inputImage: ['', Validators.pattern(this.formatImg)],
+    // });
     this.imgUrl = './assets/img/no-image.svg';
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // this.validateFormSupport();
+    this.arrayDuplicatedImege = [];
+    this.matrixImagen = {};
+    console.log(72);
+  }
+
+  createFormControls() {
+    this.createImage = this.fb.group({
+      inputImage: ['', Validators.pattern(this.imageRegex.imageProduct)],
+    });
+  }
 
 
   /**
@@ -60,24 +82,55 @@ export class ImageUrlComponent implements OnInit {
    * @memberof ImageUrlComponent
    */
   sendChange(val: any) {
-    this.imgUrl = val;
-    if (val.match(this.formatImg)) {
-      this.valImage = this.imgUrl.replace(new RegExp('/', 'g'), '%2F');
-      this.service.getvalidateImage(this.valImage).subscribe(res => {
-        this.formatimage = JSON.parse(res.body);
-        if (this.formatimage.Data.Error === false) {
-          this.imgUrlOut.emit([this.index, this.imgUrl]);
-        } else {
-          if (this.imgUrl) {
-            this.createImage.controls.inputImage.setErrors({ 'validFormatImage': this.formatimage.Data.Error });
-            this.imgUrl = './assets/img/no-image.svg';
-          }
+    // this.imgUrl = val;
+    // if (val.match(this.formatImg)) {
+    //   this.valImage = this.imgUrl.replace(new RegExp('/', 'g'), '%2F');
+    //   this.service.getvalidateImage(this.valImage).subscribe(res => {
+    //     this.formatimage = JSON.parse(res.body);
+    //     if (this.formatimage.Data.Error === false) {
+    //       this.imgUrlOut.emit([this.index, this.imgUrl]);
+    //     } else {
+    //       if (this.imgUrl) {
+    //         this.createImage.controls.inputImage.setErrors({ 'validFormatImage': this.formatimage.Data.Error });
+    //         this.imgUrl = './assets/img/no-image.svg';
+    //       }
+    //     }
+    //   });
+    // } else {
+    //   this.imgUrl = './assets/img/no-image.svg';
+    //   this.imgUrlOut.emit([this.index, '']);
+    // }
+  }
+
+  pruebaINdex(val: any) {
+    console.log('this.arrayDuplicatedImege: ', this.arrayDuplicatedImege);
+    this.pushImage(val);
+  }
+
+  pushImage(val: any) {
+    const ima1 = val;
+    // const rrayDuplicatedImege2 = [];
+    // this.arrayDuplicatedImege.push(val);
+    // console.log('this.arrayDuplicatedImege: ', this.arrayDuplicatedImege);
+    // rrayDuplicatedImege2.push(this.arrayDuplicatedImege);
+    // console.log('rrayDuplicatedImege2: ', rrayDuplicatedImege2);
+    this.matrixImagen.add({'imagen': val});
+  }
+
+  public validateFormSupport(): void {
+    this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
+      let dataOffertRegex = JSON.parse(res.body.body);
+      dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'productos');
+      for (const val in this.imageRegex) {
+        if (!!val) {
+          const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
+          this.imageRegex[val] = element && `${element.Value}`;
         }
-      });
-    } else {
-      this.imgUrl = './assets/img/no-image.svg';
-      this.imgUrlOut.emit([this.index, '']);
-    }
+      }
+      this.createFormControls();
+      console.log('1:', this.imageRegex.imageProduct);
+      console.log('2:', this.formatImg);
+    });
   }
 }
 

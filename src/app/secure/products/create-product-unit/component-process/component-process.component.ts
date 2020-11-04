@@ -77,16 +77,16 @@ export class ComponentProcessComponent implements OnInit {
     this.process.resetProduct();
     this.userService.isAuthenticated(this);
     this.eanFormGroup = this.fb.group({
-      eanCtrl: ['', Validators.required]
+      // eanCtrl: ['', Validators.required]
     });
     this.categoryFormGroup = this.fb.group({
-      categoryCtrl: ['', Validators.required]
+      // categoryCtrl: ['', Validators.required]
     });
     this.basicInfoFormGroup = this.fb.group({
-      basicInfoCtrl: ['', Validators.required]
+      // basicInfoCtrl: ['', Validators.required]
     });
     this.especificFormGroup = this.fb.group({
-      especificCtrl: ['', Validators.required]
+      // especificCtrl: ['', Validators.required]
     });
     this.imageFormGroup = this.fb.group({
       imageCtrl: ['', Validators.required]
