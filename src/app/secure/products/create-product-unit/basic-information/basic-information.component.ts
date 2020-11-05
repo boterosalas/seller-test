@@ -754,10 +754,11 @@ export class ProductBasicInfoComponent implements OnInit {
      * @memberof ProductBasicInfoComponent
      */
     listColor() {
-        this.service.getColorProducts().subscribe(result => {
-            if (result.status === 200 || result.status === 201) {
-                if (result && result.body.errors.length === 0) {
-                    this.listColorProducts = result.body.data;
+        // this.service.getColorProducts().subscribe(result => {
+        //     console.log(result);
+        //     if (result.status === 200 || result.status === 201) {
+                // if (result && result.body.errors.length === 0) {
+                    // this.listColorProducts = result.body.data;
 
 
 
@@ -778,13 +779,13 @@ export class ProductBasicInfoComponent implements OnInit {
                         { code: '522900', name: 'Café Oscuro' },
                         { code: '763C28', name: 'Cobre' },
                         { code: '724625', name: 'Camel' },
-                        { code: 'D2691E', name: 'Surtido' },
                         { code: 'FF8000', name: 'Naranja' },
                         { code: 'FF7F50', name: 'Coral' },
                         { code: 'FFA040', name: 'Naranja Claro' },
                         { code: 'EFB810', name: 'Dorado' },
                         { code: 'FFCC13', name: 'Mostaza Oscuro' },
                         { code: 'FFDB58', name: 'Mostaza' },
+                        { code: 'FFFF00', name: 'Amarillo oscuro' },
                         { code: 'FFFF00', name: 'Amarillo' },
                         { code: 'F7FE2E', name: 'Amarillo Medio' },
                         { code: 'F4FA58', name: 'Amarillo Claro' },
@@ -815,7 +816,6 @@ export class ProductBasicInfoComponent implements OnInit {
                         { code: 'E30052', name: 'Fucsia' },
                         { code: 'B60042', name: 'Fucsia Oscuro' },
                         { code: 'CC0066', name: 'Rosado Oscuro' },
-                        { code: 'FF90C8', name: 'MultiColor' },
                         { code: 'CB915B', name: 'Durazno' },
                         { code: 'E6D690', name: 'Marfil' },
                         { code: 'C89C7D', name: 'Terracota' },
@@ -838,20 +838,21 @@ export class ProductBasicInfoComponent implements OnInit {
                         { code: 'F2D3BC', name: 'Nude' },
                         { code: 'FFBCA4', name: 'Coral Claro' },
                         { code: 'ECE2C6', name: 'Arena' },
-                        { code: 'E0E094', name: 'Beige Oscuro' },
+                        { code: 'FF90C8', name: 'MultiColor' },
+                        { code: 'D2691E', name: 'Surtido' },
                     ];
 
                     this.listColorProducts = this.mapItems(
                         this.listColorProducts
                     );
-                } else {
-                    this.listColorProducts = [];
-                }
-            } else {
-                this.listColorProducts = [];
-            }
-            console.log(this.listColorProducts);
-        });
+                // } else {
+                //     this.listColorProducts = [];
+                // }
+        //     } else {
+        //         this.listColorProducts = [];
+        //     }
+        //     console.log(this.listColorProducts);
+        // });
     }
 
 
@@ -871,7 +872,7 @@ export class ProductBasicInfoComponent implements OnInit {
 
     colorText(code: string) {
         let colorText = '';
-        if (code === 'FFCC13' || code === 'FFDB58' || code === 'FFFF00' || code === 'F7FE2E' || code === 'F4FA58' || code === 'E6D690' || code === 'E3E4E5' || code === 'ECE2C6' || code === 'FFFFFF' || code === 'C2C2C2' || code === 'F9F9E7' || code === 'F5F5DC' || code === 'FFEDAE' || code === 'F2D3BC' || code === 'E0E094' || code === 'F2D3BC' || code === 'FFBCA4' || code === '19FF74') {
+        if (code === 'FFCC13' || code === 'FFDB58' || code === 'FFFF00' || code === 'F7FE2E' || code === 'F4FA58' || code === 'E6D690' || code === 'E3E4E5' || code === 'ECE2C6' || code === 'FFFFFF' || code === 'C2C2C2' || code === 'F9F9E7' || code === 'F5F5DC' || code === 'FFEDAE' || code === 'F2D3BC' || code === 'E0E094' || code === 'F2D3BC' || code === 'FFBCA4' || code === '19FF74' || code === 'FF90C8' || code === 'D2691E') {
             colorText = '5d5c5c ';
         } else {
             colorText = 'e9e8e8';
