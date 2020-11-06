@@ -60,7 +60,6 @@ export class TableLoadProductComponent implements OnInit {
     'ImageUrl5',
     'Size',
     'Color',
-    'HexColourCodePDP',
     'HexColourName',
     'IsLogisticsExito',
     'MeasurementUnit',

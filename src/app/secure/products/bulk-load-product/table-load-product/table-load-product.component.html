@@ -613,26 +613,6 @@
             </div>
           </td>
         </ng-container>
-
-        <!-- HexColourCodePDP Column -->
-        <ng-container matColumnDef="HexColourCodePDP">
-          <th mat-header-cell *matHeaderCellDef>
-            <div class="information th">
-              <p>HexColourCodePDP</p>
-            </div>
-          </th>
-          <td mat-cell [ngClass]="{'selected-error': element.errorHexColourCodePDP == true }" *matCellDef="let element"
-            matTooltip="{{element.HexColourCodePDP}}">
-            <div class="information" *ngIf="element.HexColourCodePDP != undefined && element.HexColourCodePDP != '' && element.HexColourCodePDP !== null">
-              <p class="sc-text-normal">{{element.HexColourCodePDP}}</p>
-            </div>
-            <div class="information" *ngIf="element.HexColourCodePDP == undefined || element.HexColourCodePDP == '' || element.HexColourCodePDP == null">
-              <p class="text-error"> -
-              </p>
-            </div>
-          </td>
-        </ng-container>
-
         <!-- HexColourName Column -->
         <ng-container matColumnDef="HexColourName">
           <th mat-header-cell *matHeaderCellDef>

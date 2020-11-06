@@ -1949,15 +1949,13 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           }
           break;
         case 'color':
-          console.log(this.listColorProducts);
-          if (this.listColorProducts.lenght > 0) {
-            this.listColorProducts.forEach(element => {
-              if (element.Color === inputtxt) {
-                valueReturn = true;
-              } else {
-                valueReturn = false;
-              }
-            });
+          if (this.listColorProducts.length > 0) {
+           const validateColor =  this.listColorProducts.find(x => x.Color.toLowerCase() === inputtxt.toLowerCase());
+           if (validateColor !== undefined) {
+            valueReturn = true;
+           } else {
+            valueReturn = false;
+           }
           } else {
             valueReturn = false;
           }

@@ -754,105 +754,20 @@ export class ProductBasicInfoComponent implements OnInit {
      * @memberof ProductBasicInfoComponent
      */
     listColor() {
-        // this.service.getColorProducts().subscribe(result => {
-        //     console.log(result);
-        //     if (result.status === 200 || result.status === 201) {
-                // if (result && result.body.errors.length === 0) {
-                    // this.listColorProducts = result.body.data;
-
-
-
-                    this.listColorProducts = [
-                        { code: '4B1A21', name: 'Vino Oscuro' },
-                        { code: '5E2129', name: 'Vino' },
-                        { code: '722F37', name: 'Vinotinto' },
-                        { code: '943340', name: 'Vino Claro' },
-                        { code: 'A30000', name: 'Rojo Oscuro' },
-                        { code: 'CC0000', name: 'Rojo Medio' },
-                        { code: 'FF0000', name: 'Rojo' },
-                        { code: 'FF4040', name: 'Rojo Claro' },
-                        { code: 'FF4E0D', name: 'Coral Oscuro' },
-                        { code: 'CC6600', name: 'Naranja Oscuro' },
-                        { code: 'A05000', name: 'Café Claro' },
-                        { code: '804000', name: 'Café' },
-                        { code: '663300', name: 'Café Medio' },
-                        { code: '522900', name: 'Café Oscuro' },
-                        { code: '763C28', name: 'Cobre' },
-                        { code: '724625', name: 'Camel' },
-                        { code: 'FF8000', name: 'Naranja' },
-                        { code: 'FF7F50', name: 'Coral' },
-                        { code: 'FFA040', name: 'Naranja Claro' },
-                        { code: 'EFB810', name: 'Dorado' },
-                        { code: 'FFCC13', name: 'Mostaza Oscuro' },
-                        { code: 'FFDB58', name: 'Mostaza' },
-                        { code: 'FFFF00', name: 'Amarillo oscuro' },
-                        { code: 'FFFF00', name: 'Amarillo' },
-                        { code: 'F7FE2E', name: 'Amarillo Medio' },
-                        { code: 'F4FA58', name: 'Amarillo Claro' },
-                        { code: '19FF74', name: 'Verde Neon' },
-                        { code: '00B347', name: 'Verde Claro' },
-                        { code: '008F39', name: 'Verde' },
-                        { code: '005B25', name: 'Verde Oscuro' },
-                        { code: '00722E', name: 'Verde Medio' },
-                        { code: '4A6F22', name: 'Verde Militar' },
-                        { code: '009C8C', name: 'Verde azul' },
-                        { code: '00AAE4', name: 'Celeste' },
-                        { code: '1DA2D8', name: 'Ocean' },
-                        { code: '9090FF', name: 'Azul Claro' },
-                        { code: '4040FF', name: 'Azul Medio' },
-                        { code: '0000FF', name: 'Azul' },
-                        { code: '0000A3', name: 'Azul Oscuro' },
-                        { code: '343F51', name: 'Jean' },
-                        { code: '012E67', name: 'Indigo' },
-                        { code: '461C50', name: 'Morado Oscuro' },
-                        { code: '572364', name: 'Morado' },
-                        { code: 'A000A0', name: 'Morado Medio' },
-                        { code: 'C800C8', name: 'Morado Claro' },
-                        { code: 'B264D9', name: 'Lila' },
-                        { code: 'FF40A0', name: 'Rosado Claro' },
-                        { code: 'FF1D6E', name: 'Fucsia Claro' },
-                        { code: 'FF0080', name: 'Rosa' },
-                        { code: 'E60066', name: 'Rosado Medio' },
-                        { code: 'E30052', name: 'Fucsia' },
-                        { code: 'B60042', name: 'Fucsia Oscuro' },
-                        { code: 'CC0066', name: 'Rosado Oscuro' },
-                        { code: 'CB915B', name: 'Durazno' },
-                        { code: 'E6D690', name: 'Marfil' },
-                        { code: 'C89C7D', name: 'Terracota' },
-                        { code: '000000', name: 'Negro' },
-                        { code: '000000', name: 'Negro 1' },
-                        { code: '000000', name: 'Negro 2' },
-                        { code: '000000', name: 'Negro 3' },
-                        { code: '636363', name: 'Gris Oscuro' },
-                        { code: '7C7C7C', name: 'Gris Medio' },
-                        { code: '9B9B9B', name: 'Gris' },
-                        { code: 'C2C2C2', name: 'Gris Claro' },
-                        { code: 'E3E4E5', name: 'Plateado' },
-                        { code: 'FFFFFF', name: 'Blanco' },
-                        { code: 'FFFFFF', name: 'Blanco 1' },
-                        { code: 'FFFFFF', name: 'Blanco 2' },
-                        { code: 'FFFFFF', name: 'Blanco 3' },
-                        { code: 'F9F9E7', name: 'Beige Claro' },
-                        { code: 'F5F5DC', name: 'Beige' },
-                        { code: 'FFEDAE', name: 'Mostaza Claro' },
-                        { code: 'F2D3BC', name: 'Nude' },
-                        { code: 'FFBCA4', name: 'Coral Claro' },
-                        { code: 'ECE2C6', name: 'Arena' },
-                        { code: 'FF90C8', name: 'MultiColor' },
-                        { code: 'D2691E', name: 'Surtido' },
-                    ];
-
+        this.service.getColorProducts().subscribe(result => {
+            if (result.status === 200 || result.status === 201) {
+                if (result && result.body.errors.length === 0) {
+                    this.listColorProducts = result.body.data;
                     this.listColorProducts = this.mapItems(
                         this.listColorProducts
                     );
-                // } else {
-                //     this.listColorProducts = [];
-                // }
-        //     } else {
-        //         this.listColorProducts = [];
-        //     }
-        //     console.log(this.listColorProducts);
-        // });
+                } else {
+                    this.listColorProducts = [];
+                }
+            } else {
+                this.listColorProducts = [];
+            }
+        });
     }
 
 
@@ -1017,7 +932,6 @@ export class ProductBasicInfoComponent implements OnInit {
                 element.selected = true;
             }
         });
-        console.log(list);
         return list;
     }
 

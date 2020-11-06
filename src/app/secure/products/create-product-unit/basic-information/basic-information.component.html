@@ -39,7 +39,7 @@
       </mat-form-field>
       <mat-form-field class="fieldBrands" [hidden]="!show">
         <input matInput [placeholder]="'shared.brand' | translate" formControlName="Brand" [errorStateMatcher]="matcher"
-          style="text-transform:uppercase;" (change)="detectForm()" required>
+          class="text-transform-uppercase" (change)="detectForm()" required>
         <mat-error *ngIf="formBasicInfo.get('Brand').hasError('required')">
           {{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
         <mat-error *ngIf="formBasicInfo.get('Brand').hasError('pattern')">{{'errors.format_invalidate' | translate}}
@@ -198,8 +198,8 @@
     </div>
 
     <div fxLayout="column" fxLayoutAlign="space-between center" fxLayoutAlign.xs="center center" fxLayout.xs="column"
-      style="width: 100%;">
-      <angular-editor formControlName="Description" id="Description" [config]="config" style="width: 100%;"
+      class="width-100">
+      <angular-editor formControlName="Description" id="Description" [config]="config" class="width-100"
         (change)="detectForm()" required></angular-editor>
       <mat-error
         *ngIf="formBasicInfo.get('Description').hasError('required') && formBasicInfo.get('Description').touched">
@@ -223,8 +223,7 @@
         {{'secure.products.create_product_unit.basic_information.only_up_to_20_keywords' | translate}}</mat-error>
     </mat-form-field>
 
-    <div style="flex-wrap: wrap; display: flex;">
-
+    <div class="flex-wrap-display">
       <mat-chip-list>
         <mat-chip *ngFor="let key of keywords; let i = index" (removed)="deleteKeywork(i)">
           {{key}}
@@ -255,7 +254,7 @@
       </div>
     </ng-container>
 
-    <div style="flex-wrap: wrap; display: flex;">
+    <div class="flex-wrap-display">
       <mat-chip-list>
         <mat-chip *ngFor="let ean of combos; let i = index" (removed)="deleteEan(i)">
           {{ean}}
@@ -349,38 +348,38 @@
               {{'secure.products.create_product_unit.basic_information.input_mandatory' | translate}}</mat-error>
           </mat-form-field>
         </div>
-        <div fxLayout="row" style="margin-top: 22px;">
+        <div fxLayout="row" class="basic-information-margin-top">
           <div>
             <span>Listado de colores </span>
             <span *ngIf="son.colorSelected">
-              <span style="font-size: 12px;"> (Color seleccionado:  </span><span style="font-size: 12px;">{{son.colorSelected}})</span>
+              <span class="basic-information-font-size-12"> (Color seleccionado:  </span><span class="basic-information-font-size-12">{{son.colorSelected}})</span>
             </span>
           </div> 
         </div>
 
-        <div fxLayout="row wrap" class="basic-information-component-container-color" fxLayoutAlign="start stretch" style="margin-bottom: 40px;" >
-          <div  style="padding: 1px;"  *ngFor="let color of son.listColor">
+        <div fxLayout="row wrap" class="basic-information-component-container-color basic-information-container-margin-bottom" fxLayoutAlign="start stretch">
+          <div  class="basic-information-padding"  *ngFor="let color of son.listColor">
             <div *ngIf="color.code !== 'FF90C8' && color.code !== 'D2691E'" (click)="select(color.code, color.name ,color.selected, son)" class="basic-information-component-container" fxFlex.xs="100" fxFlex.xl="100"   [ngStyle]="{'background-color': '#' + color.code, 'border': color.border  ,'transition' : 'transform .5s'}">
-              <div style="height: 30px;">
-                <mat-icon style="color: #48b9fa;font-size: 19px; width: 100%;text-align: right;" *ngIf="color.selected">check_circle</mat-icon>
+              <div class="basic-information-height-30">
+                <mat-icon class="basic-information-container-color" *ngIf="color.selected">check_circle</mat-icon>
               </div>
-              <div style="height: 48px;margin-left: 2px; line-height: 10px;" class="text-select-color" [ngStyle]="{'color': '#'+ color.colorText}">
+              <div  class="text-select-color basic-information-container-line-height" [ngStyle]="{'color': '#'+ color.colorText}">
                 {{color.name}}
               </div>
             </div>
             <div *ngIf="color.code === 'FF90C8'" (click)="select(color.code, color.name ,color.selected, son)" class="colorPallet basic-information-component-container" [ngStyle]="{'transition' : 'transform .5s'}" fxFlex.xs="100" fxFlex.xl="100">
-              <div style="height: 30px;">
-                <mat-icon style="color: #48b9fa;font-size: 19px; width: 100%;text-align: right;" *ngIf="color.selected">check_circle</mat-icon>
+              <div class="basic-information-height-30">
+                <mat-icon class="basic-information-container-color" *ngIf="color.selected">check_circle</mat-icon>
               </div>
-              <div style="height: 48px;margin-left: 2px; line-height: 10px;" class="text-select-color" [ngStyle]="{'color': '#'+ color.colorText}">
+              <div class="text-select-color basic-information-container-line-height" [ngStyle]="{'color': '#'+ color.colorText}">
                 {{color.name}}
               </div>
             </div>
-            <div *ngIf="color.code === 'D2691E'" style="width: 43px;height: 50px;cursor: pointer;" (click)="select(color.code, color.name ,color.selected, son)" class="colorSurtido basic-information-component-container" [ngStyle]="{'transition' : 'transform .5s'}" fxFlex.xs="100" fxFlex.xl="100">
-              <div style="height: 30px;">
-                <mat-icon style="color: #48b9fa;font-size: 19px; width: 100%;text-align: right;" *ngIf="color.selected">check_circle</mat-icon>
+            <div *ngIf="color.code === 'D2691E'" (click)="select(color.code, color.name ,color.selected, son)" class="colorSurtido basic-information-component-container" [ngStyle]="{'transition' : 'transform .5s'}" fxFlex.xs="100" fxFlex.xl="100">
+              <div class="basic-information-height-30">
+                <mat-icon class="basic-information-container-color" *ngIf="color.selected">check_circle</mat-icon>
               </div>
-              <div style="height: 48px;margin-left: 2px; line-height: 10px;" class="text-select-color" [ngStyle]="{'color': '#'+ color.colorText}">
+              <div class="text-select-color basic-information-container-line-height" [ngStyle]="{'color': '#'+ color.colorText}">
                 {{color.name}}
               </div>
             </div>

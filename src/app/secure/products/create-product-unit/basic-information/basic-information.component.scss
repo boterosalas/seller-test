@@ -198,8 +198,6 @@ $color-red: #f44336;
             cursor: pointer;
         }
         .select-color {
-            // border-color: $blue-page !important;
-            // border: 2px solid;
             @include color-size();
         }
     }
@@ -309,10 +307,6 @@ $color-red: #f44336;
 }
 
 .sticky-position {
-    // position: sticky;
-    // top: 0;
-    // background: #f9f7f7;
-    // z-index: 1;
     background: #f9f7f7;
     z-index: 1;
     width: 100%;
@@ -369,20 +363,63 @@ $color-red: #f44336;
   .basic-information-component-container-color{
     padding-left: 16px;
     padding-top: 10px;
-    // height: 178px;
-    // width: 100%;
-    // contain: content;
-    // overflow-y: auto;
-    // overflow-x: hidden;
     margin-bottom: 22px;
   }
 
   .colorPallet{
-    background: -prefix-linear-gradient(left, red, orange, yellow, green, blue);
-    background: linear-gradient(to right, red, orange, yellow, green, blue)
+    background-repeat: round;
+    background-image: url('../../../../../assets/img/fondo_3.jpg');
+    // background: -prefix-linear-gradient(left, red, orange, yellow, green, blue);
+    // background: linear-gradient(to right, red, orange, yellow, green, blue)
   }
 
   .colorSurtido{
     background-repeat: round;
     background-image: url('../../../../../assets/img/fondo_2.jpg');
   }
+
+  .text-transform-uppercase{
+    text-transform:uppercase;
+  }
+
+  .width-100{
+    width: 100%;
+  }
+
+  .flex-wrap-display{
+    flex-wrap: wrap;
+    display: flex;
+  }
+
+  .basic-information-margin-top{
+    margin-top: 22px;
+  }
+
+  .basic-information-font-size-12{
+    font-size: 12px;
+  }
+
+  .basic-information-padding{
+    padding: 1px;
+  }
+
+  .basic-information-height-30{
+    height: 30px;
+  }
+
+  .basic-information-container-color{
+    color: #48b9fa;
+    font-size: 19px;
+    width: 100%;
+    text-align: right;
+  }
+
+  .basic-information-container-line-height{
+    height: 48px;
+    margin-left: 2px;
+    line-height: 10px;
+  }
+
+.basic-information-container-margin-bottom{
+    margin-bottom: 40px;
+}
