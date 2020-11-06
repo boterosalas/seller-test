@@ -334,6 +334,11 @@
     "secure.billing.amount": "Amount",
     "secure.billing.total_freight": "Total freight",
     "secure.billing.total_cost": "Product Price",
+    "secure.billing.list_products": "List of products",
+    "secure.billing.subtotal": "SUBTOTAL",
+    "secure.billing.vat_discount": "VAT discount",
+    "secure.billing.total_be_paid": "TOTAL TO BE PAID",
+    "secure.billing.comissionFee": "Comission Fee",
     "secure.billing.send_payment": "Send invoices",
     "secure.billing.send_payment_information": "We will send the payment information to the following e-mail address",
     "secure.billing.correctly_download": "The payment information has been downloaded correctly, check your inbox",
@@ -442,6 +447,7 @@
     "secure.orders.sent.Cancelado": "Cancel",
     "secure.orders.sent.Pagado Cancelado": "Paid Canceled",
     "secure.orders.sent.Devolución Pendiente Validación": "Return pending validation",
+    "secure.orders.sent.Despacho Vendedor Int": "International Seller Shipped",
 
     "secure.orders.billing_orders.subtitle_toolbar": "Search for an invoice",
     "secure.orders.billing_orders.txt_serch_order": "Enter order number",
@@ -496,6 +502,7 @@
     "secure.orders.order_list.product_order.sku": "SKU",
     "secure.orders.order_list.product_order.sku_seller": "Seller SKU",
     "secure.orders.order_list.product_order.total": "Total",
+    "secure.orders.order_list.product_order.subTotal": "Subtotal",
     "secure.orders.order_list.product_order.see_total_records_download": "View all your orders by downloading the order report  ",
 
     "secure.orders.order_list.send_order.title_order": "Send Order",
@@ -560,6 +567,12 @@
 
     "secure.orders.list-cancels.tab1": "Pending cancellations", 
     "secure.orders.list-cancels.tab2": "Cancellations Record", 
+    "secure.orders.list-cancels.tab1-title-download": "We will send you the Cancellations download to email", 
+    "secure.orders.list-cancels.tab2-title-download": "We will send you the download of History of cancellations to email", 
+    "secure.orders.list-cancels-tab1-msg-ok": "Pending cancellations have been downloaded successfully, check your email.",
+    "secure.orders.list-cancels-tab2-msg-ok": "The download of the cancellation Overview has been done correctly, check your email.",
+    "secure.orders.list-cancels-tab1-msg-ko": "An error occurred while downloading pending cancellations.",
+    "secure.orders.list-cancels-tab2-msg-ko": "An error occurred when downloading the cancellation overview.",
 
     "secure.seller.list.enabled_title_modal": "Enable user",
     "secure.seller.list.disabled_title_modal": "Disable user",

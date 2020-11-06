@@ -137,7 +137,7 @@ export class SearchHistoricalDevolutionFormComponent implements OnInit {
       stringQuery += `&idSeller=${this.idSeller}`;
 
       // Guardo el filtro aplicado por el usuario.
-      this.__searchOrderMenuService.setCurrentFilterOrders(stringQuery);
+      this.__searchOrderMenuService.setCurrentFilterOrders(this.myform.value);
       this.__loadingService.viewSpinner();
       this.__searchOrderMenuService.getHistoricalDevolutionFilter(`limit=${50}`, stringQuery).subscribe(data => {
           if (data) {

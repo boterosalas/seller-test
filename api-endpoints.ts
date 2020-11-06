@@ -17,7 +17,7 @@ export const endpoints = {
       sendProductInOrder: 'https://89qu0cyz29.execute-api.us-east-1.amazonaws.com/SendProductInOrder/{orderId}/{idDetailProduct}',
       searchPendingDevolution: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch?{stringParams}',
       pendingDevolution: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch?{stringParams}',
-      pendingDevolutionSearchTemporal: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch/pending?{stringParams}',
+      pendingDevolutionSearchTemporal: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch?{stringParams}',
       acceptOrDeniedDevolution: 'https://v1kfqoa8yd.execute-api.us-east-1.amazonaws.com/RequestAcceptOrDenied',
       recordProcesSedOrder: 'https://4nu4lf5m80.execute-api.us-east-1.amazonaws.com/RecordProcesSedOrder',
       getallordersbysellerwithouttracking: 'https://cbihc9u6fa.execute-api.us-east-1.amazonaws.com/GetAllOrdersBySellerWithoutTracking{stringParam}',
@@ -234,7 +234,9 @@ export const endpoints = {
       // enviar data en formato json al back
       sendDataJsonReadExcel : 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/MassiveComsnExc',
       // Listado de colores
-      getListColor : 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/colors'
+      getListColor : 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/colors',
+      // Descargable del listado/historico de cancelaciones
+      exportListCancel: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch/report'
     },
   },
   // Endpoints production
@@ -250,7 +252,7 @@ export const endpoints = {
       sendProductInOrder: 'https://dc042g38t8.execute-api.us-east-1.amazonaws.com/sendproductinorder-pdn/{orderId}/{idDetailProduct}',
       searchPendingDevolution: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn?idSeller={sellerId}&limit={limit}',
       pendingDevolution: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn?{stringParams}', // PENDIENTE
-      pendingDevolutionSearchTemporal: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn/pending?{stringParams}',
+      pendingDevolutionSearchTemporal: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn?{stringParams}',
       acceptOrDeniedDevolution: 'https://geddaxinw4.execute-api.us-east-1.amazonaws.com/refuseoracceptdevolution-pdn', // TODO: Faltante en api end points
       recordProcesSedOrder: 'https://cfa1kdi5yj.execute-api.us-east-1.amazonaws.com/recordproccessedorder-pdn',
       getallordersbysellerwithouttracking: 'https://e06ayaf6s9.execute-api.us-east-1.amazonaws.com/getallordersbysellerwithouttracking-pdn{stringParam}',
@@ -466,7 +468,9 @@ export const endpoints = {
        // enviar data en formato json al back
        sendDataJsonReadExcel : 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/MassiveComsnExc',
       // Listado de colores
-      getListColor : 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/colors'
+      getListColor : 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/colors',
+       // Descargable del listado/historico de cancelaciones
+       exportListCancel: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn/report'
     }
   }
 };

@@ -6,7 +6,7 @@
       <!-- Toolbar de las opciones para la orden -->
       <app-toolbar-options [Typeprofile]='typeProfile' [idSeller]="idSeller" [_lengthOrder]="lengthOrder"
         [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)"
-        (OnChangeSizeOrderTable)="changeSizeOrderTable($event); paginations($event)"></app-toolbar-options>
+        (OnChangeSizeOrderTable)="changeSizeOrderTable($event); paginations($event)" [hideOptionsListCancel]="hideOptionsListCancel"></app-toolbar-options>
       <!-- Toolbar de las opciones para la orden -->
     </div>
 

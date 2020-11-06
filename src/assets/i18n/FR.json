@@ -333,6 +333,11 @@
     "secure.billing.amount": "Amount",
     "secure.billing.total_freight": "Total freight",
     "secure.billing.total_cost": "Total cost",
+    "secure.billing.list_products": "Liste des produits",
+    "secure.billing.subtotal": "SOUS-TOTAL",
+    "secure.billing.total_be_paid": "TOTAL À PAYER",
+    "secure.billing.vat_discount": "Réduction de la TVA",
+    "secure.billing.comissionFee": "Remise de la Commission",
     "secure.billing.send_payment": "Send invoices",
     "secure.billing.send_payment_information": "We will send the payment information to the following e-mail address",
     "secure.billing.correctly_download": "The payment information has been downloaded correctly, check your inbox",
@@ -434,6 +439,7 @@
     "secure.orders.sent.Cancelado": "Annulé",
     "secure.orders.sent.Pagado Cancelado": "Paiment annulé",
     "secure.orders.sent.Devolución Pendiente Validación": "Retour En attente de validation",
+    "secure.orders.sent.Despacho Vendedor Int": "Expédition du vendeur internationals",
 
     "secure.orders.billing_orders.subtitle_toolbar": "Search for an invoice",
     "secure.orders.billing_orders.txt_serch_order": "Enter order number",
@@ -488,6 +494,7 @@
     "secure.orders.order_list.product_order.sku": "SKU",
     "secure.orders.order_list.product_order.sku_seller": "Vendeur SKU",
     "secure.orders.order_list.product_order.total": "Total",
+    "secure.orders.order_list.product_order.subTotal": "Subtotal",
     "secure.orders.order_list.product_order.see_total_records_download": "Consultez toutes vos commandes en téléchargeant votre rapport de commande",
 
     "secure.orders.order_list.send_order.title_order": "Send Order",
@@ -552,6 +559,12 @@
 
     "secure.orders.list-cancels.tab1": "Annulations en cours", 
     "secure.orders.list-cancels.tab2": "Historique des annulations", 
+    "secure.orders.list-cancels.tab1-title-download": "Nous vous enverrons le téléchargement des annulations par e-mail", 
+    "secure.orders.list-cancels.tab2-title-download": "Nous vous enverrons le téléchargement de l'historique des annulations par e-mail", 
+    "secure.orders.list-cancels-tab1-msg-ok": "Les annulations en attente ont été téléchargées avec succès, vérifiez votre e-mail.",
+    "secure.orders.list-cancels-tab1-msg-ko": "Le téléchargement de l'historique des annulations a été effectué correctement, vérifiez votre email.",
+    "secure.orders.list-cancels-tab2-msg-ok": "Une erreur s'est produite lors du téléchargement des annulations en cours.",
+    "secure.orders.list-cancels-tab2-msg-ko": "Une erreur s'est produite lors du téléchargement de l'historique des annulations.",
 
     "secure.seller.list.enabled_title_modal": "Enable user",
     "secure.seller.list.disabled_title_modal": "Disable user",
