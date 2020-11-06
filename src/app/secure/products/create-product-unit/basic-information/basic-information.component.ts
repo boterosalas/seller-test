@@ -491,7 +491,8 @@ export class ProductBasicInfoComponent implements OnInit {
                 Show: true,
                 colorPick: null,
                 colorPick2: null,
-                listColor: this.mapItems(this.listColorProducts)
+                listColor: this.mapItems(this.listColorProducts),
+                name: null
             };
             // let t = newForm.form.controls.HexColorCodePDP.disable();
             newForm.form.controls.HexColorCodeName.enable();
@@ -777,7 +778,7 @@ export class ProductBasicInfoComponent implements OnInit {
             return {
                 code: x.code,
                 name: x.name,
-                label: x.name,
+                label: x.label,
                 selected: false,
                 colorText : this.colorText(x.code),
                 border: this.colorBorder (x.code)
@@ -831,13 +832,35 @@ export class ProductBasicInfoComponent implements OnInit {
     reloadByCulture() {
         this.languageService.onLangChange.subscribe((e: Event) => {
             if (this.sonList.length > 0) {
-                for (let i = 0; i < this.sonList.length; i++) {
-                    this.sonList[i].form.controls.Size.setValue();
-                    this.sonList[i].form.controls.Size.disable();
-                }
+                this.listColorProducts = [];
+                this.listColor();
                 this.sizes = [];
                 this.listSize();
+                setTimeout(() => {
+                    for (let i = 0; i < this.sonList.length; i++) {
+                        const list = this.mapItemsEdit(this.listColorProducts);
+                        setTimeout(() => {
+                        this.sonList[i].form.controls.Size.setValue();
+                        this.sonList[i].form.controls.Size.disable();
+                        this.sonList[i].listColor = this.setChildenColor(list, this.sonList[i].name );
+                        this.sonList[i].colorSelected = this.searchColorSelect(list, this.sonList[i].name );
+                        }, 3000);
+                    }
+                }, 5000);
             }
+        });
+    }
+
+    mapItemsEdit(items: any[]): any[] {
+        return items.map(x => {
+            return {
+                code: x.code,
+                name: x.name,
+                label: x.label,
+                selected: false,
+                colorText : this.colorText(x.code),
+                border: this.colorBorder (x.code)
+            };
         });
     }
     /**
@@ -914,8 +937,9 @@ export class ProductBasicInfoComponent implements OnInit {
                     Show: false,
                     colorPick: '#' + detailProduct.children[i].hexColourCodePDP,
                     colorPick2: null,
-                    colorSelected: detailProduct.children[i].color,
-                    listColor: this.setChildenColor(list, detailProduct.children[i].color)
+                    colorSelected: this.searchColorSelect(list, detailProduct.children[i].color),
+                    listColor: this.setChildenColor(list, detailProduct.children[i].color),
+                    name : detailProduct.children[i].color
                 };
                 // let t = newForm.form.controls.HexColorCodePDP.disable();
                 newForm.form.controls.HexColorCodeName.enable();
@@ -933,6 +957,16 @@ export class ProductBasicInfoComponent implements OnInit {
             }
         });
         return list;
+    }
+
+    searchColorSelect(list: any, color: string) {
+        let name = '';
+        list.forEach(element => {
+            if (element.label === color) {
+                name = element.name;
+            }
+        });
+        return name;
     }
 
     addEanCombo() {
