@@ -942,6 +942,8 @@
     "secure.products.create_product_unit.basic_information.dont_have_ean": "I don't have an EAN code for this product",
     "secure.products.create_product_unit.basic_information.size_invalid": "The entered size is invalid",
     "secure.products.create_product_unit.basic_information.specific_name_invalid": "The specific name for the color entered is invalid, It mustn't have spaces",
+    "secure.products.create_product_unit.basic_information.color_list": "Color list",
+    "secure.products.create_product_unit.basic_information.selected_color": "Selected color",
     "secure.products.create_product_unit.basic_information.beige": "Beige",
     "secure.products.create_product_unit.basic_information.black": "Black",
     "secure.products.create_product_unit.basic_information.white": "White",
