@@ -175,9 +175,7 @@ export class ProductBasicInfoComponent implements OnInit {
                         views.showInfo = false;
                         this.process.setViews(views);
                     } else {
-                        // BORRAR ESTA LINEA
                         this._detailProduct.category = this.productData.CategoryName;
-                        //
                         if (this._detailProduct.category !== this.productData.CategoryName) {
                             this.sonList = [];
                             const views = this.process.getViews();
@@ -477,10 +475,6 @@ export class ProductBasicInfoComponent implements OnInit {
                         [
                             Validators.required, Validators.pattern(this.getValue('sizeProduct'))
                         ]),
-                    // HexColorCodePDP: new FormControl('',
-                    //     [
-                    //         Validators.required,
-                    //     ]),
                     HexColorCodeName: new FormControl('',
                         [
                             Validators.required, Validators.pattern(this.getValue('hexColorNameProduct'))
@@ -494,7 +488,6 @@ export class ProductBasicInfoComponent implements OnInit {
                 listColor: this.mapItems(this.listColorProducts),
                 name: null
             };
-            // let t = newForm.form.controls.HexColorCodePDP.disable();
             newForm.form.controls.HexColorCodeName.enable();
             this.sonList.push(newForm);
             this.valInputEan = newForm.form.controls.Ean;
@@ -515,7 +508,6 @@ export class ProductBasicInfoComponent implements OnInit {
             if (!this.sonList[this.sonList.length - 1].form.valid) {
                 this.sonList[this.sonList.length - 1].form.controls.Ean.markAsDirty();
                 this.sonList[this.sonList.length - 1].form.controls.Size.markAsDirty();
-                // this.sonList[this.sonList.length - 1].form.controls.HexColorCodePDP.markAsDirty();
                 this.sonList[this.sonList.length - 1].form.controls.HexColorCodeName.markAsDirty();
                 this.sonList[this.sonList.length - 1].dirty = true;
                 this.sonList[this.sonList.length - 1].Show = true;
@@ -771,8 +763,13 @@ export class ProductBasicInfoComponent implements OnInit {
         });
     }
 
-
-    //CAMBIAR X.NAME POR LABEL
+    /**
+     * funcion para mapear un nuevo array de colores por cada hijo con atributos como selected, colorText y border que no vienen en el modelo
+     *
+     * @param {any[]} items
+     * @returns {any[]}
+     * @memberof ProductBasicInfoComponent
+     */
     mapItems(items: any[]): any[] {
         return items.map(x => {
             return {
@@ -780,12 +777,18 @@ export class ProductBasicInfoComponent implements OnInit {
                 name: x.name,
                 label: x.label,
                 selected: false,
-                colorText : this.colorText(x.code),
-                border: this.colorBorder (x.code)
+                colorText: this.colorText(x.code),
+                border: this.colorBorder(x.code)
             };
         });
     }
-
+    /**
+     * funcion para cambiar el color del texto, valida cuando el color de fondo es claro y le coloca un color mas oscuro al texto
+     *
+     * @param {string} code
+     * @returns
+     * @memberof ProductBasicInfoComponent
+     */
     colorText(code: string) {
         let colorText = '';
         if (code === 'FFCC13' || code === 'FFDB58' || code === 'FFFF00' || code === 'F7FE2E' || code === 'F4FA58' || code === 'E6D690' || code === 'E3E4E5' || code === 'ECE2C6' || code === 'FFFFFF' || code === 'C2C2C2' || code === 'F9F9E7' || code === 'F5F5DC' || code === 'FFEDAE' || code === 'F2D3BC' || code === 'E0E094' || code === 'F2D3BC' || code === 'FFBCA4' || code === '19FF74' || code === 'FF90C8' || code === 'D2691E') {
@@ -795,8 +798,14 @@ export class ProductBasicInfoComponent implements OnInit {
         }
         return colorText;
     }
-
-    colorBorder ( code: string) {
+    /**
+     * funcion para cambiar el color de border claros por oscuros
+     *
+     * @param {string} code
+     * @returns
+     * @memberof ProductBasicInfoComponent
+     */
+    colorBorder(code: string) {
         let colorBorder = '';
         if (code === 'FFFFFF' || code === 'F9F9E7') {
             colorBorder = '1px solid #d4d2d2';
@@ -805,12 +814,20 @@ export class ProductBasicInfoComponent implements OnInit {
         }
         return colorBorder;
     }
-
-    select (code: string, name: string , selected: boolean, son: any) {
+    /**
+     * funcion para seleccionar un color y mandarlo al json y a las diferentes variables
+     *
+     * @param {string} code
+     * @param {string} name
+     * @param {boolean} selected
+     * @param {*} son
+     * @memberof ProductBasicInfoComponent
+     */
+    select(code: string, name: string, selected: boolean, son: any) {
         son.listColor.forEach(element => {
             element.selected = false;
             if (element.code === code) {
-                element.selected = !selected ;
+                element.selected = !selected;
                 if (!selected === false) {
                     son.colorSelected = null;
                     son.colorPick = null;
@@ -840,17 +857,23 @@ export class ProductBasicInfoComponent implements OnInit {
                     for (let i = 0; i < this.sonList.length; i++) {
                         const list = this.mapItemsEdit(this.listColorProducts);
                         setTimeout(() => {
-                        this.sonList[i].form.controls.Size.setValue();
-                        this.sonList[i].form.controls.Size.disable();
-                        this.sonList[i].listColor = this.setChildenColor(list, this.sonList[i].name );
-                        this.sonList[i].colorSelected = this.searchColorSelect(list, this.sonList[i].name );
+                            this.sonList[i].form.controls.Size.setValue();
+                            this.sonList[i].form.controls.Size.disable();
+                            this.sonList[i].listColor = this.setChildenColor(list, this.sonList[i].name);
+                            this.sonList[i].colorSelected = this.searchColorSelect(list, this.sonList[i].name);
                         }, 3000);
                     }
                 }, 5000);
             }
         });
     }
-
+    /**
+     * funcion para mapear los hijos cuando vienen para editarlos
+     *
+     * @param {any[]} items
+     * @returns {any[]}
+     * @memberof ProductBasicInfoComponent
+     */
     mapItemsEdit(items: any[]): any[] {
         return items.map(x => {
             return {
@@ -858,8 +881,8 @@ export class ProductBasicInfoComponent implements OnInit {
                 name: x.name,
                 label: x.label,
                 selected: false,
-                colorText : this.colorText(x.code),
-                border: this.colorBorder (x.code)
+                colorText: this.colorText(x.code),
+                border: this.colorBorder(x.code)
             };
         });
     }
@@ -923,10 +946,6 @@ export class ProductBasicInfoComponent implements OnInit {
                             [
                                 Validators.required, Validators.pattern(this.getValue('sizeProduct'))
                             ]),
-                        // HexColorCodePDP: new FormControl('#' + detailProduct.children[i].hexColourCodePDP,
-                        //     [
-                        //         Validators.required,
-                        //     ]),
                         HexColorCodeName: new FormControl(detailProduct.children[i].color,
                             [
                                 Validators.required, Validators.pattern(this.getValue('hexColorNameProduct'))
@@ -939,9 +958,8 @@ export class ProductBasicInfoComponent implements OnInit {
                     colorPick2: null,
                     colorSelected: this.searchColorSelect(list, detailProduct.children[i].color),
                     listColor: this.setChildenColor(list, detailProduct.children[i].color),
-                    name : detailProduct.children[i].color
+                    name: detailProduct.children[i].color
                 };
-                // let t = newForm.form.controls.HexColorCodePDP.disable();
                 newForm.form.controls.HexColorCodeName.enable();
                 this.sonList.push(newForm);
                 this.valInputEan = newForm.form.controls.Ean;
@@ -949,7 +967,14 @@ export class ProductBasicInfoComponent implements OnInit {
         }
     }
 
-
+    /**
+     * funcion para setear el color a los hijos
+     *
+     * @param {*} list
+     * @param {string} color
+     * @returns
+     * @memberof ProductBasicInfoComponent
+     */
     setChildenColor(list: any, color: string) {
         list.forEach(element => {
             if (element.label === color) {
@@ -958,7 +983,14 @@ export class ProductBasicInfoComponent implements OnInit {
         });
         return list;
     }
-
+    /**
+     * funcion para buscar en la lista de colores el seleccionado
+     *
+     * @param {*} list
+     * @param {string} color
+     * @returns
+     * @memberof ProductBasicInfoComponent
+     */
     searchColorSelect(list: any, color: string) {
         let name = '';
         list.forEach(element => {
