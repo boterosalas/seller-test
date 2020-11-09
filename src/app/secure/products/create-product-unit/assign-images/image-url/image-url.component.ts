@@ -104,6 +104,11 @@ export class ImageUrlComponent implements OnInit {
     }
   }
 
+  /**
+   * Emit url image
+   * @param {*} val
+   * @memberof ImageUrlComponent
+   */
   pushURLImage(val: any) {
     this.imgUrlOutPush.emit(val);
   }
