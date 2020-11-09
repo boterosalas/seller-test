@@ -791,7 +791,7 @@ export class ProductBasicInfoComponent implements OnInit {
      */
     colorText(code: string) {
         let colorText = '';
-        if (code === 'FFCC13' || code === 'FFDB58' || code === 'FFFF00' || code === 'F7FE2E' || code === 'F4FA58' || code === 'E6D690' || code === 'E3E4E5' || code === 'ECE2C6' || code === 'FFFFFF' || code === 'C2C2C2' || code === 'F9F9E7' || code === 'F5F5DC' || code === 'FFEDAE' || code === 'F2D3BC' || code === 'E0E094' || code === 'F2D3BC' || code === 'FFBCA4' || code === '19FF74' || code === 'FF90C8' || code === 'D2691E') {
+        if (code === 'FFCC13' || code === 'FFDB58' || code === 'FFFF00' || code === 'F7FE2E' || code === 'F4FA58' || code === 'E6D690' || code === 'E3E4E5' || code === 'ECE2C6' || code === 'FFFFFF' || code === 'C2C2C2' || code === 'F9F9E7' || code === 'F5F5DC' || code === 'FFEDAE' || code === 'F2D3BC' || code === 'E0E094' || code === 'F2D3BC' || code === 'FFBCA4' || code === '19FF74' || code === 'FF90C8' || code === 'D2691E' || code === 'FFFFFE' || code === 'FFFFFD' || code === 'FFFFFC'|| code === 'F9F9E7') {
             colorText = '5d5c5c ';
         } else {
             colorText = 'e9e8e8';
@@ -807,7 +807,7 @@ export class ProductBasicInfoComponent implements OnInit {
      */
     colorBorder(code: string) {
         let colorBorder = '';
-        if (code === 'FFFFFF' || code === 'F9F9E7') {
+        if (code === 'FFFFFF' || code === 'F9F9E7' || code === 'FFFFFE' || code === 'FFFFFD' || code === 'FFFFFC') {
             colorBorder = '1px solid #d4d2d2';
         } else {
             colorBorder = '1px solid #' + code;
