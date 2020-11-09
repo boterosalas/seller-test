@@ -63,6 +63,7 @@ export class ProductBasicInfoComponent implements OnInit {
     show = false;
     isManual = false;
     borderColor = '';
+    reload = 0;
     BrandsRegex = { brandsName: '', formatIntegerNumber: '' };
     @Input() set detailProduct(value: any) {
         if (value) {
@@ -848,6 +849,10 @@ export class ProductBasicInfoComponent implements OnInit {
      */
     reloadByCulture() {
         this.languageService.onLangChange.subscribe((e: Event) => {
+            this.reload ++;
+            if (this.reload > 2) {
+                window.location.reload();
+            }
             if (this.sonList.length > 0) {
                 this.listColorProducts = [];
                 this.listColor();
