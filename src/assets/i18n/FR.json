@@ -1034,6 +1034,8 @@
     "secure.products.create_product_unit.specifications.validate-ean.not_have_ean_code": "I don't have an EAN code for this product",
     "secure.products.create_product_unit.specifications.validate-ean.continue": "Continue",
 
+    "secure.products.create_product_unit.image.repeated": "L'URL de l'image ne peut pas être répétée.",
+
     "secure.products.create_product_unit.list_products.product_filter": "Product filter",
     "secure.products.create_product_unit.list_products.product_name": "Product name",
     "secure.products.create_product_unit.list_products.product_name_invalid": "Product name invalid",

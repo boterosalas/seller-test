@@ -1,5 +1,5 @@
 <div class="barraImages">
   <app-image-url *ngFor="let i of [0,1,2,3,4]; let i = index" [index]="i" [imgUrl]=""
-    [setImag]="_arrayImageDadClothing[i]" [setImagTec]="_arrayImageDadTecnology[i]" (imgUrlOut)="setImgUrl($event)">
+    [setImag]="_arrayImageDadClothing[i]" [setImagTec]="_arrayImageDadTecnology[i]" (imgUrlOut)="setImgUrl($event)" (imgUrlOutPush)="setImgUrlPush($event)">
   </app-image-url>
 </div>

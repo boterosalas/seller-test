@@ -22,6 +22,7 @@ export class ImageUrlComponent implements OnInit {
   @Input() index: String;
   @Input() idParentArray: any;
   @Output() imgUrlOut = new EventEmitter();
+  @Output() imgUrlOutPush = new EventEmitter();
   public valImage: any;
   formatimage: any;
   createImage: FormGroup;
@@ -66,7 +67,6 @@ export class ImageUrlComponent implements OnInit {
     // this.validateFormSupport();
     this.arrayDuplicatedImege = [];
     this.matrixImagen = {};
-    console.log(72);
   }
 
   createFormControls() {
@@ -82,39 +82,30 @@ export class ImageUrlComponent implements OnInit {
    * @memberof ImageUrlComponent
    */
   sendChange(val: any) {
-    // this.imgUrl = val;
-    // if (val.match(this.formatImg)) {
-    //   this.valImage = this.imgUrl.replace(new RegExp('/', 'g'), '%2F');
-    //   this.service.getvalidateImage(this.valImage).subscribe(res => {
-    //     this.formatimage = JSON.parse(res.body);
-    //     if (this.formatimage.Data.Error === false) {
-    //       this.imgUrlOut.emit([this.index, this.imgUrl]);
-    //     } else {
-    //       if (this.imgUrl) {
-    //         this.createImage.controls.inputImage.setErrors({ 'validFormatImage': this.formatimage.Data.Error });
-    //         this.imgUrl = './assets/img/no-image.svg';
-    //       }
-    //     }
-    //   });
-    // } else {
-    //   this.imgUrl = './assets/img/no-image.svg';
-    //   this.imgUrlOut.emit([this.index, '']);
-    // }
+    this.imgUrl = val;
+    if (val.match(this.formatImg)) {
+      // this.valImage = this.imgUrl.replace(new RegExp('/', 'g'), '%2F');
+      const dataToSend = {
+        UrlImage: val
+      };
+      this.service.getvalidateImage(dataToSend).subscribe(res => {
+        this.formatimage = JSON.parse(res.body);
+        if (this.formatimage.Data.Error === false) {
+          this.imgUrlOut.emit([this.index, this.imgUrl]);
+        } else {
+            const resDataError = JSON.parse(this.formatimage.Data);
+            this.createImage.controls.inputImage.setErrors({ 'validFormatImage': resDataError.Error });
+            this.imgUrl = './assets/img/no-image.svg';
+        }
+      });
+    } else {
+      this.imgUrl = './assets/img/no-image.svg';
+      this.imgUrlOut.emit([this.index, '']);
+    }
   }
 
-  pruebaINdex(val: any) {
-    console.log('this.arrayDuplicatedImege: ', this.arrayDuplicatedImege);
-    this.pushImage(val);
-  }
-
-  pushImage(val: any) {
-    const ima1 = val;
-    // const rrayDuplicatedImege2 = [];
-    // this.arrayDuplicatedImege.push(val);
-    // console.log('this.arrayDuplicatedImege: ', this.arrayDuplicatedImege);
-    // rrayDuplicatedImege2.push(this.arrayDuplicatedImege);
-    // console.log('rrayDuplicatedImege2: ', rrayDuplicatedImege2);
-    this.matrixImagen.add({'imagen': val});
+  pushURLImage(val: any) {
+    this.imgUrlOutPush.emit(val);
   }
 
   public validateFormSupport(): void {
@@ -128,8 +119,6 @@ export class ImageUrlComponent implements OnInit {
         }
       }
       this.createFormControls();
-      console.log('1:', this.imageRegex.imageProduct);
-      console.log('2:', this.formatImg);
     });
   }
 }

@@ -1036,6 +1036,8 @@
     "secure.products.create_product_unit.specifications.complete_name": "In order to add a specification you must enter the name and all provided fields.",
     "secure.products.create_product_unit.specifications.specs": "Specification",
 
+    "secure.products.create_product_unit.image.repeated": "The URL of the image cannot be repeated.",
+
     "secure.products.create_product_unit.specifications.validate-ean.first_you_must_valid_ean": "First you must enter a valid EAN or Bar Code for your product. Remember that this code must be real, since it identifies your product worldwide. For the EAN you may only enter numbers ranging from 7 to 13 characters. If you EAN contains less than 13 characters take into acount that it will be autocompleted with 0s to it's left until it has 13 characters. If you are a manufacturer or your product is generic you may pick the 'I don't have an EAN for my product' option and we will assign a code.",
     "secure.products.create_product_unit.specifications.validate-ean.invalid_ean_format": "Invalid EAN Format (7-13 alfanumeric characters)",
     "secure.products.create_product_unit.specifications.validate-ean.invalid_ean_format_multioffer": "The EAN already exists, please associate a multioffer",

@@ -98,7 +98,7 @@ export const endpoints = {
       // Guardar logs en CloudWatch
       setCloudWatchLog: 'https://7xre4jqhqa.execute-api.us-east-1.amazonaws.com/dev/logs',
       // Validar formato imagen
-      getValidateImage: 'https://biulcz4m2l.execute-api.us-east-1.amazonaws.com/Images/',
+      getValidateImage: 'https://3nr5ac6osg.execute-api.us-east-1.amazonaws.com/dev/ValidateImage',
       // Get specs
       getProductSpecs: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/products-specs-dev',
       getConfigSpecs: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/products-specs-dev',

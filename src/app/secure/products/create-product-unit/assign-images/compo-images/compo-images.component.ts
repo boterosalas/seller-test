@@ -1,4 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { ComponentsService } from '@app/shared';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-compo-images',
@@ -7,36 +9,55 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 })
 
 export class CompoImagesComponent implements OnInit {
-public urlArrayDad: any = ['', '', '', '', ''];
-@Output() toPpal = new EventEmitter();
-_arrayImageDadClothing: any = ['', '', '', '', ''];
-_arrayImageDadTecnology: any = ['', '', '', '', ''];
-@Input() hijosArrTmp: any;
-@Input() set arrayImageDadClothing (value: any){
-    console.log(44, this.arrayImageDadClothing);
-    if (value) {
-        this._arrayImageDadClothing = value;
+    public urlArrayDad: any = ['', '', '', '', ''];
+    @Output() toPpal = new EventEmitter();
+    _arrayImageDadClothing: any = ['', '', '', '', ''];
+    _arrayImageDadTecnology: any = ['', '', '', '', ''];
+    @Input() hijosArrTmp: any;
+    @Output() imagePush = new EventEmitter();
+    @Input() set arrayImageDadClothing(value: any) {
+        if (value) {
+            this._arrayImageDadClothing = value;
+        }
     }
-}
 
 
-@Input() set arrayImageDadTecnology(value: any){
-    if (value) {
-        this._arrayImageDadTecnology = value;
+    @Input() set arrayImageDadTecnology(value: any) {
+        if (value) {
+            this._arrayImageDadTecnology = value;
+        }
     }
-}
 
-constructor() {
-    }
+    arraData = [];
+
+    constructor(
+        public componentsService: ComponentsService,
+        private languageService: TranslateService
+    ) { }
 
     ngOnInit(
-    ) {
-        console.log('hijosArrTmp: ', this.hijosArrTmp);
-    }
+    ) { }
+
     // Funcion para colocar los combos de las imagenes en grupos de 5.
     setImgUrl(dataImage: any) {
-        console.log(66, dataImage);
         this.urlArrayDad[dataImage[0]] = dataImage[1];
         this.toPpal.emit(this.urlArrayDad);
-      }
+    }
+
+    /**
+     * Arreglo de imagenes para validar URL imagenes repetidas
+     * @param {*} data
+     * @memberof CompoImagesComponent
+     */
+    setImgUrlPush(data: any) {
+        if (data) {
+            this.arraData.forEach(el => {
+                if (el === data) {
+                    this.componentsService.openSnackBar(this.languageService.instant('secure.products.create_product_unit.image.repeated'), this.languageService.instant('actions.close'), 4000);
+                }
+            });
+        }
+        this.imagePush.emit(data);
+        this.arraData.push(data);
+    }
 }
