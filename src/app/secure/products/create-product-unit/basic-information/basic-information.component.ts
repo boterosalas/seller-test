@@ -946,7 +946,7 @@ export class ProductBasicInfoComponent implements OnInit {
                             [
                                 Validators.required, Validators.pattern(this.getValue('sizeProduct'))
                             ]),
-                        HexColorCodeName: new FormControl(detailProduct.children[i].color,
+                        HexColorCodeName: new FormControl(detailProduct.children[i].hexColourName,
                             [
                                 Validators.required, Validators.pattern(this.getValue('hexColorNameProduct'))
                             ]),
