@@ -124,7 +124,6 @@
 //         Children: null,
 //         Size: null,
 //         Color: null,
-//         HexColourCodePDP: null,
 //         HexColourName: null,
 //         ConversionFactor: null,
 //         MeasurementUnit: null,

@@ -109,14 +109,14 @@
       <div fxFlex="15" class="billing-products-order-right-5" fxShow fxHide.xs="true" fxHide.sm="false"
         fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="item-title-table">
         <div class="billing-products-order-text-align-center">
-          <p id="totalShippingCost" class="sc-text-normal">{{product.totalShippingCost | currency: '$' :
+          <p id="totalShippingCost" class="sc-text-normal">{{product.shippingCost | currency: '$' :
           'symbol' : '1.0-0'}}</p>
         </div>
       </div>
       <div fxFlex="10" *ngIf="!isInternational" class="billing-products-order-right-5" fxShow fxHide.xs="true"
         fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="item-title-table">
         <div class="billing-products-order-text-align-center">
-          <p id="totalShippingCost" class="sc-text-normal">
+          <p id="enviosExito" class="sc-text-normal">
             <span *ngIf="product.enviosExito">Si</span>
             <span *ngIf="!product.enviosExito">No</span>
           </p>
@@ -125,8 +125,7 @@
       <div fxFlex="10" fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
         class="item-title-table">
         <div class="billing-products-order-text-align-right">
-          <p id="price" class="billing-products-order-text-align-right" class="sc-text-normal">{{product.price
-            * product.quantity | currency: '$' : 'symbol' : '1.0-0'}}</p>
+          <p id="price" class="billing-products-order-text-align-right" class="sc-text-normal">{{product.price | currency: '$' : 'symbol' : '1.0-0'}}</p>
         </div>
       </div>
       <div fxFlex="10" fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
@@ -152,7 +151,7 @@
         </div>
         <div class="billing-products-order-padding-5">
           <span class="billing-product-order-font-weight-bold">{{'secure.billing.total_freight' | translate}}</span> :
-          {{product.totalShippingCost | currency: '$' : 'symbol' : '1.0-0'}}
+          {{product.shippingCost | currency: '$' : 'symbol' : '1.0-0'}}
         </div>
         <div class="billing-products-order-padding-5" *ngIf="!isInternational">
               <span *ngIf="product.enviosExito" class="billing-product-order-font-weight-bold">Envios Exito: Si</span>
@@ -160,7 +159,7 @@
         </div>
         <div class="billing-products-order-padding-5">
           <span class="billing-product-order-font-weight-bold">{{'secure.billing.total_cost' | translate}}</span> :
-          {{product.price * product.quantity | currency: '$' : 'symbol' : '1.0-0'}}
+          {{product.price | currency: '$' : 'symbol' : '1.0-0'}}
         </div>
         <div class="billing-products-order-padding-5">
           <span class="billing-product-order-font-weight-bold">{{'secure.orders.order_list.product_order.subTotal'
@@ -189,8 +188,10 @@
         <mat-divider></mat-divider>
       </div>
     </div>
+  </div>
+  <div class="padding-8">
     <div fxLayout="row" class="billing-product-order-padding-content">
-      <div fxFlex="80" class="billing-product-order-font-size-14">
+      <div fxFlex="85" class="billing-product-order-font-size-14">
         <span>{{'secure.billing.subtotal'  | translate}}</span>
       </div>
       <div class="sc-valueToPay-text billing-product-order-text-along-right" fxFlex="15">
@@ -226,3 +227,4 @@
       </div>
     </div>
   </div>
+  

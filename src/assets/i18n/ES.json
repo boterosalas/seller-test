@@ -955,6 +955,8 @@
     "secure.products.create_product_unit.basic_information.dont_have_ean": "No tengo EAN asociado",
     "secure.products.create_product_unit.basic_information.size_invalid": "La talla ingresada no es válida",
     "secure.products.create_product_unit.basic_information.specific_name_invalid": "El Nombre específico de color ingresado no es válido, no debe tener espacios.",
+    "secure.products.create_product_unit.basic_information.color_list": "Listado de colores",
+    "secure.products.create_product_unit.basic_information.selected_color": "Color seleccionado",
     "secure.products.create_product_unit.basic_information.beige": "Beige",
     "secure.products.create_product_unit.basic_information.black": "Negro",
     "secure.products.create_product_unit.basic_information.white": "Blanco",
