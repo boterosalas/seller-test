@@ -42,7 +42,6 @@ export class CompoImagesComponent implements OnInit {
     setImgUrl(dataImage: any) {
         this.urlArrayDad[dataImage[0]] = dataImage[1];
         this.toPpal.emit(this.urlArrayDad);
-        console.log('this.urlArrayDad: ', this.urlArrayDad);
     }
 
     /**
