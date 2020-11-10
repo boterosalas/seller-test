@@ -46,7 +46,7 @@
       <app-assign-images [detailProduct]="detailProduct" [children]="children_created"></app-assign-images>
       <div class="buttonProcess">
           <button mat-button matStepperPrevious class="buttonProcessAtras">{{'secure.products.create_product_unit.component_process.back' | translate}}</button>
-          <button mat-button (click)="saveInformationCreation()" class="buttonProcessContinuar" [disabled]="!imageFormGroup.valid">{{'secure.products.create_product_unit.component_process.save' | translate}}</button>
+          <button mat-button (click)="saveInformationCreation()" class="buttonProcessContinuar" >{{'secure.products.create_product_unit.component_process.save' | translate}}</button>
         </div>
     </form>
   </mat-step>
