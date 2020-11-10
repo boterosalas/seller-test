@@ -1,32 +1,28 @@
 <div>
   <p id="textCreateImageResponsive">
-      {{'secure.products.create_product_unit.assing_images.text_assign_images' | translate}}
+    {{'secure.products.create_product_unit.assing_images.text_assign_images' | translate}}
   </p>
 </div>
 <div class="imageParent" *ngIf="children === 0">
-  <app-compo-images (toPpal)="setParentArray($event)" [arrayImageDadTecnology]="arrayImageDadTecnology"></app-compo-images>
+  <app-compo-images (toPpal)="setParentArray($event)" [arrayImageDadTecnology]="arrayImageDadTecnology">
+  </app-compo-images>
 </div>
 
 <mat-divider></mat-divider>
 <br>
 <br>
-<!--
-<div *ngFor="let hijo of hijosArrTmp; let i = index;">
-  <h4>hijo ^</h4>
-  <app-compo-images (toPpal)="setChildrenArray($event, i)"></app-compo-images>
-</div>
--->
 <div class="imageChilds">
-  <mat-accordion *ngFor="let hijo of hijosArrTmp; let i = index" >
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
+  <mat-accordion *ngFor="let hijo of hijosArrTmp; let i = index">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
           {{'secure.products.create_product_unit.assing_images.assign_child_image' | translate}} {{i + 1}}
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div>
-        <app-compo-images (toPpal)="setChildrenArray($event, i)" (imagePush)="setImgUrlPush($event)" [arrayImageDadClothing]="arrayImageDadClothing[i]" [hijosArrTmp]="hijosArrTmp" ></app-compo-images>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div>
+        <app-compo-images (toPpal)="setChildrenArray($event, i)" (imagePush)="setImgUrlPush($event)"
+          [arrayImageDadClothing]="arrayImageDadClothing[i]" [hijosArrTmp]="hijosArrTmp"></app-compo-images>
       </div>
-  </mat-expansion-panel>
-</mat-accordion>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>

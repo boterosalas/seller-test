@@ -56,15 +56,10 @@ export class ImageUrlComponent implements OnInit {
     public SUPPORT?: SupportService,
   ) {
     this.validateFormSupport();
-
-    // this.createImage = this.fb.group({
-    //   inputImage: ['', Validators.pattern(this.formatImg)],
-    // });
     this.imgUrl = './assets/img/no-image.svg';
   }
 
   ngOnInit() {
-    // this.validateFormSupport();
     this.arrayDuplicatedImege = [];
     this.matrixImagen = {};
   }
@@ -84,7 +79,6 @@ export class ImageUrlComponent implements OnInit {
   sendChange(val: any) {
     this.imgUrl = val;
     if (val.match(this.formatImg)) {
-      // this.valImage = this.imgUrl.replace(new RegExp('/', 'g'), '%2F');
       const dataToSend = {
         UrlImage: val
       };
