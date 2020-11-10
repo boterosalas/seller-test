@@ -42,6 +42,7 @@ export class CompoImagesComponent implements OnInit {
     setImgUrl(dataImage: any) {
         this.urlArrayDad[dataImage[0]] = dataImage[1];
         this.toPpal.emit(this.urlArrayDad);
+        console.log('this.urlArrayDad: ', this.urlArrayDad);
     }
 
     /**
@@ -70,6 +71,7 @@ export class CompoImagesComponent implements OnInit {
         const deleteUrl = this.arraData.indexOf(val);
         if (deleteUrl > -1) {
             this.arraData.splice(deleteUrl, 1);
+            this.urlArrayDad.splice(deleteUrl, 1);
         }
     }
 }
