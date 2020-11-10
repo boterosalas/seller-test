@@ -26,7 +26,7 @@ export class ImageUrlComponent implements OnInit {
   public valImage: any;
   formatimage: any;
   createImage: FormGroup;
-  public formatImg = /^([^\s]+(\.(?:jpg|JPG|png|PNG))$)/;
+  public formatImg: any;
   arrayImageDadClothing: any;
   arrayDuplicatedImege: any;
   matrixImagen: any;

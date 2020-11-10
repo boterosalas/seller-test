@@ -882,6 +882,7 @@
     "secure.products.table_errors_product.tech_cloting": "must be either 'Technology' or 'Clothing'.",
     "secure.products.table_errors_product.gram_milili": "must be either 'Gram', 'Mililitre', 'Metre' or 'Unit'.",
     "secure.products.table_errors_product.errorneous_format": "has an erroneous format",
+    "secure.products.table_errors_product.errorneous_formatimage": "(.jpg,.png,.jpeg).",
     "secure.products.table_errors_product.input_option": "The data in",
     "secure.products.table_errors_product.duplication_ean": "has duplication in it's EAN.",
     "secure.products.table_errors_product.must_positive_decimal": "must be a positive number greater or equal to cero, without decimals",
