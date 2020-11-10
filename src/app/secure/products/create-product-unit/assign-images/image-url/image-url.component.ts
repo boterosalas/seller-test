@@ -23,6 +23,8 @@ export class ImageUrlComponent implements OnInit {
   @Input() idParentArray: any;
   @Output() imgUrlOut = new EventEmitter();
   @Output() imgUrlOutPush = new EventEmitter();
+  @Output() imgUrlOutPushSlice  = new EventEmitter();
+
   public valImage: any;
   formatimage: any;
   createImage: FormGroup;
@@ -30,6 +32,7 @@ export class ImageUrlComponent implements OnInit {
   arrayImageDadClothing: any;
   arrayDuplicatedImege: any;
   matrixImagen: any;
+  sliceVal: any;
   @Input() set setImag(value: any) {
     if (value) {
       this.sendChange(value);
@@ -87,9 +90,11 @@ export class ImageUrlComponent implements OnInit {
         if (this.formatimage.Data.Error === false) {
           this.imgUrlOut.emit([this.index, this.imgUrl]);
         } else {
-            const resDataError = JSON.parse(this.formatimage.Data);
+          const resDataError = JSON.parse(this.formatimage.Data);
+          if (this.imgUrl) {
             this.createImage.controls.inputImage.setErrors({ 'validFormatImage': resDataError.Error });
-            this.imgUrl = './assets/img/no-image.svg';
+          }
+          this.imgUrl = './assets/img/no-image.svg';
         }
       });
     } else {
@@ -104,7 +109,12 @@ export class ImageUrlComponent implements OnInit {
    * @memberof ImageUrlComponent
    */
   pushURLImage(val: any) {
-    this.imgUrlOutPush.emit(val);
+    if (val) {
+      this.sliceVal = val;
+      this.imgUrlOutPush.emit(val);
+    } else {
+      this.imgUrlOutPushSlice.emit(this.sliceVal);
+    }
   }
 
   public validateFormSupport(): void {

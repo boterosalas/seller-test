@@ -60,4 +60,16 @@ export class CompoImagesComponent implements OnInit {
         this.imagePush.emit(data);
         this.arraData.push(data);
     }
+
+    /**
+     * Delete url null
+     * @param {*} val
+     * @memberof CompoImagesComponent
+     */
+    sliceUrlArray(val: any) {
+        const deleteUrl = this.arraData.indexOf(val);
+        if (deleteUrl > -1) {
+            this.arraData.splice(deleteUrl, 1);
+        }
+    }
 }
