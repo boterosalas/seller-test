@@ -15,6 +15,7 @@ import { StoresService } from '@app/secure/offers/stores/stores.service';
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 import { MatPaginatorI18nService } from '@app/shared/services/mat-paginator-i18n.service';
+import { DownloadReportListCancelsComponent } from '@app/secure/orders/list-cancels-orders/download-report-list-cancels/download-report-list-cancels.component';
 
 
 // log component
@@ -50,6 +51,7 @@ export class ToolbarOptionsComponent implements OnInit {
   @Input() billingType: boolean;
   @Input() searchComponent: Boolean = false;
   @Input() hideOptionsHistorical: Boolean = false;
+  @Input() hideOptionsListCancel: Boolean = false;
   @Input() downloadPermission: boolean;
   @Input() downloadBillingPay: boolean;
   @Input() set idSeller(value: number) {
@@ -159,6 +161,38 @@ export class ToolbarOptionsComponent implements OnInit {
       this._idSeller = null;
     }
     this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this._idSeller, this.Typeprofile, this.state, this.paginator);
+  }
+
+  /**
+   * Metodo para descargar listado de cancelaciones/devoluciones.
+   * @memberof ToolbarOptionsComponent
+   */
+  openModalDownloadListCancels(): void {
+    const dialogRef = this.dialog.open(DownloadReportListCancelsComponent, {
+      data: {
+        sellerId: this._idSeller,
+        typeReport: 1
+      },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      log.info('The modal detail order was closed');
+    });
+  }
+
+  /**
+   * Metodo para descargar historico de cancelaciones/devoluciones.
+   * @memberof ToolbarOptionsComponent
+   */
+  openModalDownloadHistCancels(): void {
+    const dialogRef = this.dialog.open(DownloadReportListCancelsComponent, {
+      data: {
+        sellerId: this._idSeller,
+        typeReport: 2
+      },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      log.info('The modal detail order was closed');
+    });
   }
 
   /**

@@ -119,7 +119,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     Package: '',
     forbiddenScript: '',
     size: '',
-    hexColourCodePDPProduct: '',
     limitCharsSixty: '',
     sizeProduct: '',
     colorProduct: '',
@@ -128,6 +127,9 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     factConversionProduct: '',
     eanCombo: ''
   };
+
+  // listado de colores
+  listColorProducts: any = [];
 
   // active brands
   brands: any = [];
@@ -232,6 +234,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     const verifyStateCharge$ = this.BulkLoadProductS.getCargasMasivas();
     const validateRegex$ = this.SUPPORT.getRegexFormSupport(null);
     const getBrands$ = this.service.getActiveBrands();
+    const getColor$ = this.service.getColorProducts();
     const categoryList$ = this.searchService.getCategories();
     const listOfSize$ = this.service.getSizeProducts();
 
@@ -241,6 +244,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       verifyStateCharge$,
       validateRegex$,
       getBrands$,
+      getColor$,
       categoryList$,
       listOfSize$
     ).subscribe(([
@@ -248,6 +252,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       verifyStateCharge,
       validateRegex,
       getBrands,
+      getColor,
       categoryList,
       listOfSize
     ]) => {
@@ -255,6 +260,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       this.verifyStateCharge(verifyStateCharge);
       this.validateFormSupport(validateRegex);
       this.listOfBrands(getBrands);
+      this.listColor(getColor);
       this.getCategoriesList(categoryList);
       this.listOfSize(listOfSize);
       this.loadingService.closeSpinner();
@@ -512,7 +518,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   // iSonReference: this.arrayNecessaryData[0].indexOf('Child reference'),
                   iSize: this.arrayNecessaryData[0].indexOf('Size'),
                   iColor: this.arrayNecessaryData[0].indexOf('Color'),
-                  iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
                   iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
                   iLogisticExito: this.arrayNecessaryData[0].indexOf('Exito Logistics'),
                   iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Measuring Unit'),
@@ -551,7 +556,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   // iSonReference: this.arrayNecessaryData[0].indexOf('Referencia Hijo'),
                   iSize: this.arrayNecessaryData[0].indexOf('Talla'),
                   iColor: this.arrayNecessaryData[0].indexOf('Color'),
-                  iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
                   iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
                   iLogisticExito: this.arrayNecessaryData[0].indexOf('Logistica Exito'),
                   iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Descripcion Unidad de Medida'),
@@ -591,7 +595,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                     // iSonReference: this.arrayNecessaryData[0].indexOf('Référence Enfant'),
                     iSize: this.arrayNecessaryData[0].indexOf('Taille'),
                     iColor: this.arrayNecessaryData[0].indexOf('Couleur'),
-                    iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
                     iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
                     iLogisticExito: this.arrayNecessaryData[0].indexOf('Exito logistique'),
                     iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Description Unité de mesure'),
@@ -633,7 +636,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   iSonReference: this.arrayNecessaryData[0].indexOf('Child reference'),
                   iSize: this.arrayNecessaryData[0].indexOf('Size'),
                   iColor: this.arrayNecessaryData[0].indexOf('Color'),
-                  iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
                   iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
                   iLogisticExito: this.arrayNecessaryData[0].indexOf('Exito Logistics'),
                   iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Measuring Unit'),
@@ -672,7 +674,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   iSonReference: this.arrayNecessaryData[0].indexOf('Referencia Hijo'),
                   iSize: this.arrayNecessaryData[0].indexOf('Talla'),
                   iColor: this.arrayNecessaryData[0].indexOf('Color'),
-                  iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
                   iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
                   iLogisticExito: this.arrayNecessaryData[0].indexOf('Logistica Exito'),
                   iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Descripcion Unidad de Medida'),
@@ -712,7 +713,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                     iSonReference: this.arrayNecessaryData[0].indexOf('Référence Enfant'),
                     iSize: this.arrayNecessaryData[0].indexOf('Taille'),
                     iColor: this.arrayNecessaryData[0].indexOf('Couleur'),
-                    iHexColourCodePDP: this.arrayNecessaryData[0].indexOf('hexColourCodePDP'),
                     iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
                     iLogisticExito: this.arrayNecessaryData[0].indexOf('Exito logistique'),
                     iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Description Unité de mesure'),
@@ -1039,7 +1039,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   const itemLog = {
                     row: this.arrayInformation.length,
                     column: j,
-                    type: 'invalidFormat',
+                    type: 'invalidFormatImage',
                     columna: column,
                     fila: row,
                     positionRowPrincipal: i,
@@ -1195,23 +1195,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                     this.listLog.push(itemLog);
                     errorInCell = true;
                   }
-                } else if (j === iVal.iHexColourCodePDP) {
-                  const validColor = this.validFormat(res[i][j], 'colorPDP');
-                  if (!validColor && validColor === false) {
-                    this.countErrors += 1;
-                    const row = i + 1, column = j + 1;
-                    const itemLog = {
-                      row: this.arrayInformation.length,
-                      column: j,
-                      type: 'invalidFormat',
-                      columna: column,
-                      fila: row,
-                      positionRowPrincipal: i,
-                      dato: 'HexColourCodePDP'
-                    };
-                    this.listLog.push(itemLog);
-                    errorInCell = true;
-                  }
                 } else if (j === iVal.iHexColourName) {
                   const validColorName = this.validFormat(res[i][j], 'colorName');
                   if (!validColorName && validColorName === false) {
@@ -1345,7 +1328,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       newObjectForSend['SonReference'] = res[i][iVal.iSonReference] ? res[i][iVal.iSonReference].trim() : null;
       newObjectForSend['Size'] = res[i][iVal.iSize] ? res[i][iVal.iSize].trim() : null;
       newObjectForSend['Color'] = res[i][iVal.iColor] ? res[i][iVal.iColor].trim() : null;
-      newObjectForSend['HexColourCodePDP'] = res[i][iVal.iHexColourCodePDP] ? res[i][iVal.iHexColourCodePDP].trim() : null;
       newObjectForSend['HexColourName'] = res[i][iVal.iHexColourName] ? res[i][iVal.iHexColourName].trim() : null;
     }
 
@@ -1388,7 +1370,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
               k !== iVal.iSonReference &&
               k !== iVal.iSize &&
               k !== iVal.iColor &&
-              k !== iVal.iHexColourCodePDP &&
               k !== iVal.iHexColourName) {
               if (res[i][k] !== null && res[i][k] !== undefined && res[i][k] !== '') {
                 newFeatures['key'] = res[0][k].trim();
@@ -1511,7 +1492,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       ProductType: res[index][iVal.iTipoDeProducto],
       Size: res[index][iVal.iSize],
       Color: res[index][iVal.iColor],
-      HexColourCodePDP: res[index][iVal.iHexColourCodePDP],
       HexColourName: res[index][iVal.iHexColourName],
       ParentReference: res[index][iVal.iParentReference],
       SonReference: res[index][iVal.iSonReference],
@@ -1586,7 +1566,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       this.arrayInformation[index].errorRow = false;
       this.arrayInformation[index].errorSize = false;
       this.arrayInformation[index].errorColor = false;
-      this.arrayInformation[index].errorHexColourCodePDP = false;
       this.arrayInformation[index].errorHexColourName = false;
       this.arrayInformation[index].errorIsLogisticsExito = false;
       this.arrayInformation[index].errorMeasurementUnit = false;
@@ -1970,15 +1949,13 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           }
           break;
         case 'color':
-          if (inputtxt.match(this.productsRegex.colorProduct)) {
+          if (this.listColorProducts.length > 0) {
+           const validateColor =  this.listColorProducts.find(x => x.Color.toLowerCase() === inputtxt.toLowerCase());
+           if (validateColor !== undefined) {
             valueReturn = true;
-          } else {
+           } else {
             valueReturn = false;
-          }
-          break;
-        case 'colorPDP':
-          if ((inputtxt.match(this.productsRegex.hexColourCodePDPProduct))) {
-            valueReturn = true;
+           }
           } else {
             valueReturn = false;
           }
@@ -2047,24 +2024,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
     if (this.categoryType.value === 'Clothing') {
       const worksheetSize: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.dataTheme.talla);
-      XLSX.utils.sheet_add_json(worksheetSize, [
-        { B: this.languageService.instant('secure.products.bulk_upload.color') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.beige') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.black') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.white') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.blue') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.yellow') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.brown') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.gray') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.green') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.orange') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.pink') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.purple') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.red') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.silver') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.golden') },
-        { B: this.languageService.instant('secure.products.create_product_unit.basic_information.multicolored') }
-      ], { skipHeader: true, origin: 'B1' });
+      XLSX.utils.sheet_add_json(worksheetSize, this.dataTheme.color, { skipHeader: false, origin: 'B1' });
 
       // SheetNames: Arreglo con el nombre de la hoja
       // Sheets Solo trae la data, si el primer valor del objeto es igual al SheetNames en su misma posición
@@ -2236,7 +2196,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     const marcas = this.brands;
     const especificaciones = this.listOfSpecs();
     const talla = this.size;
-    return { productos, categoria, marcas, especificaciones, talla };
+    const color = this.listColorProducts;
+    return { productos, categoria, marcas, especificaciones, talla, color };
   }
 
 
@@ -2256,7 +2217,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           'Palabras Clave': undefined,
           'Talla': undefined,
           'Color': undefined,
-          'hexColourCodePDP': undefined,
           'hexColourName': undefined,
           'Alto del empaque': undefined,
           'Largo del empaque': undefined,
@@ -2293,7 +2253,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           'Keywords': undefined,
           'Size': undefined,
           'Color': undefined,
-          'hexColourCodePDP': undefined,
           'hexColourName': undefined,
           'Package Height': undefined,
           'Package Length': undefined,
@@ -2330,7 +2289,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           'Mots-clés': undefined,
           'Taille': undefined,
           'Couleur': undefined,
-          'hexColourCodePDP': undefined,
           'hexColourName': undefined,
           'Hauteur de l\'emballage': undefined,
           'Longueur d\'emballage': undefined,
@@ -2369,7 +2327,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           'Palabras Clave': undefined,
           'Talla': undefined,
           'Color': undefined,
-          'hexColourCodePDP': undefined,
           'hexColourName': undefined,
           'Alto del empaque': undefined,
           'Largo del empaque': undefined,
@@ -2405,7 +2362,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           'Keywords': undefined,
           'Size': undefined,
           'Color': undefined,
-          'hexColourCodePDP': undefined,
           'hexColourName': undefined,
           'Package Height': undefined,
           'Package Length': undefined,
@@ -2442,7 +2398,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           'Mots-clés': undefined,
           'Taille': undefined,
           'Couleur': undefined,
-          'hexColourCodePDP': undefined,
           'hexColourName': undefined,
           'Hauteur de l\'emballage': undefined,
           'Longueur d\'emballage': undefined,
@@ -2559,6 +2514,28 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       this.size[i] = { Talla: element.Size };
     });
   }
+
+  listColor(color?: any) {
+    if (color.status === 200 || color.status === 201) {
+      if (color && color.body.errors.length === 0) {
+          const colorArray = color.body.data;
+        //   this.listColorProducts = this.mapItems(
+        //     this.listColorProducts
+        // );
+        colorArray.forEach((element, i ) => {
+          this.listColorProducts[i] = {Color: element.name };
+        });
+        }
+      }
+  }
+
+  mapItems(items: any[]): any[] {
+    return items.map(x => {
+        return {
+            name: x.name,
+        };
+    });
+}
 
 
   /**

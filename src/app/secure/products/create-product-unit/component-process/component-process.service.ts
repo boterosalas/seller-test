@@ -39,7 +39,6 @@ export interface ProductModel {
     Children: ProductModel[];
     Size: string;
     Color: string;
-    HexColourCodePDP: string;
     HexColourName: string;
     // Image: Array<any>;
     MeasurementUnit: string;
@@ -151,7 +150,6 @@ export class ProcessService {
         Children: null,
         Size: null,
         Color: null,
-        HexColourCodePDP: null,
         HexColourName: null,
         // Image: null,
         // ImageChildren: null,
@@ -310,7 +308,6 @@ export class ProcessService {
             this.productData.Color = data.Color;
             this.productData.MeasurementUnit = data.MeasurementUnit;
             this.productData.ConversionFactor = data.ConversionFactor;
-            this.productData.HexColourCodePDP = data.HexColourCodePDP;
             this.productData.HexColourName = data.HexColourName;
         }
         if (data.Features) {
@@ -415,6 +412,7 @@ export class ProcessService {
             this.productData.ModifyImage = 0;
             return this.http.post(this.api.get('postUnitSaveInformationUnitCreation'), this.productData);
         }
+
     }
 
     resetProduct() {
@@ -442,7 +440,6 @@ export class ProcessService {
             Children: null,
             Size: null,
             Color: null,
-            HexColourCodePDP: null,
             HexColourName: null,
             // Image: null,
             // ImageChildren: null,

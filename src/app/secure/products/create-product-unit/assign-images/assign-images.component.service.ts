@@ -14,7 +14,7 @@ export class AsignateimageService {
     }
     // Servicio para verificar si la imagen es valida o no.
     getvalidateImage(validateImage: any): Observable<any> {
-        return this.http.get(this.api.get('getValidateImage') + validateImage);
+        return this.http.patch(this.api.get('getValidateImage'), validateImage);
     }
 }
 

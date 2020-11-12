@@ -334,6 +334,11 @@
     "secure.billing.amount": "Amount",
     "secure.billing.total_freight": "Total freight",
     "secure.billing.total_cost": "Product Price",
+    "secure.billing.list_products": "List of products",
+    "secure.billing.subtotal": "SUBTOTAL",
+    "secure.billing.vat_discount": "VAT discount",
+    "secure.billing.total_be_paid": "TOTAL TO BE PAID",
+    "secure.billing.comissionFee": "Comission Fee",
     "secure.billing.send_payment": "Send invoices",
     "secure.billing.send_payment_information": "We will send the payment information to the following e-mail address",
     "secure.billing.correctly_download": "The payment information has been downloaded correctly, check your inbox",
@@ -497,6 +502,7 @@
     "secure.orders.order_list.product_order.sku": "SKU",
     "secure.orders.order_list.product_order.sku_seller": "Seller SKU",
     "secure.orders.order_list.product_order.total": "Total",
+    "secure.orders.order_list.product_order.subTotal": "Subtotal",
     "secure.orders.order_list.product_order.see_total_records_download": "View all your orders by downloading the order report  ",
 
     "secure.orders.order_list.send_order.title_order": "Send Order",
@@ -561,6 +567,12 @@
 
     "secure.orders.list-cancels.tab1": "Pending cancellations", 
     "secure.orders.list-cancels.tab2": "Cancellations Record", 
+    "secure.orders.list-cancels.tab1-title-download": "We will send you the Cancellations download to email", 
+    "secure.orders.list-cancels.tab2-title-download": "We will send you the download of History of cancellations to email", 
+    "secure.orders.list-cancels-tab1-msg-ok": "Pending cancellations have been downloaded successfully, check your email.",
+    "secure.orders.list-cancels-tab2-msg-ok": "The download of the cancellation Overview has been done correctly, check your email.",
+    "secure.orders.list-cancels-tab1-msg-ko": "An error occurred while downloading pending cancellations.",
+    "secure.orders.list-cancels-tab2-msg-ko": "An error occurred when downloading the cancellation overview.",
 
     "secure.seller.list.enabled_title_modal": "Enable user",
     "secure.seller.list.disabled_title_modal": "Disable user",
@@ -870,6 +882,7 @@
     "secure.products.table_errors_product.tech_cloting": "must be either 'Technology' or 'Clothing'.",
     "secure.products.table_errors_product.gram_milili": "must be either 'Gram', 'Mililitre', 'Metre' or 'Unit'.",
     "secure.products.table_errors_product.errorneous_format": "has an erroneous format",
+    "secure.products.table_errors_product.errorneous_formatimage": "(.jpg,.png,.jpeg).",
     "secure.products.table_errors_product.input_option": "The data in",
     "secure.products.table_errors_product.duplication_ean": "has duplication in it's EAN.",
     "secure.products.table_errors_product.must_positive_decimal": "must be a positive number greater or equal to cero, without decimals",
@@ -943,6 +956,8 @@
     "secure.products.create_product_unit.basic_information.dont_have_ean": "I don't have an EAN code for this product",
     "secure.products.create_product_unit.basic_information.size_invalid": "The entered size is invalid",
     "secure.products.create_product_unit.basic_information.specific_name_invalid": "The specific name for the color entered is invalid, It mustn't have spaces",
+    "secure.products.create_product_unit.basic_information.color_list": "Color list",
+    "secure.products.create_product_unit.basic_information.selected_color": "Selected color",
     "secure.products.create_product_unit.basic_information.beige": "Beige",
     "secure.products.create_product_unit.basic_information.black": "Black",
     "secure.products.create_product_unit.basic_information.white": "White",
@@ -1023,6 +1038,8 @@
     "secure.products.create_product_unit.specifications.dialog.error": "error",
     "secure.products.create_product_unit.specifications.complete_name": "In order to add a specification you must enter the name and all provided fields.",
     "secure.products.create_product_unit.specifications.specs": "Specification",
+
+    "secure.products.create_product_unit.image.repeated": "The URL of the image cannot be repeated.",
 
     "secure.products.create_product_unit.specifications.validate-ean.first_you_must_valid_ean": "First you must enter a valid EAN or Bar Code for your product. Remember that this code must be real, since it identifies your product worldwide. For the EAN you may only enter numbers ranging from 7 to 13 characters. If you EAN contains less than 13 characters take into acount that it will be autocompleted with 0s to it's left until it has 13 characters. If you are a manufacturer or your product is generic you may pick the 'I don't have an EAN for my product' option and we will assign a code.",
     "secure.products.create_product_unit.specifications.validate-ean.invalid_ean_format": "Invalid EAN Format (7-13 alfanumeric characters)",

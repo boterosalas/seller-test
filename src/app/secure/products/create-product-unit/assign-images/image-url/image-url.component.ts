@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { AsignateimageService } from '@app/secure/products/create-product-unit/assign-images/assign-images.component.service';
 import { ErrorStateMatcher } from '@angular/material';
+import { SupportService } from '@app/secure/support-modal/support.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -21,11 +22,17 @@ export class ImageUrlComponent implements OnInit {
   @Input() index: String;
   @Input() idParentArray: any;
   @Output() imgUrlOut = new EventEmitter();
+  @Output() imgUrlOutPush = new EventEmitter();
+  @Output() imgUrlOutPushSlice  = new EventEmitter();
+
   public valImage: any;
   formatimage: any;
   createImage: FormGroup;
-  public formatImg = /^([^\s]+(\.(?:jpg|JPG|png|PNG))$)/;
+  public formatImg: any;
   arrayImageDadClothing: any;
+  arrayDuplicatedImege: any;
+  matrixImagen: any;
+  sliceVal: any;
   @Input() set setImag(value: any) {
     if (value) {
       this.sendChange(value);
@@ -35,7 +42,7 @@ export class ImageUrlComponent implements OnInit {
     }
   }
 
-  @Input() set setImagTec(value: any){
+  @Input() set setImagTec(value: any) {
     if (value) {
       this.sendChange(value);
       if (this.createImage && this.createImage.controls) {
@@ -44,14 +51,27 @@ export class ImageUrlComponent implements OnInit {
     }
   }
 
-  constructor(private fb: FormBuilder, private service: AsignateimageService) {
-    this.createImage = this.fb.group({
-      inputImage: ['', Validators.pattern(this.formatImg)],
-    });
+  imageRegex = { imageProduct: '' };
+
+
+  constructor(
+    private fb: FormBuilder, private service: AsignateimageService,
+    public SUPPORT?: SupportService,
+  ) {
+    this.validateFormSupport();
     this.imgUrl = './assets/img/no-image.svg';
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.arrayDuplicatedImege = [];
+    this.matrixImagen = {};
+  }
+
+  createFormControls() {
+    this.createImage = this.fb.group({
+      inputImage: ['', Validators.pattern(this.imageRegex.imageProduct)],
+    });
+  }
 
 
   /**
@@ -62,22 +82,53 @@ export class ImageUrlComponent implements OnInit {
   sendChange(val: any) {
     this.imgUrl = val;
     if (val.match(this.formatImg)) {
-      this.valImage = this.imgUrl.replace(new RegExp('/', 'g'), '%2F');
-      this.service.getvalidateImage(this.valImage).subscribe(res => {
+      const dataToSend = {
+        UrlImage: val
+      };
+      this.service.getvalidateImage(dataToSend).subscribe(res => {
         this.formatimage = JSON.parse(res.body);
         if (this.formatimage.Data.Error === false) {
           this.imgUrlOut.emit([this.index, this.imgUrl]);
         } else {
+          const resDataError = JSON.parse(this.formatimage.Data);
           if (this.imgUrl) {
-            this.createImage.controls.inputImage.setErrors({ 'validFormatImage': this.formatimage.Data.Error });
-            this.imgUrl = './assets/img/no-image.svg';
+            this.createImage.controls.inputImage.setErrors({ 'validFormatImage': resDataError.Error });
           }
+          this.imgUrl = './assets/img/no-image.svg';
         }
       });
     } else {
       this.imgUrl = './assets/img/no-image.svg';
       this.imgUrlOut.emit([this.index, '']);
     }
+  }
+
+  /**
+   * Emit url image
+   * @param {*} val
+   * @memberof ImageUrlComponent
+   */
+  pushURLImage(val: any) {
+    if (val) {
+      this.sliceVal = val;
+      this.imgUrlOutPush.emit(val);
+    } else {
+      this.imgUrlOutPushSlice.emit(this.sliceVal);
+    }
+  }
+
+  public validateFormSupport(): void {
+    this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
+      let dataOffertRegex = JSON.parse(res.body.body);
+      dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'productos');
+      for (const val in this.imageRegex) {
+        if (!!val) {
+          const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
+          this.imageRegex[val] = element && `${element.Value}`;
+        }
+      }
+      this.createFormControls();
+    });
   }
 }
 

@@ -48,4 +48,13 @@ export class BasicInformationService {
     public getSizeProducts(): Observable<any> {
         return this.http.get(this.api.get('getSize'), { observe: 'response' });
     }
+    /**
+     * Funcion para consumir el end point de color
+     *
+     * @returns {Observable<any>}
+     * @memberof BasicInformationService
+     */
+    public getColorProducts(): Observable<any> {
+        return this.http.get(this.api.get('getListColor'), { observe: 'response' });
+    }
 }
