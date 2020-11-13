@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSidenav } from '@angular/material';
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { StoresService } from '@app/secure/offers/stores/stores.service';
 import { InformationToForm, SearchFormEntity } from '@app/shared';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-report-commission',
@@ -15,8 +15,8 @@ import { map, startWith } from 'rxjs/operators';
 })
 export class ReportCommissionComponent implements OnInit {
 
-   // Configuración para el toolbar-options y el search de la pagina
-   public informationToForm: SearchFormEntity = {
+  // Configuración para el toolbar-options y el search de la pagina
+  public informationToForm: SearchFormEntity = {
     title: 'Reportes',
     subtitle: 'menu.Reporte de comisiones',
     btn_title: 'Reportes',
@@ -26,7 +26,8 @@ export class ReportCommissionComponent implements OnInit {
     count: null
   };
 
-  isClear= false;
+  public filterProduts: FormGroup;
+  isClear = false;
   lastState: 0;
   length = 0;
 
@@ -40,7 +41,14 @@ export class ReportCommissionComponent implements OnInit {
   public textForSearch: FormControl;
   public filteredOptions: Observable<string[]>;
   public listSellers: any;
-  
+  keywords: Array<any> = [];
+  invalidAdmin: Boolean = false;
+  validateKey = true;
+  idAdmin: any;
+  nameAdmin: Array<any> = [];
+  listCommission2: any;
+  listCommission: any;
+  invalidCommission: Boolean = false;
 
   public filterCommission: FormGroup;
 
@@ -63,22 +71,16 @@ export class ReportCommissionComponent implements OnInit {
   constructor(
     public eventsSeller: EventEmitterSeller,
     public storeService: StoresService,
+    private fb?: FormBuilder,
   ) {
     this.textForSearch = new FormControl();
     this.listSellers = [];
     this.user = {};
-   }
+  }
 
   ngOnInit() {
     this.createFormControls();
-    this.getAllSellers();
-    this.filteredOptions = this.textForSearch.valueChanges
-    .pipe(
-      startWith(''),
-      map((val: any) =>
-        this.filter(val)
-      )
-    );
+
   }
 
   toggleFilterReportCommission() {
@@ -86,70 +88,81 @@ export class ReportCommissionComponent implements OnInit {
   }
 
   createFormControls() {
-    this.filterCommission = new FormGroup({
+    this.filterCommission = this.fb.group({
       IdSeller: new FormControl('', [Validators.pattern(null)]),
       DateInit: new FormControl('', [Validators.pattern(null)]),
       DateEnd: new FormControl('', [Validators.pattern(null)]),
       plu: new FormControl('', [Validators.pattern(null)]),
       brand: new FormControl('', [Validators.pattern(null)]),
+      commission: new FormControl(''),
     });
-
-  }
-  public filter(val: string): string[] {
-    if (val !== null && this.listSellers) {
-      return this.listSellers.filter(option =>
-        option.Name && option.Name.toLowerCase().includes(val.toLowerCase()));
-    }
-  }
-
-  public viewStoreInformation(search_seller: StoreModel) {
-    // llamo el eventEmitter que se emplea para notificar cuando una tienda ha sido consultada
-    this.eventsSeller.searchSeller(search_seller);
-  }
-
-  public whatchValueInput(event: any): void {
-    if (event === '') {
-      this.textForSearch.reset();
-    }
-  }
-
-  public keyDownFunction(event: any): void {
-    // keyCode 13 -> Enter
-    if (event.keyCode === 13) {
-      // Obtengo los ultimos registros almacenados sobre la lista de busqueda
-      const suscribe = this.filteredOptions.subscribe((res: any) => {
-        // busco dentro de los registro el que conincida con el cricterio de busqueda actual
-        const found = res.find((x: StoreModel) => x.Name === this.textForSearch.value);
-        // si hay algun resultado de busqueda, paso a visualizar la información de la tienda
-        if (found !== undefined) {
-          this.viewStoreInformation(found);
-        }
-      });
-      suscribe.unsubscribe();
-    }
-  }
-
-  public getAllSellers() {
-      this.storeService.getAllStoresFull(this.user).subscribe((res: any) => {
-        if (res.status === 200) {
-          if (res && res.body && res.body.body) {
-            const body = JSON.parse(res.body.body);
-            this.listSellers = body.Data;
-            if (this.listSellers.length > 0) {
-              this.listSellers = this.listSellers.filter(x => x.Profile !== 'seller');
-            }
-            console.log(this.listSellers);
-          }
+    this.filterCommission.get('commission').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
+      if (!!val && val.length >= 2) {
+        this.listCommission2 = this.listCommission.filter(commission => commission.Name.toString().toLowerCase().includes(val.toLowerCase()));
+        const exist = this.listCommission2.find(commission => commission.Name === val);
+        if (!exist) {
+          this.filterCommission.get('commission').setErrors({ pattern: true });
+          this.invalidCommission = true;
         } else {
-          this.listSellers = res.message;
+          this.filterCommission.get('commission').setErrors(null);
+          this.invalidCommission = false;
         }
-      });
+      } else if (!val) {
+        this.listCommission2 = [];
+        this.filterCommission.get('commission').setErrors(null);
+      } else {
+        this.filterCommission.get('commission').setErrors(null);
+      }
+    });
+    this.getCategoriesList();
   }
 
+  getCategoriesList() {
+    this.storeService.getAllStoresFull(this.user).subscribe((res: any) => {
+      if (res.status === 200) {
+        if (res && res.body && res.body.body) {
+          const body = JSON.parse(res.body.body);
+          this.listCommission = body.Data;
+          if (this.listCommission.length > 0) {
+            this.listCommission = this.listCommission.filter(x => x.Profile !== 'seller');
+          }
+        }
+      } else {
+        this.listCommission = res.message;
+      }
+    });
+  }
 
+  public saveKeyword(): void {
+    let word = this.filterCommission.controls.commission.value;
+    if (word) {
+      word = word.trim();
+      if (word.search(',') === -1) {
+        if (this.invalidCommission === false) {
+          this.keywords.push(word);
+        }
+      } else {
+        const counter = word.split(',');
+        counter.forEach(element => {
+          if (element) {
+            this.keywords.push(element);
+          }
+        });
+      }
+      this.filterCommission.controls.commission.clearValidators();
+      this.filterCommission.controls.commission.reset();
+      this.validateKey = this.keywords.length > 0 ? false : true;
+    }
+  }
 
-  changeSizeOrderTable(event: any) { }
-  paginations(event: any) { }
-  getOrdersList(event: any) { }
+  apllyFilterCommission(form: any) {
+    console.log(form);
+    console.log(this.keywords);
+  }
+
+  clearForm() {
+    this.keywords = [];
+    this.filterCommission.reset();
+  }
 
 }
