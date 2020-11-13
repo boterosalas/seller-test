@@ -257,7 +257,12 @@ $height-input: 25px;
 }
 
 .widthToolbarSearch{
-  width: 280% !important;
+  width: 220% !important;
+  @media only screen and (max-width: 600px) {
+    width: 140% !important;
+    margin-left: 25%;
+    margin-top: 3%;
+  }
 }
 
 .filterMobileFlex{
