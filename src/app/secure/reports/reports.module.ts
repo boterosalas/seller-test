@@ -9,6 +9,8 @@ import { DownloadModalOffertReportComponent } from './report-offert/download-mod
 import { ReportOffertService } from './report-offert/report-offert.service';
 import { ReportErrorsVtexComponent } from './report-errors-vtex/report-errors-vtex.component';
 import { DownloadModalErrorVtexComponent } from './report-errors-vtex/download-modal-error-vtex/download-modal-error-vtex.component';
+import { ReportCommissionComponent } from './report-commission/report-commission.component';
+import { SharedModule } from '@app/shared/shared.module';
 
 @NgModule({
     imports: [
@@ -17,13 +19,15 @@ import { DownloadModalErrorVtexComponent } from './report-errors-vtex/download-m
         MaterialModule,
         FormsModule,
         CurrencyMaskModule,
-        ListReportRoutingModule
+        ListReportRoutingModule,
+        SharedModule
     ],
     declarations: [
         ReportOffertComponent,
         DownloadModalOffertReportComponent,
         ReportErrorsVtexComponent,
-        DownloadModalErrorVtexComponent
+        DownloadModalErrorVtexComponent,
+        ReportCommissionComponent
     ],
     exports: [
         ReportOffertComponent

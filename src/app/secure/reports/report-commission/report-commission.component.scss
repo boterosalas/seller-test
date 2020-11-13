@@ -1,0 +1,20 @@
+.report-commission-component{
+    &-text-color{
+        color: #626161;
+    }
+    &-vertical-aling{
+        vertical-align: middle;
+      }
+
+     &-font-size{
+        font-size: 10px;
+      }
+    
+      &-padding-left{
+        padding-left: 31px;
+      }
+    
+      &-width-complete{
+        width: 100%;
+      }
+}

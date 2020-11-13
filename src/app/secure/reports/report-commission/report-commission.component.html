@@ -1,0 +1,218 @@
+<div class="content-order my-content">
+  <div fxFlex class="container" fxLayout="row wrap" fxLayoutAlign="center
+    start">
+    <div fxFlex="100" class="light-content">
+      <app-toolbar-search-pagination [informationToForm]="informationToForm"
+        #toolbarOptions [lengthOrder]="length" [limitPaginate]="[50, 100, 150]"
+        [btnFilter]="btnFilter" [btnDownload]="btnDownload" (filterGerenic)="toggleFilterReportCommission()"></app-toolbar-search-pagination>
+    </div>
+
+
+    <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="97" fxFlex.lg="97" fxFlex.xl="97"
+    class="port-component-content-table-center-collection">
+    <mat-table #table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="PLU">
+        <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+          fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+          <span class="title-table-header">PLU</span>
+        </mat-header-cell>
+        <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+          fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+          <p class="sc-text-normal">{{element.Phone}}</p>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Brand">
+        <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+          fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+          <span class="title-table-header">Marca</span>
+        </mat-header-cell>
+        <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+          fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+          <p class="sc-text-normal">{{element.Phone}}</p>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Category">
+        <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+          fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+          <span class="title-table-header">Categoría</span>
+        </mat-header-cell>
+        <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+          fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+          <p class="sc-text-normal">{{element.Phone}}</p>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="EAN">
+        <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+          fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+          <span class="title-table-header">EAN</span>
+        </mat-header-cell>
+        <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+          fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+          <p class="sc-text-normal">{{element.Phone}}</p>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="IdSeller">
+        <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+          fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+          <span class="title-table-header">ID Vendedor</span>
+        </mat-header-cell>
+        <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+          fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+          <p class="sc-text-normal">{{element.Phone}}</p>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="DateInitial">
+        <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+          fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+          <span class="title-table-header">Fecha Inicial</span>
+        </mat-header-cell>
+        <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+          fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+          <p class="sc-text-normal">{{element.Phone}}</p>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="DateEnd">
+        <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+          fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+          <span class="title-table-header">Fecha Final</span>
+        </mat-header-cell>
+        <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+          fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+          <p class="sc-text-normal">{{element.Phone}}</p>
+        </mat-cell>
+      </ng-container>
+    
+      <ng-container matColumnDef="Commission">
+        <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+          fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+          <span class="title-table-header">Comisión</span>
+        </mat-header-cell>
+        <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+          fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+          <p class="sc-text-normal">{{element.Phone}}</p>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Admin">
+        <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+          fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+          <span class="title-table-header">Administrador</span>
+        </mat-header-cell>
+        <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+          fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+          <p class="sc-text-normal">{{element.Phone}}</p>
+        </mat-cell>
+      </ng-container>
+    
+
+      <!-- Creación de las filas para la tabla -->
+      <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
+      <mat-row id="order-number-{{index}}" *matRowDef="let index=index; let row; columns: displayedColumns;" matRipple
+        class="element-row personal-row-table" [cdkDetailRow]="row" [cdkDetailRowTpl]="tpl">
+      </mat-row>
+    </mat-table>
+
+  </div>
+  </div>
+</div>
+
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenavSearchCommission mode="over" style="width: 25%;" position="end" opened="{{stateSideNavOrder}}">
+
+      <div fxLayout="row" fxLayoutAlign="start center" style="height: 70px;">
+        <div fxFlex="80">
+          <div style="margin-left: 10px;">
+            {{informationToForm.title_for_search | translate}}
+          </div>
+        </div>
+        <div fxFlex="20" class="toolbar-title-search">
+          <button style="height: 100%; width: 100%;" color="primary" [matTooltip]="'actions.close' | translate" matTooltipPosition="below" mat-icon-button
+          mat-button (click)="toggleFilterCalifications()">
+          <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+    <div fxLayout="row">
+      <div fxFlex>
+        <form #createfilterCommission="ngForm" [formGroup]="filterCommission">
+          <mat-form-field class="field" style="width: 80%; padding: 15px;margin-left: 14px;">
+            <input matInput placeholder="ID Seller"
+               formControlName="IdSeller" autofocus>
+          </mat-form-field>
+
+        <div fxLayout="row">
+          <div>
+            <mat-form-field class="classDatapicker" style="width: 125px; padding: 10px; margin-left: 18px;">
+              <input matInput [matDatepicker]="picker"
+                placeholder="Desde"
+                formControlName="DateInit" [(ngModel)]="filterDateInit">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field class="classDatapicker" style="width: 125px; padding: 10px;">
+              <input matInput [matDatepicker]="picker1"
+                placeholder="Hasta" formControlName="DateEnd"
+                [(ngModel)]="filterDateEnd">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <mat-form-field class="field" style="width: 80%; padding: 15px; margin-left: 14px;">
+          <input matInput placeholder="PLU" formControlName="plu" autofocus>
+        </mat-form-field>
+        <mat-form-field class="field" style="width: 80%; padding: 15px; margin-left: 14px;">
+          <input matInput placeholder="Marca" formControlName="brand" autofocus>
+        </mat-form-field>
+
+     
+
+        <div>
+          <form id="search-store-form" 
+          style="width: 100% !important;" (keydown)="keyDownFunction($event)">
+          <mat-form-field  style="width: 80%; padding: 15px;margin-left: 14px;">
+            <input id="input-search-store" placeholder="Nombre del administrador" type="search"
+              (ngModelChange)="whatchValueInput($event)" matInput
+              [formControl]="textForSearch" [matAutocomplete]="auto">
+              <mat-autocomplete autoActiveFirstOption class="auto-complete"
+              #auto="matAutocomplete">
+              <mat-option id="option-search-store-number-{{position}}"
+                (click)="viewStoreInformation(option)"
+                class="autocomplete-list" *ngFor="let option of filteredOptions |
+                async; let position= index"
+                [value]="option.Name">
+                <mat-icon>store</mat-icon>
+                {{option.Name}}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix [matTooltip]="'secure.products.list_products.download.tooltip_category' | translate"
+              [ngClass]="invalidCategory ? 'disabledIconAddKeyCategoryFilter': ''"
+              class="material-icons add-keyword-icon vertical-align-top" (click)="saveKeyword()" style="vertical-align: middle; cursor: pointer;color:  #3d5afe">
+              add_circle_outline
+            </mat-icon>
+          </mat-form-field>
+        
+        </form>
+        </div>
+
+        <div style="text-align: center;">
+          <div >
+            <button  class="sc-button" mat-button type="button"  style="margin-right: 10px; background-color: #eaeaea;" (click)="clearForm()">
+              <mat-icon>clear_all</mat-icon>
+              {{'filters.clear' | translate}}
+            </button>
+            <button   class="sc-button" mat-raised-button color="primary"
+              type="submit" (click)="filterCalification(filterCalifications.value)">
+              {{'actions.apply' | translate}}
+            </button>
+          </div>
+        </div>
+    
+        </form>
+      </div>
+    </div>
+  </mat-sidenav>
+</mat-sidenav-container>
