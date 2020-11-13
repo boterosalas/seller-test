@@ -28,7 +28,7 @@ export class ImageUrlComponent implements OnInit {
   public valImage: any;
   formatimage: any;
   createImage: FormGroup;
-  public formatImg: any;
+  // public formatImg: any;
   arrayImageDadClothing: any;
   arrayDuplicatedImege: any;
   matrixImagen: any;
@@ -36,7 +36,8 @@ export class ImageUrlComponent implements OnInit {
   @Input() set setImag(value: any) {
     if (value) {
       this.sendChange(value);
-      if (this.createImage && this.createImage.controls) {
+      this.pushURLImage(value);
+      if (this.createImage.controls) {
         this.createImage.controls.inputImage.setValue(value);
       }
     }
@@ -45,12 +46,14 @@ export class ImageUrlComponent implements OnInit {
   @Input() set setImagTec(value: any) {
     if (value) {
       this.sendChange(value);
+      this.pushURLImage(value);
       if (this.createImage && this.createImage.controls) {
         this.createImage.controls.inputImage.setValue(value);
       }
     }
   }
 
+  public formatImg = /^([^\s]+(\.(?:jpg|JPG|png|PNG))$)/;
   imageRegex = { imageProduct: '' };
 
 
@@ -58,7 +61,9 @@ export class ImageUrlComponent implements OnInit {
     private fb: FormBuilder, private service: AsignateimageService,
     public SUPPORT?: SupportService,
   ) {
-    this.validateFormSupport();
+    this.createImage = this.fb.group({
+      inputImage: ['', Validators.pattern(this.formatImg)],
+    });
     this.imgUrl = './assets/img/no-image.svg';
   }
 
@@ -115,20 +120,6 @@ export class ImageUrlComponent implements OnInit {
     } else {
       this.imgUrlOutPushSlice.emit(this.sliceVal);
     }
-  }
-
-  public validateFormSupport(): void {
-    this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
-      let dataOffertRegex = JSON.parse(res.body.body);
-      dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'productos');
-      for (const val in this.imageRegex) {
-        if (!!val) {
-          const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
-          this.imageRegex[val] = element && `${element.Value}`;
-        }
-      }
-      this.createFormControls();
-    });
   }
 }
 
