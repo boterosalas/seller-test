@@ -114,28 +114,28 @@
           </div>
         </div>
         <button [disabled]="orderListLength" (click)="openModalDownloadOrder()" fxShow.xs="false" fxShow.sm="false"
-          fxShow.md="false" fxShow="true" fxFlex="160px" class="sc-default-button btn-filter" id="download-order-button"
+          fxShow.md="false" fxShow="true"  class="sc-default-button btn-download" id="download-order-button"
           mat-button color="primary" *ngIf="!billingType && downloadPermission">
           <mat-icon>file_download</mat-icon>
           {{'actions.download' | translate}}
         </button>
 
         <button [disabled]="orderListLength" (click)="openModalDownloadBillPay()" fxShow.xs="false" fxShow.sm="false"
-          fxShow.md="false" fxShow="true" fxFlex="160px" class="sc-default-button btn-filter" id="download-pay-button"
+          fxShow.md="false" fxShow="true"  class="sc-default-button btn-download" id="download-pay-button"
           mat-button color="primary" *ngIf="downloadBillingPay">
           <mat-icon>file_download</mat-icon>
           {{'actions.download' | translate}}
         </button>
 
         <button [disabled]="orderListLength" (click)="openModalDownloadHistCancels()" fxShow.xs="false"
-          fxShow.sm="false" fxShow.md="false" fxShow="true" fxFlex="160px" class="sc-default-button btn-filter"
+          fxShow.sm="false" fxShow.md="false" fxShow="true"  class="sc-default-button btn-download"
           id="download-order-button" mat-button color="primary" *ngIf="hideOptionsHistorical">
           <mat-icon>file_download</mat-icon>
           {{'actions.download' | translate}}
         </button>
 
         <button [disabled]="orderListLength" (click)="openModalDownloadListCancels()" fxShow.xs="false"
-          fxShow.sm="false" fxShow.md="false" fxShow="true" fxFlex="160px" class="sc-default-button btn-filter"
+          fxShow.sm="false" fxShow.md="false" fxShow="true"  class="sc-default-button btn-download"
           id="download-order-button" mat-button color="primary" *ngIf="hideOptionsListCancel">
           <mat-icon>file_download</mat-icon>
           {{'actions.download' | translate}}
