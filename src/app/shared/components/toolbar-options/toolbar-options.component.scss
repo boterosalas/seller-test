@@ -44,6 +44,25 @@ $blue: mat-palette($mat-indigo);
         background-color: rgba(0,0,0,.12);
       }
     }
+    .btn-download {
+      width: 10%;
+      color: $color-gray1;
+      border-radius: 5px;
+      // background-color: red;
+      padding-left: 0px;
+      padding-right: 0px;
+      min-width: 60px !important;
+      .mat-button-ripple-round {
+          border-radius: 5px;
+      }
+      small {
+          font-size: 12px;
+          line-height: 14px;
+      }
+      .mat-button-focus-overlay{
+        background-color: rgba(0,0,0,.12);
+      }
+    }
     .sc-default-button {
       color: $color-gray1;
       .mat-button-ripple-round {
@@ -257,7 +276,7 @@ $height-input: 25px;
 }
 
 .widthToolbarSearch{
-  width: 220% !important;
+  width: 200% !important;
   @media only screen and (max-width: 600px) {
     width: 140% !important;
     margin-left: 25%;
