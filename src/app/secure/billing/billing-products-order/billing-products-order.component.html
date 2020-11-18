@@ -1,79 +1,230 @@
 <div fxFlex fxLayout="column" fxFlex="100" class="content-product-detail">
-  <h5>{{'secure.billing.invoice' | translate}}: {{order.billingNumber}}</h5>
-
+  <div fxHide.sm="true" fxHide.md="true" fxHide.lg="true" fxHide.xl="true">
+    <div fxLayout="row wrap">
+      <div fxFlex="100" class="billing-products-order-table">
+        <span class="billing-products-order-font-weight">{{'secure.billing.order_number' | translate}}: </span>
+        {{order.orderNumber || '------'}}
+      </div>
+      <div fxFlex="100" class="billing-products-order-table">
+        <span class="billing-products-order-font-weight">{{'secure.billing.payment_number' | translate}}:</span>
+        {{ order.payOrderNumber || '------' }}
+      </div>
+      <div fxFlex="100" class="billing-products-order-table">
+        <span class="billing-products-order-font-weight">{{'secure.billing.concept' | translate}}:</span>
+        {{ 'secure.billing.'+ order.concept | translate}}
+      </div>
+      <div fxFlex="100" class="billing-products-order-table">
+        <span class="billing-products-order-font-weight">{{'secure.billing.payment_date' | translate}}:</span>
+        {{ order.paymentDate | date }}
+      </div>
+      <div fxFlex="100" class="billing-products-order-table">
+        <span class="billing-products-order-font-weight">{{'shared.commission' | translate}}:</span> <span
+          class="sc-commission-text">{{ order.commission | currency:'COP' }}</span>
+      </div>
+      <div fxFlex="100" class="billing-products-order-table">
+        <span class="billing-products-order-font-weight">{{'secure.billing.iva' | translate}}:</span> <span
+          class="sc-commission-text">{{ order.iva | currency:'COP' }}</span>
+      </div>
+      <div fxFlex="100" class="billing-products-order-table">
+        <span class="billing-products-order-font-weight">{{'secure.billing.amount_pay' | translate}}:</span> <span
+          class="sc-valueToPay-text">{{ order.billingTotal | currency:'COP' }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="billing-product-padding-20">
+    <div class="billing-product-size-text">
+      <span><strong>{{'secure.billing.invoice' | translate}}: </strong></span>{{order.billingNumber}}
+    </div>
+    <div class="billing-product-size-text billing-product-order-padding-subtotal" *ngIf="!isInternational">
+      <span class="billing-product-color-message">Si la columna de Envíos Exito es No. El flete se tomará en cuenta para tu pago.</span>
+    </div>
+  </div>
   <div class="title-product-list">
-    <div fxFlex.sm="265px" fxFlex.md="230px" fxFlex.lg="265px" fxFlex.xs="155px" class="sc-text-normal">
+    <div class="sc-text-normal" fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
+      fxFlex="30">
       <div class="title-table-product">
         <p>{{'shared.product' | translate}}</p>
       </div>
     </div>
-    <div class="sc-text-normal item-title-table">
+    <div fxFlex="15" fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="sc-text-normal
+      item-title-table">
       <div class="title-table-product">
         <p>{{'shared.ean' | translate}}</p>
       </div>
     </div>
-    <div fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="sc-text-normal item-title-table">
+    <div fxShow fxFlex="10" fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
+      class="sc-text-normal
+      item-title-table">
       <div class="title-table-product">
         <p>{{'secure.billing.amount' | translate}}</p>
       </div>
     </div>
-    <div fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="sc-text-normal item-title-table">
-      <div class="title-table-product">
+    <div fxShow fxFlex="15" fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
+      class="sc-text-normal
+      item-title-table">
+      <div class="title-table-product billing-products-order-text-align-center">
         <p>{{'secure.billing.total_freight' | translate}}</p>
       </div>
     </div>
-    <div fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="sc-text-normal item-title-table">
-      <div class="title-table-product">
-        <p>{{'secure.billing.total_cost' | translate}}</p>
+    <div *ngIf="!isInternational" fxShow fxFlex="10" fxHide.xs="true" fxHide.sm="false" fxHide.md="false"
+      fxHide.lg="false" fxHide.xl="false" class="sc-text-normal
+      item-title-table">
+      <div class="title-table-product billing-products-order-text-align-center">
+        <p>Envios Exito</p>
+      </div>
+    </div>
+    <div fxShow fxFlex="10" fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
+      class="sc-text-normal
+      item-title-table">
+      <div class="title-table-product billing-products-order-text-align-right">
+        <p>{{'secure.billing.total_cost' |
+          translate}}</p>
+      </div>
+    </div>
+    <div fxShow fxFlex="10" fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
+     [class]="isInternational ? 'max-billing-products-20 sc-text-normal item-title-table' : 'max-billing-products-10 sc-text-normal item-title-table' ">
+      <div class="title-table-product billing-products-order-text-align-right">
+        <p>{{'secure.orders.order_list.product_order.subTotal'
+          | translate}}</p>
       </div>
     </div>
   </div>
+  <div class="billing-products-order-size-text-two-color billing-product-order-padding-content" fxHide.xs="false" fxHide.sm="true" fxHide.md="true"
+    fxHide.lg="true" fxHide.xl="true">
+    {{'secure.billing.list_products'  | translate}}
+  </div>
 
-  <div *ngFor="let product of order.detail" class="content-product-list">
-
-    <div fxFlex.sm="265px" fxFlex.md="230px" fxFlex.lg="265px" fxFlex.xs="155px">
-      <p id="detailName" class="sc-text-normal">{{product.detailName}}</p>
-    </div>
-    <div class="item-title-table">
-      <div>
+  <div *ngFor="let product of order.detail; let i = index" class="content-product-list">
+    <div fxLayout="row wrap" fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false">
+      <div fxFlex="30">
+        <p id="detailName" class="sc-text-normal">{{product.detailName}}</p>
+      </div>
+      <div fxFlex="15">
         <p id="ean" class="sc-text-normal">{{product.ean}}</p>
       </div>
-    </div>
-    <div fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="item-title-table">
-      <div>
+      <div fxFlex="10" fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
+        class="item-title-table">
         <p id="quantity" class="sc-text-normal">{{product.quantity}}</p>
       </div>
-    </div>
-
-    <div fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="item-title-table">
-      <div>
-        <p  id="totalShippingCost" class="sc-text-normal">{{product.totalShippingCost}}</p>
+      <div fxFlex="15" class="billing-products-order-right-5" fxShow fxHide.xs="true" fxHide.sm="false"
+        fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="item-title-table">
+        <div class="billing-products-order-text-align-center">
+          <p id="totalShippingCost" class="sc-text-normal">{{product.shippingCost | currency: '$' :
+          'symbol' : '1.0-0'}}</p>
+        </div>
+      </div>
+      <div fxFlex="10" *ngIf="!isInternational" class="billing-products-order-right-5" fxShow fxHide.xs="true"
+        fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="item-title-table">
+        <div class="billing-products-order-text-align-center">
+          <p id="enviosExito" class="sc-text-normal">
+            <span *ngIf="product.enviosExito">Si</span>
+            <span *ngIf="!product.enviosExito">No</span>
+          </p>
+        </div>
+      </div>
+      <div fxFlex="10" fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
+        class="item-title-table">
+        <div class="billing-products-order-text-align-right">
+          <p id="price" class="billing-products-order-text-align-right" class="sc-text-normal">{{product.price | currency: '$' : 'symbol' : '1.0-0'}}</p>
+        </div>
+      </div>
+      <div fxFlex="10" fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false"
+         [class]="isInternational ? 'max-billing-products-20 sc-text-normal item-title-table' : 'max-billing-products-10 sc-text-normal item-title-table' ">
+        <div class="billing-products-order-text-align-right">
+          <p id="subtotal" class="billing-products-order-text-align-right" class="sc-text-normal">
+            {{product.subtotal | currency: '$' : 'symbol' : '1.0-0'}}</p>
+        </div>
       </div>
     </div>
-    
-    <div fxShow fxHide.xs="true" fxHide.sm="false" fxHide.md="false" fxHide.lg="false" fxHide.xl="false" class="item-title-table">
-      <div>
-        <p id="price" class="sc-text-normal">{{product.price * product.quantity}}</p>
+    <div fxHide.xs="false" fxHide.sm="true" fxHide.md="true" fxHide.lg="true" fxHide.xl="true">
+      <div class="billing-products-order-size-text-detail-product">
+        <div class="billing-products-order-padding-5">
+          <span class="billing-product-order-font-weight-bold">{{'shared.product' | translate}}</span> :
+          {{product.detailName}}
+        </div>
+        <div class="billing-products-order-padding-5">
+          <span class="billing-product-order-font-weight-bold">{{'shared.ean' | translate}}</span> : {{product.ean}}
+        </div>
+        <div class="billing-products-order-padding-5">
+          <span class="billing-product-order-font-weight-bold">{{'secure.billing.amount' | translate}}</span> :
+          {{product.quantity}}
+        </div>
+        <div class="billing-products-order-padding-5">
+          <span class="billing-product-order-font-weight-bold">{{'secure.billing.total_freight' | translate}}</span> :
+          {{product.shippingCost | currency: '$' : 'symbol' : '1.0-0'}}
+        </div>
+        <div class="billing-products-order-padding-5" *ngIf="!isInternational">
+              <span *ngIf="product.enviosExito" class="billing-product-order-font-weight-bold">Envios Exito: Si</span>
+              <span *ngIf="!product.enviosExito" class="billing-product-order-font-weight-bold">Envios Exito: No</span>
+        </div>
+        <div class="billing-products-order-padding-5">
+          <span class="billing-product-order-font-weight-bold">{{'secure.billing.total_cost' | translate}}</span> :
+          {{product.price | currency: '$' : 'symbol' : '1.0-0'}}
+        </div>
+        <div class="billing-products-order-padding-5">
+          <span class="billing-product-order-font-weight-bold">{{'secure.orders.order_list.product_order.subTotal'
+            | translate}}</span> :
+            {{product.subtotal | currency: '$' : 'symbol' : '1.0-0'}}
+        </div>
       </div>
-    </div>
 
-    
 
-    <div class="item-action-table" fxShow.xs="true" fxShow.sm="true" fxShow.lg="false" fxShow.xl="false" fxShow="false">
-
-      <button id="dropdown-product-order-{{product.sku}}" color="primary" class="button-toolbar" mat-button [matMenuTriggerFor]="orderOptions">
-        <mat-icon>arrow_drop_down</mat-icon>
-        <span>{{'shared.actions' | translate}}</span>
-      </button>
-      <mat-menu #orderOptions="matMenu">
-
-        <button id="dropdown-product-viewDetail-{{product.sku}}" (click)="openModalDetailProduct(product)" fxShow.xs="true" fxShow.sm="true"
-          fxShow.gt-lg="false" fxShow="false" mat-menu-item>
-          <mat-icon>more_vert</mat-icon>
-          <span>{{'actions.show_detail' | translate}}</span>
+      <div class="item-action-table" fxShow.xs="false" fxShow.sm="false" fxShow.lg="false" fxShow.xl="false"
+        fxShow="false">
+        <button id="dropdown-product-order-{{product.sku}}" color="primary" class="button-toolbar" mat-button
+          [matMenuTriggerFor]="orderOptions">
+          <mat-icon>arrow_drop_down</mat-icon>
+          <span>{{'shared.actions' | translate}}</span>
         </button>
-      </mat-menu>
+        <mat-menu #orderOptions="matMenu">
+          <button id="dropdown-product-viewDetail-{{product.sku}}" (click)="openModalDetailProduct(product)"
+            fxShow.xs="true" fxShow.sm="true" fxShow.gt-lg="false" fxShow="false" mat-menu-item>
+            <mat-icon>more_vert</mat-icon>
+            <span>{{'actions.show_detail' | translate}}</span>
+          </button>
+        </mat-menu>
+      </div>
+      <div class="billing-products-order-padding-5" *ngIf="i > 1">
+        <mat-divider></mat-divider>
+      </div>
     </div>
-
   </div>
-</div>
+  <div class="padding-8">
+    <div fxLayout="row" class="billing-product-order-padding-content">
+      <div fxFlex="85" class="billing-product-order-font-size-14">
+        <span>{{'secure.billing.subtotal'  | translate}}</span>
+      </div>
+      <div class="sc-valueToPay-text billing-product-order-text-along-right" fxFlex="15">
+        <span>{{order.subtotal | currency: '$' : 'symbol' : '1.0-0'}}</span>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxLayout="row" class="billing-product-order-padding-subtotal">
+      <div fxFlex="85" class="billing-products-order-size-text-two-color">
+        <span>{{'secure.billing.comissionFee'  | translate}}</span>
+      </div>
+      <div class="sc-commission-text billing-product-order-text-along-right" fxFlex="15">
+        <span>{{order.commission | currency: '$' : 'symbol' : '1.0-0'}}</span>
+      </div>
+    </div>
+    <div fxLayout="row">
+      <div fxFlex="85" class="billing-products-order-size-text-two-color">
+        <span>{{'secure.billing.vat_discount'  | translate}}</span>
+      </div>
+      <div class="sc-commission-text billing-product-order-text-along-right" fxFlex="15">
+        <span>-{{order.iva | currency: '$' : 'symbol' : '1.0-0'}}</span>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div>
+      <div fxLayout="row" class="billing-product-order-padding-top-padding-btt">
+        <div fxFlex="85" class="billing-product-order-text-size-14">
+          <span><strong>{{'secure.billing.total_be_paid'  | translate}}</strong></span>
+        </div>
+        <div class="sc-valueToPay-text billing-product-order-text-aling-right-font-size" fxFlex="15">
+          <span>{{order.billingTotal | currency: '$' : 'symbol' : '1.0-0'}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  

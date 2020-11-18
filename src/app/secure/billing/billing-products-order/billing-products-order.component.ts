@@ -28,6 +28,7 @@ export class BillingProductsOrderComponent {
 
 
   @Input() order: any;
+  @Input() isInternational: any;
 
   /**
    * Creates an instance of BillingProductsOrderComponent.

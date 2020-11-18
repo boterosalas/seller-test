@@ -244,7 +244,7 @@
           <mat-cell fxShow.xs="false" [ngClass]="isInternational ? 'hiddenColumn' : 'showColumn'" fxShow.sm="true"
             fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px" fxFlex.md="15%" fxFlex.lg="15%"
             fxFlex.xs="50%" *matCellDef="let element">
-            <p class="sc-text-normal sc-commission-text">{{ element.iva | currency:'COP' }}</p>
+            <p class="sc-text-normal sc-commission-text">-{{ element.iva | currency:'COP' }}</p>
 
           </mat-cell>
         </ng-container>
@@ -325,7 +325,7 @@
       <div class="content-detail-order mat-row " [@detailExpand] style="overflow: hidden ">
         <div fxFlex="100" fxLayout="column">
           <!-- Product Information -->
-          <app-billing-products-order *ngIf="element.concept === billingConcepts.marketplaceSale" [order]="element">
+          <app-billing-products-order [isInternational]="isInternational" *ngIf="element.concept === billingConcepts.marketplaceSale" [order]="element">
           </app-billing-products-order>
           <!-- Detail fulfillment -->
           <app-billing-fulfillment-detail *ngIf="element.concept === billingConcepts.logisticsExito" [data]="element">

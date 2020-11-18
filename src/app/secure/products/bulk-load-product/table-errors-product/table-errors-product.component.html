@@ -37,7 +37,7 @@
 
           <p matLine *ngIf="item.type == 'BoleanFormat'" style="white-space: normal;overflow: visible;">
             {{'secure.products.table_errors_product.column_data' | translate}}
-            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}} #{{ item.columna }}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}}
               #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | translate}}
             <span class="error-string">{{'secure.products.table_errors_product.row' | translate}} #{{item.fila}}</span>
             {{'secure.products.table_errors_product.boolean' | translate}}
@@ -45,7 +45,7 @@
 
           <p matLine *ngIf="item.type == 'LessThanZero'" style="white-space: normal;overflow: visible;">
             {{'secure.products.table_errors_product.column_data' | translate}}
-            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}} #{{ item.columna }}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}}
               #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | translate}}
             <span class="error-string">{{'secure.products.table_errors_product.row' | translate}} #{{item.fila}}</span>
             {{'secure.products.table_errors_product.number_positive' | translate}}
@@ -53,7 +53,7 @@
 
           <p matLine *ngIf="item.type == 'invalidFormatProduct'" style="white-space: normal;overflow: visible;">
             {{'secure.products.table_errors_product.column_data' | translate}}
-            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}} #{{ item.columna }}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}}
               #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | translate}}
             <span class="error-string">{{'secure.products.table_errors_product.row' | translate}} #{{item.fila}}</span>
             {{'secure.products.table_errors_product.tech_cloting' | translate}}
@@ -62,38 +62,47 @@
           <p matLine *ngIf="item.type == 'invalidFormatUnidad'" style="white-space: normal;overflow: visible;">
             {{'secure.products.table_errors_product.column_data' | translate}}
             <span class="error-string">{{'secure.products.table_errors_product.column' | translate}}
-              #{{ item.columna }}#{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | translate}}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | translate}}
             <span class="error-string">{{'secure.products.table_errors_product.row' | translate}} #{{item.fila}}</span>
             {{'secure.products.table_errors_product.gram_milili' | translate}}
           </p>
 
           <p matLine *ngIf="item.type == 'invalidFortFact'" style="white-space: normal;overflow: visible;">
             {{'secure.products.table_errors_product.column_data' | translate}}
-            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}} #{{ item.columna }}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}}
               #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | translate}}
             <span class="error-string">{{'secure.products.table_errors_product.row' | translate}} #{{item.fila}}</span>
-            {{'secure.products.table_errors_product.errorneous_format' | translate}}
+            {{'secure.products.table_errors_product.errorneous_format' | translate}}.
           </p>
 
           <p matLine *ngIf="item.type == 'invalidFormat'" style="white-space: normal;overflow: visible;">
             {{'secure.products.table_errors_product.column_data' | translate}}
-            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}} #{{ item.columna }}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | translate}} #{{item.fila}}</span>
+            {{'secure.products.table_errors_product.errorneous_format' | translate}}.
+          </p>
+
+          <p matLine *ngIf="item.type == 'invalidFormatImage'" style="white-space: normal;overflow: visible;">
+            {{'secure.products.table_errors_product.column_data' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}}
               #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | translate}}
             <span class="error-string">{{'secure.products.table_errors_product.row' | translate}} #{{item.fila}}</span>
             {{'secure.products.table_errors_product.errorneous_format' | translate}}
+            <strong>{{'secure.products.table_errors_product.errorneous_formatimage' | translate}}</strong>
           </p>
 
           <p matLine *ngIf="item.type == 'invalidFormatExtraField'" style="white-space: normal;overflow: visible;">
             {{'secure.products.table_errors_product.input_option' | translate}}
-            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}} #{{ item.columna }}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}}
               #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | translate}}
             <span class="error-string">{{'secure.products.table_errors_product.row' | translate}} #{{item.fila}}</span>
-            {{'secure.products.table_errors_product.errorneous_format' | translate}}
+            {{'secure.products.table_errors_product.errorneous_format' | translate}}.
           </p>
 
           <p matLine *ngIf="item.type == 'EanComboRepeatError'" style="white-space: normal;overflow: visible;">
             {{'secure.products.table_errors_product.column_data' | translate}}
-            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}} #{{ item.columna }}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}}
               #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | translate}}
             <span class="error-string">{{'secure.products.table_errors_product.row' | translate}} #{{item.fila}}</span>
             {{'secure.products.table_errors_product.duplication_ean' | translate}}

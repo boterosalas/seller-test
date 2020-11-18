@@ -46,16 +46,8 @@
       <app-assign-images [detailProduct]="detailProduct" [children]="children_created"></app-assign-images>
       <div class="buttonProcess">
           <button mat-button matStepperPrevious class="buttonProcessAtras">{{'secure.products.create_product_unit.component_process.back' | translate}}</button>
-          <button mat-button (click)="saveInformationCreation()" class="buttonProcessContinuar">{{'secure.products.create_product_unit.component_process.save' | translate}}</button>
+          <button mat-button (click)="saveInformationCreation()" class="buttonProcessContinuar" >{{'secure.products.create_product_unit.component_process.save' | translate}}</button>
         </div>
     </form>
   </mat-step>
-  <!--<mat-step>
-    <ng-template matStepLabel>Terminado</ng-template>
-    You are now done.
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
-    </div>
-  </mat-step> -->
 </mat-horizontal-stepper></div>

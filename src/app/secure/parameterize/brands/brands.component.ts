@@ -455,11 +455,17 @@ export class BrandsComponent implements OnInit {
      * @memberof BrandsComponent
      */
     configDataDialogActDes(dialog: MatDialogRef<DialogWithFormComponent>) {
+        let nameChangeStatus = ''; 
+        if(this.nameBrands.toUpperCase() === '/'){
+            nameChangeStatus = encodeURIComponent(this.nameBrands.toUpperCase());
+        } else {
+            nameChangeStatus = escape(this.nameBrands.toUpperCase());
+        }
         const dialogInstance = dialog.componentInstance;
         dialogInstance.confirmation = () => {
             const body = {
                 Id: this.idBrands,
-                Name: this.nameBrands,
+                Name: nameChangeStatus,
                 UpdateStatus: true,
             };
             if (!this.statusBrands === true) {
@@ -624,6 +630,7 @@ export class BrandsComponent implements OnInit {
         if(this.newBrands === '/'){
             this.newBrands = encodeURIComponent(this.newBrands)
         }
+        this.newBrands = this.newBrands.replace('/', '%2F');
         if (this.newBrands && this.newBrands !== '' && this.newBrands !== undefined && this.newBrands !== null) {
             if (this.newBrands !== this.changeNameBrands) {
                 this.urlParams = `null/${this.newBrands}/null/null`;
