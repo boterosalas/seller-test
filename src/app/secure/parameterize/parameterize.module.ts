@@ -23,6 +23,7 @@ import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/materi
 import { ExceptionBrandComponent } from '../offers/stores/tree/components/exception-brand/exception-brand.component';
 import { StoresModule } from '../offers';
 import { ModalResultLoadExceptionComponent } from './exception/modal-result-load-exception/modal-result-load-exception.component';
+import { DownloadSpecsComponent } from './specifications/download-specs/download-specs.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ModalResultLoadExceptionComponent } from './exception/modal-result-load
     ModalPortComponent,
     ExceptionComponent,
     ExceptionBrandComponent,
-    ModalResultLoadExceptionComponent
+    ModalResultLoadExceptionComponent,
+    DownloadSpecsComponent
   ],
   imports: [
     CommonModule,
@@ -66,7 +68,8 @@ import { ModalResultLoadExceptionComponent } from './exception/modal-result-load
     DialogWithFormComponent,
     CreateProcessDialogComponent,
     ModalPortComponent,
-    ModalResultLoadExceptionComponent
+    ModalResultLoadExceptionComponent,
+    DownloadSpecsComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
