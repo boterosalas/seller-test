@@ -27,7 +27,7 @@ import { SharedModule } from '@app/shared/shared.module';
         DownloadModalOffertReportComponent,
         ReportErrorsVtexComponent,
         DownloadModalErrorVtexComponent,
-        ReportCommissionComponent
+        ReportCommissionComponent,
     ],
     exports: [
         ReportOffertComponent

@@ -97,6 +97,7 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   @Output() paginationListOrdens = new EventEmitter<object>();
   @Output() filterCalifications = new EventEmitter<any>();
   @Output() filterGerenic = new EventEmitter<any>();
+  @Output() modalDownloadGeneric = new EventEmitter<any>();
   // Evento que permite saber cuando el usuario cambia el número de paginas
   @Output() OnChangeSizeOrderTable = new EventEmitter<object>();
   // Limite de registros
@@ -168,6 +169,9 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   }
   toggleFilterGeneric() {
     this.filterGerenic.emit();
+  }
+  openModalDownloadGeneric() {
+    this.modalDownloadGeneric.emit();
   }
 
   /**

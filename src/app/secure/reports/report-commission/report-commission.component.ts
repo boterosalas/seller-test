@@ -1,12 +1,35 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSidenav } from '@angular/material';
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher, MatDialog, MatSidenav, MatSnackBar, MatTableDataSource } from '@angular/material';
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { StoresService } from '@app/secure/offers/stores/stores.service';
 import { InformationToForm, SearchFormEntity } from '@app/shared';
+import { ModalDonwloadEmailComponent } from '@app/shared/components/modal-donwload-email/modal-donwload-email.component';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, startWith } from 'rxjs/operators';
+import { ReportCommissionService } from './report-commission.service';
+import * as _moment from 'moment';
+// tslint:disable-next-line:no-duplicate-imports
+import { Moment} from 'moment';
+import { LoadingService } from '@app/core';
+import { SupportService } from '@app/secure/support-modal/support.service';
+
+/**
+ * exporta funcion para mostrar los errores de validacion del formulario
+ *
+ * @export
+ * @class MyErrorStateMatcher
+ * @implements {ErrorStateMatcher}
+ */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
+
+const moment =  _moment;
 
 @Component({
   selector: 'app-report-commission',
@@ -30,10 +53,14 @@ export class ReportCommissionComponent implements OnInit {
   isClear = false;
   lastState: 0;
   length = 0;
+  limit= 10;
+  indexPage = 0;
+  showTable = false;
 
   public filterDateInit: any;
   public filterDateEnd: any;
   public user: any;
+  public filter: any;
 
   public btnDownload = true;
   public btnFilter = true;
@@ -42,6 +69,8 @@ export class ReportCommissionComponent implements OnInit {
   public filteredOptions: Observable<string[]>;
   public listSellers: any;
   keywords: Array<any> = [];
+  public arrayPosition = [];
+  arrayNotas = [];
   invalidAdmin: Boolean = false;
   validateKey = true;
   idAdmin: any;
@@ -49,75 +78,123 @@ export class ReportCommissionComponent implements OnInit {
   listCommission2: any;
   listCommission: any;
   invalidCommission: Boolean = false;
+  @ViewChild('toolbarOptions') toolbarOption;
+  dataSource: MatTableDataSource<any>;
+  loadListAdmin = true;
+  onlyOne= true;
+  CommissionRegex = { integerNumber: '', formatNumerHours: '', onlyLetter: '' };
 
   public filterCommission: FormGroup;
 
   @ViewChild('sidenavSearchCommission') sidenavSearchCommission: MatSidenav;
 
   public displayedColumns = [
-    'PLU',
+    'Plu',
     'Brand',
-    'Category',
     'EAN',
     'IdSeller',
     'DateInitial',
     'DateEnd',
     'Commission',
-    'Admin',
-
+    'Admin'
   ];
 
 
   constructor(
     public eventsSeller: EventEmitterSeller,
     public storeService: StoresService,
+    private loadingService: LoadingService,
+    public dialog: MatDialog,
+    public SUPPORT: SupportService,
+    public reportCommissionService: ReportCommissionService,
     private fb?: FormBuilder,
+    public snackBar?: MatSnackBar,
   ) {
     this.textForSearch = new FormControl();
     this.listSellers = [];
     this.user = {};
+    this.filter = {
+      'IdSeller': 12390,
+      'Plu': null,
+      'Brand': null,
+      'InitialDate': null,
+      'FinalDate': null,
+      'SellerAudit': null,
+      'PaginationToken': '{}',
+      'Limit': 50,
+      'NewLimit': null,
+      'CurrentPage': 0
+    };
+    this.arrayPosition = [];
+    this.arrayPosition.push('{}');
   }
 
   ngOnInit() {
+    this.getCategoriesList();
     this.createFormControls();
-
+    this.getListCommissionAll();
+    this.getRegexByModule();
   }
 
-  toggleFilterReportCommission() {
-    this.sidenavSearchCommission.toggle();
-  }
 
-  createFormControls() {
-    this.filterCommission = this.fb.group({
-      IdSeller: new FormControl('', [Validators.pattern(null)]),
-      DateInit: new FormControl('', [Validators.pattern(null)]),
-      DateEnd: new FormControl('', [Validators.pattern(null)]),
-      plu: new FormControl('', [Validators.pattern(null)]),
-      brand: new FormControl('', [Validators.pattern(null)]),
-      commission: new FormControl(''),
+  public getRegexByModule(): void {
+    this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
+      let dataCommissionRegex = JSON.parse(res.body.body);
+      dataCommissionRegex = dataCommissionRegex.Data.filter(data => data.Module === 'productos' || data.Module === 'vendedores' || data.Module === 'transversal');
+      for (const val in this.CommissionRegex) {
+        if (!!val) {
+          const element = dataCommissionRegex.find(regex => regex.Identifier === val.toString());
+          this.CommissionRegex[val] = element && `${element.Value}`;
+        }
+      }
+      this.createFormControls();
     });
-    this.filterCommission.get('commission').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
+  }
+
+
+/**
+ *
+ *
+ * @memberof ReportCommissionComponent
+ */
+createFormControls() {
+    this.filterCommission = this.fb.group({
+      IdSeller: new FormControl('', [Validators.pattern(this.CommissionRegex.integerNumber)]),
+      InitialDate: new FormControl('', [Validators.pattern(null)]),
+      FinalDate: new FormControl('', [Validators.pattern(null)]),
+      Plu: new FormControl('', [Validators.pattern(this.CommissionRegex.integerNumber)]),
+      Brand: new FormControl('', [Validators.pattern(null)]),
+      SellerAudit: new FormControl('', [Validators.pattern(this.CommissionRegex.onlyLetter)]),
+    });
+    this.filterCommission.get('SellerAudit').valueChanges.pipe(distinctUntilChanged(), debounceTime(300)).subscribe(val => {
       if (!!val && val.length >= 2) {
-        this.listCommission2 = this.listCommission.filter(commission => commission.Name.toString().toLowerCase().includes(val.toLowerCase()));
-        const exist = this.listCommission2.find(commission => commission.Name === val);
-        if (!exist) {
-          this.filterCommission.get('commission').setErrors({ pattern: true });
-          this.invalidCommission = true;
+        if (this.listCommission !== undefined) {
+          this.listCommission2 = this.listCommission.filter(commission => commission.Name.toString().toLowerCase().includes(val.toLowerCase()));
+          const exist = this.listCommission2.find(commission => commission.Name === val);
+          if (!exist) {
+            this.filterCommission.get('SellerAudit').setErrors({ pattern: true });
+            this.invalidCommission = true;
+          } else {
+            this.filterCommission.get('SellerAudit').setErrors(null);
+            this.invalidCommission = false;
+          }
         } else {
-          this.filterCommission.get('commission').setErrors(null);
-          this.invalidCommission = false;
+          this.filterCommission.get('SellerAudit').setValue('');
         }
       } else if (!val) {
         this.listCommission2 = [];
-        this.filterCommission.get('commission').setErrors(null);
+        this.filterCommission.get('SellerAudit').setErrors(null);
       } else {
-        this.filterCommission.get('commission').setErrors(null);
+        this.filterCommission.get('SellerAudit').setErrors(null);
       }
     });
-    this.getCategoriesList();
   }
-
-  getCategoriesList() {
+/**
+ *
+ *
+ * @memberof ReportCommissionComponent
+ */
+getCategoriesList() {
     this.storeService.getAllStoresFull(this.user).subscribe((res: any) => {
       if (res.status === 200) {
         if (res && res.body && res.body.body) {
@@ -132,8 +209,129 @@ export class ReportCommissionComponent implements OnInit {
       }
     });
   }
+/**
+ *
+ *
+ * @memberof ReportCommissionComponent
+ */
+getListCommissionAll() {
+  console.log(this.onlyOne);
+  this.loadingService.viewSpinner();
+    this.reportCommissionService.getListCommissionAll(this.filter).subscribe((res: any) => {
+      if (res && res.statusCode === 200) {
+       const {AuditCommissionExcViewModels, Count, PaginationToken} =  JSON.parse(res.body).Data;
+       this.dataSource = new MatTableDataSource(AuditCommissionExcViewModels);
+       if (this.onlyOne) {
+        this.length = Count;
+       }
+       this.savePaginationToken(PaginationToken);
+       this.loadingService.closeSpinner();
+       this.showTable = true;
+       this.onlyOne = false;
+      }
+    });
+  }
+/**
+ *
+ *
+ * @param {string} pagination
+ * @memberof ReportCommissionComponent
+ */
+savePaginationToken(pagination: string) {
+    const isExist = this.arrayPosition.includes(pagination);
+    if (isExist === false) {
+      this.arrayPosition.push(pagination);
+    }
+  }
 
-  public saveKeyword(): void {
+
+/**
+ *
+ *
+ * @memberof ReportCommissionComponent
+ */
+toggleFilterReportCommission() {
+    this.sidenavSearchCommission.toggle();
+}
+
+/**
+ *
+ *
+ * @memberof ReportCommissionComponent
+ */
+showModalDonloadCommission(): void {
+    const dialogRef = this.dialog.open(ModalDonwloadEmailComponent, {
+      data: {
+        'title': 'Te enviaremos el reporte de comisiones siguiente correo electrónico.',
+        'btn': 'Enviar',
+      },
+    });
+    const dialogIntance = dialogRef.componentInstance;
+    dialogIntance.processFinish$.subscribe((val) => {
+      if (val && val !== undefined) {
+        this.downLoadReportCommission(val.controls.email.value);
+      }
+    });
+  }
+/**
+ *
+ *
+ * @param {string} email
+ * @memberof ReportCommissionComponent
+ */
+downLoadReportCommission(email: string) {
+  this.loadingService.viewSpinner();
+    if (email !== undefined) {
+      const data = {
+        email: email,
+        commissionAuditFilter : {
+            'IdSeller': this.filter.IdSeller,
+            'Plu': this.filter.Plu,
+            'Brand': this.filter.Brand,
+            'InitialDate': this.filter.InitialDate ? moment(this.filter.InitialDate).format('YYYY-MM-DD') : '',
+            'FinalDate': this.filter.InitialDate ? moment(this.filter.FinalDate).format('YYYY-MM-DD') : '',
+            'SellerAudit': this.filter.SellerAudit
+        },
+      };
+      this.reportCommissionService.sendReportCommission(data).subscribe((res: any) => {
+        this.loadingService.closeSpinner();
+        if (res && res.statusCode === 200) {
+
+          this.dialog.closeAll();
+        } else {
+          console.log('error al enviar correo')
+        }
+        
+      });
+    }
+  }
+
+
+  paginations(event: any) {
+    const newLimit = event.param.pageSize;
+    const index = event.param.pageIndex;
+    if (newLimit !== this.limit)  {
+      this.indexPage = 0;
+      this.limit = event.param.pageSize;
+      this.filter.PaginationToken = '{}';
+      this.filter.Limit = this.limit;
+      this.filter.CurrentPage = 0;
+      const paginator = this.toolbarOption.getPaginator();
+      paginator.pageIndex = 0;
+      this.arrayPosition = [];
+      this.arrayPosition.push('{}');
+    } else {
+      let newPaginationToken = this.arrayPosition[index];
+      if (newPaginationToken === undefined) {
+          newPaginationToken = '{}';
+      }
+      this.filter.PaginationToken = newPaginationToken;
+    }
+    this.getListCommissionAll();
+  }
+
+
+saveKeyword(): void {
     let word = this.filterCommission.controls.commission.value;
     if (word) {
       word = word.trim();
@@ -156,9 +354,32 @@ export class ReportCommissionComponent implements OnInit {
   }
 
   apllyFilterCommission(form: any) {
-    console.log(form);
-    console.log(this.keywords);
+    if (form !== undefined) {
+      this.filter = {
+        Brand : form.Brand,
+        FinalDate: form.FinalDate ? moment(form.FinalDate).format('YYYY-MM-DD') : '',
+        InitialDate: form.InitialDate ? moment(form.InitialDate).format('YYYY-MM-DD') : '',
+        IdSeller: form.IdSeller,
+        Plu: form.Plu,
+        SellerAudit: form.SellerAudit,
+        PaginationToken : '{}',
+        Limit: this.limit,
+        NewLimit: null,
+        CurrentPage: 0
+      };
+      this.toggleFilterReportCommission();
+    } else {
+      console.log('error al mapear los filtros');
+    }
+    this.getListCommissionAll();
   }
+
+  clearDateEnd(changeDate: any) {
+    if (changeDate !== undefined) {
+      this.filterCommission.controls['FinalDate'].setValue('');
+    }
+  }
+
 
   clearForm() {
     this.keywords = [];

@@ -2,142 +2,108 @@
   <div fxFlex class="container" fxLayout="row wrap" fxLayoutAlign="center
     start">
     <div fxFlex="100" class="light-content">
-      <app-toolbar-search-pagination [informationToForm]="informationToForm"
-        #toolbarOptions [lengthOrder]="length" [limitPaginate]="[50, 100, 150]"
-        [btnFilter]="btnFilter" [btnDownload]="btnDownload"
-        (filterGerenic)="toggleFilterReportCommission()"></app-toolbar-search-pagination>
+      <app-toolbar-search-pagination [informationToForm]="informationToForm" #toolbarOptions [lengthOrder]="length"
+        [limitPaginate]="[10, 20, 30]" [btnFilter]="btnFilter" [btnDownload]="btnDownload"
+        (filterGerenic)="toggleFilterReportCommission()" [limitSizeList]='pageSize'
+        (paginationListOrdens)="paginations($event)" [pageIndexChange]="indexPage" (modalDownloadGeneric)="showModalDonloadCommission()">
+      </app-toolbar-search-pagination>
     </div>
-
-
-    <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="97" fxFlex.lg="97"
-      fxFlex.xl="97"
+    <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="97" fxFlex.lg="97" fxFlex.xl="97"
       class="port-component-content-table-center-collection">
       <mat-table #table [dataSource]="dataSource" matSort>
-        <ng-container matColumnDef="PLU">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true"
-            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30"
-            fxFlex.xl="" *matHeaderCellDef>
-            <span class="title-table-header">PLU</span>
+        <ng-container matColumnDef="Plu">
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+            <span class="title-table-header">Plu</span>
           </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true" fxFlex.lg="15"
-            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
-            *matCellDef="let element">
-            <p class="sc-text-normal">{{element.Phone}}</p>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p *ngIf="element.Type === 'Plu'"> {{element.IdVTEX}}</p>
+            <p *ngIf="element.Type === 'Brand'"> -- </p>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="Brand">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true"
-            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30"
-            fxFlex.xl="" *matHeaderCellDef>
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
             <span class="title-table-header">Marca</span>
           </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true" fxFlex.lg="15"
-            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
-            *matCellDef="let element">
-            <p class="sc-text-normal">{{element.Phone}}</p>
-          </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="Category">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true"
-            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30"
-            fxFlex.xl="" *matHeaderCellDef>
-            <span class="title-table-header">Categoría</span>
-          </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true" fxFlex.lg="15"
-            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
-            *matCellDef="let element">
-            <p class="sc-text-normal">{{element.Phone}}</p>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p *ngIf="element.Type === 'Brand'"> {{element.IdVTEX}} </p>
+            <p *ngIf="element.Type === 'Plu'"> -- </p>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="EAN">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true"
-            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30"
-            fxFlex.xl="" *matHeaderCellDef>
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
             <span class="title-table-header">EAN</span>
           </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true" fxFlex.lg="15"
-            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
-            *matCellDef="let element">
-            <p class="sc-text-normal">{{element.Phone}}</p>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal">{{element.Data.Ean}}</p>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="IdSeller">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true"
-            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30"
-            fxFlex.xl="" *matHeaderCellDef>
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
             <span class="title-table-header">ID Vendedor</span>
           </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true" fxFlex.lg="15"
-            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
-            *matCellDef="let element">
-            <p class="sc-text-normal">{{element.Phone}}</p>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal">{{element.SellerId}}</p>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="DateInitial">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true"
-            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30"
-            fxFlex.xl="" *matHeaderCellDef>
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
             <span class="title-table-header">Fecha Inicial</span>
           </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true" fxFlex.lg="15"
-            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
-            *matCellDef="let element">
-            <p class="sc-text-normal">{{element.Phone}}</p>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal">{{element.Data.InitialDate |
+              date:'d/mm/yyyy'}}</p>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="DateEnd">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true"
-            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30"
-            fxFlex.xl="" *matHeaderCellDef>
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
             <span class="title-table-header">Fecha Final</span>
           </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true" fxFlex.lg="15"
-            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
-            *matCellDef="let element">
-            <p class="sc-text-normal">{{element.Phone}}</p>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal">{{element.Data.FinalDate |
+              date:'d/mm/yyyy'}}</p>
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Commission">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true"
-            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30"
-            fxFlex.xl="" *matHeaderCellDef>
-            <span class="title-table-header">Comisión</span>
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+            <span class="title-table-header" style="text-align: center; width:
+              100%;">Comisión</span>
           </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true" fxFlex.lg="15"
-            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
-            *matCellDef="let element">
-            <p class="sc-text-normal">{{element.Phone}}</p>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal" style="text-align: center; width: 100%;
+              font-weight: bold;">{{element.Data.Commission}}%</p>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="Admin">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true"
-            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30"
-            fxFlex.xl="" *matHeaderCellDef>
-            <span class="title-table-header">Administrador</span>
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+            <span class="title-table-header" style="width: 100%; text-align:
+              center;">Administrador</span>
           </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true" fxFlex.lg="15"
-            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
-            *matCellDef="let element">
-            <p class="sc-text-normal">{{element.Phone}}</p>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <div style="width: 100%;">
+              <div style="text-align: center;">
+                {{element.SellerNameAudit}}
+              </div>
+              <div style="text-align: center; color: #959595;">
+                {{element.SellerNit}}
+              </div>
+            </div>
           </mat-cell>
         </ng-container>
 
@@ -145,20 +111,28 @@
         <!-- Creación de las filas para la tabla -->
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row id="order-number-{{index}}" *matRowDef="let index=index; let
-          row; columns: displayedColumns;" matRipple
-          class="element-row personal-row-table" [cdkDetailRow]="row"
+          row; columns: displayedColumns;" class="element-row personal-row-table" [cdkDetailRow]="row"
           [cdkDetailRowTpl]="tpl">
         </mat-row>
       </mat-table>
-
+    </div>
+    <div *ngIf="!showTable"  style="text-align: center; width: 100%; margin: 2% 0% 2% 0%;">
+      <div style="margin: 2% 0% 2% 46%;">
+        <!-- <mat-spinner class="process-charge" [diameter]="60"></mat-spinner> -->
+      </div>
+      <div>
+        <span> {{'secure.products.create_product_unit.list_products.please_wait' | translate}}</span>
+      </div>
+    </div>
+    <div *ngIf="showTable && dataSource.length === 0">
+     <span>No se encontraron registros</span>
     </div>
   </div>
 </div>
 
 
 <mat-sidenav-container>
-  <mat-sidenav #sidenavSearchCommission mode="over" style="width: 25%;"
-    position="end" opened="{{stateSideNavOrder}}">
+  <mat-sidenav #sidenavSearchCommission mode="over" style="width: 25%;" position="end" opened="{{stateSideNavOrder}}">
 
     <div fxLayout="row" fxLayoutAlign="start center" style="height: 70px;">
       <div fxFlex="80">
@@ -166,11 +140,9 @@
           {{informationToForm.title_for_search | translate}}
         </div>
       </div>
-      <div fxFlex="20" class="toolbar-title-search">
-        <button style="height: 100%; width: 100%;" color="primary"
-          [matTooltip]="'actions.close' | translate" matTooltipPosition="below"
-          mat-icon-button
-          mat-button (click)="toggleFilterCalifications()">
+      <div fxFlex="20" class="toolbar-title-search" style="height: 90px;">
+        <button style="height: 100%; width: 100%;" color="primary" [matTooltip]="'actions.close' | translate"
+          matTooltipPosition="below" mat-icon-button mat-button (click)="toggleFilterReportCommission()">
           <mat-icon>close</mat-icon>
         </button>
       </div>
@@ -179,18 +151,21 @@
     <div fxLayout="row">
       <div fxFlex>
         <form #createfilterCommission="ngForm" [formGroup]="filterCommission" style="margin-top: 40px;">
-          <mat-form-field class="field" style="width: 80%;margin-left: 14px; padding-left: 15px; padding-bottom: 5px;">
-            <input matInput placeholder="ID Seller"
-              formControlName="IdSeller" autofocus>
+          <mat-form-field class="field" style="width: 80%;margin-left: 14px;
+            padding-left: 15px; padding-bottom: 5px;">
+            <input matInput placeholder="ID Seller" formControlName="IdSeller" autofocus>
+            <mat-error *ngIf="filterCommission.get('IdSeller').hasError('pattern')">
+              {{'errors.format_invalidate' | translate}}
+            </mat-error>
           </mat-form-field>
+        
 
           <div fxLayout="row">
             <div>
               <mat-form-field class="classDatapicker" style="width: 125px;
                 padding: 10px; margin-left: 18px;">
-                <input matInput [matDatepicker]="picker"
-                  placeholder="Desde"
-                  formControlName="DateInit" [(ngModel)]="filterDateInit">
+                <input matInput [matDatepicker]="picker" placeholder="Desde" formControlName="InitialDate"
+                  [(ngModel)]="filterCommission.InitialDate"  (ngModelChange)="clearDateEnd(filterCommission.InitialDate)">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker disabled="false"></mat-datepicker>
               </mat-form-field>
@@ -198,9 +173,8 @@
             <div>
               <mat-form-field class="classDatapicker" style="width: 125px;
                 padding: 10px;">
-                <input matInput [matDatepicker]="picker1"
-                  placeholder="Hasta" formControlName="DateEnd"
-                  [(ngModel)]="filterDateEnd">
+                <input matInput [matDatepicker]="picker1" placeholder="Hasta" formControlName="FinalDate"
+                  [(ngModel)]="filterCommission.FinalDate" [min]="filterCommission.InitialDate" [max]="rangeDateMax">
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker #picker1 disabled="false"></mat-datepicker>
               </mat-form-field>
@@ -208,52 +182,38 @@
           </div>
           <mat-form-field class="field" style="width: 80%;
             margin-left: 14px; padding-left: 15px; padding-bottom: 5px;">
-            <input matInput placeholder="PLU" formControlName="plu" autofocus>
+            <input matInput placeholder="Plu" formControlName="Plu">
+            <mat-error *ngIf="filterCommission.get('Plu').hasError('pattern')">
+              {{'errors.format_invalidate' | translate}}
+            </mat-error>
           </mat-form-field>
           <mat-form-field class="field" style="width: 80%;
             margin-left: 14px; padding-left: 15px; padding-bottom: 5px;">
-            <input matInput placeholder="Marca" formControlName="brand"
-              autofocus>
+            <input matInput placeholder="Marca" formControlName="Brand">
           </mat-form-field>
 
-        <mat-form-field class="field" style="width: 75%;margin-left: 14px; padding-left: 15px;">
-          <input matInput placeholder="Nombre del administrador"
-            [matAutocomplete]="auto" formControlName="commission" (keyup.enter)="saveKeyword()">
-          <mat-hint></mat-hint>
-          <mat-error *ngIf="filterCommission.get('commission').hasError('pattern')">
-            Nombre de administrador inválido
-          </mat-error>
-          <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let commission of listCommission2" [value]="commission.Name">
-              {{commission.Name}}
-            </mat-option>
-          </mat-autocomplete>
-        
-
-        </mat-form-field>
-        <mat-icon matSuffix matTooltip="Agregar nombre de administrador"
-        [ngClass]="invalidCommission ? '': ''"
-        class="material-icons add-keyword-icon vertical-align-top" (click)="saveKeyword()" style="color: #3d5afe ; vertical-align: middle; cursor: pointer; margin-top: 10px;">
-        add_circle_outline
-      </mat-icon>
-        <div class="example-chip-list" style=" height: 80px;max-height: 100px;contain: content;overflow-y: auto; overflow-x: hidden;display: inline-block;margin-bottom: 22px; margin-left: 20px; margin-right: 20px;">
-          <mat-chip-list #chipList>
-            <mat-chip *ngFor="let key of keywords; let i = index" (removed)="deleteKeywork(i)">
-              {{key}}
-              <mat-icon matChipRemove >cancel</mat-icon>
-            </mat-chip>
-          </mat-chip-list>
-        </div>
+          <mat-form-field class="field" style="width: 80%;margin-left: 14px;
+            padding-left: 15px; padding-top: 20px; padding-bottom: 90px;">
+            <input matInput placeholder="Nombre del administrador" [matAutocomplete]="auto" formControlName="SellerAudit">
+            <mat-hint></mat-hint>
+            <mat-error *ngIf="filterCommission.get('SellerAudit').hasError('pattern')">
+              Nombre de administrador inválido
+            </mat-error>
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let commission of listCommission2" [value]="commission.Name">
+                {{commission.Name}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+      
           <div style="text-align: center;">
             <div>
-              <button class="sc-button" mat-button type="button"
-                style="margin-right: 10px; background-color: #eaeaea;"
+              <button class="sc-button" mat-button type="button" style="margin-right: 10px; background-color: #eaeaea;"
                 (click)="clearForm()">
                 <mat-icon>clear_all</mat-icon>
                 {{'filters.clear' | translate}}
               </button>
-              <button class="sc-button" mat-raised-button color="primary"
-                type="button"
+              <button class="sc-button" mat-raised-button color="primary" type="button"
                 (click)="apllyFilterCommission(filterCommission.value)">
                 {{'actions.apply' | translate}}
               </button>
