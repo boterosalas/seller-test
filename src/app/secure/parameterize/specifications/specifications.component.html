@@ -6,7 +6,7 @@
     <!-- CONTAINER BUTTON TO ADD NEW SPECIFICATION GROUP -->
     <div id="addButton" class="container-group-add-button">
         <!--  Descargar especificaciones -->
-      <button mat-button >
+      <button mat-button (click)="openModalDownloadSpecs()" >
         <mat-icon>archive</mat-icon>
         {{'permissions.Descargar' | translate}}
       </button>

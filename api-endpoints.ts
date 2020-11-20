@@ -236,7 +236,9 @@ export const endpoints = {
       // Listado de colores
       getListColor : 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/colors',
       // Descargable del listado/historico de cancelaciones
-      exportListCancel: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch/report'
+      exportListCancel: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch/report',
+      // Descargar especificaciones
+      exportSpecs: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/products-specs-dev/report{params}'
     },
   },
   // Endpoints production
@@ -470,7 +472,9 @@ export const endpoints = {
       // Listado de colores
       getListColor : 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/color',
        // Descargable del listado/historico de cancelaciones
-       exportListCancel: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn/report'
+       exportListCancel: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn/report',
+       // Descargar especificaciones
+      exportSpecs: ''
     }
   }
 };

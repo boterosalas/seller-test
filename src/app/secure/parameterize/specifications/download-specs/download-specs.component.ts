@@ -26,7 +26,7 @@ export class DownloadSpecsComponent implements OnInit {
     public componentsService: ComponentsService,
     private languageService: TranslateService,
     public dialogRef: MatDialogRef<DownloadSpecsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
+    // @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) { }
 
   ngOnInit() {
@@ -72,29 +72,27 @@ export class DownloadSpecsComponent implements OnInit {
    */
   sendExportDownload() {
     this.loadingService.viewSpinner();
-    this.filtersList = this.data;
-    const dataToSend = {
-      email: this.myform.controls.email.value,
-    };
-    // this.productsService.sendEmailExportProducts(dataToSend).subscribe((res: any) => {
-    //   if (res != null) {
-    //     if (res.data === true) {
-    //       this.componentsService.openSnackBar(this.languageService.instant('secure.products.list_products.download.ok'), this.languageService.instant('actions.close'), 10000);
-    //       this.onNoClick();
-    //       this.loadingService.closeSpinner();
-    //     } else {
-    //       this.componentsService.openSnackBar(this.languageService.instant('secure.products.list_products.download.error'), this.languageService.instant('actions.close'), 5000);
-    //       this.loadingService.closeSpinner();
-    //     }
-    //   } else {
-    //     this.componentsService.openSnackBar(this.languageService.instant('secure.products.list_products.download.error'), this.languageService.instant('actions.close'), 5000);
-    //     this.loadingService.closeSpinner();
-    //   }
-    // }, err => {
-    //   this.componentsService.openSnackBar(this.languageService.instant('secure.products.list_products.download.error'), this.languageService.instant('actions.close'), 5000);
-    //   this.loadingService.closeSpinner();
-    //   this.onNoClick();
-    // });
+    const urlParams = '?email=' + this.myform.controls.email.value;
+    this.paramSpecsService.getDownloadSpecs(urlParams).subscribe((res: any) => {
+      console.log('res_', res);
+      if (res != null) {
+        if (res.data === true) {
+          this.componentsService.openSnackBar(this.languageService.instant('secure.parametize.specifications.download_OK'), this.languageService.instant('actions.close'), 10000);
+          this.onNoClick();
+          this.loadingService.closeSpinner();
+        } else {
+          this.componentsService.openSnackBar(this.languageService.instant('secure.parametize.specifications.download_KO'), this.languageService.instant('actions.close'), 5000);
+          this.loadingService.closeSpinner();
+        }
+      } else {
+        this.componentsService.openSnackBar(this.languageService.instant('secure.parametize.specifications.download_KO'), this.languageService.instant('actions.close'), 5000);
+        this.loadingService.closeSpinner();
+      }
+    }, err => {
+      this.componentsService.openSnackBar(this.languageService.instant('secure.parametize.specifications.download_KO'), this.languageService.instant('actions.close'), 5000);
+      this.loadingService.closeSpinner();
+      this.onNoClick();
+    });
   }
 
 }
