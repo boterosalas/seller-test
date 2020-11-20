@@ -8,8 +8,17 @@
         (paginationListOrdens)="paginations($event)" [pageIndexChange]="indexPage" (modalDownloadGeneric)="showModalDonloadCommission()">
       </app-toolbar-search-pagination>
     </div>
+    <div>
+      <mat-chip-list>
+        <mat-chip *ngFor="let key of filterChips; let i = index" (removed)="deleteKeywork(i)">
+          {{key}}
+          <mat-icon class="material-icons" matChipRemove>cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+    </div>
     <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="97" fxFlex.lg="97" fxFlex.xl="97"
       class="port-component-content-table-center-collection">
+    
       <mat-table #table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="Plu">
           <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
@@ -60,8 +69,7 @@
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
             fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
-            <p class="sc-text-normal">{{element.Data.InitialDate |
-              date:'d/mm/yyyy'}}</p>
+            <p class="sc-text-normal">{{element.Data.InitialDate}}</p>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="DateEnd">
@@ -71,8 +79,7 @@
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
             fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
-            <p class="sc-text-normal">{{element.Data.FinalDate |
-              date:'d/mm/yyyy'}}</p>
+            <p class="sc-text-normal">{{element.Data.FinalDate}}</p>
           </mat-cell>
         </ng-container>
 
@@ -107,6 +114,24 @@
           </mat-cell>
         </ng-container>
 
+        <ng-container matColumnDef="DateAction">
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+            <span class="title-table-header" style="text-align: center; width:
+              100%;">Acción realizada</span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal" style="text-align: center; width: 100%;">
+              {{element.Date}}
+              <br>
+              <span style="color: #b6b6b6;">
+                ({{element.Operation}})
+              </span>
+            </p>
+          </mat-cell>
+        </ng-container>
+
 
         <!-- Creación de las filas para la tabla -->
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -117,9 +142,6 @@
       </mat-table>
     </div>
     <div *ngIf="!showTable"  style="text-align: center; width: 100%; margin: 2% 0% 2% 0%;">
-      <div style="margin: 2% 0% 2% 46%;">
-        <!-- <mat-spinner class="process-charge" [diameter]="60"></mat-spinner> -->
-      </div>
       <div>
         <span> {{'secure.products.create_product_unit.list_products.please_wait' | translate}}</span>
       </div>
@@ -153,33 +175,38 @@
         <form #createfilterCommission="ngForm" [formGroup]="filterCommission" style="margin-top: 40px;">
           <mat-form-field class="field" style="width: 80%;margin-left: 14px;
             padding-left: 15px; padding-bottom: 5px;">
-            <input matInput placeholder="ID Seller" formControlName="IdSeller" autofocus>
+            <input matInput placeholder="ID Seller" formControlName="IdSeller"  [(ngModel)]="filterCommission.IdSeller"  (ngModelChange)="validate(filterCommission.IdSeller)" autofocus>
             <mat-error *ngIf="filterCommission.get('IdSeller').hasError('pattern')">
               {{'errors.format_invalidate' | translate}}
             </mat-error>
           </mat-form-field>
         
-
-          <div fxLayout="row">
-            <div>
-              <mat-form-field class="classDatapicker" style="width: 125px;
-                padding: 10px; margin-left: 18px;">
-                <input matInput [matDatepicker]="picker" placeholder="Desde" formControlName="InitialDate"
-                  [(ngModel)]="filterCommission.InitialDate"  (ngModelChange)="clearDateEnd(filterCommission.InitialDate)">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker disabled="false"></mat-datepicker>
-              </mat-form-field>
+          <div>
+            <div style="margin-left: 28px;">
+              <span style="font-size: 15px; color: #b6b6b6;">Fecha de acción realizada </span>
             </div>
-            <div>
-              <mat-form-field class="classDatapicker" style="width: 125px;
-                padding: 10px;">
-                <input matInput [matDatepicker]="picker1" placeholder="Hasta" formControlName="FinalDate"
-                  [(ngModel)]="filterCommission.FinalDate" [min]="filterCommission.InitialDate" [max]="rangeDateMax">
-                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                <mat-datepicker #picker1 disabled="false"></mat-datepicker>
-              </mat-form-field>
+            <div fxLayout="row">
+              <div>
+                <mat-form-field class="classDatapicker" style="width: 125px;
+                  padding: 10px; margin-left: 18px;">
+                  <input matInput [matDatepicker]="picker" placeholder="Desde" formControlName="InitialDate"
+                    [(ngModel)]="filterCommission.InitialDate"  (ngModelChange)="clearDateEnd(filterCommission.InitialDate)">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker disabled="false"></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field class="classDatapicker" style="width: 125px;
+                  padding: 10px;">
+                  <input matInput [matDatepicker]="picker1" placeholder="Hasta" formControlName="FinalDate"
+                    [(ngModel)]="filterCommission.FinalDate" [min]="filterCommission.InitialDate" [max]="rangeDateMax">
+                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+                </mat-form-field>
+              </div>
             </div>
           </div>
+        
           <mat-form-field class="field" style="width: 80%;
             margin-left: 14px; padding-left: 15px; padding-bottom: 5px;">
             <input matInput placeholder="Plu" formControlName="Plu">
@@ -200,7 +227,7 @@
               Nombre de administrador inválido
             </mat-error>
             <mat-autocomplete #auto="matAutocomplete">
-              <mat-option *ngFor="let commission of listCommission2" [value]="commission.Name">
+              <mat-option *ngFor="let commission of listCommission2" [value]="commission.Name" (click)="getAdmin(commission)">
                 {{commission.Name}}
               </mat-option>
             </mat-autocomplete>
@@ -213,7 +240,7 @@
                 <mat-icon>clear_all</mat-icon>
                 {{'filters.clear' | translate}}
               </button>
-              <button class="sc-button" mat-raised-button color="primary" type="button"
+              <button class="sc-button" mat-raised-button color="primary" [disabled]="validateInput || !createfilterCommission.form.valid"  type="button"
                 (click)="apllyFilterCommission(filterCommission.value)">
                 {{'actions.apply' | translate}}
               </button>

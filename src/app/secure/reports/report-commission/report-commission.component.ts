@@ -53,7 +53,7 @@ export class ReportCommissionComponent implements OnInit {
   isClear = false;
   lastState: 0;
   length = 0;
-  limit= 10;
+  public limit= 10;
   indexPage = 0;
   showTable = false;
 
@@ -74,15 +74,19 @@ export class ReportCommissionComponent implements OnInit {
   invalidAdmin: Boolean = false;
   validateKey = true;
   idAdmin: any;
-  nameAdmin: Array<any> = [];
+  nameAdmin: string;
   listCommission2: any;
   listCommission: any;
-  invalidCommission: Boolean = false;
+  invalidCommission: Boolean = true;
   @ViewChild('toolbarOptions') toolbarOption;
   dataSource: MatTableDataSource<any>;
   loadListAdmin = true;
   onlyOne= true;
+  dataDisabled = true;
   CommissionRegex = { integerNumber: '', formatNumerHours: '', onlyLetter: '' };
+  listCommissionAll = [];
+  validateInput = true;
+  filterChips = [];
 
   public filterCommission: FormGroup;
 
@@ -96,7 +100,8 @@ export class ReportCommissionComponent implements OnInit {
     'DateInitial',
     'DateEnd',
     'Commission',
-    'Admin'
+    'Admin',
+    'DateAction'
   ];
 
 
@@ -114,14 +119,14 @@ export class ReportCommissionComponent implements OnInit {
     this.listSellers = [];
     this.user = {};
     this.filter = {
-      'IdSeller': 12390,
+      'IdSeller': null,
       'Plu': null,
       'Brand': null,
       'InitialDate': null,
       'FinalDate': null,
       'SellerAudit': null,
       'PaginationToken': '{}',
-      'Limit': 50,
+      'Limit': this.limit,
       'NewLimit': null,
       'CurrentPage': 0
     };
@@ -174,16 +179,24 @@ createFormControls() {
           if (!exist) {
             this.filterCommission.get('SellerAudit').setErrors({ pattern: true });
             this.invalidCommission = true;
+            this.validateInput = false;
           } else {
             this.filterCommission.get('SellerAudit').setErrors(null);
             this.invalidCommission = false;
           }
         } else {
           this.filterCommission.get('SellerAudit').setValue('');
+          this.validateInput = true;
+          this.invalidCommission = true;
         }
       } else if (!val) {
         this.listCommission2 = [];
         this.filterCommission.get('SellerAudit').setErrors(null);
+        const inputSeller = this.filterCommission.controls.IdSeller.value;
+        if (!inputSeller) {
+          this.validateInput = true;
+        }
+        this.invalidCommission = true;
       } else {
         this.filterCommission.get('SellerAudit').setErrors(null);
       }
@@ -215,12 +228,12 @@ getCategoriesList() {
  * @memberof ReportCommissionComponent
  */
 getListCommissionAll() {
-  console.log(this.onlyOne);
   this.loadingService.viewSpinner();
     this.reportCommissionService.getListCommissionAll(this.filter).subscribe((res: any) => {
       if (res && res.statusCode === 200) {
        const {AuditCommissionExcViewModels, Count, PaginationToken} =  JSON.parse(res.body).Data;
-       this.dataSource = new MatTableDataSource(AuditCommissionExcViewModels);
+       this.listCommissionAll = this.mapItems(AuditCommissionExcViewModels);
+       this.dataSource = new MatTableDataSource(this.listCommissionAll);
        if (this.onlyOne) {
         this.length = Count;
        }
@@ -242,6 +255,35 @@ savePaginationToken(pagination: string) {
     if (isExist === false) {
       this.arrayPosition.push(pagination);
     }
+  }
+/**
+ *
+ *
+ * @param {any[]} items
+ * @returns {any[]}
+ * @memberof ReportCommissionComponent
+ */
+mapItems(items: any[]): any[] {
+    return items.map(x => {
+      return {
+        Date:  x.Date ? moment(x.Date).format('DD/MM/YYYY') : '',
+        IdVTEX: x.IdVTEX,
+        Operation: x.Operation,
+        SellerAudit: x.SellerAudit,
+        SellerId: x.SellerId,
+        SellerNameAudit: x.SellerNameAudit,
+        SellerNit: x.SellerNit,
+        Type: x.Type,
+        Data: {
+          Brand: x.Data.Brand,
+          Commission: x.Data.Commission,
+          Ean: x.Data.Ean,
+          FinalDate: x.Data.FinalDate ? moment(x.Data.FinalDate).format('DD/MM/YYYY') : '',
+          IdVTEX: x.Data.IdVTEX,
+          InitialDate: x.Data.InitialDate ? moment(x.Data.InitialDate).format('DD/MM/YYYY') : ''
+        }
+      };
+    });
   }
 
 
@@ -288,9 +330,9 @@ downLoadReportCommission(email: string) {
             'IdSeller': this.filter.IdSeller,
             'Plu': this.filter.Plu,
             'Brand': this.filter.Brand,
-            'InitialDate': this.filter.InitialDate ? moment(this.filter.InitialDate).format('YYYY-MM-DD') : '',
-            'FinalDate': this.filter.InitialDate ? moment(this.filter.FinalDate).format('YYYY-MM-DD') : '',
-            'SellerAudit': this.filter.SellerAudit
+            'InitialDate': this.filter.InitialDate ? moment(this.filter.InitialDate).format('YYYY/MM/DD') : '',
+            'FinalDate': this.filter.InitialDate ? moment(this.filter.FinalDate).format('YYYY/MM/DD') : '',
+            'SellerAudit': this.idAdmin
         },
       };
       this.reportCommissionService.sendReportCommission(data).subscribe((res: any) => {
@@ -301,11 +343,9 @@ downLoadReportCommission(email: string) {
         } else {
           console.log('error al enviar correo')
         }
-        
       });
     }
   }
-
 
   paginations(event: any) {
     const newLimit = event.param.pageSize;
@@ -332,7 +372,7 @@ downLoadReportCommission(email: string) {
 
 
 saveKeyword(): void {
-    let word = this.filterCommission.controls.commission.value;
+    let word = this.filterCommission.controls.SellerAudit.value;
     if (word) {
       word = word.trim();
       if (word.search(',') === -1) {
@@ -353,20 +393,50 @@ saveKeyword(): void {
     }
   }
 
+  validate(value: any) {
+    if (value) {
+      this.validateInput = false;
+    } else {
+      if (!this.invalidCommission) {
+        this.validateInput = false;
+      } else {
+        this.validateInput = true;
+      }
+    }
+  }
+
+  getAdmin(admin: any) {
+    console.log(admin);
+    if (admin) {
+      this.idAdmin = admin.IdSeller;
+      this.nameAdmin = admin.Name;
+    } else {
+      this.idAdmin = null;
+    }
+  }
+
   apllyFilterCommission(form: any) {
     if (form !== undefined) {
       this.filter = {
         Brand : form.Brand,
-        FinalDate: form.FinalDate ? moment(form.FinalDate).format('YYYY-MM-DD') : '',
-        InitialDate: form.InitialDate ? moment(form.InitialDate).format('YYYY-MM-DD') : '',
+        FinalDate: form.FinalDate ? moment(form.FinalDate).format('YYYY/MM/DD') : '',
+        InitialDate: form.InitialDate ? moment(form.InitialDate).format('YYYY/MM/DD') : '',
         IdSeller: form.IdSeller,
         Plu: form.Plu,
-        SellerAudit: form.SellerAudit,
+        SellerAudit: this.idAdmin ? this.idAdmin.toString() : '',
         PaginationToken : '{}',
         Limit: this.limit,
         NewLimit: null,
         CurrentPage: 0
       };
+      this.onlyOne = true;
+      this.filterChips = [];
+      this.saveFilter(this.filter.Brand);
+      this.saveFilter(this.filter.FinalDate);
+      this.saveFilter(this.filter.InitialDate);
+      this.saveFilter(this.filter.IdSeller);
+      this.saveFilter(this.filter.Plu);
+      this.saveFilter(this.nameAdmin);
       this.toggleFilterReportCommission();
     } else {
       console.log('error al mapear los filtros');
@@ -374,7 +444,15 @@ saveKeyword(): void {
     this.getListCommissionAll();
   }
 
+  saveFilter(filter: string) {
+    if (filter !== undefined && filter !== '') {
+        this.filterChips.push(filter);
+    }
+    console.log(this.filterChips);
+  }
+
   clearDateEnd(changeDate: any) {
+    console.log(changeDate);
     if (changeDate !== undefined) {
       this.filterCommission.controls['FinalDate'].setValue('');
     }
@@ -383,7 +461,24 @@ saveKeyword(): void {
 
   clearForm() {
     this.keywords = [];
+    this.limit = 10;
+    this.idAdmin = null;
+    this.filterChips = [];
     this.filterCommission.reset();
+    this.filter = {
+      'IdSeller': null,
+      'Plu': null,
+      'Brand': null,
+      'InitialDate': null,
+      'FinalDate': null,
+      'SellerAudit': null,
+      'PaginationToken': '{}',
+      'Limit': this.limit,
+      'NewLimit': null,
+      'CurrentPage': 0
+    };
+    this.getListCommissionAll();
+    this.toggleFilterReportCommission();
   }
 
 }
