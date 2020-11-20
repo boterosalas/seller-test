@@ -74,7 +74,6 @@ export class DownloadSpecsComponent implements OnInit {
     this.loadingService.viewSpinner();
     const urlParams = '?email=' + this.myform.controls.email.value;
     this.paramSpecsService.getDownloadSpecs(urlParams).subscribe((res: any) => {
-      console.log('res_', res);
       if (res != null) {
         if (res.data === true) {
           this.componentsService.openSnackBar(this.languageService.instant('secure.parametize.specifications.download_OK'), this.languageService.instant('actions.close'), 10000);
