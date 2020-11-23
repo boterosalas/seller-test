@@ -20,7 +20,7 @@ export class DownloadCategoriesComponent implements OnInit {
     public userParams: UserParametersService,
     private fb: FormBuilder,
     private loadingService: LoadingService,
-    private paramSpecsService: ParamSpecsService,
+    private paramCategoriesService: ParamSpecsService,
     public componentsService: ComponentsService,
     private languageService: TranslateService,
     public dialogRef: MatDialogRef<DownloadCategoriesComponent>,
@@ -72,7 +72,7 @@ export class DownloadCategoriesComponent implements OnInit {
     const dataToSend = {
       Email: this.myform.controls.email.value
     };
-    this.paramSpecsService.downloadCategories(dataToSend).subscribe((res: any) => {
+    this.paramCategoriesService.downloadCategories(dataToSend).subscribe((res: any) => {
       const dataRes = JSON.parse(res.body);
       if (res != null) {
         if (dataRes.Data === true) {
