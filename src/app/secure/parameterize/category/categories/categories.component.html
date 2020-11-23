@@ -12,6 +12,11 @@
     <!-- <mat-paginator [length]="sellerLength" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
         </mat-paginator> -->
     <div class="float-rigth">
+      <button mat-button [matTooltip]="'secure.parametize.category.categories.btn_download_category' | translate"
+        >
+        <mat-icon>cloud_download</mat-icon>
+        {{'actions.download' | translate}}
+      </button>
       <button mat-button [matTooltip]="'secure.parametize.category.categories.tooltip_expand' | translate"
         (click)="expandTree()">
         <mat-icon>keyboard_arrow_down</mat-icon>

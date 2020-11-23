@@ -1220,6 +1220,7 @@
     "secure.parametize.category.categories.create_in_process": "Creación en proceso",
     "secure.parametize.category.categories.change_language_english_edit": "Ha cambiado el idioma al inglés, si desea editar categorías, vuelva al español",
     "secure.parametize.category.categories.change_language_english_add": "Ha cambiado el idioma al inglés, si desea agregar categorías, vuelva al español",
+    "secure.parametize.category.categories.btn_download_category": "Descargar categorías",
 
     "secure.parametize.category.category_tree.tooltip_add_son": "Crear categoría hija",
 
