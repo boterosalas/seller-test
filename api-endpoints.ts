@@ -236,7 +236,9 @@ export const endpoints = {
       // Listado de colores
       getListColor : 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/colors',
       // Descargable del listado/historico de cancelaciones
-      exportListCancel: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch/report'
+      exportListCancel: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch/report',
+      // Descargar arbol de categorías
+      exporCategories: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/GenereteReportCategories'
     },
   },
   // Endpoints production

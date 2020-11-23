@@ -10,6 +10,7 @@ import { trimField, validateDataToEqual, positiveNumber } from '@app/shared/util
 import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
 import { CreateProcessDialogComponent } from '../../../../shared/components/create-process-dialog/create-process-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
+import { DownloadCategoriesComponent } from './download-categories/download-categories.component';
 
 @Component({
   selector: 'app-categories',
@@ -92,6 +93,19 @@ export class CategoriesComponent implements OnInit {
     this.getTree();
     this.getRegex();
     this.changeLanguage();
+  }
+
+  /**
+   * Metodo para descargar todas las categorías
+   * @memberof CategoriesComponent
+   */
+  openModalDownloadCategories(): void {
+    const dialogRef = this.dialog.open(DownloadCategoriesComponent, {
+        width: '60%'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      // log.info('The modal detail order was closed');
+    });
   }
 
   /**

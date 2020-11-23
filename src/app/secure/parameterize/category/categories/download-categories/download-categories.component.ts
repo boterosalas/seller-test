@@ -38,7 +38,7 @@ export class DownloadCategoriesComponent implements OnInit {
 
   /**
    * Metodo para crear formulario
-   * @memberof DownloadSpecsComponent
+   * @memberof DownloadCategoriesComponent
    */
   createForm() {
     const email = this.user.sellerEmail;
@@ -49,7 +49,7 @@ export class DownloadCategoriesComponent implements OnInit {
 
   /**
    * Metodo cuando limpiar data y se cierra el modal
-   * @memberof DownloadSpecsComponent
+   * @memberof DownloadCategoriesComponent
    */
   onNoClick(): void {
     this.dialogRef.close(false);
@@ -57,7 +57,7 @@ export class DownloadCategoriesComponent implements OnInit {
 
   /**
    * Metodo cuando limpiar data y se cierra el modal
-   * @memberof DownloadSpecsComponent
+   * @memberof DownloadCategoriesComponent
    */
   onNoClickOk(): void {
     this.dialogRef.close(true);
@@ -65,7 +65,7 @@ export class DownloadCategoriesComponent implements OnInit {
 
   /**
    * Metodo para descargar specificaciones
-   * @memberof DownloadSpecsComponent
+   * @memberof DownloadCategoriesComponent
    */
   sendExportDownloadCategories() {
     // this.loadingService.viewSpinner();
