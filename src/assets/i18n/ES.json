@@ -1221,6 +1221,9 @@
     "secure.parametize.category.categories.change_language_english_edit": "Ha cambiado el idioma al inglés, si desea editar categorías, vuelva al español",
     "secure.parametize.category.categories.change_language_english_add": "Ha cambiado el idioma al inglés, si desea agregar categorías, vuelva al español",
     "secure.parametize.category.categories.btn_download_category": "Descargar categorías",
+    "secure.parametize.category.categories.btn_download_category_OK": "Se ha realizado la descarga de categorías correctamente, revisa tu correo electrónico.",
+    "secure.parametize.category.categories.btn_download_category_KO": "Descargar categorías",
+
 
     "secure.parametize.category.category_tree.tooltip_add_son": "Crear categoría hija",
 

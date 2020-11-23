@@ -68,27 +68,30 @@ export class DownloadCategoriesComponent implements OnInit {
    * @memberof DownloadCategoriesComponent
    */
   sendExportDownloadCategories() {
-    // this.loadingService.viewSpinner();
-    // const urlParams = '?email=' + this.myform.controls.email.value;
-    // this.paramSpecsService.getDownloadSpecs(urlParams).subscribe((res: any) => {
-    //   if (res != null) {
-    //     if (res.data === true) {
-    //       this.componentsService.openSnackBar(this.languageService.instant('secure.parametize.specifications.download_OK'), this.languageService.instant('actions.close'), 10000);
-    //       this.onNoClick();
-    //       this.loadingService.closeSpinner();
-    //     } else {
-    //       this.componentsService.openSnackBar(this.languageService.instant('secure.parametize.specifications.download_KO'), this.languageService.instant('actions.close'), 5000);
-    //       this.loadingService.closeSpinner();
-    //     }
-    //   } else {
-    //     this.componentsService.openSnackBar(this.languageService.instant('secure.parametize.specifications.download_KO'), this.languageService.instant('actions.close'), 5000);
-    //     this.loadingService.closeSpinner();
-    //   }
-    // }, err => {
-    //   this.componentsService.openSnackBar(this.languageService.instant('secure.parametize.specifications.download_KO'), this.languageService.instant('actions.close'), 5000);
-    //   this.loadingService.closeSpinner();
-    //   this.onNoClick();
-    // });
+    this.loadingService.viewSpinner();
+    const dataToSend = {
+      Email: this.myform.controls.email.value
+    };
+    this.paramSpecsService.downloadCategories(dataToSend).subscribe((res: any) => {
+      const dataRes = JSON.parse(res.body);
+      if (res != null) {
+        if (dataRes.Data === true) {
+          this.componentsService.openSnackBar(this.languageService.instant('secure.parametize.category.categories.btn_download_category_OK'), this.languageService.instant('actions.close'), 10000);
+          this.onNoClick();
+          this.loadingService.closeSpinner();
+        } else {
+          this.componentsService.openSnackBar(this.languageService.instant('secure.parametize.category.categories.btn_download_category_KO'), this.languageService.instant('actions.close'), 5000);
+          this.loadingService.closeSpinner();
+        }
+      } else {
+        this.componentsService.openSnackBar(this.languageService.instant('secure.parametize.category.categories.btn_download_category_KO'), this.languageService.instant('actions.close'), 5000);
+        this.loadingService.closeSpinner();
+      }
+    }, err => {
+      this.componentsService.openSnackBar(this.languageService.instant('secure.parametize.category.categories.btn_download_category_KO'), this.languageService.instant('actions.close'), 5000);
+      this.loadingService.closeSpinner();
+      this.onNoClick();
+    });
   }
 
 }

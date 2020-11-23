@@ -238,7 +238,7 @@ export const endpoints = {
       // Descargable del listado/historico de cancelaciones
       exportListCancel: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch/report',
       // Descargar arbol de categorías
-      exporCategories: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/GenereteReportCategories'
+      exporCategories: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/GenerateReportCategories'
     },
   },
   // Endpoints production
