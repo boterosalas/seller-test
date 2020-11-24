@@ -72,6 +72,7 @@ export class CategoriesComponent implements OnInit {
   form: FormGroup;
 
   categoryToUpdate: any;
+  msjDeleteCategory: boolean;
 
   constructor(
     private categoryService: CategoryTreeService,
@@ -289,8 +290,15 @@ export class CategoriesComponent implements OnInit {
    * @param category
    * @param edit boolean for edit or create
    */
-  openCategoryDialog(category: any = null, edit: boolean = false) {
-    const dataDialog = !!edit ? this.putDataEditDialog(category) : this.putDataCreateDialog(category);
+  openCategoryDialog(category: any = null, edit: boolean = false, deleteCategorie: boolean = false) {
+    let dataDialog;
+    this.msjDeleteCategory = false;
+    if (deleteCategorie) {
+      this.msjDeleteCategory = true;
+      dataDialog = this.putDataDeleteDialog(category);
+    } else {
+      dataDialog = !!edit ? this.putDataEditDialog(category) : this.putDataCreateDialog(category);
+    }
     const dialogRef = this.dialog.open(DialogWithFormComponent, {
       width: '70%',
       height: '90%',
@@ -333,6 +341,7 @@ export class CategoriesComponent implements OnInit {
    * @param category
    */
   putDataEditDialog(category: any) {
+    console.log('edit');
     this.category = category;
     const title = this.languageService.instant('secure.parametize.category.categories.modal_update_title');
     const message = this.languageService.instant('secure.parametize.category.categories.modal_update_description');
@@ -343,6 +352,7 @@ export class CategoriesComponent implements OnInit {
     const btnConfirmationText = null;
     if (category) {
       this.form.patchValue(category);
+      // tslint:disable-next-line: no-unused-expression
       !!this.ProductType && !!category.ProductType && this.ProductType.setValue(category.ProductType);
       this.NameParent.setValue(this.findParentName(category.IdParent));
       this.categoryToUpdate = category;
@@ -353,6 +363,20 @@ export class CategoriesComponent implements OnInit {
     this.form.setValidators(validateDataToEqual(initialValue));
     form = this.form;
     return { title, message, icon, form, messageCenter, showButtons, btnConfirmationText };
+  }
+
+  putDataDeleteDialog(category: any, activeModal?: any) {
+    console.log('11edit: ', category);
+    this.category = category;
+    console.log('this.category: ', this.category);
+
+    const title = '¿' + 'Estas seguro que deseas eliminar esta categoría: ' + ' ' + category.Name + '?';
+   
+    // const messageCenter = false;
+    const showButtons = true;
+    const btnConfirmationText = null;
+   
+    return { title, showButtons, btnConfirmationText};
   }
 
   /**

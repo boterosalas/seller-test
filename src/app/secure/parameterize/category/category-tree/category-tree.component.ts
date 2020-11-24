@@ -37,6 +37,7 @@ export class CategoryTreeComponent implements OnInit {
   /**
    * param that represent the parent Component to make the logic for update and create
    */
+  // tslint:disable-next-line: no-input-rename
   @Input('categoryComponent') parametrizationCategoryComponent: CategoriesComponent | TreeSelected = null;
   /**
    * param that represent the margin to add to category list for each lvl
@@ -63,6 +64,7 @@ export class CategoryTreeComponent implements OnInit {
    */
   showChildrens(category: any) {
     category.Show = !category.Show;
+    console.log('category.Show: ', category.Show);
   }
 
   /**
@@ -78,6 +80,24 @@ export class CategoryTreeComponent implements OnInit {
         this.snackBar.open(this.languageService.instant('secure.parametize.category.categories.change_language_english_edit'), this.languageService.instant('actions.close'), {
           duration: 3000
         });
+      }
+    }
+  }
+
+  /**
+   * Función para eliminar categoría
+   * @param {*} category
+   * @memberof CategoryTreeComponent
+   */
+  deleteCategory(category: any) {
+    const currentLang = localStorage.getItem('culture_current');
+    if ((<CategoriesComponent>this.parametrizationCategoryComponent).openCategoryDialog !== undefined) {
+      if (currentLang !== 'US') {
+        (<CategoriesComponent>this.parametrizationCategoryComponent).openCategoryDialog(category, false, true);
+      } else {
+        // this.snackBar.open(this.languageService.instant('secure.parametize.category.categories.change_language_english_edit'), this.languageService.instant('actions.close'), {
+        //   duration: 3000
+        // });
       }
     }
   }
