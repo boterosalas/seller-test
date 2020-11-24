@@ -159,7 +159,7 @@ public getRegexByModule(): void {
           this.CommissionRegex[val] = element && `${element.Value}`;
         }
       }
-      // this.createFormControls();
+      this.createFormControls();
     });
   }
 

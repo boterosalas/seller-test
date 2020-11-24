@@ -137,6 +137,12 @@
 
     "filters.clear": "Limpiar",
     "filters.filter": "Filtrar",
+    "filter-Brand": "Marca",
+    "filter-FinalDate": "Fecha final",
+    "filter-InitialDate": "Fecha inicial",
+    "filter-IdSeller": "Id Vendedor",
+    "filter-Plu": "Plu",
+    "filter-SellerAudit": "Administrador",
 
     "January": "Enero",
     "February": "Febrero",

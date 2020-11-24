@@ -11,7 +11,7 @@
     <div fxLayout="row" class="report-commission-component-container-chips-filters">
       <mat-chip-list>
         <mat-chip *ngFor="let key of filterChips; let i = index" (removed)="deteleFilter(key, i)">
-         {{key.type}} {{key.name}}
+         {{'filter-' + key.type | translate}} : {{key.name}}
           <mat-icon class="material-icons" matChipRemove>cancel</mat-icon>
         </mat-chip>
       </mat-chip-list>
@@ -142,7 +142,7 @@
         <span> {{'secure.products.create_product_unit.list_products.please_wait' | translate}}</span>
       </div>
     </div>
-    <div *ngIf="showTable && listCommissionAll.length === 0">
+    <div *ngIf="showTable && listCommissionAll.length === 0" class="report-commission-component-without-register">
      <span>No se encontraron registros</span>
     </div>
   </div>
