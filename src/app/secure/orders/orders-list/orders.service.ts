@@ -45,9 +45,14 @@ export class OrderService {
       if (params.processedOrder && params.processedOrder !== '') {
         filter += `&processedOrder=${params.processedOrder}`;
       }
+
+      if (params.state && params.state !== '') {
+        filter += `&idStatusOrder=${params.state}`;
+      }
     }
+
     return new Observable(observer => {
-      this.http.get<Order[]>(this.api.get('searchOrders', [params.idSeller, params.limit + `&idStatusOrder=${params.state}` + filter ])).subscribe((data: any) => {
+      this.http.get<Order[]>(this.api.get('searchOrders', [params.idSeller, params.limit + filter ])).subscribe((data: any) => {
         observer.next(data);
       }, err => {
         observer.error(err);

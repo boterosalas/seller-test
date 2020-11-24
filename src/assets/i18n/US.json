@@ -294,6 +294,7 @@
     "core.shell.search_order_menu.search_order_form.from": "From",
     "core.shell.search_order_menu.search_order_form.to": "To",
     "core.shell.search_order_menu.search_order_form.only_markerd_order": "Only marked orders",
+    "core.shell.search_order_menu.search_order_form.ordersWithoutInvoice": "Orders without Invoice",
 
 
     "public.seller_center": "Seller Center",
