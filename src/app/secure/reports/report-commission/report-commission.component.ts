@@ -14,6 +14,7 @@ import * as _moment from 'moment';
 import { Moment} from 'moment';
 import { LoadingService } from '@app/core';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * exporta funcion para mostrar los errores de validacion del formulario
@@ -49,13 +50,13 @@ export class ReportCommissionComponent implements OnInit {
     count: null
   };
 
-  public filterProduts: FormGroup;
   isClear = false;
   lastState: 0;
   length = 0;
   public limit= 10;
   indexPage = 0;
   showTable = false;
+  dateInitLimit = '';
 
   public filterDateInit: any;
   public filterDateEnd: any;
@@ -111,8 +112,9 @@ export class ReportCommissionComponent implements OnInit {
     private loadingService: LoadingService,
     public dialog: MatDialog,
     public SUPPORT: SupportService,
+    private languageService: TranslateService,
     public reportCommissionService: ReportCommissionService,
-    private fb?: FormBuilder,
+    private fb: FormBuilder,
     public snackBar?: MatSnackBar,
   ) {
     this.textForSearch = new FormControl();
@@ -135,14 +137,19 @@ export class ReportCommissionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getCategoriesList();
+    this.getSellerList();
     this.createFormControls();
     this.getListCommissionAll();
     this.getRegexByModule();
+    this.clearDateEnd();
   }
 
-
-  public getRegexByModule(): void {
+/**
+ * funcion para consultar las regex
+ *
+ * @memberof ReportCommissionComponent
+ */
+public getRegexByModule(): void {
     this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
       let dataCommissionRegex = JSON.parse(res.body.body);
       dataCommissionRegex = dataCommissionRegex.Data.filter(data => data.Module === 'productos' || data.Module === 'vendedores' || data.Module === 'transversal');
@@ -152,13 +159,13 @@ export class ReportCommissionComponent implements OnInit {
           this.CommissionRegex[val] = element && `${element.Value}`;
         }
       }
-      this.createFormControls();
+      // this.createFormControls();
     });
   }
 
 
 /**
- *
+ * funcion para crear controles para el formulario de filtrado
  *
  * @memberof ReportCommissionComponent
  */
@@ -203,11 +210,11 @@ createFormControls() {
     });
   }
 /**
- *
+ * funcion para listar todos los vendedores
  *
  * @memberof ReportCommissionComponent
  */
-getCategoriesList() {
+getSellerList() {
     this.storeService.getAllStoresFull(this.user).subscribe((res: any) => {
       if (res.status === 200) {
         if (res && res.body && res.body.body) {
@@ -216,14 +223,22 @@ getCategoriesList() {
           if (this.listCommission.length > 0) {
             this.listCommission = this.listCommission.filter(x => x.Profile !== 'seller');
           }
+        } else {
+          const msg = 'Se ha presentado un error al realizar la descarga del reporte de comisiones';
+          this.snackBar.open(msg, 'Cerrar', {
+            duration: 3000
+          });
         }
       } else {
         this.listCommission = res.message;
+        this.snackBar.open(this.languageService.instant('core.http.error_handler.error_acces'), this.languageService.instant('actions.close'), {
+          duration: 3000,
+        });
       }
     });
   }
 /**
- *
+ * funcion para listar todas las comisiones con una carga inicial de 15 atras
  *
  * @memberof ReportCommissionComponent
  */
@@ -245,7 +260,7 @@ getListCommissionAll() {
     });
   }
 /**
- *
+ * funcion para saver el pagination token
  *
  * @param {string} pagination
  * @memberof ReportCommissionComponent
@@ -258,7 +273,7 @@ savePaginationToken(pagination: string) {
   }
 /**
  *
- *
+ * funcion para mapear el resultado de la consulta del listado de comisiones
  * @param {any[]} items
  * @returns {any[]}
  * @memberof ReportCommissionComponent
@@ -289,7 +304,7 @@ mapItems(items: any[]): any[] {
 
 /**
  *
- *
+ * funcion para mostrar/ocultar el filtro
  * @memberof ReportCommissionComponent
  */
 toggleFilterReportCommission() {
@@ -298,13 +313,13 @@ toggleFilterReportCommission() {
 
 /**
  *
- *
+ * funcion para mostrar el modal de la descarga del reporte de comisiciones
  * @memberof ReportCommissionComponent
  */
 showModalDonloadCommission(): void {
     const dialogRef = this.dialog.open(ModalDonwloadEmailComponent, {
       data: {
-        'title': 'Te enviaremos el reporte de comisiones siguiente correo electrónico.',
+        'title': 'Te enviaremos el reporte de comisiones al siguiente correo electrónico.',
         'btn': 'Enviar',
       },
     });
@@ -316,7 +331,7 @@ showModalDonloadCommission(): void {
     });
   }
 /**
- *
+ * funcion para consumir el endPoint para descargar el reporte
  *
  * @param {string} email
  * @memberof ReportCommissionComponent
@@ -338,16 +353,27 @@ downLoadReportCommission(email: string) {
       this.reportCommissionService.sendReportCommission(data).subscribe((res: any) => {
         this.loadingService.closeSpinner();
         if (res && res.statusCode === 200) {
-
+          const msg = 'Se ha realizado la descarga del reporte de comisiones correctamente, revisa tu correo electrónico en unos minutos.';
+          this.snackBar.open(msg, 'Cerrar', {
+            duration: 3000
+          });
           this.dialog.closeAll();
         } else {
-          console.log('error al enviar correo')
+          const msg = 'Se ha presentado un error al realizar la descarga del reporte de comisiones';
+          this.snackBar.open(msg, 'Cerrar', {
+            duration: 3000
+          });
         }
       });
     }
   }
-
-  paginations(event: any) {
+/**
+ * funcion para la paginacion del listado
+ *
+ * @param {*} event
+ * @memberof ReportCommissionComponent
+ */
+paginations(event: any) {
     const newLimit = event.param.pageSize;
     const index = event.param.pageIndex;
     if (newLimit !== this.limit)  {
@@ -370,31 +396,14 @@ downLoadReportCommission(email: string) {
     this.getListCommissionAll();
   }
 
-
-saveKeyword(): void {
-    let word = this.filterCommission.controls.SellerAudit.value;
-    if (word) {
-      word = word.trim();
-      if (word.search(',') === -1) {
-        if (this.invalidCommission === false) {
-          this.keywords.push(word);
-        }
-      } else {
-        const counter = word.split(',');
-        counter.forEach(element => {
-          if (element) {
-            this.keywords.push(element);
-          }
-        });
-      }
-      this.filterCommission.controls.commission.clearValidators();
-      this.filterCommission.controls.commission.reset();
-      this.validateKey = this.keywords.length > 0 ? false : true;
-    }
-  }
-
-  validate(value: any) {
-    if (value) {
+/**
+ * funcion para validar en el formuario que por lo menos tenga o el admin o el idseller
+ *
+ * @param {*} value
+ * @memberof ReportCommissionComponent
+ */
+validate(value: any) {
+    if (value.IdSeller.value !== '') {
       this.validateInput = false;
     } else {
       if (!this.invalidCommission) {
@@ -404,9 +413,13 @@ saveKeyword(): void {
       }
     }
   }
-
-  getAdmin(admin: any) {
-    console.log(admin);
+/**
+ *
+ * funcion para capturar el admin y guardar el nombre para mostrar y el id para enviar
+ * @param {*} admin
+ * @memberof ReportCommissionComponent
+ */
+getAdmin(admin: any) {
     if (admin) {
       this.idAdmin = admin.IdSeller;
       this.nameAdmin = admin.Name;
@@ -414,16 +427,21 @@ saveKeyword(): void {
       this.idAdmin = null;
     }
   }
-
-  apllyFilterCommission(form: any) {
+/**
+ * funcion para aplicar los filtros de comision al listado
+ *
+ * @param {*} form
+ * @memberof ReportCommissionComponent
+ */
+apllyFilterCommission(form: any) {
     if (form !== undefined) {
       this.filter = {
-        Brand : form.Brand,
+        Brand : form.Brand ? form.Brand.toUpperCase() : '',
         FinalDate: form.FinalDate ? moment(form.FinalDate).format('YYYY/MM/DD') : '',
         InitialDate: form.InitialDate ? moment(form.InitialDate).format('YYYY/MM/DD') : '',
         IdSeller: form.IdSeller,
         Plu: form.Plu,
-        SellerAudit: this.idAdmin ? this.idAdmin.toString() : '',
+        SellerAudit: this.idAdmin ? this.idAdmin.toString() : null,
         PaginationToken : '{}',
         Limit: this.limit,
         NewLimit: null,
@@ -431,35 +449,134 @@ saveKeyword(): void {
       };
       this.onlyOne = true;
       this.filterChips = [];
-      this.saveFilter(this.filter.Brand);
-      this.saveFilter(this.filter.FinalDate);
-      this.saveFilter(this.filter.InitialDate);
-      this.saveFilter(this.filter.IdSeller);
-      this.saveFilter(this.filter.Plu);
-      this.saveFilter(this.nameAdmin);
+      this.saveFilter({'name' : this.filter.Brand, 'type': 'Brand'});
+      this.saveFilter({'name' : this.filter.FinalDate, 'type' : 'FinalDate' });
+      this.saveFilter({'name' : this.filter.InitialDate, 'type': 'InitialDate' });
+      this.saveFilter({'name' : this.filter.IdSeller, 'type': 'IdSeller'});
+      this.saveFilter({'name' : this.filter.Plu, 'type': 'Plu'});
+      this.saveFilter({'name' : this.nameAdmin, 'type': 'SellerAudit'});
       this.toggleFilterReportCommission();
     } else {
-      console.log('error al mapear los filtros');
+        const msg = 'Error al aplicar los filtros';
+        this.snackBar.open(msg, 'Cerrar', {
+          duration: 3000
+        });
     }
     this.getListCommissionAll();
   }
-
-  saveFilter(filter: string) {
-    if (filter !== undefined && filter !== '') {
+/**
+ * funcion para salvar los filtros en chips
+ *
+ * @param {*} filter
+ * @memberof ReportCommissionComponent
+ */
+saveFilter(filter: any) {
+    if (filter.name !== undefined && filter.name !== '') {
         this.filterChips.push(filter);
     }
-    console.log(this.filterChips);
   }
-
-  clearDateEnd(changeDate: any) {
-    console.log(changeDate);
-    if (changeDate !== undefined) {
-      this.filterCommission.controls['FinalDate'].setValue('');
+/**
+ * funcion para borrar los filtros por medio del chips
+ *
+ * @param {*} filter
+ * @param {number} indexArray
+ * @memberof ReportCommissionComponent
+ */
+deteleFilter(filter: any, indexArray: number) {
+    if (filter) {
+      switch (filter.type) {
+        case 'Brand':
+          this.filter.Brand = null;
+          this.filterCommission.controls.Brand.reset();
+          break;
+        case 'FinalDate':
+          this.filter.FinalDate = null;
+          this.filterCommission.controls.FinalDate.reset();
+          break;
+        case 'InitialDate':
+          this.filter.InitialDate = null;
+          this.filterCommission.controls.InitialDate.reset();
+          break;
+        case 'IdSeller':
+          if (this.filter.SellerAudit !== null) {
+            this.filter.IdSeller = null;
+            this.filterCommission.controls.IdSeller.reset();
+          } else {
+                this.keywords = [];
+                this.limit = 10;
+                this.idAdmin = null;
+                this.filterChips = [];
+                this.filterCommission.reset();
+                this.filter = {
+                  'IdSeller': null,
+                  'Plu': null,
+                  'Brand': null,
+                  'InitialDate': null,
+                  'FinalDate': null,
+                  'SellerAudit': null,
+                  'PaginationToken': '{}',
+                  'Limit': this.limit,
+                  'NewLimit': null,
+                  'CurrentPage': 0
+                };
+          }
+          break;
+        case 'Plu':
+          this.filter.Plu = null;
+          this.filterCommission.controls.Plu.reset();
+          break;
+        case 'SellerAudit':
+          if (this.filter.IdSeller !== null) {
+            this.filter.SellerAudit = null;
+            this.filterCommission.controls.SellerAudit.reset();
+          } else {
+                this.keywords = [];
+                this.limit = 10;
+                this.idAdmin = null;
+                this.filterChips = [];
+                this.filterCommission.reset();
+                this.filter = {
+                  'IdSeller': null,
+                  'Plu': null,
+                  'Brand': null,
+                  'InitialDate': null,
+                  'FinalDate': null,
+                  'SellerAudit': null,
+                  'PaginationToken': '{}',
+                  'Limit': this.limit,
+                  'NewLimit': null,
+                  'CurrentPage': 0
+                };
+          }
+          break;
+        default:
+          break;
+      }
+      this.filterChips.splice(indexArray, 1);
     }
+    this.getListCommissionAll();
+  }
+/**
+ *
+ * funcion para limpiar el campo de fecha final cuando la fecha inicial haya cambiado
+ * @param {*} changeDate
+ * @memberof ReportCommissionComponent
+ */
+clearDateEnd() {
+  this.filterCommission.get('InitialDate').valueChanges.subscribe((val) => {
+   if (val) {
+    this.filterCommission.controls['FinalDate'].setValue('');
+    this.dateInitLimit = this.filterCommission.get('InitialDate').value;
+   }
+  });
   }
 
-
-  clearForm() {
+/**
+ *
+ * funcion para limpiar el formulario
+ * @memberof ReportCommissionComponent
+ */
+clearForm() {
     this.keywords = [];
     this.limit = 10;
     this.idAdmin = null;
@@ -480,5 +597,4 @@ saveKeyword(): void {
     this.getListCommissionAll();
     this.toggleFilterReportCommission();
   }
-
 }

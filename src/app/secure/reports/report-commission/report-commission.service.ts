@@ -14,11 +14,9 @@ export class ReportCommissionService {
   ) { }
 
   public sendReportCommission(body: any): Observable<any> {
-    console.log(body);
     return this.http.post(this.api.get('exportCommission'), body);
   }
   public getListCommissionAll(body: any): Observable<any> {
-    console.log(body);
     return this.http.post(this.api.get('getListCommissionAll'), body);
   }
 }
