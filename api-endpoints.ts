@@ -238,7 +238,9 @@ export const endpoints = {
       // Descargable del listado/historico de cancelaciones
       exportListCancel: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch/report',
       // Descargar arbol de categorías
-      exporCategories: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/GenerateReportCategories'
+      exporCategories: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/GenerateReportCategories',
+      // Eliminar categpria por Id
+      deleteCategory: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/DeleteCategory'
     },
   },
   // Endpoints production
@@ -472,7 +474,9 @@ export const endpoints = {
       // Listado de colores
       getListColor : 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/color',
        // Descargable del listado/historico de cancelaciones
-       exportListCancel: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn/report'
+       exportListCancel: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn/report',
+       // Eliminar categpria por Id
+      deleteCategory: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/DeleteCategory'
     }
   }
 };
