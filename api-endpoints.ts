@@ -240,7 +240,7 @@ export const endpoints = {
       // Descargar arbol de categorías
       exporCategories: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/GenerateReportCategories',
       // Eliminar categpria por Id
-      deleteCategory: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/DeleteCategory'
+      deleteCategory: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/DeleteCategory{params}'
     },
   },
   // Endpoints production

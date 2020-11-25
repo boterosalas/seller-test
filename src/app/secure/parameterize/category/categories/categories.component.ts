@@ -73,6 +73,7 @@ export class CategoriesComponent implements OnInit {
 
   categoryToUpdate: any;
   msjDeleteCategory: boolean;
+  categoryIdDelete: any;
 
   constructor(
     private categoryService: CategoryTreeService,
@@ -295,6 +296,7 @@ export class CategoriesComponent implements OnInit {
     this.msjDeleteCategory = false;
     if (deleteCategorie) {
       this.msjDeleteCategory = true;
+      this.categoryIdDelete = category.Id;
       dataDialog = this.putDataDeleteDialog(category);
     } else {
       dataDialog = !!edit ? this.putDataEditDialog(category) : this.putDataCreateDialog(category);
@@ -407,8 +409,19 @@ export class CategoriesComponent implements OnInit {
       if (this.category) {
         value.Label = this.category.Label;
       }
-      const serviceResponse = !!value.Id ? this.categoryService.updateCategory(value) : this.categoryService.createCategory(value);
+
+      let serviceResponse;
+      let idCategory;
+      console.log(this.categoryIdDelete);
+      if (this.msjDeleteCategory) {
+        idCategory = '?id=' + this.categoryIdDelete;
+        serviceResponse =  this.categoryService.deleteCategory(idCategory);
+      } else {
+        serviceResponse = !!value.Id ? this.categoryService.updateCategory(value) : this.categoryService.createCategory(value);
+      }
+      console.log(1, idCategory);
       serviceResponse.subscribe(response => {
+        console.log(2, response);
         try {
           if (!!response && !!response.statusCode && (response.statusCode === 200)) {
             const responseValue = JSON.parse(response.body).Data;
@@ -422,6 +435,7 @@ export class CategoriesComponent implements OnInit {
               this.snackBar.open(this.languageService.instant('shared.update_successfully'), this.languageService.instant('actions.close'), {
                 duration: 3000,
               });
+              this.categoryIdDelete = '';
             }
           } else if (!!response && !!response.statusCode && response.statusCode === 400) {
             const responseValue = JSON.parse(response.body).Errors;
