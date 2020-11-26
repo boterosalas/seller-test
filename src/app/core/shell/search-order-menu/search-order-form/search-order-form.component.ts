@@ -31,7 +31,7 @@ export class SearchOrderFormComponent implements OnInit {
   @Input() idSeller: number;
   @Input() typeProfiel: number;
   showFilterStatus = false;
-   _state: number;
+  _state: number;
   @Input() set state(value: number) {
     if (value) {
       if (value.toString() === '170') {
@@ -39,19 +39,19 @@ export class SearchOrderFormComponent implements OnInit {
       } else if (value.toString() === '35') {
         this.showFilterStatus = false;
       } else {
-        this.showFilterStatus = true ;
+        this.showFilterStatus = true;
       }
       this._state = value;
     } else {
-      this.showFilterStatus = true ;
+      this.showFilterStatus = true;
       this._state = value;
     }
   }
-  @Input() paginator= 100;
+  @Input() paginator = 100;
 
   // Variable para guardar los estados de las ordenes.
   public listOrderStatus: any[];
-
+  filterStatusOrder: Boolean = false;
 
   /**
    * Creates an instance of SearchOrderFormComponent.
@@ -98,6 +98,7 @@ export class SearchOrderFormComponent implements OnInit {
       'dateOrderInitial': { disabled: true, value: '' },
       'dateOrderFinal': { disabled: true, value: '' },
       'processedOrder': [null, Validators.compose([])],
+      'noBills': [null, Validators.compose([])],
       'identificationCard': [null, Validators.compose([])],
       // 'typeOrder': [null, Validators.compose([])],
       'idChannel': [null, Validators.compose([])],
@@ -180,13 +181,15 @@ export class SearchOrderFormComponent implements OnInit {
       objectSearch.idChannel = data.value.idChannel;
     }
     if (data.value.idStatusOrder !== null && data.value.idStatusOrder !== '') {
+      this.filterStatusOrder = true;
       stringSearch += `&idStatusOrder=${data.value.idStatusOrder}`;
       objectSearch.idStatusOrder = data.value.idStatusOrder;
+    } else {
+      this.filterStatusOrder = false;
     }
     if (data.value.orderNumber !== null && data.value.orderNumber !== '') {
       stringSearch += `&orderNumber=${data.value.orderNumber}`;
       objectSearch.orderNumber = data.value.orderNumber;
-
     }
     if (data.value.identificationCard !== null && data.value.identificationCard !== '') {
       stringSearch += `&identificationCard=${data.value.identificationCard}`;
@@ -197,11 +200,17 @@ export class SearchOrderFormComponent implements OnInit {
       stringSearch += `&processedOrder=${data.value.processedOrder}`;
       objectSearch.processedOrder = data.value.processedOrder;
     }
+    if (data.value.noBills !== null && data.value.noBills !== '') {
+      stringSearch += `&bill=${data.value.noBills}`;
+      objectSearch.bill = data.value.noBills;
+    }
     if (stringSearch !== '') {
       let status = '';
       stringSearch += '&paginationToken=' + encodeURI('{}');
-      if (this._state && this._state !== undefined) {
-        status = '&idStatus=' + this._state;
+      if (!this.filterStatusOrder) {
+        if (this._state && this._state !== undefined) {
+          status = '&idStatusOrder=' + this._state;
+        }
       }
       stringSearch += status;
       // Guardo el filtro aplicado por el usuario.
@@ -217,7 +226,8 @@ export class SearchOrderFormComponent implements OnInit {
             idStatusOrder: data.value.idStatusOrder,
             orderNumber: data.value.orderNumber,
             identificationCard: data.value.identificationCard,
-            processedOrder: data.value.processedOrder
+            processedOrder: data.value.processedOrder,
+            noBills: data.value.noBills
           };
           this.shellComponent.eventEmitterOrders.filterOrderListResponse(res);
           this.toggleMenu();

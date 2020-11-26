@@ -56,8 +56,21 @@ export class CompoImagesComponent implements OnInit {
                     this.componentsService.openSnackBar(this.languageService.instant('secure.products.create_product_unit.image.repeated'), this.languageService.instant('actions.close'), 4000);
                 }
             });
+            this.imagePush.emit(data);
+            this.arraData.push(data);
         }
-        this.imagePush.emit(data);
-        this.arraData.push(data);
+    }
+
+    /**
+     * Delete url null
+     * @param {*} val
+     * @memberof CompoImagesComponent
+     */
+    sliceUrlArray(val: any) {
+        const deleteUrl = this.arraData.indexOf(val);
+        if (deleteUrl > -1) {
+            this.arraData.splice(deleteUrl, 1);
+            this.urlArrayDad.splice(deleteUrl, 1);
+        }
     }
 }
