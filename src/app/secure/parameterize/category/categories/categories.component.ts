@@ -103,7 +103,7 @@ export class CategoriesComponent implements OnInit {
    */
   openModalDownloadCategories(): void {
     const dialogRef = this.dialog.open(DownloadCategoriesComponent, {
-        width: '60%'
+      width: '60%'
     });
     dialogRef.afterClosed().subscribe(result => {
       // log.info('The modal detail order was closed');
@@ -298,19 +298,29 @@ export class CategoriesComponent implements OnInit {
       this.msjDeleteCategory = true;
       this.categoryIdDelete = category.Id;
       dataDialog = this.putDataDeleteDialog(category);
+      const dialogRef = this.dialog.open(DialogWithFormComponent, {
+        width: '40%',
+        height: '60%',
+        minWidth: '280px',
+        maxHeight: '80vh',
+        data: dataDialog
+      });
+      setTimeout(() => {
+        this.configDataDialog(dialogRef);
+      });
     } else {
       dataDialog = !!edit ? this.putDataEditDialog(category) : this.putDataCreateDialog(category);
+      const dialogRef = this.dialog.open(DialogWithFormComponent, {
+        width: '70%',
+        height: '90%',
+        minWidth: '280px',
+        maxHeight: '80vh',
+        data: dataDialog
+      });
+      setTimeout(() => {
+        this.configDataDialog(dialogRef);
+      });
     }
-    const dialogRef = this.dialog.open(DialogWithFormComponent, {
-      width: '70%',
-      height: '90%',
-      minWidth: '280px',
-      maxHeight: '80vh',
-      data: dataDialog
-    });
-    setTimeout(() => {
-      this.configDataDialog(dialogRef);
-    });
   }
 
   /**
@@ -367,18 +377,22 @@ export class CategoriesComponent implements OnInit {
     return { title, message, icon, form, messageCenter, showButtons, btnConfirmationText };
   }
 
-  putDataDeleteDialog(category: any, activeModal?: any) {
+  /**
+   * DataDialog para eliminar categorías
+   * @param {*} category
+   * @returns
+   * @memberof CategoriesComponent
+   */
+  putDataDeleteDialog(category: any) {
     console.log('11edit: ', category);
     this.category = category;
     console.log('this.category: ', this.category);
-
-    const title = '¿' + 'Estas seguro que deseas eliminar esta categoría: ' + ' ' + category.Name + '?';
-   
-    // const messageCenter = false;
+    const title = 'Eliminar categpría';
+    const message = 'Desea eliminar la categoría: ' + ' ' + category.Name + '?';
     const showButtons = true;
     const btnConfirmationText = null;
-   
-    return { title, showButtons, btnConfirmationText};
+    const msjDeleteCategory = this.msjDeleteCategory;
+    return { title, message, showButtons, btnConfirmationText, msjDeleteCategory };
   }
 
   /**
@@ -405,17 +419,15 @@ export class CategoriesComponent implements OnInit {
       if (value.Tariff === '000' || value.Tariff === '0000' || value.Tariff === '00000' || value.Tariff === '00' || value.Tariff === '0.00') {
         value.Tariff = 0;
       }
-
       if (this.category) {
         value.Label = this.category.Label;
       }
-
       let serviceResponse;
       let idCategory;
       console.log(this.categoryIdDelete);
       if (this.msjDeleteCategory) {
         idCategory = '?id=' + this.categoryIdDelete;
-        serviceResponse =  this.categoryService.deleteCategory(idCategory);
+        serviceResponse = this.categoryService.deleteCategory(idCategory);
       } else {
         serviceResponse = !!value.Id ? this.categoryService.updateCategory(value) : this.categoryService.createCategory(value);
       }
@@ -469,7 +481,7 @@ export class CategoriesComponent implements OnInit {
       width: '70%',
       minWidth: '280px',
       maxHeight: '80vh',
-      disableClose : true,
+      disableClose: true,
       data: data,
     });
     const dialogIntance = dialog.componentInstance;
@@ -484,15 +496,15 @@ export class CategoriesComponent implements OnInit {
     });
     this.loadingService.closeSpinner();
   }
-/**
- * funcion para escuchar el evento al cambiar de idioma
- *
- * @memberof CategoriesComponent
- */
-changeLanguage() {
+  /**
+   * funcion para escuchar el evento al cambiar de idioma
+   *
+   * @memberof CategoriesComponent
+   */
+  changeLanguage() {
     this.languageService.onLangChange.subscribe((e: Event) => {
-        localStorage.setItem('culture_current', e['lang']);
-        this.getTree();
+      localStorage.setItem('culture_current', e['lang']);
+      this.getTree();
     });
   }
 
