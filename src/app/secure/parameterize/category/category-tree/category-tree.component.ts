@@ -95,7 +95,7 @@ export class CategoryTreeComponent implements OnInit {
     this.productsService.getListProducts(idCategory).subscribe((res: any) => {
       if (res && res.data.total > 0) {
         this.snackBar.open(this.languageService.instant('secure.parametize.category.categories.modal_delete_category_have_products'), this.languageService.instant('actions.close'), {
-          duration: 4000
+          duration: 7000
         });
         this.loadingService.closeSpinner();
       } else {

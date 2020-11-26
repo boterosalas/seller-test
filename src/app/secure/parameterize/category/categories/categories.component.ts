@@ -443,6 +443,7 @@ export class CategoriesComponent implements OnInit {
             });
             this.categoryIdDelete = '';
           }
+          this.loadingService.closeSpinner();
         } else if (!!response && !!response.statusCode && response.statusCode === 400) {
           const responseValue = JSON.parse(response.body).Errors;
           const message = responseValue[0].Message;
