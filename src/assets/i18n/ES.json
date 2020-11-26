@@ -624,6 +624,8 @@
     "secure.seller.register_seller.lb_address_form": "Dirección de facturación",
     "secure.seller.register_seller.lb_logistic_form": "Vendedor Logística Éxito",
     "secure.seller.register_seller.lb_envios_form": "Vendedor Envíos Éxito",
+    "secure.seller.register_seller.lb_channel_form": "Vendedor Channel Advisor",
+    "secure.seller.register_seller.lb_channel_token": "Token Channel Advisor",
     "secure.seller.register_seller.lb_view_form": "Visualización del vendedor",
     "secure.seller.register_seller.lb_email_form": "Correo electrónico",
     "secure.seller.register_seller.lb_name_form": "Nombre",

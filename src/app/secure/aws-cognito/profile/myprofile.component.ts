@@ -50,6 +50,9 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     userData: any;
     isDisable: boolean;
 
+    // Seller nacional o internacional
+    isChannel: Boolean = false;
+
     constructor(
         public router: Router,
         public userService: UserLoginService,
@@ -113,7 +116,8 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
             Nit: [''],
             Email: [''],
             IdSeller: [''],
-            Name: ['']
+            Name: [''],
+            ChannelAdvisor: ['']
         });
     }
 
@@ -291,9 +295,15 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
      * @param values
      */
     private setUserForm(values: any) {
+        console.log('values: ', values);
+        this.isChannel = false;
+        if (values && values.Profile === 'seller' && values.Country !== 'COLOMBIA') {
+            this.isChannel = true;
+        }
         this.form.patchValue(values);
         this.Nit.disable();
         this.Email.disable();
+        this.ChannelAdvisor.disable();
         this.SellerId.disable();
         this.StoreName.disable();
         this.loading.closeSpinner();
@@ -387,6 +397,13 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
      */
     get Email(): FormControl {
         return this.form.get('Email') as FormControl;
+    }
+
+    /**
+     * Retorna el campo ChannelAdvisor del formulario de usuario
+     */
+    get ChannelAdvisor(): FormControl {
+        return this.form.get('ChannelAdvisor') as FormControl;
     }
 
     /**

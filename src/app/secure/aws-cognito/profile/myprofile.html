@@ -18,6 +18,10 @@
         <input matInput [placeholder]="('secure.seller.register_seller.lb_email_form' | translate)"
           autocomplete="false" formControlName="Email">
       </mat-form-field>
+      <mat-form-field class="full-width" *ngIf="isChannel">
+        <input matInput [placeholder]="('secure.seller.register_seller.lb_channel_token' | translate)"
+          autocomplete="false" formControlName="ChannelAdvisor">
+      </mat-form-field>
     </form>
   </div>
   <div *ngIf="canVacation" class="sub-content" >

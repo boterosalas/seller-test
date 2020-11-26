@@ -13,6 +13,7 @@ export class StoreModel {
         public GotoExito?: boolean,
         public IsLogisticsExito?: boolean,
         public IsShippingExito?: boolean,
+        public IsChannelAdvisor?: boolean,
         public Nit?: string,
         public Rut?: string,
         public Payoneer?: string,
