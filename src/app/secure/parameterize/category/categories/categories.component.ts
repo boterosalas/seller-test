@@ -353,7 +353,6 @@ export class CategoriesComponent implements OnInit {
    * @param category
    */
   putDataEditDialog(category: any) {
-    console.log('edit');
     this.category = category;
     const title = this.languageService.instant('secure.parametize.category.categories.modal_update_title');
     const message = this.languageService.instant('secure.parametize.category.categories.modal_update_description');
@@ -384,11 +383,9 @@ export class CategoriesComponent implements OnInit {
    * @memberof CategoriesComponent
    */
   putDataDeleteDialog(category: any) {
-    console.log('11edit: ', category);
     this.category = category;
-    console.log('this.category: ', this.category);
-    const title = 'Eliminar categpría';
-    const message = 'Desea eliminar la categoría: ' + ' ' + category.Name + '?';
+    const title = this.languageService.instant('secure.parametize.category.categories.modal_delete_title');
+    const message = this.languageService.instant('secure.parametize.category.categories.modal_delete_subtitle') + ': ' + category.Name + '?';
     const showButtons = true;
     const btnConfirmationText = null;
     const msjDeleteCategory = this.msjDeleteCategory;
@@ -424,40 +421,36 @@ export class CategoriesComponent implements OnInit {
       }
       let serviceResponse;
       let idCategory;
-      console.log(this.categoryIdDelete);
       if (this.msjDeleteCategory) {
         idCategory = '?id=' + this.categoryIdDelete;
         serviceResponse = this.categoryService.deleteCategory(idCategory);
       } else {
         serviceResponse = !!value.Id ? this.categoryService.updateCategory(value) : this.categoryService.createCategory(value);
       }
-      console.log(1, idCategory);
       serviceResponse.subscribe(response => {
-        console.log(2, response);
-        try {
-          if (!!response && !!response.statusCode && (response.statusCode === 200)) {
-            const responseValue = JSON.parse(response.body).Data;
-            if (!!responseValue.Id) {
-              this.loadingService.closeSpinner();
-              dialogIntance.onNoClick();
-              this.openStatusModal();
-            } else if (responseValue === true) {
-              this.getTree();
-              dialogIntance.onNoClick();
-              this.snackBar.open(this.languageService.instant('shared.update_successfully'), this.languageService.instant('actions.close'), {
-                duration: 3000,
-              });
-              this.categoryIdDelete = '';
-            }
-          } else if (!!response && !!response.statusCode && response.statusCode === 400) {
-            const responseValue = JSON.parse(response.body).Errors;
-            const message = responseValue[0].Message;
+        if (!!response && !!response.statusCode && (response.statusCode === 200)) {
+          const responseValue = JSON.parse(response.body).Data;
+          if (!!responseValue.Id) {
             this.loadingService.closeSpinner();
+            dialogIntance.onNoClick();
+            this.openStatusModal();
+          } else if (responseValue === true) {
+            this.getTree();
+            dialogIntance.onNoClick();
+            const message = JSON.parse(response.body).Message;
             this.snackBar.open(message, this.languageService.instant('actions.close'), {
               duration: 3000,
             });
+            this.categoryIdDelete = '';
           }
-        } catch (error) {
+        } else if (!!response && !!response.statusCode && response.statusCode === 400) {
+          const responseValue = JSON.parse(response.body).Errors;
+          const message = responseValue[0].Message;
+          this.loadingService.closeSpinner();
+          this.snackBar.open(message, this.languageService.instant('actions.close'), {
+            duration: 3000,
+          });
+        } else {
           this.loadingService.closeSpinner();
           this.modalService.showModal('errorService');
         }
