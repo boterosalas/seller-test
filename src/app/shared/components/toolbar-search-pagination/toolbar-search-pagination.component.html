@@ -15,8 +15,8 @@
   <div fxFlex fxShow.xs="true" fxLayoutAlign="center start"
     class="center-search-orden" *ngIf="!_showContainerDetail">
     <div *ngIf="_Typeprofile == 1" class="width-100">
-      <form id="search-store-form" class="search-store mat-typography"
-        style="width: 100% !important;" (keydown)="keyDownFunction($event)">
+      <form id="search-store-form" class="search-store mat-typography width-100-important"
+         (keydown)="keyDownFunction($event)">
         <mat-form-field class="input-search">
           <!-- Icon search -->
           <mat-icon id="icon-search-store" class="icon-search" matPrefix>search</mat-icon>
@@ -100,7 +100,7 @@
         </div>
       </mat-menu>
       </div>
-      <div style="margin-top: 10px;">
+      <div class="btn-generic-margin-top-10">
         <button *ngIf="btnDownload" (click)="openModalDownloadGeneric()"
         fxShow.xs="false" fxShow.sm="false"
         fxShow.md="false" fxShow="true" fxFlex="160px" class="sc-default-button
@@ -124,7 +124,7 @@
     <button [disabled]="orderListLength" (click)="openModalDownloadOrder()"
       fxShow.xs="false" fxShow.sm="false"
       fxShow.md="false" fxShow="true" fxFlex="160px" class="sc-default-button
-      btn-filter input-search-black" style="top: 11px"
+      btn-filter input-search-black top-11-btn-generic" 
       id="download-order-button"
       mat-button color="primary" *ngIf="!billingType && downloadPermission">
       <mat-icon>file_download</mat-icon>
@@ -133,7 +133,7 @@
     <button [disabled]="orderListLength" (click)="openModalDownloadBillPay()"
       fxShow.xs="false" fxShow.sm="false"
       fxShow.md="false" fxShow="true" fxFlex="160px" class="sc-default-button
-      btn-filter input-search-black" style="top: 11px" id="download-pay-button"
+      btn-filter input-search-black top-11-btn-generic" id="download-pay-button"
       mat-button color="primary" *ngIf="downloadBillingPay">
       <mat-icon>file_download</mat-icon>
       {{'actions.download' | translate}}
@@ -142,9 +142,8 @@
     <button fxShow.xs="false" *ngIf="_Typeprofile == 1 &&
       !customerFilterCalifications && !billingType" [disabled]="idSeller?
       'false': 'true'" fxShow.sm="false" fxShow.md="false" fxShow="true"
-      class="sc-default-button btn-filter input-search-black"
-      id="search-order-button" (click)="toggleMenuOrderSearch()" style="top:
-      11px" mat-button color="primary">
+      class="sc-default-button btn-filter input-search-black top-11-btn-generic"
+      id="search-order-button" (click)="toggleMenuOrderSearch()"  mat-button color="primary">
       <mat-icon>filter_list</mat-icon>
       {{'filters.filter' | translate}}
     </button>
@@ -152,25 +151,22 @@
     <button fxShow.xs="false" *ngIf="_Typeprofile == 1 &&
       customerFilterCalifications" [disabled]="idSeller? 'false': 'true'"
       fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button
-      btn-filter input-search-black"
-      id="search-order-button" (click)="toggleMenuCalifications()" style="top:
-      11px" mat-button color="primary">
+      btn-filter input-search-black top-11-btn-generic"
+      id="search-order-button" (click)="toggleMenuCalifications()"  mat-button color="primary">
       <mat-icon>filter_list</mat-icon>
       {{'filters.filter' | translate}}
     </button>
     <button fxShow.xs="false" *ngIf="_Typeprofile == 3"fxShow.sm="false"
       fxShow.md="false" fxShow="true" class="sc-default-button btn-filter
-      input-search-black"
-      id="search-order-button" (click)="toggleMenuCalifications()" style="top:
-      11px" mat-button color="primary">
+      input-search-black top-11-btn-generic"
+      id="search-order-button" (click)="toggleMenuCalifications()"  mat-button color="primary">
       <mat-icon>filter_list</mat-icon>
       {{'filters.filter' | translate}}
     </button>
     <button fxShow.xs="false" *ngIf="_Typeprofile == 0 && !billingType"
       fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button
-      btn-filter input-search-black"
-      id="search-order-button" (click)="toggleMenuOrderSearch()" style="top:
-      11px" mat-button color="primary">
+      btn-filter input-search-black top-11-btn-generic"
+      id="search-order-button" (click)="toggleMenuOrderSearch()"  mat-button color="primary">
       <mat-icon>filter_list</mat-icon>
       {{'filters.filter' | translate}}
     </button>
