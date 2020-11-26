@@ -472,7 +472,9 @@ export const endpoints = {
       // Listado de colores
       getListColor : 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/color',
        // Descargable del listado/historico de cancelaciones
-       exportListCancel: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn/report'
+       exportListCancel: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn/report',
+       // Descargar arbol de categorías
+       exporCategories: 'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/GenerateReportCategories'
     }
   }
 };
