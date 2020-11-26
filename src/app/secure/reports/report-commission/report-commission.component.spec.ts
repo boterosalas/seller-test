@@ -14,7 +14,7 @@ import { ShellComponent } from '@app/core/shell';
 import { ComponentsService, EventEmitterOrders } from '@app/shared';
 import { of } from 'rxjs';
 
-fdescribe('ReportCommissionComponent', () => {
+describe('ReportCommissionComponent', () => {
 
   const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
   const mockUserLoginService = jasmine.createSpyObj('UserLoginService', ['isAuthenticated']);
