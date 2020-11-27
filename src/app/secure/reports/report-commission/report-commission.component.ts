@@ -471,7 +471,7 @@ apllyFilterCommission(form: any) {
  * @memberof ReportCommissionComponent
  */
 saveFilter(filter: any) {
-    if (filter.name !== undefined && filter.name !== '') {
+    if (filter.name !== undefined && filter.name !== '' && filter.name !== null) {
         this.filterChips.push(filter);
     }
   }
@@ -581,6 +581,7 @@ clearForm() {
     this.limit = 10;
     this.idAdmin = null;
     this.filterChips = [];
+    this.onlyOne = true;
     this.filterCommission.reset();
     this.filter = {
       'IdSeller': null,
