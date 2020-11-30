@@ -167,6 +167,11 @@ export class BrandsComponent implements OnInit {
         }
         this.filterBrandsName = filterName;
 
+        const reg1 = /\'/gi;
+        const reg2 = /\//gi;
+        this.filterBrandsName = this.filterBrandsName.replace(reg1, '%27');
+        this.filterBrandsName = this.filterBrandsName.replace(reg2, '%2F');
+
         this.urlParams = `${this.filterBrandsId}/${this.filterBrandsName}/${Status}/${IdVTEX}/${page}/${limit}`;
         this.loading.viewSpinner();
         this.brandService.getAllBrands(this.urlParams).subscribe((result: any) => {
@@ -461,6 +466,10 @@ export class BrandsComponent implements OnInit {
         } else {
             nameChangeStatus = encodeURIComponent(this.nameBrands.toUpperCase());
         }
+        let reg1 = /\'/gi;
+        let reg2 = /\//gi;
+        nameChangeStatus = nameChangeStatus.replace(reg1, '%27');
+        nameChangeStatus = nameChangeStatus.replace(reg2, '%2F');
         const dialogInstance = dialog.componentInstance;
         dialogInstance.confirmation = () => {
             const body = {
@@ -509,6 +518,7 @@ export class BrandsComponent implements OnInit {
             this.filterBrandsName = 'null';
         }
         const data = [];
+
         data.push({ value: this.filterBrandsId, name: 'filterBrandsId', nameFilter: 'filterBrandsId' });
         data.push({ value: this.filterBrandsName, name: 'filterBrandsName', nameFilter: 'filterBrandsName' });
         this.add(data);
@@ -566,6 +576,10 @@ export class BrandsComponent implements OnInit {
      */
     confirmation() {
         this.body = this.form.value;
+        let reg1 = /\'/gi;
+        let reg2 = /\//gi;
+        this.body.nameBrands = this.body.nameBrands.replace(reg1, '%27');
+        this.body.nameBrands = this.body.nameBrands.replace(reg2, '%2F');
         this.loading.viewSpinner();
         if (this.body && this.body.idBrands) {
             let nameUpdate = '';
