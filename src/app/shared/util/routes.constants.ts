@@ -22,6 +22,7 @@ export class RoutesConst {
     static readonly shipmentsExito: any = 'envios-exito';
     static readonly products: any = 'products';
     static readonly quality: any = 'quality';
+    static readonly dispersion: any = 'dispersion';
 
     static readonly ordersState: any = 'estado';
     static readonly orderLoadGuide: any = 'cargar-guia';
@@ -62,6 +63,7 @@ export class RoutesConst {
     static readonly reportErrorsVtexAdmin: any = 'report-error-vtex';
     static readonly reportCommission: any = 'report-commision';
     static readonly listCalification: any = 'quality-score';
+    static readonly summaryPayment: any = 'summary-payment';
     static readonly port: any = 'port';
     static readonly billingSeller: any = 'facturacion-vendedor';
     static readonly pendingProducts: any = 'productos-pendientes';
@@ -101,6 +103,7 @@ export class RoutesConst {
     static readonly sellerCenterIntParamBrand: any = RoutesConst.securehome + '/' + RoutesConst.paramBrands;
 
     static readonly sellerCenterCalification: any = RoutesConst.securehome + '/' + RoutesConst.quality;
+    static readonly sellerCenterDispersion: any = RoutesConst.securehome + '/' + RoutesConst.dispersion;
 
     static readonly sellerCenterIntOrderLoadGuide: any = RoutesConst.sellerCenterOrders + '/' + RoutesConst.orderLoadGuide;
     static readonly sellerCenterIntOrdersState: any = RoutesConst.sellerCenterOrders + '/' + RoutesConst.ordersState;
@@ -133,6 +136,7 @@ export class RoutesConst {
     static readonly sellerCenterIntPendingProducts: any = RoutesConst.sellerCenterProducts + '/' + RoutesConst.pendingProducts;
 
     static readonly sellerCenterIntListCalification: any = RoutesConst.sellerCenterCalification + '/' + RoutesConst.listCalification;
+    static readonly sellerCenterIntDispersionSummary: any = RoutesConst.sellerCenterDispersion + '/' + RoutesConst.summaryPayment;
 
 
 
