@@ -8,9 +8,9 @@ import { PaymentSummaryComponent } from './payment-summary/payment-summary.compo
 const routes = [
   Route.withShell([
     {
-      path: `${RoutesConst.sellerCenterIntListCalification}`,
+      path: `${RoutesConst.sellerCenterIntDispersionSummary}`,
       component: PaymentSummaryComponent,
-      data: { title: 'Resumen de pagos dispersion' },
+      data: { title: 'Resumen pagos' },
       canActivate: [AuthService]
     }
   ])
