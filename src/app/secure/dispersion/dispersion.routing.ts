@@ -10,7 +10,7 @@ const routes = [
     {
       path: `${RoutesConst.sellerCenterIntDispersionSummary}`,
       component: PaymentSummaryComponent,
-      data: { title: 'Resumen pagos' },
+      data: { title: 'Resumen de pagos' },
       canActivate: [AuthService]
     }
   ])
