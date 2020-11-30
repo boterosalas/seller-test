@@ -163,7 +163,7 @@ export class BrandsComponent implements OnInit {
         if (this.filterBrandsName === '/') {
             filterName = encodeURIComponent(this.filterBrandsName);
         } else {
-            filterName = escape(this.filterBrandsName);
+            filterName = encodeURIComponent(this.filterBrandsName);
         }
         this.filterBrandsName = filterName;
 
@@ -171,7 +171,7 @@ export class BrandsComponent implements OnInit {
         this.loading.viewSpinner();
         this.brandService.getAllBrands(this.urlParams).subscribe((result: any) => {
            /* tslint:disable */ const res = JSON.parse(result.body.replace(/([\[:])?(\d+)([,\}\]])/g, "$1\"$2\"$3")).Data; /* tslint:disable */
-           if ( res && parseInt(res.Total) > 0) {
+            if (res && parseInt(res.Total) > 0) {
                 this.brandsList = res.Brands,
                     this.length = res.Total;
                 this.sortedData = this.mapItems(
@@ -351,7 +351,7 @@ export class BrandsComponent implements OnInit {
             messageCenter = false;
         }
         form = this.form;
-        return { title, message, icon, form, messageCenter, showButtons, btnConfirmationText};
+        return { title, message, icon, form, messageCenter, showButtons, btnConfirmationText };
     }
 
     /**
@@ -455,11 +455,11 @@ export class BrandsComponent implements OnInit {
      * @memberof BrandsComponent
      */
     configDataDialogActDes(dialog: MatDialogRef<DialogWithFormComponent>) {
-        let nameChangeStatus = ''; 
-        if(this.nameBrands.toUpperCase() === '/'){
+        let nameChangeStatus = '';
+        if (this.nameBrands.toUpperCase() === '/') {
             nameChangeStatus = encodeURIComponent(this.nameBrands.toUpperCase());
         } else {
-            nameChangeStatus = escape(this.nameBrands.toUpperCase());
+            nameChangeStatus = encodeURIComponent(this.nameBrands.toUpperCase());
         }
         const dialogInstance = dialog.componentInstance;
         dialogInstance.confirmation = () => {
@@ -569,14 +569,14 @@ export class BrandsComponent implements OnInit {
         this.loading.viewSpinner();
         if (this.body && this.body.idBrands) {
             let nameUpdate = '';
-            if(this.body.nameBrands.toUpperCase() === '/'){
+            if (this.body.nameBrands.toUpperCase() === '/') {
                 nameUpdate = encodeURIComponent(this.body.nameBrands.toUpperCase());
             } else {
-                nameUpdate = escape(this.body.nameBrands.toUpperCase());
+                nameUpdate = this.body.nameBrands.toUpperCase();
             }
-            this.brandService.changeStatusBrands({ Id: this.body.idBrands, Name: nameUpdate , UpdateStatus: false }).subscribe(result => {
+            this.brandService.changeStatusBrands({ Id: this.body.idBrands, Name: nameUpdate, UpdateStatus: false }).subscribe(result => {
                 const errorMessage = JSON.parse(result.body);
-                
+
                 if (result.statusCode === 200 || result.statusCode === 201) {
                     this.snackBar.open('Actualizó correctamente la marca.', 'Cerrar', {
                         duration: 5000,
@@ -594,10 +594,11 @@ export class BrandsComponent implements OnInit {
             });
         } else {
             let nameCreate = ''
-            if(this.body.nameBrands.toUpperCase() === '/'){
+            if (this.body.nameBrands.toUpperCase() === '/') {
                 nameCreate = encodeURIComponent(this.body.nameBrands.toUpperCase());
             } else {
-                nameCreate = escape(this.body.nameBrands.toUpperCase());
+                nameCreate = this.body.nameBrands.toUpperCase();
+
             }
             this.brandService.createBrands({ Name: nameCreate }).subscribe(result => {
                 const errorMessage = JSON.parse(result.body);
@@ -626,11 +627,14 @@ export class BrandsComponent implements OnInit {
      * @memberof BrandsComponent
      */
     public validateExist(event: any) {
-        this.newBrands = escape(event.target.value.toUpperCase());
-        if(this.newBrands === '/'){
+        this.newBrands = encodeURIComponent(event.target.value.toUpperCase());
+        if (this.newBrands === '/') {
             this.newBrands = encodeURIComponent(this.newBrands)
         }
-        this.newBrands = this.newBrands.replace('/', '%2F');
+        let reg1 = /\'/gi;
+        let reg2 = /\'/gi;
+        this.newBrands = this.newBrands.replace(reg2, '%2F');
+        this.newBrands = this.newBrands.replace(reg1, '%27');
         if (this.newBrands && this.newBrands !== '' && this.newBrands !== undefined && this.newBrands !== null) {
             if (this.newBrands !== this.changeNameBrands) {
                 this.urlParams = `null/${this.newBrands}/null/null`;
