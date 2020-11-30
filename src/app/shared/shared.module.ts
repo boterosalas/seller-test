@@ -48,6 +48,7 @@ import { SelectLanguageComponent } from './components/select-language/select-lan
 import { UploadButtonComponent } from './components/upload-button/upload-button.component';
 import { PortsComponent } from './components/ports/ports.component';
 import { ContentDropDownDetailOrderDirective } from '@app/secure/orders/orders-list/orders-page/component/box-list/content-drop-down-detail-order.directive';
+import { ModalDonwloadEmailComponent } from './components/modal-donwload-email/modal-donwload-email.component';
 
 export function createTranslateLaoder(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -100,7 +101,8 @@ export function createTranslateLaoder(http: HttpClient) {
     SelectLanguageComponent,
     UploadButtonComponent,
     PortsComponent,
-    ContentDropDownDetailOrderDirective
+    ContentDropDownDetailOrderDirective,
+    ModalDonwloadEmailComponent
   ],
   exports: [
     MaterialModule,
@@ -142,7 +144,8 @@ export function createTranslateLaoder(http: HttpClient) {
     ProductsCaseDialogComponent,
     ErrorDialogComponent,
     DialogWithFormComponent,
-    CreateProcessDialogComponent
+    CreateProcessDialogComponent,
+    ModalDonwloadEmailComponent
   ],
   providers: [EventEmitterSeller],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]

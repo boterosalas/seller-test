@@ -230,17 +230,21 @@ export const endpoints = {
       // archivo en s3 formato carga masiva de excepcion
       uploadMasiveUpload: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates-Dev/FormatChargeCommissions.xlsx',
       // verificar el estado de la carga masiva para excepciones PLU
-      verificateStatusException : 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/GetMassiveComsnExcStatus',
+      verificateStatusException: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/GetMassiveComsnExcStatus',
       // enviar data en formato json al back
-      sendDataJsonReadExcel : 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/MassiveComsnExc',
+      sendDataJsonReadExcel: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/MassiveComsnExc',
       // Listado de colores
-      getListColor : 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/colors',
+      getListColor: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/colors',
       // Descargable del listado/historico de cancelaciones
       exportListCancel: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch/report',
       // Descargar arbol de categorías
       exporCategories: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/GenerateReportCategories',
       // Eliminar categpria por Id
-      deleteCategory: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/DeleteCategory{params}'
+      deleteCategory: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/DeleteCategory{params}',
+      // Descargar exportar comisiones
+      exportCommission: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/ExportComsnExcsAudit/{params}',
+      // Obtener el listado de comisiones ultimos 15 dias
+      getListCommissionAll: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/GetComsnExcsAudit/{params}'
     },
   },
   // Endpoints production
@@ -468,15 +472,21 @@ export const endpoints = {
       // archivo en s3 formato carga masiva de excepcion
       uploadMasiveUpload: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates/FormatChargeCommissions.xlsx',
       // verificar el estado de la carga masiva para excepciones PLU
-      verificateStatusException : 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/GetMassiveComsnExcStatus',
-       // enviar data en formato json al back
-       sendDataJsonReadExcel : 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/MassiveComsnExc',
+      verificateStatusException: 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/GetMassiveComsnExcStatus',
+      // enviar data en formato json al back
+      sendDataJsonReadExcel: 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/MassiveComsnExc',
       // Listado de colores
-      getListColor : 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/colors',
-       // Descargable del listado/historico de cancelaciones
-       exportListCancel: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn/report',
-       // Eliminar categpria por Id
-      deleteCategory: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/DeleteCategory'
+      getListColor: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/colors',
+      // Descargable del listado/historico de cancelaciones
+      exportListCancel: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn/report',
+      // Descargar arbol de categorías
+      exporCategories: 'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/GenerateReportCategories',
+      // Eliminar categpria por Id
+      deleteCategory: 'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/DeleteCategory{params}',
+      // Descargar exportar comisiones
+      exportCommission: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/ExportComsnExcsAudit/{params}',
+      // Obtener el listado de comisiones ultimos 15 dias
+      getListCommissionAll: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/GetComsnExcsAudit/{params}'
     }
   }
 };
