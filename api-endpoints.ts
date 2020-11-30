@@ -476,9 +476,9 @@ export const endpoints = {
        // Descargable del listado/historico de cancelaciones
        exportListCancel: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn/report',
       // Descargar exportar comisiones
-      exportCommission : 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/ExportComsnExcsAudit/{params}',
+      exportCommission : 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/ExportComsnExcsAudit/{params}',
       // Obtener el listado de comisiones ultimos 15 dias
-      getListCommissionAll : 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/GetComsnExcsAudit/{params}'
+      getListCommissionAll : 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/GetComsnExcsAudit/{params}'
     }
   }
 };
