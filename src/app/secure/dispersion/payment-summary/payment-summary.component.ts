@@ -1,6 +1,7 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
 import { InformationToForm, SearchFormEntity } from '@app/shared';
+import { DispersionService } from '../dispersion.service';
 
 @Component({
   selector: 'app-payment-summary',
@@ -10,6 +11,11 @@ import { InformationToForm, SearchFormEntity } from '@app/shared';
 export class PaymentSummaryComponent implements OnInit {
 
   public selection = new SelectionModel<any>(true, []);
+  public filter: any;
+  public limit= 10;
+  public paginationToken = '{}';
+  public newLimit = null;
+  public currentPage = 0;
 
   public informationToForm: SearchFormEntity = {
     title: 'module.Dispersion',
@@ -35,9 +41,33 @@ export class PaymentSummaryComponent implements OnInit {
   public btnFilter = true;
 
 
-  constructor() { }
+  constructor(
+    private dispersionService: DispersionService,
+  ) {
+    // this.filter = {
+    //   'CutOffDate': null,
+    //   'InternalPaymentId': null,
+    //   'PaymentDate': null,
+    //   'PaginationToken': '{}',
+    //   'Limit': this.limit,
+    //   'NewLimit': null,
+    //   'CurrentPage': 0
+    // };
+    this.filter = `limit=${this.limit}&paginationToken=${encodeURI(this.paginationToken)}&NewLimit=${this.newLimit}&CurrentPage=${this.currentPage}`;
+   }
 
   ngOnInit() {
+    this.getAllPaymentSummary();
+  }
+
+  getAllPaymentSummary() {
+    this.dispersionService.getAllPaymentSummary(this.filter).subscribe((res: any) => {
+      console.log(res);
+    });
+  }
+
+  toggleFilterReportPaymentSummary() {
+    console.log('invoca el filtro');
   }
 
 }

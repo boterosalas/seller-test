@@ -1415,6 +1415,17 @@
     "secure.orders.bulk.billing.name_filter_billing": "Filtro de Facturación",
     "secure.orders.bulk.billing.maximum_All_file_size": "Los archivos no pueden pesar mas de 7mb.",
     "secure.orders.bulk.billing.size_file": "Tamaño de los archivos: ",
-    "secure.orders.bulk.billing.size_file_MB": "MB"
+    "secure.orders.bulk.billing.size_file_MB": "MB",
+
+    "secure.dispersion.summaryPayment.cutofDate": "Fecha de corte",
+    "secure.dispersion.summaryPayment.idSeller": "Id Vendedor",
+    "secure.dispersion.summaryPayment.seller": "Vendedor",
+    "secure.dispersion.summaryPayment.quantityOrders": "Cantidad de pedidos",
+    "secure.dispersion.summaryPayment.idCodeInternal": "Id código interno",
+    "secure.dispersion.summaryPayment.description": "Descripción",
+    "secure.dispersion.summaryPayment.totalPay": "Total a paga",
+    "secure.dispersion.summaryPayment.valueTotalPay": "Valor total a pagar",
+    "secure.dispersion.summaryPayment.allSeller": "Total vendedores",
+    "secure.dispersion.summaryPayment.dispersar": "Dispersar"
 
 }

@@ -4,22 +4,22 @@
     <div fxFlex="100" class="light-content">
       <app-toolbar-search-pagination [informationToForm]="informationToForm" #toolbarOptions [lengthOrder]="length"
         [limitPaginate]="[50, 100, 150]" [btnFilter]="btnFilter" [btnDownload]="btnDownload"
-        (filterGerenic)="toggleFilterReportCommission()"
-        (paginationListOrdens)="paginations($event)" [pageIndexChange]="indexPage" (modalDownloadGeneric)="showModalDonloadCommission()">
+        (filterGerenic)="toggleFilterReportPaymentSummary()"
+        (paginationListOrdens)="paginations($event)" [pageIndexChange]="indexPage">
       </app-toolbar-search-pagination>
     </div>
   <div fxLayout="row wrap" style="width: 100%; padding: 20px;">
     <div fxFlex="70">
       <div style="padding-bottom: 15px;">
-        <span style="font-weight: bold; color:#828282; font-size: 15px;">Valor total a pagar: </span>
+        <span style="font-weight: bold; color:#828282; font-size: 15px;">{{'secure.dispersion.summaryPayment.valueTotalPay'| translate}}: </span>
       </div>
       <div>
-        <span style="font-weight: bold; color:#828282; font-size: 15px;">Total vendedores: </span>
+        <span style="font-weight: bold; color:#828282; font-size: 15px;">{{'secure.dispersion.summaryPayment.allSeller' | translate}}: </span>
       </div>
     </div>
     <div fxFlex="30">
       <div style="text-align: end;">
-        <button mat-stroked-button color="primary" (click)="addCategory()">Dispersar</button>
+        <button mat-stroked-button color="primary" (click)="addCategory()">{{'secure.dispersion.summaryPayment.dispersar'| translate}}</button>
       </div>
     </div>
   </div>
@@ -48,7 +48,7 @@
           <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
             fxShow.xl="true" fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
             *matHeaderCellDef>
-            <span class="title-table-header"> fecha de corte</span>
+            <span class="title-table-header"> {{'secure.dispersion.summaryPayment.cutofDate' | translate}}</span>
           </mat-header-cell>
           <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
             fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
@@ -61,7 +61,7 @@
           <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
             fxShow.xl="true" fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
             *matHeaderCellDef>
-            <span class="title-table-header"> Id vendedor</span>
+            <span class="title-table-header"> {{'secure.dispersion.summaryPayment.idSeller' | translate}}</span>
           </mat-header-cell>
           <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
             fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
@@ -74,7 +74,7 @@
           <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
             fxShow.xl="true" fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
             *matHeaderCellDef>
-            <span class="title-table-header"> Vendedor</span>
+            <span class="title-table-header">{{'secure.dispersion.summaryPayment.seller' | translate}}</span>
           </mat-header-cell>
           <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
             fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
@@ -87,7 +87,7 @@
           <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
             fxShow.xl="true" fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
             *matHeaderCellDef>
-            <span class="title-table-header"> cantidad de pedidos </span>
+            <span class="title-table-header">{{'secure.dispersion.summaryPayment.quantityOrders' | translate}}</span>
           </mat-header-cell>
           <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
             fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
@@ -100,7 +100,7 @@
           <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
             fxShow.xl="true" fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
             *matHeaderCellDef>
-            <span class="title-table-header"> Id código interno</span>
+            <span class="title-table-header"> {{'secure.dispersion.summaryPayment.idCodeInternal' | translate}}</span>
           </mat-header-cell>
           <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
             fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
@@ -113,7 +113,7 @@
           <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
             fxShow.xl="true" fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
             *matHeaderCellDef>
-            <span class="title-table-header"> Descripción</span>
+            <span class="title-table-header"> {{'secure.dispersion.summaryPayment.description' | translate}}</span>
           </mat-header-cell>
           <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
             fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
@@ -126,7 +126,7 @@
           <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
             fxShow.xl="true" fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
             *matHeaderCellDef>
-            <span class="title-table-header"> Total a paga</span>
+            <span class="title-table-header">{{'secure.dispersion.summaryPayment.totalPay' | translate}} </span>
           </mat-header-cell>
           <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
             fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""

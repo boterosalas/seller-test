@@ -240,7 +240,9 @@ export const endpoints = {
       // Descargar exportar comisiones
       exportCommission : 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/ExportComsnExcsAudit/{params}',
       // Obtener el listado de comisiones ultimos 15 dias
-      getListCommissionAll : 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/GetComsnExcsAudit/{params}'
+      getListCommissionAll : 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/GetComsnExcsAudit/{params}',
+      // Obtener el listado de vendedores para hacer la dispersion
+      getListDispersionAll : 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/{params}'
     },
   },
   // Endpoints production
