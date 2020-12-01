@@ -1,11 +1,9 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { LoadingService } from '@app/core';
-import { AnyKindOfDictionary } from 'lodash';
-import { CategoryTreeService } from '../category-tree.service';
 import { CategoriesComponent } from '../categories/categories.component';
-import { BulkLoadProductComponent } from '@app/secure/products/bulk-load-product/bulk-load-product/bulk-load-product.component';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material';
+import { ListProductService } from '@app/secure/products/list-products/list-products.service';
 
 export interface TreeSelected {
   selectElement: (element) => void;
@@ -37,6 +35,7 @@ export class CategoryTreeComponent implements OnInit {
   /**
    * param that represent the parent Component to make the logic for update and create
    */
+  // tslint:disable-next-line: no-input-rename
   @Input('categoryComponent') parametrizationCategoryComponent: CategoriesComponent | TreeSelected = null;
   /**
    * param that represent the margin to add to category list for each lvl
@@ -48,6 +47,8 @@ export class CategoryTreeComponent implements OnInit {
   constructor(
     private languageService: TranslateService,
     private snackBar: MatSnackBar,
+    private productsService?: ListProductService,
+    private loadingService?: LoadingService,
   ) {
   }
 
@@ -80,6 +81,45 @@ export class CategoryTreeComponent implements OnInit {
         });
       }
     }
+  }
+
+  /**
+   * Función para eliminar categoría
+   * @param {*} category
+   * @memberof CategoryTreeComponent
+   */
+  deleteCategory(category: any) {
+    this.loadingService.viewSpinner();
+    const currentLang = localStorage.getItem('culture_current');
+    const idCategory = `?&limit=1&page=0&categories=${category.Id}`;
+    this.productsService.getListProducts(idCategory).subscribe((res: any) => {
+      if (res && res.data.total > 0) {
+        this.snackBar.open(this.languageService.instant('secure.parametize.category.categories.modal_delete_category_have_products'), this.languageService.instant('actions.close'), {
+          duration: 7000
+        });
+        this.loadingService.closeSpinner();
+      } else {
+        this.loadingService.closeSpinner();
+        if ((<CategoriesComponent>this.parametrizationCategoryComponent).openCategoryDialog !== undefined) {
+          if (currentLang !== 'US') {
+            (<CategoriesComponent>this.parametrizationCategoryComponent).openCategoryDialog(category, false, true);
+          } else {
+            this.snackBar.open(this.languageService.instant('secure.parametize.category.categories.change_language_english_edit'), this.languageService.instant('actions.close'), {
+              duration: 3000
+            });
+          }
+        }
+      }
+    });
+    // if ((<CategoriesComponent>this.parametrizationCategoryComponent).openCategoryDialog !== undefined) {
+    //   if (currentLang !== 'US') {
+    //     (<CategoriesComponent>this.parametrizationCategoryComponent).openCategoryDialog(category, false, true);
+    //   } else {
+    //     // this.snackBar.open(this.languageService.instant('secure.parametize.category.categories.change_language_english_edit'), this.languageService.instant('actions.close'), {
+    //     //   duration: 3000
+    //     // });
+    //   }
+    // }
   }
 
   /**

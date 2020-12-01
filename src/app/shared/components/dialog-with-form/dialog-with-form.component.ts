@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 interface DialogData {
+  msjDeleteCategory: Boolean;
   title: string;
   message: string;
   form: FormGroup;
@@ -22,6 +23,7 @@ interface DialogData {
 export class DialogWithFormComponent implements OnInit {
 
   content: TemplateRef<any>;
+  msjDeleteCategory: Boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<DialogWithFormComponent>,

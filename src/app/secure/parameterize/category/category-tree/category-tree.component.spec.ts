@@ -7,12 +7,14 @@ import { CategoriesComponent } from '../categories/categories.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { LoadingService } from '@app/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ListProductService } from '@app/secure/products/list-products/list-products.service';
 
 describe('CategoryTreeComponent', () => {
   let component: CategoryTreeComponent;
   let fixture: ComponentFixture<CategoryTreeComponent>;
   const mockCategoriesComponent: CategoriesComponent = jasmine.createSpyObj('CategoriesComponent', ['openCategoryDialog']);
   const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner', 'viewProgressBar', 'closeProgressBar']);
+  const mockListProductService = jasmine.createSpyObj('ListProductService', ['getListProducts']);
   const mockCategoryListWithoutChild = [
     {
       Commission: 15,
@@ -77,6 +79,8 @@ describe('CategoryTreeComponent', () => {
       imports: [SharedModule, HttpClientTestingModule],
       providers: [
         { provide: LoadingService, useValue: mockLoadingService },
+        { provide: ListProductService, useValue: mockListProductService},
+
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })

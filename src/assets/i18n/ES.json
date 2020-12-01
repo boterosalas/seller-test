@@ -59,6 +59,7 @@
     "menu.Productos pendientes": "Productos pendientes",
     "menu.Excepción por comisión": "Excepción por comisión",
     "menu.Listado de cancelaciones": "Listado de cancelaciones",
+    "menu.Reporte de comisiones": "Reporte de comisiones",
 
     "module.Documentación": "Documentación",
     "module.Ofertas": "Ofertas",
@@ -136,6 +137,12 @@
 
     "filters.clear": "Limpiar",
     "filters.filter": "Filtrar",
+    "filter-Brand": "Marca",
+    "filter-FinalDate": "Fecha final",
+    "filter-InitialDate": "Fecha inicial",
+    "filter-IdSeller": "Id Vendedor",
+    "filter-Plu": "Plu",
+    "filter-SellerAudit": "Administrador",
 
     "January": "Enero",
     "February": "Febrero",
@@ -1223,6 +1230,9 @@
     "secure.parametize.category.categories.btn_download_category": "Descargar categorías",
     "secure.parametize.category.categories.btn_download_category_OK": "Se ha realizado la descarga de categorías correctamente, revisa tu correo electrónico.",
     "secure.parametize.category.categories.btn_download_category_KO": "Ocurrió un problema al realizar la descarga de categorías, por favor intenta nuevamente",
+    "secure.parametize.category.categories.modal_delete_title": "Eliminar categoría",
+    "secure.parametize.category.categories.modal_delete_subtitle": "Desea eliminar la categoría",
+    "secure.parametize.category.categories.modal_delete_category_have_products": "Esta categoría tiene productos asociados, debe mover los productos a la estructura deseada y luego ser eliminada.",
 
     "secure.parametize.category.category_tree.tooltip_add_son": "Crear categoría hija",
 
