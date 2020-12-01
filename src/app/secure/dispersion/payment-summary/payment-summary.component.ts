@@ -1,3 +1,4 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
 import { InformationToForm, SearchFormEntity } from '@app/shared';
 
@@ -8,6 +9,8 @@ import { InformationToForm, SearchFormEntity } from '@app/shared';
 })
 export class PaymentSummaryComponent implements OnInit {
 
+  public selection = new SelectionModel<any>(true, []);
+
   public informationToForm: SearchFormEntity = {
     title: 'module.Dispersion',
     subtitle: 'menu.Resumen de pagos',
@@ -17,6 +20,18 @@ export class PaymentSummaryComponent implements OnInit {
     information: new InformationToForm,
     count: null
   };
+
+  public displayedColumns = [
+    'check',
+    'cutoffDate',
+    'idSeller',
+    'seller',
+    'quantityOrders',
+    'idInternalCode',
+    'description',
+    'totalToPay'
+  ];
+
   public btnFilter = true;
 
 
