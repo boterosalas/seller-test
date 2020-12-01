@@ -106,7 +106,6 @@ export class CategoriesComponent implements OnInit {
       width: '60%'
     });
     dialogRef.afterClosed().subscribe(result => {
-      // log.info('The modal detail order was closed');
     });
   }
 
