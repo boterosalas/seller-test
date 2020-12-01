@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild, NgZone, ChangeDetectorRef } from '@angular/core';
 import { CategoryTreeService } from '../category-tree.service';
 import { LoadingService, ModalService } from '@app/core';
-import { updateFunctionality, createFunctionality, MenuModel, categoryName } from '@app/secure/auth/auth.consts';
+import { updateFunctionality, createFunctionality, MenuModel, categoryName, deleteFunctionality } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
@@ -58,6 +58,9 @@ export class CategoriesComponent implements OnInit {
    * Attribute that represent the create access
    */
   canCreate = false;
+
+  canDelete = false;
+
 
   category: any;
 
@@ -181,6 +184,7 @@ export class CategoriesComponent implements OnInit {
   getFunctionalities() {
     this.canUpdate = this.authService.getPermissionForMenu(categoryName, updateFunctionality);
     this.canCreate = this.authService.getPermissionForMenu(categoryName, createFunctionality);
+    this.canDelete = this.authService.getPermissionForMenu(categoryName, deleteFunctionality);
   }
 
   /**

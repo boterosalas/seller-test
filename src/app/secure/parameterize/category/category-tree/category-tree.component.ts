@@ -32,6 +32,9 @@ export class CategoryTreeComponent implements OnInit {
    * param that represent the create access
    */
   @Input() canCreate = false;
+
+  @Input() canDelete= false;
+
   /**
    * param that represent the parent Component to make the logic for update and create
    */
