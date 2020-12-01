@@ -88,4 +88,14 @@ export class ParamSpecsService {
     return this.http.delete(this.api.get('getProductSpecs', [id]), { observe: 'response' });
   }
 
+  /**
+   * Descargar reporte de categorías
+   * @param {*} param
+   * @returns {Observable<any>}
+   * @memberof ParamSpecsService
+   */
+  public downloadCategories(param: any): Observable<any> {
+    return this.http.post(this.api.get('exporCategories'), param);
+  }
+
 }
