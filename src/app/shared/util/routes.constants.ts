@@ -64,6 +64,7 @@ export class RoutesConst {
     static readonly reportCommission: any = 'report-commision';
     static readonly listCalification: any = 'quality-score';
     static readonly summaryPayment: any = 'summary-payment';
+    static readonly detailPayment: any = 'detalle-pago';
     static readonly port: any = 'port';
     static readonly billingSeller: any = 'facturacion-vendedor';
     static readonly pendingProducts: any = 'productos-pendientes';
@@ -137,6 +138,7 @@ export class RoutesConst {
 
     static readonly sellerCenterIntListCalification: any = RoutesConst.sellerCenterCalification + '/' + RoutesConst.listCalification;
     static readonly sellerCenterIntDispersionSummary: any = RoutesConst.sellerCenterDispersion + '/' + RoutesConst.summaryPayment;
+    static readonly sellerCenterIntDispersionDetail: any = RoutesConst.sellerCenterDispersion + '/' + RoutesConst.detailPayment;
 
 
 

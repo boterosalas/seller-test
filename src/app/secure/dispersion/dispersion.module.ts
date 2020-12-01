@@ -5,6 +5,7 @@ import { PaymentSummaryComponent } from './payment-summary/payment-summary.compo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@app/material.module';
 import { SharedModule } from '@app/shared/shared.module';
+import { DetailPaymentComponent } from './detail-payment/detail-payment.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { SharedModule } from '@app/shared/shared.module';
     SharedModule,
     DispersionRoutingModule
   ],
-  declarations: [PaymentSummaryComponent]
+  declarations: [PaymentSummaryComponent, DetailPaymentComponent]
 })
 export class DispersionModule { }

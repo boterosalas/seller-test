@@ -4,6 +4,7 @@ import { Route } from '@app/core';
 import { RoutesConst } from '@app/shared';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { PaymentSummaryComponent } from './payment-summary/payment-summary.component';
+import { DetailPaymentComponent } from './detail-payment/detail-payment.component';
 
 const routes = [
   Route.withShell([
@@ -12,11 +13,17 @@ const routes = [
       component: PaymentSummaryComponent,
       data: { title: 'Resumen de pagos' },
       canActivate: [AuthService]
+    },
+    {
+      path: `${RoutesConst.sellerCenterIntDispersionDetail}`,
+      component: DetailPaymentComponent,
+      data: { title: 'Detalle de pagos' },
+      canActivate: [AuthService]
     }
   ])
 ];
 
-console.log(RoutesConst.sellerCenterIntDispersionSummary);
+// console.log(RoutesConst.sellerCenterIntDispersionSummary);
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
