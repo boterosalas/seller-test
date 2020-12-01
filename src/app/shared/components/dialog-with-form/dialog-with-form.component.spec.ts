@@ -48,7 +48,8 @@ describe('DialogWithFormComponent', () => {
       messageCenter: false,
       form: null,
       showButtons: true,
-      btnConfirmationText: null
+      btnConfirmationText: null,
+      msjDeleteCategory: false
     };
     fixture.detectChanges();
 
