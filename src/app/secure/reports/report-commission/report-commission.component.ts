@@ -53,7 +53,7 @@ export class ReportCommissionComponent implements OnInit {
   isClear = false;
   lastState: 0;
   length = 0;
-  public limit= 10;
+  public limit= 50;
   indexPage = 0;
   showTable = false;
   dateInitLimit = '';
@@ -141,7 +141,6 @@ export class ReportCommissionComponent implements OnInit {
     this.createFormControls();
     this.getListCommissionAll();
     this.getRegexByModule();
-    
   }
 
 /**
@@ -505,7 +504,7 @@ deteleFilter(filter: any, indexArray: number) {
             this.filterCommission.controls.IdSeller.reset();
           } else {
                 this.keywords = [];
-                this.limit = 10;
+                this.limit = 50;
                 this.idAdmin = null;
                 this.filterChips = [];
                 this.filterCommission.reset();
@@ -533,7 +532,7 @@ deteleFilter(filter: any, indexArray: number) {
             this.filterCommission.controls.SellerAudit.reset();
           } else {
                 this.keywords = [];
-                this.limit = 10;
+                this.limit = 50;
                 this.idAdmin = null;
                 this.filterChips = [];
                 this.filterCommission.reset();
@@ -580,7 +579,7 @@ clearDateEnd() {
  */
 clearForm() {
     this.keywords = [];
-    this.limit = 10;
+    this.limit = 50;
     this.idAdmin = null;
     this.filterChips = [];
     this.onlyOne = true;
