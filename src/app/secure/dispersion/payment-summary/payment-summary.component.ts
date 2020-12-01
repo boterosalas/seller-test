@@ -1,5 +1,6 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material';
 import { InformationToForm, SearchFormEntity } from '@app/shared';
 import { DispersionService } from '../dispersion.service';
 
@@ -16,6 +17,9 @@ export class PaymentSummaryComponent implements OnInit {
   public paginationToken = '{}';
   public newLimit = null;
   public currentPage = 0;
+  public length = 0;
+  public dataSource: MatTableDataSource<any>;
+  public onlyOne= true;
 
   public informationToForm: SearchFormEntity = {
     title: 'module.Dispersion',
@@ -53,7 +57,7 @@ export class PaymentSummaryComponent implements OnInit {
     //   'NewLimit': null,
     //   'CurrentPage': 0
     // };
-    this.filter = `limit=${this.limit}&paginationToken=${encodeURI(this.paginationToken)}&NewLimit=${this.newLimit}&CurrentPage=${this.currentPage}`;
+    this.filter = `?limit=${this.limit}&paginationToken=${encodeURI(this.paginationToken)}&NewLimit=${this.newLimit}&CurrentPage=${this.currentPage}`;
    }
 
   ngOnInit() {
@@ -63,6 +67,13 @@ export class PaymentSummaryComponent implements OnInit {
   getAllPaymentSummary() {
     this.dispersionService.getAllPaymentSummary(this.filter).subscribe((res: any) => {
       console.log(res);
+      if (res && res.status === 200) {
+        this.dataSource = new MatTableDataSource(res.body.viewModel);
+        if (this.onlyOne) {
+          this.length = res.count;
+        }
+        this.onlyOne = false;
+      }
     });
   }
 
