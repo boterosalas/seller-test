@@ -141,7 +141,7 @@ export class ReportCommissionComponent implements OnInit {
     this.createFormControls();
     this.getListCommissionAll();
     this.getRegexByModule();
-    this.clearDateEnd();
+    
   }
 
 /**
@@ -208,6 +208,8 @@ createFormControls() {
         this.filterCommission.get('SellerAudit').setErrors(null);
       }
     });
+
+    this.clearDateEnd();
   }
 /**
  * funcion para listar todos los vendedores
