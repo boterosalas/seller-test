@@ -52,6 +52,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
 
     // Seller nacional o internacional
     isChannel: Boolean = false;
+    channelAdvisor: any;
 
     constructor(
         public router: Router,
@@ -117,7 +118,6 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
             Email: [''],
             IdSeller: [''],
             Name: [''],
-            TokenChannel: ['']
         });
     }
 
@@ -299,11 +299,11 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         this.isChannel = false;
         if (values && values.Profile === 'seller' && values.Country !== 'COLOMBIA') {
             this.isChannel = true;
+            this.channelAdvisor = values.TokenChannel;
         }
         this.form.patchValue(values);
         this.Nit.disable();
         this.Email.disable();
-        this.TokenChannel.disable();
         this.SellerId.disable();
         this.StoreName.disable();
         this.loading.closeSpinner();
@@ -397,13 +397,6 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
      */
     get Email(): FormControl {
         return this.form.get('Email') as FormControl;
-    }
-
-    /**
-     * Retorna el campo TokenChannel del formulario de usuario
-     */
-    get TokenChannel(): FormControl {
-        return this.form.get('TokenChannel') as FormControl;
     }
 
     /**
