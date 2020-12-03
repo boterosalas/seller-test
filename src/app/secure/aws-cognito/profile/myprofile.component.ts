@@ -117,7 +117,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
             Email: [''],
             IdSeller: [''],
             Name: [''],
-            ChannelAdvisor: ['']
+            TokenChannel: ['']
         });
     }
 
@@ -303,7 +303,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         this.form.patchValue(values);
         this.Nit.disable();
         this.Email.disable();
-        this.ChannelAdvisor.disable();
+        this.TokenChannel.disable();
         this.SellerId.disable();
         this.StoreName.disable();
         this.loading.closeSpinner();
@@ -400,10 +400,10 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     }
 
     /**
-     * Retorna el campo ChannelAdvisor del formulario de usuario
+     * Retorna el campo TokenChannel del formulario de usuario
      */
-    get ChannelAdvisor(): FormControl {
-        return this.form.get('ChannelAdvisor') as FormControl;
+    get TokenChannel(): FormControl {
+        return this.form.get('TokenChannel') as FormControl;
     }
 
     /**
