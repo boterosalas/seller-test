@@ -48,7 +48,12 @@ $hint-color: #5d5d5d;
   width: 100%;
 }
 
+.search-content{
+  width: 80% !important;
+}
+
 .widthToolbar {
+  display: flex !important;
   width: 80%;
 
   @media (max-width: 600px) {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-news-collected',
@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewsCollectedComponent implements OnInit {
 
+  @Input() sellerData: any;
+
   constructor() { }
 
   ngOnInit() {
+    console.log(2, this.sellerData);
   }
 
 }

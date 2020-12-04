@@ -1424,5 +1424,7 @@
     "secure.orders.bulk.billing.size_file_MB": "MB",
 
     "secure.dispersion.detail-payment.historical": "Histórico de pagos y dispersión",
-    "secure.dispersion.detail-payment.collected": "Novedades cobradas"
+    "secure.dispersion.detail-payment.collected": "Novedades cobradas",
+    "secure.dispersion.detail-payment.download": "Descargar detalle de pagos"
+
 }
