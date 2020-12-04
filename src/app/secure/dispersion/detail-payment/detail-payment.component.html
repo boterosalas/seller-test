@@ -1,6 +1,24 @@
-<p>
-  detail-payment works!
-</p>
+<mat-toolbar class="ticket-toolbar">
+  <mat-toolbar-row class="toolbarIpad">
+    <div class="toolbar-brand">
+      <span class="toolbar-brand--title">
+        {{'module.Dispersion' | translate}}
+      </span>
+      <span class="separator"> &#124; </span>
+      <small class="toolbar-brand--subtitle">
+        {{'menu.Detalle de pagos' | translate}}
+      </small>
+    </div>
+
+    <div class="widthToolbar">
+      <app-search-seller id="contet-searc-store" class="search-content">
+      </app-search-seller>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+
+
 
 <div>
   <mat-tab-group>
@@ -12,5 +30,3 @@
     </mat-tab>
   </mat-tab-group>
 </div>
-
-

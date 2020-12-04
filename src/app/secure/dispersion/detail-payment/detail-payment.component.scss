@@ -1,18 +1,90 @@
+$hint-color: #5d5d5d;
+
+.ticket-toolbar {
+    background-color: white;
+    padding: 0px 32px;
+    height: 45px !important;
+    max-height: 45px;
+    justify-content: space-between;
+  
+    @media (max-width: 600px) {
+      height: auto !important;
+      max-height: inherit !important;
+      padding-bottom: 16px;
+      padding: 0px 0px !important;
+  
+    }
+  }
+  
+  .toolbarIpad {
+    @media (max-width: 768px) {
+      display: flex;
+      flex-wrap: wrap;
+      padding-right: 0px;
+    }
+  }
+
+
 :host ::ng-deep {
-    .mat-tab-label-size {
-        min-width: 50%;
-        font-weight: bold;
+  .mat-tab-label-size {
+    min-width: 50%;
+    font-weight: bold;
+  }
+
+  .mat-tab-label {
+    width: 50%;
+
+    &:focus {
+      font-weight: bold;
     }
-    .mat-tab-label{
-        &:focus{
-            font-weight: bold;
-        }
-    }
-    .mat-tab-label-active{
-        font-weight: bold;
-    }
+  }
+
+  .mat-tab-label-active {
+    font-weight: bold;
+  }
 }
 
-.width-100-percent{
-    width: 100%;
+.width-100-percent {
+  width: 100%;
+}
+
+.widthToolbar {
+  width: 80%;
+
+  @media (max-width: 600px) {
+    width: 112%;
+  }
+
+  @media screen and (min-width: 667px) and (max-width: 1000px) {
+    width: 68%;
+  }
+}
+
+.toolbar-brand {
+  font-size: 18px;
+
+  span {
+    font-weight: bold;
+  }
+
+  small {
+    color: $hint-color;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column !important;
+    font-size: 1rem !important;
+  }
+
+  @media (max-width: 600px) {
+    &--title {
+      font-size: 16px;
+    }
+
+    &--subtitle {
+      text-align: left;
+      font-weight: bold;
+      font-size: 14px;
+    }
+  }
 }
