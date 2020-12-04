@@ -1,3 +1,16 @@
 <p>
   detail-payment works!
 </p>
+
+<div>
+  <mat-tab-group>
+    <mat-tab id="tab1" style="font-weight: bold;" [label]="'secure.dispersion.detail-payment.historical'| translate">
+      <app-historical-payment class="width-100-percent"></app-historical-payment>
+    </mat-tab>
+    <mat-tab id="tab2" style="font-weight: bold;" [label]="'secure.dispersion.detail-payment.collected'| translate">
+      <app-news-collected class="width-100-percent"></app-news-collected>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+
+

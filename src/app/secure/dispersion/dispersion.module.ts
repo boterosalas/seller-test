@@ -6,6 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@app/material.module';
 import { SharedModule } from '@app/shared/shared.module';
 import { DetailPaymentComponent } from './detail-payment/detail-payment.component';
+import { HistoricalPaymentComponent } from './detail-payment/historical-payment/historical-payment.component';
+import { NewsCollectedComponent } from './detail-payment/news-collected/news-collected.component';
 
 @NgModule({
   imports: [
@@ -16,6 +18,6 @@ import { DetailPaymentComponent } from './detail-payment/detail-payment.componen
     SharedModule,
     DispersionRoutingModule
   ],
-  declarations: [PaymentSummaryComponent, DetailPaymentComponent]
+  declarations: [PaymentSummaryComponent, DetailPaymentComponent, HistoricalPaymentComponent, NewsCollectedComponent]
 })
 export class DispersionModule { }
