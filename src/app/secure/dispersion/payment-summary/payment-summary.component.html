@@ -30,10 +30,10 @@
       <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="97" fxFlex.lg="97" fxFlex.xl="97" style="width: 100%;">
         <mat-table #table [dataSource]="dataSource" matSort style="width: 100%;">
           <ng-container matColumnDef="check">
-            <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+            <mat-header-cell class='marginListAdminTotal'  fxShow.lg="true" fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
               fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="5" fxFlex.xl=""
               *matHeaderCellDef>
-              <mat-checkbox (change)="$event ? masterToggle(statusAllCheck) :
+              <mat-checkbox (change)="$event ? masterToggle(statusAllCheck, dataSource) :
             null; changeStatus(null, $event.checked)" [checked]="!selection.hasValue()"
                 [indeterminate]="selection.hasValue() && !isAllSelectedCurrent">
                 {{'actions.all'| translate}}
@@ -49,12 +49,12 @@
           </ng-container>
 
           <ng-container matColumnDef="cutoffDate">
-            <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+            <mat-header-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true"
               fxShow.xl="true" fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
               *matHeaderCellDef>
               <span class="title-table-header"> {{'secure.dispersion.summaryPayment.cutofDate' | translate}}</span>
             </mat-header-cell>
-            <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+            <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true"
               fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
               *matCellDef="let element">
               <p class="sc-text-normal">{{element.cutOffDate}}</p>
@@ -75,12 +75,12 @@
           </ng-container>
 
           <ng-container matColumnDef="seller">
-            <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+            <mat-header-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" 
               fxShow.xl="true" fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
               *matHeaderCellDef>
               <span class="title-table-header">{{'secure.dispersion.summaryPayment.seller' | translate}}</span>
             </mat-header-cell>
-            <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+            <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true"
               fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
               *matCellDef="let element">
               <p class="sc-text-normal">{{element.sellerName}}</p>
@@ -88,13 +88,13 @@
           </ng-container>
 
           <ng-container matColumnDef="quantityOrders">
-            <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+            <mat-header-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
               fxShow.xl="true" fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
               *matHeaderCellDef>
               <span
                 class="title-table-header payment-summary-component-aling-column-center">{{'secure.dispersion.summaryPayment.quantityOrders' | translate}}</span>
             </mat-header-cell>
-            <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+            <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true"
               fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
               *matCellDef="let element">
               <p class="sc-text-normal payment-summary-component-aling-column-center"></p>
@@ -116,12 +116,12 @@
           </ng-container>
 
           <ng-container matColumnDef="description">
-            <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+            <mat-header-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
               fxShow.xl="true" fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
               *matHeaderCellDef>
               <span class="title-table-header"> {{'secure.dispersion.summaryPayment.description' | translate}}</span>
             </mat-header-cell>
-            <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+            <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true"
               fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
               *matCellDef="let element">
               <p class="sc-text-normal">{{element.description}}</p>
@@ -180,18 +180,27 @@
     <div fxLayout="row">
       <div fxFlex>
 
-        <form #createfilterCommission="ngForm" [formGroup]="filterPaymentSummary"
+        <form #createfilterPaymentSummary="ngForm" [formGroup]="filterPaymentSummary"
           class="payment-summary-component-margin-top-40">
           <div style="height: 470px;">
             <mat-form-field class="classDatapicker  payment-summary-component-input-generic">
-              <input matInput [matDatepicker]="picker" placeholder="Fecha de corte" formControlName="cutOffDate">
+              
+              <input matInput [matDatepicker]="picker"  placeholder="Fecha de corte" formControlName="cutOffDate">
+              <mat-error *ngIf="filterPaymentSummary.get('cutOffDate').hasError('pattern')">
+                {{'errors.format_invalidate' | translate}}
+              </mat-error>
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker disabled="false"></mat-datepicker>
+          
             </mat-form-field>
             <mat-form-field class="classDatapicker payment-summary-component-input-generic">
-              <input matInput [matDatepicker]="picker1" placeholder="Fecha de dispersión" formControlName="dispersionDate">
+              <input matInput [matDatepicker]="picker1" placeholder="Fecha de dispersión"  formControlName="dispersionDate">
+              <mat-error *ngIf="filterPaymentSummary.get('dispersionDate').hasError('pattern')">
+                {{'errors.format_invalidate' | translate}}
+              </mat-error>
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
               <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+  
             </mat-form-field>
             <mat-form-field class="field payment-summary-component-input-generic">
               <input matInput placeholder="Id código interno" formControlName="internalIdPayment">
@@ -208,7 +217,7 @@
                 {{'filters.clear' | translate}}
               </button>
               <button class="sc-button" mat-raised-button color="primary"
-                [disabled]="validateInput || !createfilterCommission.form.valid" type="button"
+                [disabled]="!createfilterPaymentSummary.form.valid" type="button"
                 (click)="apllyFilterPaymentSummary(filterPaymentSummary.value)">
                 {{'actions.apply' | translate}}
               </button>

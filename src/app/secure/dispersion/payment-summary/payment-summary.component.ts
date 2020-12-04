@@ -1,13 +1,22 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSidenav, MatSnackBar, MatTableDataSource } from '@angular/material';
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher, MatSidenav, MatSnackBar, MatTableDataSource } from '@angular/material';
 import { InformationToForm, SearchFormEntity } from '@app/shared';
 import { TranslateService } from '@ngx-translate/core';
 import { DispersionService } from '../dispersion.service';
 import * as _moment from 'moment';
+import { LoadingService } from '@app/core';
+import { SupportService } from '@app/secure/support-modal/support.service';
 
 const moment = _moment;
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-payment-summary',
@@ -26,13 +35,14 @@ export class PaymentSummaryComponent implements OnInit {
   public dataSource: MatTableDataSource<any>;
   public onlyOne = true;
   public isAllSelectedCurrent = false;
-  public statusAllCheck = true;
+  public statusAllCheck = false;
   public arrayNotSelect = [];
   public arraySelect = [];
   public all = false;
   public disabledBtn = false;
   public arrayPosition = [];
   public stateSideNavOrder = false;
+  public paymentSummaryRegex = { integerNumber: '' };
 
   public indexPage = 0;
   public totalSeller = 0;
@@ -70,39 +80,55 @@ export class PaymentSummaryComponent implements OnInit {
     private dispersionService: DispersionService,
     private snackBar: MatSnackBar,
     private languageService: TranslateService,
+    public SUPPORT: SupportService,
+    private loadingService: LoadingService,
     private fb: FormBuilder,
   ) {
-    // this.filter = {
-    //   'CutOffDate': null,
-    //   'InternalPaymentId': null,
-    //   'PaymentDate': null,
-    //   'PaginationToken': '{}',
-    //   'Limit': this.limit,
-    //   'NewLimit': null,
-    //   'CurrentPage': 0
-    // };
     this.arrayPosition = [];
     this.arrayPosition.push('{}');
     this.filter = `?limit=${this.limit}&paginationToken=${encodeURI(this.paginationToken)}&NewLimit=${this.newLimit}&CurrentPage=${this.currentPage}`;
   }
 
   ngOnInit() {
+    this.getRegexByModule();
     this.getAllPaymentSummary();
     this.createFormControls();
+
+  }
+
+  public getRegexByModule(): void {
+    this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
+      let dataCommissionRegex = JSON.parse(res.body.body);
+      dataCommissionRegex = dataCommissionRegex.Data.filter(data => data.Module === 'vendedores');
+      for (const val in this.paymentSummaryRegex) {
+        if (!!val) {
+          const element = dataCommissionRegex.find(regex => regex.Identifier === val.toString());
+          this.paymentSummaryRegex[val] = element && `${element.Value}`;
+        }
+      }
+      this.createFormControls();
+    });
   }
 
   createFormControls() {
     this.filterPaymentSummary = this.fb.group({
-      cutOffDate: new FormControl('', [Validators.pattern(null)]),
-      dispersionDate: new FormControl('', [Validators.pattern(null)]),
-      internalIdPayment: new FormControl('', [Validators.pattern(null)]),
+      cutOffDate: new FormControl('', [Validators.pattern(this.paymentSummaryRegex.integerNumber)]),
+      dispersionDate: new FormControl('', [Validators.pattern(this.paymentSummaryRegex.integerNumber)]),
+      internalIdPayment: new FormControl('', [Validators.pattern(this.paymentSummaryRegex.integerNumber)]),
     });
   }
 
   getAllPaymentSummary() {
+    this.loadingService.viewSpinner();
     this.dispersionService.getAllPaymentSummary(this.filter).subscribe((res: any) => {
       if (res && res.status === 200) {
         const { viewModel, count, paginationToken } = res.body;
+        console.log(this.statusAllCheck);
+        if (this.statusAllCheck === true) {
+          viewModel.forEach(element => {
+            element.excluded = true;
+         });
+        }
         this.dataSource = new MatTableDataSource(viewModel);
         if (this.onlyOne) {
           this.length = count;
@@ -110,8 +136,19 @@ export class PaymentSummaryComponent implements OnInit {
           this.totalSeller = res.body.extraInfo.TotalSellersToPayPayoneer;
         }
         this.onlyOne = false;
+        this.loadingService.closeSpinner();
         this.savePaginationToken(paginationToken);
+      } else {
+        this.loadingService.closeSpinner();
+        this.snackBar.open(this.languageService.instant('public.auth.forgot.error_try_again'), this.languageService.instant('actions.close'), {
+          duration: 3000,
+        });
       }
+    }, error => {
+      this.loadingService.closeSpinner();
+      this.snackBar.open(this.languageService.instant('public.auth.forgot.error_try_again'), this.languageService.instant('actions.close'), {
+        duration: 3000,
+      });
     });
   }
 
@@ -120,7 +157,6 @@ export class PaymentSummaryComponent implements OnInit {
     if (isExist === false) {
       this.arrayPosition.push(pagination);
     }
-    console.log(this.arrayPosition);
   }
 
   paginations(event: any) {
@@ -162,25 +198,24 @@ export class PaymentSummaryComponent implements OnInit {
     if (this.arraySelect.length === 0 && !this.all) {
       this.selection.clear();
       this.all = false;
-      this.statusAllCheck = true;
+      // this.statusAllCheck = false;
     }
   }
 
-  masterToggle(status: boolean) {
-    if (status) {
-      if (this.selection.selected.length > 0) {
-        this.selection.clear();
-        this.arraySelect = [];
-        this.statusAllCheck = true;
-      } else {
-        this.dataSource.data.forEach(row => this.selection.select(row));
-        this.statusAllCheck = !status;
-      }
+  masterToggle(status: boolean, dataSource: any) {
+    if (dataSource && dataSource.data) {
+      const data = dataSource.data;
+      data.forEach(element => {
+        element.excluded = !status;
+      });
+      this.dataSource = new MatTableDataSource(data);
+      this.statusAllCheck = !status;
     } else {
       this.selection.clear();
       this.arraySelect = [];
       this.statusAllCheck = !status;
     }
+    console.log(this.statusAllCheck)
   }
 
   public changeStatus(row: any, status: any) {
@@ -216,6 +251,7 @@ export class PaymentSummaryComponent implements OnInit {
 
 
   changeStatusDispersionBySeller(payToSeller: any, status: any) {
+    this.loadingService.viewSpinner();
     const params = [
       {
         sellerId: payToSeller.sellerId,
@@ -227,6 +263,7 @@ export class PaymentSummaryComponent implements OnInit {
     this.dispersionService.excludeSellerPayoneer(params).subscribe((res: any) => {
       console.log(res);
       if (res) {
+        this.loadingService.closeSpinner();
         const textStatus = status === true ? ' Excluido ' : ' Incluido ';
         // this.snackBar.open(this.languageService.instant('shared.update_successfully'), this.languageService.instant('actions.close'), {
         //   duration: 3000,
