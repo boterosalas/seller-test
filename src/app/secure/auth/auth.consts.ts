@@ -508,7 +508,8 @@ const ParamModule = new ModuleModel(paramModule, showAll, paramModule.toLowerCas
     new MenuModel(categoryName, showAll, categoryName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality), // Editar.
-        new FunctionalitiesModel(createFunctionality, showAll, createFunctionality) // Crear.
+        new FunctionalitiesModel(createFunctionality, showAll, createFunctionality), // Crear.
+        new FunctionalitiesModel(deleteFunctionality, showAll, deleteFunctionality) // Eliminar.,
     ], RoutesConst.sellerCenterIntCategoryTree),
     // 7. Parametrizar Centros de Acopio
     new MenuModel(portName, showAll, portName.toLowerCase(), ProfileTypes.Administrador, [

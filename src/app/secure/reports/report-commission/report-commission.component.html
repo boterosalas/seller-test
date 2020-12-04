@@ -184,10 +184,10 @@
             </div>
             <div fxLayout="row">
               <div>
-                <mat-form-field class="classDatapicker  report-commission-component-input-date-picker-initial">
+                <mat-form-field class="classDatapicker  report-commission-component-input-date-picker-initial" (click)= "clearDateEnd()" >
                   <input matInput [matDatepicker]="picker" placeholder="Desde" formControlName="InitialDate">
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker disabled="false"></mat-datepicker>
+                  <mat-datepicker-toggle matSuffix [for]="picker" (click)= "clearDateEnd()"></mat-datepicker-toggle>
+                  <mat-datepicker #picker disabled="false" (click)= "clearDateEnd()"></mat-datepicker>
                 </mat-form-field>
               </div>
               <div>
