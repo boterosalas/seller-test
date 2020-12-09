@@ -508,7 +508,8 @@ const ParamModule = new ModuleModel(paramModule, showAll, paramModule.toLowerCas
     new MenuModel(categoryName, showAll, categoryName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality), // Editar.
-        new FunctionalitiesModel(createFunctionality, showAll, createFunctionality) // Crear.
+        new FunctionalitiesModel(createFunctionality, showAll, createFunctionality), // Crear.
+        new FunctionalitiesModel(deleteFunctionality, showAll, deleteFunctionality) // Eliminar.,
     ], RoutesConst.sellerCenterIntCategoryTree),
     // 7. Parametrizar Centros de Acopio
     new MenuModel(portName, showAll, portName.toLowerCase(), ProfileTypes.Administrador, [
@@ -540,7 +541,7 @@ const ReclaModule = new ModuleModel(reclaModule, showAll, reclaModule.toLowerCas
  * 1. Reporte de ofertas.
  */
 
-export const reportModule = 'REPORTES', reportOffertAdmin = 'Reporte de ofertas', reportErrorsVtex = 'Reporte de errores en VTEX';
+export const reportModule = 'REPORTES', reportOffertAdmin = 'Reporte de ofertas', reportErrorsVtex = 'Reporte de errores en VTEX', reportCommission = 'Reporte de comisiones';
 const ReportModule = new ModuleModel(reportModule, showAll, reportModule.toLowerCase(), [
     new MenuModel(reportOffertAdmin, showAll, reportOffertAdmin.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
@@ -549,7 +550,11 @@ const ReportModule = new ModuleModel(reportModule, showAll, reportModule.toLower
     new MenuModel(reportErrorsVtex, showAll, reportErrorsVtex.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality) // Descargar
-    ], RoutesConst.sellerCenterIntReportsErrorsVtex)]);
+    ], RoutesConst.sellerCenterIntReportsErrorsVtex),
+    new MenuModel(reportCommission, showAll, reportCommission.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+        new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality) // Descargar
+    ], RoutesConst.sellerCenterIntReportsCommission)]);
 
 
 /**
