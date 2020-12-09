@@ -9,6 +9,16 @@ export class HistoricalPaymentComponent implements OnInit {
 
   @Input() sellerData: any;
 
+  public displayedColumns = [
+    'datePay',
+    'idPayonner',
+    'order',
+    'seller',
+    'description',
+    'sale',
+    'comission',
+    'totalToPay',
+  ];
 
   constructor() { }
 
