@@ -123,7 +123,7 @@ export class PaymentSummaryComponent implements OnInit {
     this.dispersionService.getAllPaymentSummary(this.filter).subscribe((res: any) => {
       if (res && res.status === 200) {
         const { viewModel, count, paginationToken } = res.body;
-        console.log(this.statusAllCheck);
+        console.log(res);
         if (this.statusAllCheck === true) {
           viewModel.forEach(element => {
             element.excluded = true;
