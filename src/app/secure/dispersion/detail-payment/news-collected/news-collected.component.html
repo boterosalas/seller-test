@@ -1,3 +1,122 @@
 <p>
   news-collected works!
 </p>
+
+<div class="marginTable">
+  <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="97" fxFlex.lg="97" fxFlex.xl="97" class="styleAlltable">
+    <mat-table #table [dataSource]="dataSource" matSort class="marginTable">
+
+      <ng-container matColumnDef="datePay">
+        <mat-header-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.md="true"
+          fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30"
+          fxFlex.xl="" *matHeaderCellDef>
+          <span class="title-table-header"> Fecha de pago</span>
+        </mat-header-cell>
+        <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true"
+          fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+          *matCellDef="let element">
+          <p class="sc-text-normal">{{element.date | date: 'dd/MM/yyyy'}}</p>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="idPayonner">
+        <mat-header-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.md="true"
+          fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30"
+          fxFlex.xl="" *matHeaderCellDef>
+          <span class="title-table-header"> Id payonner</span>
+        </mat-header-cell>
+        <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true"
+          fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+          *matCellDef="let element">
+          <p class="sc-text-normal">{{element.payoneerId}}</p>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="order">
+        <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+          fxShow.xl="true" fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+          *matHeaderCellDef>
+          <span class="title-table-header"> Pedido</span>
+        </mat-header-cell>
+        <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+          fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+          *matCellDef="let element">
+          <p class="sc-text-normal">{{element.orderNumber}}</p>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="seller">
+        <mat-header-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
+          fxShow.xl="true" fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+          *matHeaderCellDef>
+          <span class="title-table-header">Vendedor</span>
+        </mat-header-cell>
+        <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true"
+          fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+          *matCellDef="let element">
+          <p class="sc-text-normal">{{element.sellerName}}</p>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <mat-header-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
+          fxShow.xl="true" fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+          *matHeaderCellDef>
+          <span class="title-table-header payment-summary-component-aling-column-center">Descripción</span>
+        </mat-header-cell>
+        <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true"
+          fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+          *matCellDef="let element">
+          <p class="sc-text-normal payment-summary-component-aling-column-center">{{element.description}}</p>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="sale">
+        <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+          fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="20" fxFlex.xl=""
+          *matHeaderCellDef>
+          <span class="title-table-header payment-summary-component-aling-column-center">
+            Venta</span>
+        </mat-header-cell>
+        <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+          fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="20" fxFlex.xl=""
+          *matCellDef="let element">
+          <p class="sc-text-normal payment-summary-component-aling-column-center">{{element.sellAmount}}</p>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="comission">
+        <mat-header-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
+          fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="20" fxFlex.xl=""
+          *matHeaderCellDef>
+          <span class="title-table-header"> Comisión real</span>
+        </mat-header-cell>
+        <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true"
+          fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="20" fxFlex.xl=""
+          *matCellDef="let element">
+          <p class="sc-text-normal">{{element.commissionCost}}</p>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="totalToPay">
+        <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+          fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="20" fxFlex.xl=""
+          *matHeaderCellDef>
+          <span class="title-table-header payment-summary-component-aling-column-right">Total a pagar
+          </span>
+        </mat-header-cell>
+        <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+          fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="20" fxFlex.xl=""
+          *matCellDef="let element">
+          <p class="sc-text-normal payment-summary-component-aling-column-right">{{element.total}}</p>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row id="order-number-{{index}}" *matRowDef="let index=index; let
+      row; columns: displayedColumns;" class="element-row personal-row-table" [cdkDetailRow]="row"
+        [cdkDetailRowTpl]="tpl">
+      </mat-row>
+    </mat-table>
+  </div>
+</div>

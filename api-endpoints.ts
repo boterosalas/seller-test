@@ -244,7 +244,11 @@ export const endpoints = {
       // Descargar exportar comisiones
       exportCommission: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/ExportComsnExcsAudit/{params}',
       // Obtener el listado de comisiones ultimos 15 dias
-      getListCommissionAll: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/GetComsnExcsAudit/{params}'
+      getListCommissionAll: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/GetComsnExcsAudit/{params}',
+      // Obtener listado de historico de pagos
+      getListHistoricPayments: 'https://w7uiqlm4b6.execute-api.us-east-1.amazonaws.com/dev/detaildispersion{params}',
+      // Obtener listado novedades cobro
+      getListNewsCollected: 'https://w7uiqlm4b6.execute-api.us-east-1.amazonaws.com/dev/detailpaymentnews{params}'
     },
   },
   // Endpoints production
@@ -484,9 +488,13 @@ export const endpoints = {
       // Eliminar categpria por Id
       deleteCategory: 'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/DeleteCategory{params}',
       // Descargar exportar comisiones
-      exportCommission : 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/ExportComsnExcsAudit/{params}',
+      exportCommission: 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/ExportComsnExcsAudit/{params}',
       // Obtener el listado de comisiones ultimos 15 dias
-      getListCommissionAll : 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/GetComsnExcsAudit/{params}'
+      getListCommissionAll: 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/GetComsnExcsAudit/{params}',
+      // Obtener listado de historico de pagos
+      getListHistoricPayments: 'https://w7uiqlm4b6.execute-api.us-east-1.amazonaws.com/dev/detaildispersion{params}',
+      // Obtener listado novedades cobro
+      getListNewsCollected: 'https://w7uiqlm4b6.execute-api.us-east-1.amazonaws.com/dev/detailpaymentnews{params}'
     }
   }
 };

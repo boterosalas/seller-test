@@ -1,28 +1,29 @@
 $hint-color: #5d5d5d;
 
 .ticket-toolbar {
-    background-color: white;
-    padding: 0px 32px;
-    height: 45px !important;
-    max-height: 45px;
-    justify-content: space-between;
-  
-    @media (max-width: 600px) {
-      height: auto !important;
-      max-height: inherit !important;
-      padding-bottom: 16px;
-      padding: 0px 0px !important;
-  
-    }
+  background-color: white;
+  padding: 0px 32px;
+  height: 45px !important;
+  max-height: 45px;
+  justify-content: space-between;
+  border-bottom: 1px solid #e0e0e0;
+
+  @media (max-width: 600px) {
+    height: auto !important;
+    max-height: inherit !important;
+    padding-bottom: 16px;
+    padding: 0px 0px !important;
+
   }
-  
-  .toolbarIpad {
-    @media (max-width: 768px) {
-      display: flex;
-      flex-wrap: wrap;
-      padding-right: 0px;
-    }
+}
+
+.toolbarIpad {
+  @media (max-width: 768px) {
+    display: flex;
+    flex-wrap: wrap;
+    padding-right: 0px;
   }
+}
 
 
 :host ::ng-deep {
@@ -48,7 +49,7 @@ $hint-color: #5d5d5d;
   width: 100%;
 }
 
-.search-content{
+.search-content {
   width: 80% !important;
 }
 
@@ -92,4 +93,13 @@ $hint-color: #5d5d5d;
       font-size: 14px;
     }
   }
+}
+
+.classFindSeller {
+  width: 100%;
+  text-align: center;
+  height: 100%;
+  margin-top: 13%;
+  font-weight: bold;
+  color: $hint-color;
 }
