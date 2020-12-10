@@ -7,12 +7,12 @@
     <mat-table #table [dataSource]="dataSource" matSort class="marginTable">
 
       <ng-container matColumnDef="datePay">
-        <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
-          fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+        <mat-header-cell fxShow.xs="true" fxShow.sm="true" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
+          fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="45" fxFlex.xl="" *matHeaderCellDef>
           <span class="title-table-header"> Fecha de pago</span>
         </mat-header-cell>
-        <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
-          fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+        <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+          fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="45" fxFlex.xl="" *matCellDef="let element">
           <p class="sc-text-normal">{{element.paymentDate | date: 'dd/MM/yyyy'}}</p>
         </mat-cell>
       </ng-container>
@@ -29,11 +29,11 @@
       </ng-container>
 
       <ng-container matColumnDef="order">
-        <mat-header-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+        <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
           fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
           <span class="title-table-header"> Pedido</span>
         </mat-header-cell>
-        <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+        <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
           fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
           <p class="sc-text-normal">{{element.orderNumber}}</p>
         </mat-cell>
@@ -62,12 +62,12 @@
       </ng-container>
 
       <ng-container matColumnDef="sale">
-        <mat-header-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+        <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
           fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="20" fxFlex.xl="" *matHeaderCellDef>
           <span class="title-table-header payment-summary-component-aling-column-center">
             Venta</span>
         </mat-header-cell>
-        <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
+        <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
           fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="20" fxFlex.xl="" *matCellDef="let element">
           <p class="sc-text-normal payment-summary-component-aling-column-center">
             {{'secure.offers.list.components.detail_offer.usd' | translate}} {{element.sellAmount}}</p>
@@ -88,12 +88,12 @@
 
       <ng-container matColumnDef="totalToPay">
         <mat-header-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true"
-          fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="20" fxFlex.xl="" *matHeaderCellDef>
+          fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="45" fxFlex.xl="" *matHeaderCellDef>
           <span class="title-table-header payment-summary-component-aling-column-right">Total a pagar
           </span>
         </mat-header-cell>
         <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
-          fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="20" fxFlex.xl="" *matCellDef="let element">
+          fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="45" fxFlex.xl="" *matCellDef="let element">
           <p class="sc-text-normal payment-summary-component-aling-column-right">
             {{'secure.offers.list.components.detail_offer.usd' | translate}} {{element.total}}</p>
         </mat-cell>
