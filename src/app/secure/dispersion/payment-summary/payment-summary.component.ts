@@ -113,7 +113,6 @@ export class PaymentSummaryComponent implements OnInit {
   createFormControls() {
     this.filterPaymentSummary = this.fb.group({
       cutOffDate: new FormControl('', [Validators.pattern(this.paymentSummaryRegex.integerNumber)]),
-      dispersionDate: new FormControl('', [Validators.pattern(this.paymentSummaryRegex.integerNumber)]),
       internalIdPayment: new FormControl('', [Validators.pattern(this.paymentSummaryRegex.integerNumber)]),
     });
   }
@@ -123,7 +122,6 @@ export class PaymentSummaryComponent implements OnInit {
     this.dispersionService.getAllPaymentSummary(this.filter).subscribe((res: any) => {
       if (res && res.status === 200) {
         const { viewModel, count, paginationToken } = res.body;
-        console.log(res);
         if (this.statusAllCheck === true) {
           viewModel.forEach(element => {
             element.excluded = true;
@@ -198,7 +196,6 @@ export class PaymentSummaryComponent implements OnInit {
     if (this.arraySelect.length === 0 && !this.all) {
       this.selection.clear();
       this.all = false;
-      // this.statusAllCheck = false;
     }
   }
 
@@ -261,7 +258,6 @@ export class PaymentSummaryComponent implements OnInit {
     ];
 
     this.dispersionService.excludeSellerPayoneer(params).subscribe((res: any) => {
-      console.log(res);
       if (res) {
         this.loadingService.closeSpinner();
         const textStatus = status === true ? ' Excluido ' : ' Incluido ';
@@ -282,13 +278,15 @@ export class PaymentSummaryComponent implements OnInit {
   apllyFilterPaymentSummary(form: any) {
     if (form !== undefined) {
       const cutOffDate = form.cutOffDate ? `&cutOffDate=${moment(form.cutOffDate).format('YYYY/MM/DD')}` : '';
-      const dispersionDate = form.dispersionDate ? `&dispersionDate=${moment(form.dispersionDate).format('YYYY/MM/DD')}` : '';
       const internalPaymentId = form.internalIdPayment ? `&internalPaymentId=${form.internalIdPayment}` : '';
       this.arrayPosition = [];
       this.arrayPosition.push('{}');
-      this.filter = `?limit=${this.limit}&paginationToken=${encodeURI(this.paginationToken)}&NewLimit=${this.newLimit}&CurrentPage=${this.currentPage}` + cutOffDate + dispersionDate + internalPaymentId;
+      this.filter = `?limit=${this.limit}&paginationToken=${encodeURI(this.paginationToken)}&NewLimit=${this.newLimit}&CurrentPage=${this.currentPage}` + cutOffDate  + internalPaymentId;
       this.getAllPaymentSummary();
     }
+  }
+  btnDispersion(){
+    
   }
 
   clearForm() {

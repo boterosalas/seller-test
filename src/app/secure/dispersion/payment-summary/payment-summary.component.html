@@ -3,7 +3,7 @@
     start">
     <div fxFlex="100" class="light-content">
       <app-toolbar-search-pagination [informationToForm]="informationToForm" #toolbarOptions [lengthOrder]="length"
-        [limitPaginate]="[50, 100, 150]" [btnFilter]="btnFilter" [btnDownload]="btnDownload"
+        [limitPaginate]="[50, 100, 150]" [btnFilter]="btnFilter"
         (filterGerenic)="toggleFilterReportPaymentSummary()" (paginationListOrdens)="paginations($event)"
         [pageIndexChange]="indexPage">
       </app-toolbar-search-pagination>
@@ -22,7 +22,7 @@
       <div fxFlex="30">
         <div style="text-align: end;">
           <button mat-stroked-button color="primary"
-            (click)="addCategory()">{{'secure.dispersion.summaryPayment.dispersar'| translate}}</button>
+            (click)="btnDispersion()">{{'secure.dispersion.summaryPayment.dispersar'| translate}}</button>
         </div>
       </div>
     </div>
@@ -192,15 +192,6 @@
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker disabled="false"></mat-datepicker>
           
-            </mat-form-field>
-            <mat-form-field class="classDatapicker payment-summary-component-input-generic">
-              <input matInput [matDatepicker]="picker1" placeholder="Fecha de dispersión"  formControlName="dispersionDate">
-              <mat-error *ngIf="filterPaymentSummary.get('dispersionDate').hasError('pattern')">
-                {{'errors.format_invalidate' | translate}}
-              </mat-error>
-              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-              <mat-datepicker #picker1 disabled="false"></mat-datepicker>
-  
             </mat-form-field>
             <mat-form-field class="field payment-summary-component-input-generic">
               <input matInput placeholder="Id código interno" formControlName="internalIdPayment">
