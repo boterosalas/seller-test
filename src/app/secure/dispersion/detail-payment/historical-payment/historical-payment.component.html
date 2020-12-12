@@ -4,10 +4,8 @@
 
 <div class="styleToolbarandBody">
   <div fxLayout="row" fxLayoutAlign="space-evenly center" class="newToolbar">
-    <app-toolbar-search-pagination  #toolbarOptions [lengthOrder]="length" 
-      [limitPaginate]="[1,2,3]" 
-       (paginationListOrdens)="paginations($event)"
-      [pageIndexChange]="indexPage">
+    <app-toolbar-search-pagination #toolbarOptions [lengthOrder]="length" [limitPaginate]="[2,4,6]"
+      (paginationListOrdens)="paginations($event)" [pageIndexChange]="indexPage">
     </app-toolbar-search-pagination>
 
     <!-- (page)="pageEvent = changeSizeOrderTable($event)" -->
@@ -16,11 +14,13 @@
       [pageSizeOptions]="[50, 100, 150]" (page)="paginations($event)">
     </mat-paginator> -->
 
-    <button type="button" matTooltipPosition="below" mat-icon-button mat-button
-      (click)="toggleFilterHistoricalPayment()">
-      <mat-icon>filter_list</mat-icon>
-      <small class="sub-title-filter">{{'filters.filter' | translate}}</small>
-    </button>
+    <div style="border-bottom: 1px solid #e0e0e0; height: 50px;  margin-bottom: -6px;">
+      <button type="button" matTooltipPosition="below" mat-icon-button mat-button
+        (click)="toggleFilterHistoricalPayment()">
+        <mat-icon>filter_list</mat-icon>
+        <small class="sub-title-filter">{{'filters.filter' | translate}}</small>
+      </button>
+    </div>
   </div>
 
   <div class="marginTable">
