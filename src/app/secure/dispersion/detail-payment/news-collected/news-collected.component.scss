@@ -8,8 +8,18 @@
       width: 100%
   }
 
+  .styleToolbarandBody{
+    color: #959595;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
   .marginListAdminTotal{
       display: flex !important;
+  }
+
+  .newToolbar{
+    margin-left: 63%
   }
   
   .payment-summary-component {
@@ -74,9 +84,9 @@
       height: 70px;
     }
   
-    &-height-90 {
-      height: 90px;
-    }
+    // &-height-90 {
+    //   height: 90px;
+    // }
   
     &-margin-left-10 {
       margin-left: 10px;

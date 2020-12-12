@@ -1,18 +1,9 @@
-<p>
-  historical-payment works!
-</p>
 
 <div class="styleToolbarandBody">
   <div fxLayout="row" fxLayoutAlign="space-evenly center" class="newToolbar">
     <app-toolbar-search-pagination #toolbarOptions [lengthOrder]="length" [limitPaginate]="[2,4,6]"
       (paginationListOrdens)="paginations($event)" [pageIndexChange]="indexPage">
     </app-toolbar-search-pagination>
-
-    <!-- (page)="pageEvent = changeSizeOrderTable($event)" -->
-    <!-- itemsPerPageLabel="Items por pagina" -->
-    <!-- <mat-paginator [length]="length" itemsPerPageLabel="Items por pagina" [pageSize]="limit"
-      [pageSizeOptions]="[50, 100, 150]" (page)="paginations($event)">
-    </mat-paginator> -->
 
     <div style="border-bottom: 1px solid #e0e0e0; height: 50px;  margin-bottom: -6px;">
       <button type="button" matTooltipPosition="below" mat-icon-button mat-button
@@ -128,6 +119,10 @@
           [cdkDetailRowTpl]="tpl">
         </mat-row>
       </mat-table>
+
+      <div *ngIf="length === 0">
+        No hay datos para ese usuario
+      </div>
     </div>
   </div>
 </div>
@@ -143,7 +138,6 @@
       <div fxFlex="80">
         <div class="payment-summary-component-margin-left-10">
           {{informationToForm.title_for_search | translate}}
-          <!-- Filtro histórico de pagos -->
         </div>
       </div>
       <div fxFlex="20" class="toolbar-title-search payment-summary-component-height-90">

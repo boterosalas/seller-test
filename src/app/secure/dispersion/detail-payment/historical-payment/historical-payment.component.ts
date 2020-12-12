@@ -186,6 +186,7 @@ export class HistoricalPaymentComponent implements OnInit {
           const { viewModel, count, paginationToken } = res.body;
           // console.log(this.statusAllCheck);
           this.dataSource = new MatTableDataSource(viewModel);
+          console.log('data: ', this.dataSource);
           if (this.onlyOne) {
             this.length = count;
           }
