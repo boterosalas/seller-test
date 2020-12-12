@@ -1,7 +1,7 @@
 <div fxLayout="row wrap" class="toolbar-orders-options-table"
   fxLayoutAlign="space-between center">
   <div fxFlex class="toolbar-options">
-    <div class="normal-theme">
+    <div class="normal-theme" *ngIf="informationToForm">
       <button mat-button color="primary" fxShow.xs="true" fxShow.sm="true"
         fxShow.md="false" fxShow="true"
         class="sc-title title-toolbar" (click)="getOrdersList($event)">
