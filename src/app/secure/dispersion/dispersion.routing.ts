@@ -23,8 +23,6 @@ const routes = [
   ])
 ];
 
-// console.log(RoutesConst.sellerCenterIntDispersionSummary);
-
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],

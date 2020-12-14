@@ -14,7 +14,6 @@ import { DetailPaymentService } from '../detail-payment.service';
 })
 export class HistoricalPaymentComponent implements OnInit {
 
-  @Input() sellerData: any;
 
   public displayedColumns = [
     'datePay',
@@ -46,6 +45,16 @@ export class HistoricalPaymentComponent implements OnInit {
     orderNumber: ''
   };
 
+  _sellerData;
+
+  // Set para escuchar cada vez que tenga cambio el padre.
+  @Input() set sellerData(value: any){
+    if (value) {
+      this.onlyOne = true;
+      this._sellerData = value;
+      this.getAllListHiistoric();
+    }
+  };
 
   @ViewChild('sidenavHistoricalPayment') sidenavHistoricalPayment: MatSidenav;
   @ViewChild('toolbarOptions') toolbarOption;
@@ -71,7 +80,6 @@ export class HistoricalPaymentComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(1, this.sellerData);
     this.validateFormSupport();
     this.getAllListHiistoric();
   }
@@ -121,7 +129,6 @@ export class HistoricalPaymentComponent implements OnInit {
    * @memberof HistoricalPaymentComponent
    */
   paginations(event: any) {
-    console.log(event);
     const newLimit = event.param.pageSize;
     const index = event.param.pageIndex - 1;
     if (newLimit !== this.limit) {
@@ -177,12 +184,11 @@ export class HistoricalPaymentComponent implements OnInit {
     let url;
     let urlFilters;
     this.loadingService.viewSpinner();
-    console.log(1, applyPagination);
     if (applyPagination || paramsFilter) {
       url = paramsFilter ? `?limit=${this.limit}&paginationToken=${encodeURI(this.paginationToken)}` : this.urlParams;
       if (paramsFilter) {
         urlFilters = {
-          SellerId: this.sellerData.IdSeller.toString(),
+          SellerId: this._sellerData.IdSeller.toString(),
           DispersionFilter: {
             CutOffDate: paramsFilter.cutOffDate,
             DispersionDate: paramsFilter.dispersionDate,
@@ -192,29 +198,26 @@ export class HistoricalPaymentComponent implements OnInit {
         };
        } else {
           urlFilters = {
-            SellerId: this.sellerData.IdSeller.toString(),
+            SellerId: this._sellerData.IdSeller.toString(),
             DispersionFilter: {}
           };
         }
       } else {
         url = `?limit=${this.limit}&paginationToken=${encodeURI(this.paginationToken)}`;
         urlFilters = {
-          SellerId: this.sellerData.IdSeller.toString(),
+          SellerId: this._sellerData.IdSeller.toString(),
           DispersionFilter: {}
         };
       }
       this.detailPaymentService.getAllDetailPayment(url, urlFilters).subscribe((res: any) => {
         if (res && res.status === 200) {
           const { viewModel, count, paginationToken } = res.body;
-          // console.log(this.statusAllCheck);
           this.dataSource = new MatTableDataSource(viewModel);
-          console.log('data: ', this.dataSource);
           if (this.onlyOne) {
             this.length = count;
           }
           this.onlyOne = false;
           this.loadingService.closeSpinner();
-          console.log(33, paginationToken);
           this.savePaginationToken(paginationToken);
           this.stateSideNavOrder = false;
         } else {

@@ -116,7 +116,6 @@ export class NewsCollectedComponent implements OnInit {
    * @memberof NewsCollectedComponent
    */
   paginations(event: any) {
-    console.log(event);
     const newLimit = event.param.pageSize;
     const index = event.param.pageIndex - 1;
     if (newLimit !== this.limit) {
@@ -169,8 +168,6 @@ export class NewsCollectedComponent implements OnInit {
    * @memberof NewsCollectedComponent
    */
   getAllNewsCollected(applyPagination?: any, paramsFilter?: any) {
-    console.log('entró');
-    const url = 'hola';
     this.loadingService.viewSpinner();
     const urlParams = `?limit=${this.limit}&paginationToken=${encodeURI(this.paginationToken)}`;
     const urlFilters = {
@@ -180,9 +177,7 @@ export class NewsCollectedComponent implements OnInit {
     this.detailPaymentService.getAllNewsCollected(urlParams, urlFilters).subscribe((res: any) => {
       if (res && res.status === 200) {
         const { viewModel, count, paginationToken } = res.body;
-        // console.log(this.statusAllCheck);
         this.dataSource = new MatTableDataSource(viewModel);
-        console.log(36, this.dataSource);
         if (this.onlyOne) {
           this.length = count;
         }
