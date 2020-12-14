@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSidenav, MatSnackBar, MatTableDataSource } from '@angular/material';
 import { LoadingService } from '@app/core';
 import { SupportService } from '@app/secure/support-modal/support.service';
@@ -38,6 +38,10 @@ export class NewsCollectedComponent implements OnInit {
   public currentPage = 0;
   public stateSideNavOrder = false;
 
+  regexFilter = {
+    orderNumber: ''
+  };
+
   @ViewChild('sidenavNewsCollected') sidenavNewsCollected: MatSidenav;
   @ViewChild('toolbarOptions') toolbarOption;
 
@@ -63,8 +67,7 @@ export class NewsCollectedComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(2, this.sellerData);
-    this.createFormControls();
+    this.validateFormSupport();
     this.getAllNewsCollected();
   }
 
@@ -76,8 +79,26 @@ export class NewsCollectedComponent implements OnInit {
     this.filterNewsCollected = this.fb.group({
       cutOffDate: new FormControl(''),
       dispersionDate: new FormControl(''),
-      internalIdPayment: new FormControl(''),
-      orderNumber: new FormControl('')
+      internalIdPayment: new FormControl('', [Validators.pattern(this.regexFilter.orderNumber)]),
+      orderNumber: new FormControl('', [Validators.pattern(this.regexFilter.orderNumber)])
+    });
+  }
+
+  /**
+   * Metodo para traer reges de la base de datos
+   * @memberof NewsCollectedComponent
+   */
+  public validateFormSupport(): void {
+    this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
+      let dataOffertRegex = JSON.parse(res.body.body);
+      dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'reclamaciones');
+      for (const val in this.regexFilter) {
+        if (!!val) {
+          const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
+          this.regexFilter[val] = element && `${element.Value}`;
+        }
+      }
+      this.createFormControls();
     });
   }
 

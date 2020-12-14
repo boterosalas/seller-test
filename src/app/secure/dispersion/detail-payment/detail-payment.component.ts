@@ -10,7 +10,6 @@ import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.servi
 export class DetailPaymentComponent implements OnInit {
   sellerData: any;
   activeTabs: Boolean = false;
-  // @Input() sellerData: any;
 
 
   constructor(
@@ -21,11 +20,6 @@ export class DetailPaymentComponent implements OnInit {
 
   ngOnInit() {
     this.selectSeller();
-    // this.loadingService.viewSpinner(); // Mostrar el spinner
-    // this.emitterSeller.eventSearchSeller.subscribe(data => {
-    //   this.sellerData = data;
-    //   this.loadingService.viewSpinner(); // Mostrar el spinner
-    // });
   }
 
   selectSeller() {

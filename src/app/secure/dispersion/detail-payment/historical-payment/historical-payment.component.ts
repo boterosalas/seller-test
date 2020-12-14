@@ -42,6 +42,10 @@ export class HistoricalPaymentComponent implements OnInit {
   public currentPage = 0;
   public stateSideNavOrder = false;
 
+  regexFilter = {
+    orderNumber: ''
+  };
+
 
   @ViewChild('sidenavHistoricalPayment') sidenavHistoricalPayment: MatSidenav;
   @ViewChild('toolbarOptions') toolbarOption;
@@ -68,7 +72,7 @@ export class HistoricalPaymentComponent implements OnInit {
 
   ngOnInit() {
     console.log(1, this.sellerData);
-    this.createFormControls();
+    this.validateFormSupport();
     this.getAllListHiistoric();
   }
 
@@ -80,8 +84,26 @@ export class HistoricalPaymentComponent implements OnInit {
     this.filterHistoricalPayment = this.fb.group({
       cutOffDate: new FormControl(''),
       dispersionDate: new FormControl(''),
-      internalIdPayment: new FormControl(''),
-      orderNumber: new FormControl('')
+      internalIdPayment: new FormControl('', [Validators.pattern(this.regexFilter.orderNumber)]),
+      orderNumber: new FormControl('', [Validators.pattern(this.regexFilter.orderNumber)])
+    });
+  }
+
+  /**
+   * Metodo para traer regex de dynamo
+   * @memberof HistoricalPaymentComponent
+   */
+  public validateFormSupport(): void {
+    this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
+      let dataOffertRegex = JSON.parse(res.body.body);
+      dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'reclamaciones');
+      for (const val in this.regexFilter) {
+        if (!!val) {
+          const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
+          this.regexFilter[val] = element && `${element.Value}`;
+        }
+      }
+      this.createFormControls();
     });
   }
 

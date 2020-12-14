@@ -1,4 +1,3 @@
-
 <div class="styleToolbarandBody">
   <div fxLayout="row" fxLayoutAlign="space-evenly center" class="newToolbar">
     <app-toolbar-search-pagination #toolbarOptions [lengthOrder]="length" [limitPaginate]="[2,4,6]"
@@ -120,8 +119,9 @@
         </mat-row>
       </mat-table>
 
-      <div *ngIf="length === 0">
-        No hay datos para ese usuario
+      <div *ngIf="length === 0" fxLayout="column" fxLayoutAlign="space-evenly center" class="topNotFoundData">
+        <mat-icon class="icon-not-found">info</mat-icon>
+        No hay histórico de pagos y dispersión para este vendedor, realiza nueva busqueda.
       </div>
     </div>
   </div>
@@ -177,15 +177,15 @@
             </mat-form-field>
             <mat-form-field class="field payment-summary-component-input-generic">
               <input matInput placeholder="Id pago interno" formControlName="internalIdPayment">
-              <!-- <mat-error *ngIf="filterHistoricalPayment.get('internalIdPayment').hasError('pattern')">
-                {{'errors.format_invalidate' | translate}}
-              </mat-error> -->
+              <mat-error *ngIf="filterHistoricalPayment.get('internalIdPayment').hasError('pattern')">
+                Formato Id pago interno inválido
+              </mat-error>
             </mat-form-field>
             <mat-form-field class="field payment-summary-component-input-generic">
               <input matInput placeholder="Número de pedido" formControlName="orderNumber">
-              <!-- <mat-error *ngIf="filterHistoricalPayment.get('internalIdPayment').hasError('pattern')">
-                {{'errors.format_invalidate' | translate}}
-              </mat-error> -->
+              <mat-error *ngIf="filterHistoricalPayment.get('internalIdPayment').hasError('pattern')">
+                Número de pedido inválido
+              </mat-error>
             </mat-form-field>
           </div>
           <div class="payment-summary-component-text-aling-center">

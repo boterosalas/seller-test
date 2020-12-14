@@ -131,6 +131,11 @@
           [cdkDetailRowTpl]="tpl">
         </mat-row>
       </mat-table>
+
+      <div *ngIf="length === 0" fxLayout="column" fxLayoutAlign="space-evenly center" class="topNotFoundData">
+        <mat-icon class="icon-not-found">info</mat-icon>
+        No hay novedades cobradas para este vendedor, realiza nueva busqueda.
+      </div>
     </div>
   </div>
 </div>

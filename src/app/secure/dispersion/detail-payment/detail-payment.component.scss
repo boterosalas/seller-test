@@ -43,6 +43,11 @@ $hint-color: #5d5d5d;
   .mat-tab-label-active {
     font-weight: bold;
   }
+
+  ::-webkit-scrollbar-thumb{
+    background: white;
+    width: 100%;
+  }
 }
 
 .width-100-percent {
