@@ -442,12 +442,13 @@ apllyFilterCommission(form: any) {
         InitialDate: form.InitialDate ? moment(form.InitialDate).format('YYYY/MM/DD') : '',
         IdSeller: form.IdSeller,
         Plu: form.Plu,
-        SellerAudit: this.idAdmin ? this.idAdmin.toString() : null,
+        SellerAudit: form.SellerAudit ? this.idAdmin.toString() : null,
         PaginationToken : '{}',
         Limit: this.limit,
         NewLimit: null,
         CurrentPage: 0
       };
+      const nameAdmin = form.SellerAudit ? this.nameAdmin : null;
       this.onlyOne = true;
       this.filterChips = [];
       this.saveFilter({'name' : this.filter.Brand, 'type': 'Brand'});
@@ -455,7 +456,7 @@ apllyFilterCommission(form: any) {
       this.saveFilter({'name' : this.filter.InitialDate, 'type': 'InitialDate' });
       this.saveFilter({'name' : this.filter.IdSeller, 'type': 'IdSeller'});
       this.saveFilter({'name' : this.filter.Plu, 'type': 'Plu'});
-      this.saveFilter({'name' : this.nameAdmin, 'type': 'SellerAudit'});
+      this.saveFilter({'name' : nameAdmin, 'type': 'SellerAudit'});
       this.toggleFilterReportCommission();
     } else {
         const msg = 'Error al aplicar los filtros';
