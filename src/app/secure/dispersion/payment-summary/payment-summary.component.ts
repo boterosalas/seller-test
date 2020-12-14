@@ -48,6 +48,8 @@ export class PaymentSummaryComponent implements OnInit {
   public totalSeller = 0;
   public totalPayValue = 0;
   public filterPaymentSummary: FormGroup;
+  public allPaymentSummary = [];
+  public showTable = false;
 
   @ViewChild('sidenavSearchPaymentSummary') sidenavSearchPaymentSummary: MatSidenav;
   @ViewChild('toolbarOptions') toolbarOption;
@@ -127,6 +129,7 @@ export class PaymentSummaryComponent implements OnInit {
             element.excluded = true;
          });
         }
+        this.allPaymentSummary = viewModel;
         this.dataSource = new MatTableDataSource(viewModel);
         if (this.onlyOne) {
           this.length = count;
@@ -136,6 +139,7 @@ export class PaymentSummaryComponent implements OnInit {
         this.onlyOne = false;
         this.loadingService.closeSpinner();
         this.savePaginationToken(paginationToken);
+        this.showTable = true;
       } else {
         this.loadingService.closeSpinner();
         this.snackBar.open(this.languageService.instant('public.auth.forgot.error_try_again'), this.languageService.instant('actions.close'), {
@@ -212,7 +216,6 @@ export class PaymentSummaryComponent implements OnInit {
       this.arraySelect = [];
       this.statusAllCheck = !status;
     }
-    console.log(this.statusAllCheck)
   }
 
   public changeStatus(row: any, status: any) {
@@ -261,18 +264,31 @@ export class PaymentSummaryComponent implements OnInit {
       if (res) {
         this.loadingService.closeSpinner();
         const textStatus = status === true ? ' Excluido ' : ' Incluido ';
-        // this.snackBar.open(this.languageService.instant('shared.update_successfully'), this.languageService.instant('actions.close'), {
-        //   duration: 3000,
-        // });
+        this.dataSource.data.forEach(element => { 
+          if(element.sellerId === payToSeller.sellerId){
+            element.excluded = status;
+          }
+        });
         this.snackBar.open('Vendedor' + textStatus + ' del pago de dispersion', this.languageService.instant('actions.close'), {
           duration: 3000,
         });
+        this.recalculate(payToSeller.amount, status);
       } else {
         this.snackBar.open(this.languageService.instant('secure.orders.send.error_ocurred_processing'), this.languageService.instant('actions.close'), {
           duration: 3000,
         });
       }
     });
+  }
+
+  recalculate(valueToPay: number, status: boolean){
+    if(status){
+      this.totalPayValue = this.totalPayValue - valueToPay;
+      this.totalSeller --;
+    } else {
+      this.totalPayValue = this.totalPayValue + valueToPay;
+      this.totalSeller ++;
+    }
   }
 
   apllyFilterPaymentSummary(form: any) {
@@ -293,8 +309,10 @@ export class PaymentSummaryComponent implements OnInit {
     this.onlyOne = true;
     this.filterPaymentSummary.reset();
     this.arrayPosition = [];
+    this.allPaymentSummary = [];
     this.paginationToken = '{}';
     this.currentPage = 0;
+    this.showTable = false;
     this.arrayPosition.push('{}');
     this.filter = `?limit=${this.limit}&paginationToken=${encodeURI(this.paginationToken)}&NewLimit=${this.newLimit}&CurrentPage=${this.currentPage}`;
     this.getAllPaymentSummary();

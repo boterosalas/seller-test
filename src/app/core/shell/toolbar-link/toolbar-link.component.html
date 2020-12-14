@@ -1,178 +1,68 @@
 <mat-toolbar class="toolbar-orders-list" color="primary">
   <mat-toolbar-row class="toolbar-orders-list">
-    <div class="content-options-toolbar">
+    <div fxLayout="row" style="width: 100%;">
+      <div style="width: 20px;" (click)="scrollLeft()" *ngIf="showArrowMenu">
+        <mat-icon style="vertical-align: -webkit-baseline-middle;  cursor: pointer; color: #b6b6b6;">keyboard_arrow_left</mat-icon>
+      </div>
+        <div style="width: 97%; display: flex;
+        overflow: hidden;
+        scroll-behavior: smooth;" #widgetsContent>
+          <div style="width: 100%;"   class="content-options-toolbar">
+            <div *ngFor="let module of modules">
+              <button [id]="('module.' + getPersonalityName(module.NameModule))
+                | translate" class="button-toolbar" mat-button
+                [matMenuTriggerFor]="orders"
+                *ngIf="showModule(module)">
+                <mat-icon>arrow_drop_down</mat-icon>
+                {{('module.' + getPersonalityName(module.NameModule)) |
+                translate}}
+                <app-notification-circle *ngIf="module.NameModule ===
+                  'RECLAMACIONES'" [value]="unreadCase"
+                  id="circle-notification-toolbar"></app-notification-circle>
+                <app-notification-circle *ngIf="module.NameModule ===
+                  'DEVOLUCIONES'" [value]="sumadevolution"
+                  id="circle-notification-toolbar"></app-notification-circle>
+              </button>
 
-      <div *ngFor="let module of modules">
-        <button [id]="('module.' + getPersonalityName(module.NameModule)) | translate" class="button-toolbar" mat-button [matMenuTriggerFor]="orders"
-          *ngIf="showModule(module)">
-          <mat-icon>arrow_drop_down</mat-icon>
-          {{('module.' + getPersonalityName(module.NameModule)) | translate}}
-          <app-notification-circle *ngIf="module.NameModule === 'RECLAMACIONES'" [value]="unreadCase"
-            id="circle-notification-toolbar"></app-notification-circle>
-
-          <app-notification-circle *ngIf="module.NameModule === 'DEVOLUCIONES'" [value]="sumadevolution"
-            id="circle-notification-toolbar"></app-notification-circle>
-        </button>
-
-        <mat-menu #orders="matMenu">
-          <div *ngFor="let menu of module.Menus">
-            <button [id]="('menu.' + menu.NameMenu) | translate" mat-menu-item [routerLink]="['/' + menu.UrlRedirect]" *ngIf="showMenu(menu) && menu.NameMenu !=='Creación Unitaria' && user && user.sellerProfile === 'administrator'">
-              <span>{{('menu.' + menu.NameMenu) | translate}}</span>
-              <app-notification-circle *ngIf="menu.NameMenu === 'Solicitudes pendientes'" [value]="pending"
-            id="circle-notification-toolbar"></app-notification-circle>
-            
-            </button>
-            <button [id]="('menu.' + menu.NameMenu) | translate" mat-menu-item [routerLink]="['/' + menu.UrlRedirect]" *ngIf="showMenu(menu) && user && user.sellerProfile !== 'administrator'">
-              <span>{{('menu.' + menu.NameMenu) | translate}}</span>
-              <app-notification-circle *ngIf="menu.NameMenu === 'Solicitudes pendientes'" [value]="pending"
-                id="circle-notification-toolbar"></app-notification-circle>
-              
-            </button>
-            <a mat-list-item class="href-toolbar-doc" id="matlist-item-button-seller-documentation" [id]="('menu.' + menu.NameMenu) | translate"
-              href="{{menu.UrlRedirect}}" *ngIf="showMenu(menu, true)" target="_blank">
-              <h3 matLine>{{('menu.' + menu.NameMenu) | translate}}</h3>
-            </a>
+              <mat-menu #orders="matMenu">
+                <div *ngFor="let menu of module.Menus">
+                  <button [id]="('menu.' + menu.NameMenu) | translate"
+                    mat-menu-item [routerLink]="['/' + menu.UrlRedirect]"
+                    *ngIf="showMenu(menu) && menu.NameMenu !=='Creación
+                    Unitaria' && user && user.sellerProfile ===
+                    'administrator'">
+                    <span>{{('menu.' + menu.NameMenu) | translate}}</span>
+                    <app-notification-circle *ngIf="menu.NameMenu ===
+                      'Solicitudes pendientes'" [value]="pending"
+                      id="circle-notification-toolbar"></app-notification-circle>
+                  </button>
+                  <button [id]="('menu.' + menu.NameMenu) | translate"
+                    mat-menu-item [routerLink]="['/' + menu.UrlRedirect]"
+                    *ngIf="showMenu(menu) && user && user.sellerProfile !==
+                    'administrator'">
+                    <span>{{('menu.' + menu.NameMenu) | translate}}</span>
+                    <app-notification-circle *ngIf="menu.NameMenu ===
+                      'Solicitudes pendientes'" [value]="pending"
+                      id="circle-notification-toolbar"></app-notification-circle>
+                  </button>
+                  <a mat-list-item class="href-toolbar-doc"
+                    id="matlist-item-button-seller-documentation" [id]="('menu.'
+                    + menu.NameMenu) | translate"
+                    href="{{menu.UrlRedirect}}" *ngIf="showMenu(menu, true)"
+                    target="_blank">
+                    <h3 matLine>{{('menu.' + menu.NameMenu) | translate}}</h3>
+                  </a>
+                </div>
+              </mat-menu>
+            </div>
           </div>
-        </mat-menu>
+
+
+        </div>
+        <div style="width: 60px" (click)="scrollRight()" *ngIf="showArrowMenu">
+        <mat-icon style="vertical-align: -webkit-baseline-middle; cursor: pointer; color: #b6b6b6;">keyboard_arrow_right</mat-icon>
+      </div>
       </div>
 
-      <!-- MENU VERSION 0.1
-      <button id="dropdown-status-orders" class="button-toolbar" mat-button [matMenuTriggerFor]="orders">
-        <mat-icon>arrow_drop_down</mat-icon>
-        &Oacute;rdenes
-      </button>
-
-      <mat-menu #orders="matMenu">
-        <div *ngIf="user?.sellerProfile === 'seller'">
-          <button mat-menu-item id="dropdown-button-{{item.buttonId}}" *ngFor="let item of categoryList" (click)="goToRoot(item)">
-            <span>{{item.name}}</span>
-          </button>
-        </div>
-
-        <button mat-menu-item id="dropdown-button-pending-devolution" [routerLink]="['/' + routes.sellerCenterIntOrderInPendingDevolution]"
-          *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
-          <span>Solicitudes pendientes</span>
-        </button>
-        <button mat-menu-item id="dropdown-button-in-validation" [routerLink]="['/' + routes.sellerCenterIntOrderInValidation]"
-          *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
-          <span>En validación</span>
-        </button>
-        <button mat-menu-item id="dropdown-button-devolution" [routerLink]="['/' + routes.sellerCenterIntOrderInDevolution]"
-          *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
-          <span>En devolución</span>
-        </button>
-        <button mat-menu-item id="dropdown-button-guide" [routerLink]="['/' + routes.sellerCenterIntOrderLoadGuide]"
-          *ngIf="user?.sellerProfile === 'seller' && !isProductionEnv">
-          <span>Cargar guías</span>
-        </button>
-        <button mat-menu-item id="dropdown-button-guide" [routerLink]="['/' + routes?.sellerCenterIntOrderBillingOrders]"
-          *ngIf="user?.sellerProfile === 'administrator'">
-          <span>Factura electrónica</span>
-        </button>
-
-      </mat-menu>
-
-      <button class="button-toolbar" mat-button [matMenuTriggerFor]="offers">
-        <mat-icon>arrow_drop_down</mat-icon>
-        Ofertas
-      </button>
-      <mat-menu #offers="matMenu">
-        <button mat-menu-item id="dropdown-button-offer-list" [routerLink]="['/' + routes.sellerCenterIntOfersList]"
-          *ngIf="user?.sellerProfile === 'seller'">
-          <span>Listado de Ofertas</span>
-        </button>
-        <button mat-menu-item id="dropdown-button-bulk-load" [routerLink]="['/' + routes.sellerCenterIntOferBulkLoad]"
-          *ngIf="user?.sellerProfile === 'seller'">
-          <span>Carga Masiva</span>
-        </button>
-
-        <button mat-menu-item id="dropdown-button-historic-categories" [routerLink]="['/' + routes?.sellerCenterIntOferHistoricalBulkLoad]"
-          *ngIf="user?.sellerProfile === 'seller'">
-          <span>Histórico de Carga de Ofertas</span>
-        </button>
-
-        <button mat-menu-item id="dropdown-button-tree-categories" [routerLink]="['/' + routes.sellerCenterIntOferTreeCategory]"
-          *ngIf="user?.sellerProfile === 'administrator'">
-          <span>Arbol de Categorias</span>
-        </button>
-
-        <button mat-menu-item [routerLink]="['/' + routes.sellerCenterIntOfferQuoting]" *ngIf="user?.sellerProfile === 'administrator'">
-          <span>Cotizador</span>
-        </button>
-      </mat-menu>
-
-
-      <button id="dropdown-status-orders" class="button-toolbar" mat-button [matMenuTriggerFor]="products" *ngIf="(user?.sellerProfile === 'seller') || (user?.sellerProfile === 'administrator')">
-        <mat-icon>arrow_drop_down</mat-icon>
-        Productos
-      </button>
-
-      <mat-menu #products="matMenu">
-        <button mat-menu-item id="dropdown-button-builk-load-product" [routerLink]="['/'+ routes.sellerCenterIntCreateUnutaryProduct]"
-          *ngIf="user?.sellerProfile === 'seller'">
-          <span>Creaci&oacute;n unitaria</span>
-        </button>
-
-        <button mat-menu-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterIntProductBulkLoad]"
-          *ngIf="user?.sellerProfile === 'administrator'">
-          <span>Carga masiva</span>
-        </button>
-
-        <button mat-menu-item (click)="toggleMenu()" [routerLink]="['/' + routes?.sellerCenterProductModerationBulkLoad]"
-          *ngIf="user?.sellerProfile === 'administrator'">
-          <span>Moderación</span>
-        </button>
-
-        <button mat-menu-item id="dropdown-button-builk-load-product" [routerLink]="['/'+ routes.sellerCenterIntListProducts]">
-          <span>Listado de productos</span>
-        </button>
-      </mat-menu>
-
-      <button id="dropdown-button-billing" class="button-toolbar" mat-button [matMenuTriggerFor]="billing" *ngIf="user?.sellerProfile === 'seller'">
-        <mat-icon>arrow_drop_down</mat-icon>
-        Facturación
-      </button>
-      <mat-menu #billing="matMenu">
-        <button mat-menu-item id="dropdown-button-facturation-pay" [routerLink]="['/' + routes.sellerCenterIntBillingPayments]">
-          <span>Pagos</span>
-        </button>
-      </mat-menu>
-
-      <button class="button-toolbar" mat-button [matMenuTriggerFor]="sellers" *ngIf="user?.sellerProfile === 'administrator'">
-        <mat-icon>arrow_drop_down</mat-icon>
-        Vendedores
-      </button>
-
-      <mat-menu #sellers="matMenu">
-        <button mat-menu-item [routerLink]="['/' + routes.sellerCenterIntSellerRegister]">
-          <span>Registrar</span>
-        </button>
-
-        <button mat-menu-item [routerLink]="['/' + routes.sellerCenterIntSellerManage]">
-          <span>Administrar</span>
-        </button>
-
-        <button mat-menu-item [routerLink]="['/' + routes.sellerCenterIntSellerAgreements]">
-          <span>Acuerdos</span>
-        </button>
-
-        <button mat-menu-item [routerLink]="['/' + routes?.sellerCenterIntSellerList]">
-          <span>Listado de vendedores</span>
-        </button>
-      </mat-menu>
-
-      <button class="button-toolbar" mat-button [matMenuTriggerFor]="parameterization" *ngIf="user?.sellerProfile === 'administrator'">
-        <mat-icon>arrow_drop_down</mat-icon>
-        Parametrización
-      </button>
-
-      <mat-menu #parameterization="matMenu">
-        <button mat-menu-item [routerLink]="['/' + routes?.sellerCenterIntParamSpecs]">
-          <span>Especificaciones</span>
-        </button>
-      </mat-menu>
-    </div>
-  -->
-    </div>
-  </mat-toolbar-row>
-</mat-toolbar>
+    </mat-toolbar-row>
+  </mat-toolbar>

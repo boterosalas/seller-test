@@ -22,7 +22,7 @@
       <div fxFlex="30">
         <div style="text-align: end;">
           <button mat-stroked-button color="primary"
-            (click)="btnDispersion()">{{'secure.dispersion.summaryPayment.dispersar'| translate}}</button>
+            (click)="btnDispersion()" [disabled]= "allPaymentSummary.length === 0 ? true : false ">{{'secure.dispersion.summaryPayment.dispersar'| translate}}</button>
         </div>
       </div>
     </div>
@@ -33,7 +33,7 @@
             <mat-header-cell class='marginListAdminTotal'  fxShow.lg="true" fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
               fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="5" fxFlex.xl=""
               *matHeaderCellDef>
-              <mat-checkbox (change)="$event ? masterToggle(statusAllCheck, dataSource) :
+              <mat-checkbox [disabled]= "allPaymentSummary.length === 0 ? true : false " (change)="$event ? masterToggle(statusAllCheck, dataSource) :
             null; changeStatus(null, $event.checked)" [checked]="!selection.hasValue()"
                 [indeterminate]="selection.hasValue() && !isAllSelectedCurrent">
                 {{'actions.all'| translate}}
@@ -43,7 +43,7 @@
               fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="5" fxFlex.xl=""
               *matCellDef="let row; let element">
               <mat-checkbox (click)="$event.stopPropagation()"
-                (change)="changeStatus(row,$event.checked); changeStatusDispersionBySeller(row, !element.excluded)"
+                (change)="changeStatus(row,$event.checked); changeStatusDispersionBySeller(row, !element.excluded);"
                 [checked]="!element.excluded"></mat-checkbox>
             </mat-cell>
           </ng-container>
@@ -153,6 +153,14 @@
           </mat-row>
         </mat-table>
       </div>
+    </div>
+    <div *ngIf="!showTable" class="payment-summary-component-container-wait-moment-please">
+      <div>
+        <span> {{'secure.products.create_product_unit.list_products.please_wait' | translate}}</span>
+      </div>
+    </div>
+    <div *ngIf="showTable && allPaymentSummary.length === 0" class="payment-summary-component-without-register">
+     <span>No se encontraron registros</span>
     </div>
   </div>
 </div>
