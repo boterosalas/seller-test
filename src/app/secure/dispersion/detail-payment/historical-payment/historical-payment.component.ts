@@ -32,8 +32,7 @@ export class HistoricalPaymentComponent implements OnInit {
 
   public onlyOne = true;
   public length = 0;
-  // public limit = 50;
-  public limit = 2;
+  public limit = 50;
   public paginationToken = '{}';
   public filterHistoricalPayment: FormGroup;
   public btnFilter = false;
@@ -90,8 +89,8 @@ export class HistoricalPaymentComponent implements OnInit {
    */
   createFormControls() {
     this.filterHistoricalPayment = this.fb.group({
-      cutOffDate: new FormControl(''),
-      dispersionDate: new FormControl(''),
+      cutOffDate:  new FormControl({ disabled: true, value: '' }),
+      dispersionDate:  new FormControl({ disabled: true, value: '' }),
       internalIdPayment: new FormControl('', [Validators.pattern(this.regexFilter.orderNumber)]),
       orderNumber: new FormControl('', [Validators.pattern(this.regexFilter.orderNumber)])
     });

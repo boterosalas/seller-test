@@ -4,21 +4,33 @@
   margin-left: 1%;
 }
 
-.marginTable{
-    width: 100%
+.styleFilter {
+  border-bottom: 1px solid #e0e0e0;
+  height: 50px;
+  margin-bottom: -6px;
 }
 
-.styleToolbarandBody{
+.marginTable {
+  width: 100%
+}
+
+.styleToolbarandBody {
   color: #959595;
   display: flex;
   flex-wrap: wrap;
 }
 
-.newToolbar{
+.newToolbar {
   margin-left: 65.5%
 }
 
+.styleForm {
+  height: 350px;
+}
+
 .payment-summary-component {
+
+  margin-top: 15%;
 
   &-aling-column-right {
     text-align: end;
@@ -166,6 +178,6 @@
   width: 300px;
 }
 
-.topNotFoundData{
+.topNotFoundData {
   margin-top: 8%
 }

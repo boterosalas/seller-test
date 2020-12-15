@@ -5,7 +5,7 @@
       (paginationListOrdens)="paginations($event)" [pageIndexChange]="indexPage">
     </app-toolbar-search-pagination>
 
-    <div style="border-bottom: 1px solid #e0e0e0; height: 50px;  margin-bottom: -6px;">
+    <div class="styleFilter">
       <button type="button" matTooltipPosition="below" mat-icon-button mat-button
         (click)="toggleFilterNewsCollected()">
         <mat-icon>filter_list</mat-icon>
@@ -144,7 +144,7 @@
   <mat-sidenav #sidenavNewsCollected mode="over" class="container-filter" fxFlex.sm="90" fxFlex.xs="90"
     fxFlex.md="45" fxFlex.xl="45" fxFlex.lg="45" position="end" opened="{{stateSideNavOrder}}">
 
-    <div fxLayout="row" fxLayoutAlign="start center" class="payment-summary-component" style="margin-top: 22%">
+    <div fxLayout="row" fxLayoutAlign="start center" class="payment-summary-component">
       <div fxFlex="80">
         <div class="payment-summary-component-margin-left-10">
           {{informationToForm.title_for_search | translate}}
@@ -165,7 +165,7 @@
 
         <form #createfilterNewsCollected="ngForm" [formGroup]="filterNewsCollected"
           class="payment-summary-component-margin-top-40">
-          <div style="height: 350px;">
+          <div class="styleForm">
             <mat-form-field class="classDatapicker  payment-summary-component-input-generic">
 
               <input matInput [matDatepicker]="picker" placeholder="Fecha de corte" formControlName="cutOffDate">
