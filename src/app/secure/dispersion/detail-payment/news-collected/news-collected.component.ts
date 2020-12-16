@@ -14,8 +14,6 @@ import { DetailPaymentService } from '../detail-payment.service';
 })
 export class NewsCollectedComponent implements OnInit {
 
-  @Input() sellerData: any;
-
   public displayedColumns = [
     'datePay',
     'idPayonner',
@@ -40,6 +38,17 @@ export class NewsCollectedComponent implements OnInit {
 
   regexFilter = {
     orderNumber: ''
+  };
+
+  _sellerData;
+
+  // Set para escuchar cada vez que tenga cambio el padre.
+  @Input() set sellerData(value: any) {
+    if (value) {
+      this.onlyOne = true;
+      this._sellerData = value;
+      this.getAllNewsCollected();
+    }
   };
 
   @ViewChild('sidenavNewsCollected') sidenavNewsCollected: MatSidenav;
@@ -168,13 +177,36 @@ export class NewsCollectedComponent implements OnInit {
    * @memberof NewsCollectedComponent
    */
   getAllNewsCollected(applyPagination?: any, paramsFilter?: any) {
+    let url;
+    let urlFilters;
     this.loadingService.viewSpinner();
-    const urlParams = `?limit=${this.limit}&paginationToken=${encodeURI(this.paginationToken)}`;
-    const urlFilters = {
-      SellerId: this.sellerData.IdSeller.toString(),
-      PaymentNew: {}
-    };
-    this.detailPaymentService.getAllNewsCollected(urlParams, urlFilters).subscribe((res: any) => {
+
+    if (applyPagination || paramsFilter) {
+      url = paramsFilter ? `?limit=${this.limit}&paginationToken=${encodeURI(this.paginationToken)}` : this.urlParams;
+      if (paramsFilter) {
+        urlFilters = {
+          SellerId: this._sellerData.IdSeller.toString(),
+          PaymentNew: {
+            CutOffDate: paramsFilter.cutOffDate,
+            DispersionDate: paramsFilter.dispersionDate,
+            InternalPaymentId: paramsFilter.internalIdPayment,
+            OrderNumber: paramsFilter.orderNumber
+          }
+        };
+      } else {
+        urlFilters = {
+          SellerId: this._sellerData.IdSeller.toString(),
+          PaymentNew: {}
+        };
+      }
+    } else {
+      url = `?limit=${this.limit}&paginationToken=${encodeURI(this.paginationToken)}`;
+      urlFilters = {
+        SellerId: this._sellerData.IdSeller.toString(),
+        PaymentNew: {}
+      };
+    }
+    this.detailPaymentService.getAllNewsCollected(url, urlFilters).subscribe((res: any) => {
       if (res && res.status === 200) {
         const { viewModel, count, paginationToken } = res.body;
         this.dataSource = new MatTableDataSource(viewModel);
