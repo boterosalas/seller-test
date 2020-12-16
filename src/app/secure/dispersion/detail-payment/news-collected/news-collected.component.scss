@@ -181,5 +181,14 @@
 }
 
 .topNotFoundData {
+  mat-icon {
+    font-size: 40px;
+  }
+
+  p {
+    color: black;
+    margin-top: 2%
+  }
+
   margin-top: 8%
 }

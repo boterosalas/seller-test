@@ -44,7 +44,7 @@ $hint-color: #5d5d5d;
     font-weight: bold;
   }
 
-  ::-webkit-scrollbar-thumb{
+  ::-webkit-scrollbar-thumb {
     background: white;
     width: 100%;
   }
@@ -101,6 +101,16 @@ $hint-color: #5d5d5d;
 }
 
 .classFindSeller {
+
+  mat-icon {
+    font-size: 40px;
+  }
+
+  p {
+    color: black;
+    margin-top: 2%
+  }
+
   width: 96%;
   text-align: center;
   height: 100%;
