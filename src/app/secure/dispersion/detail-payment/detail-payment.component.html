@@ -15,7 +15,7 @@
       </app-search-seller>
 
       <button mat-button [matTooltip]="'secure.dispersion.detail-payment.download' | translate" *ngIf="false">
-        <mat-icon>archive</mat-icon>
+        <mat-icon>archive</mat-icon> Descargar detalle de Dispersión de pagos
       </button>
     </div>
   </mat-toolbar-row>
@@ -35,6 +35,6 @@
   </mat-tab-group>
 </div>
 <div *ngIf="!activeTabs" class="classFindSeller" fxLayout="column" fxLayoutAlign="space-evenly center">
-  <mat-icon class="icon-not-found">info</mat-icon>
-  Introduce el nombre de la tienda en el buscador para ver el detalle de dispersión
+  <mat-icon class="icon-not-found" color="primary">info</mat-icon>
+  <p>Introduce el nombre de la tienda en el buscador para ver el detalle de dispersión</p>
 </div>

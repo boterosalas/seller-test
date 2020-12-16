@@ -120,8 +120,8 @@
       </mat-table>
 
       <div *ngIf="length === 0" fxLayout="column" fxLayoutAlign="space-evenly center" class="topNotFoundData">
-        <mat-icon class="icon-not-found">info</mat-icon>
-        No hay histórico de pagos y dispersión para este vendedor, realiza nueva busqueda.
+        <mat-icon class="icon-not-found" color="primary">info</mat-icon>
+        <p>No hay histórico de pagos y dispersión para este vendedor, realiza nueva búsqueda.</p>
       </div>
     </div>
   </div>
@@ -190,7 +190,7 @@
                 {{'filters.clear' | translate}}
               </button>
               <button class="sc-button" mat-raised-button color="primary"
-                [disabled]="!createfilterHistoricalPayment.form.valid" type="button"
+                [disabled]="!createfilterHistoricalPayment.form.valid || !createfilterHistoricalPayment.form.touched" type="button"
                 (click)="apllyFilterHistoricalPayment(filterHistoricalPayment.value)">
                 {{'actions.apply' | translate}}
               </button>
