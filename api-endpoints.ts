@@ -494,11 +494,11 @@ export const endpoints = {
       // Obtener el listado de comisiones ultimos 15 dias
       getListCommissionAll : 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/GetComsnExcsAudit/{params}',
       // Obtener el listado de vendedores para hacer la dispersion
-      getListDispersionAll : '',
+      getListDispersionAll : 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/{params}',
       // Excluir - incluir en el pago de la dispersion
-      excludeSellerPayoneer: '',
+      excludeSellerPayoneer: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/excludesellerpayoneerdispersion',
       // ejecutar la dispersion
-      sendDispersion : ''
+      sendDispersion : 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion'
     }
   }
 };
