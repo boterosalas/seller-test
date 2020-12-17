@@ -244,7 +244,9 @@ export const endpoints = {
       // Obtener el listado de vendedores para hacer la dispersion
       getListDispersionAll : 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/{params}',
       // Excluir - incluir en el pago de la dispersion
-      excludeSellerPayoneer: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/excludesellerpayoneerdispersion'
+      excludeSellerPayoneer: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/excludesellerpayoneerdispersion',
+      // ejecutar la dispersion
+      sendDispersion : 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion'
     },
   },
   // Endpoints production
@@ -486,7 +488,9 @@ export const endpoints = {
       // Obtener el listado de vendedores para hacer la dispersion
       getListDispersionAll : 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/{params}',
       // Excluir - incluir en el pago de la dispersion
-      excludeSellerPayoneer: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/excludesellerpayoneerdispersion'
+      excludeSellerPayoneer: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/excludesellerpayoneerdispersion',
+      // ejecutar la dispersion
+      sendDispersion : 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion'
     }
   }
 };

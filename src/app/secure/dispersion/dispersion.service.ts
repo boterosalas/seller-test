@@ -14,11 +14,15 @@ export class DispersionService {
   ) { }
 
 
- public getAllPaymentSummary(params: any): Observable<any> {
+  public getAllPaymentSummary(params: any): Observable<any> {
     return this.http.get(this.api.get('getListDispersionAll', [params]), { observe: 'response' });
   }
 
   public excludeSellerPayoneer(data: any): Observable<any> {
     return this.http.post(this.api.get('excludeSellerPayoneer'), data);
-}
+  }
+
+  public sendDispersion(data: any): Observable<any> {
+    return this.http.post(this.api.get('sendDispersion'), data);
+  }
 }

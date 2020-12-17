@@ -32,7 +32,7 @@ export class PaymentSummaryComponent implements OnInit {
   public newLimit = null;
   public currentPage = 0;
   public length = 0;
-  public dataSource: MatTableDataSource<any>;
+  public dataSource: any;
   public onlyOne = true;
   public isAllSelectedCurrent = false;
   public statusAllCheck = false;
@@ -50,6 +50,10 @@ export class PaymentSummaryComponent implements OnInit {
   public filterPaymentSummary: FormGroup;
   public allPaymentSummary = [];
   public showTable = false;
+
+  public totalCountAux = 0;
+  public totaSellerAux = 0;
+
 
   @ViewChild('sidenavSearchPaymentSummary') sidenavSearchPaymentSummary: MatSidenav;
   @ViewChild('toolbarOptions') toolbarOption;
@@ -97,7 +101,11 @@ export class PaymentSummaryComponent implements OnInit {
     this.createFormControls();
 
   }
-
+  /**
+   * funcion para consultar la regex de la base de datos
+   *
+   * @memberof PaymentSummaryComponent
+   */
   public getRegexByModule(): void {
     this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
       let dataCommissionRegex = JSON.parse(res.body.body);
@@ -111,14 +119,24 @@ export class PaymentSummaryComponent implements OnInit {
       this.createFormControls();
     });
   }
-
+  /**
+   * funcion para crear formulario
+   *
+   * @memberof PaymentSummaryComponent
+   */
   createFormControls() {
     this.filterPaymentSummary = this.fb.group({
       cutOffDate: new FormControl('', [Validators.pattern(this.paymentSummaryRegex.integerNumber)]),
       internalIdPayment: new FormControl('', [Validators.pattern(this.paymentSummaryRegex.integerNumber)]),
+      sellerId: new FormControl('', [Validators.pattern(this.paymentSummaryRegex.integerNumber)]),
+      amount: new FormControl('', [Validators.pattern(this.paymentSummaryRegex.integerNumber)]),
     });
   }
-
+  /**
+   * funcion para consultar todos los vendedores para la dispersion
+   *
+   * @memberof PaymentSummaryComponent
+   */
   getAllPaymentSummary() {
     this.loadingService.viewSpinner();
     this.dispersionService.getAllPaymentSummary(this.filter).subscribe((res: any) => {
@@ -126,16 +144,18 @@ export class PaymentSummaryComponent implements OnInit {
         const { viewModel, count, paginationToken } = res.body;
         if (this.statusAllCheck === true) {
           viewModel.forEach(element => {
-            element.excluded = true;
-         });
+            element.excluded = false;
+          });
         }
-        this.allPaymentSummary = viewModel;
-        this.dataSource = new MatTableDataSource(viewModel);
+        this.allPaymentSummary = viewModel.filter(x => x.paid === false);
+        this.dataSource = new MatTableDataSource(this.allPaymentSummary);
         if (this.onlyOne) {
           this.length = count;
-          this.totalPayValue = res.body.extraInfo.TotalToPayPayoneer;
-          this.totalSeller = res.body.extraInfo.TotalSellersToPayPayoneer;
         }
+        this.totalCountAux = res.body.extraInfo.TotalToPayPayoneer;
+        this.totaSellerAux = res.body.extraInfo.TotalSellersToPayPayoneer;
+        this.totalPayValue = res.body.extraInfo.TotalToPayPayoneer !== '0' ? parseFloat(res.body.extraInfo.TotalToPayPayoneer) : 0;
+        this.totalSeller = res.body.extraInfo.TotalSellersToPayPayoneer !== '0' ? parseInt(res.body.extraInfo.TotalSellersToPayPayoneer) : 0;
         this.onlyOne = false;
         this.loadingService.closeSpinner();
         this.savePaginationToken(paginationToken);
@@ -153,14 +173,24 @@ export class PaymentSummaryComponent implements OnInit {
       });
     });
   }
-
+  /**
+   * funcion para salvar el pagination token 
+   *
+   * @param {string} pagination
+   * @memberof PaymentSummaryComponent
+   */
   savePaginationToken(pagination: string) {
     const isExist = this.arrayPosition.includes(pagination);
     if (isExist === false) {
       this.arrayPosition.push(pagination);
     }
   }
-
+  /**
+   * funcion para escuchar el cambio de pagina y el limite
+   *
+   * @param {*} event
+   * @memberof PaymentSummaryComponent
+   */
   paginations(event: any) {
     const newLimit = event.param.pageSize;
     const index = event.param.pageIndex;
@@ -168,7 +198,7 @@ export class PaymentSummaryComponent implements OnInit {
       this.indexPage = 0;
       this.limit = event.param.pageSize;
       this.paginationToken = '{}';
-      this.limit = 50;
+      this.limit = newLimit;
       this.currentPage = 0;
       const paginator = this.toolbarOption.getPaginator();
       paginator.pageIndex = 0;
@@ -184,11 +214,19 @@ export class PaymentSummaryComponent implements OnInit {
     this.filter = `?limit=${this.limit}&paginationToken=${encodeURI(this.paginationToken)}&NewLimit=${this.newLimit}&CurrentPage=${this.currentPage}`;
     this.getAllPaymentSummary();
   }
-
+  /**
+   * funcion para mostrar el toggle para mostrar el filtro
+   *
+   * @memberof PaymentSummaryComponent
+   */
   toggleFilterReportPaymentSummary() {
     this.sidenavSearchPaymentSummary.toggle();
   }
-
+  /**
+   * funcion para seleccionar todo los registros
+   *
+   * @memberof PaymentSummaryComponent
+   */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
@@ -202,22 +240,64 @@ export class PaymentSummaryComponent implements OnInit {
       this.all = false;
     }
   }
-
+  /**
+   * funcion para cambiar el status check all
+   *
+   * @param {boolean} status
+   * @param {*} dataSource
+   * @memberof PaymentSummaryComponent
+   */
   masterToggle(status: boolean, dataSource: any) {
     if (dataSource && dataSource.data) {
       const data = dataSource.data;
       data.forEach(element => {
-        element.excluded = !status;
+        element.excluded = status;
       });
       this.dataSource = new MatTableDataSource(data);
       this.statusAllCheck = !status;
+      const params = [
+        {
+          sellerId: null,
+          cutOffDate: null,
+          excluded: null,
+          ExcludeAll: status
+        }
+      ];
+      this.dispersionService.excludeSellerPayoneer(params).subscribe((res: any) => {
+        if (res) {
+          this.loadingService.closeSpinner();
+          const textStatus = !status === true ? ' incluido  ' : ' excluido ';
+          if (!status === true) {
+            this.getAllPaymentSummary();
+          } else {
+            this.totalPayValue = 0;
+            this.totalSeller = 0;
+          }
+          this.snackBar.open('Todos los vendedores fueron' + textStatus + ' en el pago de dispersión', this.languageService.instant('actions.close'), {
+            duration: 3000,
+          });
+          if (status) {
+            this.totalPayValue = 0;
+            this.totalSeller = 0;
+          } else {
+            this.totalPayValue = this.totalCountAux;
+            this.totalSeller = this.totaSellerAux;
+          }
+        }
+      });
     } else {
       this.selection.clear();
       this.arraySelect = [];
       this.statusAllCheck = !status;
     }
   }
-
+  /**
+   * funcion para cambiar el status individualmente 
+   *
+   * @param {*} row
+   * @param {*} status
+   * @memberof PaymentSummaryComponent
+   */
   public changeStatus(row: any, status: any) {
     this.disabledBtn = true;
     if (row) {
@@ -249,14 +329,21 @@ export class PaymentSummaryComponent implements OnInit {
     this.isAllSelected();
   }
 
-
+  /**
+   * funcion consumir el serivio para cambiar el status en la base de datos
+   *
+   * @param {*} payToSeller
+   * @param {*} status
+   * @memberof PaymentSummaryComponent
+   */
   changeStatusDispersionBySeller(payToSeller: any, status: any) {
     this.loadingService.viewSpinner();
     const params = [
       {
         sellerId: payToSeller.sellerId,
         cutOffDate: payToSeller.cutOffDate,
-        excluded: status
+        excluded: status,
+        ExcludeAll: null
       }
     ];
 
@@ -264,12 +351,12 @@ export class PaymentSummaryComponent implements OnInit {
       if (res) {
         this.loadingService.closeSpinner();
         const textStatus = status === true ? ' Excluido ' : ' Incluido ';
-        this.dataSource.data.forEach(element => { 
-          if(element.sellerId === payToSeller.sellerId){
+        this.dataSource.data.forEach(element => {
+          if (element.sellerId === payToSeller.sellerId) {
             element.excluded = status;
           }
         });
-        this.snackBar.open('Vendedor' + textStatus + ' del pago de dispersion', this.languageService.instant('actions.close'), {
+        this.snackBar.open('Vendedor' + textStatus + ' del pago de dispersión', this.languageService.instant('actions.close'), {
           duration: 3000,
         });
         this.recalculate(payToSeller.amount, status);
@@ -280,31 +367,73 @@ export class PaymentSummaryComponent implements OnInit {
       }
     });
   }
-
-  recalculate(valueToPay: number, status: boolean){
-    if(status){
+  /**
+   * funcion para recalcular el total a pagar y el numero de vendedores
+   *
+   * @param {number} valueToPay
+   * @param {boolean} status
+   * @memberof PaymentSummaryComponent
+   */
+  recalculate(valueToPay: number, status: boolean) {
+    if (status) {
       this.totalPayValue = this.totalPayValue - valueToPay;
-      this.totalSeller --;
+      this.totalSeller--;
     } else {
       this.totalPayValue = this.totalPayValue + valueToPay;
-      this.totalSeller ++;
+      this.totalSeller++;
     }
   }
-
+  /**
+   * funcion para aplicar filtros
+   *
+   * @param {*} form
+   * @memberof PaymentSummaryComponent
+   */
   apllyFilterPaymentSummary(form: any) {
     if (form !== undefined) {
       const cutOffDate = form.cutOffDate ? `&cutOffDate=${moment(form.cutOffDate).format('YYYY/MM/DD')}` : '';
       const internalPaymentId = form.internalIdPayment ? `&internalPaymentId=${form.internalIdPayment}` : '';
+      const sellerId = form.sellerId ? `&idSeller=${form.sellerId}` : '';
+      const amount = form.amount ? `&paid=false&amountValue=${form.amount}` : '';
       this.arrayPosition = [];
       this.arrayPosition.push('{}');
-      this.filter = `?limit=${this.limit}&paginationToken=${encodeURI(this.paginationToken)}&NewLimit=${this.newLimit}&CurrentPage=${this.currentPage}` + cutOffDate  + internalPaymentId;
+      this.onlyOne = true;
+      this.filter = `?limit=${this.limit}&paginationToken=${encodeURI(this.paginationToken)}&NewLimit=${this.newLimit}&CurrentPage=${this.currentPage}` + cutOffDate + internalPaymentId + sellerId + amount;
+      this.toggleFilterReportPaymentSummary();
+      this.dataSource = [];
       this.getAllPaymentSummary();
     }
   }
-  btnDispersion(){
-    
+  /**
+   * funcion para disparar el evento de dispersar 
+   *
+   * @memberof PaymentSummaryComponent
+   */
+  btnDispersion() {
+    this.loadingService.viewSpinner();
+    this.dispersionService.sendDispersion(null).subscribe((res: any) => {
+      if (res) {
+        this.loadingService.closeSpinner();
+        this.snackBar.open(res.message, this.languageService.instant('actions.close'), {
+          duration: 3000,
+        });
+        this.getAllPaymentSummary();
+      } else {
+        this.snackBar.open(this.languageService.instant('secure.orders.send.error_ocurred_processing'), this.languageService.instant('actions.close'), {
+          duration: 3000,
+        });
+      }
+    }, error => {
+      this.snackBar.open(this.languageService.instant('secure.orders.send.error_ocurred_processing' + error), this.languageService.instant('actions.close'), {
+        duration: 3000,
+      });
+    });
   }
-
+  /**
+   * funcion para limpiar el formulario del filtro
+   *
+   * @memberof PaymentSummaryComponent
+   */
   clearForm() {
     this.onlyOne = true;
     this.filterPaymentSummary.reset();
@@ -318,5 +447,4 @@ export class PaymentSummaryComponent implements OnInit {
     this.getAllPaymentSummary();
     this.toggleFilterReportPaymentSummary();
   }
-
 }

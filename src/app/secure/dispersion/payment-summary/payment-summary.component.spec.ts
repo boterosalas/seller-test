@@ -29,7 +29,7 @@ export const registerRegex = {
 }
 
 describe('PaymentSummaryComponent', () => {
-  const mockDispersionService = jasmine.createSpyObj('DispersionService', ['getAllPaymentSummary', 'excludeSellerPayoneer']);
+  const mockDispersionService = jasmine.createSpyObj('DispersionService', ['getAllPaymentSummary', 'excludeSellerPayoneer', 'sendDispersion']);
   const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
   const mockUserLoginService = jasmine.createSpyObj('UserLoginService', ['isAuthenticated']);
   const mockUserParameterService = jasmine.createSpyObj('UserParametersService', ['getUserData']);
@@ -60,6 +60,15 @@ describe('PaymentSummaryComponent', () => {
         }]
       }
     } 
+
+  const sendDispersion = {
+    data:{},
+    errors :[
+      {code:'', message: ''}
+    ],
+    message: 'Dispersion ejecutada con errrores',
+    pendingResponse: false
+  }
 
 
   beforeEach(fakeAsync(() => {
@@ -94,6 +103,7 @@ describe('PaymentSummaryComponent', () => {
   beforeEach(async() => {
     fixture = TestBed.createComponent(PaymentSummaryComponent);
     mockDispersionService.getAllPaymentSummary.and.returnValue(of(responseDispersion));
+    mockDispersionService.sendDispersion.and.returnValue(of(sendDispersion));
     mockSupportService.getRegexFormSupport.and.returnValue(of(registerRegex));
     component = fixture.componentInstance;
     fixture.detectChanges();

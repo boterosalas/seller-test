@@ -8,33 +8,33 @@
         [pageIndexChange]="indexPage">
       </app-toolbar-search-pagination>
     </div>
-    <div fxLayout="row wrap" style="width: 100%; padding: 20px;">
+    <div fxLayout="row wrap" class="payment-summary-component-width-padding-20">
       <div fxFlex="70">
-        <div style="padding-bottom: 15px;">
-          <span style="color:#828282; font-size: 15px;">{{'secure.dispersion.summaryPayment.valueTotalPay'| translate}}:
-            USD {{totalPayValue}}</span>
+        <div class="payment-summary-component-padding-bottom-15">
+          <span class="payment-summary-component-text-color-total-summary">{{'secure.dispersion.summaryPayment.valueTotalPay'| translate}}:
+             {{totalPayValue | currency: 'USD' : 'code' : '1.0-0'  }}</span>
         </div>
         <div>
-          <span style="color:#828282; font-size: 15px;">{{'secure.dispersion.summaryPayment.allSeller' | translate}}:
+          <span class="payment-summary-component-text-color-total-summary">{{'secure.dispersion.summaryPayment.allSeller' | translate}}:
             {{totalSeller}}</span>
         </div>
       </div>
       <div fxFlex="30">
-        <div style="text-align: end;">
+        <div class="payment-summary-component-text-aling-end">
           <button mat-stroked-button color="primary"
             (click)="btnDispersion()" [disabled]= "allPaymentSummary.length === 0 ? true : false ">{{'secure.dispersion.summaryPayment.dispersar'| translate}}</button>
         </div>
       </div>
     </div>
-    <div style="width: 100%;">
-      <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="97" fxFlex.lg="97" fxFlex.xl="97" style="width: 100%;">
-        <mat-table #table [dataSource]="dataSource" matSort style="width: 100%;">
+    <div class="payment-summary-component-width-complete">
+      <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="97" fxFlex.lg="97" fxFlex.xl="97" class="payment-summary-component-width-complete">
+        <mat-table #table [dataSource]="dataSource" matSort class="payment-summary-component-width-complete">
           <ng-container matColumnDef="check">
             <mat-header-cell class='marginListAdminTotal'  fxShow.lg="true" fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
               fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="5" fxFlex.xl=""
               *matHeaderCellDef>
               <mat-checkbox [disabled]= "allPaymentSummary.length === 0 ? true : false " (change)="$event ? masterToggle(statusAllCheck, dataSource) :
-            null; changeStatus(null, $event.checked)" [checked]="!selection.hasValue()"
+            null; changeStatus(null, $event.checked)" [checked]="selection.hasValue()"
                 [indeterminate]="selection.hasValue() && !isAllSelectedCurrent">
                 {{'actions.all'| translate}}
               </mat-checkbox>
@@ -97,7 +97,9 @@
             <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true"
               fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
               *matCellDef="let element">
-              <p class="sc-text-normal payment-summary-component-aling-column-center"></p>
+              <p class="sc-text-normal payment-summary-component-aling-column-center">
+                {{element.ordersQuantity}}
+              </p>
             </mat-cell>
           </ng-container>
 
@@ -139,8 +141,8 @@
             <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
               fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
               *matCellDef="let element">
-              <p class="sc-text-normal payment-summary-component-aling-column-right">{{element.currency}}
-                {{element.amount}}</p>
+              <p class="sc-text-normal payment-summary-component-aling-column-right">
+                {{element.amount | currency: 'USD' : 'code' : '1.0-0'}}</p>
             </mat-cell>
           </ng-container>
 
@@ -190,20 +192,30 @@
 
         <form #createfilterPaymentSummary="ngForm" [formGroup]="filterPaymentSummary"
           class="payment-summary-component-margin-top-40">
-          <div style="height: 470px;">
+          <div class="payment-summary-component-height-470-filter">
             <mat-form-field class="classDatapicker  payment-summary-component-input-generic">
-              
               <input matInput [matDatepicker]="picker"  placeholder="Fecha de corte" formControlName="cutOffDate">
               <mat-error *ngIf="filterPaymentSummary.get('cutOffDate').hasError('pattern')">
                 {{'errors.format_invalidate' | translate}}
               </mat-error>
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker disabled="false"></mat-datepicker>
-          
+            </mat-form-field>
+            <mat-form-field class="field payment-summary-component-input-generic">
+              <input matInput placeholder="ID vendedor" formControlName="sellerId">
+              <mat-error *ngIf="filterPaymentSummary.get('sellerId').hasError('pattern')">
+                {{'errors.format_invalidate' | translate}}
+              </mat-error>
             </mat-form-field>
             <mat-form-field class="field payment-summary-component-input-generic">
               <input matInput placeholder="Id código interno" formControlName="internalIdPayment">
               <mat-error *ngIf="filterPaymentSummary.get('internalIdPayment').hasError('pattern')">
+                {{'errors.format_invalidate' | translate}}
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="field payment-summary-component-input-generic">
+              <input matInput placeholder="Monto" formControlName="amount">
+              <mat-error *ngIf="filterPaymentSummary.get('amount').hasError('pattern')">
                 {{'errors.format_invalidate' | translate}}
               </mat-error>
             </mat-form-field>
