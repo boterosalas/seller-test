@@ -53,7 +53,7 @@ export class ReportCommissionComponent implements OnInit {
   isClear = false;
   lastState: 0;
   length = 0;
-  public limit= 10;
+  public limit= 50;
   indexPage = 0;
   showTable = false;
   dateInitLimit = '';
@@ -141,7 +141,6 @@ export class ReportCommissionComponent implements OnInit {
     this.createFormControls();
     this.getListCommissionAll();
     this.getRegexByModule();
-    this.clearDateEnd();
   }
 
 /**
@@ -208,6 +207,8 @@ createFormControls() {
         this.filterCommission.get('SellerAudit').setErrors(null);
       }
     });
+
+    this.clearDateEnd();
   }
 /**
  * funcion para listar todos los vendedores
@@ -441,12 +442,13 @@ apllyFilterCommission(form: any) {
         InitialDate: form.InitialDate ? moment(form.InitialDate).format('YYYY/MM/DD') : '',
         IdSeller: form.IdSeller,
         Plu: form.Plu,
-        SellerAudit: this.idAdmin ? this.idAdmin.toString() : null,
+        SellerAudit: form.SellerAudit ? this.idAdmin.toString() : null,
         PaginationToken : '{}',
         Limit: this.limit,
         NewLimit: null,
         CurrentPage: 0
       };
+      const nameAdmin = form.SellerAudit ? this.nameAdmin : null;
       this.onlyOne = true;
       this.filterChips = [];
       this.saveFilter({'name' : this.filter.Brand, 'type': 'Brand'});
@@ -454,7 +456,7 @@ apllyFilterCommission(form: any) {
       this.saveFilter({'name' : this.filter.InitialDate, 'type': 'InitialDate' });
       this.saveFilter({'name' : this.filter.IdSeller, 'type': 'IdSeller'});
       this.saveFilter({'name' : this.filter.Plu, 'type': 'Plu'});
-      this.saveFilter({'name' : this.nameAdmin, 'type': 'SellerAudit'});
+      this.saveFilter({'name' : nameAdmin, 'type': 'SellerAudit'});
       this.toggleFilterReportCommission();
     } else {
         const msg = 'Error al aplicar los filtros';
@@ -503,7 +505,7 @@ deteleFilter(filter: any, indexArray: number) {
             this.filterCommission.controls.IdSeller.reset();
           } else {
                 this.keywords = [];
-                this.limit = 10;
+                this.limit = 50;
                 this.idAdmin = null;
                 this.filterChips = [];
                 this.filterCommission.reset();
@@ -531,7 +533,7 @@ deteleFilter(filter: any, indexArray: number) {
             this.filterCommission.controls.SellerAudit.reset();
           } else {
                 this.keywords = [];
-                this.limit = 10;
+                this.limit = 50;
                 this.idAdmin = null;
                 this.filterChips = [];
                 this.filterCommission.reset();
@@ -578,7 +580,7 @@ clearDateEnd() {
  */
 clearForm() {
     this.keywords = [];
-    this.limit = 10;
+    this.limit = 50;
     this.idAdmin = null;
     this.filterChips = [];
     this.onlyOne = true;
