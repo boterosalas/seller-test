@@ -46,8 +46,13 @@
   display: block;
 }
 
+.margin-left-20{
+  margin-left:20px;
+}
+
 @media screen and (min-width: 300px) and (max-width: 600px) {
   .select-hide {
     display: none;
   }
 }
+

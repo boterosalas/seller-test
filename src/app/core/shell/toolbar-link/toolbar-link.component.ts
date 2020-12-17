@@ -181,12 +181,20 @@ export class ToolbarLinkComponent implements OnInit {
       return menu.ShowMenu && (this.isProductionEnv && menu.ShowMenuProduction || !this.isProductionEnv) && !showUrlRedirect && this.showOnlyLocalMenus(menu.UrlRedirect);
     }
   }
-
-  scrollLeft(){
+/**
+ * funcion para mover el menu hacia la izquierda
+ *
+ * @memberof ToolbarLinkComponent
+ */
+scrollLeft(){
     this.widgetsContent.nativeElement.scrollLeft -= 150;
   }
-
-  scrollRight(){
+/**
+ * funcion para mover el menu hacia la derecha 
+ *
+ * @memberof ToolbarLinkComponent
+ */
+scrollRight(){
     this.widgetsContent.nativeElement.scrollLeft = 150;
   }
 }

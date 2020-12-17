@@ -13,16 +13,34 @@ export class DispersionService {
     private api: EndpointService
   ) { }
 
-
-  public getAllPaymentSummary(params: any): Observable<any> {
+/**
+ * funcion para consumir endPoint para consultar todos los vendedores a pagar por dispersion
+ *
+ * @param {*} params
+ * @returns {Observable<any>}
+ * @memberof DispersionService
+ */
+public getAllPaymentSummary(params: any): Observable<any> {
     return this.http.get(this.api.get('getListDispersionAll', [params]), { observe: 'response' });
   }
-
-  public excludeSellerPayoneer(data: any): Observable<any> {
+/**
+ * funcion para excluir - incluir vendedores para el pago por dispersion
+ *
+ * @param {*} data
+ * @returns {Observable<any>}
+ * @memberof DispersionService
+ */
+public excludeSellerPayoneer(data: any): Observable<any> {
     return this.http.post(this.api.get('excludeSellerPayoneer'), data);
   }
-
-  public sendDispersion(data: any): Observable<any> {
+/**
+ * funcion para enviar la dispersion 
+ *
+ * @param {*} data
+ * @returns {Observable<any>}
+ * @memberof DispersionService
+ */
+public sendDispersion(data: any): Observable<any> {
     return this.http.post(this.api.get('sendDispersion'), data);
   }
 }
