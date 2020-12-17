@@ -183,13 +183,10 @@ export class ToolbarLinkComponent implements OnInit {
   }
 
   scrollLeft(){
-    console.log('presiono');
     this.widgetsContent.nativeElement.scrollLeft -= 150;
   }
 
   scrollRight(){
-    console.log('presiono');
     this.widgetsContent.nativeElement.scrollLeft = 150;
-    console.log(this.widgetsContent)
   }
 }
