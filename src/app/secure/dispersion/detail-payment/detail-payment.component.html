@@ -26,10 +26,10 @@
 
 <div *ngIf="activeTabs">
   <mat-tab-group>
-    <mat-tab id="tab1" style="font-weight: bold;" [label]="'secure.dispersion.detail-payment.historical'| translate">
+    <mat-tab id="tab1" [label]="'secure.dispersion.detail-payment.historical'| translate">
       <app-historical-payment class="width-100-percent" [sellerData]="sellerData"></app-historical-payment>
     </mat-tab>
-    <mat-tab id="tab2" style="font-weight: bold;" [label]="'secure.dispersion.detail-payment.collected'| translate">
+    <mat-tab id="tab2" [label]="'secure.dispersion.detail-payment.collected'| translate">
       <app-news-collected class="width-100-percent" [sellerData]="sellerData"></app-news-collected>
     </mat-tab>
   </mat-tab-group>

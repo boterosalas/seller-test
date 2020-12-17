@@ -22,6 +22,10 @@ export class DetailPaymentComponent implements OnInit {
     this.selectSeller();
   }
 
+  /**
+   * Metodo para seleccionar el seller y enviarlos a los tabs la info.
+   * @memberof DetailPaymentComponent
+   */
   selectSeller() {
     this.loadingService.viewSpinner();
     this.emitterSeller.eventSearchSeller.subscribe(data => {
