@@ -126,7 +126,7 @@ export class PaymentSummaryComponent implements OnInit {
    */
   createFormControls() {
     this.filterPaymentSummary = this.fb.group({
-      cutOffDate: new FormControl('', [Validators.pattern(this.paymentSummaryRegex.integerNumber)]),
+      cutOffDate: new FormControl({ disabled: true, value: '' }),
       internalIdPayment: new FormControl('', [Validators.pattern(this.paymentSummaryRegex.integerNumber)]),
       sellerId: new FormControl('', [Validators.pattern(this.paymentSummaryRegex.integerNumber)]),
       amount: new FormControl('', [Validators.pattern(this.paymentSummaryRegex.integerNumber)]),
