@@ -248,7 +248,13 @@ export const endpoints = {
       // Obtener listado de historico de pagos
       getListHistoricPayments: 'https://w7uiqlm4b6.execute-api.us-east-1.amazonaws.com/dev/detaildispersion{params}',
       // Obtener listado novedades cobro
-      getListNewsCollected: 'https://w7uiqlm4b6.execute-api.us-east-1.amazonaws.com/dev/detailpaymentnews{params}'
+      getListNewsCollected: 'https://w7uiqlm4b6.execute-api.us-east-1.amazonaws.com/dev/detailpaymentnews{params}',
+      // Obtener el listado de vendedores para hacer la dispersion
+      getListDispersionAll : 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/{params}',
+      // Excluir - incluir en el pago de la dispersion
+      excludeSellerPayoneer: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/excludesellerpayoneerdispersion',
+      // ejecutar la dispersion
+      sendDispersion : 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion'
     },
   },
   // Endpoints production
@@ -494,7 +500,13 @@ export const endpoints = {
       // Obtener listado de historico de pagos
       getListHistoricPayments: 'https://w7uiqlm4b6.execute-api.us-east-1.amazonaws.com/dev/detaildispersion{params}',
       // Obtener listado novedades cobro
-      getListNewsCollected: 'https://w7uiqlm4b6.execute-api.us-east-1.amazonaws.com/dev/detailpaymentnews{params}'
+      getListNewsCollected: 'https://w7uiqlm4b6.execute-api.us-east-1.amazonaws.com/dev/detailpaymentnews{params}',
+      // Obtener el listado de vendedores para hacer la dispersion
+      getListDispersionAll : 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/{params}',
+      // Excluir - incluir en el pago de la dispersion
+      excludeSellerPayoneer: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/excludesellerpayoneerdispersion',
+      // ejecutar la dispersion
+      sendDispersion : 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion'
     }
   }
 };

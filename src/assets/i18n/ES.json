@@ -1425,6 +1425,17 @@
 
     "secure.dispersion.detail-payment.historical": "Histórico de pagos y dispersión",
     "secure.dispersion.detail-payment.collected": "Novedades cobradas",
-    "secure.dispersion.detail-payment.download": "Descargar detalle de pagos"
+    "secure.dispersion.detail-payment.download": "Descargar detalle de pagos",
+    
+    "secure.dispersion.summaryPayment.cutofDate": "Fecha de corte",
+    "secure.dispersion.summaryPayment.idSeller": "Id Vendedor",
+    "secure.dispersion.summaryPayment.seller": "Vendedor",
+    "secure.dispersion.summaryPayment.quantityOrders": "Cantidad de pedidos",
+    "secure.dispersion.summaryPayment.idCodeInternal": "Id código interno",
+    "secure.dispersion.summaryPayment.description": "Descripción",
+    "secure.dispersion.summaryPayment.totalPay": "Total a paga",
+    "secure.dispersion.summaryPayment.valueTotalPay": "Valor total a pagar",
+    "secure.dispersion.summaryPayment.allSeller": "Total vendedores",
+    "secure.dispersion.summaryPayment.dispersar": "Dispersar"
 
 }
