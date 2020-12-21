@@ -498,9 +498,9 @@ export const endpoints = {
       // Obtener el listado de comisiones ultimos 15 dias
       getListCommissionAll: 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/GetComsnExcsAudit/{params}',
       // Obtener listado de historico de pagos
-      getListHistoricPayments: 'https://w7uiqlm4b6.execute-api.us-east-1.amazonaws.com/dev/detaildispersion{params}',
+      getListHistoricPayments: 'https://paaw2oxdqd.execute-api.us-east-1.amazonaws.com/pdn/detaildispersion{params}',
       // Obtener listado novedades cobro
-      getListNewsCollected: 'https://w7uiqlm4b6.execute-api.us-east-1.amazonaws.com/dev/detailpaymentnews{params}',
+      getListNewsCollected: 'https://paaw2oxdqd.execute-api.us-east-1.amazonaws.com/pdn/detailpaymentnews{params}',
       // Obtener el listado de vendedores para hacer la dispersion
       getListDispersionAll : 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/{params}',
       // Excluir - incluir en el pago de la dispersion
