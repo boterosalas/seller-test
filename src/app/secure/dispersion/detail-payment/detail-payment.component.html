@@ -14,8 +14,8 @@
       <app-search-seller id="contet-searc-store" class="search-content">
       </app-search-seller>
 
-      <button mat-button [matTooltip]="'secure.dispersion.detail-payment.download' | translate" *ngIf="false">
-        <mat-icon>archive</mat-icon> Descargar detalle de Dispersión de pagos
+      <button mat-button [matTooltip]="'secure.dispersion.detail-payment.download' | translate" (click)="openModalDownloadDetailPayment()" *ngIf="activeTabs">
+        <mat-icon>archive</mat-icon> Descargar detalle de pagos
       </button>
     </div>
   </mat-toolbar-row>
