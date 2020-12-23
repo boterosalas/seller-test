@@ -92,7 +92,7 @@ export class PaymentSummaryComponent implements OnInit {
   ) {
     this.arrayPosition = [];
     this.arrayPosition.push('{}');
-    this.filter = `?limit=${this.limit}&paginationToken=${encodeURI(this.paginationToken)}&NewLimit=${this.newLimit}&CurrentPage=${this.currentPage}`;
+    this.filter = `?limit=${this.limit}&paid=false&paginationToken=${encodeURI(this.paginationToken)}&NewLimit=${this.newLimit}&CurrentPage=${this.currentPage}`;
   }
 
   ngOnInit() {
@@ -147,7 +147,7 @@ export class PaymentSummaryComponent implements OnInit {
             element.excluded = false;
           });
         }
-        this.allPaymentSummary = viewModel.filter(x => x.paid === false);
+        this.allPaymentSummary = viewModel;
         this.dataSource = new MatTableDataSource(this.allPaymentSummary);
         if (this.onlyOne) {
           this.length = count;
@@ -211,7 +211,7 @@ export class PaymentSummaryComponent implements OnInit {
       }
       this.paginationToken = newPaginationToken;
     }
-    this.filter = `?limit=${this.limit}&paginationToken=${encodeURI(this.paginationToken)}&NewLimit=${this.newLimit}&CurrentPage=${this.currentPage}`;
+    this.filter = `?limit=${this.limit}&paid=false&paginationToken=${encodeURI(this.paginationToken)}&NewLimit=${this.newLimit}&CurrentPage=${this.currentPage}`;
     this.getAllPaymentSummary();
   }
   /**
@@ -394,11 +394,11 @@ export class PaymentSummaryComponent implements OnInit {
       const cutOffDate = form.cutOffDate ? `&cutOffDate=${moment(form.cutOffDate).format('YYYY/MM/DD')}` : '';
       const internalPaymentId = form.internalIdPayment ? `&internalPaymentId=${form.internalIdPayment}` : '';
       const sellerId = form.sellerId ? `&idSeller=${form.sellerId}` : '';
-      const amount = form.amount ? `&paid=false&amountValue=${form.amount}` : '';
+      const amount = form.amount ? `&amountValue=${form.amount}` : '';
       this.arrayPosition = [];
       this.arrayPosition.push('{}');
       this.onlyOne = true;
-      this.filter = `?limit=${this.limit}&paginationToken=${encodeURI(this.paginationToken)}&NewLimit=${this.newLimit}&CurrentPage=${this.currentPage}` + cutOffDate + internalPaymentId + sellerId + amount;
+      this.filter = `?limit=${this.limit}&paid=false&paginationToken=${encodeURI(this.paginationToken)}&NewLimit=${this.newLimit}&CurrentPage=${this.currentPage}` + cutOffDate + internalPaymentId + sellerId + amount;
       this.toggleFilterReportPaymentSummary();
       this.dataSource = [];
       this.getAllPaymentSummary();
@@ -443,7 +443,7 @@ export class PaymentSummaryComponent implements OnInit {
     this.currentPage = 0;
     this.showTable = false;
     this.arrayPosition.push('{}');
-    this.filter = `?limit=${this.limit}&paginationToken=${encodeURI(this.paginationToken)}&NewLimit=${this.newLimit}&CurrentPage=${this.currentPage}`;
+    this.filter = `?limit=${this.limit}&paid=false&paginationToken=${encodeURI(this.paginationToken)}&NewLimit=${this.newLimit}&CurrentPage=${this.currentPage}`;
     this.getAllPaymentSummary();
     this.toggleFilterReportPaymentSummary();
   }
