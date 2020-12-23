@@ -126,7 +126,7 @@ export class PaymentSummaryComponent implements OnInit {
    */
   createFormControls() {
     this.filterPaymentSummary = this.fb.group({
-      cutOffDate: new FormControl({ disabled: true, value: '' }),
+      cutOffDate: new FormControl(),
       internalIdPayment: new FormControl('', [Validators.pattern(this.paymentSummaryRegex.integerNumber)]),
       sellerId: new FormControl('', [Validators.pattern(this.paymentSummaryRegex.integerNumber)]),
       amount: new FormControl('', [Validators.pattern(this.paymentSummaryRegex.integerNumber)]),
@@ -352,7 +352,7 @@ export class PaymentSummaryComponent implements OnInit {
         this.loadingService.closeSpinner();
         const textStatus = status === true ? ' Excluido ' : ' Incluido ';
         this.dataSource.data.forEach(element => {
-          if (element.sellerId === payToSeller.sellerId) {
+          if (element.internalPaymentId === payToSeller.internalPaymentId) {
             element.excluded = status;
           }
         });
