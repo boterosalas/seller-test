@@ -89,8 +89,8 @@ export class HistoricalPaymentComponent implements OnInit {
    */
   createFormControls() {
     this.filterHistoricalPayment = this.fb.group({
-      cutOffDate:  new FormControl({ disabled: true, value: '' }),
-      dispersionDate:  new FormControl({ disabled: true, value: '' }),
+      cutOffDate:  new FormControl(),
+      dispersionDate:  new FormControl(),
       internalIdPayment: new FormControl('', [Validators.pattern(this.regexFilter.orderNumber)]),
       orderNumber: new FormControl('', [Validators.pattern(this.regexFilter.orderNumber)])
     });
