@@ -266,7 +266,7 @@ export class PaymentSummaryComponent implements OnInit {
       this.dispersionService.excludeSellerPayoneer(params).subscribe((res: any) => {
         if (res) {
           this.loadingService.closeSpinner();
-          const textStatus = !status === true ? ' incluido  ' : ' excluido ';
+          const textStatus = !status === true ? ' incluidos  ' : ' excluidos ';
           if (!status === true) {
             this.getAllPaymentSummary();
           } else {
