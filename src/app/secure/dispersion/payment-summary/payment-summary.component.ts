@@ -391,7 +391,7 @@ export class PaymentSummaryComponent implements OnInit {
    */
   apllyFilterPaymentSummary(form: any) {
     if (form !== undefined) {
-      const cutOffDate = form.cutOffDate ? `&cutOffDate=${moment(form.cutOffDate).format('YYYY/MM/DD')}` : '';
+      const cutOffDate = form.cutOffDate ? `&cutOffDate=${moment(form.cutOffDate).format('DD/MM/YYYY')}` : '';
       const internalPaymentId = form.internalIdPayment ? `&internalPaymentId=${form.internalIdPayment}` : '';
       const sellerId = form.sellerId ? `&idSeller=${form.sellerId}` : '';
       const amount = form.amount ? `&amountValue=${form.amount}` : '';
