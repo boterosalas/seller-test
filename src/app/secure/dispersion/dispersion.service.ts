@@ -43,4 +43,15 @@ public excludeSellerPayoneer(data: any): Observable<any> {
 public sendDispersion(data: any): Observable<any> {
     return this.http.post(this.api.get('sendDispersion'), data);
   }
+
+/**
+ * funcion para consultar el estado de la carga de dispersion en el back
+ *
+ * @param {*} params
+ * @returns {Observable<any>}
+ * @memberof DispersionService
+ */
+public statusLoadDispersion(): Observable<any> {
+    return this.http.get(this.api.get('statusLoadDispersion'), { observe: 'response' });
+  }
 }

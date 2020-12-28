@@ -254,7 +254,9 @@ export const endpoints = {
       // Excluir - incluir en el pago de la dispersion
       excludeSellerPayoneer: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/excludesellerpayoneerdispersion',
       // ejecutar la dispersion
-      sendDispersion : 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion'
+      sendDispersion : 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion',
+      // verificar el status de carga de dispersion
+      statusLoadDispersion : 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/getstatusdispersion'
     },
   },
   // Endpoints production
@@ -506,7 +508,9 @@ export const endpoints = {
       // Excluir - incluir en el pago de la dispersion
       excludeSellerPayoneer: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/excludesellerpayoneerdispersion',
       // ejecutar la dispersion
-      sendDispersion : 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion'
+      sendDispersion : 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion',
+       // verificar el status de carga de dispersion
+      statusLoadDispersion : ''
     }
   }
 };

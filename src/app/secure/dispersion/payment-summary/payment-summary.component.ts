@@ -1,13 +1,14 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import { ErrorStateMatcher, MatSidenav, MatSnackBar, MatTableDataSource } from '@angular/material';
+import { ErrorStateMatcher, MatDialog, MatDialogRef, MatSidenav, MatSnackBar, MatTableDataSource } from '@angular/material';
 import { InformationToForm, SearchFormEntity } from '@app/shared';
 import { TranslateService } from '@ngx-translate/core';
 import { DispersionService } from '../dispersion.service';
 import * as _moment from 'moment';
 import { LoadingService } from '@app/core';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import { FinishUploadInformationComponent } from '@app/secure/offers/bulk-load/finish-upload-information/finish-upload-information.component';
 
 const moment = _moment;
 
@@ -43,6 +44,8 @@ export class PaymentSummaryComponent implements OnInit {
   public arrayPosition = [];
   public stateSideNavOrder = false;
   public paymentSummaryRegex = { integerNumber: '' };
+  public listErrorStatus: any = [];
+  public intervalTime = 6000;
 
   public indexPage = 0;
   public totalSeller = 0;
@@ -89,6 +92,8 @@ export class PaymentSummaryComponent implements OnInit {
     public SUPPORT: SupportService,
     private loadingService: LoadingService,
     private fb: FormBuilder,
+    public dialog: MatDialog,
+    private cdr: ChangeDetectorRef,
   ) {
     this.arrayPosition = [];
     this.arrayPosition.push('{}');
@@ -97,10 +102,80 @@ export class PaymentSummaryComponent implements OnInit {
 
   ngOnInit() {
     this.getRegexByModule();
+    this.verifyProccesOffert();
     this.getAllPaymentSummary();
     this.createFormControls();
 
   }
+
+
+  verifyProccesOffert() {
+    this.loadingService.viewSpinner();
+    this.dispersionService.statusLoadDispersion().subscribe((res: any) => {
+      try {
+        if (res && res.status === 200){
+          const { status, Checked } = res.body.data;
+          if ((status === 1 || status === 4) && Checked !== 'true') {
+            const statusCurrent = 1;
+            setTimeout(() => { this.openModal(statusCurrent, null); });
+          } else if (status === 2 && Checked !== 'true') {
+            setTimeout(() => { this.openModal(status, null); });
+          } else if (status === 3 && Checked !== 'true') {
+            const response = res.body.data.response;
+            if (response) {
+              this.listErrorStatus = JSON.parse(response).ListError;
+            } else {
+              this.listErrorStatus = null;
+            }
+            setTimeout(() => { this.openModal(status, this.listErrorStatus); });
+          } else {
+            this.loadingService.closeSpinner();
+          }
+        }
+      }
+      catch {
+        this.loadingService.closeSpinner();
+      }
+    });
+  }
+
+
+/**
+ * Funcion para invocar el modal de carga de estado
+ *
+ * @memberof PaymentSummaryComponent
+ */
+openModal(type: number, listError: any) {
+  this.loadingService.closeSpinner();
+    this.intervalTime = 6000;
+  const data = {
+    successText: this.languageService.instant('secure.products.Finish_upload_product_information.successful_upload'),
+    failText: this.languageService.instant('secure.products.Finish_upload_product_information.error_upload'),
+    processText: this.languageService.instant('secure.products.Finish_upload_product_information.upload_progress'),
+    initTime: 500,
+    intervalTime: this.intervalTime,
+    listError: listError,
+    typeStatus: type,
+    responseDiferent : false
+  };
+  this.cdr.detectChanges();
+  const dialog = this.dialog.open(FinishUploadInformationComponent, {
+    width: '70%',
+    minWidth: '280px',
+    maxHeight: '80vh',
+    disableClose: type === 1,
+    data: data
+  });
+  const dialogIntance = dialog.componentInstance;
+  dialogIntance.request = this.dispersionService.statusLoadDispersion();
+  dialogIntance.processFinish$.subscribe((val) => {
+    dialog.disableClose = false;
+    if(type === 2) {
+      this.getAllPaymentSummary();
+    }
+  });
+}
+
   /**
    * funcion para consultar la regex de la base de datos
    *
@@ -414,9 +489,10 @@ export class PaymentSummaryComponent implements OnInit {
     this.dispersionService.sendDispersion(null).subscribe((res: any) => {
       if (res) {
         this.loadingService.closeSpinner();
-        this.snackBar.open(res.message, this.languageService.instant('actions.close'), {
-          duration: 3000,
-        });
+        this.openModal(1, null);
+        // this.snackBar.open(res.message, this.languageService.instant('actions.close'), {
+        //   duration: 3000,
+        // });
         this.getAllPaymentSummary();
       } else {
         this.snackBar.open(this.languageService.instant('secure.orders.send.error_ocurred_processing'), this.languageService.instant('actions.close'), {
