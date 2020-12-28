@@ -1433,7 +1433,7 @@
     "secure.dispersion.summaryPayment.quantityOrders": "Cantidad de pedidos",
     "secure.dispersion.summaryPayment.idCodeInternal": "Id código interno",
     "secure.dispersion.summaryPayment.description": "Descripción",
-    "secure.dispersion.summaryPayment.totalPay": "Total a paga",
+    "secure.dispersion.summaryPayment.totalPay": "Total a pagar",
     "secure.dispersion.summaryPayment.valueTotalPay": "Valor total a pagar",
     "secure.dispersion.summaryPayment.allSeller": "Total vendedores",
     "secure.dispersion.summaryPayment.dispersar": "Dispersar"
