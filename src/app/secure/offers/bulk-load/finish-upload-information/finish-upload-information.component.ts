@@ -109,7 +109,12 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
     } else if (typeStatus === 3 && this.data.listError !== null) {
       this.Success = false;
       this.inProcess = false;
-      this.listError = this.mapItems(this.data.listError);
+      if(this.data.type === 'paymentSummary'){
+        this.listError = this.mapItemsResponseGeneric(this.data.listError);
+      } else {
+        this.listError = this.mapItems(this.data.listError);
+      }
+     
       this.pex = this.typeErrorShowButton(this.listError);
       this.countError = this.data.listError.length;
       if (this.data && this.data.showExport !== undefined) {
@@ -140,6 +145,13 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
       return {
         Message: this.validateHeader(x.message, x.Message),
         Code: 'ResponseDiferent'
+      };
+    });
+  }
+  mapItemsResponseGeneric(items: any[]): any[] {
+    return items.map(x => {
+      return {
+        Message: this.validateHeader(x.message, x.Message),
       };
     });
   }

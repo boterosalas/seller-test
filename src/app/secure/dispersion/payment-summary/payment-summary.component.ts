@@ -156,7 +156,8 @@ openModal(type: number, listError: any) {
     intervalTime: this.intervalTime,
     listError: listError,
     typeStatus: type,
-    responseDiferent : false
+    responseDiferent : false,
+    type: 'paymentSummary'
   };
   this.cdr.detectChanges();
   const dialog = this.dialog.open(FinishUploadInformationComponent, {
@@ -523,4 +524,8 @@ openModal(type: number, listError: any) {
     this.getAllPaymentSummary();
     this.toggleFilterReportPaymentSummary();
   }
+
+  ngOnDestroy(): void {
+    this.dialog.closeAll();
+}
 }
