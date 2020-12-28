@@ -18,11 +18,36 @@ export class DetailPaymentService {
   ) {
   }
 
+  /**
+   * Servicio para obtener el historico de pagos
+   * @param {*} paramsUrl
+   * @param {*} paramsFilter
+   * @returns {Observable<any>}
+   * @memberof DetailPaymentService
+   */
   public getAllDetailPayment(paramsUrl: any, paramsFilter): Observable<any> {
     return this.http.post(this.api.get('getListHistoricPayments', [paramsUrl]), paramsFilter , { observe: 'response' });
   }
 
+  /**
+   * Servicio para obtener las novedades de pagos
+   * @param {*} paramsUrl
+   * @param {*} paramsFilter
+   * @returns {Observable<any>}
+   * @memberof DetailPaymentService
+   */
   public getAllNewsCollected(paramsUrl: any, paramsFilter): Observable<any> {
     return this.http.post(this.api.get('getListNewsCollected', [paramsUrl]), paramsFilter, { observe: 'response' });
+  }
+
+  /**
+   * Servicio descargable detalle de dispersion
+   * @param {*} email
+   * @param {*} params
+   * @returns {Observable<any>}
+   * @memberof DetailPaymentService
+   */
+  public downloadDetailPayment(email: any, params: any): Observable<any> {
+    return this.http.post(this.api.get('exporDetailPayment', [email]), params , { observe: 'response' });
   }
 }
