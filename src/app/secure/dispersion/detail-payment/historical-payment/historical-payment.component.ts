@@ -191,7 +191,7 @@ export class HistoricalPaymentComponent implements OnInit {
           DispersionFilter: {
             CutOffDate: paramsFilter.cutOffDate,
             DispersionDate: paramsFilter.dispersionDate,
-            InternalPaymentId: paramsFilter.internalIdPayment,
+            InternalPaymentId: parseFloat(paramsFilter.internalIdPayment),
             OrderNumber: paramsFilter.orderNumber
           }
         };

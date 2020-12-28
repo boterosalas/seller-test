@@ -189,7 +189,7 @@ export class NewsCollectedComponent implements OnInit {
           PaymentNew: {
             CutOffDate: paramsFilter.cutOffDate,
             DispersionDate: paramsFilter.dispersionDate,
-            InternalPaymentId: paramsFilter.internalIdPayment,
+            InternalPaymentId: parseFloat(paramsFilter.internalIdPayment),
             OrderNumber: paramsFilter.orderNumber
           }
         };
