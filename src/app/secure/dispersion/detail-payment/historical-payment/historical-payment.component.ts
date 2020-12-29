@@ -18,6 +18,7 @@ export class HistoricalPaymentComponent implements OnInit {
   public displayedColumns = [
     'datePay',
     'idPayonner',
+    'internalPaymentId',
     'order',
     'seller',
     'description',
