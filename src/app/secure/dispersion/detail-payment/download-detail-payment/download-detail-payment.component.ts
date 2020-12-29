@@ -69,8 +69,8 @@ export class DownloadDetailPaymentComponent implements OnInit {
    * @param {*} form
    * @memberof DownloadDetailPaymentComponent
    */
-  sendExportDownloadDetailPayment(form: any) {
-    const email = '?email=' + form.get('email').value;
+  sendExportDownloadDetailPayment() {
+    const email = '?email=' + this.myform.get('email').value;
     this.loadingService.viewSpinner();
     const dataToSend = {
       SellerId: this.sellerData.dataSeller.IdSeller ? this.sellerData.dataSeller.IdSeller.toString() : null,
