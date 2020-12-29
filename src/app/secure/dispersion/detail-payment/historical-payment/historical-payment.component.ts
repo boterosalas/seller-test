@@ -92,8 +92,8 @@ export class HistoricalPaymentComponent implements OnInit {
    */
   createFormControls() {
     this.filterHistoricalPayment = this.fb.group({
-      cutOffDate:  new FormControl({ disabled: true, value: '' }),
-      dispersionDate:  new FormControl({ disabled: true, value: '' }),
+      cutOffDate:  new FormControl(),
+      dispersionDate:  new FormControl(),
       internalIdPayment: new FormControl('', [Validators.pattern(this.regexFilter.orderNumber)]),
       orderNumber: new FormControl('', [Validators.pattern(this.regexFilter.orderNumber)])
     });
@@ -194,7 +194,7 @@ export class HistoricalPaymentComponent implements OnInit {
           DispersionFilter: {
             CutOffDate: paramsFilter.cutOffDate,
             DispersionDate: paramsFilter.dispersionDate,
-            InternalPaymentId: paramsFilter.internalIdPayment,
+            InternalPaymentId: parseFloat(paramsFilter.internalIdPayment),
             OrderNumber: paramsFilter.orderNumber
           }
         };
