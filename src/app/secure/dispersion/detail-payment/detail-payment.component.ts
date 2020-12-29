@@ -13,6 +13,9 @@ export class DetailPaymentComponent implements OnInit {
   sellerData: any;
   activeTabs: Boolean = false;
 
+  _dataFilterDispersion: any
+  _dataFilterNewsCollected: any
+
 
   constructor(
     private emitterSeller: EventEmitterSeller,
@@ -42,13 +45,36 @@ export class DetailPaymentComponent implements OnInit {
   }
 
   /**
+   * Evento que escucha los aprametros de filtro historico de pagos
+   * @param {*} param
+   * @memberof DetailPaymentComponent
+   */
+  dataFilterDispersion(param: any) {
+    this._dataFilterDispersion = param ? param : null;
+  }
+
+  /**
+   * Evento que escucha los aprametros de filtro novedades cobradas
+   * @param {*} param
+   * @memberof DetailPaymentComponent
+   */
+  dataFilterNewsCollected(param: any) {
+    this._dataFilterNewsCollected = param ? param : null;
+  }
+
+  /**
    * Metodo para abrir modal de descarga de detalle de pagos
    * @memberof DetailPaymentComponent
    */
   openModalDownloadDetailPayment(): void {
+    const infoData = {
+      dataSeller: this.sellerData,
+      dataFilterTab1: this._dataFilterDispersion,
+      dataFilterTab2: this._dataFilterNewsCollected
+    }
     const dialogRef = this.dialog.open(DownloadDetailPaymentComponent, {
       width: '60%',
-      data: this.sellerData
+      data: infoData,
     });
     dialogRef.afterClosed().subscribe(result => {
     });

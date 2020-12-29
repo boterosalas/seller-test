@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { LoadingService, UserParametersService } from '@app/core';
-import { DownloadCategoriesComponent } from '@app/secure/parameterize/category/categories/download-categories/download-categories.component';
+import { DialogData } from '@app/secure/support-modal/support-modal.component';
 import { ComponentsService, UserInformation } from '@app/shared';
 import { TranslateService } from '@ngx-translate/core';
 import { DetailPaymentService } from '../detail-payment.service';
@@ -16,6 +16,7 @@ export class DownloadDetailPaymentComponent implements OnInit {
 
   public user: UserInformation;
   myform: FormGroup;
+  sellerData: any;
 
   constructor(
     public userParams: UserParametersService,
@@ -25,7 +26,10 @@ export class DownloadDetailPaymentComponent implements OnInit {
     private languageService: TranslateService,
     public detailPaymentService: DetailPaymentService,
     public dialogRef: MatDialogRef<DownloadDetailPaymentComponent>,
-  ) { }
+    @Inject(MAT_DIALOG_DATA) public data: DialogData
+  ) {
+    this.sellerData = this.data;
+  }
 
   ngOnInit() {
     this.getDataUser().then(data => {
@@ -66,31 +70,30 @@ export class DownloadDetailPaymentComponent implements OnInit {
    * @memberof DownloadDetailPaymentComponent
    */
   sendExportDownloadDetailPayment(form: any) {
-    console.log('form: ', form);
-    const email = '?&email=' + form.get('email').value;
+    const email = '?email=' + form.get('email').value;
     this.loadingService.viewSpinner();
     const dataToSend = {
-      SellerId: '',
-      DispersionFilter: '',
-      PaymentNew: ''
+      SellerId: this.sellerData.dataSeller.IdSeller ? this.sellerData.dataSeller.IdSeller.toString() : null,
+      DispersionFilter: this.sellerData ? this.sellerData.dataFilterTab1 : null,
+      PaymentNew: this.sellerData ? this.sellerData.dataFilterTab2 : null
     };
     this.detailPaymentService.downloadDetailPayment(email, dataToSend).subscribe((res: any) => {
-      const dataRes = JSON.parse(res.body);
-      if (res != null) {
-        // if (dataRes.Data === true) {
-        //   this.componentsService.openSnackBar(this.languageService.instant('secure.parametize.category.categories.btn_download_category_OK'), this.languageService.instant('actions.close'), 10000);
-        //   this.onNoClick();
-        //   this.loadingService.closeSpinner();
-        // } else {
-        //   this.componentsService.openSnackBar(this.languageService.instant('secure.parametize.category.categories.btn_download_category_KO'), this.languageService.instant('actions.close'), 5000);
-        //   this.loadingService.closeSpinner();
-        // }
+      const dataRes = res.body;
+      if (dataRes != null) {
+        if (dataRes.data === true) {
+          this.componentsService.openSnackBar(this.languageService.instant('secure.dispersion.detail-payment.download_OK'), this.languageService.instant('actions.close'), 10000);
+          this.onNoClick();
+          this.loadingService.closeSpinner();
+        } else {
+          this.componentsService.openSnackBar(this.languageService.instant('secure.dispersion.detail-payment.download_KO'), this.languageService.instant('actions.close'), 5000);
+          this.loadingService.closeSpinner();
+        }
       } else {
-        this.componentsService.openSnackBar(this.languageService.instant('secure.parametize.category.categories.btn_download_category_KO'), this.languageService.instant('actions.close'), 5000);
+        this.componentsService.openSnackBar(this.languageService.instant('secure.dispersion.detail-payment.download_KO'), this.languageService.instant('actions.close'), 5000);
         this.loadingService.closeSpinner();
       }
     }, err => {
-      this.componentsService.openSnackBar(this.languageService.instant('secure.parametize.category.categories.btn_download_category_KO'), this.languageService.instant('actions.close'), 5000);
+      this.componentsService.openSnackBar(this.languageService.instant('secure.dispersion.detail-payment.download_KO'), this.languageService.instant('actions.close'), 5000);
       this.loadingService.closeSpinner();
       this.onNoClick();
     });

@@ -1426,6 +1426,8 @@
     "secure.dispersion.detail-payment.historical": "Histórico de pagos y dispersión",
     "secure.dispersion.detail-payment.collected": "Novedades cobradas",
     "secure.dispersion.detail-payment.download": "Descargar detalle de pagos",
+    "secure.dispersion.detail-payment.download_OK": "Se ha realizado la descarga del detalle de pagos correctamente, revisa tu correo electrónico.",
+    "secure.dispersion.detail-payment.download_KO": "Ocurrió un problema al realizar la descarga de los detalles de pago, por favor intenta nuevamente",
     
     "secure.dispersion.summaryPayment.cutofDate": "Fecha de corte",
     "secure.dispersion.summaryPayment.idSeller": "Id Vendedor",

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSidenav, MatSnackBar, MatTableDataSource } from '@angular/material';
 import { LoadingService } from '@app/core';
@@ -54,6 +54,9 @@ export class HistoricalPaymentComponent implements OnInit {
       this.getAllListHiistoric();
     }
   };
+
+  // Evento que comunica al padre cuando tiene filtros.
+  @Output() _dispersionFilterEmit = new EventEmitter<any>();
 
   @ViewChild('sidenavHistoricalPayment') sidenavHistoricalPayment: MatSidenav;
   @ViewChild('toolbarOptions') toolbarOption;
@@ -208,6 +211,7 @@ export class HistoricalPaymentComponent implements OnInit {
           DispersionFilter: {}
         };
       }
+      this._dispersionFilterEmit.emit(urlFilters.DispersionFilter);
       this.detailPaymentService.getAllDetailPayment(url, urlFilters).subscribe((res: any) => {
         if (res && res.status === 200) {
           const { viewModel, count, paginationToken } = res.body;

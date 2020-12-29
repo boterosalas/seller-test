@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSidenav, MatSnackBar, MatTableDataSource } from '@angular/material';
 import { LoadingService } from '@app/core';
@@ -53,6 +53,9 @@ export class NewsCollectedComponent implements OnInit {
 
   @ViewChild('sidenavNewsCollected') sidenavNewsCollected: MatSidenav;
   @ViewChild('toolbarOptions') toolbarOption;
+
+   // Evento que comunica al padre cuando tiene filtros.
+   @Output() _newsCollectedFilterEmit = new EventEmitter<any>();
 
   public informationToForm: SearchFormEntity = {
     title: 'module.Dispersion',
@@ -206,6 +209,7 @@ export class NewsCollectedComponent implements OnInit {
         PaymentNew: {}
       };
     }
+    this._newsCollectedFilterEmit.emit(urlFilters.PaymentNew);
     this.detailPaymentService.getAllNewsCollected(url, urlFilters).subscribe((res: any) => {
       if (res && res.status === 200) {
         const { viewModel, count, paginationToken } = res.body;
