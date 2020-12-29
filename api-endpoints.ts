@@ -510,7 +510,7 @@ export const endpoints = {
       // ejecutar la dispersion
       sendDispersion: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion',
       // Descargar detalle de dispersion
-      exporDetailPayment: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/report{params}',
+      exporDetailPayment: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/report{params}',
     }
   }
 };
