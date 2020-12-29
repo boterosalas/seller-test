@@ -17,6 +17,7 @@ export class NewsCollectedComponent implements OnInit {
   public displayedColumns = [
     'datePay',
     'idPayonner',
+    'internalPaymentId',
     'order',
     'seller',
     'description',

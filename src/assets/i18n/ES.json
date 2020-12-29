@@ -27,6 +27,7 @@
     "menu.Factura electrónica": "Factura electrónica",
     "menu.Pagos": "Pagos",
     "menu.Detalle de Pagos": "Detalle de pagos",
+    "menu.Detalle dispersado": "Detalle dispersado",
     "menu.Resumen de Pagos": "Resumen de pagos",
     "menu.Listado de Ofertas": "Listado de ofertas",
     "menu.Listado de ofertas": "Listado de ofertas",
@@ -1423,7 +1424,7 @@
     "secure.orders.bulk.billing.size_file": "Tamaño de los archivos: ",
     "secure.orders.bulk.billing.size_file_MB": "MB",
 
-    "secure.dispersion.detail-payment.historical": "Histórico de pagos y dispersión",
+    "secure.dispersion.detail-payment.historical": "Histórico de pagos y dispersiones",
     "secure.dispersion.detail-payment.collected": "Novedades cobradas",
     "secure.dispersion.detail-payment.download": "Descargar detalle de pagos",
     

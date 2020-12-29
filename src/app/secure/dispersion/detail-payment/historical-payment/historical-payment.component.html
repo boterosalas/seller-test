@@ -30,22 +30,33 @@
 
         <ng-container matColumnDef="idPayonner">
           <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
-            fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+            fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
             <span class="title-table-header"> Id payonner</span>
           </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
-            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
+            fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
             <p class="sc-text-normal">{{element.payoneerId}}</p>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="internalPaymentId">
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+            <span class="title-table-header"> Id pago interno</span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
+            fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal">{{element.internalPaymentId}}</p>
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="order">
           <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
-            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+            fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
             <span class="title-table-header"> Pedido</span>
           </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
-            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
+            fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
             <p class="sc-text-normal">{{element.orderNumber}}</p>
           </mat-cell>
         </ng-container>
@@ -63,11 +74,11 @@
 
         <ng-container matColumnDef="description">
           <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
-            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+            fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
             <span class="title-table-header payment-summary-component-aling-column-center">Descripción</span>
           </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
-            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="20"
+            fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
             <p class="sc-text-normal payment-summary-component-aling-column-center">{{element.description}}</p>
           </mat-cell>
         </ng-container>
