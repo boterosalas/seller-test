@@ -102,14 +102,18 @@ export class PaymentSummaryComponent implements OnInit {
 
   ngOnInit() {
     this.getRegexByModule();
-    this.verifyProccesOffert();
     this.getAllPaymentSummary();
     this.createFormControls();
+    this.verifyProccesPayment();
 
   }
 
-
-  verifyProccesOffert() {
+/**
+ * funcion para verificar el estado de la carga de pagos de dispersion
+ *
+ * @memberof PaymentSummaryComponent
+ */
+verifyProccesPayment() {
     this.loadingService.viewSpinner();
     this.dispersionService.statusLoadDispersion().subscribe((res: any) => {
       try {

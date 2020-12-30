@@ -8,6 +8,7 @@ import { SharedModule } from '@app/shared/shared.module';
 import { DetailPaymentComponent } from './detail-payment/detail-payment.component';
 import { HistoricalPaymentComponent } from './detail-payment/historical-payment/historical-payment.component';
 import { NewsCollectedComponent } from './detail-payment/news-collected/news-collected.component';
+import { FinishUploadInformationComponent } from '../load-guide-page/finish-upload-information/finish-upload-information.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,14 @@ import { NewsCollectedComponent } from './detail-payment/news-collected/news-col
     SharedModule,
     DispersionRoutingModule
   ],
-  declarations: [PaymentSummaryComponent, DetailPaymentComponent, HistoricalPaymentComponent, NewsCollectedComponent]
+  declarations: [
+    PaymentSummaryComponent,
+    DetailPaymentComponent,
+    HistoricalPaymentComponent,
+    NewsCollectedComponent
+  ],
+    entryComponents: [
+      FinishUploadInformationComponent
+  ],
 })
 export class DispersionModule { }
