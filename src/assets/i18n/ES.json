@@ -1437,8 +1437,8 @@
     "secure.dispersion.summaryPayment.idCodeInternal": "Id código interno",
     "secure.dispersion.summaryPayment.description": "Descripción",
     "secure.dispersion.summaryPayment.totalPay": "Total a pagar",
-    "secure.dispersion.summaryPayment.valueTotalPay": "Valor total a pagar",
-    "secure.dispersion.summaryPayment.allSeller": "Total vendedores",
+    "secure.dispersion.summaryPayment.valueTotalPay": "Valor total a dispersar",
+    "secure.dispersion.summaryPayment.allSeller": "Total Vendedores",
     "secure.dispersion.summaryPayment.dispersar": "Dispersar"
 
 }
