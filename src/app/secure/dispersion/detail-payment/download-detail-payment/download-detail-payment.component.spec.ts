@@ -14,7 +14,7 @@ import { DetailPaymentService } from '../detail-payment.service';
 
 import { DownloadDetailPaymentComponent } from './download-detail-payment.component';
 
-fdescribe('DownloadDetailPaymentComponent', () => {
+describe('DownloadDetailPaymentComponent', () => {
   let component: DownloadDetailPaymentComponent;
   let fixture: ComponentFixture<DownloadDetailPaymentComponent>;
 
