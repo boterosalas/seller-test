@@ -42,6 +42,7 @@ export class BulkLoadBillingComponent implements OnInit {
   sendableFormData: FormData;
   messageErrorMaxSize = this.languageService.instant('secure.orders.bulk.billing.maximum_file_size_megabytes') + ' 3.000 ' + this.languageService.instant('secure.orders.bulk.billing.megabytes');
   countSizeFile = 0;
+  typeFile= 0;
   allFileError: Boolean = false;
 
   public informationToForm: SearchFormEntity = {
@@ -80,25 +81,26 @@ export class BulkLoadBillingComponent implements OnInit {
     this.arrayListFilesBase64Name = [];
     this.loadingService.viewSpinner();
     this.arrayFilesBase64 = await this.getBase64(this.filesValidate).then(res => {
-      setTimeout(() => {
-        this.bulkLoadBillingService.sendBulkLoadBilling(res).subscribe((results: any) => {
-          if (results) {
-            if (results.error > 0) {
-              this.loadingService.closeSpinner();
-              this.openModal(3, results.listError);
-            } else {
-              this.loadingService.closeSpinner();
-              this.openModal(1, null);
-            }
-          } else {
-              this.loadingService.closeSpinner();
-              this.snackBar.open(this.languageService.instant('error'), this.languageService.instant('actions.close'), {
-                duration: 3000,
-              });
-            }
-          this.countSizeFile = 0;
-        });
-      }, 1000);
+      console.log(res);
+      // setTimeout(() => {
+      //   this.bulkLoadBillingService.sendBulkLoadBilling(res).subscribe((results: any) => {
+      //     if (results) {
+      //       if (results.error > 0) {
+      //         this.loadingService.closeSpinner();
+      //         this.openModal(3, results.listError);
+      //       } else {
+      //         this.loadingService.closeSpinner();
+      //         this.openModal(1, null);
+      //       }
+      //     } else {
+      //         this.loadingService.closeSpinner();
+      //         this.snackBar.open(this.languageService.instant('error'), this.languageService.instant('actions.close'), {
+      //           duration: 3000,
+      //         });
+      //       }
+      //     this.countSizeFile = 0;
+      //   });
+      // }, 1000);
     });
   }
 
@@ -125,7 +127,8 @@ export class BulkLoadBillingComponent implements OnInit {
           base64File = (reader.result).toString();
           bodyToSend = {
             IdOrder: idOrder,
-            Base64Pdf: base64File.slice(base64File.search('base64') + 7, base64File.length)
+            Base64Pdf: base64File.slice(base64File.search('base64') + 7, base64File.length),
+            TypeFile: this.typeFile
           };
           this.arrayListFilesBase64Name.push(bodyToSend);
         };
@@ -159,6 +162,7 @@ export class BulkLoadBillingComponent implements OnInit {
       } else {
         file.refuse = true;
       }
+      this.getExtensionFile(file.type);
       const isExist = this.filesValidate.find(x => x.name === file.name) !== undefined ? true : false;
       if (isExist) {
         file.fileExist = true;
@@ -179,6 +183,23 @@ export class BulkLoadBillingComponent implements OnInit {
     this.calculateCount();
     this.validateErrors();
     this.files = [];
+  }
+
+  getExtensionFile(type: string){
+    if(type) {
+      switch (type) {
+        case 'application/x-zip-compressed':
+          this.typeFile = 2;
+          break;
+        case 'application/pdf':
+          this.typeFile = 1;
+          break;
+      
+        default:
+          this.typeFile = 0;
+          break;
+      }
+    }
   }
 
   /**

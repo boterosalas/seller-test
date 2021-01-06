@@ -72,7 +72,7 @@ export class BillingOrderComponent implements OnInit {
             this.sellerData = result.data;
             if (result.data) {
                 this.keysBilling = result.data;
-            }
+            }0
             this.loadingService.closeSpinner();
         });
     }
@@ -85,7 +85,16 @@ export class BillingOrderComponent implements OnInit {
      * @memberof BillingOrderComponent
      */
     public viewPDF(billing: any): void {
-        window.open(billing.billUrl, '_blank', 'fullscreen=yes, screenTop');
+        console.log(billing);
+        let extenFile = '';
+        if(billing && billing.billUrl !== undefined){
+            extenFile = billing.billUrl.substr(-3);
+            if(extenFile === 'PDF'|| extenFile === 'pdf' ){
+                window.open(billing.billUrl, '_blank', 'fullscreen=yes, screenTop');
+            } else if(extenFile === 'zip' || extenFile === 'ZIP'){
+                window.open(billing.billUrl, 'ZIP');
+            }
+        }
     }
 
     /**
