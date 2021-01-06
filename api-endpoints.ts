@@ -512,5 +512,6 @@ export const endpoints = {
       // Descargar detalle de dispersion
       exporDetailPayment: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/report{params}',
     }
+    
   }
 };
