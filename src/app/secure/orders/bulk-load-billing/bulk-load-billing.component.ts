@@ -34,7 +34,7 @@ export class BulkLoadBillingComponent implements OnInit {
   file = null;
   filesErrors = 0;
   filesSuccess = 0;
-  showShowRecommendationsContainer = false;
+  showShowRecommendationsContainer = true;
   invalidsFile = true;
   arrayListFilesBase64Name = [];
   arrayFilesErrors: any;
@@ -81,26 +81,25 @@ export class BulkLoadBillingComponent implements OnInit {
     this.arrayListFilesBase64Name = [];
     this.loadingService.viewSpinner();
     this.arrayFilesBase64 = await this.getBase64(this.filesValidate).then(res => {
-      console.log(res);
-      // setTimeout(() => {
-      //   this.bulkLoadBillingService.sendBulkLoadBilling(res).subscribe((results: any) => {
-      //     if (results) {
-      //       if (results.error > 0) {
-      //         this.loadingService.closeSpinner();
-      //         this.openModal(3, results.listError);
-      //       } else {
-      //         this.loadingService.closeSpinner();
-      //         this.openModal(1, null);
-      //       }
-      //     } else {
-      //         this.loadingService.closeSpinner();
-      //         this.snackBar.open(this.languageService.instant('error'), this.languageService.instant('actions.close'), {
-      //           duration: 3000,
-      //         });
-      //       }
-      //     this.countSizeFile = 0;
-      //   });
-      // }, 1000);
+      setTimeout(() => {
+        this.bulkLoadBillingService.sendBulkLoadBilling(res).subscribe((results: any) => {
+          if (results) {
+            if (results.error > 0) {
+              this.loadingService.closeSpinner();
+              this.openModal(3, results.listError);
+            } else {
+              this.loadingService.closeSpinner();
+              this.openModal(1, null);
+            }
+          } else {
+              this.loadingService.closeSpinner();
+              this.snackBar.open(this.languageService.instant('error'), this.languageService.instant('actions.close'), {
+                duration: 3000,
+              });
+            }
+          this.countSizeFile = 0;
+        });
+      }, 1000);
     });
   }
 
@@ -127,8 +126,8 @@ export class BulkLoadBillingComponent implements OnInit {
           base64File = (reader.result).toString();
           bodyToSend = {
             IdOrder: idOrder,
-            Base64Pdf: base64File.slice(base64File.search('base64') + 7, base64File.length),
-            TypeFile: this.typeFile
+            Base64File: base64File.slice(base64File.search('base64') + 7, base64File.length),
+            FileType: this.typeFile
           };
           this.arrayListFilesBase64Name.push(bodyToSend);
         };

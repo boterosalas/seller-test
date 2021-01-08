@@ -85,7 +85,6 @@ export class BillingOrderComponent implements OnInit {
      * @memberof BillingOrderComponent
      */
     public viewPDF(billing: any): void {
-        console.log(billing);
         let extenFile = '';
         if(billing && billing.billUrl !== undefined){
             extenFile = billing.billUrl.substr(-3);

@@ -57,13 +57,12 @@
                       color="primary">{{'shared.components.load_file.text3' | translate}}</button>
                   </div>
                 </div>
-
               </div>
-              <div *ngIf="!filesValidate.length && !lastInvalids?.length">
+              <div *ngIf="!filesValidate.length">
                 {{'secure.orders.bulk.billing.you_or_navigate_your_files' | translate}} <span
                   class="bulk-load-billing-component-color-here-blue"><strong>{{'secure.orders.bulk.billing.here' | translate}}</strong></span>{{'secure.orders.bulk.billing.to_your_files' | translate}}
               </div>
-              <div *ngIf="!filesValidate.length && !lastInvalids?.length">
+              <div *ngIf="!filesValidate.length">
                 <div fxLayout="row">
                   <div fxFlex="100" class="bulk-load-billing-component-margin-top-15">
                     <button mat-button mat-raised-button
