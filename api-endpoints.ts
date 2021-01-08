@@ -514,7 +514,7 @@ export const endpoints = {
       // Descargar detalle de dispersion
       exporDetailPayment: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/report{params}',
       // Descargar productos vendedor
-      downloadProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/report',
+      downloadProducts: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/report',
     }
   }
 };
