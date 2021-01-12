@@ -81,7 +81,6 @@ export class DetailPaymentComponent implements OnInit {
       dataFilterTab1: this._dataFilterDispersion,
       dataFilterTab2: this._dataFilterNewsCollected
     }
-    console.log(infoData);
     const dialogRef = this.dialog.open(DownloadDetailPaymentComponent, {
       width: '60%',
       data: infoData,
