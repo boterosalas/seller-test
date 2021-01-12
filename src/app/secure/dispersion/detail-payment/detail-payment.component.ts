@@ -13,6 +13,8 @@ export class DetailPaymentComponent implements OnInit {
   sellerData: any;
   activeTabs: Boolean = false;
 
+  activeButton: Boolean = true;
+
   _dataFilterDispersion: any
   _dataFilterNewsCollected: any
 
@@ -51,6 +53,13 @@ export class DetailPaymentComponent implements OnInit {
    */
   dataFilterDispersion(param: any) {
     this._dataFilterDispersion = param ? param : null;
+    // Activar/Inactivar el boton de descarga del detalle de pagos
+    const {CutOffDate, DispersionDate} = param;
+    if(CutOffDate !== undefined || DispersionDate !== undefined) {
+      this.activeButton = false;
+    } else {
+      this.activeButton = true;
+    }
   }
 
   /**
@@ -72,6 +81,7 @@ export class DetailPaymentComponent implements OnInit {
       dataFilterTab1: this._dataFilterDispersion,
       dataFilterTab2: this._dataFilterNewsCollected
     }
+    console.log(infoData);
     const dialogRef = this.dialog.open(DownloadDetailPaymentComponent, {
       width: '60%',
       data: infoData,

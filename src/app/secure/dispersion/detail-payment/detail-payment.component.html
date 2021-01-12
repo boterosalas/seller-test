@@ -6,7 +6,7 @@
       </span>
       <span class="separator"> &#124; </span>
       <small class="toolbar-brand--subtitle">
-        {{'menu.Detalle de pagos' | translate}}
+        {{'menu.Detalle dispersion' | translate}}
       </small>
     </div>
 
@@ -14,7 +14,7 @@
       <app-search-seller id="contet-searc-store" class="search-content">
       </app-search-seller>
 
-      <button mat-button [matTooltip]="'secure.dispersion.detail-payment.download' | translate" (click)="openModalDownloadDetailPayment()" *ngIf="activeTabs">
+      <button mat-button [matTooltip]="'secure.dispersion.detail-payment.download' | translate" (click)="openModalDownloadDetailPayment()" *ngIf="activeTabs" [disabled]="activeButton">
         <mat-icon>archive</mat-icon> Descargar detalle de pagos
       </button>
     </div>

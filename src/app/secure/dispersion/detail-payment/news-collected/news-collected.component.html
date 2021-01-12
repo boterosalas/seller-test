@@ -116,7 +116,7 @@
           <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
             fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="20" fxFlex.xl="" *matCellDef="let element">
             <p class="sc-text-normal">{{'secure.offers.list.components.detail_offer.usd' | translate}}
-              {{element.commission}}</p>
+              {{element.commissionCost}}</p>
           </mat-cell>
         </ng-container>
 
@@ -131,7 +131,7 @@
           <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
             fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="45" fxFlex.xl="" *matCellDef="let element">
             <p class="sc-text-normal payment-summary-component-aling-column-right">
-              {{'secure.offers.list.components.detail_offer.usd' | translate}} {{element.total}}</p>
+              {{'secure.offers.list.components.detail_offer.usd' | translate}} {{element.amount}}</p>
           </mat-cell>
         </ng-container>
 
