@@ -183,8 +183,13 @@ export class BulkLoadBillingComponent implements OnInit {
     this.validateErrors();
     this.files = [];
   }
-
-  getExtensionFile(type: string){
+/**
+ * funcion para cpaturar el tipo de extension del archivo
+ *
+ * @param {string} type
+ * @memberof BulkLoadBillingComponent
+ */
+getExtensionFile(type: string){
     if(type) {
       switch (type) {
         case 'application/x-zip-compressed':

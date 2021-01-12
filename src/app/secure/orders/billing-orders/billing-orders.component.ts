@@ -72,7 +72,7 @@ export class BillingOrderComponent implements OnInit {
             this.sellerData = result.data;
             if (result.data) {
                 this.keysBilling = result.data;
-            }0
+            }
             this.loadingService.closeSpinner();
         });
     }
