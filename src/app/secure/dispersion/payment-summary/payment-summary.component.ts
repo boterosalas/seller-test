@@ -376,10 +376,14 @@ export class PaymentSummaryComponent implements OnInit {
    */
   recalculate(valueToPay: number, status: boolean) {
     if (status) {
-      this.totalPayValue = this.totalPayValue - valueToPay;
+      if (valueToPay > 0) {
+        this.totalPayValue = this.totalPayValue - valueToPay;
+      }
       this.totalSeller--;
     } else {
-      this.totalPayValue = this.totalPayValue + valueToPay;
+      if (valueToPay > 0) {
+        this.totalPayValue = this.totalPayValue + valueToPay;
+      }
       this.totalSeller++;
     }
   }
