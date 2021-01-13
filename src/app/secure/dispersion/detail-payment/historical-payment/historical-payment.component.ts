@@ -257,10 +257,10 @@ export class HistoricalPaymentComponent implements OnInit {
      */
     apllyFilterHistoricalPayment(params: any) {
       if (params && params.cutOffDate) {
-        params.cutOffDate = this.getDate(new Date(params.cutOffDate));
+        params.cutOffDate = params.cutOffDate;
       }
       if (params && params.dispersionDate) {
-        params.dispersionDate = this.getDate(new Date(params.dispersionDate));
+        params.dispersionDate = params.dispersionDate;
       }
       this.getAllListHiistoric(null, params);
       this.toggleFilterHistoricalPayment();
