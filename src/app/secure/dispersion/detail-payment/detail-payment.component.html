@@ -14,9 +14,14 @@
       <app-search-seller id="contet-searc-store" class="search-content">
       </app-search-seller>
 
-      <button mat-button [matTooltip]="'secure.dispersion.detail-payment.download' | translate" (click)="openModalDownloadDetailPayment()" *ngIf="activeTabs" [disabled]="activeButton">
+      <button mat-button [matTooltip]="'secure.dispersion.detail-payment.download' | translate" (click)="openModalDownloadDetailPayment()" *ngIf="activeTabs && showButtonDownloadHistory" [disabled]="activeButtonHistory">
         <mat-icon>archive</mat-icon> Descargar detalle de pagos
       </button>
+
+      <button mat-button [matTooltip]="'secure.dispersion.detail-payment.download' | translate" (click)="openModalDownloadDetailPayment()" *ngIf="activeTabs && showButtonDownloadNews" [disabled]="activeButtonNews">
+        <mat-icon>archive</mat-icon> Descargar detalle de novedades
+      </button>
+
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
@@ -25,8 +30,8 @@
 
 
 <div *ngIf="activeTabs">
-  <mat-tab-group>
-    <mat-tab id="tab1" [label]="'secure.dispersion.detail-payment.historical'| translate">
+  <mat-tab-group [(selectedIndex)]="selectedTabIndex" (selectedTabChange)="onTabChanged($event);">
+    <mat-tab id="tab1" [label]="'secure.dispersion.detail-payment.historical'| translate" >
       <app-historical-payment class="width-100-percent" [sellerData]="sellerData" (_dispersionFilterEmit)="dataFilterDispersion($event)"></app-historical-payment>
     </mat-tab>
     <mat-tab id="tab2" [label]="'secure.dispersion.detail-payment.collected'| translate">

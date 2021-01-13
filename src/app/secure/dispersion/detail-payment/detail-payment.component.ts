@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatTabChangeEvent } from '@angular/material';
 import { LoadingService } from '@app/core';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 import { DownloadDetailPaymentComponent } from './download-detail-payment/download-detail-payment.component';
@@ -12,11 +12,13 @@ import { DownloadDetailPaymentComponent } from './download-detail-payment/downlo
 export class DetailPaymentComponent implements OnInit {
   sellerData: any;
   activeTabs: Boolean = false;
-
-  activeButton: Boolean = true;
+  activeButtonHistory: Boolean = true;
+  activeButtonNews: Boolean = true;
 
   _dataFilterDispersion: any
   _dataFilterNewsCollected: any
+  showButtonDownloadHistory: Boolean = true;
+  showButtonDownloadNews: Boolean = false;
 
 
   constructor(
@@ -53,13 +55,15 @@ export class DetailPaymentComponent implements OnInit {
    */
   dataFilterDispersion(param: any) {
     this._dataFilterDispersion = param ? param : null;
+    
     // Activar/Inactivar el boton de descarga del detalle de pagos
     const {CutOffDate, DispersionDate} = param;
     if(CutOffDate !== undefined || DispersionDate !== undefined) {
-      this.activeButton = false;
+      this.activeButtonHistory = false;
     } else {
-      this.activeButton = true;
+      this.activeButtonHistory = true;
     }
+    return this._dataFilterDispersion;
   }
 
   /**
@@ -69,6 +73,25 @@ export class DetailPaymentComponent implements OnInit {
    */
   dataFilterNewsCollected(param: any) {
     this._dataFilterNewsCollected = param ? param : null;
+    const {CutOffDate, DispersionDate} = param;
+    if(CutOffDate !== undefined || DispersionDate !== undefined) {
+      this.activeButtonNews = false;
+    } else {
+      this.activeButtonNews = true;
+    }
+
+    return this._dataFilterNewsCollected;
+  }
+
+
+  onTabChanged(e:MatTabChangeEvent) {
+    if(e.index === 0) {
+      this.showButtonDownloadHistory = true;
+      this.showButtonDownloadNews = false;
+    } else {
+      this.showButtonDownloadHistory = false;
+      this.showButtonDownloadNews = true;
+    }
   }
 
   /**
