@@ -12,8 +12,10 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { SharedModule } from '@app/shared/shared.module';
 import { ModalRuleOfferComponent } from './modal-rule-offer/modal-rule-offer.component';
 import { DownloadProductsComponent } from './download-products/download-products.component';
+import { DownloadProductsSellerComponent } from './download-products-seller/download-products-seller.component';
 import { TabProductComponent } from './tab-product/tab-product.component';
 import { CommonModule } from '@angular/common';
+
 
 @NgModule({
     imports: [
@@ -32,6 +34,7 @@ import { CommonModule } from '@angular/common';
       OfertExpandedProductComponent,
       ModalRuleOfferComponent,
       DownloadProductsComponent,
+      DownloadProductsSellerComponent,
       TabProductComponent,
     ],
     exports: [
@@ -42,7 +45,8 @@ import { CommonModule } from '@angular/common';
     ],
     entryComponents: [
       ModalRuleOfferComponent,
-      DownloadProductsComponent
+      DownloadProductsComponent,
+      DownloadProductsSellerComponent
     ],
     providers: [
       ListProductService

@@ -9,6 +9,7 @@ import { DetailPaymentComponent } from './detail-payment/detail-payment.componen
 import { HistoricalPaymentComponent } from './detail-payment/historical-payment/historical-payment.component';
 import { NewsCollectedComponent } from './detail-payment/news-collected/news-collected.component';
 import { FinishUploadInformationComponent } from '../load-guide-page/finish-upload-information/finish-upload-information.component';
+import { DownloadDetailPaymentComponent } from './detail-payment/download-detail-payment/download-detail-payment.component';
 
 @NgModule({
   imports: [
@@ -23,10 +24,12 @@ import { FinishUploadInformationComponent } from '../load-guide-page/finish-uplo
     PaymentSummaryComponent,
     DetailPaymentComponent,
     HistoricalPaymentComponent,
-    NewsCollectedComponent
+    NewsCollectedComponent,
+    DownloadDetailPaymentComponent
   ],
-    entryComponents: [
-      FinishUploadInformationComponent
-  ],
+  entryComponents: [
+    DownloadDetailPaymentComponent,
+    FinishUploadInformationComponent
+  ]
 })
 export class DispersionModule { }
