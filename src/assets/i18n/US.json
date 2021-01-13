@@ -27,7 +27,8 @@
     "menu.Factura electrónica": "Digital billing",
     "menu.Pagos": "Payments",
     "menu.Detalle de Pagos": "Payment Detail",
-    "menu.Detalle de dispersion": "Payment Detail",
+    "menu.Detalle dispersion": "Payment Detail",
+    "menu.Detalle de dispersión": "Payment Detail",
     "menu.Resumen de Pagos": "Payment Summary",
     "menu.Listado de Ofertas": "Offers list",
     "menu.Listado de ofertas": "Offers list",
@@ -60,9 +61,8 @@
     "menu.Excepción por comisión": "Commission exception",
     "menu.Listado de cancelaciones": "List of cancellations",
     "menu.Reporte de comisiones": "Report commission",
-
-
     "module.Documentación": "Documentation",
+    "menu.Resumen de pagos": "Payment Summary",
     "module.Ofertas": "Offers",
     "module.Productos": "Products",
     "module.Vendedores": "Sellers",
