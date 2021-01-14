@@ -518,7 +518,7 @@ export const endpoints = {
       // Descargar productos vendedor
       downloadProducts: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/report',
       // verificar el status de carga de dispersion
-      statusLoadDispersion : ''
+      statusLoadDispersion : 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/getstatusdispersion'
     }
   }
 };
