@@ -57,6 +57,7 @@ export class ListProductsComponent implements OnInit {
     // public myProduct = false;
     @Input() myProduct = false;
     @Input() showTabs = true;
+    @Input() showButtonDownload = true;
 
     public matcher: MyErrorStateMatcher;
     public paramsData: ModelFilterProducts;
@@ -795,4 +796,5 @@ export class ListProductsComponent implements OnInit {
             matToolbar.classList.add('notFixed');
         }
     }
+
 }

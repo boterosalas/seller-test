@@ -1,6 +1,8 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { UserInformation } from '@app/shared';
 import { UserParametersService } from '@app/core';
+import { MatTabChangeEvent } from '@angular/material';
+
 
 @Component({
   selector: 'app-tab-product',
@@ -10,6 +12,7 @@ import { UserParametersService } from '@app/core';
 export class TabProductComponent implements OnInit, AfterViewInit {
   public user: UserInformation;
   showTabs = true;
+  showButtonDownload:Boolean = true;
 
   constructor(
     public userParams: UserParametersService,
@@ -30,6 +33,14 @@ export class TabProductComponent implements OnInit, AfterViewInit {
       this.showTabs = true;
     } else {
       this.showTabs = false;
+    }
+  }
+
+  onTabChanged(e:MatTabChangeEvent) {
+    if(e.index !== 0) {
+      this.showButtonDownload = false;
+    } else{
+      this.showButtonDownload = true;
     }
   }
 
