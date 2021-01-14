@@ -41,7 +41,7 @@ public excludeSellerPayoneer(data: any): Observable<any> {
  * @memberof DispersionService
  */
 public sendDispersion(data: any): Observable<any> {
-    return this.http.post(this.api.get('sendDispersion'), data);
+    return this.http.patch(this.api.get('sendDispersion'), data);
   }
 
 /**

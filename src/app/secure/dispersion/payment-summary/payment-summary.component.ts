@@ -108,78 +108,85 @@ export class PaymentSummaryComponent implements OnInit {
 
   }
 
-/**
- * funcion para verificar el estado de la carga de pagos de dispersion
- *
- * @memberof PaymentSummaryComponent
- */
-verifyProccesPayment() {
+  /**
+   * funcion para verificar el estado de la carga de pagos de dispersion
+   *
+   * @memberof PaymentSummaryComponent
+   */
+  verifyProccesPayment() {
     this.loadingService.viewSpinner();
     this.dispersionService.statusLoadDispersion().subscribe((res: any) => {
       try {
-        if (res && res.status === 200){
-          const { status, Checked } = res.body.data;
-          if ((status === 1 || status === 4) && Checked !== 'true') {
-            const statusCurrent = 1;
-            setTimeout(() => { this.openModal(statusCurrent, null); });
-          } else if (status === 2 && Checked !== 'true') {
-            setTimeout(() => { this.openModal(status, null); });
-          } else if (status === 3 && Checked !== 'true') {
-            const response = res.body.data.response;
-            if (response) {
-              this.listErrorStatus = JSON.parse(response).ListError;
-            } else {
-              this.listErrorStatus = null;
+        if (res && res.status === 200) {
+          const { status, checked } = res.body.data;
+          let statusCurrent = null;
+          if (status !== 0) {
+            if ((status === 1 || status === 4) && checked !== 'true') {
+              statusCurrent = 1;
+              setTimeout(() => { this.openModal(statusCurrent, null); });
+            } else if (status === 2 && checked !== 'true') {
+              statusCurrent = 2;
+              setTimeout(() => { this.openModal(statusCurrent, null); });
+            } else if (status === 3 && checked !== 'true') {
+              const response = res.body.data.response;
+              statusCurrent = 3;
+              if (response) {
+                this.listErrorStatus = JSON.parse(response).ListError;
+                setTimeout(() => { this.openModal(statusCurrent, this.listErrorStatus); });
+              } else {
+                this.listErrorStatus = null;
+                this.loadingService.closeSpinner();
+              }
             }
-            setTimeout(() => { this.openModal(status, this.listErrorStatus); });
           } else {
             this.loadingService.closeSpinner();
           }
+        } else {
+          this.loadingService.closeSpinner();
         }
-      }
-      catch {
+      } catch {
         this.loadingService.closeSpinner();
       }
     });
   }
 
 
-/**
- * Funcion para invocar el modal de carga de estado
- *
- * @memberof PaymentSummaryComponent
- */
-openModal(type: number, listError: any) {
-  this.loadingService.closeSpinner();
+  /**
+   * Funcion para invocar el modal de carga de estado
+   *
+   * @memberof PaymentSummaryComponent
+   */
+  openModal(type: number, listError: any) {
+    this.loadingService.closeSpinner();
     this.intervalTime = 6000;
-  const data = {
-    successText: this.languageService.instant('secure.products.Finish_upload_product_information.successful_upload'),
-    failText: this.languageService.instant('secure.products.Finish_upload_product_information.error_upload'),
-    processText: this.languageService.instant('secure.products.Finish_upload_product_information.upload_progress'),
-    initTime: 500,
-    intervalTime: this.intervalTime,
-    listError: listError,
-    typeStatus: type,
-    responseDiferent : false,
-    type: 'paymentSummary'
-  };
-  this.cdr.detectChanges();
-  const dialog = this.dialog.open(FinishUploadInformationComponent, {
-    width: '70%',
-    minWidth: '280px',
-    maxHeight: '80vh',
-    disableClose: type === 1,
-    data: data
-  });
-  const dialogIntance = dialog.componentInstance;
-  dialogIntance.request = this.dispersionService.statusLoadDispersion();
-  dialogIntance.processFinish$.subscribe((val) => {
-    dialog.disableClose = false;
-    if(type === 2) {
-      this.getAllPaymentSummary();
-    }
-  });
-}
+    const data = {
+      successText: this.languageService.instant('secure.products.Finish_upload_product_information.successful_upload'),
+      failText: this.languageService.instant('secure.products.Finish_upload_product_information.error_upload'),
+      processText: this.languageService.instant('secure.products.Finish_upload_product_information.upload_progress'),
+      initTime: 500,
+      intervalTime: this.intervalTime,
+      listError: listError,
+      typeStatus: type,
+      responseDiferent: false,
+      type: 'paymentSummary'
+    };
+    this.cdr.detectChanges();
+    const dialog = this.dialog.open(FinishUploadInformationComponent, {
+      width: '70%',
+      minWidth: '280px',
+      maxHeight: '80vh',
+      disableClose: type === 1,
+      data: data
+    });
+    const dialogIntance = dialog.componentInstance;
+    dialogIntance.request = this.dispersionService.statusLoadDispersion();
+    dialogIntance.processFinish$.subscribe((val) => {
+      dialog.disableClose = false;
+      if (type === 2) {
+        this.getAllPaymentSummary();
+      }
+    });
+  }
 
   /**
    * funcion para consultar la regex de la base de datos
@@ -494,14 +501,12 @@ openModal(type: number, listError: any) {
    * @memberof PaymentSummaryComponent
    */
   btnDispersion() {
-    this.loadingService.viewSpinner();
+    this.loadingService.closeSpinner();
     this.dispersionService.sendDispersion(null).subscribe((res: any) => {
       if (res) {
         this.loadingService.closeSpinner();
         this.openModal(1, null);
-        // this.snackBar.open(res.message, this.languageService.instant('actions.close'), {
-        //   duration: 3000,
-        // });
+        this.onlyOne = true;
         this.getAllPaymentSummary();
       } else {
         this.snackBar.open(this.languageService.instant('secure.orders.send.error_ocurred_processing'), this.languageService.instant('actions.close'), {
@@ -535,5 +540,5 @@ openModal(type: number, listError: any) {
 
   ngOnDestroy(): void {
     this.dialog.closeAll();
-}
+  }
 }
