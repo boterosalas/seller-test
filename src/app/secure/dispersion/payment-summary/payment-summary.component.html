@@ -179,9 +179,7 @@
         </div>
       </div>
       <div fxFlex="20" class="toolbar-title-search payment-summary-component-height-90">
-        <button class="payment-summary-component-100-size-container" color="primary"
-          [matTooltip]="'actions.close' | translate" matTooltipPosition="below" mat-icon-button mat-button
-          (click)="toggleFilterReportPaymentSummary()">
+        <button mat-icon-button color="primary" class="payment-summary-component-100-size-container"  (click)="toggleFilterReportPaymentSummary()" [matTooltip]="'actions.close' | translate" matTooltipPosition="below" >
           <mat-icon>close</mat-icon>
         </button>
       </div>

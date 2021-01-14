@@ -259,6 +259,8 @@ export const endpoints = {
       exporDetailPayment: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/report{params}',
       // Descargar productos vendedor
       downloadProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/report',
+      // verificar el status de carga de dispersion
+      statusLoadDispersion : 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/getstatusdispersion'
     },
   },
   // Endpoints production
@@ -515,6 +517,8 @@ export const endpoints = {
       exporDetailPayment: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/report{params}',
       // Descargar productos vendedor
       downloadProducts: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/report',
+      // verificar el status de carga de dispersion
+      statusLoadDispersion : 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/getstatusdispersion'
     }
   }
 };
