@@ -1107,6 +1107,7 @@
     "secure.products.list_products.modal.title": "This offer undergoes an extreme price change, do you wish to continue?",
     "secure.products.pending_products_tab1": "Pendientes Modificación",
     "secure.products.pending_products_tab2": "Pendientes Validación",
+    "secure.products.pending_products_text_info_header": "Los productos pendientes de modificación solo se guardarán por un período de 30 días, favor gestionarlos para evitar reproceso.",
     "secure.products.list_products.download.title": "Nous vous enverrons le téléchargement du produit à l'adresse e-mail suivante.",
     "secure.products.list_products.download.error": "Un problème est survenu lors du téléchargement des produits, veuillez réessayer.",
     "secure.products.list_products.my_products": "Mes produits",

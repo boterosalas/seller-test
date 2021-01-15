@@ -1125,6 +1125,7 @@
     "secure.products.list_products.modal.title": "Esta oferta sufre un cambio extremo de precio, ¿Deseas Continuar?",
     "secure.products.pending_products_tab1": "Pendientes Modificación",
     "secure.products.pending_products_tab2": "Pendientes Validación",
+    "secure.products.pending_products_text_info_header": "Los productos pendientes de modificación sólo se guardarán por un período de 30 días, favor gestionarlos para evitar reproceso.",
     "secure.products.pending_products.filterPending": "Filtro productos en validación",
     "secure.products.pending_products.filterModify": "Filtro productos para modificación",
 
