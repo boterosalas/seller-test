@@ -114,7 +114,6 @@ export class PaymentSummaryComponent implements OnInit {
    * @memberof PaymentSummaryComponent
    */
   verifyProccesPayment() {
-    this.loadingService.viewSpinner();
     this.dispersionService.statusLoadDispersion().subscribe((res: any) => {
       try {
         if (res && res.status === 200) {
@@ -225,7 +224,6 @@ export class PaymentSummaryComponent implements OnInit {
    * @memberof PaymentSummaryComponent
    */
   getAllPaymentSummary() {
-    this.loadingService.viewSpinner();
     this.dispersionService.getAllPaymentSummary(this.filter).subscribe((res: any) => {
       if (res && res.status === 200) {
         const { viewModel, count, paginationToken } = res.body;
@@ -335,6 +333,7 @@ export class PaymentSummaryComponent implements OnInit {
    * @memberof PaymentSummaryComponent
    */
   masterToggle(status: boolean, dataSource: any) {
+    this.loadingService.viewSpinner();
     if (dataSource && dataSource.data) {
       const data = dataSource.data;
       data.forEach(element => {
@@ -352,7 +351,6 @@ export class PaymentSummaryComponent implements OnInit {
       ];
       this.dispersionService.excludeSellerPayoneer(params).subscribe((res: any) => {
         if (res) {
-          this.loadingService.closeSpinner();
           const textStatus = !status === true ? ' incluidos  ' : ' excluidos ';
           if (!status === true) {
             this.getAllPaymentSummary();
@@ -370,6 +368,7 @@ export class PaymentSummaryComponent implements OnInit {
             this.totalPayValue = this.totalCountAux;
             this.totalSeller = this.totaSellerAux;
           }
+          this.loadingService.closeSpinner();
         }
       });
     } else {
@@ -436,7 +435,6 @@ export class PaymentSummaryComponent implements OnInit {
 
     this.dispersionService.excludeSellerPayoneer(params).subscribe((res: any) => {
       if (res) {
-        this.loadingService.closeSpinner();
         const textStatus = status === true ? ' Excluido ' : ' Incluido ';
         this.dataSource.data.forEach(element => {
           if (element.internalPaymentId === payToSeller.internalPaymentId) {
@@ -452,6 +450,7 @@ export class PaymentSummaryComponent implements OnInit {
           duration: 3000,
         });
       }
+
     });
   }
   /**
@@ -473,6 +472,7 @@ export class PaymentSummaryComponent implements OnInit {
       }
       this.totalSeller++;
     }
+    this.loadingService.closeSpinner();
   }
   /**
    * funcion para aplicar filtros
@@ -501,10 +501,9 @@ export class PaymentSummaryComponent implements OnInit {
    * @memberof PaymentSummaryComponent
    */
   btnDispersion() {
-    this.loadingService.closeSpinner();
     this.dispersionService.sendDispersion(null).subscribe((res: any) => {
       if (res) {
-        this.loadingService.closeSpinner();
+        
         this.openModal(1, null);
         this.onlyOne = true;
         this.getAllPaymentSummary();
@@ -513,10 +512,12 @@ export class PaymentSummaryComponent implements OnInit {
           duration: 3000,
         });
       }
+      this.loadingService.closeSpinner();
     }, error => {
       this.snackBar.open(this.languageService.instant('secure.orders.send.error_ocurred_processing' + error), this.languageService.instant('actions.close'), {
         duration: 3000,
       });
+      this.loadingService.closeSpinner();
     });
   }
   /**

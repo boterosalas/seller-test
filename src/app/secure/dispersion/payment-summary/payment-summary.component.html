@@ -34,7 +34,7 @@
               fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="5" fxFlex.xl=""
               *matHeaderCellDef>
               <mat-checkbox [disabled]= "allPaymentSummary.length === 0 ? true : false " (change)="$event ? masterToggle(statusAllCheck, dataSource) :
-            null; changeStatus(null, $event.checked)" [checked]="selection.hasValue()"
+            null" [checked]="selection.hasValue()"
                 [indeterminate]="selection.hasValue() && !isAllSelectedCurrent">
                 {{'actions.all'| translate}}
               </mat-checkbox>
