@@ -180,12 +180,15 @@ export class PaymentSummaryComponent implements OnInit {
       data: data
     });
     const dialogIntance = dialog.componentInstance;
+    dialog.afterClosed().subscribe(result => {
+      this.getAllPaymentSummary();
+    });
     dialogIntance.request = this.dispersionService.statusLoadDispersion();
     dialogIntance.processFinish$.subscribe((val) => {
       dialog.disableClose = false;
-      if (type === 2) {
-        this.getAllPaymentSummary();
-      }
+      // if (type === 2) {
+      //   this.getAllPaymentSummary();
+      // }
     });
   }
 
@@ -226,6 +229,7 @@ export class PaymentSummaryComponent implements OnInit {
    * @memberof PaymentSummaryComponent
    */
   getAllPaymentSummary() {
+    this.loadingService.viewSpinner();
     this.dispersionService.getAllPaymentSummary(this.filter).subscribe((res: any) => {
       if (res && res.status === 200) {
         const { viewModel, count, paginationToken } = res.body;
@@ -510,7 +514,6 @@ export class PaymentSummaryComponent implements OnInit {
           duration: 3000,
         });
       }
-      this.loadingService.closeSpinner();
     }, error => {
       this.snackBar.open(this.languageService.instant('secure.orders.send.error_ocurred_processing' + error), this.languageService.instant('actions.close'), {
         duration: 3000,
