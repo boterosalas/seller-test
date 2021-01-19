@@ -227,11 +227,6 @@ export class PaymentSummaryComponent implements OnInit {
     this.dispersionService.getAllPaymentSummary(this.filter).subscribe((res: any) => {
       if (res && res.status === 200) {
         const { viewModel, count, paginationToken } = res.body;
-        if (this.statusAllCheck === true) {
-          viewModel.forEach(element => {
-            element.excluded = false;
-          });
-        }
         this.allPaymentSummary = viewModel;
         this.dataSource = new MatTableDataSource(this.allPaymentSummary);
         if (this.onlyOne) {
@@ -503,7 +498,6 @@ export class PaymentSummaryComponent implements OnInit {
   btnDispersion() {
     this.dispersionService.sendDispersion(null).subscribe((res: any) => {
       if (res) {
-        
         this.openModal(1, null);
         this.onlyOne = true;
         this.getAllPaymentSummary();
