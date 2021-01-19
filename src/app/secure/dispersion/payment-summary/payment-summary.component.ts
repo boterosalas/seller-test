@@ -46,6 +46,7 @@ export class PaymentSummaryComponent implements OnInit {
   public paymentSummaryRegex = { integerNumber: '' };
   public listErrorStatus: any = [];
   public intervalTime = 6000;
+  public showLoader = false;
 
   public indexPage = 0;
   public totalSeller = 0;
@@ -180,15 +181,16 @@ export class PaymentSummaryComponent implements OnInit {
       data: data
     });
     const dialogIntance = dialog.componentInstance;
+    
     dialog.afterClosed().subscribe(result => {
-      this.getAllPaymentSummary();
+        this.showLoader = true;
+        this.getAllPaymentSummary();
     });
     dialogIntance.request = this.dispersionService.statusLoadDispersion();
     dialogIntance.processFinish$.subscribe((val) => {
       dialog.disableClose = false;
-      // if (type === 2) {
-      //   this.getAllPaymentSummary();
-      // }
+        this.showLoader = true;
+        this.getAllPaymentSummary();
     });
   }
 
@@ -229,7 +231,10 @@ export class PaymentSummaryComponent implements OnInit {
    * @memberof PaymentSummaryComponent
    */
   getAllPaymentSummary() {
-    this.loadingService.viewSpinner();
+    if(this.showLoader){
+      this.loadingService.viewSpinner();
+    }
+   
     this.dispersionService.getAllPaymentSummary(this.filter).subscribe((res: any) => {
       if (res && res.status === 200) {
         const { viewModel, count, paginationToken } = res.body;
@@ -243,6 +248,7 @@ export class PaymentSummaryComponent implements OnInit {
         this.totalPayValue = res.body.extraInfo.TotalToPayPayoneer !== '0' ? parseFloat(res.body.extraInfo.TotalToPayPayoneer) : 0;
         this.totalSeller = res.body.extraInfo.TotalSellersToPayPayoneer !== '0' ? parseInt(res.body.extraInfo.TotalSellersToPayPayoneer) : 0;
         this.onlyOne = false;
+        this.showLoader = false;
         this.loadingService.closeSpinner();
         this.savePaginationToken(paginationToken);
         this.showTable = true;
