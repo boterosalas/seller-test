@@ -24,7 +24,7 @@
         </div>
 
         <div class="inline-block">
-            <div ngfDrop selectable="1" [(validDrag)]="validComboDrag" [(files)]="files" [(file)]="file" [maxSize]="maxSize" accept="application/pdf"
+            <div ngfDrop selectable="1" [(validDrag)]="validComboDrag" [(files)]="files" [(file)]="file" [maxSize]="maxSize" accept="application/pdf,zip,application/zip,application/x-zip,application/x-zip-compressed"
                 [(lastInvalids)]="lastInvalids" [(dragFiles)]="dragFiles" class="well my-drop-zone" fxLayout="column" id="pdf"
                 fxLayoutAlign="center center" [class.invalid-drag]="validComboDrag===false" [class.valid-drag]="validComboDrag"
                 (filesChange)="lastFileAt=getDate()">
