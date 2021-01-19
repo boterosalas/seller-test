@@ -22,7 +22,7 @@
       <div fxFlex="30">
         <div class="payment-summary-component-text-aling-end">
           <button mat-stroked-button color="primary"
-            (click)="btnDispersion()" [disabled]= "allPaymentSummary.length === 0 ? true : false ">{{'secure.dispersion.summaryPayment.dispersar'| translate}}</button>
+            (click)="btnDispersion()" [disabled]= "disabledBtnDispersion">{{'secure.dispersion.summaryPayment.dispersar'| translate}}</button>
         </div>
       </div>
     </div>

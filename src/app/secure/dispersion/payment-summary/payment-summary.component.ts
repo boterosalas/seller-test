@@ -53,6 +53,7 @@ export class PaymentSummaryComponent implements OnInit {
   public filterPaymentSummary: FormGroup;
   public allPaymentSummary = [];
   public showTable = false;
+  public disabledBtnDispersion = false;
 
   public totalCountAux = 0;
   public totaSellerAux = 0;
@@ -496,11 +497,13 @@ export class PaymentSummaryComponent implements OnInit {
    * @memberof PaymentSummaryComponent
    */
   btnDispersion() {
+    this.disabledBtnDispersion = true;
     this.dispersionService.sendDispersion(null).subscribe((res: any) => {
       if (res) {
         this.openModal(1, null);
         this.onlyOne = true;
         this.getAllPaymentSummary();
+        this.disabledBtnDispersion= false;
       } else {
         this.snackBar.open(this.languageService.instant('secure.orders.send.error_ocurred_processing'), this.languageService.instant('actions.close'), {
           duration: 3000,
