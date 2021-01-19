@@ -110,7 +110,8 @@ export class PaymentSummaryComponent implements OnInit {
   }
 
   /**
-   * funcion para verificar el estado de la carga de pagos de dispersion
+   * funcion para verificar el estado de la carga de pagos de dispersion 
+   * 
    *
    * @memberof PaymentSummaryComponent
    */
