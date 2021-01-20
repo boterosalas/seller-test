@@ -1,13 +1,14 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import { ErrorStateMatcher, MatSidenav, MatSnackBar, MatTableDataSource } from '@angular/material';
+import { ErrorStateMatcher, MatDialog, MatDialogRef, MatSidenav, MatSnackBar, MatTableDataSource } from '@angular/material';
 import { InformationToForm, SearchFormEntity } from '@app/shared';
 import { TranslateService } from '@ngx-translate/core';
 import { DispersionService } from '../dispersion.service';
 import * as _moment from 'moment';
 import { LoadingService } from '@app/core';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import { FinishUploadInformationComponent } from '@app/secure/offers/bulk-load/finish-upload-information/finish-upload-information.component';
 
 const moment = _moment;
 
@@ -43,6 +44,9 @@ export class PaymentSummaryComponent implements OnInit {
   public arrayPosition = [];
   public stateSideNavOrder = false;
   public paymentSummaryRegex = { integerNumber: '' };
+  public listErrorStatus: any = [];
+  public intervalTime = 6000;
+  public showLoader = false;
 
   public indexPage = 0;
   public totalSeller = 0;
@@ -50,6 +54,7 @@ export class PaymentSummaryComponent implements OnInit {
   public filterPaymentSummary: FormGroup;
   public allPaymentSummary = [];
   public showTable = false;
+  public disabledBtnDispersion = false;
 
   public totalCountAux = 0;
   public totaSellerAux = 0;
@@ -89,6 +94,8 @@ export class PaymentSummaryComponent implements OnInit {
     public SUPPORT: SupportService,
     private loadingService: LoadingService,
     private fb: FormBuilder,
+    public dialog: MatDialog,
+    private cdr: ChangeDetectorRef,
   ) {
     this.arrayPosition = [];
     this.arrayPosition.push('{}');
@@ -99,8 +106,94 @@ export class PaymentSummaryComponent implements OnInit {
     this.getRegexByModule();
     this.getAllPaymentSummary();
     this.createFormControls();
+    this.verifyProccesPayment();
 
   }
+
+  /**
+   * funcion para verificar el estado de la carga de pagos de dispersion 
+   * 
+   *
+   * @memberof PaymentSummaryComponent
+   */
+  verifyProccesPayment() {
+    this.dispersionService.statusLoadDispersion().subscribe((res: any) => {
+      try {
+        if (res && res.status === 200) {
+          const { status, checked } = res.body.data;
+          let statusCurrent = null;
+          if (status !== 0) {
+            if ((status === 1 || status === 4) && checked !== 'true') {
+              statusCurrent = 1;
+              setTimeout(() => { this.openModal(statusCurrent, null); });
+            } else if (status === 2 && checked !== 'true') {
+              statusCurrent = 2;
+              setTimeout(() => { this.openModal(statusCurrent, null); });
+            } else if (status === 3 && checked !== 'true') {
+              const response = res.body.data.response;
+              statusCurrent = 3;
+              if (response) {
+                this.listErrorStatus = JSON.parse(response).ListError;
+                setTimeout(() => { this.openModal(statusCurrent, this.listErrorStatus); });
+              } else {
+                this.listErrorStatus = null;
+                this.loadingService.closeSpinner();
+              }
+            }
+          } else {
+            this.loadingService.closeSpinner();
+          }
+        } else {
+          this.loadingService.closeSpinner();
+        }
+      } catch {
+        this.loadingService.closeSpinner();
+      }
+    });
+  }
+
+
+  /**
+   * Funcion para invocar el modal de carga de estado
+   *
+   * @memberof PaymentSummaryComponent
+   */
+  openModal(type: number, listError: any) {
+    this.loadingService.closeSpinner();
+    this.intervalTime = 6000;
+    const data = {
+      successText: this.languageService.instant('secure.products.Finish_upload_product_information.successful_upload'),
+      failText: this.languageService.instant('secure.products.Finish_upload_product_information.error_upload'),
+      processText: this.languageService.instant('secure.products.Finish_upload_product_information.upload_progress'),
+      initTime: 500,
+      intervalTime: this.intervalTime,
+      listError: listError,
+      typeStatus: type,
+      responseDiferent: false,
+      type: 'paymentSummary'
+    };
+    this.cdr.detectChanges();
+    const dialog = this.dialog.open(FinishUploadInformationComponent, {
+      width: '70%',
+      minWidth: '280px',
+      maxHeight: '80vh',
+      disableClose: type === 1,
+      data: data
+    });
+    const dialogIntance = dialog.componentInstance;
+    
+    dialog.afterClosed().subscribe(result => {
+        this.showLoader = true;
+        this.getAllPaymentSummary();
+    });
+    dialogIntance.request = this.dispersionService.statusLoadDispersion();
+    dialogIntance.processFinish$.subscribe((val) => {
+      dialog.disableClose = false;
+        this.showLoader = true;
+        this.getAllPaymentSummary();
+    });
+  }
+
   /**
    * funcion para consultar la regex de la base de datos
    *
@@ -138,15 +231,13 @@ export class PaymentSummaryComponent implements OnInit {
    * @memberof PaymentSummaryComponent
    */
   getAllPaymentSummary() {
-    this.loadingService.viewSpinner();
+    if(this.showLoader){
+      this.loadingService.viewSpinner();
+    }
+   
     this.dispersionService.getAllPaymentSummary(this.filter).subscribe((res: any) => {
       if (res && res.status === 200) {
         const { viewModel, count, paginationToken } = res.body;
-        if (this.statusAllCheck === true) {
-          viewModel.forEach(element => {
-            element.excluded = false;
-          });
-        }
         this.allPaymentSummary = viewModel;
         this.dataSource = new MatTableDataSource(this.allPaymentSummary);
         if (this.onlyOne) {
@@ -157,6 +248,7 @@ export class PaymentSummaryComponent implements OnInit {
         this.totalPayValue = res.body.extraInfo.TotalToPayPayoneer !== '0' ? parseFloat(res.body.extraInfo.TotalToPayPayoneer) : 0;
         this.totalSeller = res.body.extraInfo.TotalSellersToPayPayoneer !== '0' ? parseInt(res.body.extraInfo.TotalSellersToPayPayoneer) : 0;
         this.onlyOne = false;
+        this.showLoader = false;
         this.loadingService.closeSpinner();
         this.savePaginationToken(paginationToken);
         this.showTable = true;
@@ -248,6 +340,7 @@ export class PaymentSummaryComponent implements OnInit {
    * @memberof PaymentSummaryComponent
    */
   masterToggle(status: boolean, dataSource: any) {
+    this.loadingService.viewSpinner();
     if (dataSource && dataSource.data) {
       const data = dataSource.data;
       data.forEach(element => {
@@ -265,7 +358,6 @@ export class PaymentSummaryComponent implements OnInit {
       ];
       this.dispersionService.excludeSellerPayoneer(params).subscribe((res: any) => {
         if (res) {
-          this.loadingService.closeSpinner();
           const textStatus = !status === true ? ' incluidos  ' : ' excluidos ';
           if (!status === true) {
             this.getAllPaymentSummary();
@@ -283,6 +375,7 @@ export class PaymentSummaryComponent implements OnInit {
             this.totalPayValue = this.totalCountAux;
             this.totalSeller = this.totaSellerAux;
           }
+          this.loadingService.closeSpinner();
         }
       });
     } else {
@@ -349,7 +442,6 @@ export class PaymentSummaryComponent implements OnInit {
 
     this.dispersionService.excludeSellerPayoneer(params).subscribe((res: any) => {
       if (res) {
-        this.loadingService.closeSpinner();
         const textStatus = status === true ? ' Excluido ' : ' Incluido ';
         this.dataSource.data.forEach(element => {
           if (element.internalPaymentId === payToSeller.internalPaymentId) {
@@ -365,6 +457,7 @@ export class PaymentSummaryComponent implements OnInit {
           duration: 3000,
         });
       }
+
     });
   }
   /**
@@ -376,12 +469,17 @@ export class PaymentSummaryComponent implements OnInit {
    */
   recalculate(valueToPay: number, status: boolean) {
     if (status) {
-      this.totalPayValue = this.totalPayValue - valueToPay;
+      if (valueToPay > 0) {
+        this.totalPayValue = this.totalPayValue - valueToPay;
+      }
       this.totalSeller--;
     } else {
-      this.totalPayValue = this.totalPayValue + valueToPay;
+      if (valueToPay > 0) {
+        this.totalPayValue = this.totalPayValue + valueToPay;
+      }
       this.totalSeller++;
     }
+    this.loadingService.closeSpinner();
   }
   /**
    * funcion para aplicar filtros
@@ -410,14 +508,13 @@ export class PaymentSummaryComponent implements OnInit {
    * @memberof PaymentSummaryComponent
    */
   btnDispersion() {
-    this.loadingService.viewSpinner();
+    this.disabledBtnDispersion = true;
     this.dispersionService.sendDispersion(null).subscribe((res: any) => {
       if (res) {
-        this.loadingService.closeSpinner();
-        this.snackBar.open(res.message, this.languageService.instant('actions.close'), {
-          duration: 3000,
-        });
+        this.openModal(1, null);
+        this.onlyOne = true;
         this.getAllPaymentSummary();
+        this.disabledBtnDispersion= false;
       } else {
         this.snackBar.open(this.languageService.instant('secure.orders.send.error_ocurred_processing'), this.languageService.instant('actions.close'), {
           duration: 3000,
@@ -427,6 +524,7 @@ export class PaymentSummaryComponent implements OnInit {
       this.snackBar.open(this.languageService.instant('secure.orders.send.error_ocurred_processing' + error), this.languageService.instant('actions.close'), {
         duration: 3000,
       });
+      this.loadingService.closeSpinner();
     });
   }
   /**
@@ -446,5 +544,9 @@ export class PaymentSummaryComponent implements OnInit {
     this.filter = `?limit=${this.limit}&paid=false&paginationToken=${encodeURI(this.paginationToken)}&NewLimit=${this.newLimit}&CurrentPage=${this.currentPage}`;
     this.getAllPaymentSummary();
     this.toggleFilterReportPaymentSummary();
+  }
+
+  ngOnDestroy(): void {
+    this.dialog.closeAll();
   }
 }

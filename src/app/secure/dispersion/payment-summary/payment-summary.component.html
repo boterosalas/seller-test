@@ -22,7 +22,7 @@
       <div fxFlex="30">
         <div class="payment-summary-component-text-aling-end">
           <button mat-stroked-button color="primary"
-            (click)="btnDispersion()" [disabled]= "allPaymentSummary.length === 0 ? true : false ">{{'secure.dispersion.summaryPayment.dispersar'| translate}}</button>
+            (click)="btnDispersion()" [disabled]= "disabledBtnDispersion">{{'secure.dispersion.summaryPayment.dispersar'| translate}}</button>
         </div>
       </div>
     </div>
@@ -34,7 +34,7 @@
               fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="5" fxFlex.xl=""
               *matHeaderCellDef>
               <mat-checkbox [disabled]= "allPaymentSummary.length === 0 ? true : false " (change)="$event ? masterToggle(statusAllCheck, dataSource) :
-            null; changeStatus(null, $event.checked)" [checked]="selection.hasValue()"
+            null" [checked]="selection.hasValue()"
                 [indeterminate]="selection.hasValue() && !isAllSelectedCurrent">
                 {{'actions.all'| translate}}
               </mat-checkbox>
@@ -179,9 +179,7 @@
         </div>
       </div>
       <div fxFlex="20" class="toolbar-title-search payment-summary-component-height-90">
-        <button class="payment-summary-component-100-size-container" color="primary"
-          [matTooltip]="'actions.close' | translate" matTooltipPosition="below" mat-icon-button mat-button
-          (click)="toggleFilterReportPaymentSummary()">
+        <button mat-icon-button color="primary" class="payment-summary-component-100-size-container"  (click)="toggleFilterReportPaymentSummary()" [matTooltip]="'actions.close' | translate" matTooltipPosition="below" >
           <mat-icon>close</mat-icon>
         </button>
       </div>
