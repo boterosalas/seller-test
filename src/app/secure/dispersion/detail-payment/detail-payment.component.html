@@ -1,0 +1,45 @@
+<mat-toolbar class="ticket-toolbar">
+  <mat-toolbar-row class="toolbarIpad">
+    <div class="toolbar-brand">
+      <span class="toolbar-brand--title">
+        {{'module.Dispersion' | translate}}
+      </span>
+      <span class="separator"> &#124; </span>
+      <small class="toolbar-brand--subtitle">
+        {{'menu.Detalle dispersion' | translate}}
+      </small>
+    </div>
+
+    <div class="widthToolbar">
+      <app-search-seller id="contet-searc-store" class="search-content">
+      </app-search-seller>
+
+      <button mat-button [matTooltip]="'secure.dispersion.detail-payment.download' | translate" (click)="openModalDownloadDetailPayment()" *ngIf="activeTabs && showButtonDownloadHistory" [disabled]="activeButtonHistory">
+        <mat-icon>archive</mat-icon> Descargar detalle de pagos
+      </button>
+
+      <button mat-button [matTooltip]="'secure.dispersion.detail-payment.download' | translate" (click)="openModalDownloadDetailPayment()" *ngIf="activeTabs && showButtonDownloadNews" [disabled]="activeButtonNews">
+        <mat-icon>archive</mat-icon> Descargar detalle de novedades
+      </button>
+
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+
+
+
+<div *ngIf="activeTabs">
+  <mat-tab-group [(selectedIndex)]="selectedTabIndex" (selectedTabChange)="onTabChanged($event);">
+    <mat-tab id="tab1" [label]="'secure.dispersion.detail-payment.historical'| translate" >
+      <app-historical-payment class="width-100-percent" [sellerData]="sellerData" (_dispersionFilterEmit)="dataFilterDispersion($event)"></app-historical-payment>
+    </mat-tab>
+    <mat-tab id="tab2" [label]="'secure.dispersion.detail-payment.collected'| translate">
+      <app-news-collected class="width-100-percent" [sellerData]="sellerData" (_newsCollectedFilterEmit)="dataFilterNewsCollected($event)"></app-news-collected>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+<div *ngIf="!activeTabs" class="classFindSeller" fxLayout="column" fxLayoutAlign="space-evenly center">
+  <mat-icon color="primary">info</mat-icon>
+  <p>Introduce el nombre de la tienda en el buscador para ver el detalle de dispersión</p>
+</div>

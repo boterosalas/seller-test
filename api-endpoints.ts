@@ -244,7 +244,23 @@ export const endpoints = {
       // Descargar exportar comisiones
       exportCommission: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/ExportComsnExcsAudit/{params}',
       // Obtener el listado de comisiones ultimos 15 dias
-      getListCommissionAll: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/GetComsnExcsAudit/{params}'
+      getListCommissionAll: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/GetComsnExcsAudit/{params}',
+      // Obtener listado de historico de pagos
+      getListHistoricPayments: 'https://w7uiqlm4b6.execute-api.us-east-1.amazonaws.com/dev/detaildispersion{params}',
+      // Obtener listado novedades cobro
+      getListNewsCollected: 'https://w7uiqlm4b6.execute-api.us-east-1.amazonaws.com/dev/detailpaymentnews{params}',
+      // Obtener el listado de vendedores para hacer la dispersion
+      getListDispersionAll: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/{params}',
+      // Excluir - incluir en el pago de la dispersion
+      excludeSellerPayoneer: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/excludesellerpayoneerdispersion',
+      // ejecutar la dispersion
+      sendDispersion: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion',
+      // Descargar detalle de dispersion
+      exporDetailPayment: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/report{params}',
+      // Descargar productos vendedor
+      downloadProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/report',
+      // verificar el status de carga de dispersion
+      statusLoadDispersion : 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/getstatusdispersion'
     },
   },
   // Endpoints production
@@ -484,9 +500,25 @@ export const endpoints = {
       // Eliminar categpria por Id
       deleteCategory: 'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/DeleteCategory{params}',
       // Descargar exportar comisiones
-      exportCommission : 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/ExportComsnExcsAudit/{params}',
+      exportCommission: 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/ExportComsnExcsAudit/{params}',
       // Obtener el listado de comisiones ultimos 15 dias
-      getListCommissionAll : 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/GetComsnExcsAudit/{params}'
+      getListCommissionAll: 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/GetComsnExcsAudit/{params}',
+      // Obtener listado de historico de pagos
+      getListHistoricPayments: 'https://paaw2oxdqd.execute-api.us-east-1.amazonaws.com/pdn/detaildispersion{params}',
+      // Obtener listado novedades cobro
+      getListNewsCollected: 'https://paaw2oxdqd.execute-api.us-east-1.amazonaws.com/pdn/detailpaymentnews{params}',
+      // Obtener el listado de vendedores para hacer la dispersion
+      getListDispersionAll: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/{params}',
+      // Excluir - incluir en el pago de la dispersion
+      excludeSellerPayoneer: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/excludesellerpayoneerdispersion',
+      // ejecutar la dispersion
+      sendDispersion: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion',
+      // Descargar detalle de dispersion
+      exporDetailPayment: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/report{params}',
+      // Descargar productos vendedor
+      downloadProducts: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/report',
+      // verificar el status de carga de dispersion
+      statusLoadDispersion : 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/getstatusdispersion'
     }
   }
 };

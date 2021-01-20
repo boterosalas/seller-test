@@ -12,7 +12,8 @@
     <!-- <mat-paginator [length]="sellerLength" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
         </mat-paginator> -->
     <div class="float-rigth">
-      <button mat-button [matTooltip]="'secure.parametize.category.categories.btn_download_category' | translate" (click)="openModalDownloadCategories()">
+      <button mat-button [matTooltip]="'secure.parametize.category.categories.btn_download_category' | translate"
+        (click)="openModalDownloadCategories()">
         <mat-icon>archive</mat-icon>
       </button>
       <button mat-button [matTooltip]="'secure.parametize.category.categories.tooltip_expand' | translate"
@@ -38,12 +39,12 @@
   </button>
 </div>
 <div class="container__tree">
-  <app-category-tree [categoryList]="categoryList" [categoryComponent]="this" [canCreate]="canCreate" [canDelete]="canDelete"
-    [canUpdate]="canUpdate" [margin]="0"></app-category-tree>
+  <app-category-tree [categoryList]="categoryList" [categoryComponent]="this" [canCreate]="canCreate"
+    [canDelete]="canDelete" [canUpdate]="canUpdate" [margin]="0"></app-category-tree>
 </div>
 
 <ng-template #dialogContent *ngIf="!msjDeleteCategory">
-  <form [formGroup]="form" class="full-width form margin-top__15" >
+  <form [formGroup]="form" class="full-width form margin-top__15">
     <div class="container-fields">
       <mat-form-field class="register full-width">
         <mat-label>{{'shared.product_type' | translate}}</mat-label>
@@ -80,7 +81,7 @@
         </mat-error>
         <mat-error *ngIf="IdVTEX.hasError('pattern')">{{'errors.invalid_id' | translate}}</mat-error>
       </mat-form-field>
-      
+
       <mat-form-field class="half-width">
         <input matInput id="VtexIdCarulla"
           [placeholder]="'secure.parametize.category.categories.lb_vtex_id_carulla_form' | translate"

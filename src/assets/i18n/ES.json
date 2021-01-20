@@ -26,7 +26,10 @@
     "menu.Factura Electrónica": "Factura electrónica",
     "menu.Factura electrónica": "Factura electrónica",
     "menu.Pagos": "Pagos",
-    "menu.Detalle de Pagos": "Detalle de pagos",
+    "menu.Detalle de Pagos": "Detalle de dispersión",
+    "menu.Detalle dispersado": "Detalle dispersado",
+    "menu.Detalle dispersion": "Detalle de dispersión",
+    "menu.Detalle de dispersión": "Detalle de dispersión",
     "menu.Resumen de Pagos": "Resumen de pagos",
     "menu.Listado de Ofertas": "Listado de ofertas",
     "menu.Listado de ofertas": "Listado de ofertas",
@@ -60,7 +63,8 @@
     "menu.Excepción por comisión": "Excepción por comisión",
     "menu.Listado de cancelaciones": "Listado de cancelaciones",
     "menu.Reporte de comisiones": "Reporte de comisiones",
-
+    "menu.Resumen de pagos": "Resumen de pagos",
+    "menu.Detalle de pagos": "Detalle de pagos",
     "module.Documentación": "Documentación",
     "module.Ofertas": "Ofertas",
     "module.Productos": "Productos",
@@ -73,6 +77,7 @@
     "module.Reportes": "Reportes",
     "module.Devoluciones": "Devoluciones",
     "module.Calidad": "Calidad",
+    "module.Dispersion": "Dispersion ",
 
 
     "permissions.Consultar": "Consultar",
@@ -1418,6 +1423,23 @@
     "secure.orders.bulk.billing.name_filter_billing": "Filtro de Facturación",
     "secure.orders.bulk.billing.maximum_All_file_size": "Los archivos no pueden pesar mas de 7mb.",
     "secure.orders.bulk.billing.size_file": "Tamaño de los archivos: ",
-    "secure.orders.bulk.billing.size_file_MB": "MB"
+    "secure.orders.bulk.billing.size_file_MB": "MB",
+
+    "secure.dispersion.detail-payment.historical": "Histórico de pagos y dispersiones",
+    "secure.dispersion.detail-payment.collected": "Novedades cobradas",
+    "secure.dispersion.detail-payment.download": "Descargar detalle de pagos",
+    "secure.dispersion.detail-payment.download_OK": "Se ha realizado la descarga del detalle de pagos correctamente, revisa tu correo electrónico.",
+    "secure.dispersion.detail-payment.download_KO": "Ocurrió un problema al realizar la descarga de los detalles de pago, por favor intenta nuevamente",
+    
+    "secure.dispersion.summaryPayment.cutofDate": "Fecha de corte",
+    "secure.dispersion.summaryPayment.idSeller": "Id Vendedor",
+    "secure.dispersion.summaryPayment.seller": "Vendedor",
+    "secure.dispersion.summaryPayment.quantityOrders": "Cantidad de pedidos",
+    "secure.dispersion.summaryPayment.idCodeInternal": "Id código interno",
+    "secure.dispersion.summaryPayment.description": "Descripción",
+    "secure.dispersion.summaryPayment.totalPay": "Total a pagar",
+    "secure.dispersion.summaryPayment.valueTotalPay": "Valor total a dispersar",
+    "secure.dispersion.summaryPayment.allSeller": "Total Vendedores",
+    "secure.dispersion.summaryPayment.dispersar": "Dispersar"
 
 }

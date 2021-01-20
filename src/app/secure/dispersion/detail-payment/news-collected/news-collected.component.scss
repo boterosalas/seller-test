@@ -1,0 +1,190 @@
+.styleAlltable {
+  margin-left: 1%;
+}
+
+.marginTable {
+  width: 100%
+}
+
+.styleFilter {
+  border-bottom: 1px solid #e0e0e0;
+  height: 50px;
+  margin-bottom: -6px;
+}
+
+.styleToolbarandBody {
+  color: #959595;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.marginListAdminTotal {
+  display: flex !important;
+}
+
+.newToolbar {
+  margin-left: 65.5%
+}
+
+.styleForm {
+  height: 350px;
+}
+
+.payment-summary-component {
+
+  margin-top: 22%;
+
+  &-aling-column-right {
+    text-align: inherit;
+    width: 100%;
+  }
+
+  &-text-color {
+    color: #626161;
+  }
+
+  &-vertical-aling {
+    vertical-align: middle;
+  }
+
+  &-font-size {
+    font-size: 10px;
+  }
+
+  &-padding-left {
+    padding-left: 31px;
+  }
+
+  &-width-complete {
+    width: 100%;
+  }
+
+  &-text-aling-center {
+    text-align: center;
+  }
+
+  &-text-color-grey {
+    color: #959595;
+  }
+
+  &-text-align-and-width-100 {
+    text-align: center;
+    width: 100%;
+  }
+
+  &-text-align-and-width-100-font-weight {
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+  }
+
+  &-container-chips-filters {
+    padding: 15px;
+    height: 50px;
+    width: 100%;
+  }
+
+  &-container-wait-moment-please {
+    text-align: center;
+    width: 100%;
+    margin: 2% 0% 2% 0%;
+  }
+
+  &-height-70 {
+    height: 70px;
+  }
+
+  &-margin-left-10 {
+    margin-left: 10px;
+  }
+
+  &-100-size-container {
+    height: 100%;
+    width: 100%;
+  }
+
+  &-container-width-input-sellerId {
+    width: 80%;
+    margin-left: 14px;
+    padding-left: 15px;
+    padding-bottom: 5px;
+  }
+
+  &-margin-top-40 {
+    margin-top: 40px;
+  }
+
+  &-margin-left-28 {
+    margin-left: 28px;
+  }
+
+  &-font-size-color {
+    font-size: 15px;
+    color: #b6b6b6;
+  }
+
+  &-input-date-picker-initial {
+    width: 125px;
+    padding: 10px;
+    margin-left: 18px;
+  }
+
+  &-input-date-picker-end {
+    width: 125px;
+    padding: 10px;
+  }
+
+  &-input-generic {
+    width: 80%;
+    margin-left: 14px;
+    padding-left: 15px;
+    padding-bottom: 20px;
+  }
+
+  &-btn-clear-form {
+    margin-right: 10px;
+    background-color: #eaeaea;
+  }
+
+  &-name-admin-input {
+    width: 80%;
+    margin-left: 14px;
+    padding-left: 15px;
+    padding-top: 20px;
+    padding-bottom: 90px;
+  }
+
+  &-text-transform-uppsercase {
+    text-transform: uppercase;
+  }
+
+  &-without-register {
+    text-align: center;
+    width: 100%;
+    padding: 80px;
+  }
+
+  &-input-generic {
+    width: 80%;
+    margin-left: 14px;
+    padding-left: 15px;
+    padding-bottom: 5px;
+  }
+}
+
+.container-filter {
+  width: 300px;
+}
+
+.topNotFoundData {
+  mat-icon {
+    font-size: 40px;
+  }
+
+  p {
+    color: black;
+    margin-top: 2%
+  }
+
+  margin-top: 8%
+}
