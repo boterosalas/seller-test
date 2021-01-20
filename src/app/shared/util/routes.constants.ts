@@ -62,6 +62,7 @@ export class RoutesConst {
     static readonly reportOffertAdmin: any = 'category-tree';
     static readonly reportErrorsVtexAdmin: any = 'report-error-vtex';
     static readonly reportCommission: any = 'report-commision';
+    static readonly reportDispersion: any = 'report-dispersion';
     static readonly listCalification: any = 'quality-score';
     static readonly summaryPayment: any = 'summary-payment';
     static readonly detailPayment: any = 'detalle-pago';
@@ -128,6 +129,7 @@ export class RoutesConst {
     static readonly sellerCenterIntOfferReportOffert: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.reportOffertAdmin;
     static readonly sellerCenterIntReportsErrorsVtex: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.reportErrorsVtexAdmin;
     static readonly sellerCenterIntReportsCommission: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.reportCommission;
+    static readonly sellerCenterIntReportsDispersion: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.reportDispersion;
     static readonly sellerCenterIntOfferCitiesCoverage: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.offerCitiesCoverage;
 
     static readonly sellerCenterIntProductBulkLoad: any = RoutesConst.sellerCenterProducts + '/' + RoutesConst.productBulkLoad;

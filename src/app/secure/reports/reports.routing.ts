@@ -6,6 +6,7 @@ import { ReportOffertComponent } from './report-offert/report-offert.component';
 import { RoutesConst } from '@app/shared';
 import { ReportErrorsVtexComponent } from './report-errors-vtex/report-errors-vtex.component';
 import { ReportCommissionComponent } from './report-commission/report-commission.component';
+import { ReportDispersionComponent } from './report-dispersion/report-dispersion.component';
 
 const routes: Routes = [
   Route.withShell([
@@ -25,6 +26,12 @@ const routes: Routes = [
       path: `${RoutesConst.sellerCenterIntReportsCommission}`,
       component: ReportCommissionComponent,
       data: { title: 'Reporte de comisiones' },
+      canActivate: [AuthService]
+    },
+    {
+      path: `${RoutesConst.sellerCenterIntReportsDispersion}`,
+      component: ReportDispersionComponent,
+      data: { title: 'Reporte cobros pendientes MPI' },
       canActivate: [AuthService]
     }
   ])
