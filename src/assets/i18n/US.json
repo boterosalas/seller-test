@@ -1321,6 +1321,7 @@
     "secure.parametize.support_claims-filter.modal-export.applyFilter": "Apply filters",
     "secure.parametize.support_claims-filter.modal-export.exportAll": "Export all",
     "secure.parametize.support_claims-filter.modal-export.addSeller": "Add Seller",
+    "secure.parametize.support_claims-filter.modal-export.allSeller": "All Seller",
     "secure.parametize.support_claims-filter.modal-export.searchSeller": "Search for a seller",
     "secure.parametize.support_claims-filter.modal-export.titleExportReclaim": "Export claims",
 

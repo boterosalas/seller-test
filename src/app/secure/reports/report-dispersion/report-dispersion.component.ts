@@ -25,19 +25,21 @@ export class ReportDispersionComponent implements OnInit {
     information: new InformationToForm,
     count: null
   };
-  public showContainerDetail= true;
+  public showContainerDetail = true;
   public filteredOptions: Observable<string[]>;
   public listSellers: any;
   public textForSearch: FormControl;
   public user: any;
   public sellerCurrent = {};
   public btnAddSeller = true;
-  
+  sellerList = [];
+  arraySellerId = [];
+
 
   constructor(
     public eventsSeller: EventEmitterSeller,
     public storeService: StoresService,
-  ) { 
+  ) {
     this.listSellers = [];
     this.user = {};
     this.textForSearch = new FormControl();
@@ -46,20 +48,20 @@ export class ReportDispersionComponent implements OnInit {
   ngOnInit() {
     this.getAllSellers();
     this.filteredOptions = this.textForSearch.valueChanges
-    .pipe(
-      startWith(''),
-      map((val: any) =>
-        this.filter(val)
-      )
-    );
+      .pipe(
+        startWith(''),
+        map((val: any) =>
+          this.filter(val)
+        )
+      );
   }
 
-   /**
-   * Evento que permite capturar cuando un usuario presiona enter al estar en el input,
-   * Este evento se agrega para poder obtener el primer resultado que se encuentre en la lista al momento de presionar enter
-   * @param {any} event
-   * @memberof SearchStoreComponent
-   */
+  /**
+  * Evento que permite capturar cuando un usuario presiona enter al estar en el input,
+  * Este evento se agrega para poder obtener el primer resultado que se encuentre en la lista al momento de presionar enter
+  * @param {any} event
+  * @memberof SearchStoreComponent
+  */
   public keyDownFunction(event: any): void {
     // keyCode 13 -> Enter
     if (event.keyCode === 13) {
@@ -76,12 +78,12 @@ export class ReportDispersionComponent implements OnInit {
     }
   }
 
-    /**
-   * Método que retorna el resultado dentro del array de tiendas disponible
-   * @param {string} val
-   * @returns {string[]}
-   * @memberof SearchStoreComponent
-   */
+  /**
+ * Método que retorna el resultado dentro del array de tiendas disponible
+ * @param {string} val
+ * @returns {string[]}
+ * @memberof SearchStoreComponent
+ */
   public filter(val: string): string[] {
     if (val !== null && this.listSellers) {
       return this.listSellers.filter(option =>
@@ -89,46 +91,57 @@ export class ReportDispersionComponent implements OnInit {
     }
   }
 
-   /**
-   * 
-   * 
-   * @param {any} search_seller
-   * @memberof SearchStoreComponent
-   */
+  /**
+  * 
+  * 
+  * @param {any} search_seller
+  * @memberof SearchStoreComponent
+  */
   public viewStoreInformation(seller: StoreModel) {
-  this.sellerCurrent = seller;
+    if (seller) {
+      this.sellerCurrent = seller;
+      this.btnAddSeller = false;
+    }
   }
 
-  public saveSeller(seller){
+  public saveSeller(seller) {
     console.log(seller);
+    this.sellerList.push(seller.Name);
+    this.arraySellerId.push(seller.IdSeller);
+    this.btnAddSeller = true;
+    this.textForSearch.reset();
+
   }
 
-   /**
-   * Evento que permite escuchar los cambios en el input de busqueda para saber si no hay un valor ingresado y setear el campo
-   * @param {any} event
-   * @memberof SearchStoreComponent
-   */
+  /**
+  * Evento que permite escuchar los cambios en el input de busqueda para saber si no hay un valor ingresado y setear el campo
+  * @param {any} event
+  * @memberof SearchStoreComponent
+  */
   public whatchValueInput(event: any): void {
     if (event === '') {
       this.textForSearch.reset();
     }
+    if (event === null) {
+      this.btnAddSeller = true;
+    }
   }
 
-   /**
-   * Método empleado para consultar la lista de tiendas disponibles
-   * @memberof SearchStoreComponent
-   */
+  /**
+  * Método empleado para consultar la lista de tiendas disponibles
+  * @memberof SearchStoreComponent
+  */
   public getAllSellers() {
-      this.storeService.getAllStoresFull(this.user).subscribe((res: any) => {
-        console.log(res)
-        if (res.status === 200) {
-          if (res && res.body && res.body.body) {
-            const body = JSON.parse(res.body.body);
-            this.listSellers = body.Data;
-          }
-        } else {
-          this.listSellers = res.message;
+    this.storeService.getAllStoresFull(this.user).subscribe((res: any) => {
+      console.log(res)
+      if (res.status === 200) {
+        if (res && res.body && res.body.body) {
+          const body = JSON.parse(res.body.body);
+          this.listSellers = body.Data;
         }
-      });
+      } else {
+        this.listSellers = res.message;
+      }
+    });
   }
 }

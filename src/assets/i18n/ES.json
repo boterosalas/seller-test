@@ -1342,6 +1342,7 @@
     "secure.parametize.support_claims-filter.modal-export.exportAll": "Exportar todos",
     "secure.parametize.support_claims-filter.modal-export.addSeller": "Agregar vendedor",
     "secure.parametize.support_claims-filter.modal-export.searchSeller": "Buscar vendedor",
+    "secure.parametize.support_claims-filter.modal-export.allSeller": "Todos los vendedores",
     "secure.parametize.support_claims-filter.modal-export.titleExportReclaim": "Exportar reclamaciones",
 
     "secure.parametize.support_drop-down-menu-ID": "ID",

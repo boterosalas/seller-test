@@ -9,8 +9,10 @@
         </app-toolbar-search-pagination>
       </div>
     </div>
-    <div fxLayout="row wrap" style="width: 100%; padding: 10px;">
+    <div fxLayout="row wrap" style="width: 100%; padding: 30px 30px 0px 30px;">
       <div fxFlex="80">
+        <div style="margin-bottom: 5px;margin-top: 5px;">{{'secure.parametize.support_claims-filter.modal-export.searchSeller'
+          | translate}}</div>
         <form id="search-store-form" class="search-store mat-typography
           width-100-important"
           (keydown)="keyDownFunction($event)" style="width: 100% !important;
@@ -37,76 +39,33 @@
         </form>
       </div>
       <div fxFlex="20">
-        <div >
-          <!-- <button mat-icon-button>
-            <mat-icon matSuffix
-              [matTooltip]="'secure.parametize.port.btn_add_port' | translate"
-              class="material-icons add-keyword-icon vertical-align-top"
-              (click)="saveSeller(sellerCurrent)">
-              add_circle_outline
-            </mat-icon>
-          </button> -->
-          <button [disabled]="btnAddSeller" mat-icon-button  (click)="saveSeller(sellerCurrent)">
-            <mat-icon [matTooltip]="'secure.parametize.port.btn_add_port' | translate" >
+        <div style="margin-top: 30px;">
+          <button [disabled]="btnAddSeller" mat-icon-button
+            (click)="saveSeller(sellerCurrent)">
+            <mat-icon class="add-keyword-icon"
+              [matTooltip]="'secure.parametize.support_claims-filter.modal-export.addSeller'
+              | translate">
               add_circle_outline
             </mat-icon>
           </button>
-
+          <span>
+            {{'secure.parametize.support_claims-filter.modal-export.addSeller' |
+            translate}}
+          </span>
         </div>
-
       </div>
     </div>
+    <div fxLayout="row wrap" style="width: 100%; padding-left: 30px;
+      padding-top: 5px ;height: 40px;">
+      <mat-checkbox>{{'secure.parametize.support_claims-filter.modal-export.allSeller'
+        | translate}}</mat-checkbox>
+    </div>
     <mat-chip-list>
-      <mat-chip *ngFor="let key of filterChips; let i= index"
-        (removed)="deteleFilter(key, i)">
-        {{'filter-' + key.type | translate}} : {{key.name}}
+      <mat-chip *ngFor="let key of sellerList; let i= index"
+        (removed)="deleteKeywork(i)">
+        {{key}}
         <mat-icon class="material-icons" matChipRemove>cancel</mat-icon>
       </mat-chip>
     </mat-chip-list>
   </div>
 </div>
-
-
-<!-- <div class="content-order my-content">
-  <div fxFlex class="container" fxLayout="row wrap" fxLayoutAlign="center
-    start">
-    <div fxFlex="100" class="light-content">
-      <app-toolbar-search-pagination [informationToForm]="informationToForm"
-        #toolbarOptions [lengthOrder]="null" [btnFilter]="btnFilter" [showContainerDetail] ="showContainerDetail"
-        [btnDownload]="btnDownload">
-      </app-toolbar-search-pagination>
-    </div>
-  </div>
-  <div fxLayout="row" class="report-commission-component-container-chips-filters">
-    <form id="search-store-form" class="search-store mat-typography width-100-important"
-      (keydown)="keyDownFunction($event)">
-     <mat-form-field class="input-search">
-       <mat-icon id="icon-search-store" class="icon-search" matPrefix>search</mat-icon>
-    
-       <input id="input-search-store" class="search-store-input
-         input-search-black" type="search"
-         (ngModelChange)="whatchValueInput($event)" matInput
-         [formControl]="textForSearch" [matAutocomplete]="auto">
-     </mat-form-field>
-
-     <mat-autocomplete autoActiveFirstOption class="auto-complete"
-       #auto="matAutocomplete">
-       <mat-option id="option-search-store-number-{{position}}"
-         (click)="viewStoreInformation(option)"
-         class="autocomplete-list" *ngFor="let option of filteredOptions |
-         async; let position= index"
-         [value]="option.Name">
-         <mat-icon>store</mat-icon>
-         {{option.Name}}
-       </mat-option>
-     </mat-autocomplete>
-   </form>
-    <mat-chip-list>
-      <mat-chip *ngFor="let key of filterChips; let i = index" (removed)="deteleFilter(key, i)">
-       {{'filter-' + key.type | translate}} : {{key.name}}
-        <mat-icon class="material-icons" matChipRemove>cancel</mat-icon>
-      </mat-chip>
-    </mat-chip-list>
-  </div>
- 
-</div> -->
