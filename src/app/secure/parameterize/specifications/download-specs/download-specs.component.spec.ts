@@ -14,7 +14,7 @@ import { ParamSpecsService } from '../specifications.component.service';
 
 import { DownloadSpecsComponent } from './download-specs.component';
 
-fdescribe('DownloadSpecsComponent', () => {
+describe('DownloadSpecsComponent', () => {
     let component: DownloadSpecsComponent;
     let fixture: ComponentFixture<DownloadSpecsComponent>;
 

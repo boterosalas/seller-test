@@ -1157,6 +1157,7 @@
     "secure.parametize.specifications.change_lang_english_delete": "You have switched the language to English, if you wish to delete Specifications please switch back to Spanish" ,
     "secure.parametize.specifications.change_lang_english_edit": "You have switched the language to English, if you wish to edit Specifications please switch back to Spanish",
     "secure.parametize.specifications.download_title": "DESCARGAR ESPECIFICACIONES",
+    "secure.parametize.specifications.download_title2": "Te enviaremos el reporte de especificaciones al siguiente correo eléctronico",
     "secure.parametize.specifications.download_OK": "Se ha realizado la descarga de las especificaciones correctamente, revisa tu correo electrónico.",
     "secure.parametize.specifications.download_KO": "Ocurrió un problema al realizar la descarga de las especificaciones, por favor intenta nuevamente.",
 
