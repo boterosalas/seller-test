@@ -31,6 +31,7 @@ export class LoadFileComponent implements OnInit {
   validComboDrag = true;
   dragFiles = true;
   file = null;
+  typeFile= 0;
   /**
    * Inicialización de componente para cargar archivos.
    */
@@ -89,11 +90,13 @@ export class LoadFileComponent implements OnInit {
       file = this.files[this.files.length - 1];
     }
     this.showProgress = true;
+    this.getExtensionFile(file.type);
     this.getBase64(file).then(data => {
       try {
         const bodyToSend = {
           IdOrder: this.dataToSend.body.id,
-          Base64Pdf: data.slice(data.search('base64') + 7, data.length)
+          Base64File: data.slice(data.search('base64') + 7, data.length),
+          FileType: this.typeFile
         };
         this.service.postBillOrders(bodyToSend).subscribe(result => {
           if (result.body.data) {
@@ -130,5 +133,22 @@ export class LoadFileComponent implements OnInit {
    */
   public getDate(): Date {
     return new Date();
+  }
+
+  getExtensionFile(type: string){
+    if(type) {
+      switch (type) {
+        case 'application/x-zip-compressed':
+          this.typeFile = 2;
+          break;
+        case 'application/pdf':
+          this.typeFile = 1;
+          break;
+      
+        default:
+          this.typeFile = 0;
+          break;
+      }
+    }
   }
 }

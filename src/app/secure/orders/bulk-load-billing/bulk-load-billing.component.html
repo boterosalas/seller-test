@@ -29,7 +29,7 @@
           </div>
           <div class="inline-block">
             <div ngfDrop selectable="1" multiple="1" [(validDrag)]="validComboDrag" [(files)]="files" [(file)]="file"
-              accept="application/pdf" [(lastInvalids)]="lastInvalids" [(dragFiles)]="dragFiles"
+              accept="application/pdf,zip,application/zip,application/x-zip,application/x-zip-compressed" [(lastInvalids)]="lastInvalids" [(dragFiles)]="dragFiles"
               class="well my-drop-zone" fxLayout="column" id="pdf" fxLayoutAlign="center center"
               [class.invalid-drag]="validComboDrag===false" [class.valid-drag]="validComboDrag"
               (filesChange)="lastFileAt=getDate(); changeValue(files) ">
@@ -57,13 +57,12 @@
                       color="primary">{{'shared.components.load_file.text3' | translate}}</button>
                   </div>
                 </div>
-
               </div>
-              <div *ngIf="!filesValidate.length && !lastInvalids?.length">
+              <div *ngIf="!filesValidate.length">
                 {{'secure.orders.bulk.billing.you_or_navigate_your_files' | translate}} <span
                   class="bulk-load-billing-component-color-here-blue"><strong>{{'secure.orders.bulk.billing.here' | translate}}</strong></span>{{'secure.orders.bulk.billing.to_your_files' | translate}}
               </div>
-              <div *ngIf="!filesValidate.length && !lastInvalids?.length">
+              <div *ngIf="!filesValidate.length">
                 <div fxLayout="row">
                   <div fxFlex="100" class="bulk-load-billing-component-margin-top-15">
                     <button mat-button mat-raised-button
@@ -91,16 +90,15 @@
           <div *ngIf="showShowRecommendationsContainer">
             <div class="bulk-load-billing-component-margin-left-28"><span
                 class="bulk-load-billing-component-asteric-recommnedation-color"><strong>*
-                </strong></span>{{'secure.orders.bulk.billing.allowed_format'| translate}}
-              <strong>PDF</strong></div>
+                </strong></span>{{'secure.orders.bulk.billing.allowed_formats'| translate}}
+              <strong>PDF </strong> {{'permissions.y' | translate}} <strong>.ZIP</strong></div>
             <div class="bulk-load-billing-component-margin-left-28"><span
                 class="bulk-load-billing-component-asteric-recommnedation-color"><strong>*
                 </strong></span>{{'secure.orders.bulk.billing.maximum_file_size_megabytes'| translate}} <strong>3
                 {{'secure.orders.bulk.billing.megabytes' | translate}}</strong></div>
             <div class="bulk-load-billing-component-margin-left-28"><span
                 class="bulk-load-billing-component-asteric-recommnedation-color"><strong>*
-                </strong></span><strong>{{'secure.orders.bulk.billing.maximum_All_file_size'| translate}}
-              </strong></div>
+                </strong></span>{{'secure.orders.bulk.billing.maximum_All_file_size'| translate}}</div>
             <div class="bulk-load-billing-component-margin-left-28"><span
                 class="bulk-load-billing-component-asteric-recommnedation-color"><strong>*
                 </strong></span>{{'secure.orders.bulk.billing.name_file_invoice_invoice_number' | translate}} </div>

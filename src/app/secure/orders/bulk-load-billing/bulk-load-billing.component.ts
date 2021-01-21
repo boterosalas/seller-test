@@ -34,7 +34,7 @@ export class BulkLoadBillingComponent implements OnInit {
   file = null;
   filesErrors = 0;
   filesSuccess = 0;
-  showShowRecommendationsContainer = false;
+  showShowRecommendationsContainer = true;
   invalidsFile = true;
   arrayListFilesBase64Name = [];
   arrayFilesErrors: any;
@@ -42,6 +42,7 @@ export class BulkLoadBillingComponent implements OnInit {
   sendableFormData: FormData;
   messageErrorMaxSize = this.languageService.instant('secure.orders.bulk.billing.maximum_file_size_megabytes') + ' 3.000 ' + this.languageService.instant('secure.orders.bulk.billing.megabytes');
   countSizeFile = 0;
+  typeFile= 0;
   allFileError: Boolean = false;
 
   public informationToForm: SearchFormEntity = {
@@ -125,7 +126,8 @@ export class BulkLoadBillingComponent implements OnInit {
           base64File = (reader.result).toString();
           bodyToSend = {
             IdOrder: idOrder,
-            Base64Pdf: base64File.slice(base64File.search('base64') + 7, base64File.length)
+            Base64File: base64File.slice(base64File.search('base64') + 7, base64File.length),
+            FileType: this.typeFile
           };
           this.arrayListFilesBase64Name.push(bodyToSend);
         };
@@ -159,6 +161,7 @@ export class BulkLoadBillingComponent implements OnInit {
       } else {
         file.refuse = true;
       }
+      this.getExtensionFile(file.type);
       const isExist = this.filesValidate.find(x => x.name === file.name) !== undefined ? true : false;
       if (isExist) {
         file.fileExist = true;
@@ -179,6 +182,28 @@ export class BulkLoadBillingComponent implements OnInit {
     this.calculateCount();
     this.validateErrors();
     this.files = [];
+  }
+/**
+ * funcion para cpaturar el tipo de extension del archivo
+ *
+ * @param {string} type
+ * @memberof BulkLoadBillingComponent
+ */
+getExtensionFile(type: string){
+    if(type) {
+      switch (type) {
+        case 'application/x-zip-compressed':
+          this.typeFile = 2;
+          break;
+        case 'application/pdf':
+          this.typeFile = 1;
+          break;
+      
+        default:
+          this.typeFile = 0;
+          break;
+      }
+    }
   }
 
   /**

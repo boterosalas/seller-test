@@ -45,6 +45,9 @@ describe('DetailCaseComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  afterAll(() => {
+    TestBed.resetTestingModule();
+});
 });
 
 class StoreServiceTest {

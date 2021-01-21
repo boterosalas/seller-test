@@ -24,6 +24,7 @@ import { ExceptionBrandComponent } from '../offers/stores/tree/components/except
 import { StoresModule } from '../offers';
 import { ModalResultLoadExceptionComponent } from './exception/modal-result-load-exception/modal-result-load-exception.component';
 import { DownloadSpecsComponent } from './specifications/download-specs/download-specs.component';
+import { DownloadCategoriesComponent } from './category/categories/download-categories/download-categories.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { DownloadSpecsComponent } from './specifications/download-specs/download
     ExceptionComponent,
     ExceptionBrandComponent,
     ModalResultLoadExceptionComponent,
-    DownloadSpecsComponent
+    DownloadSpecsComponent,
+    DownloadCategoriesComponent
   ],
   imports: [
     CommonModule,
@@ -69,7 +71,8 @@ import { DownloadSpecsComponent } from './specifications/download-specs/download
     CreateProcessDialogComponent,
     ModalPortComponent,
     ModalResultLoadExceptionComponent,
-    DownloadSpecsComponent
+    DownloadSpecsComponent,
+    DownloadCategoriesComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

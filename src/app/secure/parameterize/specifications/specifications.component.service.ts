@@ -90,12 +90,22 @@ export class ParamSpecsService {
 
   /**
    * Servicio apra descargar Specs
-   * @param {number} email
+   * @param {*} email
    * @returns {Observable<{}>}
    * @memberof ParamSpecsService
    */
   public getDownloadSpecs(email: any): Observable<{}> {
     return this.http.get(this.api.get('exportSpecs', [email]));
+  }
+
+  /**
+   * Servicio apra descargar categorias
+   * @param {*} email
+   * @returns {Observable<any>}
+   * @memberof ParamSpecsService
+   */
+  public downloadCategories(param: any): Observable<any> {
+    return this.http.post(this.api.get('exporCategories'), param);
   }
 
 }

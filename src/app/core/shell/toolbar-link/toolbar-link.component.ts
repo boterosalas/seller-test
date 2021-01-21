@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoggedInCallback, UserLoginService, UserParametersService } from '@app/core/aws-cognito';
 import { CategoryList } from '@app/shared/models/order.model';
@@ -32,6 +32,7 @@ export class ToolbarLinkComponent implements OnInit {
 
   public routes: any;
   @Input() user: UserInformation;
+  @ViewChild('widgetsContent') widgetsContent: ElementRef;
   // Estructura para la categoría
   categoryEstructure = {
     root: 'home'
@@ -47,6 +48,9 @@ export class ToolbarLinkComponent implements OnInit {
   sumadevolution: number;
   devolution: number;
   pending: number;
+  showArrowMenu: boolean;
+  countModule = 0;
+  arrayModule= [];
 
   /**
    * Creates an instance of ToolbarLinkComponent.
@@ -66,6 +70,7 @@ export class ToolbarLinkComponent implements OnInit {
     this.getCategory();
     this.authService.getModules().then(data => {
       this.modules = data;
+     this.showArrowMenu = data.length > 9 ? true : false;
     }, error => {
       console.error(error);
     });
@@ -125,6 +130,15 @@ export class ToolbarLinkComponent implements OnInit {
    */
   public getPersonalityName(name: string): string {
     const nameModule = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+    const exist = this.arrayModule.includes(nameModule);
+    if(!exist){
+      this.arrayModule.push(nameModule);
+    }
+    if(this.arrayModule.length > 9){
+      this.showArrowMenu = true;
+    } else {
+      this.showArrowMenu = false;
+    }
     return nameModule;
   }
 
@@ -166,5 +180,21 @@ export class ToolbarLinkComponent implements OnInit {
     } else {
       return menu.ShowMenu && (this.isProductionEnv && menu.ShowMenuProduction || !this.isProductionEnv) && !showUrlRedirect && this.showOnlyLocalMenus(menu.UrlRedirect);
     }
+  }
+/**
+ * funcion para mover el menu hacia la izquierda
+ *
+ * @memberof ToolbarLinkComponent
+ */
+scrollLeft(){
+    this.widgetsContent.nativeElement.scrollLeft -= 150;
+  }
+/**
+ * funcion para mover el menu hacia la derecha 
+ *
+ * @memberof ToolbarLinkComponent
+ */
+scrollRight(){
+    this.widgetsContent.nativeElement.scrollLeft = 150;
   }
 }

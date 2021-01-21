@@ -1,0 +1,214 @@
+<div class="styleToolbarandBody">
+  <div fxLayout="row" fxLayoutAlign="space-evenly center" class="newToolbar">
+    <app-toolbar-search-pagination #toolbarOptions [lengthOrder]="length" [limitPaginate]="[50,100,150]"
+      (paginationListOrdens)="paginations($event)" [pageIndexChange]="indexPage">
+    </app-toolbar-search-pagination>
+
+    <div class="styleFilter">
+      <button type="button" matTooltipPosition="below" mat-icon-button mat-button
+        (click)="toggleFilterHistoricalPayment()">
+        <mat-icon>filter_list</mat-icon>
+        <small class="sub-title-filter">{{'filters.filter' | translate}}</small>
+      </button>
+    </div>
+  </div>
+
+  <div class="marginTable">
+    <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="97" fxFlex.lg="97" fxFlex.xl="97" class="styleAlltable">
+      <mat-table #table [dataSource]="dataSource" matSort class="marginTable">
+
+        <ng-container matColumnDef="datePay">
+          <mat-header-cell fxShow.xs="true" fxShow.sm="true" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="45" fxFlex.xl="" *matHeaderCellDef>
+            <span class="title-table-header"> Fecha de dispersión</span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="45" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal">{{element.paymentDate | date: 'dd/MM/yyyy'}}</p>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="idPayonner">
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+            <span class="title-table-header"> Id payonner</span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
+            fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal">{{element.payoneerId}}</p>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="internalPaymentId">
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+            <span class="title-table-header"> Id pago interno</span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
+            fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal">{{element.internalPaymentId}}</p>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="order">
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+            <span class="title-table-header"> Pedido</span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
+            fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal">{{element.orderNumber}}</p>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="seller">
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+            <span class="title-table-header">Vendedor</span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal">{{element.sellerName}}</p>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+            <span class="title-table-header payment-summary-component-aling-column-center">Descripción</span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="20"
+            fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal payment-summary-component-aling-column-center">{{element.description}}</p>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="sale">
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="20" fxFlex.xl="" *matHeaderCellDef>
+            <span class="title-table-header payment-summary-component-aling-column-center">
+              Venta</span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
+            fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="20" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal payment-summary-component-aling-column-center">
+              {{'secure.offers.list.components.detail_offer.usd' | translate}} {{element.sellAmount}}</p>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="comission">
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="20" fxFlex.xl="" *matHeaderCellDef>
+            <span class="title-table-header"> Comisión real</span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
+            fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="20" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal">{{'secure.offers.list.components.detail_offer.usd' | translate}}
+              {{element.commission}}</p>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="totalToPay">
+          <mat-header-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="45" fxFlex.xl="" *matHeaderCellDef>
+            <span class="title-table-header payment-summary-component-aling-column-right">Total a pagar
+            </span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="10"
+            fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="45" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal payment-summary-component-aling-column-right">
+              {{'secure.offers.list.components.detail_offer.usd' | translate}} {{element.total}}</p>
+          </mat-cell>
+        </ng-container>
+
+
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row id="order-number-{{index}}" *matRowDef="let index=index; let
+        row; columns: displayedColumns;" class="element-row personal-row-table" [cdkDetailRow]="row"
+          [cdkDetailRowTpl]="tpl">
+        </mat-row>
+      </mat-table>
+
+      <div *ngIf="length === 0" fxLayout="column" fxLayoutAlign="space-evenly center" class="topNotFoundData">
+        <mat-icon color="primary">info</mat-icon>
+        <p>No hay histórico de pagos y dispersión para este vendedor, realiza nueva búsqueda.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenavHistoricalPayment mode="over" class="container-filter" fxFlex.sm="90" fxFlex.xs="90"
+    fxFlex.md="45" fxFlex.xl="45" fxFlex.lg="45" position="end" opened="{{stateSideNavOrder}}">
+
+    <div fxLayout="row" fxLayoutAlign="start center" class="payment-summary-component">
+      <div fxFlex="80">
+        <div class="payment-summary-component-margin-left-10">
+          {{informationToForm.title_for_search | translate}}
+        </div>
+      </div>
+      <div fxFlex="20" class="toolbar-title-search payment-summary-component-height-90">
+        <button class="payment-summary-component-100-size-container" color="primary"
+          [matTooltip]="'actions.close' | translate" matTooltipPosition="below" mat-icon-button mat-button
+          (click)="toggleFilterHistoricalPayment()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxLayout="row">
+      <div fxFlex *ngIf="filterHistoricalPayment">
+
+        <form #createfilterHistoricalPayment="ngForm" [formGroup]="filterHistoricalPayment"
+          class="payment-summary-component-margin-top-40">
+          <div class="styleForm">
+            <mat-form-field class="classDatapicker  payment-summary-component-input-generic">
+
+              <input matInput [matDatepicker]="picker" placeholder="Fecha de corte" formControlName="cutOffDate">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker disabled="false"></mat-datepicker>
+
+            </mat-form-field>
+            <mat-form-field class="classDatapicker payment-summary-component-input-generic">
+              <input matInput [matDatepicker]="picker1" placeholder="Fecha de dispersión"
+                formControlName="dispersionDate">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+
+            </mat-form-field>
+            <mat-form-field class="field payment-summary-component-input-generic">
+              <input matInput placeholder="Id pago interno" formControlName="internalIdPayment">
+              <mat-error *ngIf="filterHistoricalPayment.get('internalIdPayment').hasError('pattern')">
+                Formato Id pago interno inválido
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="field payment-summary-component-input-generic">
+              <input matInput placeholder="Número de pedido" formControlName="orderNumber">
+              <mat-error *ngIf="filterHistoricalPayment.get('internalIdPayment').hasError('pattern')">
+                Número de pedido inválido
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="payment-summary-component-text-aling-center">
+            <div>
+              <button class="sc-button payment-summary-component-btn-clear-form" mat-button type="button"
+                (click)="clearForm()">
+                <mat-icon>clear_all</mat-icon>
+                {{'filters.clear' | translate}}
+              </button>
+              <button class="sc-button" mat-raised-button color="primary"
+                [disabled]="!createfilterHistoricalPayment.form.valid || !createfilterHistoricalPayment.form.touched" type="button"
+                (click)="apllyFilterHistoricalPayment(filterHistoricalPayment.value)">
+                {{'actions.apply' | translate}}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </mat-sidenav>
+</mat-sidenav-container>

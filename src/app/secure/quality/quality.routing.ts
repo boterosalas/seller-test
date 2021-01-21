@@ -21,4 +21,6 @@ const routes = [
   exports: [RouterModule],
   providers: []
 })
-export class QualityRoutingModule {}
+export class QualityRoutingModule {
+  
+}

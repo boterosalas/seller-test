@@ -20,58 +20,50 @@
 
         <!-- orderNumber Column -->
         <ng-container matColumnDef="orderNumber">
-          <mat-header-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl="" *matHeaderCellDef
+          <mat-header-cell fxShow.xs="true" fxShow.sm="true"  fxShow.md="true"   *matHeaderCellDef
             mat-sort-header> {{'secure.orders.in_devolution.in_devolution_page.order' | translate}}
           </mat-header-cell>
-          <mat-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl="" *matCellDef="let element">
+          <mat-cell fxShow.xs="true" fxShow.sm="true"  fxShow.md="true" *matCellDef="let element">
             <p class="sc-text-order">{{element.orderNumber}}</p>
           </mat-cell>
         </ng-container>
 
         <!-- orderDate Column -->
         <ng-container matColumnDef="orderDate">
-          <mat-header-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxShow.xs="false" fxShow.sm="true"
-            fxShow.gt-xl="false" fxShow="true" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
+          <mat-header-cell fxShow.xs="true" fxShow.sm="true"  fxShow.md="true" *matHeaderCellDef mat-sort-header >
             {{'secure.orders.in_devolution.in_devolution_page.date_order' | translate}}
           </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.xl=""
-            fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" *matCellDef="let element">
-            <p class="sc-date-content-table">{{element.orderDate | date:'M/d/yy'}} </p>
+          <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.md="true" *matCellDef="let element">
+            <p class="sc-date-content-table">{{element.orderDate | date:'dd/MM/yyyy'}} </p>
           </mat-cell>
         </ng-container>
 
         <!-- creationDate Column -->
         <ng-container matColumnDef="creationDate">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="true" fxShow.gt-xl="false" fxShow="true" fxFlex.sm=""
-            fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
+          <mat-header-cell fxShow.xs="true"  fxShow.sm="true" fxShow.md="true"  *matHeaderCellDef mat-sort-header>
             {{'secure.orders.in_devolution.in_devolution_page.date_request' | translate}}
           </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.xl=""
-            fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" *matCellDef="let element">
-            <p class="sc-date-content-table">{{element.creationDate | date:'M/d/yy'}} </p>
+          <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.md="true"  *matCellDef="let element">
+            <p class="sc-date-content-table">{{element.creationDate | date:'dd/MM/yyyy'}} </p>
           </mat-cell>
         </ng-container>
 
         <!-- Fecha de resolutionDate  - Column -->
         <ng-container matColumnDef="resolutionDate">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.gt-xl="false" fxShow="true" fxFlex.sm=""
-            fxFlex.xl="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.md="false" *matHeaderCellDef mat-sort-header>
             {{'secure.orders.historical_devolutions.historical_devolutions_page.date_resolution' | translate}}
           </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.md=""
-            fxFlex.lg="" fxFlex.xs="70" fxFlex.xl="" *matCellDef="let element">
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.md="false" *matCellDef="let element">
             <p class="sc-date-content-table" *ngIf="element.resolutionDate !== '0001-01-01T00:00:00'">{{element.resolutionDate | date: 'dd/MM/yyyy hh:mm a'}} </p>
           </mat-cell>
         </ng-container>
 
         <!-- reversionRequestStatus Column -->
         <ng-container matColumnDef="reversionRequestStatus">
-          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.gt-xl="false" fxShow="true" fxFlex.sm=""
-            fxFlex.xl="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxFlex.xl="" *matHeaderCellDef mat-sort-header>
+          <mat-header-cell  fxShow.xs="false" fxShow.sm="true" fxShow.md="false" *matHeaderCellDef mat-sort-header>
             {{'secure.orders.historical_devolutions.historical_devolutions_page.resolution' | translate}}
           </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.md=""
-            fxFlex.lg="" fxFlex.xs="70" fxFlex.xl="" *matCellDef="let element">
+          <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.md="false" *matCellDef="let element">
             <p class="sc-date-content-table" *ngIf="element.reversionRequestStatusId === 2">
               {{'secure.orders.historical_devolutions.historical_devolutions_page.resolution.approved' | translate}}
             </p>
@@ -86,27 +78,23 @@
 
         <!-- reversionRequestReason Column -->
         <ng-container matColumnDef="reversionRequestReason">
-          <mat-header-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxShow.xs="false" fxShow.sm="false"
-            fxShow.gt-xl="false" fxShow="true" fxFlex.xl="" *matHeaderCellDef mat-sort-header
-            class="center-product-list">
+          <mat-header-cell fxShow.xs="false" fxShow.sm="true" fxShow.md="true"  *matHeaderCellDef mat-sort-header
+            >
             {{'secure.seller.list.reason' | translate}}
           </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.xl=""
-            fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" *matCellDef="let element">
+          <mat-cell  fxShow.xs="false" fxShow.sm="true" fxShow.md="true" *matCellDef="let element">
             <p class="sc-text-normal center-product-list">{{element.reversionRequestReason}} </p>
           </mat-cell>
         </ng-container>
 
         <!-- comment Column -->
         <ng-container matColumnDef="comment">
-          <mat-header-cell fxFlex.sm="" fxFlex.md="" fxFlex.lg="" fxFlex.xs="" fxShow.xs="false" fxShow.sm="false"
-            fxShow.gt-xl="false" fxShow="true" fxFlex.xl="" *matHeaderCellDef mat-sort-header
-            class="center-product-list">
+          <mat-header-cell fxShow.xs="false" fxShow.sm="true" fxShow.md="true" *matHeaderCellDef mat-sort-header
+            >
             {{'secure.orders.in_devolution.in_devolution_page.commnet' | translate}}
           </mat-header-cell>
-          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.gt-xl="false" fxShow="true" fxFlex.sm="" fxFlex.xl=""
-            fxFlex.md="" fxFlex.lg="" fxFlex.xs="70" *matCellDef="let element">
-            <div class="center-product-list">
+          <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.md="true" *matCellDef="let element">
+            <div >
               <button (click)="openModalCommentOrder(element)" id="button-order-{{element.orderNumber}}-comment"
                 color="primary" class="sc-button-toolbar no-button button-toolbar"
                 mat-button>{{'secure.orders.in_devolution.in_devolution_page.view_commnet' | translate}}
@@ -117,12 +105,11 @@
 
         <!-- detailOrder Column -->
         <ng-container matColumnDef="detailOrder">
-          <mat-header-cell class="center-product-list" fxFlex.lg="" fxFlex.xl="" fxFlex.sm="" fxFlex.md="" fxFlex.xs=""
-            *matHeaderCellDef mat-sort-header>
+          <mat-header-cell fxShow.xs="true" fxShow.sm="true"  fxShow.md="true" *matHeaderCellDef mat-sort-header>
             {{'shared.actions' | translate}}
           </mat-header-cell>
-          <mat-cell fxFlex.lg="" fxFlex.xl="" fxFlex.sm="" fxFlex.md="" fxFlex.xs="" *matCellDef="let element">
-            <div class="center-product-list">
+          <mat-cell fxShow.xs="true" fxShow.sm="true"  fxShow.md="true" *matCellDef="let element">
+            <div>
               <button id="dropdown-button-order-{{element.orderNumber}}" color="primary"
                 class="sc-button-toolbar no-button button-toolbar" mat-button [matMenuTriggerFor]="orderOptions">
                 <mat-icon>arrow_drop_down</mat-icon>
@@ -136,7 +123,6 @@
                 </button>
               </mat-menu>
             </div>
-
           </mat-cell>
         </ng-container>
 

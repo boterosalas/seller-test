@@ -52,10 +52,6 @@ export class AssignImagesComponent implements OnInit, OnChanges {
 
 
   ngOnInit() {
-    // Se hace un ciclo para que se vallan llenando los hijos dependiendo a la cantidad creada.
-    /*for (let i = 0; i < this.cantidadHijos; i++) {
-      this.children_image_url_arrray.push(['', '', '', '', '']);
-    }*/
   }
 
   ngOnChanges(): void {
