@@ -179,6 +179,7 @@
     "actions.print_receipt": "Print receipt",
     "actions.download_label": "Download label",
     "actions.attach_invoice": "Attach invoice",
+    "actions.modify_invoice": "Modifier la facture",
     "actions.go_to_start": "Go to start",
     "actions.update": "UPDATE",
     "actions.apply": "Apply",

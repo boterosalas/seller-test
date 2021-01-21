@@ -190,6 +190,7 @@
     "actions.print_receipt": "Imprimir recibo",
     "actions.download_label": "Descargar rótulo",
     "actions.attach_invoice": "Adjuntar factura",
+    "actions.modify_invoice": "Modificar factura",
     "actions.go_to_start": "Ir al inicio",
     "actions.update": "ACTUALIZAR",
     "actions.apply": "Aplicar",
