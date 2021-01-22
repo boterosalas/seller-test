@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { InformationToForm, SearchFormEntity } from '@app/shared';
 import { map, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
@@ -32,8 +32,10 @@ export class ReportDispersionComponent implements OnInit {
   public user: any;
   public sellerCurrent = {};
   public btnAddSeller = true;
+  public form: FormGroup;
   sellerList = [];
   arraySellerId = [];
+  valueCheck = false;
 
 
   constructor(
@@ -46,6 +48,7 @@ export class ReportDispersionComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.createForm();
     this.getAllSellers();
     this.filteredOptions = this.textForSearch.valueChanges
       .pipe(
@@ -101,6 +104,9 @@ export class ReportDispersionComponent implements OnInit {
     if (seller) {
       this.sellerCurrent = seller;
       this.btnAddSeller = false;
+      this.form.controls['importAll'].reset();
+      this.form.controls['importAll'].setValue(false);
+      this.valueCheck = false;
     }
   }
 
@@ -110,7 +116,23 @@ export class ReportDispersionComponent implements OnInit {
     this.arraySellerId.push(seller.IdSeller);
     this.btnAddSeller = true;
     this.textForSearch.reset();
+  }
 
+  createForm() {
+    this.form = new FormGroup({
+      importAll: new FormControl(this.valueCheck),
+      email: new FormControl('', [Validators.required, Validators.email]),
+    });
+  }
+
+  clearSellerSearch(value: any) {
+    console.log(value);
+    this.valueCheck = !value;
+    if (this.valueCheck === true) {
+      this.textForSearch.reset();
+      this.sellerList = [];
+      this.arraySellerId = [];
+    }
   }
 
   /**

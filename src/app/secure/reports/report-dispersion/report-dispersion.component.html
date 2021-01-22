@@ -9,63 +9,99 @@
         </app-toolbar-search-pagination>
       </div>
     </div>
-    <div fxLayout="row wrap" style="width: 100%; padding: 30px 30px 0px 30px;">
-      <div fxFlex="80">
-        <div style="margin-bottom: 5px;margin-top: 5px;">{{'secure.parametize.support_claims-filter.modal-export.searchSeller'
-          | translate}}</div>
-        <form id="search-store-form" class="search-store mat-typography
-          width-100-important"
-          (keydown)="keyDownFunction($event)" style="width: 100% !important;
-          padding: initial !important; height: 40px;">
-          <mat-form-field class="input-search">
-            <mat-icon id="icon-search-store" class="icon-search" matPrefix>search</mat-icon>
-            <input id="input-search-store" class="search-store-input
-              input-search-black" type="search"
-              (ngModelChange)="whatchValueInput($event)" matInput
-              [formControl]="textForSearch" [matAutocomplete]="auto">
-          </mat-form-field>
+    <div fxLayout="row wrap" style="height: 500px;">
+      <div fxFlex="60">
+        <div fxLayout="row wrap" style="width: 100%; padding: 30px 30px 0px
+          30px;">
+          <div fxFlex="70">
+            <div style="margin-bottom: 5px;margin-top: 5px;">{{'secure.parametize.support_claims-filter.modal-export.searchSeller'
+              | translate}}</div>
+            <form id="search-store-form" class="search-store mat-typography
+              width-100-important"
+              (keydown)="keyDownFunction($event)" style="width: 100% !important;
+              padding: initial !important; height: 40px;">
+              <mat-form-field class="input-search">
+                <mat-icon id="icon-search-store" class="icon-search" matPrefix>search</mat-icon>
+                <input id="input-search-store" class="search-store-input
+                  input-search-black" type="search"
+                  (ngModelChange)="whatchValueInput($event)" matInput
+                  [formControl]="textForSearch" [matAutocomplete]="auto">
+              </mat-form-field>
 
-          <mat-autocomplete autoActiveFirstOption class="auto-complete"
-            #auto="matAutocomplete">
-            <mat-option id="option-search-store-number-{{position}}"
-              (click)="viewStoreInformation(option)"
-              class="autocomplete-list" *ngFor="let option of filteredOptions |
-              async; let position= index"
-              [value]="option.Name">
-              <mat-icon>store</mat-icon>
-              {{option.Name}}
-            </mat-option>
-          </mat-autocomplete>
-        </form>
-      </div>
-      <div fxFlex="20">
-        <div style="margin-top: 30px;">
-          <button [disabled]="btnAddSeller" mat-icon-button
-            (click)="saveSeller(sellerCurrent)">
-            <mat-icon class="add-keyword-icon"
-              [matTooltip]="'secure.parametize.support_claims-filter.modal-export.addSeller'
-              | translate">
-              add_circle_outline
-            </mat-icon>
-          </button>
-          <span>
-            {{'secure.parametize.support_claims-filter.modal-export.addSeller' |
-            translate}}
-          </span>
+              <mat-autocomplete autoActiveFirstOption class="auto-complete"
+                #auto="matAutocomplete">
+                <mat-option id="option-search-store-number-{{position}}"
+                  (click)="viewStoreInformation(option)"
+                  class="autocomplete-list" *ngFor="let option of
+                  filteredOptions |
+                  async; let position= index"
+                  [value]="option.Name">
+                  <mat-icon>store</mat-icon>
+                  {{option.Name}}
+                </mat-option>
+              </mat-autocomplete>
+            </form>
+          </div>
+          <div fxFlex="30">
+            <div style="margin-top: 30px;">
+              <button [disabled]="btnAddSeller" mat-icon-button
+                (click)="saveSeller(sellerCurrent)">
+                <mat-icon class="add-keyword-icon"
+                  [matTooltip]="'secure.parametize.support_claims-filter.modal-export.addSeller'
+                  | translate">
+                  add_circle_outline
+                </mat-icon>
+              </button>
+              <span>
+                {{'secure.parametize.support_claims-filter.modal-export.addSeller'
+                |
+                translate}}
+              </span>
+            </div>
+          </div>
+          <div fxLayout="row wrap" style="width: 100%;padding-top: 5px; height:
+            250px;">
+            <form #filterForm="ngForm" [formGroup]="form" style="width: 100%;">
+              <div>
+                <mat-checkbox formControlName="importAll"
+                  (click)="clearSellerSearch(valueCheck)">{{'secure.parametize.support_claims-filter.modal-export.allSeller'
+                  | translate}}</mat-checkbox>
+              </div>
+              <div style="margin-top: 40px;">
+                <div class="container-scroll">
+                  <mat-chip-list>
+                    <mat-chip *ngFor="let key of sellerList; let i= index"
+                      (removed)="deleteKeywork(i)">
+                      {{key}}
+                      <mat-icon class="material-icons" matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                  </mat-chip-list>
+                </div>
+              </div>
+              <div fxLayout="row wrap">
+                <div fxFlex="100">
+                  <span class="modal-export-to-reclaim-text-send-email">{{'secure.parametize.support_claims-filter.modal-export.text-message-send-email' | translate}}</span>
+                </div>
+              </div>
+              <div fxLayout="row wrap">
+                <div fxFlex="100">
+                  <mat-form-field class="half-width modal-export-to-reclaim-width-100">
+                    <input matInput placeholder="Correo electronico" class="modal-export-to-reclaim-text-uppercase"
+                      formControlName="email" [errorStateMatcher]="matcher">
+                    <mat-error *ngIf="form.get('email').hasError('required')">{{'errors.required' | translate}}</mat-error>
+                    <mat-error *ngIf="form.get('email').hasError('email')">{{'errors.format_invalidate' | translate}}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
+      <div fxFlex="40">2</div>
+
     </div>
-    <div fxLayout="row wrap" style="width: 100%; padding-left: 30px;
-      padding-top: 5px ;height: 40px;">
-      <mat-checkbox>{{'secure.parametize.support_claims-filter.modal-export.allSeller'
-        | translate}}</mat-checkbox>
-    </div>
-    <mat-chip-list>
-      <mat-chip *ngFor="let key of sellerList; let i= index"
-        (removed)="deleteKeywork(i)">
-        {{key}}
-        <mat-icon class="material-icons" matChipRemove>cancel</mat-icon>
-      </mat-chip>
-    </mat-chip-list>
+
+
   </div>
 </div>
