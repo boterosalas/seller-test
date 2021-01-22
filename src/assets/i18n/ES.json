@@ -135,7 +135,7 @@
     "shared.components.load_file.subtitle3": "Por favor verifique que éste adjuntando el archivo correcto.",
     "shared.components.load_file.subtitle4": "Archivo de máximo 3 Megabytes y que solo podrá ser enviado una vez.",
     "shared.components.load_file.text1": "Arrastre y suelte el archivo aquí",
-    "shared.components.load_file.text2": "El archivo no posee un formato valido (Debe ser PDF maximo 3 MB)",
+    "shared.components.load_file.text2": "Formato no válido, sólo se permiten adjuntar archivos en formato .PDF y .ZIP (PDF + XML)",
     "shared.components.load_file.text3": "ADJUNTAR ARCHIVO",
     "shared.components.load_file.snackbar_ko": "No se pudo adjuntar el PDF, ocurrió un error.",
     "shared.components.load_file.snackbar_error": "error al intentar transformar el pdf",
@@ -1424,7 +1424,7 @@
     "secure.orders.bulk.billing.it_have_files_upload": "Lista de facturas para cargar",
     "secure.orders.bulk.billing.duplicate_name": "Tiene archivos cargados con el mismo nombre",
     "secure.orders.bulk.billing.name_filter_billing": "Filtro de Facturación",
-    "secure.orders.bulk.billing.maximum_All_file_size": "El total de los archivos no pueden pesar más de 7 MegaBytes.",
+    "secure.orders.bulk.billing.maximum_All_file_size": "La totalidad de los archivos no deben pesar más de 7 Megabytes.",
     "secure.orders.bulk.billing.size_file": "Tamaño de los archivos: ",
     "secure.orders.bulk.billing.size_file_MB": "MB",
 
