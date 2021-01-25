@@ -45,7 +45,10 @@ export class LoadFileComponent implements OnInit {
     private languageService: TranslateService) {
     this.dataToSend = data;
   }
-  ngOnInit() { }
+  ngOnInit() { 
+
+    console.log(1, this.data);
+  }
   /**
    * Si se necesita cancelar la subida de archivos a back.
    * Aunque por ahora esta sin uso ...
@@ -64,11 +67,13 @@ export class LoadFileComponent implements OnInit {
    * @memberof LoadFileComponent
    */
   public saveFile(): void {
+    console.log(99);
     if ((!this.lastInvalids || !this.lastInvalids.length) && this.files.length) {
       this.uploadFiles();
     }
   }
   public getBase64(file: any): any {
+    console.log('file: ', file);
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -84,46 +89,51 @@ export class LoadFileComponent implements OnInit {
    * @memberof LoadFileComponent
    */
   public uploadFiles(): void {
+    console.log(2);
     const lengthFiles = document.getElementById('pdf').getElementsByTagName('input')[0].files.length;
     let file = document.getElementById('pdf').getElementsByTagName('input')[0].files[lengthFiles - 1];
+    console.log(file.type);
+
     if (!file) {
       file = this.files[this.files.length - 1];
     }
     this.showProgress = true;
     this.getExtensionFile(file.type);
-    this.getBase64(file).then(data => {
-      try {
-        const bodyToSend = {
-          IdOrder: this.dataToSend.body.id,
-          Base64File: data.slice(data.search('base64') + 7, data.length),
-          FileType: this.typeFile
-        };
-        this.service.postBillOrders(bodyToSend).subscribe(result => {
-          if (result.body.data) {
-            // Success
-            this.snackBar.open(result.body.message, this.languageService.instant('actions.close'), {
-              duration: 3000,
-            });
-            this.dialogRef.close(true);
-          } else {
-            // Error
-            this.snackBar.open(result.body.message, this.languageService.instant('actions.close'), {
-              duration: 3000,
-            });
-          }
-          this.showProgress = false;
-        }, error => {
-          // Error
-          this.snackBar.open(this.languageService.instant('shared.components.load_file.snackbar_ko'), this.languageService.instant('actions.close'), {
-            duration: 3000,
-          });
-          log.error(error);
-          this.showProgress = false;
-        });
-      } catch (e) {
-        log.error(this.languageService.instant('shared.components.load_file.snackbar_error'), e);
-      }
-    });
+    console.log(this.typeFile, this.getExtensionFile(file.type));
+    // Aqui valido el
+    // this.getBase64(file).then(data => {
+    //   try {
+    //     const bodyToSend = {
+    //       IdOrder: this.dataToSend.body.id,
+    //       Base64File: data.slice(data.search('base64') + 7, data.length),
+    //       FileType: this.typeFile
+    //     };
+    //     this.service.postBillOrders(bodyToSend).subscribe(result => {
+    //       if (result.body.data) {
+    //         // Success
+    //         this.snackBar.open(result.body.message, this.languageService.instant('actions.close'), {
+    //           duration: 3000,
+    //         });
+    //         this.dialogRef.close(true);
+    //       } else {
+    //         // Error
+    //         this.snackBar.open(result.body.message, this.languageService.instant('actions.close'), {
+    //           duration: 3000,
+    //         });
+    //       }
+    //       this.showProgress = false;
+    //     }, error => {
+    //       // Error
+    //       this.snackBar.open(this.languageService.instant('shared.components.load_file.snackbar_ko'), this.languageService.instant('actions.close'), {
+    //         duration: 3000,
+    //       });
+    //       log.error(error);
+    //       this.showProgress = false;
+    //     });
+    //   } catch (e) {
+    //     log.error(this.languageService.instant('shared.components.load_file.snackbar_error'), e);
+    //   }
+    // });
   }
   /**
    * Obitene la fecha actual
@@ -136,6 +146,8 @@ export class LoadFileComponent implements OnInit {
   }
 
   getExtensionFile(type: string){
+    console.log('type: ', type);
+
     if(type) {
       switch (type) {
         case 'application/x-zip-compressed':
