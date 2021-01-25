@@ -131,7 +131,7 @@
     "shared.components.load_file.subtitle3": "Please check that the file your are attaching is the correct one",
     "shared.components.load_file.subtitle4": "PDF file with a maximum of 3 Megabytes and which can only be sent once.",
     "shared.components.load_file.text1": "Drag and drop the file here",
-    "shared.components.load_file.text2": "The file has an invalid format (Must be PDF maximum 3MB)",
+    "shared.components.load_file.text2": "Invalid format, only .PDF and .ZIP files can be attached (PDF + XML)",
     "shared.components.load_file.text3": "ATTACH FILE",
     "shared.components.load_file.snackbar_ko": "Could not attach PDF, and error has occurred",
     "shared.components.load_file.snackbar_error": "Error when trying to transform the pdf",
