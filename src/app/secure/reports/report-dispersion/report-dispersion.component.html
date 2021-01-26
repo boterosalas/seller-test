@@ -94,14 +94,14 @@
             </form>
           </div>
           <div fxLayout="row wrap" class="container-btn-100-40" fxShow.xs="true" fxShow.sm="true" fxShow.md="false" fxShow.lg="false" fxShow.xl="false">
-            <button mat-button (click)="dowloadReportDisperion()" class="width-100"  mat-raised-button color="primary">Descargar el reporte</button>
+            <button mat-button (click)="dowloadReportDisperion()" [disabled]="disabledBtnDonwLoad"  class="width-100"  mat-raised-button color="primary">Descargar el reporte</button>
           </div>
         </div>
       </div>
       <div fxFlex.lg="40" fxFlex.sm="40" fxFlex.md="40" fxFlex.xs="1" fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" fxShow="true">
         <div class="container-margin-top-left">
           <button mat-icon-button
-                (click)="dowloadReportDisperion()" [disabled]="disabledBtnDonwLoad" class="container-btn-download-report">
+                (click)="dowloadReportDisperion()" [disabled]="disabledBtnDonwLoad  || !filterForm.form.valid" class="container-btn-download-report">
                 <mat-icon class="icon-btn-color">
                   cloud_download
                 </mat-icon>
@@ -114,9 +114,6 @@
           </div>
         </div>
       </div>
-
     </div>
-
-
   </div>
 </div>
