@@ -10,10 +10,10 @@
       </div>
     </div>
     <div fxLayout="row wrap" style="height: 500px;">
-      <div fxFlex="60">
+      <div fxFlex.lg="60" fxFlex.sm="98" fxFlex.md="60" fxFlex.xs="98">
         <div fxLayout="row wrap" style="width: 100%; padding: 30px 30px 0px
           30px;">
-          <div fxFlex="70">
+          <div fxFlex.lg="70" fxFlex.md="70" fxFlex.sm="90"  fxFlex.xs="90">
             <div style="margin-bottom: 5px;margin-top: 5px;">{{'secure.parametize.support_claims-filter.modal-export.searchSeller'
               | translate}}</div>
             <form id="search-store-form" class="search-store mat-typography
@@ -42,7 +42,7 @@
               </mat-autocomplete>
             </form>
           </div>
-          <div fxFlex="30">
+          <div fxFlex.lg="30" fxFlex.md="30" fxFlex.sm="10"  fxFlex.xs="10">
             <div style="margin-top: 30px;">
               <button [disabled]="btnAddSeller" mat-icon-button
                 (click)="saveSeller(sellerCurrent)">
@@ -52,7 +52,7 @@
                   add_circle_outline
                 </mat-icon>
               </button>
-              <span>
+              <span fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" fxShow="true">
                 {{'secure.parametize.support_claims-filter.modal-export.addSeller'
                 |
                 translate}}
@@ -68,7 +68,7 @@
                   | translate}}</mat-checkbox>
               </div>
               <div style="margin-top: 40px;">
-                <div class="container-scroll">
+                <div  [class] ="arraySellerId.length > 3 ? 'container-120-scroll container-scroll' : 'container-65-scroll container-scroll'" >
                   <mat-chip-list>
                     <mat-chip *ngFor="let key of sellerList; let i= index"
                       (removed)="deleteKeywork(i)">
@@ -78,14 +78,14 @@
                   </mat-chip-list>
                 </div>
               </div>
-              <div fxLayout="row wrap">
+              <div fxLayout="row wrap" style="margin-top: 20px;">
                 <div fxFlex="100">
                   <span class="modal-export-to-reclaim-text-send-email">{{'secure.parametize.support_claims-filter.modal-export.text-message-send-email' | translate}}</span>
                 </div>
               </div>
               <div fxLayout="row wrap">
                 <div fxFlex="100">
-                  <mat-form-field class="half-width modal-export-to-reclaim-width-100">
+                  <mat-form-field style="width: 100%;" class="half-width modal-export-to-reclaim-width-100">
                     <input matInput placeholder="Correo electronico" class="modal-export-to-reclaim-text-uppercase"
                       formControlName="email" [errorStateMatcher]="matcher">
                     <mat-error *ngIf="form.get('email').hasError('required')">{{'errors.required' | translate}}</mat-error>
@@ -96,9 +96,24 @@
               </div>
             </form>
           </div>
+          <div fxLayout="row wrap" style="width: 100%; margin-top: 40px;" fxShow.xs="true" fxShow.sm="true" fxShow.md="false" fxShow.lg="false" fxShow.xl="false">
+            <button mat-button (click)="dowloadReportDisperion()" style="width: 100%;"  mat-raised-button color="primary">Descargar el reporte</button>
+          </div>
         </div>
       </div>
-      <div fxFlex="40">2</div>
+      <div fxFlex.lg="40" fxFlex.sm="40" fxFlex.md="40" fxFlex.xs="1" fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" fxShow="true">
+        <div style="margin-top: 100px; margin-left: 130px;">
+          <button mat-icon-button
+                (click)="dowloadReportDisperion()">
+                <mat-icon style="color: #b6b6b6;font-size: 200px; cursor: pointer;">
+                  cloud_download
+                </mat-icon>
+          </button>
+        </div>
+        <div style="margin-left: 165px;color: #b6b6b6; margin-top: 75px;">
+          <strong>Descargar el reporte</strong>
+        </div>
+      </div>
 
     </div>
 

@@ -6,6 +6,9 @@ import { Observable } from 'rxjs/Observable';
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 import { StoresService } from '@app/secure/offers/stores/stores.service';
+import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
+import { ReportDispersionService } from './report-dispersion.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-report-dispersion',
@@ -36,11 +39,15 @@ export class ReportDispersionComponent implements OnInit {
   sellerList = [];
   arraySellerId = [];
   valueCheck = false;
+  email: string;
 
 
   constructor(
     public eventsSeller: EventEmitterSeller,
     public storeService: StoresService,
+    private profileService: MyProfileService,
+    public reportDispersionService: ReportDispersionService,
+    public snackBar?: MatSnackBar,
   ) {
     this.listSellers = [];
     this.user = {};
@@ -50,6 +57,7 @@ export class ReportDispersionComponent implements OnInit {
   ngOnInit() {
     this.createForm();
     this.getAllSellers();
+    this.getAllDataUser();
     this.filteredOptions = this.textForSearch.valueChanges
       .pipe(
         startWith(''),
@@ -126,7 +134,6 @@ export class ReportDispersionComponent implements OnInit {
   }
 
   clearSellerSearch(value: any) {
-    console.log(value);
     this.valueCheck = !value;
     if (this.valueCheck === true) {
       this.textForSearch.reset();
@@ -154,8 +161,7 @@ export class ReportDispersionComponent implements OnInit {
   * @memberof SearchStoreComponent
   */
   public getAllSellers() {
-    this.storeService.getAllStoresFull(this.user).subscribe((res: any) => {
-      console.log(res)
+    this.storeService.getAllStores(this.user).subscribe((res: any) => {
       if (res.status === 200) {
         if (res && res.body && res.body.body) {
           const body = JSON.parse(res.body.body);
@@ -164,6 +170,41 @@ export class ReportDispersionComponent implements OnInit {
       } else {
         this.listSellers = res.message;
       }
+    });
+  }
+
+
+  async getAllDataUser() {
+    const sellerData = await this.profileService.getUser().toPromise().then(res => {
+      const body: any = res.body;
+      const response = JSON.parse(body.body);
+      const userData = response.Data;
+      this.email = userData.Email;
+      this.form.controls['email'].setValue(this.email);
+    });
+  }
+
+  dowloadReportDisperion() {
+    const params = {
+      listSeller: this.arraySellerId,
+      email: this.form.controls['email'].value
+    }
+    this.reportDispersionService.sendReportDispersion(params).subscribe((res: any) => {
+      if (res) {
+        const msg = 'Se ha realizado la descarga del reporte de comisiones correctamente, revisa tu correo electrónico en unos minutos.';
+        this.snackBar.open(msg, 'Cerrar', {
+          duration: 3000
+        });
+        this.clearSellerSearch(false);
+
+      } else {
+        const msg = 'Se ha presentado un error al realizar la descarga del reporte de comisiones';
+        this.snackBar.open(msg, 'Cerrar', {
+          duration: 3000
+        });
+      }
+
+
     });
   }
 }
