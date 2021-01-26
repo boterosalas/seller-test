@@ -117,22 +117,35 @@ export class ReportDispersionComponent implements OnInit {
       this.valueCheck = false;
     }
   }
-
+  /**
+   * funcion para almacenar el listado de vendedores tanto el nombre como el id
+   *
+   * @param {*} seller
+   * @memberof ReportDispersionComponent
+   */
   public saveSeller(seller) {
-    console.log(seller);
     this.sellerList.push(seller.Name);
     this.arraySellerId.push(seller.IdSeller);
     this.btnAddSeller = true;
     this.textForSearch.reset();
   }
-
+  /**
+   * funcion para crear el formulario que captura los datos
+   *
+   * @memberof ReportDispersionComponent
+   */
   createForm() {
     this.form = new FormGroup({
       importAll: new FormControl(this.valueCheck),
       email: new FormControl('', [Validators.required, Validators.email]),
     });
   }
-
+  /**
+   * funcion para limpiar el listado de los vendedores, se dispara con el check
+   *
+   * @param {*} value
+   * @memberof ReportDispersionComponent
+   */
   clearSellerSearch(value: any) {
     this.valueCheck = !value;
     if (this.valueCheck === true) {
@@ -173,7 +186,11 @@ export class ReportDispersionComponent implements OnInit {
     });
   }
 
-
+  /**
+   * funion para obtener el listado de vendedores 
+   *
+   * @memberof ReportDispersionComponent
+   */
   async getAllDataUser() {
     const sellerData = await this.profileService.getUser().toPromise().then(res => {
       const body: any = res.body;
@@ -183,7 +200,11 @@ export class ReportDispersionComponent implements OnInit {
       this.form.controls['email'].setValue(this.email);
     });
   }
-
+  /**
+   * funcion para descargar el reporte de dispersion
+   *
+   * @memberof ReportDispersionComponent
+   */
   dowloadReportDisperion() {
     const params = {
       listSeller: this.arraySellerId,
@@ -203,8 +224,6 @@ export class ReportDispersionComponent implements OnInit {
           duration: 3000
         });
       }
-
-
     });
   }
 }

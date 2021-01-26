@@ -9,17 +9,15 @@
         </app-toolbar-search-pagination>
       </div>
     </div>
-    <div fxLayout="row wrap" style="height: 500px;">
+    <div fxLayout="row wrap" class="container-500-height">
       <div fxFlex.lg="60" fxFlex.sm="98" fxFlex.md="60" fxFlex.xs="98">
-        <div fxLayout="row wrap" style="width: 100%; padding: 30px 30px 0px
-          30px;">
+        <div fxLayout="row wrap" class="container-100-paddign-30">
           <div fxFlex.lg="70" fxFlex.md="70" fxFlex.sm="90"  fxFlex.xs="90">
-            <div style="margin-bottom: 5px;margin-top: 5px;">{{'secure.parametize.support_claims-filter.modal-export.searchSeller'
+            <div class="margin-bottom-margin-top">{{'secure.parametize.support_claims-filter.modal-export.searchSeller'
               | translate}}</div>
             <form id="search-store-form" class="search-store mat-typography
-              width-100-important"
-              (keydown)="keyDownFunction($event)" style="width: 100% !important;
-              padding: initial !important; height: 40px;">
+              width-100-important container-form-search-seller"
+              (keydown)="keyDownFunction($event)">
               <mat-form-field class="input-search">
                 <mat-icon id="icon-search-store" class="icon-search" matPrefix>search</mat-icon>
                 <input id="input-search-store" class="search-store-input
@@ -43,7 +41,7 @@
             </form>
           </div>
           <div fxFlex.lg="30" fxFlex.md="30" fxFlex.sm="10"  fxFlex.xs="10">
-            <div style="margin-top: 30px;">
+            <div class="margin-top-30">
               <button [disabled]="btnAddSeller" mat-icon-button
                 (click)="saveSeller(sellerCurrent)">
                 <mat-icon class="add-keyword-icon"
@@ -59,15 +57,14 @@
               </span>
             </div>
           </div>
-          <div fxLayout="row wrap" style="width: 100%;padding-top: 5px; height:
-            250px;">
-            <form #filterForm="ngForm" [formGroup]="form" style="width: 100%;">
+          <div fxLayout="row wrap" class="container-100-form-check-and-email">
+            <form #filterForm="ngForm" [formGroup]="form" class="width-100">
               <div>
                 <mat-checkbox formControlName="importAll"
                   (click)="clearSellerSearch(valueCheck)">{{'secure.parametize.support_claims-filter.modal-export.allSeller'
                   | translate}}</mat-checkbox>
               </div>
-              <div style="margin-top: 40px;">
+              <div class="margin-top-40">
                 <div  [class] ="arraySellerId.length > 3 ? 'container-120-scroll container-scroll' : 'container-65-scroll container-scroll'" >
                   <mat-chip-list>
                     <mat-chip *ngFor="let key of sellerList; let i= index"
@@ -78,14 +75,14 @@
                   </mat-chip-list>
                 </div>
               </div>
-              <div fxLayout="row wrap" style="margin-top: 20px;">
+              <div fxLayout="row wrap" class="margin-top-20">
                 <div fxFlex="100">
                   <span class="modal-export-to-reclaim-text-send-email">{{'secure.parametize.support_claims-filter.modal-export.text-message-send-email' | translate}}</span>
                 </div>
               </div>
               <div fxLayout="row wrap">
                 <div fxFlex="100">
-                  <mat-form-field style="width: 100%;" class="half-width modal-export-to-reclaim-width-100">
+                  <mat-form-field  class="half-width width-100">
                     <input matInput placeholder="Correo electronico" class="modal-export-to-reclaim-text-uppercase"
                       formControlName="email" [errorStateMatcher]="matcher">
                     <mat-error *ngIf="form.get('email').hasError('required')">{{'errors.required' | translate}}</mat-error>
@@ -96,21 +93,21 @@
               </div>
             </form>
           </div>
-          <div fxLayout="row wrap" style="width: 100%; margin-top: 40px;" fxShow.xs="true" fxShow.sm="true" fxShow.md="false" fxShow.lg="false" fxShow.xl="false">
-            <button mat-button (click)="dowloadReportDisperion()" style="width: 100%;"  mat-raised-button color="primary">Descargar el reporte</button>
+          <div fxLayout="row wrap" class="container-btn-100-40" fxShow.xs="true" fxShow.sm="true" fxShow.md="false" fxShow.lg="false" fxShow.xl="false">
+            <button mat-button (click)="dowloadReportDisperion()" class="width-100"  mat-raised-button color="primary">Descargar el reporte</button>
           </div>
         </div>
       </div>
       <div fxFlex.lg="40" fxFlex.sm="40" fxFlex.md="40" fxFlex.xs="1" fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" fxShow="true">
-        <div style="margin-top: 100px; margin-left: 130px;">
+        <div class="container-margin-top-left">
           <button mat-icon-button
                 (click)="dowloadReportDisperion()">
-                <mat-icon style="color: #b6b6b6;font-size: 200px; cursor: pointer;">
+                <mat-icon class="icon-btn-color">
                   cloud_download
                 </mat-icon>
           </button>
         </div>
-        <div style="margin-left: 165px;color: #b6b6b6; margin-top: 75px;">
+        <div class="container-text-download-report">
           <strong>Descargar el reporte</strong>
         </div>
       </div>
