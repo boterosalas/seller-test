@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
@@ -17,6 +18,9 @@ export class DownloadReportListCancelsComponent implements OnInit {
   public user: UserInformation;
   formListPending: FormGroup;
   public filtersList: any;
+
+  // Configuración para el formato de fecha
+  private locale = 'es-CO';
 
   constructor(
     public userParams: UserParametersService,
@@ -115,6 +119,13 @@ export class DownloadReportListCancelsComponent implements OnInit {
       filterData = JSON.parse(localStorage.getItem('currentFilter'));
     } else {
       filterData = null;
+    }
+    const datePipe = new DatePipe(this.locale);
+    if (filterData && filterData.orderDate) {
+      filterData.orderDate = datePipe.transform(filterData.orderDate, 'yyyy/MM/dd');
+    }
+    if (filterData && filterData.reversionDate) {
+      filterData.reversionDate = datePipe.transform(filterData.reversionDate, 'yyyy/MM/dd');
     }
     const dataToSend = {
       typeReport: this.filtersList.typeReport,

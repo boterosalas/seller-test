@@ -8,8 +8,8 @@ import { DatePipe } from '@angular/common';
 import { LoadingService } from '@app/core/global';
 
 interface DataForm {
-  dateReversionRequestInitial?: Date | string;
-  dateReversionRequestFinal?: Date | string;
+  orderDate?: Date | string;
+  reversionDate?: Date | string;
   resolutionDate?: Date | string;
   identificationCard?: string;
   orderNumber?: string;
@@ -56,8 +56,8 @@ export class SearchHistoricalDevolutionFormComponent implements OnInit {
    */
   private createForm() {
     this.myform = this.fb.group({
-      dateReversionRequestInitial: [null, Validators.compose([])],
-      dateReversionRequestFinal: [null, Validators.compose([])],
+      orderDate: [null, Validators.compose([])],
+      reversionDate: [null, Validators.compose([])],
       resolutionDate: [null, Validators.compose([])],
       identificationCard: [null, Validators.compose([])],
       reversionRequestStatusId: [null, Validators.compose([])],
@@ -87,27 +87,27 @@ export class SearchHistoricalDevolutionFormComponent implements OnInit {
    */
   public filterHistorical(myform: FormGroup) {
     const { identificationCard, orderNumber, reversionRequestStatusId }: DataForm = myform.value;
-    let { dateReversionRequestInitial, dateReversionRequestFinal, resolutionDate }: DataForm = myform.value;
+    let { orderDate, reversionDate, resolutionDate }: DataForm = myform.value;
 
     // Obtengo la información del usuario
     const datePipe = new DatePipe(this.locale);
 
     // aplico el formato para la fecha a emplear en la consulta
-    dateReversionRequestFinal = datePipe.transform(dateReversionRequestFinal, 'yyyy/MM/dd');
-    dateReversionRequestInitial = datePipe.transform(dateReversionRequestInitial, 'yyyy/MM/dd');
+    reversionDate = datePipe.transform(reversionDate, 'yyyy/MM/dd');
+    orderDate = datePipe.transform(orderDate, 'yyyy/MM/dd');
     resolutionDate = datePipe.transform(resolutionDate, 'yyyy/MM/dd');
 
     let stringQuery = '';
     const objectQuery: DataForm = {};
 
-    if (dateReversionRequestInitial !== null && dateReversionRequestInitial !== '') {
-      stringQuery += `&dateReversionRequestInitial=${dateReversionRequestInitial}`;
-      objectQuery.dateReversionRequestInitial = dateReversionRequestInitial;
+    if (orderDate !== null && orderDate !== '') {
+      stringQuery += `&orderDate=${orderDate}`;
+      objectQuery.orderDate = orderDate;
     }
 
-    if (dateReversionRequestFinal !== null && dateReversionRequestFinal !== '') {
-      stringQuery += `&dateReversionRequestFinal=${dateReversionRequestFinal}`;
-      objectQuery.dateReversionRequestFinal = dateReversionRequestFinal;
+    if (reversionDate !== null && reversionDate !== '') {
+      stringQuery += `&reversionDate=${reversionDate}`;
+      objectQuery.reversionDate = reversionDate;
     }
 
     if (resolutionDate !== null && resolutionDate !== '') {
