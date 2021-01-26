@@ -101,7 +101,7 @@
       <div fxFlex.lg="40" fxFlex.sm="40" fxFlex.md="40" fxFlex.xs="1" fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" fxShow="true">
         <div class="container-margin-top-left">
           <button mat-icon-button
-                (click)="dowloadReportDisperion()">
+                (click)="dowloadReportDisperion()" [disabled]="disabledBtnDonwLoad" class="container-btn-download-report">
                 <mat-icon class="icon-btn-color">
                   cloud_download
                 </mat-icon>
@@ -109,6 +109,9 @@
         </div>
         <div class="container-text-download-report">
           <strong>Descargar el reporte</strong>
+          <div class="loading-donwload-spinner" *ngIf="showSpinner">
+            <mat-spinner [diameter]="20" mode="indeterminate"></mat-spinner>
+          </div>
         </div>
       </div>
 

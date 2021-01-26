@@ -40,6 +40,8 @@ export class ReportDispersionComponent implements OnInit {
   arraySellerId = [];
   valueCheck = false;
   email: string;
+  public disabledBtnDonwLoad = false;
+  public showSpinner = false;
 
 
   constructor(
@@ -206,17 +208,18 @@ export class ReportDispersionComponent implements OnInit {
    * @memberof ReportDispersionComponent
    */
   dowloadReportDisperion() {
+    this.disabledBtnDonwLoad = true;
+    this.showSpinner = true;
     const params = {
       listSeller: this.arraySellerId,
       email: this.form.controls['email'].value
     }
     this.reportDispersionService.sendReportDispersion(params).subscribe((res: any) => {
-      if (res) {
+      if (res.data) {
         const msg = 'Se ha realizado la descarga del reporte de comisiones correctamente, revisa tu correo electrónico en unos minutos.';
         this.snackBar.open(msg, 'Cerrar', {
           duration: 3000
         });
-        this.clearSellerSearch(false);
 
       } else {
         const msg = 'Se ha presentado un error al realizar la descarga del reporte de comisiones';
@@ -224,6 +227,9 @@ export class ReportDispersionComponent implements OnInit {
           duration: 3000
         });
       }
+      this.clearSellerSearch(false);
+      this.disabledBtnDonwLoad = false;
+      this.showSpinner = false;
     });
   }
 }
