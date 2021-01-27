@@ -127,6 +127,9 @@ export class DownloadReportListCancelsComponent implements OnInit {
     if (filterData && filterData.reversionDate) {
       filterData.reversionDate = datePipe.transform(filterData.reversionDate, 'yyyy/MM/dd');
     }
+    if (filterData && filterData.resolutionDate) {
+      filterData.resolutionDate = datePipe.transform(filterData.resolutionDate, 'yyyy/MM/dd');
+    }
     const dataToSend = {
       typeReport: this.filtersList.typeReport,
       sellerId: this.filtersList.sellerId ? this.filtersList.sellerId : null,
