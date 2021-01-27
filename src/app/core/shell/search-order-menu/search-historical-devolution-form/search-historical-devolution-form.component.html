@@ -1,7 +1,7 @@
 <form #f="ngForm" [formGroup]="myform" class="search-form light-content">
   <mat-form-field id="sinceDate-input-search-order" color="accent">
-    <input id="sinceDate-input" [max]="myform.value.dateReversionRequestFinal"
-      formControlName="dateReversionRequestInitial"
+    <input id="sinceDate-input" [max]="myform.value.reversionDate"
+      formControlName="orderDate"
       [placeholder]="'secure.orders.in_devolution.in_devolution_page.date_order' | translate" matInput
       [matDatepicker]="dateReversionRequestInitial">
     <mat-datepicker-toggle id="sinceDate-Perfix" matPrefix [for]="dateReversionRequestInitial"></mat-datepicker-toggle>
@@ -9,8 +9,8 @@
   </mat-form-field>
 
   <mat-form-field id="untilDate-input-search-order" color="accent">
-    <input id="untilDate-input" [min]="myform.value.dateReversionRequestInitial"
-      formControlName="dateReversionRequestFinal"
+    <input id="untilDate-input" [min]="myform.value.orderDate"
+      formControlName="reversionDate"
       [placeholder]="'secure.orders.in_devolution.in_devolution_page.date_request' | translate" matInput
       [matDatepicker]="dateReversionRequestFinal">
     <mat-datepicker-toggle id="untilDate-Prefix" matPrefix [for]="dateReversionRequestFinal">

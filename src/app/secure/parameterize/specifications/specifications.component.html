@@ -5,6 +5,11 @@
 
     <!-- CONTAINER BUTTON TO ADD NEW SPECIFICATION GROUP -->
     <div id="addButton" class="container-group-add-button">
+        <!--  Descargar especificaciones -->
+      <button mat-button (click)="openModalDownloadSpecs()" >
+        <mat-icon>archive</mat-icon>
+        {{'permissions.Descargar' | translate}}
+      </button>
         <!-- BUTTON TO ADD-->
         <button mat-button (click)="addGroupSpec()" [disabled]="isDisabled" *ngIf="getFunctionality(create)">
             <mat-icon class="material-icons">

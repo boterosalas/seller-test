@@ -165,7 +165,7 @@ export class ComponentProcessComponent implements OnInit {
   async getDataUser() {
     this.userParams.getUserData().then(data => {
       this.user2 = data;
-      if (data.sellerProfile === this.constantes.administrator) {
+      if (data.sellerProfile !== this.constantes.seller) {
         this.isAdmin = true;
         if (this.ean === undefined) {
           this.isAdmin = false;

@@ -89,8 +89,18 @@ export class ParamSpecsService {
   }
 
   /**
-   * Descargar reporte de categorías
-   * @param {*} param
+   * Servicio apra descargar Specs
+   * @param {*} email
+   * @returns {Observable<{}>}
+   * @memberof ParamSpecsService
+   */
+  public getDownloadSpecs(email: any): Observable<{}> {
+    return this.http.get(this.api.get('exportSpecs', [email]));
+  }
+
+  /**
+   * Servicio apra descargar categorias
+   * @param {*} email
    * @returns {Observable<any>}
    * @memberof ParamSpecsService
    */

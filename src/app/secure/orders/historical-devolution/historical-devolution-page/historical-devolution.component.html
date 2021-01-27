@@ -54,7 +54,7 @@
             {{'secure.orders.historical_devolutions.historical_devolutions_page.date_resolution' | translate}}
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.md="false" *matCellDef="let element">
-            <p class="sc-date-content-table" *ngIf="element.resolutionDate !== '0001-01-01T00:00:00'">{{element.resolutionDate | date: 'DD/MM/YYYY hh:mm a'}} </p>
+            <p class="sc-date-content-table" *ngIf="element.resolutionDate !== '0001-01-01T00:00:00'">{{element.resolutionDate | date: 'dd/MM/yyyy hh:mm a'}} </p>
           </mat-cell>
         </ng-container>
 
