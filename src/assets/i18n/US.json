@@ -131,7 +131,7 @@
     "shared.components.load_file.subtitle3": "Please check that the file your are attaching is the correct one",
     "shared.components.load_file.subtitle4": "PDF file with a maximum of 3 Megabytes and which can only be sent once.",
     "shared.components.load_file.text1": "Drag and drop the file here",
-    "shared.components.load_file.text2": "The file has an invalid format (Must be PDF maximum 3MB)",
+    "shared.components.load_file.text2": "Invalid format, only .PDF and .ZIP files can be attached (PDF + XML)",
     "shared.components.load_file.text3": "ATTACH FILE",
     "shared.components.load_file.snackbar_ko": "Could not attach PDF, and error has occurred",
     "shared.components.load_file.snackbar_error": "Error when trying to transform the pdf",
@@ -558,7 +558,7 @@
     "secure.orders.historical_devolutions.historical_devolutions_page.date_resolution": "Date of resolution",
     "secure.orders.historical_devolutions.historical_devolutions_page.resolution.approved": "Approved",
     "secure.orders.historical_devolutions.historical_devolutions_page.resolution.rejected": "Rejected",
-    "secure.orders.historical_devolutions.historical_devolutions_page.resolution.rejected_validation": "Rejet en cours de validation",
+    "secure.orders.historical_devolutions.historical_devolutions_page.resolution.rejected_validation": "Rejection through validation",
     "secure.orders.historical_devolutions.filter.title_filter": "Check history of returns",
     "secure.orders.historical_devolutions.filter.resolution": "Filter by resolution",
 
@@ -1144,6 +1144,10 @@
     "secure.parametize.specifications.tooltip_type_list": "Value list especification" ,
     "secure.parametize.specifications.change_lang_english_delete": "You have switched the language to English, if you wish to delete Specifications please switch back to Spanish" ,
     "secure.parametize.specifications.change_lang_english_edit": "You have switched the language to English, if you wish to edit Specifications please switch back to Spanish" ,
+    "secure.parametize.specifications.download_title": "DOWNLOAD SPECIFICATIONS",
+    "secure.parametize.specifications.download_title2": "We will send you the specification report to the following email",
+    "secure.parametize.specifications.download_OK": "The specifications have been downloaded correctly, check your inbox.",
+    "secure.parametize.specifications.download_KO": "An error has occurred when downloading the specifications, please try again.",
 
     "secure.parametize.dialog.modal_title_spec": "Add specification group",
     "secure.parametize.dialog.modal_title_brand": "Add brand",

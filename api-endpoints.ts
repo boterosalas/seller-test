@@ -237,6 +237,8 @@ export const endpoints = {
       getListColor: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/colors',
       // Descargable del listado/historico de cancelaciones
       exportListCancel: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch/report',
+      // Descargar especificaciones
+      exportSpecs: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/products-specs-dev/report{params}',
       // Descargar arbol de categorías
       exporCategories: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/GenerateReportCategories',
       // Eliminar categpria por Id
@@ -491,6 +493,8 @@ export const endpoints = {
       verificateStatusException: 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/GetMassiveComsnExcStatus',
       // enviar data en formato json al back
       sendDataJsonReadExcel: 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/MassiveComsnExc',
+       // Descargar especificaciones
+      exportSpecs: 'https://fhby1m1mxd.execute-api.us-east-1.amazonaws.com/productsspec-pdn/report{params}',
       // Listado de colores
       getListColor: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/colors',
       // Descargable del listado/historico de cancelaciones
