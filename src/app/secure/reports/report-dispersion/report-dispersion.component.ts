@@ -9,6 +9,7 @@ import { StoresService } from '@app/secure/offers/stores/stores.service';
 import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 import { ReportDispersionService } from './report-dispersion.service';
 import { MatSnackBar } from '@angular/material';
+import { MyErrorStateMatcher } from '@app/secure/seller/register/register.component';
 
 @Component({
   selector: 'app-report-dispersion',
@@ -42,6 +43,7 @@ export class ReportDispersionComponent implements OnInit {
   email: string;
   public disabledBtnDonwLoad = false;
   public showSpinner = false;
+  public matcher: MyErrorStateMatcher;
 
 
   constructor(
