@@ -558,7 +558,7 @@
     "secure.orders.historical_devolutions.historical_devolutions_page.date_resolution": "Date of resolution",
     "secure.orders.historical_devolutions.historical_devolutions_page.resolution.approved": "Approved",
     "secure.orders.historical_devolutions.historical_devolutions_page.resolution.rejected": "Rejected",
-    "secure.orders.historical_devolutions.historical_devolutions_page.resolution.rejected_validation": "Rejet en cours de validation",
+    "secure.orders.historical_devolutions.historical_devolutions_page.resolution.rejected_validation": "Rejection through validation",
     "secure.orders.historical_devolutions.filter.title_filter": "Check history of returns",
     "secure.orders.historical_devolutions.filter.resolution": "Filter by resolution",
 
