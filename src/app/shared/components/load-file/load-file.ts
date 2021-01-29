@@ -95,7 +95,7 @@ export class LoadFileComponent implements OnInit {
     this.showProgress = true;
     this.getExtensionFile(file.type);
 
-    if (this.data.body.typeBill !== this.typeFile) {
+    if (this.data.body.billUrl && (this.data.body.typeBill !== this.typeFile)) {
       const textPdf = this.languageService.instant('shared.components.load_file.snackbar_ko_file_format_pdf');
       const textZip = this.languageService.instant('shared.components.load_file.snackbar_ko_file_format_zip');
 
