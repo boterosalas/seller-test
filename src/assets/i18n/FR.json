@@ -134,8 +134,9 @@
     "shared.components.load_file.text3": "ATTACH FILE",
     "shared.components.load_file.snackbar_ko": "Could not attach PDF, and error has occurred",
     "shared.components.load_file.snackbar_error": "Error when trying to transform the pdf",
-    "shared.components.load_file.snackbar_ko_file_format": "La órden ya tiene una factura cargada, esta acción te permite modificar el archivo, debe modificarlo conservando el formato inicial ya sea en PDF o tipo .ZIP (PDF + xml).",
-
+    "shared.components.load_file.snackbar_ko_file_format": "Ingles: The order already has an invoice loaded. This action allows you to modify the file, you must modify it keeping the initial format either in PDF or .ZIP type (PDF + xml)",
+    "shared.components.load_file.snackbar_ko_file_format_pdf": "Condition : Pour vous permettre de modifier la facture de la commande, vous devez conserver le même format initial, dans ce cas vous devez joindre la facture en format PDF.",
+    "shared.components.load_file.snackbar_ko_file_format_zip": "Condition : Pour vous permettre de modifier la facture de la commande, vous devez conserver le même format initial, dans ce cas vous devez joindre la facture au format .ZIP (PDF + xml).",
 
     "filters.clear": "Clear",
     "filters.filter": "Filter",

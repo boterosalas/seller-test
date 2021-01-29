@@ -46,6 +46,7 @@ export class LoadFileComponent implements OnInit {
     this.dataToSend = data;
   }
   ngOnInit() {
+    console.log(this.data.body);
   }
   /**
    * Si se necesita cancelar la subida de archivos a back.
@@ -95,7 +96,11 @@ export class LoadFileComponent implements OnInit {
     this.getExtensionFile(file.type);
 
     if (this.data.body.typeBill !== this.typeFile) {
-      this.snackBar.open('La órden ya tiene una factura cargada, esta acción te permite modificar el archivo, debe modificarlo conservando el formato inicial ya sea en PDF o tipo .ZIP (PDF + xml)', this.languageService.instant('actions.close'), {
+      const textPdf = this.languageService.instant('shared.components.load_file.snackbar_ko_file_format_pdf');
+      const textZip = this.languageService.instant('shared.components.load_file.snackbar_ko_file_format_zip');
+
+      const msgErrorType = this.data.body.typeBill === 1 ? textPdf : textZip;
+      this.snackBar.open(msgErrorType, this.languageService.instant('actions.close'), {
         duration: 7000,
       });
       this.showProgress = false;

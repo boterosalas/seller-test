@@ -140,6 +140,8 @@
     "shared.components.load_file.snackbar_ko": "No se pudo adjuntar el PDF, ocurrió un error.",
     "shared.components.load_file.snackbar_error": "error al intentar transformar el pdf",
     "shared.components.load_file.snackbar_ko_file_format": "La órden ya tiene una factura cargada, esta acción te permite modificar el archivo, debe modificarlo conservando el formato inicial ya sea en PDF o tipo .ZIP (PDF + xml).",
+    "shared.components.load_file.snackbar_ko_file_format_pdf": "Para permitirle modificar la factura al pedido, debe conservar el mismo formato inicial, para este caso debe anexar la factura en formato PDF.",
+    "shared.components.load_file.snackbar_ko_file_format_zip": "Para permitirle modificar la factura al pedido, debe conservar el mismo formato inicial, para este caso debe anexar la factura en formato .ZIP ( PDF +xml).",
 
 
     "filters.clear": "Limpiar",
