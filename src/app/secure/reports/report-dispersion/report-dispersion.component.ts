@@ -234,4 +234,9 @@ export class ReportDispersionComponent implements OnInit {
       this.showSpinner = false;
     });
   }
+
+  deleteKeywork(indexOfValue: number): void {
+    this.arraySellerId.splice(indexOfValue, 1);
+    this.sellerList.splice(indexOfValue, 1);
+  }
 }
