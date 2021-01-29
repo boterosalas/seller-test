@@ -49,6 +49,7 @@ import { PendingProductsModule } from './products/pending-products/pending-produ
 import { ListCancelsOrdersComponent } from './orders/list-cancels-orders/list-cancels-orders.component';
 import { ListCancelsOrdersModule } from './orders/list-cancels-orders/list-cancels-orders.module';
 import { DispersionModule } from './dispersion/dispersion.module';
+import { SchoolExitoModule } from './school-exito/school-exito.module';
 
 @NgModule({
 
@@ -93,7 +94,8 @@ import { DispersionModule } from './dispersion/dispersion.module';
     QuotingSellerModule,
     BulkLoadBillingModule,
     PendingProductsModule,
-    ListCancelsOrdersModule
+    ListCancelsOrdersModule,
+    SchoolExitoModule
   ],
   providers: [AuthService, SellerSupportCenterService],
   declarations: []

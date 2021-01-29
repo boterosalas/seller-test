@@ -61,6 +61,7 @@
     "menu.Excepción por comisión": "Commission exception",
     "menu.Listado de cancelaciones": "List of cancellations",
     "menu.Reporte de comisiones": "Report commission",
+    "menu.Reporte cobros pendientes MPI": "Report dispersion",
     "module.Documentación": "Documentation",
     "menu.Resumen de pagos": "Payment Summary",
     "module.Ofertas": "Offers",
@@ -1328,6 +1329,7 @@
     "secure.parametize.support_claims-filter.modal-export.applyFilter": "Apply filters",
     "secure.parametize.support_claims-filter.modal-export.exportAll": "Export all",
     "secure.parametize.support_claims-filter.modal-export.addSeller": "Add Seller",
+    "secure.parametize.support_claims-filter.modal-export.allSeller": "All Seller",
     "secure.parametize.support_claims-filter.modal-export.searchSeller": "Search for a seller",
     "secure.parametize.support_claims-filter.modal-export.titleExportReclaim": "Export claims",
 

@@ -32,11 +32,11 @@ describe('ReportCommissionComponent', () => {
   };
 
   const responseListCommission = {
-      body: '{Message:"Operación realizada éxitosamente.","Errors":[],"Data":{"AuditCommissionExcViewModels":[{"Type":"Brand","SellerId":12390,"SellerAudit":12395,"SellerNameAudit":"raul vergara admin","SellerNit":"1117555556","Operation":"Create","Data":{"Commission":23.5,"IdVTEX":"57","Brand":"ADIDAS","InitialDate":null,"FinalDate":null,"Ean":null},"IdVTEX":"ADIDAS","Date":"2020-11-15T18:38:49.118+00:00"},{"Type":"Plu","SellerId":12390,"SellerAudit":12395,"SellerNameAudit":"raul vergara admin","SellerNit":"1117555556","Operation":"Create","Data":{"Commission":2.0,"IdVTEX":"1384715","Brand":"1384715","InitialDate":"2020-11-15 19:47","FinalDate":"2020-11-18 19:47","Ean":null},"IdVTEX":"1384715","Date":"2020-11-15T19:47:34.672+00:00"},{"Type":"Brand","SellerId":12390,"SellerAudit":12395,"SellerNameAudit":"raul vergara admin","SellerNit":"1117555556","Operation":"Delete","Data":{"Commission":23.0,"IdVTEX":"57","Brand":"ADIDAS","InitialDate":null,"FinalDate":null,"Ean":null},"IdVTEX":"ADIDAS","Date":"2020-11-26T18:44:40.892+00:00"},{"Type":"Brand","SellerId":12390,"SellerAudit":12395,"SellerNameAudit":"raul vergara admin","SellerNit":"1117555556","Operation":"Create","Data":{"Commission":23.0,"IdVTEX":"57","Brand":"ADIDAS","InitialDate":"2020-11-26 18:50","FinalDate":"2020-11-27 18:45","Ean":null},"IdVTEX":"ADIDAS","Date":"2020-11-26T18:45:08.651+00:00"},{"Type":"Plu","SellerId":11226,"SellerAudit":1,"SellerNameAudit":"madrid emperador","SellerNit":"54813456222","Operation":"Create","Data":{"Commission":18.0,"IdVTEX":"100001006","Brand":"100001006","InitialDate":"2020-11-13 11:47","FinalDate":"2020-11-20 11:48","Ean":null},"IdVTEX":"100001006","Date":"2020-11-13T11:48:28.205+00:00"},{"Type":"Plu","SellerId":11226,"SellerAudit":1,"SellerNameAudit":"madrid emperador","SellerNit":"54813456222","Operation":"Update","Data":{"Commission":18.12,"IdVTEX":"100001006","Brand":"100001006","InitialDate":"2020-11-13 11:47","FinalDate":"2020-11-20 11:48","Ean":null},"IdVTEX":"100001006","Date":"2020-11-23T15:41:57.583+00:00"},{"Type":"Brand","SellerId":11226,"SellerAudit":1,"SellerNameAudit":"madrid emperador","SellerNit":"54813456222","Operation":"Create","Data":{"Commission":10.0,"IdVTEX":"105707","Brand":"APPLE","InitialDate":"2020-11-23 15:42","FinalDate":"2020-11-24 15:42","Ean":null},"IdVTEX":"APPLE","Date":"2020-11-23T15:44:21.828+00:00"},{"Type":"Plu","SellerId":11226,"SellerAudit":1,"SellerNameAudit":"madrid emperador","SellerNit":"54813456222","Operation":"Update","Data":{"Commission":18.12,"IdVTEX":"100001006","Brand":"100001006","InitialDate":"2020-11-13 11:47","FinalDate":"2020-11-24 11:48","Ean":null},"IdVTEX":"100001006","Date":"2020-11-23T15:46:28.164+00:00"}],"PaginationToken":"{}","PaginationTokens":[],"Count":8}}',
-      headers: null,
-      isBase64Encoded: false,
-      multiValueHeaders: null,
-      statusCode: 200,
+    body: '{Message:"Operación realizada éxitosamente.","Errors":[],"Data":{"AuditCommissionExcViewModels":[{"Type":"Brand","SellerId":12390,"SellerAudit":12395,"SellerNameAudit":"raul vergara admin","SellerNit":"1117555556","Operation":"Create","Data":{"Commission":23.5,"IdVTEX":"57","Brand":"ADIDAS","InitialDate":null,"FinalDate":null,"Ean":null},"IdVTEX":"ADIDAS","Date":"2020-11-15T18:38:49.118+00:00"},{"Type":"Plu","SellerId":12390,"SellerAudit":12395,"SellerNameAudit":"raul vergara admin","SellerNit":"1117555556","Operation":"Create","Data":{"Commission":2.0,"IdVTEX":"1384715","Brand":"1384715","InitialDate":"2020-11-15 19:47","FinalDate":"2020-11-18 19:47","Ean":null},"IdVTEX":"1384715","Date":"2020-11-15T19:47:34.672+00:00"},{"Type":"Brand","SellerId":12390,"SellerAudit":12395,"SellerNameAudit":"raul vergara admin","SellerNit":"1117555556","Operation":"Delete","Data":{"Commission":23.0,"IdVTEX":"57","Brand":"ADIDAS","InitialDate":null,"FinalDate":null,"Ean":null},"IdVTEX":"ADIDAS","Date":"2020-11-26T18:44:40.892+00:00"},{"Type":"Brand","SellerId":12390,"SellerAudit":12395,"SellerNameAudit":"raul vergara admin","SellerNit":"1117555556","Operation":"Create","Data":{"Commission":23.0,"IdVTEX":"57","Brand":"ADIDAS","InitialDate":"2020-11-26 18:50","FinalDate":"2020-11-27 18:45","Ean":null},"IdVTEX":"ADIDAS","Date":"2020-11-26T18:45:08.651+00:00"},{"Type":"Plu","SellerId":11226,"SellerAudit":1,"SellerNameAudit":"madrid emperador","SellerNit":"54813456222","Operation":"Create","Data":{"Commission":18.0,"IdVTEX":"100001006","Brand":"100001006","InitialDate":"2020-11-13 11:47","FinalDate":"2020-11-20 11:48","Ean":null},"IdVTEX":"100001006","Date":"2020-11-13T11:48:28.205+00:00"},{"Type":"Plu","SellerId":11226,"SellerAudit":1,"SellerNameAudit":"madrid emperador","SellerNit":"54813456222","Operation":"Update","Data":{"Commission":18.12,"IdVTEX":"100001006","Brand":"100001006","InitialDate":"2020-11-13 11:47","FinalDate":"2020-11-20 11:48","Ean":null},"IdVTEX":"100001006","Date":"2020-11-23T15:41:57.583+00:00"},{"Type":"Brand","SellerId":11226,"SellerAudit":1,"SellerNameAudit":"madrid emperador","SellerNit":"54813456222","Operation":"Create","Data":{"Commission":10.0,"IdVTEX":"105707","Brand":"APPLE","InitialDate":"2020-11-23 15:42","FinalDate":"2020-11-24 15:42","Ean":null},"IdVTEX":"APPLE","Date":"2020-11-23T15:44:21.828+00:00"},{"Type":"Plu","SellerId":11226,"SellerAudit":1,"SellerNameAudit":"madrid emperador","SellerNit":"54813456222","Operation":"Update","Data":{"Commission":18.12,"IdVTEX":"100001006","Brand":"100001006","InitialDate":"2020-11-13 11:47","FinalDate":"2020-11-24 11:48","Ean":null},"IdVTEX":"100001006","Date":"2020-11-23T15:46:28.164+00:00"}],"PaginationToken":"{}","PaginationTokens":[],"Count":8}}',
+    headers: null,
+    isBase64Encoded: false,
+    multiValueHeaders: null,
+    statusCode: 200,
   }
 
   beforeEach(async(() => {
@@ -50,9 +50,9 @@ describe('ReportCommissionComponent', () => {
         HttpClientModule,
         SharedModule
       ],
-      declarations: [ ReportCommissionComponent ],
+      declarations: [ReportCommissionComponent],
       providers: [
-        {provide : StoresService , useValue: mockStoresService},
+        { provide: StoresService, useValue: mockStoresService },
         EndpointService,
         UserParametersService,
         { provide: LoadingService, useValue: mockLoadingService },
@@ -80,6 +80,6 @@ describe('ReportCommissionComponent', () => {
     expect(component).toBeTruthy();
   });
   afterAll(() => {
-                TestBed.resetTestingModule();
-            });
+    TestBed.resetTestingModule();
+  });
 });

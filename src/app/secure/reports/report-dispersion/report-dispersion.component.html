@@ -1,0 +1,119 @@
+<div class="content-order my-content">
+  <div fxLayout="column" fxLayoutAlign="none">
+    <div fxLayout="row wrap">
+      <div fxFlex="100" class="light-content">
+        <app-toolbar-search-pagination [informationToForm]="informationToForm"
+          #toolbarOptions [lengthOrder]="null" [btnFilter]="btnFilter"
+          [showContainerDetail]="showContainerDetail"
+          [btnDownload]="btnDownload">
+        </app-toolbar-search-pagination>
+      </div>
+    </div>
+    <div fxLayout="row wrap" class="container-500-height">
+      <div fxFlex.lg="60" fxFlex.sm="98" fxFlex.md="60" fxFlex.xs="98">
+        <div fxLayout="row wrap" class="container-100-paddign-30">
+          <div fxFlex.lg="70" fxFlex.md="70" fxFlex.sm="90"  fxFlex.xs="90">
+            <div class="margin-bottom-margin-top">{{'secure.parametize.support_claims-filter.modal-export.searchSeller'
+              | translate}}</div>
+            <form id="search-store-form" class="search-store mat-typography
+              width-100-important container-form-search-seller"
+              (keydown)="keyDownFunction($event)">
+              <mat-form-field class="input-search">
+                <mat-icon id="icon-search-store" class="icon-search" matPrefix>search</mat-icon>
+                <input id="input-search-store" class="search-store-input
+                  input-search-black" type="search"
+                  (ngModelChange)="whatchValueInput($event)" matInput
+                  [formControl]="textForSearch" [matAutocomplete]="auto">
+              </mat-form-field>
+
+              <mat-autocomplete autoActiveFirstOption class="auto-complete"
+                #auto="matAutocomplete">
+                <mat-option id="option-search-store-number-{{position}}"
+                  (click)="viewStoreInformation(option)"
+                  class="autocomplete-list" *ngFor="let option of
+                  filteredOptions |
+                  async; let position= index"
+                  [value]="option.Name">
+                  <mat-icon>store</mat-icon>
+                  {{option.Name}}
+                </mat-option>
+              </mat-autocomplete>
+            </form>
+          </div>
+          <div fxFlex.lg="30" fxFlex.md="30" fxFlex.sm="10"  fxFlex.xs="10">
+            <div class="margin-top-30">
+              <button [disabled]="btnAddSeller" mat-icon-button
+                (click)="saveSeller(sellerCurrent)">
+                <mat-icon class="add-keyword-icon"
+                  [matTooltip]="'secure.parametize.support_claims-filter.modal-export.addSeller'
+                  | translate">
+                  add_circle_outline
+                </mat-icon>
+              </button>
+              <span fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" fxShow="true">
+                {{'secure.parametize.support_claims-filter.modal-export.addSeller'
+                |
+                translate}}
+              </span>
+            </div>
+          </div>
+          <div fxLayout="row wrap" class="container-100-form-check-and-email">
+            <form #filterForm="ngForm" [formGroup]="form" class="width-100">
+              <div>
+                <mat-checkbox formControlName="importAll"
+                  (click)="clearSellerSearch(valueCheck)">{{'secure.parametize.support_claims-filter.modal-export.allSeller'
+                  | translate}}</mat-checkbox>
+              </div>
+              <div class="margin-top-40">
+                <div  [class] ="arraySellerId.length > 3 ? 'container-120-scroll container-scroll' : 'container-65-scroll container-scroll'" >
+                  <mat-chip-list>
+                    <mat-chip *ngFor="let key of sellerList; let i= index"
+                      (removed)="deleteKeywork(i)">
+                      {{key}}
+                      <mat-icon class="material-icons" matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                  </mat-chip-list>
+                </div>
+              </div>
+              <div fxLayout="row wrap" class="margin-top-20">
+                <div fxFlex="100">
+                  <span class="modal-export-to-reclaim-text-send-email">{{'secure.parametize.support_claims-filter.modal-export.text-message-send-email' | translate}}</span>
+                </div>
+              </div>
+              <div fxLayout="row wrap">
+                <div fxFlex="100">
+                  <mat-form-field  class="half-width width-100">
+                    <input matInput placeholder="Correo electronico" class="modal-export-to-reclaim-text-uppercase"
+                      formControlName="email" [errorStateMatcher]="matcher">
+                    <mat-error *ngIf="form.get('email').hasError('required')">{{'errors.required' | translate}}</mat-error>
+                    <mat-error *ngIf="form.get('email').hasError('email')">{{'errors.format_invalidate' | translate}}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div fxLayout="row wrap" class="container-btn-100-40" fxShow.xs="true" fxShow.sm="true" fxShow.md="false" fxShow.lg="false" fxShow.xl="false">
+            <button mat-button (click)="dowloadReportDisperion()" [disabled]="disabledBtnDonwLoad"  class="width-100"  mat-raised-button color="primary">Descargar el reporte</button>
+          </div>
+        </div>
+      </div>
+      <div fxFlex.lg="40" fxFlex.sm="40" fxFlex.md="40" fxFlex.xs="1" fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" fxShow="true">
+        <div class="container-margin-top-left">
+          <button mat-icon-button
+                (click)="dowloadReportDisperion()" [disabled]="disabledBtnDonwLoad  || !filterForm.form.valid" class="container-btn-download-report">
+                <mat-icon class="icon-btn-color">
+                  cloud_download
+                </mat-icon>
+          </button>
+        </div>
+        <div class="container-text-download-report">
+          <strong>Descargar el reporte</strong>
+          <div class="loading-donwload-spinner" *ngIf="showSpinner">
+            <mat-spinner [diameter]="20" mode="indeterminate"></mat-spinner>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
