@@ -135,6 +135,7 @@
     "shared.components.load_file.text3": "ATTACH FILE",
     "shared.components.load_file.snackbar_ko": "Could not attach PDF, and error has occurred",
     "shared.components.load_file.snackbar_error": "Error when trying to transform the pdf",
+    "shared.components.load_file.snackbar_ko_file_format": "La órden ya tiene una factura cargada, esta acción te permite modificar el archivo, debe modificarlo conservando el formato inicial ya sea en PDF o tipo .ZIP (PDF + xml).",
 
 
     "filters.clear": "Clear",
