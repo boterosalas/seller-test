@@ -574,6 +574,7 @@ const CalificationModule = new ModuleModel(calificationModule, showAll, califica
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
     ], RoutesConst.sellerCenterIntListCalification)]);
 
+
 export const dispersionModule = 'DISPERSION', summaryPaymentAdmin = 'Resumen de pagos', detailPaymentAdmin = 'Detalle de dispersión';
 const DispersionModule = new ModuleModel(dispersionModule, showAll, dispersionModule.toLowerCase(), [
     new MenuModel(summaryPaymentAdmin, showAll, summaryPaymentAdmin.toLowerCase(), ProfileTypes.Administrador, [
@@ -583,8 +584,14 @@ const DispersionModule = new ModuleModel(dispersionModule, showAll, dispersionMo
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
     ], RoutesConst.sellerCenterIntDispersionDetail)]);
 
+export const schoolExitoModule = 'Escuela Exito', listSchoolExito = 'Escuela Exito';
+const SchoolExitoModule = new ModuleModel(calificationModule, showAll, calificationModule.toLowerCase(), [
+    new MenuModel(listCalification, showAll, listCalification.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+    ], RoutesConst.sellerCenterIntSchoolExito)]);
+
 export const Modules = [
-    OrdersModule, OffersModule, ProductsModule, BillingModule, DevolutionsModule, DocumentModule, ParamModule, SellerModule, ReclaModule, ReportModule, CalificationModule, DispersionModule
+    OrdersModule, OffersModule, ProductsModule, BillingModule, DevolutionsModule, DocumentModule, ParamModule, SellerModule, ReclaModule, ReportModule, CalificationModule, DispersionModule, SchoolExitoModule
 ]; // Lista de modelo, menus a mostrar.
 
 

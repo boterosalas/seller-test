@@ -22,6 +22,8 @@ export class RoutesConst {
     static readonly shipmentsExito: any = 'envios-exito';
     static readonly products: any = 'products';
     static readonly quality: any = 'quality';
+    static readonly schoolExito: any = 'schoolExito';
+    static readonly listSchoolExito: any = 'list-school-exito';
     static readonly dispersion: any = 'dispersion';
 
     static readonly ordersState: any = 'estado';
@@ -105,6 +107,7 @@ export class RoutesConst {
     static readonly sellerCenterIntParamBrand: any = RoutesConst.securehome + '/' + RoutesConst.paramBrands;
 
     static readonly sellerCenterCalification: any = RoutesConst.securehome + '/' + RoutesConst.quality;
+    static readonly sellerCenterSchoolExito: any = RoutesConst.securehome + '/' + RoutesConst.schoolExito;
     static readonly sellerCenterDispersion: any = RoutesConst.securehome + '/' + RoutesConst.dispersion;
 
     static readonly sellerCenterIntOrderLoadGuide: any = RoutesConst.sellerCenterOrders + '/' + RoutesConst.orderLoadGuide;
@@ -139,6 +142,7 @@ export class RoutesConst {
     static readonly sellerCenterIntPendingProducts: any = RoutesConst.sellerCenterProducts + '/' + RoutesConst.pendingProducts;
 
     static readonly sellerCenterIntListCalification: any = RoutesConst.sellerCenterCalification + '/' + RoutesConst.listCalification;
+    static readonly sellerCenterIntSchoolExito: any = RoutesConst.sellerCenterSchoolExito + '/' + RoutesConst.listSchoolExito;
     static readonly sellerCenterIntDispersionSummary: any = RoutesConst.sellerCenterDispersion + '/' + RoutesConst.summaryPayment;
     static readonly sellerCenterIntDispersionDetail: any = RoutesConst.sellerCenterDispersion + '/' + RoutesConst.detailPayment;
 
