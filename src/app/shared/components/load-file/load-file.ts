@@ -46,7 +46,6 @@ export class LoadFileComponent implements OnInit {
     this.dataToSend = data;
   }
   ngOnInit() {
-    console.log(this.data.body);
   }
   /**
    * Si se necesita cancelar la subida de archivos a back.
