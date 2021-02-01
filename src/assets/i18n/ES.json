@@ -132,7 +132,7 @@
     "shared.phone": "Teléfono",
     "shared.components.load_file.title": "Adjuntar factura",
     "shared.components.load_file.subtitle": "La factura electrónica solo",
-    "shared.components.load_file.subtitle2": "puede ser enviada una vez.",
+    "shared.components.load_file.subtitle2": "puede ser enviada una vez. ",
     "shared.components.load_file.subtitle3": "Por favor verifique que éste adjuntando el archivo correcto.",
     "shared.components.load_file.subtitle4": "Archivo de máximo 3 Megabytes y que solo podrá ser enviado una vez.",
     "shared.components.load_file.text1": "Arrastre y suelte el archivo aquí",
