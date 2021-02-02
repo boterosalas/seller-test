@@ -541,7 +541,7 @@ const ReclaModule = new ModuleModel(reclaModule, showAll, reclaModule.toLowerCas
  * 1. Reporte de ofertas.
  */
 
-export const reportModule = 'REPORTES', reportOffertAdmin = 'Reporte de ofertas', reportErrorsVtex = 'Reporte de errores en VTEX', reportCommission = 'Reporte de comisiones';
+export const reportModule = 'REPORTES', reportOffertAdmin = 'Reporte de ofertas', reportErrorsVtex = 'Reporte de errores en VTEX', reportCommission = 'Reporte de comisiones', reportDispersion = 'Reporte cobros pendientes MPI';
 const ReportModule = new ModuleModel(reportModule, showAll, reportModule.toLowerCase(), [
     new MenuModel(reportOffertAdmin, showAll, reportOffertAdmin.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
@@ -554,7 +554,11 @@ const ReportModule = new ModuleModel(reportModule, showAll, reportModule.toLower
     new MenuModel(reportCommission, showAll, reportCommission.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality) // Descargar
-    ], RoutesConst.sellerCenterIntReportsCommission)]);
+    ], RoutesConst.sellerCenterIntReportsCommission),
+    new MenuModel(reportDispersion, showAll, reportDispersion.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+        new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality) // Descargar
+    ], RoutesConst.sellerCenterIntReportsDispersion)]);
 
 
 /**
@@ -570,6 +574,7 @@ const CalificationModule = new ModuleModel(calificationModule, showAll, califica
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
     ], RoutesConst.sellerCenterIntListCalification)]);
 
+
 export const dispersionModule = 'DISPERSION', summaryPaymentAdmin = 'Resumen de pagos', detailPaymentAdmin = 'Detalle de dispersión';
 const DispersionModule = new ModuleModel(dispersionModule, showAll, dispersionModule.toLowerCase(), [
     new MenuModel(summaryPaymentAdmin, showAll, summaryPaymentAdmin.toLowerCase(), ProfileTypes.Administrador, [
@@ -579,8 +584,14 @@ const DispersionModule = new ModuleModel(dispersionModule, showAll, dispersionMo
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
     ], RoutesConst.sellerCenterIntDispersionDetail)]);
 
+export const schoolExitoModule = 'Escuela Exito', listSchoolExito = 'Escuela Exito';
+const SchoolExitoModule = new ModuleModel(calificationModule, showAll, calificationModule.toLowerCase(), [
+    new MenuModel(listCalification, showAll, listCalification.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+    ], RoutesConst.sellerCenterIntSchoolExito)]);
+
 export const Modules = [
-    OrdersModule, OffersModule, ProductsModule, BillingModule, DevolutionsModule, DocumentModule, ParamModule, SellerModule, ReclaModule, ReportModule, CalificationModule, DispersionModule
+    OrdersModule, OffersModule, ProductsModule, BillingModule, DevolutionsModule, DocumentModule, ParamModule, SellerModule, ReclaModule, ReportModule, CalificationModule, DispersionModule, SchoolExitoModule
 ]; // Lista de modelo, menus a mostrar.
 
 

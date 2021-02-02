@@ -11,6 +11,7 @@ import { ReportErrorsVtexComponent } from './report-errors-vtex/report-errors-vt
 import { DownloadModalErrorVtexComponent } from './report-errors-vtex/download-modal-error-vtex/download-modal-error-vtex.component';
 import { ReportCommissionComponent } from './report-commission/report-commission.component';
 import { SharedModule } from '@app/shared/shared.module';
+import { ReportDispersionComponent } from './report-dispersion/report-dispersion.component';
 
 @NgModule({
     imports: [
@@ -28,6 +29,7 @@ import { SharedModule } from '@app/shared/shared.module';
         ReportErrorsVtexComponent,
         DownloadModalErrorVtexComponent,
         ReportCommissionComponent,
+        ReportDispersionComponent,
     ],
     exports: [
         ReportOffertComponent

@@ -1,119 +1,12 @@
-.report-commission-component{
-    &-text-color{
-        color: #626161;
-    }
-    &-vertical-aling{
-        vertical-align: middle;
-      }
+.add-keyword-icon {
+  color: #485AFA;
+  transition: width 2s;
+  width: 20px !important;
+  cursor: pointer;
+  vertical-align: bottom;
 
-     &-font-size{
-        font-size: 10px;
-      }
-    
-      &-padding-left{
-        padding-left: 31px;
-      }
-    
-      &-width-complete{
-        width: 100%;
-      }
-      &-text-aling-center{
-        text-align: center;
-      }
-      &-text-color-grey{
-        color: #959595;
-      }
-      &-text-align-and-width-100{
-        text-align: center;
-        width: 100%;
-      }
-      &-text-align-and-width-100-font-weight{
-        text-align: center;
-        width: 100%;
-        font-weight: bold;
-      }
-      &-container-chips-filters{
-        padding: 15px;
-        height: 50px;
-        width: 100%;
-      }
-      &-container-wait-moment-please{
-        text-align: center;
-        width: 100%;
-        margin: 2% 0% 2% 0%;
-      }
-      &-height-70{
-        height: 70px;
-      }
-      &-height-90{
-        height: 90px;
-      }
-      &-margin-left-10{
-        margin-left: 10px;
-      }
-      &-100-size-container{
-        height: 100%;
-         width: 100%;
-      }
-      &-container-width-input-sellerId{
-        width: 80%;
-        margin-left: 14px;
-        padding-left: 15px;
-        padding-bottom: 5px;
-      }
-      &-margin-top-40{
-        margin-top: 40px;
-      }
-      &-margin-left-28{
-        margin-left: 28px;
-      }
-      &-font-size-color{
-        font-size: 15px;
-        color: #b6b6b6;
-      }
-      &-input-date-picker-initial{
-        width: 125px;
-        padding: 10px;
-        margin-left: 18px;
-      }
-      &-input-date-picker-end{
-        width: 125px;
-        padding: 10px;
-      }
-      &-input-generic{
-        width: 80%;
-        margin-left: 14px;
-        padding-left: 15px;
-        padding-bottom: 5px;
-      }
-
-      &-btn-clear-form{
-        margin-right: 10px;
-        background-color: #eaeaea;
-      }
-
-      &-name-admin-input{
-        width: 80%;
-        margin-left: 14px;
-        padding-left: 15px;
-        padding-top: 20px;
-        padding-bottom: 90px;
-      }
-
-      &-text-transform-uppsercase{
-        text-transform: uppercase;
-      }
-      &-without-register{
-        text-align: center;
-        width: 100%;
-        padding: 80px;
-      }
 }
-
-
-.container-filter{
-  width: 320px;
-}
-.process-charge {
-  margin: 0 1em;
+.add-keyword-icon:hover {
+  cursor: pointer;
+  width: 30px !important;
 }

@@ -210,7 +210,7 @@ export class BoxListComponent implements OnInit {
    * @memberof BoxListComponent
    */
   public openLoadFile(body: any): void {
-    if (!body.billUrl) {
+    if (body) {
       const dialogRef = this.dialog.open(LoadFileComponent, {
         width: '60%',
         minWidth: '300px',

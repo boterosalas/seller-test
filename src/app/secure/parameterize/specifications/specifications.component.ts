@@ -12,6 +12,7 @@ import { DeleteDialogSpecsComponent } from '../dialogDelete/dialog-delete.compon
 import { MenuModel, readFunctionality, deleteFunctionality, updateFunctionality, createFunctionality, specsName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { TranslateService } from '@ngx-translate/core';
+import { DownloadSpecsComponent } from './download-specs/download-specs.component';
 
 const log = new Logger('SpecificationsParamComponent');
 
@@ -75,18 +76,31 @@ export class SpecificationsParamComponent implements OnInit, AfterViewInit {
         return permission && permission.ShowFunctionality;
     }
 
+    /**
+     * Metodo para abrir modal de la descarga de especificaciones
+     * @memberof SpecificationsParamComponent
+     */
+    openModalDownloadSpecs(): void {
+        const dialogRef = this.dialog.open(DownloadSpecsComponent, {
+            width: '60%'
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          log.info('The modal detail order was closed');
+        });
+      }
+
     ngAfterViewInit() {
     }
-/**
- * funcion para escuchar el evento al cambiar de idioma
- *
- * @memberof SpecificationsParamComponent
- */
-changeLanguage() {
+    /**
+     * funcion para escuchar el evento al cambiar de idioma
+     *
+     * @memberof SpecificationsParamComponent
+     */
+    changeLanguage() {
         if (localStorage.getItem('culture_current') !== 'US') {
-        this.isDisabled = false;
-        this.currentLanguage = 'ES';
-        localStorage.setItem('culture_current', 'ES');
+            this.isDisabled = false;
+            this.currentLanguage = 'ES';
+            localStorage.setItem('culture_current', 'ES');
         } else {
             this.isDisabled = true;
             this.currentLanguage = 'US';
