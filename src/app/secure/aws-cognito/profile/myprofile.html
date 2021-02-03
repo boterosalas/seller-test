@@ -19,7 +19,7 @@
           formControlName="Email">
       </mat-form-field>
     </form>
-    <div *ngIf="isChannel" class=" classToken">
+    <div *ngIf="isChannel && channelAdvisor" class=" classToken">
       {{'secure.seller.register_seller.lb_channel_token' | translate}}:
       <br>
       {{channelAdvisor}}
