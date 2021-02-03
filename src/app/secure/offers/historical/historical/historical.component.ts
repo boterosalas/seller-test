@@ -11,7 +11,7 @@ import { RoutesConst, UserInformation } from '@app/shared';
 import { HistoricalService } from '../historical.service';
 import { DownloadHistoricalService } from '../download-historical-modal/download-historical.service';
 import { Logger } from '@core/util/logger.service';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
   selector: 'app-historical-component',

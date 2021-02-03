@@ -12,8 +12,9 @@ import { DateService } from '@app/shared/util/date.service';
 import { MenuModel, vacationFunctionality, cancelVacacionFunctionality } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
-import * as moment from 'moment';
+
 import { TranslateService } from '@ngx-translate/core';
+import moment from 'moment';
 
 @Component({
     selector: 'app-awscognito',

@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 
 import { environment } from '@env/environment';
 import { Stuff } from '@secure/aws-cognito/useractivity/useractivity.component';
+import DynamoDB from 'aws-sdk/clients/dynamodb';
 
-import * as DynamoDB from 'aws-sdk/clients/dynamodb';
+
 import * as AWS from 'aws-sdk/global';
 import { CognitoUtil } from './cognito.service';
 

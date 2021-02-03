@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import * as moment from 'moment';
 import { CalificationService } from '../../quality.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { ModalConfirmComponent } from '../modal-confirm/modal-confirm.component';
 import { LoadingService } from '@app/core';
 import { TranslateService } from '@ngx-translate/core';
+import moment from 'moment';
 
 @Component({
   selector: 'app-detail-calification',

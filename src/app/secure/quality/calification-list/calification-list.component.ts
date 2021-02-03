@@ -1,7 +1,5 @@
-import { Component, OnInit, Input, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators, FormGroupDirective, NgForm } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 import { SearchFormEntity, InformationToForm } from '@app/shared';
@@ -11,8 +9,8 @@ import { MatTableDataSource, MatSidenav, ErrorStateMatcher, MatSnackBar } from '
 import { animate, style, transition, state, trigger } from '@angular/animations';
 import { CalificationService } from '../quality.service';
 import { SupportService } from '@app/secure/support-modal/support.service';
-import * as moment from 'moment';
 import { TranslateService } from '@ngx-translate/core';
+import moment from 'moment';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {

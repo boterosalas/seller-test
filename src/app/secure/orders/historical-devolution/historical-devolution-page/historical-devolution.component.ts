@@ -15,6 +15,7 @@ import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.servi
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import * as _ from 'lodash';
 import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 
 const log = new Logger('HistoricalDevolutionComponent');
 
@@ -58,7 +59,7 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
   // User info
   public user: UserInformation;
   // Emmiter del filtro
-  public subFilterHistoricalDevolution: EventEmitter<any>;
+  public subFilterHistoricalDevolution: Subscription;
 
   public typeProfile: number;
   // Suscriptions vars
