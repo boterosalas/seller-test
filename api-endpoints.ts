@@ -230,13 +230,41 @@ export const endpoints = {
       // archivo en s3 formato carga masiva de excepcion
       uploadMasiveUpload: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates-Dev/FormatChargeCommissions.xlsx',
       // verificar el estado de la carga masiva para excepciones PLU
-      verificateStatusException : 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/GetMassiveComsnExcStatus',
+      verificateStatusException: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/GetMassiveComsnExcStatus',
       // enviar data en formato json al back
-      sendDataJsonReadExcel : 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/MassiveComsnExc',
+      sendDataJsonReadExcel: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/MassiveComsnExc',
       // Listado de colores
-      getListColor : 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/colors',
+      getListColor: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/colors',
       // Descargable del listado/historico de cancelaciones
-      exportListCancel: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch/report'
+      exportListCancel: 'https://nrk3ye1ppc.execute-api.us-east-1.amazonaws.com/ReversionRequestSearch/report',
+      // Descargar especificaciones
+      exportSpecs: 'https://bahzzzoq93.execute-api.us-east-1.amazonaws.com/products-specs-dev/report{params}',
+      // Descargar arbol de categorías
+      exporCategories: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/GenerateReportCategories',
+      // Eliminar categpria por Id
+      deleteCategory: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/DeleteCategory{params}',
+      // Descargar exportar comisiones
+      exportCommission: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/ExportComsnExcsAudit/{params}',
+      // Obtener el listado de comisiones ultimos 15 dias
+      getListCommissionAll: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/GetComsnExcsAudit/{params}',
+      // Obtener listado de historico de pagos
+      getListHistoricPayments: 'https://w7uiqlm4b6.execute-api.us-east-1.amazonaws.com/dev/detaildispersion{params}',
+      // Obtener listado novedades cobro
+      getListNewsCollected: 'https://w7uiqlm4b6.execute-api.us-east-1.amazonaws.com/dev/detailpaymentnews{params}',
+      // Obtener el listado de vendedores para hacer la dispersion
+      getListDispersionAll: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/{params}',
+      // Excluir - incluir en el pago de la dispersion
+      excludeSellerPayoneer: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/excludesellerpayoneerdispersion',
+      // ejecutar la dispersion
+      sendDispersion: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion',
+      // Descargar detalle de dispersion
+      exporDetailPayment: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/report{params}',
+      // Descargar productos vendedor
+      downloadProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/report',
+      // verificar el status de carga de dispersion
+      statusLoadDispersion : 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/getstatusdispersion',
+      // Envia un correo con el reporte
+      sendModuleReportDispersion : 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/pendingpaymentnews/{params}'
     },
   },
   // Endpoints production
@@ -464,13 +492,41 @@ export const endpoints = {
       // archivo en s3 formato carga masiva de excepcion
       uploadMasiveUpload: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates/FormatChargeCommissions.xlsx',
       // verificar el estado de la carga masiva para excepciones PLU
-      verificateStatusException : 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/GetMassiveComsnExcStatus',
-       // enviar data en formato json al back
-       sendDataJsonReadExcel : 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/MassiveComsnExc',
+      verificateStatusException: 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/GetMassiveComsnExcStatus',
+      // enviar data en formato json al back
+      sendDataJsonReadExcel: 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/MassiveComsnExc',
+       // Descargar especificaciones
+      exportSpecs: 'https://fhby1m1mxd.execute-api.us-east-1.amazonaws.com/productsspec-pdn/report{params}',
       // Listado de colores
-      getListColor : 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/colors',
-       // Descargable del listado/historico de cancelaciones
-       exportListCancel: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn/report'
+      getListColor: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/colors',
+      // Descargable del listado/historico de cancelaciones
+      exportListCancel: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn/report',
+      // Descargar arbol de categorías
+      exporCategories: 'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/GenerateReportCategories',
+      // Eliminar categpria por Id
+      deleteCategory: 'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/DeleteCategory{params}',
+      // Descargar exportar comisiones
+      exportCommission: 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/ExportComsnExcsAudit/{params}',
+      // Obtener el listado de comisiones ultimos 15 dias
+      getListCommissionAll: 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/GetComsnExcsAudit/{params}',
+      // Obtener listado de historico de pagos
+      getListHistoricPayments: 'https://paaw2oxdqd.execute-api.us-east-1.amazonaws.com/pdn/detaildispersion{params}',
+      // Obtener listado novedades cobro
+      getListNewsCollected: 'https://paaw2oxdqd.execute-api.us-east-1.amazonaws.com/pdn/detailpaymentnews{params}',
+      // Obtener el listado de vendedores para hacer la dispersion
+      getListDispersionAll: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/{params}',
+      // Excluir - incluir en el pago de la dispersion
+      excludeSellerPayoneer: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/excludesellerpayoneerdispersion',
+      // ejecutar la dispersion
+      sendDispersion: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion',
+      // Descargar detalle de dispersion
+      exporDetailPayment: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/report{params}',
+      // Descargar productos vendedor
+      downloadProducts: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/report',
+      // verificar el status de carga de dispersion
+      statusLoadDispersion : 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/getstatusdispersion',
+      // Envia un correo con el reporte
+      sendModuleReportDispersion : 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/pendingpaymentnews/{params}'
     }
   }
 };

@@ -32,4 +32,9 @@ export class CategoryTreeService {
   verifyStatusOfCreateCategory(): Observable<any> {
     return this.http.get(this.api.get('statusCreateCategory'), { observe: 'response' });
   }
+
+  public deleteCategory(id: any): Observable<{}> {
+    return this.http.delete(this.api.get('deleteCategory', [id]));
+  }
+
 }

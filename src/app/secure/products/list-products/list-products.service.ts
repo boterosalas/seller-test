@@ -80,5 +80,9 @@ export class ListProductService {
     return this.http.post(this.api.get('exportProducts'), body);
   }
 
+  public sendEmailExportProductsSeller(body: any): Observable<any> {
+    return this.http.post(this.api.get('downloadProducts'), body);
+  }
+
 
 }

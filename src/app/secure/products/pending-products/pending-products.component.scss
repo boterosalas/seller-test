@@ -10,12 +10,23 @@
   margin: 1%;
   position: sticky;
   top: 50px;
-  // background: white;
   z-index: 1;
   padding: 1%;
   & mat-chip {
       margin: 10px 10px;
   }
+}
+.text-info-container {
+  position: sticky;
+  top: 50px;
+  z-index: 1;
+  padding-top: 18px;
+  text-align: center;
+  width: 100%;
+  background-color: #ecefef;
+  font-size: 12px;
+  font-weight: bold;
+  height: 19px;
 }
 
 .tree-toolbar {
@@ -141,6 +152,7 @@
     height: 0%;
   }
 }
+
 
 /*
 ::ng-deep .tree-toolbar {

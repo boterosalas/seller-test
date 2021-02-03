@@ -88,4 +88,24 @@ export class ParamSpecsService {
     return this.http.delete(this.api.get('getProductSpecs', [id]), { observe: 'response' });
   }
 
+  /**
+   * Servicio apra descargar Specs
+   * @param {*} email
+   * @returns {Observable<{}>}
+   * @memberof ParamSpecsService
+   */
+  public getDownloadSpecs(email: any): Observable<{}> {
+    return this.http.get(this.api.get('exportSpecs', [email]));
+  }
+
+  /**
+   * Servicio apra descargar categorias
+   * @param {*} email
+   * @returns {Observable<any>}
+   * @memberof ParamSpecsService
+   */
+  public downloadCategories(param: any): Observable<any> {
+    return this.http.post(this.api.get('exporCategories'), param);
+  }
+
 }

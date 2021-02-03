@@ -238,8 +238,8 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
     const paramsArray = {
       'limit': 'limit=' + this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken),
       'idSeller': this.idSeller,
-      'dateReversionRequestInitial': this.dateReversionRequestInitial,
-      'dateReversionRequestFinal': this.dateReversionRequestFinal,
+      'orderDate': this.dateReversionRequestInitial,
+      'reversionDate': this.dateReversionRequestFinal,
       'orderNumber': this.orderNumber,
       'identificationCard': this.identificationCard,
       'resolutionDate': this.resolutionDate,
@@ -283,8 +283,8 @@ export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
     const params = {
       'limit': 'limit=' + this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken),
       'idSeller': this.idSeller,
-      'dateReversionRequestInitial': this.dateReversionRequestInitial,
-      'dateReversionRequestFinal': this.dateReversionRequestFinal,
+      'orderDate': this.dateReversionRequestInitial,
+      'reversionDate': this.dateReversionRequestFinal,
       'orderNumber': this.orderNumber,
       'identificationCard': this.identificationCard,
       'resolutionDate': this.resolutionDate,

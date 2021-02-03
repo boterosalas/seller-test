@@ -48,6 +48,8 @@ import { BulkLoadBillingModule } from './orders/bulk-load-billing/bulk-load-bill
 import { PendingProductsModule } from './products/pending-products/pending-products.module';
 import { ListCancelsOrdersComponent } from './orders/list-cancels-orders/list-cancels-orders.component';
 import { ListCancelsOrdersModule } from './orders/list-cancels-orders/list-cancels-orders.module';
+import { DispersionModule } from './dispersion/dispersion.module';
+import { SchoolExitoModule } from './school-exito/school-exito.module';
 
 @NgModule({
 
@@ -87,11 +89,13 @@ import { ListCancelsOrdersModule } from './orders/list-cancels-orders/list-cance
     CoreStoreModule,
     ListReportsModule,
     QualityModule,
+    DispersionModule,
     CitiesCoverageModule,
     QuotingSellerModule,
     BulkLoadBillingModule,
     PendingProductsModule,
-    ListCancelsOrdersModule
+    ListCancelsOrdersModule,
+    SchoolExitoModule
   ],
   providers: [AuthService, SellerSupportCenterService],
   declarations: []

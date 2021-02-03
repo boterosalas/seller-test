@@ -85,7 +85,13 @@ export class BillingOrderComponent implements OnInit {
      * @memberof BillingOrderComponent
      */
     public viewPDF(billing: any): void {
-        window.open(billing.billUrl, '_blank', 'fullscreen=yes, screenTop');
+        if(billing && billing.billUrl !== undefined){
+            if(billing.fileType === 1) {
+                window.open(billing.billUrl, '_blank', 'fullscreen=yes, screenTop');
+            } else if (billing.fileType === 2) {
+                window.open(billing.billUrl, 'ZIP');
+            }
+        }
     }
 
     /**

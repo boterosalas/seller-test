@@ -61,7 +61,11 @@
           </button>
         </mat-toolbar>
       </div>
+     
       <div fxLayout="column">
+        <div class="text-info-container">
+          {{'secure.products.pending_products_text_info_header' | translate}}
+        </div>
         <div class="example-chip-list">
           <mat-chip-list #chipList>
             <mat-chip *ngFor="let products of listFilterProductsModify" [selectable]="selectable"

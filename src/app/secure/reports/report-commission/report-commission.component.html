@@ -1,0 +1,244 @@
+<div class="content-order my-content">
+  <div fxFlex class="container" fxLayout="row wrap" fxLayoutAlign="center
+    start">
+    <div fxFlex="100" class="light-content">
+      <app-toolbar-search-pagination [informationToForm]="informationToForm" #toolbarOptions [lengthOrder]="length"
+        [limitPaginate]="[50, 100, 150]" [btnFilter]="btnFilter" [btnDownload]="btnDownload"
+        (filterGerenic)="toggleFilterReportCommission()"
+        (paginationListOrdens)="paginations($event)" [pageIndexChange]="indexPage" (modalDownloadGeneric)="showModalDonloadCommission()">
+      </app-toolbar-search-pagination>
+    </div>
+    <div fxLayout="row" class="report-commission-component-container-chips-filters">
+      <mat-chip-list>
+        <mat-chip *ngFor="let key of filterChips; let i = index" (removed)="deteleFilter(key, i)">
+         {{'filter-' + key.type | translate}} : {{key.name}}
+          <mat-icon class="material-icons" matChipRemove>cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+    <div  fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="97" fxFlex.lg="97" fxFlex.xl="97"
+      class="port-component-content-table-center-collection">
+    
+      <mat-table #table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="Plu">
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+            <span class="title-table-header">Plu</span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p *ngIf="element.Type === 'Plu'"> {{element.IdVTEX}}</p>
+            <p *ngIf="element.Type === 'Brand'"> -- </p>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Brand">
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+            <span class="title-table-header">Marca</span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p *ngIf="element.Type === 'Brand'"> {{element.IdVTEX}} </p>
+            <p *ngIf="element.Type === 'Plu'"> -- </p>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="EAN">
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+            <span class="title-table-header">EAN</span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal">{{element.Data.Ean}}</p>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="IdSeller">
+          <mat-header-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="15" fxFlex.xl="" *matHeaderCellDef>
+            <span class="title-table-header">ID Vendedor</span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="15" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal">{{element.SellerId}}</p>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="DateInitial">
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+            <span class="title-table-header">Fecha Inicial</span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal">{{element.Data.InitialDate}}</p>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="DateEnd">
+          <mat-header-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+            <span class="title-table-header">Fecha Final</span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal">{{element.Data.FinalDate}}</p>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Commission">
+          <mat-header-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+            <span class="title-table-header report-commission-component-text-align-and-width-100">Comisión</span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal report-commission-component-text-align-and-width-100-font-weight">{{element.Data.Commission}}%</p>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Admin">
+          <mat-header-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+            <span class="title-table-header report-commission-component-text-align-and-width-100" >Administrador</span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <div class="report-commission-component-width-complete">
+              <div class="report-commission-component-text-aling-center">
+                {{element.SellerNameAudit}}
+              </div>
+              <div class="report-commission-component-text-color-grey report-commission-component-text-aling-center">
+                {{element.SellerNit}}
+              </div>
+            </div>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="DateAction">
+          <mat-header-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true"
+            fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matHeaderCellDef>
+            <span class="title-table-header report-commission-component-text-align-and-width-100" >Acción realizada</span>
+          </mat-header-cell>
+          <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+            fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let element">
+            <p class="sc-text-normal report-commission-component-text-align-and-width-100">
+              {{element.Date}}
+              <br>
+              <span class="report-commission-component-text-color-grey">
+                ({{element.Operation}})
+              </span>
+            </p>
+          </mat-cell>
+        </ng-container>
+
+
+        <!-- Creación de las filas para la tabla -->
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row id="order-number-{{index}}" *matRowDef="let index=index; let
+          row; columns: displayedColumns;" class="element-row personal-row-table" [cdkDetailRow]="row"
+          [cdkDetailRowTpl]="tpl">
+        </mat-row>
+      </mat-table>
+    </div>
+    <div *ngIf="!showTable" class="report-commission-component-container-wait-moment-please">
+      <div>
+        <span> {{'secure.products.create_product_unit.list_products.please_wait' | translate}}</span>
+      </div>
+    </div>
+    <div *ngIf="showTable && listCommissionAll.length === 0" class="report-commission-component-without-register">
+     <span>No se encontraron registros</span>
+    </div>
+  </div>
+</div>
+
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenavSearchCommission mode="over" class="container-filter" 
+  fxFlex.sm="90" fxFlex.xs="90" fxFlex.md="45"  fxFlex.xl="45" fxFlex.lg="45"  position="end" opened="{{stateSideNavOrder}}">
+
+    <div fxLayout="row" fxLayoutAlign="start center" class="report-commission-component-height-70">
+      <div fxFlex="80">
+        <div class="report-commission-component-margin-left-10">
+          {{informationToForm.title_for_search | translate}}
+        </div>
+      </div>
+      <div fxFlex="20" class="toolbar-title-search report-commission-component-height-90" >
+        <button class="report-commission-component-100-size-container" color="primary" [matTooltip]="'actions.close' | translate"
+          matTooltipPosition="below" mat-icon-button mat-button (click)="toggleFilterReportCommission()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxLayout="row">
+      <div fxFlex>
+
+        <form #createfilterCommission="ngForm" [formGroup]="filterCommission" class="report-commission-component-margin-top-40">     
+          <mat-form-field class="field report-commission-component-container-width-input-sellerId" >
+            <input matInput placeholder="ID Seller" formControlName="IdSeller" (change)="validate(filterCommission.controls)" autofocus>
+            <mat-error *ngIf="filterCommission.get('IdSeller').hasError('pattern')">
+              {{'errors.format_invalidate' | translate}}
+            </mat-error>
+          </mat-form-field>
+        
+          <div>
+            <div class="report-commission-component-margin-left-28">
+              <span class="report-commission-component-font-size-color">Fecha de acción realizada </span>
+            </div>
+            <div fxLayout="row">
+              <div>
+                <mat-form-field class="classDatapicker  report-commission-component-input-date-picker-initial" (click)= "clearDateEnd()" >
+                  <input matInput [matDatepicker]="picker" placeholder="Desde" formControlName="InitialDate">
+                  <mat-datepicker-toggle matSuffix [for]="picker" (click)= "clearDateEnd()"></mat-datepicker-toggle>
+                  <mat-datepicker #picker disabled="false" (click)= "clearDateEnd()"></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field class="classDatapicker report-commission-component-input-date-picker-end">
+                  <input matInput [matDatepicker]="picker1" placeholder="Hasta" formControlName="FinalDate"
+                     [min]="dateInitLimit">
+                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        
+          <mat-form-field class="field report-commission-component-input-generic">
+            <input matInput placeholder="Plu" formControlName="Plu">
+            <mat-error *ngIf="filterCommission.get('Plu').hasError('pattern')">
+              {{'errors.format_invalidate' | translate}}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="field report-commission-component-input-generic" >
+            <input matInput placeholder="Marca" formControlName="Brand" class="report-commission-component-text-transform-uppsercase">
+          </mat-form-field>
+
+          <mat-form-field class="field report-commission-component-name-admin-input">
+            <input matInput placeholder="Nombre del administrador" [matAutocomplete]="auto" formControlName="SellerAudit">
+            <mat-hint></mat-hint>
+            <mat-error *ngIf="filterCommission.get('SellerAudit').hasError('pattern')">
+              Nombre de administrador inválido
+            </mat-error>
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let commission of listCommission2" [value]="commission.Name" (click)="getAdmin(commission)">
+                {{commission.Name}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+      
+          <div class="report-commission-component-text-aling-center">
+            <div>
+              <button class="sc-button report-commission-component-btn-clear-form" mat-button type="button"
+                (click)="clearForm()">
+                <mat-icon>clear_all</mat-icon>
+                {{'filters.clear' | translate}}
+              </button>
+              <button class="sc-button" mat-raised-button color="primary" [disabled]="validateInput || !createfilterCommission.form.valid"  type="button"
+                (click)="apllyFilterCommission(filterCommission.value)">
+                {{'actions.apply' | translate}}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </mat-sidenav>
+</mat-sidenav-container>

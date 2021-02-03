@@ -14,6 +14,7 @@ import { MatPaginatorI18nService } from '@app/shared/services/mat-paginator-i18n
 import { UserInformation } from '@app/shared';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import { DownloadProductsComponent } from './download-products/download-products.component';
+import { DownloadProductsSellerComponent } from './download-products-seller/download-products-seller.component';
 
 export interface ListFilterProducts {
     name: string;
@@ -56,6 +57,7 @@ export class ListProductsComponent implements OnInit {
     // public myProduct = false;
     @Input() myProduct = false;
     @Input() showTabs = true;
+    @Input() showButtonDownload = true;
 
     public matcher: MyErrorStateMatcher;
     public paramsData: ModelFilterProducts;
@@ -267,6 +269,47 @@ export class ListProductsComponent implements OnInit {
         const dialogRef = this.dialog.open(DownloadProductsComponent, {
             data: dataToSend
         });
+        dialogRef.afterClosed().subscribe(result => {
+        });
+    }
+
+     /**
+     * Metodo para abrir modal para la descarga de los productos seller
+     * @memberof ListProductsComponent
+     */
+    openDialogDownloadProductsSeller() {
+        if (this.filterProduts.controls.initialDate.value) {
+            this.initialDateList = this.getDate(new Date(this.filterProduts.controls.initialDate.value));
+        } else {
+            this.initialDateList = null;
+        }
+        if (this.filterProduts.controls.finalDate.value) {
+            this.finalDateList = this.getDate(new Date(this.filterProduts.controls.finalDate.value));
+        } else {
+            this.finalDateList = null;
+        }
+
+        if (this.creationDateList === 'createDate') {
+            this.creationDateList = true;
+        } else if (this.creationDateList === 'updateDate') {
+            this.creationDateList = false;
+        } else {
+            this.creationDateList = null;
+        }
+        const dataToSend = {
+            ean: this.eanList || null,
+            plu: this.pluVtexList || null,
+            product: this.nameProductList || null,
+            categories: this.categoryList || null,
+            creationDate: this.creationDateList || null,
+            initialDate: this.initialDateList || null,
+            finalDate: this.finalDateList || null
+        };
+
+        const dialogRef = this.dialog.open(DownloadProductsSellerComponent, {
+            data: dataToSend
+        });
+
         dialogRef.afterClosed().subscribe(result => {
         });
     }
@@ -753,4 +796,5 @@ export class ListProductsComponent implements OnInit {
             matToolbar.classList.add('notFixed');
         }
     }
+
 }
