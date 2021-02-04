@@ -32,7 +32,8 @@
             </mat-autocomplete>
           </form>
         </div>
-        <div fxLayout="row" fxFlex.xs="100" fxFlex.sm="60%" fxFlex.md="50%" fxFlex.xl="50%" class="toolbar-paginate">
+        <div fxLayout="row" fxFlex.xs="100" fxFlex.sm="60" fxFlex="60" fxFlex.md="50" fxFlex.xl="50" class="toolbar-paginate">
+      
           <mat-paginator [ngClass]="{'hidden-pagination': orderListLength == true}" class="order-pagination"
             fxFlex.xs="250px" fxFlex.sm="250px" fxFlex.md="auto" fxFlex.lg="325px" fxFlex.xl="325px"
             class="paginator-style orders-paginate" itemsPerPageLabel="Items por pagina" #paginator
