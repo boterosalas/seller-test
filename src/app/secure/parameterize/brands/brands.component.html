@@ -55,8 +55,7 @@
   </div>
   <div fxLayout="column">
     <div class="listBrands">
-      
-      <div fxLayout="row" fxLayoutAlign="space-between center" style="background-color: aqua; width: 100%;">
+      <div fxLayout="row" fxLayoutAlign="space-between center" class="headerActions">
         <div class="brands-label-filter">
           <div class="example-chip-list">
             <mat-chip-list #chipList>
@@ -72,7 +71,7 @@
         <div class="brands-button-add">
           <div id="addButton" class="container-group-add-button">
             <button mat-button mat-stroked-button *ngIf="canCreate && canRead" (click)="upsetBrands()" id="addUnitBrand">
-              {{'secure.parametize.brands.btn_add_brand'| translate}}
+              <strong>{{'secure.parametize.brands.btn_add_brand'| translate}}</strong>
             </button>
             <button mat-button mat-stroked-button
               color="primary"><strong>{{'secure.parametize.brands.btn_add_brand_massive' | translate}}</strong></button>
@@ -81,10 +80,8 @@
             <a
                 href="{{urlDownloadFile}}"
                 target="_parent">
-                <button color="primary" style="margin-right: 10px; height:
-                  29px;" class="sc-default-button" id="download-file-button"
+                <button color="primary" class="sc-default-button" id="download-file-button"
                   mat-button>
-                  <mat-icon class="mat-18 text_white">file_download</mat-icon>
                   Descargar formato
                 </button>
               </a>

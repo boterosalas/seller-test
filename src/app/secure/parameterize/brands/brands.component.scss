@@ -41,6 +41,18 @@ $blue: #485AFA;
   padding-right: 8%;
   margin: 0.25em;
   margin-top: 90px;
+  @media only screen and (max-width: 600px) {
+    padding-left: 0% !important;
+    padding-right: 4%
+  }
+}
+
+.headerActions{
+  width: 100%;
+  @media only screen and (max-width: 600px) {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
 
 .example-sidenav {
@@ -140,6 +152,9 @@ table {
 
 .brands-button-add {
   text-align: right;
+  @media screen and (max-width: 600px) {
+    margin-left: 10%;
+  }
 }
 
 .brands-icons-add {
@@ -150,11 +165,16 @@ table {
   text-align: right;
   color: $blue;
   width: 100%;
-  margin: 1.4%;
+  margin-top: 1.4%;
 }
 
 #addUnitBrand{
   margin-right: 10px
+}
+
+#download-file-button{
+  text-decoration: inherit;
+  padding-right: 0px;
 }
 
 .brands-filter-sidenav {
@@ -239,7 +259,6 @@ table {
 .brands-label-filter {
   margin-top: 10px;
   width: calc(80% - 166px);
-  background-color: lightcoral;
 }
 
 ::ng-deep .mat-slide-toggle-thumb-container {
