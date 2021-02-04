@@ -7,6 +7,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 // tslint:disable-next-line:no-duplicate-imports
 import { Moment} from 'moment';
 import moment from 'moment';
+import { createFalse } from 'typescript';
 
 
 export const MY_FORMATS = {
@@ -47,10 +48,12 @@ export class FilterSummaryPaymentComponent implements OnInit {
 
   @ViewChild('sidenavSearchOrder', {static: false}) sidenavSearchOrder: MatSidenav;
   @Input() set stateSideNavOrder(value: boolean) {
-    this.sidenavSearchOrder.toggle();
+    this._stateSideNavOrder = value;
+    // this.sidenavSearchOrder.toggle();
   }
   @Input() informationToForm: any;
   @Output() OnGetFilter = new EventEmitter<object>();
+  @Output() onToggle = new EventEmitter<object>();
 
   constructor() { }
 
@@ -105,17 +108,21 @@ filterSummary (form: any) {
       }
     }
     this.OnGetFilter.emit({
-      'filterDate': dateFormt
+      'filterDate': dateFormt,
+      'close': true
     });
-   this.toggleFilterSummaryPayment();
+   this.toggleFilterSummaryPayment(false);
   }
 /**
  * funcion mostrar filter
  *
  * @memberof FilterSummaryPaymentComponent
  */
-toggleFilterSummaryPayment() {
-    this.sidenavSearchOrder.toggle();
+toggleFilterSummaryPayment(value) {
+  this._stateSideNavOrder = value;
+  this.onToggle.emit({
+    'close': false
+  });
   }
 /**
  * funcion para limpiar el formulario
@@ -124,9 +131,9 @@ toggleFilterSummaryPayment() {
  */
 clearForm() {
     this.OnGetFilter.emit({
-      'filterDate': moment().format('YYYY/MM/DD')
+      'filterDate': moment().format('YYYY/MM/DD'),
     });
-    this.toggleFilterSummaryPayment();
+    this.toggleFilterSummaryPayment(false);
     this.filterBillingSummary.controls.date.setValue(moment());
   }
 

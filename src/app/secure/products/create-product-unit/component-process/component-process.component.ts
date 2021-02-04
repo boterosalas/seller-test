@@ -13,6 +13,7 @@ import { EanServicesService } from '../validate-ean/ean-services.service';
 import { TranslateService } from '@ngx-translate/core';
 import { FinishUploadInformationComponent } from '@app/secure/offers/bulk-load/finish-upload-information/finish-upload-information.component';
 import { PendingProductsService } from '../../pending-products/pending-products.service';
+import { isUndefined } from 'lodash';
 
 
 @Component({
@@ -45,7 +46,7 @@ export class ComponentProcessComponent implements OnInit {
   editProduct = false;
   intervalTime = 6000;
   public listErrorStatus: any = [];
-  @ViewChild('stepper', {static: false}) stepper: MatStepper;
+  @ViewChild('stepper', {static: false}) stepper;
   user2: UserInformation;
   idProductProcess = null;
 
@@ -138,7 +139,13 @@ export class ComponentProcessComponent implements OnInit {
           }
         });
       } else {
-        this.stepper.selectedIndex = 0;
+        if(isUndefined(this.stepper)){
+          this.stepper = {
+            selectedIndex: 0
+          }
+        } else {
+          this.stepper.selectedIndex =  0;
+        }
         this.isLinear = true;
         this.editFirstStep = true;
       }

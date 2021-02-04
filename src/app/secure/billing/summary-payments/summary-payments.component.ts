@@ -238,6 +238,10 @@ filterListSummary(params: any) {
     this.getAllSeller(params);
     this.loadingService.viewSpinner();
   }
+
+  updateToggle(params: any){
+    this.stateSideNavOrder = params.close;
+  }
 /**
  * funcion para cambiar status de los checkBox
  *

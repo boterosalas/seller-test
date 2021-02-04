@@ -178,7 +178,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     count: this.numberElements.toString()
   };
 
-  public cognitoId: String;
+  public cognitoId: string;
   public numberLength: number;
   public lastState: number;
   private searchSubscription: any;
@@ -564,7 +564,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
         if (res.pendingResponse) {
           this.getOrdersList(params);
         } else {
-          if (params.state !== '') {
+          if (params && params.state !== '') {
             stateCurrent = params.state;
             this.lastState = stateCurrent;
             this.setTable(res);
@@ -599,7 +599,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     const paramsArray = {
       'limit': this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken) + this.querySearch,
       'idSeller': this.idSeller,
-      'state': params.state,
+      'state': params ? params.state : null,
       'dateOrderFinal': this.dateOrderFinal,
       'dateOrderInitial': this.dateOrderInitial,
       'idChannel': this.idChannel,

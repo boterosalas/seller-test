@@ -5,7 +5,7 @@
         <mat-toolbar color="primary" class="toolbar-title-search filter-summary-padding-7">
           <h4 class="title-toolbar filter-summary-font-16">{{informationToForm.title_for_search | translate}}</h4>
           <button color="accent" [matTooltip]="'actions.close' | translate" matTooltipPosition="below" mat-icon-button
-            mat-button (click)="toggleFilterSummaryPayment()">
+            mat-button (click)="toggleFilterSummaryPayment(false)">
             <mat-icon>close</mat-icon>
           </button>
         </mat-toolbar>
