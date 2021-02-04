@@ -8,7 +8,7 @@ import { FormGroup, Validators, FormControl, FormGroupDirective, NgForm } from '
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { readFunctionality, createFunctionality, updateFunctionality, MenuModel, brandName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
-import { LoadingService, ModalService } from '@app/core';
+import { EndpointService, LoadingService, ModalService } from '@app/core';
 import { CustomPaginator } from '../../products/list-products/listFilter/paginatorList';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -104,6 +104,9 @@ export class BrandsComponent implements OnInit {
     separatorKeysCodes: number[] = [];
     errorMessageBrand: any;
 
+    public urlDownloadFile: string;
+
+
     /**
      * Instanciar servicios, formularios y dialogos
      * @param {BrandService} brandService
@@ -118,6 +121,8 @@ export class BrandsComponent implements OnInit {
         private snackBar: MatSnackBar,
         private languageService: TranslateService,
         private modalService?: ModalService,
+        private api?: EndpointService,
+
     ) { }
 
 
@@ -126,6 +131,7 @@ export class BrandsComponent implements OnInit {
         this.createForm();
         this.validatePermission();
         this.getAllBrands();
+        this.urlDownloadFile = this.api.get('uploadMasiveBrand');
     }
 
     /**

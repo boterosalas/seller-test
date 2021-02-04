@@ -3,26 +3,30 @@
     <form class="basic-info" [formGroup]="filterBrands" class="brands-filter-sidenav">
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <h3>{{'secure.parametize.brands.title_filter_brand' | translate}}</h3>
-        <button id="closeMenuApplication" type="button" color="primary" [matTooltip]="'actions.close' | translate" matTooltipPosition="below"
-          mat-icon-button mat-button (click)="drawer.toggle()">
+        <button id="closeMenuApplication" type="button" color="primary" [matTooltip]="'actions.close' | translate"
+          matTooltipPosition="below" mat-icon-button mat-button (click)="drawer.toggle()">
           <mat-icon>clear</mat-icon>
         </button>
       </div>
       <div fxLayout="column" fxLayoutAlign="space-between" fxLayout.xs="column">
         <mat-form-field color="primary">
-          <input matInput [placeholder]="'shared.id' | translate" formControlName="filterBrandsId" [errorStateMatcher]="matcher">
+          <input matInput [placeholder]="'shared.id' | translate" formControlName="filterBrandsId"
+            [errorStateMatcher]="matcher">
           <mat-hint></mat-hint>
           <mat-error *ngIf="filterBrands.get('filterBrandsId').hasError('pattern')">{{'errors.invalid_id'}}</mat-error>
         </mat-form-field>
         <mat-form-field color="primary">
-          <input matInput [placeholder]="'secure.parametize.brands.txt_brand_name' | translate" style="text-transform: uppercase;"
-            formControlName="filterBrandsName" [errorStateMatcher]="matcher">
+          <input matInput [placeholder]="'secure.parametize.brands.txt_brand_name' | translate"
+            style="text-transform: uppercase;" formControlName="filterBrandsName" [errorStateMatcher]="matcher">
           <mat-hint></mat-hint>
-          <mat-error *ngIf="filterBrands.get('filterBrandsName').hasError('pattern')">{{'errors.brand_invalidate' | translate}}</mat-error>
+          <mat-error *ngIf="filterBrands.get('filterBrandsName').hasError('pattern')">
+            {{'errors.brand_invalidate' | translate}}</mat-error>
         </mat-form-field>
         <div fxLayout="row" fxLayoutAlign="space-between center" class="buttonsSend">
-          <button mat-stroked-button color="primary" type="button" (click)="cleanAllFilter()">{{'filters.clear' | translate}}</button>
-          <button mat-flat-button color="primary" type="submit" [disabled]="filterBrands && filterBrands.invalid" (click)="filterApply(drawer)">{{'filters.filter' | translate}}</button>
+          <button mat-stroked-button color="primary" type="button"
+            (click)="cleanAllFilter()">{{'filters.clear' | translate}}</button>
+          <button mat-flat-button color="primary" type="submit" [disabled]="filterBrands && filterBrands.invalid"
+            (click)="filterApply(drawer)">{{'filters.filter' | translate}}</button>
         </div>
       </div>
     </form>
@@ -51,38 +55,56 @@
   </div>
   <div fxLayout="column">
     <div class="listBrands">
-      <div class="brands-label-filter">
-        <div class="example-chip-list">
-          <mat-chip-list #chipList>
-            <mat-chip *ngFor="let productsFilter of listFilterBrands" [selectable]="selectable" [removable]="removable"
-              (removed)="remove(productsFilter)">
-              {{productsFilter.name}}
-              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-            </mat-chip>
-            <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" disabled>
-          </mat-chip-list>
+      
+      <div fxLayout="row" fxLayoutAlign="space-between center" style="background-color: aqua; width: 100%;">
+        <div class="brands-label-filter">
+          <div class="example-chip-list">
+            <mat-chip-list #chipList>
+              <mat-chip *ngFor="let productsFilter of listFilterBrands" [selectable]="selectable" [removable]="removable"
+                (removed)="remove(productsFilter)">
+                {{productsFilter.name}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" disabled>
+            </mat-chip-list>
+          </div>
         </div>
-      </div>
-      <div class="brands-button-add">
-        <div id="addButton" class="container-group-add-button">
-          <button mat-button *ngIf="canCreate && canRead" (click)="upsetBrands()">
-            <mat-icon class="material-icons">
-              control_point
-            </mat-icon>
-            {{'secure.parametize.brands.btn_add_brand'| translate}}
-          </button>
+        <div class="brands-button-add">
+          <div id="addButton" class="container-group-add-button">
+            <button mat-button mat-stroked-button *ngIf="canCreate && canRead" (click)="upsetBrands()" id="addUnitBrand">
+              {{'secure.parametize.brands.btn_add_brand'| translate}}
+            </button>
+            <button mat-button mat-stroked-button
+              color="primary"><strong>{{'secure.parametize.brands.btn_add_brand_massive' | translate}}</strong></button>
+          </div>
+          <div>
+            <a
+                href="{{urlDownloadFile}}"
+                target="_parent">
+                <button color="primary" style="margin-right: 10px; height:
+                  29px;" class="sc-default-button" id="download-file-button"
+                  mat-button>
+                  <mat-icon class="mat-18 text_white">file_download</mat-icon>
+                  Descargar formato
+                </button>
+              </a>
+          </div>
         </div>
       </div>
       <table matSort (matSortChange)="sortData($event)" class="table mat-table">
         <tr class="mat-header-row">
           <th id="" style="font-weight: inherit; font-size: 14px;"
-            class="mat-header-cell cdk-column-position mat-column-position mat-style-tr">{{'shared.id' | translate}}</th>
+            class="mat-header-cell cdk-column-position mat-column-position mat-style-tr">{{'shared.id' | translate}}
+          </th>
           <th id="" style="font-weight: inherit; font-size: 14px;"
-            class="mat-header-cell cdk-column-position mat-column-position mat-style-tr">{{'secure.parametize.brands.txt_brand_name'| translate}}</th>
-          <th id=""style="font-weight: inherit; font-size: 14px;"
-            class="mat-header-cell cdk-column-position mat-column-position mat-style-tr">{{'shared.status' | translate}}</th>
+            class="mat-header-cell cdk-column-position mat-column-position mat-style-tr">
+            {{'secure.parametize.brands.txt_brand_name'| translate}}</th>
           <th id="" style="font-weight: inherit; font-size: 14px;"
-            class="mat-header-cell cdk-column-position mat-column-position mat-style-tr">{{'shared.actions' | translate}}</th>
+            class="mat-header-cell cdk-column-position mat-column-position mat-style-tr">{{'shared.status' | translate}}
+          </th>
+          <th id="" style="font-weight: inherit; font-size: 14px;"
+            class="mat-header-cell cdk-column-position mat-column-position mat-style-tr">
+            {{'shared.actions' | translate}}</th>
         </tr>
         <tr style="height: 56px;" *ngFor="let brand of sortedData" class="mat-row">
           <td class="mat-cell mat-style-td">{{brand.Id}}</td>
@@ -91,12 +113,14 @@
             <section class="example-section">
               <mat-slide-toggle class="example-margin" [color]="color" id="id_slide_toggle_{{brand.Id}}"
                 (click)="changeStatusBrands($event, brand)"
-                [matTooltip]="brand.Status == true ? ('actions.disable' | translate) : ('actions.enable'| translate)" [checked]=brand.Status>
+                [matTooltip]="brand.Status == true ? ('actions.disable' | translate) : ('actions.enable'| translate)"
+                [checked]=brand.Status>
               </mat-slide-toggle>
             </section>
           </td>
           <td class="mat-cell mat-style-td">
-            <button mat-icon-button [matTooltip]="'actions.edit' | translate" *ngIf="canUpdate" (click)="upsetBrands(brand)">
+            <button mat-icon-button [matTooltip]="'actions.edit' | translate" *ngIf="canUpdate"
+              (click)="upsetBrands(brand)">
               <mat-icon class="edit-profile material-icons">create</mat-icon>
             </button>
           </td>
@@ -124,17 +148,20 @@
   <form [formGroup]="form" class="full-width brands-modal-margin">
     <div class="brands-input-spinner">
       <mat-form-field class="half-width">
-        <input matInput [placeholder]="'secure.parametize.brands.txt_brand_name'| translate" style="text-transform: uppercase;" formControlName="nameBrands"
-          [errorStateMatcher]="matcher" (blur)="validateExist($event)" required>
+        <input matInput [placeholder]="'secure.parametize.brands.txt_brand_name'| translate"
+          style="text-transform: uppercase;" formControlName="nameBrands" [errorStateMatcher]="matcher"
+          (blur)="validateExist($event)" required>
         <mat-error *ngIf="form.get('nameBrands').hasError('required')">{{'errors.required' | translate}}</mat-error>
-        <mat-error *ngIf="form.get('nameBrands').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
+        <mat-error *ngIf="form.get('nameBrands').hasError('pattern')">{{'errors.format_invalidate' | translate}}
+        </mat-error>
       </mat-form-field>
       <mat-spinner [diameter]="20" *ngIf="showSpinner"></mat-spinner>
     </div>
     <div class="brands-position-option">
       <button type="button" mat-button color="primary" (click)="onNoClick()">{{'actions.cancel' | translate}}</button>
       <button type="submit" mat-raised-button color="primary" class="brands-position-option-cancel"
-        (click)="confirmation()" [disabled]="form && form.invalid || validateExit">{{'actions.accept' | translate}}</button>
+        (click)="confirmation()"
+        [disabled]="form && form.invalid || validateExit">{{'actions.accept' | translate}}</button>
     </div>
   </form>
 </ng-template>

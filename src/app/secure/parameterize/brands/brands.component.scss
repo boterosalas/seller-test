@@ -153,6 +153,10 @@ table {
   margin: 1.4%;
 }
 
+#addUnitBrand{
+  margin-right: 10px
+}
+
 .brands-filter-sidenav {
   padding-top: 5%;
   padding-right: 8%;
@@ -234,7 +238,8 @@ table {
 
 .brands-label-filter {
   margin-top: 10px;
-  width: calc(100% - 166px);
+  width: calc(80% - 166px);
+  background-color: lightcoral;
 }
 
 ::ng-deep .mat-slide-toggle-thumb-container {
