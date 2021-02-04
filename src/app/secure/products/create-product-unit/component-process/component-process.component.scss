@@ -140,7 +140,7 @@
   height: 100%;
 }
 
-/deep/ mat-horizontal-stepper .mat-horizontal-content-container {
+::ng-deep mat-horizontal-stepper .mat-horizontal-content-container {
     height: 80%;
     overflow-y: auto;
 }

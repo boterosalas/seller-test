@@ -26,7 +26,7 @@ export class ExceptionBrandComponent implements OnInit {
 
   form: FormGroup;
   typeForm: FormGroup;
-  @ViewChild('dialogContent') content: TemplateRef<any>;
+  @ViewChild('dialogContent', {static: false}) content: TemplateRef<any>;
   currentStoreSelect_Id: any;
   vtexIdUpdate: any;
   body: any;

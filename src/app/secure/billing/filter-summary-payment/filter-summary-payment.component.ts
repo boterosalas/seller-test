@@ -45,7 +45,7 @@ export class FilterSummaryPaymentComponent implements OnInit {
   public filterBillingSummary: FormGroup;
   public date = new FormControl(moment());
 
-  @ViewChild('sidenavSearchOrder') sidenavSearchOrder: MatSidenav;
+  @ViewChild('sidenavSearchOrder', {static: false}) sidenavSearchOrder: MatSidenav;
   @Input() set stateSideNavOrder(value: boolean) {
     this.sidenavSearchOrder.toggle();
   }

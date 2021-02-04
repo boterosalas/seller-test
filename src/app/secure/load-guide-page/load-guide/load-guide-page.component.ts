@@ -78,7 +78,7 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
   download = downloadFunctionality; // Descargar.
 
   // Input file que carga el archivo
-  @ViewChild('fileUploadOption') inputFileUpload: any;
+  @ViewChild('fileUploadOption', {static: false}) inputFileUpload: any;
 
 
   constructor(

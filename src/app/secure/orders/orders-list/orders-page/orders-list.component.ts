@@ -58,9 +58,9 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   // Constantes
   public const = Const;
   // Sort: elemento que se emplea para poder organizar los elementos de la tabla de acuerdo a la columna seleccionada
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
   // Toolbar Options Componente: Permite acceder a los metodos de este compomente
-  @ViewChild('toolbarOptions') toolbarOption;
+  @ViewChild('toolbarOptions', {static: false}) toolbarOption;
   // Columnas que se visualizan en la tabla
   public displayedColumns = [
     'select',
@@ -219,10 +219,10 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     this.getMenuSelected();
     this.searchSubscription = this.eventsSeller.eventSearchSeller.subscribe((seller: StoreModel) => {
       if (seller) {
-        if (seller && seller.IdSeller) {
+        if (seller.IdSeller) {
           this.idSeller = seller.IdSeller;
         }
-        if (seller && seller.Country) {
+        if (seller.Country) {
           if (seller.Country === 'Colombia' || seller.Country === 'COLOMBIA') {
             this.isInternational = false;
           } else {
@@ -245,7 +245,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   }
 
   async getAllDataUser() {
-    if (await this.profileService.getUser() && await this.profileService.getUser().toPromise()) {
+    if (this.profileService.getUser() && await this.profileService.getUser().toPromise()) {
       const sellerData = await this.profileService.getUser().toPromise().then(res => {
         const body: any = res.body;
         const response = JSON.parse(body.body);
@@ -391,12 +391,12 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       (data: any) => {
         if (data && data.data.count > 0) {
           if (data != null) {
-            if (data && data.data && data.data.viewModel && data.data.viewModel.length === 0) {
+            if (data.data && data.data.viewModel && data.data.viewModel.length === 0) {
               this.orderListLength = true;
             } else {
               this.orderListLength = false;
             }
-            if (this.dataListOrder && this.dataListOrder && this.dataListOrder.length > 0) {
+            if ( this.dataListOrder && this.dataListOrder.length > 0) {
               this.numberElements = this.dataListOrder.length;
             } else {
               this.numberElements = 0;
@@ -447,15 +447,19 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   clearData() {
     this.subFilterOrder = this.shellComponent.eventEmitterOrders.clearTable.subscribe(
       (data: any) => {
-        const paramsArray = {
-          'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
-          'idSeller': this.idSeller,
-          'state': this.lastState,
-          'callOne': true,
-          'clear': true
-        };
-        this.isClear = true;
-        this.getOrdersList(paramsArray);
+        if(data) {
+          this.getAllOrderList();
+        }
+        
+        // const paramsArray = {
+        //   'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
+        //   'idSeller': this.idSeller,
+        //   'state': this.lastState,
+        //   'callOne': true,
+        //   'clear': true
+        // };
+        // this.isClear = true;
+        // this.getOrdersList(paramsArray);
       });
   }
 
@@ -474,7 +478,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
             idStatusOrder: this.currentRootPage
           };
           this.orderService.setCurrentFilterOrders(data);
-          this.toolbarOption.getOrdersList(this.currentRootPage);
+          this.getOrdersList(this.currentRootPage);
           this.setTitleToolbar();
         } else {
           this.orderService.setCurrentFilterOrders({});
@@ -482,7 +486,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
         }
       } else {
         this.orderService.setCurrentFilterOrders({});
-        this.toolbarOption.getOrdersList();
+        this.getOrdersList();
       }
     });
     this.ngOnDestroy();
@@ -493,7 +497,6 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   getAllOrderList() {
-    // this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
     const paramsArray = {
       'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
       'idSeller': this.idSeller,

@@ -25,9 +25,9 @@ export class ShellComponent implements OnInit, LoggedInCallback {
   // Usuario autenticado.
   public user: UserInformation;
   // SideMenu de la aplicación.
-  @ViewChild('sidenav') sidenav: MatSidenav;
+  @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
   // Sidenav de búsqueda de órdenes.
-  @ViewChild('sidenavSearchOrder') sidenavSearchOrder: MatSidenav;
+  @ViewChild('sidenavSearchOrder', {static: false}) sidenavSearchOrder: MatSidenav;
   // Mostrar header
   showHeader = false;
   // Variable que permite cambiar el estado del sidenav.

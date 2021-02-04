@@ -49,11 +49,11 @@ interface DataForm {
 })
 export class HistoricalDevolutionComponent implements OnInit, OnDestroy {
   // Elemento paginador
-  @ViewChild(MatPaginator) public paginator: MatPaginator;
+  @ViewChild(MatPaginator, {static: false}) public paginator: MatPaginator;
   // Sort: elemento que se emplea para poder organizar los elementos de la tabla de acuerdo a la columna seleccionada
-  @ViewChild(MatSort) public sort: MatSort;
+  @ViewChild(MatSort, {static: false}) public sort: MatSort;
   // Toolbar Options Componente: Permite acceder a los metodos de este compomente
-  @ViewChild(ToolbarOptionsComponent)
+  @ViewChild(ToolbarOptionsComponent, {static: false})
   public toolbarOption: ToolbarOptionsComponent;
 
   // User info

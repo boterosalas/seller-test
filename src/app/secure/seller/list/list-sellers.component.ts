@@ -60,16 +60,16 @@ export class SellerListComponent implements OnInit, OnDestroy {
     ];
 
     public needFormStates$: BehaviorSubject<{ posSeller: number, status: string }> = new BehaviorSubject({ posSeller: 0, status: null });
-    @ViewChild('dialogContent') content: TemplateRef<any>;
+    @ViewChild('dialogContent', {static: false}) content: TemplateRef<any>;
     statusForm: FormGroup;
-    @ViewChild('intialPicker') initialPicker;
-    @ViewChild('endPicker') endPicker;
+    @ViewChild('intialPicker' , {static: false}) initialPicker;
+    @ViewChild('endPicker', {static: false}) endPicker;
     subs: Subscription[] = [];
     InitialDateSubscription: Subscription;
 
     // MatPaginator Output
     pageEvent: PageEvent;
-    @ViewChild('sidenav') sidenav: MatSidenav;
+    @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
     nameSellerListFilter: any;
 
     read = readFunctionality;

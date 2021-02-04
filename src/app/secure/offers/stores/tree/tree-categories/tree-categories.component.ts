@@ -5,7 +5,6 @@ import { EventEmitterStore } from '../../events/eventEmitter-store.service';
 import { IsLoadInformationForTree, StoreModel } from '../../models/store.model';
 import { StoresService } from '../../stores.service';
 import { UserInformation } from '@app/shared';
-import { element } from '@angular/core/src/render3/instructions';
 
 // log component
 const log = new Logger('TreeCategoriesComponent');

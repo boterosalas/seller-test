@@ -79,7 +79,7 @@ export class ReportCommissionComponent implements OnInit {
   listCommission2: any;
   listCommission: any;
   invalidCommission: Boolean = true;
-  @ViewChild('toolbarOptions') toolbarOption;
+  @ViewChild('toolbarOptions', {static: false}) toolbarOption;
   dataSource: MatTableDataSource<any>;
   loadListAdmin = true;
   onlyOne= true;
@@ -91,7 +91,7 @@ export class ReportCommissionComponent implements OnInit {
 
   public filterCommission: FormGroup;
 
-  @ViewChild('sidenavSearchCommission') sidenavSearchCommission: MatSidenav;
+  @ViewChild('sidenavSearchCommission', {static: false}) sidenavSearchCommission: MatSidenav;
 
   public displayedColumns = [
     'Plu',

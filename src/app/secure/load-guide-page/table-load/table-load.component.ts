@@ -26,9 +26,9 @@ export class TableLoadComponent implements OnInit {
   // Creo el elemento que se empleara para la tabla
   public dataSourceCurrent: MatTableDataSource<Guide>;
   // Sort: elemento que se emplea para poder organizar los elementos de la tabla de acuerdo a la columna seleccionada
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
   //  Elemento paginador
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   // Columnas que se visualizan en la tabla
   public displayedColumns = [
     'orderNumber',

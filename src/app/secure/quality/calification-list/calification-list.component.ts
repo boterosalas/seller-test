@@ -107,10 +107,10 @@ export class CalificationListComponent implements OnInit {
   public matcher: MyErrorStateMatcher;
   BrandsRegex = { dateMonthYear: '' };
   public selectFilter: any;
-  @ViewChild('rdCalification') rdCalification: any;
-  @ViewChild('rdEmit') rdEmit: any;
+  @ViewChild('rdCalification' , {static: false}) rdCalification: any;
+  @ViewChild('rdEmit', {static: false}) rdEmit: any;
 
-  @ViewChild('sidenavSearchOrder') sidenavSearchOrder: MatSidenav;
+  @ViewChild('sidenavSearchOrder', {static: false}) sidenavSearchOrder: MatSidenav;
 
   constructor(
     private shellComponent: ShellComponent,

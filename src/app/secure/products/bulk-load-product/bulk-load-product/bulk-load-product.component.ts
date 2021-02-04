@@ -158,7 +158,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   load = loadFunctionality;
 
   /* Input file que carga el archivo*/
-  @ViewChild('fileUploadOption') inputFileUpload: any;
+  @ViewChild('fileUploadOption', {static: false}) inputFileUpload: any;
   isAdmin: boolean;
   profileTypeLoad: any;
 
@@ -171,7 +171,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   // Variable para mostrar loading
   public isLoad = false;
 
-  @ViewChild('modalContent') contentDialog: TemplateRef<any>;
+  @ViewChild('modalContent', {static: false}) contentDialog: TemplateRef<any>;
   copySizeArray: any;
   setInterval: any;
 

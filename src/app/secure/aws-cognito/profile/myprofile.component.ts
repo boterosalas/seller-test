@@ -33,9 +33,9 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     vacationForm: FormGroup;
     today = DateService.getToday();
     role: string;
-    @ViewChild('dialogTemplate') content: TemplateRef<any>;
-    @ViewChild('intialPicker') initialPicker;
-    @ViewChild('endPicker') endPicker;
+    @ViewChild('dialogTemplate', {static: false}) content: TemplateRef<any>;
+    @ViewChild('intialPicker', {static: false}) initialPicker;
+    @ViewChild('endPicker', {static: false}) endPicker;
 
     // Permisos
     vacation = vacationFunctionality;

@@ -45,7 +45,7 @@ export class ComponentProcessComponent implements OnInit {
   editProduct = false;
   intervalTime = 6000;
   public listErrorStatus: any = [];
-  @ViewChild('stepper') stepper: MatStepper;
+  @ViewChild('stepper', {static: false}) stepper: MatStepper;
   user2: UserInformation;
   idProductProcess = null;
 

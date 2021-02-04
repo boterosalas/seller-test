@@ -40,13 +40,13 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class PortComponent implements OnInit {
 
-  @ViewChild('sidenavSearchOrder') sidenavSearchOrder: MatSidenav;
+  @ViewChild('sidenavSearchOrder', {static: false}) sidenavSearchOrder: MatSidenav;
 
   public stateSideNavOrder = false;
   public dataSource: MatTableDataSource<any>;
   public initialPortList: any;
   public dialogRef: MatDialogRef<ResponseCaseDialogComponent>;
-  @ViewChild('dialogContent') content: TemplateRef<any>;
+  @ViewChild('dialogContent', {static: false}) content: TemplateRef<any>;
 
 
   public formPort: FormGroup;

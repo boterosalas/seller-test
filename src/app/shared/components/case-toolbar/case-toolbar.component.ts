@@ -29,7 +29,7 @@ import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.serv
   ]
 })
 export class CaseToolbarComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
   @Input() length: number;
 

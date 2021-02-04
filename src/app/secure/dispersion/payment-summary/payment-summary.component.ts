@@ -58,8 +58,8 @@ export class PaymentSummaryComponent implements OnInit {
   public totaSellerAux = 0;
 
 
-  @ViewChild('sidenavSearchPaymentSummary') sidenavSearchPaymentSummary: MatSidenav;
-  @ViewChild('toolbarOptions') toolbarOption;
+  @ViewChild('sidenavSearchPaymentSummary', {static: false}) sidenavSearchPaymentSummary: MatSidenav;
+  @ViewChild('toolbarOptions', {static: false}) toolbarOption;
 
   public informationToForm: SearchFormEntity = {
     title: 'module.Dispersion',

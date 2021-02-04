@@ -32,7 +32,7 @@ export class ToolbarLinkComponent implements OnInit {
 
   public routes: any;
   @Input() user: UserInformation;
-  @ViewChild('widgetsContent') widgetsContent: ElementRef;
+  @ViewChild('widgetsContent', {static: false}) widgetsContent: ElementRef;
   // Estructura para la categoría
   categoryEstructure = {
     root: 'home'

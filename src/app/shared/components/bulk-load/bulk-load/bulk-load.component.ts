@@ -68,7 +68,7 @@ export class BulkLoadComponent implements OnInit {
 
   @Input() disabledLoad: boolean;
 
-  @ViewChild('fileUploadInput') fileUploadInput: ElementRef;
+  @ViewChild('fileUploadInput', {static: false}) fileUploadInput: ElementRef;
   @Output() event: EventEmitter<Event> = new EventEmitter();
   public progressStatus = false;
 

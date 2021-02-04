@@ -12,7 +12,7 @@ import { ErrorHandlerInterceptor } from './error-handler.interceptor';
  * el módulo original para que funcione correctamente.
  * Más info: https://github.com/Microsoft/TypeScript/issues/13897
  */
-declare module '@angular/common/http/src/client' {
+declare module '@angular/common/http/http' {
 
   // Métodos personalizados los cuales se implementan en la clase 'HttpService'.
   export interface HttpClient {

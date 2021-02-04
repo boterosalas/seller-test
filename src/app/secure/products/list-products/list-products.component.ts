@@ -102,8 +102,8 @@ export class ListProductsComponent implements OnInit {
     offerPermission = false;
     editPermission = false;
     permissionComponent: MenuModel;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild('drawer') drawer: MatSidenav;
+    @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+    @ViewChild('drawer', {static: false}) drawer: MatSidenav;
     listCategories: any;
     categoryInfo: any;
 

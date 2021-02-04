@@ -53,11 +53,11 @@ export class BrandsComponent implements OnInit {
     sortedData: Brands[];
     brandsList: Brands[];
 
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild(MatSort) sort: MatSort;
-    @ViewChild('dialogContent') content: TemplateRef<any>;
-    @ViewChild('matSlideToggle') matSlideToggle: ElementRef;
-    @ViewChild('buttonClose') buttonClose: ElementRef;
+    @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+    @ViewChild(MatSort, {static: false}) sort: MatSort;
+    @ViewChild('dialogContent', {static: false}) content: TemplateRef<any>;
+    @ViewChild('matSlideToggle', {static: false}) matSlideToggle: ElementRef;
+    @ViewChild('buttonClose', {static: false}) buttonClose: ElementRef;
 
     public form: FormGroup;
     public filterBrands: FormGroup;

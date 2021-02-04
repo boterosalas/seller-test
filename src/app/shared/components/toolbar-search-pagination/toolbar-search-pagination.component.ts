@@ -63,7 +63,7 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
 
 
   //  Elemento paginador para la tabla
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   // Variable que almacena la configuración para el formulario
   @Input() informationToForm: SearchFormEntity;
   @Input() billingType: boolean;

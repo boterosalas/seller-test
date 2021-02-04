@@ -87,7 +87,7 @@ export class PendingProductsComponent implements OnInit {
   public paginationToken2 = '{}';
   public limit = 30;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   paramsArray: { limit: string; idSeller: string; };
   paramsArray2: { limit: string; idSeller: string; };
   ean = '';

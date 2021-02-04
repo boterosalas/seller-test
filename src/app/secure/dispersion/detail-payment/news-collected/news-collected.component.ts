@@ -52,8 +52,8 @@ export class NewsCollectedComponent implements OnInit {
     }
   };
 
-  @ViewChild('sidenavNewsCollected') sidenavNewsCollected: MatSidenav;
-  @ViewChild('toolbarOptions') toolbarOption;
+  @ViewChild('sidenavNewsCollected', {static: false}) sidenavNewsCollected: MatSidenav;
+  @ViewChild('toolbarOptions', {static: false}) toolbarOption;
 
    // Evento que comunica al padre cuando tiene filtros.
    @Output() _newsCollectedFilterEmit = new EventEmitter<any>();

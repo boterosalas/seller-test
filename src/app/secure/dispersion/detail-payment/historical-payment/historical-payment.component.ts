@@ -59,8 +59,8 @@ export class HistoricalPaymentComponent implements OnInit {
   // Evento que comunica al padre cuando tiene filtros.
   @Output() _dispersionFilterEmit = new EventEmitter<any>();
 
-  @ViewChild('sidenavHistoricalPayment') sidenavHistoricalPayment: MatSidenav;
-  @ViewChild('toolbarOptions') toolbarOption;
+  @ViewChild('sidenavHistoricalPayment', {static: false}) sidenavHistoricalPayment: MatSidenav;
+  @ViewChild('toolbarOptions', {static: false}) toolbarOption;
   urlParams: string;
 
   public informationToForm: SearchFormEntity = {

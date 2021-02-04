@@ -22,7 +22,7 @@ import moment from 'moment';
 export class HistoricalComponent implements OnInit {
 
   // Componente necesario para el funcionamiento del filtro
-  @ViewChild('sidenav') sidenav: MatSidenav;
+  @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
 
   // Variable para almacenar los datos del usuario logeado
   public user: UserInformation;

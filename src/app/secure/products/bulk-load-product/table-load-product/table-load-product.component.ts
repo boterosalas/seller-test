@@ -22,9 +22,9 @@ export class TableLoadProductComponent implements OnInit {
   // Número de errores presentados
   @Input() countErrors;
   // Sort: elemento que se emplea para poder organizar los elementos de la tabla de acuerdo a la columna seleccionada
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
   //  Elemento paginador
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   // Tipo de perfil
   @Input() profielType;
   // Columnas que se visualizan en la tabla
