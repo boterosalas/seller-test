@@ -62,10 +62,11 @@ export class CaseToolbarComponent implements OnInit {
   }
 
   ngOnInit() {
+  setTimeout(() => {
     this.paginator.page.subscribe(pagination =>
       this.changePagination.emit(pagination)
     );
-
+  }, 1000);
     this.emitterSeller.eventSearchSeller.subscribe(data => {
       this.sellerDataSearch.emit(data);
     });
@@ -92,3 +93,4 @@ export class CaseToolbarComponent implements OnInit {
     this.toggleFilter.emit(!this.stateFilter);
   }
 }
+
