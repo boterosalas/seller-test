@@ -12,8 +12,6 @@ import { of, BehaviorSubject } from 'rxjs';
 import { BasicInformationService } from '../../create-product-unit/basic-information/basic-information.component.service';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { SearchService } from '../../create-product-unit/categorization/search.component.service';
-import { componentRefresh } from '@angular/core/src/render3/instructions';
-import { By } from '@angular/platform-browser';
 import { SharedModule } from '@app/shared/shared.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
