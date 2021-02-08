@@ -25,15 +25,17 @@
   <div *ngIf="!Success && !inProcess && data.failText">
     <mat-dialog-content class="mat-typography finish-upload-information-list-height">
       <mat-nav-list>
-        <mat-list-item *ngFor="let error of listError"  >
+        <mat-list-item *ngFor="let error of listError">
           <mat-icon mat-list-icon class="icon-color-error" *ngIf="error.Code === 'PEX'">warning</mat-icon>
           <mat-icon mat-list-icon class="icon-color-error" *ngIf="error.Code !== 'PEX'">error</mat-icon>
-          <h4 matLine *ngIf="error.Ean">{{'secure.offers.historical_admin.components.filter.EAN' | translate}}: {{error.Ean}}</h4>
+          <h4 matLine *ngIf="error.Ean">{{'secure.offers.historical_admin.components.filter.EAN' | translate}}:
+            {{error.Ean}}</h4>
           <h4 matLine *ngIf="error.Sku">{{'secure.orders.order_list.product_order.sku' | translate}}: {{error.Sku}}</h4>
-          <p matLine *ngIf="error.Code !== 'PEX' && error.Code !== 'ResponseDiferent'">{{'secure.products.Finish_upload_product_information.error_ocurred' | translate}}:
+          <p matLine *ngIf="error.Code !== 'PEX' && error.Code !== 'ResponseDiferent'">
+            {{'secure.products.Finish_upload_product_information.error_ocurred' | translate}}:
             {{error.Message}}</p>
           <p matLine *ngIf="error.Code === 'PEX'">{{error.Message}}</p>
-          <p matLine [matTooltip]="error.Message"  *ngIf="error.Code === 'ResponseDiferent'">{{error.Message}}</p>
+          <p matLine [matTooltip]="error.Message" *ngIf="error.Code === 'ResponseDiferent'">{{error.Message}}</p>
         </mat-list-item>
       </mat-nav-list>
     </mat-dialog-content>
@@ -50,7 +52,9 @@
       </button>
       <button id="close-finish-upload-button" *ngIf="inProcess" mat-raised-button color="primary"
         [routerLink]="['/securehome/seller-center']" mat-dialog-close>{{'actions.go_to_start' | translate}}</button>
-      <button id="close-finish-upload-button" [disabled]="inProcess" mat-button
+      <button id="close-finish-upload-button" [routerLink]="['/securehome']" *ngIf="enableCloseButton" [disabled]="inProcess" mat-button
+        mat-dialog-close>{{'actions.close' | translate}}</button>
+      <button id="close-finish-upload-button" *ngIf="!enableCloseButton" [disabled]="inProcess" mat-button
         mat-dialog-close>{{'actions.close' | translate}}</button>
     </mat-dialog-actions>
   </div>

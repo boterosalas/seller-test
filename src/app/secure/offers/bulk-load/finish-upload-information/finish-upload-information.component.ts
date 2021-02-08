@@ -28,6 +28,7 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
   inProcess = true;
   processFinish$ = new Subject<any>();
   Success = false;
+  enableCloseButton = false;
   countError: number;
   listError: any;
   listErrorStatus: any;
@@ -60,10 +61,12 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
         try {
           const { status, response } = res.body.data;
           if (status === 2) {
+            this.enableCloseButton = true;
             this.Success = true;
             this.inProcess = false;
             this.processFinish$.next(res);
           } else if (status === 3) {
+            this.enableCloseButton = true;
             if (response) {
               if (this.data.responseDiferent) {
                 this.listErrorStatus = response.ListError;
@@ -88,6 +91,7 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
               this.listErrorStatus = [length = 0];
             }
             this.Success = false;
+            this.enableCloseButton = false;
             this.inProcess = false;
             if (this.data.showExport !== undefined) {
               this.showExport = this.data.showExport;
@@ -98,16 +102,19 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
           }
         } catch {
           this.Success = false;
+          this.enableCloseButton = false;
           this.inProcess = false;
           this.processFinish$.next(null);
         }
       });
     } else if (typeStatus === 2 && this.data.listError === null) {
       this.Success = true;
+      this.enableCloseButton = true;
       this.inProcess = false;
       this.cdr.detectChanges();
     } else if (typeStatus === 3 && this.data.listError !== null) {
       this.Success = false;
+      this.enableCloseButton = false;
       this.inProcess = false;
       if(this.data.type === 'paymentSummary'){
         this.listError = this.mapItemsResponseGeneric(this.data.listError);
