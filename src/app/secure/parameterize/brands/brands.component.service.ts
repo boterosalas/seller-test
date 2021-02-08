@@ -41,4 +41,24 @@ export class BrandService {
     return this.http.get(this.api.get('validateBrandsExact', [params]));
   }
 
+  /**
+   * Metodo para crear cargas masivas de marcas
+   * @param {*} data
+   * @returns
+   * @memberof BrandService
+   */
+  createMassiceBrands(data: any) {
+    return this.http.post(this.api.get('createMassiveBrand'), data);
+  }
+
+  /**
+   * Metodo para consultar el estado de las cargas masivas por marcas
+   * @param {*} data
+   * @returns
+   * @memberof BrandService
+   */
+  statusMassiceBrands(data: any) {
+    return this.http.get(this.api.get('createMassiveBrand', [data]));
+  }
+
 }
