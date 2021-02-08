@@ -62,7 +62,9 @@ export class CaseFilterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.sideFilter.toggle();
+    setTimeout(() => {
+      this.sideFilter.toggle();
+    }, 100);
     this.cleanFilter();
   }
 
@@ -106,7 +108,9 @@ export class CaseFilterComponent implements OnInit {
   }
 
   cleanFilter() {
-    this.filterForm.reset();
+    setTimeout(() => {
+      this.filterForm.reset();
+    }, 100);
   }
 
   openDateInitial() {
