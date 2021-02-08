@@ -295,7 +295,6 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
      * @param values
      */
     private setUserForm(values: any) {
-        console.log('values: ', values);
         this.isChannel = false;
         if (values && values.Profile === 'seller' && values.Country !== 'COLOMBIA') {
             this.isChannel = true;

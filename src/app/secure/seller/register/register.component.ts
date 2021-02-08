@@ -272,7 +272,6 @@ export class RegisterSellerComponent implements OnInit {
       this.Rut.enable();
       this.isColombiaSelect ? this.validationsForColombiaSelectSellerForm() : this.validationsForNotColombiaSelectSellerForm();
     });
-    console.log('this.isColombiaSelect: ', this.isColombiaSelect);
   }
 
   validationsForNotColombiaSelectSellerForm() {
