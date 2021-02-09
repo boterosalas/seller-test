@@ -11,6 +11,9 @@ env:
 phases:
 
   install:
+    runtime-versions:
+      nodejs: 12
+      
     commands:
       - echo Instalando Angular...
       - npm install -g @angular/cli@8.3.29
