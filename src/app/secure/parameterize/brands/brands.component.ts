@@ -8,9 +8,16 @@ import { FormGroup, Validators, FormControl, FormGroupDirective, NgForm } from '
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { readFunctionality, createFunctionality, updateFunctionality, MenuModel, brandName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
-import { EndpointService, LoadingService, ModalService } from '@app/core';
+import { EndpointService, LoadingService, Logger, ModalService } from '@app/core';
 import { CustomPaginator } from '../../products/list-products/listFilter/paginatorList';
 import { TranslateService } from '@ngx-translate/core';
+import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
+import { ComponentsService } from '@app/shared';
+import { FinishUploadInformationComponent } from '@app/secure/load-guide-page/finish-upload-information/finish-upload-information.component';
+
+const log = new Logger('BrandsComponent');
+
 
 /**
  * exporta funcion para mostrar los errores de validacion del formulario
@@ -106,6 +113,14 @@ export class BrandsComponent implements OnInit {
 
     public urlDownloadFile: string;
 
+    /* Input file que carga el archivo*/
+    @ViewChild('fileUploadOption') inputFileUpload: any;
+    /* Variable que se emplea para el proceso de la carga de excel, se indica 501 por que se cuenta la primera fila que contiene los titulos*/
+    public limitRowExcel: number;
+    public arrayNecessaryData: Array<any>;
+    public iVal: any;
+    public arrayInformationForSend: Array<{}>;
+    fileName: any;
 
     /**
      * Instanciar servicios, formularios y dialogos
@@ -122,16 +137,291 @@ export class BrandsComponent implements OnInit {
         private languageService: TranslateService,
         private modalService?: ModalService,
         private api?: EndpointService,
+        public componentService?: ComponentsService,
+
 
     ) { }
 
 
     ngOnInit() {
+        console.log('carga masiva marcas');
         this.getRegexByModule();
         this.createForm();
         this.validatePermission();
         this.getAllBrands();
         this.urlDownloadFile = this.api.get('uploadMasiveBrand');
+    }
+
+    resetUploadFIle() {
+        this.inputFileUpload.nativeElement.value = '';
+    }
+
+    resetVariableUploadFile() {
+        console.log('hola');
+        this.fileName = '';
+        this.arrayNecessaryData = [];
+    }
+
+    /**
+     * Funcionalidad que permite capturar los datos del excel.F
+     * @param {*} evt
+     * @returns {Promise<any>}
+     * @memberof BrandsComponent
+     */
+    readFileUpload(evt: any): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.loading.viewSpinner();
+            let data: any;
+            /* wire up file reader */
+            const target: DataTransfer = <DataTransfer>(evt.target);
+            if (target.files.length !== 1) {
+                throw new Error('Cannot use multiple files');
+            }
+            const reader: FileReader = new FileReader();
+            reader.onload = (e: any) => {
+                try {
+                    const bstr: string = e.target.result;
+                    const wb: XLSX.WorkBook = XLSX.read(bstr, { raw: true, type: 'binary', sheetRows: this.limitRowExcel });
+                    let ws: XLSX.WorkSheet;
+
+                    if (wb.Sheets && wb.Sheets['Hoja1']) {
+                        ws = wb.Sheets['Hoja1'];
+                    }
+                    /* save data */
+                    if (ws && ws !== null && ws !== undefined) {
+                        data = XLSX.utils.sheet_to_json(ws, { header: 1, defval: null });
+                        log.debug(data);
+                        resolve(data);
+                    } else {
+                        reject(e);
+                    }
+                } catch (e) {
+                    log.info(e);
+                    reject(e);
+                }
+            };
+            reader.readAsBinaryString(target.files[0]);
+        });
+    }
+
+    /**
+     * Metodo que se encarga de validar los datos del excel
+     * @param {*} res
+     * @param {*} file
+     * @memberof BrandsComponent
+     */
+    validateDataFromFile(res: any, file: any) {
+        console.log('res: ', res);
+        if (res.length > 1) {
+            let contEmptyRow = 0;
+            /*Se hace iteración en todas las filas del excel*/
+            for (let i = 0; i < res.length; i++) {
+                /*Se crea un nuevo objeto por cada fila que traiga el excel*/
+                this.arrayNecessaryData.push([]);
+                /*Se hace iteración en todas las columnas que tenga una fila del excel*/
+                for (let j = 0; j < res[0].length; j++) {
+                    /*Se valida si la primera celda de cada columna si tenga dato, si no tiene no se tendra en cuenta*/
+                    if (res[0][j] !== '' && res[0][j] !== null && res[0][j] !== undefined) {
+                        /*Se insertan los datos de la celda en el objeto creato anteriormente dentro del arreglo de datos necesarios, solo si el la primera celda de toda la columna trae datos*/
+                        this.arrayNecessaryData[i].push(res[i][j]);
+                    }
+                }
+            }
+
+            /*Constante para almacenar cuantas columnas tienes el archivo de excel*/
+            const numCol: any = this.arrayNecessaryData[0].length;
+
+            /*Se hace iteración en el arreglo dependiendo del número de filas*/
+            for (let i = 0; i < this.arrayNecessaryData.length; i++) {
+                /*Variable para contar cuantas celdas vacias tiene una fila*/
+                let contEmptycell = 0;
+                /*Variable para decir si una fila esta vacia*/
+                let rowEmpty = false;
+
+                /*Iteracion de 0 hasta el número de columnas */
+                for (let j = 0; j < numCol; j++) {
+                    /*Validación para saber si una celda esta vacia*/
+                    if (this.arrayNecessaryData[i][j] === undefined || this.arrayNecessaryData[i][j] === null ||
+                        this.arrayNecessaryData[i][j] === ' ' || this.arrayNecessaryData[i][j] === '') {
+                        /*Si hay celdas vacias se empiezan a contar*/
+                        contEmptycell += 1;
+                        /*Validación si el número de celdas vacias es igual al número de columnas*/
+                        if (contEmptycell === numCol) {
+                            /*Se empiezan a contar las filas vacias*/
+                            contEmptyRow += 1;
+                            /*Se confirma que hay una fila vacia*/
+                            rowEmpty = true;
+                        }
+                    }
+                }
+
+                /*Validación si hay fila vacia */
+                if (rowEmpty) {
+                    /*Si hay fila vacia esta se remueve y se devuelve la iteración un paso */
+                    this.arrayNecessaryData.splice(i, 1);
+                    i--;
+                }
+            }
+
+            /*Variable para contar el número de registros que esta en el excel, se resta 1 porque no se tiene en cuenta la primera fila que es la fila de titulos */
+            const numberRegister = this.arrayNecessaryData.length - 1;
+            /*
+            * if valido si el excel solo trae 2 registros y hay 1 vacio
+            * else if se valida que el documento tenga en los titulos o primera columna nos datos, EAN, Tipo de Productoo y Categoria
+            * else si no lo tiene significa que el formato es invalido y manda un error*/
+            console.log(res.length, contEmptyRow);
+            if ((res.length - contEmptyRow) === 1) {
+                this.loading.closeSpinner();
+                this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.no_information_contains'), 'Aceptar', 10000);
+            } else {
+                console.log('herer title');
+                if (this.arrayNecessaryData[0].includes('Nombre de marca')) {
+                    console.log('herer title si');
+                    this.iVal = {
+                        iNombreMarca: this.arrayNecessaryData[0].indexOf('Nombre de marca'),
+                    };
+                }
+
+                this.fileName = file.target.files[0].name;
+                this.sendJsonMassiveBrand(this.arrayNecessaryData);
+            }
+
+        } else {
+            console.log('false 2');
+            this.loading.closeSpinner();
+            this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.no_information_contains'), 'Aceptar', 10000);
+        }
+    }
+
+    sendJsonMassiveBrand(arraData) {
+        arraData.splice(0, 1);
+        let dataToSend = [];
+        arraData.forEach(element => {
+            console.log(element);
+            element.forEach(el => {
+                dataToSend.push(el);
+            });
+        });
+        console.log('arraData: ', arraData);
+        console.log('dataToSend: ', dataToSend);
+
+        this.brandService.createMassiceBrands(dataToSend).subscribe(res => {
+            if (res) {
+                const body = JSON.parse(res['body']);
+                console.log(body);
+                console.log(body['Data']);
+
+                if (body) {
+                    if (body.Data !== false) {
+                        this.openModalStatus(1, null);
+                    } else {
+                        this.snackBar.open(this.languageService.instant('public.auth.forgot.error_try_again'), this.languageService.instant('actions.close'), {
+                            duration: 3000,
+                        });
+                    }
+                } else {
+                    this.snackBar.open(this.languageService.instant('public.auth.forgot.error_try_again'), this.languageService.instant('actions.close'), {
+                        duration: 3000,
+                    });
+                }
+            } else {
+                this.snackBar.open(this.languageService.instant('public.auth.forgot.error_try_again'), this.languageService.instant('actions.close'), {
+                    duration: 3000,
+                });
+            }
+        });
+    }
+
+    clearListFiles() {
+        this.arrayInformationForSend = [];
+        this.fileName = '';
+        this.arrayNecessaryData = [];
+      }
+
+    openModalStatus(type: number, listError: any) {
+        this.loading.closeSpinner();
+        const intervalTime = 6000;
+        const data = {
+          successText: this.languageService.instant('secure.products.Finish_upload_product_information.successful_upload'),
+          failText: this.languageService.instant('secure.products.Finish_upload_product_information.error_upload'),
+          processText: this.languageService.instant('secure.products.Finish_upload_product_information.upload_progress'),
+          initTime: 500,
+          intervalTime: intervalTime,
+          listError: listError,
+          typeStatus: type,
+          showExport: false,
+          responseDiferent: true
+        };
+        const dialog = this.dialog.open(FinishUploadInformationComponent, {
+          width: '70%',
+          minWidth: '280px',
+          maxHeight: '80vh',
+          disableClose: type === 1,
+          data: data
+        });
+        const dialogIntance = dialog.componentInstance;
+        // dialogIntance.request = this.brandService.statusMassiceBrands();
+        // dialogIntance.processFinish$.subscribe((val) => {
+        //   dialog.disableClose = false;
+        //   this.clearListFiles();
+        // });
+        dialog.afterClosed().subscribe(result => {
+          this.clearListFiles();
+        });
+      }
+
+    onFileChange(evt: any) {
+        /*1. Limpio las variables empleadas en el proceso de carga.*/
+        this.resetVariableUploadFile();
+        /*2. Capturo los datos del excel*/
+        this.readFileUpload(evt).then(data => {
+            console.log('data: ', data);
+            /*3. Valido los datos del excel*/
+            this.validateDataFromFile(data, evt);
+            this.resetUploadFIle();
+        }, err => {
+            console.log('error');
+            this.loading.closeSpinner();
+            this.resetVariableUploadFile();
+            this.resetUploadFIle();
+            this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), this.languageService.instant('actions.accpet_min'), 4000);
+        });
+    }
+
+    verifyStatusLoad() {
+        this.brandService.statusMassiceBrands().subscribe((res) => {
+            console.log('res status: ', res);
+          try {
+            // if (res && res.status === 200) {
+            //   const { status, checked } = res.body.data;
+            //   if ((status === 1 || status === 4) && checked === 'true') {
+            //     const statusCurrent = 1;
+            //     setTimeout(() => { this.openModalStatus(statusCurrent, null); });
+            //   } else if (status === 2 && checked === 'true') {
+            //     setTimeout(() => { this.openModalStatus(status, null); });
+            //   } else if (status === 3 && checked === 'true') {
+            //     const response = res.body.data.response;
+            //     if (response) {
+            //       this.listErrorStatus = response.ListError;
+            //     } else {
+            //       this.listErrorStatus = null;
+            //     }
+            //     setTimeout(() => { this.openModalStatus(status, this.listErrorStatus); });
+            //   } else {
+            //     this.loading.closeSpinner();
+            //   }
+            // }
+          } catch {
+            this.loading.viewSpinner();
+          }
+        });
+      }
+
+    addInfoTosend(res: any, i: any, iVal: any, errorInCell: boolean = false) {
+        const newObjectForSend = {
+            Brand: res[i][iVal.iPLU] ? res[i][iVal.iNombreMarca].trim() : null,
+        };
+        this.arrayInformationForSend.push(newObjectForSend);
     }
 
     /**

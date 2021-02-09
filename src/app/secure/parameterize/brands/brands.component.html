@@ -59,8 +59,8 @@
         <div class="brands-label-filter">
           <div class="example-chip-list">
             <mat-chip-list #chipList>
-              <mat-chip *ngFor="let productsFilter of listFilterBrands" [selectable]="selectable" [removable]="removable"
-                (removed)="remove(productsFilter)">
+              <mat-chip *ngFor="let productsFilter of listFilterBrands" [selectable]="selectable"
+                [removable]="removable" (removed)="remove(productsFilter)">
                 {{productsFilter.name}}
                 <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
               </mat-chip>
@@ -70,21 +70,23 @@
         </div>
         <div class="brands-button-add">
           <div id="addButton" class="container-group-add-button">
-            <button mat-button mat-stroked-button *ngIf="canCreate && canRead" (click)="upsetBrands()" id="addUnitBrand">
+            <input placeholder="file upload" id="uploadFile" hidden name="fileUploadOption" type="file"
+              (change)="onFileChange($event)" multiple="false"
+              accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+              #fileUploadOption>
+            <button mat-button mat-stroked-button *ngIf="canCreate && canRead" (click)="upsetBrands()"
+              id="addUnitBrand">
               <strong>{{'secure.parametize.brands.btn_add_brand'| translate}}</strong>
             </button>
-            <button mat-button mat-stroked-button
+            <button mat-button mat-stroked-button (click)="fileUploadOption.click()"
               color="primary"><strong>{{'secure.parametize.brands.btn_add_brand_massive' | translate}}</strong></button>
           </div>
           <div>
-            <a
-                href="{{urlDownloadFile}}"
-                target="_parent">
-                <button color="primary" class="sc-default-button" id="download-file-button"
-                  mat-button>
-                  Descargar formato
-                </button>
-              </a>
+            <a href="{{urlDownloadFile}}" target="_parent">
+              <button color="primary" class="sc-default-button" id="download-file-button" mat-button>
+                Descargar formato
+              </button>
+            </a>
           </div>
         </div>
       </div>

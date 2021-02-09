@@ -57,8 +57,8 @@ export class BrandService {
    * @returns
    * @memberof BrandService
    */
-  statusMassiceBrands(data: any) {
-    return this.http.get(this.api.get('createMassiveBrand', [data]));
+  statusMassiceBrands() {
+    return this.http.get(this.api.get('createMassiveBrand'), { observe: 'response' });
   }
 
 }
