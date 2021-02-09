@@ -35,7 +35,7 @@ phases:
          fi
          
       - |
-         if expr "${CODEBUILD_INITIATOR}" : "codepipeline/SC-FRONT-PL-INT"; then
+         if expr "${CODEBUILD_INITIATOR}" : "codepipeline/SC-FRONT-PL-INT-A8"; then
            node --max_old_space_size=10000  node_modules/@angular/cli/bin/ng build --configuration=stage --aot;
            echo Compilacion terminada.;
            echo Borrando archivos de front en bucket...;
