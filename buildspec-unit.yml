@@ -4,7 +4,7 @@ phases:
 
   install:
     runtime-versions:
-      nodejs: 12.4.0
+      nodejs: 12.4
       
     commands:
       - npm -v
