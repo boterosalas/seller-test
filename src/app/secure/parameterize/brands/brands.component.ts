@@ -15,6 +15,7 @@ import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 import { ComponentsService } from '@app/shared';
 import { FinishUploadInformationComponent } from '@app/secure/load-guide-page/finish-upload-information/finish-upload-information.component';
+import { ModalBulkloadBrandsComponent } from './modal-bulkload-brands/modal-bulkload-brands.component';
 
 const log = new Logger('BrandsComponent');
 
@@ -122,6 +123,13 @@ export class BrandsComponent implements OnInit {
     public arrayInformationForSend: Array<{}>;
     fileName: any;
 
+    checkIfDoneCharge: any = null;
+
+
+    /* Mirar el estado del progreso de la carga*/
+    public progressStatus = false;
+
+
     /**
      * Instanciar servicios, formularios y dialogos
      * @param {BrandService} brandService
@@ -140,7 +148,9 @@ export class BrandsComponent implements OnInit {
         public componentService?: ComponentsService,
 
 
-    ) { }
+    ) {
+        this.setIntervalStatusCharge();
+    }
 
 
     ngOnInit() {
@@ -308,12 +318,10 @@ export class BrandsComponent implements OnInit {
         this.brandService.createMassiceBrands(dataToSend).subscribe(res => {
             if (res) {
                 const body = JSON.parse(res['body']);
-                console.log(body);
-                console.log(body['Data']);
-
                 if (body) {
                     if (body.Data !== false) {
-                        this.openModalStatus(1, null);
+                        this.progressStatus = false;
+                        this.setIntervalStatusCharge();
                     } else {
                         this.snackBar.open(this.languageService.instant('public.auth.forgot.error_try_again'), this.languageService.instant('actions.close'), {
                             duration: 3000,
@@ -324,10 +332,12 @@ export class BrandsComponent implements OnInit {
                         duration: 3000,
                     });
                 }
+                this.loading.closeSpinner();
             } else {
                 this.snackBar.open(this.languageService.instant('public.auth.forgot.error_try_again'), this.languageService.instant('actions.close'), {
                     duration: 3000,
                 });
+                this.loading.closeSpinner();
             }
         });
     }
@@ -336,39 +346,7 @@ export class BrandsComponent implements OnInit {
         this.arrayInformationForSend = [];
         this.fileName = '';
         this.arrayNecessaryData = [];
-      }
-
-    openModalStatus(type: number, listError: any) {
-        this.loading.closeSpinner();
-        const intervalTime = 6000;
-        const data = {
-          successText: this.languageService.instant('secure.products.Finish_upload_product_information.successful_upload'),
-          failText: this.languageService.instant('secure.products.Finish_upload_product_information.error_upload'),
-          processText: this.languageService.instant('secure.products.Finish_upload_product_information.upload_progress'),
-          initTime: 500,
-          intervalTime: intervalTime,
-          listError: listError,
-          typeStatus: type,
-          showExport: false,
-          responseDiferent: true
-        };
-        const dialog = this.dialog.open(FinishUploadInformationComponent, {
-          width: '70%',
-          minWidth: '280px',
-          maxHeight: '80vh',
-          disableClose: type === 1,
-          data: data
-        });
-        const dialogIntance = dialog.componentInstance;
-        // dialogIntance.request = this.brandService.statusMassiceBrands();
-        // dialogIntance.processFinish$.subscribe((val) => {
-        //   dialog.disableClose = false;
-        //   this.clearListFiles();
-        // });
-        dialog.afterClosed().subscribe(result => {
-          this.clearListFiles();
-        });
-      }
+    }
 
     onFileChange(evt: any) {
         /*1. Limpio las variables empleadas en el proceso de carga.*/
@@ -388,34 +366,76 @@ export class BrandsComponent implements OnInit {
         });
     }
 
-    verifyStatusLoad() {
-        this.brandService.statusMassiceBrands().subscribe((res) => {
-            console.log('res status: ', res);
-          try {
-            // if (res && res.status === 200) {
-            //   const { status, checked } = res.body.data;
-            //   if ((status === 1 || status === 4) && checked === 'true') {
-            //     const statusCurrent = 1;
-            //     setTimeout(() => { this.openModalStatus(statusCurrent, null); });
-            //   } else if (status === 2 && checked === 'true') {
-            //     setTimeout(() => { this.openModalStatus(status, null); });
-            //   } else if (status === 3 && checked === 'true') {
-            //     const response = res.body.data.response;
-            //     if (response) {
-            //       this.listErrorStatus = response.ListError;
-            //     } else {
-            //       this.listErrorStatus = null;
-            //     }
-            //     setTimeout(() => { this.openModalStatus(status, this.listErrorStatus); });
-            //   } else {
-            //     this.loading.closeSpinner();
-            //   }
-            // }
-          } catch {
-            this.loading.viewSpinner();
-          }
+    setIntervalStatusCharge() {
+        clearInterval(this.checkIfDoneCharge);
+        this.checkIfDoneCharge = setInterval(() => this.brandService.statusMassiceBrands().subscribe((res: any) => {
+            this.verifyStateCharge(res);
+        }), 7000);
+    }
+
+    public closeActualDialog(): void {
+        if (this.progressStatus) {
+            this.dialog.closeAll();
+        }
+    }
+
+    verifyStateCharge(result?: any) {
+        console.log(result);
+        // Convertimos el string que nos envia el response a JSON que es el formato que acepta
+        if (result.body.Data.Status === 1 || result.body.Data.Status === 4) {
+            result.body.Data.Status = 1;
+            if (!this.progressStatus) {
+                this.openDialogSendOrder(result);
+            }
+            this.progressStatus = true;
+        } else if (result.body.Data.Status === 2) {
+            clearInterval(this.checkIfDoneCharge);
+            this.closeActualDialog();
+            this.openDialogSendOrder(result);
+        } else if (result.body.Data.Status === 3) {
+            this.closeActualDialog();
+            clearInterval(this.checkIfDoneCharge);
+            const resultBody = JSON.parse(result.body.Data.Response);
+            if (resultBody.Errors.length > 0) {
+                this.openDialogSendOrder(result);
+            }
+        }
+    }
+
+    /**
+     * Metodo para abrir dialogo con msj de error o satisfactorio
+     * @param {*} res
+     * @memberof BrandsComponent
+     */
+    openDialogSendOrder(res: any): void {
+        if (!res.body.data) {
+            res.body.data = {};
+            res.body.data.status = 3;
+            res.productNotifyViewModel = res.body.productNotifyViewModel;
+        } else {
+            // Condicional apra mostrar errores mas profundos. ;
+            if (res.body.data.response) {
+                res.productNotifyViewModel = res.body.data.response.Data.ProductNotify;
+            } else {
+                if (res.body.data.status === undefined) {
+                    res.body.data.status = 3;
+                    res.productNotifyViewModel = res.body.data.productNotifyViewModel;
+                }
+            }
+        }
+        const dialogRef = this.dialog.open(ModalBulkloadBrandsComponent, {
+            width: '95%',
+            disableClose: res.body.data.status === 1,
+            data: {
+                response: res
+            },
         });
-      }
+        dialogRef.afterClosed().subscribe(result => {
+            log.info('The dialog was closed');
+        });
+    }
+
+
 
     addInfoTosend(res: any, i: any, iVal: any, errorInCell: boolean = false) {
         const newObjectForSend = {
@@ -455,7 +475,6 @@ export class BrandsComponent implements OnInit {
         if (page || limit) {
             this.countFilter++;
         } else { this.countFilter = 0; }
-
         if (this.filterBrandsName === '/') {
             filterName = encodeURIComponent(this.filterBrandsName);
         } else {
@@ -473,8 +492,8 @@ export class BrandsComponent implements OnInit {
         this.brandService.getAllBrands(this.urlParams).subscribe((result: any) => {
            /* tslint:disable */ const res = JSON.parse(result.body.replace(/([\[:])?(\d+)([,\}\]])/g, "$1\"$2\"$3")).Data; /* tslint:disable */
             if (res && parseInt(res.Total) > 0) {
-                this.brandsList = res.Brands,
-                    this.length = res.Total;
+                this.brandsList = res.Brands;
+                this.length = res.Total;
                 this.sortedData = this.mapItems(
                     res.Brands,
                 );
@@ -531,8 +550,7 @@ export class BrandsComponent implements OnInit {
         if (!sort.active || sort.direction === '') {
             this.sortedData = data;
             return;
-        } else { }
-
+        }
         this.sortedData = data.sort((a, b) => {
             const isAsc = sort.direction === 'asc';
             switch (sort.active) {
