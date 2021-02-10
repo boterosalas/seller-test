@@ -78,6 +78,7 @@ export class ManageSellerComponent implements OnInit {
   public name: FormControl;
   public isLogisticsExito: FormControl;
   public isShippingExito: FormControl;
+  public isChannelAdvisor: FormControl;
   public gotoExito: FormControl;
   public gotoCarrulla: FormControl;
   public gotoCatalogo: FormControl;
@@ -145,6 +146,9 @@ export class ManageSellerComponent implements OnInit {
   update = updateFunctionality;
   disabledComponent = false;
   department: string;
+
+  // Activar toogle channel advisor
+  toggleChannel: Boolean = false;
 
   /**
    * Creates an instance of ManageSellerComponent.
@@ -244,6 +248,7 @@ export class ManageSellerComponent implements OnInit {
               this.policy.setValue(this.currentSellerSelect.Policy);
               this.isLogisticsExito.setValue(this.currentSellerSelect.IsLogisticsExito);
               this.isShippingExito.setValue(this.currentSellerSelect.IsShippingExito);
+              this.isChannelAdvisor.setValue(this.currentSellerSelect.IsChannelAdvisor);
               this.gotoExito.setValue(this.currentSellerSelect.GotoExito);
               this.gotoCarrulla.setValue(this.currentSellerSelect.GotoCarrulla);
               this.gotoCatalogo.setValue(this.currentSellerSelect.GotoCatalogo);
@@ -346,6 +351,7 @@ export class ManageSellerComponent implements OnInit {
       [Validators.required, Validators.pattern(this.sellerRegex.warranty)]);
     this.isLogisticsExito = new FormControl({ value: '', disabled: disable });
     this.isShippingExito = new FormControl({ value: '', disabled: disable });
+    this.isChannelAdvisor = new FormControl({ value: '', disabled: disable });
     this.gotoExito = new FormControl({ value: '', disabled: disable });
     this.gotoCarrulla = new FormControl({ value: '', disabled: disable });
     this.gotoCatalogo = new FormControl({ value: '', disabled: disable });
@@ -382,6 +388,7 @@ export class ManageSellerComponent implements OnInit {
       Policy: this.policy,
       IsLogisticsExito: this.isLogisticsExito,
       IsShippingExito: this.isShippingExito,
+      IsChannelAdvisor: this.isChannelAdvisor,
       GotoExito: this.gotoExito,
       GotoCarrulla: this.gotoCarrulla,
       GotoCatalogo: this.gotoCatalogo,
@@ -683,6 +690,7 @@ export class ManageSellerComponent implements OnInit {
    * @memberof ManageSellerComponent
    */
   validationsForNotColombiaSelectSellerForm() {
+    this.toggleChannel = true;
     this.nit.setValidators(Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern(this.sellerRegex.internationalNit)]));
     this.rut.setValidators(Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern(this.sellerRegex.internationalRut)]));
     this.state.setValidators(Validators.compose([Validators.required, Validators.maxLength(60), Validators.pattern(this.sellerRegex.onlyLetter)]));
@@ -698,6 +706,7 @@ export class ManageSellerComponent implements OnInit {
    * @memberof ManageSellerComponent
    */
   validationsForColombiaSelectSellerForm() {
+    this.toggleChannel = false;
     this.nit.setValidators(Validators.compose([Validators.required, Validators.maxLength(20), Validators.pattern(this.sellerRegex.nit)]));
     this.rut.setValidators(Validators.compose([Validators.required, Validators.maxLength(20), Validators.pattern(this.sellerRegex.rut)]));
     this.state.setValidators(null);

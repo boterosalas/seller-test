@@ -7,27 +7,33 @@
           formControlName="IdSeller">
       </mat-form-field>
       <mat-form-field class="full-width">
-        <input matInput [placeholder]="('secure.seller.register_seller.lb_nit_form' | translate)"
-          autocomplete="false" formControlName="Nit">
+        <input matInput [placeholder]="('secure.seller.register_seller.lb_nit_form' | translate)" autocomplete="false"
+          formControlName="Nit">
       </mat-form-field>
       <mat-form-field class="full-width">
         <input matInput [placeholder]="('secure.seller.register_seller.lb_store_name_form' | translate)"
           autocomplete="false" formControlName="Name">
       </mat-form-field>
       <mat-form-field class="full-width">
-        <input matInput [placeholder]="('secure.seller.register_seller.lb_email_form' | translate)"
-          autocomplete="false" formControlName="Email">
+        <input matInput [placeholder]="('secure.seller.register_seller.lb_email_form' | translate)" autocomplete="false"
+          formControlName="Email">
       </mat-form-field>
     </form>
+    <div *ngIf="isChannel && channelAdvisor" class=" classToken">
+      {{'secure.seller.register_seller.lb_channel_token' | translate}}:
+      <br>
+      {{channelAdvisor}}
+    </div>
   </div>
-  <div *ngIf="canVacation" class="sub-content" >
+  <div *ngIf="canVacation" class="sub-content">
     <ng-container *ngIf="isInVacation; else programVacations">
       <mat-card id="info-vacation" class="mat card">
         <div class="options">
           <mat-icon id="btn-edit-vacations" (click)="sendToOpenVacationDialog()" [ngClass]="{disabledDiv: isDisable}">
             edit
           </mat-icon>
-          <mat-icon *ngIf="canCancelVacation" id="btn-cancel-vacations" (click)="sendToOpenCancelVacationDialog()" [ngClass]="{disabledDiv: isDisable}">
+          <mat-icon *ngIf="canCancelVacation" id="btn-cancel-vacations" (click)="sendToOpenCancelVacationDialog()"
+            [ngClass]="{disabledDiv: isDisable}">
             delete
           </mat-icon>
         </div>
