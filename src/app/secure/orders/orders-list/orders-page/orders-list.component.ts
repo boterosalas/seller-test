@@ -477,8 +477,14 @@ export class OrdersListComponent implements OnInit, OnDestroy {
           const data = {
             idStatusOrder: this.currentRootPage
           };
+          const paramsArray = {
+            'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
+            'idSeller': this.idSeller,
+            'state': this.currentRootPage,
+            'callOne': true
+          };
           this.orderService.setCurrentFilterOrders(data);
-          this.getOrdersList(this.currentRootPage);
+          this.getOrdersList(paramsArray);
           this.setTitleToolbar();
         } else {
           this.orderService.setCurrentFilterOrders({});
@@ -564,8 +570,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
         if (res.pendingResponse) {
           this.getOrdersList(params);
         } else {
-          if (params && params.state !== '') {
-            stateCurrent = params.state;
+            stateCurrent = params ? params.state : null;
             this.lastState = stateCurrent;
             this.setTable(res);
             if (params && params.callOne) {
@@ -574,8 +579,6 @@ export class OrdersListComponent implements OnInit, OnDestroy {
             }
             const paginator = { 'pageIndex': 0 };
             this.addCheckOptionInProduct(res.data.viewModel, paginator);
-
-          }
         }
       }
     });
@@ -626,7 +629,6 @@ export class OrdersListComponent implements OnInit, OnDestroy {
         this.arrayPosition.push('{}');
       }
       this.dataSource = new MatTableDataSource(res.data.viewModel);
-      //borrar por si lo hace el back
       res.data.viewModel.forEach(element => {
         element.statusLoad = false;
       });
