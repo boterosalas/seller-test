@@ -2,8 +2,8 @@ version: 0.2
 
 env:
   variables:
-    S3_BUCKET_DEV: "sellercenter.exito.com.co"
-    CLOUDFRONT_DISTRIBUTION_ID_DEV: "E3462U4NPR8XV7"
+    S3_BUCKET_DEV: "seller-angular8-test"
+    CLOUDFRONT_DISTRIBUTION_ID_DEV: "E1AUTA58W9PDCT"
     S3_BUCKET_PROD: "sellercenterprod.exito.com.co"
     CLOUDFRONT_DISTRIBUTION_ID_PROD: "E34UHKF31PAFG2"
     S3_BUCKET_DOC: "sellercenter.frontdoc.exito.com.co"
@@ -11,9 +11,12 @@ env:
 phases:
 
   install:
+    runtime-versions:
+      nodejs: 12
+      
     commands:
       - echo Instalando Angular...
-      - npm install -g @angular/cli@6.1.5
+      - npm install -g @angular/cli@8.3.29
       - echo Instalacion de Angular finalizada.
   build:
     commands:
@@ -35,7 +38,7 @@ phases:
          fi
          
       - |
-         if expr "${CODEBUILD_INITIATOR}" : "codepipeline/SC-FRONT-PL-INT"; then
+         if expr "${CODEBUILD_INITIATOR}" : "codepipeline/SC-FRONT-PL-INT-A8"; then
            node --max_old_space_size=10000  node_modules/@angular/cli/bin/ng build --configuration=stage --aot;
            echo Compilacion terminada.;
            echo Borrando archivos de front en bucket...;
