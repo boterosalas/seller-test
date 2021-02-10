@@ -447,19 +447,15 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   clearData() {
     this.subFilterOrder = this.shellComponent.eventEmitterOrders.clearTable.subscribe(
       (data: any) => {
-        if(data) {
-          this.getAllOrderList();
-        }
-        
-        // const paramsArray = {
-        //   'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
-        //   'idSeller': this.idSeller,
-        //   'state': this.lastState,
-        //   'callOne': true,
-        //   'clear': true
-        // };
-        // this.isClear = true;
-        // this.getOrdersList(paramsArray);
+        const paramsArray = {
+          'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
+          'idSeller': this.idSeller,
+          'state': this.lastState,
+          'callOne': true,
+          'clear': true
+        };
+        this.isClear = true;
+        this.getOrdersList(paramsArray);
       });
   }
 
