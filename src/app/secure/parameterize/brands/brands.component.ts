@@ -11,10 +11,8 @@ import { AuthService } from '@app/secure/auth/auth.routing';
 import { EndpointService, LoadingService, Logger, ModalService } from '@app/core';
 import { CustomPaginator } from '../../products/list-products/listFilter/paginatorList';
 import { TranslateService } from '@ngx-translate/core';
-import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 import { ComponentsService } from '@app/shared';
-import { FinishUploadInformationComponent } from '@app/secure/load-guide-page/finish-upload-information/finish-upload-information.component';
 import { ModalBulkloadBrandsComponent } from './modal-bulkload-brands/modal-bulkload-brands.component';
 
 const log = new Logger('BrandsComponent');
@@ -154,7 +152,6 @@ export class BrandsComponent implements OnInit {
 
 
     ngOnInit() {
-        console.log('carga masiva marcas');
         this.getRegexByModule();
         this.createForm();
         this.validatePermission();
@@ -163,12 +160,19 @@ export class BrandsComponent implements OnInit {
         this.setIntervalStatusCharge();
     }
 
+    /**
+     * Limpio el input file
+     * @memberof BrandsComponent
+     */
     resetUploadFIle() {
         this.inputFileUpload.nativeElement.value = '';
     }
 
+    /**
+     * Limpio las variables empleadas para visualizar los resultados de la carga
+     * @memberof BrandsComponent
+     */
     resetVariableUploadFile() {
-        console.log('hola');
         this.fileName = '';
         this.arrayNecessaryData = [];
     }
@@ -194,7 +198,6 @@ export class BrandsComponent implements OnInit {
                     const bstr: string = e.target.result;
                     const wb: XLSX.WorkBook = XLSX.read(bstr, { raw: true, type: 'binary', sheetRows: this.limitRowExcel });
                     let ws: XLSX.WorkSheet;
-
                     if (wb.Sheets && wb.Sheets['Hoja1']) {
                         ws = wb.Sheets['Hoja1'];
                     }
@@ -222,7 +225,6 @@ export class BrandsComponent implements OnInit {
      * @memberof BrandsComponent
      */
     validateDataFromFile(res: any, file: any) {
-        console.log('res: ', res);
         if (res.length > 1) {
             let contEmptyRow = 0;
             /*Se hace iteración en todas las filas del excel*/
@@ -265,7 +267,6 @@ export class BrandsComponent implements OnInit {
                         }
                     }
                 }
-
                 /*Validación si hay fila vacia */
                 if (rowEmpty) {
                     /*Si hay fila vacia esta se remueve y se devuelve la iteración un paso */
@@ -280,30 +281,29 @@ export class BrandsComponent implements OnInit {
             * if valido si el excel solo trae 2 registros y hay 1 vacio
             * else if se valida que el documento tenga en los titulos o primera columna nos datos, EAN, Tipo de Productoo y Categoria
             * else si no lo tiene significa que el formato es invalido y manda un error*/
-            console.log(res.length, contEmptyRow);
             if ((res.length - contEmptyRow) === 1) {
                 this.loading.closeSpinner();
                 this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.no_information_contains'), 'Aceptar', 10000);
             } else {
-                console.log('herer title');
                 if (this.arrayNecessaryData[0].includes('Nombre de marca')) {
-                    console.log('herer title si');
                     this.iVal = {
                         iNombreMarca: this.arrayNecessaryData[0].indexOf('Nombre de marca'),
                     };
                 }
-
                 this.fileName = file.target.files[0].name;
                 this.sendJsonMassiveBrand(this.arrayNecessaryData);
             }
-
         } else {
-            console.log('false 2');
             this.loading.closeSpinner();
             this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.no_information_contains'), 'Aceptar', 10000);
         }
     }
 
+    /**
+     * Metodo para enviar JSON al back con array de marcas
+     * @param {*} arraData
+     * @memberof BrandsComponent
+     */
     sendJsonMassiveBrand(arraData) {
         arraData.splice(0, 1);
         let dataToSend = [];
@@ -339,23 +339,30 @@ export class BrandsComponent implements OnInit {
         });
     }
 
+    /**
+     * Funcion para limpiar la lista de archivos
+     * @memberof BrandsComponent
+     */
     clearListFiles() {
         this.arrayInformationForSend = [];
         this.fileName = '';
         this.arrayNecessaryData = [];
     }
 
+    /**
+     * Método que permite detectar el input file
+     * @param {*} evt
+     * @memberof BrandsComponent
+     */
     onFileChange(evt: any) {
         /*1. Limpio las variables empleadas en el proceso de carga.*/
         this.resetVariableUploadFile();
         /*2. Capturo los datos del excel*/
         this.readFileUpload(evt).then(data => {
-            console.log('data: ', data);
             /*3. Valido los datos del excel*/
             this.validateDataFromFile(data, evt);
             this.resetUploadFIle();
         }, err => {
-            console.log('error');
             this.loading.closeSpinner();
             this.resetVariableUploadFile();
             this.resetUploadFIle();
@@ -363,6 +370,10 @@ export class BrandsComponent implements OnInit {
         });
     }
 
+    /**
+     * Funcion para ejecutir el serv de status cada cierto tiempo
+     * @memberof BrandsComponent
+     */
     setIntervalStatusCharge() {
         clearInterval(this.checkIfDoneCharge);
         this.checkIfDoneCharge = setInterval(() => this.brandService.statusMassiceBrands().subscribe((res: any) => {
@@ -370,18 +381,25 @@ export class BrandsComponent implements OnInit {
         }), 7000);
     }
 
+    /**
+     * Metodo para cerrar el dialogo
+     * @memberof BrandsComponent
+     */
     public closeActualDialog(): void {
         if (this.progressStatus) {
             this.dialog.closeAll();
         }
     }
-
+    
+    /**
+     * Metodo para validar el status de la carga y abrir el modal de errores, proceso, o satisfactorio
+     * @param {*} [result]
+     * @memberof BrandsComponent
+     */
     verifyStateCharge(result?: any) {
-        console.log(result);
         if (result.body.Data.Checked === 'true') {
             clearInterval(this.checkIfDoneCharge);
         } else if (result.body.Data.Status === 1 || result.body.Data.Status === 4) {
-            console.log(1);
             result.body.Data.Status = 1;
             if (!this.progressStatus) {
                 this.openDialogSendOrder(result);
@@ -389,13 +407,11 @@ export class BrandsComponent implements OnInit {
             this.progressStatus = true;
             this.loading.closeSpinner();
         } else if (result.body.Data.Status === 2) {
-            console.log(2);
             clearInterval(this.checkIfDoneCharge);
             this.closeActualDialog();
             this.openDialogSendOrder(result);
             this.loading.closeSpinner();
         } else if (result.body.Data.Status === 3) {
-            console.log(3);
             this.closeActualDialog();
             clearInterval(this.checkIfDoneCharge);
             const resultBody = JSON.parse(result.body.Data.Response);
@@ -441,12 +457,12 @@ export class BrandsComponent implements OnInit {
 
 
 
-    addInfoTosend(res: any, i: any, iVal: any, errorInCell: boolean = false) {
-        const newObjectForSend = {
-            Brand: res[i][iVal.iPLU] ? res[i][iVal.iNombreMarca].trim() : null,
-        };
-        this.arrayInformationForSend.push(newObjectForSend);
-    }
+    // addInfoTosend(res: any, i: any, iVal: any, errorInCell: boolean = false) {
+    //     const newObjectForSend = {
+    //         Brand: res[i][iVal.iPLU] ? res[i][iVal.iNombreMarca].trim() : null,
+    //     };
+    //     this.arrayInformationForSend.push(newObjectForSend);
+    // }
 
     /**
      * Funcion para consultar las marcas registradas, recibe filtros, parametros y validacion para mostrar errores

@@ -21,7 +21,6 @@ export class ModalBulkloadBrandsComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ModalBulkloadBrandsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private languageService: TranslateService
   ) {
     this.response = data.response;
   
@@ -34,10 +33,6 @@ export class ModalBulkloadBrandsComponent implements OnInit {
         this.viewModel = JSON.parse(this.productNotifyViewModel);
       }
     }
-    console.log('this.response: ', this.response);
-    console.log('this.productNotifyViewModel: ', this.productNotifyViewModel);
-    console.log('viewModel: ', this.viewModel);
-
   }
 
 

@@ -22,9 +22,28 @@
     }
 
     & .error-string {
+      margin-bottom: 0px;
+      padding-bottom: 0px;
       & mat-icon {
         color: #F44336;
         margin-right: 10px;
+      }
+      &-container-icon-color-process-send{
+        vertical-align: bottom;
+        color:#FFDA10;
+        padding-right: 6px;
+      }
+    
+      &-container-icon-color-expired{
+        vertical-align: bottom;
+        color: red;
+        padding-right: 10px;
+      }
+    
+      &-container-icon-color-delivered{
+        vertical-align:bottom;
+        color: #34B72D;
+        padding-right: 6px;
       }
     }
     & .succes-card {
