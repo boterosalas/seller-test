@@ -128,6 +128,7 @@ export class BrandsComponent implements OnInit {
 
     /* Mirar el estado del progreso de la carga*/
     public progressStatus = false;
+    setInterval: any;
 
 
     /**
@@ -149,7 +150,6 @@ export class BrandsComponent implements OnInit {
 
 
     ) {
-        this.setIntervalStatusCharge();
     }
 
 
@@ -160,6 +160,7 @@ export class BrandsComponent implements OnInit {
         this.validatePermission();
         this.getAllBrands();
         this.urlDownloadFile = this.api.get('uploadMasiveBrand');
+        this.setIntervalStatusCharge();
     }
 
     resetUploadFIle() {
@@ -307,14 +308,11 @@ export class BrandsComponent implements OnInit {
         arraData.splice(0, 1);
         let dataToSend = [];
         arraData.forEach(element => {
-            console.log(element);
             element.forEach(el => {
                 dataToSend.push(el);
             });
         });
-        console.log('arraData: ', arraData);
-        console.log('dataToSend: ', dataToSend);
-
+        this.loading.viewSpinner();
         this.brandService.createMassiceBrands(dataToSend).subscribe(res => {
             if (res) {
                 const body = JSON.parse(res['body']);
@@ -332,7 +330,6 @@ export class BrandsComponent implements OnInit {
                         duration: 3000,
                     });
                 }
-                this.loading.closeSpinner();
             } else {
                 this.snackBar.open(this.languageService.instant('public.auth.forgot.error_try_again'), this.languageService.instant('actions.close'), {
                     duration: 3000,
@@ -381,24 +378,31 @@ export class BrandsComponent implements OnInit {
 
     verifyStateCharge(result?: any) {
         console.log(result);
-        // Convertimos el string que nos envia el response a JSON que es el formato que acepta
-        if (result.body.Data.Status === 1 || result.body.Data.Status === 4) {
+        if (result.body.Data.Checked === 'true') {
+            clearInterval(this.checkIfDoneCharge);
+        } else if (result.body.Data.Status === 1 || result.body.Data.Status === 4) {
+            console.log(1);
             result.body.Data.Status = 1;
             if (!this.progressStatus) {
                 this.openDialogSendOrder(result);
             }
             this.progressStatus = true;
+            this.loading.closeSpinner();
         } else if (result.body.Data.Status === 2) {
+            console.log(2);
             clearInterval(this.checkIfDoneCharge);
             this.closeActualDialog();
             this.openDialogSendOrder(result);
+            this.loading.closeSpinner();
         } else if (result.body.Data.Status === 3) {
+            console.log(3);
             this.closeActualDialog();
             clearInterval(this.checkIfDoneCharge);
             const resultBody = JSON.parse(result.body.Data.Response);
             if (resultBody.Errors.length > 0) {
                 this.openDialogSendOrder(result);
             }
+            this.loading.closeSpinner();
         }
     }
 

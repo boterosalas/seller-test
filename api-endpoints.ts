@@ -266,7 +266,7 @@ export const endpoints = {
       // Envia un correo con el reporte
       sendModuleReportDispersion: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/pendingpaymentnews/{params}',
       // Descargar formato masiva de marcas
-      uploadMasiveBrand: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates-Dev/TemplateMassiveBrands.xlsx',
+      uploadMasiveBrand: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates-Dev/PlantillaCargaMasivaMarcas.xlsx',
       // Crear marcas masivas (post)
       createMassiveBrand: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/CreateMassive',
       // Consultar estado de crear Marcas Masivas (get)
@@ -534,7 +534,7 @@ export const endpoints = {
       // Envia un correo con el reporte
       sendModuleReportDispersion: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/pendingpaymentnews/{params}',
       // Descargar formato masiva de marcas
-      uploadMasiveBrand: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates/TemplateMassiveBrands.xlsx',
+      uploadMasiveBrand: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates/PlantillaCargaMasivaMarcas.xlsx',
       // Crear marcas masivas (post)
       createMassiveBrand: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/CreateMassive',
       // Consultar estado de crear Marcas Masivas (get)
