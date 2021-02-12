@@ -85,6 +85,9 @@ export class RegisterSellerComponent implements OnInit {
   create = createFunctionality;
   disabledComponent = false;
 
+  // Activar toogle channel advisor
+  toggleChannel: Boolean = false;
+
   constructor(
     private registerService: RegisterService,
     private loadingService: LoadingService,
@@ -206,6 +209,7 @@ export class RegisterSellerComponent implements OnInit {
       Payoneer: new FormControl({ value: '', disabled: this.isColombiaSelect }),
       IsLogisticsExito: new FormControl({ value: false, disabled: disabledForm }),
       IsShippingExito: new FormControl({ value: true, disabled: disabledForm }),
+      IsChannelAdvisor: new FormControl({ value: true, disabled: disabledForm }),
       GotoExito: new FormControl({ value: true, disabled: disabledForm }),
       GotoCarrulla: new FormControl({ value: false, disabled: disabledForm }),
       GotoCatalogo: new FormControl({ value: true, disabled: disabledForm }),
@@ -269,6 +273,7 @@ export class RegisterSellerComponent implements OnInit {
   }
 
   validationsForNotColombiaSelectSellerForm() {
+    this.toggleChannel = true;
     this.Nit.setValidators(Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern(this.sellerRegex.internationalIdentifier)]));
     this.Rut.setValidators(Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern(this.sellerRegex.internationalIdentifier)]));
     this.State.setValidators(Validators.compose([Validators.required, Validators.maxLength(60), Validators.pattern(this.sellerRegex.internationalLocation)]));
@@ -280,6 +285,7 @@ export class RegisterSellerComponent implements OnInit {
   }
 
   validationsForColombiaSelectSellerForm() {
+    this.toggleChannel = false;
     this.Nit.setValidators(Validators.compose([Validators.required, Validators.maxLength(20), Validators.pattern(this.sellerRegex.integerNumber)]));
     this.Rut.setValidators(Validators.compose([Validators.required, Validators.maxLength(20), Validators.pattern(this.sellerRegex.integerNumber)]));
     this.State.setValidators(null);
@@ -597,6 +603,10 @@ export class RegisterSellerComponent implements OnInit {
 
   get ShippingExito(): FormControl {
     return this.validateFormRegister.get('IsShippingExito') as FormControl;
+  }
+
+  get ChannelAdvisor(): FormControl {
+    return this.validateFormRegister.get('IsChannelAdvisor') as FormControl;
   }
 }
 

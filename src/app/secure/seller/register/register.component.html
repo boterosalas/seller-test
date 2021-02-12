@@ -303,6 +303,9 @@
                   <mat-slide-toggle id="register-is-shipping-exito" formControlName="IsShippingExito">
                     {{'secure.seller.register_seller.lb_envios_form' | translate}}
                   </mat-slide-toggle>
+                  <mat-slide-toggle id="register-is-channel-advisor" formControlName="IsChannelAdvisor" *ngIf="toggleChannel">
+                    {{'secure.seller.register_seller.lb_channel_form' | translate}}
+                  </mat-slide-toggle>
                 </div>
 
               </div>

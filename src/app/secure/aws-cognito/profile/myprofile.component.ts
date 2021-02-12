@@ -51,6 +51,10 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     userData: any;
     isDisable: boolean;
 
+    // Seller nacional o internacional
+    isChannel: Boolean = false;
+    channelAdvisor: any;
+
     constructor(
         public router: Router,
         public userService: UserLoginService,
@@ -114,7 +118,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
             Nit: [''],
             Email: [''],
             IdSeller: [''],
-            Name: ['']
+            Name: [''],
         });
     }
 
@@ -292,6 +296,11 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
      * @param values
      */
     private setUserForm(values: any) {
+        this.isChannel = false;
+        if (values && values.Profile === 'seller' && values.Country !== 'COLOMBIA') {
+            this.isChannel = true;
+            this.channelAdvisor = values.TokenChannel;
+        }
         this.form.patchValue(values);
         this.Nit.disable();
         this.Email.disable();
