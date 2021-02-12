@@ -127,6 +127,7 @@ export class BrandsComponent implements OnInit {
     /* Mirar el estado del progreso de la carga*/
     public progressStatus = false;
     setInterval: any;
+    fileSize: any;
 
 
     /**
@@ -178,14 +179,13 @@ export class BrandsComponent implements OnInit {
     }
 
     /**
-     * Funcionalidad que permite capturar los datos del excel.F
+     * Funcionalidad que permite capturar los datos del excel.
      * @param {*} evt
      * @returns {Promise<any>}
      * @memberof BrandsComponent
      */
     readFileUpload(evt: any): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.loading.viewSpinner();
             let data: any;
             /* wire up file reader */
             const target: DataTransfer = <DataTransfer>(evt.target);
@@ -291,6 +291,7 @@ export class BrandsComponent implements OnInit {
                     };
                 }
                 this.fileName = file.target.files[0].name;
+                this.fileSize = file.target.files[0].size;
                 this.sendJsonMassiveBrand(this.arrayNecessaryData);
             }
         } else {
@@ -305,6 +306,12 @@ export class BrandsComponent implements OnInit {
      * @memberof BrandsComponent
      */
     sendJsonMassiveBrand(arraData) {
+        let sendBrand = false;
+        if (this.fileSize > 8000000) {
+            this.componentService.openSnackBar('El archivo no puede pesar mas de 8MB.', 'Aceptar', 7000);
+            sendBrand = true;
+        }
+        console.log('this.fileSize: ', this.fileSize);
         arraData.splice(0, 1);
         let dataToSend = [];
         arraData.forEach(element => {
@@ -312,14 +319,24 @@ export class BrandsComponent implements OnInit {
                 dataToSend.push(el);
             });
         });
-        this.loading.viewSpinner();
-        this.brandService.createMassiceBrands(dataToSend).subscribe(res => {
-            if (res) {
-                const body = JSON.parse(res['body']);
-                if (body) {
-                    if (body.Data !== false) {
-                        this.progressStatus = false;
-                        this.setIntervalStatusCharge();
+        if (dataToSend.length > 300) {
+            this.componentService.openSnackBar('El archivo no puede tener mas de 300 marcas.', 'Aceptar', 7000);
+            sendBrand = true;
+        }
+        if (!sendBrand) {
+            this.loading.viewSpinner();
+            this.brandService.createMassiceBrands(dataToSend).subscribe(res => {
+                if (res) {
+                    const body = JSON.parse(res['body']);
+                    if (body) {
+                        if (body.Data !== false) {
+                            this.progressStatus = false;
+                            this.setIntervalStatusCharge();
+                        } else {
+                            this.snackBar.open(this.languageService.instant('public.auth.forgot.error_try_again'), this.languageService.instant('actions.close'), {
+                                duration: 3000,
+                            });
+                        }
                     } else {
                         this.snackBar.open(this.languageService.instant('public.auth.forgot.error_try_again'), this.languageService.instant('actions.close'), {
                             duration: 3000,
@@ -329,14 +346,10 @@ export class BrandsComponent implements OnInit {
                     this.snackBar.open(this.languageService.instant('public.auth.forgot.error_try_again'), this.languageService.instant('actions.close'), {
                         duration: 3000,
                     });
+                    this.loading.closeSpinner();
                 }
-            } else {
-                this.snackBar.open(this.languageService.instant('public.auth.forgot.error_try_again'), this.languageService.instant('actions.close'), {
-                    duration: 3000,
-                });
-                this.loading.closeSpinner();
-            }
-        });
+            });
+        }
     }
 
     /**
@@ -359,6 +372,7 @@ export class BrandsComponent implements OnInit {
         this.resetVariableUploadFile();
         /*2. Capturo los datos del excel*/
         this.readFileUpload(evt).then(data => {
+            console.log('data: ', data);
             /*3. Valido los datos del excel*/
             this.validateDataFromFile(data, evt);
             this.resetUploadFIle();
@@ -390,7 +404,7 @@ export class BrandsComponent implements OnInit {
             this.dialog.closeAll();
         }
     }
-    
+
     /**
      * Metodo para validar el status de la carga y abrir el modal de errores, proceso, o satisfactorio
      * @param {*} [result]
