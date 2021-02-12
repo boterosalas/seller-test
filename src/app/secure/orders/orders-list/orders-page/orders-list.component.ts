@@ -143,7 +143,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   showMenssage = false;
   isClear = false;
   pageIndexChange = 0;
-  isFullSearch = true;
+  isFullSearch = false;
 
 
   typeProfile: number;
