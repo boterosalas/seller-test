@@ -488,6 +488,7 @@ export class PendingProductsComponent implements OnInit {
    * @memberof PendingProductsComponent
    */
   public filterProductsModify2() {
+    setTimeout(() => {
     this.cleanFilterListProductsModify();
     this.nameProductList2 = this.filterProdutsValidation.controls.productName2.value || null;
     this.eanList2 = this.filterProdutsValidation.controls.ean2.value || null;
@@ -496,6 +497,7 @@ export class PendingProductsComponent implements OnInit {
     this.dataChips2.push({ value: this.nameProductList2, name: 'nameProductList2', nameFilter: 'productName2' });
     this.dataChips2.push({ value: this.eanList2, name: 'eanList2', nameFilter: 'ean2' });
     this.add2(this.dataChips2);
+  }, 1000);
   }
 
   /**

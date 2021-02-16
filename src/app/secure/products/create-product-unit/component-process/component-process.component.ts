@@ -102,8 +102,9 @@ export class ComponentProcessComponent implements OnInit {
   getDetailProduct() {
     if (this.pendingProduct) {
       if (this.ean) {
-     
+        setTimeout(() => {
         this.stepper.selectedIndex = 1;
+      }, 1000);
         this.editFirstStep = false;
         this.isLinear = false;
         if (this.reference === '' || this.reference === null || this.reference === ' ') {
