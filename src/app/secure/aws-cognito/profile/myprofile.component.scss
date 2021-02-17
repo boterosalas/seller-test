@@ -36,6 +36,11 @@ $modal: 72px;
   pointer-events: none;
 }
 
+.classToken{
+  word-break: break-all;
+  color: rgba(0,0,0,0.38)
+}
+
 .profile-content {
   width: 80%;
   margin: 0 auto;
@@ -52,7 +57,7 @@ $modal: 72px;
     width: 50%;
     padding: 0 2%;
     justify-content: center;
-    display: flex;
+    display: grid;
     margin-bottom: 20px;
 
     @media screen and (max-width: 600px) {
