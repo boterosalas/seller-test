@@ -311,7 +311,6 @@ export class BrandsComponent implements OnInit {
             this.componentService.openSnackBar('El archivo no puede pesar mas de 8MB.', 'Aceptar', 7000);
             sendBrand = true;
         }
-        console.log('this.fileSize: ', this.fileSize);
         arraData.splice(0, 1);
         let dataToSend = [];
         arraData.forEach(element => {
@@ -372,7 +371,6 @@ export class BrandsComponent implements OnInit {
         this.resetVariableUploadFile();
         /*2. Capturo los datos del excel*/
         this.readFileUpload(evt).then(data => {
-            console.log('data: ', data);
             /*3. Valido los datos del excel*/
             this.validateDataFromFile(data, evt);
             this.resetUploadFIle();
