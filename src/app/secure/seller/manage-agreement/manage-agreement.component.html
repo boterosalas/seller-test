@@ -1,41 +1,42 @@
 <div>
   <mat-toolbar class="tree-toolbar">
-      <div class="normal-theme toolbar-options-table flexbox justify-start align-center" fxLayout.xs="column">
-          <!-- Titulo del toolbar -->
-          <p class="tree-title">
-              {{'secure.seller.contracts.lb_title_toolbar' | translate}}
-              <small class="sub-title">| {{'menu.Administrar Acuerdos' | translate}}</small>
-          </p>
-      </div>
+    <div class="normal-theme toolbar-options-table flexbox justify-start align-center" fxLayout.xs="column">
+      <!-- Titulo del toolbar -->
+      <p class="tree-title">
+        {{'secure.seller.contracts.lb_title_toolbar' | translate}}
+        <small class="sub-title">| {{'menu.Administrar Acuerdos' | translate}}</small>
+      </p>
+    </div>
   </mat-toolbar>
 </div>
 
 <div class="brands-button-agreement">
-    <div id="addButton" class="container-group-agreement-button">
-      <button mat-button  (click)="upsetBrands()">
-        {{'secure.parametize.brands.btn_add_brand'| translate}}
+  <div id="addButton" class="container-group-agreement-button">
+    <button mat-button mat-stroked-button color="primary">
+      <strong>Carga masiva de acuerdos</strong>
+    </button>
+  </div>
+</div>
+
+<div class="list-container">
+  <div class="agreement">
+    <div class="agreement-title" fxLayout="row" fxLayoutAlign="space-between center">
+      <p>{{'shared.name' | translate}}</p>
+      <p style="margin-right: 10%;">{{'shared.actions' | translate}}</p>
+    </div>
+    <div *ngFor="let agreement of manageAgreementsSeller" fxLayout="row" fxLayoutAlign="space-between center"
+      class="list-agreement">
+      <div fxLayoutAlign="start center" fxLayout="row" class="width-80">
+        <mat-icon class="material-icons" class="file-agreement">
+          insert_drive_file
+        </mat-icon>
+        <p>{{agreement.ContractName}}</p>
+      </div>
+      <button mat-icon-button (click)="getPDF(agreement)" *ngIf="download">
+        <mat-icon class="material-icons">
+          get_app
+        </mat-icon>
       </button>
     </div>
   </div>
-
-<div class="list-container">
-    <div  class="agreement">
-        <div class="agreement-title" fxLayout="row" fxLayoutAlign="space-between center" >
-            <p>{{'shared.name' | translate}}</p>
-            <p style="margin-right: 10%;">{{'shared.actions' | translate}}</p>
-        </div>
-        <div *ngFor="let agreement of manageAgreementsSeller" fxLayout="row" fxLayoutAlign="space-between center" class="list-agreement">
-            <div fxLayoutAlign="start center" fxLayout="row" class="width-80">
-                <mat-icon class="material-icons" class="file-agreement">
-                    insert_drive_file
-                </mat-icon>
-                <p>{{agreement.ContractName}}</p>
-            </div>
-            <button mat-icon-button (click)="getPDF(agreement)" *ngIf="download">
-                <mat-icon class="material-icons">
-                    get_app
-                </mat-icon>
-            </button>
-        </div>
-    </div>
 </div>
