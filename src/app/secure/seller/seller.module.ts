@@ -16,6 +16,7 @@ import { UploadAgreementComponent } from './upload-agreement/upload-agreement.co
 import { ModalLoadAgreementComponent } from './modal-load-agreement/modal-load-agreement.component';
 import { ngfModule } from 'angular-file/file-upload/ngf.module';
 import { TermsComponent } from './agreement/terms/terms.component';
+import { ManageAgreementComponent } from './manage-agreement/manage-agreement.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { TermsComponent } from './agreement/terms/terms.component';
         SellerListComponent,
         UploadAgreementComponent,
         ModalLoadAgreementComponent,
+        ManageAgreementComponent,
     ],
     imports: [
         CommonModule,
