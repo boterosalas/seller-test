@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { Logger } from '@app/core';
+import { ModalBulkloadAgreementComponent } from './modal-bulkload-agreement/modal-bulkload-agreement.component';
+
+const log = new Logger('ManageAgreementComponent');
 
 @Component({
   selector: 'app-manage-agreement',
@@ -19,9 +24,26 @@ export class ManageAgreementComponent implements OnInit {
     {ContractName: 'Acuerdo 9'}
   ];
 
-  constructor() { }
+  constructor(
+    private dialog: MatDialog,
+  ) { }
 
   ngOnInit() {
+  }
+
+  /**
+   * Funcion para abrir modal para agregar masivamente acuerdos
+   * @memberof ManageAgreementComponent
+   */
+  openModalBulkLoadAgreement() {
+    const dialogRef = this.dialog.open(ModalBulkloadAgreementComponent, {
+      width: '50%',
+      minWidth: '280px',
+      data: { }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      log.info('The modal detail billing was closed');
+    });
   }
 
 }
