@@ -5,6 +5,8 @@ import { SchoolExitoRoutingModule } from './school-exito.routing';
 import { SharedModule } from '@app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SchoolExitoService } from './school-exito.service';
+import { ListSellerSchoolComponent } from './list-school-exito/list-seller-school/list-seller-school.component';
+import { ListAdminSchoolComponent } from './list-school-exito/list-admin-school/list-admin-school.component';
 
 @NgModule({
   imports: [
@@ -14,7 +16,7 @@ import { SchoolExitoService } from './school-exito.service';
     FormsModule,
     ReactiveFormsModule,
   ],
-  declarations: [ListSchoolExitoComponent],
+  declarations: [ListSchoolExitoComponent, ListSellerSchoolComponent, ListAdminSchoolComponent],
   providers: [SchoolExitoService],
 })
 export class SchoolExitoModule { }

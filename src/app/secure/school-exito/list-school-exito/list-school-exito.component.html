@@ -1,64 +1,8 @@
-<div class="example-container1" cdkDropListGroup>
-  <div cdkDropList [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dropListDropped($event)"></div>
-  <div cdkDropList *ngFor="let item of modules"
-       [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dropListDropped($event)">
-    <div cdkDrag class="example-box" (cdkDragMoved)="dragMoved($event);">
-      <div fxLayout="column" style="width: 100%;">
-        <div fxLayout="row" style="width: 100%;">
-          <div fxFlex="10">
-            <div class="example-handle" cdkDragHandle>
-              <svg width="17px" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
-                <path d="M0 0h24v24H0z" fill="none"></path>
-              </svg>
-            </div>
-          </div>
-          <div fxFlex="70">
-            <div style="margin-top: 12px;">
-              <span style="font-weight: bold;">
-                {{item.ModuleName}}
-              </span>
-            </div>
-          </div>
-          <div fxFlex="20" style="text-align: center;">
-            <mat-icon class="mat-18" style="font-size: 17px; color: #8a8989; margin-top: 12px; cursor: pointer;">delete</mat-icon>
-            <mat-icon class="mat-18" style="font-size: 17px; color: #8a8989; margin-top: 12px; cursor: pointer;">create</mat-icon>
-          </div>
-        </div>
-        <div fxLayout="row" style="width: 100%;">
-          <div cdkDropList class="example-list-submodules" style="padding-right: initial; padding-bottom: initial" (cdkDropListDropped)="drop($event, item.Submodules)">
-            <div class="example-box-submodules" style="padding: 5px;" *ngFor="let submodule of item.Submodules" cdkDrag>
-              <div fxLayout="column" style="width: 100%;">
-                <div fxLayout="row" style="width: 100%;">
-                  <div fxFlex="10">
-                    <div class="example-handle" cdkDragHandle>
-                      <svg width="17px" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
-                        <path d="M0 0h24v24H0z" fill="none"></path>
-                      </svg>
-                    </div>
-                  </div>
-                  <div fxFlex="60" style="cursor: default;">
-                    <div style="margin-top: 10px;">
-                      <span>
-                        {{submodule.SubModuleName}}
-                      </span>
-                    </div>
-                  </div>
-                  <div fxFlex="30" style="text-align: center;">
-                    <mat-icon class="mat-18" style="font-size: 17px; color: #ccc; margin-top: 12px; cursor: pointer;">delete</mat-icon>
-                    <mat-icon class="mat-18" style="font-size: 17px; color: #ccc; margin-top: 12px; cursor: pointer;">create</mat-icon>
-                    <mat-icon class="mat-18" style="font-size: 17px; color: #ccc; margin-top: 12px; cursor: pointer;" (click)="downloadFile(submodule.File)">file_download</mat-icon>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="list-school-exito-btn-add-subModule" style="cursor: pointer;">
-              <span style="text-align: center;width: 100%; color: #485AFA;">agregar submodulo</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<div>
+  <div *ngIf="!isAdmin">
+      <app-list-seller-school></app-list-seller-school>
   </div>
-</div> 
+  <div *ngIf="isAdmin">
+    <app-list-admin-school></app-list-admin-school>
+  </div>
+</div>
