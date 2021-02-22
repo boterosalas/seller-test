@@ -457,7 +457,7 @@ export class BrandsComponent implements OnInit {
         }
         const dialogRef = this.dialog.open(ModalBulkloadBrandsComponent, {
             width: '95%',
-            disableClose: res.body.data.status === 1,
+            disableClose: true,
             data: {
                 response: res
             },
