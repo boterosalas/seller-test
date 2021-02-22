@@ -133,8 +133,11 @@ $blue: #485AFA;
     width: 100%;
 
     .my-drop-zone {
+      width: 327px;
+      height: 195px;
       border: dashed 2px $lightgray;
-      min-height: 150px;
+      background-color: #F8F8F8;
+      // min-height: 150px;
       color: $gray;
       padding: 2em;
       margin-right: 20px;
@@ -207,6 +210,7 @@ $blue: #485AFA;
 }
 
 .text-aling-center-modal-load {
+  display: flex;
   text-align: center;
 }
 

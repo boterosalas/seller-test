@@ -37,7 +37,7 @@ export class ManageAgreementComponent implements OnInit {
    */
   openModalBulkLoadAgreement() {
     const dialogRef = this.dialog.open(ModalBulkloadAgreementComponent, {
-      width: '50%',
+      width: '60%',
       minWidth: '280px',
       data: { }
     });

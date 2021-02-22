@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
-import { LoadingService } from '@app/core';
+import { EndpointService, LoadingService } from '@app/core';
 import { ShellComponent } from '@app/core/shell';
 import { ComponentsService } from '@app/shared';
 import { TranslateService } from '@ngx-translate/core';
@@ -36,11 +36,15 @@ export class ModalBulkloadAgreementComponent implements OnInit {
   file = null;
   arraySend = [];
 
+  public urlDownloadFile: string;
+
+
   constructor(
     public dialogRef: MatDialogRef<ModalBulkloadAgreementComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public snackBar: MatSnackBar,
     public componentService: ComponentsService,
+    private api: EndpointService,
     private languageService: TranslateService,
     private sellerService: SellerService,
     private shellComponent: ShellComponent,
@@ -49,6 +53,7 @@ export class ModalBulkloadAgreementComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
+    this.urlDownloadFile = this.api.get('uploadMassiveAgreementSellers');
   }
 
   /**
