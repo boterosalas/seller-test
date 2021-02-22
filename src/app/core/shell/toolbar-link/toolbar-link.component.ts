@@ -117,7 +117,7 @@ export class ToolbarLinkComponent implements OnInit {
    * @memberof SidebarComponent
    */
   public showModule(moduleR: ModuleModel): boolean {
-    const menu = moduleR.Menus.find(result => (result.ShowMenu === true));
+    const menu = moduleR.Menus.find(result => (result.ShowMenu === true && result.NameMenu !== 'Escuela Exito'));
     return menu !== undefined;
   }
 

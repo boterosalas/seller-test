@@ -264,7 +264,9 @@ export const endpoints = {
       // verificar el status de carga de dispersion
       statusLoadDispersion : 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/getstatusdispersion',
       // Envia un correo con el reporte
-      sendModuleReportDispersion : 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/pendingpaymentnews/{params}'
+      sendModuleReportDispersion : 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/pendingpaymentnews/{params}',
+      // Obtener listado de modulos y submodulos
+      getAllModuleSchoolExito : 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/GetAllModule'
     },
   },
   // Endpoints production
@@ -526,7 +528,9 @@ export const endpoints = {
       // verificar el status de carga de dispersion
       statusLoadDispersion : 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/getstatusdispersion',
       // Envia un correo con el reporte
-      sendModuleReportDispersion : 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/pendingpaymentnews/{params}'
+      sendModuleReportDispersion : 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/pendingpaymentnews/{params}',
+      // Obtener listado de modulos y submodulos
+      getAllModuleSchoolExito : ''
     }
   }
 };
