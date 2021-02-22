@@ -987,38 +987,45 @@ export class BrandsComponent implements OnInit {
      * @memberof BrandsComponent
      */
     public validateExist(event: any) {
-        this.newBrands = encodeURIComponent(event.target.value.toUpperCase());
-        if (this.newBrands === '/') {
-            this.newBrands = encodeURIComponent(this.newBrands)
-        }
-        let reg1 = /\'/gi;
-        let reg2 = /\'/gi;
-        this.newBrands = this.newBrands.replace(reg2, '%2F');
-        this.newBrands = this.newBrands.replace(reg1, '%27');
-        if (this.newBrands && this.newBrands !== '' && this.newBrands !== undefined && this.newBrands !== null) {
-            if (this.newBrands !== this.changeNameBrands) {
-                this.urlParams = `null/${this.newBrands}/null/null`;
-                this.showSpinner = true;
-                this.brandService.validateExistBrands(this.urlParams).subscribe(result => {
-                     /* tslint:disable */ const res = JSON.parse(result.body.replace(/([\[:])?(\d+)([,\}\]])/g, "$1\"$2\"$3")).Data; /* tslint:disable */
-                    this.showSpinner = false;
-                    if (res && parseInt(res.Total) > 0) {
-                        this.snackBar.open('La marca ya existe en la base de datos.', 'Cerrar', {
-                            duration: 3000,
-                        });
-                        this.validateExit = true;
-
-                    } else {
-                        this.validateExit = false;
-
-                    }
-                }, error => {
-                    this.showSpinner = false;
-                    this.validateExit = true;
-                    this.form.controls.nameBrands.setErrors({ 'validExistBrandsDB': true });
-                });
+        if (event.target.value.trim() === '' || event.target.value.trim() === null || event.target.value.trim() === undefined) {
+            this.snackBar.open('El nombre de la marca no puede estar vacía.', 'Cerrar', {
+                duration: 4000,
+            });
+        } else {
+            this.newBrands = encodeURIComponent(event.target.value.toUpperCase());
+            if (this.newBrands === '/') {
+                this.newBrands = encodeURIComponent(this.newBrands)
             }
-        } else { return null; }
+            let reg1 = /\'/gi;
+            let reg2 = /\'/gi;
+            this.newBrands = this.newBrands.replace(reg2, '%2F');
+            this.newBrands = this.newBrands.replace(reg1, '%27');
+            if (this.newBrands && this.newBrands !== '' && this.newBrands !== undefined && this.newBrands !== null) {
+                if (this.newBrands !== this.changeNameBrands) {
+                    this.urlParams = `null/${this.newBrands}/null/null`;
+                    this.showSpinner = true;
+                    this.brandService.validateExistBrands(this.urlParams).subscribe(result => {
+                     /* tslint:disable */ const res = JSON.parse(result.body.replace(/([\[:])?(\d+)([,\}\]])/g, "$1\"$2\"$3")).Data; /* tslint:disable */
+                        this.showSpinner = false;
+                        if (res && parseInt(res.Total) > 0) {
+                            this.snackBar.open('La marca ya existe en la base de datos.', 'Cerrar', {
+                                duration: 4000,
+                            });
+                            this.validateExit = true;
+
+                        } else {
+                            this.validateExit = false;
+
+                        }
+                    }, error => {
+                        this.showSpinner = false;
+                        this.validateExit = true;
+                        this.form.controls.nameBrands.setErrors({ 'validExistBrandsDB': true });
+                    });
+                }
+
+            } else { return null; }
+        }
     }
     /**
      * funcion para cerrar el dialogo de agregar marca
