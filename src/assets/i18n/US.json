@@ -75,6 +75,7 @@
     "module.Reportes": "Reports",
     "module.Devoluciones": "Returns",
     "module.Calidad": "Quality",
+    "module.Escuela exito": "Escuela Éxito",
 
 
     "permissions.Consultar": "Browse",
@@ -1412,5 +1413,7 @@
     "secure.orders.bulk.billing.name_filter_billing": "Billing Filter",
     "secure.orders.bulk.billing.maximum_All_file_size": "Files should not exceed 7 MB.",
     "secure.orders.bulk.billing.size_file": "File size: ",
-    "secure.orders.bulk.billing.size_file_MB": "MB"
+    "secure.orders.bulk.billing.size_file_MB": "MB",
+
+    "errors_download_file_submodules" : "Se ha presentado un error al realizar la descarga."
 }

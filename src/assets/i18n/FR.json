@@ -61,6 +61,7 @@
     "menu.Listado de cancelaciones": "Liste des annulations",
     "menu.Reporte de comisiones": "Report commission",
     "menu.Reporte cobros pendientes MPI": "Report dispersion",
+    "module.Escuela exito": "Escuela Éxito",
 
     "module.Documentación": "Documentation",
     "module.Ofertas": "Offers",
@@ -1396,5 +1397,7 @@
     "secure.orders.bulk.billing.name_filter_billing": "Filtre de Facturation",
     "secure.orders.bulk.billing.maximum_All_file_size": "Les fichiers ne doivent pas dépasser 7 MO.",
     "secure.orders.bulk.billing.size_file": "Taille du fichier: ",
-    "secure.orders.bulk.billing.size_file_MB": "MO"
+    "secure.orders.bulk.billing.size_file_MB": "MO",
+
+    "errors_download_file_submodules" : "Se ha presentado un error al realizar la descarga."
 }

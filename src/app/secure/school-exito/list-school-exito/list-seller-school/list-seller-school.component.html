@@ -1,46 +1,36 @@
 <div>
   <div class="list-seller-school-component-header">
-      <div style="text-align: center; height: 72%; padding-top: 69px;">
-        <span style="font-size: 40px; color: #333333;">
-          Escuela Éxito
-        </span>
-      </div>
+    <div class="list-seller-school-component-container-header">
+      <span class="list-seller-school-component-container-header-text-size">
+        Escuela Éxito
+      </span>
+    </div>
   </div>
-  <div style="background: #F6F6F4; display: flex; flex-wrap: wrap; padding: 10px 48px;">
+  <div class="list-seller-school-component-container-modules">
     <div *ngFor="let module of modules">
-      <div style="padding: 20px;">
-        <mat-card style="width: 340px;">
+      <div class="list-seller-school-component-padding-20">
+        <mat-card class="list-seller-school-component-width-340">
           <div>
-            <span style="font-weight: bold; font-size: 14px;">{{module.ModuleName}}</span>
+            <span class="list-seller-school-component-text-title-module">{{module.ModuleName}}</span>
           </div>
           <div *ngFor="let submodule of module.Submodules">
-            <div fxLayout="row" style="padding: 10px 0px;">
-                <div fxFlex="85">
-                  <span style="color: #909090; font-size: 12px; cursor: pointer; vertical-align: sub;" (click)="downloadFile(submodule.File)">
-                    {{submodule.SubModuleName}}
-                  </span>
+            <div fxLayout="row"
+              class="list-seller-school-component-container-paddin-10-by-0">
+              <div fxFlex="85">
+                <span class="list-seller-school-component-text-submodules-title"
+                  (click)="downloadFile(submodule.File)">
+                  {{submodule.SubModuleName}}
+                </span>
+              </div>
+              <div fxFlex="15">
+                <div class="list-seller-school-component-badge-new-submodule">
+                  <span class="list-seller-school-component-position-badge">Nuevo</span>
                 </div>
-                <div fxFlex="15">
-                  <div style="text-align: center; background-color: #D14444 ; border-radius: 10px; color: #ffffff; height: 23px; width: 41px;">
-                    <span style="font-size: 11px; vertical-align: bottom; letter-spacing: 0px;">Nuevo</span>
-                  </div>
-                </div>
+              </div>
             </div>
           </div>
         </mat-card>
       </div>
     </div>
-    <!-- <div style="padding: 20px;">
-      <mat-card style="width: 400px;">
-        <div>
-          <span style="font-weight: bold; font-size: 14px;">titulo</span>
-        </div>
-        <div>
-          <div style="color: #909090; font-size: 12px">
-            <span>contenido por aca</span>
-          </div>
-        </div>
-      </mat-card>
-    </div> -->
   </div>
 </div>

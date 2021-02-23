@@ -79,6 +79,7 @@
     "module.Devoluciones": "Devoluciones",
     "module.Calidad": "Calidad",
     "module.Dispersion": "Dispersion ",
+    "module.Escuela exito": "Escuela Éxito",
 
 
     "permissions.Consultar": "Consultar",
@@ -1455,6 +1456,7 @@
     "secure.dispersion.summaryPayment.totalPay": "Total a pagar",
     "secure.dispersion.summaryPayment.valueTotalPay": "Valor total a dispersar",
     "secure.dispersion.summaryPayment.allSeller": "Total Vendedores",
-    "secure.dispersion.summaryPayment.dispersar": "Dispersar"
+    "secure.dispersion.summaryPayment.dispersar": "Dispersar",
 
+    "errors_download_file_submodules" : "Se ha presentado un error al realizar la descarga."
 }

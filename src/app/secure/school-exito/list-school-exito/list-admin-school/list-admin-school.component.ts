@@ -1,13 +1,11 @@
-import { AfterViewInit, Component, NgModule, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import {
   CdkDrag,
-  CdkDragStart,
-  CdkDropList, CdkDropListGroup, CdkDragMove, CdkDragEnter,
+  CdkDropList, CdkDropListGroup, CdkDragMove,
   moveItemInArray,
   CdkDragDrop
 } from '@angular/cdk/drag-drop';
 import { ViewportRuler } from '@angular/cdk/overlay';
-import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 import { SchoolExitoService } from '../../school-exito.service';
 @Component({
   selector: 'app-list-admin-school',
@@ -18,40 +16,45 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
   @ViewChild(CdkDropListGroup, { static: false }) listGroup: CdkDropListGroup<CdkDropList>;
   @ViewChild(CdkDropList, { static: false }) placeholder: CdkDropList;
 
-  public items: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
   public target: CdkDropList;
   public targetIndex: number;
   public source: CdkDropList;
   public sourceIndex: number;
   public dragIndex: number;
   public activeContainer;
-
   public modules: Array<number> = [];
 
 
   constructor(
     private viewportRuler: ViewportRuler,
     private schoolExitoService: SchoolExitoService,
-    private profileService: MyProfileService,
   ) {
     this.target = null;
     this.source = null;
-   }
+  }
 
   ngOnInit() {
     this.getAllModules();
   }
 
-
-   ngAfterViewInit() {
-    let phElement = this.placeholder.element.nativeElement;
+  /**
+   * funcion para canturar el elemento en el don, ocultarlo y remover los hijos
+   *
+   * @memberof ListAdminSchoolComponent
+   */
+  ngAfterViewInit() {
+    const phElement = this.placeholder.element.nativeElement;
     phElement.style.display = 'none';
     phElement.parentElement.removeChild(phElement);
   }
-
+  /**
+   * funcion para mover los elementos del drag
+   *
+   * @param {CdkDragMove} e
+   * @memberof ListAdminSchoolComponent
+   */
   dragMoved(e: CdkDragMove) {
-    let point = this.getPointerPositionOnPage(e.event);
+    const point = this.getPointerPositionOnPage(e.event);
 
     this.listGroup._items.forEach(dropList => {
       if (__isInsideDropListClientRect(dropList, point.x, point.y)) {
@@ -60,14 +63,19 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
       }
     });
   }
-
+  /**
+   * funcion para mover los elementos del drog
+   *
+   * @returns
+   * @memberof ListAdminSchoolComponent
+   */
   dropListDropped() {
     if (!this.target) {
       return;
     }
 
-    let phElement = this.placeholder.element.nativeElement;
-    let parent = phElement.parentElement;
+    const phElement = this.placeholder.element.nativeElement;
+    const parent = phElement.parentElement;
 
     phElement.style.display = 'none';
 
@@ -82,7 +90,11 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
       moveItemInArray(this.modules, this.sourceIndex, this.targetIndex);
     }
   }
-
+  /**
+   * funcion donde se captura los elementos drag y drop para darle su nueva posicion en el arreglo
+   *
+   * @memberof ListAdminSchoolComponent
+   */
   dropListEnterPredicate = (drag: CdkDrag, drop: CdkDropList) => {
     if (drop === this.placeholder) {
       return true;
@@ -92,12 +104,12 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
       return false;
     }
 
-    let phElement = this.placeholder.element.nativeElement;
-    let sourceElement = drag.dropContainer.element.nativeElement;
-    let dropElement = drop.element.nativeElement;
+    const phElement = this.placeholder.element.nativeElement;
+    const sourceElement = drag.dropContainer.element.nativeElement;
+    const dropElement = drop.element.nativeElement;
 
-    let dragIndex = __indexOf(dropElement.parentElement.children, (this.source ? phElement : sourceElement));
-    let dropIndex = __indexOf(dropElement.parentElement.children, dropElement);
+    const dragIndex = __indexOf(dropElement.parentElement.children, (this.source ? phElement : sourceElement));
+    const dropIndex = __indexOf(dropElement.parentElement.children, dropElement);
 
     if (!this.source) {
       this.sourceIndex = dragIndex;
@@ -122,9 +134,14 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
     return false;
   }
 
-  /** Determines the point of the page that was touched by the user. */
+  /**
+   * funcion para saber cual es la posicion del elemento en la pagina
+   *
+   * @param {(MouseEvent | TouchEvent)} event
+   * @returns
+   * @memberof ListAdminSchoolComponent
+   */
   getPointerPositionOnPage(event: MouseEvent | TouchEvent) {
-    // `touches` will be empty for start/end events so we have to fall back to `changedTouches`.
     const point = __isTouchEvent(event) ? (event.touches[0] || event.changedTouches[0]) : event;
     const scrollPosition = this.viewportRuler.getViewportScrollPosition();
 
@@ -133,6 +150,11 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
       y: point.pageY - scrollPosition.top
     };
   }
+  /**
+   * funcion para capturar los modulos
+   *
+   * @memberof ListAdminSchoolComponent
+   */
   getAllModules() {
     this.schoolExitoService.getAllModuleSchoolExito(null).subscribe(result => {
       if (result && result.statusCode === 200) {
@@ -144,27 +166,56 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
       }
     });
   }
-
+  /**
+   * funcion para descargar el archivo 
+   *
+   * @param {string} url
+   * @memberof ListAdminSchoolComponent
+   */
   downloadFile(url: string) {
     window.open(url, '_back');
   }
-
+  /**
+   * funcion para mover los submodulos internos del modulo, posicion vertical
+   *
+   * @param {CdkDragDrop<string[]>} event
+   * @param {*} submodules
+   * @memberof ListAdminSchoolComponent
+   */
   drop(event: CdkDragDrop<string[]>, submodules: any) {
     console.log('donde llega final, luego le restamos 1 mayor igual a cero y es cero null, buscar en array', event.currentIndex);
     moveItemInArray(submodules, event.previousIndex, event.currentIndex);
   }
 
 }
-
+/**
+ * funcion para capturar el index
+ *
+ * @param {*} collection
+ * @param {*} node
+ * @returns
+ */
 function __indexOf(collection: any, node: any) {
   return Array.prototype.indexOf.call(collection, node);
 }
 
-/** Determines whether an event is a touch event. */
+/**
+ * se dispara el evento cuando se toca 
+ *
+ * @param {(MouseEvent | TouchEvent)} event
+ * @returns {event is TouchEvent}
+ */
 function __isTouchEvent(event: MouseEvent | TouchEvent): event is TouchEvent {
   return event.type.startsWith('touch');
 }
-
+/**
+ * funcion para saber la posicion de la lista en el drag and drop
+ *
+ * @param {CdkDropList} dropList
+ * @param {number} x
+ * @param {number} y
+ * @returns
+ */
 function __isInsideDropListClientRect(dropList: CdkDropList, x: number, y: number) {
   const { top, bottom, left, right } = dropList.element.nativeElement.getBoundingClientRect();
   return y >= top && y <= bottom && x >= left && x <= right;

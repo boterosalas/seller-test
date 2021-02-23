@@ -1,6 +1,63 @@
 .list-seller-school-component {
-    &-header{
-        height: 250px;
-        background: #F1F1F1 0% 0% no-repeat padding-box;
-    }
+  &-header {
+    height: 250px;
+    background: #F1F1F1 0% 0% no-repeat padding-box;
+  }
+
+  &-container-header {
+    text-align: center;
+    height: 72%;
+    padding-top: 69px;
+  }
+
+  &-container-header-text-size {
+    font-size: 40px;
+    color: #333333;
+  }
+
+  &-container-modules {
+    background: #F6F6F4;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px 48px;
+  }
+
+  &-padding-20 {
+    padding: 20px;
+  }
+
+  &-width-340 {
+    width: 340px;
+  }
+
+  &-text-title-module {
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  &-container-paddin-10-by-0 {
+    padding: 10px 0px;
+  }
+
+  &-text-submodules-title {
+    color: #909090;
+    font-size: 12px;
+    cursor: pointer;
+    vertical-align: sub;
+  }
+
+  &-badge-new-submodule {
+    text-align: center;
+    background-color: #D14444;
+    border-radius: 10px;
+    color: #ffffff;
+    height: 23px;
+    width: 41px;
+  }
+
+  &-position-badge {
+    font-size: 11px;
+    vertical-align: bottom;
+    letter-spacing: 0px;
+  }
 }
