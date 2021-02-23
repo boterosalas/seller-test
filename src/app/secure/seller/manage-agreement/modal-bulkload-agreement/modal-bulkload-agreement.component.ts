@@ -263,18 +263,27 @@ export class ModalBulkloadAgreementComponent implements OnInit {
     this.uploadAgreementBtn = true;
   }
 
+  resetVariableUploadFile() {
+    this.fileName = '';
+    this.arrayNecessaryData = [];
+  }
+
+  resetUploadFIle() {
+    this.inputFileUpload.nativeElement.value = '';
+  }
+
   onFileChange(evt: any) {
     /*1. Limpio las variables empleadas en el proceso de carga.*/
-    // this.resetVariableUploadFile();
+    this.resetVariableUploadFile();
     /*2. Capturo los datos del excel*/
     this.readFileUpload(evt).then(data => {
       /*3. Valido los datos del excel*/
       this.validateDataFromFile(data, evt);
-      // this.resetUploadFIle();
+      this.resetUploadFIle();
     }, err => {
       this.loadingService.closeSpinner();
-      // this.resetVariableUploadFile();
-      // this.resetUploadFIle();
+      this.resetVariableUploadFile();
+      this.resetUploadFIle();
       this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), this.languageService.instant('actions.accpet_min'), 4000);
     });
   }
