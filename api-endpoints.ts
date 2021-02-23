@@ -266,7 +266,25 @@ export const endpoints = {
       // Envia un correo con el reporte
       sendModuleReportDispersion : 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/pendingpaymentnews/{params}',
       // Obtener listado de modulos y submodulos
-      getAllModuleSchoolExito : 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/GetAllModule'
+      getAllModuleSchoolExito : 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/GetAllModule',
+      // escuela exito modificar modulos
+      editModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/EditModule',
+      // escuela exito eliminar modulos
+      deleteModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/DeleteModule/{params}',
+      // escuela exito eliminar submodulos
+      deleteSubModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/DeleteSubModule/{module}/{submodule}',
+      // escuela exito editar submodulos
+      editSubModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/EditSubModule',
+      // escuela exito crear submodulos
+      createSubModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/CreateSubModule/{NombreModulo}',
+      // escuela exito crear modulos
+      createModules: 'ttps://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/CreateModule',
+      // Descargar formato masiva de marcas
+      uploadMasiveBrand: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates/PlantillaCargaMasivaMarcas.xlsx',
+      // Crear marcas masivas (post)
+      createMassiveBrand: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/CreateMassive',
+      // Consultar estado de crear Marcas Masivas (get)
+      getStatusMassiveBrand: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/ValidateStatusCreateMassive'
     },
   },
   // Endpoints production
@@ -530,7 +548,25 @@ export const endpoints = {
       // Envia un correo con el reporte
       sendModuleReportDispersion : 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/pendingpaymentnews/{params}',
       // Obtener listado de modulos y submodulos
-      getAllModuleSchoolExito : ''
+      getAllModuleSchoolExito : '',
+      // escuela exito modificar modulos
+      editModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/EditModule',
+      // escuela exito eliminar modulos
+      deleteModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/DeleteModule/{params}',
+      // escuela exito eliminar submodulos
+      deleteSubModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/DeleteSubModule/{module}/{submodule}',
+      // escuela exito editar submodulos
+      editSubModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/EditSubModule',
+      // escuela exito crear submodulos
+      createSubModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/CreateSubModule/{NombreModulo}',
+      // escuela exito crear modulos
+      createModules: 'ttps://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/CreateModule',
+      // Descargar formato masiva de marcas
+      uploadMasiveBrand: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates/PlantillaCargaMasivaMarcas.xlsx',
+      // Crear marcas masivas (post)
+      createMassiveBrand: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/CreateMassive',
+      // Consultar estado de crear Marcas Masivas (get)
+      getStatusMassiveBrand: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/ValidateStatusCreateMassive'
     }
   }
 };
