@@ -230,7 +230,6 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
       if (result && result.statusCode === 200) {
         const { body } = result;
         this.modules = JSON.parse(body).Data;
-        console.log(this.modules);
       } else {
         console.log('error');
       }
