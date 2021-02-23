@@ -13,6 +13,7 @@
   flex-wrap: wrap;
   margin-top: 70px;
   margin-left: 160px;
+  background-color: #F6F6F4 ;
 }
 
 .list-admin-box {
@@ -33,7 +34,7 @@
 
 .cdk-drop-list {
   display: flex;
-  padding-right: 10px;
+  padding-right: 40px;
   padding-bottom: 10px;
 }
 
@@ -190,4 +191,16 @@ button {
   &-margin-top-10 {
     margin-top: 10px;
   }
+}
+
+.mt-2{
+  margin-top: 20px;
+}
+
+.w-100{
+  width: 100%;
+}
+
+.bg-gray{
+  background:#f6f6f4 ;
 }
