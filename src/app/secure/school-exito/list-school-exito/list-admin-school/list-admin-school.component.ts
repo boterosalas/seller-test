@@ -13,6 +13,7 @@ import { DeleteModuleComponent } from '../components/delete-module/delete-module
 import { EditItemModuleComponent } from '../components/edit-item-module/edit-item-module.component';
 import { EditModuleComponent } from '../components/edit-module/edit-module.component';
 import { MatDialog } from '@angular/material';
+import { CreateModuleComponent } from '../components/create-module/create-module.component';
 @Component({
   selector: 'app-list-admin-school',
   templateUrl: './list-admin-school.component.html',
@@ -44,7 +45,13 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
     this.getAllModules();
   }
 
-
+  createModule() {
+    this.dialog.open(CreateModuleComponent, {
+      width: '800px',
+      maxWidth: '90vw',
+      maxHeight: '90vh'
+    });
+  }
 
   createSubmodule(module: any, item: any) {
     this.dialog.open(CreateSubmoduleComponent, {

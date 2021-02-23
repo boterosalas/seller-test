@@ -11,7 +11,7 @@
 .list-admin-container1 {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 70px;
+  margin-top: 50px;
   margin-left: 160px;
   background-color: #F6F6F4 ;
 }
@@ -194,7 +194,7 @@ button {
 }
 
 .mt-2{
-  margin-top: 20px;
+  margin-top: 50px;
 }
 
 .w-100{
@@ -203,4 +203,8 @@ button {
 
 .bg-gray{
   background:#f6f6f4 ;
+}
+
+.btn-transparent{
+  background-color: #ffffff;
 }

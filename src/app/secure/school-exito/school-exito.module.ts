@@ -14,6 +14,7 @@ import { DeleteItemModuleComponent } from './list-school-exito/components/delete
 import { DeleteModuleComponent } from './list-school-exito/components/delete-module/delete-module.component';
 import { EditItemModuleComponent } from './list-school-exito/components/edit-item-module/edit-item-module.component';
 import { UploadFileComponent } from './list-school-exito/components/upload-file/upload-file.component';
+import { ngfModule } from 'angular-file/file-upload/ngf.module';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { UploadFileComponent } from './list-school-exito/components/upload-file/
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    ngfModule
   ],
   entryComponents: [
     EditModuleComponent,
