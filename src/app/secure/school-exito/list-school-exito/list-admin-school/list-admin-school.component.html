@@ -22,8 +22,8 @@
             </div>
           </div>
           <div fxFlex="20" class="list-admin-school-text-align-center">
-            <mat-icon class="mat-18 list-admin-school-icons-modules">delete</mat-icon>
-            <mat-icon class="mat-18 list-admin-school-icons-modules">create</mat-icon>
+            <mat-icon class="mat-18 list-admin-school-icons-modules" (click)="deleteFaq(item)">delete</mat-icon>
+            <mat-icon class="mat-18 list-admin-school-icons-modules" (click)="editFaq(item)" >create</mat-icon>
           </div>
         </div>
         <div fxLayout="row" class="list-admin-school-width-100">
@@ -47,8 +47,8 @@
                     </div>
                   </div>
                   <div fxFlex="30" class="list-admin-school-text-align-center">
-                    <mat-icon class="mat-18 list-admin-school-icons-submodules" >delete</mat-icon>
-                    <mat-icon class="mat-18 list-admin-school-icons-submodules" >create</mat-icon>
+                    <mat-icon class="mat-18 list-admin-school-icons-submodules" (click)="deleteItemFaq(item, submodule)">delete</mat-icon>
+                    <mat-icon class="mat-18 list-admin-school-icons-submodules" (click)="editItemFaq(item, submodule)">create</mat-icon>
                     <mat-icon class="mat-18 list-admin-school-icons-submodules" (click)="downloadFile(submodule.File)">file_download</mat-icon>
                   </div>
                 </div>

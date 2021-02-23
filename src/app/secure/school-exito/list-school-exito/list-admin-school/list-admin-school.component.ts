@@ -7,6 +7,12 @@ import {
 } from '@angular/cdk/drag-drop';
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { SchoolExitoService } from '../../school-exito.service';
+import { CreateSubmoduleComponent } from '../components/create-submodule/create-submodule.component';
+import { DeleteItemModuleComponent } from '../components/delete-item-module/delete-item-module.component';
+import { DeleteModuleComponent } from '../components/delete-module/delete-module.component';
+import { EditItemModuleComponent } from '../components/edit-item-module/edit-item-module.component';
+import { EditModuleComponent } from '../components/edit-module/edit-module.component';
+import { MatDialog } from '@angular/material';
 @Component({
   selector: 'app-list-admin-school',
   templateUrl: './list-admin-school.component.html',
@@ -28,6 +34,7 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
   constructor(
     private viewportRuler: ViewportRuler,
     private schoolExitoService: SchoolExitoService,
+    public dialog: MatDialog
   ) {
     this.target = null;
     this.source = null;
@@ -35,6 +42,62 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.getAllModules();
+  }
+
+
+
+  createSubmodule(module: any, item: any) {
+    this.dialog.open(CreateSubmoduleComponent, {
+      data: {
+        module,
+        item,
+      },
+      width: '800px',
+      maxWidth: '90vw',
+      maxHeight: '90vh',
+    });
+  }
+
+  deleteItemFaq(module: any, item: any) {
+    this.dialog.open(DeleteItemModuleComponent, {
+      data: {
+        module,
+        item,
+      },
+      width: '800px',
+      maxWidth: '90vw',
+      maxHeight: '90vh',
+    });
+  }
+
+  editFaq(item: any) {
+    this.dialog.open(EditModuleComponent, {
+      data: item,
+      width: '800px',
+      maxWidth: '90vw',
+      maxHeight: '90vh',
+    });
+  }
+
+  deleteFaq(item: any) {
+    this.dialog.open(DeleteModuleComponent, {
+      data: item,
+      width: '800px',
+      maxWidth: '90vw',
+      maxHeight: '90vh',
+    });
+  }
+
+  editItemFaq(module: any, item: any) {
+    this.dialog.open(EditItemModuleComponent, {
+      data: {
+        module,
+        item,
+      },
+      width: '800px',
+      maxWidth: '90vw',
+      maxHeight: '90vh',
+    });
   }
 
   /**
@@ -167,7 +230,7 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
     });
   }
   /**
-   * funcion para descargar el archivo 
+   * funcion para descargar el archivo
    *
    * @param {string} url
    * @memberof ListAdminSchoolComponent
@@ -200,7 +263,7 @@ function __indexOf(collection: any, node: any) {
 }
 
 /**
- * se dispara el evento cuando se toca 
+ * se dispara el evento cuando se toca
  *
  * @param {(MouseEvent | TouchEvent)} event
  * @returns {event is TouchEvent}

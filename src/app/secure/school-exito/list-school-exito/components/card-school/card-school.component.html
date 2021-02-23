@@ -1,0 +1,35 @@
+<mat-card class="card-school" fxFlex="32" fxFlex.xs="100" fxFlex.sm="48" *ngFor="let item of data">
+  
+  <mat-card-header>
+    <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
+      <div>
+        <mat-card-title> <mat-icon>drag_handle</mat-icon> {{item.ModuleName}}</mat-card-title>
+      </div>
+      <div fxLayout="row" >
+        <button class="btn-school" mat-flat-button (click)="editFaq(item)"><mat-icon>mode_edit</mat-icon></button>
+        <button class="btn-school" mat-flat-button (click)="deleteFaq(item)"><mat-icon>delete</mat-icon></button>
+      </div>
+    </div>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-list role="list" class="list-school">
+      <mat-list-item role="listitem" *ngFor="let faq of item.Submodules">
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
+          <span>
+            <mat-icon>drag_handle</mat-icon>  {{faq.SubModuleName}}
+          </span>
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <button class="btn-school" mat-button (click)="editItemFaq(item, faq)"><mat-icon class="material-icons color-gray mat-icon">mode_edit</mat-icon></button>
+            <button class="btn-school" mat-button (click)="deleteItemFaq(item, faq)"><mat-icon class="material-icons color-gray mat-icon">delete</mat-icon></button>
+            <button class="btn-school" mat-button (click)="downloadItemFaq(faq)"><mat-icon class="material-icons color-gray mat-icon">archive</mat-icon></button>
+          </div>
+        </div>
+      </mat-list-item>
+    </mat-list>
+    <mat-card-actions>
+      <button mat-button (click)="createSubmodule(item)" >{{'school.exito.card.school.add.submodule' | translate}}</button>
+    </mat-card-actions>
+  </mat-card-content>
+
+</mat-card>
