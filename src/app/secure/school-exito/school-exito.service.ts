@@ -26,11 +26,14 @@ export class SchoolExitoService {
   }
 
   createModules(body: any): Observable<{}> {
-    return this.http.post(this.api.get("createModules"), body);
+    return this.http.post(this.api.get('createModules'), body);
   }
 
   editSubModules(body: any): Observable<{}> {
-    return this.http.patch(this.api.get("editSubModules"), body);
+    return this.http.patch(this.api.get('editSubModules'), body);
+  }
+  updatePositionSubModules(body: any): Observable<{}> {
+    return this.http.patch(this.api.get('updatePositionSubModules'), body);
   }
 
   public deleteModule(param: any): Observable<any> {
@@ -40,5 +43,7 @@ export class SchoolExitoService {
   public deleteSubModule(moduleId: any, subModuleId: any): Observable<any> {
     return this.http.delete(this.api.get('deleteSubModules', [moduleId, subModuleId]), { observe: 'response' });
   }
+
+  
 
 }

@@ -29,7 +29,7 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
   public sourceIndex: number;
   public dragIndex: number;
   public activeContainer;
-  public modules: Array<number> = [];
+  public modules: Array<any> = [];
 
 
   constructor(
@@ -251,9 +251,26 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
    * @param {*} submodules
    * @memberof ListAdminSchoolComponent
    */
-  drop(event: CdkDragDrop<string[]>, submodules: any) {
-    console.log('donde llega final, luego le restamos 1 mayor igual a cero y es cero null, buscar en array', event.currentIndex);
-    moveItemInArray(submodules, event.previousIndex, event.currentIndex);
+  drop(event: CdkDragDrop<string[]>, submodules: any, module: any, index: number) {
+    // console.log(this.modules);
+    // console.log(index);
+    // console.log(this.modules[index].Submodules[event.previousIndex].Index);
+    // console.log(this.modules[index].Submodules[event.currentIndex].Index);
+   
+    const oldIndex = this.modules[index].Submodules[event.previousIndex].Index;
+    const newIndex = event.currentIndex > 0 ? this.modules[index].Submodules[event.currentIndex].Index : 0;
+    // console.log(oldIndex);
+    // console.log(newIndex);
+
+    const params = {
+      'ModuleName': module.ModuleName,
+      'OldIndex': oldIndex,
+      'NewIndex': newIndex
+    };
+    this.schoolExitoService.updatePositionSubModules(params).subscribe( result => {
+      console.log(result);
+      moveItemInArray(submodules, event.previousIndex, event.currentIndex);
+    });
   }
 
 }

@@ -3,7 +3,7 @@
 </div>
 <div class="list-admin-container1" cdkDropListGroup>
   <div cdkDropList [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dropListDropped($event)"></div>
-  <div cdkDropList *ngFor="let item of modules"
+  <div cdkDropList *ngFor="let item of modules; let i = index"
        [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dropListDropped($event)">
     <div cdkDrag class="list-admin-box" (cdkDragMoved)="dragMoved($event);">
       <div fxLayout="column" class="list-admin-school-width-100">
@@ -29,7 +29,7 @@
           </div>
         </div>
         <div fxLayout="row" class="list-admin-school-width-100">
-          <div cdkDropList class="list-admin-list-submodules list-admin-school-padding-initial" (cdkDropListDropped)="drop($event, item.Submodules)">
+          <div cdkDropList class="list-admin-list-submodules list-admin-school-padding-initial" (cdkDropListDropped)="drop($event, item.Submodules, item, i)">
             <div class="list-admin-box-submodules list-admin-school-padding-5"  *ngFor="let submodule of item.Submodules" cdkDrag>
               <div fxLayout="column" class="list-admin-school-width-100">
                 <div fxLayout="row"class="list-admin-school-width-100">
@@ -44,7 +44,7 @@
                   <div fxFlex="60" class="list-admin-school-cursor-default">
                     <div class="list-admin-school-margin-top-10">
                       <span>
-                        {{submodule.SubModuleName}}
+                        {{submodule.SubModuleName}} ({{submodule.Index}})
                       </span>
                     </div>
                   </div>
