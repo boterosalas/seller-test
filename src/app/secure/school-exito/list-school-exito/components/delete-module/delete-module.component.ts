@@ -49,7 +49,7 @@ export class DeleteModuleComponent implements OnInit {
         this.componentService.openSnackBar(this.languageService.instant('school.exito.delete.module.service'), this.languageService.instant('actions.close'), 5000);
         this.dialogRef.close();
         this.router.navigateByUrl('/SchoolExitoComponent', { skipLocationChange: true }).then(() => {
-          this.router.navigate(['/securehome/escuela-exito']);
+          this.router.navigate(['/securehome/schoolExito/list-school-exito']);
       }); 
       } else {
         this.componentService.openSnackBar(body.Errors[0].Message, this.languageService.instant('actions.close'), 5000);

@@ -1,9 +1,10 @@
-<div fxLayout="row" fxLayoutAlign="end end" class="mt-2" style="width: 93%;">
+<div class="list-admin-container">
+<div fxLayout="row" fxLayoutAlign="end end" class="mt-2">
     <button class="btn-transparent" mat-stroked-button color="primary" (click)="createModule()">{{'school.exito.button' | translate}}</button>
 </div>
-<div class="list-admin-container1" cdkDropListGroup>
+<div fxLayout="row wrap" fxLayoutAlign="space-between start" class="mt-2" cdkDropListGroup>
   <div cdkDropList [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dropListDropped($event)"></div>
-  <div cdkDropList *ngFor="let item of modules"
+  <div fxFlex="32" fxFlex.sm="49" fxFlex.xs="100"  cdkDropList *ngFor="let item of modules"
        [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dropListDropped($event)">
     <div cdkDrag class="list-admin-box" (cdkDragMoved)="dragMoved($event);">
       <div fxLayout="column" class="list-admin-school-width-100">
@@ -65,3 +66,4 @@
     </div>
   </div>
 </div> 
+</div>

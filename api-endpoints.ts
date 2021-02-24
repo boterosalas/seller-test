@@ -278,7 +278,7 @@ export const endpoints = {
       // escuela exito crear submodulos
       createSubModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/CreateSubModule/{NombreModulo}',
       // escuela exito crear modulos
-      createModules: 'ttps://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/CreateModule',
+      createModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/CreateModule',
       // Descargar formato masiva de marcas
       uploadMasiveBrand: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates/PlantillaCargaMasivaMarcas.xlsx',
       // Crear marcas masivas (post)
@@ -560,7 +560,7 @@ export const endpoints = {
       // escuela exito crear submodulos
       createSubModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/CreateSubModule/{NombreModulo}',
       // escuela exito crear modulos
-      createModules: 'ttps://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/CreateModule',
+      createModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/CreateModule',
       // Descargar formato masiva de marcas
       uploadMasiveBrand: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates/PlantillaCargaMasivaMarcas.xlsx',
       // Crear marcas masivas (post)

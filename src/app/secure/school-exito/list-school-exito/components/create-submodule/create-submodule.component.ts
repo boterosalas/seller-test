@@ -146,7 +146,7 @@ export class CreateSubmoduleComponent implements OnInit {
         this.router
           .navigateByUrl("/SchoolExitoComponent", { skipLocationChange: true })
           .then(() => {
-            this.router.navigate(["/securehome/escuela-exito"]);
+            this.router.navigate(["/securehome/schoolExito/list-school-exito"]);
           });
       } else {
         this.componentService.openSnackBar(

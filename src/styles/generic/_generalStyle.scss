@@ -470,3 +470,27 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
 .dis-flex {
     display: flex;
 }
+
+@media (min-width: 767px) {
+    app-upload-file {
+        width: 50%;
+    }
+}
+
+.btn-transparent{
+    background: #ffffff;
+    border: 1px solid $blue !important;
+    border-radius: 0 !important;
+    &:hover{
+        color: #ffffff;
+        background:  $blue !important;
+    }
+}
+
+.mat-dialog-actions{
+    gap: 25px;
+}
+
+.close{
+    cursor: pointer;
+}
