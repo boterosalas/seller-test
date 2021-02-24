@@ -30,6 +30,7 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
   public dragIndex: number;
   public activeContainer;
   public modules: Array<any> = [];
+  public disabled = false;
 
 
   constructor(
@@ -252,24 +253,32 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
    * @memberof ListAdminSchoolComponent
    */
   drop(event: CdkDragDrop<string[]>, submodules: any, module: any, index: number) {
-    // console.log(this.modules);
-    // console.log(index);
-    // console.log(this.modules[index].Submodules[event.previousIndex].Index);
-    // console.log(this.modules[index].Submodules[event.currentIndex].Index);
-   
     const oldIndex = this.modules[index].Submodules[event.previousIndex].Index;
-    const newIndex = event.currentIndex > 0 ? this.modules[index].Submodules[event.currentIndex].Index : 0;
-    // console.log(oldIndex);
-    // console.log(newIndex);
+    let newIndex = 0;
+    this.disabled = true;
+
+    if (event.previousIndex > event.currentIndex) {
+       newIndex = event.currentIndex > 0 ? this.modules[index].Submodules[event.currentIndex - 1].Index : 0;
+    } else {
+      newIndex = event.currentIndex > 0 ? this.modules[index].Submodules[event.currentIndex].Index : 0;
+    }
 
     const params = {
       'ModuleName': module.ModuleName,
       'OldIndex': oldIndex,
       'NewIndex': newIndex
     };
+    moveItemInArray(submodules, event.previousIndex, event.currentIndex);
     this.schoolExitoService.updatePositionSubModules(params).subscribe( result => {
-      console.log(result);
-      moveItemInArray(submodules, event.previousIndex, event.currentIndex);
+      if (result && result.statusCode === 200) {
+        const { body } = result;
+        this.modules[index].Submodules = JSON.parse(body).Data;
+        this.disabled = false;
+      } else {
+        console.log('error');
+      }
+    }, error => {
+      console.log(error);
     });
   }
 

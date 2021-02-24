@@ -32,7 +32,7 @@ export class SchoolExitoService {
   editSubModules(body: any): Observable<{}> {
     return this.http.patch(this.api.get('editSubModules'), body);
   }
-  updatePositionSubModules(body: any): Observable<{}> {
+  updatePositionSubModules(body: any): Observable<any> {
     return this.http.patch(this.api.get('updatePositionSubModules'), body);
   }
 
