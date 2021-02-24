@@ -195,8 +195,8 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
     this.targetIndex = dropIndex;
     this.target = drop;
 
-    console.log('donde va a quedar......... luego le resto 1 mayor igual 0 (cero null)', dropIndex);
-    console.log('no lo necesitas origen ', dragIndex);
+    // console.log('donde va a quedar......... luego le resto 1 mayor igual 0 (cero null)', dropIndex);
+    // console.log('no lo necesitas origen ', dragIndex);
     phElement.style.display = '';
     dropElement.parentElement.insertBefore(phElement, (dropIndex > dragIndex
       ? dropElement.nextSibling : dropElement));

@@ -14,6 +14,7 @@ import { SchoolExitoService } from "@app/secure/school-exito/school-exito.servic
 import { ComponentsService } from "@app/shared";
 import { TranslateService } from "@ngx-translate/core";
 import { EditModuleComponent } from "../edit-module/edit-module.component";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-create-module",
@@ -43,7 +44,8 @@ export class CreateModuleComponent implements OnInit {
     public snackBar: MatSnackBar,
     public _schoolExito: SchoolExitoService,
     public componentService: ComponentsService, // private languageService: TranslateService, // private router: Router
-    private languageService: TranslateService
+    private languageService: TranslateService,
+    private router: Router
   ) {}
 
   /**
@@ -240,8 +242,10 @@ export class CreateModuleComponent implements OnInit {
         );
         this.dialogRef.close();
         setTimeout(() => {
-          location.reload();
-        }, 1000);
+          this.router.navigateByUrl('/SchoolExitoComponent', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/securehome/schoolExito/list-school-exito']);
+        }); 
+        }, 500);
       } else {
         this.componentService.openSnackBar(
           body.Errors[0].Message,

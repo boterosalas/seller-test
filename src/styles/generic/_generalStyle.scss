@@ -484,6 +484,17 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
     &:hover{
         color: #ffffff;
         background:  $blue !important;
+        &[disabled]{
+            background: #e0e0e0;
+        }
+    }
+
+   
+
+    &[disabled]{
+        background: #e0e0e0;
+        border: none !important;
+        
     }
 }
 
