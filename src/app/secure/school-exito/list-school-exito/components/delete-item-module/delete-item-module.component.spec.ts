@@ -1,6 +1,11 @@
+import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import { RouterTestingModule } from "@angular/router/testing";
+import { EndpointService } from "@app/core";
+import { ShellModule } from "@app/core/shell/shell.module";
 import { MaterialModule } from "@app/material.module";
+import { ComponentsService } from "@app/shared";
 import { TranslateModule } from "@ngx-translate/core";
 
 import { DeleteItemModuleComponent } from "./delete-item-module.component";
@@ -17,11 +22,19 @@ describe("DeleteItemModuleComponent", () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [DeleteItemModuleComponent],
-      imports: [MaterialModule, TranslateModule.forRoot({})],
+      imports: [
+        MaterialModule,
+        TranslateModule.forRoot({}),
+        HttpClientTestingModule,
+        ShellModule,
+        RouterTestingModule
+      ],
       providers: [
+        EndpointService,
+        ComponentsService,
         { provide: MatDialogRef, useValue: mockDialog },
-        { provide: MAT_DIALOG_DATA, useValue: data }
-      ]
+        { provide: MAT_DIALOG_DATA, useValue: data },
+      ],
     }).compileComponents();
   }));
 
