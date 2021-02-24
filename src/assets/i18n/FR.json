@@ -197,6 +197,7 @@
     "actions.view_attachments" : "View attachments",
     "actions.confirm_offer": "Approve Offer",
     "actions.all": "All",
+    "actions.new": "New",
 
     "errors.required": "Field required",
     "errors.invalid_name": "Invalid name",
@@ -1428,5 +1429,6 @@
     "school.exito.uploadfile.esp": "Manual in Spanish",
     "school.exito.uploadfile.ing": "English manual",
     "school.exito.uploadfile.dragfile": "Click here or drag and drop the file",
-    "school.exito.uploadfile.pdf": "Invalid format, only files in .PDF format are allowed to be attached"
+    "school.exito.uploadfile.pdf": "Invalid format, only files in .PDF format are allowed to be attached",
+    "school.exito.empty_data": "No records found"
 }

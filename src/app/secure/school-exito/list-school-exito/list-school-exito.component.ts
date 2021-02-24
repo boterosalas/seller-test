@@ -9,6 +9,7 @@ import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.serv
 export class ListSchoolExitoComponent implements OnInit {
 
   public isAdmin: boolean;
+  public load = false;
 
   constructor(
     private profileService: MyProfileService,
@@ -31,6 +32,7 @@ export class ListSchoolExitoComponent implements OnInit {
       } else {
         this.isAdmin = false;
       }
+      this.load = true;
     });
   }
 }
