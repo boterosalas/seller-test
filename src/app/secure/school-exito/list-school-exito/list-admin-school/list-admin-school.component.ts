@@ -29,7 +29,8 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
   public sourceIndex: number;
   public dragIndex: number;
   public activeContainer;
-  public modules: Array<number> = [];
+  public modules: Array<any> = [];
+  public disabled = false;
 
 
   constructor(
@@ -230,7 +231,6 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
       if (result && result.statusCode === 200) {
         const { body } = result;
         this.modules = JSON.parse(body).Data;
-        console.log(this.modules);
       } else {
         console.log('error');
       }
@@ -252,9 +252,34 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
    * @param {*} submodules
    * @memberof ListAdminSchoolComponent
    */
-  drop(event: CdkDragDrop<string[]>, submodules: any) {
-    console.log('donde llega final, luego le restamos 1 mayor igual a cero y es cero null, buscar en array', event.currentIndex);
+  drop(event: CdkDragDrop<string[]>, submodules: any, module: any, index: number) {
+    const oldIndex = this.modules[index].Submodules[event.previousIndex].Index;
+    let newIndex = 0;
+    this.disabled = true;
+
+    if (event.previousIndex > event.currentIndex) {
+       newIndex = event.currentIndex > 0 ? this.modules[index].Submodules[event.currentIndex - 1].Index : 0;
+    } else {
+      newIndex = event.currentIndex > 0 ? this.modules[index].Submodules[event.currentIndex].Index : 0;
+    }
+
+    const params = {
+      'ModuleName': module.ModuleName,
+      'OldIndex': oldIndex,
+      'NewIndex': newIndex
+    };
     moveItemInArray(submodules, event.previousIndex, event.currentIndex);
+    this.schoolExitoService.updatePositionSubModules(params).subscribe( result => {
+      if (result && result.statusCode === 200) {
+        const { body } = result;
+        this.modules[index].Submodules = JSON.parse(body).Data;
+        this.disabled = false;
+      } else {
+        console.log('error');
+      }
+    }, error => {
+      console.log(error);
+    });
   }
 
 }

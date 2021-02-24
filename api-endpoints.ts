@@ -284,7 +284,9 @@ export const endpoints = {
       // Crear marcas masivas (post)
       createMassiveBrand: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/CreateMassive',
       // Consultar estado de crear Marcas Masivas (get)
-      getStatusMassiveBrand: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/ValidateStatusCreateMassive'
+      getStatusMassiveBrand: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/ValidateStatusCreateMassive',
+      // actualiza la posicion del elemento en la base de datos trabaja con el index
+      updatePositionSubModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/MoveSubModule'
     },
   },
   // Endpoints production
@@ -566,7 +568,9 @@ export const endpoints = {
       // Crear marcas masivas (post)
       createMassiveBrand: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/CreateMassive',
       // Consultar estado de crear Marcas Masivas (get)
-      getStatusMassiveBrand: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/ValidateStatusCreateMassive'
+      getStatusMassiveBrand: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/ValidateStatusCreateMassive',
+            // actualiza la posicion del elemento en la base de datos trabaja con el index
+      updatePositionSubModules: ''
     }
   }
 };
