@@ -25,6 +25,7 @@ export class ModalBulkloadAgreementComponent implements OnInit {
 
   accept = '*';
   files: File[] = [];
+  filesExcel: File[] = [];
   progress: number;
   hasBaseDropZoneOver = false;
   httpEmitter: Subscription;
@@ -35,9 +36,12 @@ export class ModalBulkloadAgreementComponent implements OnInit {
   dataToSend: any;
   showProgress = false;
   validComboDrag = true;
+  validComboDragExcel = true;
   dragFiles = true;
   file = null;
+  fileExcel = true;
   arraySend = [];
+  
 
   public urlDownloadFile: string;
   public limitRowExcel: number;
@@ -203,8 +207,10 @@ export class ModalBulkloadAgreementComponent implements OnInit {
         }
         this.fileName = file.target.files[0].name;
         this.fileSize = file.target.files[0].size;
+        this.fileExcel = false;
+        console.log('tamaño: ', this.fileSize);
+        console.log('nombre: ', this.fileName);
         console.log('this.arrayNecessaryData: ', this.arrayNecessaryData);
-        // this.sendJsonMassiveBrand(this.arrayNecessaryData);
       }
     } else {
       this.loadingService.closeSpinner();
@@ -219,6 +225,7 @@ export class ModalBulkloadAgreementComponent implements OnInit {
     if (!file) {
       file = this.files[this.files.length - 1];
     }
+    console.log('this.files: ', this.files);
     this.getBase64(file).then(data => {
       try {
         const bodyToSend = {
