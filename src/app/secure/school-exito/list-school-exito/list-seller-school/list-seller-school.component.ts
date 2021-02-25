@@ -11,6 +11,8 @@ import { SchoolExitoService } from '../../school-exito.service';
 export class ListSellerSchoolComponent implements OnInit {
 
   public modules: Array<number> = [];
+  public emptyData = true;
+  public load = true;
 
   constructor(
     private schoolExitoService: SchoolExitoService,
@@ -31,8 +33,15 @@ export class ListSellerSchoolComponent implements OnInit {
       if (result && result.statusCode === 200) {
         const { body } = result;
         this.modules = JSON.parse(body).Data;
+        if (this.modules && this.modules.length > 0) {
+          this.emptyData = false;
+          this.load = false;
+        } else {
+          this.emptyData = true;
+          this.load = true;
+        }
       } else {
-        console.log('error');
+        this.componentsService.openSnackBar(this.languageService.instant('core.http.error_handler.error_acces'), this.languageService.instant('actions.close'), 5000);
       }
     });
   }

@@ -5,6 +5,7 @@ import {
   CdkDropListGroup,
   CdkDragMove,
   moveItemInArray,
+<<<<<<< HEAD
   CdkDragDrop,
 } from "@angular/cdk/drag-drop";
 import { ViewportRuler } from "@angular/cdk/overlay";
@@ -16,6 +17,21 @@ import { EditItemModuleComponent } from "../components/edit-item-module/edit-ite
 import { EditModuleComponent } from "../components/edit-module/edit-module.component";
 import { MatDialog } from "@angular/material";
 import { CreateModuleComponent } from "../components/create-module/create-module.component";
+=======
+  CdkDragDrop
+} from '@angular/cdk/drag-drop';
+import { ViewportRuler } from '@angular/cdk/overlay';
+import { SchoolExitoService } from '../../school-exito.service';
+import { CreateSubmoduleComponent } from '../components/create-submodule/create-submodule.component';
+import { DeleteItemModuleComponent } from '../components/delete-item-module/delete-item-module.component';
+import { DeleteModuleComponent } from '../components/delete-module/delete-module.component';
+import { EditItemModuleComponent } from '../components/edit-item-module/edit-item-module.component';
+import { EditModuleComponent } from '../components/edit-module/edit-module.component';
+import { MatDialog } from '@angular/material';
+import { CreateModuleComponent } from '../components/create-module/create-module.component';
+import { ComponentsService } from '@app/shared';
+import { TranslateService } from '@ngx-translate/core';
+>>>>>>> 6dc65ce348b26c9e9b4fff8b1b8a9d6bec22babf
 @Component({
   selector: "app-list-admin-school",
   templateUrl: "./list-admin-school.component.html",
@@ -38,7 +54,9 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
   constructor(
     private viewportRuler: ViewportRuler,
     private schoolExitoService: SchoolExitoService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public componentsService: ComponentsService,
+    private languageService: TranslateService,
   ) {
     this.target = null;
     this.source = null;
@@ -268,6 +286,7 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
    * @memberof ListAdminSchoolComponent
    */
   getAllModules() {
+<<<<<<< HEAD
     this.schoolExitoService
       .getAllModuleSchoolExito(null)
       .subscribe((result) => {
@@ -278,6 +297,16 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
           console.log("error");
         }
       });
+=======
+    this.schoolExitoService.getAllModuleSchoolExito(null).subscribe(result => {
+      if (result && result.statusCode === 200) {
+        const { body } = result;
+        this.modules = JSON.parse(body).Data;
+      } else {
+        this.componentsService.openSnackBar(this.languageService.instant('core.http.error_handler.error_acces'), this.languageService.instant('actions.close'), 5000);
+      }
+    });
+>>>>>>> 6dc65ce348b26c9e9b4fff8b1b8a9d6bec22babf
   }
   /**
    * funcion para descargar el archivo
@@ -324,6 +353,7 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
     };
 
     moveItemInArray(submodules, event.previousIndex, event.currentIndex);
+<<<<<<< HEAD
     this.schoolExitoService.updatePositionSubModules(params).subscribe(
       (result) => {
         if (result && result.statusCode === 200) {
@@ -338,6 +368,19 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
         console.log(error);
       }
     );
+=======
+    this.schoolExitoService.updatePositionSubModules(params).subscribe( result => {
+      if (result && result.statusCode === 200) {
+        const { body } = result;
+        this.modules[index].Submodules = JSON.parse(body).Data;
+        this.disabled = false;
+      } else {
+        this.componentsService.openSnackBar(this.languageService.instant('core.http.error_handler.error_acces'), this.languageService.instant('actions.close'), 5000);
+      }
+    }, error => {
+      this.componentsService.openSnackBar(this.languageService.instant('core.http.error_handler.error_acces'), this.languageService.instant('actions.close'), 5000);
+    });
+>>>>>>> 6dc65ce348b26c9e9b4fff8b1b8a9d6bec22babf
   }
 }
 /**

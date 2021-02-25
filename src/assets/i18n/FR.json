@@ -197,6 +197,7 @@
     "actions.view_attachments" : "View attachments",
     "actions.confirm_offer": "Approve Offer",
     "actions.all": "All",
+    "actions.new": "New",
 
     "errors.required": "Field required",
     "errors.invalid_name": "Invalid name",
@@ -1126,6 +1127,7 @@
     "secure.parametize.brands.txt_brand_name": "Brand's name",
     "secure.parametize.brands.subtitle_toolbar": "Brands list",
     "secure.parametize.brands.btn_add_brand": "Add brand",
+    "secure.parametize.brands.btn_add_brand_massive": "Cargar archivo de marcas",
     "secure.parametize.brands.txt_add_brand": "In order to create a brand you must enter the brand's name the way you want it to be shown in the sites. Keep into account that if the brand already exists you may not create it, and that you may not use any symbol or special character.",
     "secure.parametize.brands.txt_edit_brand": "In brand modification you may only change the name. Keep into account that if the brand name already exists you may not change the name so it's the same, and that you may not use any symbol or special character.",
     "secure.parametize.brands.edit_brand": "Edit brand",
@@ -1428,5 +1430,6 @@
     "school.exito.uploadfile.esp": "Manual in Spanish",
     "school.exito.uploadfile.ing": "English manual",
     "school.exito.uploadfile.dragfile": "Click here or drag and drop the file",
-    "school.exito.uploadfile.pdf": "Invalid format, only files in .PDF format are allowed to be attached"
+    "school.exito.uploadfile.pdf": "Invalid format, only files in .PDF format are allowed to be attached",
+    "school.exito.empty_data": "No records found"
 }

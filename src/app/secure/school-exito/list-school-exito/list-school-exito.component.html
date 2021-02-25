@@ -1,9 +1,15 @@
-<div class="list-school-exito-backgroudColor">
-  <app-toolbar-tittle class="app-toolbar-title " [tittleBar]="'school.exito' | translate" [subtitleBar]="'school.exito.theme.list' | translate"></app-toolbar-tittle>
-  <div *ngIf="!isAdmin">
-      <app-list-seller-school></app-list-seller-school>
+<div>
+  <div *ngIf="load" class="list-school-exito-backgroudColor">
+      <div *ngIf="!isAdmin">
+        <app-list-seller-school></app-list-seller-school>
+      </div>
+      <div *ngIf="isAdmin">
+        <app-toolbar-tittle class="app-toolbar-title"[tittleBar]="'school.exito' |
+          translate" [subtitleBar]="'school.exito.theme.list' | translate"></app-toolbar-tittle>
+        <app-list-admin-school></app-list-admin-school>
+      </div>
   </div>
-  <div *ngIf="isAdmin">
-    <app-list-admin-school></app-list-admin-school>
+  <div class="list-school-exito-wait-moment-please" *ngIf="!load">
+    {{'secure.products.create_product_unit.list_products.please_wait' | translate}}
   </div>
 </div>

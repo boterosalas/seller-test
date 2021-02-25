@@ -262,7 +262,7 @@ export const endpoints = {
       // Descargar productos vendedor
       downloadProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/report',
       // verificar el status de carga de dispersion
-      statusLoadDispersion : 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/getstatusdispersion',
+      statusLoadDispersion: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/getstatusdispersion',
       // Envia un correo con el reporte
       sendModuleReportDispersion : 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/pendingpaymentnews/{params}',
       // Obtener listado de modulos y submodulos
@@ -519,7 +519,7 @@ export const endpoints = {
       verificateStatusException: 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/GetMassiveComsnExcStatus',
       // enviar data en formato json al back
       sendDataJsonReadExcel: 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/MassiveComsnExc',
-       // Descargar especificaciones
+      // Descargar especificaciones
       exportSpecs: 'https://fhby1m1mxd.execute-api.us-east-1.amazonaws.com/productsspec-pdn/report{params}',
       // Listado de colores
       getListColor: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/colors',
@@ -548,7 +548,7 @@ export const endpoints = {
       // Descargar productos vendedor
       downloadProducts: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/report',
       // verificar el status de carga de dispersion
-      statusLoadDispersion : 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/getstatusdispersion',
+      statusLoadDispersion: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/getstatusdispersion',
       // Envia un correo con el reporte
       sendModuleReportDispersion : 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/pendingpaymentnews/{params}',
       // Obtener listado de modulos y submodulos
@@ -572,9 +572,13 @@ export const endpoints = {
       // Consultar estado de crear Marcas Masivas (get)
       getStatusMassiveBrand: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/ValidateStatusCreateMassive',
       // actualiza la posicion del elemento en la base de datos trabaja con el index
+<<<<<<< HEAD
       updatePositionSubModules: 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/MoveSubModule',
       // actualiza la posicion del elemento en la base de datos trabaja con el index
       updatePositionModules: 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/MoveModule'
+=======
+      updatePositionSubModules: ''
+>>>>>>> 6dc65ce348b26c9e9b4fff8b1b8a9d6bec22babf
     }
   }
 };

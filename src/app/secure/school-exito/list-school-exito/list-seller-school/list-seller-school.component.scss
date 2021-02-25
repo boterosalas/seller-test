@@ -2,6 +2,16 @@
   &-header {
     height: 250px;
     background: #F1F1F1 0% 0% no-repeat padding-box;
+    background-repeat: round;
+    background-image: url('../../../../../assets/img/school-exito-landing-desktop.jpg');
+    @media screen and (min-width: 100px) and (max-width: 600px) {
+      height: 220px;
+      background-image: url('../../../../../assets/img/school-exito-landing-mobil.jpg');
+    }
+    @media screen and (min-width: 601px) and (max-width: 1279px) {
+      height: 250px;
+      background-image: url('../../../../../assets/img/school-exito-landing-desktop.jpg');
+    }
   }
 
   &-container-header {
@@ -12,7 +22,7 @@
 
   &-container-header-text-size {
     font-size: 40px;
-    color: #333333;
+    color: #ffffff;
   }
 
   &-container-modules {
@@ -43,21 +53,38 @@
     color: #909090;
     font-size: 12px;
     cursor: pointer;
-    vertical-align: sub;
+    vertical-align: bottom;
   }
 
   &-badge-new-submodule {
     text-align: center;
     background-color: #D14444;
-    border-radius: 10px;
+    border-radius: 6px;
     color: #ffffff;
-    height: 23px;
-    width: 41px;
+    opacity: 1;
+    height: 20px;
+    width: 45px;
   }
 
   &-position-badge {
     font-size: 11px;
-    vertical-align: bottom;
     letter-spacing: 0px;
+  }
+  &-empty-data{
+    width: 100%;
+    text-align: center;
+    font-size: 17px;
+    color: #b6b6b6;
+    padding-top: 80px;
+    padding-bottom: 20px;
+    font-weight: bold;
+  }
+  &-icons-school{
+    font-size: 150px;
+    margin-right: 142px;
+    color: #b6b6b6;
+  }
+  &-margin-left-15{
+    margin-left: 5px;
   }
 }

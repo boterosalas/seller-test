@@ -25,6 +25,7 @@ import { StoresModule } from '../offers';
 import { ModalResultLoadExceptionComponent } from './exception/modal-result-load-exception/modal-result-load-exception.component';
 import { DownloadSpecsComponent } from './specifications/download-specs/download-specs.component';
 import { DownloadCategoriesComponent } from './category/categories/download-categories/download-categories.component';
+import { ModalBulkloadBrandsComponent } from './brands/modal-bulkload-brands/modal-bulkload-brands.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { DownloadCategoriesComponent } from './category/categories/download-cate
     ExceptionBrandComponent,
     ModalResultLoadExceptionComponent,
     DownloadSpecsComponent,
-    DownloadCategoriesComponent
+    DownloadCategoriesComponent,
+    ModalBulkloadBrandsComponent
   ],
   imports: [
     CommonModule,
@@ -72,7 +74,8 @@ import { DownloadCategoriesComponent } from './category/categories/download-cate
     ModalPortComponent,
     ModalResultLoadExceptionComponent,
     DownloadSpecsComponent,
-    DownloadCategoriesComponent
+    DownloadCategoriesComponent,
+    ModalBulkloadBrandsComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
