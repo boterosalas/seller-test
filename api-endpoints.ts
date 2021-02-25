@@ -572,13 +572,9 @@ export const endpoints = {
       // Consultar estado de crear Marcas Masivas (get)
       getStatusMassiveBrand: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/ValidateStatusCreateMassive',
       // actualiza la posicion del elemento en la base de datos trabaja con el index
-<<<<<<< HEAD
       updatePositionSubModules: 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/MoveSubModule',
       // actualiza la posicion del elemento en la base de datos trabaja con el index
       updatePositionModules: 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/MoveModule'
-=======
-      updatePositionSubModules: ''
->>>>>>> 6dc65ce348b26c9e9b4fff8b1b8a9d6bec22babf
     }
   }
 };
