@@ -255,6 +255,7 @@ export class ModalBulkloadAgreementComponent implements OnInit {
           typeContracts: this.form.controls.typeAgreement.value,
           name: this.form.controls.description.value,
           sellers: this.arrayNecessaryData,
+          applyAllSeller: false
         };
         this.prepareSend = false;
         console.log(bodyToSend);
