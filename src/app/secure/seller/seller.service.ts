@@ -100,4 +100,14 @@ export class SellerService implements CanActivate {
     public registersContract(data: any): Observable<any> {
         return this.http.post(this.api.get('registersContract'), data);
     }
+
+    /**
+     * Obtener listado de acuerdos
+     * @param {*} params
+     * @returns {Observable<any>}
+     * @memberof SellerService
+     */
+    getAllAgreement(params: any): Observable<any> {
+        return this.http.get(this.api.get('getAllAgreement', [params]));
+      }
 }

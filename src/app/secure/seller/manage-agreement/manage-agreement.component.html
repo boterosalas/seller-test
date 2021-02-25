@@ -11,7 +11,7 @@
 </div>
 
 <div id="addButton" fxLayout="row" fxLayoutAlign="space-between center">
-  <h4 style="color: black;">El acuerdo predeterminado es: Acuerdo 1</h4>
+  <h4 style="color: black;" *ngIf="manageAgreementsSeller">El acuerdo predeterminado es: {{manageAgreementsSeller[0].Name}}</h4>
   <button mat-button mat-stroked-button color="primary" (click)="openModalBulkLoadAgreement()">
     <strong>{{'menu.Cargar Acuerdos' | translate}}</strong>
   </button>
@@ -21,7 +21,7 @@
   <div class="agreement">
     <div class="agreement-title" fxLayout="row" fxLayoutAlign="space-between center">
       <p>{{'shared.name' | translate}}</p>
-      <p style="margin-right: 10%;">{{'shared.actions' | translate}}</p>
+      <p style="margin-right: 10%;" *ngIf="false">{{'shared.actions' | translate}}</p>
     </div>
     <div *ngFor="let agreement of manageAgreementsSeller" fxLayout="row" fxLayoutAlign="space-between center"
       class="list-agreement">
@@ -29,7 +29,7 @@
         <mat-icon class="material-icons" class="file-agreement">
           insert_drive_file
         </mat-icon>
-        <p>{{agreement.ContractName}}</p>
+        <p>{{agreement.Name}}</p>
       </div>
       <button mat-icon-button (click)="getPDF(agreement)" *ngIf="download">
         <mat-icon class="material-icons">

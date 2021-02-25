@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Logger } from '@app/core';
+import { LoadingService, Logger, ModalService } from '@app/core';
+import { SellerService } from '../seller.service';
 import { ModalBulkloadAgreementComponent } from './modal-bulkload-agreement/modal-bulkload-agreement.component';
 
 const log = new Logger('ManageAgreementComponent');
@@ -12,23 +13,20 @@ const log = new Logger('ManageAgreementComponent');
 })
 export class ManageAgreementComponent implements OnInit {
 
-  manageAgreementsSeller = [
-    {ContractName: 'Acuerdo 1'},
-    {ContractName: 'Acuerdo 2'},
-    {ContractName: 'Acuerdo 3'},
-    {ContractName: 'Acuerdo 4'},
-    {ContractName: 'Acuerdo 5'},
-    {ContractName: 'Acuerdo 6'},
-    {ContractName: 'Acuerdo 7'},
-    {ContractName: 'Acuerdo 8'},
-    {ContractName: 'Acuerdo 9'}
-  ];
+  manageAgreementsSeller: any;
+
+  public paginationToken = '{}';
+  public limit = 0;
 
   constructor(
     private dialog: MatDialog,
+    private sellerService: SellerService,
+    private loading: LoadingService,
+    private modalService: ModalService,
   ) { }
 
   ngOnInit() {
+    this.getAllBrands();
   }
 
   /**
@@ -45,5 +43,31 @@ export class ManageAgreementComponent implements OnInit {
       log.info('The modal detail billing was closed');
     });
   }
+
+  public getAllBrands() {
+    this.loading.viewSpinner();
+    const urlParams = `?limit=${this.limit}&paginationToken=${encodeURI(this.paginationToken)}`
+    this.sellerService.getAllAgreement(urlParams).subscribe((result: any) => {
+       console.log('result: ', result);
+       if (result ) {
+        this.manageAgreementsSeller = result.ViewModel;
+        this.loading.closeSpinner();
+       }
+       
+        // if (res && parseInt(res.Total) > 0) {
+        //     this.brandsList = res.Brands;
+        //     this.length = res.Total;
+        //     this.sortedData = this.mapItems(
+        //         res.Brands,
+        //     );
+        // } else {
+        //     this.sortedData = null;
+        // }
+
+    }, error => {
+        this.loading.closeSpinner();
+        this.modalService.showModal('errorService');
+    });
+}
 
 }

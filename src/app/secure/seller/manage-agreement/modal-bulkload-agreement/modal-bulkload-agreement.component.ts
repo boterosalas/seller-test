@@ -61,6 +61,8 @@ export class ModalBulkloadAgreementComponent implements OnInit {
 
   /* Input file que carga el archivo*/
   @ViewChild('fileUploadOption') inputFileUpload: any;
+  bodyToSend: any;
+  arrayTosendExcel: any[];
 
   constructor(
     public dialogRef: MatDialogRef<ModalBulkloadAgreementComponent>,
@@ -215,6 +217,7 @@ export class ModalBulkloadAgreementComponent implements OnInit {
         this.fileName = file.target.files[0].name;
         this.fileSize = file.target.files[0].size;
         this.fileExcel = false;
+        console.log(99, this.arrayNecessaryData);
         this.validateDataRegex();
       }
     } else {
@@ -230,6 +233,7 @@ export class ModalBulkloadAgreementComponent implements OnInit {
   validateDataRegex() {
     let copyArrSellers = this.arrayNecessaryData;
     copyArrSellers.splice(0, 1);
+    this.arrayTosendExcel = copyArrSellers;
     copyArrSellers.forEach(el => {
       if (el[0].match(this.agreementRegex.number)) {
         this.disableSend = true;
@@ -241,25 +245,26 @@ export class ModalBulkloadAgreementComponent implements OnInit {
   }
 
   sendImportAgreement() {
-    this.loadingService.viewSpinner();
+    // this.loadingService.viewSpinner();
     const lengthFiles = document.getElementById('pdf').getElementsByTagName('input')[0].files.length;
     let file = document.getElementById('pdf').getElementsByTagName('input')[0].files[lengthFiles - 1];
     if (!file) {
       file = this.files[this.files.length - 1];
     }
-    console.log('this.files: ', this.files);
+    console.log('this.arrayNecessaryData: ', this.arrayNecessaryData);
     this.getBase64(file).then(data => {
       try {
-        const bodyToSend = {
+        this.bodyToSend = {
           fileAgreement: data.slice(data.search('base64') + 7, data.length),
           typeContracts: this.form.controls.typeAgreement.value,
           name: this.form.controls.description.value,
-          sellers: this.arrayNecessaryData,
+          sellers: this.arrayTosendExcel,
           applyAllSeller: false
         };
         this.prepareSend = false;
-        console.log(bodyToSend);
+        console.log(this.bodyToSend);
         // this.sellerService.registersContract(bodyToSend).subscribe((result: any) => {
+        //   console.log(result);
         //   this.loadingService.closeSpinner();
         //   if (result.statusCode === 200) {
         //     const dataRes = JSON.parse(result.body).Data;
@@ -337,8 +342,37 @@ export class ModalBulkloadAgreementComponent implements OnInit {
     });
   }
 
+  open2() {
+    console.log(this.arrayTosendExcel);
+    console.log(this.arrayNecessaryData);
+    let prueba = [];
+    this.arrayNecessaryData.forEach(element => {
+      element.forEach(el => {
+        prueba.push(el);
+      });
+    });
+    this.bodyToSend.sellers = prueba;
+    this.sellerService.registersContract(this.bodyToSend).subscribe((result: any) => {
+      console.log(result);
+      this.loadingService.closeSpinner();
+      if (result.statusCode === 200) {
+        const dataRes = JSON.parse(result.body).Data;
+        if (dataRes) {
+          this.componentService.openSnackBar(this.languageService.instant('secure.load_guide_page.finish_upload_info.title'), this.languageService.instant('actions.close'), 5000);
+          this.dialogRef.close(false);
+          this.shellComponent.eventEmitterOrders.getClear();
+        } else {
+          this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), this.languageService.instant('actions.close'), 5000);
+        }
+      } else {
+        this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), this.languageService.instant('actions.close'), 5000);
+      }
+    });
+  }
+
   sendMassiveAgreement() {
     console.log(11, this.arrayNecessaryData);
+    // this.prepareSend = false;
     this.sendImportAgreement();
   }
 }

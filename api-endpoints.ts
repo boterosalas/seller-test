@@ -272,7 +272,9 @@ export const endpoints = {
       // Consultar estado de crear Marcas Masivas (get)
       getStatusMassiveBrand: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/ValidateStatusCreateMassive',
       // Descarga formato masiva vendedores
-      uploadMassiveAgreementSellers: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates-Dev/PlantillaCargaAcuerdos.xlsx'
+      uploadMassiveAgreementSellers: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates-Dev/PlantillaCargaAcuerdos.xlsx',
+      // Obtener listado de acuerdos
+      getAllAgreement: 'https://yoix96dfrg.execute-api.us-east-1.amazonaws.com/contracts/GetSellerContract/{params}',
     },
   },
   // Endpoints production
@@ -542,7 +544,9 @@ export const endpoints = {
       // Consultar estado de crear Marcas Masivas (get)
       getStatusMassiveBrand: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/ValidateStatusCreateMassive',
       // Descarga formato masiva vendedores
-      uploadMassiveAgreementSellers: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates/PlantillaCargaAcuerdos.xlsx'
+      uploadMassiveAgreementSellers: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates/PlantillaCargaAcuerdos.xlsx',
+       // Obtener listado de acuerdos
+       getAllAgreement: 'https://yoix96dfrg.execute-api.us-east-1.amazonaws.com/contracts/GetSellerContract/{params}',
     }
   }
 };
