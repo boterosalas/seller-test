@@ -14,6 +14,8 @@ import { EditItemModuleComponent } from '../components/edit-item-module/edit-ite
 import { EditModuleComponent } from '../components/edit-module/edit-module.component';
 import { MatDialog } from '@angular/material';
 import { CreateModuleComponent } from '../components/create-module/create-module.component';
+import { ComponentsService } from '@app/shared';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-list-admin-school',
   templateUrl: './list-admin-school.component.html',
@@ -36,7 +38,9 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
   constructor(
     private viewportRuler: ViewportRuler,
     private schoolExitoService: SchoolExitoService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public componentsService: ComponentsService,
+    private languageService: TranslateService,
   ) {
     this.target = null;
     this.source = null;
@@ -232,7 +236,7 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
         const { body } = result;
         this.modules = JSON.parse(body).Data;
       } else {
-        console.log('error');
+        this.componentsService.openSnackBar(this.languageService.instant('core.http.error_handler.error_acces'), this.languageService.instant('actions.close'), 5000);
       }
     });
   }
@@ -275,10 +279,10 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
         this.modules[index].Submodules = JSON.parse(body).Data;
         this.disabled = false;
       } else {
-        console.log('error');
+        this.componentsService.openSnackBar(this.languageService.instant('core.http.error_handler.error_acces'), this.languageService.instant('actions.close'), 5000);
       }
     }, error => {
-      console.log(error);
+      this.componentsService.openSnackBar(this.languageService.instant('core.http.error_handler.error_acces'), this.languageService.instant('actions.close'), 5000);
     });
   }
 

@@ -39,7 +39,15 @@
       </div>
     </div>
   </div>
-  <div *ngIf="emptyData" class="list-seller-school-component-empty-data">
+  <div *ngIf="emptyData && load" class="list-seller-school-component-empty-data">
+    <div>
+      {{'secure.products.create_product_unit.list_products.please_wait' | translate}}
+    </div>
+    <div>
+      <mat-icon class="list-seller-school-component-icons-school">school</mat-icon>
+    </div>
+  </div>
+  <div *ngIf="emptyData && !load" class="list-seller-school-component-empty-data">
     <div>
       {{'school.exito.empty_data'| translate}}
     </div>
