@@ -48,6 +48,8 @@ export class ModalBulkloadAgreementComponent implements OnInit {
   };
 
   disableSend = false;
+  // Boleano para mostrar modal de carga o info de confirmacion
+  prepareSend = true;
 
   public urlDownloadFile: string;
   public limitRowExcel: number;
@@ -252,9 +254,9 @@ export class ModalBulkloadAgreementComponent implements OnInit {
           fileAgreement: data.slice(data.search('base64') + 7, data.length),
           typeContracts: this.form.controls.typeAgreement.value,
           name: this.form.controls.description.value,
-          sellers: this.arraySend,
-          applyAllSeller: this.data.selectAll
+          sellers: this.arrayNecessaryData,
         };
+        this.prepareSend = false;
         console.log(bodyToSend);
         // this.sellerService.registersContract(bodyToSend).subscribe((result: any) => {
         //   this.loadingService.closeSpinner();
@@ -272,6 +274,7 @@ export class ModalBulkloadAgreementComponent implements OnInit {
         //   }
         // });
       } catch (e) {
+        this.prepareSend = true;
         log.error(this.languageService.instant('shared.components.load_file.snackbar_error'), e);
       }
     });
@@ -316,6 +319,10 @@ export class ModalBulkloadAgreementComponent implements OnInit {
   }
 
 
+  /**
+   * Metodo para traer regex de dynamo
+   * @memberof ModalBulkloadAgreementComponent
+   */
   public validateFormSupport(): void {
     this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
       let dataRegex = JSON.parse(res.body.body);
