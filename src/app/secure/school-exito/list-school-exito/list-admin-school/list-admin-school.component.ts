@@ -1,26 +1,29 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from "@angular/core";
 import {
   CdkDrag,
-  CdkDropList, CdkDropListGroup, CdkDragMove,
+  CdkDropList,
+  CdkDropListGroup,
+  CdkDragMove,
   moveItemInArray,
-  CdkDragDrop
-} from '@angular/cdk/drag-drop';
-import { ViewportRuler } from '@angular/cdk/overlay';
-import { SchoolExitoService } from '../../school-exito.service';
-import { CreateSubmoduleComponent } from '../components/create-submodule/create-submodule.component';
-import { DeleteItemModuleComponent } from '../components/delete-item-module/delete-item-module.component';
-import { DeleteModuleComponent } from '../components/delete-module/delete-module.component';
-import { EditItemModuleComponent } from '../components/edit-item-module/edit-item-module.component';
-import { EditModuleComponent } from '../components/edit-module/edit-module.component';
-import { MatDialog } from '@angular/material';
-import { CreateModuleComponent } from '../components/create-module/create-module.component';
+  CdkDragDrop,
+} from "@angular/cdk/drag-drop";
+import { ViewportRuler } from "@angular/cdk/overlay";
+import { SchoolExitoService } from "../../school-exito.service";
+import { CreateSubmoduleComponent } from "../components/create-submodule/create-submodule.component";
+import { DeleteItemModuleComponent } from "../components/delete-item-module/delete-item-module.component";
+import { DeleteModuleComponent } from "../components/delete-module/delete-module.component";
+import { EditItemModuleComponent } from "../components/edit-item-module/edit-item-module.component";
+import { EditModuleComponent } from "../components/edit-module/edit-module.component";
+import { MatDialog } from "@angular/material";
+import { CreateModuleComponent } from "../components/create-module/create-module.component";
 @Component({
-  selector: 'app-list-admin-school',
-  templateUrl: './list-admin-school.component.html',
-  styleUrls: ['./list-admin-school.component.scss']
+  selector: "app-list-admin-school",
+  templateUrl: "./list-admin-school.component.html",
+  styleUrls: ["./list-admin-school.component.scss"],
 })
 export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
-  @ViewChild(CdkDropListGroup, { static: false }) listGroup: CdkDropListGroup<CdkDropList>;
+  @ViewChild(CdkDropListGroup, { static: false })
+  listGroup: CdkDropListGroup<CdkDropList>;
   @ViewChild(CdkDropList, { static: false }) placeholder: CdkDropList;
 
   public target: CdkDropList;
@@ -29,9 +32,8 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
   public sourceIndex: number;
   public dragIndex: number;
   public activeContainer;
-  public modules: Array<any> = [];
+  public modules = [];
   public disabled = false;
-
 
   constructor(
     private viewportRuler: ViewportRuler,
@@ -48,9 +50,9 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
 
   createModule() {
     this.dialog.open(CreateModuleComponent, {
-      width: '800px',
-      maxWidth: '90vw',
-      maxHeight: '90vh'
+      width: "800px",
+      maxWidth: "90vw",
+      maxHeight: "90vh",
     });
   }
 
@@ -60,9 +62,9 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
         module,
         item,
       },
-      width: '800px',
-      maxWidth: '90vw',
-      maxHeight: '90vh',
+      width: "800px",
+      maxWidth: "90vw",
+      maxHeight: "90vh",
     });
   }
 
@@ -72,27 +74,27 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
         module,
         item,
       },
-      width: '800px',
-      maxWidth: '90vw',
-      maxHeight: '90vh',
+      width: "800px",
+      maxWidth: "90vw",
+      maxHeight: "90vh",
     });
   }
 
   editFaq(item: any) {
     this.dialog.open(EditModuleComponent, {
       data: item,
-      width: '800px',
-      maxWidth: '90vw',
-      maxHeight: '90vh',
+      width: "800px",
+      maxWidth: "90vw",
+      maxHeight: "90vh",
     });
   }
 
   deleteFaq(item: any) {
     this.dialog.open(DeleteModuleComponent, {
       data: item,
-      width: '800px',
-      maxWidth: '90vw',
-      maxHeight: '90vh',
+      width: "800px",
+      maxWidth: "90vw",
+      maxHeight: "90vh",
     });
   }
 
@@ -102,9 +104,9 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
         module,
         item,
       },
-      width: '800px',
-      maxWidth: '90vw',
-      maxHeight: '90vh',
+      width: "800px",
+      maxWidth: "90vw",
+      maxHeight: "90vh",
     });
   }
 
@@ -115,7 +117,7 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
    */
   ngAfterViewInit() {
     const phElement = this.placeholder.element.nativeElement;
-    phElement.style.display = 'none';
+    phElement.style.display = "none";
     phElement.parentElement.removeChild(phElement);
   }
   /**
@@ -127,7 +129,7 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
   dragMoved(e: CdkDragMove) {
     const point = this.getPointerPositionOnPage(e.event);
 
-    this.listGroup._items.forEach(dropList => {
+    this.listGroup._items.forEach((dropList) => {
       if (__isInsideDropListClientRect(dropList, point.x, point.y)) {
         this.activeContainer = dropList;
         return;
@@ -148,11 +150,14 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
     const phElement = this.placeholder.element.nativeElement;
     const parent = phElement.parentElement;
 
-    phElement.style.display = 'none';
+    phElement.style.display = "none";
 
     parent.removeChild(phElement);
     parent.appendChild(phElement);
-    parent.insertBefore(this.source.element.nativeElement, parent.children[this.sourceIndex]);
+    parent.insertBefore(
+      this.source.element.nativeElement,
+      parent.children[this.sourceIndex]
+    );
 
     this.target = null;
     this.source = null;
@@ -179,15 +184,21 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
     const sourceElement = drag.dropContainer.element.nativeElement;
     const dropElement = drop.element.nativeElement;
 
-    const dragIndex = __indexOf(dropElement.parentElement.children, (this.source ? phElement : sourceElement));
-    const dropIndex = __indexOf(dropElement.parentElement.children, dropElement);
+    const dragIndex = __indexOf(
+      dropElement.parentElement.children,
+      this.source ? phElement : sourceElement
+    );
+    const dropIndex = __indexOf(
+      dropElement.parentElement.children,
+      dropElement
+    );
 
     if (!this.source) {
       this.sourceIndex = dragIndex;
       this.source = drag.dropContainer;
 
-      phElement.style.width = sourceElement.clientWidth + 'px';
-      phElement.style.height = sourceElement.clientHeight + 'px';
+      phElement.style.width = sourceElement.clientWidth + "px";
+      phElement.style.height = sourceElement.clientHeight + "px";
 
       sourceElement.parentElement.removeChild(sourceElement);
     }
@@ -195,15 +206,43 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
     this.targetIndex = dropIndex;
     this.target = drop;
 
-    // console.log('donde va a quedar......... luego le resto 1 mayor igual 0 (cero null)', dropIndex);
-    // console.log('no lo necesitas origen ', dragIndex);
-    phElement.style.display = '';
-    dropElement.parentElement.insertBefore(phElement, (dropIndex > dragIndex
-      ? dropElement.nextSibling : dropElement));
+    let oldIndex = this.modules[dragIndex].Index;
+    let newIndex = this.modules[dropIndex].Index;
 
-    this.placeholder.enter(drag, drag.element.nativeElement.offsetLeft, drag.element.nativeElement.offsetTop);
+    if (dragIndex> dropIndex) {
+      newIndex = dropIndex > 0 ? this.modules[dropIndex - 1].Index: 0;
+    } else {
+      newIndex = dropIndex> 0 ? this.modules[dropIndex].Index: 0;
+    }
+
+    const params = {
+      OldIndex: oldIndex,
+      NewIndex: newIndex
+    };
+
+
+    this.schoolExitoService.updatePositionModules(params).subscribe((result) => {
+      if (result && result.statusCode === 200) {
+        const { body } = result;
+        moveItemInArray(JSON.parse(body).Data, dragIndex, dropIndex);
+      } else {
+        console.log("error");
+      }
+    });
+
+    phElement.style.display = "";
+    dropElement.parentElement.insertBefore(
+      phElement,
+      dropIndex > dragIndex ? dropElement.nextSibling : dropElement
+    );
+
+    this.placeholder.enter(
+      drag,
+      drag.element.nativeElement.offsetLeft,
+      drag.element.nativeElement.offsetTop
+    );
     return false;
-  }
+  };
 
   /**
    * funcion para saber cual es la posicion del elemento en la pagina
@@ -213,12 +252,14 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
    * @memberof ListAdminSchoolComponent
    */
   getPointerPositionOnPage(event: MouseEvent | TouchEvent) {
-    const point = __isTouchEvent(event) ? (event.touches[0] || event.changedTouches[0]) : event;
+    const point = __isTouchEvent(event)
+      ? event.touches[0] || event.changedTouches[0]
+      : event;
     const scrollPosition = this.viewportRuler.getViewportScrollPosition();
 
     return {
       x: point.pageX - scrollPosition.left,
-      y: point.pageY - scrollPosition.top
+      y: point.pageY - scrollPosition.top,
     };
   }
   /**
@@ -227,14 +268,16 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
    * @memberof ListAdminSchoolComponent
    */
   getAllModules() {
-    this.schoolExitoService.getAllModuleSchoolExito(null).subscribe(result => {
-      if (result && result.statusCode === 200) {
-        const { body } = result;
-        this.modules = JSON.parse(body).Data;
-      } else {
-        console.log('error');
-      }
-    });
+    this.schoolExitoService
+      .getAllModuleSchoolExito(null)
+      .subscribe((result) => {
+        if (result && result.statusCode === 200) {
+          const { body } = result;
+          this.modules = JSON.parse(body).Data;
+        } else {
+          console.log("error");
+        }
+      });
   }
   /**
    * funcion para descargar el archivo
@@ -243,7 +286,7 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
    * @memberof ListAdminSchoolComponent
    */
   downloadFile(url: string) {
-    window.open(url, '_back');
+    window.open(url, "_back");
   }
   /**
    * funcion para mover los submodulos internos del modulo, posicion vertical
@@ -252,36 +295,50 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
    * @param {*} submodules
    * @memberof ListAdminSchoolComponent
    */
-  drop(event: CdkDragDrop<string[]>, submodules: any, module: any, index: number) {
+  drop(
+    event: CdkDragDrop<string[]>,
+    submodules: any,
+    module: any,
+    index: number
+  ) {
     const oldIndex = this.modules[index].Submodules[event.previousIndex].Index;
     let newIndex = 0;
     this.disabled = true;
 
     if (event.previousIndex > event.currentIndex) {
-       newIndex = event.currentIndex > 0 ? this.modules[index].Submodules[event.currentIndex - 1].Index : 0;
+      newIndex =
+        event.currentIndex > 0
+          ? this.modules[index].Submodules[event.currentIndex - 1].Index
+          : 0;
     } else {
-      newIndex = event.currentIndex > 0 ? this.modules[index].Submodules[event.currentIndex].Index : 0;
+      newIndex =
+        event.currentIndex > 0
+          ? this.modules[index].Submodules[event.currentIndex].Index
+          : 0;
     }
 
     const params = {
-      'ModuleName': module.ModuleName,
-      'OldIndex': oldIndex,
-      'NewIndex': newIndex
+      ModuleName: module.ModuleName,
+      OldIndex: oldIndex,
+      NewIndex: newIndex,
     };
-    moveItemInArray(submodules, event.previousIndex, event.currentIndex);
-    this.schoolExitoService.updatePositionSubModules(params).subscribe( result => {
-      if (result && result.statusCode === 200) {
-        const { body } = result;
-        this.modules[index].Submodules = JSON.parse(body).Data;
-        this.disabled = false;
-      } else {
-        console.log('error');
-      }
-    }, error => {
-      console.log(error);
-    });
-  }
 
+    moveItemInArray(submodules, event.previousIndex, event.currentIndex);
+    this.schoolExitoService.updatePositionSubModules(params).subscribe(
+      (result) => {
+        if (result && result.statusCode === 200) {
+          const { body } = result;
+          this.modules[index].Submodules = JSON.parse(body).Data;
+          this.disabled = false;
+        } else {
+          console.log("error");
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 }
 /**
  * funcion para capturar el index
@@ -301,7 +358,7 @@ function __indexOf(collection: any, node: any) {
  * @returns {event is TouchEvent}
  */
 function __isTouchEvent(event: MouseEvent | TouchEvent): event is TouchEvent {
-  return event.type.startsWith('touch');
+  return event.type.startsWith("touch");
 }
 /**
  * funcion para saber la posicion de la lista en el drag and drop
@@ -311,7 +368,16 @@ function __isTouchEvent(event: MouseEvent | TouchEvent): event is TouchEvent {
  * @param {number} y
  * @returns
  */
-function __isInsideDropListClientRect(dropList: CdkDropList, x: number, y: number) {
-  const { top, bottom, left, right } = dropList.element.nativeElement.getBoundingClientRect();
+function __isInsideDropListClientRect(
+  dropList: CdkDropList,
+  x: number,
+  y: number
+) {
+  const {
+    top,
+    bottom,
+    left,
+    right,
+  } = dropList.element.nativeElement.getBoundingClientRect();
   return y >= top && y <= bottom && x >= left && x <= right;
 }

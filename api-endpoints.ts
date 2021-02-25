@@ -286,7 +286,9 @@ export const endpoints = {
       // Consultar estado de crear Marcas Masivas (get)
       getStatusMassiveBrand: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/ValidateStatusCreateMassive',
       // actualiza la posicion del elemento en la base de datos trabaja con el index
-      updatePositionSubModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/MoveSubModule'
+      updatePositionSubModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/MoveSubModule',
+      // actualiza la posicion del elemento en la base de datos trabaja con el index
+      updatePositionModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/MoveModule'
     },
   },
   // Endpoints production
@@ -552,25 +554,27 @@ export const endpoints = {
       // Obtener listado de modulos y submodulos
       getAllModuleSchoolExito : '',
       // escuela exito modificar modulos
-      editModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/EditModule',
+      editModules: 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/EditModule',
       // escuela exito eliminar modulos
-      deleteModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/DeleteModule/{params}',
+      deleteModules: 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/DeleteModule/{params}',
       // escuela exito eliminar submodulos
-      deleteSubModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/DeleteSubModule/{module}/{submodule}',
+      deleteSubModules: 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/DeleteSubModule/{module}/{submodule}',
       // escuela exito editar submodulos
-      editSubModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/EditSubModule',
+      editSubModules: 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/EditSubModule',
       // escuela exito crear submodulos
-      createSubModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/CreateSubModule/{NombreModulo}',
+      createSubModules: 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/CreateSubModule/{NombreModulo}',
       // escuela exito crear modulos
-      createModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/CreateModule',
+      createModules: 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/CreateModule',
       // Descargar formato masiva de marcas
       uploadMasiveBrand: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates/PlantillaCargaMasivaMarcas.xlsx',
       // Crear marcas masivas (post)
       createMassiveBrand: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/CreateMassive',
       // Consultar estado de crear Marcas Masivas (get)
       getStatusMassiveBrand: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/ValidateStatusCreateMassive',
-            // actualiza la posicion del elemento en la base de datos trabaja con el index
-      updatePositionSubModules: ''
+      // actualiza la posicion del elemento en la base de datos trabaja con el index
+      updatePositionSubModules: 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/MoveSubModule',
+      // actualiza la posicion del elemento en la base de datos trabaja con el index
+      updatePositionModules: 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/MoveModule'
     }
   }
 };
