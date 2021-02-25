@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { SellerService } from '../../seller.service';
 import { HttpEvent } from '@angular/common/http';
 import * as XLSX from 'xlsx';
+import { SupportService } from '@app/secure/support-modal/support.service';
 
 const log = new Logger('ModalBulkloadAgreementComponent');
 
@@ -41,7 +42,12 @@ export class ModalBulkloadAgreementComponent implements OnInit {
   file = null;
   fileExcel = true;
   arraySend = [];
-  
+
+  public agreementRegex = {
+    number: '',
+  };
+
+  disableSend = false;
 
   public urlDownloadFile: string;
   public limitRowExcel: number;
@@ -64,10 +70,12 @@ export class ModalBulkloadAgreementComponent implements OnInit {
     private sellerService: SellerService,
     private shellComponent: ShellComponent,
     private loadingService: LoadingService,
+    public SUPPORT: SupportService,
   ) { }
 
   ngOnInit() {
     this.createForm();
+    this.validateFormSupport();
     this.urlDownloadFile = this.api.get('uploadMassiveAgreementSellers');
   }
 
@@ -189,9 +197,6 @@ export class ModalBulkloadAgreementComponent implements OnInit {
           i--;
         }
       }
-
-      /*Variable para contar el número de registros que esta en el excel, se resta 1 porque no se tiene en cuenta la primera fila que es la fila de titulos */
-      const numberRegister = this.arrayNecessaryData.length - 1;
       /*
       * if valido si el excel solo trae 2 registros y hay 1 vacio
       * else if se valida que el documento tenga en los titulos o primera columna nos datos ID vendedor
@@ -208,14 +213,29 @@ export class ModalBulkloadAgreementComponent implements OnInit {
         this.fileName = file.target.files[0].name;
         this.fileSize = file.target.files[0].size;
         this.fileExcel = false;
-        console.log('tamaño: ', this.fileSize);
-        console.log('nombre: ', this.fileName);
-        console.log('this.arrayNecessaryData: ', this.arrayNecessaryData);
+        this.validateDataRegex();
       }
     } else {
       this.loadingService.closeSpinner();
       this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.no_information_contains'), 'Aceptar', 10000);
     }
+  }
+
+  /**
+   * Recorrer arreglo y validar formato numerico
+   * @memberof ModalBulkloadAgreementComponent
+   */
+  validateDataRegex() {
+    let copyArrSellers = this.arrayNecessaryData;
+    copyArrSellers.splice(0, 1);
+    copyArrSellers.forEach(el => {
+      if (el[0].match(this.agreementRegex.number)) {
+        this.disableSend = true;
+      } else {
+        this.disableSend = false;
+        this.componentService.openSnackBar('Formato inválido ID vendedor', this.languageService.instant('actions.accpet_min'), 4000);
+      }
+    });
   }
 
   sendImportAgreement() {
@@ -292,6 +312,20 @@ export class ModalBulkloadAgreementComponent implements OnInit {
       this.resetVariableUploadFile();
       this.resetUploadFIle();
       this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), this.languageService.instant('actions.accpet_min'), 4000);
+    });
+  }
+
+
+  public validateFormSupport(): void {
+    this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
+      let dataRegex = JSON.parse(res.body.body);
+      dataRegex = dataRegex.Data.filter(data => data.Module === 'transversal' || data.Module === 'productos');
+      for (const val in this.agreementRegex) {
+        if (!!val) {
+          const element = dataRegex.find(regex => regex.Identifier === val.toString());
+          this.agreementRegex[val] = element && `${element.Value}`;
+        }
+      }
     });
   }
 

@@ -32,26 +32,27 @@
             class="modal-load-agreement-text-option-type-agreement">{{'secure.seller.contracts.load-agreement.upload_file'| translate}}</span>
         </div> -->
         <input placeholder="file upload" id="uploadFile" hidden name="fileUploadOption" type="file"
-            (change)="onFileChange($event)" multiple="false"
-            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-            #fileUploadOption>
+          (change)="onFileChange($event)" multiple="false"
+          accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+          #fileUploadOption>
         <div fxLayout="row" class="load-file-container">
-          
+
           <div fxFlex="100" class="text-aling-center-modal-load">
             <div class="inline-block">
-              <div   class="well my-drop-zone" fxLayout="column" id="fileExcel"
-                fxLayoutAlign="center center" style="color: #F8F8F8;" (click)="fileUploadOption.click()">
+              <div class="well my-drop-zone" fxLayout="column" id="fileExcel" fxLayoutAlign="center center"
+                style="color: #F8F8F8;" (click)="fileUploadOption.click()">
                 <strong *ngIf="!fileExcel" style="color: #727272">{{fileName}}</strong>
-                <mat-icon class="material-icons" *ngIf="fileExcel" style="font-size: 70px;" >
+                <mat-icon class="material-icons" *ngIf="fileExcel" style="font-size: 70px;">
                   person_add_alt_1
                 </mat-icon>
-                <mat-icon class="material-icons check" *ngIf="!fileExcel" style="font-size: 70px;" >
+                <mat-icon class="material-icons check" *ngIf="!fileExcel" style="font-size: 70px;">
                   check_circle
                 </mat-icon>
-                <p style="font-size: 14px; width: 264px; margin-bottom: 0px; color: #727272" *ngIf="fileExcel">Presione acá o arrastre y
-                  suelte el
+                <p style="font-size: 14px; width: 264px; margin-bottom: 0px; color: #727272" *ngIf="fileExcel">Presione
+                  acá para subir el
                   archivo</p>
-                <p style="color: #485AFA; margin-top: 0px; margin-bottom: 0px; font-size: 14px" *ngIf="fileExcel">Listado de vendedores
+                <p style="color: #485AFA; margin-top: 0px; margin-bottom: 0px; font-size: 14px" *ngIf="fileExcel">
+                  Listado de vendedores
                 </p>
               </div>
             </div>
@@ -76,10 +77,12 @@
                   !lastInvalids?.length">
                   check_circle
                 </mat-icon>
-                <p style="font-size: 14px; width: 264px; margin-bottom: 0px; color: #727272" *ngIf="uploadAgreementBtn">Presione acá o arrastre y
+                <p style="font-size: 14px; width: 264px; margin-bottom: 0px; color: #727272" *ngIf="uploadAgreementBtn">
+                  Presione acá o arrastre y
                   suelte el
                   archivo</p>
-                <p style="color: #485AFA; margin-top: 0px; margin-bottom: 0px; font-size: 14px" *ngIf="uploadAgreementBtn">Acuerdo/Anexo
+                <p style="color: #485AFA; margin-top: 0px; margin-bottom: 0px; font-size: 14px"
+                  *ngIf="uploadAgreementBtn">Acuerdo/Anexo
                 </p>
               </div>
             </div>
@@ -105,14 +108,13 @@
     </form>
   </div>
   <mat-divider></mat-divider>
-  <mat-dialog-actions align="end">
+  <mat-dialog-actions align="center">
     <button mat-button (click)="onNoClick()">{{'actions.cancel'| translate}}</button>
     <!-- <button type="button" mat-raised-button color="primary"
       [disabled]="!fomrLoadAgreement.form.valid || uploadAgreementBtn"
       (click)="sendImportAgreement()">{{'secure.seller.contracts.load-agreement.import_agreement' | translate}}
     </button> -->
-    <button type="button" mat-raised-button color="primary"
-      (click)="sendMassiveAgreement()">{{'secure.seller.contracts.load-agreement.import_agreement' | translate}}
+    <button type="button" mat-raised-button color="primary" (click)="sendMassiveAgreement()">CARGAR ACUERDOS
     </button>
   </mat-dialog-actions>
 </div>
