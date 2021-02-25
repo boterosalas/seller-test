@@ -59,15 +59,15 @@
   &-badge-new-submodule {
     text-align: center;
     background-color: #D14444;
-    border-radius: 10px;
+    border-radius: 6px;
     color: #ffffff;
-    height: 23px;
-    width: 41px;
+    opacity: 1;
+    height: 20px;
+    width: 45px;
   }
 
   &-position-badge {
     font-size: 11px;
-    vertical-align: bottom;
     letter-spacing: 0px;
   }
   &-empty-data{
@@ -85,6 +85,6 @@
     color: #b6b6b6;
   }
   &-margin-left-15{
-    margin-left: 15px;
+    margin-left: 5px;
   }
 }
