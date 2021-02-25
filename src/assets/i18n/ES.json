@@ -1151,6 +1151,7 @@
     "secure.parametize.brands.txt_brand_name": "Nombre de la marca",
     "secure.parametize.brands.subtitle_toolbar": "Listado de marcas",
     "secure.parametize.brands.btn_add_brand": "Agregar marca",
+    "secure.parametize.brands.btn_add_brand_massive": "Cargar archivo de marcas",
     "secure.parametize.brands.txt_add_brand": "Para crear una marca nueva debes ingresar el nombre de la marca como quieres que aparezca en el sitio. Ten en cuenta que si la marca ya existe no podrás crearla, y no podrás utilizar ningún símbolo o caracter especial.",
     "secure.parametize.brands.txt_edit_brand": "Para editar una marca podrás modificar el nombre, Ten en cuenta que si la marca ya existe no podrás modifcarlo, y que no podrás utilizar ningún símbolo o caracter especial.",
     "secure.parametize.brands.edit_brand": "Editar marca",
