@@ -17,6 +17,7 @@ export class ManageAgreementComponent implements OnInit {
 
   public paginationToken = '{}';
   public limit = 0;
+  titleAgreement: any;
 
   constructor(
     private dialog: MatDialog,
@@ -51,6 +52,7 @@ export class ManageAgreementComponent implements OnInit {
        console.log('result: ', result);
        if (result ) {
         this.manageAgreementsSeller = result.ViewModel;
+        this.titleAgreement = result.ContractName;
         this.loading.closeSpinner();
        }
        
