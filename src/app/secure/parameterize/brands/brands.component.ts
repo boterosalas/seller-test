@@ -113,7 +113,7 @@ export class BrandsComponent implements OnInit {
     public urlDownloadFile: string;
 
     /* Input file que carga el archivo*/
-    @ViewChild('fileUploadOption') inputFileUpload: any;
+    @ViewChild('fileUploadOption', {static: false}) inputFileUpload: any;
     /* Variable que se emplea para el proceso de la carga de excel, se indica 501 por que se cuenta la primera fila que contiene los titulos*/
     public limitRowExcel: number;
     public arrayNecessaryData: Array<any>;
