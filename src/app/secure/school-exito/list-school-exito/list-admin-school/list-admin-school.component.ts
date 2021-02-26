@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import {
   CdkDrag,
   CdkDropList,
@@ -6,23 +6,22 @@ import {
   CdkDragMove,
   moveItemInArray,
   CdkDragDrop,
-} from "@angular/cdk/drag-drop";
-import { ViewportRuler } from "@angular/cdk/overlay";
-import { SchoolExitoService } from "../../school-exito.service";
-import { CreateSubmoduleComponent } from "../components/create-submodule/create-submodule.component";
-import { DeleteItemModuleComponent } from "../components/delete-item-module/delete-item-module.component";
-import { DeleteModuleComponent } from "../components/delete-module/delete-module.component";
-import { EditItemModuleComponent } from "../components/edit-item-module/edit-item-module.component";
-import { EditModuleComponent } from "../components/edit-module/edit-module.component";
-import { MatDialog } from "@angular/material";
-import { CreateModuleComponent } from "../components/create-module/create-module.component";
-import { ComponentsService } from "@app/shared";
-import { TranslateService } from "@ngx-translate/core";
-import { dataUrltoBlob } from "angular-file/file-upload/fileTools";
+} from '@angular/cdk/drag-drop';
+import { ViewportRuler } from '@angular/cdk/overlay';
+import { SchoolExitoService } from '../../school-exito.service';
+import { CreateSubmoduleComponent } from '../components/create-submodule/create-submodule.component';
+import { DeleteItemModuleComponent } from '../components/delete-item-module/delete-item-module.component';
+import { DeleteModuleComponent } from '../components/delete-module/delete-module.component';
+import { EditItemModuleComponent } from '../components/edit-item-module/edit-item-module.component';
+import { EditModuleComponent } from '../components/edit-module/edit-module.component';
+import { MatDialog } from '@angular/material';
+import { CreateModuleComponent } from '../components/create-module/create-module.component';
+import { ComponentsService } from '@app/shared';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
-  selector: "app-list-admin-school",
-  templateUrl: "./list-admin-school.component.html",
-  styleUrls: ["./list-admin-school.component.scss"],
+  selector: 'app-list-admin-school',
+  templateUrl: './list-admin-school.component.html',
+  styleUrls: ['./list-admin-school.component.scss'],
 })
 export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
   @ViewChild(CdkDropListGroup, { static: false })
@@ -55,9 +54,9 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
 
   createModule() {
     this.dialog.open(CreateModuleComponent, {
-      width: "800px",
-      maxWidth: "90vw",
-      maxHeight: "90vh",
+      width: '800px',
+      maxWidth: '90vw',
+      maxHeight: '90vh',
     });
   }
 
@@ -67,9 +66,9 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
         module,
         item,
       },
-      width: "800px",
-      maxWidth: "90vw",
-      maxHeight: "90vh",
+      width: '800px',
+      maxWidth: '90vw',
+      maxHeight: '90vh',
     });
   }
 
@@ -79,27 +78,27 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
         module,
         item,
       },
-      width: "800px",
-      maxWidth: "90vw",
-      maxHeight: "90vh",
+      width: '800px',
+      maxWidth: '90vw',
+      maxHeight: '90vh',
     });
   }
 
   editFaq(item: any) {
     this.dialog.open(EditModuleComponent, {
       data: item,
-      width: "800px",
-      maxWidth: "90vw",
-      maxHeight: "90vh",
+      width: '800px',
+      maxWidth: '90vw',
+      maxHeight: '90vh',
     });
   }
 
   deleteFaq(item: any) {
     this.dialog.open(DeleteModuleComponent, {
       data: item,
-      width: "800px",
-      maxWidth: "90vw",
-      maxHeight: "90vh",
+      width: '800px',
+      maxWidth: '90vw',
+      maxHeight: '90vh',
     });
   }
 
@@ -109,9 +108,9 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
         module,
         item,
       },
-      width: "800px",
-      maxWidth: "90vw",
-      maxHeight: "90vh",
+      width: '800px',
+      maxWidth: '90vw',
+      maxHeight: '90vh',
     });
   }
 
@@ -122,7 +121,7 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
    */
   ngAfterViewInit() {
     const phElement = this.placeholder.element.nativeElement;
-    phElement.style.display = "none";
+    phElement.style.display = 'none';
     phElement.parentElement.removeChild(phElement);
   }
   /**
@@ -155,7 +154,7 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
     const phElement = this.placeholder.element.nativeElement;
     const parent = phElement.parentElement;
 
-    phElement.style.display = "none";
+    phElement.style.display = 'none';
 
     parent.removeChild(phElement);
     parent.appendChild(phElement);
@@ -179,7 +178,6 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
       NewIndex: newIndex
     };
 
-    console.log('params', params);
     if (this.sourceIndex !== this.targetIndex) {
       moveItemInArray(this.modules, this.sourceIndex, this.targetIndex);
        this.schoolExitoService.updatePositionModules(params).subscribe((result) => {
@@ -224,38 +222,14 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
       this.sourceIndex = dragIndex;
       this.source = drag.dropContainer;
 
-      phElement.style.width = sourceElement.clientWidth + "px";
-      phElement.style.height = sourceElement.clientHeight + "px";
+      phElement.style.width = sourceElement.clientWidth + 'px';
+      phElement.style.height = sourceElement.clientHeight + 'px';
 
       sourceElement.parentElement.removeChild(sourceElement);
     }
 
     this.targetIndex = dropIndex;
     this.target = drop;
-    // console.log(dragIndex);
-    // console.log(dropIndex);
-    // console.log(this.modules);
-
-
-
-    // const params = {
-    //   OldIndex: oldIndex,
-    //   NewIndex: newIndex
-    // };
-
-    // console.log('params', params);
-    // this.schoolExitoService.updatePositionModules(params).subscribe((result) => {
-    //   if (result && result.statusCode === 200) {
-    //     const { body } = result;
-    //     const data = JSON.parse(body).Data;
-    //     this.modules = [];
-    //     this.modules = data;
-    //     console.log(this.modules);
-    //     // moveItemInArray(this.modules, dragIndex, dropIndex);
-    //     // console.log(this.modules);
-    //   }
-    // });
-
     phElement.style.display = '';
     dropElement.parentElement.insertBefore(
       phElement,
@@ -301,7 +275,7 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
           const { body } = result;
           this.modules = JSON.parse(body).Data;
         } else {
-          console.log("error");
+          this.componentsService.openSnackBar(this.languageService.instant('core.http.error_handler.error_acces'), this.languageService.instant('actions.close'), 5000);
         }
       });
   }
@@ -312,7 +286,7 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
    * @memberof ListAdminSchoolComponent
    */
   downloadFile(url: string) {
-    window.open(url, "_back");
+    window.open(url, '_back');
   }
   /**
    * funcion para mover los submodulos internos del modulo, posicion vertical
@@ -357,11 +331,11 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
           this.modules[index].Submodules = JSON.parse(body).Data;
           this.disabled = false;
         } else {
-          console.log("error");
+          this.componentsService.openSnackBar(this.languageService.instant('core.http.error_handler.error_acces'), this.languageService.instant('actions.close'), 5000);
         }
       },
       (error) => {
-        console.log(error);
+        this.componentsService.openSnackBar(this.languageService.instant('core.http.error_handler.error_acces'), this.languageService.instant('actions.close'), 5000);
       }
     );
   }
@@ -384,7 +358,7 @@ function __indexOf(collection: any, node: any) {
  * @returns {event is TouchEvent}
  */
 function __isTouchEvent(event: MouseEvent | TouchEvent): event is TouchEvent {
-  return event.type.startsWith("touch");
+  return event.type.startsWith('touch');
 }
 /**
  * funcion para saber la posicion de la lista en el drag and drop
