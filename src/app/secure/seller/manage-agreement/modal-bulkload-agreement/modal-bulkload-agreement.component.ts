@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Inject, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
 import { EndpointService, LoadingService, Logger } from '@app/core';
 import { ShellComponent } from '@app/core/shell';
 import { ComponentsService } from '@app/shared';
@@ -10,6 +10,7 @@ import { SellerService } from '../../seller.service';
 import { HttpEvent } from '@angular/common/http';
 import * as XLSX from 'xlsx';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import { ModalBulkloadBrandsComponent } from '@app/secure/parameterize/brands/modal-bulkload-brands/modal-bulkload-brands.component';
 
 const log = new Logger('ModalBulkloadAgreementComponent');
 
@@ -64,6 +65,11 @@ export class ModalBulkloadAgreementComponent implements OnInit {
   bodyToSend: any;
   arrayTosendExcel: any[];
 
+  checkIfDoneCharge: any = null;
+
+  /* Mirar el estado del progreso de la carga*/
+  public progressStatus = false;
+
   constructor(
     public dialogRef: MatDialogRef<ModalBulkloadAgreementComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -75,6 +81,8 @@ export class ModalBulkloadAgreementComponent implements OnInit {
     private shellComponent: ShellComponent,
     private loadingService: LoadingService,
     public SUPPORT: SupportService,
+    public dialog: MatDialog,
+
   ) { }
 
   ngOnInit() {
@@ -375,4 +383,71 @@ export class ModalBulkloadAgreementComponent implements OnInit {
     // this.prepareSend = false;
     this.sendImportAgreement();
   }
+
+  setIntervalStatusCharge() {
+    clearInterval(this.checkIfDoneCharge);
+    this.checkIfDoneCharge = setInterval(() => this.sellerService.getStatusMassiveAgreement().subscribe((res: any) => {
+      this.verifyStateCharge(res);
+    }), 7000);
+  }
+
+  verifyStateCharge(result?: any) {
+    if (result.body.Data.Checked === 'true') {
+      clearInterval(this.checkIfDoneCharge);
+    } else if (result.body.Data.Status === 1 || result.body.Data.Status === 4) {
+      result.body.Data.Status = 1;
+      if (!this.progressStatus) {
+        this.openDialogSendOrder(result);
+      }
+      this.progressStatus = true;
+      this.loadingService.closeSpinner();
+    } else if (result.body.Data.Status === 2) {
+      clearInterval(this.checkIfDoneCharge);
+      this.closeActualDialog();
+      this.openDialogSendOrder(result);
+      this.loadingService.closeSpinner();
+    } else if (result.body.Data.Status === 3) {
+      this.closeActualDialog();
+      clearInterval(this.checkIfDoneCharge);
+      const resultBody = JSON.parse(result.body.Data.Response);
+      if (resultBody.Errors.length > 0) {
+        this.openDialogSendOrder(result);
+      }
+      this.loadingService.closeSpinner();
+    }
+  }
+
+  openDialogSendOrder(res: any): void {
+    if (!res.body.data) {
+      res.body.data = {};
+      res.body.data.status = 3;
+      res.productNotifyViewModel = res.body.productNotifyViewModel;
+    } else {
+      // Condicional apra mostrar errores mas profundos. ;
+      if (res.body.data.response) {
+        res.productNotifyViewModel = res.body.data.response.Data.ProductNotify;
+      } else {
+        if (res.body.data.status === undefined) {
+          res.body.data.status = 3;
+          res.productNotifyViewModel = res.body.data.productNotifyViewModel;
+        }
+      }
+    }
+    const dialogRef = this.dialog.open(ModalBulkloadBrandsComponent, {
+      width: '95%',
+      disableClose: res.body.data.status === 1,
+      data: {
+        response: res
+      },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      log.info('The dialog was closed');
+    });
+  }
+
+  public closeActualDialog(): void {
+    if (this.progressStatus) {
+        this.dialog.closeAll();
+    }
+}
 }

@@ -109,5 +109,14 @@ export class SellerService implements CanActivate {
      */
     getAllAgreement(params: any): Observable<any> {
         return this.http.get(this.api.get('getAllAgreement', [params]));
-      }
+    }
+
+    /**
+     * Metodo para consultar el estado de la carga masiva
+     * @returns
+     * @memberof SellerService
+     */
+    public getStatusMassiveAgreement() {
+        return this.http.get(this.api.get('getStatusMassiveAgreement'), { observe: 'response' });
+    }
 }
