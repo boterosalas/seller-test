@@ -18,6 +18,7 @@ import { MatDialog } from "@angular/material";
 import { CreateModuleComponent } from "../components/create-module/create-module.component";
 import { ComponentsService } from "@app/shared";
 import { TranslateService } from "@ngx-translate/core";
+import { dataUrltoBlob } from "angular-file/file-upload/fileTools";
 @Component({
   selector: "app-list-admin-school",
   templateUrl: "./list-admin-school.component.html",
@@ -165,10 +166,32 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
 
     this.target = null;
     this.source = null;
+    const oldIndex = this.modules[this.sourceIndex].Index;
+    let newIndex = 0;
 
+    if (this.sourceIndex > this.targetIndex) {
+      newIndex = this.targetIndex > 0 ? this.modules[this.targetIndex - 1].Index : 0;
+    } else {
+      newIndex = this.targetIndex > 0 ? this.modules[this.targetIndex].Index : 0;
+    }
+    const params = {
+      OldIndex: oldIndex,
+      NewIndex: newIndex
+    };
+
+    console.log('params', params);
     if (this.sourceIndex !== this.targetIndex) {
       moveItemInArray(this.modules, this.sourceIndex, this.targetIndex);
+       this.schoolExitoService.updatePositionModules(params).subscribe((result) => {
+      if (result && result.statusCode === 200) {
+        const { body } = result;
+        this.modules = [];
+        this.modules = JSON.parse(body).Data;
+      }
+    });
     }
+
+
   }
   /**
    * funcion donde se captura los elementos drag y drop para darle su nueva posicion en el arreglo
@@ -209,32 +232,31 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
 
     this.targetIndex = dropIndex;
     this.target = drop;
-
-    let oldIndex = this.modules[dragIndex].Index;
-    let newIndex = this.modules[dropIndex].Index;
-
-    if (dragIndex> dropIndex) {
-      newIndex = dropIndex > 0 ? this.modules[dropIndex - 1].Index: 0;
-    } else {
-      newIndex = dropIndex> 0 ? this.modules[dropIndex].Index: 0;
-    }
-
-    const params = {
-      OldIndex: oldIndex,
-      NewIndex: newIndex
-    };
+    // console.log(dragIndex);
+    // console.log(dropIndex);
+    // console.log(this.modules);
 
 
-    this.schoolExitoService.updatePositionModules(params).subscribe((result) => {
-      if (result && result.statusCode === 200) {
-        const { body } = result;
-        moveItemInArray(JSON.parse(body).Data, dragIndex, dropIndex);
-      } else {
-        console.log("error");
-      }
-    });
 
-    phElement.style.display = "";
+    // const params = {
+    //   OldIndex: oldIndex,
+    //   NewIndex: newIndex
+    // };
+
+    // console.log('params', params);
+    // this.schoolExitoService.updatePositionModules(params).subscribe((result) => {
+    //   if (result && result.statusCode === 200) {
+    //     const { body } = result;
+    //     const data = JSON.parse(body).Data;
+    //     this.modules = [];
+    //     this.modules = data;
+    //     console.log(this.modules);
+    //     // moveItemInArray(this.modules, dragIndex, dropIndex);
+    //     // console.log(this.modules);
+    //   }
+    // });
+
+    phElement.style.display = '';
     dropElement.parentElement.insertBefore(
       phElement,
       dropIndex > dragIndex ? dropElement.nextSibling : dropElement
@@ -246,7 +268,7 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
       drag.element.nativeElement.offsetTop
     );
     return false;
-  };
+  }
 
   /**
    * funcion para saber cual es la posicion del elemento en la pagina
