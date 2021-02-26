@@ -138,7 +138,7 @@ export class CreateSubmoduleComponent implements OnInit {
       let body = JSON.parse(resp.body);
       if (resp.statusCode === 200) {
         this.componentService.openSnackBar(
-          this.languageService.instant("school.exito.edit.submodule.service"),
+          this.languageService.instant("school.exito.create.submodule.service"),
           this.languageService.instant("actions.close"),
           5000
         );

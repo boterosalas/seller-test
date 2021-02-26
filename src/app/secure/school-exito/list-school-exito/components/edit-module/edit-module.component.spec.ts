@@ -6,8 +6,10 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { RouterTestingModule } from "@angular/router/testing";
 import { EndpointService } from "@app/core";
 import { MaterialModule } from "@app/material.module";
+import { SchoolExitoService } from "@app/secure/school-exito/school-exito.service";
 import { ComponentsService } from "@app/shared";
 import { TranslateModule } from "@ngx-translate/core";
+import { of } from "rxjs/internal/observable/of";
 
 import { EditModuleComponent } from "./edit-module.component";
 
@@ -15,10 +17,25 @@ describe("EditModuleComponent", () => {
   let component: EditModuleComponent;
   let fixture: ComponentFixture<EditModuleComponent>;
 
-  const mockDialog = jasmine.createSpyObj("MatDialogRef", [
-    "open, close, afterClosed",
+  const mockDialog = {
+    close: () => {},
+  };
+
+  const mockschoolExitoService = jasmine.createSpyObj("SchoolExitoService", [
+    "editModules",
   ]);
-  let data = {};
+
+  let data = {
+    ModuleName: "prueba",
+  };
+
+  let editModule = {
+    statusCode: 200,
+    headers: null,
+    multiValueHeaders: null,
+    body: '{"Errors":[],"Data":true,"Message":"","PaginationToken":null}',
+    isBase64Encoded: false,
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -30,13 +47,14 @@ describe("EditModuleComponent", () => {
         ReactiveFormsModule,
         BrowserAnimationsModule,
         HttpClientTestingModule,
-        RouterTestingModule
+        RouterTestingModule,
       ],
       providers: [
         EndpointService,
         ComponentsService,
         { provide: MatDialogRef, useValue: mockDialog },
         { provide: MAT_DIALOG_DATA, useValue: data },
+        { provide: SchoolExitoService, useValue: mockschoolExitoService },
       ],
     }).compileComponents();
   }));
@@ -49,5 +67,28 @@ describe("EditModuleComponent", () => {
 
   it("should create", () => {
     expect(component).toBeTruthy();
+  });
+
+  it("close modal", () => {
+    let spy = spyOn(component.dialogRef, "close").and.callThrough();
+    component.close();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it("changeValue with values", () => {
+    component.formEditModule.controls.moduleName.setValue("prueba2");
+    component.changeValue();
+    expect(component.changeValueEdit).toBeTruthy();
+  });
+
+  it("edit module", () => {
+    component.dataToEdit = {
+      ModuleName: "prueba",
+    };
+
+    spyOn(component.dialogRef, "close").and.callThrough();
+    mockschoolExitoService.editModules.and.returnValue(of(editModule));
+    component.editModule();
+    expect(mockschoolExitoService.editModules).toHaveBeenCalled();
   });
 });
