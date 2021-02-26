@@ -552,7 +552,7 @@ export const endpoints = {
       // Envia un correo con el reporte
       sendModuleReportDispersion : 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/pendingpaymentnews/{params}',
       // Obtener listado de modulos y submodulos
-      getAllModuleSchoolExito : '',
+      getAllModuleSchoolExito : 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/GetAllModule',
       // escuela exito modificar modulos
       editModules: 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/EditModule',
       // escuela exito eliminar modulos
