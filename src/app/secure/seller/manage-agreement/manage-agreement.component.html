@@ -14,9 +14,14 @@
   <div align="left" style="display: flex;">
     <h4 style="color: gray;" *ngIf="manageAgreementsSeller">Acuerdo predeterminado:  </h4> <h4 style="color: black; margin-left: 10px;" *ngIf="titleAgreement">{{titleAgreement}}</h4>
   </div>
-  <button mat-button mat-stroked-button color="primary" (click)="openModalBulkLoadAgreement()">
-    <strong>{{'menu.Cargar Acuerdos' | translate}}</strong>
-  </button>
+  <div style="display: flex;">
+    <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+                (page)="pageEvent = paginations($event)"></mat-paginator>
+    <button mat-button mat-stroked-button color="primary" (click)="openModalBulkLoadAgreement()">
+      <strong>{{'menu.Cargar Acuerdos' | translate}}</strong>
+    </button>
+  </div>
+ 
 </div>
 
 <div class="list-container">
