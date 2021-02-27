@@ -6,6 +6,10 @@
       {{'secure.products.Finish_upload_product_information.upload_progress' | translate}}
 
     </h3>
+
+    <h3 *ngIf="titleAgreement">
+      Carga acuerdos
+    </h3>
     <mat-divider *ngIf="response.processing != 0"></mat-divider>
 
     <h3 class="succes-string" mat-subheader *ngIf="response.body.Data.Status ===2">
@@ -18,6 +22,10 @@
     <h4 class="error-string" mat-subheader *ngIf="response.body.Data.Status ===3">
       Ha ocurrido un error al realizar la carga masiva de marcas, por favor intente nuevamente.
     </h4>
+
+    <h4 class="error-string" mat-subheader *ngIf="response.body.Data.Status ===3 && titleAgreement">
+      Ha ocurrido un error al realizar la carga masiva de acuerdos, por favor intente nuevamente.
+    </h4>
     <div fxLayout="row" fxLayoutAlign="space-evenly center" *ngIf="viewModel">
       <p><mat-icon class="mat-18
         error-string-container-icon-color-process-send">list_alt
@@ -28,6 +36,17 @@
       <p><mat-icon class="mat-18
         error-string-container-icon-color-expired">highlight_off
       </mat-icon>Marcas errores: {{viewModel.Error}}</p>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-evenly center" *ngIf="viewModel && titleAgreement">
+      <p><mat-icon class="mat-18
+        error-string-container-icon-color-process-send">list_alt
+      </mat-icon>Total de ID vendedor procesados: {{viewModel.TotalProcess}}</p>
+      <p><mat-icon class="mat-18
+        error-string-container-icon-color-delivered">check_circle_outline
+      </mat-icon>ID vendedor satisfactorios: {{viewModel.Successful}}</p>
+      <p><mat-icon class="mat-18
+        error-string-container-icon-color-expired">highlight_off
+      </mat-icon>ID vendedor con error: {{viewModel.Error}}</p>
     </div>
     <mat-divider *ngIf="response.body.Data.Status ===3"></mat-divider>
 

@@ -16,17 +16,18 @@ export class ModalBulkloadBrandsComponent implements OnInit {
   public response: any;
   public productNotifyViewModel: any;
   public viewModel: any;
-
+  titleAgreement: any
 
   constructor(
     public dialogRef: MatDialogRef<ModalBulkloadBrandsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     this.response = data.response;
-  
+    this.titleAgreement = data.menu;
   }
 
   ngOnInit() {
+    console.log('this.response_ ', this.response);
     if (this.response){
       this.productNotifyViewModel = this.response.body.Data.Response;
       if (this.productNotifyViewModel) {

@@ -351,6 +351,7 @@ export class ModalBulkloadAgreementComponent implements OnInit {
   }
 
   open2() {
+    this.loadingService.viewSpinner();
     console.log(this.arrayTosendExcel);
     console.log(this.arrayNecessaryData);
     let prueba = [];
@@ -365,7 +366,9 @@ export class ModalBulkloadAgreementComponent implements OnInit {
       this.loadingService.closeSpinner();
       if (result.statusCode === 200) {
         const dataRes = JSON.parse(result.body).Data;
+        console.log(dataRes);
         if (dataRes) {
+          this.setIntervalStatusCharge();
           this.componentService.openSnackBar(this.languageService.instant('secure.load_guide_page.finish_upload_info.title'), this.languageService.instant('actions.close'), 5000);
           this.dialogRef.close(false);
           this.shellComponent.eventEmitterOrders.getClear();
@@ -393,31 +396,32 @@ export class ModalBulkloadAgreementComponent implements OnInit {
 
   verifyStateCharge(result?: any) {
     if (result.body.Data.Checked === 'true') {
-      clearInterval(this.checkIfDoneCharge);
+        clearInterval(this.checkIfDoneCharge);
     } else if (result.body.Data.Status === 1 || result.body.Data.Status === 4) {
-      result.body.Data.Status = 1;
-      if (!this.progressStatus) {
-        this.openDialogSendOrder(result);
-      }
-      this.progressStatus = true;
-      this.loadingService.closeSpinner();
+        result.body.Data.Status = 1;
+        if (!this.progressStatus) {
+            this.openDialogSendOrder(result);
+        }
+        this.progressStatus = true;
+        this.loadingService.closeSpinner();
     } else if (result.body.Data.Status === 2) {
-      clearInterval(this.checkIfDoneCharge);
-      this.closeActualDialog();
-      this.openDialogSendOrder(result);
-      this.loadingService.closeSpinner();
-    } else if (result.body.Data.Status === 3) {
-      this.closeActualDialog();
-      clearInterval(this.checkIfDoneCharge);
-      const resultBody = JSON.parse(result.body.Data.Response);
-      if (resultBody.Errors.length > 0) {
+        clearInterval(this.checkIfDoneCharge);
+        this.closeActualDialog();
         this.openDialogSendOrder(result);
-      }
-      this.loadingService.closeSpinner();
+        this.loadingService.closeSpinner();
+    } else if (result.body.Data.Status === 3) {
+        this.closeActualDialog();
+        clearInterval(this.checkIfDoneCharge);
+        const resultBody = JSON.parse(result.body.Data.Response);
+        if (resultBody.Errors.length > 0) {
+            this.openDialogSendOrder(result);
+        }
+        this.loadingService.closeSpinner();
     }
-  }
+}
 
   openDialogSendOrder(res: any): void {
+    console.log(99, res);
     if (!res.body.data) {
       res.body.data = {};
       res.body.data.status = 3;
@@ -435,9 +439,10 @@ export class ModalBulkloadAgreementComponent implements OnInit {
     }
     const dialogRef = this.dialog.open(ModalBulkloadBrandsComponent, {
       width: '95%',
-      disableClose: res.body.data.status === 1,
+      disableClose: true,
       data: {
-        response: res
+        response: res,
+        menu: 'ACUERDOS'
       },
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -447,7 +452,7 @@ export class ModalBulkloadAgreementComponent implements OnInit {
 
   public closeActualDialog(): void {
     if (this.progressStatus) {
-        this.dialog.closeAll();
+      this.dialog.closeAll();
     }
-}
+  }
 }
