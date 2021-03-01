@@ -52,7 +52,7 @@
 
     <!-- Filter action button -->
     <article class="container-buttons flexbox align-center justify-between">
-      <button mat-stroked-button color="primary" type="reset">{{'filters.clear' | translate}}</button>
+      <button mat-stroked-button color="primary" type="reset" (click)="clearAndSubmit()">{{'filters.clear' | translate}}</button>
       <button mat-flat-button color="primary" type="submit"
         [disabled]="!f.form.valid">{{'filters.filter' | translate}}
       </button>

@@ -141,4 +141,13 @@ export class FilterComponent implements OnInit {
     this.dateFinal.open();
   }
 
+  clearAndSubmit() {
+    this.historicalFilterForm.reset();
+
+    if (this.historical.filterActive) {
+      this.historical.historicalFilter(this.historicalFilterForm);
+      this.historical.filterActive = false;
+    }
+  }
+
 }
