@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="!titleAgreement">
   <div class="error-list-content list-log">
 
     <h3 class="processing-string" mat-subheader *ngIf="response.body.Data.Status ===1">
@@ -7,7 +7,7 @@
 
     </h3>
 
-    <h3 *ngIf="titleAgreement">
+    <h3>
       Carga acuerdos
     </h3>
     <mat-divider *ngIf="response.processing != 0"></mat-divider>
@@ -23,30 +23,89 @@
       Ha ocurrido un error al realizar la carga masiva de marcas, por favor intente nuevamente.
     </h4>
 
-    <h4 class="error-string" mat-subheader *ngIf="response.body.Data.Status ===3 && titleAgreement">
+    <div fxLayout="row" fxLayoutAlign="space-evenly center" *ngIf="viewModel">
+      <p>
+        <mat-icon class="mat-18
+        error-string-container-icon-color-process-send">list_alt
+        </mat-icon>Total marcas procesadas: {{viewModel.TotalProcess}}
+      </p>
+      <p>
+        <mat-icon class="mat-18
+        error-string-container-icon-color-delivered">check_circle_outline
+        </mat-icon>Marcas satisfactorias: {{viewModel.Successful}}
+      </p>
+      <p>
+        <mat-icon class="mat-18
+        error-string-container-icon-color-expired">highlight_off
+        </mat-icon>Marcas errores: {{viewModel.Error}}
+      </p>
+    </div>
+    <mat-divider *ngIf="response.body.Data.Status ===3"></mat-divider>
+
+    <mat-nav-list *ngIf="response.body.Data.Status ===3">
+      <mat-list-item *ngFor="let item of viewModel.Errors">
+        <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>
+        <h4 matLine>{{item.Code}}</h4>
+        <p matLine>{{'secure.products.Finish_upload_product_information.error_ocurred' | translate}}: {{item.Message}}
+        </p>
+      </mat-list-item>
+    </mat-nav-list>
+  </div>
+
+  <mat-dialog-actions class="footer-dialog">
+    <button id="close-finish-upload-button" *ngIf="response.body.Data.Status === 1" mat-raised-button color="primary"
+      (click)="reloadPage()">{{'actions.refresh' | translate}}</button>
+    <button id="close-finish-upload-button" *ngIf="response.body.Data.Status === 1" mat-raised-button color="primary"
+      [routerLink]="['/securehome']"
+      mat-dialog-close>{{'secure.products.Finish_upload_product_information.home_seller_center' | translate}}</button>
+    <button id="close-finish-upload-button" *ngIf="response.body.Data.Status === 2 || response.body.Data.Status === 3"
+      mat-raised-button color="primary" mat-dialog-close>{{'actions.close' | translate}}</button>
+    <button id="export-to-excel-button" *ngIf="response.body.Data.Status === 3" mat-raised-button color="primary"
+      (click)="exportAsExcelFile(viewModel.Errors,'ErroresMarcas')">{{'actions.export_excel' | translate}}
+    </button>
+  </mat-dialog-actions>
+</div>
+
+<div *ngIf="titleAgreement">
+  <div class="error-list-content list-log">
+
+    <h3 class="processing-string" mat-subheader *ngIf="response.body.Data.Status ===1">
+      <mat-spinner class="processCharge" [diameter]="60"></mat-spinner>
+      {{'secure.products.Finish_upload_product_information.upload_progress' | translate}}
+
+    </h3>
+
+    <h3>
+      Carga acuerdos
+    </h3>
+    <mat-divider *ngIf="response.processing != 0"></mat-divider>
+
+    <h3 class="succes-string" mat-subheader *ngIf="response.body.Data.Status ===2">
+      <mat-icon>check</mat-icon>
+      {{'secure.products.Finish_upload_product_information.successful_upload' | translate}}
+
+    </h3>
+    <mat-divider *ngIf="response.successful != 0"></mat-divider>
+
+    <h4 class="error-string" mat-subheader *ngIf="response.body.Data.Status ===3">
       Ha ocurrido un error al realizar la carga masiva de acuerdos, por favor intente nuevamente.
     </h4>
     <div fxLayout="row" fxLayoutAlign="space-evenly center" *ngIf="viewModel">
-      <p><mat-icon class="mat-18
+      <p>
+        <mat-icon class="mat-18
         error-string-container-icon-color-process-send">list_alt
-      </mat-icon>Total marcas procesadas: {{viewModel.TotalProcess}}</p>
-      <p><mat-icon class="mat-18
+        </mat-icon>Total de ID vendedor procesados: {{viewModel.TotalProcess}}
+      </p>
+      <p>
+        <mat-icon class="mat-18
         error-string-container-icon-color-delivered">check_circle_outline
-      </mat-icon>Marcas satisfactorias: {{viewModel.Successful}}</p>
-      <p><mat-icon class="mat-18
+        </mat-icon>ID vendedor satisfactorios: {{viewModel.Successful}}
+      </p>
+      <p>
+        <mat-icon class="mat-18
         error-string-container-icon-color-expired">highlight_off
-      </mat-icon>Marcas errores: {{viewModel.Error}}</p>
-    </div>
-    <div fxLayout="row" fxLayoutAlign="space-evenly center" *ngIf="viewModel && titleAgreement">
-      <p><mat-icon class="mat-18
-        error-string-container-icon-color-process-send">list_alt
-      </mat-icon>Total de ID vendedor procesados: {{viewModel.TotalProcess}}</p>
-      <p><mat-icon class="mat-18
-        error-string-container-icon-color-delivered">check_circle_outline
-      </mat-icon>ID vendedor satisfactorios: {{viewModel.Successful}}</p>
-      <p><mat-icon class="mat-18
-        error-string-container-icon-color-expired">highlight_off
-      </mat-icon>ID vendedor con error: {{viewModel.Error}}</p>
+        </mat-icon>ID vendedor con error: {{viewModel.Error}}
+      </p>
     </div>
     <mat-divider *ngIf="response.body.Data.Status ===3"></mat-divider>
 
