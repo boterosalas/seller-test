@@ -39,20 +39,26 @@
       </div>
     </div>
   </div>
-  <div *ngIf="emptyData && load" class="list-seller-school-component-empty-data">
-    <div>
-      {{'secure.products.create_product_unit.list_products.please_wait' | translate}}
+  <div>
+    <div *ngIf="load">
+      <div class="list-seller-school-component-empty-data">
+        <div>
+          {{'secure.products.create_product_unit.list_products.please_wait' | translate}}
+        </div>
+        <div>
+          <mat-icon class="list-seller-school-component-icons-school">school</mat-icon>
+        </div>
+      </div>
     </div>
-    <div>
-      <mat-icon class="list-seller-school-component-icons-school">school</mat-icon>
-    </div>
-  </div>
-  <div *ngIf="emptyData && !load" class="list-seller-school-component-empty-data">
-    <div>
-      {{'school.exito.empty_data'| translate}}
-    </div>
-    <div>
-      <mat-icon class="list-seller-school-component-icons-school">school</mat-icon>
+    <div *ngIf="!load">
+      <div *ngIf="emptyData" class="list-seller-school-component-empty-data">
+        <div>
+          {{'school.exito.empty_data'| translate}}
+        </div>
+        <div>
+          <mat-icon class="list-seller-school-component-icons-school">school</mat-icon>
+        </div>
+      </div>
     </div>
   </div>
 </div>

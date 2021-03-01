@@ -38,7 +38,7 @@ export class ListSellerSchoolComponent implements OnInit {
           this.load = false;
         } else {
           this.emptyData = true;
-          this.load = true;
+          this.load = false;
         }
       } else {
         this.componentsService.openSnackBar(this.languageService.instant('core.http.error_handler.error_acces'), this.languageService.instant('actions.close'), 5000);
