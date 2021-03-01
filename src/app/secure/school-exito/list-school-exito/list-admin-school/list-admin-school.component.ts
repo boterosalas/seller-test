@@ -36,6 +36,8 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
   public activeContainer;
   public modules = [];
   public disabled = false;
+  public emptyData = true;
+  public load = true;
 
   constructor(
     private viewportRuler: ViewportRuler,
@@ -274,6 +276,9 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
         if (result && result.statusCode === 200) {
           const { body } = result;
           this.modules = JSON.parse(body).Data;
+          if(!this.modules.length) {
+            this.emptyData = false;
+          }
         } else {
           this.componentsService.openSnackBar(this.languageService.instant('core.http.error_handler.error_acces'), this.languageService.instant('actions.close'), 5000);
         }
