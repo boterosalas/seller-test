@@ -223,3 +223,16 @@ button {
 .hidden-handle{
   display: none; 
   }
+  
+  .list-admin-school-component-empty-data{
+    margin-top: 20px;
+    min-height: 50vh;
+    font-size: 17px;
+    color: #b6b6b6;
+    text-align: center;
+    font-weight: bold;
+    .icons-school{
+      font-size: 150px;
+      margin-right: 142px;
+    }
+  }
