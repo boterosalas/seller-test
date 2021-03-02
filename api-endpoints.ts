@@ -548,9 +548,9 @@ export const endpoints = {
       // Descarga formato masiva vendedores
       uploadMassiveAgreementSellers: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates/PlantillaCargaAcuerdos.xlsx',
       // Obtener listado de acuerdos
-      getAllAgreement: 'https://yoix96dfrg.execute-api.us-east-1.amazonaws.com/contracts/GetSellerContract/{params}',
+      getAllAgreement: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/GetSellerContract/{params}',
       // Consultar estado de crear acuerdos masivos (get)
-      getStatusMassiveAgreement: 'https://yoix96dfrg.execute-api.us-east-1.amazonaws.com/contracts/GetStatusLoads',
+      getStatusMassiveAgreement: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/GetStatusLoads',
     }
   }
 };
