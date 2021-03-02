@@ -11,7 +11,7 @@ import { CognitoUtil, EndpointService, LoadingService, UserLoginService, UserPar
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { ShellComponent } from '@app/core/shell';
 import { ComponentsService, EventEmitterOrders } from '@app/shared';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 import { SchoolExitoService } from '../../school-exito.service';
 import { ListSellerSchoolComponent } from './list-seller-school.component';
