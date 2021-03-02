@@ -126,6 +126,12 @@ export class ModalBulkloadAgreementComponent implements OnInit {
     });
   }
 
+  /**
+   * Funcionalidad que permite capturar los datos del excel.
+   * @param {*} evt
+   * @returns {Promise<any>}
+   * @memberof ModalBulkloadAgreementComponent
+   */
   readFileUpload(evt: any): Promise<any> {
     return new Promise((resolve, reject) => {
       let data: any;
@@ -160,6 +166,12 @@ export class ModalBulkloadAgreementComponent implements OnInit {
     });
   }
 
+  /**
+   * Metodo que se encarga de validar los datos del excel
+   * @param {*} res
+   * @param {*} file
+   * @memberof ModalBulkloadAgreementComponent
+   */
   validateDataFromFile(res: any, file: any) {
     if (res.length > 1) {
       let contEmptyRow = 0;
@@ -252,8 +264,11 @@ export class ModalBulkloadAgreementComponent implements OnInit {
     });
   }
 
+  /**
+   * Arreglar data para enviar al back
+   * @memberof ModalBulkloadAgreementComponent
+   */
   sendImportAgreement() {
-    // this.loadingService.viewSpinner();
     const lengthFiles = document.getElementById('pdf').getElementsByTagName('input')[0].files.length;
     let file = document.getElementById('pdf').getElementsByTagName('input')[0].files[lengthFiles - 1];
     if (!file) {
@@ -277,27 +292,54 @@ export class ModalBulkloadAgreementComponent implements OnInit {
 
   }
 
+  /**
+   * Metodo para obtener fecha
+   * @returns {Date}
+   * @memberof ModalBulkloadAgreementComponent
+   */
   public getDate(): Date {
     return new Date();
   }
 
+  /**
+   * Funcion para validar el boton de enviar acuerdos
+   * @memberof ModalBulkloadAgreementComponent
+   */
   validateOneFile() {
     this.uploadAgreementBtn = false;
   }
 
+  /**
+   * Funcion para validar el boton de enviar acuerdos
+   * @param {*} validate
+   * @memberof ModalBulkloadAgreementComponent
+   */
   validateFormatInvalidate(validate: any) {
     this.uploadAgreementBtn = true;
   }
 
+  /**
+   * Limpio las variables empleadas para visualizar los resultados de la carga
+   * @memberof ModalBulkloadAgreementComponent
+   */
   resetVariableUploadFile() {
     this.fileName = '';
     this.arrayNecessaryData = [];
   }
 
+  /**
+   * Limpio el input file
+   * @memberof ModalBulkloadAgreementComponent
+   */
   resetUploadFIle() {
     this.inputFileUpload.nativeElement.value = '';
   }
 
+  /**
+   * Método que permite detectar el input file
+   * @param {*} evt
+   * @memberof ModalBulkloadAgreementComponent
+   */
   onFileChange(evt: any) {
     /*1. Limpio las variables empleadas en el proceso de carga.*/
     this.resetVariableUploadFile();
@@ -332,6 +374,10 @@ export class ModalBulkloadAgreementComponent implements OnInit {
     });
   }
 
+  /**
+   * MEtodo para enviar la data de carga de acuerdos al back
+   * @memberof ModalBulkloadAgreementComponent
+   */
   sendDataBulkLoadAgreement() {
     this.loadingService.viewSpinner();
     let prueba = [];
@@ -359,10 +405,18 @@ export class ModalBulkloadAgreementComponent implements OnInit {
     });
   }
 
+  /**
+   * Arreglar data para enviar al back
+   * @memberof ModalBulkloadAgreementComponent
+   */
   sendMassiveAgreement() {
     this.sendImportAgreement();
   }
 
+  /**
+   * Metodo para consultar el estado de la carga
+   * @memberof ModalBulkloadAgreementComponent
+   */
   setIntervalStatusCharge() {
     clearInterval(this.checkIfDoneCharge);
     this.checkIfDoneCharge = setInterval(() => this.sellerService.getStatusMassiveAgreement().subscribe((res: any) => {
@@ -370,6 +424,11 @@ export class ModalBulkloadAgreementComponent implements OnInit {
     }), 7000);
   }
 
+  /**
+   * Metodo para consultar el estado de la carga y abrir modal
+   * @param {*} [result]
+   * @memberof ModalBulkloadAgreementComponent
+   */
   verifyStateCharge(result?: any) {
     if (result.body.Data.Checked === 'true') {
       clearInterval(this.checkIfDoneCharge);
@@ -400,6 +459,11 @@ export class ModalBulkloadAgreementComponent implements OnInit {
     }
   }
 
+  /**
+   * Metodo para abrir modal OK o con errores
+   * @param {*} res
+   * @memberof ModalBulkloadAgreementComponent
+   */
   openDialogSendOrder(res: any): void {
     if (!res.body.data) {
       res.body.data = {};
@@ -429,6 +493,10 @@ export class ModalBulkloadAgreementComponent implements OnInit {
     });
   }
 
+  /**
+   * Metodo para cerrar el modal
+   * @memberof ModalBulkloadAgreementComponent
+   */
   public closeActualDialog(): void {
     if (this.progressStatus) {
       this.dialog.closeAll();

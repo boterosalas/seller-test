@@ -79,6 +79,9 @@
                     !lastInvalids?.length">
                     check_circle
                   </mat-icon>
+                  <mat-icon class="material-icons error" *ngIf="lastInvalids?.length">
+                    not_interested
+                  </mat-icon>
                   <p style="font-size: 14px; width: 264px; margin-bottom: 0px; color: #727272"
                     *ngIf="uploadAgreementBtn">
                     Presione acá o arrastre y
@@ -113,13 +116,13 @@
     <mat-divider></mat-divider>
     <mat-dialog-actions align="center">
       <button mat-button (click)="onNoClick()">{{'actions.cancel'| translate}}</button>
-      <!-- <button type="button" mat-raised-button color="primary"
-        [disabled]="!fomrLoadAgreement.form.valid || uploadAgreementBtn"
-        (click)="sendImportAgreement()">{{'secure.seller.contracts.load-agreement.import_agreement' | translate}}
-      </button> -->
-      <button type="button" mat-raised-button color="primary" (click)="sendMassiveAgreement()"
-        [disabled]="!disableSend">CARGAR ACUERDOS
+      <button type="button" mat-raised-button color="primary"
+        [disabled]="!fomrLoadAgreement.form.valid || uploadAgreementBtn" (click)="sendMassiveAgreement()">CARGAR
+        ACUERDOS
       </button>
+      <!-- <button type="button" mat-raised-button color="primary" (click)="sendMassiveAgreement()"
+        [disabled]="!disableSend">CARGAR ACUERDOS
+      </button> -->
     </mat-dialog-actions>
   </div>
   <div *ngIf="!prepareSend" align="center" class="confirmationSend">
@@ -133,7 +136,8 @@
         [disabled]="!fomrLoadAgreement.form.valid || uploadAgreementBtn"
         (click)="sendImportAgreement()">{{'secure.seller.contracts.load-agreement.import_agreement' | translate}}
       </button> -->
-      <button type="button" mat-raised-button color="primary" (click)="sendDataBulkLoadAgreement()" [disabled]="!disableSend">CARGAR
+      <button type="button" mat-raised-button color="primary" (click)="sendDataBulkLoadAgreement()"
+        [disabled]="!disableSend">CARGAR
       </button>
     </mat-dialog-actions>
   </div>
