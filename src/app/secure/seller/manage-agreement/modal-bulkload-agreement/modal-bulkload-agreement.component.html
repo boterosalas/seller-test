@@ -32,7 +32,7 @@
               <div class="inline-block">
                 <div class="well my-drop-zone" fxLayout="column" id="fileExcel" fxLayoutAlign="center center"
                   (click)="fileUploadOption.click()">
-                  <strong *ngIf="!fileExcel" style="color: #727272">{{fileName}}</strong>
+                  <strong *ngIf="!fileExcel" id="colorInput">{{fileName}}</strong>
                   <mat-icon class="material-icons" *ngIf="fileExcel" id="sizeIcon">
                     person_add_alt_1
                   </mat-icon>
