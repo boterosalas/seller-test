@@ -122,24 +122,10 @@
       </button>
     </mat-dialog-actions>
   </div>
-  <div *ngIf="!prepareSend" align="center">
-    <br>
-    <br>
-    <br>
+  <div *ngIf="!prepareSend" align="center" class="confirmationSend">
 
-    <span class="modal-load-agreement-content-text-type">¿Está seguro que desea cargar el acuerdo {{files[files.length
-      - 1].name}} ? </span>
-
-    <br>
-    <br>
-    <br>
-
-    <span class="modal-load-agreement-content-text-type">¿Estás seguro que harás una carga de acuerdos a
-      {{arrayNecessaryData.length}} Vendedores ? </span>
-    <br>
-    <br>
-    <br>
-
+    <span class="modal-load-agreement-content-text-type">¿Está seguro que desea cargar el acuerdo <strong>{{files[files.length
+      - 1].name}}</strong> ? </span>
 
     <mat-dialog-actions align="center">
       <button mat-button (click)="onNoClick()">{{'actions.cancel'| translate}}</button>
@@ -147,8 +133,7 @@
         [disabled]="!fomrLoadAgreement.form.valid || uploadAgreementBtn"
         (click)="sendImportAgreement()">{{'secure.seller.contracts.load-agreement.import_agreement' | translate}}
       </button> -->
-      <button type="button" mat-raised-button color="primary" (click)="open2()"
-        [disabled]="!disableSend">CARGAR
+      <button type="button" mat-raised-button color="primary" (click)="sendDataBulkLoadAgreement()" [disabled]="!disableSend">CARGAR
       </button>
     </mat-dialog-actions>
   </div>

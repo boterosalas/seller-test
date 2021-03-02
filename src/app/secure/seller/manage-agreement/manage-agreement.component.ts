@@ -63,7 +63,6 @@ export class ManageAgreementComponent implements OnInit {
       urlParams = `?limit=${this.pageSize}&paginationToken=${encodeURI(this.paginationToken)}`
     }
     this.sellerService.getAllAgreement(urlParams).subscribe((result: any) => {
-      console.log('result: ', result);
       if (result) {
         this.manageAgreementsSeller = result.ViewModel;
         this.titleAgreement = result.ContractName;
@@ -83,7 +82,6 @@ export class ManageAgreementComponent implements OnInit {
   }
 
   paginations(event: any): any {
-    console.log('6: ', event);
     if (event.pageSize !== this.limit) {
       this.limit = event.pageSize;
     }

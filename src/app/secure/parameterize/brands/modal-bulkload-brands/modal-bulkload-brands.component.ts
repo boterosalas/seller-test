@@ -27,7 +27,6 @@ export class ModalBulkloadBrandsComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('this.response_ ', this.response);
     if (this.response){
       this.productNotifyViewModel = this.response.body.Data.Response;
       if (this.productNotifyViewModel) {

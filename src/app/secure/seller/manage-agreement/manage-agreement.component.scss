@@ -7,6 +7,15 @@ $blue: #485AFA;
   border-bottom: 1px solid $color-light-gray2;
 }
 
+#openDialogAgreement{
+  width: 168px;
+  height: 45px;
+}
+
+::ng-deep .mat-paginator-page-size{
+  margin-top: 8px;
+}
+
 :host ::ng-deep {
   .tree-toolbar {
     background-color: #fff;

@@ -89,6 +89,7 @@ export class ModalBulkloadAgreementComponent implements OnInit {
     this.createForm();
     this.validateFormSupport();
     this.urlDownloadFile = this.api.get('uploadMassiveAgreementSellers');
+    this.setIntervalStatusCharge();
   }
 
   /**
@@ -225,7 +226,6 @@ export class ModalBulkloadAgreementComponent implements OnInit {
         this.fileName = file.target.files[0].name;
         this.fileSize = file.target.files[0].size;
         this.fileExcel = false;
-        console.log(99, this.arrayNecessaryData);
         this.validateDataRegex();
       }
     } else {
@@ -259,7 +259,6 @@ export class ModalBulkloadAgreementComponent implements OnInit {
     if (!file) {
       file = this.files[this.files.length - 1];
     }
-    console.log('this.arrayNecessaryData: ', this.arrayNecessaryData);
     this.getBase64(file).then(data => {
       try {
         this.bodyToSend = {
@@ -270,23 +269,6 @@ export class ModalBulkloadAgreementComponent implements OnInit {
           applyAllSeller: false
         };
         this.prepareSend = false;
-        console.log(this.bodyToSend);
-        // this.sellerService.registersContract(bodyToSend).subscribe((result: any) => {
-        //   console.log(result);
-        //   this.loadingService.closeSpinner();
-        //   if (result.statusCode === 200) {
-        //     const dataRes = JSON.parse(result.body).Data;
-        //     if (dataRes) {
-        //       this.componentService.openSnackBar(this.languageService.instant('secure.load_guide_page.finish_upload_info.title'), this.languageService.instant('actions.close'), 5000);
-        //       this.dialogRef.close(false);
-        //       this.shellComponent.eventEmitterOrders.getClear();
-        //     } else {
-        //       this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), this.languageService.instant('actions.close'), 5000);
-        //     }
-        //   } else {
-        //     this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), this.languageService.instant('actions.close'), 5000);
-        //   }
-        // });
       } catch (e) {
         this.prepareSend = true;
         log.error(this.languageService.instant('shared.components.load_file.snackbar_error'), e);
@@ -350,10 +332,8 @@ export class ModalBulkloadAgreementComponent implements OnInit {
     });
   }
 
-  open2() {
+  sendDataBulkLoadAgreement() {
     this.loadingService.viewSpinner();
-    console.log(this.arrayTosendExcel);
-    console.log(this.arrayNecessaryData);
     let prueba = [];
     this.arrayNecessaryData.forEach(element => {
       element.forEach(el => {
@@ -362,11 +342,9 @@ export class ModalBulkloadAgreementComponent implements OnInit {
     });
     this.bodyToSend.sellers = prueba;
     this.sellerService.registersContract(this.bodyToSend).subscribe((result: any) => {
-      console.log(result);
       this.loadingService.closeSpinner();
       if (result.statusCode === 200) {
         const dataRes = JSON.parse(result.body).Data;
-        console.log(dataRes);
         if (dataRes) {
           this.setIntervalStatusCharge();
           this.componentService.openSnackBar(this.languageService.instant('secure.load_guide_page.finish_upload_info.title'), this.languageService.instant('actions.close'), 5000);
@@ -382,8 +360,6 @@ export class ModalBulkloadAgreementComponent implements OnInit {
   }
 
   sendMassiveAgreement() {
-    console.log(11, this.arrayNecessaryData);
-    // this.prepareSend = false;
     this.sendImportAgreement();
   }
 
@@ -396,32 +372,35 @@ export class ModalBulkloadAgreementComponent implements OnInit {
 
   verifyStateCharge(result?: any) {
     if (result.body.Data.Checked === 'true') {
-        clearInterval(this.checkIfDoneCharge);
+      clearInterval(this.checkIfDoneCharge);
     } else if (result.body.Data.Status === 1 || result.body.Data.Status === 4) {
-        result.body.Data.Status = 1;
-        if (!this.progressStatus) {
-            this.openDialogSendOrder(result);
-        }
-        this.progressStatus = true;
-        this.loadingService.closeSpinner();
-    } else if (result.body.Data.Status === 2) {
-        clearInterval(this.checkIfDoneCharge);
-        this.closeActualDialog();
+      result.body.Data.Status = 1;
+      if (!this.progressStatus) {
         this.openDialogSendOrder(result);
-        this.loadingService.closeSpinner();
+      }
+      this.progressStatus = true;
+      this.loadingService.closeSpinner();
+    } else if (result.body.Data.Status === 0) {
+      clearInterval(this.checkIfDoneCharge);
+      this.closeActualDialog();
+      this.loadingService.closeSpinner();
+    } else if (result.body.Data.Status === 2) {
+      clearInterval(this.checkIfDoneCharge);
+      this.closeActualDialog();
+      this.openDialogSendOrder(result);
+      this.loadingService.closeSpinner();
     } else if (result.body.Data.Status === 3) {
-        this.closeActualDialog();
-        clearInterval(this.checkIfDoneCharge);
-        const resultBody = JSON.parse(result.body.Data.Response);
-        if (resultBody.Errors.length > 0) {
-            this.openDialogSendOrder(result);
-        }
-        this.loadingService.closeSpinner();
+      this.closeActualDialog();
+      clearInterval(this.checkIfDoneCharge);
+      const resultBody = JSON.parse(result.body.Data.Response);
+      if (resultBody.Errors.length > 0) {
+        this.openDialogSendOrder(result);
+      }
+      this.loadingService.closeSpinner();
     }
-}
+  }
 
   openDialogSendOrder(res: any): void {
-    console.log(99, res);
     if (!res.body.data) {
       res.body.data = {};
       res.body.data.status = 3;
