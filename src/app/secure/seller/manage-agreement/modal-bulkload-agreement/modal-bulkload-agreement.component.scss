@@ -4,6 +4,54 @@ $lightgray: lightgray;
 $blue: #485AFA;
 
 
+.alingText {
+  text-align: center
+}
+
+#fileExcel {
+  color: #F8F8F8;
+}
+
+#sizeIcon {
+  font-size: 70px;
+}
+
+.textFileExcel {
+  font-size: 14px;
+  width: 264px;
+  margin-bottom: 0px;
+  color: #727272;
+}
+
+.textFilePdf {
+  font-size: 14px;
+  width: 264px;
+  margin-bottom: 0px;
+  color: #727272;
+}
+
+.textFilePdf2 {
+  color: #485AFA;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: 14px
+}
+
+.textFileExcel2 {
+  color: #485AFA;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: 14px
+}
+
+.downloadFormat {
+  margin-left: 2.5%;
+  margin-bottom: 1%;
+  button{
+    text-decoration: inherit
+  }
+}
+
 .modal-load-agreement {
   &-font-weight {
     font-weight: bold;
@@ -189,15 +237,18 @@ $blue: #485AFA;
   margin-bottom: 10px;
 }
 
-.confirmationSend{
+.confirmationSend {
   margin-top: 5%;
-  .modal-load-agreement-content-text-type{
+
+  .modal-load-agreement-content-text-type {
     margin-top: 5%;
   }
-  mat-dialog-actions{
+
+  mat-dialog-actions {
     margin-top: 4%;
   }
 }
+
 .modal-load-agreement-content-text-type {
   color: #848181;
   font-size: 16px;

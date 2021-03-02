@@ -19,11 +19,11 @@ export class ManageAgreementComponent implements OnInit {
   public limit = 0;
   titleAgreement: any;
   length = 0;
-  public pageSize = 3;
+  public pageSize = 50;
 
   public arrayPosition = [];
   paramsArray: any;
-  pageSizeOptions: number[] = [3, 6, 9];
+  pageSizeOptions: number[] = [50,100,200];
   pageEvent: PageEvent;
   public callOne = true;
 
@@ -54,6 +54,11 @@ export class ManageAgreementComponent implements OnInit {
     });
   }
 
+  /**
+   * Metodo para obtener todas las marcas
+   * @param {*} [params]
+   * @memberof ManageAgreementComponent
+   */
   public getAllBrands(params?: any) {
     this.loading.viewSpinner();
     let urlParams;
@@ -81,6 +86,12 @@ export class ManageAgreementComponent implements OnInit {
     });
   }
 
+  /**
+   * Evento para controlar la paginacion
+   * @param {*} event
+   * @returns {*}
+   * @memberof ManageAgreementComponent
+   */
   paginations(event: any): any {
     if (event.pageSize !== this.limit) {
       this.limit = event.pageSize;

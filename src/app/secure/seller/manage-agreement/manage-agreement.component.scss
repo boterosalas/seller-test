@@ -10,6 +10,20 @@ $blue: #485AFA;
 #openDialogAgreement{
   width: 168px;
   height: 45px;
+  margin-top: 10px;
+}
+
+.styleFlex{
+  display: flex;
+}
+
+.subtitleAgreement{
+  color: $color-gray;
+}
+
+.subtitleAgreement2{
+  color: black; 
+  margin-left: 10px;
 }
 
 ::ng-deep .mat-paginator-page-size{

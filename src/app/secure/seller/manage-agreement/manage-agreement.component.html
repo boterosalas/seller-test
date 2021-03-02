@@ -11,10 +11,10 @@
 </div>
 
 <div id="addButton" fxLayout="row" fxLayoutAlign="space-between center">
-  <div align="left" style="display: flex;">
-    <h4 style="color: gray;" *ngIf="manageAgreementsSeller">Acuerdo predeterminado:  </h4> <h4 style="color: black; margin-left: 10px;" *ngIf="titleAgreement">{{titleAgreement}}</h4>
+  <div align="left" class="styleFlex">
+    <h4 class="subtitleAgreement" *ngIf="manageAgreementsSeller">Acuerdo predeterminado:  </h4> <h4 class="subtitleAgreement2" *ngIf="titleAgreement">{{titleAgreement}}</h4>
   </div>
-  <div style="display: flex;">
+  <div class="styleFlex">
     <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
                 (page)="pageEvent = paginations($event)"></mat-paginator>
     <button mat-button mat-stroked-button color="primary" (click)="openModalBulkLoadAgreement()" id="openDialogAgreement">
@@ -28,7 +28,7 @@
   <div class="agreement">
     <div class="agreement-title" fxLayout="row" fxLayoutAlign="space-between center">
       <p>{{'shared.name' | translate}}</p>
-      <p style="margin-right: 10%;" *ngIf="false">{{'shared.actions' | translate}}</p>
+      <!-- <p style="margin-right: 10%;" *ngIf="false">{{'shared.actions' | translate}}</p> -->
     </div>
     <div *ngFor="let agreement of manageAgreementsSeller" fxLayout="row" fxLayoutAlign="space-between center"
       class="list-agreement">
