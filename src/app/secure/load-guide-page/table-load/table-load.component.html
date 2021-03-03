@@ -23,7 +23,7 @@
 
 
     <!-- matSort: Permite filtrar la tabla por los titulos de las columnas -->
-    <mat-table #table [dataSource]="loadGuide.dataSource" matSort>
+    <mat-table #table [dataSource]="loadGuide.dataSource" matSort style="overflow-x: scroll;">
 
       <!-- orderNumber Column -->
       <ng-container matColumnDef="orderNumber">
@@ -47,19 +47,104 @@
           </div>
         </mat-cell>
       </ng-container>
+     <!-- EAN Column -->
+      <ng-container matColumnDef="ean">
+        <mat-header-cell fxFlex.sm="120px" fxFlex.md="130px" fxFlex.lg="130px" fxFlex.xs="130px" *matHeaderCellDef
+          mat-sort-header>
+          {{'secure.orders.orders' | translate}}
+        </mat-header-cell>
+        <mat-cell [ngClass]="{'selected-error': element.errorColumn2 == true }" fxFlex.sm="120px" fxFlex.md="130px"
+          fxFlex.lg="130px" fxFlex.xs="130px" *matCellDef="let element">
 
+          <div class="information" *ngIf="element.ean != undefined && element.ean != ''">
+            <p class="sc-text-normal">{{element.ean}}</p>
+          </div>
+
+          <div class="information" *ngIf="element.ean == undefined || element.ean == ''">
+            <p class="text-error"> {{'secure.load_guide_page.table_load.missing_data' | translate}}
+            </p>
+            <mat-icon fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
+              class="text-error">warning
+            </mat-icon>
+          </div>
+        </mat-cell>
+      </ng-container>
+      <!-- Sku seller Column -->
+
+      <ng-container matColumnDef="skuSeller">
+        <mat-header-cell fxFlex.sm="120px" fxFlex.md="130px" fxFlex.lg="130px" fxFlex.xs="130px" *matHeaderCellDef
+          mat-sort-header>
+          {{'secure.orders.order_list.product_order.sku_seller' | translate}}
+        </mat-header-cell>
+        <mat-cell [ngClass]="{'selected-error': element.errorColumn3 == true }" fxFlex.sm="120px" fxFlex.md="130px"
+          fxFlex.lg="130px" fxFlex.xs="130px" *matCellDef="let element">
+
+          <div class="information" *ngIf="element.skuSeller != undefined && element.skuSeller != ''">
+            <p class="sc-text-normal">{{element.skuSeller}}</p>
+          </div>
+
+          <div class="information" *ngIf="element.skuSeller == undefined || element.skuSeller == ''">
+            <p class="text-error"> {{'secure.load_guide_page.table_load.missing_data' | translate}}
+            </p>
+            <mat-icon fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
+              class="text-error">warning
+            </mat-icon>
+          </div>
+        </mat-cell>
+      </ng-container>
       <!-- sku Column -->
       <ng-container matColumnDef="sku">
         <mat-header-cell fxFlex.sm="145px" fxFlex.md="145px" fxFlex.lg="145px" fxFlex.xs="145px" *matHeaderCellDef
           mat-sort-header>
           {{'secure.orders.order_list.product_order.sku' | translate}}
         </mat-header-cell>
-        <mat-cell [ngClass]="{'selected-error': element.errorColumn2 == true }" fxFlex.sm="145px" fxFlex.md="145px"
+        <mat-cell [ngClass]="{'selected-error': element.errorColumn4 == true }" fxFlex.sm="145px" fxFlex.md="145px"
           fxFlex.lg="145px" fxFlex.xs="145px" *matCellDef="let element">
           <div class="information" *ngIf="element.sku != undefined && element.sku != ''">
             <p class="sc-text-normal">{{element.sku}}</p>
           </div>
           <div class="information" *ngIf="element.sku == undefined || element.sku == ''">
+            <p class="text-error"> {{'secure.load_guide_page.table_load.missing_data' | translate}}
+            </p>
+            <mat-icon fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
+              class="text-error">warning
+            </mat-icon>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Product Name Column -->
+      <ng-container matColumnDef="productName">
+        <mat-header-cell fxFlex.sm="145px" fxFlex.md="145px" fxFlex.lg="145px" fxFlex.xs="145px" *matHeaderCellDef
+          mat-sort-header>
+          {{'secure.orders.order_list.product_order.productName' | translate}}
+        </mat-header-cell>
+        <mat-cell [ngClass]="{'selected-error': element.errorColumn5 == true }" fxFlex.sm="145px" fxFlex.md="145px"
+          fxFlex.lg="145px" fxFlex.xs="145px" *matCellDef="let element">
+          <div class="information" *ngIf="element.productName != undefined && element.productName != ''">
+            <p class="sc-text-normal">{{element.productName}}</p>
+          </div>
+          <div class="information" *ngIf="element.productName == undefined || element.productName == ''">
+            <p class="text-error"> {{'secure.load_guide_page.table_load.missing_data' | translate}}
+            </p>
+            <mat-icon fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
+              class="text-error">warning
+            </mat-icon>
+          </div>
+        </mat-cell>
+      </ng-container>
+      <!-- Marca Column-->
+      <ng-container matColumnDef="brand">
+        <mat-header-cell fxFlex.sm="145px" fxFlex.md="145px" fxFlex.lg="145px" fxFlex.xs="145px" *matHeaderCellDef
+          mat-sort-header>
+          {{'secure.orders.order_list.product_order.brand' | translate}}
+        </mat-header-cell>
+        <mat-cell [ngClass]="{'selected-error': element.errorColumn6 == true }" fxFlex.sm="145px" fxFlex.md="145px"
+          fxFlex.lg="145px" fxFlex.xs="145px" *matCellDef="let element">
+          <div class="information" *ngIf="element.brand != undefined && element.brand != ''">
+            <p class="sc-text-normal">{{element.brand}}</p>
+          </div>
+          <div class="information" *ngIf="element.brand == undefined || element.brand == ''">
             <p class="text-error"> {{'secure.load_guide_page.table_load.missing_data' | translate}}
             </p>
             <mat-icon fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
@@ -75,7 +160,7 @@
           mat-sort-header>
           {{'secure.billing.amount' | translate}}
         </mat-header-cell>
-        <mat-cell [ngClass]="{'selected-error': element.errorColumn3 == true }" fxFlex.sm="120px" fxFlex.md="120px"
+        <mat-cell [ngClass]="{'selected-error': element.errorColumn7 == true }" fxFlex.sm="120px" fxFlex.md="120px"
           fxFlex.lg="120px" fxFlex.xs="120px" *matCellDef="let element">
           <div class="information" *ngIf="element.quantity != undefined && element.quantity != ''">
             <p class="sc-text-normal">{{element.quantity}}</p>
@@ -90,13 +175,13 @@
         </mat-cell>
       </ng-container>
 
-      <!-- orderNumber Column -->
+      <!-- carrier Column -->
       <ng-container matColumnDef="carrier">
         <mat-header-cell fxFlex.sm="150px" fxFlex.md="150px" fxFlex.lg="150px" fxFlex.xs="150px" *matHeaderCellDef
           mat-sort-header>
           {{'secure.load_guide_page.table_load.shipping_company' | translate}}
         </mat-header-cell>
-        <mat-cell [ngClass]="{'selected-error': element.errorColumn4 == true }" fxFlex.sm="150px" fxFlex.md="150px"
+        <mat-cell [ngClass]="{'selected-error': element.errorColumn8 == true }" fxFlex.sm="150px" fxFlex.md="150px"
           fxFlex.lg="150px" fxFlex.xs="150px" *matCellDef="let element">
           <div class="information" *ngIf="element.carrier != undefined && element.carrier != ''">
             <p class="sc-text-normal">{{element.carrier}}</p>
@@ -111,13 +196,13 @@
         </mat-cell>
       </ng-container>
 
-      <!-- DateOrder Column -->
+      <!-- tracking Column -->
       <ng-container matColumnDef="tracking">
         <mat-header-cell fxFlex.sm="100px" fxFlex.md="100px" fxFlex.lg="100px" fxFlex.xs="100px" fxShow.xs="false"
           fxShow.sm="true" fxShow.gt-lg="false" fxShow="true" *matHeaderCellDef>
           {{'secure.orders.order_list.product_detail.guide' | translate}}
         </mat-header-cell>
-        <mat-cell [ngClass]="{'selected-error': element.errorColumn5 == true }" fxShow.xs="false" fxShow.sm="true"
+        <mat-cell [ngClass]="{'selected-error': element.errorColumn9 == true }" fxShow.xs="false" fxShow.sm="true"
           fxShow.gt-lg="false" fxShow="true" fxFlex.sm="120px" fxFlex.md="135px" fxFlex.lg="1100pxx" fxFlex.xs="70"
           *matCellDef="let element">
           <div class="information" *ngIf="element.tracking != undefined && element.tracking != ''">

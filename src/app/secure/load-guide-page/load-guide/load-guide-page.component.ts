@@ -247,16 +247,26 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
    */
   validateDataFromFile(res: any, file: any) {
     /* Elimino la posicion 0 que es la parte de titulo del excel */
+    console.log(res);
     if (res.length !== 1 && res.length !== 0) {
 
       if (res.length === 2 && res[1][0] === undefined && res[1][1] === undefined &&
-        res[1][2] === undefined && res[1][3] === undefined && res[1][4] === undefined) {
+        res[1][2] === undefined && res[1][3] === undefined && res[1][4] === undefined && res[1][5] === undefined && res[1][6] === undefined && res[1][7] === undefined && res[1][8] === undefined) {
         this.loadingService.closeSpinner();
         this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.no_information_contains'), this.languageService.instant('actions.accpet_min'), 10000);
       } else {
         // validación de los campos necesarios para el archivo
-        if (res[0][0] === 'Orden' || res[0][0] === 'Order' && res[0][1] === 'Sku' && res[0][2] === 'Cantidad' || res[0][2] === 'Quantity' &&
-          res[0][3] === 'Transportadora' || res[0][3] === 'Shipping Company'  && res[0][4] === 'Guía' || res[0][4] === 'Guide' ) {
+        if (
+          res[0][0] === 'Orden' || res[0][0] === 'Order' &&
+          res[0][1] === 'EAN' || res[0][1] === 'EAN' &&
+          res[0][2] === 'SKU Vendedor' || res[0][2] === 'SKU Seller' &&
+          res[0][3] === 'Sku' || res[0][3] === 'Sku' &&
+          res[0][4] === 'Nombre del Producto' || res[0][4] === 'Product Name' &&
+          res[0][5] === 'Marca' || res[0][5] === 'Brand' &&
+          res[0][6] === 'Cantidad' || res[0][6] === 'Quantity' &&
+          res[0][7] === 'Transportadora' || res[0][7] === 'Transportadora' &&
+          res[0][8] === 'Guía' || res[0][8] === 'Guide'
+        ) {
 
           // validación para el número de registros
           if (res.length > this.limitRowExcel) {
@@ -353,27 +363,43 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
     for (let index = 0; index < res.length; index++) {
       //  Campo 0 =  numero de ordenes
       const orderNumber = res[index][0];
-      //  Campo 1 =  sku
-      const sku = res[index][1];
-      //  Campo 2 =  cantidad
-      const quantity = res[index][2];
-      // Campo 3 = Carrier
-      const carrier = res[index][3];
-      // Campo 4 = tracking
-      const tracking = res[index][4];
+      // Campo 1 = EAN
+      const EAN = res[index][1];
+      // Campo 2 = SKU VENDEDOR
+      const skuSeller = res[index][2];
+      // Campo 3 = Sku
+      const sku = res[index][3];
+      // Campo 4 = Nombre del producto
+      const productName = res[index][4];
+      // Campo 5 = Marca
+      const brand = res [index][5];
+      //  Campo 6 =  cantidad
+      const quantity = res[index][6];
+      // Campo 7 = Transportadora
+      const tracking = res [index][7];
+     // Campo 8 = Carrier
+      const carrier = res[index][8];
       // Si posee datos verifica estos datos, si no tiene nada, no entra a verificar.
 
-      if (orderNumber || sku || quantity || carrier || tracking) {
+      if (orderNumber || EAN || skuSeller || sku || productName || brand || quantity || tracking || carrier) {
         // Validaciones de numero de ordenes. Campo 0 =  numero de ordenes
         this.validateObligatoryNumber(res, index, 0);
-        // Validaciones de numero de ordenes. Campo 1 =  sku
-        this.validateObligatoryString(res, index, 1);
-        // Validaciones de numero de ordenes. Campo 2 =  quantity
-        this.validateObligatoryNumber(res, index, 2);
-        // Validaciones de numero de ordenes. Campo 3 =  carrier
+        // Validaciones de numero de ordenes. Campo 1 =  EAN
+        this.validateObligatoryNumber(res, index, 1);
+        // Validaciones de numero de ordenes. Campo 2 =  SKU VENDEDOR
+        this.validateObligatoryString(res, index, 2);
+        // Validaciones de numero de ordenes. Campo 3 =  SKU
         this.validateObligatoryString(res, index, 3);
-        // Validaciones de numero de ordenes. Campo 4 =  tracking
+        // Validaciones de numero de ordenes. Campo 4 =  NOMBRE DEL PRODUCTO
         this.validateObligatoryString(res, index, 4);
+        // Validaciones de numero de ordenes. Campo 5 =  MARCA
+        this.validateObligatoryString(res, index, 5);
+        // Validaciones de numero de ordenes. Campo 6 =  CANTIDAD
+        this.validateObligatoryNumber(res, index, 6);
+        // Validaciones de numero de ordenes. Campo 7 =  TRANSPORTADORA
+        this.validateObligatoryString(res, index, 7);
+        // Validaciones de numero de ordenes. Campo 8 =  GUIA
+        this.validateObligatoryString(res, index, 8);
         // Agrego todos los registros a una variable que sera empelada al momento de realizar el envío
         this.addInfoTosend(res, index);
       }
@@ -396,10 +422,14 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
   addInfoTosend(res: any, index: any) {
     const newObjectForSend = {
       orderNumber: res[index][0],
-      sku: res[index][1],
-      quantity: res[index][2],
-      carrier: res[index][3],
-      tracking: res[index][4],
+      ean: res[index][1],
+      skuSeller: res[index][2],
+      sku: res[index][3],
+      productName: res[index][4],
+      brand: res[index][5],
+      quantity: res[index][6],
+      carrier: res[index][7],
+      tracking: res[index][8]
     };
     this.arrayInformationForSend.push(newObjectForSend);
   }
@@ -414,16 +444,24 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
     /* elemento que contendra la estructura del excel y permitra agregarlo a la variable final que contendra todos los datos del excel */
     const newObject: LoadGuide = {
       orderNumber: res[index][0],
-      sku: res[index][1],
-      quantity: res[index][2],
-      carrier: res[index][3],
-      tracking: res[index][4],
+      ean: res[index][1],
+      skuSeller: res[index][2],
+      sku: res[index][3],
+      productName: res[index][4],
+      brand: res[index][5],
+      quantity: res[index][6],
+      carrier: res[index][7],
+      tracking: res[index][8],
       errorRow: false,
       errorColumn1: false,
       errorColumn2: false,
       errorColumn3: false,
       errorColumn4: false,
-      errorColumn5: false
+      errorColumn5: false,
+      errorColumn6: false,
+      errorColumn7: false,
+      errorColumn8: false,
+      errorColumn9: false,
     };
 
     this.arrayInformation.push(newObject);
@@ -460,6 +498,9 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
       this.arrayInformation[index].errorColumn3 = false;
       this.arrayInformation[index].errorColumn4 = false;
       this.arrayInformation[index].errorColumn5 = false;
+      this.arrayInformation[index].errorColumn6 = false;
+      this.arrayInformation[index].errorColumn7 = false;
+      this.arrayInformation[index].errorColumn8 = false;
       this.arrayInformation[index].errorRow = false;
     }
   }
@@ -485,6 +526,18 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
       this.arrayInformation[item.row].errorRow = true;
     } else if (item.column === 4) {
       this.arrayInformation[item.row].errorColumn5 = true;
+      this.arrayInformation[item.row].errorRow = true;
+    } else if (item.column === 5) {
+      this.arrayInformation[item.row].errorColumn6 = true;
+      this.arrayInformation[item.row].errorRow = true;
+    } else if (item.column === 6) {
+      this.arrayInformation[item.row].errorColumn7 = true;
+      this.arrayInformation[item.row].errorRow = true;
+    } else if (item.column === 7) {
+      this.arrayInformation[item.row].errorColumn8 = true;
+      this.arrayInformation[item.row].errorRow = true;
+    } else if (item.column === 8) {
+      this.arrayInformation[item.row].errorColumn9 = true;
       this.arrayInformation[item.row].errorRow = true;
     }
     const data = JSON.stringify(this.arrayInformation);

@@ -511,6 +511,8 @@
     "secure.orders.order_list.product_order.sku_seller": "Seller SKU",
     "secure.orders.order_list.product_order.total": "Total",
     "secure.orders.order_list.product_order.subTotal": "Subtotal",
+    "secure.orders.order_list.product_order.brand": "Brand",
+    "secure.orders.order_list.product_order.productName": "Product Name",
     "secure.orders.order_list.product_order.see_total_records_download": "View all your orders by downloading the order report  ",
 
     "secure.orders.order_list.send_order.title_order": "Send Order",
