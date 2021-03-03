@@ -1,25 +1,25 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+// import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ManageAgreementComponent } from './manage-agreement.component';
+// import { ManageAgreementComponent } from './manage-agreement.component';
 
-describe('ManageAgreementComponent', () => {
-  let component: ManageAgreementComponent;
-  let fixture: ComponentFixture<ManageAgreementComponent>;
+// describe('ManageAgreementComponent', () => {
+//   let component: ManageAgreementComponent;
+//   let fixture: ComponentFixture<ManageAgreementComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ManageAgreementComponent ]
-    })
-    .compileComponents();
-  }));
+//   beforeEach(async(() => {
+//     TestBed.configureTestingModule({
+//       declarations: [ ManageAgreementComponent ]
+//     })
+//     .compileComponents();
+//   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ManageAgreementComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//   beforeEach(() => {
+//     fixture = TestBed.createComponent(ManageAgreementComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });
