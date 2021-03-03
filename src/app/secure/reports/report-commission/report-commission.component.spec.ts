@@ -15,12 +15,17 @@ import { ComponentsService, EventEmitterOrders } from '@app/shared';
 import { of } from 'rxjs';
 import { ReportCommissionService } from './report-commission.service';
 
+export const registerRegex = [
+  { Identifier: 'formatIntegerNumber', Value: '^[0-9]+([.][0-9]{2})?$', Module: 'parametrizacion' },
+];
+
 describe('ReportCommissionComponent', () => {
 
   const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
   const mockUserLoginService = jasmine.createSpyObj('UserLoginService', ['isAuthenticated']);
   const mockStoresService = jasmine.createSpyObj('StoresService', ['getAllStoresFull']);
   const mockReportService = jasmine.createSpyObj('ReportCommissionService', ['sendReportCommission', 'getListCommissionAll']);
+  const mockSupportService = jasmine.createSpyObj('SupportService', ['getRegexFormSupport']);
   let component: ReportCommissionComponent;
   let fixture: ComponentFixture<ReportCommissionComponent>;
 
@@ -64,7 +69,7 @@ describe('ReportCommissionComponent', () => {
         { provide: LoadingService, useValue: mockLoadingService },
         { provide: UserLoginService, useValue: mockUserLoginService },
         { provide: ReportCommissionService, useValue: mockReportService },
-        SupportService,
+        { provide: SupportService, useValue: mockSupportService },
         ShellComponent,
         ComponentsService,
         EventEmitterOrders,
@@ -79,6 +84,7 @@ describe('ReportCommissionComponent', () => {
     mockStoresService.getAllStoresFull.and.returnValue(of(response));
     mockReportService.getListCommissionAll.and.returnValue(of(responseListCommission));
     mockReportService.sendReportCommission.and.returnValue(of(responseSendReport));
+    mockSupportService.getRegexFormSupport.and.returnValue(of(registerRegex));
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
