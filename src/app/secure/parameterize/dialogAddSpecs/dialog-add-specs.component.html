@@ -17,7 +17,7 @@
         <strong class="special" [ngClass]="{'transition': showErrorMin}">{{'secure.parametize.dialogAddSpecs.modal_text_2' | translate}}</strong>
         {{'secure.parametize.dialogAddSpecs.modal_text_3' | translate}}
       </p>
-      <div fxLayout="row" style="width: 100%;" fxLayout.xs="column" fxLayoutAlign="space-between start">
+      <div fxLayout="row" class="w-100" fxLayout.xs="column" fxLayoutAlign="space-between start">
         <div class="container-form" fxLayout="column">
           <mat-form-field class="input-add">
             <input matInput formControlName="nameSpec" [placeholder]="'secure.parametize.dialogAddSpecs.modal_placeholder_specification_name' | translate">
