@@ -12,43 +12,96 @@ export class SchoolExitoService {
     private http: HttpClient,
     private api: EndpointService
   ) { }
-
-  getAllModuleSchoolExito(params: any): Observable<any> {
+/**
+ * funcion para consultar todos los modulos
+ *
+ * @param {*} params
+ * @returns {Observable<any>}
+ * @memberof SchoolExitoService
+ */
+getAllModuleSchoolExito(params: any): Observable<any> {
     return this.http.get(this.api.get('getAllModuleSchoolExito', [params]));
   }
-
-  editModules(body: any): Observable<{}> {
+/**
+ * funcion para editar los modulos
+ *
+ * @param {*} body
+ * @returns {Observable<{}>}
+ * @memberof SchoolExitoService
+ */
+editModules(body: any): Observable<{}> {
     return this.http.patch(this.api.get('editModules'), body);
   }
-
-  public createSubModules(param: any, body: any): Observable<any> {
+/**
+ * funcion para crear submodulos
+ *
+ * @param {*} param
+ * @param {*} body
+ * @returns {Observable<any>}
+ * @memberof SchoolExitoService
+ */
+public createSubModules(param: any, body: any): Observable<any> {
     return this.http.post(this.api.get('createSubModules', [param]), body);
   }
-
-  createModules(body: any): Observable<{}> {
+/**
+ * funcion para crear modulos
+ *
+ * @param {*} body
+ * @returns {Observable<{}>}
+ * @memberof SchoolExitoService
+ */
+createModules(body: any): Observable<{}> {
     return this.http.post(this.api.get('createModules'), body);
   }
-
-  editSubModules(body: any): Observable<{}> {
+/**
+ * funcion para editar submodulos
+ *
+ * @param {*} body
+ * @returns {Observable<{}>}
+ * @memberof SchoolExitoService
+ */
+editSubModules(body: any): Observable<{}> {
     return this.http.patch(this.api.get('editSubModules'), body);
   }
-
-  updatePositionSubModules(body: any): Observable<any> {
+/**
+ * funcion para mover los submodulos
+ *
+ * @param {*} body
+ * @returns {Observable<any>}
+ * @memberof SchoolExitoService
+ */
+updatePositionSubModules(body: any): Observable<any> {
     return this.http.patch(this.api.get('updatePositionSubModules'), body);
   }
-
-  updatePositionModules(body: any): Observable<any> {
+/**
+ * funcion para mover los modulos
+ *
+ * @param {*} body
+ * @returns {Observable<any>}
+ * @memberof SchoolExitoService
+ */
+updatePositionModules(body: any): Observable<any> {
     return this.http.patch(this.api.get('updatePositionModules'), body);
   }
-
-  public deleteModule(param: any): Observable<any> {
+/**
+ * funcion para eliminar modulos
+ *
+ * @param {*} param
+ * @returns {Observable<any>}
+ * @memberof SchoolExitoService
+ */
+public deleteModule(param: any): Observable<any> {
     return this.http.delete(this.api.get('deleteModules', [param]), { observe: 'response' });
   }
-
-  public deleteSubModule(moduleId: any, subModuleId: any): Observable<any> {
+/**
+ * funcion para eliminar submodulos
+ *
+ * @param {*} moduleId
+ * @param {*} subModuleId
+ * @returns {Observable<any>}
+ * @memberof SchoolExitoService
+ */
+public deleteSubModule(moduleId: any, subModuleId: any): Observable<any> {
     return this.http.delete(this.api.get('deleteSubModules', [moduleId, subModuleId]), { observe: 'response' });
   }
-
-  
-
 }

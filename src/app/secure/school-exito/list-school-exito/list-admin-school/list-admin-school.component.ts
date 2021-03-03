@@ -53,7 +53,11 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.getAllModules();
   }
-
+  /**
+   * funcion para mostrar el modal de creacion de modulo
+   *
+   * @memberof ListAdminSchoolComponent
+   */
   createModule() {
     this.dialog.open(CreateModuleComponent, {
       width: '800px',
@@ -61,7 +65,13 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
       maxHeight: '90vh',
     });
   }
-
+  /**
+   * funcion para mostrar submodulos y crearlos
+   *
+   * @param {*} module
+   * @param {*} item
+   * @memberof ListAdminSchoolComponent
+   */
   createSubmodule(module: any, item: any) {
     this.dialog.open(CreateSubmoduleComponent, {
       data: {
@@ -73,7 +83,13 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
       maxHeight: '90vh',
     });
   }
-
+  /**
+   * funcion para borrar modulo
+   *
+   * @param {*} module
+   * @param {*} item
+   * @memberof ListAdminSchoolComponent
+   */
   deleteItemFaq(module: any, item: any) {
     this.dialog.open(DeleteItemModuleComponent, {
       data: {
@@ -85,7 +101,12 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
       maxHeight: '90vh',
     });
   }
-
+  /**
+   * funcion para editar modulos
+   *
+   * @param {*} item
+   * @memberof ListAdminSchoolComponent
+   */
   editFaq(item: any) {
     this.dialog.open(EditModuleComponent, {
       data: item,
@@ -94,7 +115,12 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
       maxHeight: '90vh',
     });
   }
-
+  /**
+   * funcion para eliminar modulos
+   *
+   * @param {*} item
+   * @memberof ListAdminSchoolComponent
+   */
   deleteFaq(item: any) {
     this.dialog.open(DeleteModuleComponent, {
       data: item,
@@ -103,7 +129,13 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
       maxHeight: '90vh',
     });
   }
-
+  /**
+   * funcion para editar item del submodulo
+   *
+   * @param {*} module
+   * @param {*} item
+   * @memberof ListAdminSchoolComponent
+   */
   editItemFaq(module: any, item: any) {
     this.dialog.open(EditItemModuleComponent, {
       data: {
@@ -182,13 +214,13 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
 
     if (this.sourceIndex !== this.targetIndex) {
       moveItemInArray(this.modules, this.sourceIndex, this.targetIndex);
-       this.schoolExitoService.updatePositionModules(params).subscribe((result) => {
-      if (result && result.statusCode === 200) {
-        const { body } = result;
-        this.modules = [];
-        this.modules = JSON.parse(body).Data;
-      }
-    });
+      this.schoolExitoService.updatePositionModules(params).subscribe((result) => {
+        if (result && result.statusCode === 200) {
+          const { body } = result;
+          this.modules = [];
+          this.modules = JSON.parse(body).Data;
+        }
+      });
     }
 
 
@@ -276,7 +308,7 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
         if (result && result.statusCode === 200) {
           const { body } = result;
           this.modules = JSON.parse(body).Data;
-          if(!this.modules.length) {
+          if (!this.modules.length) {
             this.emptyData = false;
           }
         } else {

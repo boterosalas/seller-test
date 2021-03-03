@@ -20,8 +20,12 @@ export class ListSchoolExitoComponent implements OnInit {
     this.getAllDataUser();
   }
 
-
-  async getAllDataUser() {
+/**
+ * funcion para verificar si es admin o vendedor y mostrar el componente
+ *
+ * @memberof ListSchoolExitoComponent
+ */
+async getAllDataUser() {
     const sellerData = await this.profileService.getUser().toPromise().then(res => {
       const body: any = res.body;
       const response = JSON.parse(body.body);
