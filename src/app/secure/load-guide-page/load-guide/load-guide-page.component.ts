@@ -264,7 +264,7 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
           res[0][4] === 'Nombre del Producto' || res[0][4] === 'Product Name' &&
           res[0][5] === 'Marca' || res[0][5] === 'Brand' &&
           res[0][6] === 'Cantidad' || res[0][6] === 'Quantity' &&
-          res[0][7] === 'Transportadora' || res[0][7] === 'Transportadora' &&
+          res[0][7] === 'Transportadora' || res[0][7] === 'Tracking' &&
           res[0][8] === 'Guía' || res[0][8] === 'Guide'
         ) {
 

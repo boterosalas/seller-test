@@ -41,42 +41,54 @@
 
 @media (max-width: 360px) {
   mat-table {
-    // width: 400px;
+    width: 400px;
     overflow: scroll;
   }
 }
 
 @media (max-width: 600px) {
   mat-table {
-    // width: 500px;
+    width: 500px;
     overflow: scroll;
   }
 }
 
 @media (max-width: 700px) {
   mat-table {
-    // width: 600px;
+    width: 600px;
     overflow: scroll;
   }
 }
 
 @media (max-width: 800px) {
   mat-table {
-    // width: 400px;
+    width: 400px;
     overflow: scroll;
   }
 }
 
 @media (max-width: 1200px) {
   mat-table {
-    // width: 540px;
+    width: 540px;
     overflow: scroll;
   }
 }
 
-// :host ::ng-deep .personal-row {
-//   background: #f5f5f5;
-//   @media (max-width: 360px) {
-//     width: 600px;
-//   }
-// }
+:host ::ng-deep .personal-row {
+  background: #f5f5f5;
+  @media (max-width: 360px) {
+    width: 600px;
+  }
+}
+
+.margin-left-20{
+  margin-left:20px
+}
+
+.overflow-x-scroll{
+  overflow-x: scroll;
+}
+
+.width-150-percent{
+  width: 150%;
+}

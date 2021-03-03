@@ -3,7 +3,7 @@
     <mat-paginator class="paginator-style orders-paginate" itemsPerPageLabel="Items por pagina" #paginator
       [pageSize]="5" [length]="100" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
     <button fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
-      style="margin-left:20px" (click)="loadGuide.resetVariableUploadFile()" id="clear-guide-button" color="primary"
+      class="margin-left-20" (click)="loadGuide.resetVariableUploadFile()" id="clear-guide-button" color="primary"
       mat-raised-button>
       <span>{{'secure.products.bulk_upload.clear_current_data' | translate}}</span>
     </button>
@@ -23,7 +23,7 @@
 
 
     <!-- matSort: Permite filtrar la tabla por los titulos de las columnas -->
-    <mat-table #table [dataSource]="loadGuide.dataSource" matSort style="overflow-x: scroll;">
+    <mat-table #table [dataSource]="loadGuide.dataSource" matSort class="overflow-x-scroll">
 
       <!-- orderNumber Column -->
       <ng-container matColumnDef="orderNumber">
@@ -196,11 +196,11 @@
       </ng-container>
 
 
-      <mat-header-row *matHeaderRowDef="displayedColumns" style="width: 150%;"></mat-header-row>
+      <mat-header-row *matHeaderRowDef="displayedColumns" class="width-150-percent"></mat-header-row>
 
       <mat-row [ngClass]="{'personal-row': row.errorRow == true}" id="order-{{row.orderNumber}}"
         *matRowDef="let index=index;let row; columns: displayedColumns;"
-        class="personal-row element-row personal-row-table " style="width: 150%;">
+        class="personal-row element-row personal-row-table width-150-percent" >
       </mat-row>
     </mat-table>
 
