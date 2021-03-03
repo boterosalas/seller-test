@@ -588,9 +588,11 @@ export const schoolExitoModule = 'Escuela Exito', listSchoolExito = 'Escuela Exi
 const SchoolExitoModule = new ModuleModel(schoolExitoModule, showAll, schoolExitoModule.toLowerCase(), [
     new MenuModel(listSchoolExito, showAll, listSchoolExito.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+        new FunctionalitiesModel(visualizeFunctionality, showAll, visualizeFunctionality),
     ], RoutesConst.sellerCenterIntSchoolExito),
     new MenuModel(listSchoolExito, showAll, listSchoolExito.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+        new FunctionalitiesModel(visualizeFunctionality, showAll, visualizeFunctionality),
     ], RoutesConst.sellerCenterIntSchoolExito)
 ]);
 

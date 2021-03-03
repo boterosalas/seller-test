@@ -17,15 +17,16 @@
     </p>
     <span class="spacer-content"></span>
 
-    <div fxFlex.xs="100%" fxFlex.sm="12" fxFlex.md="12" fxFlex.lg="12" fxFlex.xl="12">
+    <div fxFlex.xs="100%" fxFlex.sm="12" fxFlex.md="12" fxFlex.lg="12"
+      fxFlex.xl="12" *ngIf="canView">
       <button class="sc-button-toolbar btn-school-exito" [routerLink]="['/' +
-      routes?.sellerCenterIntSchoolExito]"
-      id="profile-button" mat-icon-button mat-button color="accent" >
-      <mat-icon class="mat-24 btn-icon-color">school</mat-icon>
-      <span class="btn-school-text">
-       {{'school.exito' | translate}}
-      </span>
-    </button>
+        routes?.sellerCenterIntSchoolExito]"
+        id="profile-button" mat-icon-button mat-button color="accent">
+        <mat-icon class="mat-24 btn-icon-color">school</mat-icon>
+        <span class="btn-school-text">
+          {{'school.exito' | translate}}
+        </span>
+      </button>
     </div>
 
     <div class="select-hide">
