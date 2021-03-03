@@ -3,6 +3,8 @@ import { Logger } from '@app/core/util/logger.service';
 import { UserInformation } from '@app/shared';
 import { UserParametersService } from '@app/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { DeleteProductModalComponent } from './delete-product-modal/delete-product-modal.component';
 
 const log = new Logger('ExpandedProductComponent');
 
@@ -31,6 +33,7 @@ export class ExpandedProductComponent implements OnInit {
 
     constructor(
         private router: Router,
+        public dialog: MatDialog,
         private userParams?: UserParametersService,
     ) {}
 
@@ -74,4 +77,18 @@ export class ExpandedProductComponent implements OnInit {
     editProduct(productsExpanded: any) {
         this.router.navigate(['securehome/products/creacion-unitaria', {ean: productsExpanded.ean, reference: productsExpanded.reference} ] );
     }
+    deleteProduct(productsExpanded: any) {
+        this.openModalDownloadOrder(productsExpanded);
+    }
+
+    openModalDownloadOrder(data: any): void {
+        const dialogRef = this.dialog.open(DeleteProductModalComponent, {
+          data: {
+              data: data
+          },
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          log.info('The modal detail order was closed');
+        });
+      }
 }
