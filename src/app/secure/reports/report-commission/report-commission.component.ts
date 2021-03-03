@@ -140,7 +140,7 @@ export class ReportCommissionComponent implements OnInit {
     this.getSellerList();
     this.createFormControls();
     this.getListCommissionAll();
-    this.getRegexByModule();
+    // this.getRegexByModule();
   }
 
 /**
