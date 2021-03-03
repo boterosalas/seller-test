@@ -385,15 +385,15 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
         // Validaciones de numero de ordenes. Campo 0 =  numero de ordenes
         this.validateObligatoryNumber(res, index, 0);
         // Validaciones de numero de ordenes. Campo 1 =  EAN
-        this.validateObligatoryNumber(res, index, 1);
+        // this.validateObligatoryNumber(res, index, 1);
         // Validaciones de numero de ordenes. Campo 2 =  SKU VENDEDOR
-        this.validateObligatoryString(res, index, 2);
+        // this.validateObligatoryString(res, index, 2);
         // Validaciones de numero de ordenes. Campo 3 =  SKU
         this.validateObligatoryString(res, index, 3);
         // Validaciones de numero de ordenes. Campo 4 =  NOMBRE DEL PRODUCTO
         this.validateObligatoryString(res, index, 4);
         // Validaciones de numero de ordenes. Campo 5 =  MARCA
-        this.validateObligatoryString(res, index, 5);
+        // this.validateObligatoryString(res, index, 5);
         // Validaciones de numero de ordenes. Campo 6 =  CANTIDAD
         this.validateObligatoryNumber(res, index, 6);
         // Validaciones de numero de ordenes. Campo 7 =  TRANSPORTADORA
@@ -422,11 +422,11 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
   addInfoTosend(res: any, index: any) {
     const newObjectForSend = {
       orderNumber: res[index][0],
-      ean: res[index][1],
-      skuSeller: res[index][2],
+      // ean: res[index][1],
+      // skuSeller: res[index][2],
       sku: res[index][3],
-      productName: res[index][4],
-      brand: res[index][5],
+      // productName: res[index][4],
+      // brand: res[index][5],
       quantity: res[index][6],
       carrier: res[index][7],
       tracking: res[index][8]

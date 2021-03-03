@@ -51,7 +51,7 @@
       <ng-container matColumnDef="ean">
         <mat-header-cell fxFlex.sm="120px" fxFlex.md="130px" fxFlex.lg="130px" fxFlex.xs="130px" *matHeaderCellDef
           mat-sort-header>
-          {{'secure.orders.orders' | translate}}
+          {{'secure.orders.order_list.product_order.ean' | translate}}
         </mat-header-cell>
         <mat-cell [ngClass]="{'selected-error': element.errorColumn2 == true }" fxFlex.sm="120px" fxFlex.md="130px"
           fxFlex.lg="130px" fxFlex.xs="130px" *matCellDef="let element">
@@ -76,19 +76,10 @@
           mat-sort-header>
           {{'secure.orders.order_list.product_order.sku_seller' | translate}}
         </mat-header-cell>
-        <mat-cell [ngClass]="{'selected-error': element.errorColumn3 == true }" fxFlex.sm="120px" fxFlex.md="130px"
+        <mat-cell  fxFlex.sm="120px" fxFlex.md="130px"
           fxFlex.lg="130px" fxFlex.xs="130px" *matCellDef="let element">
-
           <div class="information" *ngIf="element.skuSeller != undefined && element.skuSeller != ''">
             <p class="sc-text-normal">{{element.skuSeller}}</p>
-          </div>
-
-          <div class="information" *ngIf="element.skuSeller == undefined || element.skuSeller == ''">
-            <p class="text-error"> {{'secure.load_guide_page.table_load.missing_data' | translate}}
-            </p>
-            <mat-icon fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
-              class="text-error">warning
-            </mat-icon>
           </div>
         </mat-cell>
       </ng-container>
@@ -119,17 +110,10 @@
           mat-sort-header>
           {{'secure.orders.order_list.product_order.productName' | translate}}
         </mat-header-cell>
-        <mat-cell [ngClass]="{'selected-error': element.errorColumn5 == true }" fxFlex.sm="145px" fxFlex.md="145px"
+        <mat-cell  fxFlex.sm="145px" fxFlex.md="145px"
           fxFlex.lg="145px" fxFlex.xs="145px" *matCellDef="let element">
           <div class="information" *ngIf="element.productName != undefined && element.productName != ''">
             <p class="sc-text-normal">{{element.productName}}</p>
-          </div>
-          <div class="information" *ngIf="element.productName == undefined || element.productName == ''">
-            <p class="text-error"> {{'secure.load_guide_page.table_load.missing_data' | translate}}
-            </p>
-            <mat-icon fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
-              class="text-error">warning
-            </mat-icon>
           </div>
         </mat-cell>
       </ng-container>
@@ -139,17 +123,10 @@
           mat-sort-header>
           {{'secure.orders.order_list.product_order.brand' | translate}}
         </mat-header-cell>
-        <mat-cell [ngClass]="{'selected-error': element.errorColumn6 == true }" fxFlex.sm="145px" fxFlex.md="145px"
+        <mat-cell  fxFlex.sm="145px" fxFlex.md="145px"
           fxFlex.lg="145px" fxFlex.xs="145px" *matCellDef="let element">
           <div class="information" *ngIf="element.brand != undefined && element.brand != ''">
             <p class="sc-text-normal">{{element.brand}}</p>
-          </div>
-          <div class="information" *ngIf="element.brand == undefined || element.brand == ''">
-            <p class="text-error"> {{'secure.load_guide_page.table_load.missing_data' | translate}}
-            </p>
-            <mat-icon fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
-              class="text-error">warning
-            </mat-icon>
           </div>
         </mat-cell>
       </ng-container>
@@ -219,11 +196,11 @@
       </ng-container>
 
 
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-header-row *matHeaderRowDef="displayedColumns" style="width: 150%;"></mat-header-row>
 
       <mat-row [ngClass]="{'personal-row': row.errorRow == true}" id="order-{{row.orderNumber}}"
         *matRowDef="let index=index;let row; columns: displayedColumns;"
-        class="personal-row element-row personal-row-tabl ">
+        class="personal-row element-row personal-row-table " style="width: 150%;">
       </mat-row>
     </mat-table>
 
