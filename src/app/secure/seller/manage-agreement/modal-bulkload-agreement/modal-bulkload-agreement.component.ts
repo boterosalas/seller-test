@@ -287,6 +287,7 @@ export class ModalBulkloadAgreementComponent implements OnInit {
         this.prepareSend = false;
       } catch (e) {
         this.prepareSend = true;
+        this.disableSend = false;
         log.error(this.languageService.instant('shared.components.load_file.snackbar_error'), e);
       }
     });
