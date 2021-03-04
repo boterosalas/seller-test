@@ -283,6 +283,7 @@ export class ModalBulkloadAgreementComponent implements OnInit {
           sellers: this.arrayTosendExcel,
           applyAllSeller: false
         };
+        this.disableSend = true;
         this.prepareSend = false;
       } catch (e) {
         this.prepareSend = true;
