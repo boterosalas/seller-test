@@ -382,15 +382,16 @@ export class ModalBulkloadAgreementComponent implements OnInit {
    */
   sendDataBulkLoadAgreement() {
     this.loadingService.viewSpinner();
-    let prueba = [];
-    this.arrayNecessaryData.forEach(element => {
-      element.forEach(el => {
-        prueba.push(el);
+    let arraySend = [];
+    if (this.arrayNecessaryData) {
+      this.arrayNecessaryData.forEach(element => {
+        element.forEach(el => {
+          arraySend.push(el);
+        });
       });
-    });
-    this.bodyToSend.sellers = prueba;
+    }
+    this.bodyToSend.sellers = arraySend;
     this.sellerService.registersContract(this.bodyToSend).subscribe((result: any) => {
-      this.loadingService.closeSpinner();
       if (result.statusCode === 200) {
         const dataRes = JSON.parse(result.body).Data;
         if (dataRes) {
@@ -398,10 +399,13 @@ export class ModalBulkloadAgreementComponent implements OnInit {
           this.componentService.openSnackBar(this.languageService.instant('secure.load_guide_page.finish_upload_info.title'), this.languageService.instant('actions.close'), 5000);
           this.dialogRef.close(false);
           this.shellComponent.eventEmitterOrders.getClear();
+          this.loadingService.closeSpinner();
         } else {
+          this.loadingService.closeSpinner();
           this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), this.languageService.instant('actions.close'), 5000);
         }
       } else {
+        this.loadingService.closeSpinner();
         this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), this.languageService.instant('actions.close'), 5000);
       }
     });
