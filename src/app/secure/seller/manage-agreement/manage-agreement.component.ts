@@ -3,6 +3,7 @@ import { MatDialog, PageEvent } from '@angular/material';
 import { LoadingService, Logger, ModalService } from '@app/core';
 import { SellerService } from '../seller.service';
 import { ModalBulkloadAgreementComponent } from './modal-bulkload-agreement/modal-bulkload-agreement.component';
+import { ModalDeleteAgreementComponent } from './modal-delete-agreement/modal-delete-agreement.component';
 
 const log = new Logger('ManageAgreementComponent');
 
@@ -48,6 +49,21 @@ export class ManageAgreementComponent implements OnInit {
       width: '60%',
       minWidth: '280px',
       data: {}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      log.info('The modal detail billing was closed');
+    });
+  }
+
+  /**
+   * Modal para abrir y eliminar Todos los 
+   * @memberof ManageAgreementComponent
+   */
+  openModalDeleteAgreement(dataAgreement: any) {
+    const dialogRef = this.dialog.open(ModalDeleteAgreementComponent, {
+      width: '60%',
+      minWidth: '280px',
+      data: { dataAgreement}
     });
     dialogRef.afterClosed().subscribe(result => {
       log.info('The modal detail billing was closed');

@@ -119,4 +119,13 @@ export class SellerService implements CanActivate {
     public getStatusMassiveAgreement() {
         return this.http.get(this.api.get('getStatusMassiveAgreement'), { observe: 'response' });
     }
+
+    /**
+     * Eliminar el contrato a todos los vendedores
+     * @returns
+     * @memberof SellerService
+     */
+    public deteleAllSellerAgreement(){
+        return this.http.patch(this.api.get('deleteAllAgreement'), { observe: 'response' });
+    }
 }

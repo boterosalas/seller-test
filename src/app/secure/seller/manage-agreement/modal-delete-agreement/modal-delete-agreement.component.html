@@ -1,0 +1,13 @@
+<p>
+  modal-delete-agreement works!
+</p>
+
+<div  align="center" class="confirmationSend">
+  <span class="modal-load-agreement-content-text-type"><strong>¡Vas a eliminar los vendedores!</strong></span>
+  <mat-dialog-actions align="center">
+    <button mat-button (click)="onNoClick()">{{'actions.cancel'| translate}}</button>
+    <button type="button" mat-raised-button color="primary" (click)="sendDataBulkLoadAgreement()"
+      >ELIMINAR
+    </button>
+  </mat-dialog-actions>
+</div>
