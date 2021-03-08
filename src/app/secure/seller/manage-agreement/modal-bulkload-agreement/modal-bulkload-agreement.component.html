@@ -107,7 +107,7 @@
     <mat-dialog-actions align="center">
       <button mat-button (click)="onNoClick()">{{'actions.cancel'| translate}}</button>
       <button type="button" mat-raised-button color="primary"
-        [disabled]="!fomrLoadAgreement.form.valid || uploadAgreementBtn" (click)="sendMassiveAgreement()">CARGAR
+        [disabled]="!fomrLoadAgreement.form.valid || uploadAgreementBtn || disableSend" (click)="sendMassiveAgreement()">CARGAR
         ACUERDOS
       </button>
     </mat-dialog-actions>

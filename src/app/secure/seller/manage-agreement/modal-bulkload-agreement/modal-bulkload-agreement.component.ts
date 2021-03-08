@@ -256,9 +256,9 @@ export class ModalBulkloadAgreementComponent implements OnInit {
     this.arrayTosendExcel = copyArrSellers;
     copyArrSellers.forEach(el => {
       if (el[0].match(this.agreementRegex.number)) {
-        this.disableSend = true;
-      } else {
         this.disableSend = false;
+      } else {
+        this.disableSend = true;
         this.componentService.openSnackBar('Formato inválido ID vendedor', this.languageService.instant('actions.accpet_min'), 4000);
       }
     });
@@ -283,11 +283,11 @@ export class ModalBulkloadAgreementComponent implements OnInit {
           sellers: this.arrayTosendExcel,
           applyAllSeller: false
         };
-        this.disableSend = true;
+        this.disableSend = false;
         this.prepareSend = false;
       } catch (e) {
         this.prepareSend = true;
-        this.disableSend = false;
+        this.disableSend = true;
         log.error(this.languageService.instant('shared.components.load_file.snackbar_error'), e);
       }
     });
