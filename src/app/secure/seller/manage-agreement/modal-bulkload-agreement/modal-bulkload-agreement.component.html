@@ -118,7 +118,7 @@
     <mat-dialog-actions align="center">
       <button mat-button (click)="onNoClick()">{{'actions.cancel'| translate}}</button>
       <button type="button" mat-raised-button color="primary" (click)="sendDataBulkLoadAgreement()"
-        [disabled]="!disableSend">CARGAR
+        [disabled]="disableSend">CARGAR
       </button>
     </mat-dialog-actions>
   </div>
