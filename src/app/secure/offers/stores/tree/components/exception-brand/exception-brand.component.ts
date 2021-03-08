@@ -15,6 +15,7 @@ import { UserInformation } from '@app/shared';
 import { ModalErrorsComponent } from '../modal-errors/modal-errors.component';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 
+
 const log = new Logger('ExceptionBrandComponent');
 
 @Component({

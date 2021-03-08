@@ -1,0 +1,125 @@
+<div>
+  <div fxLayout="row">
+    <div fxFlex="95" class="alingText">
+      <span class="modal-load-agreement-font-weight">{{'menu.Cargar Acuerdos' |
+        translate}} </span>
+    </div>
+  </div>
+  <div *ngIf="prepareSend">
+    <div mat-dialog-content class="modal-load-agreement-content">
+      <form #fomrLoadAgreement="ngForm" [formGroup]="form">
+        <div>
+          <div class="modal-load-agreement-padding-content">
+            <div class="modal-load-agreement-padding-margin-content"><span
+                class="modal-load-agreement-content-text-type">{{'secure.seller.contracts.load-agreement.select-option-load'| translate}}</span>
+            </div>
+            <div>
+              <mat-radio-group aria-label="Seleccione una opción" formControlName="typeAgreement">
+                <mat-radio-button value=2 class="modal-load-agreement-text-option-type-agreement">
+                  {{'secure.seller.contracts.load-agreement.agreement'| translate}}</mat-radio-button>
+                <mat-radio-button value=1 class="modal-load-agreement-text-option-type-agreement">
+                  {{'secure.seller.contracts.load-agreement.Attached'| translate}}</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+          <input placeholder="file upload" id="uploadFile" hidden name="fileUploadOption" type="file"
+            (change)="onFileChange($event)" multiple="false"
+            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+            #fileUploadOption>
+          <div fxLayout="row" class="load-file-container">
+
+            <div fxFlex="100" class="text-aling-center-modal-load">
+              <div class="inline-block">
+                <div class="well my-drop-zone" fxLayout="column" id="fileExcel" fxLayoutAlign="center center"
+                  (click)="fileUploadOption.click()">
+                  <strong *ngIf="!fileExcel" id="colorInput">{{fileName}}</strong>
+                  <mat-icon class="material-icons" *ngIf="fileExcel" id="sizeIcon">
+                    person_add_alt_1
+                  </mat-icon>
+                  <mat-icon class="material-icons check" *ngIf="!fileExcel" id="sizeIcon">
+                    check_circle
+                  </mat-icon>
+                  <p class="textFileExcel" *ngIf="fileExcel">
+                    Presione acá para subir el archivo</p>
+                  <p class="textFileExcel2" *ngIf="fileExcel">
+                    Listado de vendedores
+                  </p>
+                </div>
+              </div>
+              <div class="inline-block">
+                <div ngfDrop selectable="1" [(validDrag)]="validComboDrag" [(files)]="files" [(file)]="file"
+                  [maxSize]="maxSize" accept="application/pdf" [(lastInvalids)]="lastInvalids" [(dragFiles)]="dragFiles"
+                  class="well my-drop-zone" fxLayout="column" id="pdf" fxLayoutAlign="center center"
+                  [class.invalid-drag]="validComboDrag===false" [class.valid-drag]="validComboDrag"
+                  (filesChange)="lastFileAt=getDate(); validateOneFile()">
+                  <strong *ngIf="files?.length && !lastInvalids?.length">{{files[files.length
+                    - 1].name}} -
+                    {{ files[files.length - 1].size/1024/1024 | number:'.2' }} MB</strong>
+                  <strong
+                    *ngIf="lastInvalids?.length && lastInvalids.length ? validateFormatInvalidate(lastInvalids): null">{{'shared.components.load_file.text2'
+                    | translate}}</strong>
+                  <mat-icon class="material-icons" *ngIf="!files.length &&
+                    !lastInvalids?.length" id="sizeIcon">
+                    note_add
+                  </mat-icon>
+                  <mat-icon class="material-icons check" *ngIf="files.length &&
+                    !lastInvalids?.length">
+                    check_circle
+                  </mat-icon>
+                  <mat-icon class="material-icons error" *ngIf="lastInvalids?.length">
+                    not_interested
+                  </mat-icon>
+                  <p class="textFilePdf" *ngIf="uploadAgreementBtn">
+                    Presione acá o arrastre y suelte el archivo</p>
+                  <p class="textFilePdf2" *ngIf="uploadAgreementBtn">Acuerdo/Anexo
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="downloadFormat">
+            <a href="{{urlDownloadFile}}" target="_parent">
+              <button color="primary" mat-button>
+                Descargar formato vendedores
+              </button>
+            </a>
+          </div> -->
+          <div class="modal-load-agreement-content-description">
+            <mat-form-field class="field" class="modal-load-agreement-content-description-input">
+              <input matInput [placeholder]="'secure.parametize.support_claims.description' |
+                translate" formControlName="description">
+              <mat-error *ngIf="form.get('description').hasError('required')">{{'errors.required'
+                | translate}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+      <div class="downloadFormat">
+        <a href="{{urlDownloadFile}}" target="_parent">
+          <button color="primary" mat-button>
+            Descargar formato vendedores
+          </button>
+        </a>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-dialog-actions align="center">
+      <button mat-button (click)="onNoClick()">{{'actions.cancel'| translate}}</button>
+      <button type="button" mat-raised-button color="primary"
+        [disabled]="!fomrLoadAgreement.form.valid || uploadAgreementBtn || disableSend" (click)="sendMassiveAgreement()">CARGAR
+        ACUERDOS
+      </button>
+    </mat-dialog-actions>
+  </div>
+  <div *ngIf="!prepareSend" align="center" class="confirmationSend">
+    <span class="modal-load-agreement-content-text-type">¿Está seguro que desea cargar el acuerdo <strong>{{files[files.length
+      - 1].name}}</strong> ? </span>
+    <mat-dialog-actions align="center">
+      <button mat-button (click)="onNoClick()">{{'actions.cancel'| translate}}</button>
+      <button type="button" mat-raised-button color="primary" (click)="sendDataBulkLoadAgreement()"
+        [disabled]="disableSend">CARGAR
+      </button>
+    </mat-dialog-actions>
+  </div>
+</div>
