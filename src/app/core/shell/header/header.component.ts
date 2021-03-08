@@ -10,6 +10,8 @@ import { SupportModalComponent } from '@app/secure/support-modal/support-modal.c
 import { LoadingService } from '@app/core/global';
 import { CoreState } from '@app/store';
 import { Store, select } from '@ngrx/store';
+import { listSchoolExito, MenuModel, visualizeFunctionality } from '@app/secure/auth/auth.consts';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
 
 // log component
@@ -35,12 +37,17 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
   public routes: any;
   public unreadCase: number;
   sumadevolution: number;
+  isAdmin = false;
+
+  permissionComponent: MenuModel;
+  canView: boolean;
 
 
   constructor(
     private userService: UserLoginService,
     private userParams: UserParametersService,
     private router: Router,
+    public authService: AuthService,
     private loadingService: LoadingService,
     public dialog: MatDialog,
     private store: Store<CoreState>
@@ -51,7 +58,7 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
    */
   ngOnInit() {
     this.userService.isAuthenticated(this);
-
+    this.getDataUser();
     this.store
       .pipe(select(state => state.notification))
       .subscribe(
@@ -98,5 +105,29 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
     dialogRef.afterClosed().subscribe(result => {
       this.loadingService.closeProgressBar();
     });
+  }
+  async getDataUser() {
+    this.user = await this.userParams.getUserData();
+    if (this.user.sellerProfile !== 'seller' && this.user.sellerProfile && this.user.sellerProfile !== null) {
+      this.isAdmin = true;
+      this.permissionComponent = this.authService.getMenuProfiel(listSchoolExito, 1);
+      this.setPermission(1);
+    } else {
+      this.isAdmin = false;
+      this.permissionComponent = this.authService.getMenuProfiel(listSchoolExito, 0);
+      this.setPermission(0);
+    }
+  }
+  /**
+   * Seteo permiso para editar
+   * @param {number} typeProfile
+   * @memberof ListProductsComponent
+   */
+  setPermission(typeProfile: number) {
+    this.canView = this.getFunctionality(visualizeFunctionality);
+  }
+  public getFunctionality(functionality: string): boolean {
+    const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+    return permission && permission.ShowFunctionality;
   }
 }

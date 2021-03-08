@@ -1,0 +1,64 @@
+<div>
+  <div class="list-seller-school-component-header">
+    <div class="list-seller-school-component-container-header">
+      <span class="list-seller-school-component-container-header-text-size">
+        {{'school.exito' | translate}}
+      </span>
+    </div>
+  </div>
+  <div *ngIf="!emptyData"  class="list-seller-school-component-container-modules">
+    <div *ngFor="let module of modules">
+      <div class="list-seller-school-component-padding-20">
+        <mat-card class="list-seller-school-component-width-340">
+          <div>
+            <span class="list-seller-school-component-text-title-module">{{module.ModuleName}}</span>
+          </div>
+          <div *ngFor="let submodule of module.Submodules">
+            <div fxLayout="row"
+              class="list-seller-school-component-container-paddin-10-by-0">
+              <div fxFlex="85" >
+                <div fxFlex="nogrow">
+                  <span class="list-seller-school-component-text-submodules-title" (click)="downloadFile(submodule.File)">
+                    {{submodule.SubModuleName}}
+                  </span>
+                </div>
+                <div fxFlex="none" class="list-seller-school-component-margin-left-15">
+                  <div class="list-seller-school-component-badge-new-submodule">
+                    <span class="  list-seller-school-component-position-badge">{{'actions.new' | translate}}</span>
+                  </div>
+                </div>
+              </div>
+              <div fxFlex="15">
+                <div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div *ngIf="load">
+      <div class="list-seller-school-component-empty-data">
+        <div>
+          {{'secure.products.create_product_unit.list_products.please_wait' | translate}}
+        </div>
+        <div>
+          <mat-icon class="list-seller-school-component-icons-school">school</mat-icon>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!load">
+      <div *ngIf="emptyData" class="list-seller-school-component-empty-data">
+        <div>
+          {{'school.exito.empty_data'| translate}}
+        </div>
+        <div>
+          <mat-icon class="list-seller-school-component-icons-school">school</mat-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

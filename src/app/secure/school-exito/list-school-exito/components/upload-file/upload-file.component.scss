@@ -1,0 +1,36 @@
+$size: 260%;
+$gray: #757474;
+$lightgray: lightgray;
+$blue: #485afa;
+
+.load-file-container {
+  padding: 1em;
+
+  .material-icons {
+    font-size: 35px;
+    width: auto;
+    height: auto;
+  }
+
+  .mat-dialog-actions {
+    width: 100%;
+  }
+
+  .mat-dialog-content {
+    p {
+      color: #787777;
+    }
+  }
+
+  .inline-block {
+    display: inline-block;
+
+    .my-drop-zone {
+      border: dashed 2px $lightgray;
+      color: $gray;
+      padding: 1em;
+      cursor: pointer;
+      background: #f8f8f8;
+    }
+  }
+}

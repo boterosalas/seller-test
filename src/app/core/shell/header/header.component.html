@@ -7,7 +7,7 @@
       <app-notification-circle [value]="unreadCase + sumadevolution"
         id="circle-notification-header"></app-notification-circle>
     </button>
-    <div (click)="goToHome()" class="logo-application"></div>
+    <div (click)="goToHome()" fxShow.xs="false" class="logo-application"></div>
     <p fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true"
       fxShow="true" class="name-user margin-left-20">{{'core.shell.header.welcome'
       | translate}}:
@@ -17,13 +17,17 @@
     </p>
     <span class="spacer-content"></span>
 
-    <!-- <div>
-      <button class="sc-button-toolbar" [routerLink]="['/' +
-      routes?.sellerCenterIntSchoolExito]"
-      id="profile-button" mat-icon-button mat-button color="accent">
-      <mat-icon class="mat-24">school</mat-icon>
-    </button>
-    </div> -->
+    <div fxFlex.xs="100%" fxFlex.sm="12" fxFlex.md="12" fxFlex.lg="12"
+      fxFlex.xl="12" *ngIf="canView">
+      <button class="sc-button-toolbar btn-school-exito" [routerLink]="['/' +
+        routes?.sellerCenterIntSchoolExito]"
+        id="profile-button" mat-icon-button mat-button color="accent">
+        <mat-icon class="mat-24 btn-icon-color">school</mat-icon>
+        <span class="btn-school-text">
+          {{'school.exito' | translate}}
+        </span>
+      </button>
+    </div>
 
     <div class="select-hide">
       <div><app-select-language></app-select-language></div>
@@ -34,7 +38,7 @@
 
     <div fxLayoutGap="10px">
       <button *ngIf="user?.sellerProfile === 'seller'" class="sc-button-toolbar"
-        (click)="openDialogSupport()" fxShow.xs="true" fxShow.sm="false"
+        (click)="openDialogSupport()" fxShow.xs="false" fxShow.sm="false"
         fxShow.lg="true" fxShow.xl="true" fxShow="true" id="support-link-button"
         mat-button color="accent">
         <mat-icon class="mat-24">help</mat-icon>
