@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output } from '@angular/core';
 import { Logger } from '@app/core/util/logger.service';
 import { LoadingService, ModalService, UserParametersService } from '@app/core';
 import { ListProductService } from './list-products.service';
@@ -796,6 +796,12 @@ export class ListProductsComponent implements OnInit {
             element.classList.add('tabsShowZindex');
             matToolbar.classList.add('notFixed');
         }
+    }
+
+    reloadData() {
+        setTimeout(() => {
+            this.filterListProducts();
+        }, 2000);
     }
 
 }

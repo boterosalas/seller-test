@@ -1,11 +1,49 @@
 <div>
-  <div class="modal-head">
-    
+  <div class="text-end">
+    <mat-icon class="mat-18 icon-close" (click)="onNoClick()">clear</mat-icon>
   </div>
-  <div class="modal-body">
-
+  <div *ngIf="!showSuccess">
+    <div class="container-header">
+      <ng-container >
+        <div class="container-icon">
+          <mat-icon>
+           delete
+          </mat-icon>
+        </div>
+      </ng-container>
+      <ng-container class="title-container">
+        <h1 mat-dialog-title><strong>¡Vas a eliminar el producto!</strong></h1>
+      </ng-container>
+    </div>
+    <div class="text-center" >
+      <ng-container>
+        <div class="container__message__delete margintTopDelete">
+          ¿Estás seguro de eliminar este producto?
+        </div>
+      </ng-container>
+    </div>
+    <mat-dialog-actions class="margintTopDeleteButton container__btn">
+      <button id="btn-cancel" type="button" mat-stroked-button color="primary" (click)="onNoClick()">{{'actions.cancel' | translate}}</button>
+      <button id="btn-confirmation" type="button" class="btn-close" color="primary" [disabled]="disabled" (click)="confirmation(data)">Eliminar</button>
+    </mat-dialog-actions>
   </div>
-  <div class="modal-footer">
-
+  <div *ngIf="showSuccess">
+    <div>
+      <div class="container-header">
+        <ng-container >
+          <div class="container-icon-success">
+            <mat-icon>
+             done
+            </mat-icon>
+          </div>
+        </ng-container>
+        <ng-container class="title-container">
+          <h1 mat-dialog-title><strong>El producto se ha eliminado correctamente</strong></h1>
+        </ng-container>
+      </div>
+      <mat-dialog-actions class="margintTopDeleteButton container__btn">
+        <button id="btn-close"  type="button" class="btn-close"  color="primary" (click)="onNoClick()">Cerrar</button>
+      </mat-dialog-actions>
+    </div>
   </div>
 </div>

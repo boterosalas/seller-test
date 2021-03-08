@@ -85,4 +85,9 @@ export class ListProductService {
   }
 
 
+  public deleteProductByEan(ean: any): Observable<{}> {
+    return this.http.delete(this.api.get('deleteProductByEan', [ean + '?']));
+  }
+
+
 }
