@@ -28,7 +28,8 @@
   <div class="agreement">
     <div class="agreement-title" fxLayout="row" fxLayoutAlign="space-between center">
       <p>{{'shared.name' | translate}}</p>
-      <!-- <p style="margin-right: 10%;" *ngIf="false">{{'shared.actions' | translate}}</p> -->
+      <p style="margin-left: 15%">Acuerdo predeterminado</p>
+      <p style="margin-right: 10%;">{{'shared.actions' | translate}}</p>
     </div>
     <div *ngFor="let agreement of manageAgreementsSeller" fxLayout="row" fxLayoutAlign="space-between center"
       class="list-agreement">
@@ -38,11 +39,29 @@
         </mat-icon>
         <p>{{agreement.Name}}</p>
       </div>
-      <button mat-icon-button (click)="getPDF(agreement)" *ngIf="download">
-        <mat-icon class="material-icons">
-          get_app
-        </mat-icon>
-      </button>
+      <div>
+        <mat-slide-toggle>Slide me!</mat-slide-toggle>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 16%;">
+        <div fxLayout="column" fxLayoutAlign="space-around center">
+          <button mat-icon-button (click)="getPDF(agreement)">
+            <mat-icon class="material-icons" style="font-size: 24px;">
+              delete
+            </mat-icon>
+          </button>
+          <span style="font-size: 14px;">Eliminar</span>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-around center">
+          <button mat-icon-button (click)="getPDF(agreement)">
+            <mat-icon class="material-icons"  style="font-size: 24px;">
+              remove_red_eye
+            </mat-icon>
+          </button>
+          <span style="font-size: 14px;">Ver detalle</span>
+        </div>
+      </div>
+      
+      
     </div>
   </div>
 </div>
