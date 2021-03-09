@@ -408,6 +408,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
    * @memberof BulkLoadProductComponent
    */
   validateDataFromFile(res: any, file: any) {
+
     /*
     *if Valido si la cantidad de carga permitidas por día es menor o igual a 0
     *else if Valido que la cantidad de cargas permitidas por día sea mayor a 0
@@ -722,6 +723,9 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                 }
               }
             }
+
+
+            this.arrayNecessaryData.splice(1,2);
 
             this.eanComboPosition = this.iVal.iEanCombo;
 
