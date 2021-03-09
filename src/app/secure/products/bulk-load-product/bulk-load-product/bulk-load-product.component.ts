@@ -380,13 +380,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           // let ws: XLSX.WorkSheet = !!wb.Sheets['Productos'] ? wb.Sheets['Productos'] : wb.Sheets['Products'];
           let ws: XLSX.WorkSheet;
 
-          if (wb.Sheets && wb.Sheets['Productos']) {
-            ws = wb.Sheets['Productos'];
-          } else if (wb.Sheets['Products']) {
-            ws = wb.Sheets['Products'];
-
-          } else if (wb.Sheets['Produits']) {
-            ws = wb.Sheets['Produits'];
+          if (wb.Sheets && wb.SheetNames[0]) {
+            ws = wb.Sheets[wb.SheetNames[0]];
           }
 
           /* save data */
@@ -435,7 +430,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           /*Se hace iteración en todas las columnas que tenga una fila del excel*/
           for (let j = 0; j < res[0].length; j++) {
             /*Se valida si la primera celda de cada columna si tenga dato, si no tiene no se tendra en cuenta*/
-            if (res[0][j] !== '' && res[0][j] !== null && res[0][j] !== undefined) {
+            if (res[0][j] !== '' && res[0][j] !== null && res[0][j] !== undefined && res[i][j] !== 'Seleccionar' && res[i][j] !== 'Escribe o elige un valor de la hoja de marcas') {
               /*Se insertan los datos de la celda en el objeto creato anteriormente dentro del arreglo de datos necesarios, solo si el la primera celda de toda la columna trae datos*/
               this.arrayNecessaryData[i].push(res[i][j]);
             }
