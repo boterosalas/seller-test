@@ -1,0 +1,36 @@
+.confirmationSend {
+    margin-top: 5%;
+  
+    .modal-load-agreement-content-text-type {
+      margin-top: 5%;
+    }
+  
+    mat-dialog-actions {
+      margin-top: 2%;
+      margin-bottom: 2%;
+    }
+  }
+
+  :host ::ng-deep {
+    i {
+        &.material-icons.container {
+            color: white;
+            border-radius: 50%;
+            width: 75px;
+            height: 75px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+        }
+    }
+    mat-dialog-container {
+        &.mat-dialog-container {
+            border-radius: 10px;
+        }
+    }
+}
+
+.modal-load-agreement-content-text-type {
+  margin-top: 5%;
+}

@@ -1,4 +1,4 @@
-<div align="center" class="confirmationSend">
+<div align="center" class="confirmationSend" *ngIf="!deleteOk">
   <span class="modal-load-agreement-content-text-type"><strong>¡Vas a eliminar los vendedores!</strong></span>
   <br>
   <br>
@@ -7,13 +7,23 @@
   <span>¿Está seguro que desea eliminar los vendedores al acuerdo xxx?</span>
 
   <br>
-  <br>
-  <br>
   <mat-dialog-actions align="center">
     <button type="button" mat-stroked-button color="primary" [innerHTML]="'CANCELAR'"
       (click)="onNoClick()">{{'actions.cancel'| translate}}</button>
     <button type="button" mat-raised-button color="primary" (click)="sendDataDeleteAllAgreement()"
       style="margin-left: 1%;">ELIMINAR
     </button>
+  </mat-dialog-actions>
+</div>
+
+<div align="center" class="confirmationSend" *ngIf="deleteOk">
+  <i class="material-icons container" [ngStyle]="{'background-color': deleteOk === 'true' ? '#6fb63e' : '#6fb63e'}"
+    style="margin-bottom: 2%">
+    done
+  </i>
+  <span class="modal-load-agreement-content-text-type" style="font-size: 20px"><strong>Los vendedores se han eliminado
+      correctamente</strong></span>
+  <mat-dialog-actions align="center">
+    <button type="button" mat-raised-button color="primary" [innerHTML]="'CERRAR'" (click)="onNoClick()">CERRAR</button>
   </mat-dialog-actions>
 </div>

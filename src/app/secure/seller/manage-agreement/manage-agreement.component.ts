@@ -53,12 +53,9 @@ export class ManageAgreementComponent implements OnInit {
    */
   activeContract(event: any, data: any) {
     this.loading.viewSpinner();
-    console.log('ev: ', event);
     if (event && event.checked === true) {
-      console.log('es tru', data);
       const dataSend = `${data.Id}/${data.DocumentType}?`
       this.sellerService.activeAgreementDefault(dataSend).subscribe((result: any) => {
-        console.log('defaul: ', result);
         const res = JSON.parse(result.body);
         if (res && res.Data === true) {
           this.componentService.openSnackBar('Se ha actualizado el contrato predeterminado', this.languageService.instant('actions.close'), 5000);
@@ -100,7 +97,7 @@ export class ManageAgreementComponent implements OnInit {
       data: { dataAgreement }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('close dialog', result);
+      this.getAgreemet();
       log.info('The modal detail billing was closed');
     });
   }

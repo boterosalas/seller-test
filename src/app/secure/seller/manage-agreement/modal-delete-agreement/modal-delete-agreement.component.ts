@@ -1,9 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { LoadingService } from '@app/core';
+import { LoadingService, Logger } from '@app/core';
 import { ComponentsService } from '@app/shared';
 import { TranslateService } from '@ngx-translate/core';
 import { SellerService } from '../../seller.service';
+
+const log = new Logger('ModalDeleteAgreementComponent');
 
 @Component({
   selector: 'app-modal-delete-agreement',
@@ -11,6 +13,8 @@ import { SellerService } from '../../seller.service';
   styleUrls: ['./modal-delete-agreement.component.scss']
 })
 export class ModalDeleteAgreementComponent implements OnInit {
+
+  deleteOk = false;
 
   constructor(
     public dialog: MatDialog,
@@ -23,7 +27,6 @@ export class ModalDeleteAgreementComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('delete: ', this.data);
   }
 
   onNoClick(): void {
@@ -34,17 +37,21 @@ export class ModalDeleteAgreementComponent implements OnInit {
     this.loadingService.viewSpinner();  
     const dataSend = `${this.data.dataAgreement.Id}/${this.data.dataAgreement.DocumentType}?`
     this.sellerService.deteleAllSellerAgreement(dataSend).subscribe((result: any) => {
-      console.log('res: ', result);
-      if (result.statusCode === 200) {
-        const dataRes = JSON.parse(result.body).Data;
-        if (dataRes) {
-          this.componentService.openSnackBar('Elimino correctamente el acuerdo a los vendedores', this.languageService.instant('actions.close'), 5000);
-          this.dialogRef.close(false);
+      if (result.statusCode === 200 || result.statusCode === 201) {
+        const dataRes = JSON.parse(result.body);
+        if (dataRes && dataRes.Data === true) {
+          this.deleteOk = true;
+          // this.componentService.openSnackBar('Elimino correctamente el acuerdo a los vendedores', this.languageService.instant('actions.close'), 5000);
+          // this.dialogRef.close(false);
           this.loadingService.closeSpinner();
         } else {
+          this.componentService.openSnackBar('Ocurrió un error al eliminar el acuerdo a los vendedores', this.languageService.instant('actions.close'), 5000);
+          this.dialogRef.close(false);
+          this.deleteOk = false;
           this.loadingService.closeSpinner();
         }
       } else {
+        this.deleteOk = false;
         this.loadingService.closeSpinner();
       }
     });
