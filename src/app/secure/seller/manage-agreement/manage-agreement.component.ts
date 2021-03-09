@@ -44,6 +44,13 @@ export class ManageAgreementComponent implements OnInit {
     this.getAgreemet();
   }
 
+  /**
+   * Metodo para establecer contrato predeterminado
+   *
+   * @param {*} event
+   * @param {*} data
+   * @memberof ManageAgreementComponent
+   */
   activeContract(event: any, data: any) {
     this.loading.viewSpinner();
     console.log('ev: ', event);
@@ -60,9 +67,10 @@ export class ManageAgreementComponent implements OnInit {
         } else {
           this.componentService.openSnackBar('Se ha presentado un error al actualizar el contrato predeterminado', this.languageService.instant('actions.close'), 5000);
         }
+      }, error => {
+        this.loading.closeSpinner();
+        this.modalService.showModal('errorService');
       });
-    } else {
-      console.log('es false');
     }
   }
 
