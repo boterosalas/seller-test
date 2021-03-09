@@ -1,7 +1,5 @@
 {
     "select.language": "Seleccione el lenguaje",
-
-
     "menu.App angular": "App angular",
     "menu.API": "Api",
     "menu.Histórico de Carga de ofertas": "Histórico de carga de ofertas",
@@ -67,6 +65,7 @@
     "menu.Resumen de pagos": "Resumen de pagos",
     "menu.Detalle de pagos": "Detalle de pagos",
     "menu.Escuela Exito": "Escuela Éxito",
+    "menu.Administrar Acuerdos": "Administrar acuerdos",
     "module.Documentación": "Documentación",
     "module.Ofertas": "Ofertas",
     "module.Productos": "Productos",

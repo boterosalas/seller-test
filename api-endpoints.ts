@@ -284,13 +284,19 @@ export const endpoints = {
       // Crear marcas masivas (post)
       createMassiveBrand: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/CreateMassive',
       // Consultar estado de crear Marcas Masivas (get)
-      getStatusMassiveBrand: 'https://5rtfag3dpl.execute-api.us-east-1.amazonaws.com/brands-pdn/ValidateStatusCreateMassive',
+      getStatusMassiveBrand: 'https://hu95klta45.execute-api.us-east-1.amazonaws.com/brands-dev/ValidateStatusCreateMassive',
       // actualiza la posicion del elemento en la base de datos trabaja con el index
       updatePositionSubModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/MoveSubModule',
       // actualiza la posicion del elemento en la base de datos trabaja con el index
       updatePositionModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/MoveModule',
       // Eliminar productos del listado por medio del ean
-      deleteProductByEan: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/deleteproduct/{params}'
+      deleteProductByEan: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/deleteproduct/{params}',
+      // Descarga formato masiva vendedores
+      uploadMassiveAgreementSellers: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates-Dev/PlantillaCargaAcuerdos.xlsx',
+      // Obtener listado de acuerdos
+      getAllAgreement: 'https://yoix96dfrg.execute-api.us-east-1.amazonaws.com/contracts/GetSellerContract/{params}',
+      // Consultar estado de crear acuerdos masivos (get)
+      getStatusMassiveAgreement: 'https://yoix96dfrg.execute-api.us-east-1.amazonaws.com/contracts/GetStatusLoads',
     },
   },
   // Endpoints production
@@ -578,7 +584,13 @@ export const endpoints = {
       // actualiza la posicion del elemento en la base de datos trabaja con el index
       updatePositionModules: 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/MoveModule',
        // Elimina un producto del listado de productos por Ean
-       deleteProductByEan: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/deleteproduct/{params}'
+       deleteProductByEan: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/deleteproduct/{params}',
+      // Descarga formato masiva vendedores
+      uploadMassiveAgreementSellers: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates/PlantillaCargaAcuerdos.xlsx',
+      // Obtener listado de acuerdos
+      getAllAgreement: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/GetSellerContract/{params}',
+      // Consultar estado de crear acuerdos masivos (get)
+      getStatusMassiveAgreement: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/GetStatusLoads',
     }
   }
 };
