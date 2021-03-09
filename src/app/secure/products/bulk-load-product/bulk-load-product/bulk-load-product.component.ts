@@ -724,8 +724,18 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
               }
             }
 
+            //Elimina las filas 1 y 2 que son de titulos
 
             this.arrayNecessaryData.splice(1,2);
+
+            //hace un split del arreglo para solo sacar el numero de la categoria y se vuelve a insertar
+
+            this.arrayNecessaryData.map((resp, i) => {
+              if(i > 0) {
+                let splitCategory = resp[3].split('_');
+                resp[3] = splitCategory[0];
+              }
+            })
 
             this.eanComboPosition = this.iVal.iEanCombo;
 
@@ -2632,8 +2642,12 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
               this.status = status;
               if(status !== 1) {
                 clearInterval(statusInterval);
-                this.downloadFile(response);
                 this.loadingService.closeSpinner();
+                if(status === 2) {
+                  this.downloadFile(response);
+                } else {
+                  this.componentService.openSnackBar('Error al descargar el archivo', 'Cerrar', 4000);
+                }
                 this.status = 1;
               }
             })
