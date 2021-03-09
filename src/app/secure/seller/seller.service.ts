@@ -125,7 +125,11 @@ export class SellerService implements CanActivate {
      * @returns
      * @memberof SellerService
      */
-    public deteleAllSellerAgreement(){
-        return this.http.patch(this.api.get('deleteAllAgreement'), { observe: 'response' });
+    public deteleAllSellerAgreement(body: any) {
+        return this.http.patch(this.api.get('deleteAllAgreement', [body]), { observe: 'response' });
+    }
+
+    activeAgreementDefault(body: any){
+        return this.http.patch(this.api.get('defaulAgreement', [body]), { observe: 'response' });
     }
 }

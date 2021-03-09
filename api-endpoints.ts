@@ -278,7 +278,9 @@ export const endpoints = {
       // Consultar estado de crear acuerdos masivos (get)
       getStatusMassiveAgreement: 'https://yoix96dfrg.execute-api.us-east-1.amazonaws.com/contracts/GetStatusLoads',
       // ELiminar contrato a todos los vendedores
-      deleteAllAgreement: 'https://yoix96dfrg.execute-api.us-east-1.amazonaws.com/contracts/DeleteContract/{params}'
+      deleteAllAgreement: 'https://yoix96dfrg.execute-api.us-east-1.amazonaws.com/contracts/DeleteContract/{params}',
+      // Establecer contrato por defecto
+      defaulAgreement: 'https://yoix96dfrg.execute-api.us-east-1.amazonaws.com/contracts/SetContractByDefault/{params}'
     },
   },
   // Endpoints production

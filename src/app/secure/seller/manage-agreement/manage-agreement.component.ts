@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, PageEvent } from '@angular/material';
 import { LoadingService, Logger, ModalService } from '@app/core';
+import { ComponentsService } from '@app/shared';
+import { TranslateService } from '@ngx-translate/core';
 import { SellerService } from '../seller.service';
 import { ModalBulkloadAgreementComponent } from './modal-bulkload-agreement/modal-bulkload-agreement.component';
 import { ModalDeleteAgreementComponent } from './modal-delete-agreement/modal-delete-agreement.component';
@@ -24,7 +26,7 @@ export class ManageAgreementComponent implements OnInit {
 
   public arrayPosition = [];
   paramsArray: any;
-  pageSizeOptions: number[] = [50,100,200];
+  pageSizeOptions: number[] = [50, 100, 200];
   pageEvent: PageEvent;
   public callOne = true;
 
@@ -34,10 +36,34 @@ export class ManageAgreementComponent implements OnInit {
     private sellerService: SellerService,
     private loading: LoadingService,
     private modalService: ModalService,
+    public componentService: ComponentsService,
+    private languageService: TranslateService,
   ) { }
 
   ngOnInit() {
-    this.getAllBrands();
+    this.getAgreemet();
+  }
+
+  activeContract(event: any, data: any) {
+    this.loading.viewSpinner();
+    console.log('ev: ', event);
+    if (event && event.checked === true) {
+      console.log('es tru', data);
+      const dataSend = `${data.Id}/${data.DocumentType}?`
+      this.sellerService.activeAgreementDefault(dataSend).subscribe((result: any) => {
+        console.log('defaul: ', result);
+        const res = JSON.parse(result.body);
+        if (res && res.Data === true) {
+          this.componentService.openSnackBar('Se ha actualizado el contrato predeterminado', this.languageService.instant('actions.close'), 5000);
+          this.getAgreemet();
+          this.loading.closeSpinner();
+        } else {
+          this.componentService.openSnackBar('Se ha presentado un error al actualizar el contrato predeterminado', this.languageService.instant('actions.close'), 5000);
+        }
+      });
+    } else {
+      console.log('es false');
+    }
   }
 
   /**
@@ -63,9 +89,10 @@ export class ManageAgreementComponent implements OnInit {
     const dialogRef = this.dialog.open(ModalDeleteAgreementComponent, {
       width: '60%',
       minWidth: '280px',
-      data: { dataAgreement}
+      data: { dataAgreement }
     });
     dialogRef.afterClosed().subscribe(result => {
+      console.log('close dialog', result);
       log.info('The modal detail billing was closed');
     });
   }
@@ -75,7 +102,7 @@ export class ManageAgreementComponent implements OnInit {
    * @param {*} [params]
    * @memberof ManageAgreementComponent
    */
-  public getAllBrands(params?: any) {
+  public getAgreemet(params?: any) {
     this.loading.viewSpinner();
     let urlParams;
     if (params) {
@@ -132,7 +159,7 @@ export class ManageAgreementComponent implements OnInit {
       this.paramsArray = {
         'limit': this.limit + '&paginationToken=' + this.paginationToken
       };
-      this.getAllBrands();
+      this.getAgreemet();
     }
   }
 

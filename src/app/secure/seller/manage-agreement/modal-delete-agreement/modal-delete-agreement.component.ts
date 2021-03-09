@@ -32,7 +32,9 @@ export class ModalDeleteAgreementComponent implements OnInit {
 
   sendDataDeleteAllAgreement() {
     this.loadingService.viewSpinner();  
-    this.sellerService.deteleAllSellerAgreement().subscribe((result: any) => {
+    const dataSend = `${this.data.dataAgreement.Id}/${this.data.dataAgreement.DocumentType}?`
+    this.sellerService.deteleAllSellerAgreement(dataSend).subscribe((result: any) => {
+      console.log('res: ', result);
       if (result.statusCode === 200) {
         const dataRes = JSON.parse(result.body).Data;
         if (dataRes) {
