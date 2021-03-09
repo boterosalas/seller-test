@@ -135,8 +135,7 @@ export class ListProductsComponent implements OnInit {
     ngOnInit() {
         this.offerPermission = this.authService.getPermissionForMenu(listProductsName, this.offer);
         this.editPermission = this.authService.getPermissionForMenu(unitaryCreateName, 'Editar');
-        // this.deletePermission = this.authService.getPermissionForMenu(listProductsName, this.delete );
-    //    console.log(this.editPermission);
+        this.deletePermission = this.authService.getPermissionForMenu(listProductsName, this.delete );
         this.getDataUser();
         this.validateFormSupport();
         this.refreshCategoryTree();
@@ -328,11 +327,11 @@ export class ListProductsComponent implements OnInit {
         this.user = await this.userParams.getUserData();
         if (this.user.sellerProfile !== 'seller' && this.user.sellerProfile && this.user.sellerProfile !== null) {
             this.isAdmin = true;
-            this.permissionComponent = this.authService.getMenuProfiel(unitaryCreateName, 1);
+            this.permissionComponent = this.authService.getMenuProfiel(listProductsName, 1);
             this.setPermission(1);
         } else {
             this.isAdmin = false;
-            this.permissionComponent = this.authService.getMenuProfiel(unitaryCreateName, 0);
+            this.permissionComponent = this.authService.getMenuProfiel(listProductsName, 0);
             this.setPermission(0);
         }
     }
@@ -344,6 +343,7 @@ export class ListProductsComponent implements OnInit {
      */
     setPermission(typeProfile: number) {
         this.editPermission = this.getFunctionality('Editar');
+        this.deletePermission =  this.getFunctionality('Eliminar');
     }
 
     public getFunctionality(functionality: string): boolean {

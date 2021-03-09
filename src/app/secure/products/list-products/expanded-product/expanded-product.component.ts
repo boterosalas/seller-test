@@ -13,7 +13,7 @@ const log = new Logger('ExpandedProductComponent');
     templateUrl: 'expanded-product.component.html',
     styleUrls: ['expanded-product.component.scss'],
 })
-export class ExpandedProductComponent implements OnInit, OnDestroy {
+export class ExpandedProductComponent implements OnInit {
 
     @Input() productsExpanded: any;
     @Input() offerPermission: boolean;
@@ -97,7 +97,7 @@ export class ExpandedProductComponent implements OnInit, OnDestroy {
             this.reloadDataListProduct.emit();
         });
     }
-    ngOnDestroy() {
-        this.dialogRef.close();
-      }
+    // ngOnDestroy() {
+    //     this.dialogRef.close();
+    //   }
 }
