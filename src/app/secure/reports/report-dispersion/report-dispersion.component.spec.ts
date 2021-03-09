@@ -16,7 +16,7 @@
 // import { ReportDispersionService } from './report-dispersion.service';
 // import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 
-// describe('ReportCommissionComponent', () => {
+// describe('ReportDispersionComponent', () => {
 
 //     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
 //     const mockUserLoginService = jasmine.createSpyObj('UserLoginService', ['isAuthenticated']);
