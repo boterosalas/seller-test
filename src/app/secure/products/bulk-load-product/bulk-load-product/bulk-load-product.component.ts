@@ -171,6 +171,10 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   // Variable para mostrar loading
   public isLoad = false;
 
+  public status = 1;
+
+  dataProduct:any = {};
+
   @ViewChild('modalContent', {static: false}) contentDialog: TemplateRef<any>;
   copySizeArray: any;
   setInterval: any;
@@ -2615,9 +2619,42 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     const dialogComponent = dialogRef.componentInstance;
     dialogComponent.content = this.contentDialog;
     dialogComponent.confirmation = () => {
-      this.exportExcel();
+      //this.exportExcel();
+      const {productType, Label} = this.dataProduct;
+      this.BulkLoadProductS.getProductsTemplate(productType, Label).subscribe(({data, message})=> {
+        if(data) {
+          this.loadingService.viewSpinner();
+
+          if(this.status === 1)  {
+
+            let statusInterval = setInterval(() => {
+
+            this.BulkLoadProductS.statusLoad().subscribe(({status, response})=> {
+              this.status = status;
+              if(status !== 1) {
+                clearInterval(statusInterval);
+                this.downloadFile(response);
+                this.loadingService.closeSpinner();
+                this.status = 1;
+              }
+            })
+            
+          }, 5000);
+        } 
+          
+        } else {
+          this.componentService.openSnackBar(message, 'Cerrar', 4000);
+        }
+      })
     };
   }
+
+  private downloadFile(filePath){
+    var link=document.createElement('a');
+    link.href = filePath;
+    link.download = filePath.substr(filePath.lastIndexOf('/') + 1);
+    link.click();
+}
 
   /**
    * Configuración de la data del modal
@@ -2646,14 +2683,15 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       element.Show = !element.Show;
     } else {
       this.categoryForm.patchValue(element);
+      this.dataProduct = element;
       // Aca se debe lanzar la petición para consultar el grupo de especificaciones
-      this.loadingService.viewSpinner();
-      this.BulkLoadProductS.getCategoriesVTEX(element.Label).subscribe(resp => {
-        this.loadingService.closeSpinner();
-        this.vetex = resp;
-        this.listOfCategories();
-        this.listOfSpecs();
-      });
+      // this.loadingService.viewSpinner();
+      // this.BulkLoadProductS.getCategoriesVTEX(element.Label).subscribe(resp => {
+      //   this.loadingService.closeSpinner();
+      //   this.vetex = resp;
+      //   this.listOfCategories();
+      //   this.listOfSpecs();
+      // });
 
     }
   }
