@@ -340,6 +340,7 @@ const ProductsModule = new ModuleModel(productsModule, showAll, productsModule.t
     // 7. Listado de productos. (Tipo administrador)
     new MenuModel(listProductsName, showAll, listProductsName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
+        new FunctionalitiesModel(deleteFunctionality, showAll, deleteFunctionality), // Consultar
     ], RoutesConst.sellerCenterIntListProducts),
     // 8. Estados de productos Seller
     new MenuModel(productsPending, showAll, productsPending.toLowerCase(), ProfileTypes.Vendedor, [

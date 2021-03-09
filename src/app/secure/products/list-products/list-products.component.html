@@ -163,7 +163,7 @@
 
     <div class="prodList">
       <app-combo-product [offerPermission]="offerPermission" [editPermission]="editPermission"
-        [showProducts]="showProducts" [productsList]="productsList" class="listCombo" (reloadData)="reloadData();" [isAdmin]="isAdmin"></app-combo-product>
+        [showProducts]="showProducts" [productsList]="productsList" class="listCombo" (reloadData)="reloadData();" [deletePermission]="deletePermission" [isAdmin]="isAdmin"></app-combo-product>
       <div *ngIf="!productsList.length" fxLayout="column" class="no-products">
         <div class="icon-face">
           <mat-icon class="mat-18">layers_clear</mat-icon>

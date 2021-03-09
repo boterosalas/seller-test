@@ -33,5 +33,5 @@
 
 
 <div class="full-width">
-  <app-expanded-product [offerPermission]="offerPermission" [editPermission]="editPermission" *ngIf="productsExpanded && showProducts" [productsExpanded]="productsExpanded" (reloadDataListProduct)="reloadDataListProduct();" [isAdmin] ="isAdmin"></app-expanded-product>
+  <app-expanded-product [offerPermission]="offerPermission" [editPermission]="editPermission" *ngIf="productsExpanded && showProducts" [productsExpanded]="productsExpanded" (reloadDataListProduct)="reloadDataListProduct();" [deletePermission]="deletePermission" [isAdmin] ="isAdmin"></app-expanded-product>
 </div>

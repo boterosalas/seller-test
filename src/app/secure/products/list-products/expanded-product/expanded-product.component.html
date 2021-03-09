@@ -34,7 +34,7 @@
           <h3>{{'secure.offers.list.list.EAN_offert' | translate}} {{productsExpanded.ean}}</h3>
         </div>
         <div  fxFlex fxLayoutAlign="end center" class="expanded-product-height-edit-icon" *ngIf="productsExpanded">
-          <button *ngIf="isAdmin" class="button-edit" type="button" color="primary" matTooltip="Eliminar" matTooltipPosition="below" mat-icon-button mat-button
+          <button *ngIf="isAdmin && deletePermission" class="button-edit" type="button" color="primary" matTooltip="Eliminar" matTooltipPosition="below" mat-icon-button mat-button
             (click)="deleteProduct(productsExpanded)">
             <mat-icon class="flexbox align-center justify-center">delete</mat-icon>
           </button>

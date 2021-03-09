@@ -19,6 +19,7 @@ export class ExpandedProductComponent implements OnInit, OnDestroy {
     @Input() offerPermission: boolean;
     @Input() editPermission: boolean;
     @Input() isAdmin: boolean;
+    @Input() deletePermission: boolean;
     @Output() reloadDataListProduct = new EventEmitter<any>();
 
     /* arreglo q contiene las imagenes grandes y pequeñas */
