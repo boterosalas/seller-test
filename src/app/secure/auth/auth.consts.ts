@@ -422,7 +422,7 @@ const SellerModule = new ModuleModel(sellerModule, showAll, sellerModule.toLower
         new FunctionalitiesModel(visualizeFunctionality, showAll, visualizeFunctionality), // Visualizar
         new FunctionalitiesModel(enableFunctionality, showAll, enableFunctionality), // Habilitar
         new FunctionalitiesModel(loadFunctionality, showAll, loadFunctionality) // Cargar
-    ], RoutesConst.sellerCenterIntManageAgreement),
+    ], RoutesConst.sellerCenterIntManageAgreement)
 ]);
 
 /**
