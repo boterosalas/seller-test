@@ -2646,7 +2646,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                 if(status === 2) {
                   this.downloadFile(response);
                 } else {
-                  this.componentService.openSnackBar('Error al descargar el archivo', 'Cerrar', 4000);
+                  (this.languageService.instant('shared.error.file'), this.languageService.instant('actions.close'), 4000);
                 }
                 this.status = 1;
               }
