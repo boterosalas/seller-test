@@ -1,0 +1,15 @@
+.list-school-exito{
+    &-backgroudColor{
+        background-color: #F6F6F4;
+        background-repeat: repeat;
+        min-height: 100vh;
+    }
+    &-wait-moment-please{
+        width: 100%;
+        text-align: center;
+        font-size: 17px;
+        padding-top: 200px;
+        padding-bottom: 20px;
+        font-weight: bold;
+    }
+}

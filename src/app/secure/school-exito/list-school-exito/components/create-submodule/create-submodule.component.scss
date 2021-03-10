@@ -1,0 +1,101 @@
+$blue: #485AFA;
+$gray: #5D5D5D;
+$black: black;
+$color-white: #FFFFFF;
+$color-gray: #BCBCBC;
+$color-maroon: maroon;
+$modal: 72px;
+
+@mixin icon-border-gray {
+  border-radius: 40px;
+  background-color: $color-gray;
+  width: $modal;
+  height: $modal;
+  mat-icon {
+      color: $color-white;
+  }
+}
+
+.center-text{
+  text-align: center;
+}
+.container-icon {
+  @include icon-border-gray();
+}
+
+.edit-module{
+
+    .bold{
+        font-weight: bold;
+    }
+
+    h2{
+        margin: 20px 0;
+    }
+    
+    .container-form{
+        width: 100%;
+    }
+}
+
+
+
+/* Default class applied to drop zones on over */
+
+.invalid-drag {
+  border: dotted 3px red;
+}
+
+.valid-drag {
+  border: dotted 2px #757474;
+}
+
+.previewIcon {
+  width: 100px;
+  height: 100px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+
+
+.material-icons-outlined {
+  font-family: 'Material Icons Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+.container-load-files {
+  height: 305px;
+  max-height: 305px;
+  contain: content;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.cup-text-name-pdf {
+  width: 250px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.sizeRefuse {
+  color: red;
+}
+
+.marginLabelSize{
+  margin-right: 0.5%;
+}

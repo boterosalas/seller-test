@@ -1,0 +1,38 @@
+$blue: #485afa;
+$gray: #5d5d5d;
+$black: black;
+$color-white: #ffffff;
+$color-gray: #bcbcbc;
+$color-maroon: maroon;
+$modal: 72px;
+
+@mixin icon-border-gray {
+  border-radius: 40px;
+  background-color: $color-gray;
+  width: $modal;
+  height: $modal;
+  mat-icon {
+    color: $color-white;
+  }
+}
+
+.center-text {
+  text-align: center;
+}
+.container-icon {
+  @include icon-border-gray();
+}
+
+.delete-module {
+  .bold {
+    font-weight: bold;
+  }
+
+  h2 {
+    margin: 20px 0;
+  }
+
+  .container-form {
+    width: 100%;
+  }
+}
