@@ -1697,12 +1697,6 @@ describe('BulkLoad Products Component', () => {
             expect(mockBulkLoadProductService.getCategoriesVTEX).not.toHaveBeenCalled();
         });
 
-        it('element selected last lvl', () => {
-            component.selectElement(lastlvl);
-            component.categoryForm.patchValue({ lastlvl });
-            expect(mockBulkLoadProductService.getCategoriesVTEX).toHaveBeenCalled();
-        });
-
         it('export excel Technology with data', () => {
             component.vetex.data = {
                 groupName: 'Lavadoras',
