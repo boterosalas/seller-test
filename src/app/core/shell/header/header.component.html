@@ -8,7 +8,7 @@
         id="circle-notification-header"></app-notification-circle>
     </button>
     <div (click)="goToHome()" fxShow.xs="false" class="logo-application"></div>
-    <p fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true"
+    <p fxShow.xs="false" fxShow.sm="false" fxShow.md="false" fxShow.lg="true" fxShow.xl="true"
       fxShow="true" class="name-user margin-left-20">{{'core.shell.header.welcome'
       | translate}}:
       <b>{{user?.sellerName}}</b>
@@ -17,7 +17,7 @@
     </p>
     <span class="spacer-content"></span>
 
-    <div fxFlex.xs="100%" fxFlex.sm="12" fxFlex.md="12" fxFlex.lg="12"
+    <div fxFlex.xs="100%" fxFlex.sm="24" fxFlex.md="16" fxFlex.lg="12"
       fxFlex.xl="12" *ngIf="canView">
       <button class="sc-button-toolbar btn-school-exito" [routerLink]="['/' +
         routes?.sellerCenterIntSchoolExito]"
