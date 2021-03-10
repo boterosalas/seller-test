@@ -6,6 +6,7 @@ import { RoutesConst } from '@app/shared';
 import { AuthService } from '../auth/auth.routing';
 import { UploadAgreementComponent } from './upload-agreement/upload-agreement.component';
 import { ManageAgreementComponent } from './manage-agreement/manage-agreement.component';
+import { DetailAgreementComponent } from './manage-agreement/detail-agreement/detail-agreement.component';
 
 const routes: Routes = [
     Route.withShell([
@@ -25,6 +26,12 @@ const routes: Routes = [
             path: `${RoutesConst.sellerCenterIntManageAgreement}`,
             component:  ManageAgreementComponent,
             data: { title: 'Administrar acuerdos' },
+            canActivate: [AuthService]
+        },
+        {
+            path: `${RoutesConst.sellerCenterIntDetailAgreement}`,
+            component:  DetailAgreementComponent,
+            data: { title: 'Detalle acuerdos' },
             canActivate: [AuthService]
         }
     ])

@@ -343,7 +343,8 @@ export class RegisterSellerComponent implements OnInit {
   keyPress(event: any, inputName: string) {
     if (inputName === 'nit' || inputName === 'rut') {
       inputName = !!this.isColombiaSelect ? 'integerNumber' : 'internationalIdentifier';
-    } if (inputName === 'city' || inputName === 'state') {
+    } 
+    if (inputName === 'city' || inputName === 'state') {
       inputName = 'internationalLocation';
     }
     if (inputName === 'postalCode') {
@@ -399,8 +400,7 @@ export class RegisterSellerComponent implements OnInit {
     const profile = `Exito|${this.validateFormRegisterAdmin.controls.Profile.value}`;
     this.validateFormRegisterAdmin.controls.Profile.setValue(profile);
     this.registerService.registerUser(this.validateFormRegisterAdmin.value)
-      .subscribe(
-        (result: any) => {
+      .subscribe((result: any) => {
           if (result.status === 201 || result.status === 200) {
             const data = result && result.body && result.body.body && JSON.parse(result.body.body);
             if (!!data && data.Data) {

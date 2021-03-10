@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, PageEvent } from '@angular/material';
+import { Router } from '@angular/router';
 import { LoadingService, Logger, ModalService } from '@app/core';
-import { ComponentsService } from '@app/shared';
+import { ComponentsService, RoutesConst } from '@app/shared';
 import { TranslateService } from '@ngx-translate/core';
 import { SellerService } from '../seller.service';
 import { ModalBulkloadAgreementComponent } from './modal-bulkload-agreement/modal-bulkload-agreement.component';
@@ -38,10 +39,16 @@ export class ManageAgreementComponent implements OnInit {
     private modalService: ModalService,
     public componentService: ComponentsService,
     private languageService: TranslateService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
     this.getAgreemet();
+  }
+
+  redirectToDetailAgreement(){
+      this.router.navigate([`/${RoutesConst.sellerCenterIntDetailAgreement}`]);
+      // window.open(`/${RoutesConst.sellerCenterIntSellerManage};id=${idSeller}`);
   }
 
   /**

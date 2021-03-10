@@ -19,6 +19,7 @@ import { TermsComponent } from './agreement/terms/terms.component';
 import { ManageAgreementComponent } from './manage-agreement/manage-agreement.component';
 import { ModalBulkloadAgreementComponent } from './manage-agreement/modal-bulkload-agreement/modal-bulkload-agreement.component';
 import { ModalDeleteAgreementComponent } from './manage-agreement/modal-delete-agreement/modal-delete-agreement.component';
+import { DetailAgreementComponent } from './manage-agreement/detail-agreement/detail-agreement.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { ModalDeleteAgreementComponent } from './manage-agreement/modal-delete-a
         ManageAgreementComponent,
         ModalBulkloadAgreementComponent,
         ModalDeleteAgreementComponent,
+        DetailAgreementComponent,
     ],
     imports: [
         CommonModule,
