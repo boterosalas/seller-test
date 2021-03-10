@@ -280,7 +280,11 @@ export const endpoints = {
       // ELiminar contrato a todos los vendedores
       deleteAllAgreement: 'https://yoix96dfrg.execute-api.us-east-1.amazonaws.com/contracts/DeleteContract/{params}',
       // Establecer contrato por defecto
-      defaulAgreement: 'https://yoix96dfrg.execute-api.us-east-1.amazonaws.com/contracts/SetContractByDefault/{params}'
+      defaulAgreement: 'https://yoix96dfrg.execute-api.us-east-1.amazonaws.com/contracts/SetContractByDefault/{params}',
+      // Obtener listado de vendedores por acuerdos
+      getListSellersAgreement: 'https://yoix96dfrg.execute-api.us-east-1.amazonaws.com/contracts/GetSellerContractApply/{params}',
+      // Eliminar uno o varios vendedores del contrato
+      delete1orMore: 'https://yoix96dfrg.execute-api.us-east-1.amazonaws.com/contracts/DeleteContractApply'
     },
   },
   // Endpoints production

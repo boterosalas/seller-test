@@ -27,6 +27,7 @@ export class ModalDeleteAgreementComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log('data: ', this.data);
   }
 
   onNoClick(): void {

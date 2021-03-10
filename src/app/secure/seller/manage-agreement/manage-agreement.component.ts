@@ -46,8 +46,8 @@ export class ManageAgreementComponent implements OnInit {
     this.getAgreemet();
   }
 
-  redirectToDetailAgreement() {
-    this.router.navigate([`/${RoutesConst.sellerCenterIntDetailAgreement}`]);
+  redirectToDetailAgreement(dataParams: any) {
+    this.router.navigate([`/${RoutesConst.sellerCenterIntDetailAgreement}`, {docId: dataParams.Id, docType: dataParams.DocumentType}]);
     // this.router.navigate(['/securehome/seller-center/vendedores/registrar/']);
 
     // window.open(`/${RoutesConst.sellerCenterIntSellerManage};id=${idSeller}`);
