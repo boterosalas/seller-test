@@ -2645,8 +2645,9 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                 this.loadingService.closeSpinner();
                 if(status === 2) {
                   this.downloadFile(response);
-                } else {
-                  (this.languageService.instant('shared.error.file'), this.languageService.instant('actions.close'), 4000);
+                }
+                if(status === 3) {
+                  this.componentService.openSnackBar(this.languageService.instant('shared.error.file'), this.languageService.instant('actions.close'), 4000);
                 }
                 this.status = 1;
               }
