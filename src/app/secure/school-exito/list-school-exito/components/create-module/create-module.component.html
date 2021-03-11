@@ -134,5 +134,22 @@
   </form>
 </div>
 <div *ngIf="showSuccess">
-<div>listado de lo que se guardo</div>
+  <div>
+    <div class="container-header">
+      <ng-container >
+        <div class="container-icon-success">
+          <mat-icon>
+           done
+          </mat-icon>
+        </div>
+      </ng-container>
+      <ng-container class="title-container">
+        <!-- <h1 mat-dialog-title><strong>El producto se ha eliminado correctamente</strong></h1> -->
+      </ng-container>
+    </div>
+    <mat-dialog-actions class="margintTopDeleteButton container__btn">
+      <button id="btn-close"  type="button" class="btn-close"  color="primary" (click)="onNoClick()">Cerrar</button>
+    </mat-dialog-actions>
+  </div>
+</div>
 </div>
