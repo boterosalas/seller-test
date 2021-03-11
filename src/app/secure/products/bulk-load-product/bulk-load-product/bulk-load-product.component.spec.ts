@@ -1580,12 +1580,12 @@ describe('BulkLoad Products Component', () => {
         beforeEach(() => {
         });
 
-        it('Get quantity charges in seller', () => {
-            component.getAvaliableLoads();
-            expect(component.isAdmin).toBeFalsy();
-            // Se verifica el llamado del metodo getAmountAvailableLoads
-            expect(mockBulkLoadProductService.getAmountAvailableLoads).not.toHaveBeenCalled();
-        });
+        // it('Get quantity charges in seller', () => {
+        //     component.getAvaliableLoads();
+        //     expect(component.isAdmin).toBeFalsy();
+        //     // Se verifica el llamado del metodo getAmountAvailableLoads
+        //     expect(mockBulkLoadProductService.getAmountAvailableLoads).not.toHaveBeenCalled();
+        // });
 
         it('Reset variables', () => {
             component.listLog = [];
