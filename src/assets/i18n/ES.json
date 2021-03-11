@@ -1484,6 +1484,7 @@
     "school.exito.edit.module.title": "Editar módulo",
     "school.exito.edit.module.description": "Para editar un módulo podrás modificar su nombre y dar click en el botón Editar.",
     "school.exito.edit.module.name.module": "Nombre del módulo",
+    "school.exito.edit.module.name.submodule": "Nombre del submódulo",
     "school.exito.edit.module.service": "El módulo fue editado exitosamente",
     "school.exito.delete.module.service": "El módulo fue eliminado exitosamente",
     "school.exito.delete.submodule.service": "El submódulo fue eliminado exitosamente",

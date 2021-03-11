@@ -25,7 +25,7 @@
         <div class="container-form" fxLayout="column">
           
           <mat-form-field class="input-add">
-            <input matInput formControlName="subModuleName" placeholder="Nombre del submódulo">
+            <input matInput formControlName="subModuleName" [placeholder]="'school.exito.edit.module.name.submodule' | translate">
             <mat-error *ngIf="createSubModule.get('subModuleName').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
           
@@ -42,8 +42,8 @@
     </div>
 
     <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
-      <button mat-stroked-button class="btn-transparent" type="button" id="btn-create-transporter" color="primary" (click)="close()">{{'actions.cancel' | translate}}</button>
-      <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [disabled]="(!createSubModule.valid || oneEspFile)">{{'actions.save' | translate}}</button>
+      <button mat-stroked-button class="btn-transparent" type="button" id="btn-create-submodule" color="primary" (click)="close()">{{'actions.cancel' | translate}}</button>
+      <button class="uppercase" id="btn-create-submodule" type="submit" mat-raised-button color="primary" [disabled]="(!createSubModule.valid || oneEspFile)">{{'actions.save' | translate}}</button>
     </div>
 
   </form>
