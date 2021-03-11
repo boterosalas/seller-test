@@ -127,7 +127,11 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
     this.canView = this.getFunctionality(visualizeFunctionality);
   }
   public getFunctionality(functionality: string): boolean {
-    const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
-    return permission && permission.ShowFunctionality;
+    if (this.permissionComponent && this.permissionComponent.Functionalities) {
+      const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
+      return permission && permission.ShowFunctionality;
+    } else {
+      return null;
+    }
   }
 }
