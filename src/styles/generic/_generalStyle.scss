@@ -480,7 +480,7 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
 .btn-transparent{
     background: #ffffff;
     border: 1px solid $blue !important;
-    border-radius: 0 !important;
+    border-radius: 2px !important;
     &:hover{
         color: #ffffff;
         background:  $blue !important;
@@ -504,4 +504,12 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
 
 .close{
     cursor: pointer;
+}
+
+.uppercase{
+    text-transform: uppercase;
+}
+
+.container-form {
+    margin-top: 20px;
 }

@@ -30,10 +30,11 @@
       >
         <div class="container-form" fxLayout="column">
           <mat-form-field class="input-add">
+            <mat-label>{{'school.exito.edit.module.name.module' | translate}}</mat-label>
             <input
               matInput
               formControlName="moduleName"
-              placeholder="Nombre del módulo"
+              [placeholder]="'school.exito.edit.module.name.module' | translate"
               (keydown)="changeValueModuleName()"
             />
             <mat-error
@@ -52,7 +53,7 @@
             <input
               matInput
               formControlName="subModuleName"
-              placeholder="Nombre del submódulo"
+              [placeholder]="'school.exito.edit.module.name.submodule' | translate"
               (keydown)="changeValue()"
             />
             <mat-error
@@ -128,7 +129,7 @@
         color="primary"
         [disabled]="activeSave"
       >
-        {{ "actions.save" | translate }}
+        {{ "actions.create" | translate }}
       </button>
     </div>
   </form>

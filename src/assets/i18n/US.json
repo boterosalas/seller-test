@@ -1438,6 +1438,7 @@
     "school.exito.edit.module.title": "Edit module",
     "school.exito.edit.module.description": "To edit a module you can modify its name and click the Edit button.",
     "school.exito.edit.module.name.module": "Module name",
+    "school.exito.edit.module.name.submodule": "Submodule name",
     "school.exito.edit.module.service": "The module was successfully edited",
     "school.exito.delete.module.service": "The module was successfully removed",
     "school.exito.delete.submodule.service": "The submodule was successfully removed",

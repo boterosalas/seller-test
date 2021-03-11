@@ -2,7 +2,7 @@
 <div fxLayout="row" fxLayoutAlign="end end" class="mt-2">
     <button class="btn-transparent" mat-stroked-button color="primary" (click)="createModule()">{{'school.exito.button' | translate}}</button>
 </div>
-<div *ngIf="emptyData" fxLayout="row wrap" fxLayoutAlign="space-between start" class="mt-2" cdkDropListGroup>
+<div *ngIf="emptyData" fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="1%" class="mt-2" cdkDropListGroup>
   <div cdkDropList [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dropListDropped($event)"></div>
   <div  fxFlex="32" fxFlex.sm="49" fxFlex.xs="100" cdkDropList *ngFor="let item of modules; let i = index"
        [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dropListDropped($event)">
@@ -31,11 +31,11 @@
         </div>
         <div fxLayout="row" class="list-admin-school-width-100">
           <div cdkDropList class="list-admin-list-submodules list-admin-school-padding-initial" (cdkDropListDropped)="drop($event, item.Submodules, item, i)">
-            <div class="list-admin-box-submodules list-admin-school-padding-5"  *ngFor="let submodule of item.Submodules" cdkDrag >
+            <div class="list-admin-box-submodules list-admin-school-padding-5"  *ngFor="let submodule of item.Submodules" cdkDragBoundary=".list-admin-school-width-100" cdkDragLockAxis="y" [cdkDragDisabled]="item.Submodules.length === 1 " cdkDrag >
               <div fxLayout="column" class="list-admin-school-width-100">
                 <div fxLayout="row"class="list-admin-school-width-100">
                   <div fxFlex="10">
-                    <div class="list-admin-handle" cdkDragHandle [class.hidden-handle]="disabled">
+                    <div class="list-admin-handle" cdkDragHandle >
                       <svg width="17px" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
                         <path d="M0 0h24v24H0z" fill="none"></path>
