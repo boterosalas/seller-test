@@ -41,7 +41,7 @@
 
     </div>
 
-    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
+    <div mat-dialog-actions class="mat-buttons" fxLayout="row" fxLayoutAlign="center center">
       <button mat-stroked-button class="btn-transparent" type="button" id="btn-create-submodule" color="primary" (click)="close()">{{'actions.cancel' | translate}}</button>
       <button class="uppercase" id="btn-create-submodule" type="submit" mat-raised-button color="primary" [disabled]="(!createSubModule.valid || oneEspFile)">{{'actions.save' | translate}}</button>
     </div>
