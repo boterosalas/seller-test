@@ -98,7 +98,6 @@ export class CreateModuleComponent implements OnInit {
    */
 
   public addFileEsp({ data }) {
-    console.log(data);
     if (data !== "") {
       this.manualEsp = data;
       this.oneEspFile = false;
@@ -111,7 +110,6 @@ export class CreateModuleComponent implements OnInit {
    */
 
   public addFileIng({ data }) {
-    console.log(data);
     if (data !== "") {
       this.manualIng = data;
     }
