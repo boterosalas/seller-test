@@ -176,7 +176,11 @@ export class Guide {
  */
 export class LoadGuide {
   orderNumber: number;
+  ean: number;
+  skuSeller: string;
   sku: string;
+  productName: string;
+  brand: string;
   quantity: number;
   carrier: string;
   tracking: string;
@@ -186,6 +190,10 @@ export class LoadGuide {
   errorColumn3: boolean;
   errorColumn4: boolean;
   errorColumn5: boolean;
+  errorColumn6: boolean;
+  errorColumn7: boolean;
+  errorColumn8: boolean;
+  errorColumn9: boolean;
 }
 
 /**

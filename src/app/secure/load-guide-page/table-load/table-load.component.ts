@@ -32,10 +32,14 @@ export class TableLoadComponent implements OnInit {
   // Columnas que se visualizan en la tabla
   public displayedColumns = [
     'orderNumber',
+    'ean',
+    'skuSeller',
     'sku',
+    'productName',
+    'brand',
     'quantity',
     'carrier',
-    'tracking',
+    'tracking'
   ];
 
   /**
