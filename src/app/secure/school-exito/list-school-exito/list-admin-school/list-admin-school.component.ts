@@ -59,10 +59,14 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
    * @memberof ListAdminSchoolComponent
    */
   createModule() {
-    this.dialog.open(CreateModuleComponent, {
+    const dialog = this.dialog.open(CreateModuleComponent, {
       width: '800px',
       maxWidth: '90vw',
       maxHeight: '90vh',
+    });
+    const dialogIntance = dialog.componentInstance;
+    dialogIntance.processFinish$.subscribe((val) => {
+      this.getAllModules();
     });
   }
   /**
@@ -82,6 +86,7 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
       maxWidth: '90vw',
       maxHeight: '90vh',
     });
+    
   }
   /**
    * funcion para borrar modulo

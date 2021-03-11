@@ -17,6 +17,7 @@ import { EditModuleComponent } from '../edit-module/edit-module.component';
 import { Router } from '@angular/router';
 import { Observable, Subject, timer } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
+import { LoadingService } from '@app/core';
 
 @Component({
   selector: 'app-create-module',
@@ -42,12 +43,14 @@ export class CreateModuleComponent implements OnInit {
   processFinish$ = new Subject<any>();
   showSuccess = false;
   showError = false;
+  submoduleNames = [];
 
   constructor(
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<EditModuleComponent>,
     public snackBar: MatSnackBar,
+    private loadingService: LoadingService,
     public _schoolExito: SchoolExitoService,
     public componentService: ComponentsService, // private languageService: TranslateService, // private router: Router
     private languageService: TranslateService,
@@ -214,12 +217,9 @@ export class CreateModuleComponent implements OnInit {
           this.activeAddSubmodule = true;
           this.activeSave = true;
         }
-
-
         if (this.module.length > 0 && moduleName !== '' && subModuleName === '') {
           this.activeSave = false;
         }
-
         if (this.module.length === 0 && moduleName !== '' && subModuleName === '') {
           this.activeSave = true;
         }
@@ -232,6 +232,7 @@ export class CreateModuleComponent implements OnInit {
    */
 
   public createModules() {
+    this.loadingService.viewSpinner();
     this.module[0].Modulename = this.createModule.controls.moduleName.value;
     this._schoolExito.createModules(this.module[0]).subscribe((resp: any) => {
       if (resp) {
@@ -241,45 +242,41 @@ export class CreateModuleComponent implements OnInit {
             this.validateLoad();
           }
         }
-
-        // this.componentService.openSnackBar(
-        //   this.languageService.instant('school.exito.create.module.service'),
-        //   this.languageService.instant('actions.close'),
-        //   5000
-        // );
-        // this.dialogRef.close();
-        // setTimeout(() => {
-        //   this.router.navigateByUrl('/SchoolExitoComponent', { skipLocationChange: true }).then(() => {
-        //     this.router.navigate(['/securehome/schoolExito/list-school-exito']);
-        //   });
-        // }, 500);
       } else {
-        // this.componentService.openSnackBar(
-        //   // body.Errors[0].Message,
-        //   this.languageService.instant('actions.close'),
-        //   5000
-        // );
+        this.componentService.openSnackBar(
+          'error resp',
+          this.languageService.instant('actions.close'),
+          5000
+        );
       }
     });
   }
 
-
-  validateLoad() {
+/**
+ * funcion para consultar por un rango de tiempo un endPoint 
+ *
+ * @memberof CreateModuleComponent
+ */
+validateLoad() {
     this.request = this._schoolExito.validateCreateMassive();
     // tslint:disable-next-line: no-unused-expression
     !!this.request && timer(500, 6000).pipe(takeUntil(this.processFinish$), switchMap(() => this.request)).subscribe((res) => {
       try {
         const body = JSON.parse(res.body);
         if (body && body.Data) {
-          const { Status } = body.Data;
+          const { Status, Response } = body.Data;
          if (Status === 2) {
+          this.loadingService.closeSpinner();
          this.showSuccess = true;
          this.showError = false;
-          this.processFinish$.next(null);
+         const dataSubmodules = JSON.parse(Response);
+         this.submoduleNames = dataSubmodules.Data;
+          this.processFinish$.next(true);
          } else if (Status === 3) {
+          this.loadingService.closeSpinner();
            this.showSuccess = false;
            this.showError = true;
-          this.processFinish$.next(null);
+          this.processFinish$.next(true);
          }
         }
       } catch {
