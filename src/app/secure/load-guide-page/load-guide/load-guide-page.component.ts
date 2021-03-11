@@ -247,7 +247,6 @@ export class LoadGuidePageComponent implements OnInit, LoggedInCallback {
    */
   validateDataFromFile(res: any, file: any) {
     /* Elimino la posicion 0 que es la parte de titulo del excel */
-    console.log(res);
     if (res.length !== 1 && res.length !== 0) {
 
       if (res.length === 2 && res[1][0] === undefined && res[1][1] === undefined &&
