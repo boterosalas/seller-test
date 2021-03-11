@@ -69,11 +69,13 @@
           [manualName]="'school.exito.uploadfile.esp' | translate"
           (sendFileEvent)="addFileEsp($event)"
           (validateOneFileEvent)="onefileEsp($event)"
+          id="esp"
           [files]="filesEsp"
         ></app-upload-file>
         <app-upload-file
           [manualName]="'school.exito.uploadfile.ing' | translate"
           (sendFileEvent)="addFileIng($event)"
+          id="ing"
           [files]="filesIng"
         ></app-upload-file>
       </div>

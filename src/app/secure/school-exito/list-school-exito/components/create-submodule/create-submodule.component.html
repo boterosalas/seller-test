@@ -33,8 +33,8 @@
       </div>
 
       <div fxLayout="row" fxLayout.xs="column">
-        <app-upload-file [manualName]="'school.exito.uploadfile.esp' | translate" (sendFileEvent)="addFileEsp($event)" (validateOneFileEvent)="onefileEsp($event)"></app-upload-file>
-        <app-upload-file [manualName]="'school.exito.uploadfile.ing' | translate" (sendFileEvent)="addFileIng($event)"></app-upload-file>
+        <app-upload-file [manualName]="'school.exito.uploadfile.esp' | translate" (sendFileEvent)="addFileEsp($event)" (validateOneFileEvent)="onefileEsp($event)" id="esp"></app-upload-file>
+        <app-upload-file [manualName]="'school.exito.uploadfile.ing' | translate" (sendFileEvent)="addFileIng($event)" id="ing"></app-upload-file>
       </div>
 
       <!-- CONTAINER BUTTON TO ADD NEW SPECIFICATION GROUP -->
