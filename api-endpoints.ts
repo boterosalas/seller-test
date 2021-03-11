@@ -295,6 +295,8 @@ export const endpoints = {
       getAllAgreement: 'https://yoix96dfrg.execute-api.us-east-1.amazonaws.com/contracts/GetSellerContract/{params}',
       // Consultar estado de crear acuerdos masivos (get)
       getStatusMassiveAgreement: 'https://yoix96dfrg.execute-api.us-east-1.amazonaws.com/contracts/GetStatusLoads',
+      // Consultar si tiene carga la creacion de modulos.
+      ValidateCreateMassive : 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/ValidateCreateMassive'
     },
   },
   // Endpoints production
@@ -587,6 +589,8 @@ export const endpoints = {
       getAllAgreement: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/GetSellerContract/{params}',
       // Consultar estado de crear acuerdos masivos (get)
       getStatusMassiveAgreement: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/GetStatusLoads',
+       // Consultar si tiene carga la creacion de modulos.
+      ValidateCreateMassive : 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/ValidateCreateMassive'
     }
   }
 };

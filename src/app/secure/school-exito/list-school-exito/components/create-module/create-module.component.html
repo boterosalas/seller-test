@@ -1,4 +1,4 @@
-<div class="edit-module">
+<div class="edit-module" *ngIf="!showSuccess">
 
 <div fxLayout="row" fxLayoutAlign="end end"><mat-icon class="material-icons close" (click)="close()"> close </mat-icon></div>
 
@@ -132,4 +132,7 @@
       </button>
     </div>
   </form>
+</div>
+<div *ngIf="showSuccess">
+<div>listado de lo que se guardo</div>
 </div>
