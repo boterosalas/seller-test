@@ -22,6 +22,7 @@ export class UploadFileComponent implements OnInit {
   @Output() sendFileEvent = new EventEmitter<any>();
   @Output() validateOneFileEvent = new EventEmitter<any>();
   @Input() manualName: String;
+  @Input() id: String;
 
   
 
@@ -36,13 +37,12 @@ export class UploadFileComponent implements OnInit {
    */
   sendFile() {
     const lengthFiles = document
-      .getElementById("pdf")
+      .getElementById(`${this.id}`)
       .getElementsByTagName("input")[0].files.length;
-    let file = document.getElementById("pdf").getElementsByTagName("input")[0]
+    let file = document.getElementById(`${this.id}`).getElementsByTagName("input")[0]
       .files[lengthFiles - 1];
-    if (!file) {
       file = this.files[this.files.length - 1];
-    }
+      const size = parseFloat(((file.size) / 1024 / 1024).toFixed(3));
     this.getBase64(file).then((dataFile) => {
       let splitb64File = dataFile.split('data:application/pdf;base64,');
       let data = splitb64File[1];

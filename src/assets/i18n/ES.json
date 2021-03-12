@@ -1495,5 +1495,6 @@
     "school.exito.uploadfile.ing": "Manual en ingles",
     "school.exito.uploadfile.dragfile": "Presione acá o arrastre y suelte el archivo",
     "school.exito.uploadfile.pdf": "Formato no válido, sólo se permiten adjuntar archivos en formato .PDF",
+    "school.exito.uploadfile.maxSize.pdf": "Error, el tamaño de los archivos supera la capacidad de carga de 7MB",
     "school.exito.empty_data": "No se han encontrado registros"
 }

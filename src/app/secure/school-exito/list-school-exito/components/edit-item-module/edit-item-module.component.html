@@ -32,15 +32,15 @@
         </div>
       </div>
       <div fxLayout="row" fxLayout.xs="column">
-        <app-upload-file [manualName]="'school.exito.uploadfile.esp' | translate" (sendFileEvent)="addFileEsp($event)" (validateOneFileEvent)="onefileEsp($event)"></app-upload-file>
-        <app-upload-file [manualName]="'school.exito.uploadfile.ing' | translate" (sendFileEvent)="addFileIng($event)"></app-upload-file>
+        <app-upload-file [manualName]="'school.exito.uploadfile.esp' | translate" (sendFileEvent)="addFileEsp($event)" (validateOneFileEvent)="onefileEsp($event)" id="esp"></app-upload-file>
+        <app-upload-file [manualName]="'school.exito.uploadfile.ing' | translate" (sendFileEvent)="addFileIng($event)" id="ing"></app-upload-file>
       </div>
 
       <!-- CONTAINER BUTTON TO ADD NEW SPECIFICATION GROUP -->
 
     </div>
 
-    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
+    <div mat-dialog-actions class="mat-buttons" fxLayout="row" fxLayoutAlign="center center">
       <button mat-stroked-button class="btn-transparent" type="button" id="btn-edit-submodule" color="primary" (click)="close()">{{'actions.cancel' | translate}}</button>
       <button class="uppercase" id="btn-edit-submodule" type="submit" mat-raised-button color="primary" [disabled]="!formEditModule.valid || (changeValueEdit) || (oneEspFile)">{{'actions.edit' | translate}}</button>
     </div>

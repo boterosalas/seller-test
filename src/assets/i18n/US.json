@@ -1452,5 +1452,6 @@
     "school.exito.uploadfile.ing": "English manual",
     "school.exito.uploadfile.dragfile": "Click here or drag and drop the file",
     "school.exito.uploadfile.pdf": "Invalid format, only files in .PDF format are allowed to be attached",
+    "school.exito.uploadfile.maxSize.pdf": "Error, file size exceeds 7MB upload capacity",
     "school.exito.empty_data": "No records found"
 }
