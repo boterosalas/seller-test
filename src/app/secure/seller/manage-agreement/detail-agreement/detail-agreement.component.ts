@@ -111,6 +111,7 @@ export class DetailAgreementComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
     this.allClear();
     this.getListbyParams();
+    this.callOne = true;
       log.info('The modal detail billing was closed');
     });
   }
@@ -139,6 +140,7 @@ export class DetailAgreementComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
     this.allClear();
     this.getListbyParams();
+    this.callOne = true;
       log.info('The modal detail billing was closed');
     });
   }
@@ -149,21 +151,27 @@ export class DetailAgreementComponent implements OnInit {
    * @memberof DetailAgreementComponent
    */
   getAllSellerAgreement(params?: any) {
+    console.log('this.paginationToken: ', this.paginationToken);
     this.loadingService.viewSpinner();
     let urlParams;
     if (params) {
       urlParams = `${params.docId}/${params.docType}?limit=${this.pageSize}&paginationToken=${encodeURI(this.paginationToken)}`
+    } else {
+      this.paginationToken = encodeURI(this.paginationToken);
+      urlParams = this.docId + `/` + this.docType + `?limit=${this.limit}&paginationToken=` + this.paginationToken;
     }
+    console.log('res: ', urlParams);
     this.sellerService.getListSellers(urlParams).subscribe((result: any) => {
       if (result) {
-        this.resultModel = JSON.parse(result.body);
+        console.log('res: ', result);
+        this.resultModel = result.body;
         if (this.callOne) {
-          this.length = this.resultModel.Count;
+          this.length = result.Count;
           this.arrayPosition = [];
           this.arrayPosition.push('{}');
           this.callOne = false;
         }
-        this.dataSource = new MatTableDataSource(this.resultModel.ViewModel);
+        this.dataSource = new MatTableDataSource(result.ViewModel);
         if (this.arraySelect.length > 0) {
           this.arraySelect.forEach(select => {
             this.dataSource.data.forEach(rowGen => {
@@ -185,7 +193,7 @@ export class DetailAgreementComponent implements OnInit {
             });
           });
         }
-        this.paginationToken = this.resultModel.PaginationToken ? this.resultModel.PaginationToken : '{}';
+        this.paginationToken = result.PaginationToken ? result.PaginationToken : '{}';
         this.loadingService.closeSpinner();
       } else {
         this.loadingService.closeSpinner();
@@ -204,6 +212,7 @@ export class DetailAgreementComponent implements OnInit {
       this.limit = event.pageSize;
     }
     if (event && event.pageIndex >= 0) {
+      console.log('event: ', event);
       const index = event.pageIndex;
       if (index === 0) {
         this.paginationToken = encodeURI('{}');
@@ -279,7 +288,7 @@ export class DetailAgreementComponent implements OnInit {
       this.all = status;
       this.disabledBtn = false;
     }
-    this.isAllSelected();
+    // this.isAllSelected();
   }
 
   /**

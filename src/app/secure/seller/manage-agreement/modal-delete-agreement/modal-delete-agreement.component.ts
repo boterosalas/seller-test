@@ -59,7 +59,7 @@ export class ModalDeleteAgreementComponent implements OnInit {
     this.loadingService.viewSpinner();  
     const dataSend = {
       Id: this.data.dataAgreement.DocumentId,
-      TypeContracts: this.data.dataAgreement.StatusContract,
+      TypeContracts: this.data.dataAgreement.DocumentType,
       Sellers: [this.data.dataAgreement.SellerId]
     };
     this.sellerService.deleteOneOrMore(dataSend).subscribe((result: any) => {

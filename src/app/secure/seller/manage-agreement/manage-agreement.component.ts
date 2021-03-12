@@ -154,6 +154,7 @@ export class ManageAgreementComponent implements OnInit {
       this.limit = event.pageSize;
     }
     if (event && event.pageIndex >= 0) {
+      console.log('event: ', event);
       const index = event.pageIndex;
       if (index === 0) {
         this.paginationToken = encodeURI('{}');
