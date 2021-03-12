@@ -29,10 +29,18 @@ export class ModalDeleteAgreementComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Funcion cerrar modal
+   * @memberof ModalDeleteAgreementComponent
+   */
   onNoClick(): void {
     this.dialogRef.close(false);
   }
 
+  /**
+   * Metodo escucha cual funcion enviar a eliminar, todos, varios o uno
+   * @memberof ModalDeleteAgreementComponent
+   */
   deleteSeller(){
     if (this.data && this.data.deleteMultiple === 0) {
       this.sendDataDeleteAllAgreement();
@@ -43,6 +51,10 @@ export class ModalDeleteAgreementComponent implements OnInit {
     }
   }
 
+  /**
+   * Metodo para eliminar un vendedor a un acuerdo
+   * @memberof ModalDeleteAgreementComponent
+   */
   sendDataDeleteOneAgreement() {
     this.loadingService.viewSpinner();  
     const dataSend = {
@@ -71,6 +83,10 @@ export class ModalDeleteAgreementComponent implements OnInit {
     });
   }
 
+  /**
+   * Metodo para eliminar varios vendedores a un acuerdo
+   * @memberof ModalDeleteAgreementComponent
+   */
   sendDataDeleteMultipleAgreement() {
     this.loadingService.viewSpinner();  
     const dataSend = this.data.dataAgreement;
@@ -95,6 +111,10 @@ export class ModalDeleteAgreementComponent implements OnInit {
     });
   }
 
+  /**
+   * Metodo para eliminar todos los vendedores al acuerdo
+   * @memberof ModalDeleteAgreementComponent
+   */
   sendDataDeleteAllAgreement() {
     this.loadingService.viewSpinner();  
     const dataSend = `${this.data.dataAgreement.Id}/${this.data.dataAgreement.DocumentType}?`

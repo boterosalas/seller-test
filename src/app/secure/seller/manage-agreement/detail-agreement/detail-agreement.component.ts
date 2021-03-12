@@ -76,10 +76,18 @@ export class DetailAgreementComponent implements OnInit {
     this.getListbyParams();
   }
 
+  /**
+   * Funcion para volver al listado de acuerdos / anexos
+   * @memberof DetailAgreementComponent
+   */
   goBack(): void {
     this.location.back();
   }
 
+  /**
+   * Metodo para traer los parametros de la ruta y hacer el get del listado
+   * @memberof DetailAgreementComponent
+   */
   getListbyParams(){
     this.route.params.subscribe(params => {
       this.docId = params.docId;
@@ -89,6 +97,11 @@ export class DetailAgreementComponent implements OnInit {
     });
   }
 
+  /**
+   * Metodo para abrir dialogo y eliminar un solo vendedor al acuerdo
+   * @param {*} dataAgreement
+   * @memberof DetailAgreementComponent
+   */
   openModalDeleteAgreement(dataAgreement: any) {
     const dialogRef = this.dialog.open(ModalDeleteAgreementComponent, {
       width: '60%',
@@ -102,6 +115,10 @@ export class DetailAgreementComponent implements OnInit {
     });
   }
 
+  /**
+   * Metodo apra abrir dialogo de eliminar varios vendedores al acuerdo
+   * @memberof DetailAgreementComponent
+   */
   openModalDeleteMultipleAgreement() {
     let arraySellers = [];
     this.arraySelect.forEach(el => {
@@ -126,6 +143,11 @@ export class DetailAgreementComponent implements OnInit {
     });
   }
 
+  /**
+   * Metodo get que obtiene el listado de los vendedores asociados a un acuerdo / anexo
+   * @param {*} [params]
+   * @memberof DetailAgreementComponent
+   */
   getAllSellerAgreement(params?: any) {
     this.loadingService.viewSpinner();
     let urlParams;
@@ -171,6 +193,12 @@ export class DetailAgreementComponent implements OnInit {
     });
   }
 
+  /**
+   * metodo de paginación
+   * @param {*} event
+   * @returns {*}
+   * @memberof DetailAgreementComponent
+   */
   paginations(event: any): any {
     if (event.pageSize !== this.limit) {
       this.limit = event.pageSize;
@@ -199,21 +227,31 @@ export class DetailAgreementComponent implements OnInit {
     }
   }
 
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    if (numSelected === numRows) {
-      this.isAllSelectedCurrent = true;
-    } else {
-      this.isAllSelectedCurrent = false;
-    }
-    if (this.arraySelect.length === 0 && !this.all) {
-      this.selection.clear();
-      this.all = false;
-      this.statusAllCheck = true;
-    }
-  }
+  // /**
+  //  * Metodo para validar todos los check del listado
+  //  * @memberof DetailAgreementComponent
+  //  */
+  // isAllSelected() {
+  //   const numSelected = this.selection.selected.length;
+  //   const numRows = this.dataSource.data.length;
+  //   if (numSelected === numRows) {
+  //     this.isAllSelectedCurrent = true;
+  //   } else {
+  //     this.isAllSelectedCurrent = false;
+  //   }
+  //   if (this.arraySelect.length === 0 && !this.all) {
+  //     this.selection.clear();
+  //     this.all = false;
+  //     this.statusAllCheck = true;
+  //   }
+  // }
 
+  /**
+   * Metodo para cambiar estados de los check
+   * @param {*} row
+   * @param {*} status
+   * @memberof DetailAgreementComponent
+   */
   public changeStatus(row: any, status: any) {
     this.disabledBtn = true;
     if (row) {
@@ -244,6 +282,10 @@ export class DetailAgreementComponent implements OnInit {
     this.isAllSelected();
   }
 
+  /**
+   * Metodo para limpiar variable
+   * @memberof DetailAgreementComponent
+   */
   allClear() {
     this.paginationToken = '{}';
     this.arrayNotSelect = [];
