@@ -12,7 +12,7 @@ export class UploadFileComponent implements OnInit {
   progress: number;
   hasBaseDropZoneOver = false;
   lastFileAt: Date;
-  maxSize = 3145728;
+  maxSize = 7145728;
   lastInvalids: any;
   dataToSend: any;
   showProgress = false;
