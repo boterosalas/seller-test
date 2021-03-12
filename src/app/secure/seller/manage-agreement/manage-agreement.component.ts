@@ -47,7 +47,7 @@ export class ManageAgreementComponent implements OnInit {
   }
 
   redirectToDetailAgreement(dataParams: any) {
-    this.router.navigate([`/${RoutesConst.sellerCenterIntDetailAgreement}`, {docId: dataParams.Id, docType: dataParams.DocumentType}]);
+    this.router.navigate([`/${RoutesConst.sellerCenterIntDetailAgreement}`, {docId: dataParams.Id, docType: dataParams.DocumentType, name: dataParams.Name}]);
     // this.router.navigate(['/securehome/seller-center/vendedores/registrar/']);
 
     // window.open(`/${RoutesConst.sellerCenterIntSellerManage};id=${idSeller}`);
@@ -100,10 +100,11 @@ export class ManageAgreementComponent implements OnInit {
    * @memberof ManageAgreementComponent
    */
   openModalDeleteAgreement(dataAgreement: any) {
+    console.log('data: ', dataAgreement);
     const dialogRef = this.dialog.open(ModalDeleteAgreementComponent, {
       width: '60%',
       minWidth: '280px',
-      data: { dataAgreement }
+      data: { dataAgreement , deleteMultiple: 0}
     });
     dialogRef.afterClosed().subscribe(result => {
       this.getAgreemet();

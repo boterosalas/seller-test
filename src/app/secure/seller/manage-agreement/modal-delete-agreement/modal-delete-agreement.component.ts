@@ -34,13 +34,38 @@ export class ModalDeleteAgreementComponent implements OnInit {
     this.dialogRef.close(false);
   }
 
-  sendDataDeleteMultipleAgreement() {
+  sendDataDeleteOneAgreement() {
     this.loadingService.viewSpinner();  
     const dataSend = {
       Id: this.data.dataAgreement.DocumentId,
       TypeContracts: this.data.dataAgreement.StatusContract,
       Sellers: [this.data.dataAgreement.SellerId]
     };
+    console.log(dataSend);
+    this.sellerService.deleteOneOrMore(dataSend).subscribe((result: any) => {
+      if (result.statusCode === 200 || result.statusCode === 201) {
+        const dataRes = JSON.parse(result.body);
+        if (dataRes && dataRes.Data === true) {
+          this.deleteOk = true;
+          // this.componentService.openSnackBar('Elimino correctamente el acuerdo a los vendedores', this.languageService.instant('actions.close'), 5000);
+          // this.dialogRef.close(false);
+          this.loadingService.closeSpinner();
+        } else {
+          this.componentService.openSnackBar('Ocurrió un error al eliminar el acuerdo a los vendedores', this.languageService.instant('actions.close'), 5000);
+          this.dialogRef.close(false);
+          this.deleteOk = false;
+          this.loadingService.closeSpinner();
+        }
+      } else {
+        this.deleteOk = false;
+        this.loadingService.closeSpinner();
+      }
+    });
+  }
+
+  sendDataDeleteMultipleAgreement() {
+    this.loadingService.viewSpinner();  
+    const dataSend = this.data.dataAgreement;
     console.log(dataSend);
     this.sellerService.deleteOneOrMore(dataSend).subscribe((result: any) => {
       if (result.statusCode === 200 || result.statusCode === 201) {

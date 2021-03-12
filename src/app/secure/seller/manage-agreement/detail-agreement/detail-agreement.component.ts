@@ -55,6 +55,9 @@ export class DetailAgreementComponent implements OnInit {
     'name',
     'actions'
   ];
+  docId: any;
+  docType: any;
+  docName: any;
 
   constructor(
     private location: Location,
@@ -80,6 +83,9 @@ export class DetailAgreementComponent implements OnInit {
   getListbyParams(){
     this.route.params.subscribe(params => {
       console.log('params: ', params);
+      this.docId = params.docId;
+      this.docType = params.docType;
+      this.docName = params.name;
       this.getAllSellerAgreement(params);
     });
   }
@@ -88,9 +94,34 @@ export class DetailAgreementComponent implements OnInit {
     const dialogRef = this.dialog.open(ModalDeleteAgreementComponent, {
       width: '60%',
       minWidth: '280px',
-      data: { dataAgreement, deleteMultiple: 1 }
+      data: { dataAgreement, deleteMultiple: 1, name:  this.docName}
     });
     dialogRef.afterClosed().subscribe(result => {
+    this.allClear();
+    this.getListbyParams();
+      log.info('The modal detail billing was closed');
+    });
+  }
+
+  openModalDeleteMultipleAgreement() {
+    let arraySellers = [];
+    this.arraySelect.forEach(el => {
+      if (el.SellerId) {
+        arraySellers.push(el.SellerId);
+      }
+    });
+    const dataAgreement = {
+      Id: this.docId,
+      TypeContracts: this.docType,
+      Sellers: arraySellers
+    }; 
+    const dialogRef = this.dialog.open(ModalDeleteAgreementComponent, {
+      width: '60%',
+      minWidth: '280px',
+      data: { dataAgreement, deleteMultiple: 2 , name:  this.docName}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    this.allClear();
     this.getListbyParams();
       log.info('The modal detail billing was closed');
     });
@@ -100,7 +131,7 @@ export class DetailAgreementComponent implements OnInit {
     this.loadingService.viewSpinner();
     let urlParams;
     if (params) {
-      urlParams = `${params.docId}/${params.docType}?limit=${this.limit}&paginationToken=${encodeURI(this.paginationToken)}`
+      urlParams = `${params.docId}/${params.docType}?limit=${this.pageSize}&paginationToken=${encodeURI(this.paginationToken)}`
     }
     this.sellerService.getListSellers(urlParams).subscribe((result: any) => {
       if (result) {
@@ -167,6 +198,63 @@ export class DetailAgreementComponent implements OnInit {
       };
       this.getAllSellerAgreement();
     }
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    if (numSelected === numRows) {
+      this.isAllSelectedCurrent = true;
+    } else {
+      this.isAllSelectedCurrent = false;
+    }
+    if (this.arraySelect.length === 0 && !this.all) {
+      this.selection.clear();
+      this.all = false;
+      this.statusAllCheck = true;
+    }
+  }
+
+  public changeStatus(row: any, status: any) {
+    this.disabledBtn = true;
+    if (row) {
+      if (status) {
+        this.arraySelect.push(row);
+        this.disabledBtn = false;
+      } else {
+        const index = this.arraySelect.findIndex(rows => rows.Id === row.Id);
+        this.arraySelect.splice(index, 1);
+        this.selection.deselect(row);
+      }
+      if (!this.statusAllCheck) {
+        if (status) {
+          const index = this.arrayNotSelect.findIndex(rows => rows === row);
+          this.arrayNotSelect.splice(index, 1);
+          this.selection.deselect(row);
+        } else {
+          this.arrayNotSelect.push(row);
+          this.disabledBtn = false;
+        }
+      } else {
+        this.arrayNotSelect = [];
+      }
+    } else {
+      this.all = status;
+      this.disabledBtn = false;
+    }
+    console.log(100, this.arraySelect);
+    this.isAllSelected();
+  }
+
+  allClear() {
+    this.paginationToken = '{}';
+    this.arrayNotSelect = [];
+    this.arraySelect = [];
+    this.arrayPosition = [];
+    this.all = false;
+    this.selection.clear();
+    this.dialog.closeAll();
+    this.statusAllCheck = true;
   }
 
 }

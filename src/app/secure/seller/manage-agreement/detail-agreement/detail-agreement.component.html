@@ -27,7 +27,7 @@
       <small class="sub-title-back">Volver al listado de acuerdos 2</small>
     </button>
 
-    <button mat-button mat-stroked-button color="primary">
+    <button mat-button mat-stroked-button color="primary" (click)="openModalDeleteMultipleAgreement()">
       <strong>ELIMINAR ACUERDOS SELECCIONADOS</strong>
     </button>
   </div>
@@ -53,11 +53,11 @@
             <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
               fxShow.xl="true" fxShow="true" fxFlex.lg="1" fxFlex.sm="1" fxFlex.md="1" fxFlex.xs="30" fxFlex.xl=""
               *matHeaderCellDef>
-              <mat-checkbox (change)="$event ? masterToggle(statusAllCheck) :
+              <!-- <mat-checkbox (change)="$event ? masterToggle(statusAllCheck) :
                 null; changeStatus(null, $event.checked)" [checked]="selection.hasValue()"
                 [indeterminate]="selection.hasValue() && !isAllSelectedCurrent">
                 {{'actions.all'| translate}}
-              </mat-checkbox>
+              </mat-checkbox> -->
             </mat-header-cell>
             <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
               fxShow="true" fxFlex.lg="1" fxFlex.sm="1" fxFlex.md="1" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let row">
