@@ -1,0 +1,80 @@
+<div class="list-admin-container">
+<div fxLayout="row" fxLayoutAlign="end end" class="mt-2">
+    <button class="btn-transparent" mat-stroked-button color="primary" (click)="createModule()">{{'school.exito.button' | translate}}</button>
+</div>
+<div *ngIf="emptyData" fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="1%" class="mt-2" cdkDropListGroup>
+  <div cdkDropList [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dropListDropped($event)"></div>
+  <div  fxFlex="32" fxFlex.sm="49" fxFlex.xs="100" cdkDropList *ngFor="let item of modules; let i = index"
+       [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dropListDropped($event)">
+    <div cdkDrag class="list-admin-box" (cdkDragMoved)="dragMoved($event);">
+      <div fxLayout="column" class="list-admin-school-width-100">
+        <div fxLayout="row" class="list-admin-school-width-100">
+          <div fxFlex="10">
+            <div class="list-admin-handle" cdkDragHandle>
+              <svg width="17px" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
+                <path d="M0 0h24v24H0z" fill="none"></path>
+              </svg>
+            </div>
+          </div>
+          <div fxFlex="70">
+            <div class="list-admin-school-margin-top-12">
+              <span class="list-admin-school-font-weight-bold">
+                {{item.ModuleName}}
+              </span>
+            </div>
+          </div>
+          <div fxFlex="20" class="list-admin-school-text-align-center">
+            <mat-icon class="mat-18 list-admin-school-icons-modules" (click)="deleteFaq(item)">delete</mat-icon>
+            <mat-icon class="mat-18 list-admin-school-icons-modules" (click)="editFaq(item)" >create</mat-icon>
+          </div>
+        </div>
+        <div fxLayout="row" class="list-admin-school-width-100">
+          <div cdkDropList class="list-admin-list-submodules list-admin-school-padding-initial" (cdkDropListDropped)="drop($event, item.Submodules, item, i)">
+            <div class="list-admin-box-submodules list-admin-school-padding-5"  *ngFor="let submodule of item.Submodules" cdkDragBoundary=".list-admin-school-width-100" cdkDragLockAxis="y" [cdkDragDisabled]="item.Submodules.length === 1 " cdkDrag >
+              <div fxLayout="column" class="list-admin-school-width-100">
+                <div fxLayout="row"class="list-admin-school-width-100">
+                  <div fxFlex="10">
+                    <div class="list-admin-handle" cdkDragHandle >
+                      <svg width="17px" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
+                        <path d="M0 0h24v24H0z" fill="none"></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <div fxFlex="60" class="list-admin-school-cursor-default">
+                    <div class="list-admin-school-margin-top-10">
+                      <span>
+                        {{submodule.SubModuleName}}
+                      </span>
+                    </div>
+                  </div>
+                  <div fxFlex="30" class="list-admin-school-text-align-center">
+                    <mat-icon class="mat-18 list-admin-school-icons-submodules" (click)="deleteItemFaq(item, submodule)">delete</mat-icon>
+                    <mat-icon class="mat-18 list-admin-school-icons-submodules" (click)="editItemFaq(item, submodule)">create</mat-icon>
+                    <mat-icon class="mat-18 list-admin-school-icons-submodules" (click)="downloadFile(submodule.File)">file_download</mat-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="list-school-exito-btn-add-subModule list-admin-school-text-align-center list-admin-school-cursor-pointer" (click)="createSubmodule(item)" >
+              <span class="list-school-exito-add-btn-module list-admin-school-width-100" >{{'school.exito.card.school.add.submodule' | translate}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
+
+<div fxLayout="row" fxLayoutAlign="center center" *ngIf="!emptyData" class="list-admin-school-component-empty-data">
+  <div>
+  <div fxLayout="column" fxLayoutAlign="center center">
+    {{'school.exito.empty_data'| translate}}
+  </div>
+  <div>
+    <mat-icon class="icons-school">school</mat-icon>
+  </div>
+</div>
+</div>
+</div>

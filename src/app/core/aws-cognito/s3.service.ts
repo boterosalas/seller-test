@@ -1,10 +1,10 @@
 import { environment } from '@env/environment';
 
-import * as S3 from 'aws-sdk/clients/s3';
 import * as AWS from 'aws-sdk/global';
 import { CognitoUtil } from './cognito.service';
 
 import { Logger } from '../util/logger.service';
+import S3 from 'aws-sdk/clients/s3';
 
 const log = new Logger('S3Service');
 

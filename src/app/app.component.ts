@@ -21,7 +21,7 @@ export class AppComponent implements OnInit, AfterViewChecked, LoggedInCallback 
   // Controla para el mat-spinner
   spinner = false;
 
-  @ViewChild(ModalComponent) private modalComponent: ModalComponent;
+  @ViewChild(ModalComponent, {static: false}) private modalComponent: ModalComponent;
 
 
   /**

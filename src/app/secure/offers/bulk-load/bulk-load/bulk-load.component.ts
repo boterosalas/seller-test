@@ -158,8 +158,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
 
 
   /* Input file que carga el archivo*/
-  @ViewChild('fileUploadOption') inputFileUpload: any;
-  @ViewChild('dialogContent') content: TemplateRef<any>;
+  @ViewChild('fileUploadOption', {static: false}) inputFileUpload: any;
+  @ViewChild('dialogContent', {static: false}) content: TemplateRef<any>;
 
 
   constructor(

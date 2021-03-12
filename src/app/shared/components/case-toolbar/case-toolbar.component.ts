@@ -29,7 +29,7 @@ import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.serv
   ]
 })
 export class CaseToolbarComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
   @Input() length: number;
 
@@ -62,10 +62,11 @@ export class CaseToolbarComponent implements OnInit {
   }
 
   ngOnInit() {
+  setTimeout(() => {
     this.paginator.page.subscribe(pagination =>
       this.changePagination.emit(pagination)
     );
-
+  }, 1000);
     this.emitterSeller.eventSearchSeller.subscribe(data => {
       this.sellerDataSearch.emit(data);
     });
@@ -92,3 +93,4 @@ export class CaseToolbarComponent implements OnInit {
     this.toggleFilter.emit(!this.stateFilter);
   }
 }
+

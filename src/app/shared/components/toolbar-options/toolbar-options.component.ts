@@ -44,7 +44,7 @@ export class ToolbarOptionsComponent implements OnInit {
 
   public textForSearch: FormControl;
   //  Elemento paginador para la tabla
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   _idSeller: any;
   // Variable que almacena la configuración para el formulario
   @Input() informationToForm: SearchFormEntity;

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { AuthenticationDetails, CognitoUser, CognitoUserSession } from 'amazon-cognito-identity-js';
-import * as STS from 'aws-sdk/clients/sts';
 import * as AWS from 'aws-sdk/global';
 
 import { EndpointService } from '../http';
@@ -11,6 +10,7 @@ import { DynamoDBService } from './ddb.service';
 // import { AuthService } from '@app/secure/auth/auth.routing';
 // import { Behavior } from 'aws-sdk/clients/iot';
 import { BehaviorSubject } from 'rxjs';
+import STS from 'aws-sdk/clients/sts';
 
 const log = new Logger('UserLoginService');
 

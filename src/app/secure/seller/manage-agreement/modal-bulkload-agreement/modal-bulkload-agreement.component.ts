@@ -61,7 +61,7 @@ export class ModalBulkloadAgreementComponent implements OnInit {
   public fileSize: any;
 
   /* Input file que carga el archivo*/
-  @ViewChild('fileUploadOption') inputFileUpload: any;
+  @ViewChild('fileUploadOption', {static: false}) inputFileUpload: any;
   bodyToSend: any;
   arrayTosendExcel: any[];
 

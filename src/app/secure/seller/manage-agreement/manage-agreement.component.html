@@ -17,7 +17,7 @@
   <div class="styleFlex">
     <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
                 (page)="pageEvent = paginations($event)"></mat-paginator>
-    <button mat-button mat-stroked-button color="primary" (click)="openModalBulkLoadAgreement()" id="openDialogAgreement">
+    <button mat-button mat-stroked-button color="primary" style="border-color: #3d5afe;" (click)="openModalBulkLoadAgreement()" id="openDialogAgreement">
       <strong>{{'menu.Cargar Acuerdos' | translate}}</strong>
     </button>
   </div>

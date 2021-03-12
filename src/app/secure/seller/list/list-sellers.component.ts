@@ -5,16 +5,15 @@ import { MatSnackBar, PageEvent, MatSidenav, ErrorStateMatcher, MatChipInputEven
 import { Router } from '@angular/router';
 import { RoutesConst } from '@app/shared';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators } from '@angular/forms';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { trimField } from '../../../shared/util/validation-messages';
 
 import { AuthService } from '@app/secure/auth/auth.routing';
-import { MenuModel, readFunctionality, visualizeFunctionality, enableFunctionality, sellerListName, disableFunctionality, vacationFunctionality, cancelVacacionFunctionality } from '@app/secure/auth/auth.consts';
+import { readFunctionality, visualizeFunctionality, enableFunctionality, sellerListName, disableFunctionality, vacationFunctionality, cancelVacacionFunctionality } from '@app/secure/auth/auth.consts';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { DateService } from '@app/shared/util/date.service';
-import * as moment from 'moment';
 import { TranslateService } from '@ngx-translate/core';
+import moment from 'moment';
 
 export interface ListFilterSeller {
     name: string;
@@ -61,16 +60,16 @@ export class SellerListComponent implements OnInit, OnDestroy {
     ];
 
     public needFormStates$: BehaviorSubject<{ posSeller: number, status: string }> = new BehaviorSubject({ posSeller: 0, status: null });
-    @ViewChild('dialogContent') content: TemplateRef<any>;
+    @ViewChild('dialogContent', {static: false}) content: TemplateRef<any>;
     statusForm: FormGroup;
-    @ViewChild('intialPicker') initialPicker;
-    @ViewChild('endPicker') endPicker;
+    @ViewChild('intialPicker' , {static: false}) initialPicker;
+    @ViewChild('endPicker', {static: false}) endPicker;
     subs: Subscription[] = [];
     InitialDateSubscription: Subscription;
 
     // MatPaginator Output
     pageEvent: PageEvent;
-    @ViewChild('sidenav') sidenav: MatSidenav;
+    @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
     nameSellerListFilter: any;
 
     read = readFunctionality;
@@ -166,7 +165,7 @@ export class SellerListComponent implements OnInit, OnDestroy {
 
     startDate() {
         this.enableEndVacation = false;
-        let date = moment(this.statusForm.controls.StartDateVacation.value).add(1,'days').utc();
+        let date = moment(this.statusForm.controls.StartDateVacation.value).add(1, 'days').utc();
         this.endvacationStart = date['_d'];
     }
 

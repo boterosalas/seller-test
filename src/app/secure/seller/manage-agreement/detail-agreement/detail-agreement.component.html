@@ -31,7 +31,7 @@
       <strong>ELIMINAR ACUERDOS SELECCIONADOS</strong>
     </button>
   </div>
-  <div class="content-order my-content">
+  <div class="content-order my-content" *ngIf="length !== 0">
 
     <div fxFlex class="container" fxLayout="row wrap" fxLayoutAlign="center
       start">
@@ -136,4 +136,8 @@
     </div>
   </div>
 
+</div>
+
+<div style="text-align: center; color: #909090; font-size: 18px; margin-top: 13%" *ngIf="length === 0">
+  <span><strong>No hay vendedores asociados al acuerdo {{docName}}</strong></span>
 </div>

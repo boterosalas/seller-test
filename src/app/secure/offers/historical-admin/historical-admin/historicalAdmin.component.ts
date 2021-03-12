@@ -23,7 +23,7 @@ import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.servi
 export class HistoricalAdminComponent implements OnInit, OnDestroy {
 
   // Componente necesario para el funcionamiento del filtro
-  @ViewChild('sidenav') sidenav: MatSidenav;
+  @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
 
   // Variable para almacenar los datos del vendedor que se va a buscar
   public seller: any;

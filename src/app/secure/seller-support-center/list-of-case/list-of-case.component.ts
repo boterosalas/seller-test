@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { SellerSupportCenterService } from '../services/seller-support-center.service';
 import { ResponseCaseDialogComponent } from '@shared/components/response-case-dialog/response-case-dialog.component';
@@ -77,6 +77,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
   };
 
   public paginationToken = '{}';
+  @ViewChild('drawer', {static: false}) drawer: ElementRef;
 
   public log: Logger;
   public loadingSpinner = true;

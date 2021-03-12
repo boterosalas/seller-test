@@ -12,8 +12,9 @@ import { DateService } from '@app/shared/util/date.service';
 import { MenuModel, vacationFunctionality, cancelVacacionFunctionality } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
-import * as moment from 'moment';
+
 import { TranslateService } from '@ngx-translate/core';
+import moment from 'moment';
 
 @Component({
     selector: 'app-awscognito',
@@ -32,9 +33,9 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     vacationForm: FormGroup;
     today = DateService.getToday();
     role: string;
-    @ViewChild('dialogTemplate') content: TemplateRef<any>;
-    @ViewChild('intialPicker') initialPicker;
-    @ViewChild('endPicker') endPicker;
+    @ViewChild('dialogTemplate', {static: false}) content: TemplateRef<any>;
+    @ViewChild('intialPicker', {static: false}) initialPicker;
+    @ViewChild('endPicker', {static: false}) endPicker;
 
     // Permisos
     vacation = vacationFunctionality;

@@ -53,7 +53,7 @@ export class DispatchedComponent implements OnInit {
     information: new InformationToForm,
     count: ''
   };
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
 
   constructor(

@@ -158,7 +158,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   load = loadFunctionality;
 
   /* Input file que carga el archivo*/
-  @ViewChild('fileUploadOption') inputFileUpload: any;
+  @ViewChild('fileUploadOption', {static: false}) inputFileUpload: any;
   isAdmin: boolean;
   profileTypeLoad: any;
 
@@ -171,7 +171,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   // Variable para mostrar loading
   public isLoad = false;
 
-  @ViewChild('modalContent') contentDialog: TemplateRef<any>;
+  @ViewChild('modalContent', {static: false}) contentDialog: TemplateRef<any>;
   copySizeArray: any;
   setInterval: any;
 
@@ -271,8 +271,12 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     this.user = await this.userParams.getUserData();
     if (this.user.sellerProfile === 'seller') {
       this.showCharge = true;
+      this.profileTypeLoad = 'Tienda';
+      this.isAdmin = false;
     } else {
       this.showCharge = false;
+      this.profileTypeLoad = 'Exito';
+      this.isAdmin = true;
     }
   }
 
@@ -284,10 +288,10 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
     /*Se muestra el loading*/
     /*Se llama el metodo que consume el servicio de las cargas permitidas por día y se hace un subscribe*/
-    if (!this.profileTypeLoad && !!type) {
-      this.profileTypeLoad = type;
-      this.isAdmin = type !== 'Tienda';
-    }
+    // if (!this.profileTypeLoad && !!type) {
+    //   this.profileTypeLoad = type;
+    //   this.isAdmin = type !== 'Tienda';
+    // }
     if (this.isAdmin) {
       this.BulkLoadProductS.getAmountAvailableLoads().subscribe(
         (result: any) => {

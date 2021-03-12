@@ -1,16 +1,14 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import { ErrorStateMatcher, MatDialog, MatDialogRef, MatSidenav, MatSnackBar, MatTableDataSource } from '@angular/material';
+import { ErrorStateMatcher, MatDialog, MatSidenav, MatSnackBar, MatTableDataSource } from '@angular/material';
 import { InformationToForm, SearchFormEntity } from '@app/shared';
 import { TranslateService } from '@ngx-translate/core';
 import { DispersionService } from '../dispersion.service';
-import * as _moment from 'moment';
 import { LoadingService } from '@app/core';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { FinishUploadInformationComponent } from '@app/secure/offers/bulk-load/finish-upload-information/finish-upload-information.component';
-
-const moment = _moment;
+import moment from 'moment';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -60,8 +58,8 @@ export class PaymentSummaryComponent implements OnInit {
   public totaSellerAux = 0;
 
 
-  @ViewChild('sidenavSearchPaymentSummary') sidenavSearchPaymentSummary: MatSidenav;
-  @ViewChild('toolbarOptions') toolbarOption;
+  @ViewChild('sidenavSearchPaymentSummary', {static: false}) sidenavSearchPaymentSummary: MatSidenav;
+  @ViewChild('toolbarOptions', {static: false}) toolbarOption;
 
   public informationToForm: SearchFormEntity = {
     title: 'module.Dispersion',
@@ -111,8 +109,8 @@ export class PaymentSummaryComponent implements OnInit {
   }
 
   /**
-   * funcion para verificar el estado de la carga de pagos de dispersion 
-   * 
+   * funcion para verificar el estado de la carga de pagos de dispersion
+   *
    *
    * @memberof PaymentSummaryComponent
    */
@@ -181,7 +179,6 @@ export class PaymentSummaryComponent implements OnInit {
       data: data
     });
     const dialogIntance = dialog.componentInstance;
-    
     dialog.afterClosed().subscribe(result => {
         this.showLoader = true;
         this.getAllPaymentSummary();
@@ -231,10 +228,9 @@ export class PaymentSummaryComponent implements OnInit {
    * @memberof PaymentSummaryComponent
    */
   getAllPaymentSummary() {
-    if(this.showLoader){
+    if (this.showLoader) {
       this.loadingService.viewSpinner();
     }
-   
     this.dispersionService.getAllPaymentSummary(this.filter).subscribe((res: any) => {
       if (res && res.status === 200) {
         const { viewModel, count, paginationToken } = res.body;
@@ -246,7 +242,7 @@ export class PaymentSummaryComponent implements OnInit {
         this.totalCountAux = res.body.extraInfo.TotalToPayPayoneer;
         this.totaSellerAux = res.body.extraInfo.TotalSellersToPayPayoneer;
         this.totalPayValue = res.body.extraInfo.TotalToPayPayoneer !== '0' ? parseFloat(res.body.extraInfo.TotalToPayPayoneer) : 0;
-        this.totalSeller = res.body.extraInfo.TotalSellersToPayPayoneer !== '0' ? parseInt(res.body.extraInfo.TotalSellersToPayPayoneer) : 0;
+        this.totalSeller = res.body.extraInfo.TotalSellersToPayPayoneer !== '0' ? parseInt(res.body.extraInfo.TotalSellersToPayPayoneer, 0) : 0;
         this.onlyOne = false;
         this.showLoader = false;
         this.loadingService.closeSpinner();
@@ -266,7 +262,7 @@ export class PaymentSummaryComponent implements OnInit {
     });
   }
   /**
-   * funcion para salvar el pagination token 
+   * funcion para salvar el pagination token
    *
    * @param {string} pagination
    * @memberof PaymentSummaryComponent
@@ -385,7 +381,7 @@ export class PaymentSummaryComponent implements OnInit {
     }
   }
   /**
-   * funcion para cambiar el status individualmente 
+   * funcion para cambiar el status individualmente
    *
    * @param {*} row
    * @param {*} status
@@ -503,7 +499,7 @@ export class PaymentSummaryComponent implements OnInit {
     }
   }
   /**
-   * funcion para disparar el evento de dispersar 
+   * funcion para disparar el evento de dispersar
    *
    * @memberof PaymentSummaryComponent
    */
@@ -514,7 +510,7 @@ export class PaymentSummaryComponent implements OnInit {
         this.openModal(1, null);
         this.onlyOne = true;
         this.getAllPaymentSummary();
-        this.disabledBtnDispersion= false;
+        this.disabledBtnDispersion = false;
       } else {
         this.snackBar.open(this.languageService.instant('secure.orders.send.error_ocurred_processing'), this.languageService.instant('actions.close'), {
           duration: 3000,

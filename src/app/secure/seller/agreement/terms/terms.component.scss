@@ -42,7 +42,7 @@
   }
 }
 
-/deep/ .mat-form-field-appearance-legacy .mat-form-field-infix {
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix {
   padding: 0.7em 0 0 0 !important;
 
   input.mat-input-element {

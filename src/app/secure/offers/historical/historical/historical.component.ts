@@ -11,7 +11,7 @@ import { RoutesConst, UserInformation } from '@app/shared';
 import { HistoricalService } from '../historical.service';
 import { DownloadHistoricalService } from '../download-historical-modal/download-historical.service';
 import { Logger } from '@core/util/logger.service';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
   selector: 'app-historical-component',
@@ -22,7 +22,7 @@ import * as moment from 'moment';
 export class HistoricalComponent implements OnInit {
 
   // Componente necesario para el funcionamiento del filtro
-  @ViewChild('sidenav') sidenav: MatSidenav;
+  @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
 
   // Variable para almacenar los datos del usuario logeado
   public user: UserInformation;

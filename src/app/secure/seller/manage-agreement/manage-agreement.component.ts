@@ -23,7 +23,7 @@ export class ManageAgreementComponent implements OnInit {
   public limit = 0;
   titleAgreement: any;
   length = 0;
-  public pageSize = 10;
+  public pageSize = 50;
 
   public arrayPosition = [];
   paramsArray: any;

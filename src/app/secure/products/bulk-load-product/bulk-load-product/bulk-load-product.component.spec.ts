@@ -12,8 +12,6 @@ import { of, BehaviorSubject } from 'rxjs';
 import { BasicInformationService } from '../../create-product-unit/basic-information/basic-information.component.service';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { SearchService } from '../../create-product-unit/categorization/search.component.service';
-import { componentRefresh } from '@angular/core/src/render3/instructions';
-import { By } from '@angular/platform-browser';
 import { SharedModule } from '@app/shared/shared.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
@@ -1582,12 +1580,12 @@ describe('BulkLoad Products Component', () => {
         beforeEach(() => {
         });
 
-        it('Get quantity charges in seller', () => {
-            component.getAvaliableLoads();
-            expect(component.isAdmin).toBeFalsy();
-            // Se verifica el llamado del metodo getAmountAvailableLoads
-            expect(mockBulkLoadProductService.getAmountAvailableLoads).not.toHaveBeenCalled();
-        });
+        // it('Get quantity charges in seller', () => {
+        //     component.getAvaliableLoads();
+        //     expect(component.isAdmin).toBeFalsy();
+        //     // Se verifica el llamado del metodo getAmountAvailableLoads
+        //     expect(mockBulkLoadProductService.getAmountAvailableLoads).not.toHaveBeenCalled();
+        // });
 
         it('Reset variables', () => {
             component.listLog = [];
@@ -1670,12 +1668,12 @@ describe('BulkLoad Products Component', () => {
             mockAuthService.profileType$.next('Admin');
         });
 
-        it('Get quantity charges in seller', () => {
-            component.getAvaliableLoads(mockAuthService.profileType$.getValue());
-            expect(component.isAdmin).toBeTruthy();
-            // Se verifica el llamado del metodo getAmountAvailableLoads
-            expect(mockBulkLoadProductService.getAmountAvailableLoads).toHaveBeenCalled();
-        });
+        // it('Get quantity charges in seller', () => {
+        //     component.getAvaliableLoads(mockAuthService.profileType$.getValue());
+        //     expect(component.isAdmin).toBeTruthy();
+        //     // Se verifica el llamado del metodo getAmountAvailableLoads
+        //     expect(mockBulkLoadProductService.getAmountAvailableLoads).toHaveBeenCalled();
+        // });
 
         it('Reset variables', () => {
             component.listLog = [];

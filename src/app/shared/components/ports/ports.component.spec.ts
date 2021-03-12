@@ -6,10 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { of, BehaviorSubject } from 'rxjs';
-import { By } from '@angular/platform-browser';
-import { detectChanges } from '@angular/core/src/render3';
-import { SharedModule } from '@app/shared/shared.module';
+import { of } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 import { LoadingService, ModalService, EndpointService } from '@app/core';
 

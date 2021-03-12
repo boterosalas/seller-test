@@ -67,7 +67,7 @@ export class CategoriesComponent implements OnInit {
   /**
    * Attribute that represent the content for the form
    */
-  @ViewChild('dialogContent') content: TemplateRef<any>;
+  @ViewChild('dialogContent', {static: false}) content: TemplateRef<any>;
 
   /**
    * Attribute that represent the form

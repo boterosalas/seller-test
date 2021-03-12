@@ -50,6 +50,23 @@
   margin-left:20px;
 }
 
+.btn-school-exito{
+  border-radius: inherit;
+  width: 145px;
+}
+.btn-icon-color{
+  border: 1px solid #FFE800;
+  border-radius: 14px;
+}
+
+.btn-school-text{
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 17px;
+  color: black;
+}
+
+
 @media screen and (min-width: 300px) and (max-width: 600px) {
   .select-hide {
     display: none;

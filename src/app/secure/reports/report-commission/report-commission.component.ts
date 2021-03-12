@@ -9,12 +9,12 @@ import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.servi
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, startWith } from 'rxjs/operators';
 import { ReportCommissionService } from './report-commission.service';
-import * as _moment from 'moment';
+
 // tslint:disable-next-line:no-duplicate-imports
-import { Moment} from 'moment';
 import { LoadingService } from '@app/core';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { TranslateService } from '@ngx-translate/core';
+import moment from 'moment';
 
 /**
  * exporta funcion para mostrar los errores de validacion del formulario
@@ -30,7 +30,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
-const moment =  _moment;
+
 
 @Component({
   selector: 'app-report-commission',
@@ -79,7 +79,7 @@ export class ReportCommissionComponent implements OnInit {
   listCommission2: any;
   listCommission: any;
   invalidCommission: Boolean = true;
-  @ViewChild('toolbarOptions') toolbarOption;
+  @ViewChild('toolbarOptions', {static: false}) toolbarOption;
   dataSource: MatTableDataSource<any>;
   loadListAdmin = true;
   onlyOne= true;
@@ -91,7 +91,7 @@ export class ReportCommissionComponent implements OnInit {
 
   public filterCommission: FormGroup;
 
-  @ViewChild('sidenavSearchCommission') sidenavSearchCommission: MatSidenav;
+  @ViewChild('sidenavSearchCommission', {static: false}) sidenavSearchCommission: MatSidenav;
 
   public displayedColumns = [
     'Plu',

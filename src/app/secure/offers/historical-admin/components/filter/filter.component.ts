@@ -34,13 +34,13 @@ export class FilterComponent implements OnInit {
    * Variable para observar el input del filtro inicial
    * @memberof FilterComponent
    */
-  @ViewChild('dateInitial') dateInitial;
+  @ViewChild('dateInitial', {static: false}) dateInitial;
 
   /**
    * Variable para observar el input del filtro final
    * @memberof FilterComponent
    */
-  @ViewChild('dateFinal') dateFinal;
+  @ViewChild('dateFinal', {static: false}) dateFinal;
 
   /**
    * Conjunto de variables necesaria para validar el formulario

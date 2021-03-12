@@ -3,10 +3,9 @@ import { Logger } from '@app/core/util/logger.service';
 import { LoadingService, ModalService, UserParametersService } from '@app/core';
 import { ListProductService } from './list-products.service';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators } from '@angular/forms';
-import { ErrorStateMatcher, PageEvent, MatPaginatorIntl, MatSnackBar, MatPaginator, MatDialog, MatSidenav, MatToolbar } from '@angular/material';
+import { ErrorStateMatcher, PageEvent, MatPaginatorIntl, MatSnackBar, MatPaginator, MatDialog, MatSidenav } from '@angular/material';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { ModelFilterProducts } from './listFilter/filter-products.model';
-import { Observable } from 'rxjs';
 import { MenuModel, listProductsName, readFunctionality, offerFuncionality, updateFunctionality, unitaryCreateName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { TranslateService } from '@ngx-translate/core';
@@ -102,8 +101,8 @@ export class ListProductsComponent implements OnInit {
     offerPermission = false;
     editPermission = false;
     permissionComponent: MenuModel;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild('drawer') drawer: MatSidenav;
+    @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+    @ViewChild('drawer', {static: false}) drawer: MatSidenav;
     listCategories: any;
     categoryInfo: any;
 
@@ -147,14 +146,16 @@ export class ListProductsComponent implements OnInit {
      * @memberof ListProductsComponent
      */
     closedDraw() {
-        this.drawer.closedStart.subscribe(res => {
-            const principalToolbar = document.getElementById('principal-toolbar');
-            const matToolbar = document.getElementById('matToolbar');
-            if (principalToolbar && principalToolbar.classList.contains('tabsShowZindex')) {
-                principalToolbar.classList.remove('tabsShowZindex');
-            }
-            matToolbar.classList.remove('notFixed');
-        });
+        setTimeout(() => {
+            this.drawer.closedStart.subscribe(res => {
+                const principalToolbar = document.getElementById('principal-toolbar');
+                const matToolbar = document.getElementById('matToolbar');
+                if (principalToolbar && principalToolbar.classList.contains('tabsShowZindex')) {
+                    principalToolbar.classList.remove('tabsShowZindex');
+                }
+                matToolbar.classList.remove('notFixed');
+            });
+        }, 1000);
     }
 
     /**

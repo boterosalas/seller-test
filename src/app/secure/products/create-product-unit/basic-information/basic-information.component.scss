@@ -141,7 +141,7 @@ $color-red: #f44336;
 
 /* Sobre escribir */
 
-/deep/ mat-slider .mat-slider-wrapper {
+::ng-deep mat-slider .mat-slider-wrapper {
     top: 12px !important;
     left: 0px !important;
     right: 0px !important; //#485AFA

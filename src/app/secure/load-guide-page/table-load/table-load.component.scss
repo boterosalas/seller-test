@@ -70,7 +70,7 @@
 @media (max-width: 1200px) {
   mat-table {
     width: 540px;
-    overflow: hidden;
+    overflow: scroll;
   }
 }
 
@@ -79,4 +79,16 @@
   @media (max-width: 360px) {
     width: 600px;
   }
+}
+
+.margin-left-20{
+  margin-left:20px
+}
+
+.overflow-x-scroll{
+  overflow-x: scroll;
+}
+
+.width-150-percent{
+  width: 150%;
 }
