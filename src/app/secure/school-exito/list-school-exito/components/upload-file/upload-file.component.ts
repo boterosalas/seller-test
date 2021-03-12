@@ -12,7 +12,7 @@ export class UploadFileComponent implements OnInit {
   progress: number;
   hasBaseDropZoneOver = false;
   lastFileAt: Date;
-  maxSize = 7145728;
+  maxSize = 3145728;
   lastInvalids: any;
   dataToSend: any;
   showProgress = false;
@@ -42,6 +42,7 @@ export class UploadFileComponent implements OnInit {
     let file = document.getElementById(`${this.id}`).getElementsByTagName("input")[0]
       .files[lengthFiles - 1];
       file = this.files[this.files.length - 1];
+      const size = parseFloat(((file.size) / 1024 / 1024).toFixed(3));
     this.getBase64(file).then((dataFile) => {
       let splitb64File = dataFile.split('data:application/pdf;base64,');
       let data = splitb64File[1];
@@ -56,7 +57,6 @@ export class UploadFileComponent implements OnInit {
    * @memberof ModalLoadAgreementComponent
    */
   public getBase64(file: any): any {
-    console.log(file);
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
