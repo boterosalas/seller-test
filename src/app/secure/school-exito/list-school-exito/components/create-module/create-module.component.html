@@ -1,33 +1,27 @@
-<div class="edit-module">
-
-<div fxLayout="row" fxLayoutAlign="end end"><mat-icon class="material-icons close" (click)="close()"> close </mat-icon></div>
-
+<div class="edit-module" *ngIf="!showSuccess">
+  <div fxLayout="row" fxLayoutAlign="end end"><mat-icon class="material-icons
+      close" (click)="close()"> close </mat-icon></div>
   <div fxLayout="row" fxLayoutAlign="center center">
     <div class="container-icon" fxLayout="column" fxLayoutAlign="center center">
       <mat-icon class="material-icons"> add </mat-icon>
     </div>
   </div>
-
   <h2 class="center-text bold" mat-dialog-title>
     {{ "school.exito.create.module.create.module" | translate }}
   </h2>
-
   <p>
     {{ "school.exito.create.module.create.module.description" | translate }}
   </p>
-
   <form
     [formGroup]="createModule"
     class="form-add"
-    (ngSubmit)="createModules()"
-  >
+    (ngSubmit)="createModules()">
     <div mat-dialog-content class="form-container">
       <div
         fxLayout="row"
         class="w-100"
         fxLayout.xs="column"
-        fxLayoutAlign="space-between start"
-      >
+        fxLayoutAlign="space-between start">
         <div class="container-form" fxLayout="column">
           <mat-form-field class="input-add">
             <mat-label>{{'school.exito.edit.module.name.module' | translate}}</mat-label>
@@ -36,34 +30,29 @@
               formControlName="moduleName"
               [placeholder]="'school.exito.edit.module.name.module' | translate"
               (keydown)="changeValueModuleName()"
-            />
+              />
             <mat-error
-              *ngIf="createModule.get('moduleName').hasError('required')"
-              >{{ "errors.required" | translate }}</mat-error
-            >
+              *ngIf="createModule.get('moduleName').hasError('required')">{{
+              "errors.required" | translate }}</mat-error>
           </mat-form-field>
-
           <p>
             <b>{{
               "school.exito.create.module.create.submodules" | translate
-            }}</b>
+              }}</b>
           </p>
-
           <mat-form-field class="input-add">
             <input
               matInput
               formControlName="subModuleName"
               [placeholder]="'school.exito.edit.module.name.submodule' | translate"
               (keydown)="changeValue()"
-            />
+              />
             <mat-error
-              *ngIf="createModule.get('subModuleName').hasError('required')"
-              >{{ "errors.required" | translate }}</mat-error
-            >
+              *ngIf="createModule.get('subModuleName').hasError('required')">{{
+              "errors.required" | translate }}</mat-error>
           </mat-form-field>
         </div>
       </div>
-
       <div fxLayout="row" fxLayout.xs="column">
         <app-upload-file
           [manualName]="'school.exito.uploadfile.esp' | translate"
@@ -79,7 +68,6 @@
           [files]="filesIng"
         ></app-upload-file>
       </div>
-
       <div fxLayout="row" fxLayoutAlign="end start">
         <button
           mat-stroked-button
@@ -88,12 +76,10 @@
           id="btn-create-transporter"
           color="primary"
           (click)="addSubmodule()"
-          [disabled]="activeAddSubmodule || oneEspFile"
-        >
+          [disabled]="activeAddSubmodule || oneEspFile">
           {{ "school.exito.create.module.create.module.add" | translate }}
         </button>
       </div>
-
       <span class="chip-list">
         <mat-chip-list #chipList>
           <span *ngFor="let submodule of module">
@@ -101,27 +87,27 @@
               *ngFor="let items of submodule.SubModules"
               [selectable]="selectable"
               [removable]="removable"
-              (removed)="remove(items)"
-            >
+              (removed)="remove(items)">
               {{ items.SubModuleName }}
               <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
             </mat-chip>
           </span>
         </mat-chip-list>
       </span>
-
-      <!-- CONTAINER BUTTON TO ADD NEW SPECIFICATION GROUP -->
     </div>
+<<<<<<< HEAD
 
     <div mat-dialog-actions class="mat-buttons" fxLayout="row" fxLayoutAlign="center center">
+=======
+    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
+>>>>>>> 03514ee46139da260cbe0ce1e78b4b7826b6f4c5
       <button
         mat-stroked-button
         class="btn-transparent"
         type="button"
         id="btn-create-transporter"
         color="primary"
-        (click)="close()"
-      >
+        (click)="close()">
         {{ "actions.cancel" | translate }}
       </button>
       <button
@@ -135,4 +121,48 @@
       </button>
     </div>
   </form>
+</div>
+<div *ngIf="showSuccess">
+  <div class="text-end">
+    <mat-icon class="mat-18 icon-close" (click)="close()">clear</mat-icon>
+  </div>
+  <div>
+    <div>
+      <ng-container>
+        <div class="container-icon-success">
+          <mat-icon>
+            done
+          </mat-icon>
+        </div>
+      </ng-container>
+      <ng-container class="title-container">
+        <div class="text-success">
+          <strong>El módulo se ha creado exitosamente</strong>
+        </div>
+      </ng-container>
+      <ng-container>
+        <div class="subtext-success">
+          Se han creado los siguientes submódulos:
+        </div>
+        <div class="padding-container">
+          <div *ngFor="let subModules of submoduleNames"
+            class="text-create-submodules{">
+            {{subModules}}
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <mat-dialog-actions class="margintTopDeleteButton container__btn"
+      fxLayoutAlign="center center">
+      <button
+        mat-stroked-button
+        class="btn-transparent"
+        type="button"
+        id="btn-create-transporter"
+        color="primary"
+        (click)="close()">
+        ACEPTAR
+      </button>
+    </mat-dialog-actions>
+  </div>
 </div>
