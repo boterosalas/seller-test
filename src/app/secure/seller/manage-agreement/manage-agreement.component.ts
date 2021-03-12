@@ -100,7 +100,6 @@ export class ManageAgreementComponent implements OnInit {
    * @memberof ManageAgreementComponent
    */
   openModalDeleteAgreement(dataAgreement: any) {
-    console.log('data: ', dataAgreement);
     const dialogRef = this.dialog.open(ModalDeleteAgreementComponent, {
       width: '60%',
       minWidth: '280px',
@@ -136,7 +135,6 @@ export class ManageAgreementComponent implements OnInit {
           this.callOne = false;
         }
         this.paginationToken = result.PaginationToken;
-      console.log('antes: ', this.paginationToken);
         this.loading.closeSpinner();
       }
     }, error => {
@@ -172,7 +170,6 @@ export class ManageAgreementComponent implements OnInit {
       if (this.paginationToken === undefined) {
         this.paginationToken = encodeURI('{}');
       }
-      console.log(this.paginationToken);
       this.paramsArray = {
         'limit': this.limit + '&paginationToken=' + this.paginationToken
       };

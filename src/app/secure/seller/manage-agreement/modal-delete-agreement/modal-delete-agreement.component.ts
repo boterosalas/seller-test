@@ -27,11 +27,20 @@ export class ModalDeleteAgreementComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('data: ', this.data);
   }
 
   onNoClick(): void {
     this.dialogRef.close(false);
+  }
+
+  deleteSeller(){
+    if (this.data && this.data.deleteMultiple === 0) {
+      this.sendDataDeleteAllAgreement();
+    } else if (this.data && this.data.deleteMultiple === 1) {
+      this.sendDataDeleteOneAgreement();
+    } else if (this.data && this.data.deleteMultiple === 2) {
+      this.sendDataDeleteMultipleAgreement();
+    }
   }
 
   sendDataDeleteOneAgreement() {
@@ -41,7 +50,6 @@ export class ModalDeleteAgreementComponent implements OnInit {
       TypeContracts: this.data.dataAgreement.StatusContract,
       Sellers: [this.data.dataAgreement.SellerId]
     };
-    console.log(dataSend);
     this.sellerService.deleteOneOrMore(dataSend).subscribe((result: any) => {
       if (result.statusCode === 200 || result.statusCode === 201) {
         const dataRes = JSON.parse(result.body);
@@ -66,7 +74,6 @@ export class ModalDeleteAgreementComponent implements OnInit {
   sendDataDeleteMultipleAgreement() {
     this.loadingService.viewSpinner();  
     const dataSend = this.data.dataAgreement;
-    console.log(dataSend);
     this.sellerService.deleteOneOrMore(dataSend).subscribe((result: any) => {
       if (result.statusCode === 200 || result.statusCode === 201) {
         const dataRes = JSON.parse(result.body);

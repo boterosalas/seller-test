@@ -82,7 +82,6 @@ export class DetailAgreementComponent implements OnInit {
 
   getListbyParams(){
     this.route.params.subscribe(params => {
-      console.log('params: ', params);
       this.docId = params.docId;
       this.docType = params.docType;
       this.docName = params.name;
@@ -242,7 +241,6 @@ export class DetailAgreementComponent implements OnInit {
       this.all = status;
       this.disabledBtn = false;
     }
-    console.log(100, this.arraySelect);
     this.isAllSelected();
   }
 

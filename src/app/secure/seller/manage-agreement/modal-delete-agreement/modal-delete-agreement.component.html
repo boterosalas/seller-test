@@ -4,32 +4,18 @@
   <br>
   <br>
 
-  <span *ngIf="data.deleteMultiple === 0">¿Está seguro que desea eliminar todos los vendedores al acuerdo <strong>{{data.dataAgreement.Name}}</strong>?</span>
-  <span *ngIf="data.deleteMultiple === 1">¿Está seguro que desea eliminar el vendedor al acuerdo <strong>{{data.name}}</strong>?</span>
-  <span *ngIf="data.deleteMultiple === 2">¿Está seguro que desea eliminar los vendedores seleccionados al acuerdo <strong>{{data.name}}</strong>?</span>
+  <span *ngIf="data.deleteMultiple === 0">¿Está seguro que desea eliminar todos los vendedores al acuerdo
+    <strong>{{data.dataAgreement.Name}}</strong>?</span>
+  <span *ngIf="data.deleteMultiple === 1">¿Está seguro que desea eliminar el vendedor al acuerdo
+    <strong>{{data.name}}</strong>?</span>
+  <span *ngIf="data.deleteMultiple === 2">¿Está seguro que desea eliminar los vendedores seleccionados al acuerdo
+    <strong>{{data.name}}</strong>?</span>
 
   <br>
-  <mat-dialog-actions align="center" *ngIf="data.deleteMultiple === 0">
+  <mat-dialog-actions align="center">
     <button type="button" mat-stroked-button color="primary" [innerHTML]="'CANCELAR'"
       (click)="onNoClick()">{{'actions.cancel'| translate}}</button>
-    <button type="button" mat-raised-button color="primary" (click)="sendDataDeleteAllAgreement()"
-      style="margin-left: 1%;">ELIMINAR
-    </button>
-  </mat-dialog-actions>
-
-  <mat-dialog-actions align="center" *ngIf="data.deleteMultiple === 1">
-    <button type="button" mat-stroked-button color="primary" [innerHTML]="'CANCELAR'"
-      (click)="onNoClick()">{{'actions.cancel'| translate}}</button>
-    <button type="button" mat-raised-button color="primary" (click)="sendDataDeleteOneAgreement()"
-      style="margin-left: 1%;">ELIMINAR 1
-    </button>
-  </mat-dialog-actions>
-
-  <mat-dialog-actions align="center" *ngIf="data.deleteMultiple === 2">
-    <button type="button" mat-stroked-button color="primary" [innerHTML]="'CANCELAR'"
-      (click)="onNoClick()">{{'actions.cancel'| translate}}</button>
-    <button type="button" mat-raised-button color="primary" (click)="sendDataDeleteMultipleAgreement()"
-      style="margin-left: 1%;">ELIMINAR 2
+    <button type="button" mat-raised-button color="primary" (click)="deleteSeller()" style="margin-left: 1%;">ELIMINAR
     </button>
   </mat-dialog-actions>
 </div>
@@ -39,8 +25,11 @@
     style="margin-bottom: 2%">
     done
   </i>
-  <span class="modal-load-agreement-content-text-type" style="font-size: 20px"><strong>Los vendedores se han eliminado
+  <span class="modal-load-agreement-content-text-type" style="font-size: 20px" *ngIf="data.deleteMultiple !== 1"><strong>Los vendedores se han eliminado
       correctamente</strong></span>
+
+  <span class="modal-load-agreement-content-text-type" style="font-size: 20px"
+    *ngIf="data.deleteMultiple === 1"><strong>El vendedor se ha eliminado correctamente</strong></span>
   <mat-dialog-actions align="center">
     <button type="button" mat-raised-button color="primary" [innerHTML]="'CERRAR'" (click)="onNoClick()">CERRAR</button>
   </mat-dialog-actions>
