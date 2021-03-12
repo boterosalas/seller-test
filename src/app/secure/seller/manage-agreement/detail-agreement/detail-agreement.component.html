@@ -7,7 +7,10 @@
         <small class="sub-title">| DETALLE</small>
       </p>
     </div>
+    <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+      (page)="pageEvent = paginations($event)"></mat-paginator>
   </mat-toolbar>
+
 </div>
 
 
@@ -57,8 +60,7 @@
               </mat-checkbox>
             </mat-header-cell>
             <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
-              fxShow="true" fxFlex.lg="1" fxFlex.sm="1" fxFlex.md="1" fxFlex.xs="30" fxFlex.xl=""
-              *matCellDef="let row">
+              fxShow="true" fxFlex.lg="1" fxFlex.sm="1" fxFlex.md="1" fxFlex.xs="30" fxFlex.xl="" *matCellDef="let row">
               <mat-checkbox [disabled]="disabledBtn" (click)="$event.stopPropagation()"
                 (change)="changeStatus(row,$event.checked)" [checked]="selection.isSelected(row)">
               </mat-checkbox>
@@ -113,7 +115,8 @@
             <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true" fxShow.xl="true"
               fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
               *matCellDef="let element">
-              <button mat-icon-button (click)="openModalDeleteAgreement(agreement)" style="color: #757474; margin-left: 5%">
+              <button mat-icon-button (click)="openModalDeleteAgreement(element)"
+                style="color: #757474; margin-left: 5%">
                 <mat-icon class="material-icons" style="font-size: 24px;">
                   delete
                 </mat-icon>

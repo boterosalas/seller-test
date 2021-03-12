@@ -23,7 +23,7 @@ export class ManageAgreementComponent implements OnInit {
   public limit = 0;
   titleAgreement: any;
   length = 0;
-  public pageSize = 50;
+  public pageSize = 10;
 
   public arrayPosition = [];
   paramsArray: any;
@@ -135,6 +135,7 @@ export class ManageAgreementComponent implements OnInit {
           this.callOne = false;
         }
         this.paginationToken = result.PaginationToken;
+      console.log('antes: ', this.paginationToken);
         this.loading.closeSpinner();
       }
     }, error => {
@@ -170,6 +171,7 @@ export class ManageAgreementComponent implements OnInit {
       if (this.paginationToken === undefined) {
         this.paginationToken = encodeURI('{}');
       }
+      console.log(this.paginationToken);
       this.paramsArray = {
         'limit': this.limit + '&paginationToken=' + this.paginationToken
       };

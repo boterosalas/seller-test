@@ -19,14 +19,21 @@ export class DetailAgreementComponent implements OnInit {
   public statusAllCheck = true;
   public arrayNotSelect = [];
   public subModalLoad: any;
-  public limit = 50;
+  // public limit = 50;
   public resultModel: any;
   public disabledBtn = false;
+
+  public paginationToken = '{}';
+  public limit = 0;
+  titleAgreement: any;
+  // length = 0;
+  public pageSize = 50;
+  pageSizeOptions: number[] = [50, 100, 200];
 
 
   public callOne = true;
   public arrayPosition = [];
-  public paginationToken = '{}';
+  // public paginationToken = '{}';
   public arraySelect = [];
   public all = false;
   public disabledCheckTempor = false;
@@ -38,6 +45,8 @@ export class DetailAgreementComponent implements OnInit {
   public initialSellerList: any;
   public mapInitialSellerList: any;
   public length = 0;
+
+  paramsArray: any;
 
   public displayedColumns = [
     'all',
@@ -87,7 +96,7 @@ export class DetailAgreementComponent implements OnInit {
     });
   }
 
-  getAllSellerAgreement(params: any) {
+  getAllSellerAgreement(params?: any) {
     this.loadingService.viewSpinner();
     let urlParams;
     if (params) {
@@ -115,7 +124,6 @@ export class DetailAgreementComponent implements OnInit {
         if (this.all) {
           this.dataSource.data.forEach(row => this.selection.select(row));
         }
-
         if (this.arrayNotSelect.length > 0) {
           this.arrayNotSelect.forEach(select => {
             this.dataSource.data.forEach(rowGen => {
@@ -131,6 +139,34 @@ export class DetailAgreementComponent implements OnInit {
         this.loadingService.closeSpinner();
       }
     });
+  }
+
+  paginations(event: any): any {
+    if (event.pageSize !== this.limit) {
+      this.limit = event.pageSize;
+    }
+    if (event && event.pageIndex >= 0) {
+      const index = event.pageIndex;
+      if (index === 0) {
+        this.paginationToken = encodeURI('{}');
+      }
+      const isExistInitial = this.arrayPosition.includes('{}');
+      if (isExistInitial === false) {
+        this.arrayPosition.push('{}');
+      }
+      const isExist = this.arrayPosition.includes(this.paginationToken);
+      if (isExist === false) {
+        this.arrayPosition.push(this.paginationToken);
+      }
+      this.paginationToken = this.arrayPosition[index];
+      if (this.paginationToken === undefined) {
+        this.paginationToken = encodeURI('{}');
+      }
+      this.paramsArray = {
+        'limit': this.limit + '&paginationToken=' + this.paginationToken
+      };
+      this.getAllSellerAgreement();
+    }
   }
 
 }
