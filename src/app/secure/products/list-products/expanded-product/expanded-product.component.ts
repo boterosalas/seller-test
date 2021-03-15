@@ -27,7 +27,7 @@ export class ExpandedProductComponent implements OnInit, OnDestroy {
     public listKeywords = [];
 
     public applyOffer: any;
-    public dialogRef : any;
+    public dialogRef: any;
 
     /* variable que contiene la ruta de la imagen grande */
     public imageMax: string;
@@ -61,7 +61,11 @@ export class ExpandedProductComponent implements OnInit, OnDestroy {
     changeImage(image: any) {
         this.imageMax = image;
     }
-
+    /**
+     * funcion para crear un array de imagen
+     *
+     * @memberof ExpandedProductComponent
+     */
     public createArrayImages(): void {
         const minImages: any[] = this.productsExpanded.smallImage;
         const maxImages: any[] = this.productsExpanded.mediumImage;
@@ -74,19 +78,40 @@ export class ExpandedProductComponent implements OnInit, OnDestroy {
         this.imageMax = this.images[0] && this.images[0]['max'];
         this.imageLength = this.images.length;
     }
-
+    /**
+     * funcion para aplicar una oferta
+     *
+     * @memberof ExpandedProductComponent
+     */
     applyOffert(): void {
         this.applyOffer = this.productsExpanded;
     }
+    /**
+     * funcion para enviar un producto por una url e editarlos en producto unitario
+     *
+     * @param {*} productsExpanded
+     * @memberof ExpandedProductComponent
+     */
     editProduct(productsExpanded: any) {
         this.router.navigate(['securehome/products/creacion-unitaria', { ean: productsExpanded.ean, reference: productsExpanded.reference }]);
     }
+    /**
+     *
+     *
+     * @param {*} productsExpanded
+     * @memberof ExpandedProductComponent
+     */
     deleteProduct(productsExpanded: any) {
         this.openModalDownloadOrder(productsExpanded);
     }
-
+    /**
+     * funcion para invocar el modal de eliminar el producto
+     *
+     * @param {*} data
+     * @memberof ExpandedProductComponent
+     */
     openModalDownloadOrder(data: any): void {
-       this.dialogRef  = this.dialog.open(DeleteProductModalComponent, {
+        this.dialogRef = this.dialog.open(DeleteProductModalComponent, {
             data: {
                 data: data,
             },
@@ -97,9 +122,14 @@ export class ExpandedProductComponent implements OnInit, OnDestroy {
             this.reloadDataListProduct.emit();
         });
     }
+    /**
+     * funcion para destruir el componente del modal
+     *
+     * @memberof ExpandedProductComponent
+     */
     ngOnDestroy() {
         if (this.dialogRef) {
             this.dialogRef.close();
         }
-      }
+    }
 }
