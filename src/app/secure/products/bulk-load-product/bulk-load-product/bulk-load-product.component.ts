@@ -171,6 +171,10 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   // Variable para mostrar loading
   public isLoad = false;
 
+  public status = 1;
+
+  dataProduct:any = {};
+
   @ViewChild('modalContent', {static: false}) contentDialog: TemplateRef<any>;
   copySizeArray: any;
   setInterval: any;
@@ -271,8 +275,12 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     this.user = await this.userParams.getUserData();
     if (this.user.sellerProfile === 'seller') {
       this.showCharge = true;
+      this.profileTypeLoad = 'Tienda';
+      this.isAdmin = false;
     } else {
       this.showCharge = false;
+      this.profileTypeLoad = 'Exito';
+      this.isAdmin = true;
     }
   }
 
@@ -284,10 +292,10 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
     /*Se muestra el loading*/
     /*Se llama el metodo que consume el servicio de las cargas permitidas por día y se hace un subscribe*/
-    if (!this.profileTypeLoad && !!type) {
-      this.profileTypeLoad = type;
-      this.isAdmin = type !== 'Tienda';
-    }
+    // if (!this.profileTypeLoad && !!type) {
+    //   this.profileTypeLoad = type;
+    //   this.isAdmin = type !== 'Tienda';
+    // }
     if (this.isAdmin) {
       this.BulkLoadProductS.getAmountAvailableLoads().subscribe(
         (result: any) => {
@@ -376,13 +384,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           // let ws: XLSX.WorkSheet = !!wb.Sheets['Productos'] ? wb.Sheets['Productos'] : wb.Sheets['Products'];
           let ws: XLSX.WorkSheet;
 
-          if (wb.Sheets && wb.Sheets['Productos']) {
-            ws = wb.Sheets['Productos'];
-          } else if (wb.Sheets['Products']) {
-            ws = wb.Sheets['Products'];
-
-          } else if (wb.Sheets['Produits']) {
-            ws = wb.Sheets['Produits'];
+          if (wb.Sheets && wb.SheetNames[0]) {
+            ws = wb.Sheets[wb.SheetNames[0]];
           }
 
           /* save data */
@@ -409,6 +412,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
    * @memberof BulkLoadProductComponent
    */
   validateDataFromFile(res: any, file: any) {
+
     /*
     *if Valido si la cantidad de carga permitidas por día es menor o igual a 0
     *else if Valido que la cantidad de cargas permitidas por día sea mayor a 0
@@ -431,7 +435,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           /*Se hace iteración en todas las columnas que tenga una fila del excel*/
           for (let j = 0; j < res[0].length; j++) {
             /*Se valida si la primera celda de cada columna si tenga dato, si no tiene no se tendra en cuenta*/
-            if (res[0][j] !== '' && res[0][j] !== null && res[0][j] !== undefined) {
+            if (res[0][j] !== '' && res[0][j] !== null && res[0][j] !== undefined && res[i][j] !== 'Seleccionar' && res[i][j] !== 'Escribe o elige un valor de la hoja de marcas') {
               /*Se insertan los datos de la celda en el objeto creato anteriormente dentro del arreglo de datos necesarios, solo si el la primera celda de toda la columna trae datos*/
               this.arrayNecessaryData[i].push(res[i][j]);
             }
@@ -723,6 +727,19 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                 }
               }
             }
+
+            //Elimina las filas 1 y 2 que son de titulos
+
+            this.arrayNecessaryData.splice(1,2);
+
+            //hace un split del arreglo para solo sacar el numero de la categoria y se vuelve a insertar
+
+            this.arrayNecessaryData.map((resp, i) => {
+              if(i > 0) {
+                let splitCategory = resp[3].split('_');
+                resp[3] = splitCategory[0];
+              }
+            })
 
             this.eanComboPosition = this.iVal.iEanCombo;
 
@@ -2615,9 +2632,47 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     const dialogComponent = dialogRef.componentInstance;
     dialogComponent.content = this.contentDialog;
     dialogComponent.confirmation = () => {
-      this.exportExcel();
+      //this.exportExcel();
+      const {productType, Label} = this.dataProduct;
+      this.BulkLoadProductS.getProductsTemplate(productType, Label).subscribe(({data, message})=> {
+        if(data) {
+          this.loadingService.viewSpinner();
+
+          if(this.status === 1)  {
+
+            let statusInterval = setInterval(() => {
+
+            this.BulkLoadProductS.statusLoad().subscribe(({status, response})=> {
+              this.status = status;
+              if(status !== 1) {
+                clearInterval(statusInterval);
+                this.loadingService.closeSpinner();
+                if(status === 2) {
+                  this.downloadFile(response);
+                }
+                if(status === 3) {
+                  this.componentService.openSnackBar(this.languageService.instant('shared.error.file'), this.languageService.instant('actions.close'), 4000);
+                }
+                this.status = 1;
+              }
+            })
+            
+          }, 5000);
+        } 
+          
+        } else {
+          this.componentService.openSnackBar(message, 'Cerrar', 4000);
+        }
+      })
     };
   }
+
+  private downloadFile(filePath){
+    var link=document.createElement('a');
+    link.href = filePath;
+    link.download = filePath.substr(filePath.lastIndexOf('/') + 1);
+    link.click();
+}
 
   /**
    * Configuración de la data del modal
@@ -2646,14 +2701,15 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       element.Show = !element.Show;
     } else {
       this.categoryForm.patchValue(element);
+      this.dataProduct = element;
       // Aca se debe lanzar la petición para consultar el grupo de especificaciones
-      this.loadingService.viewSpinner();
-      this.BulkLoadProductS.getCategoriesVTEX(element.Label).subscribe(resp => {
-        this.loadingService.closeSpinner();
-        this.vetex = resp;
-        this.listOfCategories();
-        this.listOfSpecs();
-      });
+      // this.loadingService.viewSpinner();
+      // this.BulkLoadProductS.getCategoriesVTEX(element.Label).subscribe(resp => {
+      //   this.loadingService.closeSpinner();
+      //   this.vetex = resp;
+      //   this.listOfCategories();
+      //   this.listOfSpecs();
+      // });
 
     }
   }

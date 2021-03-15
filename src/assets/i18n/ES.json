@@ -131,6 +131,7 @@
     "shared.product": "Producto",
     "shared.ean": "EAN",
     "shared.phone": "Teléfono",
+    "shared.error.file": "Error al descargar el archivo",
     "shared.components.load_file.title": "Adjuntar factura",
     "shared.components.load_file.subtitle": "La factura electrónica solo",
     "shared.components.load_file.subtitle2": "puede ser enviada una vez. ",
@@ -522,6 +523,10 @@
     "secure.orders.order_list.product_order.sku_seller": "SKU vendedor",
     "secure.orders.order_list.product_order.total": "Total",
     "secure.orders.order_list.product_order.subTotal": "Subtotal",
+    "secure.orders.order_list.product_order.brand": "Marca",
+    "secure.orders.order_list.product_order.productName": "Nombre del Producto",
+    "secure.orders.order_list.product_order.ean": "EAN",
+    
     "secure.orders.order_list.product_order.see_total_records_download": "Visualiza todos tus pedidos descargando tu reporte de órdenes",
 
     "secure.orders.order_list.send_order.title_order": "Enviar órden",
@@ -1480,6 +1485,7 @@
     "school.exito.edit.module.title": "Editar módulo",
     "school.exito.edit.module.description": "Para editar un módulo podrás modificar su nombre y dar click en el botón Editar.",
     "school.exito.edit.module.name.module": "Nombre del módulo",
+    "school.exito.edit.module.name.submodule": "Nombre del submódulo",
     "school.exito.edit.module.service": "El módulo fue editado exitosamente",
     "school.exito.delete.module.service": "El módulo fue eliminado exitosamente",
     "school.exito.delete.submodule.service": "El submódulo fue eliminado exitosamente",
@@ -1490,5 +1496,6 @@
     "school.exito.uploadfile.ing": "Manual en ingles",
     "school.exito.uploadfile.dragfile": "Presione acá o arrastre y suelte el archivo",
     "school.exito.uploadfile.pdf": "Formato no válido, sólo se permiten adjuntar archivos en formato .PDF",
+    "school.exito.uploadfile.maxSize.pdf": "Error, el tamaño de los archivos supera la capacidad de carga de 7MB",
     "school.exito.empty_data": "No se han encontrado registros"
 }

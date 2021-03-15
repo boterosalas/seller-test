@@ -4,6 +4,7 @@ $black: black;
 $color-white: #FFFFFF;
 $color-gray: #BCBCBC;
 $color-maroon: maroon;
+$color-green: #6FB63E;
 $modal: 72px;
 
 @mixin icon-border-gray {
@@ -11,31 +12,41 @@ $modal: 72px;
   background-color: $color-gray;
   width: $modal;
   height: $modal;
+
   mat-icon {
-      color: $color-white;
+    color: $color-white;
   }
 }
 
-.center-text{
+.center-text {
   text-align: center;
 }
+
 .container-icon {
   @include icon-border-gray();
 }
 
-.edit-module{
+.edit-module {
+
+  .bold {
+    font-weight: bold;
+  }
+
+  h2 {
+    margin: 20px 0;
+  }
+  button{
+    border-radius: 2px !important;
+    text-transform: uppercase;
+  }
 
     .bold{
         font-weight: bold;
     }
 
-    h2{
-        margin: 20px 0;
-    }
-    
-    .container-form{
-        width: 100%;
-    }
+  .container-form {
+    width: 100%;
+  }
 }
 
 
@@ -96,15 +107,65 @@ $modal: 72px;
   color: red;
 }
 
-.marginLabelSize{
+.marginLabelSize {
   margin-right: 0.5%;
 }
 
-.chip-list{
-    width: 100%;
-    .mat-chip{
-        background: transparent;
-        border: 1px solid #9E9E9E;
-        color: #9E9E9E;
-    }
+.chip-list {
+  width: 100%;
+
+  .mat-chip {
+    background: transparent;
+    border: 1px solid #9E9E9E;
+    color: #9E9E9E;
+  }
+}
+
+
+.container-icon-success {
+  height: 72px;
+  width: 72px;
+  font-size: 14px;
+  line-height: 14px;
+  border-radius: 40px;
+  background-color: $color-green;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #FFFFFF;
+}
+
+.text-end {
+  text-align: end;
+}
+
+.icon-close {
+  color: #909090;
+  cursor: pointer;
+}
+
+.text-success {
+  font-size: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.subtext-success {
+  padding: 30px 15px 6px 76px;
+  color: #757474;
+}
+
+.padding-container {
+  padding: 0px 15px 20px 76px;
+}
+
+.text-create-submodules {
+  color: #757474;
+  font-size: 14px;
+}
+
+.margintTopDeleteButton {
+  padding-bottom: 30px;
 }

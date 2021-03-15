@@ -128,6 +128,7 @@
     "shared.product": "Product",
     "shared.ean": "EAN",
     "shared.phone": "Phone number",
+    "shared.error.file": "File download failed",
     "shared.components.load_file.title": "Attach Invoice",
     "shared.components.load_file.subtitle": "The electronic invoice can only",
     "shared.components.load_file.subtitle2": "be sent once. ",
@@ -514,6 +515,9 @@
     "secure.orders.order_list.product_order.sku_seller": "Seller SKU",
     "secure.orders.order_list.product_order.total": "Total",
     "secure.orders.order_list.product_order.subTotal": "Subtotal",
+    "secure.orders.order_list.product_order.brand": "Brand",
+    "secure.orders.order_list.product_order.productName": "Product Name",
+    "secure.orders.order_list.product_order.ean": "EAN",
     "secure.orders.order_list.product_order.see_total_records_download": "View all your orders by downloading the order report  ",
 
     "secure.orders.order_list.send_order.title_order": "Send Order",
@@ -1438,6 +1442,7 @@
     "school.exito.edit.module.title": "Edit module",
     "school.exito.edit.module.description": "To edit a module you can modify its name and click the Edit button.",
     "school.exito.edit.module.name.module": "Module name",
+    "school.exito.edit.module.name.submodule": "Submodule name",
     "school.exito.edit.module.service": "The module was successfully edited",
     "school.exito.delete.module.service": "The module was successfully removed",
     "school.exito.delete.submodule.service": "The submodule was successfully removed",
@@ -1448,5 +1453,6 @@
     "school.exito.uploadfile.ing": "English manual",
     "school.exito.uploadfile.dragfile": "Click here or drag and drop the file",
     "school.exito.uploadfile.pdf": "Invalid format, only files in .PDF format are allowed to be attached",
+    "school.exito.uploadfile.maxSize.pdf": "Error, file size exceeds 7MB upload capacity",
     "school.exito.empty_data": "No records found"
 }

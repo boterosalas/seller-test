@@ -25,7 +25,7 @@
         <div class="container-form" fxLayout="column">
           
           <mat-form-field class="input-add">
-            <input matInput formControlName="subModuleName" placeholder="Nombre del submódulo">
+            <input matInput formControlName="subModuleName" [placeholder]="'school.exito.edit.module.name.submodule' | translate">
             <mat-error *ngIf="createSubModule.get('subModuleName').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
           
@@ -33,17 +33,17 @@
       </div>
 
       <div fxLayout="row" fxLayout.xs="column">
-        <app-upload-file [manualName]="'school.exito.uploadfile.esp' | translate" (sendFileEvent)="addFileEsp($event)" (validateOneFileEvent)="onefileEsp($event)"></app-upload-file>
-        <app-upload-file [manualName]="'school.exito.uploadfile.ing' | translate" (sendFileEvent)="addFileIng($event)"></app-upload-file>
+        <app-upload-file [manualName]="'school.exito.uploadfile.esp' | translate" (sendFileEvent)="addFileEsp($event)" (validateOneFileEvent)="onefileEsp($event)" id="esp"></app-upload-file>
+        <app-upload-file [manualName]="'school.exito.uploadfile.ing' | translate" (sendFileEvent)="addFileIng($event)" id="ing"></app-upload-file>
       </div>
 
       <!-- CONTAINER BUTTON TO ADD NEW SPECIFICATION GROUP -->
 
     </div>
 
-    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
-      <button mat-stroked-button class="btn-transparent" type="button" id="btn-create-transporter" color="primary" (click)="close()">{{'actions.cancel' | translate}}</button>
-      <button id="btn-create-transporter" type="submit" mat-raised-button color="primary" [disabled]="(!createSubModule.valid || oneEspFile)">{{'actions.save' | translate}}</button>
+    <div mat-dialog-actions class="mat-buttons" fxLayout="row" fxLayoutAlign="center center">
+      <button mat-stroked-button class="btn-transparent" type="button" id="btn-create-submodule" color="primary" (click)="close()">{{'actions.cancel' | translate}}</button>
+      <button class="uppercase" id="btn-create-submodule" type="submit" mat-raised-button color="primary" [disabled]="(!createSubModule.valid || oneEspFile)">{{'actions.save' | translate}}</button>
     </div>
 
   </form>
