@@ -477,10 +477,21 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
     }
 }
 
+.mat-buttons{
+    min-height: 120px !important;
+    .mat-raised-button{
+        border-radius: 2px !important;
+    }
+    button{
+        min-width: 124px !important;
+        border-radius: 2px !important;
+    }
+}
+
 .btn-transparent{
     background: #ffffff;
     border: 1px solid $blue !important;
-    border-radius: 0 !important;
+    border-radius: 2px !important;
     &:hover{
         color: #ffffff;
         background:  $blue !important;
@@ -504,4 +515,12 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
 
 .close{
     cursor: pointer;
+}
+
+.uppercase{
+    text-transform: uppercase;
+}
+
+.container-form {
+    margin-top: 20px;
 }

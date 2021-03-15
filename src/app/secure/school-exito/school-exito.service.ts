@@ -104,4 +104,9 @@ public deleteModule(param: any): Observable<any> {
 public deleteSubModule(moduleId: any, subModuleId: any): Observable<any> {
     return this.http.delete(this.api.get('deleteSubModules', [moduleId, subModuleId]), { observe: 'response' });
   }
+
+
+public validateCreateMassive(): Observable<any> {
+    return this.http.get(this.api.get('ValidateCreateMassive'));
+  }
 }

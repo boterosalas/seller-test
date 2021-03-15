@@ -59,10 +59,14 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
    * @memberof ListAdminSchoolComponent
    */
   createModule() {
-    this.dialog.open(CreateModuleComponent, {
+    const dialog = this.dialog.open(CreateModuleComponent, {
       width: '800px',
       maxWidth: '90vw',
       maxHeight: '90vh',
+    });
+    const dialogIntance = dialog.componentInstance;
+    dialogIntance.processFinish$.subscribe((val) => {
+      this.getAllModules();
     });
   }
   /**
@@ -82,6 +86,7 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
       maxWidth: '90vw',
       maxHeight: '90vh',
     });
+    
   }
   /**
    * funcion para borrar modulo
@@ -361,20 +366,20 @@ export class ListAdminSchoolComponent implements OnInit, AfterViewInit {
     };
 
     moveItemInArray(submodules, event.previousIndex, event.currentIndex);
-    this.schoolExitoService.updatePositionSubModules(params).subscribe(
-      (result) => {
-        if (result && result.statusCode === 200) {
-          const { body } = result;
-          this.modules[index].Submodules = JSON.parse(body).Data;
-          this.disabled = false;
-        } else {
+    if(oldIndex !== newIndex) {
+      this.schoolExitoService.updatePositionSubModules(params).subscribe(
+        (result) => {
+          if (result && result.statusCode === 200) {
+            const { body } = result;
+            this.modules[index].Submodules = JSON.parse(body).Data;
+            this.disabled = false;
+          } 
+        },
+        (error) => {
           this.componentsService.openSnackBar(this.languageService.instant('core.http.error_handler.error_acces'), this.languageService.instant('actions.close'), 5000);
         }
-      },
-      (error) => {
-        this.componentsService.openSnackBar(this.languageService.instant('core.http.error_handler.error_acces'), this.languageService.instant('actions.close'), 5000);
-      }
-    );
+      );
+    }
   }
 }
 /**

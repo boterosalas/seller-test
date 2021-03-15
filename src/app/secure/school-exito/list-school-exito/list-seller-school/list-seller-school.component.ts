@@ -22,9 +22,10 @@ export class ListSellerSchoolComponent implements OnInit {
 
   ngOnInit() {
     this.getAllModules();
+    this.refreshLan();
   }
   /**
-   * funcion para capturar todos los modulos registrados 
+   * funcion para capturar todos los modulos registrados
    *
    * @memberof ListSellerSchoolComponent
    */
@@ -57,6 +58,13 @@ export class ListSellerSchoolComponent implements OnInit {
     } else {
       this.componentsService.openSnackBar(this.languageService.instant('errors_download_file_submodules'), this.languageService.instant('actions.close'), 5000);
     }
+  }
+
+  refreshLan() {
+    this.languageService.onLangChange.subscribe((e: Event) => {
+      localStorage.setItem('culture_current', e['lang']);
+      this.getAllModules();
+  });
   }
 
 }
