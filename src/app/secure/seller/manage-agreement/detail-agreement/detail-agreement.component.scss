@@ -1,79 +1,3 @@
-// $color-gray: #757474;
-// $color-light-gray: #909090;
-// $color-light-gray2: #EFEDED;
-// $blue: #485AFA;
-
-// :host ::ng-deep {
-//     .tree-toolbar {
-//       background-color: #fff;
-//       border-bottom: 1px solid #e0e0e0;
-//       height: auto;
-  
-//       & .toolbar-options-table {
-//         width: 100%;
-//         padding: 0 20px;
-//       }
-  
-//       .normal-theme {
-//         width: 100%;
-//       }
-//     }
-  
-//     .tree-title {
-//       font-size: 18px;
-//       margin-left: 0;
-//       color: #000000;
-//       font-weight: bold;
-//     }
-  
-//     .sub-title {
-//       color: #757474;
-//       font-size: 18px;
-//       padding-left: 5px;
-//       font-weight: 400;
-//     }
-  
-//     .buttn-toolbar-options {
-//       text-transform: uppercase;
-//       font-size: 12px;
-//       font-weight: bold;
-//       color: $color-gray;
-//     }
-//     .content-order {
-//         & .container {
-//           min-width: 300px;
-//           flex-direction: column;
-//           display: flex;
-//           padding: 0;
-//         }
-//       }
-
-//       .port-component{
-//           &-content-table-center-collection{
-//             padding: 0px 40px 40px 80px;
-//           }
-        
-//           &-color-icon-edit{
-//             color: #5e5e5e;
-//             cursor: pointer;
-//           }
-        
-//           &-text-aling{
-//             justify-content:center;
-//           }
-        
-//           &-label-filter {
-//             margin-top: 10px;
-//             width: calc(100% - 166px);
-//           }
-        
-//           &-button-add {
-//             text-align: right;
-//             color: #485AFA;
-//           }
-//         }
-// }
-
 @import '~@angular/material/theming'; // always include only once per project
 @import '_variables';
 @include mat-core();
@@ -83,8 +7,8 @@ $blue: mat-palette($mat-indigo);
 $blue-page: #485AFA;
 $color-label: #bdbdbd;
 $color-red: #f44336;
-
-
+$accent-color: #485afa;
+$title-color: black;
 
 
 :host ::ng-deep .content-order {
@@ -423,7 +347,7 @@ $color-red: #f44336;
   & .toolbar-options-table {
     align-items: center;
     justify-content: flex-start;
-    width: 70%;
+    width: 65%;
     padding-left: 20px;
   }
 }
@@ -434,4 +358,66 @@ table {
 
 .upload-agreement-text-column{
   margin-left: 4px;
+}
+
+.example-sidenav {
+  width: 30%;
+
+  @media only screen and (max-width: 600px) {
+    width: 80%;
+  }
+  @media only screen and (max-width: 768px) {
+    width: 80%;
+  }
+}
+
+.filter-control {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 51px 8px 0 8px;
+
+  &--btn-clean {
+    background-color: white;
+    border: 1px solid $accent-color;
+    color: $accent-color;
+
+    &:hover {
+      background-color: $accent-color;
+      color: white;
+    }
+  }
+
+  &--btn-send {
+    background-color: $accent-color;
+    color: white;
+
+    &:hover {
+      background-color: white;
+      color: $accent-color;
+    }
+  }
+}
+
+.filter-content {
+  margin: 16% 8%;
+}
+
+.filter-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 20px;
+  margin-bottom: 10%;
+  margin-top: 6%;
+
+  &--title {
+    font-weight: bold;
+    color: $title-color;
+  }
+
+  &--close {
+    color: $accent-color;
+    cursor: pointer;
+  }
 }

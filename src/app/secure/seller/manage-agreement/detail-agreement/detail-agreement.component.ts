@@ -6,6 +6,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { SellerService } from '../../seller.service';
 import { ActivatedRoute } from '@angular/router';
 import { ModalDeleteAgreementComponent } from '../modal-delete-agreement/modal-delete-agreement.component';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { SupportService } from '@app/secure/support-modal/support.service';
 
 const log = new Logger('DetailAgreementComponent');
 
@@ -39,7 +41,7 @@ export class DetailAgreementComponent implements OnInit {
   public disabledCheckTempor = false;
   public isAllSelectedCurrent = false;
 
-  @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
+  @ViewChild('sidenav', { static: false }) sidenav: MatSidenav;
   public dataSource: MatTableDataSource<any>;
   public selection = new SelectionModel<any>(true, []);
   public initialSellerList: any;
@@ -59,12 +61,20 @@ export class DetailAgreementComponent implements OnInit {
   docType: any;
   docName: any;
 
+  public filterDetailsSellers: FormGroup;
+  sellerRegex = {
+    nameStore: ''
+  };
+  namefilter: string;
+
   constructor(
     private location: Location,
     public loadingService: LoadingService,
     private sellerService: SellerService,
     private route: ActivatedRoute,
     private dialog: MatDialog,
+    private fb?: FormBuilder,
+    public SUPPORT?: SupportService,
   ) { }
 
   ngOnInit() {
@@ -74,6 +84,7 @@ export class DetailAgreementComponent implements OnInit {
     //   this.getAllSellerAgreement(params);
     // });
     this.getListbyParams();
+    this.validateFormSupport();
   }
 
   /**
@@ -84,18 +95,54 @@ export class DetailAgreementComponent implements OnInit {
     this.location.back();
   }
 
+  createFormControls() {
+    this.filterDetailsSellers = this.fb.group({
+      SellerName: new FormControl('', [Validators.pattern(this.sellerRegex.nameStore)]),
+    });
+  }
+
+  public validateFormSupport(): void {
+    this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
+      let dataOffertRegex = JSON.parse(res.body.body);
+      dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'vendedores');
+      for (const val in this.sellerRegex) {
+        if (!!val) {
+          const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
+          this.sellerRegex[val] = element && `${element.Value}`;
+        }
+      }
+      this.createFormControls();
+    });
+  }
+
+  public filterApply() {
+    this.callOne = true;
+    console.log(this.filterDetailsSellers.controls.SellerName.value);
+    this.namefilter = encodeURIComponent(this.filterDetailsSellers.controls.SellerName.value);
+    this.getAllSellerAgreement(null, this.namefilter);
+  }
+
   /**
    * Metodo para traer los parametros de la ruta y hacer el get del listado
    * @memberof DetailAgreementComponent
    */
-  getListbyParams(){
+  getListbyParams() {
     this.route.params.subscribe(params => {
       this.docId = params.docId;
       this.docType = params.docType;
       this.docName = params.name;
-      this.getAllSellerAgreement(params);
+      this.getAllSellerAgreement(params, null);
     });
   }
+  
+  /**
+   *
+   * @memberof DetailAgreementComponent
+   */
+  public cleanFilter() {
+    this.filterDetailsSellers.reset();
+    this.getListbyParams();
+}
 
   /**
    * Metodo para abrir dialogo y eliminar un solo vendedor al acuerdo
@@ -106,12 +153,12 @@ export class DetailAgreementComponent implements OnInit {
     const dialogRef = this.dialog.open(ModalDeleteAgreementComponent, {
       width: '60%',
       minWidth: '280px',
-      data: { dataAgreement, deleteMultiple: 1, name:  this.docName}
+      data: { dataAgreement, deleteMultiple: 1, name: this.docName }
     });
     dialogRef.afterClosed().subscribe(result => {
-    this.allClear();
-    this.getListbyParams();
-    this.callOne = true;
+      this.allClear();
+      this.getListbyParams();
+      this.callOne = true;
       log.info('The modal detail billing was closed');
     });
   }
@@ -131,16 +178,16 @@ export class DetailAgreementComponent implements OnInit {
       Id: this.docId,
       TypeContracts: this.docType,
       Sellers: arraySellers
-    }; 
+    };
     const dialogRef = this.dialog.open(ModalDeleteAgreementComponent, {
       width: '60%',
       minWidth: '280px',
-      data: { dataAgreement, deleteMultiple: 2 , name:  this.docName}
+      data: { dataAgreement, deleteMultiple: 2, name: this.docName }
     });
     dialogRef.afterClosed().subscribe(result => {
-    this.allClear();
-    this.getListbyParams();
-    this.callOne = true;
+      this.allClear();
+      this.getListbyParams();
+      this.callOne = true;
       log.info('The modal detail billing was closed');
     });
   }
@@ -150,7 +197,7 @@ export class DetailAgreementComponent implements OnInit {
    * @param {*} [params]
    * @memberof DetailAgreementComponent
    */
-  getAllSellerAgreement(params?: any) {
+  getAllSellerAgreement(params?: any, filters?: any) {
     console.log('this.paginationToken: ', this.paginationToken);
     this.loadingService.viewSpinner();
     let urlParams;
@@ -159,6 +206,9 @@ export class DetailAgreementComponent implements OnInit {
     } else {
       this.paginationToken = encodeURI(this.paginationToken);
       urlParams = this.docId + `/` + this.docType + `?limit=${this.limit}&paginationToken=` + this.paginationToken;
+    }
+    if (filters) {
+      urlParams = this.docId + `/` + this.docType + `?name=${filters}&limit=${this.limit}&paginationToken=` + this.paginationToken;
     }
     console.log('res: ', urlParams);
     this.sellerService.getListSellers(urlParams).subscribe((result: any) => {
@@ -236,24 +286,7 @@ export class DetailAgreementComponent implements OnInit {
     }
   }
 
-  // /**
-  //  * Metodo para validar todos los check del listado
-  //  * @memberof DetailAgreementComponent
-  //  */
-  // isAllSelected() {
-  //   const numSelected = this.selection.selected.length;
-  //   const numRows = this.dataSource.data.length;
-  //   if (numSelected === numRows) {
-  //     this.isAllSelectedCurrent = true;
-  //   } else {
-  //     this.isAllSelectedCurrent = false;
-  //   }
-  //   if (this.arraySelect.length === 0 && !this.all) {
-  //     this.selection.clear();
-  //     this.all = false;
-  //     this.statusAllCheck = true;
-  //   }
-  // }
+ 
 
   /**
    * Metodo para cambiar estados de los check

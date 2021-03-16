@@ -41,7 +41,7 @@ export class ModalDeleteAgreementComponent implements OnInit {
    * Metodo escucha cual funcion enviar a eliminar, todos, varios o uno
    * @memberof ModalDeleteAgreementComponent
    */
-  deleteSeller(){
+  deleteSeller() {
     if (this.data && this.data.deleteMultiple === 0) {
       this.sendDataDeleteAllAgreement();
     } else if (this.data && this.data.deleteMultiple === 1) {
@@ -56,7 +56,7 @@ export class ModalDeleteAgreementComponent implements OnInit {
    * @memberof ModalDeleteAgreementComponent
    */
   sendDataDeleteOneAgreement() {
-    this.loadingService.viewSpinner();  
+    this.loadingService.viewSpinner();
     const dataSend = {
       Id: this.data.dataAgreement.DocumentId,
       TypeContracts: this.data.dataAgreement.DocumentType,
@@ -88,7 +88,7 @@ export class ModalDeleteAgreementComponent implements OnInit {
    * @memberof ModalDeleteAgreementComponent
    */
   sendDataDeleteMultipleAgreement() {
-    this.loadingService.viewSpinner();  
+    this.loadingService.viewSpinner();
     const dataSend = this.data.dataAgreement;
     this.sellerService.deleteOneOrMore(dataSend).subscribe((result: any) => {
       if (result.statusCode === 200 || result.statusCode === 201) {
@@ -116,7 +116,7 @@ export class ModalDeleteAgreementComponent implements OnInit {
    * @memberof ModalDeleteAgreementComponent
    */
   sendDataDeleteAllAgreement() {
-    this.loadingService.viewSpinner();  
+    this.loadingService.viewSpinner();
     const dataSend = `${this.data.dataAgreement.Id}/${this.data.dataAgreement.DocumentType}?`
     this.sellerService.deteleAllSellerAgreement(dataSend).subscribe((result: any) => {
       if (result.statusCode === 200 || result.statusCode === 201) {
@@ -137,6 +137,16 @@ export class ModalDeleteAgreementComponent implements OnInit {
         this.loadingService.closeSpinner();
       }
     });
+  }
+
+  /**
+   * Metodo para desytruir el componente
+   * @memberof ModalDeleteAgreementComponent
+   */
+  ngOnDestroy() {
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    }
   }
 
 }
