@@ -95,12 +95,20 @@ export class DetailAgreementComponent implements OnInit {
     this.location.back();
   }
 
+  /**
+   * Metodo para crear formulario
+   * @memberof DetailAgreementComponent
+   */
   createFormControls() {
     this.filterDetailsSellers = this.fb.group({
       SellerName: new FormControl('', [Validators.pattern(this.sellerRegex.nameStore)]),
     });
   }
 
+  /**
+   * metodo obtengo data 
+   * @memberof DetailAgreementComponent
+   */
   public validateFormSupport(): void {
     this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
       let dataOffertRegex = JSON.parse(res.body.body);
