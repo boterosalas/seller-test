@@ -1,0 +1,156 @@
+:host {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  
+  $color-white: #FFFFFF;
+  $color-gray: #BCBCBC;
+  $color-green: #6FB63E ;
+  $modal: 72px;
+  
+  @mixin icon-border-gray {
+    height: 72px;
+    width: 72px;
+    font-size: 14px;
+    line-height: 14px;
+    border-radius: 40px;
+    background-color: $color-gray;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    mat-icon {
+      color: $color-white;
+    }
+  
+    &::ng-deep .mat-button-wrapper {
+      line-height: 14px;
+      padding: 0 0 0 0.5px;
+    }
+  
+    & .mat-icon {
+      color: white !important;
+      width: 20px;
+      height: 20px;
+      font-size: 20PX;
+    }
+  }
+  
+  :host {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  
+    & .mat-dialog-actions {
+      justify-content: center;
+      text-align: center;
+    }
+  
+    & .container-icon {
+      @include icon-border-gray();
+    }
+  
+    & .mat-dialog-content {
+      padding: 0 76px;
+      margin-bottom: 20px;
+      max-height: 45vh;
+      min-height: 45vh;
+    }
+  
+    & .mat-dialog-title {
+      text-align: center;
+    }
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .text-justify {
+    text-align: justify;
+  }
+  
+  .container__btn {
+    margin-bottom: 20px;
+  
+    & button {
+      margin: 0 8px;
+    }
+  }
+  
+  .container-header {
+    margin-top: 70px;
+  }
+  
+  .container__message {
+    margin-bottom: 25px;
+  }
+  
+  .margintTopDeleteButton {
+    margin-top: 4%;
+  }
+  
+  .margintTopDelete {
+    margin-top: 4%;
+  }
+  
+  .container__message__delete {
+    text-align: center;
+  }
+
+  .container-icon-success{
+    height: 72px;
+    width: 72px;
+    font-size: 14px;
+    line-height: 14px;
+    border-radius: 40px;
+    background-color: $color-green;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+  }
+
+  .btn-close {
+    color: #FFFFFF;
+    width: 126px;
+    background-color: #485AFA;
+    box-sizing: border-box;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    outline: 0;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none;
+    vertical-align: baseline;
+    text-align: center;
+    margin: 0;
+    min-width: 64px;
+    line-height: 36px;
+    padding: 0 16px;
+    border-radius: 4px;
+    overflow: visible;
+    transform: translate3d(0,0,0);
+    transition: background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);
+  }
+
+  .icon-close{
+    color: #909090 ;
+    cursor: pointer;
+  }
+
+  .text-end{
+    text-align: end;
+  }
+  

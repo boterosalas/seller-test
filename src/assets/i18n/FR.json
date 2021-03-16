@@ -127,6 +127,7 @@
     "shared.product": "Product",
     "shared.ean": "EAN",
     "shared.phone": "Phone number",
+    "shared.error.file": "File download failed",
     "shared.components.load_file.title": "Attach Invoice",
     "shared.components.load_file.subtitle": "The electronic invoice can only",
     "shared.components.load_file.subtitle2": "be sent once. ",

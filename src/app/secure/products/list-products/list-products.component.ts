@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output } from '@angular/core';
 import { Logger } from '@app/core/util/logger.service';
 import { LoadingService, ModalService, UserParametersService } from '@app/core';
 import { ListProductService } from './list-products.service';
@@ -6,7 +6,7 @@ import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Valida
 import { ErrorStateMatcher, PageEvent, MatPaginatorIntl, MatSnackBar, MatPaginator, MatDialog, MatSidenav } from '@angular/material';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { ModelFilterProducts } from './listFilter/filter-products.model';
-import { MenuModel, listProductsName, readFunctionality, offerFuncionality, updateFunctionality, unitaryCreateName } from '@app/secure/auth/auth.consts';
+import { MenuModel, listProductsName, readFunctionality, offerFuncionality, updateFunctionality, unitaryCreateName, deleteFunctionality } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { TranslateService } from '@ngx-translate/core';
 import { MatPaginatorI18nService } from '@app/shared/services/mat-paginator-i18n.service';
@@ -98,8 +98,10 @@ export class ListProductsComponent implements OnInit {
     read = readFunctionality;
     offer = offerFuncionality;
     edit = updateFunctionality;
+    delete= deleteFunctionality;
     offerPermission = false;
     editPermission = false;
+    deletePermission = false;
     permissionComponent: MenuModel;
     @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
     @ViewChild('drawer', {static: false}) drawer: MatSidenav;
@@ -133,6 +135,7 @@ export class ListProductsComponent implements OnInit {
     ngOnInit() {
         this.offerPermission = this.authService.getPermissionForMenu(listProductsName, this.offer);
         this.editPermission = this.authService.getPermissionForMenu(unitaryCreateName, 'Editar');
+        this.deletePermission = this.authService.getPermissionForMenu(listProductsName, this.delete );
         this.getDataUser();
         this.validateFormSupport();
         this.refreshCategoryTree();
@@ -324,11 +327,11 @@ export class ListProductsComponent implements OnInit {
         this.user = await this.userParams.getUserData();
         if (this.user.sellerProfile !== 'seller' && this.user.sellerProfile && this.user.sellerProfile !== null) {
             this.isAdmin = true;
-            this.permissionComponent = this.authService.getMenuProfiel(unitaryCreateName, 1);
+            this.permissionComponent = this.authService.getMenuProfiel(listProductsName, 1);
             this.setPermission(1);
         } else {
             this.isAdmin = false;
-            this.permissionComponent = this.authService.getMenuProfiel(unitaryCreateName, 0);
+            this.permissionComponent = this.authService.getMenuProfiel(listProductsName, 0);
             this.setPermission(0);
         }
     }
@@ -340,6 +343,7 @@ export class ListProductsComponent implements OnInit {
      */
     setPermission(typeProfile: number) {
         this.editPermission = this.getFunctionality('Editar');
+        this.deletePermission =  this.getFunctionality('Eliminar');
     }
 
     public getFunctionality(functionality: string): boolean {
@@ -796,6 +800,12 @@ export class ListProductsComponent implements OnInit {
             element.classList.add('tabsShowZindex');
             matToolbar.classList.add('notFixed');
         }
+    }
+
+    reloadData() {
+        setTimeout(() => {
+            this.filterListProducts();
+        }, 2000);
     }
 
 }

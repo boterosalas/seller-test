@@ -58,11 +58,15 @@
           [manualName]="'school.exito.uploadfile.esp' | translate"
           (sendFileEvent)="addFileEsp($event)"
           (validateOneFileEvent)="onefileEsp($event)"
-          [files]="filesEsp"></app-upload-file>
+          id="esp"
+          [files]="filesEsp"
+        ></app-upload-file>
         <app-upload-file
           [manualName]="'school.exito.uploadfile.ing' | translate"
           (sendFileEvent)="addFileIng($event)"
-          [files]="filesIng"></app-upload-file>
+          id="ing"
+          [files]="filesIng"
+        ></app-upload-file>
       </div>
       <div fxLayout="row" fxLayoutAlign="end start">
         <button
@@ -91,7 +95,8 @@
         </mat-chip-list>
       </span>
     </div>
-    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
+
+    <div mat-dialog-actions class="mat-buttons" fxLayout="row" fxLayoutAlign="center center">
       <button
         mat-stroked-button
         class="btn-transparent"

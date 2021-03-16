@@ -79,7 +79,7 @@ export class EditItemModuleComponent implements OnInit {
 
     let fileIng = {
       Pdf: this.manualIng,
-      Language: "es-Us",
+      Language: "en-US",
     };
 
     if(fileEsp.Pdf === undefined) {

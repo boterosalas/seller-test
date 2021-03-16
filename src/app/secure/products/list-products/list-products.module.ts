@@ -15,6 +15,7 @@ import { DownloadProductsComponent } from './download-products/download-products
 import { DownloadProductsSellerComponent } from './download-products-seller/download-products-seller.component';
 import { TabProductComponent } from './tab-product/tab-product.component';
 import { CommonModule } from '@angular/common';
+import { DeleteProductModalComponent } from './expanded-product/delete-product-modal/delete-product-modal.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { CommonModule } from '@angular/common';
       DownloadProductsComponent,
       DownloadProductsSellerComponent,
       TabProductComponent,
+      DeleteProductModalComponent,
     ],
     exports: [
       ComboProductComponent,
@@ -46,7 +48,8 @@ import { CommonModule } from '@angular/common';
     entryComponents: [
       ModalRuleOfferComponent,
       DownloadProductsComponent,
-      DownloadProductsSellerComponent
+      DownloadProductsSellerComponent,
+      DeleteProductModalComponent
     ],
     providers: [
       ListProductService

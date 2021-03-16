@@ -136,6 +136,26 @@ export class BulkLoadProductService {
   }
 
   /**
+   * Método para obtener la respuesta de la plantilla
+   * @param {*} plantilla
+   * @param {*} categoria
+   * @returns {Observable<any>}
+   * @memberof BulkLoadProductService
+   */
+  getProductsTemplate(templateType: any, category:any): Observable<any> {
+    return this.http.get(this.api.get('getProductsTemplate', [templateType, category]));
+  }
+
+  /**
+   * Método para obtener la url del excel
+   * @returns {Observable<any>}
+   * @memberof BulkLoadProductService
+   */
+  statusLoad(): Observable<any> {
+    return this.http.get(this.api.get('statusLoad'));
+  }
+
+  /**
    * @method getCargasMasicas()
    * @returns {Observable}
    * @description Método para obtener mirar el estado de las cargas
