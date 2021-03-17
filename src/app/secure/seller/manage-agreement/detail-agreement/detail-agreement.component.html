@@ -4,7 +4,7 @@
       [formGroup]="filterDetailsSellers" class="seller-filter-sidenav" *ngIf="filterDetailsSellers">
       <div class="filter-content">
         <div fxLayout="row" fxLayoutAlign="space-between center" class="filter-header">
-          <div >
+          <div>
             <span class="filter-header--title">
               Filtro de listado de acuerdos
             </span>
@@ -46,7 +46,7 @@
           <small class="sub-title">| DETALLE</small>
         </p>
       </div>
-      <div style="display: flex;">
+      <div class="displayFlex">
         <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
           (page)="pageEvent = paginations($event)"></mat-paginator>
         <button type="button" mat-button (click)="drawer.toggle()">
@@ -57,30 +57,21 @@
     </mat-toolbar>
   </div>
 
-
-  <!-- <button style="color: #757474; font-size: 14px; font-weight: bold" mat-icon-button (click)="goBack()">
-  <mat-icon>arrow_back</mat-icon>
-  <small class="sub-title-back">Volver al listado de acuerdos</small>
-</button> -->
-
   <div>
     <br>
-    <div style=" margin: 4% 6% 3% 6%" fxLayout="row" fxLayoutAlign="space-between center">
-      <button style="color: #757474; font-size: 14px; font-weight: bold" mat-icon-button (click)="goBack()">
+    <div class="goBack" fxLayout="row" fxLayoutAlign="space-between center">
+      <button mat-icon-button (click)="goBack()" id="buttonIdBack">
         <mat-icon>arrow_back</mat-icon>
         <small class="sub-title-back">Volver al listado de acuerdos</small>
       </button>
 
-      <button mat-button mat-stroked-button color="primary" (click)="openModalDeleteMultipleAgreement()">
+      <button mat-button mat-stroked-button color="primary" (click)="openModalDeleteMultipleAgreement()"
+        *ngIf="length !== 0">
         <strong>ELIMINAR ACUERDOS SELECCIONADOS</strong>
       </button>
     </div>
     <div class="content-order my-content" *ngIf="length !== 0">
-
-      <div fxFlex class="container" fxLayout="row wrap" fxLayoutAlign="center
-      start">
-
-
+      <div fxFlex class="container" fxLayout="row wrap" fxLayoutAlign="center start">
         <!-- Tabla de órdenes -->
         <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="97" fxFlex.lg="97" fxFlex.xl="97"
           class="port-component-content-table-center-collection">
@@ -97,11 +88,6 @@
               <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
                 fxShow.xl="true" fxShow="true" fxFlex.lg="1" fxFlex.sm="1" fxFlex.md="1" fxFlex.xs="30" fxFlex.xl=""
                 *matHeaderCellDef>
-                <!-- <mat-checkbox (change)="$event ? masterToggle(statusAllCheck) :
-                null; changeStatus(null, $event.checked)" [checked]="selection.hasValue()"
-                [indeterminate]="selection.hasValue() && !isAllSelectedCurrent">
-                {{'actions.all'| translate}}
-              </mat-checkbox> -->
               </mat-header-cell>
               <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
                 fxShow="true" fxFlex.lg="1" fxFlex.sm="1" fxFlex.md="1" fxFlex.xs="30" fxFlex.xl=""
@@ -160,9 +146,8 @@
               <mat-cell class='marginListAdminTotal' fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
                 fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
                 *matCellDef="let element">
-                <button mat-icon-button (click)="openModalDeleteAgreement(element)"
-                  style="color: #757474; margin-left: 5%">
-                  <mat-icon class="material-icons" style="font-size: 24px;">
+                <button mat-icon-button (click)="openModalDeleteAgreement(element)" id="buttonIdDeleteOne">
+                  <mat-icon class="material-icons" class="sizeIcon">
                     delete
                   </mat-icon>
                 </button>
@@ -183,6 +168,6 @@
 
   </div>
 </mat-drawer-container>
-<div style="text-align: center; color: #909090; font-size: 18px; margin-top: 13%" *ngIf="length === 0">
+<div class="noFoundDetails" *ngIf="length === 0">
   <span><strong>No hay vendedores asociados al acuerdo {{docName}}</strong></span>
 </div>

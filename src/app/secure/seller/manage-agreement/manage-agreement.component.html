@@ -17,7 +17,7 @@
   <div class="styleFlex">
     <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
                 (page)="pageEvent = paginations($event)"></mat-paginator>
-    <button mat-button mat-stroked-button color="primary" style="border-color: #3d5afe;" (click)="openModalBulkLoadAgreement()" id="openDialogAgreement">
+    <button mat-button mat-stroked-button color="primary" class="borderButtonUpload" (click)="openModalBulkLoadAgreement()" id="openDialogAgreement">
       <strong>{{'menu.Cargar Acuerdos' | translate}}</strong>
     </button>
   </div>
@@ -28,8 +28,8 @@
   <div class="agreement">
     <div class="agreement-title" fxLayout="row" fxLayoutAlign="space-between center">
       <p>{{'shared.name' | translate}}</p>
-      <p style="margin-left: 20%">Acuerdo predeterminado</p>
-      <p style="margin-right: 10%;">{{'shared.actions' | translate}}</p>
+      <p id="marginTitle1">Acuerdo predeterminado</p>
+      <p id="marginTitle2">{{'shared.actions' | translate}}</p>
     </div>
     <div *ngFor="let agreement of manageAgreementsSeller" fxLayout="row" fxLayoutAlign="space-between center"
       class="list-agreement">
@@ -43,22 +43,22 @@
         <mat-slide-toggle (change)="activeContract($event, agreement)" [checked]=agreement.Default
         ></mat-slide-toggle>
       </div>
-      <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 16%;">
+      <div fxLayout="row" fxLayoutAlign="space-around center" class="width-delete">
         <div fxLayout="column" fxLayoutAlign="space-around center">
           <button mat-icon-button (click)="openModalDeleteAgreement(agreement)">
-            <mat-icon class="material-icons" style="font-size: 24px;">
+            <mat-icon class="material-icons" id="sizeIcons">
               delete
             </mat-icon>
           </button>
-          <span style="font-size: 14px;">Eliminar</span>
+          <span id="sizeIcons2">Eliminar</span>
         </div>
         <div fxLayout="column" fxLayoutAlign="space-around center">
           <button mat-icon-button (click)="redirectToDetailAgreement(agreement)">
-            <mat-icon class="material-icons"  style="font-size: 24px;">
+            <mat-icon class="material-icons"  id="sizeIcons">
               remove_red_eye
             </mat-icon>
           </button>
-          <span style="font-size: 14px;">Ver detalle</span>
+          <span id="sizeIcons2">Ver detalle</span>
         </div>
       </div>
       
