@@ -1,0 +1,171 @@
+$blue: #485AFA;
+$gray: #5D5D5D;
+$black: black;
+$color-white: #FFFFFF;
+$color-gray: #BCBCBC;
+$color-maroon: maroon;
+$color-green: #6FB63E;
+$modal: 72px;
+
+@mixin icon-border-gray {
+  border-radius: 40px;
+  background-color: $color-gray;
+  width: $modal;
+  height: $modal;
+
+  mat-icon {
+    color: $color-white;
+  }
+}
+
+.center-text {
+  text-align: center;
+}
+
+.container-icon {
+  @include icon-border-gray();
+}
+
+.edit-module {
+
+  .bold {
+    font-weight: bold;
+  }
+
+  h2 {
+    margin: 20px 0;
+  }
+  button{
+    border-radius: 2px !important;
+    text-transform: uppercase;
+  }
+
+    .bold{
+        font-weight: bold;
+    }
+
+  .container-form {
+    width: 100%;
+  }
+}
+
+
+
+/* Default class applied to drop zones on over */
+
+.invalid-drag {
+  border: dotted 3px red;
+}
+
+.valid-drag {
+  border: dotted 2px #757474;
+}
+
+.previewIcon {
+  width: 100px;
+  height: 100px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+
+
+.material-icons-outlined {
+  font-family: 'Material Icons Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+.container-load-files {
+  height: 305px;
+  max-height: 305px;
+  contain: content;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.cup-text-name-pdf {
+  width: 250px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.sizeRefuse {
+  color: red;
+}
+
+.marginLabelSize {
+  margin-right: 0.5%;
+}
+
+.chip-list {
+  width: 100%;
+
+  .mat-chip {
+    background: transparent;
+    border: 1px solid #9E9E9E;
+    color: #9E9E9E;
+  }
+}
+
+
+.container-icon-success {
+  height: 72px;
+  width: 72px;
+  font-size: 14px;
+  line-height: 14px;
+  border-radius: 40px;
+  background-color: $color-green;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #FFFFFF;
+}
+
+.text-end {
+  text-align: end;
+}
+
+.icon-close {
+  color: #909090;
+  cursor: pointer;
+}
+
+.text-success {
+  font-size: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.subtext-success {
+  padding: 30px 15px 6px 76px;
+  color: #757474;
+}
+
+.padding-container {
+  padding: 0px 15px 20px 76px;
+}
+
+.text-create-submodules {
+  color: #757474;
+  font-size: 14px;
+}
+
+.margintTopDeleteButton {
+  padding-bottom: 30px;
+}

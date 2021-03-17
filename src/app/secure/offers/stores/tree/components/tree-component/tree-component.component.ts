@@ -3,7 +3,6 @@ import { Component, Injectable, OnInit, Input, ViewChild, Output, EventEmitter }
 import { MatTreeFlatDataSource, MatTreeFlattener, MatTree } from '@angular/material/tree';
 import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { EventEmitterStore } from '../../../events/eventEmitter-store.service';
-import { elementStart } from '@angular/core/src/render3/instructions';
 
 /**
  * File node data with nested structure.
@@ -197,7 +196,7 @@ export class TreeComponentComponent implements OnInit {
 
   dataSource: MatTreeFlatDataSource<FileNode, FileFlatNode>;
 
-  @ViewChild('tree') treeElement;
+  @ViewChild('tree', {static: false}) treeElement;
   // arbol
   @Input() arbol: any;
   @Input() updateFunction: boolean;

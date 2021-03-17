@@ -53,7 +53,7 @@ export class PendingComponent implements OnInit {
     count: ''
   };
 
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   /**
    * Creates an instance of HistoricComponent.

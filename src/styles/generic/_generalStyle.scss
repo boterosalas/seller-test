@@ -426,7 +426,7 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
   }
 
   .btf {
-    justify-content: end;
+    justify-content: flex-end;
     display: flex;
     align-self: center;
 }
@@ -469,4 +469,58 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
 
 .dis-flex {
     display: flex;
+}
+
+@media (min-width: 767px) {
+    app-upload-file {
+        width: 50%;
+    }
+}
+
+.mat-buttons{
+    min-height: 120px !important;
+    .mat-raised-button{
+        border-radius: 2px !important;
+    }
+    button{
+        min-width: 124px !important;
+        border-radius: 2px !important;
+    }
+}
+
+.btn-transparent{
+    background: #ffffff;
+    border: 1px solid $blue !important;
+    border-radius: 2px !important;
+    &:hover{
+        color: #ffffff;
+        background:  $blue !important;
+        &[disabled]{
+            background: #e0e0e0;
+        }
+    }
+
+   
+
+    &[disabled]{
+        background: #e0e0e0;
+        border: none !important;
+        
+    }
+}
+
+.mat-dialog-actions{
+    gap: 25px;
+}
+
+.close{
+    cursor: pointer;
+}
+
+.uppercase{
+    text-transform: uppercase;
+}
+
+.container-form {
+    margin-top: 20px;
 }

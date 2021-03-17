@@ -55,7 +55,7 @@ export interface DialogData {
  */
 export class SupportModalComponent implements OnInit {
   // Input file de la vista
-  @ViewChild('fileInput') fileInput: ElementRef;
+  @ViewChild('fileInput', {static: false}) fileInput: ElementRef;
   //  Formulario para realizar la busqueda
   myform: FormGroup;
   // user info

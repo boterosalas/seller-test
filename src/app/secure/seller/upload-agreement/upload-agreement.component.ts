@@ -41,7 +41,7 @@ export class UploadAgreementComponent implements OnInit {
   public disabledCheckTempor = false;
   public isAllSelectedCurrent = false;
 
-  @ViewChild('sidenav') sidenav: MatSidenav;
+  @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
   public dataSource: MatTableDataSource<any>;
   public selection = new SelectionModel<any>(true, []);
   public initialSellerList: any;

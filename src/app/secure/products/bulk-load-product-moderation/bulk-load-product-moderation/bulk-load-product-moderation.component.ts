@@ -13,7 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class BulkLoadProductModerationComponent implements OnInit, AfterViewInit {
   // Plantilla para configurar el contenido principal del componente 'bulk-load'.
-  @ViewChild('mainContentTpl') private mainContentTpl: TemplateRef<any>;
+  @ViewChild('mainContentTpl', {static: false}) private mainContentTpl: TemplateRef<any>;
   // Configuración del componente 'bulk-load'.
 
   config: Partial<ConfigBulkLoad> = {

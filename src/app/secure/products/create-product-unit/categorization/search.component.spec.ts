@@ -1,34 +1,22 @@
-import { TestBed, ComponentFixture, fakeAsync } from '@angular/core/testing';
-import { async } from '@angular/core/testing';
-import { Observable, of } from 'rxjs';
-import { MaterialModule } from '@app/material.module';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule, FormsModule, FormControl } from '@angular/forms';
-import { LoadingService } from '@app/core';
-
+import { HttpClientModule } from '@angular/common/http';
+import { MaterialModule } from '@app/material.module';
 import { SearchCategorizationComponent } from './search.component';
 import { SearchService } from './search.component.service';
-import { ListCategorizationComponent } from './list/list.component';
-import { ProcessService } from '../component-process/component-process.service';
-import { TreeComponent } from './list/tree.component';
-import { EventEmitter } from '@angular/core';
-import { By } from '@angular/platform-browser';
 import { SharedModule } from '@app/shared/shared.module';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { of } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { By } from '@angular/platform-browser';
 
-
-describe('Probando componentes relacionados con la busqueda y seleccion de categoria en creación de producto unitario.', () => {
-
-    let fixture: ComponentFixture<SearchCategorizationComponent>;
+describe('ReportCommissionComponent', () => {
+    const mockCategoryService = jasmine.createSpyObj('SearchService', ['getCategories', 'getCategory', 'setCategory']);
     let component: SearchCategorizationComponent;
-
-    let componentList: ListCategorizationComponent;
-    let fixtureList: ComponentFixture<ListCategorizationComponent>;
-
-    let componentTree: TreeComponent;
-    let fixtureTree: ComponentFixture<TreeComponent>;
-    const eventEmitter = new EventEmitter();
+    let fixture: ComponentFixture<SearchCategorizationComponent>;
 
     const categories = '[{"Id":27316,"IdParent":27195,"Name":"A Gas","IdExito":"cat790026000","IdCarulla":"567_300030040000000","IdCatalogos":"k_900010000000000","IdMarketplace":"catmp1111000000","ProductType":"Technology"' +
         ',"SkuShippingSize":"5","Promisedelivery":"2 a 5","IsExitoShipping":true,"Commission":15.0},{"Id":27352,"IdParent":27231,"Name":"Abdominales","IdExito":"35_900120030040000","IdCarulla":"567_300030010060000","IdCatalogos":"k_900020020000000"' +
@@ -44,46 +32,27 @@ describe('Probando componentes relacionados con la busqueda y seleccion de categ
         '"SkuShippingSize":"2","Promisedelivery":"2 a 5","IsExitoShipping":true,"Commission":15.0},{"Id":27176,"IdParent":null,"Name":"Marketplace","IdExito":"catmp0000000000","IdCarulla":null,"IdCatalogos":null,"IdMarketplace":"catmp0000000000",' +
         '"ProductType":"Technology","SkuShippingSize":"2","Promisedelivery":"2 a 5","IsExitoShipping":true,"Commission":15.0}]';
 
-    const treeData = [{Id : 1, Name: 'Test 1', Son : [{ Id : 2, Name: 'Test 2', Son : [], ModifyName: 'Test'}] }];
-
     const structureJson = {
         statusCode: 200,
         status: 200,
         body: { body: '{ "Data": ' + categories + ' } ' }
     };
 
-    const searchService = <SearchService>{
-        getCategories(): Observable<{}> {
-            return of(structureJson);
-        },
-        getCategory(): Observable<any> {
-            return of(null); // functions empty
-        },
-        setCategory(category: string): void {
-            // functions empty
-        },
-        change: eventEmitter
-    };
 
-    const processService = <ProcessService>{
-        validaData(data: any): void {
-            // nothing to do here
-        }
-    };
-    const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner', 'viewProgressBar', 'closeProgressBar']);
-
-    beforeEach(fakeAsync(() => {
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [
-                SearchCategorizationComponent,
-                ListCategorizationComponent,
-                TreeComponent
+            imports: [
+                MaterialModule,
+                ReactiveFormsModule,
+                FormsModule,
+                RouterTestingModule,
+                BrowserAnimationsModule,
+                HttpClientModule,
+                SharedModule
             ],
+            declarations: [SearchCategorizationComponent],
             providers: [
-                { provide: SearchService, useValue: searchService },
-                { provide: ProcessService, useValue: processService },
-                { provide: LoadingService, useValue: mockLoadingService },
-            ], imports: [
+                { provide: SearchService, useValue: mockCategoryService },
                 MaterialModule,
                 MatFormFieldModule,
                 ReactiveFormsModule,
@@ -91,21 +60,21 @@ describe('Probando componentes relacionados con la busqueda y seleccion de categ
                 BrowserAnimationsModule,
                 SharedModule,
                 HttpClientTestingModule
-            ]
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
         }).compileComponents();
     }));
 
-    beforeEach(fakeAsync(() => {
+    beforeEach(() => {
         fixture = TestBed.createComponent(SearchCategorizationComponent);
+        mockCategoryService.getCategories.and.returnValue(of(structureJson));
         component = fixture.componentInstance;
         fixture.detectChanges();
-    }));
-
-    it('Deberia crear SearchCategorizationComponent', (done) => {
-        expect(component).toBeTruthy();
-        done();
     });
 
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
     it('Deberia obtener el valor searchText del searchTextInput.', (done) => {
         const field: HTMLInputElement = fixture.debugElement.query(By.css('#input-search')).nativeElement;
         field.value = 'gas';
@@ -114,7 +83,7 @@ describe('Probando componentes relacionados con la busqueda y seleccion de categ
         component.searchText = 'gas';
         expect(component.searchText).toBe('gas');
         done();
-      });
+    });
 
     it('Deberia obtener el valor searchText del searchTextInput sin name', (done) => {
         const mockEvent = new Event('click');
@@ -147,60 +116,7 @@ describe('Probando componentes relacionados con la busqueda y seleccion de categ
         component._filterStates('gas');
         expect(component.listCategories[0].Name).toBe('A Gas');
     });
-
-    beforeEach(() => {
-        fixtureList = TestBed.createComponent(ListCategorizationComponent);
-        componentList = fixtureList.componentInstance;
-        fixtureList.detectChanges();
+    afterAll(() => {
+        TestBed.resetTestingModule();
     });
-
-    it('Deberia crear ListCategorizationComponent', () => {
-        expect(componentList).toBeTruthy();
-    });
-
-    it('Deberia poner la variable openAllItems (false)', () => {
-        componentList.openAll();
-        expect(componentList.openAllItems).toBeTruthy();
-    });
-
-    it('Deberia inicializar la lista y encontrar palabras en esta', () => {
-        componentList.openAll();
-        componentList.showOnlyWithSon();
-
-        componentList.searchText = 'market';
-        componentList.organizedLisSearchText(componentList.listCategories);
-        // expect(componentList.listCategories[0].Show).toBeTruthy();
-
-        componentList.searchText = 'academi';
-        componentList.organizedLisSearchText(componentList.listCategories);
-
-        // expect(componentList.listCategories[0].Son[0].Show).toBeTruthy();
-    });
-
-    beforeEach(() => {
-        fixtureTree = TestBed.createComponent(TreeComponent);
-        componentTree = fixtureTree.componentInstance;
-        fixtureTree.detectChanges();
-    });
-
-    it('Deberia abrir en el arbol el primer elemento.', () => {
-        expect(componentTree).toBeTruthy();
-        componentTree.treeData = treeData;
-        componentTree.openSonClick(treeData[0]);
-        expect(componentTree.treeData[0].Show).toBeTruthy();
-    });
-
-    it('Deberia obtener de margin 2', () => {
-        expect(componentTree).toBeTruthy();
-        componentTree.treeData = treeData;
-        componentTree.margin = null;
-        componentTree.ngOnInit();
-        componentTree.getName(treeData[0].Son[0]);
-        componentTree.getMargin(treeData[0].Son[0]);
-        expect(componentTree.margin).toBe(2);
-    });
-
-
-
-
 });

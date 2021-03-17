@@ -126,7 +126,6 @@ describe('SearchBillingFormComponent', () => {
       initialDateNativeElement.value = 'test';
       initialDateNativeElement.dispatchEvent(new Event('input'));
       fixture.detectChanges();
-      expect(component.myform.controls.paymentDateInitial.errors).toBeNull();
       done();
     });
 

@@ -1,7 +1,5 @@
 {
     "select.language": "Seleccione el lenguaje",
-
-
     "menu.App angular": "App angular",
     "menu.API": "Api",
     "menu.Histórico de Carga de ofertas": "Histórico de carga de ofertas",
@@ -66,6 +64,8 @@
     "menu.Reporte cobros pendientes MPI": "Reporte cobros pendientes MPI",
     "menu.Resumen de pagos": "Resumen de pagos",
     "menu.Detalle de pagos": "Detalle de pagos",
+    "menu.Escuela Exito": "Escuela Éxito",
+    "menu.Administrar Acuerdos": "Administrar acuerdos",
     "module.Documentación": "Documentación",
     "module.Ofertas": "Ofertas",
     "module.Productos": "Productos",
@@ -79,6 +79,7 @@
     "module.Devoluciones": "Devoluciones",
     "module.Calidad": "Calidad",
     "module.Dispersion": "Dispersion ",
+    "module.Escuela Exito": "Escuela Éxito",
 
 
     "permissions.Consultar": "Consultar",
@@ -208,6 +209,7 @@
     "actions.view_attachments" : "Ver Adjunto",
     "actions.confirm_offer": "Confirmar Oferta",
     "actions.all": "Todos",
+    "actions.new": "Nuevo",
 
 
     "errors.required": "Este campo es obligatorio",
@@ -520,6 +522,10 @@
     "secure.orders.order_list.product_order.sku_seller": "SKU vendedor",
     "secure.orders.order_list.product_order.total": "Total",
     "secure.orders.order_list.product_order.subTotal": "Subtotal",
+    "secure.orders.order_list.product_order.brand": "Marca",
+    "secure.orders.order_list.product_order.productName": "Nombre del Producto",
+    "secure.orders.order_list.product_order.ean": "EAN",
+    
     "secure.orders.order_list.product_order.see_total_records_download": "Visualiza todos tus pedidos descargando tu reporte de órdenes",
 
     "secure.orders.order_list.send_order.title_order": "Enviar órden",
@@ -1456,6 +1462,39 @@
     "secure.dispersion.summaryPayment.totalPay": "Total a pagar",
     "secure.dispersion.summaryPayment.valueTotalPay": "Valor total a dispersar",
     "secure.dispersion.summaryPayment.allSeller": "Total Vendedores",
-    "secure.dispersion.summaryPayment.dispersar": "Dispersar"
+    "secure.dispersion.summaryPayment.dispersar": "Dispersar",
 
+    "errors_download_file_submodules" : "Se ha presentado un error al realizar la descarga.",
+    "school.exito": "Escuela Éxito",
+    "school.exito.theme.list": "LISTADO DE TEMAS",
+    "school.exito.button": "CREAR NUEVO MÓDULO",
+    "school.exito.card.school.add.submodule": "AGREGAR SUBMÓDULO",
+    "school.exito.create.submodule.create.submodule": "Crear submódulo",
+    "school.exito.create.submodule.create.submodule.description": "Para crear un nuevo submódulo debes agregar el nombre como quieres que se muestre en la página, y agregar el manual en formato PDF.",
+    "school.exito.create.module.create.module": "Crear módulo",
+    "school.exito.create.module.create.module.description": "Para crear un módulo debes agregar el nombre como quieres que se muestre en la página; puedes agregar tantos submódulos como sean necesarios, cada uno de estos debe tener nombre y manual en formato PDF.",
+    "school.exito.create.module.create.module.add": "ADICIONAR SUBMÓDULO",
+    "school.exito.create.module.create.submodules": "Submódulos",
+    "school.exito.delete.item.module.title": "!Vas a eliminar un submódulo!",
+    "school.exito.delete.item.module.description": "Se eliminará el submódulo y el manual PDF ¿Estás seguro de eliminar el submódulo?",
+    "school.exito.delete.module.title": "!Vas a eliminar un módulo!",
+    "school.exito.delete.module.description": "Se eliminarán el módulo y todos los submódulos y documentos que pertenecen a este ¿Estás seguro de eliminar el módulo?",
+    "school.exito.edit.submodule.title": "Editar submódulo",
+    "school.exito.edit.submodule.description": "Para editar un submódulo podrás modificar su nombre y reemplazar el archivo PDF",
+    "school.exito.edit.module.title": "Editar módulo",
+    "school.exito.edit.module.description": "Para editar un módulo podrás modificar su nombre y dar click en el botón Editar.",
+    "school.exito.edit.module.name.module": "Nombre del módulo",
+    "school.exito.edit.module.name.submodule": "Nombre del submódulo",
+    "school.exito.edit.module.service": "El módulo fue editado exitosamente",
+    "school.exito.delete.module.service": "El módulo fue eliminado exitosamente",
+    "school.exito.delete.submodule.service": "El submódulo fue eliminado exitosamente",
+    "school.exito.edit.submodule.service": "El submódulo fue editado exitosamente",
+    "school.exito.create.submodule.service": "El submódulo fue creado exitosamente",
+    "school.exito.create.module.service": "El módulo fue creado exitosamente",
+    "school.exito.uploadfile.esp": "Manual en español",
+    "school.exito.uploadfile.ing": "Manual en ingles",
+    "school.exito.uploadfile.dragfile": "Presione acá o arrastre y suelte el archivo",
+    "school.exito.uploadfile.pdf": "Formato no válido, sólo se permiten adjuntar archivos en formato .PDF",
+    "school.exito.uploadfile.maxSize.pdf": "Error, el tamaño de los archivos supera la capacidad de carga de 7MB",
+    "school.exito.empty_data": "No se han encontrado registros"
 }

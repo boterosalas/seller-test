@@ -38,9 +38,9 @@ const log = new Logger('BillingComponent');
 export class BillingComponent implements OnInit, OnDestroy {
 
   // Toolbar Options Componente: Permite acceder a los metodos de este compomente
-  @ViewChild('toolbarOptions') toolbarOption;
+  @ViewChild('toolbarOptions', {static: false}) toolbarOption;
   // Sort: elemento que se emplea para poder organizar los elementos de la tabla de acuerdo a la columna seleccionada
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
   // Columnas que se visualizan en la tabla
   public displayedColumns = [
     'expand',

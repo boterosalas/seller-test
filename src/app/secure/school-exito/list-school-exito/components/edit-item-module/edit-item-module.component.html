@@ -1,0 +1,50 @@
+<div class="edit-module">
+
+  <div fxLayout="row" fxLayoutAlign="end end"><mat-icon class="material-icons close" (click)="close()"> close </mat-icon></div>
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <div class="container-icon" fxLayout="column" fxLayoutAlign="center center">
+      <mat-icon class="material-icons">
+        edit
+      </mat-icon>
+    </div>
+  </div>
+
+  <h2 class="center-text bold" mat-dialog-title>
+    {{'school.exito.edit.submodule.title' | translate}}
+  </h2>
+
+  <p>{{'school.exito.edit.submodule.description' | translate}}</p>
+
+  <form [formGroup]="formEditModule" class="form-add" (ngSubmit)="editModule()">
+
+    <div mat-dialog-content class="form-container">
+
+      <div fxLayout="row" class="w-100" fxLayout.xs="column" fxLayoutAlign="space-between start">
+        
+        <div class="container-form" fxLayout="column">
+          
+          <mat-form-field class="input-add">
+            <input matInput formControlName="SubModuleName"  [placeholder]="'school.exito.edit.module.name.module' | translate"  (keydown)="changeValue()">
+            <mat-error *ngIf="formEditModule.get('SubModuleName').hasError('required')">{{'errors.required' | translate}}</mat-error>
+          </mat-form-field>
+          
+        </div>
+      </div>
+      <div fxLayout="row" fxLayout.xs="column">
+        <app-upload-file [manualName]="'school.exito.uploadfile.esp' | translate" (sendFileEvent)="addFileEsp($event)" (validateOneFileEvent)="onefileEsp($event)" id="esp"></app-upload-file>
+        <app-upload-file [manualName]="'school.exito.uploadfile.ing' | translate" (sendFileEvent)="addFileIng($event)" id="ing"></app-upload-file>
+      </div>
+
+      <!-- CONTAINER BUTTON TO ADD NEW SPECIFICATION GROUP -->
+
+    </div>
+
+    <div mat-dialog-actions class="mat-buttons" fxLayout="row" fxLayoutAlign="center center">
+      <button mat-stroked-button class="btn-transparent" type="button" id="btn-edit-submodule" color="primary" (click)="close()">{{'actions.cancel' | translate}}</button>
+      <button class="uppercase" id="btn-edit-submodule" type="submit" mat-raised-button color="primary" [disabled]="!formEditModule.valid || (changeValueEdit) || (oneEspFile)">{{'actions.edit' | translate}}</button>
+    </div>
+
+  </form>
+
+</div>

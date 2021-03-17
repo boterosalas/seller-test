@@ -5,8 +5,6 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { LoadingService, ModalService, UserLoginService, UserParametersService } from '@app/core';
 import { UserInformation, RoutesConst } from '@app/shared';
 import { RegisterService } from './register.service';
-import { TestRequest } from '@angular/common/http/testing';
-import { forEach } from '@angular/router/src/utils/collection';
 import { MenuModel, createFunctionality, registerName } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { Router } from '@angular/router';

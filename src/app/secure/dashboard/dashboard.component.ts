@@ -119,12 +119,12 @@ export class DashboardComponent implements OnInit {
      * Variable para observar el input del filtro inicial
      * @memberof FilterComponent
      */
-    @ViewChild('picker') picker;
-    @ViewChild('pickerDiary') pickerDiary;
+    @ViewChild('picker', {static: false}) picker;
+    @ViewChild('pickerDiary', {static: false}) pickerDiary;
 
-    @ViewChild('pickerSales') pickerSales;
-    @ViewChild('pickerDiarySales') pickerDiarySales;
-    @ViewChild('containerScrollTop') containerScrollTop: ElementRef;
+    @ViewChild('pickerSales', {static: false}) pickerSales;
+    @ViewChild('pickerDiarySales', {static: false}) pickerDiarySales;
+    @ViewChild('containerScrollTop', {static: false}) containerScrollTop: ElementRef;
 
     /**
      * @method constructor

@@ -3,20 +3,24 @@ version: 0.2
 phases:
 
   install:
+    runtime-versions:
+      nodejs: 12
+      
     commands:
-      - sudo apt-get clean
-      - sudo apt-get update
-      - sudo apt-get install dpkg
-      - sudo apt-get install -y libappindicator1 fonts-liberation
-      - sudo apt-get install -y libgconf2-4 libnss3-1d libxss1 libasound2
-      - sudo apt-get install -y xdg-utils libgbm1
+      - npm -v
+      - apt-get clean
+      - apt-get update
+      - apt-get install dpkg
+      - apt-get install -y libappindicator1 fonts-liberation
+      - apt-get install -y libgconf2-4 libxss1 libasound2
+      - apt-get install -y xdg-utils libgbm1
       - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-      - sudo dpkg -i google-chrome*.deb
+      - dpkg -i google-chrome*.deb
       - echo Instalando npm...
       - npm install
       - echo Instalacion de npm finalizada.
       - echo Instalando Angular...
-      - npm install -g @angular/cli@6.1.5
+      - npm install -g @angular/cli@8.3.29
       - echo Instalacion de Angular finalizada.
       - ng -v
   build:

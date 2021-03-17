@@ -13,7 +13,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { ExceptionBrandService } from './exception-brand.service';
 import { UserInformation } from '@app/shared';
 import { ModalErrorsComponent } from '../modal-errors/modal-errors.component';
-import { MediaChange, ObservableMedia } from '@angular/flex-layout';
+import { MediaChange, MediaObserver } from '@angular/flex-layout';
+
 
 const log = new Logger('ExceptionBrandComponent');
 
@@ -26,7 +27,7 @@ export class ExceptionBrandComponent implements OnInit {
 
   form: FormGroup;
   typeForm: FormGroup;
-  @ViewChild('dialogContent') content: TemplateRef<any>;
+  @ViewChild('dialogContent', {static: false}) content: TemplateRef<any>;
   currentStoreSelect_Id: any;
   vtexIdUpdate: any;
   body: any;
@@ -87,7 +88,7 @@ export class ExceptionBrandComponent implements OnInit {
     private modalService: ModalService,
     private snackBar: MatSnackBar,
     private authService: AuthService,
-    private media: ObservableMedia) {
+    private mediaObserver: MediaObserver) {
     this.typeForm = this.fb.group({
       type: ['']
     });
@@ -101,7 +102,7 @@ export class ExceptionBrandComponent implements OnInit {
     this.validatePermissions();
 
     // Metodo para validar el tamaño de la pantalla y ocultar o no columnas.
-    this.flexMediaWatcher = media.subscribe((change: MediaChange) => {
+    this.flexMediaWatcher = mediaObserver.media$.subscribe((change: MediaChange) => {
       if (change.mqAlias !== this.currentScreenWidth) {
         this.currentScreenWidth = change.mqAlias;
         this.setupTableColummns();

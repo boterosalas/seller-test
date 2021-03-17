@@ -32,14 +32,14 @@ export class CaseFilterComponent implements OnInit {
 
   value: string;
 
-  @ViewChild('sidenavfilter') sideFilter: MatSidenav;
+  @ViewChild('sidenavfilter', {static: false}) sideFilter: MatSidenav;
   @Output() eventFilter: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() stateFilter: boolean;
 
   @Input() options: any;
-  @ViewChild('filterForm') filterForm: NgForm;
-  @ViewChild('dateInitial') dateInitial: any;
-  @ViewChild('dateFinal') dateFinal: any;
+  @ViewChild('filterForm', {static: false}) filterForm: NgForm;
+  @ViewChild('dateInitial', {static: false}) dateInitial: any;
+  @ViewChild('dateFinal', {static: false}) dateFinal: any;
 
   public regexNoSpaces = /^((?! \s+|\s+$).)*$/;
   public rangeDays = 14;
@@ -62,7 +62,9 @@ export class CaseFilterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.sideFilter.toggle();
+    setTimeout(() => {
+      this.sideFilter.toggle();
+    }, 100);
     this.cleanFilter();
   }
 
@@ -106,7 +108,9 @@ export class CaseFilterComponent implements OnInit {
   }
 
   cleanFilter() {
-    this.filterForm.reset();
+    setTimeout(() => {
+      this.filterForm.reset();
+    }, 100);
   }
 
   openDateInitial() {

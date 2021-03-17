@@ -6,9 +6,9 @@ import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.serv
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 import { BillingService } from '../billing.service';
-import * as _moment from 'moment';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-const moment =  _moment;
+import moment from 'moment';
+
 
 @Component({
   selector: 'app-summary-payments',
@@ -237,6 +237,10 @@ filterListSummary(params: any) {
     };
     this.getAllSeller(params);
     this.loadingService.viewSpinner();
+  }
+
+  updateToggle(params: any){
+    this.stateSideNavOrder = params.close;
   }
 /**
  * funcion para cambiar status de los checkBox

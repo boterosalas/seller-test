@@ -132,7 +132,7 @@
       </div>
   </div>
   <div>
-    <app-filter-summary-payment [stateSideNavOrder]="stateSideNavOrder" (OnGetFilter)="filterListSummary($event)" [informationToForm]="informationToForm">
+    <app-filter-summary-payment [stateSideNavOrder]="stateSideNavOrder" (OnGetFilter)="filterListSummary($event)" (onToggle)="updateToggle($event)" [informationToForm]="informationToForm">
     </app-filter-summary-payment>
   </div>
 </div>

@@ -61,7 +61,7 @@ export class ExceptionComponent implements OnInit, OnDestroy {
     numberAndPoint: ''
   };
 
-  @ViewChild('fileUploadOption') inputFileUpload: any;
+  @ViewChild('fileUploadOption', {static: false}) inputFileUpload: any;
 
   constructor(
     private emitterSeller: EventEmitterSeller,
