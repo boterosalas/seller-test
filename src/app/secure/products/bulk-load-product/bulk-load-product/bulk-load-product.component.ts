@@ -434,7 +434,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           this.arrayNecessaryData.push([]);
           /*Se hace iteración en todas las columnas que tenga una fila del excel*/
           for (let j = 0; j < res[0].length; j++) {
-            if(res[i][j] === 'Seleccionar' && res[i][j] === 'Escribe o elige un valor de la hoja de marcas') {
+            if(res[i][j] === 'Seleccionar' || res[i][j] === 'Escribe o elige un valor de la hoja de marcas') {
               res[i][j] = null
             }
             /*Se valida si la primera celda de cada columna si tenga dato, si no tiene no se tendra en cuenta*/
@@ -490,6 +490,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
         if ((res.length - contEmptyRow) === 1) {
           this.loadingService.closeSpinner();
           this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.no_information_contains'), 'Aceptar', 10000);
+          console.log('here');
         } else {
           if (this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('TipoProducto') || this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('ProductType')
             || this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('TypeProduct')) {
