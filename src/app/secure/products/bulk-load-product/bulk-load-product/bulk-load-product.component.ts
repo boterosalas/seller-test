@@ -434,8 +434,11 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           this.arrayNecessaryData.push([]);
           /*Se hace iteración en todas las columnas que tenga una fila del excel*/
           for (let j = 0; j < res[0].length; j++) {
+            if(res[i][j] === 'Seleccionar' && res[i][j] === 'Escribe o elige un valor de la hoja de marcas') {
+              res[i][j] = null
+            }
             /*Se valida si la primera celda de cada columna si tenga dato, si no tiene no se tendra en cuenta*/
-            if (res[0][j] !== '' && res[0][j] !== null && res[0][j] !== undefined && res[i][j] !== 'Seleccionar' && res[i][j] !== 'Escribe o elige un valor de la hoja de marcas') {
+            if (res[0][j] !== '' && res[0][j] !== null && res[0][j] !== undefined) {
               /*Se insertan los datos de la celda en el objeto creato anteriormente dentro del arreglo de datos necesarios, solo si el la primera celda de toda la columna trae datos*/
               this.arrayNecessaryData[i].push(res[i][j]);
             }
@@ -731,6 +734,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
             //Elimina las filas 1 y 2 que son de titulos
 
             this.arrayNecessaryData.splice(1,2);
+
+            console.log(this.arrayNecessaryData);
 
             //hace un split del arreglo para solo sacar el numero de la categoria y se vuelve a insertar
 
