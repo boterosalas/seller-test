@@ -353,3 +353,42 @@ $underline-color: #19a695;
 .margin-bottom-10{
   margin-bottom: 10px;
 }
+
+.table-support{
+  background: #f4f4f4;
+  color: #66625d;
+  margin-bottom: 15px;
+  th{
+    width: 15%;
+    font-weight: bold;
+  }
+  td{
+    border-bottom: none;
+  }
+}
+
+.image-product{
+  width: 300px;
+  height: auto;
+  position: absolute;
+  top: -70px;
+  left: 75px;
+  background: #f4f4f4;
+  border-radius: 10px;
+  padding: 7px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  z-index: 99999 !important;
+  img{
+    width: 100%;
+    object-fit: contain;
+  }
+}
+
+.p-rel{
+  position: relative;
+}
+
+.name{
+  cursor: pointer;
+  color: $accent-color;
+}

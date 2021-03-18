@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/co
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { SellerSupportCenterService } from '../services/seller-support-center.service';
 import { ResponseCaseDialogComponent } from '@shared/components/response-case-dialog/response-case-dialog.component';
-import { MatDialog, MatSnackBar, MatPaginatorIntl, ErrorStateMatcher } from '@angular/material';
+import { MatDialog, MatSnackBar, MatPaginatorIntl, ErrorStateMatcher, MatTableDataSource } from '@angular/material';
 import { LoadingService, ModalService } from '@app/core';
 import { Logger } from '@core/util/logger.service';
 import { ActivatedRoute } from '@angular/router';
@@ -127,8 +127,13 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
   filterListCasesFilter: any;
   activeInit = false;
   currentLanguage: string;
+  showImage = false;
 
   idDetail: any;
+
+  displayedColumns: string[] = ['product', 'sku', 'ean', 'brand', 'skuseller', 'price', 'quantity'];
+
+  public dataSource: MatTableDataSource<any>;
 
   constructor(
     public dialog: MatDialog,
@@ -179,6 +184,16 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
       .subscribe(unreadCase => (this.unreadCase = unreadCase));
     this.changeLanguage();
   }
+
+
+  public showThumbnail() {
+    this.showImage = true;
+  }
+
+  public hideThumbnail() {
+    this.showImage = false;
+  }
+
   /**
    * funcion para escuchar el evento al cambiar de idioma
    *
