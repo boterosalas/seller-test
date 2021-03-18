@@ -481,8 +481,10 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
         }
 
+
         /*Variable para contar el número de registros que esta en el excel, se resta 1 porque no se tiene en cuenta la primera fila que es la fila de titulos */
         const numberRegister = this.arrayNecessaryData.length - 1;
+
         /*
         * if valido si el excel solo trae 2 registros y hay 1 vacio
         * else if se valida que el documento tenga en los titulos o primera columna nos datos, EAN, Tipo de Productoo y Categoria
@@ -490,7 +492,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
         if ((res.length - contEmptyRow) === 1) {
           this.loadingService.closeSpinner();
           this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.no_information_contains'), 'Aceptar', 10000);
-          console.log('here');
         } else {
           if (this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('TipoProducto') || this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('ProductType')
             || this.arrayNecessaryData[0].includes('EAN') && this.arrayNecessaryData[0].includes('TypeProduct')) {
@@ -641,7 +642,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   iURLDeImagen5: this.arrayNecessaryData[0].indexOf('Image URL 5'),
                   iModificacionImagen: this.arrayNecessaryData[0].indexOf('Image Modification'),
                   iParentReference: this.arrayNecessaryData[0].indexOf('Parent reference'),
-                  iSonReference: this.arrayNecessaryData[0].indexOf('Child reference'),
+                  // iSonReference: this.arrayNecessaryData[0].indexOf('Child reference'),
                   iSize: this.arrayNecessaryData[0].indexOf('Size'),
                   iColor: this.arrayNecessaryData[0].indexOf('Color'),
                   iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
@@ -679,7 +680,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   iURLDeImagen5: this.arrayNecessaryData[0].indexOf('URL de Imagen 5'),
                   iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modificacion Imagen'),
                   iParentReference: this.arrayNecessaryData[0].indexOf('Referencia Padre'),
-                  iSonReference: this.arrayNecessaryData[0].indexOf('Referencia Hijo'),
+                  // iSonReference: this.arrayNecessaryData[0].indexOf('Referencia Hijo'),
                   iSize: this.arrayNecessaryData[0].indexOf('Talla'),
                   iColor: this.arrayNecessaryData[0].indexOf('Color'),
                   iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
@@ -718,7 +719,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                     iURLDeImagen5: this.arrayNecessaryData[0].indexOf('URL de l\'image 5'),
                     iModificacionImagen: this.arrayNecessaryData[0].indexOf('Modification d\'image'),
                     iParentReference: this.arrayNecessaryData[0].indexOf('Référence Père'),
-                    iSonReference: this.arrayNecessaryData[0].indexOf('Référence Enfant'),
+                    // iSonReference: this.arrayNecessaryData[0].indexOf('Référence Enfant'),
                     iSize: this.arrayNecessaryData[0].indexOf('Taille'),
                     iColor: this.arrayNecessaryData[0].indexOf('Couleur'),
                     iHexColourName: this.arrayNecessaryData[0].indexOf('hexColourName'),
@@ -732,18 +733,28 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
               }
             }
 
+                 
             //Elimina las filas 1 y 2 que son de titulos
 
             this.arrayNecessaryData.splice(1,2);
 
-            console.log(this.arrayNecessaryData);
 
             //hace un split del arreglo para solo sacar el numero de la categoria y se vuelve a insertar
 
             this.arrayNecessaryData.map((resp, i) => {
+              
               if(i > 0) {
-                let splitCategory = resp[3].split('_');
+
+                resp.filter( resp => resp === "Clothing" )
+        
+                let splitCategory = resp[4].split('_');
+                resp[4] = splitCategory[0];
+
+                resp.filter( resp => resp === "Technology" )
+        
+                splitCategory = resp[3].split('_');
                 resp[3] = splitCategory[0];
+
               }
             })
 
@@ -1348,7 +1359,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
     if (variant && variant === true) {
       newObjectForSend['ParentReference'] = res[i][iVal.iParentReference] ? res[i][iVal.iParentReference].trim() : null;
-      newObjectForSend['SonReference'] = res[i][iVal.iSonReference] ? res[i][iVal.iSonReference].trim() : null;
+      // newObjectForSend['SonReference'] = res[i][iVal.iSonReference] ? res[i][iVal.iSonReference].trim() : null;
       newObjectForSend['Size'] = res[i][iVal.iSize] ? res[i][iVal.iSize].trim() : null;
       newObjectForSend['Color'] = res[i][iVal.iColor] ? res[i][iVal.iColor].trim() : null;
       newObjectForSend['HexColourName'] = res[i][iVal.iHexColourName] ? res[i][iVal.iHexColourName].trim() : null;
@@ -1390,7 +1401,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
         ) {
           if (variant && variant === true) {
             if (k !== iVal.iParentReference &&
-              k !== iVal.iSonReference &&
+              // k !== iVal.iSonReference &&
               k !== iVal.iSize &&
               k !== iVal.iColor &&
               k !== iVal.iHexColourName) {
@@ -2341,7 +2352,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
         productos = [{
           'Grupo EAN Combo': undefined,
           'EAN': undefined,
-          'Referencia Hijo': undefined,
+          // 'Referencia Hijo': undefined,
           'Referencia Padre': undefined,
           'Nombre del producto': undefined,
           'Categoria': undefined,
