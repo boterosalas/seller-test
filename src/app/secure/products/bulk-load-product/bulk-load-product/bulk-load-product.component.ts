@@ -1528,7 +1528,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       Color: res[index][iVal.iColor],
       HexColourName: res[index][iVal.iHexColourName],
       ParentReference: res[index][iVal.iParentReference],
-      SonReference: res[index][iVal.iSonReference],
+      // SonReference: res[index][iVal.iSonReference],
       ModifyImage: res[index][iVal.iModificacionImagen],
       IsLogisticsExito: res[index][iVal.iLogisticExito] ? res[index][iVal.iLogisticExito] : '0',
       ImageUrl1: res[index][iVal.iURLDeImagen1],
@@ -1595,7 +1595,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       this.arrayInformation[index].errorImageUrl4 = false;
       this.arrayInformation[index].errorImageUrl5 = false;
       this.arrayInformation[index].errorParentReference = false;
-      this.arrayInformation[index].errorSonReference = false;
+      // this.arrayInformation[index].errorSonReference = false;
       this.arrayInformation[index].errorModifyImage = false;
       this.arrayInformation[index].errorRow = false;
       this.arrayInformation[index].errorSize = false;
