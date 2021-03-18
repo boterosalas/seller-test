@@ -78,11 +78,6 @@ export class DetailAgreementComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('redirect detalle acuerdos');
-    // this.route.params.subscribe(params => {
-    //   console.log('params: ', params);
-    //   this.getAllSellerAgreement(params);
-    // });
     this.getListbyParams();
     this.validateFormSupport();
   }
@@ -123,9 +118,12 @@ export class DetailAgreementComponent implements OnInit {
     });
   }
 
+  /**
+   * Metodo para aplicar filtros
+   * @memberof DetailAgreementComponent
+   */
   public filterApply() {
     this.callOne = true;
-    console.log(this.filterDetailsSellers.controls.SellerName.value);
     this.namefilter = encodeURIComponent(this.filterDetailsSellers.controls.SellerName.value);
     this.getAllSellerAgreement(null, this.namefilter);
   }
@@ -206,7 +204,6 @@ export class DetailAgreementComponent implements OnInit {
    * @memberof DetailAgreementComponent
    */
   getAllSellerAgreement(params?: any, filters?: any) {
-    console.log('this.paginationToken: ', this.paginationToken);
     this.loadingService.viewSpinner();
     let urlParams;
     if (params) {
@@ -218,10 +215,8 @@ export class DetailAgreementComponent implements OnInit {
     if (filters) {
       urlParams = this.docId + `/` + this.docType + `?name=${filters}&limit=${this.limit}&paginationToken=` + this.paginationToken;
     }
-    console.log('res: ', urlParams);
     this.sellerService.getListSellers(urlParams).subscribe((result: any) => {
       if (result) {
-        console.log('res: ', result);
         this.resultModel = result.body;
         if (this.callOne) {
           this.length = result.Count;
@@ -270,7 +265,6 @@ export class DetailAgreementComponent implements OnInit {
       this.limit = event.pageSize;
     }
     if (event && event.pageIndex >= 0) {
-      console.log('event: ', event);
       const index = event.pageIndex;
       if (index === 0) {
         this.paginationToken = encodeURI('{}');
