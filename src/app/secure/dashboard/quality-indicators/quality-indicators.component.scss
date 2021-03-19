@@ -1,0 +1,27 @@
+.quality-indicators{
+    &-border-bottom-color{
+        border-bottom: 1px solid #dadada;
+      }
+
+      &-container-height-50{
+        height: 50px;
+      }
+
+      &-container-header-align{
+        margin-top: 14px;
+        padding-right: 10px;
+        padding-left: 10px;
+      }
+
+      &-spinner-loading {
+        margin-left: 48%;
+        margin-right: 55%;
+      }
+
+      &-margin-spinner{
+        margin:0 auto;
+        margin-bottom: 10px;
+      }
+      
+    
+}
