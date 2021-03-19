@@ -252,7 +252,6 @@ export class PendingProductsComponent implements OnInit {
    * @memberof PendingProductsComponent
    */
   getPendingProductsValidation(params?: any) {
-    // this.validation = true;
     this.loadingService.viewSpinner();
     if (params !== undefined) {
       this.paginationToken2 = encodeURI(this.paginationToken2);
@@ -327,7 +326,7 @@ export class PendingProductsComponent implements OnInit {
     if (event.pageSize !== this.limit) {
       this.limit = event.pageSize;
     }
-    if (event && event && event.pageIndex >= 0) {
+    if (event && event.pageIndex >= 0) {
       const index = event.pageIndex;
       if (index === 0) {
         this.paginationToken2 = encodeURI('{}');
@@ -348,7 +347,7 @@ export class PendingProductsComponent implements OnInit {
         'limit': this.pageSize2 + '&paginationToken=' + this.paginationToken2,
         'idSeller': this.user.sellerId + '&ean=' + this.ean2 + '&name=' + this.nameProduct2
       };
-      this.getPendingProductsModify(this.paramsArray2);
+      this.getPendingProductsValidation(this.paramsArray2);
     }
   }
 
