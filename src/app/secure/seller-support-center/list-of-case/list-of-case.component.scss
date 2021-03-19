@@ -384,11 +384,17 @@ $underline-color: #19a695;
   }
 }
 
-.p-rel{
-  position: relative;
-}
-
 .name{
   cursor: pointer;
-  color: $accent-color;
+}
+
+.icon{
+  position: relative;
+  top: 6px;
+}
+
+@media only screen and (max-width: 767px) {
+  .hide-mobile{
+    display: none;
+  }
 }

@@ -21,6 +21,7 @@ import { DatePipe } from '@angular/common';
 import { CustomPaginator } from '@app/secure/products/list-products/listFilter/paginatorList';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { ModalExportToReclaimComponent } from '../modal-export-to-reclaim/modal-export-to-reclaim.component';
+import { InfoModalSupportComponent } from '../info-modal-support/info-modal-support.component';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -128,6 +129,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
   activeInit = false;
   currentLanguage: string;
   showImage = false;
+  imageThumbnail:String;
 
   idDetail: any;
 
@@ -185,14 +187,23 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
     this.changeLanguage();
   }
 
-
-  public showThumbnail() {
-    this.showImage = true;
-  }
-
-  public hideThumbnail() {
-    this.showImage = false;
-  }
+    /**
+   * funcion para mostrar submodulos y crearlos
+   *
+   * @param {*} module
+   * @param {*} item
+   * @memberof ListAdminSchoolComponent
+   */
+     showThumbnail(dataProduct: any) {
+      this.dialog.open(InfoModalSupportComponent, {
+        data: {
+          dataProduct
+        },
+        width: '300px',
+        maxWidth: '90vw',
+      });
+      
+    }
 
   /**
    * funcion para escuchar el evento al cambiar de idioma

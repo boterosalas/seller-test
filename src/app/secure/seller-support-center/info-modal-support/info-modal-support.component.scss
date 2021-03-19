@@ -1,0 +1,29 @@
+.info-modal-support {
+  img {
+    max-width: 100%;
+    width: 210px;
+    height: auto;
+    object-fit: contain;
+    text-align: center;
+    margin: 0 auto;
+    padding: 5px;
+    margin-top: 10px;
+  }
+  .ean {
+    color: #979797;
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+  .name {
+    color: #000000;
+    font-size: 18px;
+    margin-top: 8px;
+  }
+}
+
+.desc{
+    p{
+        font-size: 12px;
+        margin: 3px;
+    }
+}
