@@ -1,0 +1,21 @@
+.info-indicators{
+    &-padding-15{
+        padding: 15px;
+    }
+    &-font-w-size{
+        font-weight: bold;
+        font-size: 17px;
+    }
+    &-padding-max{
+        padding: 15px;
+        max-width: 530px;
+    }
+    &-width-text{
+        width: 100%;
+        text-align: end;
+    }
+    &-text-decoration-cursor{
+        text-decoration: underline black;
+        cursor: pointer;
+    }
+}

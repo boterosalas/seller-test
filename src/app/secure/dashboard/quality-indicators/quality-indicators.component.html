@@ -6,22 +6,21 @@
       <div fxFlex="60" fxFlex.sm="90" fxFlex.md="65"
         class="quality-indicators-container-position-title-orders">
         <span>
-          Indicadores de calidad
+          {{'quality.indicators.quality_indicators'| translate}}
         </span>
       </div>
       <div fxFlex="30" fxFlex.sm="10" fxFlex.md="25" fxFlex.lg=""
         fxFlex.xs="30" fxFlex.xl="30"
-        class="quality-indicators-container-orders-align" style="text-align: end;">
-        <span style="font-size: 13px; color: #909090">
-          Últimos 30 {{'shared.days'| translate}}: {{'shared.from' | translate}} <span style="font-weight: bold;">{{from}}</span>
-          {{'shared.to'| translate }} <span style="font-weight: bold;">{{to}}</span>
+        class="quality-indicators-container-orders-align quality-indicators-container-text-align-end">
+        <span class="quality-indicators-container-font-size-color">
+          {{'quality.indicators.Last_days'| translate}}: {{'shared.from' | translate}} <span class="quality-indicators-container-font-weight-bold">{{from}}</span>
+          {{'shared.to'| translate }} <span class="quality-indicators-container-font-weight-bold">{{to}}</span>
         </span>
       </div>
     </div>
   </div>
   <div *ngIf="!load">
-    <div fxLayout="row" style="padding: 19px 10px 16px 10px;font-size: 13px;
-      color: #909090; border-bottom: 1px solid #dadada;">
+    <div fxLayout="row" class="quality-indicators-container-row-padding">
       <div fxFlex="30" style="padding-left: 10px;">{{'quality.indicators.objectives' | translate}}</div>
       <div fxFlex="10">{{'quality.indicators.goal'| translate}}</div>
       <div fxFlex="60">{{'quality.indicators.Compliance'| translate}}</div>
@@ -37,7 +36,6 @@
           <mat-icon class="mat-18" style="color: #909090; width: 14px;height:
             14px;font-size: 14px;">info</mat-icon>
         </span>
-
       </div>
       <div fxFlex="10" style="padding: 20px;">
         <span style="color: #909090; font-size: 13px;">

@@ -606,7 +606,7 @@ export const endpoints = {
        // Consultar si tiene carga la creacion de modulos.
       ValidateCreateMassive : 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/ValidateCreateMassive',
       // Captura de indicadores
-      getIndicators : ''
+      getIndicators : 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller/getindicatorsbynit'
     }
   }
 };

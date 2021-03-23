@@ -22,6 +22,26 @@
         margin:0 auto;
         margin-bottom: 10px;
       }
+
+      &-text-align-end{
+        text-align: end;
+      }
+
+      &-font-size-color{
+        font-size: 13px;
+        color: #909090
+      }
+
+      &-font-weight-bold{
+        font-weight: bold;
+      }
+
+      &-row-padding{
+        padding: 19px 10px 16px 10px;
+        font-size: 13px;
+        color: #909090;
+        border-bottom: 1px solid #dadada;
+      }
       
     
 }

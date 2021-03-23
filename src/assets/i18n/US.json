@@ -1460,5 +1460,8 @@
     "school.exito.empty_data": "No records found",
     "quality.indicators.objectives": "Objectives",
     "quality.indicators.goal": "Goal",
-    "quality.indicators.Compliance": "Compliance"
+    "quality.indicators.Compliance": "Compliance",
+    "quality.indicators.quality_indicators": "Quality indicators",
+    "quality.indicators.Last_days": "Last 30 days",
+    "quality.indicators.i_understand": "I understand"
 }
