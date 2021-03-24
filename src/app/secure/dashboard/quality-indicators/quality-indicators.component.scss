@@ -56,6 +56,7 @@
       &-aling-icon-cursor{
         vertical-align: middle;
         cursor: pointer;
+        margin-left: 5px;
       }
       &-icon-info{
         color: #909090;
@@ -82,6 +83,15 @@
       &-width-100{
         width: 100%;
       }
-      
-    
+      &-vertical-aling-super{
+        vertical-align: super;
+      }
+      &-bar-without-data{
+        width: 100%;
+        background-color: #f1f1f1;
+        height: 15px;
+      }
+      &-padding-top{
+        padding-top: 5px;
+      }
 }

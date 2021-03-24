@@ -95,7 +95,7 @@
     </div>
   </div>
   <div fxLayout="column" class="quality-indicators-border-bottom-color
-  quality-indicators-height-50">
+    quality-indicators-height-50">
     <div fxLayout="row" class="quality-indicators-header-align">
       <div fxFlex="100" fxFlex.sm="100" fxFlex.md="100"
         class="quality-indicators-position-title-orders">
@@ -105,47 +105,65 @@
       </div>
     </div>
   </div>
-  <div fxLayout="row">
-    <mat-accordion class="quality-indicators-width-100">
-      <mat-expansion-panel *ngFor="let indicators of qualityIndicators">
-        <mat-expansion-panel-header >
-          <mat-panel-title>
-            <span class="quality-indicators-color-text-indicators quality-indicators-font-weight-bold">
-              {{indicators.indicatorName}}
-            </span>
-            <span class="quality-indicators-aling-icon-cursor"
-            (click)="openBtnInfo(indicators.indicatorName ,
-            indicators.calcInformation)">
-            <mat-icon class="mat-18 quality-indicators-icon-info">info</mat-icon>
-          </span>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div fxLayout="column">
-          <div fxFlex="100">
-            <span class="quality-indicators-color-text-indicators quality-indicators-font-weight-bold">
-              {{'quality.indicators.goal'| translate}}: {{indicators.goal}} {{indicators.measureUnit}}
-            </span>
-          </div>
-          <div fxFlex="100">
-            <span class="quality-indicators-color-text-indicators quality-indicators-font-weight-bold">
-              {{'quality.indicators.Compliance'| translate}}
-            </span>
-          </div>
-          <div fxFlex="100" >
-            <div fxLayout="row">
-              <div fxFlex="80" class="quality-indicators-contain">
-                <div [ngStyle]="{'width': indicators.percentageBar + '%',
-                'background-color': indicators.color, 'height': '15px' }"></div>
-              </div>
-              <div fxFlex="20">
-                <span class="quality-indicators-color-text-indicators">
-                  {{indicators.value}} {{indicators.measureUnit}}
-                </span>
+  <div *ngIf="!load">
+    <div fxLayout="row">
+      <mat-accordion class="quality-indicators-width-100">
+        <mat-expansion-panel *ngFor="let indicators of qualityIndicators">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <span class="quality-indicators-color-text-indicators
+                quality-indicators-font-weight-bold">
+                {{indicators.indicatorName}}
+              </span>
+              <span class="quality-indicators-aling-icon-cursor"
+                (click)="openBtnInfo(indicators.indicatorName ,
+                indicators.calcInformation)">
+                <mat-icon class="mat-18 quality-indicators-icon-info">info</mat-icon>
+              </span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div fxLayout="column">
+            <div fxFlex="100">
+              <span class="quality-indicators-color-text-indicators
+                quality-indicators-font-weight-bold">
+                {{'quality.indicators.goal'| translate}}: {{indicators.goal}}
+                {{indicators.measureUnit}}
+              </span>
+            </div>
+            <div fxFlex="100">
+              <span class="quality-indicators-color-text-indicators
+                quality-indicators-font-weight-bold">
+                {{'quality.indicators.Compliance'| translate}}
+              </span>
+            </div>
+            <div fxFlex="100">
+              <div fxLayout="row" class="quality-indicators-padding-top">
+                <div fxFlex="80" class="quality-indicators-contain">
+                  <div *ngIf="indicators.percentageBar> 0 " [ngStyle]="{'width':
+                    indicators.percentageBar + '%',
+                    'background-color': indicators.color, 'height': '15px' }"></div>
+                  <div *ngIf="indicators.percentageBar === 0"class="quality-indicators-bar-without-data"></div>
+                </div>
+                <div fxFlex="20" class="quality-indicators-text-align-end">
+                  <span class="quality-indicators-color-text-indicators
+                    quality-indicators-vertical-aling-super">
+                    {{indicators.value}} {{indicators.measureUnit}}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </mat-expansion-panel>
-    </mat-accordion>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+  <div *ngIf="load" class="quality-indicators-height-padding">
+    <mat-spinner [diameter]="40" class="quality-indicators-spinner-loading
+      quality-indicators-margin-spinner">
+    </mat-spinner>
+    <div class="quality-indicators-text-center">
+      <span>{{'secure.products.create_product_unit.list_products.please_wait' |
+        translate}}</span>
+    </div>
   </div>
 </div>
