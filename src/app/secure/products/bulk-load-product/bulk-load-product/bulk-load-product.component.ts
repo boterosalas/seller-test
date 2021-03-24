@@ -229,39 +229,28 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
   }
 
   prepareComponent() {
+    const validateRegex$ = this.SUPPORT.getRegexFormSupport(null);
     const availableLoads$ = this.authService.profileType$.pipe(distinctUntilChanged());
     const verifyStateCharge$ = this.BulkLoadProductS.getCargasMasivas();
-    const validateRegex$ = this.SUPPORT.getRegexFormSupport(null);
-    const getBrands$ = this.service.getActiveBrands();
     const getColor$ = this.service.getColorProducts();
-    const categoryList$ = this.searchService.getCategories();
-    const listOfSize$ = this.service.getSizeProducts();
 
     this.loadingService.viewSpinner();
     combineLatest(
       availableLoads$,
       verifyStateCharge$,
       validateRegex$,
-      getBrands$,
       getColor$,
-      categoryList$,
-      listOfSize$
     ).subscribe(([
       availableLoads,
       verifyStateCharge,
       validateRegex,
-      getBrands,
-      getColor,
-      categoryList,
-      listOfSize
+      getColor
     ]) => {
       this.getAvaliableLoads(availableLoads);
       this.verifyStateCharge(verifyStateCharge);
       this.validateFormSupport(validateRegex);
-      this.listOfBrands(getBrands);
       this.listColor(getColor);
-      this.getCategoriesList(categoryList);
-      this.listOfSize(listOfSize);
+
       this.loadingService.closeSpinner();
     });
   }
@@ -1617,20 +1606,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     this.dataSource.paginator = this.paginator;
   }
 
-  /**
-   * Metodo para validar la talla del servicio de tallas y enviar siempre el label en español.
-   * @memberof BulkLoadProductComponent
-   */
-  changeSize() {
-    this.arrayInformationForSend.splice(0, 1);
-    this.arrayInformationForSend.forEach((element) => {
-      this.copySizeArray.forEach((el) => {
-        if (el.Size === element['Size']) {
-          element['Size'] = el.Label;
-        }
-      });
-    });
-  }
+
 
   /**
    * Método que permite realizar el envío del json cargado del excel
@@ -1991,8 +1967,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
   /*---------------------------------------- Fin Metodos para validar el formato de los campos ----------------------------------------*/
 
-  /*---------------------------------------- Metodos para descargar formato ----------------------------------------*/
-
   // Funcion para cargar datos de regex
   public validateFormSupport(res?: any): void {
     let dataOffertRegex = JSON.parse(res.body.body);
@@ -2003,433 +1977,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
         this.productsRegex[val] = element && `${element.Value}`;
       }
     }
-  }
-
-
-  /* Datos de plantilla Technology */
-
-  getDataFormFileTechnology() {
-    const productos = this.setCultureColumnsTechnology();
-    const categoria = this.listOfCategories();
-    const marcas = this.brands;
-    const especificaciones = this.listOfSpecs();
-    return { productos, categoria, marcas, especificaciones };
-  }
-
-
-  /* Datos de plantilla Clothing */
-
-
-  setCultureColumnsTechnology() {
-    let productos = [];
-    if (this.culture === 'ES') {
-      productos = [{
-        'Grupo EAN Combo': undefined,
-        'EAN': undefined,
-        'Nombre del producto': undefined,
-        'Categoria': undefined,
-        'Marca': undefined,
-        'Descripcion': undefined,
-        'Palabras Clave': undefined,
-        'Alto del empaque': undefined,
-        'Largo del empaque': undefined,
-        'Ancho del empaque': undefined,
-        'Peso del empaque': undefined,
-        'skuShippingsize': undefined,
-        'Alto del producto': undefined,
-        'Largo del producto': undefined,
-        'Ancho del producto': undefined,
-        'Peso del producto': undefined,
-        'Descripcion Unidad de Medida': undefined,
-        'Factor de conversion': undefined,
-        'TipoProducto': undefined,
-        'URL de Imagen 1': undefined,
-        'URL de Imagen 2': undefined,
-        'URL de Imagen 3': undefined,
-        'URL de Imagen 4': undefined,
-        'URL de Imagen 5': undefined,
-        'Logistica Exito': undefined,
-      },
-      this.modelSpecs
-      ];
-
-    } else if (this.culture === 'US') {
-      productos = [{
-        'Combo EAN Group': undefined,
-        'EAN': undefined,
-        'Product Name': undefined,
-        'Category': undefined,
-        'Brand': undefined,
-        'Description': undefined,
-        'Keywords': undefined,
-        'Package Height': undefined,
-        'Package Length': undefined,
-        'Package Width': undefined,
-        'Package Weight': undefined,
-        'skuShippingsize': undefined,
-        'Item Height': undefined,
-        'Item Length': undefined,
-        'Item Width': undefined,
-        'Item Weight': undefined,
-        'Measuring Unit': undefined,
-        'Conversion Factor': undefined,
-        'ProductType': undefined,
-        'Image URL 1': undefined,
-        'Image URL 2': undefined,
-        'Image URL 3': undefined,
-        'Image URL 4': undefined,
-        'Image URL 5': undefined,
-        'Exito Logistics': undefined,
-      },
-      this.modelSpecs
-      ];
-    } else if (this.culture === 'FR') {
-      productos = [{
-        'Bundle EAN': undefined,
-        'EAN': undefined,
-        'Nom du produit': undefined,
-        'Catégorie': undefined,
-        'Marque': undefined,
-        'Description': undefined,
-        'Mots-clés': undefined,
-        'Hauteur de l\'emballage': undefined,
-        'Longueur d\'emballage': undefined,
-        'Largeur de l\'emballage': undefined,
-        'Poids de l\'emballage': undefined,
-        'skuShippingsize': undefined,
-        'Hauteur du produit': undefined,
-        'Longueur du produit': undefined,
-        'Largeur du produit': undefined,
-        'Poids du produit': undefined,
-        'Description Unité de mesure': undefined,
-        'Facteur de conversion': undefined,
-        'TypeProduct': undefined,
-        'URL de l\'image 1': undefined,
-        'URL de l\'image 2': undefined,
-        'URL de l\'image 3': undefined,
-        'URL de l\'image 4': undefined,
-        'URL de l\'image 5': undefined,
-        'Exito logistique': undefined,
-      },
-      this.modelSpecs
-      ];
-    }
-    return productos;
-  }
-
-  getDataFormFileClothing() {
-    const productos = this.setCultureColumnsClothing();
-    const categoria = this.listOfCategories();
-    const marcas = this.brands;
-    const especificaciones = this.listOfSpecs();
-    const talla = this.size;
-    const color = this.listColorProducts;
-    return { productos, categoria, marcas, especificaciones, talla, color };
-  }
-
-
-  setCultureColumnsClothing() {
-    let productos = [];
-    if (this.profileTypeLoad === 'Tienda') {
-      if (this.culture === 'ES') {
-        productos = [{
-          'Grupo EAN Combo': undefined,
-          'EAN': undefined,
-          'Referencia Padre': undefined,
-          'Nombre del producto': undefined,
-          'Categoria': undefined,
-          'Marca': undefined,
-          'Descripcion': undefined,
-          'Palabras Clave': undefined,
-          'Talla': undefined,
-          'Color': undefined,
-          'hexColourName': undefined,
-          'Alto del empaque': undefined,
-          'Largo del empaque': undefined,
-          'Ancho del empaque': undefined,
-          'Peso del empaque': undefined,
-          'skuShippingsize': undefined,
-          'Alto del producto': undefined,
-          'Largo del producto': undefined,
-          'Ancho del producto': undefined,
-          'Peso del producto': undefined,
-          'Descripcion Unidad de Medida': undefined,
-          'Factor de conversion': undefined,
-          'TipoProducto': undefined,
-          'URL de Imagen 1': undefined,
-          'URL de Imagen 2': undefined,
-          'URL de Imagen 3': undefined,
-          'URL de Imagen 4': undefined,
-          'URL de Imagen 5': undefined,
-          'Logistica Exito': undefined,
-        },
-        this.modelSpecs
-        ];
-      } else if (this.culture === 'US') {
-        productos = [{
-          'Combo EAN Group': undefined,
-          'EAN': undefined,
-          'Parent reference': undefined,
-          'Product Name': undefined,
-          'Category': undefined,
-          'Brand': undefined,
-          'Description': undefined,
-          'Keywords': undefined,
-          'Size': undefined,
-          'Color': undefined,
-          'hexColourName': undefined,
-          'Package Height': undefined,
-          'Package Length': undefined,
-          'Package Width': undefined,
-          'Package Weight': undefined,
-          'skuShippingsize': undefined,
-          'Item Height': undefined,
-          'Item Length': undefined,
-          'Item Width': undefined,
-          'Item Weight': undefined,
-          'Measuring Unit': undefined,
-          'Conversion Factor': undefined,
-          'ProductType': undefined,
-          'Image URL 1': undefined,
-          'Image URL 2': undefined,
-          'Image URL 3': undefined,
-          'Image URL 4': undefined,
-          'Image URL 5': undefined,
-          'Exito Logistics': undefined,
-        },
-        this.modelSpecs
-        ];
-      } else if (this.culture === 'FR') {
-        productos = [{
-          'Bundle EAN': undefined,
-          'EAN': undefined,
-          'Référence Père': undefined,
-          'Nom du produit': undefined,
-          'Catégorie': undefined,
-          'Marque': undefined,
-          'Description': undefined,
-          'Mots-clés': undefined,
-          'Taille': undefined,
-          'Couleur': undefined,
-          'hexColourName': undefined,
-          'Hauteur de l\'emballage': undefined,
-          'Longueur d\'emballage': undefined,
-          'Largeur de l\'emballage': undefined,
-          'Poids de l\'emballage': undefined,
-          'skuShippingsize': undefined,
-          'Hauteur du produit': undefined,
-          'Longueur du produit': undefined,
-          'Largeur du produit': undefined,
-          'Poids du produit': undefined,
-          'Description Unité de mesure': undefined,
-          'Facteur de conversion': undefined,
-          'TypeProduct': undefined,
-          'URL de l\'image 1': undefined,
-          'URL de l\'image 2': undefined,
-          'URL de l\'image 3': undefined,
-          'URL de l\'image 4': undefined,
-          'URL de l\'image 5': undefined,
-          'Exito logistique': undefined,
-        },
-        this.modelSpecs
-        ];
-      }
-    } else {
-      if (this.culture === 'ES') {
-        productos = [{
-          'Grupo EAN Combo': undefined,
-          'EAN': undefined,
-          'Referencia Padre': undefined,
-          'Nombre del producto': undefined,
-          'Categoria': undefined,
-          'Marca': undefined,
-          'Descripcion': undefined,
-          'Palabras Clave': undefined,
-          'Talla': undefined,
-          'Color': undefined,
-          'hexColourName': undefined,
-          'Alto del empaque': undefined,
-          'Largo del empaque': undefined,
-          'Ancho del empaque': undefined,
-          'Peso del empaque': undefined,
-          'skuShippingsize': undefined,
-          'Alto del producto': undefined,
-          'Largo del producto': undefined,
-          'Ancho del producto': undefined,
-          'Peso del producto': undefined,
-          'Descripcion Unidad de Medida': undefined,
-          'Factor de conversion': undefined,
-          'TipoProducto': undefined,
-          'URL de Imagen 1': undefined,
-          'URL de Imagen 2': undefined,
-          'URL de Imagen 3': undefined,
-          'URL de Imagen 4': undefined,
-          'URL de Imagen 5': undefined,
-          'Logistica Exito': undefined,
-        },
-        this.modelSpecs
-        ];
-      } else if (this.culture === 'US') {
-        productos = [{
-          'Combo EAN Group': undefined,
-          'EAN': undefined,
-          'Parent reference': undefined,
-          'Product Name': undefined,
-          'Category': undefined,
-          'Brand': undefined,
-          'Description': undefined,
-          'Keywords': undefined,
-          'Size': undefined,
-          'Color': undefined,
-          'hexColourName': undefined,
-          'Package Height': undefined,
-          'Package Length': undefined,
-          'Package Width': undefined,
-          'Package Weight': undefined,
-          'skuShippingsize': undefined,
-          'Item Height': undefined,
-          'Item Length': undefined,
-          'Item Width': undefined,
-          'Item Weight': undefined,
-          'Measuring Unit': undefined,
-          'Conversion Factor': undefined,
-          'ProductType': undefined,
-          'Image URL 1': undefined,
-          'Image URL 2': undefined,
-          'Image URL 3': undefined,
-          'Image URL 4': undefined,
-          'Image URL 5': undefined,
-          'Exito Logistics': undefined,
-        },
-        this.modelSpecs
-        ];
-      } else if (this.culture === 'FR') {
-        productos = [{
-          'Bundle EAN': undefined,
-          'EAN': undefined,
-          'Référence Enfant': undefined,
-          'Référence Père': undefined,
-          'Nom du produit': undefined,
-          'Catégorie': undefined,
-          'Marque': undefined,
-          'Description': undefined,
-          'Mots-clés': undefined,
-          'Taille': undefined,
-          'Couleur': undefined,
-          'hexColourName': undefined,
-          'Hauteur de l\'emballage': undefined,
-          'Longueur d\'emballage': undefined,
-          'Largeur de l\'emballage': undefined,
-          'Poids de l\'emballage': undefined,
-          'skuShippingsize': undefined,
-          'Hauteur du produit': undefined,
-          'Longueur du produit': undefined,
-          'Largeur du produit': undefined,
-          'Poids du produit': undefined,
-          'Description Unité de mesure': undefined,
-          'Facteur de conversion': undefined,
-          'TypeProduct': undefined,
-          'URL de l\'image 1': undefined,
-          'URL de l\'image 2': undefined,
-          'URL de l\'image 3': undefined,
-          'URL de l\'image 4': undefined,
-          'URL de l\'image 5': undefined,
-          'Exito logistique': undefined,
-        },
-        this.modelSpecs
-        ];
-      }
-    }
-    return productos;
-  }
-
-  /* Lista por marcas activas */
-  listOfCategories() {
-    if (this.vetex.data !== null) {
-      return this.vetex.data.listCategories.map((element) => {
-        return { 'Código de Categoría': element.id, 'Categoría Especifica': element.name };
-      });
-    } else {
-      return this.vetex.data = {
-        groupName: '',
-        id: '',
-        idGroup: '',
-        idVTEX: '',
-        listCategories: [],
-        specs: []
-      };
-    }
-  }
-
-  listOfSpecs() {
-    // Arreglo a retornar
-    const specs = [];
-
-    // Modelo de especificaciones a construir
-    this.modelSpecs = {};
-    // Maximo numero de valores de una especificacion
-    let maxSpecsValue = 0;
-    this.vetex.data.specs.forEach((element) => {
-      // Crea la key del objeto
-      this.modelSpecs[element.specName] = undefined;
-      // Comprueba el maximo valor
-      if (maxSpecsValue < element.listValues.length) {
-        maxSpecsValue = element.listValues.length;
-      }
-    });
-
-    if (Array.isArray(this.vetex.data.specs)) {
-      for (let i = 0; i < maxSpecsValue; i++) {
-        const object = Object.assign({}, this.modelSpecs);
-        specs.push(object);
-      }
-    }
-    if (maxSpecsValue === 0) {
-      const object = Object.assign({}, this.modelSpecs);
-      specs.push(object);
-    }
-
-    this.vetex.data.specs.map((element) => {
-      if (element.listValues.length > 0) {
-        element.listValues.forEach((specElement, i) => {
-          // Agrega el valor de la especificacion (specName) al objeto situado en la posicion i
-          specs[i][element.specName] = specElement;
-        });
-      } else {
-        specs.forEach(specElement => specElement[element.specName] = null);
-      }
-    });
-    return specs;
-  }
-
-  /* Lista por marcas activas */
-
-  listOfBrands(brands?: any) {
-    const initialBrands = brands.Data.Brands;
-    this.brands = initialBrands.sort((a, b) => {
-      if (a.Name > b.Name) {
-        return 1;
-      }
-      if (a.Name < b.Name) {
-        return -1;
-      }
-      return 0;
-    });
-    initialBrands.forEach((element, i) => {
-      this.brands[i] = { Marca: element.Name };
-    });
-  }
-  /**
-   * Funcion para somunir el listado de tallas
-   *
-   * @memberof BulkLoadProductComponent
-   */
-  listOfSize(size?: any) {
-    const sizeArray = JSON.parse(size.body);
-    this.copySizeArray = sizeArray;
-    sizeArray.forEach((element, i) => {
-      this.size[i] = { Talla: element.Size };
-    });
   }
 
   listColor(color?: any) {
@@ -2450,7 +1997,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
         };
     });
 }
-
 
   /**
    * Generación del arbol VTEX
