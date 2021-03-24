@@ -18,6 +18,7 @@ import { MatDialog } from '@angular/material';
 import { StoreService } from '@app/store/store.service';
 import { ConfigurationState } from '@app/store/configuration';
 import { CaseSupportCenterService } from '../services/case-support-center.service';
+import { InfoModalSupportComponent } from '../info-modal-support/info-modal-support.component';
 
 @Component({
   selector: 'app-detail-case',
@@ -57,6 +58,8 @@ export class DetailCaseComponent implements OnInit {
 
   @Input() idDetail: any;
   @Output() idDetailFalse = new EventEmitter<any>();
+
+  displayedColumns: string[] = ['product', 'sku', 'ean', 'brand', 'skuseller', 'price', 'quantity'];
 
 
   constructor(
@@ -117,6 +120,24 @@ export class DetailCaseComponent implements OnInit {
       }
     });
   }
+
+      /**
+   * funcion para mostrar el modal del producto
+   *
+   * @param {*} module
+   * @param {*} item
+   * @memberof ListAdminSchoolComponent
+   */
+       showThumbnail(dataProduct: any) {
+        this.dialog.open(InfoModalSupportComponent, {
+          data: {
+            dataProduct
+          },
+          width: '300px',
+          maxWidth: '90vw',
+        });
+        
+      }
 
   getStatusCase() {
     this.storeService.getStateConfiguration().subscribe((res: ConfigurationState) => {

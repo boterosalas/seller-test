@@ -70,6 +70,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
   unreadCase: number;
   caseId = '';
   public subModalExport: Subscription;
+  getClassification = [];
 
   configDialog = {
     width: '85%',
@@ -119,7 +120,8 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
     Status: '',
     DateInit: '',
     DateEnd: '',
-    SellerId: ''
+    SellerId: '',
+    classification: ''
   };
   filterLastPost: string;
 
@@ -165,6 +167,11 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
     this.createFormControls();
     this.validateFormSupport();
     this.getStatusCase();
+    
+    this.SUPPORT.getClassification().subscribe( resp => {
+      this.getClassification = resp.data;
+    });
+
     this.filterByRoute(this.router.queryParams).subscribe(res => {
       const seller = this.paramsFilter.SellerId;
       if (this.isAdmin) {
@@ -188,7 +195,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
   }
 
     /**
-   * funcion para mostrar submodulos y crearlos
+   * funcion para mostrar el modal del producto
    *
    * @param {*} module
    * @param {*} item
@@ -236,7 +243,8 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
       DateInit: { disabled: true, value: '' },
       DateEnd: { disabled: true, value: '' },
       Status: new FormControl(''),
-      OrderNumber: new FormControl('', [Validators.pattern(this.regexFilter.orderNumber)])
+      OrderNumber: new FormControl('', [Validators.pattern(this.regexFilter.orderNumber)]),
+      classification: new FormControl('')
     });
   }
 
@@ -284,6 +292,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
     this.paramsFIlterListCase.LastPost = this.filterListCases.controls.LastPost.value;
     this.paramsFIlterListCase.Status = this.filterListCases.controls.Status.value;
     this.paramsFIlterListCase.OrderNumber = this.filterListCases.controls.OrderNumber.value;
+    this.paramsFIlterListCase.classification = this.filterListCases.controls.classification.value;
     if (this.isAdmin) {
       this.paramsFIlterListCase.SellerId = this.paramsFilter.SellerId;
     }

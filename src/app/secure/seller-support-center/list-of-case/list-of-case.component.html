@@ -89,6 +89,27 @@
               {{'secure.parametize.support_claims.list.error.orderNumber' | translate}}
             </mat-error>
           </mat-form-field>
+
+          <mat-form-field class="filter-form--field">
+          <mat-select id="suport-modal-input-reason" formControlName="classification"
+          [placeholder]="'secure.parametize.support_modal.classification' | translate">
+          <ng-container *ngFor="
+              let item of getClassification;
+              let i = index
+            ">
+            <mat-option [value]="item.classification">
+              <span id="{{ item.classification }} - {{ i }}">
+                {{
+                  item.classification != null
+                    ? item.classification
+                    : "Sin titulo"
+                }}
+              </span>
+            </mat-option>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
+      
         </div>
         <div class="filter-control">
           <button mat-stroked-button color="primary" type="button" (click)="cleanFilter()">

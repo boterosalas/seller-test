@@ -136,3 +136,48 @@ $line-color: #d3d3d3;
   left: 0;
   color: $color-gray-light;
 }
+
+.table-support{
+  background: #f4f4f4;
+  color: #66625d;
+  margin-bottom: 15px;
+  th{
+    width: 13%;
+    font-weight: bold;
+  }
+  td{
+    border-bottom: none;
+  }
+}
+
+.image-product{
+  width: 300px;
+  height: auto;
+  position: absolute;
+  top: -70px;
+  left: 75px;
+  background: #f4f4f4;
+  border-radius: 10px;
+  padding: 7px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  z-index: 99999 !important;
+  img{
+    width: 100%;
+    object-fit: contain;
+  }
+}
+
+.name{
+  cursor: pointer;
+}
+
+.icon{
+  position: relative;
+  top: 6px;
+}
+
+@media only screen and (max-width: 767px) {
+  .hide-mobile{
+    display: none;
+  }
+}
