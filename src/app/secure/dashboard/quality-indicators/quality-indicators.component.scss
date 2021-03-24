@@ -3,11 +3,11 @@
         border-bottom: 1px solid #dadada;
       }
 
-      &-container-height-50{
+      &-height-50{
         height: 50px;
       }
 
-      &-container-header-align{
+      &-header-align{
         margin-top: 14px;
         padding-right: 10px;
         padding-left: 10px;
@@ -41,6 +41,46 @@
         font-size: 13px;
         color: #909090;
         border-bottom: 1px solid #dadada;
+      }
+
+      &-padding-left-10{
+        padding-left: 10px;
+      }
+      &-padding-20{
+        padding: 20px;
+      }
+      &-color-text-indicators{
+        color: #909090;
+        font-size: 13px;
+      }
+      &-aling-icon-cursor{
+        vertical-align: middle;
+        cursor: pointer;
+      }
+      &-icon-info{
+        color: #909090;
+        width: 14px;
+        height:14px;
+        font-size: 14px;
+      }
+      &-padding-contain{
+        padding: 20px;
+        contain:content;
+      }
+      &-contain{
+        contain:content;
+      }
+      &-text-center{
+        text-align: center;
+      }
+      &-height-padding{
+        height: 80px;padding: 90px;
+      }
+      &-color{
+        color: #909090
+      }
+      &-width-100{
+        width: 100%;
       }
       
     

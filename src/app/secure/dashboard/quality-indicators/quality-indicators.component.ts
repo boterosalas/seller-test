@@ -50,7 +50,7 @@ export class QualityIndicatorsComponent implements OnInit {
         });
       }
     }, error => {
-      this.snackBar.open(this.languageService.instant('public.auth.forgot.error_try_again'), this.languageService.instant('actions.close'), {
+      this.snackBar.open(this.languageService.instant('public.auth.forgot.error_try_again') + (error), this.languageService.instant('actions.close'), {
         duration: 5000,
       });
     });
