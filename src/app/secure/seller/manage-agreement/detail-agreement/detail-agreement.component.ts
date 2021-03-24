@@ -21,21 +21,18 @@ export class DetailAgreementComponent implements OnInit {
   public statusAllCheck = true;
   public arrayNotSelect = [];
   public subModalLoad: any;
-  // public limit = 50;
   public resultModel: any;
   public disabledBtn = false;
 
   public paginationToken = '{}';
   public limit = 0;
   titleAgreement: any;
-  // length = 0;
   public pageSize = 50;
   pageSizeOptions: number[] = [50, 100, 200];
 
 
   public callOne = true;
   public arrayPosition = [];
-  // public paginationToken = '{}';
   public arraySelect = [];
   public all = false;
   public disabledCheckTempor = false;

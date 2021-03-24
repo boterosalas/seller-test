@@ -32,7 +32,6 @@ const routes: Routes = [
             path: `${RoutesConst.sellerCenterIntDetailAgreement}`,
             component:  DetailAgreementComponent,
             data: { title: 'Detalle acuerdos' },
-            // canActivate: [AuthService]
         }
     ])
 ];

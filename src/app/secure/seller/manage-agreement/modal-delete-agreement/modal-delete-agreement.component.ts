@@ -67,8 +67,6 @@ export class ModalDeleteAgreementComponent implements OnInit {
         const dataRes = JSON.parse(result.body);
         if (dataRes && dataRes.Data === true) {
           this.deleteOk = true;
-          // this.componentService.openSnackBar('Elimino correctamente el acuerdo a los vendedores', this.languageService.instant('actions.close'), 5000);
-          // this.dialogRef.close(false);
           this.loadingService.closeSpinner();
         } else {
           this.componentService.openSnackBar('Ocurrió un error al eliminar el acuerdo a los vendedores', this.languageService.instant('actions.close'), 5000);
@@ -95,8 +93,6 @@ export class ModalDeleteAgreementComponent implements OnInit {
         const dataRes = JSON.parse(result.body);
         if (dataRes && dataRes.Data === true) {
           this.deleteOk = true;
-          // this.componentService.openSnackBar('Elimino correctamente el acuerdo a los vendedores', this.languageService.instant('actions.close'), 5000);
-          // this.dialogRef.close(false);
           this.loadingService.closeSpinner();
         } else {
           this.componentService.openSnackBar('Ocurrió un error al eliminar el acuerdo a los vendedores', this.languageService.instant('actions.close'), 5000);
@@ -123,8 +119,6 @@ export class ModalDeleteAgreementComponent implements OnInit {
         const dataRes = JSON.parse(result.body);
         if (dataRes && dataRes.Data === true) {
           this.deleteOk = true;
-          // this.componentService.openSnackBar('Elimino correctamente el acuerdo a los vendedores', this.languageService.instant('actions.close'), 5000);
-          // this.dialogRef.close(false);
           this.loadingService.closeSpinner();
         } else {
           this.componentService.openSnackBar('Ocurrió un error al eliminar el acuerdo a los vendedores', this.languageService.instant('actions.close'), 5000);

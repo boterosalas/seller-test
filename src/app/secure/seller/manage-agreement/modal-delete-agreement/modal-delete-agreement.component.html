@@ -21,16 +21,20 @@
 </div>
 
 <div align="center" class="confirmationSend" *ngIf="deleteOk">
-  <i class="material-icons container" [ngStyle]="{'background-color': deleteOk === 'true' ? '#6fb63e' : '#6fb63e'}"
-    class="marginButtonDeleteOk">
+  <mat-icon class="material-icons container"
+    [ngStyle]="{'background-color': deleteOk === 'true' ? '#6fb63e' : '#6fb63e'}" class="marginButtonDeleteOk">
     done
-  </i>
+  </mat-icon>
   <span class="modal-load-agreement-content-text-type" class="sizeIconDelete"
-    *ngIf="data.deleteMultiple !== 1"><strong>Los vendedores se han eliminado
+    *ngIf="data.deleteMultiple === 0"><strong>Los vendedores se han eliminado
       correctamente</strong></span>
 
   <span class="modal-load-agreement-content-text-type" class="sizeIconDelete"
     *ngIf="data.deleteMultiple === 1"><strong>El vendedor se ha eliminado correctamente</strong></span>
+
+  <span class="modal-load-agreement-content-text-type" class="sizeIconDelete"
+    *ngIf="data.deleteMultiple === 2"><strong>Los vendedores se han eliminado
+      correctamente</strong></span>
   <mat-dialog-actions align="center">
     <button type="button" mat-raised-button color="primary" [innerHTML]="'CERRAR'" (click)="onNoClick()">CERRAR</button>
   </mat-dialog-actions>
