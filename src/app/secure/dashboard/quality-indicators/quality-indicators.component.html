@@ -30,30 +30,38 @@
       <div fxFlex="10">{{'quality.indicators.goal'| translate}}</div>
       <div fxFlex="60">{{'quality.indicators.Compliance'| translate}}</div>
     </div>
-    <div fxLayout="row" *ngFor="let indicators of qualityIndicators">
-      <div fxFlex="30" class="quality-indicators-padding-20">
-        <span class="quality-indicators-color-text-indicators">
-          {{indicators.indicatorName}}
-        </span>
-        <span class="quality-indicators-aling-icon-cursor"
-          (click)="openBtnInfo(indicators.indicatorName ,
-          indicators.calcInformation)">
-          <mat-icon class="mat-18 quality-indicators-icon-info">info</mat-icon>
-        </span>
+    <div *ngIf="qualityIndicators !== null">
+      <div fxLayout="row" *ngFor="let indicators of qualityIndicators">
+        <div fxFlex="30" class="quality-indicators-padding-20">
+          <span class="quality-indicators-color-text-indicators">
+            {{indicators.indicatorName}}
+          </span>
+          <span class="quality-indicators-aling-icon-cursor"
+            (click)="openBtnInfo(indicators.indicatorName ,
+            indicators.calcInformation)">
+            <mat-icon class="mat-18 quality-indicators-icon-info">info</mat-icon>
+          </span>
+        </div>
+        <div fxFlex="10" class="quality-indicators-padding-20">
+          <span class="quality-indicators-color-text-indicators">
+            {{indicators.goal}} {{indicators.measureUnit}}
+          </span>
+        </div>
+        <div fxFlex="50" class="quality-indicators-padding-contain">
+          <div [ngStyle]="{'width': indicators.percentageBar + '%',
+            'background-color': indicators.color, 'height': '15px' }"></div>
+        </div>
+        <div fxFlex="10" class="quality-indicators-padding-20">
+          <span class="quality-indicators-color-text-indicators">
+            {{indicators.value}} {{indicators.measureUnit}}
+          </span>
+        </div>
       </div>
-      <div fxFlex="10" class="quality-indicators-padding-20">
-        <span class="quality-indicators-color-text-indicators">
-          {{indicators.goal}} {{indicators.measureUnit}}
-        </span>
-      </div>
-      <div fxFlex="50" class="quality-indicators-padding-contain">
-        <div [ngStyle]="{'width': indicators.percentageBar + '%',
-          'background-color': indicators.color, 'height': '15px' }"></div>
-      </div>
-      <div fxFlex="10" class="quality-indicators-padding-20">
-        <span class="quality-indicators-color-text-indicators">
-          {{indicators.value}} {{indicators.measureUnit}}
-        </span>
+    </div>
+    <div *ngIf="qualityIndicators === null" class="quality-indicators-align-center">
+      <div><mat-icon class="quality-indicators-icon-not-found" color="primary">info</mat-icon></div>
+      <div>
+        {{'school.exito.empty_data' | translate}}
       </div>
     </div>
   </div>
