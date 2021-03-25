@@ -44,7 +44,7 @@ export class QualityIndicatorsComponent implements OnInit {
           this.to = this.qualityIndicators[0] ? this.qualityIndicators[0].finalDate : '';
         }
       } else {
-        this.qualityIndicators = null;
+        this.qualityIndicators = [];
         this.snackBar.open(this.languageService.instant('public.auth.forgot.error_try_again'), this.languageService.instant('actions.close'), {
           duration: 5000,
         });

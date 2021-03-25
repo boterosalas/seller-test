@@ -24,13 +24,13 @@
     </div>
   </div>
   <div *ngIf="!load">
-    <div fxLayout="row" class="quality-indicators-row-padding">
+    <div fxLayout="row" class="quality-indicators-row-padding" *ngIf="qualityIndicators.length > 0">
       <div fxFlex="30" class="quality-indicators-padding-left-10">{{'quality.indicators.objectives'
         | translate}}</div>
       <div fxFlex="10">{{'quality.indicators.goal'| translate}}</div>
       <div fxFlex="60">{{'quality.indicators.Compliance'| translate}}</div>
     </div>
-    <div *ngIf="qualityIndicators !== null">
+    <div *ngIf="qualityIndicators.length > 0">
       <div fxLayout="row" *ngFor="let indicators of qualityIndicators">
         <div fxFlex="30" class="quality-indicators-padding-20">
           <span class="quality-indicators-color-text-indicators">
@@ -44,7 +44,7 @@
         </div>
         <div fxFlex="10" class="quality-indicators-padding-20">
           <span class="quality-indicators-color-text-indicators">
-            {{indicators.goal}} {{indicators.measureUnit}}
+           {{indicators.symbol}} {{indicators.goal}} {{indicators.measureUnit}}
           </span>
         </div>
         <div fxFlex="50" class="quality-indicators-padding-contain">
@@ -58,7 +58,7 @@
         </div>
       </div>
     </div>
-    <div *ngIf="qualityIndicators === null" class="quality-indicators-align-center">
+    <div *ngIf="qualityIndicators.length === 0" class="quality-indicators-align-center">
       <div><mat-icon class="quality-indicators-icon-not-found" color="primary">info</mat-icon></div>
       <div>
         {{'school.exito.empty_data' | translate}}
