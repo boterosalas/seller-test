@@ -119,4 +119,31 @@ export class SellerService implements CanActivate {
     public getStatusMassiveAgreement() {
         return this.http.get(this.api.get('getStatusMassiveAgreement'), { observe: 'response' });
     }
+
+    /**
+     * Eliminar el contrato a todos los vendedores
+     * @returns
+     * @memberof SellerService
+     */
+    public deteleAllSellerAgreement(body: any) {
+        return this.http.patch(this.api.get('deleteAllAgreement', [body]), { observe: 'response' });
+    }
+
+    /**
+     * Establecer contrato predeterminado
+     * @param {*} body
+     * @returns
+     * @memberof SellerService
+     */
+    activeAgreementDefault(body: any){
+        return this.http.patch(this.api.get('defaulAgreement', [body]), { observe: 'response' });
+    }
+
+    getListSellers(params: any): Observable<any> {
+        return this.http.get(this.api.get('getListSellersAgreement', [params]));
+    }
+
+    deleteOneOrMore(data){
+        return this.http.patch(this.api.get('delete1orMore'), data);
+    }
 }

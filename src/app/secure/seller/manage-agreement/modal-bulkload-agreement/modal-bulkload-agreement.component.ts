@@ -61,7 +61,7 @@ export class ModalBulkloadAgreementComponent implements OnInit {
   public fileSize: any;
 
   /* Input file que carga el archivo*/
-  @ViewChild('fileUploadOption', {static: false}) inputFileUpload: any;
+  @ViewChild('fileUploadOption', { static: false }) inputFileUpload: any;
   bodyToSend: any;
   arrayTosendExcel: any[];
 
@@ -506,6 +506,17 @@ export class ModalBulkloadAgreementComponent implements OnInit {
   public closeActualDialog(): void {
     if (this.progressStatus) {
       this.dialog.closeAll();
+    }
+  }
+
+
+  /**
+   * Metodo para desytruir el componente
+   * @memberof ModalBulkloadAgreementComponent
+   */
+  ngOnDestroy() {
+    if (this.dialogRef) {
+      this.dialogRef.close();
     }
   }
 }
