@@ -7,10 +7,11 @@
         <p class="ean">EAN {{dataInfoSupport.dataProduct.ean}}</p>
         <p class="name">{{dataInfoSupport.dataProduct.productName}}</p>
         <span class="desc" fxHide.gt-xs="true">
-        <p>SKU {{dataInfoSupport.dataProduct.sku}}</p>
-        <p>{{'secure.orders.order_list.product_order.sku_seller' | translate}} {{dataInfoSupport.dataProduct.sellerSku}}</p>
-        <p>Precio de venta {{dataInfoSupport.dataProduct.price}}</p>
-        <p>{{'secure.billing.amount' | translate}} {{dataInfoSupport.dataProduct.quantity}}</p>
+        <p>SKU: {{dataInfoSupport.dataProduct.sku}}</p>
+        <p>{{'secure.parametize.support.brand' | translate}}: {{dataInfoSupport.dataProduct.brand}}</p>
+        <p>{{'secure.orders.order_list.product_order.sku_seller' | translate}}: {{dataInfoSupport.dataProduct.sellerSku}}</p>
+        <p>{{'secure.parametize.support.sell_price' | translate}}: {{dataInfoSupport.dataProduct.price}}</p>
+        <p>{{'secure.billing.amount' | translate}}: {{dataInfoSupport.dataProduct.quantity}}</p>
         </span>
     </div>
   
