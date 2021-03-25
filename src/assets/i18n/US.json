@@ -1463,5 +1463,6 @@
     "quality.indicators.Compliance": "Compliance",
     "quality.indicators.quality_indicators": "Quality indicators",
     "quality.indicators.Last_days": "Last 30 days",
-    "quality.indicators.i_understand": "I understand"
+    "quality.indicators.i_understand": "I understand",
+    "quality.indicators.indicator_not_available": "Indicator not available"
 }

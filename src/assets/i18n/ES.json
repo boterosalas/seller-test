@@ -1506,5 +1506,6 @@
     "quality.indicators.Compliance": "Cumplimiento",
     "quality.indicators.quality_indicators": "Indicadores de calidad",
     "quality.indicators.Last_days": "Últimos 30 días",
-    "quality.indicators.i_understand": "Entendido"
+    "quality.indicators.i_understand": "Entendido",
+    "quality.indicators.indicator_not_available": "Indicador no disponible"
 }
