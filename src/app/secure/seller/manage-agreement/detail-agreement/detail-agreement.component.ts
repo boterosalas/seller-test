@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common'
 import { LoadingService, Logger } from '@app/core';
-import { MatDialog, MatSidenav, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatSidenav, MatTableDataSource, PageEvent } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { SellerService } from '../../seller.service';
 import { ActivatedRoute } from '@angular/router';
@@ -23,6 +23,7 @@ export class DetailAgreementComponent implements OnInit {
   public subModalLoad: any;
   public resultModel: any;
   public disabledBtn = false;
+  pageEvent: PageEvent;
 
   public paginationToken = '{}';
   public limit = 0;
