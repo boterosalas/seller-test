@@ -107,6 +107,7 @@ export class FAKE {
       concept: '',
       paymentDate: '',
       commission: 0,
+      iva: 0,
       billingTotal: 0,
       paginationToken: '',
       detail: [{
