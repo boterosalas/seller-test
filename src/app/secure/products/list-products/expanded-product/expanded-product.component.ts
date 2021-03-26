@@ -128,8 +128,8 @@ export class ExpandedProductComponent implements OnInit, OnDestroy {
      * @memberof ExpandedProductComponent
      */
     ngOnDestroy() {
-        if (this.dialogRef) {
-            this.dialogRef.close();
-        }
+        //     if (this.dialogRef) {
+        //         this.dialogRef.close();
+        //     }
     }
 }
