@@ -176,7 +176,7 @@ export class Const {
   static readonly BILLING_CONCEPTS = {
     marketplaceSale: 'Venta Marketplace',
     logisticsExito: 'Logistica Exito',
-    noteCredit: 'Nota Crédito'
+    noteCredit: 'Nota crédito'
   };
 
   static readonly ProfileTypes: any = ['Vendedor', 'Administrador'];

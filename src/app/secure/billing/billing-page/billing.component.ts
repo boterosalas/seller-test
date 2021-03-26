@@ -378,7 +378,7 @@ export class BillingComponent implements OnInit, OnDestroy {
         // se reccorre la respuesta de la lista y se pone la comision en negativo
         if (this.dataSource) {
           this.dataSource.data.forEach(element => {
-            if (element.concept !== 'Nota Crédito') {
+            if (element.concept !== 'Nota crédito') {
               element.commission *= -1;
               element.iva *= -1;
             } else {

@@ -232,7 +232,7 @@
           <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px"
             fxFlex.md="15%" fxFlex.lg="15%" fxFlex.xs="50%" *matCellDef="let element">
             <p class="sc-text-normal"
-              [ngClass]="element.concept !== 'Nota Crédito' ? 'sc-commission-text' : 'sc-valueToPay-text'">
+              [ngClass]="element.concept !== 'Nota crédito' ? 'sc-commission-text' : 'sc-valueToPay-text'">
               {{ element.commission | currency:'COP' }}</p>
           </mat-cell>
         </ng-container>
@@ -248,7 +248,7 @@
             fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px" fxFlex.md="15%" fxFlex.lg="15%"
             fxFlex.xs="50%" *matCellDef="let element">
             <p class="sc-text-normal"
-              [ngClass]="element.concept !== 'Nota Crédito' ? 'sc-commission-text' : 'sc-valueToPay-text'">
+              [ngClass]="element.concept !== 'Nota crédito' ? 'sc-commission-text' : 'sc-valueToPay-text'">
               {{ element.iva | currency:'COP' }}</p>
           </mat-cell>
         </ng-container>
@@ -261,7 +261,7 @@
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px"
             fxFlex.md="15%" fxFlex.lg="15%" fxFlex.xs="50%" *matCellDef="let element">
-            <p class="sc-text-normal" [ngClass]="element.concept === 'Nota Crédito' ? 'sc-commission-text' : 'sc-valueToPay-text'">
+            <p class="sc-text-normal" [ngClass]="element.concept === 'Nota crédito' ? 'sc-commission-text' : 'sc-valueToPay-text'">
               {{ element.billingTotal | currency:'COP' }}
             </p>
             <p class="sc-text-normal" *ngIf="element.concept === billingConcepts.logisticsExito">

@@ -358,7 +358,7 @@
     "secure.billing.correctly_download": "The payment information has been downloaded correctly, check your inbox",
     "secure.billing.error_download": "An error has occurred when downloading the payment information",
     "secure.billing.Venta Marketplace": "Marketplace Sales",
-    "secure.billing.Nota Crédito": "Note de crédit",
+    "secure.billing.Nota crédito": "Note de crédit",
     "secure.billing.Logistica Exito": "Exito Logistics",
     "secure.billing.no_data_admin": "Ingresa el nombre del vendedor en la barra de búsqueda para ver el detalle de las facturas",
 
