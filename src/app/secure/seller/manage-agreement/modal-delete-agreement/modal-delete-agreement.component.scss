@@ -1,0 +1,56 @@
+.confirmationSend {
+  margin-top: 5%;
+
+  .modal-load-agreement-content-text-type {
+    margin-top: 5%;
+  }
+
+  mat-dialog-actions {
+    margin-top: 2%;
+    margin-bottom: 2%;
+  }
+}
+
+:host ::ng-deep {
+  i {
+    &.material-icons.container {
+      color: white;
+      border-radius: 50%;
+      width: 75px;
+      height: 75px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+    }
+  }
+
+  mat-dialog-container {
+    &.mat-dialog-container {
+      border-radius: 10px;
+    }
+  }
+}
+
+.modal-load-agreement-content-text-type {
+  margin-top: 5%;
+}
+
+.sizeIconDelete {
+  font-size: 20px
+}
+
+.marginButtonDelete {
+  margin-left: 1%;
+}
+
+.marginButtonDeleteOk {
+  margin-bottom: 2%;
+  font-size: 30px;
+  border-radius: 50%;
+  height: 50px;
+  width: 65px;
+  padding-top: 2%;
+  display: grid;
+  color: #fafafa;
+}

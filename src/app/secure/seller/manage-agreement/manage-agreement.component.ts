@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, PageEvent } from '@angular/material';
+import { Router } from '@angular/router';
 import { LoadingService, Logger, ModalService } from '@app/core';
+import { ComponentsService, RoutesConst } from '@app/shared';
+import { TranslateService } from '@ngx-translate/core';
 import { SellerService } from '../seller.service';
 import { ModalBulkloadAgreementComponent } from './modal-bulkload-agreement/modal-bulkload-agreement.component';
+import { ModalDeleteAgreementComponent } from './modal-delete-agreement/modal-delete-agreement.component';
 
 const log = new Logger('ManageAgreementComponent');
 
@@ -23,7 +27,7 @@ export class ManageAgreementComponent implements OnInit {
 
   public arrayPosition = [];
   paramsArray: any;
-  pageSizeOptions: number[] = [50,100,200];
+  pageSizeOptions: number[] = [50, 100, 200];
   pageEvent: PageEvent;
   public callOne = true;
 
@@ -33,10 +37,47 @@ export class ManageAgreementComponent implements OnInit {
     private sellerService: SellerService,
     private loading: LoadingService,
     private modalService: ModalService,
+    public componentService: ComponentsService,
+    private languageService: TranslateService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
-    this.getAllBrands();
+    this.getAgreemet();
+  }
+
+  redirectToDetailAgreement(dataParams: any) {
+    this.router.navigate([`/${RoutesConst.sellerCenterIntDetailAgreement}`, {docId: dataParams.Id, docType: dataParams.DocumentType, name: dataParams.Name}]);
+    // this.router.navigate(['/securehome/seller-center/vendedores/registrar/']);
+
+    // window.open(`/${RoutesConst.sellerCenterIntSellerManage};id=${idSeller}`);
+  }
+
+  /**
+   * Metodo para establecer contrato predeterminado
+   *
+   * @param {*} event
+   * @param {*} data
+   * @memberof ManageAgreementComponent
+   */
+  activeContract(event: any, data: any) {
+    this.loading.viewSpinner();
+    if (event && event.checked === true) {
+      const dataSend = `${data.Id}/${data.DocumentType}?`
+      this.sellerService.activeAgreementDefault(dataSend).subscribe((result: any) => {
+        const res = JSON.parse(result.body);
+        if (res && res.Data === true) {
+          this.componentService.openSnackBar('Se ha actualizado el contrato predeterminado', this.languageService.instant('actions.close'), 5000);
+          this.getAgreemet();
+          this.loading.closeSpinner();
+        } else {
+          this.componentService.openSnackBar('Se ha presentado un error al actualizar el contrato predeterminado', this.languageService.instant('actions.close'), 5000);
+        }
+      }, error => {
+        this.loading.closeSpinner();
+        this.modalService.showModal('errorService');
+      });
+    }
   }
 
   /**
@@ -55,11 +96,27 @@ export class ManageAgreementComponent implements OnInit {
   }
 
   /**
+   * Modal para abrir y eliminar Todos los 
+   * @memberof ManageAgreementComponent
+   */
+  openModalDeleteAgreement(dataAgreement: any) {
+    const dialogRef = this.dialog.open(ModalDeleteAgreementComponent, {
+      width: '60%',
+      minWidth: '280px',
+      data: { dataAgreement , deleteMultiple: 0}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAgreemet();
+      log.info('The modal detail billing was closed');
+    });
+  }
+
+  /**
    * Metodo para obtener todas las marcas
    * @param {*} [params]
    * @memberof ManageAgreementComponent
    */
-  public getAllBrands(params?: any) {
+  public getAgreemet(params?: any) {
     this.loading.viewSpinner();
     let urlParams;
     if (params) {
@@ -116,7 +173,7 @@ export class ManageAgreementComponent implements OnInit {
       this.paramsArray = {
         'limit': this.limit + '&paginationToken=' + this.paginationToken
       };
-      this.getAllBrands();
+      this.getAgreemet();
     }
   }
 

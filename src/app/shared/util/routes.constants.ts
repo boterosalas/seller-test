@@ -74,6 +74,7 @@ export class RoutesConst {
     static readonly excepctionCommision: any = 'excepcion-comision';
     static readonly listCancelOrders: any = 'listado-cancelaciones';
     static readonly manageAgreements: any = 'administrar-acuerdos';
+    static readonly detailAgreements: any = 'detalle-acuerdos';
 
 
     /* Support Center */
@@ -159,6 +160,7 @@ export class RoutesConst {
     static readonly sellerCenterIntSellerList: any = RoutesConst.sellerCenterSellers + '/' + RoutesConst.sellerList;
     static readonly sellerCenterIntUploadAgreement: any = RoutesConst.sellerCenterSellers + '/' + RoutesConst.uploadAgreement;
     static readonly sellerCenterIntManageAgreement: any = RoutesConst.sellerCenterSellers + '/' + RoutesConst.manageAgreements;
+    static readonly sellerCenterIntDetailAgreement: any = RoutesConst.sellerCenterSellers + '/' + RoutesConst.detailAgreements;
     static readonly sellerCenterIntCategoryTree: any = RoutesConst.securehome + '/' + RoutesConst.categoryTree;
     static readonly sellerCenterIntPort: any = RoutesConst.securehome + '/' + RoutesConst.port;
     static readonly sellerCenterIntException: any = RoutesConst.securehome + '/' + RoutesConst.excepctionCommision;
