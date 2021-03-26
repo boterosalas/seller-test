@@ -76,7 +76,7 @@ export class ModalExportToReclaimComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.SUPPORT.getClassification().subscribe( resp => {
+    this.SUPPORT.getClassification2().subscribe( resp => {
       this.getClassification = resp.data;
     });
 

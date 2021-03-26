@@ -92,16 +92,16 @@
 
           <mat-form-field class="filter-form--field">
           <mat-select id="suport-modal-input-reason" formControlName="classification"
-          [placeholder]="'secure.parametize.support_modal.classification' | translate">
+          [placeholder]="'secure.parametize.support_drop-down-reason-detail' | translate">
           <ng-container *ngFor="
               let item of getClassification;
               let i = index
             ">
-            <mat-option [value]="item.classification">
-              <span id="{{ item.classification }} - {{ i }}">
+            <mat-option [value]="item.idMatrix">
+              <span id="{{ item.category }} - {{ i }}">
                 {{
-                  item.classification != null
-                    ? item.classification
+                  item.category != null
+                    ? item.category
                     : "Sin titulo"
                 }}
               </span>

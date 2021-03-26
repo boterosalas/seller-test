@@ -73,7 +73,7 @@
         </div>
       </div>
       <div fxLayout="row wrap" *ngIf="isShowFilter || !isAdmin" class="modal-export-to-reclaim-container-input-filter">
-        <div fxFlex.md="20" fxFlex.lg="20" fxFlex.xl="20" fxFlex.xs="100" fxFlex.sm="100">
+        <div fxFlex.md="18" fxFlex.lg="18" fxFlex.xl="18" fxFlex.xs="100" fxFlex.sm="100">
           <mat-form-field color="primary" class="modal-export-to-reclaim-width-90">
             <input id="sinceDate-input"
               [placeholder]="translateService.instant('secure.parametize.support_claims-filter.start-date')"
@@ -83,7 +83,7 @@
             <mat-datepicker touchUi="true" startView="year" #dateInitial></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex.md="20" fxFlex.lg="20" fxFlex.xl="20" fxFlex.xs="100" fxFlex.sm="100">
+        <div fxFlex.md="18" fxFlex.lg="18" fxFlex.xl="18" fxFlex.xs="100" fxFlex.sm="100">
           <mat-form-field color="primary" class="modal-export-to-reclaim-width-90">
             <input id="untilDate-input"
               [placeholder]="translateService.instant('secure.parametize.support_claims-filter.end-date')"
@@ -93,7 +93,7 @@
             <mat-datepicker touchUi="true" startView="year" #dateFinal></mat-datepicker>
           </mat-form-field>
         </div>
-        <div fxFlex.md="20" fxFlex.lg="20" fxFlex.xl="20" fxFlex.xs="100" fxFlex.sm="100">
+        <div fxFlex.md="18" fxFlex.lg="18" fxFlex.xl="18" fxFlex.xs="100" fxFlex.sm="100">
           <mat-form-field class="filter-form--field" class="modal-export-to-reclaim-width-90">
             <mat-select [placeholder]="translateService.instant('secure.parametize.support_claims-filter.last_post')"
               name="lastPost" formControlName="lastPost" [(ngModel)]="valuePost">
@@ -103,7 +103,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div fxFlex.md="20" fxFlex.lg="20" fxFlex.xl="20" fxFlex.xs="100" fxFlex.sm="100">
+        <div fxFlex.md="18" fxFlex.lg="18" fxFlex.xl="18" fxFlex.xs="100" fxFlex.sm="100">
           <mat-form-field class="filter-form--field" class="modal-export-to-reclaim-width-90">
             <mat-select [placeholder]="translateService.instant('secure.parametize.support_claims-filter.status')"
               name="status" [(ngModel)]="value" formControlName="status">
@@ -113,19 +113,19 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div fxFlex.md="20" fxFlex.lg="20" fxFlex.xl="20" fxFlex.xs="100" fxFlex.sm="100">
-          <mat-form-field class="filter-form--field">
+        <div fxFlex.md="25" fxFlex.lg="25" fxFlex.xl="25" fxFlex.xs="100" fxFlex.sm="100">
+          <mat-form-field class="filter-form--field w-100">
             <mat-select id="suport-modal-input-reason" formControlName="classification"
-            [placeholder]="'secure.parametize.support_modal.classification' | translate">
+            [placeholder]="'secure.parametize.support_drop-down-reason-detail' | translate">
             <ng-container *ngFor="
                 let item of getClassification;
                 let i = index
               ">
-              <mat-option [value]="item.classification">
-                <span id="{{ item.classification }} - {{ i }}">
+              <mat-option [value]="item.idMatrix">
+                <span id="{{ item.category }} - {{ i }}">
                   {{
-                    item.classification != null
-                      ? item.classification
+                    item.category != null
+                      ? item.category
                       : "Sin titulo"
                   }}
                 </span>

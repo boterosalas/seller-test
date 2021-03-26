@@ -168,7 +168,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
     this.validateFormSupport();
     this.getStatusCase();
     
-    this.SUPPORT.getClassification().subscribe( resp => {
+    this.SUPPORT.getClassification2().subscribe( resp => {
       this.getClassification = resp.data;
     });
 
@@ -530,6 +530,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
           .patchCaseResponse(result.data)
           .subscribe(res => {
             this.reloadLastResponse(res);
+            this.loadCases(this.paramsFilter);
             this.loadingService.closeSpinner();
           });
       } else {

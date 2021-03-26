@@ -7,7 +7,7 @@ import {
   animate
 } from '@angular/animations';
 import { SellerSupportCenterService } from '../services/seller-support-center.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CaseDetailResponse } from '../models/case-detail-response.model';
@@ -66,6 +66,7 @@ export class DetailCaseComponent implements OnInit {
     public dialog: MatDialog,
     private sellerSupportService: SellerSupportCenterService,
     private route: ActivatedRoute,
+    private router: Router,
     private loadingService?: LoadingService,
     private storeService?: StoreService,
     public redirecServ?: CaseSupportCenterService
@@ -90,9 +91,8 @@ export class DetailCaseComponent implements OnInit {
    * @memberof DetailCaseComponent
    */
   redirecToListClaims() {
-    this.idDetail = false;
-    this.idDetailFalse.emit(this.idDetail);
-    // this.redirecServ.redirectToListServ();
+  this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+   this.router.navigate(['/securehome/seller-center/support-center']));
   }
 
   toggleFilter(stateFilter: boolean) {

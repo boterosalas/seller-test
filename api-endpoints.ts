@@ -191,6 +191,8 @@ export const endpoints = {
       exceptionComissionBrand: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/{params}',
       // Classification of cases
       getCaseCategories: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/get-case-categories',
+      // Classification of cases
+      getCaseCategories2: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/get-case-categories?isSeller=true',
       // Obtener calificacion de vendedores
       getSellerRating: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller/{params}',
       // Eliminar calificacion de un vendedor
@@ -491,6 +493,8 @@ export const endpoints = {
       exceptionComissionBrand: 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/{params}',
       // Classification of cases
       getCaseCategories: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/get-case-categories',
+      // Classification of cases 2
+      getCaseCategories2: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/get-case-categories?isSeller=true',
       // Obtener calificacion de vendedores
       getSellerRating: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller/{params}',
       // Eliminar calificacion de un vendedor
