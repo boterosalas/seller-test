@@ -45,6 +45,8 @@ export class SummaryPaymentsComponent implements OnInit {
     'check',
     'number_bill',
     'quantity_orders',
+    'credit_note',
+    'devolutions',
     'payment_date',
     'total_discounted_value',
     'total_to_pay'

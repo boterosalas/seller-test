@@ -54,6 +54,32 @@
           </mat-cell>
         </ng-container>
 
+        <ng-container matColumnDef="credit_note">
+          <mat-header-cell class='marginListAdminTotal alingCenter' fxShow.xs="false" fxShow.sm="true" fxShow.lg="true"
+            fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
+            *matHeaderCellDef>
+            <span class="title-table-header width-100">{{'secure.billing.Nota Crédito'| translate}} </span>
+          </mat-header-cell>
+          <mat-cell class='marginListAdminTotal alingCenter' fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
+            *matCellDef="let element">
+            <p class="sc-text-normal width-100">{{element.totalOrders}}</p>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="devolutions">
+          <mat-header-cell class='marginListAdminTotal alingCenter' fxShow.xs="false" fxShow.sm="true" fxShow.lg="true"
+            fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
+            *matHeaderCellDef>
+            <span class="title-table-header width-100">{{'menu.Devoluciones'| translate}} </span>
+          </mat-header-cell>
+          <mat-cell class='marginListAdminTotal alingCenter' fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
+            *matCellDef="let element">
+            <p class="sc-text-normal width-100">{{element.totalOrders}}</p>
+          </mat-cell>
+        </ng-container>
+
         <ng-container matColumnDef="quantity_orders">
           <mat-header-cell class='marginListAdminTotal alingCenter' fxShow.xs="false" fxShow.sm="true" fxShow.lg="true"
             fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
