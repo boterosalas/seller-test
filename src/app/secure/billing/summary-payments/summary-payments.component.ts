@@ -110,7 +110,6 @@ export class SummaryPaymentsComponent implements OnInit {
    * @memberof SummaryPaymentsComponent
    */
   returnFirstPosition(param: any) {
-    console.log('params: ', param);
     if (param) {
       const splitArr = param.split(',');
       if (splitArr.length > 1) {
