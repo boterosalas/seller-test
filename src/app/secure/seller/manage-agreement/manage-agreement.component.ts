@@ -1,3 +1,4 @@
+import { UrlResolver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, PageEvent } from '@angular/material';
 import { Router } from '@angular/router';
@@ -46,11 +47,13 @@ export class ManageAgreementComponent implements OnInit {
     this.getAgreemet();
   }
 
+  /**
+   * Redirecciona hacía la otra vista, detalle de vendedores
+   * @param {*} dataParams
+   * @memberof ManageAgreementComponent
+   */
   redirectToDetailAgreement(dataParams: any) {
     this.router.navigate([`/${RoutesConst.sellerCenterIntDetailAgreement}`, {docId: dataParams.Id, docType: dataParams.DocumentType, name: dataParams.Name}]);
-    // this.router.navigate(['/securehome/seller-center/vendedores/registrar/']);
-
-    // window.open(`/${RoutesConst.sellerCenterIntSellerManage};id=${idSeller}`);
   }
 
   /**
@@ -106,6 +109,10 @@ export class ManageAgreementComponent implements OnInit {
       data: { dataAgreement , deleteMultiple: 0}
     });
     dialogRef.afterClosed().subscribe(result => {
+      console.log(455, result);
+      this.callOne = true;
+      this.pageSize = 50;
+      this.paginationToken = '{}';
       this.getAgreemet();
       log.info('The modal detail billing was closed');
     });
@@ -124,6 +131,7 @@ export class ManageAgreementComponent implements OnInit {
     } else {
       urlParams = `?limit=${this.pageSize}&paginationToken=${encodeURI(this.paginationToken)}`
     }
+    console.log(99, urlParams);
     this.sellerService.getAllAgreement(urlParams).subscribe((result: any) => {
       if (result) {
         this.manageAgreementsSeller = result.ViewModel;

@@ -37,7 +37,7 @@
         <mat-icon class="material-icons" class="file-agreement">
           insert_drive_file
         </mat-icon>
-        <p>{{agreement.Name}}</p>
+        <p>{{agreement.Name}} - {{agreement.Date | date}}</p>
       </div>
       <div>
         <mat-slide-toggle (change)="activeContract($event, agreement)" [checked]=agreement.Default
