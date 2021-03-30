@@ -95,6 +95,9 @@ export class ManageAgreementComponent implements OnInit {
         this.loading.closeSpinner();
       }
     } else {
+      event.source.checked = false;
+      event.checked = false;
+      data.Default = false;
       this.loading.closeSpinner();
       this.componentService.openSnackBar('Solo se pueden colocar los (Acuerdos) como predeterminados', this.languageService.instant('actions.close'), 5000);
     }
