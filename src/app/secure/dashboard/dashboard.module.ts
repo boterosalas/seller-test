@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
-import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher, MatFormFieldModule, MatInputModule, MatBottomSheet } from '@angular/material';
 
 import { DashboardService } from './services/dashboard.service';
 
@@ -15,12 +15,16 @@ import { TermsService } from '../seller/agreement/terms/terms.component.service'
 import { SellerRatingComponent } from './seller-rating/seller-rating.component';
 import { MaterialModule } from '@app/material.module';
 import { ModalDashboardComponent } from './modal-dashboard/modal-dashboard.component';
+import { QualityIndicatorsComponent } from './quality-indicators/quality-indicators.component';
+import { InfoIndicatorsComponent } from './info-indicators/info-indicators.component';
 
 @NgModule({
     declarations: [
         DashboardComponent,
         SellerRatingComponent,
-        ModalDashboardComponent
+        ModalDashboardComponent,
+        QualityIndicatorsComponent,
+        InfoIndicatorsComponent
     ],
     imports: [
         CommonModule,
@@ -37,7 +41,8 @@ import { ModalDashboardComponent } from './modal-dashboard/modal-dashboard.compo
         MaterialModule
     ],
     entryComponents: [
-        ModalDashboardComponent
+        ModalDashboardComponent,
+        InfoIndicatorsComponent,
     ],
     exports: [],
     providers: [
@@ -47,7 +52,8 @@ import { ModalDashboardComponent } from './modal-dashboard/modal-dashboard.compo
             useClass: ShowOnDirtyErrorStateMatcher
         },
         TermsService,
-        DatePipe
+        DatePipe,
+        MatBottomSheet
     ],
 })
 export class DashboardModule { }
