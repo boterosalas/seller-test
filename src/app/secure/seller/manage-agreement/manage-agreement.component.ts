@@ -65,8 +65,11 @@ export class ManageAgreementComponent implements OnInit {
    */
   activeContract(event: any, data: any) {
     this.loading.viewSpinner();
+    console.log(event);
+    console.log(data);
+
     if (data && data.DocumentType === 2) {
-      if (event && event.checked === true) {
+      if (event && event.checked === true && data.Default !== true) {
         const dataSend = `${data.Id}/${data.DocumentType}?`;
         this.sellerService.activeAgreementDefault(dataSend).subscribe((result: any) => {
           const res = JSON.parse(result.body);
@@ -85,11 +88,10 @@ export class ManageAgreementComponent implements OnInit {
           this.modalService.showModal('errorService');
         });
       } else {
+        event.source.checked = true;
+        event.checked = true;
+        data.Default = true;
         this.componentService.openSnackBar('No puedes desactivar el acuerdo predeterminado.', this.languageService.instant('actions.close'), 5000);
-        this.callOne = true;
-        this.pageSize = 50;
-        this.paginationToken = '{}';
-        this.getAgreemet();
         this.loading.closeSpinner();
       }
     } else {
