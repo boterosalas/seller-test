@@ -53,7 +53,7 @@ export class ManageAgreementComponent implements OnInit {
    * @memberof ManageAgreementComponent
    */
   redirectToDetailAgreement(dataParams: any) {
-    this.router.navigate([`/${RoutesConst.sellerCenterIntDetailAgreement}`, {docId: dataParams.Id, docType: dataParams.DocumentType, name: dataParams.Name}]);
+    this.router.navigate([`/${RoutesConst.sellerCenterIntDetailAgreement}`, { docId: dataParams.Id, docType: dataParams.DocumentType, name: dataParams.Name }]);
   }
 
   /**
@@ -65,23 +65,39 @@ export class ManageAgreementComponent implements OnInit {
    */
   activeContract(event: any, data: any) {
     this.loading.viewSpinner();
-    if (event && event.checked === true) {
-      const dataSend = `${data.Id}/${data.DocumentType}?`
-      this.sellerService.activeAgreementDefault(dataSend).subscribe((result: any) => {
-        const res = JSON.parse(result.body);
-        if (res && res.Data === true) {
-          this.componentService.openSnackBar('Se ha actualizado el contrato predeterminado', this.languageService.instant('actions.close'), 5000);
-          this.getAgreemet();
+    if (data && data.DocumentType === 2) {
+      if (event && event.checked === true) {
+        const dataSend = `${data.Id}/${data.DocumentType}?`;
+        this.sellerService.activeAgreementDefault(dataSend).subscribe((result: any) => {
+          const res = JSON.parse(result.body);
+          if (res && res.Data === true) {
+            this.componentService.openSnackBar('Se ha actualizado el contrato predeterminado', this.languageService.instant('actions.close'), 5000);
+            this.callOne = true;
+            this.pageSize = 50;
+            this.paginationToken = '{}';
+            this.getAgreemet();
+            this.loading.closeSpinner();
+          } else {
+            this.componentService.openSnackBar('Se ha presentado un error al actualizar el contrato predeterminado', this.languageService.instant('actions.close'), 5000);
+          }
+        }, error => {
           this.loading.closeSpinner();
-        } else {
-          this.componentService.openSnackBar('Se ha presentado un error al actualizar el contrato predeterminado', this.languageService.instant('actions.close'), 5000);
-        }
-      }, error => {
+          this.modalService.showModal('errorService');
+        });
+      } else {
+        this.componentService.openSnackBar('No puedes desactivar el acuerdo predeterminado.', this.languageService.instant('actions.close'), 5000);
+        this.callOne = true;
+        this.pageSize = 50;
+        this.paginationToken = '{}';
+        this.getAgreemet();
         this.loading.closeSpinner();
-        this.modalService.showModal('errorService');
-      });
+      }
+    } else {
+      this.loading.closeSpinner();
+      this.componentService.openSnackBar('Solo se pueden colocar los (Acuerdos) como predeterminados', this.languageService.instant('actions.close'), 5000);
     }
   }
+
 
   /**
    * Funcion para abrir modal para agregar masivamente acuerdos
@@ -106,10 +122,9 @@ export class ManageAgreementComponent implements OnInit {
     const dialogRef = this.dialog.open(ModalDeleteAgreementComponent, {
       width: '60%',
       minWidth: '280px',
-      data: { dataAgreement , deleteMultiple: 0}
+      data: { dataAgreement, deleteMultiple: 0 }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(455, result);
       this.callOne = true;
       this.pageSize = 50;
       this.paginationToken = '{}';
@@ -131,7 +146,6 @@ export class ManageAgreementComponent implements OnInit {
     } else {
       urlParams = `?limit=${this.pageSize}&paginationToken=${encodeURI(this.paginationToken)}`
     }
-    console.log(99, urlParams);
     this.sellerService.getAllAgreement(urlParams).subscribe((result: any) => {
       if (result) {
         this.manageAgreementsSeller = result.ViewModel;
