@@ -14,7 +14,7 @@
         fxFlex.xs="50" fxFlex.xl="30"
         class="quality-indicators-orders-align
         quality-indicators-text-align-end">
-        <span class="quality-indicators-font-size-color">
+        <span class="quality-indicators-font-size-color" *ngIf=" qualityIndicators && qualityIndicators.length !== 0">
           {{'quality.indicators.Last_days'| translate}}: {{'shared.from' |
           translate}} <span class="quality-indicators-font-weight-bold">{{from}}</span>
           {{'shared.to'| translate }} <span
