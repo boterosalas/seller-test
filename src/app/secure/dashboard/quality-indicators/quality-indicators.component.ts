@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
@@ -14,6 +14,11 @@ import { DashboardService } from '../services/dashboard.service';
 
 export class QualityIndicatorsComponent implements OnInit {
 
+  public _idSeller;
+  @Input() set idSeller(value: boolean) {
+    this._idSeller = value;
+    console.log(this._idSeller);
+}
   public qualityIndicators: any;
   public load = true;
   public from = '';
@@ -35,7 +40,8 @@ export class QualityIndicatorsComponent implements OnInit {
    * @memberof QualityIndicatorsComponent
    */
   getIndicators() {
-    this._dashboard.getIndicators().subscribe(result => {
+    this.idSeller = this.idSeller ? this.idSeller : null;
+    this._dashboard.getIndicators(this.idSeller).subscribe(result => {
       this.load = false;
       if (result && result.errors === null) {
         this.qualityIndicators = result.data;

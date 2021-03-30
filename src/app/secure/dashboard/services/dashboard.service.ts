@@ -86,8 +86,8 @@ export class DashboardService {
  * @returns {Observable<any>}
  * @memberof DashboardService
  */
-public getIndicators(): Observable<any> {
-    return this._http.get(this._api.get('getIndicators'));
+public getIndicators(params: any): Observable<any> {
+    return this._http.get(this._api.get('getIndicators', [params]));
   }
 
 }

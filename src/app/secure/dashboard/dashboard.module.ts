@@ -38,13 +38,15 @@ import { InfoIndicatorsComponent } from './info-indicators/info-indicators.compo
         SharedModule,
         MatFormFieldModule,
         MatInputModule,
-        MaterialModule
+        MaterialModule,
     ],
     entryComponents: [
         ModalDashboardComponent,
         InfoIndicatorsComponent,
     ],
-    exports: [],
+    exports: [
+        QualityIndicatorsComponent
+    ],
     providers: [
         DashboardService,
         {

@@ -56,6 +56,11 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   @Input() set showContainerDetail(value: boolean) {
       this._showContainerDetail = value;
   }
+   public _showSearchSeller: boolean;
+  @Input() set showSearchSeller(value: boolean) {
+      this._showSearchSeller = value;
+      console.log(this._showSearchSeller);
+  }
 
   @Input() customerFilterCalifications = false;
   @Input() allFilter: any;
