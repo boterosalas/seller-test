@@ -1,3 +1,4 @@
+import { UrlResolver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, PageEvent } from '@angular/material';
 import { Router } from '@angular/router';
@@ -46,11 +47,13 @@ export class ManageAgreementComponent implements OnInit {
     this.getAgreemet();
   }
 
+  /**
+   * Redirecciona hacía la otra vista, detalle de vendedores
+   * @param {*} dataParams
+   * @memberof ManageAgreementComponent
+   */
   redirectToDetailAgreement(dataParams: any) {
-    this.router.navigate([`/${RoutesConst.sellerCenterIntDetailAgreement}`, {docId: dataParams.Id, docType: dataParams.DocumentType, name: dataParams.Name}]);
-    // this.router.navigate(['/securehome/seller-center/vendedores/registrar/']);
-
-    // window.open(`/${RoutesConst.sellerCenterIntSellerManage};id=${idSeller}`);
+    this.router.navigate([`/${RoutesConst.sellerCenterIntDetailAgreement}`, { docId: dataParams.Id, docType: dataParams.DocumentType, name: dataParams.Name }]);
   }
 
   /**
@@ -62,23 +65,44 @@ export class ManageAgreementComponent implements OnInit {
    */
   activeContract(event: any, data: any) {
     this.loading.viewSpinner();
-    if (event && event.checked === true) {
-      const dataSend = `${data.Id}/${data.DocumentType}?`
-      this.sellerService.activeAgreementDefault(dataSend).subscribe((result: any) => {
-        const res = JSON.parse(result.body);
-        if (res && res.Data === true) {
-          this.componentService.openSnackBar('Se ha actualizado el contrato predeterminado', this.languageService.instant('actions.close'), 5000);
-          this.getAgreemet();
+    console.log(event);
+    console.log(data);
+
+    if (data && data.DocumentType === 2) {
+      if (event && event.checked === true && data.Default !== true) {
+        const dataSend = `${data.Id}/${data.DocumentType}?`;
+        this.sellerService.activeAgreementDefault(dataSend).subscribe((result: any) => {
+          const res = JSON.parse(result.body);
+          if (res && res.Data === true) {
+            this.componentService.openSnackBar('Se ha actualizado el contrato predeterminado', this.languageService.instant('actions.close'), 5000);
+            this.callOne = true;
+            this.pageSize = 50;
+            this.paginationToken = '{}';
+            this.getAgreemet();
+            this.loading.closeSpinner();
+          } else {
+            this.componentService.openSnackBar('Se ha presentado un error al actualizar el contrato predeterminado', this.languageService.instant('actions.close'), 5000);
+          }
+        }, error => {
           this.loading.closeSpinner();
-        } else {
-          this.componentService.openSnackBar('Se ha presentado un error al actualizar el contrato predeterminado', this.languageService.instant('actions.close'), 5000);
-        }
-      }, error => {
+          this.modalService.showModal('errorService');
+        });
+      } else {
+        event.source.checked = true;
+        event.checked = true;
+        data.Default = true;
+        this.componentService.openSnackBar('No puedes desactivar el acuerdo predeterminado.', this.languageService.instant('actions.close'), 5000);
         this.loading.closeSpinner();
-        this.modalService.showModal('errorService');
-      });
+      }
+    } else {
+      event.source.checked = false;
+      event.checked = false;
+      data.Default = false;
+      this.loading.closeSpinner();
+      this.componentService.openSnackBar('Solo se pueden colocar los (Acuerdos) como predeterminados', this.languageService.instant('actions.close'), 5000);
     }
   }
+
 
   /**
    * Funcion para abrir modal para agregar masivamente acuerdos
@@ -103,9 +127,12 @@ export class ManageAgreementComponent implements OnInit {
     const dialogRef = this.dialog.open(ModalDeleteAgreementComponent, {
       width: '60%',
       minWidth: '280px',
-      data: { dataAgreement , deleteMultiple: 0}
+      data: { dataAgreement, deleteMultiple: 0 }
     });
     dialogRef.afterClosed().subscribe(result => {
+      this.callOne = true;
+      this.pageSize = 50;
+      this.paginationToken = '{}';
       this.getAgreemet();
       log.info('The modal detail billing was closed');
     });
