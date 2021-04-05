@@ -133,6 +133,7 @@ export class ListProductsComponent implements OnInit {
     ) {
     }
     ngOnInit() {
+        console.log('myProduct: ', this.myProduct);
         this.offerPermission = this.authService.getPermissionForMenu(listProductsName, this.offer);
         this.editPermission = this.authService.getPermissionForMenu(unitaryCreateName, 'Editar');
         this.deletePermission = this.authService.getPermissionForMenu(listProductsName, this.delete );

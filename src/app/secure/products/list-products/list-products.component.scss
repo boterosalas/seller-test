@@ -145,12 +145,29 @@
 .listCombo {
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
+  width: 96%;
   // justify-content: center;
-  margin-top: 3%;
+  margin-top: 1.5%;
   position: relative;
 }
 
 .disabledIconAddKeyCategoryFilter{
   pointer-events: none;
+}
+
+::ng-deep {
+  .cdk-overlay-connected-position-bounding-box{
+    top: 256.562px !important;
+  }
+  .mat-menu-panel{
+    width: 300px !important;
+    color: blue !important;
+    box-shadow: none !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+  }
+}
+
+::ng-deep .customize {
+  background: red;
 }
