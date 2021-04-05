@@ -364,6 +364,7 @@
     "secure.billing.comissionFee": "Descuento por comisión",
     "secure.billing.comission_rembourser": "Reembolso por comisión",
     "secure.billing.total_be_paid": "TOTAL A PAGAR",
+    "secure.billing.total_be_discount": "TOTAL A DESCONTAR",
     "secure.billing.send_payment": "Enviar pagos",
     "secure.billing.send_payment_information": "Te enviaremos los pagos al siguiente correo electrónico.",
     "secure.billing.correctly_download": "Se ha realizado la descarga de los pagos correctamente, revisa tu correo electrónico",

@@ -349,6 +349,7 @@
     "secure.billing.list_products": "Liste des produits",
     "secure.billing.subtotal": "SOUS-TOTAL",
     "secure.billing.total_be_paid": "TOTAL À PAYER",
+    "secure.billing.total_be_discount": "TOTAL DE RÉDUCTION",
     "secure.billing.vat_discount": "Réduction de la TVA",
     "secure.billing.discount_rembourser": "Remboursement por de la TVA",
     "secure.billing.comissionFee": "Remise de la Commission",

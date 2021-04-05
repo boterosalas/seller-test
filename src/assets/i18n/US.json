@@ -354,6 +354,7 @@
     "secure.billing.comissionFee": "Comission Fee",
     "secure.billing.comission_rembourser": "Commission Refund",
     "secure.billing.total_be_paid": "TOTAL TO BE PAID",
+    "secure.billing.total_be_discount": "TOTAL TO DISCOUNT",
     "secure.billing.send_payment": "Send invoices",
     "secure.billing.send_payment_information": "We will send the payment information to the following e-mail address",
     "secure.billing.correctly_download": "The payment information has been downloaded correctly, check your inbox",
