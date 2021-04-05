@@ -163,12 +163,12 @@
 
     <div class="prodList">
      
-      <div *ngIf="myProduct" style="margin-top: 2%; width: 95%; text-align: right">
+      <div *ngIf="myProduct" style="margin-top: 2%; width: 95%; text-align: right" >
         <button mat-stroked-button color="primary" [matMenuTriggerFor]="menu" style="border-color: #485AFA; width: 280px; height: 37px;">
            Eliminar productos</button>
-         <mat-menu #menu="matMenu">
-           <button mat-menu-item color="primary" style="color: #485AFA; font-family: Arial; font-weight: bold; font-size: 12px;" >Seleccionar productos</button>
-           <button mat-menu-item color="primary" style="color: #485AFA; font-family: Arial; font-weight: bold; font-size: 12px;" >Eliminar todos los productos</button>
+         <mat-menu #menu="matMenu" >
+           <button mat-menu-item  color="primary" style="color: #485AFA; font-family: Arial; font-weight: bold; font-size: 12px;" (click)="someProductsSelected()">Seleccionar productos</button>
+           <button mat-menu-item  color="primary" style="color: #485AFA; font-family: Arial; font-weight: bold; font-size: 12px;" (click)="allProductsSelected()">Eliminar todos los productos</button>
          </mat-menu>
       </div>
      

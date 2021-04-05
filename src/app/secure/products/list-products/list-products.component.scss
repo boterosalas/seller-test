@@ -155,19 +155,31 @@
   pointer-events: none;
 }
 
-::ng-deep {
-  .cdk-overlay-connected-position-bounding-box{
-    top: 256.562px !important;
-  }
-  .mat-menu-panel{
-    width: 300px !important;
-    color: blue !important;
-    box-shadow: none !important;
-    border-width: 1px !important;
-    border-style: solid !important;
-  }
+// :host ::ng-deep {
+//   .cdk-overlay-connected-position-bounding-box{
+//     top: 256.562px;
+//   }
+//   .mat-menu-panel{
+//     width: 300px ;
+//     color: blue ;
+//     box-shadow: none ;
+//     border-width: 1px ;
+//     border-style: solid ;
+//   }
+// }
+
+.customizeActions {
+  color: blue ;
+    box-shadow: none ;
+    border-width: 1px ;
+    border-style: solid ;
+    width: 300px
 }
 
-::ng-deep .customize {
-  background: red;
-}
+// ::ng-deep .mat-menu-content{
+//   box-shadow: none;
+//     border-width: 1px;
+//     border-style: solid;
+//     width: 277px;
+//     color: blue;
+// }

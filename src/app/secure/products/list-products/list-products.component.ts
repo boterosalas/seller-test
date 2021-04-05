@@ -163,6 +163,22 @@ export class ListProductsComponent implements OnInit {
     }
 
     /**
+     * Metodo para seleciconar productos a eliminar
+     * @memberof ListProductsComponent
+     */
+    someProductsSelected(){
+
+    }
+
+    /**
+     * Metodo para eliminar todos los productos
+     * @memberof ListProductsComponent
+     */
+    allProductsSelected(){
+
+    }
+
+    /**
      * Metodo para obtener el listado de categorías
      * @memberof ListProductsComponent
      */
