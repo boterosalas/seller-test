@@ -332,6 +332,7 @@
     "secure.aws_cognito.profile.seller_id": "Seller id",
 
     "secure.billing.invoice": "Invoice",
+    "secure.billing.invoice-note": "Facture / note de crédit",
     "secure.billing.order_number": "Order number",
     "secure.billing.check_billing": "Browse invoices",
     "secure.billing.payment_number": "Payment order number",
@@ -352,12 +353,15 @@
     "secure.billing.subtotal": "SOUS-TOTAL",
     "secure.billing.total_be_paid": "TOTAL À PAYER",
     "secure.billing.vat_discount": "Réduction de la TVA",
+    "secure.billing.discount_rembourser": "Remboursement por de la TVA",
     "secure.billing.comissionFee": "Remise de la Commission",
+    "secure.billing.comission_rembourser": "Remboursement de la Commission",
     "secure.billing.send_payment": "Send invoices",
     "secure.billing.send_payment_information": "We will send the payment information to the following e-mail address",
     "secure.billing.correctly_download": "The payment information has been downloaded correctly, check your inbox",
     "secure.billing.error_download": "An error has occurred when downloading the payment information",
     "secure.billing.Venta Marketplace": "Marketplace Sales",
+    "secure.billing.Nota crédito": "Note de crédit",
     "secure.billing.Logistica Exito": "Exito Logistics",
     "secure.billing.no_data_admin": "Ingresa el nombre del vendedor en la barra de búsqueda para ver el detalle de las facturas",
 
