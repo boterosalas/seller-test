@@ -167,13 +167,13 @@
         <button mat-stroked-button color="primary" [matMenuTriggerFor]="menu" style="border-color: #485AFA; width: 280px; height: 37px;">
            Eliminar productos</button>
          <mat-menu #menu="matMenu" >
-           <button mat-menu-item  color="primary" style="color: #485AFA; font-family: Arial; font-weight: bold; font-size: 12px;" (click)="someProductsSelected()">Seleccionar productos</button>
+           <button mat-menu-item  color="primary" style="color: #485AFA; font-family: Arial; font-weight: bold; font-size: 12px;" (click)="someProductsSelected(); activeMultipleOffer()">Seleccionar productos</button>
            <button mat-menu-item  color="primary" style="color: #485AFA; font-family: Arial; font-weight: bold; font-size: 12px;" (click)="allProductsSelected()">Eliminar todos los productos</button>
          </mat-menu>
       </div>
      
       <app-combo-product [offerPermission]="offerPermission" [editPermission]="editPermission"
-        [showProducts]="showProducts" [productsList]="productsList" class="listCombo" (reloadData)="reloadData();" [deletePermission]="deletePermission" [isAdmin]="isAdmin"></app-combo-product>
+        [showProducts]="showProducts" [productsList]="productsList" class="listCombo" (reloadData)="reloadData();" [deletePermission]="deletePermission" [isAdmin]="isAdmin" [activeCheck]="activeCheck"></app-combo-product>
       <div *ngIf="!productsList.length" fxLayout="column" class="no-products">
         <div class="icon-face">
           <mat-icon class="mat-18">layers_clear</mat-icon>

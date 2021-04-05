@@ -21,12 +21,14 @@ export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
   @Input() offerPermission: boolean;
   @Input() editPermission: boolean;
   @Input() isAdmin: boolean;
+  @Input() activeCheck: boolean;
   @Input() deletePermission: boolean;
   @Output() reloadData = new EventEmitter<any>();
 
   public productsExpanded: any;
   public showImage = false;
 
+  // activeCheck: Boolean = false;
 
 
   constructor(

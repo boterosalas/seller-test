@@ -98,13 +98,13 @@ export class ListProductsComponent implements OnInit {
     read = readFunctionality;
     offer = offerFuncionality;
     edit = updateFunctionality;
-    delete= deleteFunctionality;
+    delete = deleteFunctionality;
     offerPermission = false;
     editPermission = false;
     deletePermission = false;
     permissionComponent: MenuModel;
-    @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-    @ViewChild('drawer', {static: false}) drawer: MatSidenav;
+    @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+    @ViewChild('drawer', { static: false }) drawer: MatSidenav;
     listCategories: any;
     categoryInfo: any;
 
@@ -118,6 +118,8 @@ export class ListProductsComponent implements OnInit {
     isAdmin = false;
     dataChips: Array<any> = [];
     invalidCategory: Boolean = false;
+    activeCheck: Boolean = false;
+
 
     constructor(
         private languageService: TranslateService,
@@ -136,7 +138,7 @@ export class ListProductsComponent implements OnInit {
         console.log('myProduct: ', this.myProduct);
         this.offerPermission = this.authService.getPermissionForMenu(listProductsName, this.offer);
         this.editPermission = this.authService.getPermissionForMenu(unitaryCreateName, 'Editar');
-        this.deletePermission = this.authService.getPermissionForMenu(listProductsName, this.delete );
+        this.deletePermission = this.authService.getPermissionForMenu(listProductsName, this.delete);
         this.getDataUser();
         this.validateFormSupport();
         this.refreshCategoryTree();
@@ -166,7 +168,7 @@ export class ListProductsComponent implements OnInit {
      * Metodo para seleciconar productos a eliminar
      * @memberof ListProductsComponent
      */
-    someProductsSelected(){
+    someProductsSelected() {
 
     }
 
@@ -174,8 +176,12 @@ export class ListProductsComponent implements OnInit {
      * Metodo para eliminar todos los productos
      * @memberof ListProductsComponent
      */
-    allProductsSelected(){
+    allProductsSelected() {
 
+    }
+
+    activeMultipleOffer() {
+        this.activeCheck = true;
     }
 
     /**
@@ -294,10 +300,10 @@ export class ListProductsComponent implements OnInit {
         });
     }
 
-     /**
-     * Metodo para abrir modal para la descarga de los productos seller
-     * @memberof ListProductsComponent
-     */
+    /**
+    * Metodo para abrir modal para la descarga de los productos seller
+    * @memberof ListProductsComponent
+    */
     openDialogDownloadProductsSeller() {
         if (this.filterProduts.controls.initialDate.value) {
             this.initialDateList = this.getDate(new Date(this.filterProduts.controls.initialDate.value));
@@ -360,7 +366,7 @@ export class ListProductsComponent implements OnInit {
      */
     setPermission(typeProfile: number) {
         this.editPermission = this.getFunctionality('Editar');
-        this.deletePermission =  this.getFunctionality('Eliminar');
+        this.deletePermission = this.getFunctionality('Eliminar');
     }
 
     public getFunctionality(functionality: string): boolean {
