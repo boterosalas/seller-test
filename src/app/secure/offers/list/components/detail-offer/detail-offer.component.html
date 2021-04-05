@@ -17,6 +17,8 @@
   </article>
   <article class="detail-offer-desc flexbox flex-wrap justify-between">
     <p class="ean flexbox align-center">{{'shared.ean' | translate}}: {{dataOffer.ean}}</p>
+    <p class="ean flexbox align-center">{{'secure.dashboard.table.top.title.SKU' | translate}}:
+      {{dataOffer.pluVtex}}</p>
     <div class="btn-edit-offer flexbox justify-end">
       <button type="button" color="primary" [matTooltip]="'actions.edit' | translate" matTooltipPosition="below"
         mat-icon-button mat-button (click)="editOffer()" *ngIf="!isUpdateOffer && isUpdateOffer === false && canEdit">
@@ -27,13 +29,13 @@
         <mat-icon class="flexbox align-center justify-center">close</mat-icon>
       </button>
     </div>
-    <div class="maskSellerSku" *ngIf="!isUpdateOffer && isUpdateOffer === false" >
-        <div class="titleMask">
-          {{'secure.offers.bulk_upload.table_load.sellerSku' | translate}}: 
-        </div>
-        <div class="detailMask">
-          {{dataOffer.sellerSku}}
-        </div>
+    <div class="maskSellerSku" *ngIf="!isUpdateOffer && isUpdateOffer === false">
+      <div class="titleMask">
+        {{'secure.offers.bulk_upload.table_load.sellerSku' | translate}}:
+      </div>
+      <div class="detailMask">
+        {{dataOffer.sellerSku}}
+      </div>
     </div>
     <p class="name">{{dataOffer.name}}</p>
     <div class="container-data-offer" *ngIf="!isUpdateOffer && isUpdateOffer === false">
