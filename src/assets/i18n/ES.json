@@ -523,6 +523,7 @@
     "secure.orders.order_list.product_order.standar": "Estándar",
     "secure.orders.order_list.product_order.fulfillment": "fulfillment",
     "secure.orders.order_list.product_order.ref": "Ref",
+    "secure.orders.order_list.product_order.reference": "Referencia",
     "secure.orders.order_list.product_order.sku": "SKU",
     "secure.orders.order_list.product_order.sku_seller": "SKU vendedor",
     "secure.orders.order_list.product_order.total": "Total",

@@ -515,6 +515,7 @@
     "secure.orders.order_list.product_order.standar": "Standar",
     "secure.orders.order_list.product_order.fulfillment": "fulfillment",
     "secure.orders.order_list.product_order.ref": "Ref",
+    "secure.orders.order_list.product_order.reference": "Reference",
     "secure.orders.order_list.product_order.sku": "SKU",
     "secure.orders.order_list.product_order.sku_seller": "Seller SKU",
     "secure.orders.order_list.product_order.total": "Total",
