@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { LoadingService } from '@app/core';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
+import { mapValues } from 'lodash';
 import { InfoIndicatorsComponent } from '../info-indicators/info-indicators.component';
 import { DashboardService } from '../services/dashboard.service';
 
@@ -15,9 +17,23 @@ import { DashboardService } from '../services/dashboard.service';
 export class QualityIndicatorsComponent implements OnInit {
 
   public _idSeller;
-  @Input() set idSeller(value: boolean) {
-    this._idSeller = value;
-    console.log(this._idSeller);
+  public type: string;
+  public consult: boolean;
+  @Input() set params(value: any) {
+    if (value && value.consult === true) {
+      this.load = false;
+      this._idSeller = value.idSeller;
+      this.type = value.type;
+      this.consult = value.consult;
+      const params = '?sellerId=' + this._idSeller;
+      this.getIndicators(params);
+    } else {
+      this.load = false;
+      this.type = value.type;
+      this.consult = value.consult;
+      this.qualityIndicators = [];
+      this._idSeller = null;
+    }
 }
   public qualityIndicators: any;
   public load = true;
@@ -28,10 +44,10 @@ export class QualityIndicatorsComponent implements OnInit {
     private _dashboard: DashboardService,
     private languageService: TranslateService,
     public snackBar?: MatSnackBar,
+    private loadingService?: LoadingService,
   ) { }
 
   ngOnInit() {
-    this.getIndicators();
     this.changeLanguaje();
   }
   /**
@@ -39,9 +55,12 @@ export class QualityIndicatorsComponent implements OnInit {
    *
    * @memberof QualityIndicatorsComponent
    */
-  getIndicators() {
-    this.idSeller = this.idSeller ? this.idSeller : null;
-    this._dashboard.getIndicators(this.idSeller).subscribe(result => {
+  getIndicators(params?: any) {
+    if (this.type === 'admin') {
+      this.loadingService.viewSpinner();
+    }
+    this.load = true;
+    this._dashboard.getIndicators(params).subscribe(result => {
       this.load = false;
       if (result && result.errors === null) {
         this.qualityIndicators = result.data;
@@ -54,6 +73,9 @@ export class QualityIndicatorsComponent implements OnInit {
         this.snackBar.open(this.languageService.instant('public.auth.forgot.error_try_again'), this.languageService.instant('actions.close'), {
           duration: 5000,
         });
+      }
+      if (this.type === 'admin') {
+        this.loadingService.closeSpinner();
       }
     }, error => {
       this.snackBar.open(this.languageService.instant('public.auth.forgot.error_try_again') + (error), this.languageService.instant('actions.close'), {

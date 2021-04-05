@@ -1,4 +1,4 @@
-<div style="padding: 20px;">
+<div class="consult-indicators-padding-20">
     <app-toolbar-search-pagination [informationToForm]="informationToForm"
         #toolbarOptions [lengthOrder]="null" [btnFilter]="btnFilter"
         [showContainerDetail]="showContainerDetail"
@@ -7,8 +7,5 @@
         [showContainerDetail]="_showContainerDetail"
         [showSearchSeller]="showSearchSeller">
     </app-toolbar-search-pagination>
-    <app-quality-indicators [idSeller]="idSeller"></app-quality-indicators>
+    <app-quality-indicators [params]="params"></app-quality-indicators>
 </div>
-
-
-

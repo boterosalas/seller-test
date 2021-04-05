@@ -26,7 +26,11 @@ export class ConsultIndicatorsComponent implements OnInit {
   public isFullSearch = false;
   public showContainerDetail = true;
   public showSearchSeller = true;
-  public idSeller = null;
+  public params = {
+    idSeller : null,
+    consult: false,
+    type: 'admin'
+  };
 
 
   constructor(
@@ -36,7 +40,17 @@ export class ConsultIndicatorsComponent implements OnInit {
   ngOnInit() {
     this.searchSubscription = this.eventsSeller.eventSearchSeller.subscribe((seller: StoreModel) => {
       if (seller) {
-        this.idSeller = seller.IdSeller;
+        this.params = {
+          idSeller : seller.IdSeller,
+          consult: true,
+          type: 'admin'
+        };
+      } else {
+        this.params = {
+          idSeller: null,
+          consult: false,
+          type: 'admin'
+        }
       }
     });
   }
