@@ -68,6 +68,7 @@ export class ListProductsComponent implements OnInit {
     fechaInicial: any;
     fechaFinal: any;
     pluVtexList: any;
+    sellerSkuList: any;
     categoryList: any;
     showProducts = false;
     // user info
@@ -75,6 +76,7 @@ export class ListProductsComponent implements OnInit {
 
     eanVariable = false;
     pluVariable = false;
+    sellerSkuVariable = false;
     nameVariable = false;
     fechaInicialVariable = false;
     fechaFinalVariable = false;
@@ -162,22 +164,6 @@ export class ListProductsComponent implements OnInit {
                 matToolbar.classList.remove('notFixed');
             });
         }, 1000);
-    }
-
-    /**
-     * Metodo para seleciconar productos a eliminar
-     * @memberof ListProductsComponent
-     */
-    someProductsSelected() {
-
-    }
-
-    /**
-     * Metodo para eliminar todos los productos
-     * @memberof ListProductsComponent
-     */
-    allProductsSelected() {
-
     }
 
     activeMultipleOffer() {
@@ -286,6 +272,7 @@ export class ListProductsComponent implements OnInit {
         const dataToSend = {
             ean: this.eanList || null,
             plu: this.pluVtexList || null,
+            sellerSku: this.sellerSkuList || null,
             product: this.nameProductList || null,
             categories: this.categoryList || null,
             creationDate: this.creationDateList || null,
@@ -326,6 +313,7 @@ export class ListProductsComponent implements OnInit {
         const dataToSend = {
             ean: this.eanList || null,
             plu: this.pluVtexList || null,
+            sellerSku: this.sellerSkuList || null,
             product: this.nameProductList || null,
             categories: this.categoryList || null,
             creationDate: this.creationDateList || null,
@@ -387,6 +375,7 @@ export class ListProductsComponent implements OnInit {
             productName: new FormControl('', Validators.compose([Validators.maxLength(120), Validators.pattern(this.getValue('nameProduct'))])),
             ean: new FormControl(''),
             pluVtex: new FormControl('', Validators.compose([Validators.pattern(this.getValue('integerNumber'))])),
+            sellerSku: new FormControl('', Validators.compose([Validators.pattern(this.getValue('sellerSku'))])),
             initialDate: { disabled: true, value: '' },
             finalDate: { disabled: true, value: '' },
             creationDate: new FormControl('', []),
@@ -436,6 +425,7 @@ export class ListProductsComponent implements OnInit {
         this.initialDateList = null;
         this.finalDateList = null;
         this.pluVtexList = null;
+        this.sellerSkuList = null;
         this.categoryList = null;
         this.listFilterProducts = [];
 
@@ -532,6 +522,7 @@ export class ListProductsComponent implements OnInit {
         this.finalDateList = null;
         this.nameProductList = this.filterProduts.controls.productName.value || null;
         this.pluVtexList = this.filterProduts.controls.pluVtex.value || null;
+        this.sellerSkuList = this.filterProduts.controls.sellerSku.value || null;
         this.categoryList = this.idcategory || null;
         this.eanList = this.filterProduts.controls.ean.value || null;
         this.creationDateList = this.filterProduts.controls.creationDate.value || null;
@@ -562,6 +553,13 @@ export class ListProductsComponent implements OnInit {
         }
         if (this.pluVtexList) {
             this.pluVariable = true;
+            countFilter++;
+        } else {
+            this.eanVariable = false;
+            countFilter++;
+        }
+        if (this.sellerSkuList) {
+            this.sellerSkuVariable = true;
             countFilter++;
         } else {
             this.eanVariable = false;
@@ -671,6 +669,7 @@ export class ListProductsComponent implements OnInit {
         this.nameProductList = this.filterProduts.controls.productName.value || null;
         this.eanList = this.filterProduts.controls.ean.value || null;
         this.pluVtexList = this.filterProduts.controls.pluVtex.value || null;
+        this.sellerSkuList = this.filterProduts.controls.sellerSku.value || null;
         this.categoryList = this.idcategory || null;
 
 
@@ -684,6 +683,7 @@ export class ListProductsComponent implements OnInit {
         this.dataChips.push({ value: this.nameProductList, name: 'nameProductList', nameFilter: 'productName' });
         this.dataChips.push({ value: this.eanList, name: 'eanList', nameFilter: 'ean' });
         this.dataChips.push({ value: this.pluVtexList, name: 'pluVtexList', nameFilter: 'pluVtex' });
+        this.dataChips.push({ value: this.sellerSkuList, name: 'sellerSkuList', nameFilter: 'sellerSku' });
         this.dataChips.push({ value: this.creationDateList, name: 'creationDateList', nameFilter: 'creationDate' });
         if (this.idcategory && this.idcategory.length > 0) {
             this.namecategory.forEach(el => {
@@ -706,6 +706,10 @@ export class ListProductsComponent implements OnInit {
         if (!this.pluVariable) {
             this.filterProduts.controls.pluVtex.setValue('');
             this.pluVtexList = null;
+        }
+        if (!this.sellerSkuVariable) {
+            this.filterProduts.controls.sellerSku.setValue('');
+            this.sellerSkuList = null;
         }
         if (!this.categoryVariable) {
             this.filterProduts.controls.category.setValue('');

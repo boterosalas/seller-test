@@ -37,9 +37,6 @@ export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
   public productsExpanded: any;
   public showImage = false;
   sumItemCountProduct: number;
-
-  // activeCheck: Boolean = false;
-
   public listProducts: any[];
   listToSend = [];
 
@@ -52,8 +49,6 @@ export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
   ) { }
 
   ngOnInit() {
-    console.log('Hola');
-    console.log('_listProduct: ', this._listProduct);
     this.setCheckedTrue();
     // Esto se ejecuta cuando alguien cambia el change del servicio
     this.productsService.change.subscribe(data => {
@@ -63,8 +58,11 @@ export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
     });
   }
 
+  /**
+   * Metodo para checkear la oferta y no perderla al cambiar de pagina.
+   * @memberof ComboProductComponent
+   */
   setCheckedTrue() {
-    // console.log('this.listToSend: ', this.listToSend);
     this.listToSend.forEach(res => {
       console.log(res);
       this._listProduct.forEach(result => {
@@ -75,9 +73,12 @@ export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
     });
   }
 
+  /**
+   * Metodo que recibe como parametro el item del nfgor de los card de productos
+   * @param {*} statusOffer
+   * @memberof ComboProductComponent
+   */
   onvalueCheckdesactiveProducts(statusOffer: any) {
-    // this.setCheckedTrue();
-    console.log('statusOffer: ', statusOffer);
     statusOffer.checked = !statusOffer.checked;
     this.sumItemCountProduct = 0;
     this._listProduct.forEach(item => {
@@ -91,8 +92,6 @@ export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
     const newListArray = Array.from(new Set(this.listToSend));
     this.listToSend = newListArray;
     this.sumItemCountProduct = this.listToSend.length;
-    console.log('this.sumItemCountProduct: ', this.sumItemCountProduct);
-    console.log('this.listToSend: ', this.listToSend);
   }
 
   ngOnDestroy(): void {
