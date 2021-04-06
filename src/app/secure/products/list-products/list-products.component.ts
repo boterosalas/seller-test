@@ -633,7 +633,7 @@ export class ListProductsComponent implements OnInit {
             this.finalDateList = null;
         }
         if (countFilter) {
-            urlParams2 = `?&initialDate=${this.initialDateList}&finalDate=${this.finalDateList}&ean=${encodeURIComponent(this.eanList)}&productName=${encodeURIComponent(this.nameProductList)}&creationDate=${this.creationDateList}&page=${page}&limit=${limit}&pluVtex=${this.pluVtexList}&categories=${this.categoryList}&myProducts=${this.myProduct}`;
+            urlParams2 = `?&initialDate=${this.initialDateList}&finalDate=${this.finalDateList}&ean=${encodeURIComponent(this.eanList)}&productName=${encodeURIComponent(this.nameProductList)}&creationDate=${this.creationDateList}&page=${page}&limit=${limit}&pluVtex=${this.pluVtexList}&sellerSku=${this.sellerSkuList}&categories=${this.categoryList}&myProducts=${this.myProduct}`;
         }
         this.loadingService.viewSpinner(); // Mostrar el spinner
         if (params && !fecha) {
