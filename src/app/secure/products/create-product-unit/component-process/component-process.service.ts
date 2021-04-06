@@ -279,7 +279,6 @@ export class ProcessService {
             this.productData.AssignEan = !data.AssignEan;
             this.productData.HasEAN = !data.AssignEan;
             this.views.showEan = true;
-            this.productData.ParentReference = data.ParentReference;
         }
         if (data.CategorySelected) {
             this.views.showCat = true;
@@ -301,6 +300,7 @@ export class ProcessService {
             this.productData.ProductHeight = data.ProductHeight;
             this.productData.ProductLength = data.ProductLength;
             this.productData.ProductWeight = data.ProductWeight;
+            this.productData.ParentReference = data.ParentReference;
             this.productData.Description = data.Description;
             this.productData.KeyWords = data.KeyWords;
             this.productData.Children = data.Children;
@@ -396,22 +396,28 @@ export class ProcessService {
      * @memberof ProcessService
      */
     public saveInformationUnitreation(ean: any, productProcess?: any): Observable<{}> {
-        this.sendFieldMeta();
-        let dataToSend;
-        if (ean) {
-            this.productData.ModifyImage = 1;
-            if (productProcess) {
-                const idProductProcess = {
-                    idProductProcess: productProcess
-                };
-                dataToSend = Object.assign(this.productData, idProductProcess);
-                return this.http.post(this.api.get('postUnitSaveInformationUnitCreation'), dataToSend);
-            }
-            return this.http.patch(this.api.get('patchUnitSaveInformationUnitCreation'), this.productData, { observe: 'response' });
-        } else {
-            this.productData.ModifyImage = 0;
-            return this.http.post(this.api.get('postUnitSaveInformationUnitCreation'), this.productData);
-        }
+        console.log(this.productData);
+        return new Observable(observer => {
+            observer.next(this.productData);
+          });
+    
+       
+        // this.sendFieldMeta();
+        // let dataToSend;
+        // if (ean) {
+        //     this.productData.ModifyImage = 1;
+        //     if (productProcess) {
+        //         const idProductProcess = {
+        //             idProductProcess: productProcess
+        //         };
+        //         dataToSend = Object.assign(this.productData, idProductProcess);
+        //         return this.http.post(this.api.get('postUnitSaveInformationUnitCreation'), dataToSend);
+        //     }
+        //     return this.http.patch(this.api.get('patchUnitSaveInformationUnitCreation'), this.productData, { observe: 'response' });
+        // } else {
+        //     this.productData.ModifyImage = 0;
+        //     return this.http.post(this.api.get('postUnitSaveInformationUnitCreation'), this.productData);
+        // }
 
     }
 

@@ -289,15 +289,15 @@
           | translate}}</mat-error>
       </mat-form-field>
     </div>
-    <!-- <div *ngIf="productData.ProductType === 'Clothing'">
+    <div *ngIf="productData.ProductType === 'Clothing'">
       <mat-form-field class="field">
         <input matInput
           [placeholder]="'secure.orders.order_list.product_order.reference' |
           translate" class="input-packing-long"
-          formControlName="ParentReference" (change)="detectForm()"
-          id="parentReference">
+          formControlName="parentReference" (change)="detectForm()"
+          id="parentReference" required>
       </mat-form-field>
-    </div> -->
+    </div>
 
     <div fxLayout="column" fxLayoutAlign="space-between center"
       fxLayoutAlign.xs="center center" fxLayout.xs="column"

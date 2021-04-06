@@ -48,7 +48,6 @@ export class ExpandedProductComponent implements OnInit, OnDestroy {
         this.getDataUser();
         const startswithModel = !!this.productsExpanded.model && (this.productsExpanded.model.toString() as string).toLowerCase().startsWith('modelo');
         this.productsExpanded.model = startswithModel ? (this.productsExpanded.model.toString() as string).slice(6, this.productsExpanded.model.length) : this.productsExpanded.model;
-        console.log(this.productsExpanded);
     }
 
     async getDataUser() {
