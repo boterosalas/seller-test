@@ -16,7 +16,7 @@ const log = new Logger('ComboProductComponent');
 })
 export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
   // productsList: any;
-  @Input() productsList: any;
+  // @Input() productsList: any;
   @Input() showProducts: boolean;
   @Input() offerPermission: boolean;
   @Input() editPermission: boolean;
@@ -25,10 +25,23 @@ export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
   @Input() deletePermission: boolean;
   @Output() reloadData = new EventEmitter<any>();
 
+  public _listProduct: any;
+  @Input() set productsList(value: any) {
+    if (value) {
+      console.log(value);
+        this._listProduct = value;
+        this.setCheckedTrue();
+    }
+}
+
   public productsExpanded: any;
   public showImage = false;
+  sumItemCountProduct: number;
 
   // activeCheck: Boolean = false;
+
+  public listProducts: any[];
+  listToSend = [];
 
 
   constructor(
@@ -39,12 +52,47 @@ export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
   ) { }
 
   ngOnInit() {
+    console.log('Hola');
+    console.log('_listProduct: ', this._listProduct);
+    this.setCheckedTrue();
     // Esto se ejecuta cuando alguien cambia el change del servicio
     this.productsService.change.subscribe(data => {
       if (!data) {
         this.backTolist();
       }
     });
+  }
+
+  setCheckedTrue() {
+    // console.log('this.listToSend: ', this.listToSend);
+    this.listToSend.forEach(res => {
+      console.log(res);
+      this._listProduct.forEach(result => {
+        if (result.pluVtex === res) {
+          result['checked'] = true;
+        }
+      });
+    });
+  }
+
+  onvalueCheckdesactiveProducts(statusOffer: any) {
+    // this.setCheckedTrue();
+    console.log('statusOffer: ', statusOffer);
+    statusOffer.checked = !statusOffer.checked;
+    this.sumItemCountProduct = 0;
+    this._listProduct.forEach(item => {
+      if (item.checked) {
+        this.listToSend.push(item.pluVtex);
+      }
+      if (item.checked === false) {
+        this.listToSend.splice(item, 1);
+      }
+    });
+    const newListArray = Array.from(new Set(this.listToSend));
+    this.listToSend = newListArray;
+    this.sumItemCountProduct = this.listToSend.length;
+    console.log('this.sumItemCountProduct: ', this.sumItemCountProduct);
+    console.log('this.listToSend: ', this.listToSend);
   }
 
   ngOnDestroy(): void {

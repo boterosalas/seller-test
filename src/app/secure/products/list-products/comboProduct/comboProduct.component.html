@@ -6,9 +6,9 @@
 </button>
 
 
-<div class="cardImageAling" fxLayout.xs="column" fxLayoutAlign.xs="space-between center" *ngFor="let products of productsList; let i = index ">
+<div class="cardImageAling" fxLayout.xs="column" fxLayoutAlign.xs="space-between center" *ngFor="let products of _listProduct; let i = index ">
   <div class="checkSelected" *ngIf="activeCheck">
-    <mat-checkbox type="checkbox" >{{'secure.offers.list.list.select_me' | translate}}
+    <mat-checkbox type="checkbox" [checked]="products.checked" (change)="onvalueCheckdesactiveProducts(products)">{{'secure.offers.list.list.select_me' | translate}}
     </mat-checkbox>
   </div>
   <div (click)="openInformation(products.ean)" *ngIf="showImage === false">
