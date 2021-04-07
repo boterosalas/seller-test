@@ -14,6 +14,7 @@ import { UserInformation } from '@app/shared';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import { DownloadProductsComponent } from './download-products/download-products.component';
 import { DownloadProductsSellerComponent } from './download-products-seller/download-products-seller.component';
+import { DialogInfoComponent } from '@app/shared/components/dialog-info/dialog-info.component';
 
 export interface ListFilterProducts {
     name: string;
@@ -164,6 +165,49 @@ export class ListProductsComponent implements OnInit {
                 matToolbar.classList.remove('notFixed');
             });
         }, 1000);
+    }
+
+
+    /**
+     * Metodo para seleciconar productos a eliminar
+     * @memberof ListProductsComponent
+     */
+    someProductsSelected() {
+
+    }
+
+    /**
+     * Metodo para eliminar todos los productos
+     * @memberof ListProductsComponent
+     */
+    allProductsSelected() {
+
+    }
+
+    /**
+     * Metodo para eliminar productos seleccionados.
+     * @memberof ListProductsComponent
+     */
+    openDialogDeleteProducts() {
+        const dataDialog = {
+            title: '¡Vas a eliminar productos',
+            icon: 'done',
+            message: 'Estas seguro que deseas eliminar ' + 5 + ' de tu base de datos de Mis productos?',
+            buttonText: {
+                ok: 'ELIMINAR',
+                cancel: 'CANCELAR'
+            }
+        }
+        const dialogRef = this.dialog.open(DialogInfoComponent, {
+            width: '60%',
+            minWidth: '280px',
+            data: {
+                dataDialog
+            }
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            log.info('The modal detail billing was closed');
+        });
     }
 
     activeMultipleOffer() {

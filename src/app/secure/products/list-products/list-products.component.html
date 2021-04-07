@@ -1,5 +1,5 @@
 <mat-drawer-container style="height: auto;" class="drawer-container" [hasBackdrop]="true">
-  <mat-drawer  #drawer [mode]="'over'" [position]="'end'" class="example-sidenav" [disableClose]="false">
+  <mat-drawer #drawer [mode]="'over'" [position]="'end'" class="example-sidenav" [disableClose]="false">
     <form class="basic-info" #createfilterProduts="ngForm" [formGroup]="filterProduts" class="seller-filter-sidenav"
       *ngIf="filterProduts">
       <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -37,10 +37,10 @@
             {{'secure.products.create_product_unit.list_products.product_name_invalid' | translate}}
           </mat-error>
         </mat-form-field>
-         <!-- Nuevo campo SellerSKU -->
-         <mat-form-field color="primary">
-          <input matInput [placeholder]="'secure.offers.bulk_upload.table_load.sellerSku' | translate" formControlName="sellerSku"
-            [errorStateMatcher]="matcher">
+        <!-- Nuevo campo SellerSKU -->
+        <mat-form-field color="primary">
+          <input matInput [placeholder]="'secure.offers.bulk_upload.table_load.sellerSku' | translate"
+            formControlName="sellerSku" [errorStateMatcher]="matcher">
           <mat-hint></mat-hint>
           <mat-error *ngIf="filterProduts.get('sellerSku').hasError('pattern')">
             {{'secure.products.create_product_unit.list_products.product_name_invalid' | translate}}
@@ -138,7 +138,7 @@
             (page)="pageEvent = changePaginatorProducts($event)"></mat-paginator>
         </div>
       </div>
-      
+
       <!--  Descargar productos admin -->
       <button mat-button (click)="openDialogDownloadProducts()" *ngIf="isAdmin">
         <mat-icon>archive</mat-icon>
@@ -150,7 +150,7 @@
         <mat-icon>archive</mat-icon>
         <small>{{'permissions.Descargar' | translate}}</small>
       </button>
-      
+
       <!--  Filtro -->
       <button type="button" mat-button (click)="toggle(showFilter)">
         <mat-icon>filter_list</mat-icon>
@@ -171,18 +171,30 @@
     </div>
 
     <div class="prodList">
-     
-      <div *ngIf="myProduct" style="margin-top: 2%; width: 95%; text-align: right" >
-        <button mat-stroked-button color="primary" [matMenuTriggerFor]="menu" style="border-color: #485AFA; width: 280px; height: 37px;">
-           Eliminar productos</button>
-         <mat-menu #menu="matMenu" >
-           <button mat-menu-item  color="primary" style="color: #485AFA; font-family: Arial; font-weight: bold; font-size: 12px;" (click)="someProductsSelected(); activeMultipleOffer()">Seleccionar productos</button>
-           <button mat-menu-item  color="primary" style="color: #485AFA; font-family: Arial; font-weight: bold; font-size: 12px;" (click)="allProductsSelected()">Eliminar todos los productos</button>
-         </mat-menu>
+
+      <div *ngIf="myProduct && !activeCheck" style="margin-top: 2%; width: 95%; text-align: right">
+        <button mat-stroked-button color="primary" [matMenuTriggerFor]="menu"
+          style="border-color: #485AFA; width: 280px; height: 37px;">
+          Eliminar productos</button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item color="primary"
+            style="color: #485AFA; font-family: Arial; font-weight: bold; font-size: 12px;"
+            (click)="someProductsSelected(); activeMultipleOffer()">Seleccionar productos</button>
+          <button mat-menu-item color="primary"
+            style="color: #485AFA; font-family: Arial; font-weight: bold; font-size: 12px;"
+            (click)="allProductsSelected()">Eliminar todos los productos</button>
+        </mat-menu>
       </div>
-     
+
+      <div *ngIf="activeCheck" style="margin-top: 2%; width: 95%; text-align: right">
+        <button mat-stroked-button color="primary" 
+          style="background-color: #485AFA; width: 280px; height: 37px;" (click)="openDialogDeleteProducts()">
+          <span style="color: white; font-family: Arial; font-weight: bold; font-size: 12px;">Eliminar productos seleccionados</span></button>
+      </div>
+
       <app-combo-product [offerPermission]="offerPermission" [editPermission]="editPermission"
-        [showProducts]="showProducts" [productsList]="productsList" class="listCombo" (reloadData)="reloadData();" [deletePermission]="deletePermission" [isAdmin]="isAdmin" [activeCheck]="activeCheck"></app-combo-product>
+        [showProducts]="showProducts" [productsList]="productsList" class="listCombo" (reloadData)="reloadData();"
+        [deletePermission]="deletePermission" [isAdmin]="isAdmin" [activeCheck]="activeCheck"></app-combo-product>
       <div *ngIf="!productsList.length" fxLayout="column" class="no-products">
         <div class="icon-face">
           <mat-icon class="mat-18">layers_clear</mat-icon>
