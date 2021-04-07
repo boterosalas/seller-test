@@ -27,13 +27,13 @@
       <mat-table #table [dataSource]="dataSource" matSort>
 
         <ng-container matColumnDef="check">
-          <mat-header-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
-            fxShow.xl="true" fxShow="true" fxFlex.lg="5" fxFlex.sm="5" fxFlex.md="5" fxFlex.xs="5" fxFlex.xl=""
+          <mat-header-cell  fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+            fxShow.xl="true" fxShow="true" fxFlex.lg="8" fxFlex.sm="8" fxFlex.md="8" fxFlex.xs="8" fxFlex.xl=""
             *matHeaderCellDef>
 
           </mat-header-cell>
-          <mat-cell class='marginListAdminTotal' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
-            fxShow="true" fxFlex.lg="5" fxFlex.sm="5" fxFlex.md="5" fxFlex.xs="5" fxFlex.xl=""
+          <mat-cell  fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="8" fxFlex.sm="8" fxFlex.md="8" fxFlex.xs="8" fxFlex.xl=""
             *matCellDef="let row">
             <mat-checkbox (click)="$event.stopPropagation()"
             (change)="changeStatus(row,$event.checked)"
@@ -51,6 +51,32 @@
             fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
             *matCellDef="let element">
             <p class="sc-text-normal">{{element.billingNumber}}</p>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="credit_note">
+          <mat-header-cell class='marginListAdminTotal alingCenter' fxShow.xs="false" fxShow.sm="true" fxShow.lg="true"
+            fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
+            *matHeaderCellDef>
+            <span class="title-table-header width-100">{{'secure.billing.Nota crédito'| translate}} </span>
+          </mat-header-cell>
+          <mat-cell class='marginListAdminTotal alingCenter' fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
+            *matCellDef="let element">
+            <p class="sc-text-normal width-100">{{returnFirstPosition(element.noteCreditNumber)}}</p>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="devolutions">
+          <mat-header-cell class='marginListAdminTotal alingCenter' fxShow.xs="false" fxShow.sm="true" fxShow.lg="true"
+            fxShow.xl="true" fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
+            *matHeaderCellDef>
+            <span class="title-table-header width-100">{{'menu.Devoluciones'| translate}} </span>
+          </mat-header-cell>
+          <mat-cell class='marginListAdminTotal alingCenter' fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
+            fxShow="true" fxFlex.lg="10" fxFlex.sm="10" fxFlex.md="10" fxFlex.xs="30" fxFlex.xl=""
+            *matCellDef="let element">
+            <p class="sc-text-normal width-100">{{element.refund}}</p>
           </mat-cell>
         </ng-container>
 

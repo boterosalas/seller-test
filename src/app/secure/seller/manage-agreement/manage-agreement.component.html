@@ -33,13 +33,13 @@
     </div>
     <div *ngFor="let agreement of manageAgreementsSeller" fxLayout="row" fxLayoutAlign="space-between center"
       class="list-agreement">
-      <div fxLayoutAlign="start center" fxLayout="row" class="width-80">
+      <div fxLayoutAlign="start center" fxLayout="row" class="width-Name">
         <mat-icon class="material-icons" class="file-agreement">
           insert_drive_file
         </mat-icon>
-        <p>{{agreement.Name}}</p>
+        <p>{{agreement.Name}} - {{agreement.Date | date}}</p>
       </div>
-      <div>
+      <div class="width-agreement-default">
         <mat-slide-toggle (change)="activeContract($event, agreement)" [checked]=agreement.Default
         ></mat-slide-toggle>
       </div>
