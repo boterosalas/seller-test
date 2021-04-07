@@ -4,7 +4,7 @@ import { DropDownListComponent } from './drop-down-list.component';
 import { FlexModule, FlexLayoutModule } from '@angular/flex-layout';
 import { TranslateModule } from '@ngx-translate/core';
 import { DropDownListHeaderComponent } from '../drop-down-list-header/drop-down-list-header.component';
-import { FlexSizePipe } from '../drop-down-list-header/flex-size.pipe';
+import { FlexSizePipe } from '../../pipes/flex-size.pipe';
 
 describe('DropDownListComponent', () => {
   let component: DropDownListComponent;

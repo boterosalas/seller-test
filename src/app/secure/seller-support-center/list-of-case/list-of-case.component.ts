@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/co
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { SellerSupportCenterService } from '../services/seller-support-center.service';
 import { ResponseCaseDialogComponent } from '@shared/components/response-case-dialog/response-case-dialog.component';
-import { MatDialog, MatSnackBar, MatPaginatorIntl, ErrorStateMatcher, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatSnackBar, MatPaginatorIntl, ErrorStateMatcher, MatTableDataSource, Sort } from '@angular/material';
 import { LoadingService, ModalService } from '@app/core';
 import { Logger } from '@core/util/logger.service';
 import { ActivatedRoute } from '@angular/router';
@@ -61,6 +61,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
   filter: boolean;
   menuState: string;
   cases: Array<any>;
+  casesTmp: Array<any>;
   repondCase: any;
   headerConfigurations: Array<any>;
   length: number;
@@ -139,6 +140,8 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
 
   public dataSource: MatTableDataSource<any>;
 
+  hideHeader:Boolean;
+
   constructor(
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
@@ -192,7 +195,15 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
     this.store.select(reduxState => reduxState.notification.unreadCases)
       .subscribe(unreadCase => (this.unreadCase = unreadCase));
     this.changeLanguage();
+
+    if (localStorage.getItem('typeProfile') === 'administrator') {
+      this.hideHeader = false;
+    } else {
+      this.hideHeader = true;
+    }
+
   }
+
 
     /**
    * funcion para mostrar el modal del producto
@@ -440,6 +451,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
             this.refreshPaginator(this.length, res.body.data.page, res.body.data.pageSize);
             this.paginationToken = res.body.paginationToken;
             this.cases = res.body.data.cases;
+            this.casesTmp = res.body.data.cases;
             this.cases.forEach(element => {
               element.statusLoad = false;
             });
@@ -615,6 +627,22 @@ loadDataDetails(item: any) {
         item.statusLoad = false;
       });
   }
+
+
+  sortData(sort: Sort) {
+    const data = this.cases.slice();
+    
+    if (!sort.active || sort.direction === '') {
+      this.cases = this.casesTmp;
+    } else {
+      this.cases = data.sort((a, b) => {
+        const aValue = (a as any)[sort.active];
+        const bValue = (b as any)[sort.active];
+        return (aValue < bValue ? -1 : 1) * (sort.direction === 'asc' ? 1 : -1);
+      });
+    }
+  }
+  
 
   ngOnDestroy() {
     this.dialog.closeAll();

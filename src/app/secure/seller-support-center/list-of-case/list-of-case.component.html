@@ -160,6 +160,75 @@
 
   <ng-template [ngIf]="cases">
     <div *ngIf="!idDetail">
+      <!-- Headers para tipo perifl seller -->
+      <div matSort (matSortChange)="sortData($event)" class="sh-list-header-header" fxLayout="row" fxLayout.xs="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+        fxLayoutGap.xs="0" *ngIf="hideHeader === true">
+        <div fxFlex="5%" class="sh-list-header-header--item-header-none">&nbsp;</div>
+
+        <div class="sh-list-header-header--item-header" id="sh-list-header-drop-down-menu-ID" [fxFlex]="2*  5 | flexSize" [fxFlex.xs]="5*  5 | flexSize">
+          {{"secure.parametize.support_drop-down-menu-ID" | translate}}
+        </div>
+
+        <div class="sh-list-header-header--item-header sh-list-header-header--marginleft" id="sh-list-header-drop-down-menu-order-numer"
+          [fxFlex]="3*  5 | flexSize" [fxFlex.xs]="10*  5 | flexSize">
+          {{"secure.parametize.support_drop-down-order-numer" | translate}}
+        </div>
+
+        <div class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-menu-reason-detail"
+          [fxFlex]="6*  5 | flexSize">
+          {{"secure.parametize.support_drop-down-reason-detail" | translate}}
+        </div>
+
+        <div  mat-sort-header="createDate" class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-creation-date"
+          [fxFlex]="3*  5 | flexSize">
+          {{"secure.parametize.support_drop-down-creation-date" | translate}}
+        </div>
+
+        <div class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-status" [fxFlex]="2*  5 | flexSize">
+          {{"secure.parametize.support_drop-down-status" | translate}}
+        </div>
+
+        <div class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-reply" [fxFlex]="2*  5 | flexSize">
+          {{"secure.parametize.support_drop-down-reply" | translate}}
+        </div>
+
+        <div mat-sort-header="lastReply" class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-last-reply" [fxFlex]="4*  5 | flexSize">
+          {{"secure.parametize.support_drop-down-last-reply" | translate}}
+        </div>
+      </div>
+
+      <!-- Headers para tipo perifl administrator -->
+      <div matSort (matSortChange)="sortData($event)" class="sh-list-header-header" fxLayout="row" fxLayout.xs="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+      fxLayoutGap.xs="0" *ngIf="hideHeader === false">
+      
+      <div fxFlex="5%" class="sh-list-header-header--item-header-none">&nbsp;</div>
+      <div class="sh-list-header-header--item-header paddingLeft" id="sh-list-header-drop-down-menu-ID" [fxFlex]="2*  5 | flexSize" [fxFlex.xs]="8*  5 | flexSize">
+        {{"secure.parametize.support_drop-down-menu-ID" | translate}}
+      </div>
+
+      <div class="sh-list-header-header--item-header sh-list-header-header--marginleft-admin" id="sh-list-header-drop-down-menu-order-numer"
+        [fxFlex]="3*  5 | flexSize" [fxFlex.xs]="10*  5 | flexSize">
+        {{"secure.parametize.support_drop-down-order-numer" | translate}}
+      </div>
+
+      <div class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-menu-reason-detail"
+        [fxFlex]="4*  5 | flexSize">
+        {{"secure.parametize.support_drop-down-reason-detail" | translate}}
+      </div>
+
+      <div mat-sort-header="createDate" class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-creation-date"
+        [fxFlex]="3*  5 | flexSize">
+        {{"secure.parametize.support_drop-down-creation-date" | translate}}
+      </div>
+
+      <div class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-status" [fxFlex]="4*  5 | flexSize">
+        {{"secure.parametize.support_drop-down-status" | translate}}
+      </div>
+
+      <div mat-sort-header="lastReply" class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-last-reply" [fxFlex]="4*  5 | flexSize">
+        {{"secure.parametize.support_drop-down-last-reply" | translate}}
+      </div>
+      </div>
 
       <app-drop-down-list [data]="cases" [options]="options" [configurations]="headerConfigurations">
 
