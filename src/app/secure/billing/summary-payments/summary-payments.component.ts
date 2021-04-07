@@ -113,7 +113,7 @@ export class SummaryPaymentsComponent implements OnInit {
     if (param) {
       const splitArr = param.split(',');
       if (splitArr.length > 1) {
-        return splitArr[0] + '...'
+        return splitArr[0] + ' [+]'
       } else {
         return splitArr[0]
       }
