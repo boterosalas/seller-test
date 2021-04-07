@@ -3,7 +3,6 @@ import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testi
 import { DropDownListComponent } from './drop-down-list.component';
 import { FlexModule, FlexLayoutModule } from '@angular/flex-layout';
 import { TranslateModule } from '@ngx-translate/core';
-import { DropDownListHeaderComponent } from '../drop-down-list-header/drop-down-list-header.component';
 import { FlexSizePipe } from '../../pipes/flex-size.pipe';
 
 describe('DropDownListComponent', () => {
@@ -14,7 +13,6 @@ describe('DropDownListComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         DropDownListComponent,
-        DropDownListHeaderComponent,
         FlexSizePipe
       ],
       imports: [
