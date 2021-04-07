@@ -64,7 +64,7 @@ export class ProductBasicInfoComponent implements OnInit {
     isManual = false;
     borderColor = '';
     reload = 0;
-    BrandsRegex = { brandsName: '', formatIntegerNumber: '' };
+    BrandsRegex = { brandsName: '', formatIntegerNumber: '', referenceProduct: ''};
     @Input() set detailProduct(value: any) {
         if (value) {
             this._detailProduct = value;
@@ -288,7 +288,7 @@ export class ProductBasicInfoComponent implements OnInit {
                         Validators.required, Validators.pattern(this.getValue('decimalsProduct'))
                     ])
             }),
-            parentReference: new FormControl('', [Validators.required]),
+            parentReference: new FormControl('', [Validators.required, Validators.pattern(this.BrandsRegex.referenceProduct)]),
             Description: new FormControl('',
                 [
                     Validators.required, Validators.pattern(/^((?!<script>|<SCRIPT>|<Script>|&lt;Script&gt;|&lt;SCRIPT&gt;|&lt;script&gt;)[\s\S])*$/)
@@ -938,7 +938,7 @@ export class ProductBasicInfoComponent implements OnInit {
                     this.formBasicInfo.controls.parentReference.disable();
                 } else {
                     this.formBasicInfo.controls.parentReference.enable();
-                    this.formBasicInfo.controls.parentReference.setValidators(Validators.required);
+                    this.formBasicInfo.controls.parentReference.setValidators([Validators.required, Validators.pattern(this.BrandsRegex.referenceProduct)]);
                 }
                 this.saveKeyword();
                 this.sendDataToService(isChothing);
@@ -1072,7 +1072,7 @@ export class ProductBasicInfoComponent implements OnInit {
     public getRegexByModule(): void {
         this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
             let dataOffertRegex = JSON.parse(res.body.body);
-            dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'parametrizacion');
+            dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'parametrizacion' || data.Module === 'productos');
             for (const val in this.BrandsRegex) {
                 if (!!val) {
                     const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());

@@ -296,6 +296,14 @@
           translate" class="input-packing-long"
           formControlName="parentReference" (change)="detectForm()"
           id="parentReference" required>
+          <mat-error
+          *ngIf="formBasicInfo.get('parentReference').hasError('required') &&
+          formBasicInfo.get('parentReference').touched">
+          {{'secure.products.create_product_unit.basic_information.input_mandatory'
+          | translate}}</mat-error>
+        <mat-error *ngIf="formBasicInfo.get('parentReference').hasError('pattern')">
+          {{'secure.products.create_product_unit.basic_information.format_invalidate'
+          | translate}}</mat-error>
       </mat-form-field>
     </div>
 
