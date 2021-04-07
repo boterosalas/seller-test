@@ -628,6 +628,11 @@ loadDataDetails(item: any) {
       });
   }
 
+  /**
+   * 
+   * @param sort 
+   * Metodo para ordenar las columnas de fecha y ultima respuesta
+   */
 
   sortData(sort: Sort) {
     const data = this.cases.slice();
