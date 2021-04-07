@@ -9,8 +9,8 @@
   </p>
 </mat-dialog-content>
 <mat-dialog-actions align="center">
-  <button mat-stroked-button color="primary" style="border-color: #485AFA; width: 129px; height: 37px;">
+  <button mat-stroked-button color="primary" style="border-color: #485AFA; width: 129px; height: 37px;" (click)="onNoClick()">
     {{cancelButtonText}}</button>
   <button mat-raised-button color="primary"
-    style="border-color: #485AFA; width: 129px; height: 37px;">{{confirmButtonText}}</button>
+    style="border-color: #485AFA; width: 129px; height: 37px;" (click)="sendDataPatch()">{{confirmButtonText}}</button>
 </mat-dialog-actions>

@@ -24,6 +24,7 @@ export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
   @Input() activeCheck: boolean;
   @Input() deletePermission: boolean;
   @Output() reloadData = new EventEmitter<any>();
+  @Output() countPlu = new EventEmitter();
 
   public _listProduct: any;
   @Input() set productsList(value: any) {
@@ -92,6 +93,7 @@ export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
     const newListArray = Array.from(new Set(this.listToSend));
     this.listToSend = newListArray;
     this.sumItemCountProduct = this.listToSend.length;
+    this.sendCount();
   }
 
   ngOnDestroy(): void {
@@ -127,5 +129,13 @@ export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
 
   public reloadDataListProduct() {
     this.reloadData.emit();
+  }
+
+  sendCount(){
+    const info = {
+      count: this.sumItemCountProduct,
+      list: this.listToSend
+    }
+    this.countPlu.emit(info);
   }
 }

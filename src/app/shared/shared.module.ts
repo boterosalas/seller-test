@@ -50,6 +50,7 @@ import { PortsComponent } from './components/ports/ports.component';
 import { ContentDropDownDetailOrderDirective } from '@app/secure/orders/orders-list/orders-page/component/box-list/content-drop-down-detail-order.directive';
 import { ModalDonwloadEmailComponent } from './components/modal-donwload-email/modal-donwload-email.component';
 import { DialogInfoComponent } from './components/dialog-info/dialog-info.component';
+import { ListModalService } from './components/dialog-info/dialog-ingo.component.service';
 
 export function createTranslateLaoder(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -151,7 +152,7 @@ export function createTranslateLaoder(http: HttpClient) {
     ModalDonwloadEmailComponent,
     DialogInfoComponent
   ],
-  providers: [EventEmitterSeller],
+  providers: [EventEmitterSeller, ListModalService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class SharedModule { }

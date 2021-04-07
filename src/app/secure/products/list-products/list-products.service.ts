@@ -84,6 +84,16 @@ export class ListProductService {
     return this.http.post(this.api.get('downloadProducts'), body);
   }
 
+  /**
+   * Servkicio para eliminar poroductos vendedor
+   * @param {*} body
+   * @returns {Observable<any>}
+   * @memberof ListProductService
+   */
+  public deleteProductsSeller(body: any): Observable<any> {
+    return this.http.post(this.api.get('deleteProduct'), body);
+  }
+
 
   public deleteProductByEan(ean: any): Observable<{}> {
     return this.http.delete(this.api.get('deleteProductByEan', [ean + '?']));

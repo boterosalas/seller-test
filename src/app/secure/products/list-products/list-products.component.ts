@@ -123,6 +123,9 @@ export class ListProductsComponent implements OnInit {
     invalidCategory: Boolean = false;
     activeCheck: Boolean = false;
 
+    modelDelete: any;
+    infoSelected: any;
+    dataDialog: any;
 
     constructor(
         private languageService: TranslateService,
@@ -173,7 +176,21 @@ export class ListProductsComponent implements OnInit {
      * @memberof ListProductsComponent
      */
     someProductsSelected() {
-
+        this.dataDialog = {
+            title: '¡Vas a eliminar productos',
+            icon: 'done',
+            message: 'Estas seguro que deseas eliminar ' + 5 + ' de tu base de datos de Mis productos?',
+            buttonText: {
+                ok: 'ELIMINAR',
+                cancel: 'CANCELAR'
+            },
+            services:{
+                method: 'patch',
+                name: 'deleteProduct'
+            },
+            data: this.modelDelete
+        };
+        // this.openDialogDeleteProducts();
     }
 
     /**
@@ -185,25 +202,42 @@ export class ListProductsComponent implements OnInit {
     }
 
     /**
+     * Evenemitter q escucha la informacion de plus seleccionados
+     * @param {*} event
+     * @memberof ListProductsComponent
+     */
+    countPlu(event: any){
+        this.infoSelected = event;
+        this.modelObject();
+        
+    }
+
+    /**
+     * Modelo a eliminar.
+     * @memberof ListProductsComponent
+     */
+    modelObject(){
+        this.modelDelete = {
+            ean: this.eanList || null,
+            plu: this.infoSelected.list || null,
+            sellerSku: this.sellerSkuList || null,
+            product: this.nameProductList || null,
+            categories: this.categoryList || null,
+            creationDate: this.creationDateList || null,
+            initialDate: this.initialDateList || null,
+            finalDate: this.finalDateList || null
+            };
+    }
+
+    /**
      * Metodo para eliminar productos seleccionados.
      * @memberof ListProductsComponent
      */
     openDialogDeleteProducts() {
-        const dataDialog = {
-            title: '¡Vas a eliminar productos',
-            icon: 'done',
-            message: 'Estas seguro que deseas eliminar ' + 5 + ' de tu base de datos de Mis productos?',
-            buttonText: {
-                ok: 'ELIMINAR',
-                cancel: 'CANCELAR'
-            }
-        }
         const dialogRef = this.dialog.open(DialogInfoComponent, {
             width: '60%',
             minWidth: '280px',
-            data: {
-                dataDialog
-            }
+            data: this.dataDialog
         });
         dialogRef.afterClosed().subscribe(result => {
             log.info('The modal detail billing was closed');

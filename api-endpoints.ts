@@ -268,9 +268,9 @@ export const endpoints = {
       // verificar el status de carga de dispersion
       statusLoadDispersion: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/getstatusdispersion',
       // Envia un correo con el reporte
-      sendModuleReportDispersion : 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/pendingpaymentnews/{params}',
+      sendModuleReportDispersion: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/pendingpaymentnews/{params}',
       // Obtener listado de modulos y submodulos
-      getAllModuleSchoolExito : 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/GetAllModule',
+      getAllModuleSchoolExito: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/GetAllModule',
       // escuela exito modificar modulos
       editModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/EditModule',
       // escuela exito eliminar modulos
@@ -310,7 +310,9 @@ export const endpoints = {
       // Eliminar uno o varios vendedores del contrato
       delete1orMore: 'https://yoix96dfrg.execute-api.us-east-1.amazonaws.com/contracts/DeleteContractApply',
       // Consultar si tiene carga la creacion de modulos.
-      ValidateCreateMassive : 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/ValidateCreateMassive'
+      ValidateCreateMassive: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/ValidateCreateMassive',
+      // ELiminar productos vendedor
+      deleteProduct: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/disassociateproductfrommyproductsasync',
     },
   },
   // Endpoints production
@@ -576,9 +578,9 @@ export const endpoints = {
       // verificar el status de carga de dispersion
       statusLoadDispersion: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/getstatusdispersion',
       // Envia un correo con el reporte
-      sendModuleReportDispersion : 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/pendingpaymentnews/{params}',
+      sendModuleReportDispersion: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/pendingpaymentnews/{params}',
       // Obtener listado de modulos y submodulos
-      getAllModuleSchoolExito : 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/GetAllModule',
+      getAllModuleSchoolExito: 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/GetAllModule',
       // escuela exito modificar modulos
       editModules: 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/EditModule',
       // escuela exito eliminar modulos
@@ -601,24 +603,26 @@ export const endpoints = {
       updatePositionSubModules: 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/MoveSubModule',
       // actualiza la posicion del elemento en la base de datos trabaja con el index
       updatePositionModules: 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/MoveModule',
-       // Elimina un producto del listado de productos por Ean
-       deleteProductByEan: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/deleteproduct/{params}',
+      // Elimina un producto del listado de productos por Ean
+      deleteProductByEan: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/deleteproduct/{params}',
       // Descarga formato masiva vendedores
       uploadMassiveAgreementSellers: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates/PlantillaCargaAcuerdos.xlsx',
       // Obtener listado de acuerdos
       getAllAgreement: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/GetSellerContract/{params}',
       // Consultar estado de crear acuerdos masivos (get)
       getStatusMassiveAgreement: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/GetStatusLoads',
-       // ELiminar contrato a todos los vendedores
-       deleteAllAgreement: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/DeleteContract/{params}',
-       // Establecer contrato por defecto
-       defaulAgreement: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/SetContractByDefault/{params}',
-       // Obtener listado de vendedores por acuerdos
-       getListSellersAgreement: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/GetSellerContractApply/{params}',
-       // Eliminar uno o varios vendedores del contrato
-       delete1orMore: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/DeleteContractApply',
-       // Consultar si tiene carga la creacion de modulos.
-      ValidateCreateMassive : 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/ValidateCreateMassive'
+      // ELiminar contrato a todos los vendedores
+      deleteAllAgreement: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/DeleteContract/{params}',
+      // Establecer contrato por defecto
+      defaulAgreement: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/SetContractByDefault/{params}',
+      // Obtener listado de vendedores por acuerdos
+      getListSellersAgreement: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/GetSellerContractApply/{params}',
+      // Eliminar uno o varios vendedores del contrato
+      delete1orMore: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/DeleteContractApply',
+      // Consultar si tiene carga la creacion de modulos.
+      ValidateCreateMassive: 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/ValidateCreateMassive',
+      // ELiminar productos vendedor
+      deleteProduct: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/disassociateproductfrommyproductsasync',
     }
   }
 };

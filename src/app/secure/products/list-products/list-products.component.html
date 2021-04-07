@@ -192,7 +192,7 @@
           <span style="color: white; font-family: Arial; font-weight: bold; font-size: 12px;">Eliminar productos seleccionados</span></button>
       </div>
 
-      <app-combo-product [offerPermission]="offerPermission" [editPermission]="editPermission"
+      <app-combo-product [offerPermission]="offerPermission" [editPermission]="editPermission" (countPlu)="countPlu($event)"
         [showProducts]="showProducts" [productsList]="productsList" class="listCombo" (reloadData)="reloadData();"
         [deletePermission]="deletePermission" [isAdmin]="isAdmin" [activeCheck]="activeCheck"></app-combo-product>
       <div *ngIf="!productsList.length" fxLayout="column" class="no-products">
