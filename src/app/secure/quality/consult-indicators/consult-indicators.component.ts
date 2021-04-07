@@ -36,8 +36,12 @@ export class ConsultIndicatorsComponent implements OnInit {
   constructor(
     public eventsSeller: EventEmitterSeller
   ) { }
-
-  ngOnInit() {
+/**
+ * funcion para escuchar el cambio de vendedor en la barra de busqueda 
+ *
+ * @memberof ConsultIndicatorsComponent
+ */
+ngOnInit() {
     this.searchSubscription = this.eventsSeller.eventSearchSeller.subscribe((seller: StoreModel) => {
       if (seller) {
         this.params = {
@@ -50,7 +54,7 @@ export class ConsultIndicatorsComponent implements OnInit {
           idSeller: null,
           consult: false,
           type: 'admin'
-        }
+        };
       }
     });
   }
