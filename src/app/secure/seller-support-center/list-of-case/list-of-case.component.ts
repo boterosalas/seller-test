@@ -563,9 +563,8 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
   }
 
   markAsRead(caseRead: any) {
-    const caseId = { id: caseRead.id };
-    this.sellerSupportService.patchReadCase(caseId).subscribe();
-
+    console.log(caseRead);
+  
     if (!caseRead.read) {
       caseRead.read = true;
       this.unreadCase--;
