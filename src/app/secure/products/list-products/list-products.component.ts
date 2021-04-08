@@ -318,6 +318,7 @@ export class ListProductsComponent implements OnInit {
 
 
     verifyStateCharge(result?: any) {
+        console.log(result);
         if (result.body.data.response) {
             result.body.data.response = JSON.parse(result.body.data.response);
         }
@@ -326,6 +327,7 @@ export class ListProductsComponent implements OnInit {
             // if (!this.progressStatus) {
             //     this.openDialogSendOrder(result);
             // }
+            this.progressStatus = false;
         } else if (result.body.data.status === 1 || result.body.data.status === 4) {
             result.body.data.status = 1;
             if (!this.progressStatus) {
@@ -379,32 +381,6 @@ export class ListProductsComponent implements OnInit {
         });
     }
 
-    // openModal(type: number, listError: any) {
-    //     this.loadingService.closeSpinner();
-    //     const intervalTime = 6000;
-    //     const data = {
-    //         successText: this.languageService.instant('secure.offers.list.list.desactive_OK'),
-    //         failText: this.languageService.instant('secure.offers.list.list.desactive_KO'),
-    //         processText: this.languageService.instant('secure.offers.list.list.desactive_in_progress'),
-    //         initTime: 500,
-    //         intervalTime: intervalTime,
-    //         listError: listError,
-    //         typeStatus: type,
-    //         responseDiferent: false
-    //     };
-    //     const dialog = this.dialog.open(FinishUploadInformationComponent, {
-    //         width: '70%',
-    //         minWidth: '280px',
-    //         maxHeight: '80vh',
-    //         disableClose: type === 1,
-    //         data: data
-    //     });
-    //     const dialogIntance = dialog.componentInstance;
-    //     dialogIntance.request = this.productsService.verifyStatusDelete();
-    //     // dialogIntance.processFinish$.subscribe((val) => {
-    //     //   dialog.disableClose = false;
-    //     // });
-    // }
 
     /**
      * Metodo para obtener el listado de categorías
