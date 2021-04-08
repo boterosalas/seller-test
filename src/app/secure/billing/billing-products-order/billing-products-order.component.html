@@ -195,7 +195,8 @@
         <span>{{'secure.billing.subtotal'  | translate}}</span>
       </div>
       <div class="sc-valueToPay-text billing-product-order-text-along-right" fxFlex="15">
-        <span>{{order.subtotal | currency: '$' : 'symbol' : '1.0-0'}}</span>
+        <span *ngIf="order.concept === 'Venta Marketplace'" class="sc-valueToPay-text">{{order.subtotal | currency: '$' : 'symbol' : '1.0-0'}}</span>
+        <span *ngIf="order.concept === 'Nota crédito'" class="sc-commission-text">-{{order.subtotal | currency: '$' : 'symbol' : '1.0-0'}}</span>
       </div>
     </div>
     <mat-divider></mat-divider>
