@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { Logger } from '@app/core/util/logger.service';
 import { ListProductService } from '../list-products.service';
 import { LoadingService } from '@app/core';
@@ -20,6 +20,9 @@ export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
   @Input() showProducts: boolean;
   @Input() offerPermission: boolean;
   @Input() editPermission: boolean;
+  @Input() isAdmin: boolean;
+  @Input() deletePermission: boolean;
+  @Output() reloadData = new EventEmitter<any>();
 
   public productsExpanded: any;
   public showImage = false;
@@ -71,5 +74,9 @@ export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
       this.showImage = true;
       this.productsExpanded = result.data.list;
     });
+  }
+
+  public reloadDataListProduct() {
+    this.reloadData.emit();
   }
 }

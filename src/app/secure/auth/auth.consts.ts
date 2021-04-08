@@ -336,10 +336,13 @@ const ProductsModule = new ModuleModel(productsModule, showAll, productsModule.t
     new MenuModel(listProductsName, showAll, listProductsName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
         new FunctionalitiesModel(offerFuncionality, showAll, offerFuncionality), // Ofertar
+        new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality), // Editar
     ], RoutesConst.sellerCenterIntListProducts),
     // 7. Listado de productos. (Tipo administrador)
     new MenuModel(listProductsName, showAll, listProductsName.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
+        new FunctionalitiesModel(deleteFunctionality, showAll, deleteFunctionality), // Eliminar
+        new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality), // Editar
     ], RoutesConst.sellerCenterIntListProducts),
     // 8. Estados de productos Seller
     new MenuModel(productsPending, showAll, productsPending.toLowerCase(), ProfileTypes.Vendedor, [
@@ -422,7 +425,7 @@ const SellerModule = new ModuleModel(sellerModule, showAll, sellerModule.toLower
         new FunctionalitiesModel(visualizeFunctionality, showAll, visualizeFunctionality), // Visualizar
         new FunctionalitiesModel(enableFunctionality, showAll, enableFunctionality), // Habilitar
         new FunctionalitiesModel(loadFunctionality, showAll, loadFunctionality) // Cargar
-    ], RoutesConst.sellerCenterIntManageAgreement),
+    ], RoutesConst.sellerCenterIntManageAgreement)
 ]);
 
 /**

@@ -131,6 +131,7 @@
     "shared.product": "Producto",
     "shared.ean": "EAN",
     "shared.phone": "Teléfono",
+    "shared.error.file": "Error al descargar el archivo",
     "shared.components.load_file.title": "Adjuntar factura",
     "shared.components.load_file.subtitle": "La factura electrónica solo",
     "shared.components.load_file.subtitle2": "puede ser enviada una vez. ",

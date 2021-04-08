@@ -1,0 +1,46 @@
+<div id="closeModalDelete">
+  <button  type="button" [matTooltip]="'actions.close' | translate"
+    matTooltipPosition="below" mat-icon-button mat-button (click)="onNoClick()">
+    <mat-icon>clear</mat-icon>
+  </button>
+</div>
+<div align="center" class="confirmationSend" *ngIf="!deleteOk">
+  <span class="modal-load-agreement-content-text-type"><strong>¡Vas a eliminar los vendedores!</strong></span>
+  <br>
+  <br>
+  <br>
+  <span *ngIf="data.deleteMultiple === 0">¿Está seguro que desea eliminar todos los vendedores al acuerdo
+    <strong>{{data.dataAgreement.Name}}</strong>?</span>
+  <span *ngIf="data.deleteMultiple === 1">¿Está seguro que desea eliminar el vendedor al acuerdo
+    <strong>{{data.name}}</strong>?</span>
+  <span *ngIf="data.deleteMultiple === 2">¿Está seguro que desea eliminar los vendedores seleccionados al acuerdo
+    <strong>{{data.name}}</strong>?</span>
+
+  <br>
+  <mat-dialog-actions align="center">
+    <button type="button" mat-stroked-button color="primary" [innerHTML]="'CANCELAR'"
+      (click)="onNoClick()">{{'actions.cancel'| translate}}</button>
+    <button type="button" mat-raised-button color="primary" (click)="deleteSeller()" class="marginButtonDelete">ELIMINAR
+    </button>
+  </mat-dialog-actions>
+</div>
+
+<div align="center" class="confirmationSend" *ngIf="deleteOk">
+  <mat-icon class="material-icons container"
+    [ngStyle]="{'background-color': deleteOk === 'true' ? '#6fb63e' : '#6fb63e'}" class="marginButtonDeleteOk">
+    done
+  </mat-icon>
+  <span class="modal-load-agreement-content-text-type" class="sizeIconDelete"
+    *ngIf="data.deleteMultiple === 0"><strong>Los vendedores se han eliminado
+      correctamente</strong></span>
+
+  <span class="modal-load-agreement-content-text-type" class="sizeIconDelete"
+    *ngIf="data.deleteMultiple === 1"><strong>El vendedor se ha eliminado correctamente</strong></span>
+
+  <span class="modal-load-agreement-content-text-type" class="sizeIconDelete"
+    *ngIf="data.deleteMultiple === 2"><strong>Los vendedores se han eliminado
+      correctamente</strong></span>
+  <mat-dialog-actions align="center">
+    <button type="button" mat-raised-button color="primary" [innerHTML]="'CERRAR'" (click)="onNoClick()">CERRAR</button>
+  </mat-dialog-actions>
+</div>

@@ -1,8 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { Logger } from '@app/core/util/logger.service';
 import { UserInformation } from '@app/shared';
 import { UserParametersService } from '@app/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { DeleteProductModalComponent } from './delete-product-modal/delete-product-modal.component';
 
 const log = new Logger('ExpandedProductComponent');
 
@@ -11,17 +13,21 @@ const log = new Logger('ExpandedProductComponent');
     templateUrl: 'expanded-product.component.html',
     styleUrls: ['expanded-product.component.scss'],
 })
-export class ExpandedProductComponent implements OnInit {
+export class ExpandedProductComponent implements OnInit, OnDestroy {
 
     @Input() productsExpanded: any;
     @Input() offerPermission: boolean;
     @Input() editPermission: boolean;
+    @Input() isAdmin: boolean;
+    @Input() deletePermission: boolean;
+    @Output() reloadDataListProduct = new EventEmitter<any>();
 
     /* arreglo q contiene las imagenes grandes y pequeñas */
     public images = [];
     public listKeywords = [];
 
     public applyOffer: any;
+    public dialogRef: any;
 
     /* variable que contiene la ruta de la imagen grande */
     public imageMax: string;
@@ -31,8 +37,9 @@ export class ExpandedProductComponent implements OnInit {
 
     constructor(
         private router: Router,
+        public dialog: MatDialog,
         private userParams?: UserParametersService,
-    ) {}
+    ) { }
 
 
     ngOnInit() {
@@ -54,7 +61,11 @@ export class ExpandedProductComponent implements OnInit {
     changeImage(image: any) {
         this.imageMax = image;
     }
-
+    /**
+     * funcion para crear un array de imagen
+     *
+     * @memberof ExpandedProductComponent
+     */
     public createArrayImages(): void {
         const minImages: any[] = this.productsExpanded.smallImage;
         const maxImages: any[] = this.productsExpanded.mediumImage;
@@ -67,11 +78,58 @@ export class ExpandedProductComponent implements OnInit {
         this.imageMax = this.images[0] && this.images[0]['max'];
         this.imageLength = this.images.length;
     }
-
+    /**
+     * funcion para aplicar una oferta
+     *
+     * @memberof ExpandedProductComponent
+     */
     applyOffert(): void {
         this.applyOffer = this.productsExpanded;
     }
+    /**
+     * funcion para enviar un producto por una url e editarlos en producto unitario
+     *
+     * @param {*} productsExpanded
+     * @memberof ExpandedProductComponent
+     */
     editProduct(productsExpanded: any) {
-        this.router.navigate(['securehome/products/creacion-unitaria', {ean: productsExpanded.ean, reference: productsExpanded.reference} ] );
+        this.router.navigate(['securehome/products/creacion-unitaria', { ean: productsExpanded.ean, reference: productsExpanded.reference }]);
+    }
+    /**
+     *
+     *
+     * @param {*} productsExpanded
+     * @memberof ExpandedProductComponent
+     */
+    deleteProduct(productsExpanded: any) {
+        this.openModalDownloadOrder(productsExpanded);
+    }
+    /**
+     * funcion para invocar el modal de eliminar el producto
+     *
+     * @param {*} data
+     * @memberof ExpandedProductComponent
+     */
+    openModalDownloadOrder(data: any): void {
+        this.dialogRef = this.dialog.open(DeleteProductModalComponent, {
+            data: {
+                data: data,
+            },
+            width: '50%',
+        });
+        const dialogIntance = this.dialogRef.componentInstance;
+        dialogIntance.processFinish$.subscribe((val) => {
+            this.reloadDataListProduct.emit();
+        });
+    }
+    /**
+     * funcion para destruir el componente del modal
+     *
+     * @memberof ExpandedProductComponent
+     */
+    ngOnDestroy() {
+        if (this.dialogRef) {
+            this.dialogRef.close();
+        }
     }
 }

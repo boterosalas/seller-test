@@ -17,7 +17,7 @@
   <div class="styleFlex">
     <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
                 (page)="pageEvent = paginations($event)"></mat-paginator>
-    <button mat-button mat-stroked-button color="primary" (click)="openModalBulkLoadAgreement()" id="openDialogAgreement">
+    <button mat-button mat-stroked-button color="primary" class="borderButtonUpload" (click)="openModalBulkLoadAgreement()" id="openDialogAgreement">
       <strong>{{'menu.Cargar Acuerdos' | translate}}</strong>
     </button>
   </div>
@@ -28,21 +28,41 @@
   <div class="agreement">
     <div class="agreement-title" fxLayout="row" fxLayoutAlign="space-between center">
       <p>{{'shared.name' | translate}}</p>
-      <!-- <p style="margin-right: 10%;" *ngIf="false">{{'shared.actions' | translate}}</p> -->
+      <p id="marginTitle1">Acuerdo predeterminado</p>
+      <p id="marginTitle2">{{'shared.actions' | translate}}</p>
     </div>
     <div *ngFor="let agreement of manageAgreementsSeller" fxLayout="row" fxLayoutAlign="space-between center"
       class="list-agreement">
-      <div fxLayoutAlign="start center" fxLayout="row" class="width-80">
+      <div fxLayoutAlign="start center" fxLayout="row" class="width-Name">
         <mat-icon class="material-icons" class="file-agreement">
           insert_drive_file
         </mat-icon>
-        <p>{{agreement.Name}}</p>
+        <p>{{agreement.Name}} - {{agreement.Date | date}}</p>
       </div>
-      <button mat-icon-button (click)="getPDF(agreement)" *ngIf="download">
-        <mat-icon class="material-icons">
-          get_app
-        </mat-icon>
-      </button>
+      <div class="width-agreement-default">
+        <mat-slide-toggle (change)="activeContract($event, agreement)" [checked]=agreement.Default
+        ></mat-slide-toggle>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-around center" class="width-delete">
+        <div fxLayout="column" fxLayoutAlign="space-around center">
+          <button mat-icon-button (click)="openModalDeleteAgreement(agreement)">
+            <mat-icon class="material-icons" id="sizeIcons">
+              delete
+            </mat-icon>
+          </button>
+          <span id="sizeIcons2">Eliminar</span>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-around center">
+          <button mat-icon-button (click)="redirectToDetailAgreement(agreement)">
+            <mat-icon class="material-icons"  id="sizeIcons">
+              remove_red_eye
+            </mat-icon>
+          </button>
+          <span id="sizeIcons2">Ver detalle</span>
+        </div>
+      </div>
+      
+      
     </div>
   </div>
 </div>

@@ -1,11 +1,11 @@
-import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { BulkLoadProductComponent } from './bulk-load-product.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MaterialModule } from '@app/material.module';
 import { ComponentsService } from '@app/shared';
 import { BulkLoadProductService } from '../bulk-load-product.service';
-import { MatDialog, MatSnackBar, MatTableDataSource } from '@angular/material';
-import { LoadingService, UserLoginService, UserParametersService, ModalService } from '@app/core';
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { LoadingService, UserParametersService, ModalService } from '@app/core';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { of, BehaviorSubject } from 'rxjs';
@@ -1601,32 +1601,6 @@ describe('BulkLoad Products Component', () => {
             expect(component.resetVariableUploadFile).toBeTruthy();
         });
 
-        it('Get regex', () => {
-            const productsRegex = {
-                number: '',
-                eanProduct: '',
-                nameProduct: '',
-                eanComboProduct: '',
-                brandProduct: '',
-                keyWordsProduct: '',
-                detailProduct: '',
-                eanImageProduct: '',
-                SkuShippingSizeProduct: '',
-                Package: '',
-                forbiddenScript: '',
-                size: '',
-                limitCharsSixty: '',
-                sizeProduct: '',
-                colorProduct: '',
-                typeCategory: '',
-                descUnidadMedidaProduct: '',
-                factConversionProduct: '',
-                eanCombo: ''
-              };
-            expect(component.productsRegex).toEqual(productsRegex);
-            component.validateFormSupport(resRegex);
-            expect(component.productsRegex).not.toEqual(productsRegex);
-        });
 
         // it('Download excel', () => {
         //     component.downloadFormatMassiveOfferLoadinternacional();
@@ -1653,13 +1627,7 @@ describe('BulkLoad Products Component', () => {
             expect(pruebaDialog).toBeTruthy();
         });
 
-        it('Lista por marcas', () => {
-            const componentBrands = [];
-            expect(component.brands).toEqual(componentBrands);
-            component.listOfBrands(brands);
-            expect(component.brands).not.toEqual(componentBrands);
-            expect(component.brands).toEqual(brands.Data.Brands);
-        });
+  
     });
 
 
@@ -1667,13 +1635,6 @@ describe('BulkLoad Products Component', () => {
         beforeEach(() => {
             mockAuthService.profileType$.next('Admin');
         });
-
-        // it('Get quantity charges in seller', () => {
-        //     component.getAvaliableLoads(mockAuthService.profileType$.getValue());
-        //     expect(component.isAdmin).toBeTruthy();
-        //     // Se verifica el llamado del metodo getAmountAvailableLoads
-        //     expect(mockBulkLoadProductService.getAmountAvailableLoads).toHaveBeenCalled();
-        // });
 
         it('Reset variables', () => {
             component.listLog = [];
@@ -1697,46 +1658,7 @@ describe('BulkLoad Products Component', () => {
             expect(mockBulkLoadProductService.getCategoriesVTEX).not.toHaveBeenCalled();
         });
 
-        it('element selected last lvl', () => {
-            component.selectElement(lastlvl);
-            component.categoryForm.patchValue({ lastlvl });
-            expect(mockBulkLoadProductService.getCategoriesVTEX).toHaveBeenCalled();
-        });
-
-        it('export excel Technology with data', () => {
-            component.vetex.data = {
-                groupName: 'Lavadoras',
-                id: '636945656165896196',
-                idGroup: '636945656165896196',
-                idVTEX: '',
-                listCategories: [{ id: 27223, name: 'Lavadoras' },
-                { id: 27707, name: 'Carga Frontal' },
-                { id: 27714, name: 'Carga Superior' }],
-                specs: [
-                    { idSpec: '636945656167650094', specName: 'Voltaje', required: false, values: null, listValues: Array(0) },
-                    { idSpec: '636945656198371143', specName: 'Compatibilidad', required: false, values: null, listValues: Array(0) }
-                ]
-            };
-            component.modelSpecs = { pruebas: '1', testeo: '2' };
-            component.categoryType.setValue('Technology');
-            component.exportExcel();
-            expect(component.exportExcel).toBeTruthy();
-        });
-
-        it('export excel Clothing with data', () => {
-            component.vetex.data = {
-                groupName: '',
-                id: '',
-                idGroup: '',
-                idVTEX: '',
-                listCategories: [],
-                specs: []
-            };
-            component.modelSpecs = { pruebas: '1', testeo: '2' };
-            component.categoryType.setValue('Clothing');
-            component.exportExcel();
-            expect(component.exportExcel).toBeTruthy();
-        });
+      
 
         it('vtex tree', () => {
             component.trasformTree();
