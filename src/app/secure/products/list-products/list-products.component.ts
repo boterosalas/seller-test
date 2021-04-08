@@ -16,6 +16,8 @@ import { DownloadProductsComponent } from './download-products/download-products
 import { DownloadProductsSellerComponent } from './download-products-seller/download-products-seller.component';
 import { DialogInfoComponent } from '@app/shared/components/dialog-info/dialog-info.component';
 import { FinishUploadInformationComponent } from '@app/secure/load-guide-page/finish-upload-information/finish-upload-information.component';
+import { ModalBulkloadBrandsComponent } from '@app/secure/parameterize/brands/modal-bulkload-brands/modal-bulkload-brands.component';
+import { FinishUploadProductInformationComponent } from '../bulk-load-product/finish-upload-product-information/finish-upload-product-information.component';
 
 export interface ListFilterProducts {
     name: string;
@@ -128,6 +130,11 @@ export class ListProductsComponent implements OnInit {
     infoSelected: any;
     dataDialog: any;
 
+    checkIfDoneCharge: any = null;
+    /* Mirar el estado del progreso de la carga*/
+    public progressStatus = false;
+    typeDelete: number;
+
     constructor(
         private languageService: TranslateService,
         public userParams: UserParametersService,
@@ -148,7 +155,7 @@ export class ListProductsComponent implements OnInit {
         this.deletePermission = this.authService.getPermissionForMenu(listProductsName, this.delete);
         this.getDataUser();
         this.validateFormSupport();
-        this.verifyProccesDeleteProduct();
+        this.setIntervalStatusDelete();
         this.refreshCategoryTree();
         if (this.showTabs) {
             this.closedDraw();
@@ -178,9 +185,10 @@ export class ListProductsComponent implements OnInit {
      * @memberof ListProductsComponent
      */
     someProductsSelected() {
+        this.typeDelete = 1;
         this.dataDialog = {
             title: '¡Vas a eliminar productos!',
-            icon: 'done',
+            // icon: 'done',
             message: '¡Estas seguro que deseas eliminar ' + this.infoSelected.count + ' de tu base de datos de Mis productos?',
             buttonText: {
                 ok: 'ELIMINAR',
@@ -195,15 +203,28 @@ export class ListProductsComponent implements OnInit {
         this.openDialogDeleteProducts();
     }
 
+    someProductsDeleteOk() {
+        this.modelObject();
+        this.dataDialog = {
+            title: 'Haz eliminado de tu base de datos ' + this.infoSelected.count + ' productos',
+            icon: 'done',
+            buttonText: {
+                cancel: 'CERRAR'
+            },
+        };
+        this.openDialogDeleteProducts();
+    }
+
     /**
      * Metodo para eliminar todos los productos
      * @memberof ListProductsComponent
      */
     allProductsSelected() {
+        this.typeDelete = 2;
         this.modelObject();
         this.dataDialog = {
             title: '¡Vas a eliminar todos los productos!',
-            icon: 'done',
+            // icon: 'done',
             message: 'Estas seguro que deseas eliminar todos los productos de tu base de datos de Mis productos?',
             buttonText: {
                 ok: 'ELIMINAR TODOS LOS PRODUCTOS',
@@ -214,6 +235,18 @@ export class ListProductsComponent implements OnInit {
                 name: 'deleteProduct'
             },
             data: this.modelDelete
+        };
+        this.openDialogDeleteProducts();
+    }
+
+    allProductsDeleteOk() {
+        this.modelObject();
+        this.dataDialog = {
+            title: 'Haz eliminado de tu base de datos todos los productos',
+            icon: 'done',
+            buttonText: {
+                cancel: 'CERRAR'
+            },
         };
         this.openDialogDeleteProducts();
     }
@@ -259,7 +292,10 @@ export class ListProductsComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             console.log(55, result);
             if (result === true) {
-                this.verifyProccesDeleteProduct();
+                this.verifyStateCharge();
+            } else {
+                this.activeCheck = false;
+                this.filterListProducts();
             }
             log.info('The modal detail billing was closed');
         });
@@ -273,57 +309,102 @@ export class ListProductsComponent implements OnInit {
      * Metodo para validar el estado del proceso
      * @memberof ListProductsComponent
      */
-    verifyProccesDeleteProduct() {
-        this.productsService.verifyStatusDelete().subscribe((res) => {
-            console.log('res: ', res);
-            try {
-                if (res && res.status === 200) {
-                    const { status, checked } = res.body.data;
-                    if ((status === 1 || status === 4) && checked !== 'true') {
-                        const statusCurrent = 1;
-                        setTimeout(() => { this.openModal(statusCurrent, null); });
-                    } else if (status === 2 && checked !== 'true') {
-                        // setTimeout(() => { this.openModal(status, null); });
-                    } else {
-                        this.snackBar.open('Se ha producido un error al momento de eliminar los productos.', this.languageService.instant('actions.close'), {
-                            duration: 3000,
-                        });
-                        this.loadingService.closeSpinner();
-                    }
-                }
-            } catch {
-                this.loadingService.viewSpinner();
-                this.modalService.showModal('errorService');
+    setIntervalStatusDelete() {
+        clearInterval(this.checkIfDoneCharge);
+        this.checkIfDoneCharge = setInterval(() => this.productsService.verifyStatusDelete().subscribe((res) => {
+            this.verifyStateCharge(res);
+        }), 7000);
+    }
+
+
+    verifyStateCharge(result?: any) {
+        if (result.body.data.response) {
+            result.body.data.response = JSON.parse(result.body.data.response);
+        }
+        if (result.body.data.status === 0 || result.body.data.checked === 'true') {
+            // result.body.data.status = 1;
+            // if (!this.progressStatus) {
+            //     this.openDialogSendOrder(result);
+            // }
+        } else if (result.body.data.status === 1 || result.body.data.status === 4) {
+            result.body.data.status = 1;
+            if (!this.progressStatus) {
+                this.openDialogSendOrder(result);
             }
+            this.progressStatus = true;
+        } else if (result.body.data.status === 2) {
+            this.progressStatus = false;
+            clearInterval(this.checkIfDoneCharge);
+            this.closeActualDialog();
+            if (this.typeDelete === 1) {
+                this.someProductsDeleteOk();
+            } else {
+                this.allProductsDeleteOk();
+            }
+            // this.openDialogSendOrder(result);
+        } else if (result.body.data.status === 3) {
+            this.closeActualDialog();
+            clearInterval(this.checkIfDoneCharge);
+            if (result.body.data.response.Errors['0']) {
+                this.modalService.showModal('errorService');
+            } else {
+                this.snackBar.open('Se ha producido un error al momento de tratar de eliminar producto(s)', this.languageService.instant('actions.close'), {
+                    duration: 3000,
+                });
+            }
+        }
+    }
+
+    public closeActualDialog(): void {
+        if (this.progressStatus) {
+            this.dialog.closeAll();
+        }
+    }
+
+    /**
+     * Abrir modal de carga en proceso
+     * @param {*} res
+     * @memberof ListProductsComponent
+     */
+    openDialogSendOrder(res: any): void {
+        const dialogRef = this.dialog.open(FinishUploadProductInformationComponent, {
+            width: '95%',
+            disableClose: res.body.data.status === 1,
+            data: {
+                response: res
+            },
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            log.info('The dialog was closed');
         });
     }
 
-    openModal(type: number, listError: any) {
-        this.loadingService.closeSpinner();
-        const intervalTime = 6000;
-        const data = {
-            successText: this.languageService.instant('secure.offers.list.list.desactive_OK'),
-            failText: this.languageService.instant('secure.offers.list.list.desactive_KO'),
-            processText: this.languageService.instant('secure.offers.list.list.desactive_in_progress'),
-            initTime: 500,
-            intervalTime: intervalTime,
-            listError: listError,
-            typeStatus: type,
-            responseDiferent: false
-        };
-        const dialog = this.dialog.open(FinishUploadInformationComponent, {
-            width: '70%',
-            minWidth: '280px',
-            maxHeight: '80vh',
-            disableClose: type === 1,
-            data: data
-        });
-        const dialogIntance = dialog.componentInstance;
-        dialogIntance.request = this.productsService.verifyStatusDelete();
-        // dialogIntance.processFinish$.subscribe((val) => {
-        //   dialog.disableClose = false;
-        // });
-    }
+    // openModal(type: number, listError: any) {
+    //     this.loadingService.closeSpinner();
+    //     const intervalTime = 6000;
+    //     const data = {
+    //         successText: this.languageService.instant('secure.offers.list.list.desactive_OK'),
+    //         failText: this.languageService.instant('secure.offers.list.list.desactive_KO'),
+    //         processText: this.languageService.instant('secure.offers.list.list.desactive_in_progress'),
+    //         initTime: 500,
+    //         intervalTime: intervalTime,
+    //         listError: listError,
+    //         typeStatus: type,
+    //         responseDiferent: false
+    //     };
+    //     const dialog = this.dialog.open(FinishUploadInformationComponent, {
+    //         width: '70%',
+    //         minWidth: '280px',
+    //         maxHeight: '80vh',
+    //         disableClose: type === 1,
+    //         data: data
+    //     });
+    //     const dialogIntance = dialog.componentInstance;
+    //     dialogIntance.request = this.productsService.verifyStatusDelete();
+    //     // dialogIntance.processFinish$.subscribe((val) => {
+    //     //   dialog.disableClose = false;
+    //     // });
+    // }
 
     /**
      * Metodo para obtener el listado de categorías
@@ -667,6 +748,7 @@ export class ListProductsComponent implements OnInit {
     }
 
     public filterListProducts(params?: any, activeFilter?: any, showErrors: boolean = true) {
+        this.activeCheck = false;
         if (this.idcategory === [] || (this.idcategory && this.idcategory.length === 0)) {
             this.idcategory = null;
         }
