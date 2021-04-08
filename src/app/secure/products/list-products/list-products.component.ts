@@ -15,6 +15,7 @@ import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import { DownloadProductsComponent } from './download-products/download-products.component';
 import { DownloadProductsSellerComponent } from './download-products-seller/download-products-seller.component';
 import { DialogInfoComponent } from '@app/shared/components/dialog-info/dialog-info.component';
+import { FinishUploadInformationComponent } from '@app/secure/load-guide-page/finish-upload-information/finish-upload-information.component';
 
 export interface ListFilterProducts {
     name: string;
@@ -147,6 +148,7 @@ export class ListProductsComponent implements OnInit {
         this.deletePermission = this.authService.getPermissionForMenu(listProductsName, this.delete);
         this.getDataUser();
         this.validateFormSupport();
+        this.verifyProccesDeleteProduct();
         this.refreshCategoryTree();
         if (this.showTabs) {
             this.closedDraw();
@@ -177,20 +179,20 @@ export class ListProductsComponent implements OnInit {
      */
     someProductsSelected() {
         this.dataDialog = {
-            title: '¡Vas a eliminar productos',
+            title: '¡Vas a eliminar productos!',
             icon: 'done',
-            message: 'Estas seguro que deseas eliminar ' + 5 + ' de tu base de datos de Mis productos?',
+            message: '¡Estas seguro que deseas eliminar ' + this.infoSelected.count + ' de tu base de datos de Mis productos?',
             buttonText: {
                 ok: 'ELIMINAR',
                 cancel: 'CANCELAR'
             },
-            services:{
+            services: {
                 method: 'patch',
                 name: 'deleteProduct'
             },
             data: this.modelDelete
         };
-        // this.openDialogDeleteProducts();
+        this.openDialogDeleteProducts();
     }
 
     /**
@@ -198,7 +200,22 @@ export class ListProductsComponent implements OnInit {
      * @memberof ListProductsComponent
      */
     allProductsSelected() {
-
+        this.modelObject();
+        this.dataDialog = {
+            title: '¡Vas a eliminar todos los productos!',
+            icon: 'done',
+            message: 'Estas seguro que deseas eliminar todos los productos de tu base de datos de Mis productos?',
+            buttonText: {
+                ok: 'ELIMINAR TODOS LOS PRODUCTOS',
+                cancel: 'CANCELAR'
+            },
+            services: {
+                method: 'patch',
+                name: 'deleteProduct'
+            },
+            data: this.modelDelete
+        };
+        this.openDialogDeleteProducts();
     }
 
     /**
@@ -206,27 +223,27 @@ export class ListProductsComponent implements OnInit {
      * @param {*} event
      * @memberof ListProductsComponent
      */
-    countPlu(event: any){
+    countPlu(event: any) {
         this.infoSelected = event;
         this.modelObject();
-        
+        console.log('this.modelDelete: ', this.modelDelete);
     }
 
     /**
      * Modelo a eliminar.
      * @memberof ListProductsComponent
      */
-    modelObject(){
+    modelObject() {
         this.modelDelete = {
             ean: this.eanList || null,
-            plu: this.infoSelected.list || null,
+            plu: this.infoSelected ? this.infoSelected.list.toString() : null,
             sellerSku: this.sellerSkuList || null,
             product: this.nameProductList || null,
             categories: this.categoryList || null,
             creationDate: this.creationDateList || null,
             initialDate: this.initialDateList || null,
             finalDate: this.finalDateList || null
-            };
+        };
     }
 
     /**
@@ -240,12 +257,72 @@ export class ListProductsComponent implements OnInit {
             data: this.dataDialog
         });
         dialogRef.afterClosed().subscribe(result => {
+            console.log(55, result);
+            if (result === true) {
+                this.verifyProccesDeleteProduct();
+            }
             log.info('The modal detail billing was closed');
         });
     }
 
     activeMultipleOffer() {
         this.activeCheck = true;
+    }
+
+    /**
+     * Metodo para validar el estado del proceso
+     * @memberof ListProductsComponent
+     */
+    verifyProccesDeleteProduct() {
+        this.productsService.verifyStatusDelete().subscribe((res) => {
+            console.log('res: ', res);
+            try {
+                if (res && res.status === 200) {
+                    const { status, checked } = res.body.data;
+                    if ((status === 1 || status === 4) && checked !== 'true') {
+                        const statusCurrent = 1;
+                        setTimeout(() => { this.openModal(statusCurrent, null); });
+                    } else if (status === 2 && checked !== 'true') {
+                        // setTimeout(() => { this.openModal(status, null); });
+                    } else {
+                        this.snackBar.open('Se ha producido un error al momento de eliminar los productos.', this.languageService.instant('actions.close'), {
+                            duration: 3000,
+                        });
+                        this.loadingService.closeSpinner();
+                    }
+                }
+            } catch {
+                this.loadingService.viewSpinner();
+                this.modalService.showModal('errorService');
+            }
+        });
+    }
+
+    openModal(type: number, listError: any) {
+        this.loadingService.closeSpinner();
+        const intervalTime = 6000;
+        const data = {
+            successText: this.languageService.instant('secure.offers.list.list.desactive_OK'),
+            failText: this.languageService.instant('secure.offers.list.list.desactive_KO'),
+            processText: this.languageService.instant('secure.offers.list.list.desactive_in_progress'),
+            initTime: 500,
+            intervalTime: intervalTime,
+            listError: listError,
+            typeStatus: type,
+            responseDiferent: false
+        };
+        const dialog = this.dialog.open(FinishUploadInformationComponent, {
+            width: '70%',
+            minWidth: '280px',
+            maxHeight: '80vh',
+            disableClose: type === 1,
+            data: data
+        });
+        const dialogIntance = dialog.componentInstance;
+        dialogIntance.request = this.productsService.verifyStatusDelete();
+        // dialogIntance.processFinish$.subscribe((val) => {
+        //   dialog.disableClose = false;
+        // });
     }
 
     /**

@@ -30,6 +30,7 @@ export class DialogInfoComponent implements OnInit {
 
   ngOnInit() {
     this.setTextDialog();
+    console.log('this.dataInfo: ', this.dataInfo);
   }
 
   onNoClick(): void {
@@ -56,10 +57,9 @@ export class DialogInfoComponent implements OnInit {
   }
 
   sendDataPatch(){
-    const body = {
-      ean:123
-    }
-    this.listModalService.servicePatch(this.name, body).subscribe(res => {
+    console.log(this.dataToSend);
+    this.listModalService.servicePatch(this.name, this.dataToSend).subscribe(res => {
+      this.onConfirmClick();
       console.log(33, res);
     });
   }

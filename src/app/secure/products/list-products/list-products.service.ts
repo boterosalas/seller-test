@@ -100,4 +100,7 @@ export class ListProductService {
   }
 
 
+  public verifyStatusDelete(): Observable<any> {
+    return this.http.get(this.api.get('getStatusDeleteProducts'), { observe: 'response' });
+  }
 }

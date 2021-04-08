@@ -179,7 +179,7 @@
         <mat-menu #menu="matMenu">
           <button mat-menu-item color="primary"
             style="color: #485AFA; font-family: Arial; font-weight: bold; font-size: 12px;"
-            (click)="someProductsSelected(); activeMultipleOffer()">Seleccionar productos</button>
+            (click)="activeMultipleOffer()">Seleccionar productos</button>
           <button mat-menu-item color="primary"
             style="color: #485AFA; font-family: Arial; font-weight: bold; font-size: 12px;"
             (click)="allProductsSelected()">Eliminar todos los productos</button>
@@ -188,7 +188,7 @@
 
       <div *ngIf="activeCheck" style="margin-top: 2%; width: 95%; text-align: right">
         <button mat-stroked-button color="primary" 
-          style="background-color: #485AFA; width: 280px; height: 37px;" (click)="openDialogDeleteProducts()">
+          style="background-color: #485AFA; width: 280px; height: 37px;" (click)="someProductsSelected()">
           <span style="color: white; font-family: Arial; font-weight: bold; font-size: 12px;">Eliminar productos seleccionados</span></button>
       </div>
 
