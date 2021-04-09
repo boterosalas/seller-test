@@ -10,14 +10,7 @@ export class CaseSupportCenterService {
   sellerIdCase: any;
   constructor(
     _http: HttpClient,
-    private router: Router,
-    private sellerSupportCenterService: SellerSupportCenterService
-  ) { }
-
-  public markAsRead(id: string) {
-    const result = this.sellerSupportCenterService.patchReadCase(id);
-    return result;
-  }
+    private router: Router  ) { }
 
   /**
    * Servicio para redirigir al detalle de las reclamaciones
