@@ -132,7 +132,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
   activeInit = false;
   currentLanguage: string;
   showImage = false;
-  imageThumbnail:String;
+  imageThumbnail:string;
 
   idDetail: any;
 
@@ -171,7 +171,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
     this.validateFormSupport();
     this.getStatusCase();
     
-    this.SUPPORT.getClassification2().subscribe( resp => {
+    this.SUPPORT.getListClassification().subscribe( resp => {
       this.getClassification = resp.data;
     });
 
@@ -563,7 +563,6 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
   }
 
   markAsRead(caseRead: any) {
-    console.log(caseRead);
   
     if (!caseRead.read) {
       caseRead.read = true;

@@ -32,7 +32,7 @@ describe('ListOfCaseComponent', () => {
   const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
   const mockDialogError = jasmine.createSpyObj('ModalService', ['showModal']);
   const mockMyProfileService = jasmine.createSpyObj('MyProfileService', ['getUser']);
-  const mockSupportService = jasmine.createSpyObj('SupportService', ['getClassification2','getRegexFormSupport']);
+  const mockSupportService = jasmine.createSpyObj('SupportService', ['getListClassification','getRegexFormSupport']);
 
 
   const data = {
@@ -90,7 +90,7 @@ describe('ListOfCaseComponent', () => {
   }));
 
   beforeEach(() => {
-    mockSupportService.getClassification2.and.returnValue(of(data));
+    mockSupportService.getListClassification.and.returnValue(of(data));
     mockSupportService.getRegexFormSupport.and.returnValue(of(data));
     fixture = TestBed.createComponent(ListOfCaseComponent);
     component = fixture.componentInstance;

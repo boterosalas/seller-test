@@ -40,7 +40,7 @@ export class SupportService {
     return this.http.get(this.api.get('getCaseCategories'));
   }
 
-  public getClassification2(): Observable<any> {
-    return this.http.get(this.api.get('getCaseCategories2'));
+  public getListClassification(): Observable<any> {
+    return this.http.get(this.api.get('getListCaseCategories'));
   }
 }
