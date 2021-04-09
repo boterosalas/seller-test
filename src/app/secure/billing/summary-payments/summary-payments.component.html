@@ -115,7 +115,7 @@
           <mat-cell class='marginListAdminTotal alingRight' fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
             fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
             *matCellDef="let element">
-            <p class="sc-text-normal width-100 font-weight-price"> ${{element.discountedTotalValue}}</p>
+            <p class="sc-text-normal width-100  sc-commission-text"> -${{element.discountedTotalValue}}</p>
           </mat-cell>
         </ng-container>
 
@@ -128,7 +128,7 @@
           <mat-cell class='marginListAdminTotal alingRight' fxShow.xs="true" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true"
             fxShow="true" fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
             *matCellDef="let element">
-            <p class="sc-text-normal width-100 font-weight-price">${{element.billingTotal}}</p>
+            <p class="sc-text-normal width-100  sc-valueToPay-text">${{element.billingTotal}}</p>
           </mat-cell>
         </ng-container>
 
@@ -141,14 +141,14 @@
       <div *ngIf="resultModel && resultModel.count > 0"  class="padding-top">
         <div fxLayout="row" fxLayoutAlign="end end" class="background-color-greyblack">
           <span class="title-summaroty">{{'secure.billing.summaryPayment.total_invoiced_value'| translate}}</span>
-        </div>
-        <div fxLayout="row" fxLayoutAlign="end end" class="background-color-grey">
-          <span class="text-total-summatory" *ngIf="typeSeller === 'National'">
-            <p [innerHTML]="summaryTotal | currency: '$' : 'symbol' : '1.0'"> </p>
-          </span>
-          <span class="text-total-summatory" *ngIf="typeSeller === 'International'">
-            <p [innerHTML]="summaryTotal | currency: '$' : 'symbol' : '1.2-2'"> </p>
-          </span>
+          <div fxLayout="row" fxLayoutAlign="end end"  >
+            <span [ngClass]="1 > summaryTotal ? 'sc-commission-text-Total' : 'text-total-summatory'" *ngIf="typeSeller === 'National'">
+              <p [innerHTML]="summaryTotal | currency: '$' : 'symbol' : '1.0'"> </p>
+            </span>
+            <span [ngClass]="1 > summaryTotal ? 'sc-commission-text-Total' : 'text-total-summatory'" *ngIf="typeSeller === 'International'">
+              <p [innerHTML]="summaryTotal | currency: '$' : 'symbol' : '1.2-2'"> </p>
+            </span>
+          </div>
         </div>
       </div>
     </div>
