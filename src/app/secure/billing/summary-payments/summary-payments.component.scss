@@ -34,6 +34,22 @@ $color-red: #f44336;
   }
 }
 
+.sc-commission-text {
+  color: #F44336 !important;
+}
+
+.sc-commission-text-Total {
+  font-size: 14px;
+  padding: 10px;
+  font-weight: bold;
+  color: #F44336;
+  margin-right: 16px;
+}
+
+.sc-valueToPay-text {
+  color: #5ea223 !important;
+}
+
 .marginListAdmin{
   max-width: 191px;
 }
@@ -393,10 +409,12 @@ $color-red: #f44336;
 }
 
 .title-summaroty{
-  color: #5f5f5f;
-  font-size: 13px;
-  padding: 10px;
+  color: #333333;
+  font-size: 16px;
+  padding: 24px;
   font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-right: 3%;
 }
 
 .padding-top{
@@ -408,7 +426,7 @@ $color-red: #f44336;
 }
 
 .background-color-greyblack{
-  background-color: #f5f5f5;
+  background-color: #D3D3D3;
 }
 
 .font-weight-price{

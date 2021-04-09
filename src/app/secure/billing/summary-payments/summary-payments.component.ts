@@ -36,6 +36,8 @@ export class SummaryPaymentsComponent implements OnInit {
   public selection = new SelectionModel<any>(true, []);
   public arraySelect = [];
   public summaryTotal = 0;
+  public totalPay = 0;
+  public totalDiscount = 0;
   public callOne = true;
   public arrayPosition = [];
   public paginationToken = '{}';
@@ -113,7 +115,7 @@ export class SummaryPaymentsComponent implements OnInit {
     if (param) {
       const splitArr = param.split(',');
       if (splitArr.length > 1) {
-        return splitArr[0] + '...'
+        return splitArr[0] + ' [+]'
       } else {
         return splitArr[0]
       }
@@ -161,9 +163,11 @@ export class SummaryPaymentsComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.resultModel.viewModel);
         if (this.dataSource && this.dataSource.data && this.dataSource.data.length > 0) {
           this.dataSource.data.forEach(element => {
-            this.summaryTotal = this.summaryTotal + element.billingTotalObject;
+            this.totalPay = this.totalPay + element.billingTotalObject;
+            this.totalDiscount = this.totalDiscount + element.discountedTotalObject;
             this.typeSeller = element.sellerType;
           });
+          this.summaryTotal = this.totalPay - this.totalDiscount;
         }
         if (this.arraySelect.length > 0 && this.dataSource.data.length > 0) {
           this.arraySelect.forEach(select => {

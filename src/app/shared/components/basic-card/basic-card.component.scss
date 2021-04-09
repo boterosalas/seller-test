@@ -21,4 +21,14 @@ $primary-color: #757474;
     word-wrap: break-word;
     width: 100%;
   }
+
+  @media (max-width: 600px) {
+    &__title {
+      color: #000000;
+    }
+    p{
+      color: #000000;
+    }
+  }
+
 }

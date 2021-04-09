@@ -39,4 +39,8 @@ export class SupportService {
   public getClassification(): Observable<any> {
     return this.http.get(this.api.get('getCaseCategories'));
   }
+
+  public getListClassification(): Observable<any> {
+    return this.http.get(this.api.get('getListCaseCategories'));
+  }
 }
