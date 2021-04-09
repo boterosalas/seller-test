@@ -606,8 +606,8 @@ export class ProductBasicInfoComponent implements OnInit {
     public detectForm(): void {
         if (this.formBasicInfo.valid && this.keywords.length) {
             if ((this.productData.ProductType === 'Clothing' && this.getValidSonsForm()) || (this.productData.ProductType !== 'Clothing')) {
-                const isChothing = this.productData.ProductType === 'Clothing' ? true : false;
-                this.sendDataToService(isChothing);
+                const isClothing = this.productData.ProductType === 'Clothing' ? true : false;
+                this.sendDataToService(isClothing);
                 this.validAfter = true;
             } else if (this.validAfter && !this.getValidSonsForm()) {
                 const views = this.process.getViews();
@@ -640,7 +640,7 @@ export class ProductBasicInfoComponent implements OnInit {
 
 
     /** Enviar datos al servicio */
-    public sendDataToService(isChothing?: any): void {
+    public sendDataToService(isClothing?: any): void {
         const packingData = this.formBasicInfo.controls.packing as FormGroup;
         const productDateSize = this.formBasicInfo.controls.product as FormGroup;
         const data = {
@@ -656,7 +656,7 @@ export class ProductBasicInfoComponent implements OnInit {
             ProductHeight: productDateSize.controls.HighProduct.value,
             ProductLength: productDateSize.controls.LongProduct.value,
             ProductWeight: productDateSize.controls.WeightProduct.value,
-            ParentReference: isChothing === true ? this.formBasicInfo.controls.parentReference.value : '',
+            ParentReference: isClothing === true ? this.formBasicInfo.controls.parentReference.value : '',
             Description: this.formBasicInfo.controls.Description.value,
             MeasurementUnit: this.formBasicInfo.controls.MeasurementUnit.value,
             ConversionFactor: this.formBasicInfo.controls.ConversionFactor.value,
@@ -930,7 +930,7 @@ export class ProductBasicInfoComponent implements OnInit {
                 if (detailProduct.children && detailProduct.children.length > 0) {
                     this.setChildren(detailProduct);
                 }
-                const isChothing = detailProduct.productType === 'Clothing' ? true : false;
+                const isClothing = detailProduct.productType === 'Clothing' ? true : false;
 
                 if (this.isEdit) {
                     const valueReference = detailProduct.parentReference ? detailProduct.parentReference : '';
@@ -941,7 +941,7 @@ export class ProductBasicInfoComponent implements OnInit {
                     this.formBasicInfo.controls.parentReference.setValidators([Validators.required, Validators.pattern(this.BrandsRegex.referenceProduct)]);
                 }
                 this.saveKeyword();
-                this.sendDataToService(isChothing);
+                this.sendDataToService(isClothing);
             }
         }
     }
