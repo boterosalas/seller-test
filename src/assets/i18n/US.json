@@ -1353,6 +1353,11 @@
     "secure.parametize.support_drop-down-status": "Status",
     "secure.parametize.support_drop-down-reply": "Reply",
     "secure.parametize.support_drop-down-last-reply": "Last post",
+    "secure.parametize.support.see.product": "see product",
+    "secure.parametize.support.product": "Product",
+    "secure.parametize.support.brand": "Brand",
+    "secure.parametize.support.sell_price": "Sale price",
+    "secure.parametize.support.quantity": "Quantity",
 
     "secure.parametize.port.port": "Port",
     "secure.parametize.port.search_port": "Search port",

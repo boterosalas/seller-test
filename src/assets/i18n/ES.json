@@ -1376,6 +1376,11 @@
     "secure.parametize.support_drop-down-status": "Estado",
     "secure.parametize.support_drop-down-reply": "Responder",
     "secure.parametize.support_drop-down-last-reply": "Última respuesta",
+    "secure.parametize.support.see.product": "ver producto",
+    "secure.parametize.support.product": "Producto",
+    "secure.parametize.support.brand": "Marca",
+    "secure.parametize.support.sell_price": "Precio de venta",
+    "secure.parametize.support.quantity": "Cantidad",
 
     "secure.parametize.port.port": "Puerto",
     "secure.parametize.port.search_port": "Consultar puerto",
