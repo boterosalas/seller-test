@@ -84,10 +84,11 @@
     <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between stretch">
       <!-- Toolbar para los dropdown de filtro de estado para las órdenes -->
       <!-- Toolbar de las opciones para los pagos -->
-      <app-toolbar-search-pagination fxFlex="87%" fxFlex.xs="100%" #toolbarOptions (paginationListOrdens)="paginations($event)"
-        [billingType]="true" [Typeprofile]="typeProfile" [informationToForm]="informationToForm"
-        [downloadBillingPay]="false" [limitPaginate]="[50, 100, 200]" [lengthOrder]="length"
-        (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)">
+      <app-toolbar-search-pagination fxFlex="87%" fxFlex.xs="100%" #toolbarOptions
+        (paginationListOrdens)="paginations($event)" [billingType]="true" [Typeprofile]="typeProfile"
+        [informationToForm]="informationToForm" [downloadBillingPay]="false" [limitPaginate]="[50, 100, 200]"
+        [lengthOrder]="length" (OnGetOrdersList)="getOrdersList($event)"
+        (OnChangeSizeOrderTable)="changeSizeOrderTable($event)">
       </app-toolbar-search-pagination>
       <div class="filterBilling" fxFlex="15%" fxShow.xs="false">
         <button type="button" mat-button (click)="openModalDownloadBillPay()">
@@ -101,8 +102,8 @@
       </div>
       <div fxLayout="row" class="center-product-list-2" fxFlex="20px" fxShow.xs="true" fxShow.sm="true" fxShow.md="true"
         fxShow.lg="false" fxShow.xl="false">
-        <button id="more-options-for-search-orden" class="margin-toolbar-aling" mat-icon-button
-          *ngIf="!billingType" [matMenuTriggerFor]="toolbarOptions">
+        <button id="more-options-for-search-orden" class="margin-toolbar-aling" mat-icon-button *ngIf="!billingType"
+          [matMenuTriggerFor]="toolbarOptions">
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #toolbarOptions="matMenu">
@@ -146,7 +147,7 @@
         <ng-container matColumnDef="bill">
           <mat-header-cell fxFlex.sm="120px" fxFlex.md="15%" fxFlex.lg="15%" fxFlex.xs="50%" *matHeaderCellDef
             mat-sort-header>
-            <span class="title-table-header">{{'secure.billing.invoice' | translate}}</span>
+            <span class="title-table-header">{{'secure.billing.invoice-note' | translate}}</span>
           </mat-header-cell>
           <mat-cell fxFlex.sm="120px" fxFlex.md="15%" fxFlex.lg="15%" fxFlex.xs="50%" *matCellDef="let element">
             <p class="sc-text-bold-order">{{ element.billingNumber }}</p>
@@ -230,7 +231,9 @@
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px"
             fxFlex.md="15%" fxFlex.lg="15%" fxFlex.xs="50%" *matCellDef="let element">
-            <p class="sc-text-normal sc-commission-text">{{ element.commission | currency:'COP' }}</p>
+            <p class="sc-text-normal"
+              [ngClass]="element.concept !== 'Nota crédito' ? 'sc-commission-text' : 'sc-valueToPay-text'">
+              {{ element.commission | currency:'COP' }}</p>
           </mat-cell>
         </ng-container>
 
@@ -244,8 +247,9 @@
           <mat-cell fxShow.xs="false" [ngClass]="isInternational ? 'hiddenColumn' : 'showColumn'" fxShow.sm="true"
             fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px" fxFlex.md="15%" fxFlex.lg="15%"
             fxFlex.xs="50%" *matCellDef="let element">
-            <p class="sc-text-normal sc-commission-text">-{{ element.iva | currency:'COP' }}</p>
-
+            <p class="sc-text-normal"
+              [ngClass]="element.concept !== 'Nota crédito' ? 'sc-commission-text' : 'sc-valueToPay-text'">
+              {{ element.iva | currency:'COP' }}</p>
           </mat-cell>
         </ng-container>
 
@@ -257,7 +261,7 @@
           </mat-header-cell>
           <mat-cell fxShow.xs="false" fxShow.sm="true" fxShow.lg="true" fxShow.xl="true" fxShow="true" fxFlex.sm="120px"
             fxFlex.md="15%" fxFlex.lg="15%" fxFlex.xs="50%" *matCellDef="let element">
-            <p class="sc-text-normal sc-valueToPay-text" *ngIf="element.concept === billingConcepts.marketplaceSale">
+            <p class="sc-text-normal" [ngClass]="element.concept === 'Nota crédito' ? 'sc-commission-text' : 'sc-valueToPay-text'">
               {{ element.billingTotal | currency:'COP' }}
             </p>
             <p class="sc-text-normal" *ngIf="element.concept === billingConcepts.logisticsExito">
@@ -325,7 +329,8 @@
       <div class="content-detail-order mat-row " [@detailExpand] style="overflow: hidden ">
         <div fxFlex="100" fxLayout="column">
           <!-- Product Information -->
-          <app-billing-products-order [isInternational]="isInternational" *ngIf="element.concept === billingConcepts.marketplaceSale" [order]="element">
+          <app-billing-products-order [isInternational]="isInternational"
+            *ngIf="element.concept === billingConcepts.marketplaceSale || element.concept === billingConcepts.noteCredit" [order]="element">
           </app-billing-products-order>
           <!-- Detail fulfillment -->
           <app-billing-fulfillment-detail *ngIf="element.concept === billingConcepts.logisticsExito" [data]="element">

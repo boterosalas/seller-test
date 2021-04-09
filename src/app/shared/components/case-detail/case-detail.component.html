@@ -1,18 +1,42 @@
 <div class="sh-case-detail">
   <div class="sh-case-detail__item ticket-detail ticket-detail--col">
+
+    <div fxHide.gt-xs="true">
+      
+      <label>{{'secure.parametize.support_drop-down-reason-detail' | translate}}</label>
+      <p>{{case.reasonDetail}}</p>
+
+      <label>{{'secure.parametize.support_drop-down-creation-date' | translate}}</label>
+      <p>{{case.createDate | date: 'dd/MM/yyyy'}}</p>
+
+      <label>{{'secure.parametize.support_drop-down-status' | translate}}</label>
+      <p>{{case.status}}</p>
+
+      <label>{{'secure.parametize.support_drop-down-last-reply' | translate}}</label>
+      <p>{{ case.lastPostDesc }}</p>
+
+    </div>
+
+
     <app-basic-card class="sh-case-detail--bottom-space"
       [title]="translateService.instant('secure.parametize.support_claims.description')"
       [description]="case.description">
     </app-basic-card>
   </div>
 
+  <button fxHide.gt-xs="true" class="btn-no-bg" mat-stroked-button color="primary" type="button" (click)="showThumbnail(case)">
+    {{'secure.parametize.support.see.product' | translate}} 
+  </button>
+
   <div class="sh-case-detail__item ticket-detail ticket-detail--col" *ngIf="case.descriptionSolution">
+    <br>
     <app-basic-card class="sh-case-detail--bottom-space"
       [title]="translateService.instant('secure.parametize.support_claims-details.detail-of-solution')"
       [description]="case.descriptionSolution"></app-basic-card>
   </div>
 
   <div class="sh-case-detail__attachments">
+    <br>
     <div class="sh-case-detail__title">
       <mat-icon class="sh-case-detail__icon">
         attach_file

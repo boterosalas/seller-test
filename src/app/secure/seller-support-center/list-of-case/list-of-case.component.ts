@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/co
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { SellerSupportCenterService } from '../services/seller-support-center.service';
 import { ResponseCaseDialogComponent } from '@shared/components/response-case-dialog/response-case-dialog.component';
-import { MatDialog, MatSnackBar, MatPaginatorIntl, ErrorStateMatcher } from '@angular/material';
+import { MatDialog, MatSnackBar, MatPaginatorIntl, ErrorStateMatcher, MatTableDataSource, Sort } from '@angular/material';
 import { LoadingService, ModalService } from '@app/core';
 import { Logger } from '@core/util/logger.service';
 import { ActivatedRoute } from '@angular/router';
@@ -21,6 +21,7 @@ import { DatePipe } from '@angular/common';
 import { CustomPaginator } from '@app/secure/products/list-products/listFilter/paginatorList';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { ModalExportToReclaimComponent } from '../modal-export-to-reclaim/modal-export-to-reclaim.component';
+import { InfoModalSupportComponent } from '../info-modal-support/info-modal-support.component';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -60,6 +61,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
   filter: boolean;
   menuState: string;
   cases: Array<any>;
+  casesTmp: Array<any>;
   repondCase: any;
   headerConfigurations: Array<any>;
   length: number;
@@ -69,6 +71,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
   unreadCase: number;
   caseId = '';
   public subModalExport: Subscription;
+  getClassification = [];
 
   configDialog = {
     width: '85%',
@@ -118,7 +121,8 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
     Status: '',
     DateInit: '',
     DateEnd: '',
-    SellerId: ''
+    SellerId: '',
+    classification: ''
   };
   filterLastPost: string;
 
@@ -127,8 +131,16 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
   filterListCasesFilter: any;
   activeInit = false;
   currentLanguage: string;
+  showImage = false;
+  imageThumbnail:string;
 
   idDetail: any;
+
+  displayedColumns: string[] = ['product', 'sku', 'ean', 'brand', 'skuseller', 'price', 'quantity'];
+
+  public dataSource: MatTableDataSource<any>;
+
+  hideHeader:Boolean;
 
   constructor(
     public dialog: MatDialog,
@@ -158,6 +170,11 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
     this.createFormControls();
     this.validateFormSupport();
     this.getStatusCase();
+    
+    this.SUPPORT.getListClassification().subscribe( resp => {
+      this.getClassification = resp.data;
+    });
+
     this.filterByRoute(this.router.queryParams).subscribe(res => {
       const seller = this.paramsFilter.SellerId;
       if (this.isAdmin) {
@@ -178,7 +195,34 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
     this.store.select(reduxState => reduxState.notification.unreadCases)
       .subscribe(unreadCase => (this.unreadCase = unreadCase));
     this.changeLanguage();
+
+    if (localStorage.getItem('typeProfile') === 'administrator') {
+      this.hideHeader = false;
+    } else {
+      this.hideHeader = true;
+    }
+
   }
+
+
+    /**
+   * funcion para mostrar el modal del producto
+   *
+   * @param {*} module
+   * @param {*} item
+   * @memberof ListAdminSchoolComponent
+   */
+     showThumbnail(dataProduct: any) {
+      this.dialog.open(InfoModalSupportComponent, {
+        data: {
+          dataProduct
+        },
+        width: '300px',
+        maxWidth: '90vw',
+      });
+      
+    }
+
   /**
    * funcion para escuchar el evento al cambiar de idioma
    *
@@ -210,7 +254,8 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
       DateInit: { disabled: true, value: '' },
       DateEnd: { disabled: true, value: '' },
       Status: new FormControl(''),
-      OrderNumber: new FormControl('', [Validators.pattern(this.regexFilter.orderNumber)])
+      OrderNumber: new FormControl('', [Validators.pattern(this.regexFilter.orderNumber)]),
+      classification: new FormControl('')
     });
   }
 
@@ -258,6 +303,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
     this.paramsFIlterListCase.LastPost = this.filterListCases.controls.LastPost.value;
     this.paramsFIlterListCase.Status = this.filterListCases.controls.Status.value;
     this.paramsFIlterListCase.OrderNumber = this.filterListCases.controls.OrderNumber.value;
+    this.paramsFIlterListCase.classification = this.filterListCases.controls.classification.value;
     if (this.isAdmin) {
       this.paramsFIlterListCase.SellerId = this.paramsFilter.SellerId;
     }
@@ -405,6 +451,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
             this.refreshPaginator(this.length, res.body.data.page, res.body.data.pageSize);
             this.paginationToken = res.body.paginationToken;
             this.cases = res.body.data.cases;
+            this.casesTmp = res.body.data.cases;
             this.cases.forEach(element => {
               element.statusLoad = false;
             });
@@ -495,6 +542,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
           .patchCaseResponse(result.data)
           .subscribe(res => {
             this.reloadLastResponse(res);
+            this.loadCases(this.paramsFilter);
             this.loadingService.closeSpinner();
           });
       } else {
@@ -515,9 +563,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
   }
 
   markAsRead(caseRead: any) {
-    const caseId = { id: caseRead.id };
-    this.sellerSupportService.patchReadCase(caseId).subscribe();
-
+  
     if (!caseRead.read) {
       caseRead.read = true;
       this.unreadCase--;
@@ -579,6 +625,27 @@ loadDataDetails(item: any) {
         item.statusLoad = false;
       });
   }
+
+  /**
+   * 
+   * @param sort 
+   * Metodo para ordenar las columnas de fecha y ultima respuesta
+   */
+
+  sortData(sort: Sort) {
+    const data = this.cases.slice();
+    
+    if (!sort.active || sort.direction === '') {
+      this.cases = this.casesTmp;
+    } else {
+      this.cases = data.sort((a, b) => {
+        const aValue = (a as any)[sort.active];
+        const bValue = (b as any)[sort.active];
+        return (aValue < bValue ? -1 : 1) * (sort.direction === 'asc' ? 1 : -1);
+      });
+    }
+  }
+  
 
   ngOnDestroy() {
     this.dialog.closeAll();

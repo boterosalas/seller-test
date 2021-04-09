@@ -175,7 +175,8 @@ export class Const {
   // Conceptos de facturación para los pagos.
   static readonly BILLING_CONCEPTS = {
     marketplaceSale: 'Venta Marketplace',
-    logisticsExito: 'Logistica Exito'
+    logisticsExito: 'Logistica Exito',
+    noteCredit: 'Nota crédito'
   };
 
   static readonly ProfileTypes: any = ['Vendedor', 'Administrador'];

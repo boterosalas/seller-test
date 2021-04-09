@@ -11,6 +11,7 @@ describe('BillingFulfillmentDetailComponent', () => {
     'id': 636561345858929047,
     'idBillingPicking': 69,
     'idSeller': 10302,
+    'iva': 12,
     'billingNumber': '9405101322',
     'orderNumber': null,
     'payOrderNumber': null,

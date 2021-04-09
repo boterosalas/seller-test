@@ -7,6 +7,7 @@ $small-text: 12px;
 $node-radio: 2px;
 
 .sh-message {
+  margin-bottom: 10px;
   &__small-text {
     font-size: $small-text;
     font-style: italic;
@@ -23,7 +24,6 @@ $node-radio: 2px;
     padding: 16px;
     display: flex;
     flex-direction: column;
-    margin-bottom: 12px;
 
     p {
       margin: 0px;
@@ -43,13 +43,14 @@ $node-radio: 2px;
 
   &__controls {
     display: flex;
-    margin: 16px 0;
+    margin: 0px 0;
     &--right {
       justify-content: flex-end;
     }
   }
 
   &__button {
+    margin-top: 10px;
     background-color: $accent-color;
     color: white;
     border: 1px solid transparent;
@@ -78,5 +79,9 @@ $node-radio: 2px;
         color: white;
       }
     }
+  }
+
+  @media (max-width: 600px) {
+    background: #ffffff;
   }
 }
