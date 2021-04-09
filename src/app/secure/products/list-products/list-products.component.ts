@@ -323,10 +323,7 @@ export class ListProductsComponent implements OnInit {
             result.body.data.response = JSON.parse(result.body.data.response);
         }
         if (result.body.data.status === 0 || result.body.data.checked === 'true') {
-            // result.body.data.status = 1;
-            // if (!this.progressStatus) {
-            //     this.openDialogSendOrder(result);
-            // }
+            clearInterval(this.checkIfDoneCharge);
             this.progressStatus = false;
         } else if (result.body.data.status === 1 || result.body.data.status === 4) {
             result.body.data.status = 1;
