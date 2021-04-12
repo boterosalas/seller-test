@@ -65,6 +65,7 @@
     "menu.Escuela Exito": "School Éxito",
     "module.Documentación": "Documentation",
     "menu.Resumen de pagos": "Payment Summary",
+    "menu.Consultar Indicadores": "Check Indicators",
     "module.Ofertas": "Offers",
     "module.Productos": "Products",
     "module.Vendedores": "Sellers",
@@ -128,6 +129,9 @@
     "shared.product": "Product",
     "shared.ean": "EAN",
     "shared.phone": "Phone number",
+    "shared.to":"to",
+    "shared.from":"from",
+    "shared.days":"days",
     "shared.error.file": "File download failed",
     "shared.components.load_file.title": "Attach Invoice",
     "shared.components.load_file.subtitle": "The electronic invoice can only",
@@ -1464,5 +1468,12 @@
     "school.exito.uploadfile.dragfile": "Click here or drag and drop the file",
     "school.exito.uploadfile.pdf": "Invalid format, only files in .PDF format are allowed to be attached",
     "school.exito.uploadfile.maxSize.pdf": "Error, file size exceeds 7MB upload capacity",
-    "school.exito.empty_data": "No records found"
+    "school.exito.empty_data": "No records found",
+    "quality.indicators.objectives": "Objectives",
+    "quality.indicators.goal": "Goal",
+    "quality.indicators.Compliance": "Compliance",
+    "quality.indicators.quality_indicators": "Quality indicators",
+    "quality.indicators.Last_days": "Last 30 days",
+    "quality.indicators.i_understand": "I understand",
+    "quality.indicators.indicator_not_available": "Information temporarily unavailable"
 }

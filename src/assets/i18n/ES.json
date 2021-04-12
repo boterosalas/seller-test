@@ -66,6 +66,7 @@
     "menu.Detalle de pagos": "Detalle de pagos",
     "menu.Escuela Exito": "Escuela Éxito",
     "menu.Administrar Acuerdos": "Administrar acuerdos",
+    "menu.Consultar Indicadores": "Consultar Indicadores",
     "module.Documentación": "Documentación",
     "module.Ofertas": "Ofertas",
     "module.Productos": "Productos",
@@ -131,6 +132,9 @@
     "shared.product": "Producto",
     "shared.ean": "EAN",
     "shared.phone": "Teléfono",
+    "shared.to":"hasta",
+    "shared.from":"desde",
+    "shared.days":"días",
     "shared.error.file": "Error al descargar el archivo",
     "shared.components.load_file.title": "Adjuntar factura",
     "shared.components.load_file.subtitle": "La factura electrónica solo",
@@ -1507,5 +1511,12 @@
     "school.exito.uploadfile.dragfile": "Presione acá o arrastre y suelte el archivo",
     "school.exito.uploadfile.pdf": "Formato no válido, sólo se permiten adjuntar archivos en formato .PDF",
     "school.exito.uploadfile.maxSize.pdf": "Error, el tamaño de los archivos supera la capacidad de carga de 7MB",
-    "school.exito.empty_data": "No se han encontrado registros"
+    "school.exito.empty_data": "No se han encontrado registros",
+    "quality.indicators.objectives": "Objetivos",
+    "quality.indicators.goal": "Meta",
+    "quality.indicators.Compliance": "Cumplimiento",
+    "quality.indicators.quality_indicators": "Indicadores de calidad",
+    "quality.indicators.Last_days": "Últimos 30 días",
+    "quality.indicators.i_understand": "Entendido",
+    "quality.indicators.indicator_not_available": "Información no disponible temporalmente"
 }

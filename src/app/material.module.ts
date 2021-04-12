@@ -4,6 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   MatAutocompleteModule,
   MatBadgeModule,
+  MatBottomSheetModule,
   MatButtonModule,
   MatButtonToggleModule,
   MatCardModule,
@@ -84,6 +85,7 @@ import { MatTreeModule } from '@angular/material/tree';
     MatTreeModule,
     // Flex layout
     FlexLayoutModule,
+    MatBottomSheetModule
   ],
   exports: [
     // Angular Material
@@ -124,7 +126,8 @@ import { MatTreeModule } from '@angular/material/tree';
     MatTreeModule,
     // Flex layout
     FlexLayoutModule,
-    DragDropModule
+    DragDropModule,
+    MatBottomSheetModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })

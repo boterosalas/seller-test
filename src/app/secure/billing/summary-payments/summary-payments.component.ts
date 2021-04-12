@@ -132,6 +132,8 @@ export class SummaryPaymentsComponent implements OnInit {
     this.loadingService.viewSpinner();
     let query = {};
     this.summaryTotal = 0;
+    this.totalPay = 0;
+    this.totalDiscount = 0;
     if (params !== undefined) {
       query = {
         filterDate: params.filterDate,
