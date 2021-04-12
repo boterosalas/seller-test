@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/co
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { SellerSupportCenterService } from '../services/seller-support-center.service';
 import { ResponseCaseDialogComponent } from '@shared/components/response-case-dialog/response-case-dialog.component';
-import { MatDialog, MatSnackBar, MatPaginatorIntl, ErrorStateMatcher, MatTableDataSource, Sort } from '@angular/material';
+import { MatDialog, MatSnackBar, MatPaginatorIntl, ErrorStateMatcher, MatTableDataSource, Sort, MatPaginator } from '@angular/material';
 import { LoadingService, ModalService } from '@app/core';
 import { Logger } from '@core/util/logger.service';
 import { ActivatedRoute } from '@angular/router';
@@ -440,6 +440,8 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
     this.loadingService.viewSpinner();
     const urlIdSeller = this.route.snapshot.paramMap.get('idSeller');
     if (!filter.SellerId && urlIdSeller) {
+      this.pageIndex = 0;
+      this.pageSize = 100;
       filter.SellerId = urlIdSeller;
     }
     this.sellerSupportService.getAllCase(filter).subscribe(
@@ -473,6 +475,9 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
    * @memberof ListOfCaseComponent
    */
   changePagination(pagination: any) {
+
+    console.log(pagination);
+
     const index = pagination.pageIndex;
 
     if (index === 0) {
@@ -497,9 +502,30 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
     const { pageIndex, pageSize } = pagination;
 
     if (this.isAdmin) {
-      this.loadCases({ SellerId: this.sellerIdLogger.SellerId, Limit: pageSize, paginationToken: this.paginationToken });
+      this.loadCases({ 
+        SellerId: this.sellerIdLogger.SellerId,
+        Limit: pageSize, 
+        paginationToken: this.paginationToken,
+        LastPost: this.filterListCases.controls.LastPost.value ? this.filterListCases.controls.LastPost.value : null,
+        CaseNumber:this.filterListCases.controls.CaseNumber.value ? this.filterListCases.controls.CaseNumber.value : null,
+        DateEnd:this.filterListCases.controls.DateEnd.value ? this.filterListCases.controls.DateEnd.value : null,
+        DateInit:this.filterListCases.controls.DateInit.value ? this.filterListCases.controls.DateInit.value : null,
+        OrderNumber:this.filterListCases.controls.OrderNumber.value ? this.filterListCases.controls.OrderNumber.value : null,
+        Status:this.filterListCases.controls.Status.value ? this.filterListCases.controls.Status.value : null,
+        classification:this.filterListCases.controls.classification.value ? this.filterListCases.controls.classification.value : null
+      });
     } else {
-      this.loadCases({ Limit: pageSize, paginationToken: this.paginationToken });
+      this.loadCases({
+        Limit: pageSize,
+        paginationToken: this.paginationToken,
+        LastPost: this.filterListCases.controls.LastPost.value ? this.filterListCases.controls.LastPost.value : null,
+        CaseNumber:this.filterListCases.controls.CaseNumber.value ? this.filterListCases.controls.CaseNumber.value : null,
+        DateEnd:this.filterListCases.controls.DateEnd.value ? this.filterListCases.controls.DateEnd.value : null,
+        DateInit:this.filterListCases.controls.DateInit.value ? this.filterListCases.controls.DateInit.value : null,
+        OrderNumber:this.filterListCases.controls.OrderNumber.value ? this.filterListCases.controls.OrderNumber.value : null,
+        Status:this.filterListCases.controls.Status.value ? this.filterListCases.controls.Status.value : null,
+        classification:this.filterListCases.controls.classification.value ? this.filterListCases.controls.classification.value : null
+        });
     }
   }
 
