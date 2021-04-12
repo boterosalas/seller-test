@@ -440,8 +440,6 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
     this.loadingService.viewSpinner();
     const urlIdSeller = this.route.snapshot.paramMap.get('idSeller');
     if (!filter.SellerId && urlIdSeller) {
-      this.pageIndex = 0;
-      this.pageSize = 100;
       filter.SellerId = urlIdSeller;
     }
     this.sellerSupportService.getAllCase(filter).subscribe(
