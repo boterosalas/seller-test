@@ -9,8 +9,6 @@
     <p class="seller-list-title" fxShow="false" [fxShow.xs]="true">
       {{'secure.parametize.category.categories.subtitle' | translate}}
     </p>
-    <!-- <mat-paginator [length]="sellerLength" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
-        </mat-paginator> -->
     <div class="float-rigth">
       <button mat-button [matTooltip]="'secure.parametize.category.categories.btn_download_category' | translate"
         (click)="openModalDownloadCategories()">
@@ -37,6 +35,21 @@
     </mat-icon>
     {{'secure.parametize.category.categories.btn_add_category' | translate}}
   </button>
+</div>
+<div>
+  <div style="padding: 10px 68px 10px 16px; width: 100%;" fxLayout="row wrap">
+    <div fxFlex="74">
+      <span style="font-weight: bold; font-size: 21px;">Categorías</span>
+    </div>
+    <div fxFlex="26">
+      <button mat-stroked-button color="primary" mat-button >CARGAR ARCHIVO PARA CREAR/MODIFICAR</button>
+    </div>
+  </div>
+</div>
+<div style="padding-right: 68px;">
+  <div style="text-align: end; font-size: 13px;">
+    <span><a>Descargar formato</a></span>
+  </div>
 </div>
 <div class="container__tree">
   <app-category-tree [categoryList]="categoryList" [categoryComponent]="this" [canCreate]="canCreate"
