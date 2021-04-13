@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { LoadingService } from '@app/core';
 import { DialogData } from '@app/secure/support-modal/support-modal.component';
 import { ListModalService } from './dialog-ingo.component.service';
 
@@ -22,6 +23,7 @@ export class DialogInfoComponent implements OnInit {
 
   constructor(
     public listModalService: ListModalService,
+    private loadingService: LoadingService,
     public dialogRef: MatDialogRef<DialogInfoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
@@ -57,6 +59,7 @@ export class DialogInfoComponent implements OnInit {
   }
 
   sendDataPatch(){
+    this.loadingService.viewSpinner();
     console.log(this.dataToSend);
     this.listModalService.servicePatch(this.name, this.dataToSend).subscribe(res => {
       this.onConfirmClick();

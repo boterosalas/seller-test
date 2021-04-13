@@ -175,21 +175,21 @@
       <div *ngIf="myProduct && !activeCheck" style="margin-top: 2%; width: 95%; text-align: right">
         <button mat-stroked-button color="primary" [matMenuTriggerFor]="menu"
           style="border-color: #485AFA; width: 280px; height: 37px;">
-          Eliminar productos</button>
+          {{'secure.products.create_product_unit.list_products.delete_products' | translate}}</button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item color="primary"
             style="color: #485AFA; font-family: Arial; font-weight: bold; font-size: 12px;"
-            (click)="activeMultipleOffer()">Seleccionar productos</button>
+            (click)="activeMultipleOffer()">{{'secure.products.create_product_unit.list_products.delete_products_some' | translate}}</button>
           <button mat-menu-item color="primary"
             style="color: #485AFA; font-family: Arial; font-weight: bold; font-size: 12px;"
-            (click)="allProductsSelected()">Eliminar todos los productos</button>
+            (click)="allProductsSelected()">{{'secure.products.create_product_unit.list_products.delete_products_all' | translate}}</button>
         </mat-menu>
       </div>
 
       <div *ngIf="activeCheck" style="margin-top: 2%; width: 95%; text-align: right">
         <button mat-stroked-button color="primary" 
           style="background-color: #485AFA; width: 280px; height: 37px;" (click)="someProductsSelected()">
-          <span style="color: white; font-family: Arial; font-weight: bold; font-size: 12px;">Eliminar productos seleccionados</span></button>
+          <span style="color: white; font-family: Arial; font-weight: bold; font-size: 12px;">{{'secure.products.create_product_unit.list_products.delete_products_some_checked' | translate}}</span></button>
       </div>
 
       <app-combo-product [offerPermission]="offerPermission" [editPermission]="editPermission" (countPlu)="countPlu($event)"

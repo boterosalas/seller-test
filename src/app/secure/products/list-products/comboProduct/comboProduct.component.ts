@@ -30,10 +30,10 @@ export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
   @Input() set productsList(value: any) {
     if (value) {
       console.log(value);
-        this._listProduct = value;
-        this.setCheckedTrue();
+      this._listProduct = value;
+      this.setCheckedTrue();
     }
-}
+  }
 
   public productsExpanded: any;
   public showImage = false;
@@ -118,20 +118,27 @@ export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
 
 
 
+  /**
+   * Funcion para abrir informacion del producto
+   * @param {*} [params]
+   * @memberof ComboProductComponent
+   */
   public openInformation(params?: any): void {
-    this.loadingService.viewSpinner();
-    this.productsService.getListProductsExpanded(params).subscribe((result: any) => {
-      this.loadingService.closeSpinner();
-      this.showImage = true;
-      this.productsExpanded = result.data.list;
-    });
+    if (!this.activeCheck) {
+      this.loadingService.viewSpinner();
+      this.productsService.getListProductsExpanded(params).subscribe((result: any) => {
+        this.loadingService.closeSpinner();
+        this.showImage = true;
+        this.productsExpanded = result.data.list;
+      });
+    }
   }
 
   public reloadDataListProduct() {
     this.reloadData.emit();
   }
 
-  sendCount(){
+  sendCount() {
     const info = {
       count: this.sumItemCountProduct,
       list: this.listToSend
