@@ -474,8 +474,6 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
    */
   changePagination(pagination: any) {
 
-    console.log(pagination);
-
     const index = pagination.pageIndex;
 
     if (index === 0) {
