@@ -63,7 +63,7 @@ export class QualityIndicatorsComponent implements OnInit {
     this._dashboard.getIndicators(params).subscribe(result => {
       this.load = false;
       if (result && result.errors === null) {
-        this.qualityIndicators = result.data;
+        this.qualityIndicators = this.mapItems(result.data);
         if (this.qualityIndicators.length > 0) {
           this.from = this.qualityIndicators[0] ? this.qualityIndicators[0].initialDate : '';
           this.to = this.qualityIndicators[0] ? this.qualityIndicators[0].finalDate : '';
@@ -83,6 +83,47 @@ export class QualityIndicatorsComponent implements OnInit {
       });
     });
   }
+
+
+    /**
+     *funcion para mapear el resultado del servicio get all brands
+     * @param {any[]} items
+     * @returns {any[]}
+     * @memberof BrandsComponent
+     */
+     mapItems(items: any[]): any[] {
+      return items.map(x => {
+          return {
+            calcInformation: x.calcInformation,
+            color:x.color,
+            finalDate:x.finalDate,
+            goal:x.goal,
+            indicatorName:x.indicatorName,
+            initialDate:x.initialDate,
+            measureUnit:x.measureUnit,
+            percentageBar:x.percentageBar,
+            sellerId: x.sellerId,
+            symbol: x.symbol,
+            value: x.value,
+            message : this.validateMessage(x.color)
+          };
+      });
+  }
+
+
+  validateMessage (color: string){
+    let msj = '';
+    if(color === 'Green') {
+      msj = this.languageService.instant('quality.indicators.bar_green')
+    } else if (color === 'Orange') {
+      msj = this.languageService.instant('quality.indicators.bar_orange')
+    } else if(color === 'Red') {
+      msj = this.languageService.instant('quality.indicators.bar_red')
+    }
+    return msj;
+  }
+
+  
   /**
    * funcion para cambiar la cultura
    *

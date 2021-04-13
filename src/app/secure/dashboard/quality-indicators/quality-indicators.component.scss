@@ -68,7 +68,7 @@
         font-size: 14px;
       }
       &-padding-contain{
-        padding: 20px;
+        padding-top: 20px;
         contain:content;
       }
       &-contain{
@@ -115,5 +115,9 @@
 
       &-space-text{
         padding-top: 10px;
+      }
+
+      &-height-15{
+        height: 15px;
       }
 }
