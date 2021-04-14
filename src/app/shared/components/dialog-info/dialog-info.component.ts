@@ -16,6 +16,7 @@ export class DialogInfoComponent implements OnInit {
   public message: string;
   public cancelButtonText: string;
   public confirmButtonText: string;
+  public closeButtonText: string;
   public dataInfo: any;
   public name: any;
   public method: any;
@@ -28,7 +29,7 @@ export class DialogInfoComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
     this.dataInfo = this.data;
-   }
+  }
 
   ngOnInit() {
     this.setTextDialog();
@@ -42,8 +43,8 @@ export class DialogInfoComponent implements OnInit {
   onConfirmClick(): void {
     this.dialogRef.close(true);
   }
-  
-  setTextDialog(){
+
+  setTextDialog() {
     console.log(this.dataInfo);
     if (this.dataInfo) {
       this.icon = this.dataInfo.icon || null;
@@ -51,14 +52,14 @@ export class DialogInfoComponent implements OnInit {
       this.message = this.dataInfo.message || null;
       this.confirmButtonText = this.dataInfo.buttonText.ok || null;
       this.cancelButtonText = this.dataInfo.buttonText.cancel || null;
+      this.closeButtonText = this.dataInfo.buttonText.close || null;
       this.name = this.dataInfo.services.name || null;
       this.method = this.dataInfo.services.method || null;
       this.dataToSend = this.dataInfo.data || null;
     }
-
   }
 
-  sendDataPatch(){
+  sendDataPatch() {
     this.loadingService.viewSpinner();
     console.log(this.dataToSend);
     this.listModalService.servicePatch(this.name, this.dataToSend).subscribe(res => {

@@ -209,7 +209,7 @@ export class ListProductsComponent implements OnInit {
             title: this.languageService.instant('secure.products.create_product_unit.list_products.title_some_ok1') + this.infoSelected.count + this.languageService.instant('secure.products.create_product_unit.list_products.title_some_ok2'),
             icon: 'done',
             buttonText: {
-                cancel: this.languageService.instant('actions.close_mayus')
+                close: this.languageService.instant('actions.close_mayus')
             },
         };
         this.openDialogDeleteProducts();
@@ -220,6 +220,7 @@ export class ListProductsComponent implements OnInit {
      * @memberof ListProductsComponent
      */
     allProductsSelected() {
+        this.infoSelected = null;
         this.typeDelete = 2;
         this.modelObject();
         this.dataDialog = {
@@ -249,7 +250,7 @@ export class ListProductsComponent implements OnInit {
             title: this.languageService.instant('secure.products.create_product_unit.list_products.title_all_ok'),
             icon: 'done',
             buttonText: {
-                cancel: this.languageService.instant('actions.close_mayus')
+                close: this.languageService.instant('actions.close_mayus')
             },
         };
         this.openDialogDeleteProducts();
