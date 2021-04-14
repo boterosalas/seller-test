@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild, NgZone, ChangeDetectorRef } from '@angular/core';
 import { CategoryTreeService } from '../category-tree.service';
-import { LoadingService, ModalService } from '@app/core';
+import { EndpointService, LoadingService, ModalService } from '@app/core';
 import { updateFunctionality, createFunctionality, MenuModel, categoryName, deleteFunctionality } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
@@ -77,6 +77,7 @@ export class CategoriesComponent implements OnInit {
   categoryToUpdate: any;
   msjDeleteCategory: boolean;
   categoryIdDelete: any;
+  public urlDownloadFile: string;
 
   constructor(
     private categoryService: CategoryTreeService,
@@ -88,7 +89,8 @@ export class CategoriesComponent implements OnInit {
     private regexService: BasicInformationService,
     private snackBar: MatSnackBar,
     private modalService: ModalService,
-    private languageService: TranslateService
+    private languageService: TranslateService,
+    private api?: EndpointService,
   ) {
   }
 
@@ -98,6 +100,7 @@ export class CategoriesComponent implements OnInit {
     this.getTree();
     this.getRegex();
     this.changeLanguage();
+    this.urlDownloadFile = this.api.get('downloadTemplateCategoryMasive');
   }
 
   /**
