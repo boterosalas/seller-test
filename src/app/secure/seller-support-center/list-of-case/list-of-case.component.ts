@@ -136,7 +136,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
 
   idDetail: any;
 
-  displayedColumns: string[] = ['product', 'sku', 'ean', 'brand', 'skuseller', 'price', 'quantity'];
+  displayedColumns: string[] = ['product','brand','sku', 'ean', 'skuseller', 'price', 'quantity'];
 
   public dataSource: MatTableDataSource<any>;
 
