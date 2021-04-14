@@ -313,7 +313,9 @@ export const endpoints = {
       // Consultar si tiene carga la creacion de modulos.
       ValidateCreateMassive : 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/ValidateCreateMassive',
       // Captura de indicadores
-      getIndicators : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller/getindicatorsbynit/{params}'
+      getIndicators : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller/getindicatorsbynit/{params}',
+      // Descargar plantilla para carga masiva de categorias
+      downloadTemplateCategoryMasive : ' https://s3.amazonaws.com/seller-center-exito-staging/Templates-Dev/PlantillaCargaMasivaCategorias.xlsx'
     },
   },
   // Endpoints production
@@ -624,7 +626,9 @@ export const endpoints = {
        // Consultar si tiene carga la creacion de modulos.
       ValidateCreateMassive : 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/ValidateCreateMassive',
       // Captura de indicadores
-      getIndicators : 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller/getindicatorsbynit/{params}'
+      getIndicators : 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller/getindicatorsbynit/{params}',
+      // Descargar plantilla para carga masiva de categorias
+      downloadTemplateCategoryMasive : 'https://s3.amazonaws.com/seller-center-exito-staging/Templates/PlantillaCargaMasivaCategorias.xlsx'
     }
   }
 };
