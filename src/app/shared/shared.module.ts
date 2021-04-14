@@ -48,7 +48,8 @@ import { PortsComponent } from './components/ports/ports.component';
 import { ContentDropDownDetailOrderDirective } from '@app/secure/orders/orders-list/orders-page/component/box-list/content-drop-down-detail-order.directive';
 import { ModalDonwloadEmailComponent } from './components/modal-donwload-email/modal-donwload-email.component';
 import { FlexSizePipe } from './pipes/flex-size.pipe';
-
+import { UploadFileMasiveComponent } from './components/upload-file-masive/upload-file-masive.component';
+import { ngfModule } from 'angular-file/file-upload/ngf.module';
 
 export function createTranslateLaoder(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -61,13 +62,14 @@ export function createTranslateLaoder(http: HttpClient) {
     ReactiveFormsModule,
     FormsModule,
     RouterModule,
+    ngfModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: (createTranslateLaoder),
         deps: [HttpClient]
       }
-    })
+    }),
   ],
   declarations: [
     CdkDetailRowDirective,
@@ -101,7 +103,8 @@ export function createTranslateLaoder(http: HttpClient) {
     UploadButtonComponent,
     PortsComponent,
     ContentDropDownDetailOrderDirective,
-    ModalDonwloadEmailComponent
+    ModalDonwloadEmailComponent,
+    UploadFileMasiveComponent
   ],
   exports: [
     FlexSizePipe,
@@ -136,7 +139,9 @@ export function createTranslateLaoder(http: HttpClient) {
     TranslateModule,
     SelectLanguageComponent,
     UploadButtonComponent,
-    ContentDropDownDetailOrderDirective
+    ContentDropDownDetailOrderDirective,
+    UploadFileMasiveComponent,
+    ngfModule
   ],
   entryComponents: [
     ResponseCaseDialogComponent,
@@ -144,7 +149,8 @@ export function createTranslateLaoder(http: HttpClient) {
     ErrorDialogComponent,
     DialogWithFormComponent,
     CreateProcessDialogComponent,
-    ModalDonwloadEmailComponent
+    ModalDonwloadEmailComponent,
+    UploadFileMasiveComponent
   ],
   providers: [EventEmitterSeller],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]

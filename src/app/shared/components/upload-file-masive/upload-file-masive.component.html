@@ -1,0 +1,63 @@
+<div>
+  <div fxLayout="row wrap">
+    <div fxFlex="100" style="text-align: end; height: 15px;">
+      <mat-icon class="mat-18" style="color: #909090;">close</mat-icon>
+    </div>
+  </div>
+  <div fxLayout="row wrap">
+    <div fxFlex="100" [ngStyle]="{'text-align': data.positionTitle}">
+      <span style="font-weight: bold;">{{data.title}}</span>
+    </div>
+  </div>
+  <div fxLayout="row wrap">
+    <div fxFlex="100" [ngStyle]="{'text-align': data.positionSubtitle,
+      'padding': '20px'}">
+      <span style="color: #757474; font-size:14px">{{data.subTitle}}</span>
+    </div>
+  </div>
+  <div fxLayout="row wrap" class="load-file-container">
+    <div fxFlex="100" class="text-aling-center-modal-load">
+      <div class="inline-block">
+        <div ngfDrop selectable="1" [(validDrag)]="validComboDrag"
+          [(files)]="files" [(file)]="file"
+          [maxSize]="maxSize" [accept]="data.dragDrop.accept"
+          [(lastInvalids)]="lastInvalids" [(dragFiles)]="dragFiles"
+          class="well my-drop-zone" fxLayout="column" id="excel"
+          fxLayoutAlign="center center"
+          [class.invalid-drag]="validComboDrag===false"
+          [class.valid-drag]="validComboDrag"
+          (filesChange)="lastFileAt=getDate(); validateOneFile()">
+          <strong *ngIf="files?.length && !lastInvalids?.length">{{files[files.length
+            - 1].name}} -
+            {{ files[files.length - 1].size/1024/1024 | number:'.2' }} MB</strong>
+          <strong *ngIf="lastInvalids?.length && lastInvalids.length ?
+            validateFormatInvalidate(lastInvalids): null">{{'shared.components.load_file.text2'
+            | translate}}</strong>
+          <mat-icon class="material-icons" *ngIf="!files.length &&
+            !lastInvalids?.length">
+            note_add
+          </mat-icon>
+          <span *ngIf="!files.length && !lastInvalids?.length" style="color:
+            #757474; font-size:14px">
+            {{lastInvalids}}
+            {{data.dragDrop.msg}}
+          </span>
+          <mat-icon class="material-icons check" *ngIf="files.length &&
+            !lastInvalids?.length">
+            check_circle
+          </mat-icon>
+          <mat-icon class="material-icons error"
+            *ngIf="lastInvalids?.length">
+            not_interested
+          </mat-icon>
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <span class="modal-load-agreement-text-btn-file-margin-top"
+              style="color: #485AFA; font-size: 14px;">
+              Archivo/Anexo
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

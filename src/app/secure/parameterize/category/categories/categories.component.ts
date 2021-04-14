@@ -11,6 +11,7 @@ import { BasicInformationService } from '@app/secure/products/create-product-uni
 import { CreateProcessDialogComponent } from '../../../../shared/components/create-process-dialog/create-process-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
 import { DownloadCategoriesComponent } from './download-categories/download-categories.component';
+import { UploadFileMasiveComponent } from '@app/shared/components/upload-file-masive/upload-file-masive.component';
 
 @Component({
   selector: 'app-categories',
@@ -110,6 +111,67 @@ export class CategoriesComponent implements OnInit {
   openModalDownloadCategories(): void {
     const dialogRef = this.dialog.open(DownloadCategoriesComponent, {
       width: '60%'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+  /**
+   * Metodo para descargar todas las categorías
+   * @memberof CategoriesComponent
+   */
+  openModalUploadCategoriesMasive(): void {
+    const data = {
+      initTime: 500,
+      intervalTime: 10000,
+      title: 'Cargar categorías',
+      positionTitle: 'center',
+      subTitle : 'Por favor seleccione el archivo de categorías que desea cargar',
+      positionSubtitle: 'left',
+      dragDrop: {
+        msg: 'Presione acá o arrastre y suelte el archivo',
+        accept: '.xlsx, .xls, .ods'
+      },
+      btn: {
+        btn_1 : '',
+        btn_2 : ''
+      },
+      services: {
+        name: '',
+        method: 'GET'
+      },
+      uploadStatus: {
+        success: {
+          title: '',
+          subTile: '',
+          icon: '',
+          btn: {
+            btn_1: '',
+            btn_2 : ''
+          }
+        },
+        proccess: {
+          title: '',
+          subTile: '',
+          icon: '',
+          btn: {
+            btn_1: '',
+            btn_2 : ''
+          }
+        },
+        error: {
+          title: '',
+          subTile: '',
+          icon: '',
+          btn: {
+            btn_1: '',
+            btn_2 : ''
+          }
+        }
+      }
+    }
+    const dialogRef = this.dialog.open(UploadFileMasiveComponent, {
+      width: '50%',
+      data: data
     });
     dialogRef.afterClosed().subscribe(result => {
     });
