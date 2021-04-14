@@ -17,6 +17,7 @@ import { MaterialModule } from '@app/material.module';
 import { ModalDashboardComponent } from './modal-dashboard/modal-dashboard.component';
 import { QualityIndicatorsComponent } from './quality-indicators/quality-indicators.component';
 import { InfoIndicatorsComponent } from './info-indicators/info-indicators.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
     declarations: [
@@ -39,6 +40,7 @@ import { InfoIndicatorsComponent } from './info-indicators/info-indicators.compo
         MatFormFieldModule,
         MatInputModule,
         MaterialModule,
+        MatTooltipModule
     ],
     entryComponents: [
         ModalDashboardComponent,
