@@ -15,6 +15,7 @@ import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.servi
 import { ModalExportReclaimService } from '../services/modal-export-reclaim.service';
 import { LoadingService } from '@app/core';
 import { DatePipe } from '@angular/common';
+import { SupportService } from '@app/secure/support-modal/support.service';
 
 
 @Component({
@@ -51,6 +52,7 @@ export class ModalExportToReclaimComponent implements OnInit, OnDestroy {
   disabledCheckBox = true;
   clearSearch = false;
   valueCheck = false;
+  getClassification = [];
 
   public lastPost = [
     { valuePost: 1, name: this.translateService.instant('secure.parametize.support_claims-filter.sac_answer') },
@@ -69,9 +71,15 @@ export class ModalExportToReclaimComponent implements OnInit, OnDestroy {
     private storeService?: StoreService,
     public snackBar?: MatSnackBar,
     private formatDate?: DatePipe,
+    public SUPPORT?: SupportService,
   ) { }
 
   ngOnInit() {
+
+    this.SUPPORT.getListClassification().subscribe( resp => {
+      this.getClassification = resp.data;
+    });
+
     this.createForm();
     this.getStatusCase();
     this.validateData();
@@ -111,6 +119,7 @@ export class ModalExportToReclaimComponent implements OnInit, OnDestroy {
       dateFinal: new FormControl(''),
       status: new FormControl(''),
       email: new FormControl('', [Validators.required, Validators.email]),
+      classification: new FormControl('')
     });
   }
 
@@ -173,7 +182,8 @@ export class ModalExportToReclaimComponent implements OnInit, OnDestroy {
       lastPost: '',
       email: '',
       allSeller: '',
-      sellers: []
+      sellers: [],
+      classification: ''
     };
     if (this.form) {
       arraySend.dateInit =  this.formatDate.transform(this.form.controls['dateInitial'].value, 'y-MM-d');
@@ -182,6 +192,7 @@ export class ModalExportToReclaimComponent implements OnInit, OnDestroy {
       arraySend.lastPost = this.form.controls['lastPost'].value;
       arraySend.email = this.form.controls['email'].value;
       arraySend.allSeller = this.form.controls['importAll'].value;
+      arraySend.classification = this.form.controls['classification'].value;
       arraySend.sellers = this.arraySellerId;
     }
     this.modalExportReclaimService.sendEmailExportReclaim(arraySend).subscribe((res: any) => {

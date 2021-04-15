@@ -80,5 +80,14 @@ export class DashboardService {
   public getOrdensSummary(params: any): Observable<any> {
     return this._http.get(this._api.get('ordersSummaryStatus', [params]));
   }
+/**
+ * funcion para consumir el servicio de indicadores de calidad
+ *
+ * @returns {Observable<any>}
+ * @memberof DashboardService
+ */
+public getIndicators(params: any): Observable<any> {
+    return this._http.get(this._api.get('getIndicators', [params]));
+  }
 
 }

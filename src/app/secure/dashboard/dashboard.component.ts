@@ -115,6 +115,12 @@ export class DashboardComponent implements OnInit {
     public topProduct= [];
     public promedTicket = '0';
 
+    public paramsIndicators = {
+        idSeller : null,
+        consult: true,
+        type: 'seller'
+      };
+
     /**
      * Variable para observar el input del filtro inicial
      * @memberof FilterComponent

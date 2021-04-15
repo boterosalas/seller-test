@@ -21,6 +21,7 @@ import { SellerSupportCenterService } from './services/seller-support-center.ser
 import { CaseSupportCenterService } from './services/case-support-center.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalExportToReclaimComponent } from './modal-export-to-reclaim/modal-export-to-reclaim.component';
+import { InfoModalSupportComponent } from './info-modal-support/info-modal-support.component';
 
 @NgModule({
   imports: [
@@ -36,11 +37,12 @@ import { ModalExportToReclaimComponent } from './modal-export-to-reclaim/modal-e
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [ListOfCaseComponent, DetailCaseComponent, ModalExportToReclaimComponent],
+  declarations: [ListOfCaseComponent, DetailCaseComponent, ModalExportToReclaimComponent, InfoModalSupportComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   providers: [SellerSupportCenterService, CaseSupportCenterService],
   entryComponents: [
-    ModalExportToReclaimComponent
+    ModalExportToReclaimComponent,
+    InfoModalSupportComponent
   ]
 })
 export class SellerSupportCenterModule {}

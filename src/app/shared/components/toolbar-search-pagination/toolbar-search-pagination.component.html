@@ -42,9 +42,39 @@
       </form>
     </div>
   </div>
-  <div fxFlex.xs="100" fxFlex.sm="300px" fxFlex fxLayoutAlign="end start"
-    [hidden]="_showContainerDetail">
-    <mat-paginator [ngClass]="{'hidden-pagination': orderListLength == true}"
+  <div fxFlex fxShow.xs="true" fxLayoutAlign="center start"
+    class="center-search-orden" *ngIf="_showSearchSeller">
+    <div *ngIf="_Typeprofile == 1" class="width-100">
+      <form id="search-store-form" class="search-store mat-typography width-100-important"
+         (keydown)="keyDownFunction($event)">
+        <mat-form-field class="input-search">
+          <!-- Icon search -->
+          <mat-icon id="icon-search-store" class="icon-search" matPrefix>search</mat-icon>
+          <!-- Input search -->
+          <input id="input-search-store" class="search-store-input
+            input-search-black" type="search"
+            (ngModelChange)="whatchValueInput($event)" matInput
+            [formControl]="textForSearch" [matAutocomplete]="auto">
+        </mat-form-field>
+
+        <!-- Autocomplete -->
+        <mat-autocomplete autoActiveFirstOption class="auto-complete"
+          #auto="matAutocomplete">
+          <mat-option id="option-search-store-number-{{position}}"
+            (click)="viewStoreInformation(option)"
+            class="autocomplete-list" *ngFor="let option of filteredOptions |
+            async; let position= index"
+            [value]="option.Name">
+            <mat-icon>store</mat-icon>
+            {{option.Name}}
+          </mat-option>
+        </mat-autocomplete>
+      </form>
+    </div>
+  </div>
+  <div fxFlex.xs="100" fxFlex.sm="300px" fxFlex fxLayoutAlign="end start">
+    <div [hidden]="_showContainerDetail">
+      <mat-paginator [ngClass]="{'hidden-pagination': orderListLength == true}"
       class="order-pagination" fxFlex.xs="100%"
       fxFlex.sm="300px" fxFlex.md="auto" fxFlex.lg="400px" fxFlex.xl="400px"
       class="paginator-style orders-paginate"
@@ -170,5 +200,6 @@
       <mat-icon>filter_list</mat-icon>
       {{'filters.filter' | translate}}
     </button>
+    </div>
   </div>
 </div>
