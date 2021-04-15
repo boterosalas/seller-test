@@ -1,0 +1,42 @@
+<div class="content-order my-content">
+<div class="container" fxLayout="row wrap" fxLayoutAlign="center start">
+    <div fxFlex="100" class="light-content">
+    <!-- Toolbar para los dropdown de filtro de estado para las órdenes -->
+    <!-- Toolbar de las opciones para la orden -->
+    <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [idSeller]="idSeller" [Typeprofile] = "typeProfile" ></app-toolbar-options>
+    <!-- Toolbar de las opciones para la orden -->
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="end end" class="button-pos">
+    <button class="btn-transparent" mat-stroked-button color="primary" (click)="chargeFraud()">{{'secure.reports.notification.fraud.charge-fraud' | translate}}</button>
+  </div>
+
+  <div fxFlex.xs="93%" fxFlex.sm="95" fxFlex.md="95" fxFlex.lg="95" fxFlex.xl="95" class="content-table-orders">
+    <table mat-table [dataSource]="dataSource">
+
+        <!-- name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>{{'shared.name'| translate}}  </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+        
+        <!-- creation data Column -->
+        <ng-container matColumnDef="creationDate">
+            <th mat-header-cell *matHeaderCellDef>{{'secure.parametize.support_drop-down-creation-date' | translate}}  </th>
+            <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+        </ng-container>
+        
+        <!-- fileDownload Column -->
+        <ng-container matColumnDef="fileDownload">
+            <th mat-header-cell *matHeaderCellDef>{{'core.shell.search_order_menu.search_fraud_notification_downloadFile'| translate}}  </th>
+            <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+  </div>
+  
+</div>
+</div>

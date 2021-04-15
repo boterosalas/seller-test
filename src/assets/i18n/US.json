@@ -49,6 +49,7 @@
     "menu.Cargar guías": "Upload tracking numbers",
     "menu.Menu": "Menu",
     "menu.Reporte de ofertas": "Active offers reports",
+    "menu.Notificación de Fraudes": "Fraud Notification",
     "menu.Historico de devoluciones": "Historical devolution",
     "menu.Ciudades con Cobertura": "Cities with Coverage",
     "menu.Calificación de Vendedores": "Quality Score",
@@ -305,6 +306,8 @@
     "core.shell.search_order_menu.search_envios_exito_form.digital_catalog": "Digital Catalog",
     "core.shell.search_order_menu.search_envios_exito_form.filter_by_number": "Filter by order number",
     "core.shell.search_order_menu.search_envios_exito_form.filter_by_id": "Filter by client ID",
+    "core.shell.search_order_menu.search_fraud_notification_nameFile": "File Name",
+    "core.shell.search_order_menu.search_fraud_notification_downloadFile": "File to download",
 
     "core.shell.search_order_menu.search_order_form.from": "From",
     "core.shell.search_order_menu.search_order_form.to": "To",
@@ -1402,6 +1405,7 @@
 
     "secure.reports.report-vtex.download-modal-vtex-ts.ok":"Request sent successfully. In a few minutes you will receive an email with the requested file.",
 
+
     "secure.quality.quality-score.quality" :"Quality",
     "secure.quality.quality-score.qualityMonth" :"Quality month",
     "secure.quality.quality-score.qualityIssued" :"Quality issued",
@@ -1478,5 +1482,6 @@
     "quality.indicators.indicator_not_available": "Information temporarily unavailable",
     "quality.indicators.bar_green": "Exceeds target",
     "quality.indicators.bar_orange": "Adjusts to target",
-    "quality.indicators.bar_red": "Alert! Degraded indicator"
+    "quality.indicators.bar_red": "Alert! Degraded indicator",
+    "secure.reports.notification.fraud.charge-fraud": "CHARGE FRAUDS"
 }

@@ -1,0 +1,36 @@
+.content-order {
+
+    height: 105vh;
+
+    table{
+        width: 100%;
+        margin-bottom: 30px;
+        th{
+            font-weight: bold;
+            width: 33%;
+        }
+    }
+
+    & .mat-table {
+        overflow: auto;
+      }
+    
+  & .container {
+    min-width: 300px;
+    max-height: 500px;
+    flex-direction: column;
+    display: flex;
+    padding: 0 0 200px;
+  }
+
+  .button-pos{
+    margin-top: 30px;
+    width: 100%;
+    padding: 0px 50px;
+  }
+
+}
+
+
+
+

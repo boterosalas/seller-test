@@ -48,6 +48,7 @@
     "menu.Cargar guías": "Upload tracking numbers",
     "menu.Menu": "Menu",
     "menu.Reporte de ofertas": "Active offers reports",
+    "menu.Notificación de Fraudes": "Notification de fraude",
     "menu.Historico de devoluciones": "Historical devolution",
     "menu.Ciudades con Cobertura": "Cities with Coverage",
     "menu.Calificación de Vendedores": "Quality Score",
@@ -304,6 +305,8 @@
     "core.shell.search_order_menu.search_envios_exito_form.digital_catalog": "Digital Catalog",
     "core.shell.search_order_menu.search_envios_exito_form.filter_by_number": "Filter by order number",
     "core.shell.search_order_menu.search_envios_exito_form.filter_by_id": "Filter by client ID",
+    "core.shell.search_order_menu.search_fraud_notification_nameFile": "Nom de fichier",
+    "core.shell.search_order_menu.search_fraud_notification_downloadFile": "Fichier à télécharger",
 
     "core.shell.search_order_menu.search_order_form.from": "From",
     "core.shell.search_order_menu.search_order_form.to": "To",
@@ -1455,5 +1458,6 @@
     "quality.indicators.indicator_not_available": "Information temporairement indisponible",
     "quality.indicators.bar_green": "Astrid Dépasse l'objectif",
     "quality.indicators.bar_orange": "S'adapte à la cible",
-    "quality.indicators.bar_red": "Alerte ! Indicateur dégradé"
+    "quality.indicators.bar_red": "Alerte ! Indicateur dégradé",
+    "secure.reports.notification.fraud.charge-fraud": "CHARGE DES FRAUDES"
 }

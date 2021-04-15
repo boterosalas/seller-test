@@ -48,6 +48,7 @@
     "menu.Cargar guías": "Cargar guías",
     "menu.Menu": "Menú",
     "menu.Reporte de ofertas": "Reporte de ofertas",
+    "menu.Notificación de Fraudes": "Notificación de Fraudes",
     "menu.Reporte de errores en VTEX": "Reporte de errores en VTEX",
     "menu.Historico de devoluciones": "Histórico de devoluciones",
     "menu.Ciudades con Cobertura": "Ciudades con Cobertura",
@@ -315,6 +316,8 @@
     "core.shell.search_order_menu.search_envios_exito_form.digital_catalog": "Catálogos Virtuales",
     "core.shell.search_order_menu.search_envios_exito_form.filter_by_number": "Filtrar por número de pedido",
     "core.shell.search_order_menu.search_envios_exito_form.filter_by_id": "Filtrar por cédula del cliente",
+    "core.shell.search_order_menu.search_fraud_notification_nameFile": "Nombre del archivo",
+    "core.shell.search_order_menu.search_fraud_notification_downloadFile": "Archivo para descarga",
 
     "core.shell.search_order_menu.search_order_form.from": "Desde",
     "core.shell.search_order_menu.search_order_form.to": "Hasta",
@@ -1521,5 +1524,6 @@
     "quality.indicators.indicator_not_available": "Información no disponible temporalmente",
     "quality.indicators.bar_green": "Supera objetivo",
     "quality.indicators.bar_orange": "Se ajusta al objetivo",
-    "quality.indicators.bar_red": "Alerta! Indicador degradado"
+    "quality.indicators.bar_red": "Alerta! Indicador degradado",
+    "secure.reports.notification.fraud.charge-fraud": "CARGAR FRAUDES"
 }

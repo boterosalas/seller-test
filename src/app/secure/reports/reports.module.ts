@@ -12,6 +12,9 @@ import { DownloadModalErrorVtexComponent } from './report-errors-vtex/download-m
 import { ReportCommissionComponent } from './report-commission/report-commission.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { ReportDispersionComponent } from './report-dispersion/report-dispersion.component';
+import { FraudNotificationComponent } from './fraud-notification/fraud-notification.component';
+import { UploadFraudComponent } from './fraud-notification/components/upload-fraud/upload-fraud.component';
+
 
 @NgModule({
     imports: [
@@ -30,13 +33,16 @@ import { ReportDispersionComponent } from './report-dispersion/report-dispersion
         DownloadModalErrorVtexComponent,
         ReportCommissionComponent,
         ReportDispersionComponent,
+        FraudNotificationComponent,
+        UploadFraudComponent,
     ],
     exports: [
         ReportOffertComponent
     ],
     entryComponents: [
         DownloadModalOffertReportComponent,
-        DownloadModalErrorVtexComponent
+        DownloadModalErrorVtexComponent,
+        UploadFraudComponent
     ],
     providers: [
         ReportOffertService
