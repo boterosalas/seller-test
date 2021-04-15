@@ -10,11 +10,11 @@
 </mat-dialog-content>
 <mat-dialog-actions align="center">
   <button mat-stroked-button color="primary" *ngIf="cancelButtonText"
-    style="border-color: #485AFA; width: 129px; height: 37px;" (click)="onNoClick()">
+    class="buttonCancel" (click)="onNoClick()">
     {{cancelButtonText}}</button>
   <button mat-raised-button color="primary" *ngIf="closeButtonText"
-    style="border-color: #485AFA; width: 129px; height: 37px;" (click)="onNoClick()">
+    class="buttonCancel" (click)="onNoClick()">
     {{cancelButtonText}}</button>
   <button mat-raised-button color="primary" *ngIf="confirmButtonText"
-    style="border-color: #485AFA; width: initial; height: 37px; min-width: 129px" (click)="sendDataPatch()">{{confirmButtonText}}</button>
+    class="buttonConfirm" (click)="sendDataPatch()">{{confirmButtonText}}</button>
 </mat-dialog-actions>

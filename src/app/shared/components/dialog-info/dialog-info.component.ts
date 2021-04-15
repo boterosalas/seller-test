@@ -33,19 +33,29 @@ export class DialogInfoComponent implements OnInit {
 
   ngOnInit() {
     this.setTextDialog();
-    console.log('this.dataInfo: ', this.dataInfo);
   }
 
+  /**
+   * Boton cancelar o cerrar, cierra modal, envía false
+   * @memberof DialogInfoComponent
+   */
   onNoClick(): void {
     this.dialogRef.close(false);
   }
 
+  /**
+   * Boton confirmacion, cierra modal, envía true
+   * @memberof DialogInfoComponent
+   */
   onConfirmClick(): void {
     this.dialogRef.close(true);
   }
 
+  /**
+   * Seteo variables del modal
+   * @memberof DialogInfoComponent
+   */
   setTextDialog() {
-    console.log(this.dataInfo);
     if (this.dataInfo) {
       this.icon = this.dataInfo.icon || null;
       this.title = this.dataInfo.title || null;
@@ -59,12 +69,14 @@ export class DialogInfoComponent implements OnInit {
     }
   }
 
+  /**
+   * Servicio Path abre modal cargando
+   * @memberof DialogInfoComponent
+   */
   sendDataPatch() {
     this.loadingService.viewSpinner();
-    console.log(this.dataToSend);
     this.listModalService.servicePatch(this.name, this.dataToSend).subscribe(res => {
       this.onConfirmClick();
-      console.log(33, res);
     });
   }
 

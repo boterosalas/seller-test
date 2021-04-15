@@ -208,7 +208,6 @@ export class ListComponent implements OnInit {
           this.numberPages = Math.ceil(this.numberPages);
           this.totalOffers = response.total;
           this.listOffer = response.sellerOfferViewModels;
-          console.log('this.listOffer: ', this.listOffer);
           this.addDomainImages();
           this.loadingService.closeSpinner();
           this.setCheckedTrue();
@@ -352,7 +351,6 @@ export class ListComponent implements OnInit {
    * @memberof ListComponent
    */
   onvalueCheckdesactiveChanged(statusOffer: any) {
-    console.log('statusOffer: ', statusOffer);
     statusOffer.checked = !statusOffer.checked;
     this.sumItemCount = 0;
     this.listOffer.forEach(item => {
@@ -373,7 +371,6 @@ export class ListComponent implements OnInit {
    * @memberof ListComponent
    */
   setCheckedTrue() {
-    console.log('this.listToSend: ', this.listToSend);
     this.listToSend.forEach(res => {
       this.listOffer.forEach(result => {
         if (result.ean === res) {

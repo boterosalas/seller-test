@@ -264,7 +264,6 @@ export class ListProductsComponent implements OnInit {
     countPlu(event: any) {
         this.infoSelected = event;
         this.modelObject();
-        console.log('this.modelDelete: ', this.modelDelete);
     }
 
     /**
@@ -295,7 +294,6 @@ export class ListProductsComponent implements OnInit {
             data: this.dataDialog
         });
         dialogRef.afterClosed().subscribe(result => {
-            console.log(55, result);
             if (result === true) {
                 this.setIntervalStatusDelete();
             } else {
@@ -321,7 +319,6 @@ export class ListProductsComponent implements OnInit {
     setIntervalStatusDelete() {
         clearInterval(this.checkIfDoneCharge);
         this.checkIfDoneCharge = setInterval(() => this.productsService.verifyStatusDelete().subscribe((res) => {
-            console.log(res);
             this.verifyStateCharge(res);
         }), 7000);
     }
@@ -333,7 +330,6 @@ export class ListProductsComponent implements OnInit {
      * @memberof ListProductsComponent
      */
     verifyStateCharge(result?: any) {
-        console.log(result);
         this.loadingService.closeSpinner();
         if (result) {
             if (result.body.data.response) {

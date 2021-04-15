@@ -29,7 +29,6 @@ export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
   public _listProduct: any;
   @Input() set productsList(value: any) {
     if (value) {
-      console.log(value);
       this._listProduct = value;
       this.setCheckedTrue();
     }
@@ -67,7 +66,6 @@ export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
 
     if (this.activeCheck === true) {
       this.listToSend.forEach(res => {
-        console.log(res);
         this._listProduct.forEach(result => {
           if (result.pluVtex === res) {
             result['checked'] = true;
@@ -76,10 +74,7 @@ export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
       });
     } else {
       this.listToSend = [];
-      // this._listProduct = [];
     }
-    console.log(55, this.listToSend);
-    console.log(44, this._listProduct);
   }
 
   /**
@@ -91,7 +86,6 @@ export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
     statusOffer.checked = !statusOffer.checked;
     this.sumItemCountProduct = 0;
     this.listToSend = [];
-    console.log('this.listToSend: ', this.listToSend);
     this._listProduct.forEach(item => {
       if (item.checked) {
         this.listToSend.push(item.pluVtex);

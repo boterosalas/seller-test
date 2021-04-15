@@ -27,12 +27,14 @@
     justify-content: flex-start;
     width: 100%;
     padding-left: 20px;
-    p{
+
+    p {
       margin: 0;
       color: $color-black;
       font-size: 18px;
       line-height: 21px;
       font-weight: bold;
+
       small {
         color: $color-gray1;
         font-weight: normal;
@@ -42,7 +44,7 @@
   }
 }
 
-.notFixed{
+.notFixed {
   position: relative;
 }
 
@@ -89,7 +91,7 @@
   }
 }
 
-.hide-page{
+.hide-page {
   @media only screen and (max-width: 600px) {
     display: none;
   }
@@ -151,35 +153,50 @@
   position: relative;
 }
 
-.disabledIconAddKeyCategoryFilter{
+.disabledIconAddKeyCategoryFilter {
   pointer-events: none;
 }
 
-// :host ::ng-deep {
-//   .cdk-overlay-connected-position-bounding-box{
-//     top: 256.562px;
-//   }
-//   .mat-menu-panel{
-//     width: 300px ;
-//     color: blue ;
-//     box-shadow: none ;
-//     border-width: 1px ;
-//     border-style: solid ;
-//   }
-// }
 
 .customizeActions {
-  color: blue ;
-    box-shadow: none ;
-    border-width: 1px ;
-    border-style: solid ;
-    width: 300px
+  color: blue;
+  box-shadow: none;
+  border-width: 1px;
+  border-style: solid;
+  width: 300px
 }
 
-// ::ng-deep .mat-menu-content{
-//   box-shadow: none;
-//     border-width: 1px;
-//     border-style: solid;
-//     width: 277px;
-//     color: blue;
-// }
+.allContainer {
+  height: auto;
+}
+
+.divDelete {
+  margin-top: 2%;
+  width: 95%;
+  text-align: right
+}
+
+.buttonDelete {
+  border-color: #485AFA;
+  width: 280px;
+  height: 37px;
+}
+
+.buttonSelected {
+  color: #485AFA;
+  font-family: Arial;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.buttonSelectedSome {
+  background-color: #485AFA;
+  width: 280px;
+  height: 37px;
+  & span {
+    color: white;
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 12px;
+  }
+}
