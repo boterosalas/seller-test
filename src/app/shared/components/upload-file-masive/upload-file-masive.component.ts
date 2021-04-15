@@ -91,15 +91,15 @@ export class UploadFileMasiveComponent implements OnInit {
           data.forEach(categories => {
             this.json.push(
               {
-                'Commission': categories[0],
-                'IdParent': categories[1],
+                'Id': categories[0] ? parseInt(categories[0], 0)  : null,
+                'ProductType': categories[1],
                 'Name': categories[2],
-                'ProductType': categories[3],
+                'Commission': categories[3],
                 'IdVTEX': categories[4],
-                'Tariff': categories[5],
-                'TariffCode': categories[6],
-                'VtexIdCarulla': categories[7],
-                'Id': categories[8]
+                'VtexIdCarulla': categories[5],
+                'IdParent': categories[6] ? parseInt(categories[6], 0) : null,
+                'TariffCode': categories[7],
+                'Tariff': categories[8],
               }
             );
           });
