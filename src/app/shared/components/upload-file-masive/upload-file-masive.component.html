@@ -26,8 +26,33 @@
           fxLayoutAlign="center center"
           [class.invalid-drag]="validComboDrag===false"
           [class.valid-drag]="validComboDrag"
-          (filesChange)="lastFileAt=getDate(); validateOneFile()">
-          <strong *ngIf="files?.length && !lastInvalids?.length">{{files[files.length
+          (filesChange)="lastFileAt=getDate(); resetFiles(files, file)">
+          <mat-icon class="material-icons" *ngIf="_fileAux === null &&
+            !lastInvalids?.length && !_filesAux?.length">
+            note_add
+          </mat-icon>
+          <mat-icon class="material-icons check" *ngIf="_fileAux !== null &&
+            !lastInvalids?.length && !refuseMaxSize">
+            check_circle {{_filesAux.length}}
+          </mat-icon>
+          <mat-icon class="material-icons error"
+            *ngIf="lastInvalids?.length || _filesAux.length > 1 || refuseMaxSize">
+            not_interested
+          </mat-icon>
+          <div>
+            <div *ngIf="_fileAux !== null && !lastInvalids?.length && !refuseMaxSize">
+              <span style="color: #757474; font-size:14px">
+                {{_fileAux.name}} - {{_fileAux.size/1024/1024 | number:'.2' }} MB
+              </span>
+            </div>
+            <div *ngIf="refuseMaxSize">
+              <span style="color: #757474; font-size:14px">
+                El archivo no puede superar los 7 Megabytes
+              </span>
+            </div>
+          </div>
+
+          <!-- <strong *ngIf="files?.length && !lastInvalids?.length">{{files[files.length
             - 1].name}} -
             {{ files[files.length - 1].size/1024/1024 | number:'.2' }} MB</strong>
           <strong *ngIf="lastInvalids?.length && lastInvalids.length ?
@@ -49,13 +74,13 @@
           <mat-icon class="material-icons error"
             *ngIf="lastInvalids?.length">
             not_interested
-          </mat-icon>
-          <div fxLayout="column" fxLayoutAlign="center center">
+          </mat-icon> -->
+          <!-- <div fxLayout="column" fxLayoutAlign="center center">
             <span class="modal-load-agreement-text-btn-file-margin-top"
               style="color: #485AFA; font-size: 14px;">
               Archivo/Anexo
             </span>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { HttpEvent } from '@angular/common/http';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-upload-file-masive',
@@ -17,7 +18,7 @@ export class UploadFileMasiveComponent implements OnInit {
   httpEmitter: Subscription;
   httpEvent: HttpEvent<Event>;
   lastFileAt: Date;
-  maxSize = 3145728;
+  maxSize = 10145728;
   lastInvalids: any;
   dataToSend: any;
   showProgress = false;
@@ -25,6 +26,10 @@ export class UploadFileMasiveComponent implements OnInit {
   dragFiles = true;
   file = null;
   arraySend = [];
+  refuseMaxSize= false;
+
+  _filesAux: File[] = [];
+  _fileAux = null;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -42,6 +47,43 @@ export class UploadFileMasiveComponent implements OnInit {
    */
    public getDate(): Date {
     return new Date();
+  }
+
+  validateFormatInvalidate(validate: any) {
+    console.log(validate);
+  }
+
+
+  resetFiles(files: any, file: any) {
+    if (!isNullOrUndefined(file)) {
+      this._filesAux = [];
+      this._fileAux = file;
+      const size = parseFloat(((file.size) / 1024 / 1024).toFixed(3));
+      if (size < 7.000) {
+        this.refuseMaxSize = false;
+      } else {
+        this.refuseMaxSize = true;
+      }
+    }
+
+    if (files && files.length > 0) {
+        if (files.length > 1) {
+          this._fileAux = null;
+          this._filesAux = files;
+        } else {
+          this._fileAux = files[0];
+          this._filesAux = [];
+          const size = parseFloat(((this._fileAux.size) / 1024 / 1024).toFixed(3));
+          if (size < 7.000) {
+            this.refuseMaxSize = false;
+          } else {
+            this.refuseMaxSize = true;
+          }
+        }
+    }
+    this.file = null;
+    this.files = [];
+    console.log(this._fileAux);
   }
 
 }

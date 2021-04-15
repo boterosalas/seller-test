@@ -326,6 +326,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     this.resetVariableUploadFile();
     /*2. Capturo los datos del excel*/
     this.readFileUpload(evt).then(data => {
+      console.log(evt);
       /*3. Valido los datos del excel*/
       this.validateDataFromFile(data, evt);
       this.resetUploadFIle();
@@ -390,6 +391,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
    */
   validateDataFromFile(res: any, file: any) {
 
+    console.log(res);
+    console.log(file);
     /*
     *if Valido si la cantidad de carga permitidas por día es menor o igual a 0
     *else if Valido que la cantidad de cargas permitidas por día sea mayor a 0
