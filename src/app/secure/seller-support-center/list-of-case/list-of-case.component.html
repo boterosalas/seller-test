@@ -80,15 +80,37 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+
           <mat-form-field class="filter-form--field">
-            <input matInput
-              [placeholder]="translateService.instant('secure.parametize.support_claims-filter.orderNumber')"
-              formControlName="OrderNumber" name="orderNumber" />
-            <mat-hint></mat-hint>
-            <mat-error *ngIf="filterListCases.get('OrderNumber').hasError('pattern')">
-              {{'secure.parametize.support_claims.list.error.orderNumber' | translate}}
-            </mat-error>
-          </mat-form-field>
+          <mat-select id="suport-modal-input-reason" formControlName="classification"
+          [placeholder]="'secure.parametize.support_drop-down-reason-detail' | translate">
+          <ng-container *ngFor="
+              let item of getClassification;
+              let i = index
+            ">
+            <mat-option [value]="item.idMatrix">
+              <span id="{{ item.category }} - {{ i }}">
+                {{
+                  item.category != null
+                    ? item.category
+                    : "Sin título"
+                }}
+              </span>
+            </mat-option>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="filter-form--field">
+        <input matInput
+          [placeholder]="translateService.instant('secure.parametize.support_claims-filter.orderNumber')"
+          formControlName="OrderNumber" name="orderNumber" />
+        <mat-hint></mat-hint>
+        <mat-error *ngIf="filterListCases.get('OrderNumber').hasError('pattern')">
+          {{'secure.parametize.support_claims.list.error.orderNumber' | translate}}
+        </mat-error>
+      </mat-form-field>
+      
         </div>
         <div class="filter-control">
           <button mat-stroked-button color="primary" type="button" (click)="cleanFilter()">
@@ -139,6 +161,75 @@
 
   <ng-template [ngIf]="cases">
     <div *ngIf="!idDetail">
+      <!-- Headers para tipo perifl seller -->
+      <div matSort (matSortChange)="sortData($event)" class="sh-list-header-header" fxLayout="row" fxLayout.xs="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+        fxLayoutGap.xs="0" *ngIf="hideHeader === true">
+        <div fxFlex="5%" class="sh-list-header-header--item-header-none">&nbsp;</div>
+
+        <div class="sh-list-header-header--item-header" id="sh-list-header-drop-down-menu-ID" [fxFlex]="2*  5 | flexSize" [fxFlex.xs]="5*  5 | flexSize">
+          {{"secure.parametize.support_drop-down-menu-ID" | translate}}
+        </div>
+
+        <div class="sh-list-header-header--item-header sh-list-header-header--marginleft" id="sh-list-header-drop-down-menu-order-numer"
+          [fxFlex]="3*  5 | flexSize" [fxFlex.xs]="10*  5 | flexSize">
+          {{"secure.parametize.support_drop-down-order-numer" | translate}}
+        </div>
+
+        <div class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-menu-reason-detail"
+          [fxFlex]="6*  5 | flexSize">
+          {{"secure.parametize.support_drop-down-reason-detail" | translate}}
+        </div>
+
+        <div  mat-sort-header="createDate" class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-creation-date"
+          [fxFlex]="3*  5 | flexSize">
+          {{"secure.parametize.support_drop-down-creation-date" | translate}}
+        </div>
+
+        <div class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-status" [fxFlex]="2*  5 | flexSize">
+          {{"secure.parametize.support_drop-down-status" | translate}}
+        </div>
+
+        <div class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-reply" [fxFlex]="2*  5 | flexSize">
+          {{"secure.parametize.support_drop-down-reply" | translate}}
+        </div>
+
+        <div mat-sort-header="lastReply" class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-last-reply" [fxFlex]="4*  5 | flexSize">
+          {{"secure.parametize.support_drop-down-last-reply" | translate}}
+        </div>
+      </div>
+
+      <!-- Headers para tipo perifl administrator -->
+      <div matSort (matSortChange)="sortData($event)" class="sh-list-header-header" fxLayout="row" fxLayout.xs="row" fxLayoutAlign="center center" fxLayoutGap="10px"
+      fxLayoutGap.xs="0" *ngIf="hideHeader === false">
+      
+      <div fxFlex="5%" class="sh-list-header-header--item-header-none">&nbsp;</div>
+      <div class="sh-list-header-header--item-header paddingLeft" id="sh-list-header-drop-down-menu-ID" [fxFlex]="2*  5 | flexSize" [fxFlex.xs]="8*  5 | flexSize">
+        {{"secure.parametize.support_drop-down-menu-ID" | translate}}
+      </div>
+
+      <div class="sh-list-header-header--item-header sh-list-header-header--marginleft-admin" id="sh-list-header-drop-down-menu-order-numer"
+        [fxFlex]="3*  5 | flexSize" [fxFlex.xs]="10*  5 | flexSize">
+        {{"secure.parametize.support_drop-down-order-numer" | translate}}
+      </div>
+
+      <div class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-menu-reason-detail"
+        [fxFlex]="4*  5 | flexSize">
+        {{"secure.parametize.support_drop-down-reason-detail" | translate}}
+      </div>
+
+      <div mat-sort-header="createDate" class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-creation-date"
+        [fxFlex]="3*  5 | flexSize">
+        {{"secure.parametize.support_drop-down-creation-date" | translate}}
+      </div>
+
+      <div class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-status" [fxFlex]="4*  5 | flexSize">
+        {{"secure.parametize.support_drop-down-status" | translate}}
+      </div>
+
+      <div mat-sort-header="lastReply" class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-last-reply" [fxFlex]="4*  5 | flexSize">
+        {{"secure.parametize.support_drop-down-last-reply" | translate}}
+      </div>
+      </div>
 
       <app-drop-down-list [data]="cases" [options]="options" [configurations]="headerConfigurations">
 
@@ -155,6 +246,66 @@
                 </span>
               </div>
               <div *ngIf="!item.statusLoad">
+
+                <table mat-table [dataSource]="[item]" class="w-100 hide-mobile table-support">
+
+                  <!--- Note that these columns can be defined in any order.
+                        The actual rendered columns are set as a property on the row definition" -->
+                
+                  <!-- product Column -->
+                  <ng-container matColumnDef="product">
+                    <th mat-header-cell *matHeaderCellDef>  {{'secure.parametize.support.product' | translate}} </th>
+                    <td style="width: 35%;" class="p-rel" mat-cell *matCellDef="let element"> 
+                       
+                      <span class="name" (click)="showThumbnail(element)">
+                        {{element.productName}} 
+                      </span>
+
+                      <mat-icon class="icon" *ngIf="element.productName">image</mat-icon>
+
+                    </td>
+                  </ng-container>
+
+                   <!-- Brand Column -->
+                   <ng-container  matColumnDef="brand">
+                    <th mat-header-cell *matHeaderCellDef> {{'secure.parametize.support.brand' | translate}} </th>
+                    <td mat-cell *matCellDef="let element"> {{element.brand}} </td>
+                  </ng-container>
+
+                    <!-- Sku Column -->
+                    <ng-container  matColumnDef="sku">
+                      <th mat-header-cell *matHeaderCellDef> SKU </th>
+                      <td mat-cell *matCellDef="let element"> {{element.sku}} </td>
+                    </ng-container>
+
+                  <!-- Ean Column -->
+                  <ng-container  matColumnDef="ean">
+                    <th mat-header-cell *matHeaderCellDef> EAN </th>
+                    <td mat-cell *matCellDef="let element"> {{element.ean}} </td>
+                  </ng-container>
+
+                  <!-- Sku vendedor Column -->
+                  <ng-container  matColumnDef="skuseller">
+                    <th mat-header-cell *matHeaderCellDef> {{'secure.orders.order_list.product_order.sku_seller' | translate}}  </th>
+                    <td mat-cell *matCellDef="let element"> {{element.sellerSku}} </td>
+                  </ng-container>
+
+                  <!-- price Column -->
+                  <ng-container  matColumnDef="price">
+                    <th mat-header-cell *matHeaderCellDef> {{'secure.parametize.support.sell_price' | translate}}</th>
+                    <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+                  </ng-container>
+                
+                  <!-- Quantity Column -->
+                  <ng-container  matColumnDef="quantity">
+                    <th mat-header-cell *matHeaderCellDef> {{'secure.parametize.support.quantity' | translate}}  </th>
+                    <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+                  </ng-container>
+                
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
                 <app-case-summary (clickResponse)="onEmitResponse($event)" [_case]="item" (idDetail)="redirectToDetailClaims($event)"
                 [disabledClass]="item.status === 'Cerrado'" [indexParent]="i"></app-case-summary>
               </div>

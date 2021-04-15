@@ -29,8 +29,6 @@ import { ContentDropDownBoxDirective } from './components/drop-down-box/content-
 import { DropDownListComponent } from './components/drop-down-list/drop-down-list.component';
 import { BasicCardComponent } from './components/basic-card/basic-card.component';
 import { PreviewListCardComponent } from './components/preview-list-card/preview-list-card.component';
-import { FlexSizePipe } from './components/drop-down-list-header/flex-size.pipe';
-import { DropDownListHeaderComponent } from './components/drop-down-list-header/drop-down-list-header.component';
 import { CaseSummaryComponent } from './components/case-summary/case-summary.component';
 import { ItemDropDownListDirective } from './components/drop-down-list/content-drop-down-list.directive';
 import { ConversationComponent } from './components/conversation/conversation.component';
@@ -51,6 +49,8 @@ import { ContentDropDownDetailOrderDirective } from '@app/secure/orders/orders-l
 import { ModalDonwloadEmailComponent } from './components/modal-donwload-email/modal-donwload-email.component';
 import { DialogInfoComponent } from './components/dialog-info/dialog-info.component';
 import { ListModalService } from './components/dialog-info/dialog-ingo.component.service';
+import { FlexSizePipe } from './pipes/flex-size.pipe';
+
 
 export function createTranslateLaoder(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -90,7 +90,6 @@ export function createTranslateLaoder(http: HttpClient) {
     BasicCardComponent,
     PreviewListCardComponent,
     FlexSizePipe,
-    DropDownListHeaderComponent,
     CaseSummaryComponent,
     ItemDropDownListDirective,
     ConversationComponent,
@@ -108,6 +107,7 @@ export function createTranslateLaoder(http: HttpClient) {
     DialogInfoComponent
   ],
   exports: [
+    FlexSizePipe,
     MaterialModule,
     ToolbarOptionsModule,
     CdkDetailRowDirective,
@@ -129,7 +129,6 @@ export function createTranslateLaoder(http: HttpClient) {
     CaseFilterComponent,
     ContentDropDownBoxDirective,
     DropDownListComponent,
-    DropDownListHeaderComponent,
     ItemDropDownListDirective,
     CaseSummaryComponent,
     ConversationComponent,

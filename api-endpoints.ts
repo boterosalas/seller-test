@@ -176,7 +176,6 @@ export const endpoints = {
       getAllCase: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/casesfilteredpaged',
       getCase: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/get-case',
       patchCaseResponse: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/respondcasefollow',
-      patchReadCase: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/readcase',
       getUnreadCase: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/unreadscount',
       exceptionBrandsManage: '',
       // Reporte de ofertas administrator
@@ -191,6 +190,8 @@ export const endpoints = {
       exceptionComissionBrand: 'https://n2o5al9s59.execute-api.us-east-1.amazonaws.com/dev/{params}',
       // Classification of cases
       getCaseCategories: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/get-case-categories',
+      // Classification of cases
+      getListCaseCategories: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/get-case-categories?isSeller=true',
       // Obtener calificacion de vendedores
       getSellerRating: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller/{params}',
       // Eliminar calificacion de un vendedor
@@ -314,7 +315,9 @@ export const endpoints = {
       // ELiminar productos vendedor
       deleteProduct: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/disassociateproductfrommyproductsasync',
       // Mirar estado batch carga eliminar productos
-      getStatusDeleteProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/getstatusdisassociateproducts'
+      getStatusDeleteProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/getstatusdisassociateproducts',
+      // Captura de indicadores
+      getIndicators: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller/getindicatorsbynit/{params}'
     },
   },
   // Endpoints production
@@ -488,7 +491,6 @@ export const endpoints = {
       getAllCase: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/casesfilteredpaged',
       getCase: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/get-case',
       patchCaseResponse: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/respondcasefollow',
-      patchReadCase: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/readcase',
       getUnreadCase: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/unreadscount',
       exceptionBrandsManage: '',
       // Reporte de ofertas administrator
@@ -503,6 +505,8 @@ export const endpoints = {
       exceptionComissionBrand: 'https://716x1nqplg.execute-api.us-east-1.amazonaws.com/comsexcep-pdn/{params}',
       // Classification of cases
       getCaseCategories: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/get-case-categories',
+      // Classification of cases 2
+      getListCaseCategories: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/get-case-categories?isSeller=true',
       // Obtener calificacion de vendedores
       getSellerRating: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller/{params}',
       // Eliminar calificacion de un vendedor
@@ -626,7 +630,9 @@ export const endpoints = {
       // ELiminar productos vendedor
       deleteProduct: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/disassociateproductfrommyproductsasync',
       // Mirar estado batch carga eliminar productos
-      getStatusDeleteProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/getstatusdisassociateproducts'
+      getStatusDeleteProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/getstatusdisassociateproducts',
+      // Captura de indicadores
+      getIndicators: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller/getindicatorsbynit/{params}'
     }
   }
 };

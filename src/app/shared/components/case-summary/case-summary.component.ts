@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material';
 import { ProductsCaseDialogComponent } from '../products-case-dialog/products-case-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
 import { CaseSupportCenterService } from '@app/secure/seller-support-center/services/case-support-center.service';
+import { InfoModalSupportComponent } from '@app/secure/seller-support-center/info-modal-support/info-modal-support.component';
 const productsConfig = require('./products-list-configuration.json');
 
 @Component({
@@ -76,7 +77,28 @@ export class CaseSummaryComponent implements OnInit {
     // this.redirecServ.redirectToDetailsServ(caseId, this.case.sellerId);
     this.idDetail.emit(caseId);
   }
+
+      /**
+   * funcion para mostrar el modal del producto
+   *
+   * @param {*} module
+   * @param {*} item
+   * @memberof ListAdminSchoolComponent
+   */
+       showThumbnail(dataProduct: any) {
+        this.dialog.open(InfoModalSupportComponent, {
+          data: {
+            dataProduct
+          },
+          width: '300px',
+          maxWidth: '90vw',
+        });
+        
+      }
+
 }
+
+
 
 export interface Case {
   id: string;
