@@ -49,12 +49,13 @@
         </div>
       </div>
     </div>
-    <div *ngIf="productsExpanded.reference !=='' && productsExpanded.reference !== null" class="container-reference-product">
-      {{'secure.orders.order_list.product_order.reference' | translate}}: {{productsExpanded.reference}}
-    </div> 
+ 
     <div>
       <p class="title divider-two">{{productsExpanded.name}}</p>
     </div>
+    <div *ngIf="productsExpanded.reference !=='' && productsExpanded.reference !== null">
+      {{'secure.orders.order_list.product_order.reference' | translate}}: {{productsExpanded.reference}}
+    </div> 
     <div class="divider-one">
       <p> <span
           class="color-gray">{{'secure.products.create_product_unit.list_products.expanded_product.creation_date' | translate}}:</span>
