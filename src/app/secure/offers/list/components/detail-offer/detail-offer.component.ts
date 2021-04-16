@@ -579,10 +579,13 @@ export class DetailOfferComponent implements OnInit {
   }
 
   prueba() {
-    if (this.formUpdateOffer.controls.Price.value && this.formUpdateOffer.controls.Price.value < this.sellerMinPrice) {
+    console.log(+this.formUpdateOffer.controls.Price.value, Number(this.dataOffer.price), this.sellerMinPrice);
+    if (Number(this.formUpdateOffer.controls.Price.value) < this.sellerMinPrice) {
       this.formUpdateOffer.controls.Price.setErrors({ 'unLess': true });
+    console.log(this.formUpdateOffer);
       return false;
     } else {
+    console.log(this.formUpdateOffer.controls.Price.value, this.dataOffer.price);
       this.formUpdateOffer.controls.Price.setErrors(null);
       return true;
     }
