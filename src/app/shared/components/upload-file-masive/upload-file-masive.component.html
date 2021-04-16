@@ -78,8 +78,12 @@
         </div>
         <div style="text-align: center;">
           <div>
+            {{refuseMaxSize}}
+            {{lastInvalids?.length ? true : false}}
+            {{_fileAux | json}}
+            {{_fileAux === null ? true : false}}
             <button mat-stroked-button color="primary" mat-button (click)="close()" style="margin-right: 5px;margin-top: 29px; width: 150px;">CANCELAR</button>
-            <button mat-raised-button color="primary" style="margin-left: 30px;" (click)="sendUploadCategory()">CARGAR CATEGORÍAS</button>
+            <button mat-raised-button color="primary" style="margin-left: 30px;" (click)="sendUploadCategory()" [disabled]="_fileAux === null ? true : false">CARGAR CATEGORÍAS</button>
           </div>
         </div>
       </div>
