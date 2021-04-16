@@ -167,10 +167,13 @@
             </mat-error>
             <mat-error
               *ngIf="!formUpdateOffer.get('Price').hasError('required') && formUpdateOffer.get('Price').hasError('isLessThanEightThousand')"
-              [innerHTML]="['errors.error_price' | translate]"></mat-error>
+              [innerHTML]="['errors.error_price' | translate] + sellerMinPrice"></mat-error>
+              <mat-error
+              *ngIf="!formUpdateOffer.get('Price').hasError('required') && formUpdateOffer.get('Price').hasError('unLess')"
+              [innerHTML]="['errors.error_price' | translate] + sellerMinPrice"></mat-error>
             <mat-error
               *ngIf="!formUpdateOffer.get('Price').hasError('required') && formUpdateOffer.get('Price').hasError('isLessThanDiscPrice')"
-              [innerHTML]="['errors.error_price_dscto' | translate]"></mat-error>
+              [innerHTML]="['errors.error_price_dscto' | translate] "></mat-error>
             <mat-error
               *ngIf="!formUpdateOffer.get('Price').hasError('required') && formUpdateOffer.get('Price').hasError('notCero')">
               {{'errors.price_cannot_be_0' | translate}}</mat-error>
@@ -184,7 +187,7 @@
               [innerHTML]="['errors.format_invalidate' | translate]">
             </mat-error>
             <mat-error *ngIf="formUpdateOffer.get('DiscountPrice').hasError('isLessThanEightThousand')"
-              [innerHTML]="['errors.error_price_discount' | translate]"></mat-error>
+              [innerHTML]="['errors.error_price_discount' | translate] + sellerMinPrice"></mat-error>
             <mat-error *ngIf="formUpdateOffer.get('DiscountPrice').hasError('isgreaterThanPrice')"
               [innerHTML]="['errors.error_price_discount-2' | translate]"></mat-error>
             <mat-error
