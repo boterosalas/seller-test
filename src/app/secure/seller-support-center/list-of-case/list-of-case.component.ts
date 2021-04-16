@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/co
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { SellerSupportCenterService } from '../services/seller-support-center.service';
 import { ResponseCaseDialogComponent } from '@shared/components/response-case-dialog/response-case-dialog.component';
-import { MatDialog, MatSnackBar, MatPaginatorIntl, ErrorStateMatcher, MatTableDataSource, Sort, MatPaginator } from '@angular/material';
+import { MatDialog, MatSnackBar, MatPaginatorIntl, ErrorStateMatcher, MatTableDataSource, Sort, MatPaginator, MatSort } from '@angular/material';
 import { LoadingService, ModalService } from '@app/core';
 import { Logger } from '@core/util/logger.service';
 import { ActivatedRoute } from '@angular/router';
@@ -72,6 +72,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
   caseId = '';
   public subModalExport: Subscription;
   getClassification = [];
+  disableClear = false;
 
   configDialog = {
     width: '85%',
@@ -141,6 +142,9 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
   public dataSource: MatTableDataSource<any>;
 
   hideHeader:Boolean;
+
+  @ViewChild(MatSort , {static: false}) sort: MatSort;
+
 
   constructor(
     public dialog: MatDialog,
@@ -474,7 +478,11 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
    */
   changePagination(pagination: any) {
 
+    this.sort.sort({id: 'name', start: 'asc', disableClear: false});
+
     const index = pagination.pageIndex;
+
+    this.sortData({active: null, direction: null});
 
     if (index === 0) {
       this.paginationToken = '{}';
@@ -655,6 +663,7 @@ loadDataDetails(item: any) {
    */
 
   sortData(sort: Sort) {
+
     const data = this.cases.slice();
     
     if (!sort.active || sort.direction === '') {
