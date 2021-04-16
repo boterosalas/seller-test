@@ -138,11 +138,11 @@ export class CategoriesComponent implements OnInit {
       services: {
         send : {
           name: 'createUpdateMassiveCategories',
-          method: 'POST'
+          method: 'post'
         },
         status: {
           name: 'ValidateStatusCreateUpdateMassive',
-          method: 'GET'
+          method: 'get'
         }
       },
       uploadStatus: {

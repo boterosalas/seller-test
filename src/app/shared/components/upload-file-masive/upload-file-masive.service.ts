@@ -13,7 +13,11 @@ export class UploadFileMasiveService {
     private api: EndpointService
   ) { }
 
-  createUpdateMassiveCategories(body: any): Observable<any> {
-    return this.http.post(this.api.get('createUpdateMassiveCategories'), body);
+  uploadFile(endPoint: string, method: string , body: any): Observable<any> {
+    return this.http[method](this.api.get(endPoint), body);
+  }
+
+  status(endPoint: string, method: string): Observable<any> {
+    return this.http[method](this.api.get(endPoint));
   }
 }

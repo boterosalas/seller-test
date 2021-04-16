@@ -1,10 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription, timer } from 'rxjs';
 import { HttpEvent } from '@angular/common/http';
 import { isNullOrUndefined } from 'util';
 import * as XLSX from 'xlsx';
 import { UploadFileMasiveService } from './upload-file-masive.service';
+import { switchMap, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-upload-file-masive',
@@ -30,6 +31,7 @@ export class UploadFileMasiveComponent implements OnInit {
   arraySend = [];
   refuseMaxSize = false;
   disabledBtn= true;
+  processFinish$ = new Subject<any>();
 
   limitRowExcel = 1048576;
 
@@ -111,9 +113,22 @@ export class UploadFileMasiveComponent implements OnInit {
               }
             );
           });
-          this.uploadFileMasiveService.createUpdateMassiveCategories(this.json).subscribe(result => {
-            console.log(result);
-
+          this.uploadFileMasiveService.uploadFile(this.data.services.send.name, this.data.services.send.method, this.json).subscribe(result => {
+            if (result && result.statusCode === 200) {
+              if (result.body) {
+                const body = JSON.parse(result.body);
+                if (body && body.Data && body.Data.Data) {
+                  this.uploadFileMasiveService.status(this.data.services.status.name, this.data.services.status.method).subscribe(resultStatus =>{
+                   if (resultStatus && resultStatus.statusCode === 200) {
+                    if (resultStatus.body) {
+                      const bodyStatus = JSON.parse(resultStatus.body);
+                     this.verifyStatus(bodyStatus.Data.Status);
+                    }
+                   }
+                  });
+                }
+              }
+            }
           });
         } else {
           console.log('sin data archivo vacio');
@@ -152,5 +167,14 @@ export class UploadFileMasiveComponent implements OnInit {
       };
       reader.readAsBinaryString(this._fileAux);
     });
+  }
+
+  verifyStatus(status: number) {
+    if (status === 1 || status === 4) {
+      // tslint:disable-next-line: no-unused-expression
+      !!this.uploadFileMasiveService.status(this.data.services.status.name, this.data.services.status.method) && timer(this.data.initTime, this.data.intervalTime).pipe(takeUntil(this.processFinish$), switchMap(() => this.uploadFileMasiveService.status(this.data.services.status.name, this.data.services.status.method))).subscribe((res) => {
+
+      });
+    }
   }
 }
