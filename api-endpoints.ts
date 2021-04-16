@@ -315,7 +315,11 @@ export const endpoints = {
       // Captura de indicadores
       getIndicators : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller/getindicatorsbynit/{params}',
       // Descargar plantilla para carga masiva de categorias
-      downloadTemplateCategoryMasive : ' https://s3.amazonaws.com/seller-center-exito-staging/Templates-Dev/PlantillaCargaMasivaCategorias.xlsx'
+      downloadTemplateCategoryMasive : ' https://s3.amazonaws.com/seller-center-exito-staging/Templates-Dev/PlantillaCargaMasivaCategorias.xlsx',
+      // Crear caterogiras de forma masiva
+      createUpdateMassiveCategories: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/CreateUpdateMassiveCategories/{params}',
+       // valida el estado de la carga masiva de categorias
+       ValidateStatusCreateUpdateMassive :  'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/ValidateStatusCreateUpdateMassive'
     },
   },
   // Endpoints production
@@ -628,7 +632,11 @@ export const endpoints = {
       // Captura de indicadores
       getIndicators : 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller/getindicatorsbynit/{params}',
       // Descargar plantilla para carga masiva de categorias
-      downloadTemplateCategoryMasive : 'https://s3.amazonaws.com/seller-center-exito-staging/Templates/PlantillaCargaMasivaCategorias.xlsx'
+      downloadTemplateCategoryMasive : 'https://s3.amazonaws.com/seller-center-exito-staging/Templates/PlantillaCargaMasivaCategorias.xlsx',
+      // Crear caterogiras de forma masiva
+      createUpdateMassiveCategories: 'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/CreateUpdateMassiveCategories/{params}',
+      // valida el estado de la carga masiva de categorias
+      ValidateStatusCreateUpdateMassive :  'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/ValidateStatusCreateUpdateMassive'
     }
   }
 };

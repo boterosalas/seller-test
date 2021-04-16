@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { HttpEvent } from '@angular/common/http';
 import { isNullOrUndefined } from 'util';
 import * as XLSX from 'xlsx';
+import { UploadFileMasiveService } from './upload-file-masive.service';
 
 @Component({
   selector: 'app-upload-file-masive',
@@ -37,14 +38,12 @@ export class UploadFileMasiveComponent implements OnInit {
   json = [];
 
   constructor(
+    private uploadFileMasiveService: UploadFileMasiveService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
   ngOnInit() {
     console.log(this.data);
-    //arreglo
-    let listadoAlumnos = ['pedro', 'juan', 'camilo', 'maria'];
-    console.log(listadoAlumnos[1]);
   }
 
   /**
@@ -56,6 +55,7 @@ export class UploadFileMasiveComponent implements OnInit {
   public getDate(): Date {
     return new Date();
   }
+
   resetFiles(files: any, file: any) {
     if (!isNullOrUndefined(file)) {
       this._filesAux = [];
@@ -67,7 +67,6 @@ export class UploadFileMasiveComponent implements OnInit {
         this.refuseMaxSize = true;
       }
     }
-
     if (files && files.length > 0) {
       if (files.length > 1) {
         this._fileAux = null;
@@ -112,7 +111,10 @@ export class UploadFileMasiveComponent implements OnInit {
               }
             );
           });
-          console.log(this.json);
+          this.uploadFileMasiveService.createUpdateMassiveCategories(this.json).subscribe(result => {
+            console.log(result);
+
+          });
         } else {
           console.log('sin data archivo vacio');
         }
