@@ -59,7 +59,7 @@ export class DetailCaseComponent implements OnInit {
   @Input() idDetail: any;
   @Output() idDetailFalse = new EventEmitter<any>();
 
-  displayedColumns: string[] = ['product', 'sku', 'ean', 'brand', 'skuseller', 'price', 'quantity'];
+  displayedColumns: string[] = ['product','brand','sku', 'ean', 'skuseller', 'price', 'quantity'];
 
 
   constructor(

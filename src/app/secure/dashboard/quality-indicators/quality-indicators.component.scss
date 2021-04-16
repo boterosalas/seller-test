@@ -1,0 +1,123 @@
+.quality-indicators{
+    &-border-bottom-color{
+        border-bottom: 1px solid #dadada;
+      }
+
+      &-height-50{
+        height: 50px;
+      }
+
+      &-header-align{
+        margin-top: 14px;
+        padding-right: 10px;
+        padding-left: 10px;
+      }
+
+      &-spinner-loading {
+        margin-left: 48%;
+        margin-right: 55%;
+      }
+
+      &-margin-spinner{
+        margin:0 auto;
+        margin-bottom: 10px;
+      }
+
+      &-text-align-end{
+        text-align: end;
+      }
+
+      &-font-size-color{
+        font-size: 13px;
+        color: #909090
+      }
+
+      &-font-weight-bold{
+        font-weight: bold;
+      }
+
+      &-row-padding{
+        padding: 19px 10px 16px 10px;
+        font-size: 13px;
+        color: #909090;
+        border-bottom: 1px solid #dadada;
+      }
+
+      &-padding-left-10{
+        padding-left: 10px;
+      }
+      &-padding-20{
+        padding: 20px;
+      }
+      &-padding-left-20{
+        padding-left: 20px;
+      }
+      &-color-text-indicators{
+        color: #909090;
+        font-size: 13px;
+      }
+      &-aling-icon-cursor{
+        vertical-align: middle;
+        cursor: pointer;
+        margin-left: 5px;
+      }
+      &-icon-info{
+        color: #909090;
+        width: 14px;
+        height:14px;
+        font-size: 14px;
+      }
+      &-padding-contain{
+        padding-top: 20px;
+        contain:content;
+      }
+      &-contain{
+        contain:content;
+      }
+      &-text-center{
+        text-align: center;
+      }
+      &-height-padding{
+        height: 80px;padding: 90px;
+      }
+      &-color{
+        color: #909090
+      }
+      &-width-100{
+        width: 100%;
+      }
+      &-vertical-aling-super{
+        vertical-align: super;
+      }
+      &-bar-without-data{
+        width: 100%;
+        background-color: #f1f1f1;
+        height: 15px;
+      }
+      &-padding-top{
+        padding-top: 5px;
+      }
+      &-icon-not-found{
+        font-size: 40px;
+        height: 40px;
+        width: 40px;
+      }
+      &-align-center{
+        text-align: center;
+        padding-top: 30px;
+        padding-bottom: 60px;
+      }
+      &-align-center-admin{
+        text-align: center;
+        padding-top: 100px;
+        padding-bottom: 60px;
+      }
+
+      &-space-text{
+        padding-top: 10px;
+      }
+
+      &-height-15{
+        height: 15px;
+      }
+}

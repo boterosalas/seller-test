@@ -99,6 +99,7 @@ export interface Case {
   orderNumber: string;
   reasonPQR: string;
   reasonDetail: string;
+  lastPostDesc:string;
   description: string;
   descriptionSolution: string;
   createDate: string;

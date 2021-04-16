@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/co
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { SellerSupportCenterService } from '../services/seller-support-center.service';
 import { ResponseCaseDialogComponent } from '@shared/components/response-case-dialog/response-case-dialog.component';
-import { MatDialog, MatSnackBar, MatPaginatorIntl, ErrorStateMatcher, MatTableDataSource, Sort } from '@angular/material';
+import { MatDialog, MatSnackBar, MatPaginatorIntl, ErrorStateMatcher, MatTableDataSource, Sort, MatPaginator, MatSort } from '@angular/material';
 import { LoadingService, ModalService } from '@app/core';
 import { Logger } from '@core/util/logger.service';
 import { ActivatedRoute } from '@angular/router';
@@ -72,6 +72,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
   caseId = '';
   public subModalExport: Subscription;
   getClassification = [];
+  disableClear = false;
 
   configDialog = {
     width: '85%',
@@ -136,11 +137,14 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
 
   idDetail: any;
 
-  displayedColumns: string[] = ['product', 'sku', 'ean', 'brand', 'skuseller', 'price', 'quantity'];
+  displayedColumns: string[] = ['product','brand','sku', 'ean', 'skuseller', 'price', 'quantity'];
 
   public dataSource: MatTableDataSource<any>;
 
   hideHeader:Boolean;
+
+  @ViewChild(MatSort , {static: false}) sort: MatSort;
+
 
   constructor(
     public dialog: MatDialog,
@@ -473,7 +477,12 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
    * @memberof ListOfCaseComponent
    */
   changePagination(pagination: any) {
+
+    this.sort.sort({id: 'name', start: 'asc', disableClear: false});
+
     const index = pagination.pageIndex;
+
+    this.sortData({active: null, direction: null});
 
     if (index === 0) {
       this.paginationToken = '{}';
@@ -497,9 +506,30 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
     const { pageIndex, pageSize } = pagination;
 
     if (this.isAdmin) {
-      this.loadCases({ SellerId: this.sellerIdLogger.SellerId, Limit: pageSize, paginationToken: this.paginationToken });
+      this.loadCases({ 
+        SellerId: this.sellerIdLogger.SellerId,
+        Limit: pageSize, 
+        paginationToken: this.paginationToken,
+        LastPost: this.filterListCases.controls.LastPost.value ? this.filterListCases.controls.LastPost.value : null,
+        CaseNumber:this.filterListCases.controls.CaseNumber.value ? this.filterListCases.controls.CaseNumber.value : null,
+        DateEnd:this.filterListCases.controls.DateEnd.value ? this.filterListCases.controls.DateEnd.value : null,
+        DateInit:this.filterListCases.controls.DateInit.value ? this.filterListCases.controls.DateInit.value : null,
+        OrderNumber:this.filterListCases.controls.OrderNumber.value ? this.filterListCases.controls.OrderNumber.value : null,
+        Status:this.filterListCases.controls.Status.value ? this.filterListCases.controls.Status.value : null,
+        classification:this.filterListCases.controls.classification.value ? this.filterListCases.controls.classification.value : null
+      });
     } else {
-      this.loadCases({ Limit: pageSize, paginationToken: this.paginationToken });
+      this.loadCases({
+        Limit: pageSize,
+        paginationToken: this.paginationToken,
+        LastPost: this.filterListCases.controls.LastPost.value ? this.filterListCases.controls.LastPost.value : null,
+        CaseNumber:this.filterListCases.controls.CaseNumber.value ? this.filterListCases.controls.CaseNumber.value : null,
+        DateEnd:this.filterListCases.controls.DateEnd.value ? this.filterListCases.controls.DateEnd.value : null,
+        DateInit:this.filterListCases.controls.DateInit.value ? this.filterListCases.controls.DateInit.value : null,
+        OrderNumber:this.filterListCases.controls.OrderNumber.value ? this.filterListCases.controls.OrderNumber.value : null,
+        Status:this.filterListCases.controls.Status.value ? this.filterListCases.controls.Status.value : null,
+        classification:this.filterListCases.controls.classification.value ? this.filterListCases.controls.classification.value : null
+        });
     }
   }
 
@@ -633,6 +663,7 @@ loadDataDetails(item: any) {
    */
 
   sortData(sort: Sort) {
+
     const data = this.cases.slice();
     
     if (!sort.active || sort.direction === '') {

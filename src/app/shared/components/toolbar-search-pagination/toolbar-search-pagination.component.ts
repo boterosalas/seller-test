@@ -56,6 +56,10 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   @Input() set showContainerDetail(value: boolean) {
       this._showContainerDetail = value;
   }
+   public _showSearchSeller: boolean;
+  @Input() set showSearchSeller(value: boolean) {
+      this._showSearchSeller = value;
+  }
 
   @Input() customerFilterCalifications = false;
   @Input() allFilter: any;
@@ -324,9 +328,9 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
         // busco dentro de los registro el que conincida con el cricterio de busqueda actual
         const found = res.find((x: StoreModel) => x.Name === this.textForSearch.value);
         // si hay algun resultado de busqueda, paso a visualizar la información de la tienda
-        if (found !== undefined) {
+        // if (found !== undefined) {
           this.viewStoreInformation(found);
-        }
+        // }
       });
       suscribe.unsubscribe();
     }

@@ -62,6 +62,7 @@
     "menu.Reporte de comisiones": "Report commission",
     "menu.Reporte cobros pendientes MPI": "Report dispersion",
     "menu.Escuela Exito": "School Éxito",
+    "menu.Consultar Indicadores": "Vérifier les indicateurs",
     "module.Escuela Exito": "Escuela Éxito",
 
     "module.Documentación": "Documentation",
@@ -127,6 +128,9 @@
     "shared.product": "Product",
     "shared.ean": "EAN",
     "shared.phone": "Phone number",
+    "shared.to":"á",
+    "shared.from":"Tiré de",
+    "shared.days":"jours",
     "shared.error.file": "File download failed",
     "shared.components.load_file.title": "Attach Invoice",
     "shared.components.load_file.subtitle": "The electronic invoice can only",
@@ -508,6 +512,7 @@
     "secure.orders.order_list.product_order.standar": "Standar",
     "secure.orders.order_list.product_order.fulfillment": "fulfillment",
     "secure.orders.order_list.product_order.ref": "Ref",
+    "secure.orders.order_list.product_order.reference": "Référence",
     "secure.orders.order_list.product_order.sku": "SKU",
     "secure.orders.order_list.product_order.sku_seller": "Vendeur SKU",
     "secure.orders.order_list.product_order.total": "Total",
@@ -1441,5 +1446,15 @@
     "school.exito.uploadfile.ing": "English manual",
     "school.exito.uploadfile.dragfile": "Click here or drag and drop the file",
     "school.exito.uploadfile.pdf": "Invalid format, only files in .PDF format are allowed to be attached",
-    "school.exito.empty_data": "No records found"
+    "school.exito.empty_data": "No records found",
+    "quality.indicators.objectives": "Objectifs",
+    "quality.indicators.goal": "Meta",
+    "quality.indicators.Compliance": "Conformité",
+    "quality.indicators.quality_indicators": "Indicateurs de qualité",
+    "quality.indicators.Last_days": "Last 30 days",
+    "quality.indicators.i_understand": "Je comprends",
+    "quality.indicators.indicator_not_available": "Information temporairement indisponible",
+    "quality.indicators.bar_green": "Astrid Dépasse l'objectif",
+    "quality.indicators.bar_orange": "S'adapte à la cible",
+    "quality.indicators.bar_red": "Alerte ! Indicateur dégradé"
 }

@@ -311,7 +311,9 @@ export const endpoints = {
       // Eliminar uno o varios vendedores del contrato
       delete1orMore: 'https://yoix96dfrg.execute-api.us-east-1.amazonaws.com/contracts/DeleteContractApply',
       // Consultar si tiene carga la creacion de modulos.
-      ValidateCreateMassive : 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/ValidateCreateMassive'
+      ValidateCreateMassive : 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/ValidateCreateMassive',
+      // Captura de indicadores
+      getIndicators : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller/getindicatorsbynit/{params}'
     },
   },
   // Endpoints production
@@ -620,7 +622,9 @@ export const endpoints = {
        // Eliminar uno o varios vendedores del contrato
        delete1orMore: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/DeleteContractApply',
        // Consultar si tiene carga la creacion de modulos.
-      ValidateCreateMassive : 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/ValidateCreateMassive'
+      ValidateCreateMassive : 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/ValidateCreateMassive',
+      // Captura de indicadores
+      getIndicators : 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller/getindicatorsbynit/{params}'
     }
   }
 };
