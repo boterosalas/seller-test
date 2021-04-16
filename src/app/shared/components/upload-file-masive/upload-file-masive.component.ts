@@ -28,6 +28,7 @@ export class UploadFileMasiveComponent implements OnInit {
   file = null;
   arraySend = [];
   refuseMaxSize = false;
+  disabledBtn= true;
 
   limitRowExcel = 1048576;
 
@@ -41,6 +42,9 @@ export class UploadFileMasiveComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.data);
+    //arreglo
+    let listadoAlumnos = ['pedro', 'juan', 'camilo', 'maria'];
+    console.log(listadoAlumnos[1]);
   }
 
   /**
@@ -78,6 +82,11 @@ export class UploadFileMasiveComponent implements OnInit {
           this.refuseMaxSize = true;
         }
       }
+    }
+    if (this.refuseMaxSize && file === null){
+      this.disabledBtn = true;
+    } else {
+      this.disabledBtn = false;
     }
     this.file = null;
     this.files = [];

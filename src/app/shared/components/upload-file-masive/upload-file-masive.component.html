@@ -61,12 +61,12 @@
             <mat-icon class="material-icons error">
               not_interested
             </mat-icon>
-            <div *ngIf="refuseMaxSize">
+            <div *ngIf="refuseMaxSize && !lastInvalids?.length">
               <span style="color: #757474; font-size:14px">
                 El archivo no puede superar los 7 Megabytes
               </span>
             </div>
-            <div *ngIf="lastInvalids?.length ">
+            <div *ngIf="lastInvalids?.length">
               <span style="color: #757474; font-size:14px">
                 El archivo tiene un formato no permitido, solo se permiten <br> 
                 <span style="font-weight: bold;">
@@ -78,12 +78,9 @@
         </div>
         <div style="text-align: center;">
           <div>
-            {{refuseMaxSize}}
-            {{lastInvalids?.length ? true : false}}
-            {{_fileAux | json}}
-            {{_fileAux === null ? true : false}}
+            {{disabledBtn}}
             <button mat-stroked-button color="primary" mat-button (click)="close()" style="margin-right: 5px;margin-top: 29px; width: 150px;">CANCELAR</button>
-            <button mat-raised-button color="primary" style="margin-left: 30px;" (click)="sendUploadCategory()" [disabled]="_fileAux === null ? true : false">CARGAR CATEGORÍAS</button>
+            <button mat-raised-button color="primary" style="margin-left: 30px;" (click)="sendUploadCategory()" [disabled]="lastInvalids?.length && disabledBtn">CARGAR CATEGORÍAS</button>
           </div>
         </div>
       </div>
