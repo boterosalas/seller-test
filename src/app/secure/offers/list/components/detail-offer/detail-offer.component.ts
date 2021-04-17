@@ -171,6 +171,7 @@ export class DetailOfferComponent implements OnInit {
   selected: any;
   isInternational = false;
   sellerMinPrice: any;
+  unLess: boolean;
 
   constructor(
     public list: ListComponent,
@@ -578,38 +579,53 @@ export class DetailOfferComponent implements OnInit {
     }
   }
 
-  prueba() {
-    console.log(+this.formUpdateOffer.controls.Price.value, Number(this.dataOffer.price), this.sellerMinPrice);
+  /**
+   * Metodo para validar el precio sin tocarlo y q sea mayor al precio minimo
+   * @returns
+   * @memberof DetailOfferComponent
+   */
+  unLessPrice() {
     if (Number(this.formUpdateOffer.controls.Price.value) < this.sellerMinPrice) {
       this.formUpdateOffer.controls.Price.setErrors({ 'unLess': true });
-    console.log(this.formUpdateOffer);
+      this.unLess = true;
+      this.formUpdateOffer.controls.Price.markAsDirty();
       return false;
     } else {
-    console.log(this.formUpdateOffer.controls.Price.value, this.dataOffer.price);
+      this.unLess = false;
       this.formUpdateOffer.controls.Price.setErrors(null);
       return true;
     }
   }
 
-  validateRulesOfert(): void {
-    if (this.prueba()) {
-      this.snackBar.open('El precio no debe ser menor a ....', this.languageService.instant('actions.close'), {
-        duration: 3000,
-      });
+  /**
+   * Metodo para validar el precio con descuento sin tocarlo y q sea mayor al precio minimo
+   * @returns
+   * @memberof DetailOfferComponent
+   */
+   unLessDiscountPrice() {
+    if (Number(this.formUpdateOffer.controls.DiscountPrice.value) < this.sellerMinPrice) {
+      this.formUpdateOffer.controls.DiscountPrice.setErrors({ 'unLess': true });
+      this.unLess = true;
+      this.formUpdateOffer.controls.DiscountPrice.markAsDirty();
+      return false;
     } else {
+      this.unLess = false;
+      this.formUpdateOffer.controls.DiscountPrice.setErrors(null);
+      return true;
+    }
+  }
+
+  /**
+   * Metodo para validar oferta 30% por encima o por debajo el cambio
+   * @memberof DetailOfferComponent
+   */
+  validateRulesOfert(): void {
       const valHighUp = +this.dataOffer.price * 1.30;
       const valHighDown = +this.dataOffer.price * 0.70;
       const valLowUp = +this.dataOffer.discountPrice * 1.30;
       const valLowDown = +this.dataOffer.discountPrice * 0.70;
       const valPrice = +this.formUpdateOffer.controls.Price.value;
       const valDiscount = +this.formUpdateOffer.controls.DiscountPrice.value;
-
-      console.log(valHighUp);
-      console.log(this.dataOffer.price);
-      console.log(this.formUpdateOffer.controls.Price.value);
-
-
-
 
       if (this.formUpdateOffer.controls.DiscountPrice.value !== 0 && this.formUpdateOffer.controls.DiscountPrice.value !== '') {
         if (this.dataOffer.discountPrice === '0.00' || this.dataOffer.discountPrice === 0.00 || this.dataOffer.discountPrice === '0') {
@@ -647,9 +663,7 @@ export class DetailOfferComponent implements OnInit {
             this.submitUpdateOffer(this.dataUpdateOffer);
           }
         }
-      }
     }
-    console.log(99, this.dataUpdateOffer);
   }
 
   sameInfoUpdate(): void {

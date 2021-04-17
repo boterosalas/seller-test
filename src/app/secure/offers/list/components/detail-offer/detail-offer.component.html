@@ -27,13 +27,13 @@
         <mat-icon class="flexbox align-center justify-center">close</mat-icon>
       </button>
     </div>
-    <div class="maskSellerSku" *ngIf="!isUpdateOffer && isUpdateOffer === false" >
-        <div class="titleMask">
-          {{'secure.offers.bulk_upload.table_load.sellerSku' | translate}}: 
-        </div>
-        <div class="detailMask">
-          {{dataOffer.sellerSku}}
-        </div>
+    <div class="maskSellerSku" *ngIf="!isUpdateOffer && isUpdateOffer === false">
+      <div class="titleMask">
+        {{'secure.offers.bulk_upload.table_load.sellerSku' | translate}}:
+      </div>
+      <div class="detailMask">
+        {{dataOffer.sellerSku}}
+      </div>
     </div>
     <p class="name">{{dataOffer.name}}</p>
     <div class="container-data-offer" *ngIf="!isUpdateOffer && isUpdateOffer === false">
@@ -138,7 +138,7 @@
         <div class="flexbox flex-wrap align-center justify-between">
           <mat-form-field>
             <input matInput [placeholder]="['secure.offers.bulk_upload.table_load.sellerSku' | translate]"
-              id="detail-offer-stock" formControlName="SellerSku">
+              (change)="unLessPrice()" id="detail-offer-stock" formControlName="SellerSku">
             <mat-hint></mat-hint>
             <mat-error *ngIf="formUpdateOffer.get('SellerSku').hasError('pattern')"
               [innerHTML]="['secure.offers.bulk_upload.table_error.sellerSku' | translate]">
@@ -147,18 +147,19 @@
 
           <mat-form-field>
             <input matInput [placeholder]="['secure.offers.historical_admin.historical_admin.stock' | translate]"
-              id="detail-offer-stock" formControlName="Stock" (keypress)="onlyNumber($event)" (change)="prueba()" required>
+              id="detail-offer-stock" formControlName="Stock" (keypress)="onlyNumber($event)" (change)="unLessPrice()"
+              required>
             <mat-hint></mat-hint>
             <mat-error *ngIf="formUpdateOffer.get('Stock').hasError('required')"
               [innerHTML]="['errors.error_required' | translate]">
             </mat-error>
-            <mat-error
+            <!-- <mat-error
               *ngIf="formUpdateOffer.get('Price').hasError('unLess')"
-              [innerHTML]="['errors.error_price' | translate] + sellerMinPrice"></mat-error>
+              [innerHTML]="['errors.error_price' | translate] + sellerMinPrice"></mat-error> -->
           </mat-form-field>
 
           <mat-form-field>
-            <input matInput [placeholder]="['secure.offers.historical_admin.historical_admin.price' | translate]"
+            <input matInput [placeholder]="['secure.offers.historical_admin.historical_admin.price' | translate]" (change)="unLessDiscountPrice()"
               id="detail-offer-Price" formControlName="Price" [errorStateMatcher]="matcher"
               (blur)="valiteInput(); validInput('Price');" required>
             <mat-hint></mat-hint>
@@ -171,8 +172,7 @@
             <mat-error
               *ngIf="!formUpdateOffer.get('Price').hasError('required') && formUpdateOffer.get('Price').hasError('isLessThanEightThousand')"
               [innerHTML]="['errors.error_price' | translate] + sellerMinPrice"></mat-error>
-              <mat-error
-              *ngIf="!formUpdateOffer.get('Price').hasError('required') && formUpdateOffer.get('Price').hasError('unLess')"
+            <mat-error *ngIf="formUpdateOffer.controls.Price.errors && formUpdateOffer.controls.Price.errors.unLess"
               [innerHTML]="['errors.error_price' | translate] + sellerMinPrice"></mat-error>
             <mat-error
               *ngIf="!formUpdateOffer.get('Price').hasError('required') && formUpdateOffer.get('Price').hasError('isLessThanDiscPrice')"
@@ -181,9 +181,10 @@
               *ngIf="!formUpdateOffer.get('Price').hasError('required') && formUpdateOffer.get('Price').hasError('notCero')">
               {{'errors.price_cannot_be_0' | translate}}</mat-error>
           </mat-form-field>
+          
 
           <mat-form-field>
-            <input matInput [placeholder]="'secure.offers.historical_admin.historical_admin.discount_price' | translate"
+            <input matInput [placeholder]="'secure.offers.historical_admin.historical_admin.discount_price' | translate" (change)="unLessDiscountPrice()"
               [errorStateMatcher]="matcher" formControlName="DiscountPrice" (blur)="valiteInput() ">
             <mat-hint></mat-hint>
             <mat-error *ngIf="formUpdateOffer.get('DiscountPrice').hasError('pattern')"
@@ -199,12 +200,14 @@
             <mat-error
               *ngIf="!formUpdateOffer.get('Price').hasError('required') && formUpdateOffer.get('DiscountPrice').hasError('notCero')">
               {{'errors.discounted_price_cannot_be_0' | translate}}</mat-error>
+              <mat-error *ngIf="formUpdateOffer.controls.DiscountPrice.errors && formUpdateOffer.controls.DiscountPrice.errors.unLess"
+              [innerHTML]="['errors.error_price_discount' | translate] + sellerMinPrice"></mat-error>
           </mat-form-field>
 
           <mat-form-field>
             <input matInput
               [placeholder]="['secure.offers.list.components.detail_offer.averageFreightCost' | translate]"
-              formControlName="AverageFreightCost" [errorStateMatcher]="matcher" required>
+              (change)="unLessPrice()" formControlName="AverageFreightCost" [errorStateMatcher]="matcher" required>
             <mat-hint></mat-hint>
             <mat-error *ngIf="formUpdateOffer.get('AverageFreightCost').hasError('pattern')"
               [innerHTML]="['errors.format_invalidate' | translate]"></mat-error>
@@ -214,7 +217,8 @@
 
           <mat-form-field>
             <input matInput [placeholder]="'secure.offers.historical_admin.historical_admin.promise' | translate"
-              formControlName="PromiseDelivery" (keyup)="validatePromiseDeliveriOffert()" required>
+              (change)="unLessPrice()" formControlName="PromiseDelivery" (keyup)="validatePromiseDeliveriOffert()"
+              required>
             <mat-hint></mat-hint>
             <mat-error *ngIf="formUpdateOffer.get('PromiseDelivery').hasError('required')"
               [innerHTML]="'errors.error_required' | translate"></mat-error>
@@ -226,7 +230,8 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field>
-            <mat-select formControlName="Periodicity" class="color-select-periodicity" [disabled]="isInternational">
+            <mat-select formControlName="Periodicity" class="color-select-periodicity" [disabled]="isInternational"
+              (change)="unLessPrice()">
               <mat-option value=1>{{'secure.offers.historical_admin.historical_admin.day' |
                     translate}}</mat-option>
               <mat-option value=2>{{'secure.offers.historical_admin.historical_admin.hours'|
@@ -238,14 +243,14 @@
           </mat-form-field>
           <mat-form-field>
             <input matInput [placeholder]="['secure.offers.historical_admin.historical_admin.warranty' | translate]"
-              formControlName="Warranty" required (keypress)="onlyNumber($event)">
+              formControlName="Warranty" required (keypress)="onlyNumber($event)" (change)="unLessPrice()">
             <mat-hint></mat-hint>
             <mat-error *ngIf="formUpdateOffer.get('Warranty').hasError('required')"
               [innerHTML]="['errors.error_required' | translate]"></mat-error>
           </mat-form-field>
           <mat-form-field>
             <input matInput [placeholder]="['secure.offers.historical_admin.historical_admin.currency' | translate]"
-              formControlName="Currency">
+              formControlName="Currency" (change)="unLessPrice()">
           </mat-form-field>
         </div>
 
