@@ -94,4 +94,9 @@ export class SearchOrderMenuService {
         .subscribe(data => obs.next(data), err => obs.error(err));
     });
   }
+
+  public getFraudList(stringSearch: string): Observable<any> {
+      return this.http.get(this.api.get('getFrauds', [stringSearch]));
+  }
+
 }

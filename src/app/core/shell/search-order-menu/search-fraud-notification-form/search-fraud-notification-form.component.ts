@@ -67,9 +67,9 @@ export class SearchFraudNotificationFormComponent implements OnInit {
   createForm() {
     // Estructura para los datos del formulario de consulta.
     this.myform = this.fb.group({
-      'dateReversionRequestInitial': [null, Validators.compose([])],
-      'dateReversionRequestFinal': [null, Validators.compose([])],
-      'orderNumber': [null, Validators.compose([Validators.minLength(1), Validators.maxLength(30)])],
+      'dateOrderInitial': [null, Validators.compose([])],
+      'dateOrderFinal': [null, Validators.compose([])],
+      'fileName': [null, Validators.compose([Validators.minLength(1), Validators.maxLength(30)])],
     });
   }
 
@@ -98,7 +98,7 @@ export class SearchFraudNotificationFormComponent implements OnInit {
    * @memberof SearchOrderFormComponent
    */
   getOrderList(state: any) {
-    this.shellComponent.eventEmitterOrders.getOrderList(state);
+    this.shellComponent.eventEmitterOrders.filterFraudList(state);
   }
 
   /**
@@ -112,24 +112,24 @@ export class SearchFraudNotificationFormComponent implements OnInit {
     // this.user = this.userService.getUser();
     const datePipe = new DatePipe(this.locale);
     // aplico el formato para la fecha a emplear en la consulta
-    const dateReversionRequestFinal = datePipe.transform(data.value.dateReversionRequestFinal, 'yyyy/MM/dd');
-    const dateReversionRequestInitial = datePipe.transform(data.value.dateReversionRequestInitial, 'yyyy/MM/dd');
+    const dateOrderFinal = datePipe.transform(data.value.dateOrderFinal, 'yyyy/MM/dd');
+    const dateOrderInitial = datePipe.transform(data.value.dateOrderInitial, 'yyyy/MM/dd');
 
     // creo el string que indicara los parametros de la consulta
-    let stringSearch = `limit=${this.paginator.pageSize}`;
+    let stringSearch = `?limit=${this.paginator.pageSize}`;
     const objectSearch: any = {};
-    if (dateReversionRequestInitial != null && dateReversionRequestInitial !== '') {
-      stringSearch += `&dateReversionRequestInitial=${dateReversionRequestInitial}`;
-      objectSearch.dateReversionRequestInitial = dateReversionRequestInitial;
+    if (dateOrderInitial != null && dateOrderInitial !== '') {
+      stringSearch += `&dateOrderInitial=${dateOrderInitial}`;
+      objectSearch.dateOrderInitial = dateOrderInitial;
     }
-    if (dateReversionRequestFinal != null && dateReversionRequestFinal !== '') {
-      stringSearch += `&dateReversionRequestFinal=${dateReversionRequestFinal}`;
-      objectSearch.dateReversionRequestFinal = dateReversionRequestFinal;
+    if (dateOrderFinal != null && dateOrderFinal !== '') {
+      stringSearch += `&dateOrderFinal=${dateOrderFinal}`;
+      objectSearch.dateOrderFinal = dateOrderFinal;
     }
 
-    if (data.value.orderNumber != null && data.value.orderNumber !== '') {
-      stringSearch += `&orderNumber=${data.value.orderNumber}`;
-      objectSearch.orderNumber = data.value.orderNumber;
+    if (data.value.fileName != null && data.value.fileName !== '') {
+      stringSearch += `&fileName=${data.value.fileName}`;
+      objectSearch.fileName = data.value.fileName;
 
     }
 
@@ -139,18 +139,19 @@ export class SearchFraudNotificationFormComponent implements OnInit {
 
     if (stringSearch !== '') {
 
-      stringSearch += `&reversionRequestStatusId=${this.informationToForm.information.reversionRequestStatusId}` + `&idSeller=${this.idSeller}`;
+      stringSearch += `&paginationToken=${encodeURI('{}')}`;
 
       // Guardo el filtro aplicado por el usuario.
       this.searchOrderMenuService.setCurrentFilterOrders(objectSearch);
+
       // obtengo las órdenes con el filtro indicado
       if (this.informationToForm.information.reversionRequestStatusId === 1) {
-        this.searchOrderMenuService.getOrdersPendingDevolutionFilterTempo(stringSearch).subscribe((res: any) => {
+        this.searchOrderMenuService.getFraudList(stringSearch).subscribe((res: any) => {
           if (res != null) {
             res.filter = {
-              dateOrderFinal: dateReversionRequestFinal,
-              dateOrderInitial: dateReversionRequestInitial,
-              orderNumber: data.value.orderNumber,
+              dateOrderFinal: dateOrderFinal,
+              dateOrderInitial: dateOrderInitial,
+              fileName: data.value.fileName,
             };
             // indico a los elementos que esten suscriptos al evento.
             this.shellComponent.eventEmitterOrders.filterOrdersWithStatusResponse(res);
@@ -163,7 +164,7 @@ export class SearchFraudNotificationFormComponent implements OnInit {
           this.componentsService.openSnackBar(this.languageService.instant('errors.error_check_orders'), this.languageService.instant('actions.close'), 5000);
         });
       } else {
-        this.searchOrderMenuService.getOrdersPendingDevolutionFilter(stringSearch).subscribe((res: any) => {
+        this.searchOrderMenuService.getFraudList(stringSearch).subscribe((res: any) => {
 
           if (res != null) {
             // indico a los elementos que esten suscriptos al evento.

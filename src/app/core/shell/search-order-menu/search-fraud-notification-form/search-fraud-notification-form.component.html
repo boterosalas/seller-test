@@ -1,26 +1,26 @@
 <form #f="ngForm" [formGroup]="myform" class="search-form light-content">
   
   <mat-form-field id="fileName-input-search-order" class="example-full-width" color="accent">
-    <input id="fileName-input-search-order" formControlName="orderNumber" type="text" matInput
+    <input id="fileName-input-search-order" formControlName="fileName" type="text" matInput
            [placeholder]="'core.shell.search_order_menu.search_fraud_notification_nameFile' | translate">
   </mat-form-field>
   
   
   <mat-form-field id="sinceDate-input-search-order" color="accent">
-      <input id="sinceDate-input" [max]="myform.value.dateReversionRequestFinal"
-             formControlName="dateReversionRequestInitial" [placeholder]="'secure.parametize.support_claims-filter.start-date' | translate"
-             matInput [matDatepicker]="dateReversionRequestInitial">
-      <mat-datepicker-toggle id="sinceDate-Perfix" matPrefix [for]="dateReversionRequestInitial"></mat-datepicker-toggle>
-      <mat-datepicker touchUi="true" startView="year" #dateReversionRequestInitial></mat-datepicker>
+      <input id="sinceDate-input" [max]="myform.value.dateOrderFinal"
+             formControlName="dateOrderInitial" [placeholder]="'secure.parametize.support_claims-filter.start-date' | translate"
+             matInput [matDatepicker]="dateOrderInitial">
+      <mat-datepicker-toggle id="sinceDate-Perfix" matPrefix [for]="dateOrderInitial"></mat-datepicker-toggle>
+      <mat-datepicker touchUi="true" startView="year" #dateOrderInitial></mat-datepicker>
     </mat-form-field>
   
     <mat-form-field id="untilDate-input-search-order" color="accent">
-      <input id="untilDate-input" [min]="myform.value.dateReversionRequestInitial"
-             formControlName="dateReversionRequestFinal" [placeholder]="'secure.parametize.support_claims-filter.end-date' | translate"
-             matInput [matDatepicker]="dateReversionRequestFinal">
-      <mat-datepicker-toggle id="untilDate-Prefix" matPrefix [for]="dateReversionRequestFinal">
+      <input id="untilDate-input" [min]="myform.value.dateOrderInitial"
+             formControlName="dateOrderFinal" [placeholder]="'secure.parametize.support_claims-filter.end-date' | translate"
+             matInput [matDatepicker]="dateOrderFinal">
+      <mat-datepicker-toggle id="untilDate-Prefix" matPrefix [for]="dateOrderFinal">
       </mat-datepicker-toggle>
-      <mat-datepicker touchUi="true" startView="year" #dateReversionRequestFinal></mat-datepicker>
+      <mat-datepicker touchUi="true" startView="year" #dateOrderFinal></mat-datepicker>
     </mat-form-field>
   
 

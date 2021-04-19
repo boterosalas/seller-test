@@ -1,7 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { SearchFormEntity, InformationToForm } from '@app/shared';
+import { LoadingService } from '@app/core';
+import { SearchFormEntity, InformationToForm, ComponentsService } from '@app/shared';
+import { TranslateService } from '@ngx-translate/core';
 import { UploadFraudComponent } from './components/upload-fraud/upload-fraud.component';
+import { FraudNotificationService } from './fraud-notification.service';
 
 @Component({
   selector: 'app-fraud-notification',
@@ -23,41 +26,78 @@ export class FraudNotificationComponent implements OnInit {
 
   @ViewChild('toolbarOptions', {static: false}) toolbarOption;
 
+  // Evento que comunica al padre cuando tiene filtros.
+  @Output() _fraudFilterEmit = new EventEmitter<any>();
+
   // Columnas que se visualizan en la tabla
   public displayedColumns = [
     'name',
-    'creationDate',
-    'fileDownload',
+    'creationDate'
   ];
 
   dataSource:any;
-
-   ELEMENT_DATA: any[] = [
-    {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-    {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-    {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-    {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-    {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-    {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-    {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-    {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-    {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-    {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-  ];
-  
+  public paginationToken = '{}';
+  public limit = 50;
+  urlParams: string;
 
   constructor(
     public dialog: MatDialog,
+    private _fraudService: FraudNotificationService,
+    public componentsService: ComponentsService,
+    private loadingService: LoadingService,
+    private languageService: TranslateService,
   ) { }
 
   ngOnInit() {
-    this.dataSource = this.ELEMENT_DATA;
+    this.getListFraud();
+  }
+
+
+ /**
+   * Funcion para traer el listado de los fraudes
+   * @memberof FraudNotificationComponent
+   */
+  getListFraud(applyPagination?: any, paramsFilter?: any) {
+    let url;
+    let urlFilters;
+    this.loadingService.viewSpinner();
+
+    if (applyPagination || paramsFilter) {
+      url = paramsFilter ? `?limit=${this.limit}&paginationToken=${encodeURI(this.paginationToken)}` : this.urlParams;
+      if (paramsFilter) {
+        urlFilters = {
+            dateOrderInitial: paramsFilter.dateOrderInitial,
+            dateOrderFinal: paramsFilter.dateOrderFinal,
+            fileName: paramsFilter.fileName,
+        };
+      } else {
+        urlFilters = {};
+      }
+    }else {
+      url = `?limit=${this.limit}&paginationToken=${encodeURI(this.paginationToken)}`;
+      urlFilters = {
+      };
+    }
+
+    this._fraudFilterEmit.emit(urlFilters.PaymentNew);
+
+    this._fraudService.getFraudList(url, urlFilters).subscribe((res: any) => {
+        const { viewModel, count, paginationToken } = res;
+        this.dataSource = viewModel;
+        this.loadingService.closeSpinner();
+        this.savePaginationToken(paginationToken);
+    }, error => {
+      this.loadingService.closeSpinner();
+      this.componentsService.openSnackBar(this.languageService.instant('public.auth.forgot.error_try_again'), this.languageService.instant('actions.close'), {
+        duration: 3000,
+      });
+    });
   }
 
     /**
    * funcion para mostrar el modal de creacion de modulo
    *
-   * @memberof ListAdminSchoolComponent
+   * @memberof FraudNotificationComponent
    */
      chargeFraud() {
       const dialog = this.dialog.open(UploadFraudComponent, {
@@ -68,5 +108,26 @@ export class FraudNotificationComponent implements OnInit {
       const dialogIntance = dialog.componentInstance;
   
     }
+
+    /**
+   * funcion para salvar el token de la paginacion
+   *
+   * @param {string} paginationToken
+   * @memberof FraudNotificationComponent
+   */
+  savePaginationToken(paginationToken: string) {
+    if (paginationToken) {
+      this.paginationToken = paginationToken;
+    }
+  }
+
+  /**
+  * Método para cambiar el page size de la tabla órdenes
+  * @param {any} pageSize
+  * @memberof ReportsComponent
+  */
+   changeSizeOrderTable($event) {
+
+  }
 
 }
