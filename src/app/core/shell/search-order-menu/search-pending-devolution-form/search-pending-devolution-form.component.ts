@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Logger } from '@app/core';
 import { SearchFormEntity } from '@app/shared/models';
@@ -35,6 +35,7 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
 
   @Input() idSeller: number;
   @Input() paginator: any;
+  orderNumberClaim: any;
 
   /**
    * Creates an instance of SearchOrderFormComponent.
@@ -48,7 +49,7 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
    */
   constructor(
     public componentsService: ComponentsService,
-    private route: Router,
+    private route: ActivatedRoute,
     public searchOrderMenuService: SearchOrderMenuService,
     private shellComponent: ShellComponent,
     private loadingService: LoadingService,
@@ -64,6 +65,15 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
     // Obtengo la información del usuario
     // this.user = this.userService.getUser();
     this.createForm();
+    this.getFilterOrderbyClaim();
+  }
+
+  getFilterOrderbyClaim() {
+    this.route.params.subscribe(params => {
+      this.orderNumberClaim = params;
+      // this.getAllSellerAgreement(params, null);
+    });
+    console.log('this.orderNumberClaim filtrooooos: ', this.orderNumberClaim);
   }
 
   /**
@@ -177,8 +187,8 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
           this.componentsService.openSnackBar(this.languageService.instant('errors.error_check_orders'), this.languageService.instant('actions.close'), 5000);
         });
       } else {
+        console.log('llamado ser filter');
         this.searchOrderMenuService.getOrdersPendingDevolutionFilter(stringSearch).subscribe((res: any) => {
-
           if (res != null) {
             // indico a los elementos que esten suscriptos al evento.
             this.shellComponent.eventEmitterOrders.filterOrdersWithStatusResponse(res);
