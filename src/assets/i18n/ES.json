@@ -1338,6 +1338,7 @@
     "secure.parametize.support_claims.description": "Descripción",
     "secure.parametize.support_claims.tracing": "Seguimiento",
     "secure.parametize.support_claims.reply-btn": "RESPONDER",
+    "secure.parametize.support_claims.reply-to-cancel": "GESTIONAR CANCELACIÓN",
     "secure.parametize.support_claims.no-tracing": "No contiene seguimiento",
     "secure.parametize.support_claims.back-to-claims": "Volver a reclamaciones",
     "secure.parametize.support_claims.view-detail": "Ver detalle",

@@ -1315,6 +1315,7 @@
     "secure.parametize.support_claims.description": "Description",
     "secure.parametize.support_claims.tracing": "Tracing",
     "secure.parametize.support_claims.reply-btn": "REPLY",
+    "secure.parametize.support_claims.reply-to-cancel": "MANAGE CANCELLATION",
     "secure.parametize.support_claims.no-tracing": "Have not tracing",
     "secure.parametize.support_claims.back-to-claims": "Back to claims",
     "secure.parametize.support_claims.view-detail": "View detail",

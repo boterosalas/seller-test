@@ -4,6 +4,8 @@ import { ProductsCaseDialogComponent } from '../products-case-dialog/products-ca
 import { TranslateService } from '@ngx-translate/core';
 import { CaseSupportCenterService } from '@app/secure/seller-support-center/services/case-support-center.service';
 import { InfoModalSupportComponent } from '@app/secure/seller-support-center/info-modal-support/info-modal-support.component';
+import { Router } from '@angular/router';
+import { RoutesConst } from '@app/shared/util';
 const productsConfig = require('./products-list-configuration.json');
 
 @Component({
@@ -43,7 +45,8 @@ export class CaseSummaryComponent implements OnInit {
 
   constructor(public dialog: MatDialog,
     public translateService: TranslateService,
-    public redirecServ: CaseSupportCenterService
+    public redirecServ: CaseSupportCenterService,
+    private router: Router,
   ) {
     if (localStorage.getItem('typeProfile') === 'seller' || localStorage.getItem('typeProfile') === null || localStorage.getItem('typeProfile') === undefined || localStorage.getItem('typeProfile') === '') {
       this.disableButtonAnswer = false;
@@ -56,8 +59,22 @@ export class CaseSummaryComponent implements OnInit {
     this.productsConfig = productsConfig;
   }
 
+  /**
+   * Funcion para reddirigir alk 
+   * @memberof CaseSummaryComponent
+   */
   openResponseDialog(): void {
     this.clickResponse.emit(this.case);
+  }
+
+  /**
+   * Redirigir a listado de cancelaciones
+   * @memberof CaseSummaryComponent
+   */
+  goToListCancelOrders() {
+    console.log('this.case: ', this.case['orderNumber']);
+    // this.router.navigate([`/${RoutesConst.sellerCenterIntOrderInPendingDevolution}`, { orderNumber: this.case['orderNumber'] }]);
+    this.router.navigate(['securehome/seller-center/ordenes/listado-cancelaciones', { orderNumber: this.case['orderNumber'] }]);
   }
 
   onClickShowAllProducts() {
@@ -78,24 +95,21 @@ export class CaseSummaryComponent implements OnInit {
     this.idDetail.emit(caseId);
   }
 
-      /**
-   * funcion para mostrar el modal del producto
-   *
-   * @param {*} module
-   * @param {*} item
-   * @memberof ListAdminSchoolComponent
-   */
-       showThumbnail(dataProduct: any) {
-        this.dialog.open(InfoModalSupportComponent, {
-          data: {
-            dataProduct
-          },
-          width: '300px',
-          maxWidth: '90vw',
-        });
-        
-      }
 
+  /**
+   * Funcion para mostrar el modal del producto
+   * @param {*} dataProduct
+   * @memberof CaseSummaryComponent
+   */
+  showThumbnail(dataProduct: any) {
+    this.dialog.open(InfoModalSupportComponent, {
+      data: {
+        dataProduct
+      },
+      width: '300px',
+      maxWidth: '90vw',
+    });
+  }
 }
 
 

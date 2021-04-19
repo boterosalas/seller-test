@@ -28,6 +28,7 @@ import { AuthService } from '@app/secure/auth/auth.routing';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute } from '@angular/router';
 
 // log component
 const log = new Logger('PendingDevolutionComponent');
@@ -139,6 +140,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
   public currentLanguage: string;
 
   hideOptionsListCancel: Boolean = true;
+  orderNumberClaim: any;
 
   constructor(
     public shellComponent: ShellComponent,
@@ -150,6 +152,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     public eventsSeller: EventEmitterSeller,
     private languageService: TranslateService,
+    private route: ActivatedRoute,
   ) { }
 
   /**
@@ -157,6 +160,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
    * @memberof PendingDevolutionComponent
    */
   ngOnInit() {
+    console.log('cancelaciones pendientes');
     this.hideOptionsListCancel = true;
     this.getDataUser(pendingName);
     this.searchSubscription = this.eventsSeller.eventSearchSeller
@@ -170,11 +174,24 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
         this.getOrdersList(paramsArray);
       });
     this.clearTable();
+    this.getFilterOrderbyClaim();
   }
 
   ngOnDestroy() {
     // Funcionalidad para remover las suscripciones creadas.
     this.subFilterOrderPending.unsubscribe();
+  }
+
+  /**
+   * Metodo para traer el numero de orden desde reclamaciones y hacer filtro por el mismo
+   * @memberof PendingDevolutionComponent
+   */
+  getFilterOrderbyClaim() {
+    this.route.params.subscribe(params => {
+      this.orderNumberClaim = params;
+      // this.getAllSellerAgreement(params, null);
+    });
+    console.log('this.orderNumberClaim: ', this.orderNumberClaim);
   }
 
   /**
@@ -238,7 +255,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   getOrdersListSinceFilterSearchOrder() {
-
+    console.log('aki hace el filtro 1');
     this.subFilterOrderPending = this.shellComponent.eventEmitterOrders.filterOrdersWithStatus.subscribe(
       (data: any) => {
         if (data && data.count > 0) {
@@ -277,6 +294,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
 
 
   getOrdersList(params?: any) {
+    console.log('aki hace el primer get');
     this.loadingService.viewSpinner();
     this.isClear = false;
     this.params = this.setParameters(params);
