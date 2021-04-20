@@ -54,6 +54,7 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
     private shellComponent: ShellComponent,
     private loadingService: LoadingService,
     private languageService: TranslateService,
+    private router: Router,
     private fb: FormBuilder) {
   }
 
@@ -96,6 +97,7 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
     this.myform.reset();
     console.log(this.route.snapshot);
     this.route.snapshot.params = null;
+    this.router.navigate(['securehome/seller-center/ordenes/listado-cancelaciones', { orderNumber: null }]);
     this.shellComponent.eventEmitterOrders.getClear();
     this.shellComponent.sidenavSearchOrder.toggle();
   }

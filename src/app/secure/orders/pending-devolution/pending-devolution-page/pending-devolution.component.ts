@@ -292,6 +292,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
 
   getOrdersList(params?: any) {
     console.log('aki hace el primer get');
+    console.log(this.route.snapshot);
     this.loadingService.viewSpinner();
     this.isClear = false;
     this.params = this.setParameters(params);
