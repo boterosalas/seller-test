@@ -69,11 +69,8 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
   }
 
   getFilterOrderbyClaim() {
-    this.route.params.subscribe(params => {
-      this.orderNumberClaim = params;
-      // this.getAllSellerAgreement(params, null);
-    });
-    console.log('this.orderNumberClaim filtrooooos: ', this.orderNumberClaim);
+      this.orderNumberClaim = this.route.snapshot ? this.route.snapshot.children[0].params.orderNumber : null;
+      this.myform.controls.orderNumber.setValue(this.orderNumberClaim);
   }
 
   /**
@@ -97,6 +94,8 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
    */
   clearForm() {
     this.myform.reset();
+    console.log(this.route.snapshot);
+    this.route.snapshot.params = null;
     this.shellComponent.eventEmitterOrders.getClear();
     this.shellComponent.sidenavSearchOrder.toggle();
   }
@@ -187,7 +186,7 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
           this.componentsService.openSnackBar(this.languageService.instant('errors.error_check_orders'), this.languageService.instant('actions.close'), 5000);
         });
       } else {
-        console.log('llamado ser filter');
+        console.log('llamado ser filter', stringSearch);
         this.searchOrderMenuService.getOrdersPendingDevolutionFilter(stringSearch).subscribe((res: any) => {
           if (res != null) {
             // indico a los elementos que esten suscriptos al evento.

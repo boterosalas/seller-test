@@ -153,7 +153,9 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
     public eventsSeller: EventEmitterSeller,
     private languageService: TranslateService,
     private route: ActivatedRoute,
-  ) { }
+  ) { 
+    this.getFilterOrderbyClaim();
+  }
 
   /**
    * ngOnInit
@@ -174,7 +176,6 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
         this.getOrdersList(paramsArray);
       });
     this.clearTable();
-    this.getFilterOrderbyClaim();
   }
 
   ngOnDestroy() {
@@ -187,11 +188,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
    * @memberof PendingDevolutionComponent
    */
   getFilterOrderbyClaim() {
-    this.route.params.subscribe(params => {
-      this.orderNumberClaim = params;
-      // this.getAllSellerAgreement(params, null);
-    });
-    console.log('this.orderNumberClaim: ', this.orderNumberClaim);
+    this.orderNumberClaim = this.route.snapshot ? this.route.snapshot.params.orderNumber : null;
   }
 
   /**
@@ -328,8 +325,11 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
       this.orderNumber = '';
       this.identificationCard = '';
     }
+
+    const setLimit = 'limit=' + this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken) + this.querySearch;
+    const setLimitWithOrder = 'limit=' + this.pageSize + '&orderNumber=' + this.orderNumberClaim;
     const paramsArray = {
-      'limit': 'limit=' + this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken) + this.querySearch,
+      'limit': this.orderNumberClaim ? setLimitWithOrder : setLimit ,
       'idSeller': this.idSeller,
       'dateOrderFinal': this.dateOrderFinal,
       'dateOrderInitial': this.dateOrderInitial,
