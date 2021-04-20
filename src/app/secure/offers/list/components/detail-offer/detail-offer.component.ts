@@ -93,7 +93,6 @@ export class DetailOfferComponent implements OnInit {
   public Warranty: FormControl;
   public Periodicity: FormControl;
   public SellerSku: FormControl;
-  // public IsLogisticsExito: FormControl;
   public IsUpdatedStock: FormControl;
   public Currency: FormControl;
   public comboForm: FormGroup;
@@ -570,9 +569,6 @@ export class DetailOfferComponent implements OnInit {
         this.convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
         this.validateNumberOrder = Number(promiseSplited[2]) > Number(promiseSplited[0]);
         if (this.validateNumberOrder !== true) {
-          // this.snackBar.open('El primer número no debe ser mayor al segundo en la Promesa de Entrega.', 'Cerrar', {
-          //     duration: 5000,
-          // });
           this.formUpdateOffer.controls.PromiseDelivery.setErrors({ 'startIsGreaterThanEnd': true });
         }
       }
@@ -726,7 +722,6 @@ export class DetailOfferComponent implements OnInit {
       log.info('The dialog was closed');
       this.approvalOfert = res;
       if (this.approvalOfert === true) {
-        // this.loadingService.viewSpinner();
         this.sameInfoUpdate();
         this.dataUpdateOffer['priceApproval'] = 1;
         this.submitUpdateOffer(this.dataUpdateOffer);
@@ -795,10 +790,6 @@ export class DetailOfferComponent implements OnInit {
    */
 
   changeTypeCurrency(event: any) {
-    // this.setCategoryError(false);
-    // this.formUpdateOffer.controls.Price.reset('');
-    // this.formUpdateOffer.controls.DiscountPrice.reset('');
-    // this.formUpdateOffer.controls.AverageFreightCost.reset('');
     if (event === 'USD') {
       this.formUpdateOffer.controls['DiscountPrice'].setValidators([Validators.pattern(this.offertRegex.formatNumber)]);
       this.formUpdateOffer.controls['Price'].setValidators([Validators.required, Validators.pattern(this.offertRegex.formatNumber)]);
@@ -876,7 +867,6 @@ export class DetailOfferComponent implements OnInit {
     if (this.formUpdateOffer.controls.DiscountPrice.value) {
       if (this.formUpdateOffer.controls.DiscountPrice.value && parseFloat(this.formUpdateOffer.controls.DiscountPrice.value) >= this.sellerMinPrice) {
         errors = false;
-        // this.formUpdateOffer.controls.DiscountPrice.setErrors({ price: true });
         if (parseFloat(this.formUpdateOffer.controls.DiscountPrice.value) >= parseFloat(this.formUpdateOffer.controls.Price.value)) {
           if (showErrors) {
             this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.price_lower_discount'), this.languageService.instant('actions.close'), {
@@ -918,8 +908,6 @@ export class DetailOfferComponent implements OnInit {
       if (this.formUpdateOffer.controls.Price.value && this.formUpdateOffer.controls.Price.value >= this.sellerMinPrice) {
         errors = false;
       } else {
-        // this.formUpdateOffer.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
-        //   this.changeTypeCurrency(val);
         if (this.formUpdateOffer.get('Currency').value === 'COP') {
           this.setCategoryErrorPrice(errors);
         } else {
@@ -928,7 +916,6 @@ export class DetailOfferComponent implements OnInit {
           errors = !test;
           this.setCategoryErrorPrice(errors);
         }
-        //   });
       }
     }
     this.sendArray();
