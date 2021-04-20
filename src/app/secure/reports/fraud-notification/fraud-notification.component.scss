@@ -1,7 +1,5 @@
 .content-order {
 
-    height: 105vh;
-
     table{
         width: 100%;
         margin-bottom: 30px;
@@ -17,10 +15,8 @@
     
   & .container {
     min-width: 300px;
-    max-height: 500px;
     flex-direction: column;
     display: flex;
-    padding: 0 0 200px;
   }
 
   .button-pos{

@@ -3,7 +3,10 @@
     <div fxFlex="100" class="light-content">
     <!-- Toolbar para los dropdown de filtro de notificación de fraudes -->
     <!-- Toolbar de las opciones para notificación de fraudes -->
-    <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [idSeller]="idSeller" [Typeprofile] = "typeProfile" ></app-toolbar-options>
+    <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions [idSeller]="idSeller" [_lengthOrder]="lengthOrder"
+    (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event); paginations($event)"
+    [Typeprofile]="typeProfile">
+  </app-toolbar-options>
     <!-- Toolbar de las opciones para notificación de fraudes -->
   </div>
 
