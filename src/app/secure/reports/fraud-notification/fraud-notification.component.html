@@ -5,7 +5,7 @@
     <!-- Toolbar de las opciones para notificación de fraudes -->
     <app-toolbar-options [informationToForm]="informationToForm" #toolbarOptions [idSeller]="idSeller" [_lengthOrder]="lengthOrder"
     (OnGetOrdersList)="getOrdersList($event)" (OnChangeSizeOrderTable)="changeSizeOrderTable($event); paginations($event)"
-    [Typeprofile]="typeProfile">
+    [Typeprofile]="typeProfile" [searchComponent]="searchFraud" >
   </app-toolbar-options>
     <!-- Toolbar de las opciones para notificación de fraudes -->
   </div>

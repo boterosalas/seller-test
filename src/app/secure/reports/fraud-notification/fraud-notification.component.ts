@@ -90,6 +90,7 @@ export class FraudNotificationComponent implements OnInit {
   public pageSize = 50;
   resolutionDate = '';
   public params: any;
+  searchFraud: Boolean = true;
 
   /**
    * Creates an instance of FraudNotificationComponent.
@@ -113,6 +114,7 @@ export class FraudNotificationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.searchFraud = true;
     this.getDataUser();
     this.changeLanguage();
     this.clearData();

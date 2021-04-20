@@ -1,15 +1,20 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { LoadingService, Logger } from '@app/core';
-import { SearchFormEntity, ComponentsService } from '@app/shared';
-import { TranslateService } from '@ngx-translate/core';
+import { SearchFormEntity } from '@app/shared';
 import { ShellComponent } from '../..';
 import { SearchOrderMenuService } from '../search-order-menu.service';
+import * as _ from 'lodash';
 
 // log component
 const log = new Logger('SearchFraudFormComponent');
+
+interface DataForm {
+  fileName?: string;
+  dateOrderInitial?: Date | string;
+  dateOrderFinal?: Date | string;
+}
 
 @Component({
   selector: 'app-search-fraud-notification-form',
@@ -41,13 +46,11 @@ export class SearchFraudNotificationFormComponent implements OnInit {
    * @memberof SearchOrderFormComponent
    */
   constructor(
-    public componentsService: ComponentsService,
-    private route: Router,
-    public searchOrderMenuService: SearchOrderMenuService,
+    private fb: FormBuilder,
     private shellComponent: ShellComponent,
-    private loadingService: LoadingService,
-    private languageService: TranslateService,
-    private fb: FormBuilder) {
+    private __loadingService: LoadingService,
+    private __searchOrderMenuService: SearchOrderMenuService
+    ) {
   }
 
   /**
@@ -102,86 +105,57 @@ export class SearchFraudNotificationFormComponent implements OnInit {
   }
 
   /**
-   * Método para filtrar las órdenes
-   * @param {any} data
-   * @memberof SearchOrderFormComponent
+   * Metodo para filtrar fraudes segun los campos completados
+   *
+   * @param {FormGroup} myform
+   * @memberof SearchFraudNotificationFormComponent
    */
-  filterOrder(data: any) {
-    this.loadingService.viewSpinner();
+   public filterFrauds(myform: FormGroup) {
+    let { dateOrderInitial, dateOrderFinal, fileName }: DataForm = myform.value;
+  
+
     // Obtengo la información del usuario
-    // this.user = this.userService.getUser();
     const datePipe = new DatePipe(this.locale);
+
     // aplico el formato para la fecha a emplear en la consulta
-    const dateOrderFinal = datePipe.transform(data.value.dateOrderFinal, 'yyyy/MM/dd');
-    const dateOrderInitial = datePipe.transform(data.value.dateOrderInitial, 'yyyy/MM/dd');
+    dateOrderInitial = datePipe.transform(dateOrderInitial, 'yyyy/MM/dd');
+    dateOrderFinal = datePipe.transform(dateOrderFinal, 'yyyy/MM/dd');
+    
 
-    // creo el string que indicara los parametros de la consulta
-    let stringSearch = `?limit=${this.paginator.pageSize}`;
-    const objectSearch: any = {};
-    if (dateOrderInitial != null && dateOrderInitial !== '') {
-      stringSearch += `&dateOrderInitial=${dateOrderInitial}`;
-      objectSearch.dateOrderInitial = dateOrderInitial;
-    }
-    if (dateOrderFinal != null && dateOrderFinal !== '') {
-      stringSearch += `&dateOrderFinal=${dateOrderFinal}`;
-      objectSearch.dateOrderFinal = dateOrderFinal;
+    let stringQuery = `?limit=${50}&paginationToken=${encodeURI('{}')}`;
+    const objectQuery: DataForm = {};
+
+    if (dateOrderFinal !== null && dateOrderFinal !== '') {
+      stringQuery += `&dateOrderFinal=${dateOrderFinal}`;
+      objectQuery.dateOrderFinal = dateOrderFinal;
     }
 
-    if (data.value.fileName != null && data.value.fileName !== '') {
-      stringSearch += `&fileName=${data.value.fileName}`;
-      objectSearch.fileName = data.value.fileName;
-
+    if (dateOrderInitial !== null && dateOrderInitial !== '') {
+      stringQuery += `&dateOrderInitial=${dateOrderInitial}`;
+      objectQuery.dateOrderInitial = dateOrderInitial;
     }
 
-    if (this.idSeller === undefined) {
-      this.idSeller = null;
+   
+    if (fileName !== null && fileName !== '') {
+      stringQuery += `&fileName=${fileName}`;
+      objectQuery.fileName = fileName;
     }
 
-    if (stringSearch !== '') {
-
-      stringSearch += `&paginationToken=${encodeURI('{}')}`;
+    if (!_.isEmpty(objectQuery)) {
 
       // Guardo el filtro aplicado por el usuario.
-      this.searchOrderMenuService.setCurrentFilterOrders(objectSearch);
-
-      // obtengo las órdenes con el filtro indicado
-      if (this.informationToForm.information.reversionRequestStatusId === 1) {
-        this.searchOrderMenuService.getFraudList(stringSearch).subscribe((res: any) => {
-          if (res != null) {
-            res.filter = {
-              dateOrderFinal: dateOrderFinal,
-              dateOrderInitial: dateOrderInitial,
-              fileName: data.value.fileName,
-            };
+      this.__searchOrderMenuService.setCurrentFilterOrders(this.myform.value);
+      this.__loadingService.viewSpinner();
+      this.__searchOrderMenuService.getFraudList(stringQuery).subscribe(data => {
+          if (data) {
+            this.shellComponent.eventEmitterOrders.filterParams.emit(stringQuery);
             // indico a los elementos que esten suscriptos al evento.
-            this.shellComponent.eventEmitterOrders.filterOrdersWithStatusResponse(res);
-            this.toggleMenu();
-          } else {
-            this.componentsService.openSnackBar(this.languageService.instant('secure.orders.order_list.order_page.no_orders_found'), this.languageService.instant('actions.close'), 5000);
+            this.shellComponent.eventEmitterOrders.filterFraudList(data);
+            this.shellComponent.sidenavSearchOrder.toggle();
+            this.__loadingService.closeSpinner();
           }
-          this.loadingService.closeSpinner();
-        }, err => {
-          this.componentsService.openSnackBar(this.languageService.instant('errors.error_check_orders'), this.languageService.instant('actions.close'), 5000);
         });
-      } else {
-        this.searchOrderMenuService.getFraudList(stringSearch).subscribe((res: any) => {
-
-          if (res != null) {
-            // indico a los elementos que esten suscriptos al evento.
-            this.shellComponent.eventEmitterOrders.filterOrdersWithStatusResponse(res);
-            this.toggleMenu();
-          } else {
-            this.componentsService.openSnackBar(this.languageService.instant('secure.orders.order_list.order_page.no_orders_found'), this.languageService.instant('actions.close'), 5000);
-          }
-          this.loadingService.closeSpinner();
-        }, err => {
-          this.componentsService.openSnackBar(this.languageService.instant('errors.error_check_orders'), this.languageService.instant('actions.close'), 5000);
-        });
-      }
-    } else {
-      this.componentsService.openSnackBar(this.languageService.instant('errors.error_no_searh_criteria'), this.languageService.instant('actions.close'), 5000);
     }
   }
-
-
 }
+
