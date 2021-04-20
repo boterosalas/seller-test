@@ -56,7 +56,8 @@ $color-gray: #BCBCBC;
     .title {
       font-size: 26px;
       color: #000000;
-      margin-top: 2%;
+      margin-top: 8%;
+      margin-bottom: 0%;
       font-weight: 300;
     }
 
@@ -90,7 +91,7 @@ $color-gray: #BCBCBC;
     }
 
     .divider-one {
-      padding-bottom: 20px;
+      padding-bottom: 5px;
       display: flex;
     }
 
@@ -383,6 +384,7 @@ mat-card {
 .expanded-product-margin-max-height{
   max-height: 20px;
   margin-bottom: 1px;
+  z-index: 1;
 }
 
 .expanded-product-height-edit-icon{

@@ -52,10 +52,10 @@
           </span>
         </div>
         <div fxFlex="50" class="quality-indicators-padding-contain" >
-          <div class="quality-indicators-height-15" [title]="indicators.message"
+          <div class="quality-indicators-height-15" 
             *ngIf="indicators.value !== null && indicators.value !== 0">
             <div [ngStyle]="{'width': indicators.percentageBar + '%',
-              'background-color': indicators.color, 'height': '15px'}">
+              'background-color': indicators.color, 'height': '15px'}"  [matTooltip]="indicators.message" matTooltipPosition="above">
             </div>
           </div>
         </div>
@@ -184,11 +184,11 @@
               <div fxLayout="row" class="quality-indicators-padding-top">
                 <div fxFlex="80" class="quality-indicators-contain"
                   *ngIf="indicators.value !== null">
-                  <div class="quality-indicators-height-15" [title]="indicators.message"
+                  <div class="quality-indicators-height-15" 
                   *ngIf="indicators.value !== null && indicators.value !== 0">
                   <div *ngIf="indicators.percentageBar> 0 " [ngStyle]="{'width':
                     indicators.percentageBar + '%',
-                    'background-color': indicators.color, 'height': '15px' }"></div>
+                    'background-color': indicators.color, 'height': '15px' }"  [matTooltip]="indicators.message" matTooltipPosition="above"></div>
                   <div *ngIf="indicators.percentageBar === 0"
                     class="quality-indicators-bar-without-data"></div>
                   </div>

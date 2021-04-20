@@ -375,7 +375,7 @@
     "secure.billing.error_download": "Se ha presentado un error al realizar la descarga de los pagos",
     "secure.billing.Venta Marketplace": "Venta MarketPlace",
     "secure.billing.Nota crédito": "Nota crédito",
-    "secure.billing.Logistica Exito": "Logistica Exito",
+    "secure.billing.Logistica Exito": "Logística Exito",
     "secure.billing.no_data_admin": "Ingresa el nombre del vendedor en la barra de búsqueda para ver el detalle de las facturas",
 
     "secure.billing.summaryPayment.text_btn_details": "Ver detalle de las facturas seleccionadas",
@@ -528,6 +528,7 @@
     "secure.orders.order_list.product_order.standar": "Estándar",
     "secure.orders.order_list.product_order.fulfillment": "fulfillment",
     "secure.orders.order_list.product_order.ref": "Ref",
+    "secure.orders.order_list.product_order.reference": "Referencia",
     "secure.orders.order_list.product_order.sku": "SKU",
     "secure.orders.order_list.product_order.sku_seller": "SKU vendedor",
     "secure.orders.order_list.product_order.total": "Total",

@@ -279,7 +279,6 @@ export class ProcessService {
             this.productData.AssignEan = !data.AssignEan;
             this.productData.HasEAN = !data.AssignEan;
             this.views.showEan = true;
-            this.productData.ParentReference = data.ParentReference;
         }
         if (data.CategorySelected) {
             this.views.showCat = true;
@@ -301,6 +300,7 @@ export class ProcessService {
             this.productData.ProductHeight = data.ProductHeight;
             this.productData.ProductLength = data.ProductLength;
             this.productData.ProductWeight = data.ProductWeight;
+            this.productData.ParentReference = data.ParentReference;
             this.productData.Description = data.Description;
             this.productData.KeyWords = data.KeyWords;
             this.productData.Children = data.Children;
@@ -412,7 +412,6 @@ export class ProcessService {
             this.productData.ModifyImage = 0;
             return this.http.post(this.api.get('postUnitSaveInformationUnitCreation'), this.productData);
         }
-
     }
 
     resetProduct() {
