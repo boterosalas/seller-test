@@ -141,6 +141,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
 
   hideOptionsListCancel: Boolean = true;
   orderNumberClaim: any;
+  auxParamSet = true;
 
   constructor(
     public shellComponent: ShellComponent,
@@ -154,7 +155,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
     private languageService: TranslateService,
     private route: ActivatedRoute,
   ) { 
-    this.getFilterOrderbyClaim();
+    // this.getFilterOrderbyClaim();
   }
 
   /**
@@ -162,6 +163,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
    * @memberof PendingDevolutionComponent
    */
   ngOnInit() {
+    this.auxParamSet = false;
     console.log('cancelaciones pendientes');
     this.hideOptionsListCancel = true;
     this.getDataUser(pendingName);
@@ -181,6 +183,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     // Funcionalidad para remover las suscripciones creadas.
     this.subFilterOrderPending.unsubscribe();
+    this.subFilterOrder.unsubscribe();
   }
 
   /**
@@ -188,7 +191,15 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
    * @memberof PendingDevolutionComponent
    */
   getFilterOrderbyClaim() {
-    this.orderNumberClaim = this.route.snapshot ? this.route.snapshot.params.orderNumber : null;
+    console.log(this.route);
+    // this.orderNumberClaim = this.route.snapshot ? this.route.snapshot.params.orderNumber : null;
+    if (this.auxParamSet === false){
+      this.orderNumberClaim = this.route.snapshot ? this.route.snapshot.params.orderNumber : null;
+    } else {
+      this.orderNumberClaim = '';
+    }
+    this.auxParamSet = true;
+    // this.orderNumberClaim = this.route.snapshot ? this.route.snapshot.params.orderNumber : null;
   }
 
   /**
@@ -291,6 +302,8 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
 
 
   getOrdersList(params?: any) {
+    this.orderNumberClaim = '';
+    this.getFilterOrderbyClaim();
     console.log('aki hace el primer get');
     console.log(this.route.snapshot);
     this.loadingService.viewSpinner();
@@ -378,6 +391,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   clearTable() {
+    console.log('tabla');
     this.subFilterOrder = this.shellComponent.eventEmitterOrders.clearTable.subscribe(
       (data: any) => {
         const paramsArray = {

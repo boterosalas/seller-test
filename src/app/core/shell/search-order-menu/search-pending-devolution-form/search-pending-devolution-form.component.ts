@@ -70,8 +70,8 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
   }
 
   getFilterOrderbyClaim() {
-      this.orderNumberClaim = this.route.snapshot ? this.route.snapshot.children[0].params.orderNumber : null;
-      this.myform.controls.orderNumber.setValue(this.orderNumberClaim);
+    this.orderNumberClaim = this.route.snapshot ? this.route.snapshot.children[0].params.orderNumber : null;
+    this.myform.controls.orderNumber.setValue(this.orderNumberClaim);
   }
 
   /**
@@ -96,8 +96,8 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
   clearForm() {
     this.myform.reset();
     console.log(this.route.snapshot);
-    this.route.snapshot.params = null;
-    this.router.navigate(['securehome/seller-center/ordenes/listado-cancelaciones', { orderNumber: null }]);
+    // this.route.params = null;
+    this.router.navigate(['securehome/seller-center/ordenes/listado-cancelaciones', {}]);
     this.shellComponent.eventEmitterOrders.getClear();
     this.shellComponent.sidenavSearchOrder.toggle();
   }
@@ -194,10 +194,12 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
             // indico a los elementos que esten suscriptos al evento.
             this.shellComponent.eventEmitterOrders.filterOrdersWithStatusResponse(res);
             this.toggleMenu();
+            this.loadingService.closeSpinner();
           } else {
             this.componentsService.openSnackBar(this.languageService.instant('secure.orders.order_list.order_page.no_orders_found'), this.languageService.instant('actions.close'), 5000);
+            this.loadingService.closeSpinner();
           }
-          this.loadingService.closeSpinner();
+          // this.loadingService.closeSpinner();
         }, err => {
           this.componentsService.openSnackBar(this.languageService.instant('errors.error_check_orders'), this.languageService.instant('actions.close'), 5000);
         });

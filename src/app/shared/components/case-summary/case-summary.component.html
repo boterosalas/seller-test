@@ -48,7 +48,7 @@
     </app-conversation>
 
     <div class="ticket-content__controls ticket-content__controls--left" *ngIf="!disableButtonAnswer">
-      <button  (click)="goToListCancelOrders()" style="margin-right: 2%;"
+      <button  (click)="goToListCancelOrders()" style="margin-right: 2%;" *ngIf="case.buttonReversion"
         class="btn-no-bg" mat-stroked-button color="primary" type="button"
         [ngClass]="disabledClass ? 'ticket-content__button--secondary-disabled' : ''"
         id="case-summary-reply-btn-to-list-cancel{{case.caseNumber}}">
