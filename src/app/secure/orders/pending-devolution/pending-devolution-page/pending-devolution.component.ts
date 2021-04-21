@@ -56,11 +56,11 @@ const log = new Logger('PendingDevolutionComponent');
 export class PendingDevolutionComponent implements OnInit, OnDestroy {
 
   // Elemento paginador
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   // Sort: elemento que se emplea para poder organizar los elementos de la tabla de acuerdo a la columna seleccionada
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
   // Toolbar Options Componente: Permite acceder a los metodos de este compomente
-  @ViewChild('toolbarOptions', {static: false}) toolbarOption;
+  @ViewChild('toolbarOptions', { static: false }) toolbarOption;
   // Columnas que se visualizan en la tabla
   public displayedColumns = [
     // 'select',
@@ -154,7 +154,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
     public eventsSeller: EventEmitterSeller,
     private languageService: TranslateService,
     private route: ActivatedRoute,
-  ) { 
+  ) {
     // this.getFilterOrderbyClaim();
   }
 
@@ -164,7 +164,6 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.auxParamSet = false;
-    console.log('cancelaciones pendientes');
     this.hideOptionsListCancel = true;
     this.getDataUser(pendingName);
     this.searchSubscription = this.eventsSeller.eventSearchSeller
@@ -191,9 +190,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
    * @memberof PendingDevolutionComponent
    */
   getFilterOrderbyClaim() {
-    console.log(this.route);
-    // this.orderNumberClaim = this.route.snapshot ? this.route.snapshot.params.orderNumber : null;
-    if (this.auxParamSet === false){
+    if (this.auxParamSet === false) {
       this.orderNumberClaim = this.route.snapshot ? this.route.snapshot.params.orderNumber : null;
     } else {
       this.orderNumberClaim = '';
@@ -343,7 +340,7 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
     const setLimit = 'limit=' + this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken) + this.querySearch;
     const setLimitWithOrder = 'limit=' + this.pageSize + '&orderNumber=' + this.orderNumberClaim;
     const paramsArray = {
-      'limit': this.orderNumberClaim ? setLimitWithOrder : setLimit ,
+      'limit': this.orderNumberClaim ? setLimitWithOrder : setLimit,
       'idSeller': this.idSeller,
       'dateOrderFinal': this.dateOrderFinal,
       'dateOrderInitial': this.dateOrderInitial,

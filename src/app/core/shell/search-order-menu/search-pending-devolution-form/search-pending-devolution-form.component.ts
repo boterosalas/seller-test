@@ -95,8 +95,6 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
    */
   clearForm() {
     this.myform.reset();
-    console.log(this.route.snapshot);
-    // this.route.params = null;
     this.router.navigate(['securehome/seller-center/ordenes/listado-cancelaciones', {}]);
     this.shellComponent.eventEmitterOrders.getClear();
     this.shellComponent.sidenavSearchOrder.toggle();
@@ -188,7 +186,6 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
           this.componentsService.openSnackBar(this.languageService.instant('errors.error_check_orders'), this.languageService.instant('actions.close'), 5000);
         });
       } else {
-        console.log('llamado ser filter', stringSearch);
         this.searchOrderMenuService.getOrdersPendingDevolutionFilter(stringSearch).subscribe((res: any) => {
           if (res != null) {
             // indico a los elementos que esten suscriptos al evento.
@@ -199,7 +196,6 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
             this.componentsService.openSnackBar(this.languageService.instant('secure.orders.order_list.order_page.no_orders_found'), this.languageService.instant('actions.close'), 5000);
             this.loadingService.closeSpinner();
           }
-          // this.loadingService.closeSpinner();
         }, err => {
           this.componentsService.openSnackBar(this.languageService.instant('errors.error_check_orders'), this.languageService.instant('actions.close'), 5000);
         });
