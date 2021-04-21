@@ -155,7 +155,6 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
     private languageService: TranslateService,
     private route: ActivatedRoute,
   ) {
-    // this.getFilterOrderbyClaim();
   }
 
   /**
@@ -196,7 +195,6 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
       this.orderNumberClaim = '';
     }
     this.auxParamSet = true;
-    // this.orderNumberClaim = this.route.snapshot ? this.route.snapshot.params.orderNumber : null;
   }
 
   /**
@@ -260,7 +258,6 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   getOrdersListSinceFilterSearchOrder() {
-    console.log('aki hace el filtro 1');
     this.subFilterOrderPending = this.shellComponent.eventEmitterOrders.filterOrdersWithStatus.subscribe(
       (data: any) => {
         if (data && data.count > 0) {
@@ -301,8 +298,6 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
   getOrdersList(params?: any) {
     this.orderNumberClaim = '';
     this.getFilterOrderbyClaim();
-    console.log('aki hace el primer get');
-    console.log(this.route.snapshot);
     this.loadingService.viewSpinner();
     this.isClear = false;
     this.params = this.setParameters(params);
@@ -388,7 +383,6 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   clearTable() {
-    console.log('tabla');
     this.subFilterOrder = this.shellComponent.eventEmitterOrders.clearTable.subscribe(
       (data: any) => {
         const paramsArray = {

@@ -72,11 +72,13 @@ export class CaseSummaryComponent implements OnInit {
    * @memberof CaseSummaryComponent
    */
   goToListCancelOrders() {
-    console.log('this.case: ', this.case['orderNumber']);
-    // this.router.navigate([`/${RoutesConst.sellerCenterIntOrderInPendingDevolution}`, { orderNumber: this.case['orderNumber'] }]);
     this.router.navigate(['securehome/seller-center/ordenes/listado-cancelaciones', { orderNumber: this.case['orderNumber'] }]);
   }
 
+  /**
+   * Mostrar todos los productos
+   * @memberof CaseSummaryComponent
+   */
   onClickShowAllProducts() {
     const dialogRef = this.dialog.open(
       ProductsCaseDialogComponent,
@@ -85,6 +87,10 @@ export class CaseSummaryComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => { });
   }
 
+  /**
+   * MEtodo para cerrar dialogo
+   * @memberof CaseSummaryComponent
+   */
   closeDialog(): void {
     this.dialog.closeAll();
   }
