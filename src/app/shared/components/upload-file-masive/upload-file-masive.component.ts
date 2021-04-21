@@ -1,18 +1,22 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Subject, Subscription, timer } from 'rxjs';
 import { HttpEvent } from '@angular/common/http';
 import { isNullOrUndefined } from 'util';
 import * as XLSX from 'xlsx';
 import { UploadFileMasiveService } from './upload-file-masive.service';
 import { switchMap, takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { RoutesConst } from '@app/shared';
+import * as FileSaver from 'file-saver';
+const EXCEL_EXTENSION = '.xlsx';
 
 @Component({
   selector: 'app-upload-file-masive',
   templateUrl: './upload-file-masive.component.html',
   styleUrls: ['./upload-file-masive.component.scss']
 })
-export class UploadFileMasiveComponent implements OnInit {
+export class UploadFileMasiveComponent implements OnInit, OnDestroy {
 
 
   files: File[] = [];
@@ -30,7 +34,7 @@ export class UploadFileMasiveComponent implements OnInit {
   file = null;
   arraySend = [];
   refuseMaxSize = false;
-  disabledBtn= true;
+  disabledBtn = true;
   processFinish$ = new Subject<any>();
 
   limitRowExcel = 1048576;
@@ -38,14 +42,26 @@ export class UploadFileMasiveComponent implements OnInit {
   _filesAux: File[] = [];
   _fileAux = null;
   json = [];
+  listErrors = [];
+  listBtnError = [];
+  public nameFileExport = '';
+
+  public titleStatus = '';
+  public iconStatus = '';
+  public showError = false;
+  public loadFile = true;
+  public routes: any;
+  public ListBtn = [];
 
   constructor(
     private uploadFileMasiveService: UploadFileMasiveService,
+    public dialogRef: MatDialogRef<UploadFileMasiveComponent>,
+    private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
   ngOnInit() {
-    console.log(this.data);
+    this.routes = RoutesConst;
   }
 
   /**
@@ -57,7 +73,13 @@ export class UploadFileMasiveComponent implements OnInit {
   public getDate(): Date {
     return new Date();
   }
-
+  /**
+   * funcion para calcular el tamaño del archivo
+   *
+   * @param {*} files
+   * @param {*} file
+   * @memberof UploadFileMasiveComponent
+   */
   resetFiles(files: any, file: any) {
     if (!isNullOrUndefined(file)) {
       this._filesAux = [];
@@ -84,7 +106,7 @@ export class UploadFileMasiveComponent implements OnInit {
         }
       }
     }
-    if (this.refuseMaxSize && file === null){
+    if (this.refuseMaxSize && file === null) {
       this.disabledBtn = true;
     } else {
       this.disabledBtn = false;
@@ -92,7 +114,11 @@ export class UploadFileMasiveComponent implements OnInit {
     this.file = null;
     this.files = [];
   }
-
+  /**
+   * funcion para armar y subir el archivo
+   *
+   * @memberof UploadFileMasiveComponent
+   */
   sendUploadCategory() {
     this.readFileUpload(this._fileAux).then(data => {
       if (data && data.length) {
@@ -101,15 +127,15 @@ export class UploadFileMasiveComponent implements OnInit {
           data.forEach(categories => {
             this.json.push(
               {
-                'Id': categories[0] ? parseInt(categories[0], 0)  : null,
+                'Id': categories[0] ? parseInt(categories[0], 0) : 0,
                 'ProductType': categories[1],
                 'Name': categories[2],
-                'Commission': categories[3],
-                'IdVTEX': categories[4],
+                'Commission': categories[3] ? parseInt(categories[3], 0) : 0,
+                'IdVTEX': categories[4] ? parseInt(categories[4], 0) : 0,
                 'VtexIdCarulla': categories[5],
                 'IdParent': categories[6] ? parseInt(categories[6], 0) : null,
                 'TariffCode': categories[7],
-                'Tariff': categories[8],
+                'Tariff':  categories[8] ? parseInt(categories[8], 0) : 0
               }
             );
           });
@@ -118,14 +144,9 @@ export class UploadFileMasiveComponent implements OnInit {
               if (result.body) {
                 const body = JSON.parse(result.body);
                 if (body && body.Data && body.Data.Data) {
-                  this.uploadFileMasiveService.status(this.data.services.status.name, this.data.services.status.method).subscribe(resultStatus =>{
-                   if (resultStatus && resultStatus.statusCode === 200) {
-                    if (resultStatus.body) {
-                      const bodyStatus = JSON.parse(resultStatus.body);
-                     this.verifyStatus(bodyStatus.Data.Status);
-                    }
-                   }
-                  });
+                  this.loadFile = false;
+                  this.validateStatus(1, 'false', null);
+                  this.verifyStatus(1);
                 }
               }
             }
@@ -136,7 +157,13 @@ export class UploadFileMasiveComponent implements OnInit {
       }
     });
   }
-
+  /**
+   * funcion para lecura de archivo de excel
+   *
+   * @param {*} evt
+   * @returns {Promise<any>}
+   * @memberof UploadFileMasiveComponent
+   */
   readFileUpload(evt: any): Promise<any> {
     return new Promise((resolve, reject) => {
       // this.loadingService.viewSpinner();
@@ -168,13 +195,145 @@ export class UploadFileMasiveComponent implements OnInit {
       reader.readAsBinaryString(this._fileAux);
     });
   }
-
+  /**
+   * funcion verificar el estado de la carga
+   *
+   * @param {number} status
+   * @memberof UploadFileMasiveComponent
+   */
   verifyStatus(status: number) {
-    if (status === 1 || status === 4) {
-      // tslint:disable-next-line: no-unused-expression
-      !!this.uploadFileMasiveService.status(this.data.services.status.name, this.data.services.status.method) && timer(this.data.initTime, this.data.intervalTime).pipe(takeUntil(this.processFinish$), switchMap(() => this.uploadFileMasiveService.status(this.data.services.status.name, this.data.services.status.method))).subscribe((res) => {
+    // tslint:disable-next-line: no-unused-expression
+    !!this.uploadFileMasiveService.status(this.data.services.status.name, this.data.services.status.method) && timer(this.data.initTime, this.data.intervalTime).pipe(takeUntil(this.processFinish$), switchMap(() => this.uploadFileMasiveService.status(this.data.services.status.name, this.data.services.status.method))).subscribe((res) => {
+      if (res && res.statusCode && res.body) {
+        const body = JSON.parse(res.body);
+        if (body && body.Data) {
+          this.validateStatus(body.Data.Status, body.Data.Checked, body.Data);
+        }
+      }
+    });
+  }
+  /**
+   * funcion para validar el estado para colocar variables dinamicas
+   *
+   * @param {number} status
+   * @param {string} checked
+   * @param {*} data
+   * @memberof UploadFileMasiveComponent
+   */
+  validateStatus(status: number, checked: string, data: any) {
+    switch (status) {
+      case 1:
+      case 4:
+        this.titleStatus = this.data.uploadStatus.proccess.title;
+        this.iconStatus = this.data.uploadStatus.proccess.icon;
+        this.ListBtn = this.data.uploadStatus.proccess.btn;
+        break;
+      case 2:
+        this.titleStatus = this.data.uploadStatus.success.title;
+        this.iconStatus = this.data.uploadStatus.success.icon;
+        this.processFinish$.next(true);
+        break;
+      case 3:
+        const { Errors } = data && data.Response ? JSON.parse(data.Response) : null;
+        this.listErrors = Errors;
+        this.titleStatus = this.data.uploadStatus.error.title;
+        this.iconStatus = this.data.uploadStatus.error.icon;
+        this.listBtnError = this.data.uploadStatus.error.btn;
+        this.nameFileExport = this.data.uploadStatus.error.nameFile;
+        this.showError = true;
+        this.processFinish$.next(false);
+        break;
+      default:
+        break;
+    }
+  }
+  /**
+   * funcion para volver al home 
+   *
+   * @memberof UploadFileMasiveComponent
+   */
+  goToHome() {
+    this.router.navigate([`/${RoutesConst.sellerCenterOrders}`]);
+  }
 
-      });
+  /**
+   * Método que genera el dato json en el formato que emplea excel para.
+   * @param {any[]} json
+   * @param {string} excelFileName
+   * @memberof FinishUploadProductInformationComponent
+   */
+  exportAsExcelFile(json: any[], excelFileName: string): void {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', bookSST: false, type: 'binary' });
+    this.saveAsExcelFile(excelBuffer, excelFileName);
+  }
+
+  /**
+   * Método que permite dar el formato correcto al archivo excel generado
+   *
+   * @param {*} s
+   * @returns
+   * @memberof UploadFileMasiveComponent
+   */
+  s2ab(s: any) {
+    const buf = new ArrayBuffer(s.length);
+    const view = new Uint8Array(buf);
+    for (let i = 0; i !== s.length; ++i) {
+      view[i] = s.charCodeAt(i) && 0xFF;
+    }
+    return buf;
+  }
+
+  /**
+   * Método que permite generar el excel con los datos pasados.
+   * @param {*} buffer
+   * @param {string} fileName
+   * @memberof FinishUploadProductInformationComponent
+   */
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    const data: Blob = new Blob([this.s2ab(buffer)], {
+      type: ''
+    });
+    FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+  }
+  /**
+   * funcion para resetear los campos
+   *
+   * @memberof UploadFileMasiveComponent
+   */
+  resetFields() {
+    // this.loadFile = true;
+    this.titleStatus = '';
+    this.iconStatus = '';
+    this.processFinish$ = new Subject<any>();
+    this.ListBtn = [];
+    this.listBtnError = [];
+    // this.showError = false;
+    this.listErrors = [];
+    this.json = [];
+    this._filesAux = [];
+    this._fileAux = null;
+    this.disabledBtn = true;
+
+  }
+  /**
+   * funcion para cerrar el modal
+   *
+   * @memberof UploadFileMasiveComponent
+   */
+  close() {
+    this.dialogRef.close();
+    this.resetFields();
+  }
+  /**
+   * funcion para destruir el componente
+   *
+   * @memberof UploadFileMasiveComponent
+   */
+  ngOnDestroy() {
+    if (this.dialogRef) {
+      this.dialogRef.close();
     }
   }
 }

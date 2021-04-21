@@ -315,7 +315,7 @@ export const endpoints = {
       // Captura de indicadores
       getIndicators : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller/getindicatorsbynit/{params}',
       // Descargar plantilla para carga masiva de categorias
-      downloadTemplateCategoryMasive : ' https://s3.amazonaws.com/seller-center-exito-staging/Templates-Dev/PlantillaCargaMasivaCategorias.xlsx',
+      downloadTemplateCategoryMasive : 'https://seller-center-exito-staging.s3.amazonaws.com/Templates-Dev/PlantillaCargaMasivaCategorias.xlsx',
       // Crear caterogiras de forma masiva
       createUpdateMassiveCategories: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/CreateUpdateMassiveCategories/{params}',
        // valida el estado de la carga masiva de categorias

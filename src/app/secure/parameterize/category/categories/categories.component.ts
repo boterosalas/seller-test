@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild, NgZone, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, NgZone, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { CategoryTreeService } from '../category-tree.service';
 import { EndpointService, LoadingService, ModalService } from '@app/core';
 import { updateFunctionality, createFunctionality, MenuModel, categoryName, deleteFunctionality } from '@app/secure/auth/auth.consts';
@@ -18,7 +18,7 @@ import { UploadFileMasiveComponent } from '@app/shared/components/upload-file-ma
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss']
 })
-export class CategoriesComponent implements OnInit {
+export class CategoriesComponent implements OnInit, OnDestroy {
 
   /**
    * Attribute that represent the regex for the form
@@ -97,7 +97,7 @@ export class CategoriesComponent implements OnInit {
 
   ngOnInit() {
     this.getFunctionalities();
-    this.verifyProccesCategory();
+    // this.verifyProccesCategory();
     this.getTree();
     this.getRegex();
     this.changeLanguage();
@@ -147,39 +147,60 @@ export class CategoriesComponent implements OnInit {
       },
       uploadStatus: {
         success: {
-          title: '',
-          subTile: '',
-          icon: '',
-          btn: {
-            btn_1: '',
-            btn_2 : ''
-          }
+          title: 'Carga exitosa',
+          subTile: 'El archivo con la información de categorias se ha cargado exitosamente',
+          icon: 'check_circle',
+          btn : [
+            {
+              btnTitle : 'Aceptar',
+              action : 'close',
+              style : 'raised',
+            }
+          ]
         },
         proccess: {
-          title: '',
-          subTile: '',
-          icon: '',
-          btn: {
-            btn_1: '',
-            btn_2 : ''
-          }
+          title: 'Carga en proceso',
+          subTile: null,
+          icon: 'autorenew',
+          btn : [
+            {
+              btnTitle : 'Ir al inicio',
+              action : 'goToHome',
+              style : 'raised',
+            }
+          ]
         },
         error: {
-          title: '',
-          subTile: '',
-          icon: '',
-          btn: {
-            btn_1: '',
-            btn_2 : ''
-          }
+          title: 'Ha ocurrido un error al momento de cargar el archivo de categorías',
+          subTile: null,
+          icon: 'report_problem',
+          nameFile: 'Bulk_load_category',
+          btn : [
+            {
+              btnTitle : 'Cerrar',
+              action : 'close',
+              style : 'raised',
+            },
+            {
+              btnTitle : 'Exportar a exccel',
+              action : 'exportExcel',
+              style : 'raised',
+            }
+          ]
         }
       }
     }
     const dialogRef = this.dialog.open(UploadFileMasiveComponent, {
       width: '50%',
-      data: data
+      data: data,
+      disableClose: true,
     });
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogIntance = dialogRef.componentInstance;
+    dialogIntance.processFinish$.subscribe((val) => {
+      if (val) {
+        dialogRef.close();
+        this.getTree();
+      }
     });
   }
 
@@ -614,6 +635,12 @@ export class CategoriesComponent implements OnInit {
 
   get TariffCode(): FormControl {
     return this.form.get('TariffCode') as FormControl;
+  }
+
+  ngOnDestroy() {
+    if (this.dialog) {
+      this.dialog.closeAll();
+    }
   }
 
 }

@@ -1,18 +1,18 @@
-<div>
+<div *ngIf="loadFile">
   <div fxLayout="row wrap">
-    <div fxFlex="100" style="text-align: end; height: 15px;">
-      <mat-icon class="mat-18" style="color: #909090;">close</mat-icon>
+    <div fxFlex="100" class="load-file-container-icon-position-close">
+      <mat-icon class="mat-18 load-file-container-cursor-grey-color" (click)="close()">close</mat-icon>
     </div>
   </div>
   <div fxLayout="row wrap">
     <div fxFlex="100" [ngStyle]="{'text-align': data.positionTitle}">
-      <span style="font-weight: bold;">{{data.title}}</span>
+      <span class="load-file-container-font-weight-bold">{{data.title}}</span>
     </div>
   </div>
   <div fxLayout="row wrap">
     <div fxFlex="100" [ngStyle]="{'text-align': data.positionSubtitle,
       'padding': '20px'}">
-      <span style="color: #757474; font-size:14px">{{data.subTitle}}</span>
+      <span class="load-file-container-text-color-size">{{data.subTitle}}</span>
     </div>
   </div>
   <div fxLayout="row wrap" class="load-file-container">
@@ -29,58 +29,108 @@
           (filesChange)="lastFileAt=getDate(); resetFiles(files, file)">
 
           <div *ngIf="_fileAux === null && !lastInvalids?.length &&
-            !_filesAux?.length" style="text-align: center;">
+            !_filesAux?.length" class = "load-file-container-aling-center">
             <mat-icon class="material-icons">
               note_add
             </mat-icon>
             <div>
-              <span style="color: #757474; font-size:14px">
+              <span class="load-file-container-text-color-size">
                 Presione acá o arrastre y suelte el archivo.
               </span>
             </div>
             <div>
-              <span style="font-size:14px; color: #485AFA;">
+              <span class="load-file-container-text-blue-size-14">
                 Archivo/Anexo
               </span>
             </div>
           </div>
           <div *ngIf="_fileAux !== null && !lastInvalids?.length &&
-            !refuseMaxSize" style="text-align: center;">
+            !refuseMaxSize" class = "load-file-container-aling-center">
             <mat-icon class="material-icons check">
               check_circle {{_filesAux.length}}
             </mat-icon>
             <div>
-              <span style="color: #757474; font-size:14px">
+              <span class = "load-file-container-text-grey-font-14">
                 {{_fileAux.name}} - {{_fileAux.size/1024/1024 | number:'.2' }}
                 MB
               </span>
             </div>
           </div>
           <div *ngIf="lastInvalids?.length || _filesAux.length> 1 ||
-            refuseMaxSize" style="text-align: center;">
+            refuseMaxSize" class = "load-file-container-aling-center">
             <mat-icon class="material-icons error">
               not_interested
             </mat-icon>
             <div *ngIf="refuseMaxSize && !lastInvalids?.length">
-              <span style="color: #757474; font-size:14px">
+              <span class = "load-file-container-text-grey-font-14">
                 El archivo no puede superar los 7 Megabytes
               </span>
             </div>
             <div *ngIf="lastInvalids?.length">
-              <span style="color: #757474; font-size:14px">
-                El archivo tiene un formato no permitido, solo se permiten <br> 
-                <span style="font-weight: bold;">
+              <span class="load-file-container-text-grey-font-14">
+                El archivo tiene un formato no permitido, solo se permiten <br>
+                <span class="load-file-container-font-weight-bold">
                   ({{data.dragDrop.accept}})
                 </span>
               </span>
             </div>
           </div>
         </div>
-        <div style="text-align: center;">
+        <div class = "load-file-container-aling-center">
           <div>
-            <button mat-stroked-button color="primary" mat-button (click)="close()" style="margin-right: 5px;margin-top: 29px; width: 150px;">CANCELAR</button>
-            <button mat-raised-button color="primary" style="margin-left: 30px;" (click)="sendUploadCategory()" [disabled]="lastInvalids?.length || disabledBtn || refuseMaxSize">CARGAR CATEGORÍAS</button>
+            <button mat-stroked-button color="primary" mat-button
+              (click)="close()"
+              class="load-file-container-btn-generic">CANCELAR</button>
+            <button mat-raised-button color="primary" class="load-file-container-margin-left-30"
+              (click)="sendUploadCategory()"
+              [disabled]="lastInvalids?.length || disabledBtn || refuseMaxSize">CARGAR
+              CATEGORÍAS</button>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!loadFile">
+  <div *ngIf="!showError">
+    <div class="load-file-container-text-align-center-margin-30">
+      <mat-icon class="mat-18 load-file-container-icon-status-size">{{iconStatus}}</mat-icon>
+    </div>
+    <div class="load-file-container-text-align-center-margin-23">
+      <span class="load-file-container-font-weight-bold">{{titleStatus}}</span>
+    </div>
+    <div class="actionBtn load-file-container-text-align-center-margi-40">
+      <div *ngFor="let btn of ListBtn">
+        <div *ngIf="btn.style === 'raised'">
+          <button mat-button mat-raised-button color="primary" *ngIf="btn.action
+            === 'goToHome'"
+            (click)="goToHome()">{{btn.btnTitle}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="showError">
+    <div class="load-file-container-margin-bottom-20">
+      <mat-icon class="mat-18 load-file-container-icon-warning-red-list-error" >warning</mat-icon>
+      <span>{{titleStatus}}</span>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="load-file-container-padding-20">
+      <div *ngFor="let error of listErrors" class="load-file-container-padding-10">
+        <div class="load-file-container-text-color-size">
+          <mat-icon class="mat-18 load-file-container-icon-warning-red-list-error">warning</mat-icon>
+          <span class="load-file-container-msg-list-errors-ellipsis" [matTooltip]="error.Message" >{{error.Code}} - {{error.Message}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="load-file-container-list-btn">
+      <div fxLayout="row" fxLayoutAlign="end center" 
+        mat-dialog-actions>
+        <div *ngFor="let btnError of listBtnError">
+          <button mat-button mat-raised-button color="primary" class="load-file-container-width-130" *ngIf="btnError.action === 'close'"
+            (click)="close()">{{btnError.btnTitle}}</button>
+          <button mat-button mat-raised-button color="primary" *ngIf="btnError.action === 'exportExcel'"
+            (click)="exportAsExcelFile(listErrors, nameFileExport)">{{btnError.btnTitle}}</button>
         </div>
       </div>
     </div>
