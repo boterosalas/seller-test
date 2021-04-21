@@ -184,7 +184,6 @@ export class ProductBasicInfoComponent implements OnInit {
                             this.process.setViews(views);
                         }
                     }
-                  
                 } else {
                     this.sonList = [];
                     if (!this.formBasicInfo.invalid) {
@@ -288,13 +287,15 @@ export class ProductBasicInfoComponent implements OnInit {
                         Validators.required, Validators.pattern(this.getValue('decimalsProduct'))
                     ])
             }),
-            parentReference: new FormControl('', [Validators.required, Validators.pattern(this.BrandsRegex.referenceProduct)]),
+            parentReference: new FormControl('', [Validators.pattern(this.BrandsRegex.referenceProduct)]),
             Description: new FormControl('',
                 [
                     Validators.required, Validators.pattern(/^((?!<script>|<SCRIPT>|<Script>|&lt;Script&gt;|&lt;SCRIPT&gt;|&lt;script&gt;)[\s\S])*$/)
                 ])
 
         });
+        console.log(this.productData);
+        console.log(this.formBasicInfo.controls);
         this.formBasicInfo.controls.EanCombo.disable();
         this.formBasicInfo.get('IsCombo').valueChanges.subscribe(val => {
             if (!val) {
