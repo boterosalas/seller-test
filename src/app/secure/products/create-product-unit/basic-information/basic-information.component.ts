@@ -294,8 +294,6 @@ export class ProductBasicInfoComponent implements OnInit {
                 ])
 
         });
-        console.log(this.productData);
-        console.log(this.formBasicInfo.controls);
         this.formBasicInfo.controls.EanCombo.disable();
         this.formBasicInfo.get('IsCombo').valueChanges.subscribe(val => {
             if (!val) {
