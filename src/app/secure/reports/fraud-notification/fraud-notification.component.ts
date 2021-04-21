@@ -11,6 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FraudNotificationService } from './fraud-notification.service';
+import { UploadFraudComponent } from './components/upload-fraud/upload-fraud.component';
 
 
 const log = new Logger('FraudNotificationComponent');
@@ -320,4 +321,20 @@ export class FraudNotificationComponent implements OnInit {
       this.clearData();
     });
   }
+
+   /**
+   * funcion para mostrar el modal de creacion de modulo
+   *
+   * @memberof FraudNotificationComponent
+   */
+    chargeFraud() {
+      const dialog = this.dialog.open(UploadFraudComponent, {
+        width: '800px',
+        maxWidth: '90vw',
+        maxHeight: '90vh',
+      });
+      const dialogIntance = dialog.componentInstance;
+  
+    }
+
 }

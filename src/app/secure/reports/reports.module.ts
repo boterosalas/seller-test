@@ -14,6 +14,7 @@ import { SharedModule } from '@app/shared/shared.module';
 import { ReportDispersionComponent } from './report-dispersion/report-dispersion.component';
 import { FraudNotificationComponent } from './fraud-notification/fraud-notification.component';
 import { UploadFraudComponent } from './fraud-notification/components/upload-fraud/upload-fraud.component';
+import { ngfModule } from 'angular-file';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { UploadFraudComponent } from './fraud-notification/components/upload-fra
         FormsModule,
         CurrencyMaskModule,
         ListReportRoutingModule,
-        SharedModule
+        SharedModule,
+        ngfModule
     ],
     declarations: [
         ReportOffertComponent,

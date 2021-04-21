@@ -1,0 +1,47 @@
+$size: 260%;
+$gray: #757474;
+$lightgray: lightgray;
+$blue: #485afa;
+
+.load-file-container {
+  padding: 0;
+
+  h2{
+    text-align: center;
+    font: normal normal bold 20px/23px Arial;
+    color: #000000;
+  }
+
+  .material-icons {
+    font-size: 80px;
+    width: auto;
+    height: auto;
+  }
+
+  .close{
+    font-size: 30px;
+  }
+  
+  .mat-dialog-actions {
+    width: 100%;
+  }
+
+  .mat-dialog-content {
+    p {
+      color: #787777;
+    }
+  }
+
+  .inline-block {
+    display: inline-block;
+    margin-top: 30px;
+
+    .my-drop-zone {
+      border: dashed 2px $lightgray;
+      color: $gray;
+      padding: 1em;
+      cursor: pointer;
+      background: #f8f8f8;
+    }
+  }
+}
