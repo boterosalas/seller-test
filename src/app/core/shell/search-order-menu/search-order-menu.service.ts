@@ -95,9 +95,10 @@ export class SearchOrderMenuService {
     });
   }
 
-  getFraudList(stringSearch: string): Observable<HistoricalDevolutionEntity[]> {
+
+  getFraudList(limit: any, stringSearch: string): Observable<HistoricalDevolutionEntity[]> {
     return new Observable(obs => {
-      this.http.get<HistoricalDevolutionEntity[]>(this.api.get('getFrauds', [stringSearch]))
+      this.http.get<HistoricalDevolutionEntity[]>(this.api.get('getFrauds', [limit + stringSearch]))
         .subscribe(data => obs.next(data), err => obs.error(err));
     });
   }

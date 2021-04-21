@@ -1,14 +1,14 @@
-import { DatePipe } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LoadingService, Logger } from '@app/core';
-import { SearchFormEntity } from '@app/shared';
-import { ShellComponent } from '../..';
-import { SearchOrderMenuService } from '../search-order-menu.service';
-import * as _ from 'lodash';
+import { DatePipe } from "@angular/common";
+import { Component, Input, OnInit } from "@angular/core";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { LoadingService, Logger } from "@app/core";
+import { SearchFormEntity } from "@app/shared";
+import { ShellComponent } from "../..";
+import { SearchOrderMenuService } from "../search-order-menu.service";
+import * as _ from "lodash";
 
 // log component
-const log = new Logger('SearchFraudFormComponent');
+const log = new Logger("SearchFraudFormComponent");
 
 interface DataForm {
   fileName?: string;
@@ -17,18 +17,17 @@ interface DataForm {
 }
 
 @Component({
-  selector: 'app-search-fraud-notification-form',
-  templateUrl: './search-fraud-notification-form.component.html',
-  styleUrls: ['./search-fraud-notification-form.component.scss']
+  selector: "app-search-fraud-notification-form",
+  templateUrl: "./search-fraud-notification-form.component.html",
+  styleUrls: ["./search-fraud-notification-form.component.scss"],
 })
 export class SearchFraudNotificationFormComponent implements OnInit {
-
   // Formulario para realizar la busqueda
   myform: FormGroup;
   // user info
   public user: any;
   // Configuración para el formato de fecha
-  locale = 'es-CO';
+  locale = "es-CO";
   // Variable que almacena los datos que se le pueden pasar al formulario
   @Input() informationToForm: SearchFormEntity;
 
@@ -50,8 +49,7 @@ export class SearchFraudNotificationFormComponent implements OnInit {
     private shellComponent: ShellComponent,
     private __loadingService: LoadingService,
     private __searchOrderMenuService: SearchOrderMenuService
-    ) {
-  }
+  ) {}
 
   /**
    * ngOnInit
@@ -70,9 +68,12 @@ export class SearchFraudNotificationFormComponent implements OnInit {
   createForm() {
     // Estructura para los datos del formulario de consulta.
     this.myform = this.fb.group({
-      'dateOrderInitial': [null, Validators.compose([])],
-      'dateOrderFinal': [null, Validators.compose([])],
-      'fileName': [null, Validators.compose([Validators.minLength(1), Validators.maxLength(30)])],
+      dateOrderInitial: [null, Validators.compose([])],
+      dateOrderFinal: [null, Validators.compose([])],
+      fileName: [
+        null,
+        Validators.compose([Validators.minLength(1), Validators.maxLength(30)]),
+      ],
     });
   }
 
@@ -83,8 +84,8 @@ export class SearchFraudNotificationFormComponent implements OnInit {
    */
   clearForm() {
     this.myform.reset();
-    this.shellComponent.eventEmitterOrders.getClear();
-    this.shellComponent.sidenavSearchOrder.toggle();
+    this.shellComponent.eventEmitterOrders.fraudList.emit();
+    this.filterFrauds(this.myform);
   }
 
   /**
@@ -110,52 +111,48 @@ export class SearchFraudNotificationFormComponent implements OnInit {
    * @param {FormGroup} myform
    * @memberof SearchFraudNotificationFormComponent
    */
-   public filterFrauds(myform: FormGroup) {
+  public filterFrauds(myform: FormGroup) {
     let { dateOrderInitial, dateOrderFinal, fileName }: DataForm = myform.value;
-  
 
     // Obtengo la información del usuario
     const datePipe = new DatePipe(this.locale);
 
     // aplico el formato para la fecha a emplear en la consulta
-    dateOrderInitial = datePipe.transform(dateOrderInitial, 'yyyy/MM/dd');
-    dateOrderFinal = datePipe.transform(dateOrderFinal, 'yyyy/MM/dd');
-    
+    dateOrderFinal = datePipe.transform(dateOrderFinal, "yyyy/MM/dd");
+    dateOrderInitial = datePipe.transform(dateOrderInitial, "yyyy/MM/dd");
 
-    let stringQuery = `?limit=${50}&paginationToken=${encodeURI('{}')}`;
+    let stringQuery = "";
     const objectQuery: DataForm = {};
 
-    if (dateOrderFinal !== null && dateOrderFinal !== '') {
-      stringQuery += `&dateOrderFinal=${dateOrderFinal}`;
-      objectQuery.dateOrderFinal = dateOrderFinal;
-    }
-
-    if (dateOrderInitial !== null && dateOrderInitial !== '') {
+    if (dateOrderInitial !== null && dateOrderInitial !== "") {
       stringQuery += `&dateOrderInitial=${dateOrderInitial}`;
       objectQuery.dateOrderInitial = dateOrderInitial;
     }
 
-   
-    if (fileName !== null && fileName !== '') {
+    if (dateOrderFinal !== null && dateOrderFinal !== "") {
+      stringQuery += `&dateOrderFinal=${dateOrderFinal}`;
+      objectQuery.dateOrderFinal = dateOrderFinal;
+    }
+
+    if (fileName !== null && fileName !== "") {
       stringQuery += `&fileName=${fileName}`;
       objectQuery.fileName = fileName;
     }
 
-    if (!_.isEmpty(objectQuery)) {
-
-      // Guardo el filtro aplicado por el usuario.
-      this.__searchOrderMenuService.setCurrentFilterOrders(this.myform.value);
-      this.__loadingService.viewSpinner();
-      this.__searchOrderMenuService.getFraudList(stringQuery).subscribe(data => {
-          if (data) {
-            this.shellComponent.eventEmitterOrders.filterParams.emit(stringQuery);
-            // indico a los elementos que esten suscriptos al evento.
-            this.shellComponent.eventEmitterOrders.filterFraudList(data);
-            this.shellComponent.sidenavSearchOrder.toggle();
-            this.__loadingService.closeSpinner();
-          }
-        });
-    }
+    stringQuery += "&paginationToken=" + encodeURI("{}");
+    // Guardo el filtro aplicado por el usuario.
+    this.__searchOrderMenuService.setCurrentFilterOrders(this.myform.value);
+    this.__loadingService.viewSpinner();
+    this.__searchOrderMenuService
+      .getFraudList(`?limit=${50}`, stringQuery)
+      .subscribe((data) => {
+        if (data) {
+          this.shellComponent.eventEmitterOrders.filterParams.emit(stringQuery);
+          // indico a los elementos que esten suscriptos al evento.
+          this.shellComponent.eventEmitterOrders.filterFraudList(data);
+          this.shellComponent.sidenavSearchOrder.toggle();
+          this.__loadingService.closeSpinner();
+        }
+      });
   }
 }
-
