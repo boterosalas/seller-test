@@ -69,6 +69,10 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
     this.getFilterOrderbyClaim();
   }
 
+  /**
+   * Obtengo de la ruta los valores enviados desde listado de reclamaciones y seteo el formulario con su respectivo filtro
+   * @memberof SearchPendingDevolutionFormComponent
+   */
   getFilterOrderbyClaim() {
     this.orderNumberClaim = this.route.snapshot ? this.route.snapshot.children[0].params.orderNumber : null;
     this.myform.controls.orderNumber.setValue(this.orderNumberClaim);
