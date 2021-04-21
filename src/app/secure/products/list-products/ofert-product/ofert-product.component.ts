@@ -68,6 +68,7 @@ export class OfertExpandedProductComponent implements OnInit {
     public validateNumberOrder = true;
     convertPromise: string;
     approvalOfert: any;
+    sellerMinPrice: any;
 
     constructor(
         private languageService: TranslateService,
@@ -212,8 +213,8 @@ export class OfertExpandedProductComponent implements OnInit {
         this.ofertProduct.controls.DiscountPrice.setValue(total);
         this.valuePrice = this.ofertProduct.controls.Price.setValue(total);
         this.totalCombo = total;
-        if (total <= 8000 && this.ofertProduct.value.Currency === 'COP') {
-            this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.price_must_less'), this.languageService.instant('actions.close'), {
+        if (total <= this.sellerMinPrice) {
+            this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.price_must_less') + this.sellerMinPrice, this.languageService.instant('actions.close'), {
                 duration: 3000,
             });
         }
@@ -229,7 +230,7 @@ export class OfertExpandedProductComponent implements OnInit {
     getVerifyPrice(showErrors: boolean = true, total?: number) {
         let errors = true;
         if (this.ofertProduct.controls.DiscountPrice.value) {
-            if (this.ofertProduct.controls.DiscountPrice.value && parseFloat(this.ofertProduct.controls.DiscountPrice.value) >= 8000) {
+            if (this.ofertProduct.controls.DiscountPrice.value && parseFloat(this.ofertProduct.controls.DiscountPrice.value) >= this.sellerMinPrice) {
                 errors = false;
                 if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) >= parseFloat(this.ofertProduct.controls.Price.value)) {
                     if (showErrors) {
@@ -237,7 +238,8 @@ export class OfertExpandedProductComponent implements OnInit {
                             duration: 3000,
                         });
                     }
-                } if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) !== parseFloat(this.totalCombo) && this.applyOffer.eanesCombos.length !== 0) {
+                }
+                if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) !== parseFloat(this.totalCombo) && this.applyOffer.eanesCombos.length !== 0) {
                     if (showErrors) {
                         this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.discount_price_sumatory_combo'), this.languageService.instant('actions.close'), {
                             duration: 3000,
@@ -253,7 +255,8 @@ export class OfertExpandedProductComponent implements OnInit {
                                 duration: 3000,
                             });
                         }
-                    } if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) !== parseFloat(this.totalCombo) && this.applyOffer.eanesCombos.length !== 0) {
+                    }
+                    if (parseFloat(this.ofertProduct.controls.DiscountPrice.value) !== parseFloat(this.totalCombo) && this.applyOffer.eanesCombos.length !== 0) {
                         if (showErrors) {
                             this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.discount_price_sumatory_combo'), this.languageService.instant('actions.close'), {
                                 duration: 3000,
@@ -264,7 +267,7 @@ export class OfertExpandedProductComponent implements OnInit {
                 this.setCategoryError(errors);
             }
         } else {
-            if (this.ofertProduct.controls.Price.value && this.ofertProduct.controls.Price.value >= 8000) {
+            if (this.ofertProduct.controls.Price.value && this.ofertProduct.controls.Price.value >= this.sellerMinPrice) {
                 errors = false;
             } else {
                 if (this.ofertProduct.get('Currency').value === 'COP') {
@@ -289,7 +292,7 @@ export class OfertExpandedProductComponent implements OnInit {
     public setCategoryError(show: boolean): void {
         if (this.ofertProduct.get('Currency').value === 'COP') {
             if (show) {
-                if (this.ofertProduct.controls.DiscountPrice.value <= 8000 && this.ofertProduct.controls.Currency.value === 'COP') {
+                if (this.ofertProduct.controls.DiscountPrice.value <= this.sellerMinPrice ) {
                     this.ofertProduct.controls.DiscountPrice.setErrors({ price: show });
                 }
             } else {
@@ -297,7 +300,7 @@ export class OfertExpandedProductComponent implements OnInit {
             }
         } else {
             if (this.ofertProduct.controls.DiscountPrice.value) {
-                if (this.ofertProduct.controls.DiscountPrice.value <= 0) {
+                if (this.ofertProduct.controls.DiscountPrice.value <= this.sellerMinPrice) {
                     this.ofertProduct.controls.DiscountPrice.setErrors({ notCero: true });
                 } else {
                     this.ofertProduct.controls.DiscountPrice.setErrors(null);
@@ -314,7 +317,7 @@ export class OfertExpandedProductComponent implements OnInit {
     public setCategoryErrorPrice(show: boolean): void {
         if (this.ofertProduct.get('Currency').value === 'COP') {
             if (show) {
-                if (this.ofertProduct.controls.Price.value <= 8000) {
+                if (this.ofertProduct.controls.Price.value <= this.sellerMinPrice) {
                     this.ofertProduct.controls.Price.setErrors({ priceReal: show });
                 }
             } else {
@@ -606,12 +609,13 @@ export class OfertExpandedProductComponent implements OnInit {
     async getAllDataUser() {
         this.createFormControls();
         this.loadingService.viewSpinner();
-        if (await this.profileService.getUser() && await this.profileService.getUser().toPromise()) {
+        if (this.profileService.getUser() && await this.profileService.getUser().toPromise()) {
             const sellerData = await this.profileService.getUser().toPromise().then(res => {
                 const body: any = res.body;
                 const response = JSON.parse(body.body);
                 const userData = response.Data;
                 this.loadingService.closeSpinner();
+                this.sellerMinPrice = userData.MinFullPrice;
                 return userData;
             });
             this.loadingService.closeSpinner();
