@@ -1,149 +1,73 @@
 <div fxLayout="column" class="load-file-container">
+  <div fxLayout="row" fxLayoutAlign="end end">
+    <mat-icon class="material-icons close" (click)="close()"> close </mat-icon>
+  </div>
 
-    <div fxLayout="row" fxLayoutAlign="end end"><mat-icon class="material-icons
-        close" (click)="close()"> close </mat-icon></div>
-
-    <div fxFlex="100" class="text-aling-center-modal-load">
-      <h2>Cargar reporte de fraudes</h2>
-      <p>Por favor seleccione el archivo de fraudes que desea cargar</p>
-      <div class="inline-block w-100">
-        <!-- <div
-          ngfDrop
-          selectable="1"
-          [(validDrag)]="validComboDrag"
-          [(files)]="files"
-          [(file)]="file"
-          [maxSize]="maxSize"
-          accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-          [(lastInvalids)]="lastInvalids"
-          [(dragFiles)]="dragFiles"
-          class="well my-drop-zone"
-          fxLayout="column-reverse"
-          id="pdf"
-          fxLayoutAlign="end center"
-          [class.invalid-drag]="validComboDrag === false"
-          [class.valid-drag]="validComboDrag"
-          (change)="onFileChange($event)"
-          #fileUploadOption
-        >
-          <strong *ngIf="!files.length && !lastInvalids?.length">{{
-            "school.exito.uploadfile.dragfile" | translate
-          }}</strong>
-          <strong *ngIf="files?.length && !lastInvalids?.length"
-            >{{ files[files.length - 1].name }} -
-            {{ files[files.length - 1].size / 1024 / 1024 | number: ".2" }}
-            MB</strong
-          >
-          <strong
-            *ngIf="
-              lastInvalids?.length && lastInvalids.length
-                ? validateFormatInvalidate(lastInvalids)
-                : null
-            "
-            >{{ "shared.components.load_file.text2" | translate }}</strong
-          >
-          <strong *ngIf="lastInvalids?.length && lastInvalids[0].type === 'accept'">{{
-            "school.exito.uploadfile.pdf" | translate
-          }}
-        </strong>
-       
-        <strong  *ngIf="lastInvalids?.length && lastInvalids[0].type === 'fileSize'">{{
-          "school.exito.uploadfile.maxSize.pdf" | translate
-        }}
-      </strong>
-        
-          
-          <mat-icon
-            class="material-icons"
-            *ngIf="!files.length && !lastInvalids?.length"
-          >
-            note_add
-          </mat-icon>
-          <mat-icon
-            class="material-icons check"
-            *ngIf="files.length && !lastInvalids?.length"
-          >
-            check_circle
-          </mat-icon>
-          <mat-icon class="material-icons error" *ngIf="lastInvalids?.length">
+  <div fxFlex="100" class="text-aling-center-modal-load">
+    <h2>Cargar reporte de fraudes</h2>
+    <p>Por favor seleccione el archivo de fraudes que desea cargar</p>
+    <div class="inline-block">
+      <input
+        placeholder="file upload"
+        class="my-drop-zone"
+        id="uploadFile"
+        hidden
+        name="fileUploadOption"
+        type="file"
+        (change)="onFileChange($event)"
+        multiple="false"
+        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+        #fileUploadOption
+      />
+      <div fxLayout="column-reverse" (click)="fileUploadOption.click()">
+        <strong *ngIf="!fileExcel" id="colorInput">{{ fileName }}</strong>
+        <mat-icon class="material-icons" *ngIf="fileExcel && !notExcel" id="sizeIcon">
+          note_add
+        </mat-icon>
+        <mat-icon class="material-icons check" *ngIf="!fileExcel && !notExcel" id="sizeIcon">
+          check_circle
+        </mat-icon>
+        <p class="textFileExcel" *ngIf="fileExcel && !notExcel">
+          Presione acá para subir el archivo
+        </p>
+        <div *ngIf="notExcel" fxLayout="column-reverse">
+          <strong id="colorInput">
+            {{ "errors.format_invalidate" | translate }}
+            <p class="textFileExcel"> Presione acá para subir el archivo</p>
+          </strong>
+          <mat-icon class="material-icons error">
             not_interested
           </mat-icon>
-        </div> -->
-        <input placeholder="file upload" id="uploadFile" hidden name="fileUploadOption" type="file"
-        (change)="onFileChange($event)" multiple="false"
-        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-        #fileUploadOption>
-    <div
-    (click)="fileUploadOption.click()"
-    >
-      <strong *ngIf="!files.length && !lastInvalids?.length">{{
-        "school.exito.uploadfile.dragfile" | translate
-      }}</strong>
-      <strong *ngIf="files?.length && !lastInvalids?.length"
-        >{{ files[files.length - 1].name }} -
-        {{ files[files.length - 1].size / 1024 / 1024 | number: ".2" }}
-        MB</strong
-      >
-      <strong
-        *ngIf="
-          lastInvalids?.length && lastInvalids.length
-            ? validateFormatInvalidate(lastInvalids)
-            : null
-        "
-        >{{ "shared.components.load_file.text2" | translate }}</strong
-      >
-      <strong *ngIf="lastInvalids?.length && lastInvalids[0].type === 'accept'">{{
-        "school.exito.uploadfile.pdf" | translate
-      }}
-    </strong>
-   
-    <strong  *ngIf="lastInvalids?.length && lastInvalids[0].type === 'fileSize'">{{
-      "school.exito.uploadfile.maxSize.pdf" | translate
-    }}
-  </strong>
-    
-      
-      <mat-icon
-        class="material-icons"
-        *ngIf="!files.length && !lastInvalids?.length"
-      >
-        note_add
-      </mat-icon>
-      <mat-icon
-        class="material-icons check"
-        *ngIf="files.length && !lastInvalids?.length"
-      >
-        check_circle
-      </mat-icon>
-      <mat-icon class="material-icons error" *ngIf="lastInvalids?.length">
-        not_interested
-      </mat-icon>
-    </div>
+        </div>
       </div>
     </div>
-
-    <div mat-dialog-actions class="mat-buttons" fxLayout="row" fxLayoutAlign="center center">
-        <button
-          mat-stroked-button
-          class="btn-transparent"
-          type="button"
-          id="btn-create-transporter"
-          color="primary"
-          (click)="close()">
-          {{ "actions.cancel" | translate }}
-        </button>
-        <button
-          id="btn-create-transporter"
-          type="button"
-          mat-raised-button
-          color="primary"
-          (click)="sendDataBulkLoadAgreement()"
-          [disabled]="uploadFraudBtn"
-        >
-          {{ "actions.create" | translate }}
-        </button>
-      </div>
-
   </div>
-  
-  
+
+  <div
+    mat-dialog-actions
+    class="mat-buttons"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+  >
+    <button
+      mat-stroked-button
+      class="btn-transparent"
+      type="button"
+      id="btn-create-transporter"
+      color="primary"
+      (click)="close()"
+    >
+      {{ "actions.cancel" | translate }}
+    </button>
+    <button
+      id="btn-create-transporter"
+      type="button"
+      mat-raised-button
+      color="primary"
+      (click)="sendDataBulkLoadAgreement()"
+      [disabled]="uploadFraudBtn"
+    >
+      {{ "actions.create" | translate }}
+    </button>
+  </div>
+</div>

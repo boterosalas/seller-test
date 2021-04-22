@@ -33,15 +33,15 @@ $blue: #485afa;
   }
 
   .inline-block {
-    display: inline-block;
     margin-top: 30px;
-
-    .my-drop-zone {
-      border: dashed 2px $lightgray;
-      color: $gray;
-      padding: 1em;
-      cursor: pointer;
-      background: #f8f8f8;
-    }
+    border: dashed 2px lightgray;
+    color: #757474;
+    padding: 1em;
+    cursor: pointer;
+    background: #f8f8f8;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
   }
+
 }

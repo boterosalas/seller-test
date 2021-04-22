@@ -3,10 +3,10 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatDialog, MatSnackBar } from "@angular/
 import { EndpointService, LoadingService, Logger } from "@app/core";
 import { ShellComponent } from "@app/core/shell";
 import { SellerService } from "@app/secure/seller/seller.service";
-import { SupportService } from "@app/secure/support-modal/support.service";
 import { ComponentsService } from "@app/shared";
 import { TranslateService } from "@ngx-translate/core";
 import * as XLSX from 'xlsx';
+import { FraudNotificationService } from "../../fraud-notification.service";
 
 const log = new Logger('UploadFraudComponent');
 
@@ -35,6 +35,7 @@ export class UploadFraudComponent implements OnInit {
   dragFiles = true;
   file = null;
   fileExcel = true;
+  notExcel = false;
   arraySend = [];
 
   public agreementRegex = {
@@ -67,18 +68,16 @@ export class UploadFraudComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public snackBar: MatSnackBar,
     public componentService: ComponentsService,
-    private api: EndpointService,
     private languageService: TranslateService,
     private sellerService: SellerService,
     private shellComponent: ShellComponent,
     private loadingService: LoadingService,
-    public SUPPORT: SupportService,
     public dialog: MatDialog,
+    public _fraud:FraudNotificationService
 
   ) { }
 
   ngOnInit() {
-    this.validateFormSupport();
     this.setIntervalStatusCharge();
   }
 
@@ -202,7 +201,10 @@ export class UploadFraudComponent implements OnInit {
           i--;
         }
       }
-    console.log(55, this.arrayNecessaryData);
+
+      /**Elimina la fila de titulos */
+
+      this.arrayNecessaryData.splice(0,1);
 
       /*
       * if valido si el excel solo trae 2 registros y hay 1 vacio
@@ -237,38 +239,17 @@ export class UploadFraudComponent implements OnInit {
       this.loadingService.closeSpinner();
       this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.no_information_contains'), 'Aceptar', 10000);
     }
-    console.log(this.arrayNecessaryData);
+    
   }
-
-
-
+  
   /**
-   * Arreglar data para enviar al back
-   * @memberof ModalBulkloadAgreementComponent
+   * Cierra la modal
    */
-  sendImportAgreement() {
-    const lengthFiles = document.getElementById('pdf').getElementsByTagName('input')[0].files.length;
-    let file = document.getElementById('pdf').getElementsByTagName('input')[0].files[lengthFiles - 1];
-    if (!file) {
-      file = this.files[this.files.length - 1];
-    }
-    this.getBase64(file).then(data => {
-      try {
-        this.bodyToSend = {
-          fileAgreement: data.slice(data.search('base64') + 7, data.length),
-          sellers: this.arrayTosendExcel,
-          applyAllSeller: false
-        };
-        this.disableSend = false;
-        this.prepareSend = false;
-      } catch (e) {
-        this.prepareSend = true;
-        this.disableSend = true;
-        log.error(this.languageService.instant('shared.components.load_file.snackbar_error'), e);
-      }
-    });
 
+   public close(): void {
+    this.dialogRef.close();
   }
+
 
   /**
    * Metodo para obtener fecha
@@ -327,74 +308,48 @@ export class UploadFraudComponent implements OnInit {
       /*3. Valido los datos del excel*/
       this.validateDataFromFile(data, evt);
       this.resetUploadFIle();
+      this.notExcel = false;
     }, err => {
       this.loadingService.closeSpinner();
       this.resetVariableUploadFile();
       this.resetUploadFIle();
       this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), this.languageService.instant('actions.accpet_min'), 4000);
+      this.notExcel = true;
     });
   }
 
-
-  /**
-   * Metodo para traer regex de dynamo
-   * @memberof ModalBulkloadAgreementComponent
-   */
-  public validateFormSupport(): void {
-    this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
-      let dataRegex = JSON.parse(res.body.body);
-      dataRegex = dataRegex.Data.filter(data => data.Module === 'transversal' || data.Module === 'productos');
-      for (const val in this.agreementRegex) {
-        if (!!val) {
-          const element = dataRegex.find(regex => regex.Identifier === val.toString());
-          this.agreementRegex[val] = element && `${element.Value}`;
-        }
-      }
-    });
-  }
 
   /**
    * MEtodo para enviar la data de carga de acuerdos al back
    * @memberof ModalBulkloadAgreementComponent
    */
   sendDataBulkLoadAgreement() {
-    // this.loadingService.viewSpinner();
-    // let arraySend = [];
-    // if (this.arrayNecessaryData) {
-    //   this.arrayNecessaryData.forEach(element => {
-    //     element.forEach(el => {
-    //       arraySend.push(el);
-    //     });
-    //   });
-    // }
-    // this.bodyToSend.sellers = arraySend;
-    console.log(this.arrayNecessaryData);
-    // this.sellerService.registersContract(this.bodyToSend).subscribe((result: any) => {
-    //   if (result.statusCode === 200) {
-    //     const dataRes = JSON.parse(result.body).Data;
-    //     if (dataRes) {
-    //       this.setIntervalStatusCharge();
-    //       this.componentService.openSnackBar(this.languageService.instant('secure.load_guide_page.finish_upload_info.title'), this.languageService.instant('actions.close'), 5000);
-    //       this.dialogRef.close(false);
-    //       this.shellComponent.eventEmitterOrders.getClear();
-    //       this.loadingService.closeSpinner();
-    //     } else {
-    //       this.loadingService.closeSpinner();
-    //       this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), this.languageService.instant('actions.close'), 5000);
-    //     }
-    //   } else {
-    //     this.loadingService.closeSpinner();
-    //     this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), this.languageService.instant('actions.close'), 5000);
-    //   }
-    // });
-  }
+    this.loadingService.viewSpinner();
 
-  /**
-   * Arreglar data para enviar al back
-   * @memberof ModalBulkloadAgreementComponent
-   */
-  sendMassiveAgreement() {
-    this.sendImportAgreement();
+    let sendData = {
+      FileName: this.fileName,
+      Data: this.arrayNecessaryData
+    }
+    
+    this._fraud.registersFrauds(sendData).subscribe((result: any) => {
+      if (result.statusCode === 200) {
+        const dataRes = JSON.parse(result.body).Data;
+        console.log(dataRes);
+        if (dataRes) {
+          // this.setIntervalStatusCharge();
+          this.componentService.openSnackBar(this.languageService.instant('secure.load_guide_page.finish_upload_info.title'), this.languageService.instant('actions.close'), 5000);
+          this.dialogRef.close(false);
+          this.shellComponent.eventEmitterOrders.getClear();
+          this.loadingService.closeSpinner();
+        } else {
+          this.loadingService.closeSpinner();
+          this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), this.languageService.instant('actions.close'), 5000);
+        }
+      } else {
+        this.loadingService.closeSpinner();
+        this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), this.languageService.instant('actions.close'), 5000);
+      }
+    });
   }
 
   /**

@@ -315,7 +315,9 @@ export const endpoints = {
       // Captura de indicadores
       getIndicators : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller/getindicatorsbynit/{params}',
       // obtiene el listado de fraudes
-      getFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles{params}'
+      getFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles{params}',
+      // envia el listado de fraudes
+      sendFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles'
     },
   },
   // Endpoints production
@@ -628,7 +630,9 @@ export const endpoints = {
       // Captura de indicadores
       getIndicators : 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller/getindicatorsbynit/{params}',
       // obtiene el listado de fraudes
-      getFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles{params}'
+      getFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles{params}',
+      // envia el listado de fraudes
+      sendFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles'
     }
   }
 };

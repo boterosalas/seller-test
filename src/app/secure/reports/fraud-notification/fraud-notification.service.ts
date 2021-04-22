@@ -34,6 +34,18 @@ export class FraudNotificationService {
     });
   }
 
+    /**
+     * funcion para guardar el listado de fraudes
+     *
+     * @param {*} data
+     * @returns {Observable<any>}
+     * @memberof SellerService
+     */
+     public registersFrauds(data: any): Observable<any> {
+      return this.http.post(this.api.get('sendFrauds'), data);
+  }
+
+
 }
 
 
