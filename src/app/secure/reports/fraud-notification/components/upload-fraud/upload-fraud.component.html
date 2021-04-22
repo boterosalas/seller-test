@@ -19,11 +19,12 @@
           [(dragFiles)]="dragFiles"
           class="well my-drop-zone"
           fxLayout="column-reverse"
-          [id]="id"
+          id="pdf"
           fxLayoutAlign="end center"
           [class.invalid-drag]="validComboDrag === false"
           [class.valid-drag]="validComboDrag"
-          (filesChange)="lastFileAt = getDate(); validateOneFile();"
+          (change)="onFileChange($event)"
+          #fileUploadOption
         >
           <strong *ngIf="!files.length && !lastInvalids?.length">{{
             "school.exito.uploadfile.dragfile" | translate
@@ -86,7 +87,7 @@
           type="button"
           mat-raised-button
           color="primary"
-          (click)="sendFile()"
+          (click)="sendDataBulkLoadAgreement()"
           [disabled]="uploadFraudBtn"
         >
           {{ "actions.create" | translate }}
