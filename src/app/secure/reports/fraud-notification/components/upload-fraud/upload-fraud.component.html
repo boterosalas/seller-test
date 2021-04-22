@@ -7,7 +7,7 @@
       <h2>Cargar reporte de fraudes</h2>
       <p>Por favor seleccione el archivo de fraudes que desea cargar</p>
       <div class="inline-block w-100">
-        <div
+        <!-- <div
           ngfDrop
           selectable="1"
           [(validDrag)]="validComboDrag"
@@ -68,7 +68,57 @@
           <mat-icon class="material-icons error" *ngIf="lastInvalids?.length">
             not_interested
           </mat-icon>
-        </div>
+        </div> -->
+        <input placeholder="file upload" id="uploadFile" hidden name="fileUploadOption" type="file"
+        (change)="onFileChange($event)" multiple="false"
+        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+        #fileUploadOption>
+    <div
+    (click)="fileUploadOption.click()"
+    >
+      <strong *ngIf="!files.length && !lastInvalids?.length">{{
+        "school.exito.uploadfile.dragfile" | translate
+      }}</strong>
+      <strong *ngIf="files?.length && !lastInvalids?.length"
+        >{{ files[files.length - 1].name }} -
+        {{ files[files.length - 1].size / 1024 / 1024 | number: ".2" }}
+        MB</strong
+      >
+      <strong
+        *ngIf="
+          lastInvalids?.length && lastInvalids.length
+            ? validateFormatInvalidate(lastInvalids)
+            : null
+        "
+        >{{ "shared.components.load_file.text2" | translate }}</strong
+      >
+      <strong *ngIf="lastInvalids?.length && lastInvalids[0].type === 'accept'">{{
+        "school.exito.uploadfile.pdf" | translate
+      }}
+    </strong>
+   
+    <strong  *ngIf="lastInvalids?.length && lastInvalids[0].type === 'fileSize'">{{
+      "school.exito.uploadfile.maxSize.pdf" | translate
+    }}
+  </strong>
+    
+      
+      <mat-icon
+        class="material-icons"
+        *ngIf="!files.length && !lastInvalids?.length"
+      >
+        note_add
+      </mat-icon>
+      <mat-icon
+        class="material-icons check"
+        *ngIf="files.length && !lastInvalids?.length"
+      >
+        check_circle
+      </mat-icon>
+      <mat-icon class="material-icons error" *ngIf="lastInvalids?.length">
+        not_interested
+      </mat-icon>
+    </div>
       </div>
     </div>
 

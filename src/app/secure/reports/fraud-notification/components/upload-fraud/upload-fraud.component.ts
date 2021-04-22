@@ -202,6 +202,8 @@ export class UploadFraudComponent implements OnInit {
           i--;
         }
       }
+    console.log(55, this.arrayNecessaryData);
+
       /*
       * if valido si el excel solo trae 2 registros y hay 1 vacio
       * else if se valida que el documento tenga en los titulos o primera columna nos datos ID vendedor
@@ -235,6 +237,7 @@ export class UploadFraudComponent implements OnInit {
       this.loadingService.closeSpinner();
       this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.no_information_contains'), 'Aceptar', 10000);
     }
+    console.log(this.arrayNecessaryData);
   }
 
 
@@ -316,6 +319,7 @@ export class UploadFraudComponent implements OnInit {
    * @memberof ModalBulkloadAgreementComponent
    */
   onFileChange(evt: any) {
+    console.log(evt);
     /*1. Limpio las variables empleadas en el proceso de carga.*/
     this.resetVariableUploadFile();
     /*2. Capturo los datos del excel*/
