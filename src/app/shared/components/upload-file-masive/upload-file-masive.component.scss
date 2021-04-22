@@ -161,6 +161,16 @@ $blue: #485AFA;
       vertical-align: middle;
     }
 
+    &-font-subtitle{
+      color: #757474;
+      font-size: 13px;
+    }
+    &-list-overflow{
+      height: 160px;
+      contain: content;
+      overflow-y: auto;
+    }
+
   }
 
   .modal-load-agreement-text-btn-file-margin-top {

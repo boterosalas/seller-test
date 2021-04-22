@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
 import { Subject, Subscription, timer } from 'rxjs';
 import { HttpEvent } from '@angular/common/http';
 import { isNullOrUndefined } from 'util';
@@ -45,6 +45,7 @@ export class UploadFileMasiveComponent implements OnInit, OnDestroy {
   listErrors = [];
   listBtnError = [];
   public nameFileExport = '';
+  public listBtn = [];
 
   public titleStatus = '';
   public iconStatus = '';
@@ -52,15 +53,21 @@ export class UploadFileMasiveComponent implements OnInit, OnDestroy {
   public loadFile = true;
   public routes: any;
   public ListBtn = [];
+  public subTitleStatus = '';
+  public colorStatus = '';
 
   constructor(
     private uploadFileMasiveService: UploadFileMasiveService,
     public dialogRef: MatDialogRef<UploadFileMasiveComponent>,
+    private snackBar: MatSnackBar,
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
   ngOnInit() {
+    if (this.data && this.data.status === 1 || this.data.status === 4 || this.data.status === 3) {
+    this.validateStatus(this.data.status, this.data);
+    }
     this.routes = RoutesConst;
   }
 
@@ -145,14 +152,16 @@ export class UploadFileMasiveComponent implements OnInit, OnDestroy {
                 const body = JSON.parse(result.body);
                 if (body && body.Data && body.Data.Data) {
                   this.loadFile = false;
-                  this.validateStatus(1, 'false', null);
+                  this.validateStatus(1, null);
                   this.verifyStatus(1);
                 }
               }
             }
           });
         } else {
-          console.log('sin data archivo vacio');
+          this.snackBar.open('El archivo esta vacío', 'Cerrar', {
+            duration: 3000,
+          });
         }
       }
     });
@@ -207,7 +216,7 @@ export class UploadFileMasiveComponent implements OnInit, OnDestroy {
       if (res && res.statusCode && res.body) {
         const body = JSON.parse(res.body);
         if (body && body.Data) {
-          this.validateStatus(body.Data.Status, body.Data.Checked, body.Data);
+          this.validateStatus(body.Data.Status, body.Data);
         }
       }
     });
@@ -220,27 +229,40 @@ export class UploadFileMasiveComponent implements OnInit, OnDestroy {
    * @param {*} data
    * @memberof UploadFileMasiveComponent
    */
-  validateStatus(status: number, checked: string, data: any) {
+  validateStatus(status: number, data: any) {
     switch (status) {
       case 1:
       case 4:
         this.titleStatus = this.data.uploadStatus.proccess.title;
         this.iconStatus = this.data.uploadStatus.proccess.icon;
         this.ListBtn = this.data.uploadStatus.proccess.btn;
+        this.colorStatus = '#BCBCBC';
         break;
       case 2:
         this.titleStatus = this.data.uploadStatus.success.title;
+        this.subTitleStatus = this.data.uploadStatus.success.subTile;
+        this.ListBtn = this.data.uploadStatus.success.btn;
         this.iconStatus = this.data.uploadStatus.success.icon;
+        this.colorStatus = '#6FB63E';
         this.processFinish$.next(true);
         break;
       case 3:
-        const { Errors } = data && data.Response ? JSON.parse(data.Response) : null;
-        this.listErrors = Errors;
+        let errors = [];
+        const response = data && data.Response ? JSON.parse(data.Response) : null;
+        if (this.data.listError !== null) {
+          errors = this.data.listError;
+        }
+        if (response !== null && response.Errors.length > 0) {
+          errors = response.Errors;
+        }
+        this.listErrors = errors;
         this.titleStatus = this.data.uploadStatus.error.title;
         this.iconStatus = this.data.uploadStatus.error.icon;
         this.listBtnError = this.data.uploadStatus.error.btn;
         this.nameFileExport = this.data.uploadStatus.error.nameFile;
+        this.colorStatus = '#D14444';
         this.showError = true;
+        this.loadFile = false;
         this.processFinish$.next(false);
         break;
       default:
@@ -248,7 +270,7 @@ export class UploadFileMasiveComponent implements OnInit, OnDestroy {
     }
   }
   /**
-   * funcion para volver al home 
+   * funcion para volver al home
    *
    * @memberof UploadFileMasiveComponent
    */
@@ -303,13 +325,11 @@ export class UploadFileMasiveComponent implements OnInit, OnDestroy {
    * @memberof UploadFileMasiveComponent
    */
   resetFields() {
-    // this.loadFile = true;
     this.titleStatus = '';
     this.iconStatus = '';
     this.processFinish$ = new Subject<any>();
     this.ListBtn = [];
     this.listBtnError = [];
-    // this.showError = false;
     this.listErrors = [];
     this.json = [];
     this._filesAux = [];

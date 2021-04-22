@@ -33,6 +33,10 @@ export class CategoryTreeService {
     return this.http.get(this.api.get('statusCreateCategory'), { observe: 'response' });
   }
 
+  validateStatusCreateUpdateMassive(): Observable<any> {
+    return this.http.get(this.api.get('ValidateStatusCreateUpdateMassive'), { observe: 'response' });
+  }
+
   downloadTemplateCategoryMasive(): Observable<any> {
     return this.http.get(this.api.get('downloadTemplateCategoryMasive'), { observe: 'response' });
   }

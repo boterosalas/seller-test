@@ -48,7 +48,6 @@ import { PortsComponent } from './components/ports/ports.component';
 import { ContentDropDownDetailOrderDirective } from '@app/secure/orders/orders-list/orders-page/component/box-list/content-drop-down-detail-order.directive';
 import { ModalDonwloadEmailComponent } from './components/modal-donwload-email/modal-donwload-email.component';
 import { FlexSizePipe } from './pipes/flex-size.pipe';
-import { UploadFileMasiveComponent } from './components/upload-file-masive/upload-file-masive.component';
 import { ngfModule } from 'angular-file/file-upload/ngf.module';
 
 export function createTranslateLaoder(http: HttpClient) {
@@ -104,7 +103,6 @@ export function createTranslateLaoder(http: HttpClient) {
     PortsComponent,
     ContentDropDownDetailOrderDirective,
     ModalDonwloadEmailComponent,
-    UploadFileMasiveComponent
   ],
   exports: [
     FlexSizePipe,
@@ -140,7 +138,6 @@ export function createTranslateLaoder(http: HttpClient) {
     SelectLanguageComponent,
     UploadButtonComponent,
     ContentDropDownDetailOrderDirective,
-    UploadFileMasiveComponent,
     ngfModule
   ],
   entryComponents: [
@@ -150,7 +147,6 @@ export function createTranslateLaoder(http: HttpClient) {
     DialogWithFormComponent,
     CreateProcessDialogComponent,
     ModalDonwloadEmailComponent,
-    UploadFileMasiveComponent
   ],
   providers: [EventEmitterSeller],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]

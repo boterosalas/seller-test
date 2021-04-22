@@ -79,6 +79,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   msjDeleteCategory: boolean;
   categoryIdDelete: any;
   public urlDownloadFile: string;
+  public data: any;
 
   constructor(
     private categoryService: CategoryTreeService,
@@ -97,7 +98,8 @@ export class CategoriesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getFunctionalities();
-    // this.verifyProccesCategory();
+    this.verifyProccesCategory();
+    this.verifyProcessMasiveCategory();
     this.getTree();
     this.getRegex();
     this.changeLanguage();
@@ -119,10 +121,12 @@ export class CategoriesComponent implements OnInit, OnDestroy {
    * Metodo para descargar todas las categorías
    * @memberof CategoriesComponent
    */
-  openModalUploadCategoriesMasive(): void {
-    const data = {
+  openModalUploadCategoriesMasive(status?: string, listError?: any): void {
+    this.data = {
       initTime: 500,
       intervalTime: 10000,
+      status: status,
+      listError : listError ? listError : null,
       title: 'Cargar categorías',
       positionTitle: 'center',
       subTitle : 'Por favor seleccione el archivo de categorías que desea cargar',
@@ -150,6 +154,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
           title: 'Carga exitosa',
           subTile: 'El archivo con la información de categorias se ha cargado exitosamente',
           icon: 'check_circle',
+          colorStatus : '#485AFA',
           btn : [
             {
               btnTitle : 'Aceptar',
@@ -162,6 +167,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
           title: 'Carga en proceso',
           subTile: null,
           icon: 'autorenew',
+          colorStatus : '#485AFA',
           btn : [
             {
               btnTitle : 'Ir al inicio',
@@ -189,16 +195,15 @@ export class CategoriesComponent implements OnInit, OnDestroy {
           ]
         }
       }
-    }
+    };
     const dialogRef = this.dialog.open(UploadFileMasiveComponent, {
       width: '50%',
-      data: data,
+      data: this.data,
       disableClose: true,
     });
     const dialogIntance = dialogRef.componentInstance;
     dialogIntance.processFinish$.subscribe((val) => {
       if (val) {
-        dialogRef.close();
         this.getTree();
       }
     });
@@ -302,6 +307,26 @@ export class CategoriesComponent implements OnInit, OnDestroy {
         const { Status } = response;
         if (Status === 1 || Status === 4) {
           this.openStatusModal();
+          this.loadingService.closeSpinner();
+        }
+      } catch {
+        this.modalService.showModal('errorService');
+      }
+    });
+  }
+  verifyProcessMasiveCategory() {
+    this.loadingService.viewSpinner();
+    this.categoryService.validateStatusCreateUpdateMassive().subscribe((res) => {
+      try {
+        const response = JSON.parse(res.body.body).Data;
+        const { Status, Response, Checked } = response;
+        if (Status === 1 || Status === 4) {
+          this.openModalUploadCategoriesMasive(Status, null);
+          this.loadingService.closeSpinner();
+        }
+        if (Status === 3 && Checked === 'false') {
+          const listError = JSON.parse(Response);
+          this.openModalUploadCategoriesMasive(Status, listError.Errors);
           this.loadingService.closeSpinner();
         }
       } catch {
