@@ -63,6 +63,10 @@ $hint-color: #9e9e9e;
     margin: 16px 0;
     &--left {
       justify-content: flex-end;
+      @media (max-width: 600px) {
+        display: flex;
+        flex-wrap: wrap;
+      }
     }
   }
 
@@ -128,5 +132,9 @@ $hint-color: #9e9e9e;
 }
 
 .marginButtonRedirect{
-  margin-right: 2%;
+  margin-right: 4%;
+  @media (max-width: 600px) {
+    margin-right: 0%;
+    margin-bottom: 4%;
+  }
 }
