@@ -171,6 +171,9 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    setTimeout(res => {
+      this.loadingService.viewSpinner();
+    }, 1000);
     this.createFormControls();
     this.validateFormSupport();
     this.getStatusCase();
@@ -462,7 +465,6 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
             this.loadingService.closeSpinner();
           }
         }
-        this.loadingService.closeSpinner();
       },
       err => {
         this.modalService.showModal('errorService');
