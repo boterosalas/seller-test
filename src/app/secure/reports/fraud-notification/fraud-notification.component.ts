@@ -30,11 +30,11 @@ interface DataForm {
 export class FraudNotificationComponent implements OnInit {
 
   // Elemento paginador
-  @ViewChild(MatPaginator, {static: false}) public paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: false }) public paginator: MatPaginator;
   // Sort: elemento que se emplea para poder organizar los elementos de la tabla de acuerdo a la columna seleccionada
-  @ViewChild(MatSort, {static: false}) public sort: MatSort;
+  @ViewChild(MatSort, { static: false }) public sort: MatSort;
   // Toolbar Options Componente: Permite acceder a los metodos de este compomente
-  @ViewChild(ToolbarOptionsComponent, {static: false})
+  @ViewChild(ToolbarOptionsComponent, { static: false })
   public toolbarOption: ToolbarOptionsComponent;
 
   // User info
@@ -56,7 +56,7 @@ export class FraudNotificationComponent implements OnInit {
   ];
 
 
-// Configuración para el toolbar-options y el search de la pagina
+  // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
     title: 'Reportes',
     subtitle: 'menu.Notificación de Fraudes',
@@ -75,6 +75,7 @@ export class FraudNotificationComponent implements OnInit {
   public dataSource: MatTableDataSource<FraudEntity>;
   // Cantidad de elementos en la tabla
   public numberElements = 0;
+
   public currentEventPaginate: any;
 
   public permissionComponent: MenuModel;
@@ -157,8 +158,12 @@ export class FraudNotificationComponent implements OnInit {
    */
   public getOrdersList(params: any): void {
     const filter = this.filterParamsFraud;
+    console.log('list: ', params);
+    console.log('this.filterParamsFraud: ', this.filterParamsFraud);
+
     let stringSearch;
     if (filter && !_.isEmpty(filter)) {
+      console.log('entra al if');
       stringSearch = this.setParameters(params);
     } else {
       stringSearch = `?limit=${this.pageSize}&paginationToken=${encodeURI(this.paginationToken)}`;
@@ -196,17 +201,22 @@ export class FraudNotificationComponent implements OnInit {
       this.paginationToken = '{}';
       this.arrayPosition = [];
     }
+    console.log('set: ', params);
     if (params && params.clear) {
       this.dateOrderInitial = '';
       this.dateOrderFinal = '';
       this.fileName = '';
     }
-    const paramsArray = {
-      'limit': 'limit=' + this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken),
-      'dateOrderInitial': this.dateOrderInitial,
-      'dateOrderFinal': this.dateOrderFinal,
-      'fileName': this.fileName,
-    };
+    // const paramsArray = {
+    //   'limit': 'limit=' + this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken),
+    //   'dateOrderInitial': this.dateOrderInitial,
+    //   'dateOrderFinal': this.dateOrderFinal,
+    //   'fileName': this.fileName,
+    // };
+
+    const paramsArray = '?limit=' + this.pageSize + '&dateOrderInitial=' + this.dateOrderInitial + '&dateOrderFinal=' + this.dateOrderFinal + '&fileName=' + this.fileName + '&paginationToken=' + encodeURI(this.paginationToken)
+    // console.log('set: ', paramsArray);
+
     return paramsArray;
   }
 
@@ -217,6 +227,7 @@ export class FraudNotificationComponent implements OnInit {
   }
 
   paginations(event: any) {
+    this.getOrdersListSinceFilterSearchOrder();
     const index = event.paginator.pageIndex;
     if (event.paginator.pageSize !== this.pageSize) {
       this.pageSize = event.paginator.pageSize;
@@ -269,10 +280,11 @@ export class FraudNotificationComponent implements OnInit {
   changePageSizeTable($event: { paginator: MatPaginator, filter: DataForm }): void {
     this.event.lengthOrder = $event.paginator.pageSize;
     this.filterParamsFraud = $event.filter;
+    console.log(this.event);
     this.getOrdersList(this.event);
   }
 
-  
+
   /**
    * Evento que permite obtener los resultados obtenidos al momento de realizar el filtro del fraudes de devoluciones
    *
@@ -282,13 +294,20 @@ export class FraudNotificationComponent implements OnInit {
     this.numberElements = 0;
     this.lengthOrder = 0;
     this.subFilterFraudNotification = this.shellComponent.eventEmitterOrders.fraudList
-      .subscribe((data: FraudEntity[]) => {
-        if (data && data['count'] > 0) {
-          this.dataSource = new MatTableDataSource(data['viewModel']);
+      .subscribe((data: any) => {
+        console.log(data);
+
+        if (data && data.data['count'] > 0) {
+          this.dataSource = new MatTableDataSource(data.data['viewModel']);
           this.orderListLength = false;
           this.savePaginationToken(data['paginationToken']);
           this.numberElements = this.dataSource.data.length;
-          this.lengthOrder = data['count'];
+          this.lengthOrder = data.data['count'];
+          // this.dateOrderFinal = data.paramsFilter.dateOrderFinal;
+          // this.dateOrderInitial = data.paramsFilter.dateOrderInitial;
+          // this.fileName = data.paramsFilter.fileName;
+          this.filterParamsFraud = data.paramsFilter;
+          this.prueba(data);
           this.isClear = true;
         } else {
           this.lengthOrder = 0;
@@ -297,7 +316,17 @@ export class FraudNotificationComponent implements OnInit {
           this.dataSource = new MatTableDataSource(null);
         }
       });
+    console.log('res filter: ', this.subFilterFraudNotification);
   }
+
+  prueba(params: any) {
+    if (params) {
+      this.dateOrderFinal = params.paramsFilter.dateOrderFinal;
+      this.dateOrderInitial = params.paramsFilter.dateOrderInitial;
+      this.fileName = params.paramsFilter.fileName;
+    }
+  }
+
 
   /**
    * Restaura la tabla cuando el Filtro del ShellComponent se limpia.
@@ -322,19 +351,19 @@ export class FraudNotificationComponent implements OnInit {
     });
   }
 
-   /**
-   * funcion para mostrar el modal de creacion de modulo
-   *
-   * @memberof FraudNotificationComponent
-   */
-    chargeFraud() {
-      const dialog = this.dialog.open(UploadFraudComponent, {
-        width: '800px',
-        maxWidth: '90vw',
-        maxHeight: '90vh',
-      });
-      const dialogIntance = dialog.componentInstance;
-  
-    }
+  /**
+  * funcion para mostrar el modal de creacion de modulo
+  *
+  * @memberof FraudNotificationComponent
+  */
+  chargeFraud() {
+    const dialog = this.dialog.open(UploadFraudComponent, {
+      width: '800px',
+      maxWidth: '90vw',
+      maxHeight: '90vh',
+    });
+    const dialogIntance = dialog.componentInstance;
+
+  }
 
 }

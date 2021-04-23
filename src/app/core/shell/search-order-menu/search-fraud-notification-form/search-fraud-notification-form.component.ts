@@ -49,7 +49,7 @@ export class SearchFraudNotificationFormComponent implements OnInit {
     private shellComponent: ShellComponent,
     private __loadingService: LoadingService,
     private __searchOrderMenuService: SearchOrderMenuService
-  ) {}
+  ) { }
 
   /**
    * ngOnInit
@@ -146,13 +146,27 @@ export class SearchFraudNotificationFormComponent implements OnInit {
     this.__searchOrderMenuService
       .getFraudList(`?limit=${50}`, stringQuery)
       .subscribe((data) => {
+        console.log(data);
         if (data) {
           this.shellComponent.eventEmitterOrders.filterParams.emit(stringQuery);
+          const pagToken = data['paginationToken'];
+          const paramsFilter = {
+            'dateOrderFinal': dateOrderFinal,
+            'dateOrderInitial': dateOrderInitial,
+            'fileName': fileName,
+            'paginationToken': pagToken
+          };
           // indico a los elementos que esten suscriptos al evento.
-          this.shellComponent.eventEmitterOrders.filterFraudList(data);
+          const allData = {
+            'data': data,
+            'paramsFilter': paramsFilter
+          };
+          this.shellComponent.eventEmitterOrders.filterFraudList(allData);
           this.shellComponent.sidenavSearchOrder.toggle();
           this.__loadingService.closeSpinner();
         }
       });
+
+    console.log(66, stringQuery);
   }
 }
