@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Inject, ViewChild, EventEmitter } from "@angu
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog, MatSnackBar } from "@angular/material";
 import { EndpointService, LoadingService, Logger } from "@app/core";
 import { ShellComponent } from "@app/core/shell";
+import { FinishUploadProductInformationComponent } from "@app/secure/products/bulk-load-product/finish-upload-product-information/finish-upload-product-information.component";
 import { SellerService } from "@app/secure/seller/seller.service";
 import { ComponentsService } from "@app/shared";
 import { TranslateService } from "@ngx-translate/core";
@@ -354,19 +355,11 @@ export class UploadFraudComponent implements OnInit {
     }
     
     this._fraud.registersFrauds(sendData).subscribe((result: any) => {
-      if (result.statusCode === 200) {
-        const dataRes = JSON.parse(result.body).Data;
-        console.log(dataRes);
-        if (dataRes) {
+        if (result.data === true) {
           this.setIntervalStatusCharge();
-          this.componentService.openSnackBar(this.languageService.instant('secure.load_guide_page.finish_upload_info.title'), this.languageService.instant('actions.close'), 5000);
           this.dialogRef.close(false);
           this.shellComponent.eventEmitterOrders.getClear();
           this.loadingService.closeSpinner();
-        } else {
-          this.loadingService.closeSpinner();
-          this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), this.languageService.instant('actions.close'), 5000);
-        }
       } else {
         this.loadingService.closeSpinner();
         this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), this.languageService.instant('actions.close'), 5000);
@@ -420,6 +413,7 @@ export class UploadFraudComponent implements OnInit {
    * @memberof ModalBulkloadAgreementComponent
    */
   verifyStateCharge(result?: any) {
+    console.log(result);
     if (result.body.data.checked === 'true') {
       clearInterval(this.checkIfDoneCharge);
     } else if (result.body.data.status === 1 || result.body.data.status === 4) {
@@ -471,12 +465,11 @@ export class UploadFraudComponent implements OnInit {
       }
     }
 
-    const dialogRef = this.dialog.open(UploadFraudComponent, {
+    const dialogRef = this.dialog.open(FinishUploadProductInformationComponent, {
       width: '95%',
-      disableClose: true,
       data: {
         response: res,
-        menu: 'ACUERDOS'
+        responseDiferent : false
       },
     });
     dialogRef.afterClosed().subscribe(result => {
