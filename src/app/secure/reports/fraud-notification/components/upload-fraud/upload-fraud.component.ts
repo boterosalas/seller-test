@@ -178,6 +178,7 @@ export class UploadFraudComponent implements OnInit {
         /*Variable para decir si una fila esta vacia*/
         let rowEmpty = false;
 
+
         /*Iteracion de 0 hasta el número de columnas */
         for (let j = 0; j < numCol; j++) {
           /*Validación para saber si una celda esta vacia*/
@@ -202,42 +203,54 @@ export class UploadFraudComponent implements OnInit {
         }
       }
 
-      /**Elimina la fila de titulos */
-
-      this.arrayNecessaryData.splice(0,1);
 
       /*
       * if valido si el excel solo trae 2 registros y hay 1 vacio
       * else if se valida que el documento tenga en los titulos o primera columna nos datos ID vendedor
       * else si no lo tiene significa que el formato es invalido y manda un error*/
-      if ((res.length - contEmptyRow) === 1) {
+      if (this.arrayNecessaryData.length === 1) {
         this.loadingService.closeSpinner();
         this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.no_information_contains'), 'Aceptar', 10000);
       } else {
-        if (  this.arrayNecessaryData[0].includes('PLU') && this.arrayNecessaryData[0].includes('EAN') &&
-              this.arrayNecessaryData[0].includes('ID Vendedor') && this.arrayNecessaryData[0].includes('Fecha Pedido') &&
-              this.arrayNecessaryData[0].includes('Número Orden') && this.arrayNecessaryData[0].includes('Nombre Producto') &&
-              this.arrayNecessaryData[0].includes('Cantidad') &&
-              this.arrayNecessaryData[0].includes('Nombre del vendedor') && this.arrayNecessaryData[0].includes('Estado')) {
-          this.iVal = {
-            iPLU: this.arrayNecessaryData[0].indexOf('PLU'),
-            iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
-            iIDVendedor: this.arrayNecessaryData[0].indexOf('ID Vendedor'),
+        
+        if (  this.arrayNecessaryData[0].includes('PLU') && this.arrayNecessaryData[0].includes('EAN') && 
+        this.arrayNecessaryData[0].includes('Fecha Pedido') &&
+        this.arrayNecessaryData[0].includes('Número Orden') && this.arrayNecessaryData[0].includes('Nombre Producto') &&
+        this.arrayNecessaryData[0].includes('Cantidad') &&
+        this.arrayNecessaryData[0].includes('Nombre del vendedor') && this.arrayNecessaryData[0].includes('Estado') && this.arrayNecessaryData[0].includes('ID Vendedor')) {
+          const iVal = {
             iFechaPedido: this.arrayNecessaryData[0].indexOf('Fecha Pedido'),
             iNumeroOrden: this.arrayNecessaryData[0].indexOf('Número Orden'),
+            iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
+            iPLU: this.arrayNecessaryData[0].indexOf('PLU'),
             iNombreProducto: this.arrayNecessaryData[0].indexOf('Nombre Producto'),
             iCantidad: this.arrayNecessaryData[0].indexOf('Cantidad'),
+            iIDVendedor: this.arrayNecessaryData[0].indexOf('ID Vendedor'),
             iNombreVendedor: this.arrayNecessaryData[0].indexOf('Nombre del vendedor'),
             iEstado: this.arrayNecessaryData[0].indexOf('Estado'),
+            iNumeroEnvio: this.arrayNecessaryData[0].indexOf('Número de envió'),
+            iCompania: this.arrayNecessaryData[0].indexOf('Compañía de envíos'),
+            iFechaEnvio: this.arrayNecessaryData[0].indexOf('Fecha de envío'),
           };
+          if (this.arrayNecessaryData.length > this.limitRowExcel) {
+            this.loadingService.closeSpinner();
+            this.componentService
+              .openSnackBar(this.languageService.instant('secure.offers.bulk_upload.bulk_upload.exceeds_limits'), this.languageService.instant('actions.accpet_min'), 10000);
+          } else {
+            this.fileName = file.target.files[0].name;
+            
+            for (let i = 0; i < res.length; i++) {
+              this.addInfoTosend(this.arrayNecessaryData, i , iVal)
+            }
+          }
+        } else {
+          this.loadingService.closeSpinner();
+          this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.formt_invalid'), this.languageService.instant('actions.accpet_min'), 10000);
         }
-        this.fileName = file.target.files[0].name;
-        this.fileSize = file.target.files[0].size;
-        this.fileExcel = false;
       }
     } else {
       this.loadingService.closeSpinner();
-      this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.no_information_contains'), 'Aceptar', 10000);
+      this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.no_information_contains'), this.languageService.instant('actions.accpet_min'), 10000);
     }
     
   }
@@ -300,7 +313,6 @@ export class UploadFraudComponent implements OnInit {
    * @memberof ModalBulkloadAgreementComponent
    */
   onFileChange(evt: any) {
-    console.log(evt);
     /*1. Limpio las variables empleadas en el proceso de carga.*/
     this.resetVariableUploadFile();
     /*2. Capturo los datos del excel*/
@@ -325,10 +337,13 @@ export class UploadFraudComponent implements OnInit {
    */
   sendDataBulkLoadAgreement() {
     this.loadingService.viewSpinner();
+            
+  /**Elimina la fila de titulos */
+  this.arraySend.shift();
 
     let sendData = {
       FileName: this.fileName,
-      Data: this.arrayNecessaryData
+      Data: this.arraySend
     }
     
     this._fraud.registersFrauds(sendData).subscribe((result: any) => {
@@ -351,6 +366,47 @@ export class UploadFraudComponent implements OnInit {
       }
     });
   }
+
+    /**
+   * Método que Almacena los  Registros cargados y que se emplearan para realizar el envio
+   * @param {any} res
+   * @param {any} index
+   * @memberof BulkLoadComponent
+   */
+     addInfoTosend(res: any, index: any, iVal: any) {
+
+      const newObjectForSend = {
+        DateOrder: res[index][iVal.iFechaPedido],
+        OrderNumber: parseFloat(res[index][iVal.iNumeroOrden]),
+        EAN: res[index][iVal.iEAN],
+        PLU: parseFloat(res[index][iVal.iPLU]),
+        ProductName: res[index][iVal.iNombreProducto],
+        Quantity: parseInt(res[index][iVal.iCantidad]),
+        IdSeller: parseInt(res[index][iVal.iIDVendedor]),
+        SellerName: res[index][iVal.iNombreVendedor],
+        Status: res[index][iVal.iEstado],
+        ShipmentNumber: parseFloat(res[index][iVal.iNumeroEnvio]),
+        ShippingCompany: res[index][iVal.iCompania],
+        ShipmentDate: res[index][iVal.iFechaEnvio],
+        
+      }
+      
+      this.arraySend.push(newObjectForSend);
+
+    }
+
+      /**
+   * Método que se encarga de crear la tabla.
+   *
+   * @param {any} res
+   * @memberof BulkLoadComponent
+   
+  createTable(res: any, iVal: any, numCol: any) {
+    for (let i = 0; i < res.length; i++) {
+      this.addInfoTosend(res, i, iVal);
+    }
+  }*/
+
 
   /**
    * Metodo para consultar el estado de la carga
