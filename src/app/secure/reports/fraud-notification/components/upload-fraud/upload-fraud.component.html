@@ -20,16 +20,31 @@
         #fileUploadOption
       />
       <div fxLayout="column-reverse" (click)="fileUploadOption.click()">
-        <strong *ngIf="!fileExcel" id="colorInput">{{ fileName }}</strong>
-        <mat-icon class="material-icons" *ngIf="fileExcel && !notExcel" id="sizeIcon">
-          note_add
-        </mat-icon>
-        <mat-icon class="material-icons check" *ngIf="!fileExcel && !notExcel" id="sizeIcon">
-          check_circle
-        </mat-icon>
-        <p class="textFileExcel" *ngIf="fileExcel && !notExcel">
-          Presione acá para subir el archivo
-        </p>
+        
+        
+        
+        <span fxLayout="column" *ngIf="fileExcel">
+        
+          <mat-icon class="material-icons check" id="sizeIcon">
+            check_circle
+          </mat-icon>
+
+          <strong id="colorInput">{{ fileName }}</strong>
+
+        </span>
+
+        <span *ngIf="initialState">
+          <p class="textFileExcel">
+            Presione acá para subir el archivo
+          </p>
+          
+          <mat-icon class="material-icons" id="sizeIcon">
+            note_add
+          </mat-icon>
+
+        </span>
+
+
         <div *ngIf="notExcel" fxLayout="column-reverse">
           <strong id="colorInput">
             {{ "errors.format_invalidate" | translate }}
@@ -39,6 +54,7 @@
             not_interested
           </mat-icon>
         </div>
+
       </div>
     </div>
   </div>
@@ -65,7 +81,7 @@
       mat-raised-button
       color="primary"
       (click)="sendDataBulkLoadAgreement()"
-      [disabled]="uploadFraudBtn"
+      [disabled]="!fileExcel"
     >
       {{ "actions.create" | translate }}
     </button>

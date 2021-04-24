@@ -39,11 +39,20 @@ export class FraudNotificationService {
      *
      * @param {*} data
      * @returns {Observable<any>}
-     * @memberof SellerService
+     * @memberof FraudNotificationService
      */
      public registersFrauds(data: any): Observable<any> {
       return this.http.post(this.api.get('sendFrauds'), data);
   }
+
+      /**
+     * Metodo para consultar el estado de la carga masiva
+     * @returns
+     * @memberof FraudNotificationService
+     */
+       public getStatusFrauds() {
+        return this.http.get(this.api.get('statusFrauds'), { observe: 'response' });
+    }
 
 
 }

@@ -317,7 +317,9 @@ export const endpoints = {
       // obtiene el listado de fraudes
       getFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles{params}',
       // envia el listado de fraudes
-      sendFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles'
+      sendFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles',
+      // obtiene el statuts de los fraudes
+      statusFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles/status'
     },
   },
   // Endpoints production
@@ -632,7 +634,9 @@ export const endpoints = {
       // obtiene el listado de fraudes
       getFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles{params}',
       // envia el listado de fraudes
-      sendFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles'
+      sendFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles',
+      // obtiene el statuts de los fraudes
+      statusFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles/status'
     }
   }
 };

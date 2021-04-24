@@ -34,8 +34,9 @@ export class UploadFraudComponent implements OnInit {
   validComboDragExcel = true;
   dragFiles = true;
   file = null;
-  fileExcel = true;
+  fileExcel = false;
   notExcel = false;
+  initialState = true;
   arraySend = [];
 
   public agreementRegex = {
@@ -238,7 +239,9 @@ export class UploadFraudComponent implements OnInit {
               .openSnackBar(this.languageService.instant('secure.offers.bulk_upload.bulk_upload.exceeds_limits'), this.languageService.instant('actions.accpet_min'), 10000);
           } else {
             this.fileName = file.target.files[0].name;
-            
+            this.initialState = false;
+            this.fileExcel = true;
+            this.notExcel = false;
             for (let i = 0; i < res.length; i++) {
               this.addInfoTosend(this.arrayNecessaryData, i , iVal)
             }
@@ -320,13 +323,17 @@ export class UploadFraudComponent implements OnInit {
       /*3. Valido los datos del excel*/
       this.validateDataFromFile(data, evt);
       this.resetUploadFIle();
+      this.initialState = false;
+      this.fileExcel = true;
       this.notExcel = false;
     }, err => {
+      this.fileExcel = false;
+      this.notExcel = true;
+      this.initialState = false;
       this.loadingService.closeSpinner();
       this.resetVariableUploadFile();
       this.resetUploadFIle();
       this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), this.languageService.instant('actions.accpet_min'), 4000);
-      this.notExcel = true;
     });
   }
 
@@ -351,7 +358,7 @@ export class UploadFraudComponent implements OnInit {
         const dataRes = JSON.parse(result.body).Data;
         console.log(dataRes);
         if (dataRes) {
-          // this.setIntervalStatusCharge();
+          this.setIntervalStatusCharge();
           this.componentService.openSnackBar(this.languageService.instant('secure.load_guide_page.finish_upload_info.title'), this.languageService.instant('actions.close'), 5000);
           this.dialogRef.close(false);
           this.shellComponent.eventEmitterOrders.getClear();
@@ -395,18 +402,6 @@ export class UploadFraudComponent implements OnInit {
 
     }
 
-      /**
-   * Método que se encarga de crear la tabla.
-   *
-   * @param {any} res
-   * @memberof BulkLoadComponent
-   
-  createTable(res: any, iVal: any, numCol: any) {
-    for (let i = 0; i < res.length; i++) {
-      this.addInfoTosend(res, i, iVal);
-    }
-  }*/
-
 
   /**
    * Metodo para consultar el estado de la carga
@@ -414,7 +409,7 @@ export class UploadFraudComponent implements OnInit {
    */
   setIntervalStatusCharge() {
     clearInterval(this.checkIfDoneCharge);
-    this.checkIfDoneCharge = setInterval(() => this.sellerService.getStatusMassiveAgreement().subscribe((res: any) => {
+    this.checkIfDoneCharge = setInterval(() => this._fraud.getStatusFrauds().subscribe((res: any) => {
       this.verifyStateCharge(res);
     }), 7000);
   }
@@ -425,25 +420,25 @@ export class UploadFraudComponent implements OnInit {
    * @memberof ModalBulkloadAgreementComponent
    */
   verifyStateCharge(result?: any) {
-    if (result.body.Data.Checked === 'true') {
+    if (result.body.data.checked === 'true') {
       clearInterval(this.checkIfDoneCharge);
-    } else if (result.body.Data.Status === 1 || result.body.Data.Status === 4) {
-      result.body.Data.Status = 1;
+    } else if (result.body.data.status === 1 || result.body.data.status === 4) {
+      result.body.data.status = 1;
       if (!this.progressStatus) {
         this.openDialogSendOrder(result);
       }
       this.progressStatus = true;
       this.loadingService.closeSpinner();
-    } else if (result.body.Data.Status === 0) {
+    } else if (result.body.data.status === 0) {
       clearInterval(this.checkIfDoneCharge);
       this.closeActualDialog();
       this.loadingService.closeSpinner();
-    } else if (result.body.Data.Status === 2) {
+    } else if (result.body.data.status === 2) {
       clearInterval(this.checkIfDoneCharge);
       this.closeActualDialog();
       this.openDialogSendOrder(result);
       this.loadingService.closeSpinner();
-    } else if (result.body.Data.Status === 3) {
+    } else if (result.body.data.status === 3) {
       this.closeActualDialog();
       clearInterval(this.checkIfDoneCharge);
       const resultBody = JSON.parse(result.body.Data.Response);
