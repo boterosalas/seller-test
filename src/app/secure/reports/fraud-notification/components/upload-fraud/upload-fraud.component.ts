@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Inject, ViewChild, EventEmitter, TemplateRef } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog, MatSnackBar } from "@angular/material";
+import { Router } from "@angular/router";
 import { EndpointService, LoadingService, Logger, ModalService } from "@app/core";
 import { ShellComponent } from "@app/core/shell";
 import { ComponentsService } from "@app/shared";
@@ -83,6 +84,7 @@ export class UploadFraudComponent implements OnInit {
     public _fraud:FraudNotificationService,
     private modalService: ModalService,
     private api: EndpointService,
+    private router: Router
 
   ) { }
 
@@ -428,6 +430,9 @@ export class UploadFraudComponent implements OnInit {
       this.closeActualDialog();
       this.openDialogFrauds(result);
       this.loadingService.closeSpinner();
+      this.router.navigateByUrl("/UploadFraudComponent", { skipLocationChange: true }).then(() => {
+            this.router.navigate(["/securehome/seller-center/ofertas/fraud-notification"]);
+      });
     } else if (result.body.data.status === 3) {
       this.closeActualDialog();
       clearInterval(this.checkIfDoneCharge);
