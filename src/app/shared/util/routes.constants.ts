@@ -59,6 +59,7 @@ export class RoutesConst {
     static readonly createUnutaryProduct: any = 'creacion-unitaria';
     static readonly paramSpecifications: any = 'especificaciones';
     static readonly paramBrands: any = 'marcas';
+    static readonly paramSizes: any = 'tallas';
     static readonly listProducts: any = 'listado-productos';
     static readonly categoryTree: any = 'category-tree';
     static readonly reportOffertAdmin: any = 'category-tree';
@@ -108,6 +109,7 @@ export class RoutesConst {
     static readonly sellerCenterProducts: any = RoutesConst.securehome + '/' + RoutesConst.products;
     static readonly sellerCenterIntParamSpecs: any = RoutesConst.securehome + '/' + RoutesConst.paramSpecifications;
     static readonly sellerCenterIntParamBrand: any = RoutesConst.securehome + '/' + RoutesConst.paramBrands;
+    static readonly sellerCenterIntParamSize: any = RoutesConst.securehome + '/' + RoutesConst.paramSizes;
 
     static readonly sellerCenterCalification: any = RoutesConst.securehome + '/' + RoutesConst.quality;
     static readonly sellerCenterSchoolExito: any = RoutesConst.securehome + '/' + RoutesConst.schoolExito;

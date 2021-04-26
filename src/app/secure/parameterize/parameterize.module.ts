@@ -26,6 +26,7 @@ import { ModalResultLoadExceptionComponent } from './exception/modal-result-load
 import { DownloadSpecsComponent } from './specifications/download-specs/download-specs.component';
 import { DownloadCategoriesComponent } from './category/categories/download-categories/download-categories.component';
 import { ModalBulkloadBrandsComponent } from './brands/modal-bulkload-brands/modal-bulkload-brands.component';
+import { SizesComponent } from './sizes/sizes.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ModalBulkloadBrandsComponent } from './brands/modal-bulkload-brands/mod
     ModalResultLoadExceptionComponent,
     DownloadSpecsComponent,
     DownloadCategoriesComponent,
-    ModalBulkloadBrandsComponent
+    ModalBulkloadBrandsComponent,
+    SizesComponent
   ],
   imports: [
     CommonModule,
