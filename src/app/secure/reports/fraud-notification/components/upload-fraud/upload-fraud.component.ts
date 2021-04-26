@@ -1,13 +1,13 @@
-import { Component, OnInit, Input, Inject, ViewChild, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input, Inject, ViewChild, EventEmitter, TemplateRef } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog, MatSnackBar } from "@angular/material";
-import { EndpointService, LoadingService, Logger } from "@app/core";
+import { LoadingService, Logger, ModalService } from "@app/core";
 import { ShellComponent } from "@app/core/shell";
-import { FinishUploadProductInformationComponent } from "@app/secure/products/bulk-load-product/finish-upload-product-information/finish-upload-product-information.component";
-import { SellerService } from "@app/secure/seller/seller.service";
 import { ComponentsService } from "@app/shared";
 import { TranslateService } from "@ngx-translate/core";
 import * as XLSX from 'xlsx';
 import { FraudNotificationService } from "../../fraud-notification.service";
+import { FinishUploadFraudInformationComponent } from "../finish-upload-fraud-information/finish-upload-fraud-information";
+import { FinishUploadProductInformationComponent } from "../finish-upload-product-information/finish-upload-product-information.component";
 
 const log = new Logger('UploadFraudComponent');
 
@@ -40,6 +40,8 @@ export class UploadFraudComponent implements OnInit {
   initialState = true;
   arraySend = [];
 
+  ListError =[];
+
   public agreementRegex = {
     number: '',
   };
@@ -57,6 +59,8 @@ export class UploadFraudComponent implements OnInit {
 
   /* Input file que carga el archivo*/
   @ViewChild('fileUploadOption', { static: false }) inputFileUpload: any;
+  @ViewChild('dialogContent', {static: false}) content: TemplateRef<any>;
+
   bodyToSend: any;
   arrayTosendExcel: any[];
 
@@ -71,11 +75,11 @@ export class UploadFraudComponent implements OnInit {
     public snackBar: MatSnackBar,
     public componentService: ComponentsService,
     private languageService: TranslateService,
-    private sellerService: SellerService,
     private shellComponent: ShellComponent,
     private loadingService: LoadingService,
     public dialog: MatDialog,
-    public _fraud:FraudNotificationService
+    public _fraud:FraudNotificationService,
+    private modalService: ModalService,
 
   ) { }
 
@@ -217,7 +221,7 @@ export class UploadFraudComponent implements OnInit {
         
         if (  this.arrayNecessaryData[0].includes('PLU') && this.arrayNecessaryData[0].includes('EAN') && 
         this.arrayNecessaryData[0].includes('Fecha Pedido') &&
-        this.arrayNecessaryData[0].includes('Número Orden') && this.arrayNecessaryData[0].includes('Nombre Producto') &&
+        this.arrayNecessaryData[0].includes('Número Orden') && this.arrayNecessaryData[0].includes('Nombre del Producto') &&
         this.arrayNecessaryData[0].includes('Cantidad') &&
         this.arrayNecessaryData[0].includes('Nombre del vendedor') && this.arrayNecessaryData[0].includes('Estado') && this.arrayNecessaryData[0].includes('ID Vendedor')) {
           const iVal = {
@@ -225,7 +229,7 @@ export class UploadFraudComponent implements OnInit {
             iNumeroOrden: this.arrayNecessaryData[0].indexOf('Número Orden'),
             iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
             iPLU: this.arrayNecessaryData[0].indexOf('PLU'),
-            iNombreProducto: this.arrayNecessaryData[0].indexOf('Nombre Producto'),
+            iNombreProducto: this.arrayNecessaryData[0].indexOf('Nombre del Producto'),
             iCantidad: this.arrayNecessaryData[0].indexOf('Cantidad'),
             iIDVendedor: this.arrayNecessaryData[0].indexOf('ID Vendedor'),
             iNombreVendedor: this.arrayNecessaryData[0].indexOf('Nombre del vendedor'),
@@ -275,23 +279,6 @@ export class UploadFraudComponent implements OnInit {
    */
   public getDate(): Date {
     return new Date();
-  }
-
-  /**
-   * Funcion para validar el boton de enviar acuerdos
-   * @memberof ModalBulkloadAgreementComponent
-   */
-  validateOneFile() {
-    this.uploadAgreementBtn = false;
-  }
-
-  /**
-   * Funcion para validar el boton de enviar acuerdos
-   * @param {*} validate
-   * @memberof ModalBulkloadAgreementComponent
-   */
-  validateFormatInvalidate(validate: any) {
-    this.uploadAgreementBtn = true;
   }
 
   /**
@@ -349,20 +336,23 @@ export class UploadFraudComponent implements OnInit {
   /**Elimina la fila de titulos */
   this.arraySend.shift();
 
+  let fileName = this.fileName.split('.xls');
+
     let sendData = {
-      FileName: this.fileName,
+      FileName: fileName[0],
       Data: this.arraySend
     }
     
     this._fraud.registersFrauds(sendData).subscribe((result: any) => {
-        if (result.data === true) {
+        if (result.data.status === 1) {
           this.setIntervalStatusCharge();
           this.dialogRef.close(false);
           this.shellComponent.eventEmitterOrders.getClear();
           this.loadingService.closeSpinner();
       } else {
         this.loadingService.closeSpinner();
-        this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), this.languageService.instant('actions.close'), 5000);
+        this.openDialogSendOrder(result);
+        this.dialogRef.close(false);
       }
     });
   }
@@ -403,7 +393,9 @@ export class UploadFraudComponent implements OnInit {
   setIntervalStatusCharge() {
     clearInterval(this.checkIfDoneCharge);
     this.checkIfDoneCharge = setInterval(() => this._fraud.getStatusFrauds().subscribe((res: any) => {
-      this.verifyStateCharge(res);
+      if(res.body.data.status !== 1) {
+        this.verifyStateCharge(res);
+      }
     }), 7000);
   }
 
@@ -413,13 +405,12 @@ export class UploadFraudComponent implements OnInit {
    * @memberof ModalBulkloadAgreementComponent
    */
   verifyStateCharge(result?: any) {
-    console.log(result);
     if (result.body.data.checked === 'true') {
       clearInterval(this.checkIfDoneCharge);
     } else if (result.body.data.status === 1 || result.body.data.status === 4) {
       result.body.data.status = 1;
       if (!this.progressStatus) {
-        this.openDialogSendOrder(result);
+        this.openDialogFrauds(result);
       }
       this.progressStatus = true;
       this.loadingService.closeSpinner();
@@ -430,42 +421,46 @@ export class UploadFraudComponent implements OnInit {
     } else if (result.body.data.status === 2) {
       clearInterval(this.checkIfDoneCharge);
       this.closeActualDialog();
-      this.openDialogSendOrder(result);
+      this.openDialogFrauds(result);
       this.loadingService.closeSpinner();
     } else if (result.body.data.status === 3) {
       this.closeActualDialog();
       clearInterval(this.checkIfDoneCharge);
-      const resultBody = JSON.parse(result.body.Data.Response);
+      const resultBody = JSON.parse(result.body.data.Response);
       if (resultBody.Errors.length > 0) {
-        this.openDialogSendOrder(result);
+        this.openDialogFrauds(result);
       }
       this.loadingService.closeSpinner();
     }
   }
 
   /**
-   * Metodo para abrir modal OK o con errores
+   * Metodo para abrir modal con errores
    * @param {*} res
    * @memberof ModalBulkloadAgreementComponent
    */
   openDialogSendOrder(res: any): void {
-    if (!res.body.data) {
-      res.body.data = {};
-      res.body.data.status = 3;
-      res.productNotifyViewModel = res.body.productNotifyViewModel;
-    } else {
-      // Condicional apra mostrar errores mas profundos. ;
-      if (res.body.data.response) {
-        res.productNotifyViewModel = res.body.data.response.Data.ProductNotify;
-      } else {
-        if (res.body.data.status === undefined) {
-          res.body.data.status = 3;
-          res.productNotifyViewModel = res.body.data.productNotifyViewModel;
-        }
-      }
-    }
 
     const dialogRef = this.dialog.open(FinishUploadProductInformationComponent, {
+      width: '95%',
+      data: {
+        response: res,
+        responseDiferent : false
+      },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      log.info('The dialog was closed');
+    });
+  }
+
+  /**
+   * Metodo para abrir modal ok
+   * @param {*} res
+   * @memberof ModalBulkloadAgreementComponent
+   */
+  openDialogFrauds(res: any): void {
+
+    const dialogRef = this.dialog.open(FinishUploadFraudInformationComponent, {
       width: '95%',
       data: {
         response: res,

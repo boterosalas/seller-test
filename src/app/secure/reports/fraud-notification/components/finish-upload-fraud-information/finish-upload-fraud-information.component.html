@@ -1,0 +1,24 @@
+<div>
+  <div class="error-list-content list-log">
+
+    <h3 class="processing-string" mat-subheader *ngIf="response.body.data.status ===1">
+        <mat-spinner class="processCharge" [diameter]="60"></mat-spinner>
+      {{response.processing}} {{'secure.products.Finish_upload_product_information.upload_progress' | translate}}
+    </h3>
+    <mat-divider *ngIf="response.processing != 0"></mat-divider>
+
+    <h3 class="succes-string" mat-subheader *ngIf="response.body.data.status ===2">
+      <mat-icon>check</mat-icon>
+      {{response.successful}} {{'secure.products.Finish_upload_product_information.successful_upload' | translate}}
+    </h3>
+    <mat-divider *ngIf="response.successful != 0"></mat-divider>
+
+  </div>
+
+  <mat-dialog-actions class="footer-dialog">
+    <button id="close-finish-upload-button" *ngIf="response.body.data.status === 1" mat-raised-button color="primary" (click)="reloadPage()">{{'actions.refresh' | translate}}</button>
+    <button id="close-finish-upload-button" *ngIf="response.body.data.status === 1" mat-raised-button color="primary" [routerLink]="['/securehome/seller-center']" mat-dialog-close>{{'secure.products.Finish_upload_product_information.home_seller_center' | translate}}</button>
+    <button id="close-finish-upload-button" *ngIf="response.body.data.status === 2 || response.body.data.status === 3" mat-raised-button color="primary" mat-dialog-close>{{'actions.close' | translate}}</button>
+
+  </mat-dialog-actions>
+</div>

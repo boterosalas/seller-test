@@ -15,6 +15,8 @@ import { ReportDispersionComponent } from './report-dispersion/report-dispersion
 import { FraudNotificationComponent } from './fraud-notification/fraud-notification.component';
 import { UploadFraudComponent } from './fraud-notification/components/upload-fraud/upload-fraud.component';
 import { ngfModule } from 'angular-file';
+import { FinishUploadProductInformationComponent } from './fraud-notification/components/finish-upload-product-information/finish-upload-product-information.component';
+import { FinishUploadFraudInformationComponent } from './fraud-notification/components/finish-upload-fraud-information/finish-upload-fraud-information';
 
 
 @NgModule({
@@ -36,6 +38,8 @@ import { ngfModule } from 'angular-file';
         ReportCommissionComponent,
         ReportDispersionComponent,
         FraudNotificationComponent,
+        FinishUploadProductInformationComponent,
+        FinishUploadFraudInformationComponent,
         UploadFraudComponent,
     ],
     exports: [
@@ -44,7 +48,9 @@ import { ngfModule } from 'angular-file';
     entryComponents: [
         DownloadModalOffertReportComponent,
         DownloadModalErrorVtexComponent,
-        UploadFraudComponent
+        UploadFraudComponent,
+        FinishUploadProductInformationComponent,
+        FinishUploadFraudInformationComponent
     ],
     providers: [
         ReportOffertService
