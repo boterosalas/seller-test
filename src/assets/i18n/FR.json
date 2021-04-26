@@ -1379,6 +1379,8 @@
 
     "secure.products.bulk_upload.process": "when uploading the products.",
 
+    "secure.frauds.bulk_upload.process": "au moment du chargement des arnaques.",
+
     "secure.reports.report-offert.download-modal-offert-ts.ok": "The download has started successfully. Check your e-mail.",
     "secure.reports.report-offert.download-modal-offert-ts.ko": "And error has occurred when downloading the file.",
 
@@ -1417,6 +1419,9 @@
     "secure.orders.bulk.billing.maximum_All_file_size": "Les fichiers ne doivent pas dépasser 7 MO.",
     "secure.orders.bulk.billing.size_file": "Taille du fichier: ",
     "secure.orders.bulk.billing.size_file_MB": "MO",
+
+    "secure.frauds.charge.frauds": "Télécharger le rapport de fraude",
+    "secure.frauds.charge.select.file": "Veuillez sélectionner le fichier de fraude que vous souhaitez télécharger",
 
     "errors_download_file_submodules" : "Se ha presentado un error al realizar la descarga.",
     "school.exito": "School Éxito",

@@ -1422,6 +1422,7 @@
     "secure.parametize.support_claims-upload-general-error": "El documento adjunto que estas tratando de cargar no es compatible con nuestra plataforma, te pedimos tener en cuenta las siguientes recomendaciones: Tu vídeo no puede durar más de 90 segundos y los formatos permitidos son : AVI, 3GP (móviles), MOV (Mac), WMV (Windows), MPG, MPEG y MP4 con un peso máximo de 4 MB. Las imágenes que puedes cargar deben estar en JPG, PNG o documentos en PDF, Excel o Word",
 
     "secure.products.bulk_upload.process": "al momento de cargar los productos.",
+    "secure.frauds.bulk_upload.process": "al momento de cargar los fraudes.",
 
     "secure.reports.report-offert.download-modal-offert-ts.ok": "Se ha realizado la descarga del reporte de ofertas correctamente, revisa tu correo electrónico en unos minutos.",
     "secure.reports.report-offert.download-modal-offert-ts.ko": "Se ha presentado un error al realizar la descarga del reporte de ofertas.",
@@ -1481,6 +1482,9 @@
     "secure.dispersion.summaryPayment.valueTotalPay": "Valor total a dispersar",
     "secure.dispersion.summaryPayment.allSeller": "Total Vendedores",
     "secure.dispersion.summaryPayment.dispersar": "Dispersar",
+
+    "secure.frauds.charge.frauds": "Cargar reporte de fraudes",
+    "secure.frauds.charge.select.file": "Por favor seleccione el archivo de fraudes que desea cargar",
 
     "errors_download_file_submodules" : "Se ha presentado un error al realizar la descarga.",
     "school.exito": "Escuela Éxito",

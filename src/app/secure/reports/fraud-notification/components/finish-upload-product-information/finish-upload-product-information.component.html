@@ -3,7 +3,7 @@
 
     <h4 class="error-string" mat-subheader *ngIf="response.data.status ===3">
       <mat-icon>warning</mat-icon>
-      {{'secure.products.create_product_unit.specifications.dialog.there' | translate}} {{response.error > 1 ? has: have }} {{'secure.products.create_product_unit.specifications.dialog.been' | translate}} {{response.error}} {{response.error > 1 ? errors : error }} {{'secure.products.bulk_upload.process' | translate}}
+      {{'secure.products.create_product_unit.specifications.dialog.there' | translate}} {{response.error > 1 ? has: have }} {{'secure.products.create_product_unit.specifications.dialog.been' | translate}} {{response.error}} {{response.error > 1 ? errors : error }} {{'secure.frauds.bulk_upload.process' | translate}}
     </h4>
     <mat-divider *ngIf="response.data.status ===3"></mat-divider>
 
