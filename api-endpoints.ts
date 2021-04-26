@@ -319,7 +319,9 @@ export const endpoints = {
       // envia el listado de fraudes
       sendFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles',
       // obtiene el statuts de los fraudes
-      statusFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles/status'
+      statusFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles/status',
+      // descarga la plantilla
+      downloadTemplateFrauds : 'https://seller-center-exito-staging.s3.amazonaws.com/Templates-Dev/PlantillaCargaFraudes.xlsx'
     },
   },
   // Endpoints production
@@ -632,11 +634,13 @@ export const endpoints = {
       // Captura de indicadores
       getIndicators : 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller/getindicatorsbynit/{params}',
       // obtiene el listado de fraudes
-      getFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles{params}',
+      getFrauds : 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/fraudfiles{params}',
       // envia el listado de fraudes
-      sendFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles',
-      // obtiene el statuts de los fraudes
-      statusFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles/status'
+      sendFrauds : 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/fraudfiles',
+      // obtiene el status de los fraudes
+      statusFrauds : 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/fraudfiles/status',
+      // descarga la plantilla
+      downloadTemplateFrauds : 'https://seller-center-exito-staging.s3.amazonaws.com/Templates/PlantillaCargaFraudes.xlsx'
     }
   }
 };

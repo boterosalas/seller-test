@@ -45,6 +45,17 @@ export class FraudNotificationService {
       return this.http.post(this.api.get('sendFrauds'), data);
   }
 
+    /**
+     * funcion para obtener el template
+     *
+     * @param {*} data
+     * @returns {Observable<any>}
+     * @memberof FraudNotificationService
+     */
+     public getFraudTemplate(): Observable<any> {
+      return this.http.get(this.api.get('downloadTemplateFrauds'));
+  }
+
       /**
      * Metodo para consultar el estado de la carga masiva
      * @returns

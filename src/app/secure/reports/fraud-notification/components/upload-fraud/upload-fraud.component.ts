@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Inject, ViewChild, EventEmitter, TemplateRef } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog, MatSnackBar } from "@angular/material";
-import { LoadingService, Logger, ModalService } from "@app/core";
+import { EndpointService, LoadingService, Logger, ModalService } from "@app/core";
 import { ShellComponent } from "@app/core/shell";
 import { ComponentsService } from "@app/shared";
 import { TranslateService } from "@ngx-translate/core";
@@ -42,6 +42,8 @@ export class UploadFraudComponent implements OnInit {
 
   ListError =[];
 
+  public url:string;
+
   public agreementRegex = {
     number: '',
   };
@@ -80,12 +82,15 @@ export class UploadFraudComponent implements OnInit {
     public dialog: MatDialog,
     public _fraud:FraudNotificationService,
     private modalService: ModalService,
+    private api: EndpointService,
 
   ) { }
 
   ngOnInit() {
     this.setIntervalStatusCharge();
+    this.url = this.api.get('downloadTemplateFrauds');
   }
+  
 
 
   /**
