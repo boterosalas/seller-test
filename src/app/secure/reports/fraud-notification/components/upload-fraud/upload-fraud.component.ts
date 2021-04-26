@@ -217,7 +217,7 @@ export class UploadFraudComponent implements OnInit {
 
       /*
       * if valido si el excel solo trae 2 registros y hay 1 vacio
-      * else if se valida que el documento tenga en los titulos o primera columna nos datos ID vendedor
+      * else if se valida que el documento tenga en los titulos o primera columna nos datos ID Seller
       * else si no lo tiene significa que el formato es invalido y manda un error*/
       if (this.arrayNecessaryData.length === 1) {
         this.loadingService.closeSpinner();
@@ -225,23 +225,23 @@ export class UploadFraudComponent implements OnInit {
       } else {
         
         if (  this.arrayNecessaryData[0].includes('PLU') && this.arrayNecessaryData[0].includes('EAN') && 
-        this.arrayNecessaryData[0].includes('Fecha Pedido') &&
-        this.arrayNecessaryData[0].includes('Número Orden') && this.arrayNecessaryData[0].includes('Nombre del Producto') &&
+        this.arrayNecessaryData[0].includes('Fecha del pedido ') &&
+        this.arrayNecessaryData[0].includes('Número del pedido') && this.arrayNecessaryData[0].includes('Nombre del producto') &&
         this.arrayNecessaryData[0].includes('Cantidad') &&
-        this.arrayNecessaryData[0].includes('Nombre del vendedor') && this.arrayNecessaryData[0].includes('Estado') && this.arrayNecessaryData[0].includes('ID Vendedor')) {
+        this.arrayNecessaryData[0].includes('Nombre del Vendedor') && this.arrayNecessaryData[0].includes('Estado del pedido') && this.arrayNecessaryData[0].includes('ID Seller')) {
           const iVal = {
-            iFechaPedido: this.arrayNecessaryData[0].indexOf('Fecha Pedido'),
-            iNumeroOrden: this.arrayNecessaryData[0].indexOf('Número Orden'),
+            iFechaPedido: this.arrayNecessaryData[0].indexOf('Fecha del pedido '),
+            iNumeroOrden: this.arrayNecessaryData[0].indexOf('Número del pedido'),
             iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
             iPLU: this.arrayNecessaryData[0].indexOf('PLU'),
-            iNombreProducto: this.arrayNecessaryData[0].indexOf('Nombre del Producto'),
+            iNombreProducto: this.arrayNecessaryData[0].indexOf('Nombre del producto'),
             iCantidad: this.arrayNecessaryData[0].indexOf('Cantidad'),
-            iIDVendedor: this.arrayNecessaryData[0].indexOf('ID Vendedor'),
-            iNombreVendedor: this.arrayNecessaryData[0].indexOf('Nombre del vendedor'),
-            iEstado: this.arrayNecessaryData[0].indexOf('Estado'),
-            iNumeroEnvio: this.arrayNecessaryData[0].indexOf('Número de envió'),
-            iCompania: this.arrayNecessaryData[0].indexOf('Compañía de envíos'),
-            iFechaEnvio: this.arrayNecessaryData[0].indexOf('Fecha de envío'),
+            iIDVendedor: this.arrayNecessaryData[0].indexOf('ID Seller'),
+            iNombreVendedor: this.arrayNecessaryData[0].indexOf('Nombre del Vendedor'),
+            iEstado: this.arrayNecessaryData[0].indexOf('Estado del pedido'),
+            iNumeroEnvio: this.arrayNecessaryData[0].indexOf('Número de la guía'),
+            iCompania: this.arrayNecessaryData[0].indexOf('Transportadora'),
+            iFechaEnvio: this.arrayNecessaryData[0].indexOf('Fecha de la guía'),
           };
           if (this.arrayNecessaryData.length > this.limitRowExcel) {
             this.loadingService.closeSpinner();
@@ -339,7 +339,7 @@ export class UploadFraudComponent implements OnInit {
     this.loadingService.viewSpinner();
             
   /**Elimina la fila de titulos */
-  this.arraySend.shift();
+  this.arraySend.splice(0,3);
 
   let fileName = this.fileName.split('.xls');
 
