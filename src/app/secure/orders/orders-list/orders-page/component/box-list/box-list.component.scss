@@ -147,6 +147,9 @@ $color-gray1:#909090;
 
 @media (max-width: 600px) {
   .fraud{
-    display: none;
+    padding: 5px;
+    left: 0;
+    top: 8px;
+    right: auto;
   }
 }
