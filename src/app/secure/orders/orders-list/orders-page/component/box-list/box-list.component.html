@@ -42,6 +42,9 @@
                 class="icon-forSend active" aria-label="Example icon-button with a heart icon">
                 description</mat-icon>
               {{data.orderNumber}}
+              <span class="fraud" *ngIf="data.isFraud">
+                No Despachar
+              </span>
             </p>
           </div>
           <div fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"

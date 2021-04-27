@@ -49,6 +49,7 @@ $color-gray1:#909090;
     overflow: hidden;
     width: inherit;
     max-width: 30%;
+    position: relative;
 
     @media (max-width: 600px) {
       max-width: 25% !important;
@@ -130,4 +131,22 @@ $color-gray1:#909090;
 
 .font-size-14{
   font-size: 14px;
+}
+
+.fraud{
+    background: #D14444 0% 0% no-repeat padding-box;
+    border-radius: 6px;
+    color: #fff;
+    padding: 8px;
+    display: flex;
+    position: absolute;
+    right: 23px;
+    top: 10px;
+    font-size: 10px;
+}
+
+@media (max-width: 600px) {
+  .fraud{
+    display: none;
+  }
 }

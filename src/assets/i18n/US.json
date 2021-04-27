@@ -1444,6 +1444,8 @@
 
     "secure.frauds.charge.frauds": "Upload fraud report",
     "secure.frauds.charge.select.file": "Please select the fraud file you want to upload",
+    "secure.frauds.charge.success": "Successful upload",
+    "secure.frauds.charge.success.text": "The file with the fraud information has been uploaded successfully",
 
     "errors_download_file_submodules" : "Se ha presentado un error al realizar la descarga.",
     "school.exito": "School Éxito",

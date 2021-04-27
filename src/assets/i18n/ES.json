@@ -1423,6 +1423,8 @@
 
     "secure.products.bulk_upload.process": "al momento de cargar los productos.",
     "secure.frauds.bulk_upload.process": "al momento de cargar los fraudes.",
+    "secure.frauds.charge.success": "Carga exitosa",
+    "secure.frauds.charge.success.text": "El archivo con la información de fraudes se ha cargado exitosamente",
 
     "secure.reports.report-offert.download-modal-offert-ts.ok": "Se ha realizado la descarga del reporte de ofertas correctamente, revisa tu correo electrónico en unos minutos.",
     "secure.reports.report-offert.download-modal-offert-ts.ko": "Se ha presentado un error al realizar la descarga del reporte de ofertas.",
