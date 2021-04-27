@@ -143,7 +143,7 @@ export class SizesComponent implements OnInit {
       if (this.paginationToken === undefined) {
         this.paginationToken = encodeURI('{}');
       }
-      this.paramsArray = 'limit=' + this.limit + '&paginationToken=' + this.paginationToken;
+      this.paramsArray = '?limit=' + this.limit + '&paginationToken=' + encodeURI(this.paginationToken);
       this.listSize(this.paramsArray);
     }
   }
