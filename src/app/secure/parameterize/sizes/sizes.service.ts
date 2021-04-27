@@ -39,6 +39,6 @@ export class SizesService {
    * @memberof SizesService
    */
   public deleteSize(params: any): Observable<any> {
-    return this.http.delete(this.api.get('getAllSizes'), params);
+    return this.http.delete(this.api.get('getAllSizes', [params]));
   }
 }

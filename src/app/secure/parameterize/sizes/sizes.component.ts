@@ -86,6 +86,7 @@ export class SizesComponent implements OnInit {
       urlParams = params;
       console.log('if')
     } else {
+      console.log('else')
       urlParams = `?limit=${this.pageSize}&paginationToken=${encodeURI(this.paginationToken)}`;
     }
     if (filters) {
@@ -98,6 +99,7 @@ export class SizesComponent implements OnInit {
         this.dataSource = result.viewModel;
         console.log(this.dataSource);
         if (this.callOne) {
+      console.log('this.callOne: ', this.callOne)
           this.length = result.count;
           this.arrayPosition = [];
           this.arrayPosition.push('{}');
@@ -181,11 +183,11 @@ export class SizesComponent implements OnInit {
       if (result && result.status === 200) {
         if (result.body.data === true) {
           console.log(result.data);
-          this.loadingService.closeSpinner();
+          this.listSize();
           this.snackBar.open('Has cambiado correctamente el estado de la talla ' + element + '.', this.languageService.instant('actions.close'), {
             duration: 5000,
           });
-          this.listSize();
+          this.loadingService.closeSpinner();
         } else {
           this.loadingService.closeSpinner();
           this.snackBar.open('Se ha producido un error al tratar de cambiar el estado de la talla ' + element, this.languageService.instant('actions.close'), {
@@ -201,25 +203,25 @@ export class SizesComponent implements OnInit {
 
   public deleteSize(element: any) {
     console.log(element);
-    const paramDelete = '?name' + element;
+    this.paginationToken = '{}';
+    const paramDelete = '?name=' + element;
     this.loadingService.viewSpinner();
     console.log(paramDelete);
-    this.service.changeStatus(paramDelete).subscribe(result => {
+    this.callOne = true;
+    this.service.deleteSize(paramDelete).subscribe(result => {
       console.log(result);
-      if (result && result.status === 200) {
-        if (result.body.data === true) {
+        if (result && result.data === true) {
           console.log(result.data);
-          this.loadingService.closeSpinner();
-          this.snackBar.open('Has cambiado correctamente el estado de la talla ' + element + '.', this.languageService.instant('actions.close'), {
+          // this.loadingService.closeSpinner();
+          this.snackBar.open('Has eliminado correctamente la talla ' + element + '.', this.languageService.instant('actions.close'), {
             duration: 5000,
           });
           this.listSize();
         } else {
           this.loadingService.closeSpinner();
-          this.snackBar.open('Se ha producido un error al tratar de cambiar el estado de la talla ' + element, this.languageService.instant('actions.close'), {
+          this.snackBar.open('Se ha producido un error al tratar de eliminar la talla ' + element, this.languageService.instant('actions.close'), {
             duration: 5000,
           });
-        }
       }
     }, error => {
       this.loadingService.closeSpinner();
