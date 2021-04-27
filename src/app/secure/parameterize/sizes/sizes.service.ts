@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EndpointService } from '@app/core';
 import { Observable } from 'rxjs';
+import { ParamSpecsService } from '../specifications/specifications.component.service';
 
 @Injectable()
 export class SizesService {
@@ -19,5 +20,25 @@ export class SizesService {
    */
   public getListSizes(params: any): Observable<any> {
     return this.http.get(this.api.get('getAllSizes', [params]));
+  }
+
+  /**
+   * Servicio para cambiar de estado
+   * @param {*} params
+   * @returns {Observable<any>}
+   * @memberof SizesService
+   */
+  public changeStatus(params: any): Observable<any> {
+    return this.http.patch(this.api.get('getAllSizes'), params, { observe: 'response' });
+  }
+
+  /**
+   * Servicio para eliminar tallas
+   * @param {*} params
+   * @returns {Observable<any>}
+   * @memberof SizesService
+   */
+  public deleteSize(params: any): Observable<any> {
+    return this.http.delete(this.api.get('getAllSizes'), params);
   }
 }

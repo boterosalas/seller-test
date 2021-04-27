@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatTableDataSource, PageEvent } from '@angular/material';
+import { MatSnackBar, MatTableDataSource, PageEvent } from '@angular/material';
 import { LoadingService, ModalService } from '@app/core';
 import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import { TranslateService } from '@ngx-translate/core';
 import { SizesService } from './sizes.service';
 
 @Component({
@@ -47,8 +48,10 @@ export class SizesComponent implements OnInit {
     private service: SizesService,
     private loadingService: LoadingService,
     private modalService: ModalService,
+    private languageService: TranslateService,
     private fb?: FormBuilder,
     public SUPPORT?: SupportService,
+    public snackBar?: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -161,6 +164,67 @@ export class SizesComponent implements OnInit {
   public cleanFilter() {
     this.filterSizes.reset();
     this.listSize();
+  }
+
+  /**
+   * Servicio para cambiar el estado de una talla.
+   * @param {*} element
+   * @memberof SizesComponent
+   */
+  public changeStatusSize(element: any) {
+    console.log(element);
+    const paramChange = { 'OldSize': element };
+    this.loadingService.viewSpinner();
+    console.log(paramChange);
+    this.service.changeStatus(paramChange).subscribe(result => {
+      console.log(result);
+      if (result && result.status === 200) {
+        if (result.body.data === true) {
+          console.log(result.data);
+          this.loadingService.closeSpinner();
+          this.snackBar.open('Has cambiado correctamente el estado de la talla ' + element + '.', this.languageService.instant('actions.close'), {
+            duration: 5000,
+          });
+          this.listSize();
+        } else {
+          this.loadingService.closeSpinner();
+          this.snackBar.open('Se ha producido un error al tratar de cambiar el estado de la talla ' + element, this.languageService.instant('actions.close'), {
+            duration: 5000,
+          });
+        }
+      }
+    }, error => {
+      this.loadingService.closeSpinner();
+      this.modalService.showModal('errorService');
+    });
+  }
+
+  public deleteSize(element: any) {
+    console.log(element);
+    const paramDelete = '?name' + element;
+    this.loadingService.viewSpinner();
+    console.log(paramDelete);
+    this.service.changeStatus(paramDelete).subscribe(result => {
+      console.log(result);
+      if (result && result.status === 200) {
+        if (result.body.data === true) {
+          console.log(result.data);
+          this.loadingService.closeSpinner();
+          this.snackBar.open('Has cambiado correctamente el estado de la talla ' + element + '.', this.languageService.instant('actions.close'), {
+            duration: 5000,
+          });
+          this.listSize();
+        } else {
+          this.loadingService.closeSpinner();
+          this.snackBar.open('Se ha producido un error al tratar de cambiar el estado de la talla ' + element, this.languageService.instant('actions.close'), {
+            duration: 5000,
+          });
+        }
+      }
+    }, error => {
+      this.loadingService.closeSpinner();
+      this.modalService.showModal('errorService');
+    });
   }
 
 }
