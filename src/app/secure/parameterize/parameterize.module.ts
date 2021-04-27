@@ -27,6 +27,7 @@ import { DownloadSpecsComponent } from './specifications/download-specs/download
 import { DownloadCategoriesComponent } from './category/categories/download-categories/download-categories.component';
 import { ModalBulkloadBrandsComponent } from './brands/modal-bulkload-brands/modal-bulkload-brands.component';
 import { SizesComponent } from './sizes/sizes.component';
+import { SizesService } from './sizes/sizes.service';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { SizesComponent } from './sizes/sizes.component';
   providers: [
     ParamSpecsService,
     BrandService,
+    SizesService,
     CategoryTreeService,
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
   ],

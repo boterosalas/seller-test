@@ -313,7 +313,13 @@ export const endpoints = {
       // Consultar si tiene carga la creacion de modulos.
       ValidateCreateMassive : 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/ValidateCreateMassive',
       // Captura de indicadores
-      getIndicators : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller/getindicatorsbynit/{params}'
+      getIndicators : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller/getindicatorsbynit/{params}',
+      // Obtener listado de tallas
+      getAllSizes: 'https://wss1xyl4h8.execute-api.us-east-1.amazonaws.com/Sizes/{params}',
+      // Obtener listado de tallas Creacion unitaria
+      getAllSizesProducts: 'https://wss1xyl4h8.execute-api.us-east-1.amazonaws.com/Sizes/all',
+      // Consultar estado de la carga masiva de tallas
+      getStatusSize: 'https://wss1xyl4h8.execute-api.us-east-1.amazonaws.com/Sizes/status'
     },
   },
   // Endpoints production
