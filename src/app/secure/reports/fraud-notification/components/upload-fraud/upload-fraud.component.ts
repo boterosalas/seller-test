@@ -452,7 +452,9 @@ export class UploadFraudComponent implements OnInit {
   openDialogSendOrder(res: any): void {
 
     const dialogRef = this.dialog.open(FinishUploadProductInformationComponent, {
-      width: '95%',
+       width: '800px',
+      maxWidth: '90vw',
+      maxHeight: '90vh',
       data: {
         response: res,
         responseDiferent : false
@@ -471,7 +473,9 @@ export class UploadFraudComponent implements OnInit {
   openDialogFrauds(res: any): void {
 
     const dialogRef = this.dialog.open(FinishUploadFraudInformationComponent, {
-      width: '95%',
+       width: '800px',
+      maxWidth: '90vw',
+      maxHeight: '90vh',
       data: {
         response: res,
         responseDiferent : false
