@@ -7,7 +7,7 @@ import {
   animate
 } from '@angular/animations';
 import { SellerSupportCenterService } from '../services/seller-support-center.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CaseDetailResponse } from '../models/case-detail-response.model';
@@ -18,6 +18,7 @@ import { MatDialog } from '@angular/material';
 import { StoreService } from '@app/store/store.service';
 import { ConfigurationState } from '@app/store/configuration';
 import { CaseSupportCenterService } from '../services/case-support-center.service';
+import { InfoModalSupportComponent } from '../info-modal-support/info-modal-support.component';
 
 @Component({
   selector: 'app-detail-case',
@@ -58,11 +59,14 @@ export class DetailCaseComponent implements OnInit {
   @Input() idDetail: any;
   @Output() idDetailFalse = new EventEmitter<any>();
 
+  displayedColumns: string[] = ['product','brand','sku', 'ean', 'skuseller', 'price', 'quantity'];
+
 
   constructor(
     public dialog: MatDialog,
     private sellerSupportService: SellerSupportCenterService,
     private route: ActivatedRoute,
+    private router: Router,
     private loadingService?: LoadingService,
     private storeService?: StoreService,
     public redirecServ?: CaseSupportCenterService
@@ -87,9 +91,8 @@ export class DetailCaseComponent implements OnInit {
    * @memberof DetailCaseComponent
    */
   redirecToListClaims() {
-    this.idDetail = false;
-    this.idDetailFalse.emit(this.idDetail);
-    // this.redirecServ.redirectToListServ();
+  this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+   this.router.navigate(['/securehome/seller-center/support-center']));
   }
 
   toggleFilter(stateFilter: boolean) {
@@ -117,6 +120,24 @@ export class DetailCaseComponent implements OnInit {
       }
     });
   }
+
+      /**
+   * funcion para mostrar el modal del producto
+   *
+   * @param {*} module
+   * @param {*} item
+   * @memberof ListAdminSchoolComponent
+   */
+       showThumbnail(dataProduct: any) {
+        this.dialog.open(InfoModalSupportComponent, {
+          data: {
+            dataProduct
+          },
+          width: '300px',
+          maxWidth: '90vw',
+        });
+        
+      }
 
   getStatusCase() {
     this.storeService.getStateConfiguration().subscribe((res: ConfigurationState) => {

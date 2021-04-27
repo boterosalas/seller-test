@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import * as FileSaver from 'file-saver';
 import { ACCEPT_TYPE } from '@app/shared/models';
 import { TranslateService } from '@ngx-translate/core';
+import { InfoModalSupportComponent } from '@app/secure/seller-support-center/info-modal-support/info-modal-support.component';
 
 const productsConfig = require('./products-list-configuration.json');
 
@@ -68,6 +69,26 @@ export class CaseDetailComponent implements OnInit {
   closeDialog(): void {
     this.dialog.closeAll();
   }
+
+
+      /**
+   * funcion para mostrar el modal del producto
+   *
+   * @param {*} module
+   * @param {*} item
+   * @memberof ListAdminSchoolComponent
+   */
+       showThumbnail(dataProduct: any) {
+        this.dialog.open(InfoModalSupportComponent, {
+          data: {
+            dataProduct
+          },
+          width: '300px',
+          maxWidth: '90vw',
+        });
+        
+      }
+
 }
 
 export interface Case {
@@ -78,6 +99,7 @@ export interface Case {
   orderNumber: string;
   reasonPQR: string;
   reasonDetail: string;
+  lastPostDesc:string;
   description: string;
   descriptionSolution: string;
   createDate: string;

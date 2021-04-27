@@ -577,11 +577,15 @@ const ReportModule = new ModuleModel(reportModule, showAll, reportModule.toLower
  * 1. Listado de calificacion.
  */
 
-export const calificationModule = 'CALIDAD', listCalification = 'Calificación de Vendedores';
+export const calificationModule = 'CALIDAD', listCalification = 'Calificación de Vendedores', consultIndicators = 'Consultar Indicadores';
 const CalificationModule = new ModuleModel(calificationModule, showAll, calificationModule.toLowerCase(), [
     new MenuModel(listCalification, showAll, listCalification.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
-    ], RoutesConst.sellerCenterIntListCalification)]);
+    ], RoutesConst.sellerCenterIntListCalification),
+    new MenuModel(consultIndicators, showAll, consultIndicators.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+    ], RoutesConst.sellerCenterIntConsultIndicators)],
+    );
 
 
 export const dispersionModule = 'DISPERSION', summaryPaymentAdmin = 'Resumen de pagos', detailPaymentAdmin = 'Detalle de dispersión';

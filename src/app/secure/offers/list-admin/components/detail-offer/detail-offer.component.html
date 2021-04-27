@@ -22,8 +22,10 @@
 
     <p [innerHTML]="['secure.offers.list.list.EAN_offert' | translate] + dataOffer.ean"
       class="ean flexbox align-center"></p>
-
-    <p [innerHTML]="['secure.offers.bulk_upload.table_load.sellerSku' | translate] + ': ' + dataOffer.sellerSku" class="ean flexbox align-center"></p>
+    <p [innerHTML]="['secure.dashboard.table.top.title.SKU' | translate] + ': ' + dataOffer.pluVtex"
+      class="ean flexbox align-center"></p>
+    <p [innerHTML]="['secure.offers.bulk_upload.table_load.sellerSku' | translate] + ': ' + dataOffer.sellerSku"
+      class="ean flexbox align-center"></p>
 
     <p [innerHTML]="dataOffer.name" class="name"></p>
 
@@ -104,7 +106,8 @@
           <p [innerHTML]="['secure.offers.historical_admin.historical_admin.exito_logistic' | translate]"></p>
         </div>
       </aside>
-      <p [innerHTML]="['secure.offers.list.components.detail_offer.last_modify' | translate] + (dataOffer.lastUpdate | date : 'dd/MM/yyyy')" class="udpade-date"></p>
+      <p [innerHTML]="['secure.offers.list.components.detail_offer.last_modify' | translate] + (dataOffer.lastUpdate | date : 'dd/MM/yyyy')"
+        class="udpade-date"></p>
     </div>
   </article>
 </section>

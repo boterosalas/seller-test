@@ -7,6 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalificationService } from './quality.service';
 import { DetailCalificationComponent } from './component/detail-calification/detail-calification.component';
 import { ModalConfirmComponent } from './component/modal-confirm/modal-confirm.component';
+import { ConsultIndicatorsComponent } from './consult-indicators/consult-indicators.component';
+import { DashboardModule } from '../dashboard/dashboard.module';
 
 
 
@@ -17,17 +19,19 @@ import { ModalConfirmComponent } from './component/modal-confirm/modal-confirm.c
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    DashboardModule
   ],
   declarations: [
     CalificationListComponent,
      DetailCalificationComponent,
-     ModalConfirmComponent
+     ModalConfirmComponent,
+     ConsultIndicatorsComponent,
     ],
     providers: [
       CalificationService
   ],
   entryComponents: [
-    ModalConfirmComponent
+    ModalConfirmComponent,
   ],
 })
 export class QualityModule { }

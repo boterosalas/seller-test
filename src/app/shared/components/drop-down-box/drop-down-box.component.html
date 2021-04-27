@@ -3,7 +3,7 @@
     <mat-expansion-panel [expanded]="isOpen" (opened)="opened.emit(data); this.panelOpenState = true; read = true; showDetail.emit(panelOpenState)"
       (closed)="panelOpenState = false; showDetail.emit(panelOpenState)">
       <mat-expansion-panel-header>
-        <div [ngClass]="read ? '' : 'bold-text'" class="case-list-detail" fxLayout fxLayout.xs="row"
+        <div [ngClass]="read === true ? '' : 'bold-text'" class="case-list-detail" fxLayout fxLayout.xs="row"
           fxLayoutAlign="center center" fxLayoutGap="10px" fxLayoutGap.xs="0">
           <div class="case-list-detail--item-detail" fxFlex="5%" fxLayoutAlign="center center" class="no-select">
             <span [ngClass]="

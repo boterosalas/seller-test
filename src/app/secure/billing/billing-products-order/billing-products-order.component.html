@@ -195,34 +195,38 @@
         <span>{{'secure.billing.subtotal'  | translate}}</span>
       </div>
       <div class="sc-valueToPay-text billing-product-order-text-along-right" fxFlex="15">
-        <span>{{order.subtotal | currency: '$' : 'symbol' : '1.0-0'}}</span>
+        <span *ngIf="order.concept === 'Venta Marketplace'" class="sc-valueToPay-text">{{order.subtotal | currency: '$' : 'symbol' : '1.0-0'}}</span>
+        <span *ngIf="order.concept === 'Nota crédito'" class="sc-commission-text">-{{order.subtotal | currency: '$' : 'symbol' : '1.0-0'}}</span>
       </div>
     </div>
     <mat-divider></mat-divider>
     <div fxLayout="row" class="billing-product-order-padding-subtotal">
       <div fxFlex="85" class="billing-products-order-size-text-two-color">
-        <span>{{'secure.billing.comissionFee'  | translate}}</span>
+        <span *ngIf="order.concept === 'Venta Marketplace'">{{'secure.billing.comissionFee'  | translate}}</span>
+        <span *ngIf="order.concept === 'Nota crédito'">{{'secure.billing.comission_rembourser'  | translate}}</span>
       </div>
       <div class="sc-commission-text billing-product-order-text-along-right" fxFlex="15">
-        <span>{{order.commission | currency: '$' : 'symbol' : '1.0-0'}}</span>
+        <span [ngClass]="order.concept !== 'Nota crédito' ? 'sc-commission-text' : 'sc-valueToPay-text'">{{order.commission | currency: '$' : 'symbol' : '1.0-0'}}</span>
       </div>
     </div>
     <div fxLayout="row">
       <div fxFlex="85" class="billing-products-order-size-text-two-color">
-        <span>{{'secure.billing.vat_discount'  | translate}}</span>
+        <span *ngIf="order.concept === 'Venta Marketplace'">{{'secure.billing.vat_discount'  | translate}}</span>
+        <span *ngIf="order.concept === 'Nota crédito'">{{'secure.billing.discount_rembourser'  | translate}}</span>
       </div>
       <div class="sc-commission-text billing-product-order-text-along-right" fxFlex="15">
-        <span>-{{order.iva | currency: '$' : 'symbol' : '1.0-0'}}</span>
+        <span [ngClass]="order.concept !== 'Nota crédito' ? 'sc-commission-text' : 'sc-valueToPay-text'">{{order.iva | currency: '$' : 'symbol' : '1.0-0'}}</span>
       </div>
     </div>
     <mat-divider></mat-divider>
     <div>
       <div fxLayout="row" class="billing-product-order-padding-top-padding-btt">
         <div fxFlex="85" class="billing-product-order-text-size-14">
-          <span><strong>{{'secure.billing.total_be_paid'  | translate}}</strong></span>
+          <span *ngIf="order.concept === 'Venta Marketplace'"><strong>{{'secure.billing.total_be_paid'  | translate}}</strong></span>
+          <span *ngIf="order.concept === 'Nota crédito'"><strong>{{'secure.billing.total_be_discount'  | translate}}</strong></span>
         </div>
         <div class="sc-valueToPay-text billing-product-order-text-aling-right-font-size" fxFlex="15">
-          <span>{{order.billingTotal | currency: '$' : 'symbol' : '1.0-0'}}</span>
+          <span [ngClass]="order.concept === 'Nota crédito' ? 'sc-commission-text' : 'sc-valueToPay-text'">{{order.billingTotal | currency: '$' : 'symbol' : '1.0-0'}}</span>
         </div>
       </div>
     </div>

@@ -227,6 +227,7 @@ export class Billing {
   detail?: (DetailEntity)[] | Array<DetailEntity>;
   fulfillmentDetail?: DetailFulfillment | null;
   paginationToken: string;
+  iva: number;
 }
 
 /**

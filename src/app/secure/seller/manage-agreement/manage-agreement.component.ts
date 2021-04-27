@@ -65,9 +65,6 @@ export class ManageAgreementComponent implements OnInit {
    */
   activeContract(event: any, data: any) {
     this.loading.viewSpinner();
-    console.log(event);
-    console.log(data);
-
     if (data && data.DocumentType === 2) {
       if (event && event.checked === true && data.Default !== true) {
         const dataSend = `${data.Id}/${data.DocumentType}?`;

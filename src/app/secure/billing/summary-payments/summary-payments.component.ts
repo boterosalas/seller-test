@@ -35,7 +35,9 @@ export class SummaryPaymentsComponent implements OnInit {
   public dataSource: MatTableDataSource<any>;
   public selection = new SelectionModel<any>(true, []);
   public arraySelect = [];
-  public summaryTotal= 0;
+  public summaryTotal = 0;
+  public totalPay = 0;
+  public totalDiscount = 0;
   public callOne = true;
   public arrayPosition = [];
   public paginationToken = '{}';
@@ -45,6 +47,8 @@ export class SummaryPaymentsComponent implements OnInit {
     'check',
     'number_bill',
     'quantity_orders',
+    'credit_note',
+    'devolutions',
     'payment_date',
     'total_discounted_value',
     'total_to_pay'
@@ -102,6 +106,23 @@ export class SummaryPaymentsComponent implements OnInit {
   }
 
   /**
+   * Metodo para retornar el primer pedido de nota credito
+   * @param {*} param
+   * @returns
+   * @memberof SummaryPaymentsComponent
+   */
+  returnFirstPosition(param: any) {
+    if (param) {
+      const splitArr = param.split(',');
+      if (splitArr.length > 1) {
+        return splitArr[0] + ' [+]'
+      } else {
+        return splitArr[0]
+      }
+    }
+  }
+
+  /**
    * funcion para capturar todos los seller paginados
    *
    * @param {*} [params]
@@ -111,6 +132,8 @@ export class SummaryPaymentsComponent implements OnInit {
     this.loadingService.viewSpinner();
     let query = {};
     this.summaryTotal = 0;
+    this.totalPay = 0;
+    this.totalDiscount = 0;
     if (params !== undefined) {
       query = {
         filterDate: params.filterDate,
@@ -140,11 +163,13 @@ export class SummaryPaymentsComponent implements OnInit {
           this.callOne = false;
         }
         this.dataSource = new MatTableDataSource(this.resultModel.viewModel);
-        if ( this.dataSource && this.dataSource.data && this.dataSource.data.length > 0) {
+        if (this.dataSource && this.dataSource.data && this.dataSource.data.length > 0) {
           this.dataSource.data.forEach(element => {
-            this.summaryTotal = this.summaryTotal + element.billingTotalObject;
+            this.totalPay = this.totalPay + element.billingTotalObject;
+            this.totalDiscount = this.totalDiscount + element.discountedTotalObject;
             this.typeSeller = element.sellerType;
           });
+          this.summaryTotal = this.totalPay - this.totalDiscount;
         }
         if (this.arraySelect.length > 0 && this.dataSource.data.length > 0) {
           this.arraySelect.forEach(select => {
@@ -163,13 +188,13 @@ export class SummaryPaymentsComponent implements OnInit {
     });
   }
 
-/**
- * funcion para capturar el evento cuando se pasa de pagina
- *
- * @param {*} event
- * @memberof SummaryPaymentsComponent
- */
-paginations(event: any) {
+  /**
+   * funcion para capturar el evento cuando se pasa de pagina
+   *
+   * @param {*} event
+   * @memberof SummaryPaymentsComponent
+   */
+  paginations(event: any) {
     if (event.param.pageSize !== this.limit) {
       this.limit = event.param.pageSize;
     }
@@ -201,32 +226,32 @@ paginations(event: any) {
       this.getAllSeller(params);
     }
   }
-/**
- * funcion para limpiar la lista
- *
- * @memberof SummaryPaymentsComponent
- */
-allClear() {
+  /**
+   * funcion para limpiar la lista
+   *
+   * @memberof SummaryPaymentsComponent
+   */
+  allClear() {
     this.paginationToken = '{}';
     this.arrayNotSelect = [];
     this.arrayPosition = [];
     this.getAllSeller();
   }
-/**
- * funcion para mostrar el toggle filter
- *
- * @memberof SummaryPaymentsComponent
- */
-toggleFilter() {
+  /**
+   * funcion para mostrar el toggle filter
+   *
+   * @memberof SummaryPaymentsComponent
+   */
+  toggleFilter() {
     this.stateSideNavOrder = !this.stateSideNavOrder;
   }
-/**
- *  funcion filtrar el listado
- *
- * @param {*} params
- * @memberof SummaryPaymentsComponent
- */
-filterListSummary(params: any) {
+  /**
+   *  funcion filtrar el listado
+   *
+   * @param {*} params
+   * @memberof SummaryPaymentsComponent
+   */
+  filterListSummary(params: any) {
     this.dateFilter = params.filterDate;
     this.callOne = true;
     params = {
@@ -239,17 +264,17 @@ filterListSummary(params: any) {
     this.loadingService.viewSpinner();
   }
 
-  updateToggle(params: any){
+  updateToggle(params: any) {
     this.stateSideNavOrder = params.close;
   }
-/**
- * funcion para cambiar status de los checkBox
- *
- * @param {*} row
- * @param {*} status
- * @memberof SummaryPaymentsComponent
- */
-changeStatus(row: any, status: any) {
+  /**
+   * funcion para cambiar status de los checkBox
+   *
+   * @param {*} row
+   * @param {*} status
+   * @memberof SummaryPaymentsComponent
+   */
+  changeStatus(row: any, status: any) {
     if (row) {
       if (status) {
         this.arraySelect.push(row);
@@ -259,12 +284,12 @@ changeStatus(row: any, status: any) {
       }
     }
   }
-/**
- * funcion para enviar el numero de pagos ha detalles de pagos
- *
- * @memberof SummaryPaymentsComponent
- */
-sendDetailSummary() {
+  /**
+   * funcion para enviar el numero de pagos ha detalles de pagos
+   *
+   * @memberof SummaryPaymentsComponent
+   */
+  sendDetailSummary() {
     const listBilling = [];
     this.arraySelect.forEach(element => {
       listBilling.push(element.billingNumber);
