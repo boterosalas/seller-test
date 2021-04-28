@@ -15,8 +15,7 @@ const log = new Logger('ComboProductComponent');
   styleUrls: ['comboProduct.component.scss'],
 })
 export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
-  // productsList: any;
-  // @Input() productsList: any;
+
   @Input() showProducts: boolean;
   @Input() offerPermission: boolean;
   @Input() editPermission: boolean;
