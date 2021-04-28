@@ -67,6 +67,7 @@
     "menu.Escuela Exito": "Escuela Éxito",
     "menu.Administrar Acuerdos": "Administrar acuerdos",
     "menu.Consultar Indicadores": "Consultar Indicadores",
+    "menu.Notificación": "Anuncios",
     "module.Documentación": "Documentación",
     "module.Ofertas": "Ofertas",
     "module.Productos": "Productos",
@@ -1523,5 +1524,7 @@
     "quality.indicators.indicator_not_available": "Información no disponible temporalmente",
     "quality.indicators.bar_green": "Supera objetivo",
     "quality.indicators.bar_orange": "Se ajusta al objetivo",
-    "quality.indicators.bar_red": "Alerta! Indicador degradado"
+    "quality.indicators.bar_red": "Alerta! Indicador degradado",
+
+    "secure.notifications.container.title_for_search": "Filtros notificación"
 }
