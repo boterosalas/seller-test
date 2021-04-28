@@ -28,6 +28,7 @@ import { AuthService } from '@app/secure/auth/auth.routing';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute } from '@angular/router';
 
 // log component
 const log = new Logger('PendingDevolutionComponent');
@@ -55,11 +56,11 @@ const log = new Logger('PendingDevolutionComponent');
 export class PendingDevolutionComponent implements OnInit, OnDestroy {
 
   // Elemento paginador
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   // Sort: elemento que se emplea para poder organizar los elementos de la tabla de acuerdo a la columna seleccionada
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
   // Toolbar Options Componente: Permite acceder a los metodos de este compomente
-  @ViewChild('toolbarOptions', {static: false}) toolbarOption;
+  @ViewChild('toolbarOptions', { static: false }) toolbarOption;
   // Columnas que se visualizan en la tabla
   public displayedColumns = [
     // 'select',
@@ -139,6 +140,8 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
   public currentLanguage: string;
 
   hideOptionsListCancel: Boolean = true;
+  orderNumberClaim: any;
+  auxParamSet = true;
 
   constructor(
     public shellComponent: ShellComponent,
@@ -150,13 +153,16 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     public eventsSeller: EventEmitterSeller,
     private languageService: TranslateService,
-  ) { }
+    private route: ActivatedRoute,
+  ) {
+  }
 
   /**
    * ngOnInit
    * @memberof PendingDevolutionComponent
    */
   ngOnInit() {
+    this.auxParamSet = false;
     this.hideOptionsListCancel = true;
     this.getDataUser(pendingName);
     this.searchSubscription = this.eventsSeller.eventSearchSeller
@@ -175,6 +181,20 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     // Funcionalidad para remover las suscripciones creadas.
     this.subFilterOrderPending.unsubscribe();
+    this.subFilterOrder.unsubscribe();
+  }
+
+  /**
+   * Metodo para traer el numero de orden desde reclamaciones y hacer filtro por el mismo
+   * @memberof PendingDevolutionComponent
+   */
+  getFilterOrderbyClaim() {
+    if (this.auxParamSet === false) {
+      this.orderNumberClaim = this.route.snapshot ? this.route.snapshot.params.orderNumber : null;
+    } else {
+      this.orderNumberClaim = '';
+    }
+    this.auxParamSet = true;
   }
 
   /**
@@ -238,7 +258,6 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   getOrdersListSinceFilterSearchOrder() {
-
     this.subFilterOrderPending = this.shellComponent.eventEmitterOrders.filterOrdersWithStatus.subscribe(
       (data: any) => {
         if (data && data.count > 0) {
@@ -277,6 +296,8 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
 
 
   getOrdersList(params?: any) {
+    this.orderNumberClaim = '';
+    this.getFilterOrderbyClaim();
     this.loadingService.viewSpinner();
     this.isClear = false;
     this.params = this.setParameters(params);
@@ -310,8 +331,11 @@ export class PendingDevolutionComponent implements OnInit, OnDestroy {
       this.orderNumber = '';
       this.identificationCard = '';
     }
+
+    const setLimit = 'limit=' + this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken) + this.querySearch;
+    const setLimitWithOrder = 'limit=' + this.pageSize + '&orderNumber=' + this.orderNumberClaim;
     const paramsArray = {
-      'limit': 'limit=' + this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken) + this.querySearch,
+      'limit': this.orderNumberClaim ? setLimitWithOrder : setLimit,
       'idSeller': this.idSeller,
       'dateOrderFinal': this.dateOrderFinal,
       'dateOrderInitial': this.dateOrderInitial,

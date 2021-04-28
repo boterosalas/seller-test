@@ -42,37 +42,37 @@
 
             </td>
           </ng-container>
-
-          <!-- Sku Column -->
-          <ng-container  matColumnDef="sku">
-            <th mat-header-cell *matHeaderCellDef> SKU </th>
-            <td mat-cell *matCellDef="let element"> {{element.sku}} </td>
+          
+          <!-- Brand Column -->
+          <ng-container  matColumnDef="brand">
+            <th mat-header-cell *matHeaderCellDef> {{'secure.parametize.support.brand' | translate}} </th>
+            <td mat-cell *matCellDef="let element"> {{element.brand}} </td>
           </ng-container>
-        
+
+            <!-- Sku Column -->
+            <ng-container  matColumnDef="sku">
+              <th mat-header-cell *matHeaderCellDef> SKU </th>
+              <td mat-cell *matCellDef="let element"> {{element.sku}} </td>
+            </ng-container>
+
           <!-- Ean Column -->
           <ng-container  matColumnDef="ean">
             <th mat-header-cell *matHeaderCellDef> EAN </th>
             <td mat-cell *matCellDef="let element"> {{element.ean}} </td>
           </ng-container>
 
-          <!-- Brand Column -->
-          <ng-container  matColumnDef="brand">
-            <th mat-header-cell *matHeaderCellDef> {{'secure.parametize.support.brand' | translate}} </th>
-            <td mat-cell *matCellDef="let element"> {{element.brand}} </td>
-          </ng-container>
-        
           <!-- Sku vendedor Column -->
           <ng-container  matColumnDef="skuseller">
             <th mat-header-cell *matHeaderCellDef> {{'secure.orders.order_list.product_order.sku_seller' | translate}}  </th>
             <td mat-cell *matCellDef="let element"> {{element.sellerSku}} </td>
           </ng-container>
-        
+
           <!-- price Column -->
           <ng-container  matColumnDef="price">
             <th mat-header-cell *matHeaderCellDef> {{'secure.parametize.support.sell_price' | translate}}</th>
             <td mat-cell *matCellDef="let element"> {{element.price}} </td>
           </ng-container>
-        
+
           <!-- Quantity Column -->
           <ng-container  matColumnDef="quantity">
             <th mat-header-cell *matHeaderCellDef> {{'secure.parametize.support.quantity' | translate}}  </th>

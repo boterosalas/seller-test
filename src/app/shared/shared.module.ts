@@ -47,6 +47,8 @@ import { UploadButtonComponent } from './components/upload-button/upload-button.
 import { PortsComponent } from './components/ports/ports.component';
 import { ContentDropDownDetailOrderDirective } from '@app/secure/orders/orders-list/orders-page/component/box-list/content-drop-down-detail-order.directive';
 import { ModalDonwloadEmailComponent } from './components/modal-donwload-email/modal-donwload-email.component';
+import { DialogInfoComponent } from './components/dialog-info/dialog-info.component';
+import { ListModalService } from './components/dialog-info/dialog-ingo.component.service';
 import { FlexSizePipe } from './pipes/flex-size.pipe';
 import { ngfModule } from 'angular-file/file-upload/ngf.module';
 
@@ -103,6 +105,7 @@ export function createTranslateLaoder(http: HttpClient) {
     PortsComponent,
     ContentDropDownDetailOrderDirective,
     ModalDonwloadEmailComponent,
+    DialogInfoComponent
   ],
   exports: [
     FlexSizePipe,
@@ -138,7 +141,8 @@ export function createTranslateLaoder(http: HttpClient) {
     SelectLanguageComponent,
     UploadButtonComponent,
     ContentDropDownDetailOrderDirective,
-    ngfModule
+    ngfModule,
+    DialogInfoComponent
   ],
   entryComponents: [
     ResponseCaseDialogComponent,
@@ -147,8 +151,9 @@ export function createTranslateLaoder(http: HttpClient) {
     DialogWithFormComponent,
     CreateProcessDialogComponent,
     ModalDonwloadEmailComponent,
+    DialogInfoComponent
   ],
-  providers: [EventEmitterSeller],
+  providers: [EventEmitterSeller, ListModalService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class SharedModule { }

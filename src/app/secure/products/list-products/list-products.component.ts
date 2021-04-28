@@ -14,6 +14,8 @@ import { UserInformation } from '@app/shared';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import { DownloadProductsComponent } from './download-products/download-products.component';
 import { DownloadProductsSellerComponent } from './download-products-seller/download-products-seller.component';
+import { DialogInfoComponent } from '@app/shared/components/dialog-info/dialog-info.component';
+import { FinishUploadProductInformationComponent } from '../bulk-load-product/finish-upload-product-information/finish-upload-product-information.component';
 
 export interface ListFilterProducts {
     name: string;
@@ -68,6 +70,7 @@ export class ListProductsComponent implements OnInit {
     fechaInicial: any;
     fechaFinal: any;
     pluVtexList: any;
+    sellerSkuList: any;
     categoryList: any;
     showProducts = false;
     // user info
@@ -75,6 +78,7 @@ export class ListProductsComponent implements OnInit {
 
     eanVariable = false;
     pluVariable = false;
+    sellerSkuVariable = false;
     nameVariable = false;
     fechaInicialVariable = false;
     fechaFinalVariable = false;
@@ -98,13 +102,13 @@ export class ListProductsComponent implements OnInit {
     read = readFunctionality;
     offer = offerFuncionality;
     edit = updateFunctionality;
-    delete= deleteFunctionality;
+    delete = deleteFunctionality;
     offerPermission = false;
     editPermission = false;
     deletePermission = false;
     permissionComponent: MenuModel;
-    @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-    @ViewChild('drawer', {static: false}) drawer: MatSidenav;
+    @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+    @ViewChild('drawer', { static: false }) drawer: MatSidenav;
     listCategories: any;
     categoryInfo: any;
 
@@ -118,6 +122,16 @@ export class ListProductsComponent implements OnInit {
     isAdmin = false;
     dataChips: Array<any> = [];
     invalidCategory: Boolean = false;
+    activeCheck: Boolean = false;
+
+    modelDelete: any;
+    infoSelected: any;
+    dataDialog: any;
+
+    checkIfDoneCharge: any = null;
+    /* Mirar el estado del progreso de la carga*/
+    public progressStatus = false;
+    typeDelete: number;
 
     constructor(
         private languageService: TranslateService,
@@ -135,9 +149,10 @@ export class ListProductsComponent implements OnInit {
     ngOnInit() {
         this.offerPermission = this.authService.getPermissionForMenu(listProductsName, this.offer);
         this.editPermission = this.authService.getPermissionForMenu(unitaryCreateName, 'Editar');
-        this.deletePermission = this.authService.getPermissionForMenu(listProductsName, this.delete );
+        this.deletePermission = this.authService.getPermissionForMenu(listProductsName, this.delete);
         this.getDataUser();
         this.validateFormSupport();
+        this.setIntervalStatusDelete();
         this.refreshCategoryTree();
         if (this.showTabs) {
             this.closedDraw();
@@ -160,6 +175,223 @@ export class ListProductsComponent implements OnInit {
             });
         }, 1000);
     }
+
+
+    /**
+     * Metodo para seleciconar productos a eliminar
+     * @memberof ListProductsComponent
+     */
+    someProductsSelected() {
+        this.typeDelete = 1;
+        this.dataDialog = {
+            title: this.languageService.instant('secure.products.create_product_unit.list_products.title_some_modal_delete'),
+            message: this.languageService.instant('secure.products.create_product_unit.list_products.title_some_modal_messagge_1') + this.infoSelected.count + this.languageService.instant('secure.products.create_product_unit.list_products.title_some_modal_messagge_2'),
+            buttonText: {
+                ok: this.languageService.instant('permissions.ELIMINAR'),
+                cancel: this.languageService.instant('actions.cancel')
+            },
+            services: {
+                method: 'patch',
+                name: 'deleteProduct'
+            },
+            data: this.modelDelete
+        };
+        this.openDialogDeleteProducts();
+    }
+
+    /**
+     * Msj eliminación productos seleccionados OK
+     * @memberof ListProductsComponent
+     */
+    someProductsDeleteOk() {
+        this.modelObject();
+        this.dataDialog = {
+            title: this.languageService.instant('secure.products.create_product_unit.list_products.title_some_ok1') + this.infoSelected.count + this.languageService.instant('secure.products.create_product_unit.list_products.title_some_ok2'),
+            icon: 'done',
+            buttonText: {
+                close: this.languageService.instant('actions.close_mayus')
+            },
+        };
+        this.openDialogDeleteProducts();
+    }
+
+    /**
+     * Metodo para eliminar todos los productos
+     * @memberof ListProductsComponent
+     */
+    allProductsSelected() {
+        this.infoSelected = null;
+        this.typeDelete = 2;
+        this.modelObject();
+        this.dataDialog = {
+            title: this.languageService.instant('secure.products.create_product_unit.list_products.title_all_modal_delete'),
+            message: this.languageService.instant('secure.products.create_product_unit.list_products.title_all_modal_messagge'),
+            buttonText: {
+                ok: this.languageService.instant('secure.products.create_product_unit.list_products.button_all'),
+                cancel: this.languageService.instant('actions.cancel')
+            },
+            services: {
+                method: 'patch',
+                name: 'deleteProduct'
+            },
+            data: this.modelDelete
+        };
+        this.openDialogDeleteProducts();
+    }
+
+    /**
+     * Msj eliminación todos los productos OK
+     * @memberof ListProductsComponent
+     */
+    allProductsDeleteOk() {
+        this.modelObject();
+        this.dataDialog = {
+            title: this.languageService.instant('secure.products.create_product_unit.list_products.title_all_ok'),
+            icon: 'done',
+            buttonText: {
+                close: this.languageService.instant('actions.close_mayus')
+            },
+        };
+        this.openDialogDeleteProducts();
+    }
+
+    /**
+     * Evenemitter q escucha la informacion de plus seleccionados
+     * @param {*} event
+     * @memberof ListProductsComponent
+     */
+    countPlu(event: any) {
+        this.infoSelected = event;
+        this.modelObject();
+    }
+
+    /**
+     * Modelo a eliminar.
+     * @memberof ListProductsComponent
+     */
+    modelObject() {
+        this.modelDelete = {
+            ean: this.eanList || null,
+            plu: this.infoSelected ? this.infoSelected.list.toString() : null,
+            sellerSku: this.sellerSkuList || null,
+            product: this.nameProductList || null,
+            categories: this.categoryList || null,
+            creationDate: this.creationDateList || null,
+            initialDate: this.initialDateList || null,
+            finalDate: this.finalDateList || null
+        };
+    }
+
+    /**
+     * Metodo para eliminar productos seleccionados.
+     * @memberof ListProductsComponent
+     */
+    openDialogDeleteProducts() {
+        const dialogRef = this.dialog.open(DialogInfoComponent, {
+            width: '60%',
+            minWidth: '280px',
+            data: this.dataDialog
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            if (result === true) {
+                this.setIntervalStatusDelete();
+            } else {
+                this.activeCheck = false;
+                this.filterListProducts();
+            }
+            log.info('The modal detail billing was closed');
+        });
+    }
+
+    /**
+     * Variable para activar o no checks de seleciconar
+     * @memberof ListProductsComponent
+     */
+    activeMultipleOffer() {
+        this.activeCheck = true;
+    }
+
+    /**
+     * Metodo para validar el estado del proceso
+     * @memberof ListProductsComponent
+     */
+    setIntervalStatusDelete() {
+        clearInterval(this.checkIfDoneCharge);
+        this.checkIfDoneCharge = setInterval(() => this.productsService.verifyStatusDelete().subscribe((res) => {
+            this.verifyStateCharge(res);
+        }), 7000);
+    }
+
+
+    /**
+     * Metodo para verificar estado de carga
+     * @param {*} [result]
+     * @memberof ListProductsComponent
+     */
+    verifyStateCharge(result?: any) {
+        this.loadingService.closeSpinner();
+        if (result) {
+            if (result.body.data.response) {
+                result.body.data.response = JSON.parse(result.body.data.response);
+            }
+            if (result.body.data.status === 0 || result.body.data.checked === 'true') {
+                clearInterval(this.checkIfDoneCharge);
+                this.progressStatus = false;
+            } else if (result.body.data.status === 1 || result.body.data.status === 4) {
+                result.body.data.status = 1;
+                if (!this.progressStatus) {
+                    this.openDialogSendOrder(result);
+                }
+                this.progressStatus = true;
+            } else if (result.body.data.status === 2) {
+                this.progressStatus = false;
+                clearInterval(this.checkIfDoneCharge);
+                this.closeActualDialog();
+                if (this.typeDelete === 1) {
+                    this.someProductsDeleteOk();
+                } else {
+                    this.allProductsDeleteOk();
+                }
+            } else if (result.body.data.status === 3) {
+                this.closeActualDialog();
+                clearInterval(this.checkIfDoneCharge);
+                    this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.error_delete'), this.languageService.instant('actions.close'), {
+                        duration: 3000,
+                    });
+            }
+        } else {
+            this.modalService.showModal('errorService');
+        }
+    }
+
+    /**
+     * Evento para cerrar modal
+     * @memberof ListProductsComponent
+     */
+    public closeActualDialog(): void {
+        if (this.progressStatus) {
+            this.dialog.closeAll();
+        }
+    }
+
+    /**
+     * Abrir modal de carga en proceso
+     * @param {*} res
+     * @memberof ListProductsComponent
+     */
+    openDialogSendOrder(res: any): void {
+        const dialogRef = this.dialog.open(FinishUploadProductInformationComponent, {
+            width: '95%',
+            disableClose: res.body.data.status === 1,
+            data: {
+                response: res
+            },
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            log.info('The dialog was closed');
+        });
+    }
+
 
     /**
      * Metodo para obtener el listado de categorías
@@ -263,6 +495,7 @@ export class ListProductsComponent implements OnInit {
         const dataToSend = {
             ean: this.eanList || null,
             plu: this.pluVtexList || null,
+            sellerSku: this.sellerSkuList || null,
             product: this.nameProductList || null,
             categories: this.categoryList || null,
             creationDate: this.creationDateList || null,
@@ -277,10 +510,10 @@ export class ListProductsComponent implements OnInit {
         });
     }
 
-     /**
-     * Metodo para abrir modal para la descarga de los productos seller
-     * @memberof ListProductsComponent
-     */
+    /**
+    * Metodo para abrir modal para la descarga de los productos seller
+    * @memberof ListProductsComponent
+    */
     openDialogDownloadProductsSeller() {
         if (this.filterProduts.controls.initialDate.value) {
             this.initialDateList = this.getDate(new Date(this.filterProduts.controls.initialDate.value));
@@ -303,6 +536,7 @@ export class ListProductsComponent implements OnInit {
         const dataToSend = {
             ean: this.eanList || null,
             plu: this.pluVtexList || null,
+            sellerSku: this.sellerSkuList || null,
             product: this.nameProductList || null,
             categories: this.categoryList || null,
             creationDate: this.creationDateList || null,
@@ -343,7 +577,7 @@ export class ListProductsComponent implements OnInit {
      */
     setPermission(typeProfile: number) {
         this.editPermission = this.getFunctionality('Editar');
-        this.deletePermission =  this.getFunctionality('Eliminar');
+        this.deletePermission = this.getFunctionality('Eliminar');
     }
 
     public getFunctionality(functionality: string): boolean {
@@ -364,6 +598,7 @@ export class ListProductsComponent implements OnInit {
             productName: new FormControl('', Validators.compose([Validators.maxLength(120), Validators.pattern(this.getValue('nameProduct'))])),
             ean: new FormControl(''),
             pluVtex: new FormControl('', Validators.compose([Validators.pattern(this.getValue('integerNumber'))])),
+            sellerSku: new FormControl('', Validators.compose([Validators.pattern(this.getValue('sellerSku'))])),
             initialDate: { disabled: true, value: '' },
             finalDate: { disabled: true, value: '' },
             creationDate: new FormControl('', []),
@@ -413,6 +648,7 @@ export class ListProductsComponent implements OnInit {
         this.initialDateList = null;
         this.finalDateList = null;
         this.pluVtexList = null;
+        this.sellerSkuList = null;
         this.categoryList = null;
         this.listFilterProducts = [];
 
@@ -499,6 +735,7 @@ export class ListProductsComponent implements OnInit {
     }
 
     public filterListProducts(params?: any, activeFilter?: any, showErrors: boolean = true) {
+        this.activeCheck = false;
         if (this.idcategory === [] || (this.idcategory && this.idcategory.length === 0)) {
             this.idcategory = null;
         }
@@ -509,6 +746,7 @@ export class ListProductsComponent implements OnInit {
         this.finalDateList = null;
         this.nameProductList = this.filterProduts.controls.productName.value || null;
         this.pluVtexList = this.filterProduts.controls.pluVtex.value || null;
+        this.sellerSkuList = this.filterProduts.controls.sellerSku.value || null;
         this.categoryList = this.idcategory || null;
         this.eanList = this.filterProduts.controls.ean.value || null;
         this.creationDateList = this.filterProduts.controls.creationDate.value || null;
@@ -539,6 +777,13 @@ export class ListProductsComponent implements OnInit {
         }
         if (this.pluVtexList) {
             this.pluVariable = true;
+            countFilter++;
+        } else {
+            this.eanVariable = false;
+            countFilter++;
+        }
+        if (this.sellerSkuList) {
+            this.sellerSkuVariable = true;
             countFilter++;
         } else {
             this.eanVariable = false;
@@ -612,7 +857,7 @@ export class ListProductsComponent implements OnInit {
             this.finalDateList = null;
         }
         if (countFilter) {
-            urlParams2 = `?&initialDate=${this.initialDateList}&finalDate=${this.finalDateList}&ean=${encodeURIComponent(this.eanList)}&productName=${encodeURIComponent(this.nameProductList)}&creationDate=${this.creationDateList}&page=${page}&limit=${limit}&pluVtex=${this.pluVtexList}&categories=${this.categoryList}&myProducts=${this.myProduct}`;
+            urlParams2 = `?&initialDate=${this.initialDateList}&finalDate=${this.finalDateList}&ean=${encodeURIComponent(this.eanList)}&productName=${encodeURIComponent(this.nameProductList)}&creationDate=${this.creationDateList}&page=${page}&limit=${limit}&pluVtex=${this.pluVtexList}&sellerSku=${this.sellerSkuList}&categories=${this.categoryList}&myProducts=${this.myProduct}`;
         }
         this.loadingService.viewSpinner(); // Mostrar el spinner
         if (params && !fecha) {
@@ -648,6 +893,7 @@ export class ListProductsComponent implements OnInit {
         this.nameProductList = this.filterProduts.controls.productName.value || null;
         this.eanList = this.filterProduts.controls.ean.value || null;
         this.pluVtexList = this.filterProduts.controls.pluVtex.value || null;
+        this.sellerSkuList = this.filterProduts.controls.sellerSku.value || null;
         this.categoryList = this.idcategory || null;
 
 
@@ -661,6 +907,7 @@ export class ListProductsComponent implements OnInit {
         this.dataChips.push({ value: this.nameProductList, name: 'nameProductList', nameFilter: 'productName' });
         this.dataChips.push({ value: this.eanList, name: 'eanList', nameFilter: 'ean' });
         this.dataChips.push({ value: this.pluVtexList, name: 'pluVtexList', nameFilter: 'pluVtex' });
+        this.dataChips.push({ value: this.sellerSkuList, name: 'sellerSkuList', nameFilter: 'sellerSku' });
         this.dataChips.push({ value: this.creationDateList, name: 'creationDateList', nameFilter: 'creationDate' });
         if (this.idcategory && this.idcategory.length > 0) {
             this.namecategory.forEach(el => {
@@ -683,6 +930,10 @@ export class ListProductsComponent implements OnInit {
         if (!this.pluVariable) {
             this.filterProduts.controls.pluVtex.setValue('');
             this.pluVtexList = null;
+        }
+        if (!this.sellerSkuVariable) {
+            this.filterProduts.controls.sellerSku.setValue('');
+            this.sellerSkuList = null;
         }
         if (!this.categoryVariable) {
             this.filterProduts.controls.category.setValue('');
