@@ -1526,5 +1526,6 @@
     "quality.indicators.bar_orange": "Se ajusta al objetivo",
     "quality.indicators.bar_red": "Alerta! Indicador degradado",
 
-    "secure.notifications.container.title_for_search": "Filtros notificación"
+    "secure.notifications.list.column-title": "Título",
+    "secure.notifications.list.column-date": "Fecha"
 }

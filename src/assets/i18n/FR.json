@@ -1457,5 +1457,8 @@
     "quality.indicators.indicator_not_available": "Information temporairement indisponible",
     "quality.indicators.bar_green": "Astrid Dépasse l'objectif",
     "quality.indicators.bar_orange": "S'adapte à la cible",
-    "quality.indicators.bar_red": "Alerte ! Indicateur dégradé"
+    "quality.indicators.bar_red": "Alerte ! Indicateur dégradé",
+
+    "secure.notifications.list.column-title": "Title",
+    "secure.notifications.list.column-date": "Date"
 }
