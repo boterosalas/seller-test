@@ -1,13 +1,16 @@
 .example-section {
-    display: flex;
-    align-content: center;
-    align-items: center;
-    height: 60px;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.search-form {
+  & mat-icon {
+    margin-right: 20px;
   }
-  
-  .search-form {
-    & mat-icon {
-      margin-right: 20px;
-    }
-  }
-  
+}
+
+.hidden {
+  display: none;
+}

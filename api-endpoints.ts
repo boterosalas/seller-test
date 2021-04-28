@@ -315,7 +315,7 @@ export const endpoints = {
       // Captura de indicadores
       getIndicators : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller/getindicatorsbynit/{params}',
       // obtiene el listado de fraudes
-      getFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles{params}',
+      getFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles?&limit={limit}',
       // envia el listado de fraudes
       sendFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles',
       // obtiene el statuts de los fraudes
@@ -634,7 +634,7 @@ export const endpoints = {
       // Captura de indicadores
       getIndicators : 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller/getindicatorsbynit/{params}',
       // obtiene el listado de fraudes
-      getFrauds : 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/fraudfiles{params}',
+      getFrauds : 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/fraudfiles?&limit={limit}',
       // envia el listado de fraudes
       sendFrauds : 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/fraudfiles',
       // obtiene el status de los fraudes
