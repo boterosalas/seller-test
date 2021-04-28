@@ -26,6 +26,7 @@ import { ModalResultLoadExceptionComponent } from './exception/modal-result-load
 import { DownloadSpecsComponent } from './specifications/download-specs/download-specs.component';
 import { DownloadCategoriesComponent } from './category/categories/download-categories/download-categories.component';
 import { ModalBulkloadBrandsComponent } from './brands/modal-bulkload-brands/modal-bulkload-brands.component';
+import { NotificationComponent } from './notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ModalBulkloadBrandsComponent } from './brands/modal-bulkload-brands/mod
     ModalResultLoadExceptionComponent,
     DownloadSpecsComponent,
     DownloadCategoriesComponent,
-    ModalBulkloadBrandsComponent
+    ModalBulkloadBrandsComponent,
+    NotificationComponent
   ],
   imports: [
     CommonModule,
@@ -52,9 +54,7 @@ import { ModalBulkloadBrandsComponent } from './brands/modal-bulkload-brands/mod
     ParameterizeRouting,
     ReactiveFormsModule,
     FormsModule,
-    // StoresModule,
     CurrencyMaskModule,
-    // ExceptionBrandComponent
   ],
   exports: [
     CategoryTreeComponent
