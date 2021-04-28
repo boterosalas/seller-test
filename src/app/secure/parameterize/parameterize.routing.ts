@@ -8,7 +8,7 @@ import { AuthService } from '../auth/auth.routing';
 import { CategoriesComponent } from './category/categories/categories.component';
 import { PortComponent } from './port/port.component';
 import { ExceptionComponent } from './exception/exception.component';
-import { NotificationComponent } from './notification/notification.component';
+import { NotificationAdminComponent } from './notification-admin/notification-admin.component';
 
 const routes: Routes = [
   Route.withShell([
@@ -43,7 +43,7 @@ const routes: Routes = [
     },
     {
       path: `${RoutesConst.sellerCenterIntNotification}`,
-      component: NotificationComponent,
+      component: NotificationAdminComponent,
       canActivate: [AuthService],
       data: {title: 'Notificación'}
     }

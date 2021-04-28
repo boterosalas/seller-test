@@ -21,12 +21,11 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { ExceptionComponent } from './exception/exception.component';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
 import { ExceptionBrandComponent } from '../offers/stores/tree/components/exception-brand/exception-brand.component';
-import { StoresModule } from '../offers';
 import { ModalResultLoadExceptionComponent } from './exception/modal-result-load-exception/modal-result-load-exception.component';
 import { DownloadSpecsComponent } from './specifications/download-specs/download-specs.component';
 import { DownloadCategoriesComponent } from './category/categories/download-categories/download-categories.component';
 import { ModalBulkloadBrandsComponent } from './brands/modal-bulkload-brands/modal-bulkload-brands.component';
-import { NotificationComponent } from './notification/notification.component';
+import { NotificationAdminComponent } from './notification-admin/notification-admin.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +45,7 @@ import { NotificationComponent } from './notification/notification.component';
     DownloadSpecsComponent,
     DownloadCategoriesComponent,
     ModalBulkloadBrandsComponent,
-    NotificationComponent
+    NotificationAdminComponent
   ],
   imports: [
     CommonModule,
