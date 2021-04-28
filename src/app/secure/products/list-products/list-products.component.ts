@@ -225,7 +225,6 @@ export class ListProductsComponent implements OnInit {
         this.modelObject();
         this.dataDialog = {
             title: this.languageService.instant('secure.products.create_product_unit.list_products.title_all_modal_delete'),
-            // icon: 'done',
             message: this.languageService.instant('secure.products.create_product_unit.list_products.title_all_modal_messagge'),
             buttonText: {
                 ok: this.languageService.instant('secure.products.create_product_unit.list_products.button_all'),
@@ -353,7 +352,6 @@ export class ListProductsComponent implements OnInit {
                 } else {
                     this.allProductsDeleteOk();
                 }
-                // this.openDialogSendOrder(result);
             } else if (result.body.data.status === 3) {
                 this.closeActualDialog();
                 clearInterval(this.checkIfDoneCharge);

@@ -628,9 +628,9 @@ export const endpoints = {
       // Consultar si tiene carga la creacion de modulos.
       ValidateCreateMassive: 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/ValidateCreateMassive',
       // ELiminar productos vendedor
-      deleteProduct: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/disassociateproductfrommyproductsasync',
+      deleteProduct: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/disassociateproductfrommyproductsasync',
       // Mirar estado batch carga eliminar productos
-      getStatusDeleteProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/getstatusdisassociateproducts',
+      getStatusDeleteProducts: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/getstatusdisassociateproducts',
       // Captura de indicadores
       getIndicators: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller/getindicatorsbynit/{params}'
     }
