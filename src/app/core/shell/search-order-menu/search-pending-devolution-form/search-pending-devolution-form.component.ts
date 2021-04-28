@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Logger } from '@app/core';
 import { SearchFormEntity } from '@app/shared/models';
@@ -35,6 +35,7 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
 
   @Input() idSeller: number;
   @Input() paginator: any;
+  orderNumberClaim: any;
 
   /**
    * Creates an instance of SearchOrderFormComponent.
@@ -48,11 +49,12 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
    */
   constructor(
     public componentsService: ComponentsService,
-    private route: Router,
+    private route: ActivatedRoute,
     public searchOrderMenuService: SearchOrderMenuService,
     private shellComponent: ShellComponent,
     private loadingService: LoadingService,
     private languageService: TranslateService,
+    private router: Router,
     private fb: FormBuilder) {
   }
 
@@ -64,6 +66,16 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
     // Obtengo la información del usuario
     // this.user = this.userService.getUser();
     this.createForm();
+    this.getFilterOrderbyClaim();
+  }
+
+  /**
+   * Obtengo de la ruta los valores enviados desde listado de reclamaciones y seteo el formulario con su respectivo filtro
+   * @memberof SearchPendingDevolutionFormComponent
+   */
+  getFilterOrderbyClaim() {
+    this.orderNumberClaim = this.route.snapshot ? this.route.snapshot.children[0].params.orderNumber : null;
+    this.myform.controls.orderNumber.setValue(this.orderNumberClaim);
   }
 
   /**
@@ -87,6 +99,7 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
    */
   clearForm() {
     this.myform.reset();
+    this.router.navigate(['securehome/seller-center/ordenes/listado-cancelaciones', {}]);
     this.shellComponent.eventEmitterOrders.getClear();
     this.shellComponent.sidenavSearchOrder.toggle();
   }
@@ -178,15 +191,15 @@ export class SearchPendingDevolutionFormComponent implements OnInit {
         });
       } else {
         this.searchOrderMenuService.getOrdersPendingDevolutionFilter(stringSearch).subscribe((res: any) => {
-
           if (res != null) {
             // indico a los elementos que esten suscriptos al evento.
             this.shellComponent.eventEmitterOrders.filterOrdersWithStatusResponse(res);
             this.toggleMenu();
+            this.loadingService.closeSpinner();
           } else {
             this.componentsService.openSnackBar(this.languageService.instant('secure.orders.order_list.order_page.no_orders_found'), this.languageService.instant('actions.close'), 5000);
+            this.loadingService.closeSpinner();
           }
-          this.loadingService.closeSpinner();
         }, err => {
           this.componentsService.openSnackBar(this.languageService.instant('errors.error_check_orders'), this.languageService.instant('actions.close'), 5000);
         });

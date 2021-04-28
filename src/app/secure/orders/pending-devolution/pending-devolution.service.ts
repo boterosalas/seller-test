@@ -52,7 +52,6 @@ export class PendingDevolutionService {
 
     }
     return new Observable(observer => {
-      // pendingDevolutionSearchTemporal
       this.http.get(this.api.get('pendingDevolution', [filter])).subscribe((data: any) => {
         observer.next(data);
       }, errorMessage => {
