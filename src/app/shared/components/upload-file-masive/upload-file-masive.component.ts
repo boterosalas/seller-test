@@ -3,12 +3,12 @@ import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
 import { Subject, Subscription, timer } from 'rxjs';
 import { HttpEvent } from '@angular/common/http';
 import { isNullOrUndefined } from 'util';
-import * as XLSX from 'xlsx';
 import { UploadFileMasiveService } from './upload-file-masive.service';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { RoutesConst } from '@app/shared';
 import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
 const EXCEL_EXTENSION = '.xlsx';
 
 @Component({
@@ -282,7 +282,7 @@ export class UploadFileMasiveComponent implements OnInit, OnDestroy {
    * Método que genera el dato json en el formato que emplea excel para.
    * @param {any[]} json
    * @param {string} excelFileName
-   * @memberof FinishUploadProductInformationComponent
+   * @memberof FinishUploadInformationComponent
    */
   exportAsExcelFile(json: any[], excelFileName: string): void {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
@@ -293,16 +293,17 @@ export class UploadFileMasiveComponent implements OnInit, OnDestroy {
 
   /**
    * Método que permite dar el formato correcto al archivo excel generado
-   *
    * @param {*} s
    * @returns
-   * @memberof UploadFileMasiveComponent
+   * @memberof FinishUploadInformationComponent
    */
   s2ab(s: any) {
     const buf = new ArrayBuffer(s.length);
     const view = new Uint8Array(buf);
+    // tslint:disable-next-line:curly
     for (let i = 0; i !== s.length; ++i) {
-      view[i] = s.charCodeAt(i) && 0xFF;
+      // tslint:disable-next-line:no-bitwise
+      view[i] = s.charCodeAt(i) & 0xFF;
     }
     return buf;
   }
@@ -311,7 +312,7 @@ export class UploadFileMasiveComponent implements OnInit, OnDestroy {
    * Método que permite generar el excel con los datos pasados.
    * @param {*} buffer
    * @param {string} fileName
-   * @memberof FinishUploadProductInformationComponent
+   * @memberof FinishUploadInformationComponent
    */
   saveAsExcelFile(buffer: any, fileName: string): void {
     const data: Blob = new Blob([this.s2ab(buffer)], {
