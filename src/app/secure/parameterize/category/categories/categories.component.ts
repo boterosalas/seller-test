@@ -314,6 +314,11 @@ export class CategoriesComponent implements OnInit, OnDestroy {
       }
     });
   }
+  /**
+   * Funcion para verificar la carga masiva de categorias
+   *
+   * @memberof CategoriesComponent
+   */
   verifyProcessMasiveCategory() {
     this.loadingService.viewSpinner();
     this.categoryService.validateStatusCreateUpdateMassive().subscribe((res) => {
@@ -581,8 +586,12 @@ export class CategoriesComponent implements OnInit, OnDestroy {
       this.form.reset();
     });
   }
-
-  openStatusModal() {
+/**
+ * funcion para abrir el modal de status para la carga
+ *
+ * @memberof CategoriesComponent
+ */
+openStatusModal() {
     this.loadingService.viewSpinner();
     const data = {
       successText: this.languageService.instant('secure.parametize.category.categories.creation_succesfully'),
@@ -661,8 +670,12 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   get TariffCode(): FormControl {
     return this.form.get('TariffCode') as FormControl;
   }
-
-  ngOnDestroy() {
+/**
+ * funcuion para eliminar el componente de modal cuando se cierra la session
+ *
+ * @memberof CategoriesComponent
+ */
+ngOnDestroy() {
     if (this.dialog) {
       this.dialog.closeAll();
     }
