@@ -2,9 +2,6 @@ import { Component, Inject, AfterViewInit, ChangeDetectorRef } from '@angular/co
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
 
-const EXCEL_EXTENSION = '.xlsx';
-
-
 /**
  * Component Modal que permite visualizar la lista de erores recibidos y exportarlos a un archivo tipo excel
  */
