@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EndpointService } from '@app/core';
-import { FraudEntity } from '@app/shared';
+
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -15,27 +15,8 @@ export class FraudNotificationService {
 ) { }
 
 
-  public getFraudList(
-    stringSearch: string
-  ): Observable<FraudEntity[]> {
-    return new Observable(observer => {
-      this.http
-        .get<FraudEntity[]>(this.api.get('getFrauds', [stringSearch]))
-        .subscribe(
-          (data) => {
-            // Validación debido a que a veces el endpoint solo responde un status 200.
-            data = !data ? [] : data;
-            if (data) {
-              observer.next(data);
-            }
-          },
-          err => observer.error(err)
-        );
-    });
-  }
-
     /**
-   * Método para realiar la consulta de las órdenes
+   * Método para realiar la consulta de los fraudes
    * @param {any} state
    * @param {User} user
    * @param {any} limit
@@ -88,7 +69,7 @@ export class FraudNotificationService {
   }
 
       /**
-     * Metodo para consultar el estado de la carga masiva
+     * Metodo para consultar el estado de los fraudes
      * @returns
      * @memberof FraudNotificationService
      */

@@ -33,25 +33,9 @@ export class SearchFraudNotificationFormComponent implements OnInit {
   @Input() idSeller: number;
   @Input() typeProfiel: number;
   showFilterStatus = false;
-  _state: number;
-  @Input() set state(value: number) {
-    if (value) {
-      if (value.toString() === '170') {
-        this.showFilterStatus = false;
-      } else if (value.toString() === '35') {
-        this.showFilterStatus = false;
-      } else {
-        this.showFilterStatus = true;
-      }
-      this._state = value;
-    } else {
-      this.showFilterStatus = true;
-      this._state = value;
-    }
-  }
   @Input() paginator = 100;
 
-  // Variable para guardar los estados de las ordenes.
+  // Variable para guardar los estados de las fraudes.
   public listOrderStatus: any[];
   filterStatusOrder: Boolean = false;
 
@@ -130,7 +114,7 @@ export class SearchFraudNotificationFormComponent implements OnInit {
   }
 
   /**
-   * Método para filtrar las órdenes
+   * Método para filtrar los fraudes
    * @param {any} data
    * @memberof SearchOrderFormComponent
    */
@@ -162,7 +146,6 @@ export class SearchFraudNotificationFormComponent implements OnInit {
       this.searchOrderMenuService.setCurrentFilterOrders(objectSearch);
       // obtengo las órdenes con el filtro indicado
       this.searchOrderMenuService.getFraudList(this.paginator,'&paginationToken=' + encodeURI('{}') + stringSearch).subscribe((res: any) => {
-        console.log(res);
         if (res) {
           // indico a los elementos que esten suscriptos al evento.
           res.filter = {
@@ -174,10 +157,10 @@ export class SearchFraudNotificationFormComponent implements OnInit {
           this.toggleMenu();
           this.loadingService.closeSpinner();
         } else {
-          this.componentsService.openSnackBar(this.languageService.instant('secure.orders.in_devolution.in_devolution_page.no_found_orders'), this.languageService.instant('actions.close'), 3000);
+          this.componentsService.openSnackBar(this.languageService.instant('secure.frauds.in_devolution.in_devolution_page.no_found_frauds'), this.languageService.instant('actions.close'), 3000);
         }
       }, err => {
-        this.componentsService.openSnackBar(this.languageService.instant('errors.error_check_orders'), this.languageService.instant('actions.close'), 3000);
+        this.componentsService.openSnackBar(this.languageService.instant('errors.error_check_frauds'), this.languageService.instant('actions.close'), 3000);
       });
     } 
 

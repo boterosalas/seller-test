@@ -41,13 +41,10 @@ export class FraudNotificationComponent implements OnInit {
   ];
    //  Creo el elemento que se empleara para la tabla
    dataSource: MatTableDataSource<Order>;
-   // Contiene la información de las órdenes consultadas
-   currentOrderList: Array<Order>;
-
+  
    //  Variable que almacena el numero de elementos de la tabla
    numberElements = 0;
-   // estado por defecto para listar las órdenes
-   stateToListOrders: CategoryList;
+
    // Variable que contiene la categoría por defecto que se empleara en la consulta inicial
    currentCategory: any = {
      name: 'secure.orders.order_list.order_page.all_orders',
@@ -67,11 +64,7 @@ export class FraudNotificationComponent implements OnInit {
    public dateOrderInitial = '';
    public dateOrderFinal = '';
    public fileName = '';
-   public orderNumber = '';
    public idStatus = '';
-   public identificationCard = '';
-   public processedOrder = '';
-   public bill = '';
  
  
    public length = 0;
@@ -112,12 +105,10 @@ export class FraudNotificationComponent implements OnInit {
    public subOrderList: any;
    // Información del usuario
    public user: UserInformation;
-   // Variable que permite indicar si mostrar la opción de check o no
-   optionCheckInTable = false;
+ 
    // Variable que almacena la ruta actual para saber la categoría que se esta consultando
    currentRootPage: any;
-   // Variable que almacena el objeto de paginación actual para listar las órdenes.
-   currentEventPaginate: any;
+
    // Variable para almacenar los filtros seleccionados
    allFilter: any;
  
@@ -314,7 +305,7 @@ export class FraudNotificationComponent implements OnInit {
  
  
    /**
-    * Evento que permite obtener los resultados obtenidos al momento de realizar el filtro de órdenes en la opcion search-order-menu
+    * Evento que permite obtener los resultados obtenidos al momento de realizar el filtro de fraudes en la opcion search-order-menu
     * @memberof OrdersListComponent
     */
    getOrdersListSinceFilterSearchOrder() {
@@ -420,7 +411,7 @@ export class FraudNotificationComponent implements OnInit {
    }
  
    /**
-    * Funcionalidad para dirigir a la vista principal de órdenes.
+    * Funcionalidad para dirigir a la vista principal de fraudes.
     * @memberof OrdersListComponent
     */
    getAllOrderList() {
@@ -444,7 +435,7 @@ export class FraudNotificationComponent implements OnInit {
    }
  
    /**
-    * Método para cambiar el page size de la tabla órdenes
+    * Método para cambiar el page size de la tabla fraudes
     * @memberof OrdersListComponent
     */
    changeSizeOrderTable($event: any) {
@@ -453,7 +444,7 @@ export class FraudNotificationComponent implements OnInit {
  
 
    /**
-    * Funcionalidad para consultar la lista de órdenes
+    * Funcionalidad para consultar la lista de fraudes
     * @param {*} $event
     * @param {any} [state]
     * @memberof OrdersListComponent

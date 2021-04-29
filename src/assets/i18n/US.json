@@ -1446,6 +1446,8 @@
     "secure.frauds.charge.select.file": "Please select the fraud file you want to upload",
     "secure.frauds.charge.success": "Successful upload",
     "secure.frauds.charge.success.text": "The file with the fraud information has been uploaded successfully",
+    "secure.frauds.in_devolution.in_devolution_page.no_found_frauds": "No frauds have been found.",
+    "errors.error_check_frauds": "An error occurred while querying the frauds.",
 
     "errors_download_file_submodules" : "Se ha presentado un error al realizar la descarga.",
     "school.exito": "School Éxito",

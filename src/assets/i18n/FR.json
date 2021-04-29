@@ -1424,6 +1424,8 @@
     "secure.frauds.charge.select.file": "Veuillez sélectionner le fichier de fraude que vous souhaitez télécharger",
     "secure.frauds.charge.success": "Téléchargement réussi",
     "secure.frauds.charge.success.text": "Le fichier contenant les informations sur la fraude a été téléchargé avec succès",
+    "secure.frauds.in_devolution.in_devolution_page.no_found_frauds": "Aucune escroquerie n'a été trouvée.",
+    "errors.error_check_frauds": "Une erreur s'est produite lors de l'interrogation des escroqueries.",
 
     "errors_download_file_submodules" : "Se ha presentado un error al realizar la descarga.",
     "school.exito": "School Éxito",

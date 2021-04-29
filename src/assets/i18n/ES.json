@@ -1425,6 +1425,8 @@
     "secure.frauds.bulk_upload.process": "al momento de cargar los fraudes.",
     "secure.frauds.charge.success": "Carga exitosa",
     "secure.frauds.charge.success.text": "El archivo con la información de fraudes se ha cargado exitosamente",
+    "secure.frauds.in_devolution.in_devolution_page.no_found_frauds": "No se han encontrado fraudes.",
+    "errors.error_check_frauds": "Se ha presentado un error al consultar los fraudes.",
 
     "secure.reports.report-offert.download-modal-offert-ts.ok": "Se ha realizado la descarga del reporte de ofertas correctamente, revisa tu correo electrónico en unos minutos.",
     "secure.reports.report-offert.download-modal-offert-ts.ko": "Se ha presentado un error al realizar la descarga del reporte de ofertas.",
