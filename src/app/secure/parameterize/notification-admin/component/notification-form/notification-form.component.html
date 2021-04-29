@@ -1,0 +1,104 @@
+<div style="padding: 10px 20px;">
+  <div>
+    <a (click)="backList()" style="color: #757474; vertical-align: middle;
+      font-size: 14px; cursor: pointer;">
+      <mat-icon class="mat-18" style="vertical-align: middle; width: 24px;
+        height: 24px;">keyboard_arrow_left</mat-icon>
+      <span>Volver a la lista de anuncios</span>
+    </a>
+  </div>
+  <div fxLayout="row wrap" style="padding: 20px 10px; color: #909090; font-size: 14px;">
+    <div fxFlex="50" style="padding-right: 40px;">
+      <div style="padding-bottom: 20px;">
+        <span>Tipo de anuncios</span>
+      </div>
+      <div style="padding-bottom: 20px;">
+        <mat-radio-group aria-label="Select an bodyNotification">
+          <div fxFlex="35">
+            <mat-radio-button value="1">Texto + Imagen</mat-radio-button>
+          </div>
+          <div fxFlex="35">
+            <mat-radio-button value="2">Texto + Fondo</mat-radio-button>
+          </div>
+          <div fxFlex="35">
+            <mat-radio-button value="3">Imagen diseñada</mat-radio-button>
+          </div>
+        </mat-radio-group>
+      </div>
+      <div style="padding-bottom: 20px;">
+        <mat-form-field style="width: 100%; font-size: 16px;">
+          <input matInput [matDatepicker]="dateInitial" placeholder="Fecha
+            inicial">
+          <mat-datepicker-toggle matSuffix [for]="dateInitial"></mat-datepicker-toggle>
+          <mat-datepicker touchUi="true" startView="year" #dateInitial></mat-datepicker>
+        </mat-form-field>
+
+        <!-- <mat-form-field color="primary" class="modal-export-to-reclaim-width-90">
+            <input id="sinceDate-input"
+              [placeholder]="translateService.instant('secure.parametize.support_claims-filter.start-date')"
+              [(ngModel)]="filter.DateInit" formControlName="dateInitial" name="dateInitial" [readonly]="true" matInput
+              [matDatepicker]="dateInitial">
+            <mat-datepicker-toggle matPrefix [for]="dateInitial"></mat-datepicker-toggle>
+            <mat-datepicker touchUi="true" startView="year" #dateInitial></mat-datepicker>
+          </mat-form-field> -->
+      </div>
+      <div>
+        <mat-form-field style="width: 100%;">
+          <input matInput placeholder="Título del anuncio"
+            class="modal-export-to-reclaim-text-uppercase"
+            [errorStateMatcher]="matcher">
+          <!-- <mat-error *ngIf="form.get('email').hasError('required')">{{'errors.required' | translate}}</mat-error>
+          <mat-error *ngIf="form.get('email').hasError('email')">{{'errors.format_invalidate' | translate}}
+          </mat-error> -->
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxFlex="50" style="padding-left: 40px;">
+      <div style="padding-bottom: 20px;">
+        <span>Idioma</span>
+      </div>
+      <div style="padding-bottom: 20px;">
+        <mat-radio-group aria-label="Select an languaje">
+          <div fxFlex="35">
+            <mat-radio-button value="1">Español</mat-radio-button>
+          </div>
+          <div fxFlex="35">
+            <mat-radio-button value="2">Ingles</mat-radio-button>
+          </div>
+        </mat-radio-group>
+      </div>
+      <div style="padding-bottom: 20px;">
+        <mat-form-field style="width: 100%; font-size: 16px;">
+          <input matInput [matDatepicker]="dateEnd" placeholder="Fecha
+            final">
+          <mat-datepicker-toggle matSuffix [for]="dateEnd"></mat-datepicker-toggle>
+          <mat-datepicker touchUi="true" startView="year" #dateEnd></mat-datepicker>
+        </mat-form-field>
+
+        <!-- <mat-form-field color="primary" class="modal-export-to-reclaim-width-90">
+            <input id="sinceDate-input"
+              [placeholder]="translateService.instant('secure.parametize.support_claims-filter.start-date')"
+              [(ngModel)]="filter.DateInit" formControlName="dateInitial" name="dateInitial" [readonly]="true" matInput
+              [matDatepicker]="dateInitial">
+            <mat-datepicker-toggle matPrefix [for]="dateInitial"></mat-datepicker-toggle>
+            <mat-datepicker touchUi="true" startView="year" #dateInitial></mat-datepicker>
+          </mat-form-field> -->
+      </div>
+      <div style="padding-bottom: 20px;">
+        <mat-form-field style="width: 100%;">
+          <input matInput placeholder="Página de destino"
+            class="modal-export-to-reclaim-text-uppercase"
+            [errorStateMatcher]="matcher">
+          <!-- <mat-error *ngIf="form.get('email').hasError('required')">{{'errors.required' | translate}}</mat-error>
+          <mat-error *ngIf="form.get('email').hasError('email')">{{'errors.format_invalidate' | translate}}
+          </mat-error> -->
+        </mat-form-field>
+      </div>
+    </div>
+    <div>
+      <div>
+        <span>Contenido</span>
+      </div>
+    </div>
+  </div>
+</div>

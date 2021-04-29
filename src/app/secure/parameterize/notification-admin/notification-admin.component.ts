@@ -29,6 +29,8 @@ export class NotificationAdminComponent implements OnInit {
     'actions'
   ];
   public dataSource: MatTableDataSource<any>;
+  public showListAdvertisements = true;
+  public showContainerDetail = false;
 
   public mockList = {
     'Errors': [],
@@ -95,6 +97,15 @@ export class NotificationAdminComponent implements OnInit {
 
   getAllAdvertisements() {
     this.dataSource = new MatTableDataSource(this.mockList.Data);
+  }
+
+  createNotification() {
+    this.showListAdvertisements = false;
+    this.showContainerDetail = true;
+  }
+
+  backList(event: any) {
+    this.showListAdvertisements = event && event.back ? event.back : false;
   }
 
   paginations (event: any) {}

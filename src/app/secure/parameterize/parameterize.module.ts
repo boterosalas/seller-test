@@ -26,6 +26,8 @@ import { DownloadSpecsComponent } from './specifications/download-specs/download
 import { DownloadCategoriesComponent } from './category/categories/download-categories/download-categories.component';
 import { ModalBulkloadBrandsComponent } from './brands/modal-bulkload-brands/modal-bulkload-brands.component';
 import { NotificationAdminComponent } from './notification-admin/notification-admin.component';
+import { NotificationFormComponent } from './notification-admin/component/notification-form/notification-form.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import { NotificationAdminComponent } from './notification-admin/notification-ad
     DownloadSpecsComponent,
     DownloadCategoriesComponent,
     ModalBulkloadBrandsComponent,
-    NotificationAdminComponent
+    NotificationAdminComponent,
+    NotificationFormComponent
   ],
   imports: [
     CommonModule,
@@ -54,6 +57,7 @@ import { NotificationAdminComponent } from './notification-admin/notification-ad
     ReactiveFormsModule,
     FormsModule,
     CurrencyMaskModule,
+    AngularEditorModule
   ],
   exports: [
     CategoryTreeComponent
