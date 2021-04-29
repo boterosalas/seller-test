@@ -1,16 +1,17 @@
 .title-toolbar {
   // color: #ed812b;
-  text-transform: uppercase;
+  // text-transform: uppercase;
   margin-right: 10px;
-  font-size: 14px;
+  font-size: 20px;
   width: 200px;
   white-space: normal !important;
   line-height: 24px;
+  font-weight: bold;
 }
 
 .content-profile {
   box-shadow: none !important;
-  height: 100%;
+  // height: 100%;
   & mat-card-content {
     height: 100%;
   }
