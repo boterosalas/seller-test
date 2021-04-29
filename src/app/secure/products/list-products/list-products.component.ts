@@ -270,13 +270,29 @@ export class ListProductsComponent implements OnInit {
      * @memberof ListProductsComponent
      */
     modelObject() {
+        let booleanDate;
+        if (this.creationDateList && this.creationDateList === 'createDate') {
+            booleanDate = true;
+        } else {
+            booleanDate = false;
+        }
+        if (this.filterProduts.controls.initialDate.value) {
+            this.initialDateList = this.getDate(new Date(this.filterProduts.controls.initialDate.value));
+        } else {
+            this.initialDateList = null;
+        }
+        if (this.filterProduts.controls.finalDate.value) {
+            this.finalDateList = this.getDate(new Date(this.filterProduts.controls.finalDate.value));
+        } else {
+            this.finalDateList = null;
+        }
         this.modelDelete = {
             ean: this.eanList || null,
             plu: this.infoSelected ? this.infoSelected.list.toString() : null,
             sellerSku: this.sellerSkuList || null,
             product: this.nameProductList || null,
             categories: this.categoryList || null,
-            creationDate: this.creationDateList || null,
+            creationDate: booleanDate || null,
             initialDate: this.initialDateList || null,
             finalDate: this.finalDateList || null
         };
