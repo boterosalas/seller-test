@@ -64,11 +64,11 @@ export class ProductBasicInfoComponent implements OnInit {
     isManual = false;
     borderColor = '';
     reload = 0;
-    BrandsRegex = { brandsName: '', formatIntegerNumber: '' };
+    BrandsRegex = { brandsName: '', formatIntegerNumber: '', referenceProduct: ''};
     @Input() set detailProduct(value: any) {
         if (value) {
             this._detailProduct = value;
-            if (!this.formBasicInfo && !this.formBasicInfo.controls) {
+            if (!this.formBasicInfo) {
                 this.initComponent();
             }
             this.disabledEanChildren = true;
@@ -287,10 +287,12 @@ export class ProductBasicInfoComponent implements OnInit {
                         Validators.required, Validators.pattern(this.getValue('decimalsProduct'))
                     ])
             }),
+            parentReference: new FormControl('', [Validators.pattern(this.BrandsRegex.referenceProduct)]),
             Description: new FormControl('',
                 [
                     Validators.required, Validators.pattern(/^((?!<script>|<SCRIPT>|<Script>|&lt;Script&gt;|&lt;SCRIPT&gt;|&lt;script&gt;)[\s\S])*$/)
                 ])
+
         });
         this.formBasicInfo.controls.EanCombo.disable();
         this.formBasicInfo.get('IsCombo').valueChanges.subscribe(val => {
@@ -351,7 +353,7 @@ export class ProductBasicInfoComponent implements OnInit {
                 if (this.formBasicInfo.controls.Description.value && this.formBasicInfo.controls.Description.value !== this.descrip) {
                     this.descrip = this.formBasicInfo.controls.Description.value;
                     if (this.validateClothingProduct()) {
-                        this.sendDataToService();
+                        this.sendDataToService(true);
                     }
                 }
                 if (views.showInfo && this.keywords.length > 0 && this.validateClothingProduct()) {
@@ -526,7 +528,7 @@ export class ProductBasicInfoComponent implements OnInit {
 
     public deleteSon(index: number): void {
         this.sonList.splice(index, 1);
-        this.sendDataToService();
+        this.sendDataToService(true);
     }
 
     public valdiateInfoBasic(): void {
@@ -603,7 +605,8 @@ export class ProductBasicInfoComponent implements OnInit {
     public detectForm(): void {
         if (this.formBasicInfo.valid && this.keywords.length) {
             if ((this.productData.ProductType === 'Clothing' && this.getValidSonsForm()) || (this.productData.ProductType !== 'Clothing')) {
-                this.sendDataToService();
+                const isClothing = this.productData.ProductType === 'Clothing' ? true : false;
+                this.sendDataToService(isClothing);
                 this.validAfter = true;
             } else if (this.validAfter && !this.getValidSonsForm()) {
                 const views = this.process.getViews();
@@ -636,7 +639,7 @@ export class ProductBasicInfoComponent implements OnInit {
 
 
     /** Enviar datos al servicio */
-    public sendDataToService(): void {
+    public sendDataToService(isClothing?: any): void {
         const packingData = this.formBasicInfo.controls.packing as FormGroup;
         const productDateSize = this.formBasicInfo.controls.product as FormGroup;
         const data = {
@@ -652,13 +655,13 @@ export class ProductBasicInfoComponent implements OnInit {
             ProductHeight: productDateSize.controls.HighProduct.value,
             ProductLength: productDateSize.controls.LongProduct.value,
             ProductWeight: productDateSize.controls.WeightProduct.value,
+            ParentReference: isClothing === true ? this.formBasicInfo.controls.parentReference.value : '',
             Description: this.formBasicInfo.controls.Description.value,
             MeasurementUnit: this.formBasicInfo.controls.MeasurementUnit.value,
             ConversionFactor: this.formBasicInfo.controls.ConversionFactor.value,
             KeyWords: this.keywords.join(),
             Children: this.getSonData()
         };
-
         this.process.validaData(data);
     }
 
@@ -926,8 +929,18 @@ export class ProductBasicInfoComponent implements OnInit {
                 if (detailProduct.children && detailProduct.children.length > 0) {
                     this.setChildren(detailProduct);
                 }
+                const isClothing = detailProduct.productType === 'Clothing' ? true : false;
+
+                if (this.isEdit) {
+                    const valueReference = detailProduct.parentReference ? detailProduct.parentReference : '';
+                    this.formBasicInfo.controls.parentReference.setValue(valueReference);
+                    this.formBasicInfo.controls.parentReference.disable();
+                } else {
+                    this.formBasicInfo.controls.parentReference.enable();
+                    this.formBasicInfo.controls.parentReference.setValidators([Validators.required, Validators.pattern(this.BrandsRegex.referenceProduct)]);
+                }
                 this.saveKeyword();
-                this.sendDataToService();
+                this.sendDataToService(isClothing);
             }
         }
     }
@@ -1058,7 +1071,7 @@ export class ProductBasicInfoComponent implements OnInit {
     public getRegexByModule(): void {
         this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
             let dataOffertRegex = JSON.parse(res.body.body);
-            dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'parametrizacion');
+            dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'parametrizacion' || data.Module === 'productos');
             for (const val in this.BrandsRegex) {
                 if (!!val) {
                     const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());

@@ -1,0 +1,20 @@
+<mat-dialog-content align="center">
+  <mat-icon class="material-icons container" *ngIf="icon"
+    [ngStyle]="{'background-color': icon === 'done' ? '#6fb63e' : '#6fb63e'}" class="marginButtonDeleteOk">
+    {{icon}}
+  </mat-icon>
+  <h3 *ngIf="title">{{title}}</h3>
+  <p *ngIf="message">
+    {{message}}
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-stroked-button color="primary" *ngIf="cancelButtonText"
+    class="buttonCancel" (click)="onNoClick()">
+    {{cancelButtonText}}</button>
+  <button mat-raised-button color="primary" *ngIf="closeButtonText"
+    class="buttonCancel" (click)="onNoClick()">
+    {{closeButtonText}}</button>
+  <button mat-raised-button color="primary" *ngIf="confirmButtonText"
+    class="buttonConfirm" (click)="sendDataPatch()">{{confirmButtonText}}</button>
+</mat-dialog-actions>

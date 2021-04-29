@@ -132,3 +132,12 @@
   left: 0;
   color: $color-gray-light;
 }
+
+.checkSelected{
+  margin-left: 3%;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: rgb(72, 90, 250) !important;
+}
