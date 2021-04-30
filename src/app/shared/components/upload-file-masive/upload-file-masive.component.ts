@@ -142,7 +142,7 @@ export class UploadFileMasiveComponent implements OnInit, OnDestroy {
                 'VtexIdCarulla': categories[5],
                 'IdParent': categories[6] ? parseInt(categories[6], 0) : null,
                 'TariffCode': categories[7],
-                'Tariff':  categories[8] ? parseInt(categories[8], 0) : 0
+                'Tariff':  categories[8] ? categories[8] : 0
               }
             );
           });
