@@ -836,6 +836,8 @@
 
     "secure.offers.bulk_upload.bulk_upload.title_toolbar": "CARGA MASIVA DE OFERTAS",
     "secure.offers.bulk_upload.bulk_upload.download_format_offer": "DESCARGAR FORMATO",
+    "secure.offers.bulk_upload.bulk_upload.download_format_estandar": "ESTÁNDAR",
+    "secure.offers.bulk_upload.bulk_upload.download_format_variant": "VARIANTES",
     "secure.offers.bulk_upload.bulk_upload.upload_format": "SELECCIONAR ARCHIVO PARA IMPORTAR",
     "secure.offers.bulk_upload.bulk_upload.text_step_import_to_offer": "en este archivo podrás cargar ofertas",
     "secure.offers.bulk_upload.bulk_upload.exceeds_limits": "El número de registros supera los 1,048,576, no se permite esta cantidad",

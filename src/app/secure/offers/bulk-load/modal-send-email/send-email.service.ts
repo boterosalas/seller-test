@@ -15,4 +15,10 @@ export class SendEmailService {
   getModeration(data: any) {
     return this.http.get(this.api.get('sendOrderEmail', [data.idseller, data.email]), {observe: 'response'});
   }
+
+  sendEmailFormat(data: any, productType:string) {
+    console.log(productType)
+    return this.http.get(this.api.get('sendEmailFormat', [data.email, productType]), {observe: 'response'});
+  }
+
 }

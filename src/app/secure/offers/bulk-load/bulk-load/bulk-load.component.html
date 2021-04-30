@@ -14,14 +14,24 @@
           </div>
 
           <!-- Paginación de la tabla -->
-          <div fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" fxFlex="60"
-            fXLayout="row wrap" fxLayoutAlign="center center">
+          <div fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" fxFlex="65"
+            fXLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+            
             <!-- Input para subir archivo Excel -->
-            <a download class="sc-default-button" id="download-file-button" (click)="requestMail()"
-              mat-button>
-              <mat-icon class="mat-18">file_download</mat-icon>
-              {{'secure.offers.bulk_upload.bulk_upload.download_format_offer' | translate}}
-            </a>
+
+            <button color="primary" class="sc-default-button" id="download-file-button" (click)="requestMail('Technology')"
+              mat-raised-button>
+              <mat-icon class="mat-18 text_white">file_download</mat-icon>
+              {{'secure.offers.bulk_upload.bulk_upload.download_format_offer' | translate}} {{'secure.offers.bulk_upload.bulk_upload.download_format_estandar' | translate}}
+            </button>
+
+            <button color="primary" class="sc-default-button" id="download-file-button" (click)="requestMail('Clothing')"
+              mat-raised-button>
+              <mat-icon class="mat-18 text_white">file_download</mat-icon>
+              {{'secure.offers.bulk_upload.bulk_upload.download_format_offer' | translate}} - {{'secure.offers.bulk_upload.bulk_upload.download_format_variant' | translate}}
+            </button>
+            
+            
             <!-- Input para subir archivo Excel -->
             <input placeholder="file upload" hidden name="fileUploadOption" type="file" (change)="onFileChange($event)"
               multiple="false"

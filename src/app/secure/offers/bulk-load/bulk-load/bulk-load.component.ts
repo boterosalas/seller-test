@@ -139,6 +139,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
 
   public sendData: any;
 
+  public productType:string;
+
   dialogRef: MatDialogRef<ModalSendEmailComponent>;
 
   // Validación de las regex
@@ -1559,8 +1561,10 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
    *
    * @memberof BulkLoadComponent
    */
-  requestMail() {
-    this.dialogRef = this.dialog.open(ModalSendEmailComponent);
+  requestMail(productType:string) {
+    this.dialogRef = this.dialog.open(ModalSendEmailComponent, {
+      data: {productType}
+    });
   }
   /**
    * destruye el compomente y cierra el modal

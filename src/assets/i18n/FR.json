@@ -815,6 +815,8 @@
 
     "secure.offers.bulk_upload.bulk_upload.title_toolbar": "BULK OFFER UPLOAD",
     "secure.offers.bulk_upload.bulk_upload.download_format_offer": "DOWNLOAD FORMAT",
+    "secure.offers.bulk_upload.bulk_upload.download_format_estandar": "LA NORME",
+    "secure.offers.bulk_upload.bulk_upload.download_format_variant": "VARIANTES",
     "secure.offers.bulk_upload.bulk_upload.upload_format": "SELECT A FILE TO UPLOAD",
     "secure.offers.bulk_upload.bulk_upload.text_step_import_to_offer": "in this file you may enter your offer information",
     "secure.offers.bulk_upload.bulk_upload.exceeds_limits": "The amount of assets found is over 1,048,576, this amount is not allowed.",
