@@ -288,9 +288,10 @@ export class ListProductsComponent implements OnInit {
         } else {
             this.finalDateList = null;
         }
+        console.log(this.keyPlus);
         this.modelDelete = {
             ean: this.eanList || null,
-            plu: this.infoSelected ? this.infoSelected.list.toString() : null,
+            plu: this.keyPlus ? this.keyPlus.toString() : null,
             sellerSku: this.sellerSkuList || null,
             product: this.nameProductList || null,
             categories: this.categoryList || null,
@@ -336,6 +337,7 @@ export class ListProductsComponent implements OnInit {
     setIntervalStatusDelete() {
         clearInterval(this.checkIfDoneCharge);
         this.checkIfDoneCharge = setInterval(() => this.productsService.verifyStatusDelete().subscribe((res) => {
+            console.log(res);
             this.verifyStateCharge(res);
         }), 7000);
     }
