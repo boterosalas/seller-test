@@ -1,4 +1,4 @@
-<div style="padding: 10px 20px;">
+<div style="padding: 10px 50px;">
   <div>
     <a (click)="backList()" style="color: #757474; vertical-align: middle;
       font-size: 14px; cursor: pointer;">
@@ -7,98 +7,172 @@
       <span>Volver a la lista de anuncios</span>
     </a>
   </div>
-  <div fxLayout="row wrap" style="padding: 20px 10px; color: #909090; font-size: 14px;">
-    <div fxFlex="50" style="padding-right: 40px;">
-      <div style="padding-bottom: 20px;">
-        <span>Tipo de anuncios</span>
-      </div>
-      <div style="padding-bottom: 20px;">
-        <mat-radio-group aria-label="Select an bodyNotification">
-          <div fxFlex="35">
-            <mat-radio-button value="1">Texto + Imagen</mat-radio-button>
-          </div>
-          <div fxFlex="35">
-            <mat-radio-button value="2">Texto + Fondo</mat-radio-button>
-          </div>
-          <div fxFlex="35">
-            <mat-radio-button value="3">Imagen diseñada</mat-radio-button>
-          </div>
-        </mat-radio-group>
-      </div>
-      <div style="padding-bottom: 20px;">
-        <mat-form-field style="width: 100%; font-size: 16px;">
-          <input matInput [matDatepicker]="dateInitial" placeholder="Fecha
-            inicial">
-          <mat-datepicker-toggle matSuffix [for]="dateInitial"></mat-datepicker-toggle>
-          <mat-datepicker touchUi="true" startView="year" #dateInitial></mat-datepicker>
-        </mat-form-field>
-
-        <!-- <mat-form-field color="primary" class="modal-export-to-reclaim-width-90">
-            <input id="sinceDate-input"
-              [placeholder]="translateService.instant('secure.parametize.support_claims-filter.start-date')"
-              [(ngModel)]="filter.DateInit" formControlName="dateInitial" name="dateInitial" [readonly]="true" matInput
-              [matDatepicker]="dateInitial">
-            <mat-datepicker-toggle matPrefix [for]="dateInitial"></mat-datepicker-toggle>
+  <form #filterForm="ngForm" [formGroup]="form">
+    <div fxLayout="row wrap" style="padding: 20px 10px; color: #909090;
+      font-size:
+      14px;">
+      <div fxFlex="50" style="padding-right: 40px;">
+        <div style="padding-bottom: 20px;">
+          <span>Tipo de anuncios</span>
+        </div>
+        <div style="padding-bottom: 20px;">
+          <mat-radio-group aria-label="Select an bodyNotification"
+            formControlName="bodyNotification">
+            <div fxFlex="35">
+              <mat-radio-button value="1">Texto + Imagen</mat-radio-button>
+            </div>
+            <div fxFlex="35">
+              <mat-radio-button value="2">Texto + Fondo</mat-radio-button>
+            </div>
+            <div fxFlex="35">
+              <mat-radio-button value="3">Imagen diseñada</mat-radio-button>
+            </div>
+          </mat-radio-group>
+        </div>
+        <div style="padding-bottom: 20px;">
+          <mat-form-field style="width: 100%; font-size: 16px;">
+            <input matInput [matDatepicker]="dateInitial"
+              formControlName="dateInitial" placeholder="Fecha
+              inicial">
+            <mat-datepicker-toggle matSuffix [for]="dateInitial"></mat-datepicker-toggle>
             <mat-datepicker touchUi="true" startView="year" #dateInitial></mat-datepicker>
-          </mat-form-field> -->
-      </div>
-      <div>
-        <mat-form-field style="width: 100%;">
-          <input matInput placeholder="Título del anuncio"
-            class="modal-export-to-reclaim-text-uppercase"
-            [errorStateMatcher]="matcher">
-          <!-- <mat-error *ngIf="form.get('email').hasError('required')">{{'errors.required' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field style="width: 100%;">
+            <input matInput placeholder="Título del anuncio"
+              class="modal-export-to-reclaim-text-uppercase"
+              [errorStateMatcher]="matcher" formControlName="title">
+            <!-- <mat-error *ngIf="form.get('email').hasError('required')">{{'errors.required' | translate}}</mat-error>
           <mat-error *ngIf="form.get('email').hasError('email')">{{'errors.format_invalidate' | translate}}
           </mat-error> -->
-        </mat-form-field>
+          </mat-form-field>
+        </div>
       </div>
-    </div>
-    <div fxFlex="50" style="padding-left: 40px;">
-      <div style="padding-bottom: 20px;">
-        <span>Idioma</span>
-      </div>
-      <div style="padding-bottom: 20px;">
-        <mat-radio-group aria-label="Select an languaje">
-          <div fxFlex="35">
-            <mat-radio-button value="1">Español</mat-radio-button>
-          </div>
-          <div fxFlex="35">
-            <mat-radio-button value="2">Ingles</mat-radio-button>
-          </div>
-        </mat-radio-group>
-      </div>
-      <div style="padding-bottom: 20px;">
-        <mat-form-field style="width: 100%; font-size: 16px;">
-          <input matInput [matDatepicker]="dateEnd" placeholder="Fecha
-            final">
-          <mat-datepicker-toggle matSuffix [for]="dateEnd"></mat-datepicker-toggle>
-          <mat-datepicker touchUi="true" startView="year" #dateEnd></mat-datepicker>
-        </mat-form-field>
-
-        <!-- <mat-form-field color="primary" class="modal-export-to-reclaim-width-90">
-            <input id="sinceDate-input"
-              [placeholder]="translateService.instant('secure.parametize.support_claims-filter.start-date')"
-              [(ngModel)]="filter.DateInit" formControlName="dateInitial" name="dateInitial" [readonly]="true" matInput
-              [matDatepicker]="dateInitial">
-            <mat-datepicker-toggle matPrefix [for]="dateInitial"></mat-datepicker-toggle>
-            <mat-datepicker touchUi="true" startView="year" #dateInitial></mat-datepicker>
-          </mat-form-field> -->
-      </div>
-      <div style="padding-bottom: 20px;">
-        <mat-form-field style="width: 100%;">
-          <input matInput placeholder="Página de destino"
-            class="modal-export-to-reclaim-text-uppercase"
-            [errorStateMatcher]="matcher">
-          <!-- <mat-error *ngIf="form.get('email').hasError('required')">{{'errors.required' | translate}}</mat-error>
+      <div fxFlex="50" style="padding-left: 40px;">
+        <div style="padding-bottom: 20px;">
+          <span>Idioma</span>
+        </div>
+        <div style="padding-bottom: 20px;">
+          <mat-radio-group aria-label="Select an languaje"
+            formControlName="lenguaje">
+            <div fxFlex="35">
+              <mat-radio-button value="1">Español</mat-radio-button>
+            </div>
+            <div fxFlex="35">
+              <mat-radio-button value="2">Ingles</mat-radio-button>
+            </div>
+          </mat-radio-group>
+        </div>
+        <div style="padding-bottom: 20px;">
+          <mat-form-field style="width: 100%; font-size: 16px;">
+            <input matInput [matDatepicker]="dateEnd" placeholder="Fecha
+              final" formControlName="dateEnd">
+            <mat-datepicker-toggle matSuffix [for]="dateEnd"></mat-datepicker-toggle>
+            <mat-datepicker touchUi="true" startView="year" #dateEnd></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div style="padding-bottom: 20px;">
+          <mat-form-field style="width: 100%;">
+            <input matInput placeholder="Página de destino"
+              class="modal-export-to-reclaim-text-uppercase"
+              [errorStateMatcher]="matcher" formControlName="pageDestiny">
+            <!-- <mat-error *ngIf="form.get('email').hasError('required')">{{'errors.required' | translate}}</mat-error>
           <mat-error *ngIf="form.get('email').hasError('email')">{{'errors.format_invalidate' | translate}}
           </mat-error> -->
-        </mat-form-field>
+          </mat-form-field>
+        </div>
+      </div>
+      <div style="width: 100%; padding-bottom: 20px;">
+        <div style="width: 100%; padding-bottom: 20px;">
+          <span>Contenido</span>
+        </div>
+        <div style="width: 100%;">
+          <angular-editor id="bodyDescription" formControlName="bodyDescription"
+            [config]="config"></angular-editor>
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxFlex="100" style="padding-bottom: 20px;">
+        <div fxFlex="50">
+          <div style="padding-bottom: 20px;">
+            <span>Imagenes destacas</span>
+          </div>
+          <div>
+            <div>
+              <input placeholder="file upload" id="uploadFile" hidden
+                name="fileUploadOption" type="file"
+                (change)="onFileChange($event)" multiple="false"
+                accept="*"
+                formControlName="fileImg"
+                #fileUploadOption>
+              <div fxLayout="row">
+                <div fxFlex="100">
+                  <div>
+                    <div fxLayout="column" id="fileExcel"
+                      (click)="fileUploadOption.click()" style="border: solid
+                      1px
+                      #707070;border-radius: 10px; width: 94%;">
+                      <div fxLayout="row">
+                        <div style="padding-top: 20px;padding-left: 10px;
+                          padding-right: 10px;">
+                          <mat-icon class="mat-18" style="vertical-align:
+                            middle;font-size: 33px;height: 33px; width: 33px;
+                            color: #757474;">image</mat-icon>
+                        </div>
+                        <div>
+                          <div style="font-weight: bold; color: #727272;
+                            padding-top: 20px;padding-bottom: 5px;">Subir
+                            archivo</div>
+                          <div style="color: #727272; padding-bottom: 20px;">Medidas
+                            de las imagenes 800 x 600 px | Tamaño máximo del
+                            archivo 7 MB</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div fxFlex="50" style="padding-left: 45px;">
+          <div style="padding-bottom: 20px;">
+            <span>Color de fondo</span>
+          </div>
+          <div style="border: solid 1px
+            #707070;border-radius: 10px;">
+            <div style="padding: 24px;">
+              <input [style.background]="color"
+                (colorPickerChange)="setValueColor($event)"
+                style="width: 23px;height: 23px; border-radius: 4px; border:
+                solid 1px"
+                [cpAlphaChannel]="'always'"
+                [cpOutputFormat]="'hex'"
+                [cpPosition]="'top-left'"
+                [cpPositionOffset]="'-1000%'"
+                [(colorPicker)]="color" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row" fxFlex="100" fxLayoutAlign="center center"
+        style="padding-top: 30px;">
+        <div fxFlex="40" style="text-align: right;">
+          <button mat-stroked-button color="primary" style="text-transform:
+            uppercase; width: 160px;" mat-button
+            (click)="backList()">cancelar</button>
+        </div>
+        <div fxFlex="15" style="text-align: center;">
+          <button mat-stroked-button color="primary" style="text-transform:
+            uppercase; width: 160px;" mat-button
+            (click)="preview()">vista previa</button>
+        </div>
+        <div fxFlex="40" style="text-align: left;">
+          <button mat-raised-button color="primary" style="text-transform:
+            uppercase; width: 160px;" mat-button
+            (click)="createNotification()">Crear anuncio</button>
+        </div>
       </div>
     </div>
-    <div>
-      <div>
-        <span>Contenido</span>
-      </div>
-    </div>
-  </div>
+  </form>
 </div>

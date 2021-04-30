@@ -28,6 +28,7 @@ import { ModalBulkloadBrandsComponent } from './brands/modal-bulkload-brands/mod
 import { NotificationAdminComponent } from './notification-admin/notification-admin.component';
 import { NotificationFormComponent } from './notification-admin/component/notification-form/notification-form.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     ReactiveFormsModule,
     FormsModule,
     CurrencyMaskModule,
-    AngularEditorModule
+    AngularEditorModule,
+    ColorPickerModule
   ],
   exports: [
     CategoryTreeComponent

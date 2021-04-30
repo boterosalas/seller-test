@@ -4,13 +4,13 @@ import { MatSnackBar, ErrorStateMatcher } from '@angular/material';
 import { BasicInformationService } from './basic-information.component.service';
 import { EanServicesService } from '../validate-ean/ean-services.service';
 import { ProcessService } from '../component-process/component-process.service';
-import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import { LoadingService } from '@app/core';
 import { trimField, withArray } from '@app/shared/util/validation-messages';
 import { TranslateService } from '@ngx-translate/core';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import _ from 'lodash';
+import { AngularEditorConfig } from '@kolkov/angular-editor/lib/config';
 
 /**
  * exporta funcion para mostrar los errores de validacion del formulario
