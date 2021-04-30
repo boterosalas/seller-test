@@ -1098,6 +1098,7 @@
     "secure.products.create_product_unit.list_products.button_all": "DELETE ALL PRODUCTS",
     "secure.products.create_product_unit.list_products.title_all_ok": "You have removed all products from your database.",
     "secure.products.create_product_unit.list_products.error_delete": "An error occurred while trying to delete product(s).",
+    "secure.products.create_product_unit.list_products.add_plus": "Add PLU's",
 
     "secure.products.create_product_unit.list_products.combo_product.creation_date": "Creation date",
     "secure.products.create_product_unit.list_products.combo_product.modification_date": "Modification date",

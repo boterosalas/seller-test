@@ -1090,6 +1090,7 @@
     "secure.products.create_product_unit.list_products.button_all": "RETIRER TOUS LES PRODUITS",
     "secure.products.create_product_unit.list_products.title_all_ok": "Vous avez supprimé tous les produits de votre base de données.",
     "secure.products.create_product_unit.list_products.error_delete": "Une erreur s'est produite en essayant de supprimer un ou plusieurs produits.",
+    "secure.products.create_product_unit.list_products.add_plus": "Ajouter des PLU",
 
     "secure.products.create_product_unit.list_products.combo_product.creation_date": "Creation date",
     "secure.products.create_product_unit.list_products.combo_product.modification_date": "Modification date",
