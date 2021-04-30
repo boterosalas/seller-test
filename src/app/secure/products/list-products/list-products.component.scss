@@ -15,6 +15,21 @@
   padding: 1%;
 }
 
+.example-chip-list-filters {
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  height: 80px;
+  max-height: 100px;
+  contain: content;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin-bottom: 2%;
+  & mat-icon {
+    margin-right: 0px;
+  }
+}
+
 .tree-toolbar {
   border-bottom: 0.001em solid #D3D3D3;
   padding: 0 25px;

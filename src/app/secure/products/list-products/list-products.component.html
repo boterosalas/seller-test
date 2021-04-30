@@ -37,7 +37,7 @@
             add_circle_outline
           </mat-icon>
         </mat-form-field>
-        <div class="example-chip-list">
+        <div [ngClass]="keyPlus.length > 0 ? 'example-chip-list-filters': example-chip-list">
           <mat-chip-list #chipList>
             <mat-chip *ngFor="let key of keyPlus; let i = index" (removed)="deleteKeyPlus(i)">
               {{key}}
@@ -108,7 +108,7 @@
           </mat-icon>
 
         </mat-form-field>
-        <div class="example-chip-list">
+        <div [ngClass]="keywords.length > 0 ? 'example-chip-list-filters': example-chip-list">
           <mat-chip-list #chipList>
             <mat-chip *ngFor="let key of keywords; let i = index" (removed)="deleteKeywork(i)">
               {{key}}
