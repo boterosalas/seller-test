@@ -4,6 +4,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor/lib/config';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { truncate } from 'fs';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-notification-form',
@@ -12,14 +13,24 @@ import { truncate } from 'fs';
 })
 export class NotificationFormComponent implements OnInit {
 
-  @ViewChild('fileUploadOption', {static: false}) inputFileUpload: any;
-  @ViewChild('pickerColor', {static: false}) pickerColor: any;
+  @ViewChild('fileUploadOption', { static: false }) inputFileUpload: any;
+  @ViewChild('pickerColor', { static: false }) pickerColor: any;
   @Output() isBackList = new EventEmitter<object>();
   public form: FormGroup;
   public fileImgBase64 = '';
   public imagePath: SafeResourceUrl = '';
+  public imagePathDrag: SafeResourceUrl = '';
   public fileName: string;
   public fileSize: number;
+
+  public _filesAux: File[] = [];
+  public _fileAux = null;
+  public refuseMaxSize = false;
+  public disabledBtn = true;
+  public files: File[] = [];
+  public file = null;
+  public maxSize = 10145728;
+  public lastInvalids: any;
 
   public disableText = false;
   public disableLoadImag = false;
@@ -27,7 +38,9 @@ export class NotificationFormComponent implements OnInit {
 
   public showDescriptionColorImg = true;
 
-  public colorBackground= '#ffffff';
+  public colorBackground = '#ffffff';
+
+  public accept = '.jpg, .JPG, .png, .PNG';
 
   public config: AngularEditorConfig = {
     editable: true,
@@ -98,17 +111,17 @@ export class NotificationFormComponent implements OnInit {
     this.colorBackground = color;
   }
 
-  createNotification(){
+  createNotification() {
   }
 
   onFileChange(event: any) {
-    const file = event && event.target ? event.target.files[0] :  null;
+    const file = event && event.target ? event.target.files[0] : null;
     if (file !== null && file !== undefined && file !== 'undefined') {
       this.getBase64(file).then(data => {
         try {
           this.fileImgBase64 = data;
           this.fileName = file.name;
-          this.fileSize = file.size ?  parseFloat(((file.size) / 1024 / 1024).toFixed(3)) : null;
+          this.fileSize = file.size ? parseFloat(((file.size) / 1024 / 1024).toFixed(3)) : null;
           this.validate(file);
           this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl(data);
         } catch (error) {
@@ -132,8 +145,8 @@ export class NotificationFormComponent implements OnInit {
     const img = new Image;
     const url = URL.createObjectURL(file);
     img.src = url;
-    img.onload = function() {
-      if (img.width <= 800 && img.height <= 600 ) {
+    img.onload = function () {
+      if (img.width <= 800 && img.height <= 600) {
         console.log('dimesion correctas');
       } else {
         console.log('error para las dimensiones');
@@ -153,11 +166,11 @@ export class NotificationFormComponent implements OnInit {
         this.form.controls.bodyDescription.enable();
         this.form.controls.fileImg.enable();
         this.form.controls.pickerColor.disable();
-         this.disableText = false;
-         this.disableLoadImag = false;
-         this.disableColor = true;
-         this.config.editable = true;
-         this.showDescriptionColorImg = true;
+        this.disableText = false;
+        this.disableLoadImag = false;
+        this.disableColor = true;
+        this.config.editable = true;
+        this.showDescriptionColorImg = true;
         break;
       case 2:
         this.form.controls.bodyDescription.enable();
@@ -197,6 +210,68 @@ export class NotificationFormComponent implements OnInit {
 
   backList() {
     this.isBackList.emit({ back: true });
+  }
+
+  public getDate(): Date {
+    return new Date();
+  }
+
+  /**
+   * funcion para calcular el tamaño del archivo
+   *
+   * @param {*} files
+   * @param {*} file
+   * @memberof UploadFileMasiveComponent
+   */
+  resetFiles(files: any, file: any) {
+    if (!isNullOrUndefined(file)) {
+      this._filesAux = [];
+      this._fileAux = file;
+      const size = parseFloat(((file.size) / 1024 / 1024).toFixed(3));
+      if (size < 7.000) {
+        this.refuseMaxSize = false;
+      } else {
+        this.refuseMaxSize = true;
+      }
+    }
+    if (files && files.length > 0) {
+      if (files.length > 1) {
+        this._fileAux = null;
+        this._filesAux = files;
+      } else {
+        this._fileAux = files[0];
+        this._filesAux = [];
+        const size = parseFloat(((this._fileAux.size) / 1024 / 1024).toFixed(3));
+        if (size < 7.000) {
+          this.refuseMaxSize = false;
+        } else {
+          this.refuseMaxSize = true;
+        }
+      }
+    }
+    if (this.refuseMaxSize && file === null) {
+      this.disabledBtn = true;
+    } else {
+      this.disabledBtn = false;
+      this.loadDragAndDrop(file);
+      console.log(this._fileAux);
+    }
+    this.file = null;
+    this.files = [];
+  }
+
+  loadDragAndDrop(file: any) {
+    if (file !== null && file !== undefined && file !== 'undefined') {
+      this.getBase64(file).then(data => {
+        try {
+          console.log(data);
+          this.fileImgBase64 = data;
+          this.imagePathDrag = this._sanitizer.bypassSecurityTrustResourceUrl(data);
+        } catch (error) {
+          console.log(error);
+        }
+      });
+    }
   }
 
 }

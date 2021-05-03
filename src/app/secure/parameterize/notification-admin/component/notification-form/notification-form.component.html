@@ -178,8 +178,73 @@
         </div>
         <mat-tab-group>
           <mat-tab label="Subir archivos">
-            <div>
-             
+          
+            <div fxFlex="100" class="text-aling-center-modal-load">
+              <div class="inline-block">
+                <div>dfxvxcvxcvxcvxcvxcvxcvxcvxcvxcvxcvxcvxcvxcv
+                  {{imagePathDrag}}
+                  <img [src]="imagePathDrag">
+                </div>
+                <div ngfDrop selectable="1" [(validDrag)]="validComboDrag"
+                  [(files)]="files" [(file)]="file" [maxSize]="maxSize"
+                  [accept]="accept" [(lastInvalids)]="lastInvalids"
+                  [(dragFiles)]="dragFiles"
+                  class="well my-drop-zone" fxLayout="column" id="excel"
+                  fxLayoutAlign="center center"
+                  [class.invalid-drag]="validComboDrag===false"
+                  [class.valid-drag]="validComboDrag"
+                  (filesChange)="lastFileAt=getDate(); resetFiles(files, file)">
+        
+                  <div *ngIf="_fileAux === null && !lastInvalids?.length &&
+                    !_filesAux?.length" class = "load-file-container-aling-center">
+                    <mat-icon class="material-icons">
+                      note_add
+                    </mat-icon>
+                    <div>
+                      <span class="load-file-container-text-color-size">
+                        Presione acá o arrastre y suelte el archivo.
+                      </span>
+                    </div>
+                    <div>
+                      <span class="load-file-container-text-blue-size-14">
+                        Archivo/Anexo
+                      </span>
+                    </div>
+                  </div>
+                  <div *ngIf="_fileAux !== null && !lastInvalids?.length &&
+                    !refuseMaxSize" class = "load-file-container-aling-center">
+                    <mat-icon class="material-icons check">
+                      check_circle {{_filesAux.length}}
+                    </mat-icon>
+                    <div>
+                      <span class = "load-file-container-text-grey-font-14">
+                        {{_fileAux.name}} - {{_fileAux.size/1024/1024 | number:'.2' }}
+                        MB
+                      </span>
+                    </div>
+                  </div>
+                  <div *ngIf="lastInvalids?.length || _filesAux.length> 1 ||
+                    refuseMaxSize" class = "load-file-container-aling-center">
+                    <mat-icon class="material-icons error">
+                      not_interested
+                    </mat-icon>
+                    <div *ngIf="refuseMaxSize && !lastInvalids?.length">
+                      <span class = "load-file-container-text-grey-font-14">
+                        El archivo no puede superar los 7 Megabytes
+                      </span>
+                    </div>
+                    <div *ngIf="lastInvalids?.length">
+                      <span class="load-file-container-text-grey-font-14">
+                        El archivo tiene un formato no permitido, solo se permiten <br>
+                        <span class="load-file-container-font-weight-bold">
+                          (.JPG, .PNG)
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              
+              </div>
             </div>
           </mat-tab>
           <mat-tab label="Galería de imagenes">
