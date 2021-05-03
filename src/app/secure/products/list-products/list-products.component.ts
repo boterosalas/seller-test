@@ -288,9 +288,10 @@ export class ListProductsComponent implements OnInit {
         } else {
             this.finalDateList = null;
         }
+
         this.modelDelete = {
             ean: this.eanList || null,
-            plu: this.keyPlus ? this.keyPlus.toString() : null,
+            plu: this.infoSelected ? this.infoSelected.list.toString() : null,
             sellerSku: this.sellerSkuList || null,
             product: this.nameProductList || null,
             categories: this.categoryList || null,
