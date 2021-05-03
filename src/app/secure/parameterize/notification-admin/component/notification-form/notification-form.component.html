@@ -19,13 +19,16 @@
           <mat-radio-group aria-label="Select an bodyNotification"
             formControlName="bodyNotification">
             <div fxFlex="35">
-              <mat-radio-button value="1">Texto + Imagen</mat-radio-button>
+              <mat-radio-button value="1" (click)="validateBody(1)">Texto +
+                Imagen</mat-radio-button>
             </div>
             <div fxFlex="35">
-              <mat-radio-button value="2">Texto + Fondo</mat-radio-button>
+              <mat-radio-button value="2" (click)="validateBody(2)">Texto +
+                Fondo</mat-radio-button>
             </div>
             <div fxFlex="35">
-              <mat-radio-button value="3">Imagen diseñada</mat-radio-button>
+              <mat-radio-button value="3" (click)="validateBody(3)">Imagen
+                diseñada</mat-radio-button>
             </div>
           </mat-radio-group>
         </div>
@@ -83,7 +86,7 @@
           </mat-form-field>
         </div>
       </div>
-      <div style="width: 100%; padding-bottom: 20px;">
+      <div style="width: 100%; padding-bottom: 20px;" *ngIf="showDescriptionColorImg">
         <div style="width: 100%; padding-bottom: 20px;">
           <span>Contenido</span>
         </div>
@@ -92,10 +95,10 @@
             [config]="config"></angular-editor>
         </div>
       </div>
-      <div fxLayout="row wrap" fxFlex="100" style="padding-bottom: 20px;">
+      <div fxLayout="row wrap" fxFlex="100" style="padding-bottom: 20px;" *ngIf="showDescriptionColorImg">
         <div fxFlex="50">
           <div style="padding-bottom: 20px;">
-            <span>Imagenes destacas</span>
+            <span>Imagen destacadas</span>
           </div>
           <div>
             <div>
@@ -111,18 +114,30 @@
                     <div fxLayout="column" id="fileExcel"
                       (click)="fileUploadOption.click()" style="border: solid
                       1px
-                      #707070;border-radius: 10px; width: 94%;">
+                      #707070;border-radius: 10px; width: 94%; cursor: pointer;"
+                      [ngClass]="disableLoadImag === true ?
+                      'notification-form-disable-background-color' :
+                      'notification-form-enable-background-color'">
                       <div fxLayout="row">
                         <div style="padding-top: 20px;padding-left: 10px;
                           padding-right: 10px;">
-                          <mat-icon class="mat-18" style="vertical-align:
+                          <mat-icon *ngIf="!imagePath" class="mat-18"
+                            style="vertical-align:
                             middle;font-size: 33px;height: 33px; width: 33px;
                             color: #757474;">image</mat-icon>
+                          <img [src]="imagePath" *ngIf="imagePath" style="width:
+                            33px; height: 33px;">
                         </div>
                         <div>
                           <div style="font-weight: bold; color: #727272;
-                            padding-top: 20px;padding-bottom: 5px;">Subir
-                            archivo</div>
+                            padding-top: 20px;padding-bottom: 5px;">
+                            <span *ngIf="!fileName">
+                              Subir archivo
+                            </span>
+                            <span *ngIf="fileName">
+                              {{fileName}} ({{fileSize}} MB)
+                            </span>
+                          </div>
                           <div style="color: #727272; padding-bottom: 20px;">Medidas
                             de las imagenes 800 x 600 px | Tamaño máximo del
                             archivo 7 MB</div>
@@ -140,20 +155,37 @@
             <span>Color de fondo</span>
           </div>
           <div style="border: solid 1px
-            #707070;border-radius: 10px;">
+            #707070;border-radius: 10px;" [ngClass]="disableColor === true ?
+            'notification-form-disable-background-color' :
+            'notification-form-enable-background-color'">
             <div style="padding: 24px;">
-              <input [style.background]="color"
+              <input [ngStyle]="{'background': colorBackground, 'color': colorBackground}"
+                formControlName="pickerColor"
                 (colorPickerChange)="setValueColor($event)"
                 style="width: 23px;height: 23px; border-radius: 4px; border:
-                solid 1px"
+                solid 1px black; cursor: pointer;"
                 [cpAlphaChannel]="'always'"
                 [cpOutputFormat]="'hex'"
-                [cpPosition]="'top-left'"
                 [cpPositionOffset]="'-1000%'"
                 [(colorPicker)]="color" />
             </div>
           </div>
         </div>
+      </div>
+      <div *ngIf="!showDescriptionColorImg" style="height: 380px;">
+        <div style="padding-bottom: 20px;">
+          <span>Imagen destacadas</span>
+        </div>
+        <mat-tab-group>
+          <mat-tab label="Subir archivos">
+            <div>
+             
+            </div>
+          </mat-tab>
+          <mat-tab label="Galería de imagenes">
+            
+          </mat-tab>
+        </mat-tab-group>
       </div>
       <div fxLayout="row" fxFlex="100" fxLayoutAlign="center center"
         style="padding-top: 30px;">

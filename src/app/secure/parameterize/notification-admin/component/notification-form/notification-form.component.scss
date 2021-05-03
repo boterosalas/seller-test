@@ -9,3 +9,12 @@
     }
   }
   
+  .notification-form{
+      &-disable-background-color{
+          background-color: #D3D3D3 !important;
+          color: #D3D3D3 !important;
+      }
+      &-enable-background-color{
+          background-color: #ffffff ;
+      }
+  }
