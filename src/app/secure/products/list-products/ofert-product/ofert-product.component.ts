@@ -130,6 +130,7 @@ export class OfertExpandedProductComponent implements OnInit {
             ]),
             ofertOption: new FormControl(''),
             IsUpdatedStock: new FormControl(''),
+            Reference: new FormControl(''),
             Combos: this.fb.array([]),
             Currency: new FormControl('')
         });
@@ -420,6 +421,7 @@ export class OfertExpandedProductComponent implements OnInit {
             IsFreightCalculator: this.ofertProduct.controls.ofertOption.value === 'IsFreightCalculator' ? '1' : '0',
             IsLogisticsExito: this.ofertProduct.controls.ofertOption.value === 'IsLogisticsExito' ? '1' : '0',
             IsUpdatedStock: this.ofertProduct.controls.IsUpdatedStock.value === true ? '1' : '0',
+            Reference: this.ofertProduct.controls.Reference.value === true ? '1' : '0',
             Periodicity: this.ofertProduct.controls.Periodicity.value,
             SellerSku: this.ofertProduct.controls.SellerSku.value,
             Currency: this.ofertProduct.controls.Currency.value,
@@ -499,6 +501,7 @@ export class OfertExpandedProductComponent implements OnInit {
         this.ofertProduct.controls.SellerSku.reset();
         this.ofertProduct.controls.ofertOption.reset();
         this.ofertProduct.controls.IsUpdatedStock.reset();
+        this.ofertProduct.controls.Reference.reset();
         if (this.applyOffer.eanesCombos.length !== 0) {
             this.Combos.controls.forEach((price: any) => {
                 price.controls.ofertPriceComponet.reset('');

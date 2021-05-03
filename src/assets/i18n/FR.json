@@ -1130,6 +1130,7 @@
     "secure.products.create_product_unit.list_products.ofert_product.mandatory_warranty": "The warranty field is mandatory",
     "secure.products.create_product_unit.list_products.ofert_product.envios_exito_indicator": "Envios Éxito Indicator",
     "secure.products.create_product_unit.list_products.ofert_product.stock_update": "Stock update",
+    "secure.products.create_product_unit.list_products.ofert_product.reference_update": "Appliquer l'offre à toutes les variantes",
     "secure.products.create_product_unit.list_products.ofert_product.mandatory_price_ean_combo": "Combo EAN Price is mandatory",
     "secure.products.create_product_unit.list_products.ofert_product.invalid_price_ean_combo": "Combo EAN Price is invalid",
     "secure.products.create_product_unit.list_products.ofert_product.mandatory_amount_ean_combo": "Combo EAN Amount is mandatory",
