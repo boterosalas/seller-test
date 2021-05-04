@@ -1114,6 +1114,7 @@
     "secure.products.create_product_unit.list_products.button_all": "ELIMINAR TODOS LOS PRODUCTOS",
     "secure.products.create_product_unit.list_products.title_all_ok": "Haz eliminado de tu base de datos todos los productos.",
     "secure.products.create_product_unit.list_products.error_delete": "Se ha producido un error al momento de tratar de eliminar producto(s).",
+    "secure.products.create_product_unit.list_products.add_plus": "Agregar PLU's",
 
 
     "secure.products.create_product_unit.list_products.combo_product.creation_date": "Fecha de creación",
