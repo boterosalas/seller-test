@@ -369,7 +369,7 @@ export class ListProductsComponent implements OnInit {
                 }
                 this.progressStatus = true;
             } else if (result.body.data.status === 2) {
-                this.progressStatus = false;
+                this.loadingService.closeSpinner();
                 clearInterval(this.checkIfDoneCharge);
                 this.closeActualDialog();
                 if (this.typeDelete === 1) {
