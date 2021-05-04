@@ -139,8 +139,6 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
 
   public sendData: any;
 
-  public productType:string;
-
   dialogRef: MatDialogRef<ModalSendEmailComponent>;
 
   // Validación de las regex
@@ -150,7 +148,6 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     formatNumber: '',
     promiseDelivery: '',
     periodicity: '',
-    currency: '',
     warranty: '',
     price: '',
     address: '',
@@ -445,11 +442,14 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             iActInventario: this.validateSubTitle(this.arrayNecessaryData, 'Stock Update', 'Actualizacion de Inventario', 'Mise à Jour du Stock'),
             iEanCombo: this.validateSubTitle(this.arrayNecessaryData, 'Ean combo', 'Ean combo', 'Ean combo'),
             iCantidadCombo: this.validateSubTitle(this.arrayNecessaryData, 'Amount in combo', 'Cantidad en combo', 'Bundle stock'),
-            iCurrency: this.validateSubTitle(this.arrayNecessaryData, 'Currency', 'Tipo de moneda', 'Type de monnaie'),
             iAddress: this.validateSubTitle(this.arrayNecessaryData, 'Picking Address', 'Direccion de Recogida', 'Adresse de collecte'),
             iDaneCode: this.validateSubTitle(this.arrayNecessaryData, 'Picking City', 'Ciudad de Recogida', 'Ville de collecte'),
             iSellerSku: this.validateSubTitle(this.arrayNecessaryData, 'Seller SKU', 'SKU Vendedor', 'Vendeur SKU')
           };
+
+          //Elimina las filas 1 y 2 que son de titulos
+          this.arrayNecessaryData.splice(1,2);
+
           if (this.arrayNecessaryData.length > this.limitRowExcel) {
             this.loadingService.closeSpinner();
             this.componentService
@@ -1138,17 +1138,6 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             }
           }
           break;
-        case 'currency':
-          if ((inputtxt.match(this.offertRegex.currency))) {
-            if (inputtxt === 'COP' || inputtxt === 'USD') {
-              valueReturn = true;
-            } else {
-              valueReturn = false;
-            }
-          } else {
-            valueReturn = false;
-          }
-          break;
         case 'boolean':
           if ((inputtxt.match(this.offertRegex.formatNumber))) {
             if (inputtxt === '1' || inputtxt === '0') {
@@ -1561,10 +1550,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
    *
    * @memberof BulkLoadComponent
    */
-  requestMail(productType:string) {
-    this.dialogRef = this.dialog.open(ModalSendEmailComponent, {
-      data: {productType}
-    });
+  requestMail() {
+    this.dialogRef = this.dialog.open(ModalSendEmailComponent);
   }
   /**
    * destruye el compomente y cierra el modal
