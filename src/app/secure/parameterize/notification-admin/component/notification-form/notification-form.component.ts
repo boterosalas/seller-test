@@ -2,9 +2,8 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import { TranslateService } from '@ngx-translate/core';
 import { AngularEditorConfig } from '@kolkov/angular-editor/lib/config';
 import { FormControl, FormGroup } from '@angular/forms';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { truncate } from 'fs';
-import { isNullOrUndefined } from 'util';
+import { MatDialog } from '@angular/material';
+import { ModalLoadFileComponent } from '../modal-load-file/modal-load-file.component';
 
 @Component({
   selector: 'app-notification-form',
@@ -17,30 +16,16 @@ export class NotificationFormComponent implements OnInit {
   @ViewChild('pickerColor', { static: false }) pickerColor: any;
   @Output() isBackList = new EventEmitter<object>();
   public form: FormGroup;
-  public fileImgBase64 = '';
-  public imagePath: SafeResourceUrl = '';
-  public imagePathDrag: SafeResourceUrl = '';
-  public fileName: string;
-  public fileSize: number;
-
-  public _filesAux: File[] = [];
-  public _fileAux = null;
-  public refuseMaxSize = false;
-  public disabledBtn = true;
-  public files: File[] = [];
-  public file = null;
-  public maxSize = 10145728;
-  public lastInvalids: any;
-
   public disableText = false;
   public disableLoadImag = false;
   public disableColor = false;
 
   public showDescriptionColorImg = true;
+  public show: boolean;
 
   public colorBackground = '#ffffff';
 
-  public accept = '.jpg, .JPG, .png, .PNG';
+
 
   public config: AngularEditorConfig = {
     editable: true,
@@ -85,7 +70,7 @@ export class NotificationFormComponent implements OnInit {
 
   constructor(
     public translateService: TranslateService,
-    private _sanitizer: DomSanitizer
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -102,7 +87,6 @@ export class NotificationFormComponent implements OnInit {
       pageDestiny: new FormControl(''),
       bodyDescription: new FormControl(''),
       pickerColor: new FormControl(''),
-      fileImg: new FormControl(''),
     });
   }
 
@@ -111,52 +95,26 @@ export class NotificationFormComponent implements OnInit {
     this.colorBackground = color;
   }
 
-  createNotification() {
-  }
+  modalLoadFiel() {
+    const params = {
+      show: true
+    };
+    const dialogRef = this.dialog.open(ModalLoadFileComponent, {
+      width: '50%',
+      data: params,
+    });
 
-  onFileChange(event: any) {
-    const file = event && event.target ? event.target.files[0] : null;
-    if (file !== null && file !== undefined && file !== 'undefined') {
-      this.getBase64(file).then(data => {
-        try {
-          this.fileImgBase64 = data;
-          this.fileName = file.name;
-          this.fileSize = file.size ? parseFloat(((file.size) / 1024 / 1024).toFixed(3)) : null;
-          this.validate(file);
-          this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl(data);
-        } catch (error) {
-          console.log(error);
-        }
-      });
-    }
-  }
-
-  getBase64(file: any): any {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = error => reject(error);
+    const dialogIntance = dialogRef.componentInstance;
+    dialogIntance.processFinish$.subscribe((val) => {
+      // console.log(val);
     });
   }
 
-  validate(file: any) {
-    const size = parseFloat(((file.size) / 1024 / 1024).toFixed(3));
-    const img = new Image;
-    const url = URL.createObjectURL(file);
-    img.src = url;
-    img.onload = function () {
-      if (img.width <= 800 && img.height <= 600) {
-        console.log('dimesion correctas');
-      } else {
-        console.log('error para las dimensiones');
-      }
-      if (size <= 7000) {
-        console.log('tamaño permitido');
-      } else {
-        console.log('archivo muy pesado');
-      }
-    };
+  emitDataImgLoad(data: any) {
+    // console.log(data);
+  }
+
+  createNotification() {
   }
 
   validateBody(typeBody: number) {
@@ -164,9 +122,9 @@ export class NotificationFormComponent implements OnInit {
     switch (typeBody) {
       case 1:
         this.form.controls.bodyDescription.enable();
-        this.form.controls.fileImg.enable();
         this.form.controls.pickerColor.disable();
         this.disableText = false;
+        this.show = true;
         this.disableLoadImag = false;
         this.disableColor = true;
         this.config.editable = true;
@@ -174,9 +132,9 @@ export class NotificationFormComponent implements OnInit {
         break;
       case 2:
         this.form.controls.bodyDescription.enable();
-        this.form.controls.fileImg.disable();
         this.form.controls.pickerColor.enable();
         this.disableText = false;
+        this.show = true;
         this.disableLoadImag = true;
         this.disableColor = false;
         this.config.editable = true;
@@ -184,9 +142,9 @@ export class NotificationFormComponent implements OnInit {
         break;
       case 3:
         this.form.controls.bodyDescription.disable();
-        this.form.controls.fileImg.enable();
         this.form.controls.pickerColor.disable();
         this.disableText = true;
+        this.show = false;
         this.disableLoadImag = false;
         this.disableColor = true;
         this.config.editable = false;
@@ -199,9 +157,6 @@ export class NotificationFormComponent implements OnInit {
 
   resetOpction(type: number) {
     this.form.controls.pickerColor.reset();
-    this.form.controls.fileImg.reset();
-    this.imagePath = '';
-    this.fileName = null;
     this.colorBackground = '#ffffff';
     if (type === 3) {
       this.form.controls.bodyDescription.reset();
@@ -211,67 +166,4 @@ export class NotificationFormComponent implements OnInit {
   backList() {
     this.isBackList.emit({ back: true });
   }
-
-  public getDate(): Date {
-    return new Date();
-  }
-
-  /**
-   * funcion para calcular el tamaño del archivo
-   *
-   * @param {*} files
-   * @param {*} file
-   * @memberof UploadFileMasiveComponent
-   */
-  resetFiles(files: any, file: any) {
-    if (!isNullOrUndefined(file)) {
-      this._filesAux = [];
-      this._fileAux = file;
-      const size = parseFloat(((file.size) / 1024 / 1024).toFixed(3));
-      if (size < 7.000) {
-        this.refuseMaxSize = false;
-      } else {
-        this.refuseMaxSize = true;
-      }
-    }
-    if (files && files.length > 0) {
-      if (files.length > 1) {
-        this._fileAux = null;
-        this._filesAux = files;
-      } else {
-        this._fileAux = files[0];
-        this._filesAux = [];
-        const size = parseFloat(((this._fileAux.size) / 1024 / 1024).toFixed(3));
-        if (size < 7.000) {
-          this.refuseMaxSize = false;
-        } else {
-          this.refuseMaxSize = true;
-        }
-      }
-    }
-    if (this.refuseMaxSize && file === null) {
-      this.disabledBtn = true;
-    } else {
-      this.disabledBtn = false;
-      this.loadDragAndDrop(file);
-      console.log(this._fileAux);
-    }
-    this.file = null;
-    this.files = [];
-  }
-
-  loadDragAndDrop(file: any) {
-    if (file !== null && file !== undefined && file !== 'undefined') {
-      this.getBase64(file).then(data => {
-        try {
-          console.log(data);
-          this.fileImgBase64 = data;
-          this.imagePathDrag = this._sanitizer.bypassSecurityTrustResourceUrl(data);
-        } catch (error) {
-          console.log(error);
-        }
-      });
-    }
-  }
-
 }

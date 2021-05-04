@@ -102,17 +102,11 @@
           </div>
           <div>
             <div>
-              <input placeholder="file upload" id="uploadFile" hidden
-                name="fileUploadOption" type="file"
-                (change)="onFileChange($event)" multiple="false"
-                accept="*"
-                formControlName="fileImg"
-                #fileUploadOption>
               <div fxLayout="row">
                 <div fxFlex="100">
                   <div>
                     <div fxLayout="column" id="fileExcel"
-                      (click)="fileUploadOption.click()" style="border: solid
+                      (click)="disableLoadImag === false ? modalLoadFiel(): ''" style="border: solid
                       1px
                       #707070;border-radius: 10px; width: 94%; cursor: pointer;"
                       [ngClass]="disableLoadImag === true ?
@@ -121,21 +115,16 @@
                       <div fxLayout="row">
                         <div style="padding-top: 20px;padding-left: 10px;
                           padding-right: 10px;">
-                          <mat-icon *ngIf="!imagePath" class="mat-18"
+                          <mat-icon  class="mat-18"
                             style="vertical-align:
                             middle;font-size: 33px;height: 33px; width: 33px;
                             color: #757474;">image</mat-icon>
-                          <img [src]="imagePath" *ngIf="imagePath" style="width:
-                            33px; height: 33px;">
                         </div>
                         <div>
                           <div style="font-weight: bold; color: #727272;
                             padding-top: 20px;padding-bottom: 5px;">
-                            <span *ngIf="!fileName">
+                            <span >
                               Subir archivo
-                            </span>
-                            <span *ngIf="fileName">
-                              {{fileName}} ({{fileSize}} MB)
                             </span>
                           </div>
                           <div style="color: #727272; padding-bottom: 20px;">Medidas
@@ -158,7 +147,7 @@
             #707070;border-radius: 10px;" [ngClass]="disableColor === true ?
             'notification-form-disable-background-color' :
             'notification-form-enable-background-color'">
-            <div style="padding: 24px;">
+            <div style="padding: 25px;">
               <input [ngStyle]="{'background': colorBackground, 'color': colorBackground}"
                 formControlName="pickerColor"
                 (colorPickerChange)="setValueColor($event)"
@@ -172,85 +161,8 @@
           </div>
         </div>
       </div>
-      <div *ngIf="!showDescriptionColorImg" style="height: 380px;">
-        <div style="padding-bottom: 20px;">
-          <span>Imagen destacadas</span>
-        </div>
-        <mat-tab-group>
-          <mat-tab label="Subir archivos">
-          
-            <div fxFlex="100" class="text-aling-center-modal-load">
-              <div class="inline-block">
-                <div>dfxvxcvxcvxcvxcvxcvxcvxcvxcvxcvxcvxcvxcvxcv
-                  {{imagePathDrag}}
-                  <img [src]="imagePathDrag">
-                </div>
-                <div ngfDrop selectable="1" [(validDrag)]="validComboDrag"
-                  [(files)]="files" [(file)]="file" [maxSize]="maxSize"
-                  [accept]="accept" [(lastInvalids)]="lastInvalids"
-                  [(dragFiles)]="dragFiles"
-                  class="well my-drop-zone" fxLayout="column" id="excel"
-                  fxLayoutAlign="center center"
-                  [class.invalid-drag]="validComboDrag===false"
-                  [class.valid-drag]="validComboDrag"
-                  (filesChange)="lastFileAt=getDate(); resetFiles(files, file)">
-        
-                  <div *ngIf="_fileAux === null && !lastInvalids?.length &&
-                    !_filesAux?.length" class = "load-file-container-aling-center">
-                    <mat-icon class="material-icons">
-                      note_add
-                    </mat-icon>
-                    <div>
-                      <span class="load-file-container-text-color-size">
-                        Presione acá o arrastre y suelte el archivo.
-                      </span>
-                    </div>
-                    <div>
-                      <span class="load-file-container-text-blue-size-14">
-                        Archivo/Anexo
-                      </span>
-                    </div>
-                  </div>
-                  <div *ngIf="_fileAux !== null && !lastInvalids?.length &&
-                    !refuseMaxSize" class = "load-file-container-aling-center">
-                    <mat-icon class="material-icons check">
-                      check_circle {{_filesAux.length}}
-                    </mat-icon>
-                    <div>
-                      <span class = "load-file-container-text-grey-font-14">
-                        {{_fileAux.name}} - {{_fileAux.size/1024/1024 | number:'.2' }}
-                        MB
-                      </span>
-                    </div>
-                  </div>
-                  <div *ngIf="lastInvalids?.length || _filesAux.length> 1 ||
-                    refuseMaxSize" class = "load-file-container-aling-center">
-                    <mat-icon class="material-icons error">
-                      not_interested
-                    </mat-icon>
-                    <div *ngIf="refuseMaxSize && !lastInvalids?.length">
-                      <span class = "load-file-container-text-grey-font-14">
-                        El archivo no puede superar los 7 Megabytes
-                      </span>
-                    </div>
-                    <div *ngIf="lastInvalids?.length">
-                      <span class="load-file-container-text-grey-font-14">
-                        El archivo tiene un formato no permitido, solo se permiten <br>
-                        <span class="load-file-container-font-weight-bold">
-                          (.JPG, .PNG)
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              
-              </div>
-            </div>
-          </mat-tab>
-          <mat-tab label="Galería de imagenes">
-            
-          </mat-tab>
-        </mat-tab-group>
+      <div *ngIf="!showDescriptionColorImg" style="height: 380px; width: 100%;">
+       <app-modal-load-file [showComponent]="show" (emitDataImgLoad)="emitDataImgLoad($event)"></app-modal-load-file>
       </div>
       <div fxLayout="row" fxFlex="100" fxLayoutAlign="center center"
         style="padding-top: 30px;">
