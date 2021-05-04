@@ -273,6 +273,7 @@ export class ListProductsComponent implements OnInit {
      */
     modelObject() {
         let booleanDate;
+        let stringPlus;
         if (this.creationDateList && this.creationDateList === 'createDate') {
             booleanDate = true;
         } else {
@@ -289,9 +290,14 @@ export class ListProductsComponent implements OnInit {
             this.finalDateList = null;
         }
 
+        if (this.infoSelected && this.infoSelected.list) {
+            stringPlus = this.infoSelected.list.toString();
+        } else {
+            stringPlus = this.keyPlus.toString();
+        }
         this.modelDelete = {
             ean: this.eanList || null,
-            plu: this.infoSelected ? this.infoSelected.list.toString() : null,
+            plu: stringPlus || null,
             sellerSku: this.sellerSkuList || null,
             product: this.nameProductList || null,
             categories: this.categoryList || null,
