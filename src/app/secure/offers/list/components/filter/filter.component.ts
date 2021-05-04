@@ -66,6 +66,7 @@ export class FilterComponent implements OnInit, OnChanges {
     public product: FormControl;
     public ean: FormControl;
     public pluVtex: FormControl;
+    public reference: FormControl;
     public sellerSku: FormControl;
     public stock: FormControl;
     public matcher: MyErrorStateMatcher;
@@ -78,12 +79,14 @@ export class FilterComponent implements OnInit, OnChanges {
     productList: any;
     stockList: any;
     pluVtexList: any;
+    referenceList: any;
     sellerSkuList: any;
 
     offertRegexFilter = {
         nameProduct: '',
         sellerSku: '',
-        number: ''
+        number: '',
+        referenceProduct: ''
     };
 
     /**
@@ -126,6 +129,9 @@ export class FilterComponent implements OnInit, OnChanges {
             case 'filterSellerSku':
                 this.sellerSku.setValue(undefined);
                 break;
+            case 'filterReference':
+                this.sellerSku.setValue(undefined);
+                break;
             case 'filterStock':
                 this.stock.setValue(undefined);
                 break;
@@ -144,6 +150,7 @@ export class FilterComponent implements OnInit, OnChanges {
         this.product = new FormControl('', Validators.compose([Validators.maxLength(120), Validators.pattern(this.offertRegexFilter.nameProduct)]));
         this.ean = new FormControl('');
         this.pluVtex = new FormControl('', [Validators.pattern(this.offertRegexFilter.number)]);
+        this.reference = new FormControl('', [Validators.pattern(this.offertRegexFilter.referenceProduct)]);
         this.sellerSku = new FormControl('', [Validators.pattern(this.offertRegexFilter.sellerSku)]);
         this.stock = new FormControl('', []);
         this.matcher = new MyErrorStateMatcher();
@@ -188,6 +195,7 @@ export class FilterComponent implements OnInit, OnChanges {
             ean: this.ean,
             stock: this.stock,
             pluVtex: this.pluVtex,
+            reference: this.reference,
             sellerSku: this.sellerSku
         });
     }
@@ -220,6 +228,7 @@ export class FilterComponent implements OnInit, OnChanges {
         this.productList = null;
         this.stockList = null;
         this.pluVtexList = null;
+        this.referenceList = null;
         this.sellerSkuList = null;
         this.listFilterOfferts = [];
     }
