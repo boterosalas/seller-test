@@ -32,8 +32,9 @@ export class ListService {
     this.paramsData.limit = params === undefined || params.limit === undefined || params.limit === null || params.limit === '' ? null : params.limit;
     this.paramsData.pluVtex = params === undefined || params.pluVtex === undefined || params.pluVtex === null || params.pluVtex === '' ? null : params.pluVtex;
     this.paramsData.sellerSku = params === undefined || params.sellerSku === undefined || params.sellerSku === null || params.sellerSku === '' ? null : params.sellerSku;
+    this.paramsData.reference = params === undefined || params.reference === undefined || params.reference === null || params.reference === '' ? null : params.reference;
 
-    urlParams = this.paramsData.ean + '/' + this.paramsData.product + '/' + this.paramsData.stock + '/' + this.paramsData.currentPage + '/' + this.paramsData.limit + '/' + this.paramsData.pluVtex + '/' + this.paramsData.sellerSku;
+    urlParams = this.paramsData.ean + '/' + this.paramsData.product + '/' + this.paramsData.stock + '/' + this.paramsData.currentPage + '/' + this.paramsData.limit + '/' + this.paramsData.pluVtex + '/' + this.paramsData.sellerSku + '/' + this.paramsData.reference;
 
     return new Observable(observer => {
       this.http.get<any>(this.api.get('getOffers', [urlParams]), { observe: 'response' })

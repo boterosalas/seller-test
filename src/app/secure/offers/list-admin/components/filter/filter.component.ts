@@ -13,6 +13,7 @@ import { ModelFilter } from './filter.model';
 // import { ListAdminAdminComponent } from '@app/secure/offers/listAdmin-admin/listAdmin-admin/listAdminAdmin.component';
 import { ListAdminComponent } from '@app/secure/offers/list-admin/list-admin/list-admin.component';
 import { ErrorStateMatcher } from '@angular/material';
+import { SupportService } from '@app/secure/support-modal/support.service';
 
 
 /**
@@ -64,19 +65,29 @@ export class FilterComponent implements OnInit, OnChanges {
     public product: FormControl;
     public ean: FormControl;
     public pluVtex: FormControl;
+    public reference: FormControl;
     public stock: FormControl;
     public sellerSku: FormControl;
     public matcher: MyErrorStateMatcher;
     public regexNoSpaces = /^((?! \s+|\s+$).)*$/;
     public regexOnlyNumber = /^[0-9]*$/;
     public regexSellerSku = /^(?=.*[A-Za-z\d])[A-Za-z\d!\"#$%&'()*+/\\_:.<>=?¡¿[\\]|°¬{}^~-]+/;
+    // public regexSellerSku = /^(?=.*[A-Za-z\d])[A-Za-z\d!\"#$%&'()*+/\\_:.<>=?¡¿[\\]|°¬{}^~-]+/;
 
     listFilterOfferts: any[];
     eanList: any;
     productList: any;
     stockList: any;
     pluVtexList: any;
+    referenceList: any;
     sellerSkuList: any;
+
+    offertRegexFilter = {
+        nameProduct: '',
+        sellerSku: '',
+        number: '',
+        referenceProduct: ''
+    };
 
     /**
      * Creates an instance of FilterComponent.
@@ -84,7 +95,8 @@ export class FilterComponent implements OnInit, OnChanges {
      * @memberof FilterComponent
      */
     constructor(
-        public list: ListAdminComponent
+        public list: ListAdminComponent,
+        public SUPPORT: SupportService,
     ) { }
 
     /**
@@ -93,8 +105,7 @@ export class FilterComponent implements OnInit, OnChanges {
      * @memberof FilterComponent
      */
     ngOnInit() {
-        this.createFormControls();
-        this.createForm();
+        this.validateFormSupport();
     }
 
     /**
@@ -114,6 +125,9 @@ export class FilterComponent implements OnInit, OnChanges {
             case 'filterPluVtex':
                 this.pluVtex.setValue(undefined);
                 break;
+            case 'filterReference':
+                this.reference.setValue(undefined);
+                break;
             case 'filterSellerSku':
                 this.sellerSku.setValue(undefined);
                 break;
@@ -132,11 +146,12 @@ export class FilterComponent implements OnInit, OnChanges {
      * @description Metodo para crear los controles el formulario
      */
     createFormControls() {
-        this.product = new FormControl('', [Validators.pattern(this.regexNoSpaces)]);
-        this.ean = new FormControl('', [Validators.pattern(this.regexNoSpaces)]);
-        this.pluVtex = new FormControl('', [Validators.pattern(this.regexOnlyNumber)]);
+        this.product = new FormControl('', Validators.compose([Validators.maxLength(120), Validators.pattern(this.offertRegexFilter.nameProduct)]));
+        this.ean = new FormControl('');
+        this.pluVtex = new FormControl('', [Validators.pattern(this.offertRegexFilter.number)]);
+        this.reference = new FormControl('', [Validators.pattern(this.offertRegexFilter.referenceProduct)]);
+        this.sellerSku = new FormControl('', [Validators.pattern(this.offertRegexFilter.sellerSku)]);
         this.stock = new FormControl('', []);
-        this.sellerSku = new FormControl('', [Validators.pattern(this.regexSellerSku)]);
         this.matcher = new MyErrorStateMatcher();
     }
 
@@ -151,7 +166,23 @@ export class FilterComponent implements OnInit, OnChanges {
             ean: this.ean,
             stock: this.stock,
             pluVtex: this.pluVtex,
+            reference: this.reference,
             sellerSku: this.sellerSku
+        });
+    }
+
+    public validateFormSupport(): void {
+        this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
+            let dataOffertRegex = JSON.parse(res.body.body);
+            dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'productos' || data.Module === 'transversal');
+            for (const val in this.offertRegexFilter) {
+                if (!!val) {
+                    const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
+                    this.offertRegexFilter[val] = element && `${element.Value}`;
+                }
+            }
+            this.createFormControls();
+            this.createForm();
         });
     }
 
@@ -192,6 +223,7 @@ export class FilterComponent implements OnInit, OnChanges {
         this.productList = null;
         this.stockList = null;
         this.pluVtexList = null;
+        this.referenceList = null;
         this.listFilterOfferts = [];
         this.sellerSkuList = null;
     }

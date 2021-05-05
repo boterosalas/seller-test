@@ -26,7 +26,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class ListComponent implements OnInit {
 
   // Componente necesario para el funcionamiento del filtro.
-  @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
+  @ViewChild('sidenav', { static: false }) sidenav: MatSidenav;
 
   // Variable para almacenar los datos del usuario logeado.
   public user: any;
@@ -144,6 +144,7 @@ export class ListComponent implements OnInit {
     this.paramData.product = params.product !== undefined && params.product !== null ? params.product.trim() : params.product;
     this.paramData.ean = params.ean !== undefined && params.ean !== null ? params.ean.trim() : params.ean;
     this.paramData.pluVtex = params.pluVtex !== undefined && params.pluVtex !== null ? params.pluVtex.trim() : params.pluVtex;
+    this.paramData.reference = params.reference !== undefined && params.reference !== null ? params.reference.trim() : params.reference;
     this.paramData.stock = params.stock;
     this.paramData.sellerSku = params.sellerSku;
     this.paramData.currentPage = this.currentPage;
@@ -155,6 +156,7 @@ export class ListComponent implements OnInit {
       pluVtex: this.paramData.pluVtex,
       product: encodeURIComponent(this.paramData.product),
       sellerSku: encodeURIComponent(this.paramData.sellerSku),
+      reference: this.paramData.reference,
       stock: this.paramData.stock
     };
     this.getListOffers(dataToSend);
@@ -178,6 +180,9 @@ export class ListComponent implements OnInit {
       case 'filterPluVtex':
         this.paramData.pluVtex = undefined;
         break;
+      case 'filterReference':
+        this.paramData.reference = undefined;
+        break;
       case 'filterSellerSku':
         this.paramData.sellerSku = undefined;
         break;
@@ -187,7 +192,7 @@ export class ListComponent implements OnInit {
     }
     this.filterRemove = filter;
 
-    if (this.paramData.product === undefined && this.paramData.ean === undefined && this.paramData.stock === undefined && this.paramData.pluVtex === undefined && this.paramData.sellerSku === undefined) {
+    if (this.paramData.product === undefined && this.paramData.ean === undefined && this.paramData.stock === undefined && this.paramData.pluVtex === undefined && this.paramData.sellerSku === undefined && this.paramData.reference === undefined) {
       this.filterActive = false;
     }
     this.getListOffers(this.paramData);
@@ -268,6 +273,7 @@ export class ListComponent implements OnInit {
     this.paramData.ean = null;
     this.paramData.stock = null;
     this.paramData.product = null;
+    this.paramData.reference = null;
     this.paramData.pluVtex = null;
     this.paramData.sellerSku = null;
     this.filterOffers(this.paramData);
@@ -302,12 +308,14 @@ export class ListComponent implements OnInit {
         plu: null,
         product: null,
         stock: null,
+        reference: null,
         sellerSku: null
       }
     };
 
     dataToSend.paramsFilters.ean = this.paramData.ean || null;
     dataToSend.paramsFilters.plu = this.paramData.pluVtex || null;
+    dataToSend.paramsFilters.plu = this.paramData.reference || null;
     dataToSend.paramsFilters.stock = this.paramData.stock || null;
     dataToSend.paramsFilters.sellerSku = this.paramData.sellerSku || null;
     dataToSend.paramsFilters.product = this.paramData.product || null;
@@ -438,7 +446,7 @@ export class ListComponent implements OnInit {
       intervalTime: intervalTime,
       listError: listError,
       typeStatus: type,
-      responseDiferent : false
+      responseDiferent: false
     };
     const dialog = this.dialog.open(FinishUploadInformationComponent, {
       width: '70%',

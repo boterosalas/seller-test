@@ -17,7 +17,7 @@
   </article>
   <article class="detail-offer-desc flexbox flex-wrap justify-between">
     <p class="ean flexbox align-center">{{'shared.ean' | translate}}: {{dataOffer.ean}}</p>
-    <p class="ean flexbox align-center">{{'secure.dashboard.table.top.title.SKU' | translate}}:
+    <p class="ean flexbox align-center" *ngIf="dataOffer.pluVtex">{{'secure.dashboard.table.top.title.SKU' | translate}}:
       {{dataOffer.pluVtex}}</p>
     <div class="btn-edit-offer flexbox justify-end">
       <button type="button" color="primary" [matTooltip]="'actions.edit' | translate" matTooltipPosition="below"
@@ -29,7 +29,7 @@
         <mat-icon class="flexbox align-center justify-center">close</mat-icon>
       </button>
     </div>
-    <div class="maskSellerSku" *ngIf="!isUpdateOffer && isUpdateOffer === false">
+    <div class="maskSellerSku" *ngIf="!isUpdateOffer && isUpdateOffer === false && dataOffer.sellerSku">
       <div class="titleMask">
         {{'secure.offers.bulk_upload.table_load.sellerSku' | translate}}:
       </div>
@@ -38,6 +38,9 @@
       </div>
     </div>
     <p class="name">{{dataOffer.name}}</p>
+    <div *ngIf="dataOffer.reference" class="maskSellerSku">
+      {{'secure.orders.order_list.product_order.reference' | translate}}: {{dataOffer.reference}}
+    </div> 
     <div class="container-data-offer" *ngIf="!isUpdateOffer && isUpdateOffer === false">
       <p *ngIf="dataOffer.discountPrice > 0" [innerHTML]="dataOffer.price | currency: '$' : 'symbol' : '1.2-2'"
         class="price-strikethrough"></p>
