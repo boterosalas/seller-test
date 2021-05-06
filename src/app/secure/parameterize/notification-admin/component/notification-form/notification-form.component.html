@@ -19,7 +19,8 @@
           <mat-radio-group aria-label="Select an bodyNotification"
             formControlName="bodyNotification">
             <div fxFlex="35">
-              <mat-radio-button value="1" (click)="validateBody(1)">Texto +
+              <mat-radio-button value="1" [checked]="true"
+                (click)="validateBody(1)">Texto +
                 Imagen</mat-radio-button>
             </div>
             <div fxFlex="35">
@@ -60,10 +61,10 @@
           <mat-radio-group aria-label="Select an languaje"
             formControlName="lenguaje">
             <div fxFlex="35">
-              <mat-radio-button value="1">Español</mat-radio-button>
+              <mat-radio-button value="National" [checked]="true">Español</mat-radio-button>
             </div>
             <div fxFlex="35">
-              <mat-radio-button value="2">Ingles</mat-radio-button>
+              <mat-radio-button value="International">Ingles</mat-radio-button>
             </div>
           </mat-radio-group>
         </div>
@@ -86,7 +87,8 @@
           </mat-form-field>
         </div>
       </div>
-      <div style="width: 100%; padding-bottom: 20px;" *ngIf="showDescriptionColorImg">
+      <div style="width: 100%; padding-bottom: 20px;"
+        *ngIf="showDescriptionColorImg">
         <div style="width: 100%; padding-bottom: 20px;">
           <span>Contenido</span>
         </div>
@@ -95,7 +97,8 @@
             [config]="config"></angular-editor>
         </div>
       </div>
-      <div fxLayout="row wrap" fxFlex="100" style="padding-bottom: 20px;" *ngIf="showDescriptionColorImg">
+      <div fxLayout="row wrap" fxFlex="100" style="padding-bottom: 20px;"
+        *ngIf="showDescriptionColorImg">
         <div fxFlex="50">
           <div style="padding-bottom: 20px;">
             <span>Imagen destacadas</span>
@@ -106,7 +109,8 @@
                 <div fxFlex="100">
                   <div>
                     <div fxLayout="column" id="fileExcel"
-                      (click)="disableLoadImag === false ? modalLoadFiel(): ''" style="border: solid
+                      (click)="disableLoadImag === false ? modalLoadFiel(): ''"
+                      style="border: solid
                       1px
                       #707070;border-radius: 10px; width: 94%; cursor: pointer;"
                       [ngClass]="disableLoadImag === true ?
@@ -115,16 +119,23 @@
                       <div fxLayout="row">
                         <div style="padding-top: 20px;padding-left: 10px;
                           padding-right: 10px;">
-                          <mat-icon  class="mat-18"
+                          <mat-icon class="mat-18"
                             style="vertical-align:
                             middle;font-size: 33px;height: 33px; width: 33px;
-                            color: #757474;">image</mat-icon>
+                            color: #757474;" *ngIf="imagePathDrag === null">image</mat-icon>
+                          <div *ngIf="imagePathDrag !== null">
+                            <img [src]="imagePathDrag" style="width: 30px;
+                              height: 30px;">
+                          </div>
                         </div>
                         <div>
                           <div style="font-weight: bold; color: #727272;
                             padding-top: 20px;padding-bottom: 5px;">
-                            <span >
+                            <span *ngIf="!nameFile">
                               Subir archivo
+                            </span>
+                            <span *ngIf="nameFile">
+                              {{nameFile}} ({{sizeFile}} MB)
                             </span>
                           </div>
                           <div style="color: #727272; padding-bottom: 20px;">Medidas
@@ -144,25 +155,35 @@
             <span>Color de fondo</span>
           </div>
           <div style="border: solid 1px
-            #707070;border-radius: 10px;" [ngClass]="disableColor === true ?
+            #707070;border-radius: 10px; width: 100%;" [ngClass]="disableColor
+            === true ?
             'notification-form-disable-background-color' :
-            'notification-form-enable-background-color'">
-            <div style="padding: 25px;">
-              <input [ngStyle]="{'background': colorBackground, 'color': colorBackground}"
+            'notification-form-enable-background-color'" fxLayout="row wrap">
+            <div style="padding: 25px;" fxFlex="12">
+              <input [ngStyle]="{'background': colorBackground, 'color':
+                colorBackground}"
                 formControlName="pickerColor"
                 (colorPickerChange)="setValueColor($event)"
                 style="width: 23px;height: 23px; border-radius: 4px; border:
                 solid 1px black; cursor: pointer;"
-                [cpAlphaChannel]="'always'"
                 [cpOutputFormat]="'hex'"
                 [cpPositionOffset]="'-1000%'"
                 [(colorPicker)]="color" />
+            </div>
+            <div fxFlex="88" style="padding-top: 30px;">
+              <span style="font-size: 16px;">
+                {{colorBackground}}
+              </span>
             </div>
           </div>
         </div>
       </div>
       <div *ngIf="!showDescriptionColorImg" style="height: 380px; width: 100%;">
-       <app-modal-load-file [showComponent]="show" (emitDataImgLoad)="emitDataImgLoad($event)"></app-modal-load-file>
+        <div>
+          <span>Imagen destacadas</span>
+        </div>
+        <app-modal-load-file [showComponent]="show"
+          (emitDataImgLoad)="emitDataImgLoad($event)"></app-modal-load-file>
       </div>
       <div fxLayout="row" fxFlex="100" fxLayoutAlign="center center"
         style="padding-top: 30px;">

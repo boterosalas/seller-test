@@ -31,6 +31,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { UploadFileMasiveComponent } from '@app/shared/components/upload-file-masive/upload-file-masive.component';
 import { ModalLoadFileComponent } from './notification-admin/component/modal-load-file/modal-load-file.component';
+import { ModalPreviewNotificationComponent } from './notification-admin/component/modal-preview-notification/modal-preview-notification.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { ModalLoadFileComponent } from './notification-admin/component/modal-loa
     NotificationAdminComponent,
     NotificationFormComponent,
     UploadFileMasiveComponent,
-    ModalLoadFileComponent
+    ModalLoadFileComponent,
+    ModalPreviewNotificationComponent
   ],
   imports: [
     CommonModule,
@@ -86,7 +88,8 @@ import { ModalLoadFileComponent } from './notification-admin/component/modal-loa
     DownloadCategoriesComponent,
     ModalBulkloadBrandsComponent,
     UploadFileMasiveComponent,
-    ModalLoadFileComponent
+    ModalLoadFileComponent,
+    ModalPreviewNotificationComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

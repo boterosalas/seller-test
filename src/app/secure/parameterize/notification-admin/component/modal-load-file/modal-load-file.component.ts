@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
-import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-modal-load-file',
@@ -19,7 +18,7 @@ export class ModalLoadFileComponent implements OnInit {
   public file = null;
   public maxSize = 10145728;
   public lastInvalids: any;
-  public fileImgBase64 = '';
+  public fileImgBase64: any;
   public imagePathDrag: SafeResourceUrl = '';
   public accept = '.jpg, .JPG, .png, .PNG';
   public processFinish$ = new Subject<any>();
@@ -34,6 +33,8 @@ export class ModalLoadFileComponent implements OnInit {
 
   public size: number;
   public dimesion: boolean;
+  public nameFile = '';
+  public dateFile: any;
 
   @Output() emitDataImgLoad = new EventEmitter<object>();
 
@@ -50,6 +51,7 @@ export class ModalLoadFileComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _sanitizer: DomSanitizer,
+    public dialogRef: MatDialogRef<ModalLoadFileComponent>,
   ) { }
 
   ngOnInit() {
@@ -69,9 +71,13 @@ export class ModalLoadFileComponent implements OnInit {
       this.size = parseFloat(((this._fileAux.size) / 1024 / 1024).toFixed(3));
       this.validate(this._fileAux).then(data => {
         this.refuseMaxSize = this.size < 7000 ? false : true;
-        this.dimesion = data.width <= 800 && data.height <= 600 ? true : false ;
+        this.dimesion = data.width <= 800 && data.height <= 600 ? true : false;
         this.error = this.refuseMaxSize === true || this.dimesion === false ? true : false;
-        this.success = this.error ? false : true;
+        if (!this.error) {
+          this.loadDragAndDrop(this._fileAux);
+        } else {
+          this.success = false;
+        }
       });
     }
     this.file = null;
@@ -79,16 +85,19 @@ export class ModalLoadFileComponent implements OnInit {
   }
 
   loadDragAndDrop(file: any) {
-      this.getBase64(file).then(data => {
-        try {
-          this.fileImgBase64 = data;
-          this.imagePathDrag = this._sanitizer.bypassSecurityTrustResourceUrl(data);
-          this.processFinish$.next(data);
-          this.emitDataImgLoad.emit(data);
-        } catch (error) {
-          console.log(error);
-        }
-      });
+    this.getBase64(file).then(data => {
+      try {
+        console.log(file);
+        this.fileImgBase64 = data;
+        this.imagePathDrag = this._sanitizer.bypassSecurityTrustResourceUrl(data);
+        this.emitDataImgLoad.emit(this.fileImgBase64);
+        this.nameFile = file.name;
+        this.dateFile = file.lastModifiedDate;
+        this.success = this.error ? false : true;
+      } catch (error) {
+        console.log(error);
+      }
+    });
   }
 
   getBase64(file: any): any {
@@ -108,6 +117,22 @@ export class ModalLoadFileComponent implements OnInit {
       img.onload = () => resolve(img);
       img.onerror = error => reject(error);
     });
+  }
+
+  closeAndsave() {
+   this.close();
+    this.imagePathDrag = this._sanitizer.bypassSecurityTrustResourceUrl(this.fileImgBase64);
+    this.processFinish$.next(
+      {
+        imgBase64: this.fileImgBase64,
+        nameFile: this.nameFile,
+        sizeFile: this.size
+      }
+    );
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 
 }
