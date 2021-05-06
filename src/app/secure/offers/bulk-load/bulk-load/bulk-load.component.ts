@@ -1550,9 +1550,12 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
    *
    * @memberof BulkLoadComponent
    */
-  requestMail() {
-    this.dialogRef = this.dialog.open(ModalSendEmailComponent);
+   requestMail(productType:string) {
+    this.dialogRef = this.dialog.open(ModalSendEmailComponent, {
+      data: {productType}
+    });
   }
+  
   /**
    * destruye el compomente y cierra el modal
    *
