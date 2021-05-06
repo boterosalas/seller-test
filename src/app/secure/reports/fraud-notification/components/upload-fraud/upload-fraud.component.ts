@@ -351,7 +351,8 @@ export class UploadFraudComponent implements OnInit {
     }
     
     this._fraud.registersFrauds(sendData).subscribe((result: any) => {
-        if (result.data.status === 1) {
+
+      if (result.data.status === 1) {
           this.setIntervalStatusCharge();
           this.dialogRef.close(false);
           this.shellComponent.eventEmitterOrders.getClear();
@@ -361,6 +362,7 @@ export class UploadFraudComponent implements OnInit {
         this.openDialogSendOrder(result);
         this.dialogRef.close(false);
       }
+      
     });
   }
 
@@ -400,9 +402,7 @@ export class UploadFraudComponent implements OnInit {
   setIntervalStatusCharge() {
     clearInterval(this.checkIfDoneCharge);
     this.checkIfDoneCharge = setInterval(() => this._fraud.getStatusFrauds().subscribe((res: any) => {
-      if(res.body.data.status !== 1) {
-        this.verifyStateCharge(res);
-      }
+      this.verifyStateCharge(res);
     }), 7000);
   }
 
