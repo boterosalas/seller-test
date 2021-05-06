@@ -374,7 +374,7 @@ export class UploadFraudComponent implements OnInit {
 
       const newObjectForSend = {
         DateOrder: res[index][iVal.iFechaPedido],
-        OrderNumber: parseFloat(res[index][iVal.iNumeroOrden]),
+        OrderNumber: res[index][iVal.iNumeroOrden],
         EAN: res[index][iVal.iEAN],
         PLU: parseFloat(res[index][iVal.iPLU]),
         ProductName: res[index][iVal.iNombreProducto],
