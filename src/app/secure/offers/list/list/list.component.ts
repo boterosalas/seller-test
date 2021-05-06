@@ -254,13 +254,18 @@ export class ListComponent implements OnInit {
    * @memberof ListComponent
    */
   receiveVarConsumeList(event: any) {
+    console.log(event);
     if (event && event !== undefined && event !== null) {
       this.listOffer = [];
       this.currentPage = 1;
       this.filterActive = false;
       this.filterRemove = 'all';
       this.paramData.clear();
+      if (event.reference === true) {
+        this.verifyProccesApplyOffert();
+      } else {
       this.getListOffers();
+      }
     }
   }
 
@@ -312,7 +317,6 @@ export class ListComponent implements OnInit {
         sellerSku: null
       }
     };
-
     dataToSend.paramsFilters.ean = this.paramData.ean || null;
     dataToSend.paramsFilters.plu = this.paramData.pluVtex || null;
     dataToSend.paramsFilters.plu = this.paramData.reference || null;
@@ -321,7 +325,6 @@ export class ListComponent implements OnInit {
     dataToSend.paramsFilters.product = this.paramData.product || null;
 
     this.allOffer ? this.sumItemCount = this.totalOffers : this.sumItemCount = this.sumItemCount;
-
     const dialogRef = this.dialog.open(DialogDesactiveOffertComponent, {
       data: {
         count: this.sumItemCount
@@ -430,6 +433,39 @@ export class ListComponent implements OnInit {
   }
 
   /**
+   * Funcion para validar el estado del proceso de aplicar una ofertas
+   * @memberof ListComponent
+   */
+  verifyProccesApplyOffert() {
+    this.bulkLoadService.verifyStatusBulkLoad().subscribe((res) => {
+      try {
+        if (res && res.status === 200) {
+          const { status, checked } = res.body.data;
+          if ((status === 1 || status === 4 || status === 0) && checked !== 'true') {
+            const statusCurrent = 1;
+            setTimeout(() => { this.openModalApplyOffer(statusCurrent, null); });
+          } else if (status === 2 && checked !== 'true') {
+            setTimeout(() => { this.openModalApplyOffer(status, null); });
+          } else if (status === 3 && checked !== 'true') {
+            const response = res.body.data.response;
+            if (response) {
+              this.listErrorStatus = JSON.parse(response).Data.OfferNotify;
+            } else {
+              this.listErrorStatus = null;
+            }
+            setTimeout(() => { this.openModalApplyOffer(status, this.listErrorStatus); });
+          } else {
+            this.loadingService.closeSpinner();
+          }
+        }
+      } catch {
+        this.loadingService.viewSpinner();
+        this.modalService.showModal('errorService');
+      }
+    });
+  }
+
+  /**
    * Metodo para abrir modal de OK, carga en proceso o con errores.
    * @param {number} type
    * @param {*} listError
@@ -459,6 +495,46 @@ export class ListComponent implements OnInit {
     dialogIntance.request = this.bulkLoadService.verifyStatusBulkLoad();
     dialogIntance.processFinish$.subscribe((val) => {
       dialog.disableClose = false;
+    });
+  }
+
+  /**
+   * Modal para abrirOk, errores o carga en proceso de aplicar una oferta.
+   * @param {number} type
+   * @param {*} listError
+   * @memberof ListComponent
+   */
+  openModalApplyOffer(type: number, listError: any) {
+    this.loadingService.closeSpinner();
+    const intervalTime = 6000;
+    const data = {
+      // successText: this.languageService.instant('secure.offers.list.list.desactive_OK'),
+      successText: 'Aplico una oferta correctamente.',
+      // failText: this.languageService.instant('secure.offers.list.list.desactive_KO'),
+      failText: 'Error al intentar aplicar una oferta',
+      processText: 'Carga en proceso, aplicando oferta(s)',
+      goList: true,
+      initTime: 500,
+      intervalTime: intervalTime,
+      listError: listError,
+      typeStatus: type,
+      responseDiferent: false
+    };
+    const dialog = this.dialog.open(FinishUploadInformationComponent, {
+      width: '70%',
+      minWidth: '280px',
+      maxHeight: '80vh',
+      disableClose: type === 1 || type === 2 || type === 3,
+      data: data
+    });
+
+    const dialogIntance = dialog.componentInstance;
+    dialogIntance.request = this.bulkLoadService.verifyStatusBulkLoad();
+    dialogIntance.processFinish$.subscribe((val) => {
+      console.log(val);
+      if (val === null) {
+        this.getListOffers();
+      }
     });
   }
 

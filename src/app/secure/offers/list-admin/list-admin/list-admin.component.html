@@ -101,8 +101,7 @@
   <!-- Message for not offers -->
 
   <section *ngIf="viewDetailOffer && viewDetailOffer == true">
-    <app-detail-offer [dataOffer]="dataOffer" (consumeServiceList)="receiveVarConsumeList($event)"></app-detail-offer>
-    <!-- <app-detail-offer [dataOffer]="dataOffer" (consumeServiceList)="receiveVarConsumeList($event)"></app-detail-offer> -->
+    <app-detail-offer [dataOffer]="dataOffer"></app-detail-offer>
   </section>
 
   <!-- Filter sidenav component -->
