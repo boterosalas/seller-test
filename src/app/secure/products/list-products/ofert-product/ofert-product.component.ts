@@ -422,7 +422,7 @@ export class OfertExpandedProductComponent implements OnInit {
             IsFreightCalculator: this.ofertProduct.controls.ofertOption.value === 'IsFreightCalculator' ? '1' : '0',
             IsLogisticsExito: this.ofertProduct.controls.ofertOption.value === 'IsLogisticsExito' ? '1' : '0',
             IsUpdatedStock: this.ofertProduct.controls.IsUpdatedStock.value === true ? '1' : '0',
-            OfferByReference: this.ofertProduct.controls.OfferByReference.value === true ? '1' : '0',
+            OfferByReference: this.ofertProduct.controls.OfferByReference.value === true ? true : false,
             Periodicity: this.ofertProduct.controls.Periodicity.value,
             SellerSku: this.ofertProduct.controls.SellerSku.value,
             Currency: this.ofertProduct.controls.Currency.value,

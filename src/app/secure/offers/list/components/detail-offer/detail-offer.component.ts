@@ -768,11 +768,16 @@ export class DetailOfferComponent implements OnInit {
               this.oferts = [];
             } else {
               this.loadingService.closeSpinner();
-              this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.offer_has_been_correctly'), this.languageService.instant('actions.close'), {
-                duration: 5000,
-              });
+              // this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.offer_has_been_correctly'), this.languageService.instant('actions.close'), {
+              //   duration: 5000,
+              // });
               this.oferts[0].OfferByReference === true ? booleanReference = true : booleanReference = false;
               this.goToListOffers();
+              if (booleanReference === false) {
+                this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.offer_has_been_correctly'), this.languageService.instant('actions.close'), {
+                  duration: 5000,
+                });
+              }
               const dataEmit = {
                 event: true,
                 reference: booleanReference
