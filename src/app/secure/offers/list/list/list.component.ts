@@ -101,8 +101,8 @@ export class ListComponent implements OnInit {
    * @memberof ListComponent
    */
   ngOnInit() {
+    this.callServiceStatus();
     this.getListOffers();
-    this.verifyProccesDesactiveOffert();
     this.permissionComponent = this.authService.getMenu(offerListName);
     this.updatePermission = this.getFunctionality(this.update);
     this.readPermission = this.getFunctionality(this.read);
@@ -263,7 +263,7 @@ export class ListComponent implements OnInit {
       if (event.reference === true) {
         this.verifyProccesApplyOffert();
       } else {
-      this.getListOffers();
+        this.getListOffers();
       }
     }
   }
@@ -396,6 +396,26 @@ export class ListComponent implements OnInit {
    */
   activeMultipleOffer() {
     this.activeCheck = true;
+  }
+
+  /**
+   * Validar status si es carga en proceso o aplicar oferta en proceso
+   * @memberof ListComponent
+   */
+  callServiceStatus() {
+    this.loadingService.viewSpinner();
+    this.bulkLoadService.verifyStatusBulkLoad().subscribe((res) => {
+      if (res && res.status === 200) {
+        if (res.body.data.type === '1') {
+          this.verifyProccesApplyOffert();
+        } else {
+          this.verifyProccesDesactiveOffert();
+        }
+      } else {
+        this.loadingService.viewSpinner();
+        this.modalService.showModal('errorService');
+      }
+    });
   }
 
   /**
