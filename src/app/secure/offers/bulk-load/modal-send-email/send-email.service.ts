@@ -17,7 +17,6 @@ export class SendEmailService {
   }
 
   sendEmailFormat(data: any, productType:string) {
-    console.log(productType)
     return this.http.get(this.api.get('sendEmailFormat', [data.email, productType]), {observe: 'response'});
   }
 

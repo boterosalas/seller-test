@@ -1470,7 +1470,6 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     if (approval !== 1) {
       this.arrayInformationForSend.splice(0, 1);
     }
-    console.log(this.arrayInformationForSend);
     this.arrayInformationForSend.forEach(element => {
       // Validacion para que siempre se envie la promesa de entrega # a #.
       if (element['PromiseDelivery']) {
@@ -1479,7 +1478,6 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
         element['PromiseDelivery'] = convertPromise;
       }
       if (element['EAN']) {
-        console.log('hay ean y referencia');
         element['OfferByReference'] = false;
       } else if (!element['EAN'] && element['Reference']) {
         element['OfferByReference'] = true;
@@ -1491,21 +1489,21 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       'PriceApproval': approval,
       'ListOffers': this.arrayInformationForSend
     };
-    // this.bulkLoadService.setOffers(this.sendData)
-    //   .subscribe(
-    //     (result: any) => {
-    //       if (result) {
-    //         if ((result.data.successful === result.data.totalProcess) && (result.data.error === 0)) {
-    //           this.openModal(1, null);
-    //         } else {
-    //           const { offerNotifyViewModels } = result.data;
-    //           this.openModal(3, offerNotifyViewModels);
-    //         }
-    //       }
-    //       // this.resetVariableUploadFile();
-    //       this.loadingService.closeSpinner();
-    //     }
-    //   );
+    this.bulkLoadService.setOffers(this.sendData)
+      .subscribe(
+        (result: any) => {
+          if (result) {
+            if ((result.data.successful === result.data.totalProcess) && (result.data.error === 0)) {
+              this.openModal(1, null);
+            } else {
+              const { offerNotifyViewModels } = result.data;
+              this.openModal(3, offerNotifyViewModels);
+            }
+          }
+          // this.resetVariableUploadFile();
+          this.loadingService.closeSpinner();
+        }
+      );
   }
 
   /**

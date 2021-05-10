@@ -677,6 +677,10 @@ export class DetailOfferComponent implements OnInit {
     this.formUpdateOffer.controls.PromiseDelivery.setValue(this.convertPromise);
     this.params.push(this.formUpdateOffer.value);
     const combos = this.formUpdateOffer.controls.Combos.value;
+
+    if (this.formUpdateOffer.controls['OfferByReference'].value === true) {
+      this.dataOffer.ean = null;
+    }
     this.oferts = [
       {
         EAN: this.dataOffer.ean,
