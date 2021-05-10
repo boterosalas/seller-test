@@ -861,6 +861,7 @@
     "secure.offers.bulk_upload.table_error.dane_code": "El código DANE ingresado es inválido.",
     "secure.offers.bulk_upload.table_error.periodicity": "La periodicidad ingresada es inválida.",
     "secure.offers.bulk_upload.table_error.sellerSku": "El vendedor SKU es inválido.",
+    "secure.offers.bulk_upload.table_error.reference": "La referencia padre es inválida.",
 
     "secure.offers.bulk_upload.table_load.title_offer_charge": "Vuelve a cargar todas las ofertas",
     "secure.offers.bulk_upload.table_load.ean_combo": "Ean Combo",

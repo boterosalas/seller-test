@@ -840,6 +840,7 @@
     "secure.offers.bulk_upload.table_error.dane_code": "The code entered is invalid.",
     "secure.offers.bulk_upload.table_error.periodicity": "The periodicity is invalid.",
     "secure.offers.bulk_upload.table_error.sellerSku": "Seller SKU is invalid.",
+    "secure.offers.bulk_upload.table_error.reference": "La référence parent n'est pas valide.",
 
     "secure.offers.bulk_upload.table_load.title_offer_charge": "Upload the offers again",
     "secure.offers.bulk_upload.table_load.ean_combo": "EAN Combo",

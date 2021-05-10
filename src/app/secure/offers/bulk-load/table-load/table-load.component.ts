@@ -45,7 +45,8 @@ export class TableLoadComponent implements OnInit {
     'Address',
     'DaneCode',
     'Periodicity',
-    'SellerSku'
+    'SellerSku',
+    'Reference'
   ];
 
   /**
