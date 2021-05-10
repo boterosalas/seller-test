@@ -7,9 +7,9 @@
     <aside class="filters flexbox flex-wrap align-center" *ngIf="filterActive && ((paramData.product && paramData.product !== null && paramData.product !== undefined && paramData.product !== '') ||
       (paramData.ean && paramData.ean !== null && paramData.ean !== undefined && paramData.ean !== '') ||
       (paramData.sellerSku && paramData.sellerSku !== null && paramData.sellerSku !== undefined && paramData.sellerSku !== '') ||
+      (paramData.reference && paramData.reference !== null && paramData.reference !== undefined && paramData.reference !== '') ||
       (paramData.stock && paramData.stock !== null && paramData.stock !== undefined && paramData.stock !== ''))">
       <span class="filter-tittle">{{'secure.offers.list.list.filter_answer' | translate}}</span>
-      <!-- <span class="filter-tittle" [innerHTML]="'Resultado de filtro: '"></span> -->
 
       <div class="filter-desc first flexbox align-center justify-between"
         *ngIf="paramData.product && paramData.product !== null && paramData.product !== undefined && paramData.product !== ''">
@@ -28,24 +28,33 @@
       </div>
 
       <div class="filter-desc flexbox align-center justify-between"
-         *ngIf="paramData.pluVtex && paramData.pluVtex !== null && paramData.pluVtex !== undefined && paramData.pluVtex !== ''">
-         <span [innerHTML]="paramData.pluVtex"></span>
-         <span class="icon flexbox align-center justify-center" (click)="removeFilter('filterPluVtex')">
-           <mat-icon>add_circle</mat-icon>
-         </span>
-       </div>
+        *ngIf="paramData.pluVtex && paramData.pluVtex !== null && paramData.pluVtex !== undefined && paramData.pluVtex !== ''">
+        <span [innerHTML]="paramData.pluVtex"></span>
+        <span class="icon flexbox align-center justify-center" (click)="removeFilter('filterPluVtex')">
+          <mat-icon>add_circle</mat-icon>
+        </span>
+      </div>
 
-       <div class="filter-desc flexbox align-center justify-between"
-         *ngIf="paramData.sellerSku && paramData.sellerSku !== null && paramData.sellerSku !== undefined && paramData.sellerSku !== ''">
-         <span [innerHTML]="paramData.sellerSku"></span>
-         <span class="icon flexbox align-center justify-center" (click)="removeFilter('filterSellerSku')">
-           <mat-icon>add_circle</mat-icon>
-         </span>
-       </div>
+      <div class="filter-desc flexbox align-center justify-between"
+        *ngIf="paramData.sellerSku && paramData.sellerSku !== null && paramData.sellerSku !== undefined && paramData.sellerSku !== ''">
+        <span [innerHTML]="paramData.sellerSku"></span>
+        <span class="icon flexbox align-center justify-center" (click)="removeFilter('filterSellerSku')">
+          <mat-icon>add_circle</mat-icon>
+        </span>
+      </div>
+
+      <div class="filter-desc flexbox align-center justify-between"
+        *ngIf="paramData.reference && paramData.reference !== null && paramData.reference !== undefined && paramData.reference !== ''">
+        <span [innerHTML]="paramData.reference"></span>
+        <span class="icon flexbox align-center justify-center" (click)="removeFilter('filterReference')">
+          <mat-icon>add_circle</mat-icon>
+        </span>
+      </div>
 
       <div class="filter-desc flexbox align-center justify-between"
         *ngIf="paramData.stock && paramData.stock !== null && paramData.stock !== undefined && paramData.stock !== ''">
-        <span [innerHTML]="paramData.stock == '1' ? ['secure.offers.list.list.with_stock' | translate] : paramData.stock == 0 ? ['secure.offers.list.list.with_out_stock' | translate] : '' "></span>
+        <span
+          [innerHTML]="paramData.stock == '1' ? ['secure.offers.list.list.with_stock' | translate] : paramData.stock == 0 ? ['secure.offers.list.list.with_out_stock' | translate] : '' "></span>
         <span class="icon flexbox align-center justify-center" (click)="removeFilter('filterStock')">
           <mat-icon>add_circle</mat-icon>
         </span>
@@ -73,17 +82,22 @@
           class="price"></p>
         <p [innerHTML]="item.name" class="name"></p>
         <p [ngClass]="{'sold-out-text' : item.stock === 0 || !item.stock}"
-          [innerHTML]="item.stock > 0 ? (item.stock | number) + ['secure.offers.list.list.units' | translate] : ['secure.offers.list.list.with_out_stock' | translate]" class="stock"></p>
+          [innerHTML]="item.stock > 0 ? (item.stock | number) + ['secure.offers.list.list.units' | translate] : ['secure.offers.list.list.with_out_stock' | translate]"
+          class="stock"></p>
       </div>
 
       <footer class="container-last-modification flexbox align-center">
-        <p [innerHTML]="['secure.offers.list.components.detail_offer.last_modify' | translate] + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'">
+        <p
+          [innerHTML]="['secure.offers.list.components.detail_offer.last_modify' | translate] + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'">
         </p>
       </footer>
       <footer class="container-last-modification mobile flexbox align-center">
-        <p [innerHTML]="['secure.offers.list.components.detail_offer.last_mod' | translate] + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'"></p>
+        <p
+          [innerHTML]="['secure.offers.list.components.detail_offer.last_mod' | translate] + '<strong>' + (item.lastUpdate | date : 'dd/MM/yyyy') + '</strong>'">
+        </p>
         <p [ngClass]="{'sold-out-text' : item.stock === 0 || !item.stock}"
-          [innerHTML]="item.stock > 0 ? (item.stock | number) + ['secure.offers.list.list.units' | translate] : ['secure.offers.list.list.with_out_stock' | translate]"></p>
+          [innerHTML]="item.stock > 0 ? (item.stock | number) + ['secure.offers.list.list.units' | translate] : ['secure.offers.list.list.with_out_stock' | translate]">
+        </p>
       </footer>
     </aside>
     <!-- list admin offers -->
