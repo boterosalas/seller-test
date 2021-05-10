@@ -212,7 +212,6 @@ export class ListAdminComponent implements OnInit {
    * @memberof ListAdminComponent
    */
   filterOffers(params: any) {
-    console.log(params);
     this.currentPage = 1;
     this.filterActive = true;
     this.paramData.IdSeller = this.seller.IdSeller;

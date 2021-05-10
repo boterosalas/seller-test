@@ -89,7 +89,6 @@ export class OfertExpandedProductComponent implements OnInit {
     ngOnInit() {
         this.getAllDataUser();
         this.validateFormSupport();
-        console.log(1, this.productsExpanded);
     }
 
 

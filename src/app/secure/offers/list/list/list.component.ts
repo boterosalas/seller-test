@@ -254,7 +254,6 @@ export class ListComponent implements OnInit {
    * @memberof ListComponent
    */
   receiveVarConsumeList(event: any) {
-    console.log(event);
     if (event && event !== undefined && event !== null) {
       this.listOffer = [];
       this.currentPage = 1;
@@ -531,7 +530,6 @@ export class ListComponent implements OnInit {
     const dialogIntance = dialog.componentInstance;
     dialogIntance.request = this.bulkLoadService.verifyStatusBulkLoad();
     dialogIntance.processFinish$.subscribe((val) => {
-      console.log(val);
       if (val === null) {
         this.getListOffers();
       }
