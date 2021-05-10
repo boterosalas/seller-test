@@ -131,6 +131,9 @@ export class DashboardComponent implements OnInit {
     @ViewChild('pickerSales', {static: false}) pickerSales;
     @ViewChild('pickerDiarySales', {static: false}) pickerDiarySales;
     @ViewChild('containerScrollTop', {static: false}) containerScrollTop: ElementRef;
+    
+    // Variable para ocultar temporalmente indicadores para vendedores
+    hideIndicators = false;
 
     /**
      * @method constructor
@@ -285,6 +288,11 @@ calculateCountSales(res: any) {
      */
     private async getUserData() {
         this.user = await this.userParams.getUserData();
+        if (this.user && this.user.sellerProfile !== 'seller') {
+            this.hideIndicators = true;
+        } else {
+            this.hideIndicators = false;
+        }
         this.getOrdersData();
     }
 

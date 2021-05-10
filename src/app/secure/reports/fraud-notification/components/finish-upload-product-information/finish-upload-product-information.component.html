@@ -1,0 +1,22 @@
+<div>
+  <div class="error-list-content list-log">
+
+    <h4 class="error-string" mat-subheader *ngIf="response.data.status ===3">
+      <mat-icon>warning</mat-icon>
+      {{'secure.products.create_product_unit.specifications.dialog.there' | translate}} {{response.error > 1 ? has: have }} {{'secure.products.create_product_unit.specifications.dialog.been' | translate}} {{response.error}} {{response.error > 1 ? errors : error }} {{'secure.frauds.bulk_upload.process' | translate}}
+    </h4>
+    <mat-divider *ngIf="response.data.status ===3"></mat-divider>
+
+    <mat-nav-list *ngIf="response.data.status ===3">
+      <mat-list-item *ngFor="let item of errorsFrauds.ListError">
+        <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>
+        <h4 matLine>{{'secure.load_guide_page.finish_upload_info.order_number' | translate}}: {{item.OrderNumber}}</h4>
+        <p matLine>{{'secure.products.Finish_upload_product_information.error_ocurred' | translate}}: {{item.Message}}</p>
+      </mat-list-item>
+    </mat-nav-list>
+  </div>
+
+  <mat-dialog-actions class="footer-dialog">
+    <button id="close-finish-upload-button" *ngIf="response.data.status === 3" mat-raised-button color="primary" mat-dialog-close>{{'actions.close' | translate}}</button>
+  </mat-dialog-actions>
+</div>

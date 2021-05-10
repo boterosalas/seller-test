@@ -1,0 +1,39 @@
+<div>
+
+  <h3 class="processing-string" mat-subheader *ngIf="response.body.data.status === 1">
+    <mat-spinner class="processCharge" [diameter]="60"></mat-spinner>
+    {{response.processing}} {{'secure.products.Finish_upload_product_information.upload_progress' | translate}}
+  </h3>
+
+  <div *ngIf="response.body.data.status ===2">
+    <div class="text-end">
+      <mat-icon class="mat-18 icon-close" (click)="onNoClick()">clear</mat-icon>
+    </div>
+    <div>
+      <div>
+        <ng-container>
+          <div class="container-icon-success">
+            <mat-icon>
+              done
+            </mat-icon>
+          </div>
+        </ng-container>
+        <ng-container class="title-container">
+          <div class="text-success">
+            <strong> {{'secure.frauds.charge.success' | translate}} </strong>
+          </div>
+        </ng-container>
+        <ng-container>
+          <div class="subtext-success">
+            {{'secure.frauds.charge.success.text' | translate}}
+          </div>
+        </ng-container>
+      </div>
+      <mat-dialog-actions class="margintTopDeleteButton container__btn"
+        fxLayoutAlign="center center">
+        <button id="close-finish-upload-button"  mat-raised-button color="primary" mat-dialog-close> {{'actions.accept' | translate}}</button>
+      
+      </mat-dialog-actions>
+    </div>
+  </div>
+</div>

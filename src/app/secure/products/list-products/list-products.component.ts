@@ -114,7 +114,9 @@ export class ListProductsComponent implements OnInit {
 
 
     validateKey = true;
+    validateKeyPlu = true;
     keywords: Array<any> = [];
+    keyPlus = [];
     listCategories2: any;
     idcategory: any;
     namecategory: Array<any> = [];
@@ -271,6 +273,7 @@ export class ListProductsComponent implements OnInit {
      */
     modelObject() {
         let booleanDate;
+        let stringPlus;
         if (this.creationDateList && this.creationDateList === 'createDate') {
             booleanDate = true;
         } else {
@@ -286,9 +289,15 @@ export class ListProductsComponent implements OnInit {
         } else {
             this.finalDateList = null;
         }
+
+        if (this.infoSelected && this.infoSelected.list) {
+            stringPlus = this.infoSelected.list.toString();
+        } else {
+            stringPlus = this.keyPlus.toString();
+        }
         this.modelDelete = {
             ean: this.eanList || null,
-            plu: this.infoSelected ? this.infoSelected.list.toString() : null,
+            plu: stringPlus || null,
             sellerSku: this.sellerSkuList || null,
             product: this.nameProductList || null,
             categories: this.categoryList || null,
@@ -360,7 +369,7 @@ export class ListProductsComponent implements OnInit {
                 }
                 this.progressStatus = true;
             } else if (result.body.data.status === 2) {
-                this.progressStatus = false;
+                this.loadingService.closeSpinner();
                 clearInterval(this.checkIfDoneCharge);
                 this.closeActualDialog();
                 if (this.typeDelete === 1) {
@@ -371,9 +380,9 @@ export class ListProductsComponent implements OnInit {
             } else if (result.body.data.status === 3) {
                 this.closeActualDialog();
                 clearInterval(this.checkIfDoneCharge);
-                    this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.error_delete'), this.languageService.instant('actions.close'), {
-                        duration: 3000,
-                    });
+                this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.error_delete'), this.languageService.instant('actions.close'), {
+                    duration: 3000,
+                });
             }
         } else {
             this.modalService.showModal('errorService');
@@ -486,6 +495,41 @@ export class ListProductsComponent implements OnInit {
     }
 
     /**
+     * Función para ir guardando los Plus como chips.
+     * @memberof ListProductsComponent
+     */
+    public saveSomePlus(): void {
+        let word = this.filterProduts.controls.pluVtex.value;
+        if (word) {
+            word = word.trim();
+            word = word.replace(/ /g, '');
+            if (word.search(',') === -1) {
+                this.keyPlus.push(word);
+            } else {
+                const counter = word.split(',');
+                counter.forEach(element => {
+                    if (element) {
+                        this.keyPlus.push(element);
+                    }
+                });
+            }
+            this.filterProduts.controls.pluVtex.clearValidators();
+            this.filterProduts.controls.pluVtex.reset();
+            this.validateKeyPlu = this.keyPlus.length > 0 ? false : true;
+        }
+    }
+
+    /**
+     * Funcion para eliminar los plus en el filtro de listado de productos.
+     * @param {number} indexOfValue
+     * @memberof ListProductsComponent
+     */
+    public deleteKeyPlus(indexOfValue: number): void {
+        this.keyPlus.splice(indexOfValue, 1);
+        this.validateKeyPlu = this.keyPlus.length > 0 ? false : true;
+    }
+
+    /**
      * Metodo para abrir modal para la descarga de los productos solo admin
      * @memberof ListProductsComponent
      */
@@ -526,10 +570,11 @@ export class ListProductsComponent implements OnInit {
         });
     }
 
+
     /**
-    * Metodo para abrir modal para la descarga de los productos seller
-    * @memberof ListProductsComponent
-    */
+     * Metodo para abrir modal para la descarga de los productos seller
+     * @memberof ListProductsComponent
+     */
     openDialogDownloadProductsSeller() {
         if (this.filterProduts.controls.initialDate.value) {
             this.initialDateList = this.getDate(new Date(this.filterProduts.controls.initialDate.value));
@@ -613,7 +658,7 @@ export class ListProductsComponent implements OnInit {
         this.filterProduts = this.fb.group({
             productName: new FormControl('', Validators.compose([Validators.maxLength(120), Validators.pattern(this.getValue('nameProduct'))])),
             ean: new FormControl(''),
-            pluVtex: new FormControl('', Validators.compose([Validators.pattern(this.getValue('integerNumber'))])),
+            pluVtex: new FormControl(''),
             sellerSku: new FormControl('', Validators.compose([Validators.pattern(this.getValue('sellerSku'))])),
             initialDate: { disabled: true, value: '' },
             finalDate: { disabled: true, value: '' },
@@ -690,6 +735,7 @@ export class ListProductsComponent implements OnInit {
     public cleanFilter() {
         this.idcategory = [];
         this.keywords = [];
+        this.keyPlus = [];
         this.filterProduts.reset();
         this.cleanFilterListProducts();
         this.filterListProducts();
@@ -755,13 +801,19 @@ export class ListProductsComponent implements OnInit {
         if (this.idcategory === [] || (this.idcategory && this.idcategory.length === 0)) {
             this.idcategory = null;
         }
+        let arrayPlus;
+        if (this.keyPlus === [] || (this.keyPlus && this.keyPlus.length === 0)) {
+            arrayPlus = null;
+        } else {
+            arrayPlus = this.keyPlus;
+        }
         let urlParams2: any;
         let countFilter = 0;
         let fecha = 0;
         this.initialDateList = null;
         this.finalDateList = null;
         this.nameProductList = this.filterProduts.controls.productName.value || null;
-        this.pluVtexList = this.filterProduts.controls.pluVtex.value || null;
+        this.pluVtexList = arrayPlus || null;
         this.sellerSkuList = this.filterProduts.controls.sellerSku.value || null;
         this.categoryList = this.idcategory || null;
         this.eanList = this.filterProduts.controls.ean.value || null;
@@ -908,7 +960,7 @@ export class ListProductsComponent implements OnInit {
         this.cleanFilterListProducts();
         this.nameProductList = this.filterProduts.controls.productName.value || null;
         this.eanList = this.filterProduts.controls.ean.value || null;
-        this.pluVtexList = this.filterProduts.controls.pluVtex.value || null;
+        this.pluVtexList = this.keyPlus || null;
         this.sellerSkuList = this.filterProduts.controls.sellerSku.value || null;
         this.categoryList = this.idcategory || null;
 
@@ -922,13 +974,20 @@ export class ListProductsComponent implements OnInit {
         // const data = [];
         this.dataChips.push({ value: this.nameProductList, name: 'nameProductList', nameFilter: 'productName' });
         this.dataChips.push({ value: this.eanList, name: 'eanList', nameFilter: 'ean' });
-        this.dataChips.push({ value: this.pluVtexList, name: 'pluVtexList', nameFilter: 'pluVtex' });
+        // this.dataChips.push({ value: this.pluVtexList, name: 'pluVtexList', nameFilter: 'pluVtex' });
         this.dataChips.push({ value: this.sellerSkuList, name: 'sellerSkuList', nameFilter: 'sellerSku' });
         this.dataChips.push({ value: this.creationDateList, name: 'creationDateList', nameFilter: 'creationDate' });
         if (this.idcategory && this.idcategory.length > 0) {
             this.namecategory.forEach(el => {
                 if (el) {
                     this.dataChips.push({ value: el, name: 'categoryList', nameFilter: 'category' });
+                }
+            });
+        }
+        if (this.keyPlus && this.keyPlus.length > 0) {
+            this.keyPlus.forEach(el => {
+                if (el) {
+                    this.dataChips.push({ value: el, name: 'pluVtexList', nameFilter: 'pluVtex' });
                 }
             });
         }
@@ -991,7 +1050,6 @@ export class ListProductsComponent implements OnInit {
 
     // Metodo para ir eliminando los filtros aplicados
     public remove(productsFilter: ListFilterProducts): void {
-
         if (productsFilter.nameFilter === 'creationDate') {
             this.filterProduts.controls.initialDate.setValue(null);
             this.filterProduts.controls.finalDate.setValue(null);
@@ -1016,26 +1074,30 @@ export class ListProductsComponent implements OnInit {
             // this.namecategory = null;
         }
 
+        if (productsFilter.nameFilter === 'pluVtex') {
+            this.keyPlus.forEach(el => {
+                if (productsFilter.name === el) {
+                    const indice = this.keyPlus.indexOf(el);
+                    this.keyPlus.splice(indice, 1);
+                }
+            });
+            this.listFilterProducts.splice(index, 1);
+        }
+
         if (index >= 0) {
             this.listFilterProducts.splice(index, 1);
             this[productsFilter.value] = '';
             this.filterProduts.controls[productsFilter.nameFilter].setValue(null);
         }
+
         this.filterListProducts();
     }
 
-    mirarfecha(): void {
-        const final = this.finalDateList;
-        const inicial = this.initialDateList;
-        if (new Date(final) < new Date(inicial)) {
-        }
-    }
 
     public setCategoryError(show: boolean): void {
         const inicial = new Date(this.initialDateList);
         const final = new Date(this.finalDateList);
         if (show) {
-
             if (final < inicial) {
                 this.filterProduts.controls.creationDate.setErrors({ date: show });
             }
@@ -1074,5 +1136,6 @@ export class ListProductsComponent implements OnInit {
             this.filterListProducts();
         }, 2000);
     }
+
 
 }

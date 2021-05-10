@@ -94,4 +94,14 @@ export class SearchOrderMenuService {
         .subscribe(data => obs.next(data), err => obs.error(err));
     });
   }
+
+
+  getFraudList(limit: any, stringSearch: string): Observable<HistoricalDevolutionEntity[]> {
+    return new Observable(obs => {
+      this.http.get<HistoricalDevolutionEntity[]>(this.api.get('getFrauds', [limit + stringSearch]))
+        .subscribe(data => obs.next(data), err => obs.error(err));
+    });
+  }
+
+
 }
