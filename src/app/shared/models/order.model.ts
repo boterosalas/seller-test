@@ -414,3 +414,9 @@ export interface PortEntity {
   Id: number;
   Name: string;
 }
+
+export interface FraudEntity {
+  nameFile: string;
+  url: string;
+  creationDate: string;
+}

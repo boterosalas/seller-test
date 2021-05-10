@@ -283,6 +283,25 @@
           </td>
         </ng-container>
 
+            <!-- Referencia padre Column -->
+            <ng-container matColumnDef="Reference">
+              <th mat-header-cell *matHeaderCellDef>
+                <div class="information th">
+                  <p>{{'secure.products.table_load_product.parent_reference' | translate}}
+                  </p>
+                </div>
+              </th>
+              <td mat-cell [ngClass]="{'selected-error': element.errorReference == true }" *matCellDef="let element">
+                <div class="information" *ngIf="element.Reference != undefined && element.Reference != ''">
+                  <p class="sc-text-normal">{{element.Reference}}</p>
+                </div>
+                <div class="information" *ngIf="element.Reference == undefined || element.Reference == ''">
+                  <p class="text-error"> -
+                  </p>
+                </div>
+              </td>
+            </ng-container>
+
 
         <!-- Cantidad en combo Column -->
         <ng-container matColumnDef="ComboQuantity">
