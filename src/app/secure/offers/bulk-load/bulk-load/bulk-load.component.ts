@@ -1478,15 +1478,15 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
         const convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
         element['PromiseDelivery'] = convertPromise;
       }
-      if (element['EAN'] && element['Reference']) {
+      if (element['EAN']) {
         console.log('hay ean y referencia');
+        element['OfferByReference'] = false;
+      } else if (!element['EAN'] && element['Reference']) {
         element['OfferByReference'] = true;
       } else {
         element['OfferByReference'] = false;
       }
     });
-    console.log('dsps: ', this.arrayInformationForSend);
-
     this.sendData = {
       'PriceApproval': approval,
       'ListOffers': this.arrayInformationForSend
