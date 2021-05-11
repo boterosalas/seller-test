@@ -694,7 +694,7 @@ export class DetailOfferComponent implements OnInit {
         IsFreeShipping: this.formUpdateOffer.controls['IsFreeShipping'].value,
         IsEnviosExito: this.formUpdateOffer.controls['IsEnviosExito'].value,
         IsFreightCalculator: this.formUpdateOffer.controls['IsFreightCalculator'].value,
-        OfferByReference: this.formUpdateOffer.controls['OfferByReference'].value ? true : false,
+        OfferByReference: this.formUpdateOffer.controls['OfferByReference'].value,
         SellerSku: this.params[0].SellerSku,
         Reference: this.dataOffer.reference,
         IsLogisticsExito: '0',
