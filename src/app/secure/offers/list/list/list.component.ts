@@ -460,7 +460,7 @@ export class ListComponent implements OnInit {
       try {
         if (res && res.status === 200) {
           const { status, checked } = res.body.data;
-          if ((status === 1 || status === 4 || status === 0) && checked !== 'true') {
+          if ((status === 1 || status === 4 ) && checked !== 'true') {
             const statusCurrent = 1;
             setTimeout(() => { this.openModalApplyOffer(statusCurrent, null); });
           } else if (status === 2 && checked !== 'true') {

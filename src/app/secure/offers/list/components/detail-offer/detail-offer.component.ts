@@ -715,7 +715,6 @@ export class DetailOfferComponent implements OnInit {
           'IsEnviosExito': null,
           'IsFreeShipping': null,
           'IsFreightCalculator': null,
-          'OfferByReference': null,
           'PromiseDelivery': null,
           'IsLogisticsExito': '0',
           'SellerSku': null
