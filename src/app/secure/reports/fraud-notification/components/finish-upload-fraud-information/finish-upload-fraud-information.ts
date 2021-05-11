@@ -17,6 +17,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class FinishUploadFraudInformationComponent implements AfterViewInit {
 
   public response: any;
+  public responseErrors: any;
   public has: string;
   public have: string;
   public errors: string;
@@ -37,6 +38,9 @@ export class FinishUploadFraudInformationComponent implements AfterViewInit {
   ) {
 
     this.response = data.response;
+    if(this.response.body.data.status !== 1 ) {
+      this.responseErrors = JSON.parse(data.response.body.data.response);
+    }
     this.has = this.languageService.instant('secure.products.create_product_unit.specifications.dialog.has');
     this.have = this.languageService.instant('secure.products.create_product_unit.specifications.dialog.have');
     this.errors = this.languageService.instant('secure.products.create_product_unit.specifications.dialog.errors');

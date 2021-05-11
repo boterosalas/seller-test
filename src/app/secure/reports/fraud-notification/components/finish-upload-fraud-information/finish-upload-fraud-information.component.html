@@ -5,7 +5,26 @@
     {{response.processing}} {{'secure.products.Finish_upload_product_information.upload_progress' | translate}}
   </h3>
 
-  <div *ngIf="response.body.data.status ===2">
+  <div class="error-list-content list-log">
+  <h4 class="error-string" mat-subheader *ngIf="response.body.data.status === 3">
+    <mat-icon>warning</mat-icon>
+    {{'secure.products.create_product_unit.specifications.dialog.there' | translate}} {{response.body.error > 1 ? has: have }} {{'secure.products.create_product_unit.specifications.dialog.been' | translate}} {{response.body.error}} {{response.body.error > 1 ? errors : error }} {{'secure.products.bulk_upload.process' | translate}}
+  </h4>
+  <mat-divider *ngIf="response.body.data.status === 3"></mat-divider>
+
+  <mat-nav-list *ngIf="response.body.data.status === 3">
+    <mat-list-item *ngFor="let item of responseErrors.ListError">
+      <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>
+      <h4 matLine>{{'secure.load_guide_page.finish_upload_info.order_number' | translate}}: {{item.OrderNumber}}</h4>
+      <p matLine>{{'secure.products.Finish_upload_product_information.error_ocurred' | translate}}: {{item.Message}}</p>
+    </mat-list-item>
+    <mat-dialog-actions class="footer-dialog">
+      <button id="close-finish-upload-button" mat-raised-button color="primary" mat-dialog-close>{{'actions.close' | translate}}</button>
+    </mat-dialog-actions>
+  </mat-nav-list>
+  </div>
+  
+  <div *ngIf="response.body.data.status === 2">
     <div class="text-end">
       <mat-icon class="mat-18 icon-close" (click)="onNoClick()">clear</mat-icon>
     </div>
@@ -30,10 +49,10 @@
         </ng-container>
       </div>
       <mat-dialog-actions class="margintTopDeleteButton container__btn"
-        fxLayoutAlign="center center">
-        <button id="close-finish-upload-button"  mat-raised-button color="primary" mat-dialog-close> {{'actions.accept' | translate}}</button>
-      
-      </mat-dialog-actions>
+      fxLayoutAlign="center center">
+      <button id="close-finish-upload-button"  mat-raised-button color="primary" mat-dialog-close> {{'actions.accept' | translate}}</button>
+    
+    </mat-dialog-actions>
     </div>
   </div>
 </div>
