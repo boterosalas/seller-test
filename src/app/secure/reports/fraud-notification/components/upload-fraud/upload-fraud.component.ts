@@ -476,6 +476,7 @@ export class UploadFraudComponent implements OnInit {
        width: '800px',
       maxWidth: '90vw',
       maxHeight: '90vh',
+      disableClose: true,
       data: {
         response: res,
         responseDiferent : false
