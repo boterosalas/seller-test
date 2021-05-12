@@ -554,7 +554,7 @@ export class ListProductsComponent implements OnInit {
         }
         const dataToSend = {
             ean: this.eanList || null,
-            plu: this.pluVtexList || null,
+            plu: this.keyPlus.toString() || null,
             sellerSku: this.sellerSkuList || null,
             product: this.nameProductList || null,
             categories: this.categoryList || null,
@@ -596,7 +596,7 @@ export class ListProductsComponent implements OnInit {
         }
         const dataToSend = {
             ean: this.eanList || null,
-            plu: this.pluVtexList || null,
+            plu: this.keyPlus.toString() || null,
             sellerSku: this.sellerSkuList || null,
             product: this.nameProductList || null,
             categories: this.categoryList || null,
