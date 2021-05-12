@@ -678,12 +678,13 @@ export class DetailOfferComponent implements OnInit {
     this.params.push(this.formUpdateOffer.value);
     const combos = this.formUpdateOffer.controls.Combos.value;
 
+    let sendEan = this.dataOffer.ean;
     if (this.formUpdateOffer.controls['OfferByReference'].value === true) {
-      this.dataOffer.ean = null;
+      sendEan = null;
     }
     this.oferts = [
       {
-        EAN: this.dataOffer.ean,
+        EAN: sendEan,
         Stock: this.params[0].Stock,
         Price: this.params[0].Price,
         DiscountPrice: this.params[0].DiscountPrice,
@@ -694,7 +695,7 @@ export class DetailOfferComponent implements OnInit {
         IsFreeShipping: this.formUpdateOffer.controls['IsFreeShipping'].value,
         IsEnviosExito: this.formUpdateOffer.controls['IsEnviosExito'].value,
         IsFreightCalculator: this.formUpdateOffer.controls['IsFreightCalculator'].value,
-        OfferByReference: this.formUpdateOffer.controls['OfferByReference'].value,
+        OfferByReference: this.formUpdateOffer.controls['OfferByReference'].value ? true : false,
         SellerSku: this.params[0].SellerSku,
         Reference: this.dataOffer.reference,
         IsLogisticsExito: '0',
