@@ -648,7 +648,7 @@ export class DetailOfferComponent implements OnInit {
       }
     } else {
       if (this.dataOffer.discountPrice !== '0.00') {
-        if (valPrice < valLowDown || valPrice > valLowUp) {
+        if (valDiscount && (valPrice < valLowDown || valPrice > valLowUp)) {
           this.openDialogModalRule();
         } else {
           this.sameInfoUpdate();
@@ -762,12 +762,22 @@ export class DetailOfferComponent implements OnInit {
           if (data.body.successful !== 0 || data.body.error !== 0) {
             if (data.body.data.error > 0) {
               this.loadingService.closeSpinner();
-              this.snackBar.open(this.languageService.instant('secure.offers.list.components.detail_offer.snackbar_offer_product'), this.languageService.instant('actions.close'), {
-                duration: 5000,
-              });
               // this.consumeServiceList.emit(true);
               this.params = [];
               this.oferts = [];
+              let countError = 0;
+              data.body.data.offerNotifyViewModels.forEach(element => {
+                if (element.code === 'PEX') {
+                  countError++;
+                }
+              });
+              if (countError === data.body.data.error) {
+                this.openDialogModalRule();
+              } else {
+                this.snackBar.open(this.languageService.instant('secure.offers.list.components.detail_offer.snackbar_offer_product'), this.languageService.instant('actions.close'), {
+                  duration: 5000,
+                });
+              }
             } else {
               this.loadingService.closeSpinner();
               // this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.offer_has_been_correctly'), this.languageService.instant('actions.close'), {

@@ -527,11 +527,9 @@ export class ListComponent implements OnInit {
     this.loadingService.closeSpinner();
     const intervalTime = 6000;
     const data = {
-      // successText: this.languageService.instant('secure.offers.list.list.desactive_OK'),
-      successText: 'Aplico una oferta correctamente.',
-      // failText: this.languageService.instant('secure.offers.list.list.desactive_KO'),
-      failText: 'Error al intentar aplicar una oferta',
-      processText: 'Carga en proceso, aplicando oferta(s)',
+      successText: this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.offer_has_been_correctly'),
+      failText: this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.error_trying_apply_offer'),
+      processText: this.languageService.instant('secure.products.Finish_upload_product_information.upload_progress'),
       goList: true,
       initTime: 500,
       intervalTime: intervalTime,
