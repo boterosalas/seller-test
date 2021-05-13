@@ -436,8 +436,8 @@ export class UploadFraudComponent implements OnInit {
     } else if (result.body.data.status === 3) {
       this.closeActualDialog();
       clearInterval(this.checkIfDoneCharge);
-      const resultBody = JSON.parse(result.body.data.Response);
-      if (resultBody.Errors.length > 0) {
+      const resultBody = JSON.parse(result.body.data.response);
+      if (resultBody.Error > 0) {
         this.openDialogFrauds(result);
       }
       this.loadingService.closeSpinner();
@@ -476,6 +476,7 @@ export class UploadFraudComponent implements OnInit {
        width: '800px',
       maxWidth: '90vw',
       maxHeight: '90vh',
+      disableClose: true,
       data: {
         response: res,
         responseDiferent : false
