@@ -330,8 +330,10 @@ export const endpoints = {
       downloadTemplateCategoryMasive : 'https://seller-center-exito-staging.s3.amazonaws.com/Templates-Dev/PlantillaCargaMasivaCategorias.xlsx',
       // Crear caterogiras de forma masiva
       createUpdateMassiveCategories: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/CreateUpdateMassiveCategories/{params}',
-       // valida el estado de la carga masiva de categorias
-       ValidateStatusCreateUpdateMassive :  'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/ValidateStatusCreateUpdateMassive'
+      // valida el estado de la carga masiva de categorias
+      ValidateStatusCreateUpdateMassive :  'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/ValidateStatusCreateUpdateMassive',
+      // Listar anuncios vendedor
+      getAdvertisements :  'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/GetNewsByTarget?totalMax=10'
     },
   },
   // Endpoints production
@@ -660,7 +662,9 @@ export const endpoints = {
       // Crear caterogiras de forma masiva
       createUpdateMassiveCategories: 'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/CreateUpdateMassiveCategories/{params}',
       // valida el estado de la carga masiva de categorias
-      ValidateStatusCreateUpdateMassive :  'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/ValidateStatusCreateUpdateMassive'
+      ValidateStatusCreateUpdateMassive :  'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/ValidateStatusCreateUpdateMassive',
+      // Listar anuncios vendedor
+      getAdvertisements :  'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/GetNewsByTarget?totalMax=10'
     }
   }
 };

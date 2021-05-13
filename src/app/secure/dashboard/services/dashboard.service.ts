@@ -90,4 +90,8 @@ public getIndicators(params: any): Observable<any> {
     return this._http.get(this._api.get('getIndicators', [params]));
   }
 
+  public getAdvertisements(): Observable<any> {
+    return this._http.get(this._api.get('getAdvertisements'));
+  }
+
 }

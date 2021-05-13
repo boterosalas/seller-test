@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DashboardService } from '../services/dashboard.service';
 
 @Component({
   selector: 'app-advertisements',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdvertisementsComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private _dashboard: DashboardService
+  ) { }
+
+  public advertisements = [];
 
   ngOnInit() {
+    this.listAdvertisements();
+  }
+
+  public listAdvertisements() {
+    this._dashboard.getAdvertisements().subscribe(({Data}) => {
+      this.advertisements = Data;
+    })
   }
 
 }
