@@ -1,6 +1,56 @@
 <mat-card class="advertisements">
-    <span class="material-icons">
-        campaign
-        </span>
-    <h3>Anuncios</h3>
+
+    <h3> <mat-icon class="campaign">campaign</mat-icon> Anuncios</h3>
+    
+    <button mat-raised-button (click)="showPage1()" class="mat-elevation-z0" [disabled]="page1">
+        <mat-icon class="material-icons-outlined">
+            chevron_left
+        </mat-icon>
+    </button>
+
+    <button mat-raised-button (click)="showPage2()" class="mat-elevation-z0" [disabled]="page2">
+        <mat-icon class="material-icons-outlined">
+            chevron_right
+        </mat-icon>
+    </button>
+    
+
+    
+        
+        <div *ngFor="let item of advertisements; let i = index">
+
+            <div *ngIf="i < 5  && page1">
+                    
+                    <div fxLayout="row" fxLayoutGap="15px">
+                        <h3>{{item.Title}}</h3>
+                        <span class="tag" *ngIf="item.IsNew"> Nuevo </span>
+                    </div>
+                    
+                    <p>{{item.CreationDate | date: 'dd/MM/yyyy'}}</p>
+
+                    <div [innerHtml]="item.Body">
+                    </div>
+
+                </div>
+
+        </div>
+        
+        <div *ngFor="let item of advertisements; let i = index">
+
+            <div *ngIf="i >= 5  && page2">
+                    
+                    <div fxLayout="row" fxLayoutGap="15px">
+                        <h3>{{item.Title}}</h3>
+                        <span class="tag" *ngIf="item.IsNew"> Nuevo </span>
+                    </div>
+
+                    <p>{{item.CreationDate | date: 'dd/MM/yyyy'}}</p>
+                    <div [innerHtml]="item.Body">
+                    </div>
+            </div>
+        
+        </div>
+
+      
+
 </mat-card>

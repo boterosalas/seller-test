@@ -13,6 +13,9 @@ export class AdvertisementsComponent implements OnInit {
   ) { }
 
   public advertisements = [];
+  public page1 = true;
+  public page2 = false;
+
 
   ngOnInit() {
     this.listAdvertisements();
@@ -22,6 +25,16 @@ export class AdvertisementsComponent implements OnInit {
     this._dashboard.getAdvertisements().subscribe(({Data}) => {
       this.advertisements = Data;
     })
+  }
+
+  public showPage2() {
+    this.page1 = false;
+    this.page2 = true;
+  }
+
+  public showPage1() {
+    this.page1 = true;
+    this.page2 = false;
   }
 
 }
