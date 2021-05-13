@@ -18,6 +18,7 @@ import { ModalDashboardComponent } from './modal-dashboard/modal-dashboard.compo
 import { QualityIndicatorsComponent } from './quality-indicators/quality-indicators.component';
 import { InfoIndicatorsComponent } from './info-indicators/info-indicators.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DashOrdersComponent } from './dash-orders/dash-orders.component';
 
 @NgModule({
     declarations: [
@@ -25,7 +26,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         SellerRatingComponent,
         ModalDashboardComponent,
         QualityIndicatorsComponent,
-        InfoIndicatorsComponent
+        InfoIndicatorsComponent,
+        DashOrdersComponent
     ],
     imports: [
         CommonModule,
