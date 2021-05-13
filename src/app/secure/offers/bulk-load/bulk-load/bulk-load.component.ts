@@ -36,7 +36,7 @@ export const OFFERS_HEADERS_PERIODICITY = 'Periodicity';
 export const OFFERS_HEADERS_PÉRIODICITÉ = 'Périodicité';
 export const OFFERS_HEADERS_FREE_SHIPPING = 'Free Shipping';
 export const OFFERS_HEADERS_FREE_SHIPPING_FR = 'Livraison gratuite';
-export const OFFERS_HEADERS_ENVIOS_EXITO = 'Indicador Envios Exito';
+export const OFFERS_HEADERS_ENVIOS_EXITO = 'Indicador Envíos Exito';
 export const OFFERS_HEADERS_EXITO_INDICATOR = 'Envios Exito Indicator';
 export const OFFERS_HEADERS_EXITO_INDICATOR_FR = 'Indicateur d\'expédition Éxito';
 export const OFFERS_HEADERS_COTIZADOR = 'Cotizador de Flete';
@@ -58,11 +58,11 @@ export const OFFERS_HEADERS_AMOUNT_COMBO_FR = 'Bundle stock';
 export const OFFERS_HEADERS_MONEDA = 'Tipo de moneda';
 export const OFFERS_HEADERS_CURRENCY = 'Currency';
 export const OFFERS_HEADERS_CURRENCY_FR = 'Type de monnaie';
-export const OFFERS_HEADERS_DIRECCION = 'Direccion de Recogida';
-export const OFFERS_HEADERS_ADDRESS = 'Picking Address';
+export const OFFERS_HEADERS_DIRECCION = 'Dirección de Recogida';
+export const OFFERS_HEADERS_ADDRESS = 'Pick up address';
 export const OFFERS_HEADERS_ADDRESS_FR = 'Adresse de collecte';
 export const OFFERS_HEADERS_CODIGO_DANE = 'Ciudad de Recogida';
-export const OFFERS_HEADERS_DANECODE = 'Picking City';
+export const OFFERS_HEADERS_DANECODE = 'Pick up city';
 export const OFFERS_HEADERS_DANECODE_FR = 'Ville de collecte';
 export const OFFERS_HEADERS_SKU_ES = 'SKU Vendedor';
 export const OFFERS_HEADERS_SKU_EN = 'Seller SKU';
@@ -435,15 +435,15 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             iPromEntrega: this.validateSubTitle(this.arrayNecessaryData, 'Delivery Terms', 'Promesa de Entrega', 'Temps de livraison'),
             iPeriodicity: this.validateSubTitle(this.arrayNecessaryData, 'Periodicity', 'Periodicidad', 'Périodicité'),
             iFreeShiping: this.validateSubTitle(this.arrayNecessaryData, 'Free Shipping', 'Free Shipping', 'Livraison gratuite'),
-            iIndEnvExito: this.validateSubTitle(this.arrayNecessaryData, 'Indicador Envios Exito', 'Envios Exito Indicator', 'Indicateur d\'expédition Éxito'),
+            iIndEnvExito: this.validateSubTitle(this.arrayNecessaryData, 'Indicador Envíos Exito', 'Envios Exito Indicator', 'Indicateur d\'expédition Éxito'),
             iCotFlete: this.validateSubTitle(this.arrayNecessaryData, 'Freight Calculator', 'Cotizador de Flete', 'Cotation du fret'),
             iGarantia: this.validateSubTitle(this.arrayNecessaryData, 'Warranty', 'Garantia', 'Garantie'),
             iLogisticaExito: this.validateSubTitle(this.arrayNecessaryData, 'Exito Logistics', 'Logistica Exito', 'Logistique Éxito'),
             iActInventario: this.validateSubTitle(this.arrayNecessaryData, 'Stock Update', 'Actualizacion de Inventario', 'Mise à Jour du Stock'),
             iEanCombo: this.validateSubTitle(this.arrayNecessaryData, 'Ean combo', 'Ean combo', 'Ean combo'),
             iCantidadCombo: this.validateSubTitle(this.arrayNecessaryData, 'Amount in combo', 'Cantidad en combo', 'Bundle stock'),
-            iAddress: this.validateSubTitle(this.arrayNecessaryData, 'Picking Address', 'Direccion de Recogida', 'Adresse de collecte'),
-            iDaneCode: this.validateSubTitle(this.arrayNecessaryData, 'Picking City', 'Ciudad de Recogida', 'Ville de collecte'),
+            iAddress: this.validateSubTitle(this.arrayNecessaryData, 'Pick up address', 'Dirección de Recogida', 'Adresse de collecte'),
+            iDaneCode: this.validateSubTitle(this.arrayNecessaryData, 'Pick up city', 'Ciudad de Recogida', 'Ville de collecte'),
             iSellerSku: this.validateSubTitle(this.arrayNecessaryData, 'Seller SKU', 'SKU Vendedor', 'Vendeur SKU')
           };
 
@@ -1231,14 +1231,14 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
         'Costo de Flete Promedio': undefined,
         'Promesa de Entrega': undefined,
         'Free Shipping': undefined,
-        'Indicador Envios Exito': undefined,
+        'Indicador Envíos Exito': undefined,
         'Actualizacion de Inventario': undefined,
         'Cotizador de Flete': undefined,
         'Garantia': undefined,
         'Ean combo': undefined,
         'Cantidad en combo': undefined,
         'Tipo de moneda': undefined,
-        'Direccion de Recogida': undefined,
+        'Dirección de Recogida': undefined,
         'Ciudad de Recogida': undefined
       }];
       log.info(emptyFile);
@@ -1264,8 +1264,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
         'Ean combo': undefined,
         'Amount in combo': undefined,
         'Currency': undefined,
-        'Picking Address': undefined,
-        'Picking City': undefined,
+        'Pick up address': undefined,
+        'Pick up city': undefined,
       }];
       log.info(emptyFile);
       this.exportAsExcelFile(emptyFile, 'Offer upload format');
