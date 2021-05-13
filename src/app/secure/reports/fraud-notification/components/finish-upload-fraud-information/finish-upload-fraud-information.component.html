@@ -1,0 +1,60 @@
+<div>
+
+  <h3 class="processing-string" mat-subheader *ngIf="response.body.data.status === 1">
+    <mat-spinner class="processCharge" [diameter]="60"></mat-spinner>
+    {{response.processing}} {{'secure.products.Finish_upload_product_information.upload_progress' | translate}}
+  </h3>
+
+  <div class="error-list-content list-log" *ngIf="response.body.data.status === 3">
+  <h4 class="error-string" mat-subheader>
+    <mat-icon>warning</mat-icon>
+    {{'secure.products.create_product_unit.specifications.dialog.there' | translate}} {{response.error > 1 ? has: have }} {{'secure.products.create_product_unit.specifications.dialog.been' | translate}} {{response.error}} {{response.error > 1 ? errors : error }} {{'secure.frauds.bulk_upload.process' | translate}}
+  </h4>
+  <mat-divider></mat-divider>
+
+  <mat-nav-list>
+    <mat-list-item *ngFor="let item of responseErrors.ListError">
+      <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>
+      <h4 matLine>{{'secure.load_guide_page.finish_upload_info.order_number' | translate}}: {{item.OrderNumber}}</h4>
+      <p matLine>{{'secure.products.Finish_upload_product_information.error_ocurred' | translate}}: {{item.Message}}</p>
+    </mat-list-item>
+  </mat-nav-list>  
+</div>
+
+<mat-dialog-actions class="footer-dialog" *ngIf="response.body.data.status === 3">
+  <button id="close-finish-upload-button" mat-raised-button color="primary" mat-dialog-close>{{'actions.close' | translate}}</button>
+</mat-dialog-actions>
+
+  
+  <div *ngIf="response.body.data.status === 2">
+    <div class="text-end">
+      <mat-icon class="mat-18 icon-close" (click)="onNoClick()">clear</mat-icon>
+    </div>
+    <div>
+      <div>
+        <ng-container>
+          <div class="container-icon-success">
+            <mat-icon>
+              done
+            </mat-icon>
+          </div>
+        </ng-container>
+        <ng-container class="title-container">
+          <div class="text-success">
+            <strong> {{'secure.frauds.charge.success' | translate}} </strong>
+          </div>
+        </ng-container>
+        <ng-container>
+          <div class="subtext-success">
+            {{'secure.frauds.charge.success.text' | translate}}
+          </div>
+        </ng-container>
+      </div>
+      <mat-dialog-actions class="margintTopDeleteButton container__btn"
+      fxLayoutAlign="center center">
+      <button id="close-finish-upload-button"  mat-raised-button color="primary" mat-dialog-close> {{'actions.accept' | translate}}</button>
+    
+    </mat-dialog-actions>
+    </div>
+  </div>
+</div>

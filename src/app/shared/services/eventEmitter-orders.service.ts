@@ -10,6 +10,7 @@ import { HistoricalDevolutionModule } from '@app/secure';
 export class EventEmitterOrders {
 
     orderList = new EventEmitter<any>();
+    fraudList = new EventEmitter<any>();
     filterOrderList = new EventEmitter<any>();
     filterBillingList = new EventEmitter<any>();
     filterOrdersWithStatus = new EventEmitter<any>();
@@ -25,6 +26,16 @@ export class EventEmitterOrders {
      */
     getOrderList(state) {
         this.orderList.emit(state);
+    }
+
+    /**
+     *  Evento eventEmitter que permite crear un suscribe para saber cuando
+     *  listar una determinada lista de órdenes obtenidas por los filtros aplicados por el usuario en el componente search-order-menu
+     * @param {any} data
+     * @memberof EventEmitterOrders
+     */
+    filterFraudList(data) {
+        this.fraudList.emit(data);
     }
 
     /**

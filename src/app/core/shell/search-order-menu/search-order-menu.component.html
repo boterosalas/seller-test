@@ -20,5 +20,7 @@
 
     <app-search-historical-devolution-form [idSeller]="idSeller" [informationToForm]="informationToForm" *ngIf="informationToForm.type_form === 'historical-devolution'"></app-search-historical-devolution-form>
 
+    <app-search-fraud-notification-form [informationToForm]="informationToForm" [paginator]="paginator" [typeProfiel]="typeProfiel" [idSeller]="idSeller" *ngIf="informationToForm.type_form == 'fraud-notification'"></app-search-fraud-notification-form>
+
   </mat-card-content>
 </mat-card>

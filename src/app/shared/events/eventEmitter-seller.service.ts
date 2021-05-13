@@ -9,6 +9,7 @@ export class EventEmitterSeller {
 
     eventSearchSeller = new EventEmitter<any>();
     eventSearchSellerHistoric = new EventEmitter<any>();
+    eventSearchFraud = new EventEmitter<any>();
     eventSearchSellerModal = new EventEmitter<any>();
 
     /**
@@ -22,6 +23,10 @@ export class EventEmitterSeller {
 
     searchSellerHistoric(seller: any) {
         this.eventSearchSellerHistoric.emit(seller);
+    }
+
+    searchSellerFraud(seller: any) {
+        this.eventSearchFraud.emit(seller);
     }
 
     searchSellerModal(seller: any) {
