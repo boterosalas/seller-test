@@ -38,6 +38,10 @@
     .list-adv{
         padding:20px;
         border-bottom: 1px solid #D3D3D3;
+        cursor: pointer;
+        &:last-of-type, &:nth-child(6){
+            border-bottom: none;
+        }
     }
 
     p{
