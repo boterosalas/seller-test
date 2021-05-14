@@ -1,0 +1,35 @@
+$size: 260%;
+$gray: #757474;
+$lightgray: lightgray;
+$blue: #485AFA;
+
+
+mat-icon {
+  font-size: 27px;
+  height: 25px;
+  width: 25px;
+  color: $gray;
+  margin: 0.2em;
+
+  &.check {
+    color: green;
+  }
+
+  &.error {
+    color: red;
+  }
+}
+
+
+
+.modal-generic {
+  &-icon-position-close {
+    text-align: end;
+    height: 30px;
+  }
+
+  &-cursor-grey-color {
+    color: #909090;
+    cursor: pointer;
+  }
+}

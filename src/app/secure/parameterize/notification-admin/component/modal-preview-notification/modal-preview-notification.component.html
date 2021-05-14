@@ -1,3 +1,55 @@
-<p>
-  modal-preview-notification works!
-</p>
+<div fxLayout="row wrap" *ngIf="data">
+  <div fxFlex="90" style="text-align: center;">
+    <span style="margin-left: 60px; font-weight: bold; font-size: 18px;"
+      *ngIf="title !== null">{{title}}</span>
+  </div>
+  <div fxFlex="10" style="text-align: end;">
+    <mat-icon class="mat-18" (click)="close()" style="cursor: pointer;" matTooltip="Cerrar">close</mat-icon>
+  </div>
+</div>
+<div>
+  <div *ngIf="typeBody === '1'">
+    <div (click)="callToAction()" style="min-height: 200px;">
+      <div *ngIf="!load">
+        <div style="text-align: center;">
+          <img [src]="imagePathDrag" loading="lazy" style="width: 100%; height: 100%;
+            max-height: 250px;
+            max-width: 94%;">
+        </div>
+        <div [innerHTML]="body" style="padding: 1% 3%; color:#757474; "> </div>
+      </div>
+      <div *ngIf="load" style="padding-top: 80px;">
+        <div style="text-align: center; padding-left: 47%; padding-right: 44%;">
+          <mat-spinner class="processCharge" [diameter]="40"></mat-spinner>
+        </div>
+        <div style="width: 100%; text-align: center; margin-top: 20px;">
+          <span>Espere un momento por favor</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="typeBody === '2'" style="text-align: center;">
+    <img [src]="imagePathDrag" (click)="callToAction()" style="width: 100%; height: 100%;
+      max-height: 400px;
+      max-width: 94%; cursor: pointer;">
+  </div>
+  <div *ngIf="typeBody === '3'" style="padding: 0px 20px;">
+    <div (click)="callToAction()" [ngStyle]="{'background-color': backgroundColor, 'min-height': '200px',
+      'max-height': '360px'
+      }">
+      <div [innerHTML]="body" style="padding: 1% 3%; color:#757474"> </div>
+    </div>
+  </div>
+  <div fxLayout="row wrap" style="padding-top: 20px;">
+    <div fxFlex="50" style="padding-right: 5px; text-align: right;" *ngIf="showBtn">
+      <button mat-stroked-button color="primary" style="text-transform:
+        uppercase; width: 160px;" mat-button
+        (click)="close()">volver a editar</button>
+    </div>
+    <div fxFlex="50" style="padding-left: 5px;" *ngIf="showBtn">
+      <button mat-raised-button color="primary" style="text-transform:
+        uppercase; width: 160px;" mat-button
+        (click)="emitEventNotification()">{{btnTitle}}</button>
+    </div>
+  </div>
+</div>

@@ -32,6 +32,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { UploadFileMasiveComponent } from '@app/shared/components/upload-file-masive/upload-file-masive.component';
 import { ModalLoadFileComponent } from './notification-admin/component/modal-load-file/modal-load-file.component';
 import { ModalPreviewNotificationComponent } from './notification-admin/component/modal-preview-notification/modal-preview-notification.component';
+import { ModalGenericComponent } from './notification-admin/component/modal-generic/modal-generic.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { ModalPreviewNotificationComponent } from './notification-admin/componen
     NotificationFormComponent,
     UploadFileMasiveComponent,
     ModalLoadFileComponent,
-    ModalPreviewNotificationComponent
+    ModalPreviewNotificationComponent,
+    ModalGenericComponent
   ],
   imports: [
     CommonModule,
@@ -89,7 +91,8 @@ import { ModalPreviewNotificationComponent } from './notification-admin/componen
     ModalBulkloadBrandsComponent,
     UploadFileMasiveComponent,
     ModalLoadFileComponent,
-    ModalPreviewNotificationComponent
+    ModalPreviewNotificationComponent,
+    ModalGenericComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

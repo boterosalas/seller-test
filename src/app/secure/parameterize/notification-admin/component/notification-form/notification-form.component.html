@@ -17,18 +17,18 @@
         </div>
         <div style="padding-bottom: 20px;">
           <mat-radio-group aria-label="Select an bodyNotification"
-            formControlName="bodyNotification">
+            formControlName="bodyNotification" >
             <div fxFlex="35">
-              <mat-radio-button value="1" [checked]="true"
+              <mat-radio-button value="1" [checked]="checkedTypeNotification === 1 ? true : false "
                 (click)="validateBody(1)">Texto +
                 Imagen</mat-radio-button>
             </div>
             <div fxFlex="35">
-              <mat-radio-button value="2" (click)="validateBody(2)">Texto +
+              <mat-radio-button value="3" [checked]="checkedTypeNotification === 3 ? true : false " (click)="validateBody(2)">Texto +
                 Fondo</mat-radio-button>
             </div>
             <div fxFlex="35">
-              <mat-radio-button value="3" (click)="validateBody(3)">Imagen
+              <mat-radio-button value="2" [checked]="checkedTypeNotification === 2 ? true : false " (click)="validateBody(3)">Imagen
                 diseñada</mat-radio-button>
             </div>
           </mat-radio-group>
@@ -37,9 +37,10 @@
           <mat-form-field style="width: 100%; font-size: 16px;">
             <input matInput [matDatepicker]="dateInitial"
               formControlName="dateInitial" placeholder="Fecha
-              inicial">
+              inicial" [min]="today" >
             <mat-datepicker-toggle matSuffix [for]="dateInitial"></mat-datepicker-toggle>
-            <mat-datepicker touchUi="true" startView="year" #dateInitial></mat-datepicker>
+            <mat-datepicker  #dateInitial></mat-datepicker>
+            <mat-error *ngIf="form.get('dateInitial').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
         </div>
         <div>
@@ -47,9 +48,7 @@
             <input matInput placeholder="Título del anuncio"
               class="modal-export-to-reclaim-text-uppercase"
               [errorStateMatcher]="matcher" formControlName="title">
-            <!-- <mat-error *ngIf="form.get('email').hasError('required')">{{'errors.required' | translate}}</mat-error>
-          <mat-error *ngIf="form.get('email').hasError('email')">{{'errors.format_invalidate' | translate}}
-          </mat-error> -->
+              <mat-error *ngIf="form.get('title').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -61,19 +60,19 @@
           <mat-radio-group aria-label="Select an languaje"
             formControlName="lenguaje">
             <div fxFlex="35">
-              <mat-radio-button value="National" [checked]="true">Español</mat-radio-button>
+              <mat-radio-button value="National" >Español</mat-radio-button>
             </div>
             <div fxFlex="35">
-              <mat-radio-button value="International">Ingles</mat-radio-button>
+              <mat-radio-button value="International" >Ingles</mat-radio-button>
             </div>
           </mat-radio-group>
         </div>
         <div style="padding-bottom: 20px;">
           <mat-form-field style="width: 100%; font-size: 16px;">
             <input matInput [matDatepicker]="dateEnd" placeholder="Fecha
-              final" formControlName="dateEnd">
+              final" formControlName="dateEnd" [min]="form.value.dateInitial">
             <mat-datepicker-toggle matSuffix [for]="dateEnd"></mat-datepicker-toggle>
-            <mat-datepicker touchUi="true" startView="year" #dateEnd></mat-datepicker>
+            <mat-datepicker #dateEnd></mat-datepicker>
           </mat-form-field>
         </div>
         <div style="padding-bottom: 20px;">
@@ -81,9 +80,6 @@
             <input matInput placeholder="Página de destino"
               class="modal-export-to-reclaim-text-uppercase"
               [errorStateMatcher]="matcher" formControlName="pageDestiny">
-            <!-- <mat-error *ngIf="form.get('email').hasError('required')">{{'errors.required' | translate}}</mat-error>
-          <mat-error *ngIf="form.get('email').hasError('email')">{{'errors.format_invalidate' | translate}}
-          </mat-error> -->
           </mat-form-field>
         </div>
       </div>
@@ -122,8 +118,8 @@
                           <mat-icon class="mat-18"
                             style="vertical-align:
                             middle;font-size: 33px;height: 33px; width: 33px;
-                            color: #757474;" *ngIf="imagePathDrag === null">image</mat-icon>
-                          <div *ngIf="imagePathDrag !== null">
+                            color: #757474;" *ngIf="imagePathDrag === null || imagePathDrag === 'backgroundColor'  ">image</mat-icon>
+                          <div *ngIf="imagePathDrag !== null && imagePathDrag !== 'backgroundColor' " style="margin-top: 4px;">
                             <img [src]="imagePathDrag" style="width: 30px;
                               height: 30px;">
                           </div>
@@ -189,18 +185,18 @@
         style="padding-top: 30px;">
         <div fxFlex="40" style="text-align: right;">
           <button mat-stroked-button color="primary" style="text-transform:
-            uppercase; width: 160px;" mat-button
+            uppercase; width: 160px;"  mat-button
             (click)="backList()">cancelar</button>
         </div>
         <div fxFlex="15" style="text-align: center;">
-          <button mat-stroked-button color="primary" style="text-transform:
+          <button mat-stroked-button [disabled]="!filterForm.form.valid || imagePathDrag === null" color="primary" style="text-transform:
             uppercase; width: 160px;" mat-button
             (click)="preview()">vista previa</button>
         </div>
         <div fxFlex="40" style="text-align: left;">
-          <button mat-raised-button color="primary" style="text-transform:
+          <button mat-raised-button [disabled]="!filterForm.form.valid || imagePathDrag === null" color="primary" style="text-transform:
             uppercase; width: 160px;" mat-button
-            (click)="createNotification()">Crear anuncio</button>
+            (click)="saveNotification()">{{btnTitle}}</button>
         </div>
       </div>
     </div>

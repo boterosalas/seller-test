@@ -71,7 +71,7 @@ export class ModalLoadFileComponent implements OnInit {
       this.size = parseFloat(((this._fileAux.size) / 1024 / 1024).toFixed(3));
       this.validate(this._fileAux).then(data => {
         this.refuseMaxSize = this.size < 7000 ? false : true;
-        this.dimesion = data.width <= 800 && data.height <= 600 ? true : false;
+        this.dimesion = data.width <= 2100 && data.height <= 800 ? true : false;
         this.error = this.refuseMaxSize === true || this.dimesion === false ? true : false;
         if (!this.error) {
           this.loadDragAndDrop(this._fileAux);
@@ -120,7 +120,7 @@ export class ModalLoadFileComponent implements OnInit {
   }
 
   closeAndsave() {
-   this.close();
+    this.close();
     this.imagePathDrag = this._sanitizer.bypassSecurityTrustResourceUrl(this.fileImgBase64);
     this.processFinish$.next(
       {

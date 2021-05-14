@@ -323,7 +323,15 @@ export const endpoints = {
       // Crear caterogiras de forma masiva
       createUpdateMassiveCategories: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/CreateUpdateMassiveCategories/{params}',
        // valida el estado de la carga masiva de categorias
-       ValidateStatusCreateUpdateMassive :  'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/ValidateStatusCreateUpdateMassive'
+       ValidateStatusCreateUpdateMassive :  'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/ValidateStatusCreateUpdateMassive',
+       // Captura todas las notificaciones (anuncios )
+       getAllNotification : 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/GetPaginatedNews{params}',
+       // Crear anuncio
+       createNew : 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/CreateNew',
+       // Guardar imagen de anuncios
+       saveImgNotification : 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/SaveImage',
+       // Editar anuncios
+       updateNotification : 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/UpdateNew?culture=es-CO'
     },
   },
   // Endpoints production
@@ -644,7 +652,16 @@ export const endpoints = {
       // Crear caterogiras de forma masiva
       createUpdateMassiveCategories: 'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/CreateUpdateMassiveCategories/{params}',
       // valida el estado de la carga masiva de categorias
-      ValidateStatusCreateUpdateMassive :  'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/ValidateStatusCreateUpdateMassive'
+      ValidateStatusCreateUpdateMassive :  'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/ValidateStatusCreateUpdateMassive',
+       // Captura todas las notificaciones (anuncios )
+      getAllNotification : '',
+       // Crear anuncio
+      createNew : '',
+      // Guardar imagen de anuncios
+      saveImgNotification : '',
+      // Editar anuncios
+      UpdateNotification : 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/UpdateNew?culture=es-CO'
+
     }
   }
 };

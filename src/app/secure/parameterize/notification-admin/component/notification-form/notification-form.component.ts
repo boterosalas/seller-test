@@ -1,10 +1,14 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AngularEditorConfig } from '@kolkov/angular-editor/lib/config';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { ModalLoadFileComponent } from '../modal-load-file/modal-load-file.component';
 import { ModalPreviewNotificationComponent } from '../modal-preview-notification/modal-preview-notification.component';
+import { ModalGenericComponent } from '../modal-generic/modal-generic.component';
+import { NotificationAdminService } from '../../notification-admin.service';
+import { LoadingService } from '@app/core';
+
 
 @Component({
   selector: 'app-notification-form',
@@ -15,11 +19,25 @@ export class NotificationFormComponent implements OnInit {
 
   @ViewChild('fileUploadOption', { static: false }) inputFileUpload: any;
   @ViewChild('pickerColor', { static: false }) pickerColor: any;
+  @ViewChild('radioGroupNotification', { static: false }) radioGroupNotification: any;
   @Output() isBackList = new EventEmitter<object>();
+  @Output() refreshData = new EventEmitter<object>();
+
+  public isEdit = false;
+  @Input() set paramsNotification(value: any) {
+    if (value) {
+      console.log(value);
+      this.setValueNotificacion(value.notification);
+      this.isEdit = value.isEdit ? value.isEdit : false;
+      this.btnTitle = this.isEdit ? 'Editar anuncio' : 'Crear anuncio';
+    }
+  }
+
   public form: FormGroup;
   public disableText = false;
   public disableLoadImag = false;
   public disableColor = true;
+  public btnTitle = '';
 
   public showDescriptionColorImg = true;
   public show: boolean;
@@ -31,6 +49,21 @@ export class NotificationFormComponent implements OnInit {
   public sizeFile = null;
 
   public params: any;
+  public today = Date.now();
+
+  public checkedTypeNotification: any;
+  public checkedCulture: any;
+
+  public imagUrl = '';
+  public changeFile = false;
+
+  public paramsSaveImg: any;
+
+  public listError = [];
+  public withError = false;
+
+  public createOrEdit = true;
+  public titleErrorSubtitle = '';
 
 
   public config: AngularEditorConfig = {
@@ -43,6 +76,7 @@ export class NotificationFormComponent implements OnInit {
     minWidth: '0',
     placeholder: '',
     translate: 'no',
+    sanitize: false,
     customClasses: [
       {
         name: 'quote',
@@ -76,18 +110,22 @@ export class NotificationFormComponent implements OnInit {
 
   constructor(
     public translateService: TranslateService,
+    private notificationAdminService: NotificationAdminService,
     private dialog: MatDialog,
-  ) { }
+    private loadingService: LoadingService,
+  ) {
+    this.createForm();
+  }
 
   ngOnInit() {
-    this.createForm();
+    window.scroll(0, 0);
   }
 
   createForm() {
     this.form = new FormGroup({
-      bodyNotification: new FormControl('1'),
-      dateInitial: new FormControl(''),
-      title: new FormControl(''),
+      bodyNotification: new FormControl('1', [Validators.required]),
+      dateInitial: new FormControl('', [Validators.required]),
+      title: new FormControl('', [Validators.required]),
       lenguaje: new FormControl('National'),
       dateEnd: new FormControl(''),
       pageDestiny: new FormControl(''),
@@ -99,6 +137,7 @@ export class NotificationFormComponent implements OnInit {
   setValueColor(color: string) {
     this.form.controls.pickerColor.setValue(color);
     this.colorBackground = color;
+    this.imagePathDrag = 'backgroundColor';
   }
 
   modalLoadFiel() {
@@ -115,20 +154,22 @@ export class NotificationFormComponent implements OnInit {
     dialogIntance.processFinish$.subscribe((val) => {
       if (val.imgBase64 !== undefined) {
         this.imagePathDrag = val.imgBase64;
+        this.imagUrl = val.imgBase64;
         this.nameFile = val.nameFile;
         this.sizeFile = val.sizeFile;
+        this.changeFile = true;
       }
     });
   }
 
   emitDataImgLoad(data: any) {
     this.imagePathDrag = data;
-  }
-
-  createNotification() {
+    this.imagUrl = data;
+    this.changeFile = true;
   }
 
   validateBody(typeBody: number) {
+    console.log(typeBody);
     this.resetOpction(typeBody);
     switch (typeBody) {
       case 1:
@@ -153,6 +194,9 @@ export class NotificationFormComponent implements OnInit {
         this.disableColor = false;
         this.config.editable = true;
         this.showDescriptionColorImg = true;
+        this.imagePathDrag = 'backgroundColor';
+        this.nameFile = null;
+        this.sizeFile = null;
         break;
       case 3:
         this.form.controls.bodyDescription.disable();
@@ -181,26 +225,188 @@ export class NotificationFormComponent implements OnInit {
   }
 
   backList() {
+    window.scroll(0, 0);
     this.isBackList.emit({ back: true });
   }
 
   preview() {
-    this.params = {
-      Id: null,
-      bodyNotification: this.form.controls.bodyNotification.value,
-      Target : this.form.controls.lenguaje.value,
-      CreationDate : this.form.controls.dateInitial.value,
-      FinalDate : this.form.controls.dateEnd.value,
-      Title : this.form.controls.title.value,
-      Link : this.form.controls.pageDestiny.value,
-      Body : this.form.controls.bodyDescription.value,
-      UrlImage: this.imagePathDrag,
-      BackgroundColor : this.form.controls.pickerColor.value
+    const paramsCreate = this.setparams();
+    paramsCreate.showPreview = true;
+    paramsCreate.isEdit = this.isEdit;
+    paramsCreate.btnTitle = this.btnTitle ;
+    const dialogRef = this.dialog.open(ModalPreviewNotificationComponent, {
+      width: '58%',
+      data: paramsCreate,
+    });
+
+    const dialogIntance = dialogRef.componentInstance;
+    dialogIntance.processFinishModalPreview$.subscribe((val) => {
+      this.saveNotification();
+      dialogRef.close();
+    });
+  }
+
+  saveNotification() {
+    this.loadingService.viewSpinner();
+    if (this.isEdit) {
+      if (this.changeFile) {
+        const params = this.paramSaveOrChangeImg();
+        this.notificationAdminService.saveImgNotification(params).subscribe(result => {
+          if (result && result.status === 200) {
+            const body = result.body;
+            this.withError = false;
+            this.createOrEdit = true;
+            if (body) {
+              if (body.Data && body.Errors.length === 0) {
+                if (body.Data.Response === true) {
+                  this.imagUrl = body.Data.Url;
+                  const paramsCreate = this.setparams();
+                  this.notificationAdminService.updateNotification(paramsCreate).subscribe(res => {
+                    console.log('edito con la imagen', res);
+                    this.createOrEdit = true;
+                    this.loadingService.closeSpinner();
+                    this.backList();
+                  });
+                } else {
+
+                }
+              } else {
+                console.log('con error');
+              }
+            }
+          }
+        });
+
+      } else {
+       const paramsCreate = this.setparams();
+        this.notificationAdminService.createNew(paramsCreate).subscribe(res => {
+          console.log('edito pero No la imagen, ', res);
+          this.withError = false;
+          this.createOrEdit = true;
+          this.loadingService.closeSpinner();
+          this.modalGeneric();
+        });
+      }
+
+    } else {
+      const params = this.paramSaveOrChangeImg();
+      this.notificationAdminService.saveImgNotification(params).subscribe(result => {
+        if (result && result.status === 200) {
+          const body = result.body;
+          this.withError = false;
+          this.createOrEdit = true;
+          if (body) {
+            if (body.Data && body.Errors.length === 0) {
+              if (body.Data.Response === true) {
+                this.imagUrl = body.Data.Url;
+                const paramsCreate = this.setparams();
+                this.notificationAdminService.createNew(paramsCreate).subscribe(res => {
+                  if (res && res.Errors.length === 0) {
+                    console.log('SE CREA EL ANUNCIO', res);
+                    this.createOrEdit = true;
+                    this.loadingService.closeSpinner();
+                    this.modalGeneric();
+                  } else {
+                    this.createOrEdit = false;
+                    this.withError = true;
+                    this.listError = res.Errors;
+                    this.titleErrorSubtitle = 'Ha ocurrido un error al momento de cargar el anuncio';
+                    this.loadingService.closeSpinner();
+                    this.modalGeneric();
+                  }
+                });
+              } else {
+                this.createOrEdit = false;
+                this.withError = true;
+                this.listError = body.Errors;
+                this.titleErrorSubtitle = 'Ha ocurrido un error al momento de cargar el anuncio';
+                this.loadingService.closeSpinner();
+                this.modalGeneric();
+              }
+            } else {
+              this.createOrEdit = false;
+              this.withError = true;
+              this.listError = body.Errors;
+              this.titleErrorSubtitle = 'Ha ocurrido un error al momento de cargar la imagen';
+              this.loadingService.closeSpinner();
+              this.modalGeneric();
+            }
+          }
+        }
+      });
+    }
+  }
+
+  paramSaveOrChangeImg() {
+    const paramsSaveImg = {
+      NewsContentType: this.form.controls && this.form.controls.bodyNotification ? this.form.controls.bodyNotification.value : null,
+      Name: this.nameFile,
+      ContentBase64: this.imagePathDrag.split('base64,')[1],
+      isBase64: true
     };
-    console.log(this.params);
-    // const dialogRef = this.dialog.open(ModalPreviewNotificationComponent, {
-    //   width: '50%',
-    //   data: null,
-    // });
+    return paramsSaveImg;
+  }
+
+  setparams() {
+    const paramsCreate = {
+      Id: null,
+      NewsContentType: parseInt(this.form.controls.bodyNotification.value, 0) ,
+      Target: this.form.controls.lenguaje.value,
+      InitialDate: this.form.controls.dateInitial.value,
+      FinalDate: this.form.controls.dateEnd.value,
+      Title: this.form.controls.title.value ? this.form.controls.title.value.charAt(0).toUpperCase() + this.form.controls.title.value.slice(1) : null,
+      Link: this.form.controls.pageDestiny.value,
+      Body: this.form.controls.bodyDescription.value,
+      UrlImage: this.imagUrl,
+      BackgroundColor: this.form.controls.pickerColor.value ? this.form.controls.pickerColor.value : null,
+    };
+
+     return <any>paramsCreate;
+  }
+  modalGeneric() {
+    const title = this.isEdit ? 'El anuncio se ha editado exitosamente' : 'El anuncio se ha creado exitosamente';
+    const params = {
+      success: {
+        createOrEdit: this.createOrEdit,
+        isEdit: this.isEdit,
+        title: title,
+      },
+      error: {
+        isError: this.withError,
+        listError : this.listError,
+        titleErrorSubtitle: this.titleErrorSubtitle
+      },
+      delete : {
+        isDelete : false
+      },
+    };
+    const dialogRef = this.dialog.open(ModalGenericComponent, {
+      width: '50%',
+      data: params,
+    });
+
+    const dialogIntance = dialogRef.componentInstance;
+    dialogIntance.processFinish$.subscribe((val) => {
+      this.refreshData.emit(val);
+      dialogRef.close();
+    });
+  }
+
+  setValueNotificacion(params: any) {
+    if (params && this.form) {
+      window.scroll(0, 0);
+      const newNotification = params && params.NewsContentType ? params.NewsContentType.toString() : 1;
+      console.log(newNotification);
+      this.form.controls.title.setValue(params.Title);
+      this.form.controls.dateInitial.setValue(params.InitialDate);
+      this.form.controls.dateEnd.setValue(params.FinalDate);
+      this.form.controls.title.setValue(params.Title);
+      this.form.controls.pageDestiny.setValue(params.Link);
+      this.form.controls.bodyDescription.setValue(params.Body);
+      this.form.controls.bodyNotification.setValue(newNotification);
+      this.form.controls.lenguaje.setValue(params.Target);
+      this.imagePathDrag = params.UrlImage;
+      this.imagUrl = params.UrlImage;
+    }
   }
 }
