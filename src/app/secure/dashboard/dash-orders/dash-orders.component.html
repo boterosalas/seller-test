@@ -1,4 +1,4 @@
-<div >
+<div>
   <div fxLayout="column" class="dashboard-component-container-border-bottom-color
       dashboard-component-container-height-50">
     <div fxLayout="row" class="dashboard-component-container-header-align">
@@ -121,9 +121,53 @@
   <div fxLayout="column" class="dashboard-component-container-margin-top-15">
     <div style="flex-direction: column">
       <div fxFlex="20" fxFlex.md="" fxFlex.lg="" fxFlex.xs="100" fxFlex.xl="100" fxFlex.sm="100"
-        [fxShow.xs]="!showOrdersChart" [fxShow.sm]="!showOrdersChart"
-        class="dashboard-component-container-max-width-left-ordens">
-        <div fxLayout="column" fxLayoutAlign="none">
+        [fxShow.xs]="!showOrdersChart" [fxShow.sm]="!showOrdersChart" fxLayout="row"
+        fxLayoutAlign="space-evenly center">
+        <div style="width: 164px; height: 147px;">
+          <span style="font-family: Arial, Helvetica, sans-serif; font-size: 20px; color: black;">Órdenes totales</span>
+          <p style="font-size: 72px; font-weight: bold; font-family: Arial, Helvetica, sans-serif; margin: 2%">
+            {{totalCount | number}}</p>
+        </div>
+        <!-- Casilla por enviar -->
+        <div style="width: 164px; height: 147px;" class="dashboard-component-container-color-border">
+          <span
+            style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: black; padding: 4%; font-weight: bold">Por
+            enviar</span>
+          <p style="font-size: 36px; font-weight: bold; font-family: Arial, Helvetica, sans-serif; margin: 4%">
+            {{totalCount | number}}</p>
+          <div style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; margin: 0 0 0 4%; color: #5D5D5D;">
+            <h6 style="margin: 0 0 4% 0">Vencidos</h6>
+            <h6 style="margin: 0 0 4% 0">Por vencerse</h6>
+            <h6 style="margin: 0 0 4% 0">A tiempo</h6>
+          </div>
+        </div>
+        <!-- Casilla en transporte -->
+        <div style="width: 164px; height: 147px;" class="dashboard-component-container-color-border">
+          <span
+            style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: black; padding: 4%; font-weight: bold">En
+            transporte</span>
+          <p style="font-size: 36px; font-weight: bold; font-family: Arial, Helvetica, sans-serif; margin: 4%">
+            {{totalCount | number}}</p>
+          <div style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; margin: 0 0 0 4%; color: #5D5D5D;">
+            <h6 style="margin: 0 0 4% 0">Vencidos</h6>
+            <h6 style="margin: 0 0 4% 0">Por vencerse</h6>
+            <h6 style="margin: 0 0 4% 0">A tiempo</h6>
+          </div>
+        </div>
+        <!-- Casilla de entregados -->
+        <div style="width: 164px; height: 147px;" class="dashboard-component-container-color-border">
+          <span
+            style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: black; padding: 4%; font-weight: bold">Entregados</span>
+          <p style="font-size: 36px; font-weight: bold; font-family: Arial, Helvetica, sans-serif; margin: 4%">
+            {{totalCount | number}}</p>
+          <div style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; margin: 0 0 0 4%; color: #5D5D5D;">
+            <h6 style="margin: 0 0 4% 0">Vencidos</h6>
+            <h6 style="margin: 0 0 4% 0">Por vencerse</h6>
+            <!-- <h6 style="margin: 0 0 4% 0">A tiempo</h6> -->
+          </div>
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="none" *ngIf="false">
           <div class="dashboard-component-align-center">
             <div>
               {{'secure.dashboard.all' | translate}}
