@@ -19,6 +19,7 @@ import { QualityIndicatorsComponent } from './quality-indicators/quality-indicat
 import { InfoIndicatorsComponent } from './info-indicators/info-indicators.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AdvertisementsComponent } from './advertisements/advertisements.component';
+import { ModalAdvertisementsComponent } from './modal-advertisements/modal-advertisements.component';
 
 @NgModule({
     declarations: [
@@ -27,7 +28,8 @@ import { AdvertisementsComponent } from './advertisements/advertisements.compone
         ModalDashboardComponent,
         QualityIndicatorsComponent,
         InfoIndicatorsComponent,
-        AdvertisementsComponent
+        AdvertisementsComponent,
+        ModalAdvertisementsComponent
     ],
     imports: [
         CommonModule,
@@ -47,6 +49,7 @@ import { AdvertisementsComponent } from './advertisements/advertisements.compone
     entryComponents: [
         ModalDashboardComponent,
         InfoIndicatorsComponent,
+        ModalAdvertisementsComponent
     ],
     exports: [
         QualityIndicatorsComponent

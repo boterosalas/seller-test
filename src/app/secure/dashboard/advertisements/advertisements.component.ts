@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { ModalAdvertisementsComponent } from '../modal-advertisements/modal-advertisements.component';
 import { DashboardService } from '../services/dashboard.service';
 
 @Component({
@@ -9,7 +11,8 @@ import { DashboardService } from '../services/dashboard.service';
 export class AdvertisementsComponent implements OnInit {
 
   constructor(
-    private _dashboard: DashboardService
+    private _dashboard: DashboardService,
+    public dialog: MatDialog,
   ) { }
 
   public advertisements = [];
@@ -35,6 +38,17 @@ export class AdvertisementsComponent implements OnInit {
   public showPage1() {
     this.page1 = true;
     this.page2 = false;
+  }
+
+  public openAdv(adv:any) {
+    
+    this.dialog.open(ModalAdvertisementsComponent, {
+      data:adv,
+      width: '800px',
+      maxWidth: '90vw',
+      maxHeight: '90vh',
+    });
+    
   }
 
 }

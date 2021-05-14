@@ -23,7 +23,7 @@
 
     
         
-        <div [ngClass]="{'list-adv': i < 5  && page1}" *ngFor="let item of advertisements; let i = index">
+        <div [ngClass]="{'list-adv': i < 5  && page1}" *ngFor="let item of advertisements; let i = index" (click)="openAdv(item)" >
 
             <div *ngIf="i < 5  && page1">
                     
@@ -41,7 +41,7 @@
 
         </div>
         
-        <div [ngClass]="{'list-adv': i >= 5   && page2}" *ngFor="let item of advertisements; let i = index">
+        <div [ngClass]="{'list-adv': i >= 5   && page2}" *ngFor="let item of advertisements; let i = index" (click)="openAdv(item)">
 
             <div *ngIf="i >= 5  && page2">
                     
