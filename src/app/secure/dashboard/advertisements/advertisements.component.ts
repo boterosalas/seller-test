@@ -41,14 +41,13 @@ export class AdvertisementsComponent implements OnInit {
   }
 
   public openAdv(adv:any) {
-    
     this.dialog.open(ModalAdvertisementsComponent, {
       data:adv,
       width: '800px',
       maxWidth: '90vw',
       maxHeight: '90vh',
     });
-    
+
   }
 
 }

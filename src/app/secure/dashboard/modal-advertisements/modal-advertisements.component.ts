@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-modal-advertisements',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModalAdvertisementsComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<ModalAdvertisementsComponent>,
+  ) { }
 
   ngOnInit() {
+  }
+
+  /**
+   * cierra la modal
+   */
+
+   public close(): void {
+    this.dialogRef.close();
   }
 
 }
