@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ModalAdvertisementsComponent } from '../modal-advertisements/modal-advertisements.component';
 import { DashboardService } from '../services/dashboard.service';
 
@@ -13,6 +14,7 @@ export class AdvertisementsComponent implements OnInit {
   constructor(
     private _dashboard: DashboardService,
     public dialog: MatDialog,
+    private sanitizer:DomSanitizer
   ) { }
 
   public advertisements = [];
@@ -41,6 +43,7 @@ export class AdvertisementsComponent implements OnInit {
   }
 
   public openAdv(adv:any) {
+    console.log(adv);
     this.dialog.open(ModalAdvertisementsComponent, {
       data:adv,
       width: '800px',

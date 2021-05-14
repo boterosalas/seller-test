@@ -14,7 +14,7 @@
         <img *ngIf="data.UrlImage" class="img-adv" [src]="data.UrlImage">
     </span>
 
-    <div *ngIf="data.Body" class="desc" [innerHtml]="data.Body" [ngStyle]="{'background-color': data.BackgroundColor}">
+    <div *ngIf="data.Body" [ngClass]="{'bgcol': data.BackgroundColor !==null}" [innerHtml]="data.Body" [ngStyle]="{'background-color': data.BackgroundColor}">
     </div>
   
   

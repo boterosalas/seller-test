@@ -34,7 +34,7 @@
                     
                     <p>{{item.CreationDate | date: 'dd/MM/yyyy'}}</p>
 
-                    <div class="desc" [innerHtml]="item.Body"></div>
+                    <div *ngIf="item.Body" class="desc" [innerHtml]="item.Body"></div>
 
                 </div>
 
@@ -50,7 +50,7 @@
                     </div>
 
                     <p>{{item.CreationDate | date: 'dd/MM/yyyy'}}</p>
-                    <div class="desc" [innerHtml]="item.Body"></div>
+                    <div *ngIf="item.Body" class="desc" [innerHtml]="item.Body"></div>
             </div>
         
         </div>
