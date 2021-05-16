@@ -1,5 +1,5 @@
-<mat-drawer-container style="height: auto;" class="drawer-container" [hasBackdrop]="true">
-  <mat-drawer  #drawer [mode]="'over'" [position]="'end'" class="example-sidenav" [disableClose]="false">
+<mat-drawer-container class="drawer-container allContainer" [hasBackdrop]="true">
+  <mat-drawer #drawer [mode]="'over'" [position]="'end'" class="example-sidenav" [disableClose]="false">
     <form class="basic-info" #createfilterProduts="ngForm" [formGroup]="filterProduts" class="seller-filter-sidenav"
       *ngIf="filterProduts">
       <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -25,15 +25,32 @@
         <mat-form-field color="primary">
           <input matInput [placeholder]="'shared.ean' | translate" formControlName="ean" [errorStateMatcher]="matcher">
           <mat-hint></mat-hint>
-          <!--<mat-error *ngIf="filterProduts.get('ean').hasError('pattern')" [innerHTML]="'EAN invalido'"></mat-error>-->
         </mat-form-field>
         <!-- Nuevo campo PLU VTEXT -->
         <mat-form-field color="primary">
-          <input matInput (keypress)="onlyNumber($event)"
-            [placeholder]="'secure.products.bulk_upload.filter.plu' | translate" formControlName="pluVtex"
+          <input matInput
+            [placeholder]="'secure.products.bulk_upload.filter.plu' | translate" formControlName="pluVtex" (keyup.enter)="saveSomePlus()"
             [errorStateMatcher]="matcher">
+            <mat-icon matSuffix
+            [matTooltip]="'secure.products.create_product_unit.list_products.add_plus' | translate"
+            class="material-icons add-keyword-icon vertical-align-top" (click)="saveSomePlus()">
+            add_circle_outline
+          </mat-icon>
+        </mat-form-field>
+        <div [ngClass]="keyPlus.length > 0 ? 'example-chip-list-filters': example-chip-list">
+          <mat-chip-list #chipList>
+            <mat-chip *ngFor="let key of keyPlus; let i = index" (removed)="deleteKeyPlus(i)">
+              {{key}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+        <!-- Nuevo campo SellerSKU -->
+        <mat-form-field color="primary">
+          <input matInput [placeholder]="'secure.offers.bulk_upload.table_load.sellerSku' | translate"
+            formControlName="sellerSku" [errorStateMatcher]="matcher">
           <mat-hint></mat-hint>
-          <mat-error *ngIf="filterProduts.get('pluVtex').hasError('pattern')">
+          <mat-error *ngIf="filterProduts.get('sellerSku').hasError('pattern')">
             {{'secure.products.create_product_unit.list_products.product_name_invalid' | translate}}
           </mat-error>
         </mat-form-field>
@@ -91,7 +108,7 @@
           </mat-icon>
 
         </mat-form-field>
-        <div class="example-chip-list">
+        <div [ngClass]="keywords.length > 0 ? 'example-chip-list-filters': example-chip-list">
           <mat-chip-list #chipList>
             <mat-chip *ngFor="let key of keywords; let i = index" (removed)="deleteKeywork(i)">
               {{key}}
@@ -129,7 +146,7 @@
             (page)="pageEvent = changePaginatorProducts($event)"></mat-paginator>
         </div>
       </div>
-      
+
       <!--  Descargar productos admin -->
       <button mat-button (click)="openDialogDownloadProducts()" *ngIf="isAdmin">
         <mat-icon>archive</mat-icon>
@@ -141,7 +158,7 @@
         <mat-icon>archive</mat-icon>
         <small>{{'permissions.Descargar' | translate}}</small>
       </button>
-      
+
       <!--  Filtro -->
       <button type="button" mat-button (click)="toggle(showFilter)">
         <mat-icon>filter_list</mat-icon>
@@ -162,8 +179,27 @@
     </div>
 
     <div class="prodList">
+
+      <div *ngIf="myProduct && !activeCheck" class="divDelete">
+        <button mat-stroked-button color="primary" [matMenuTriggerFor]="menu" class="buttonDelete">
+          {{'secure.products.create_product_unit.list_products.delete_products' | translate}}</button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item color="primary" class="buttonSelected"
+            (click)="activeMultipleOffer()">{{'secure.products.create_product_unit.list_products.delete_products_some' | translate}}</button>
+          <button mat-menu-item color="primary" class="buttonSelected"
+            (click)="allProductsSelected()">{{'secure.products.create_product_unit.list_products.delete_products_all' | translate}}</button>
+        </mat-menu>
+      </div>
+
+      <div *ngIf="activeCheck" class="divDelete">
+        <button mat-stroked-button color="primary" class="buttonSelectedSome" (click)="someProductsSelected()">
+          <span>{{'secure.products.create_product_unit.list_products.delete_products_some_checked' | translate}}</span></button>
+      </div>
+
       <app-combo-product [offerPermission]="offerPermission" [editPermission]="editPermission"
-        [showProducts]="showProducts" [productsList]="productsList" class="listCombo" (reloadData)="reloadData();" [deletePermission]="deletePermission" [isAdmin]="isAdmin"></app-combo-product>
+        (countPlu)="countPlu($event)" [showProducts]="showProducts" [productsList]="productsList" class="listCombo"
+        (reloadData)="reloadData();" [deletePermission]="deletePermission" [isAdmin]="isAdmin"
+        [activeCheck]="activeCheck"></app-combo-product>
       <div *ngIf="!productsList.length" fxLayout="column" class="no-products">
         <div class="icon-face">
           <mat-icon class="mat-18">layers_clear</mat-icon>

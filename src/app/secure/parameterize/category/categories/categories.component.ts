@@ -1,6 +1,6 @@
-import { Component, OnInit, TemplateRef, ViewChild, NgZone, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, NgZone, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { CategoryTreeService } from '../category-tree.service';
-import { LoadingService, ModalService } from '@app/core';
+import { EndpointService, LoadingService, ModalService } from '@app/core';
 import { updateFunctionality, createFunctionality, MenuModel, categoryName, deleteFunctionality } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
@@ -11,13 +11,14 @@ import { BasicInformationService } from '@app/secure/products/create-product-uni
 import { CreateProcessDialogComponent } from '../../../../shared/components/create-process-dialog/create-process-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
 import { DownloadCategoriesComponent } from './download-categories/download-categories.component';
+import { UploadFileMasiveComponent } from '@app/shared/components/upload-file-masive/upload-file-masive.component';
 
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss']
 })
-export class CategoriesComponent implements OnInit {
+export class CategoriesComponent implements OnInit, OnDestroy {
 
   /**
    * Attribute that represent the regex for the form
@@ -77,6 +78,8 @@ export class CategoriesComponent implements OnInit {
   categoryToUpdate: any;
   msjDeleteCategory: boolean;
   categoryIdDelete: any;
+  public urlDownloadFile: string;
+  public data: any;
 
   constructor(
     private categoryService: CategoryTreeService,
@@ -88,16 +91,19 @@ export class CategoriesComponent implements OnInit {
     private regexService: BasicInformationService,
     private snackBar: MatSnackBar,
     private modalService: ModalService,
-    private languageService: TranslateService
+    private languageService: TranslateService,
+    private api?: EndpointService,
   ) {
   }
 
   ngOnInit() {
     this.getFunctionalities();
     this.verifyProccesCategory();
+    this.verifyProcessMasiveCategory();
     this.getTree();
     this.getRegex();
     this.changeLanguage();
+    this.urlDownloadFile = this.api.get('downloadTemplateCategoryMasive');
   }
 
   /**
@@ -109,6 +115,97 @@ export class CategoriesComponent implements OnInit {
       width: '60%'
     });
     dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+  /**
+   * Metodo para descargar todas las categorías
+   * @memberof CategoriesComponent
+   */
+  openModalUploadCategoriesMasive(status?: string, listError?: any): void {
+    this.data = {
+      initTime: 500,
+      intervalTime: 10000,
+      status: status,
+      listError : listError ? listError : null,
+      title: 'Cargar categorías',
+      positionTitle: 'center',
+      subTitle : 'Por favor seleccione el archivo de categorías que desea cargar',
+      positionSubtitle: 'left',
+      dragDrop: {
+        msg: 'Presione acá o arrastre y suelte el archivo',
+        accept: '.xlsx, .xls, .ods'
+      },
+      btn: {
+        btn_1 : '',
+        btn_2 : ''
+      },
+      services: {
+        send : {
+          name: 'createUpdateMassiveCategories',
+          method: 'post'
+        },
+        status: {
+          name: 'ValidateStatusCreateUpdateMassive',
+          method: 'get'
+        }
+      },
+      uploadStatus: {
+        success: {
+          title: 'Carga exitosa',
+          subTile: 'El archivo con la información de categorias se ha cargado exitosamente',
+          icon: 'check_circle',
+          colorStatus : '#485AFA',
+          btn : [
+            {
+              btnTitle : 'Aceptar',
+              action : 'close',
+              style : 'raised',
+            }
+          ]
+        },
+        proccess: {
+          title: 'Carga en proceso',
+          subTile: null,
+          icon: 'autorenew',
+          colorStatus : '#485AFA',
+          btn : [
+            {
+              btnTitle : 'Ir al inicio',
+              action : 'goToHome',
+              style : 'raised',
+            }
+          ]
+        },
+        error: {
+          title: 'Ha ocurrido un error al momento de cargar el archivo de categorías',
+          subTile: null,
+          icon: 'report_problem',
+          nameFile: 'Bulk_load_category',
+          btn : [
+            {
+              btnTitle : 'Cerrar',
+              action : 'close',
+              style : 'raised',
+            },
+            {
+              btnTitle : 'Exportar a exccel',
+              action : 'exportExcel',
+              style : 'raised',
+            }
+          ]
+        }
+      }
+    };
+    const dialogRef = this.dialog.open(UploadFileMasiveComponent, {
+      width: '50%',
+      data: this.data,
+      disableClose: true,
+    });
+    const dialogIntance = dialogRef.componentInstance;
+    dialogIntance.processFinish$.subscribe((val) => {
+      if (val) {
+        this.getTree();
+      }
     });
   }
 
@@ -210,6 +307,31 @@ export class CategoriesComponent implements OnInit {
         const { Status } = response;
         if (Status === 1 || Status === 4) {
           this.openStatusModal();
+          this.loadingService.closeSpinner();
+        }
+      } catch {
+        this.modalService.showModal('errorService');
+      }
+    });
+  }
+  /**
+   * Funcion para verificar la carga masiva de categorias
+   *
+   * @memberof CategoriesComponent
+   */
+  verifyProcessMasiveCategory() {
+    this.loadingService.viewSpinner();
+    this.categoryService.validateStatusCreateUpdateMassive().subscribe((res) => {
+      try {
+        const response = JSON.parse(res.body.body).Data;
+        const { Status, Response, Checked } = response;
+        if (Status === 1 || Status === 4) {
+          this.openModalUploadCategoriesMasive(Status, null);
+          this.loadingService.closeSpinner();
+        }
+        if (Status === 3 && Checked === 'false') {
+          const listError = JSON.parse(Response);
+          this.openModalUploadCategoriesMasive(Status, listError.Errors);
           this.loadingService.closeSpinner();
         }
       } catch {
@@ -464,8 +586,12 @@ export class CategoriesComponent implements OnInit {
       this.form.reset();
     });
   }
-
-  openStatusModal() {
+/**
+ * funcion para abrir el modal de status para la carga
+ *
+ * @memberof CategoriesComponent
+ */
+openStatusModal() {
     this.loadingService.viewSpinner();
     const data = {
       successText: this.languageService.instant('secure.parametize.category.categories.creation_succesfully'),
@@ -543,6 +669,16 @@ export class CategoriesComponent implements OnInit {
 
   get TariffCode(): FormControl {
     return this.form.get('TariffCode') as FormControl;
+  }
+/**
+ * funcuion para eliminar el componente de modal cuando se cierra la session
+ *
+ * @memberof CategoriesComponent
+ */
+ngOnDestroy() {
+    if (this.dialog) {
+      this.dialog.closeAll();
+    }
   }
 
 }

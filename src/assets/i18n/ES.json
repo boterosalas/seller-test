@@ -48,6 +48,7 @@
     "menu.Cargar guías": "Cargar guías",
     "menu.Menu": "Menú",
     "menu.Reporte de ofertas": "Reporte de ofertas",
+    "menu.Notificación de Fraudes": "Notificación de Fraudes",
     "menu.Reporte de errores en VTEX": "Reporte de errores en VTEX",
     "menu.Historico de devoluciones": "Histórico de devoluciones",
     "menu.Ciudades con Cobertura": "Ciudades con Cobertura",
@@ -95,6 +96,7 @@
     "permissions.Cancelarvacaciones": "Cancelar Vacaciones",
     "permissions.Cancelar Vacaciones": "Cancelar Vacaciones",
     "permissions.Eliminar": "Eliminar",
+    "permissions.ELIMINAR": "ELIMINAR",
     "permissions.Adjuntar": "Adjuntar",
     "permissions.Enviar": "Enviar",
     "permissions.Marcar": "Marcar",
@@ -185,6 +187,7 @@
     "actions.options": "Opciones",
     "actions.refresh": "Refrescar",
     "actions.close": "Cerrar",
+    "actions.close_mayus": "CERRAR",
     "actions.export_excel": "Exportar a excel",
     "actions.send_historical": "Enviar histórico",
     "actions.send": "Enviar",
@@ -315,6 +318,8 @@
     "core.shell.search_order_menu.search_envios_exito_form.digital_catalog": "Catálogos Virtuales",
     "core.shell.search_order_menu.search_envios_exito_form.filter_by_number": "Filtrar por número de pedido",
     "core.shell.search_order_menu.search_envios_exito_form.filter_by_id": "Filtrar por cédula del cliente",
+    "core.shell.search_order_menu.search_fraud_notification_nameFile": "Nombre del archivo",
+    "core.shell.search_order_menu.search_fraud_notification_downloadFile": "Archivo para descarga",
 
     "core.shell.search_order_menu.search_order_form.from": "Desde",
     "core.shell.search_order_menu.search_order_form.to": "Hasta",
@@ -1095,6 +1100,22 @@
     "secure.products.create_product_unit.list_products.are_no_uploades_products": "No hay productos cargados",
     "secure.products.create_product_unit.list_products.date_must_no_be_initial_date": "La fecha inicial NO debe ser mayor a la fecha final",
     "secure.products.create_product_unit.list_products.you_must_initial": "Debes ingresar fecha inicial y final para realizar filtro",
+    "secure.products.create_product_unit.list_products.delete_products": "Eliminar productos",
+    "secure.products.create_product_unit.list_products.delete_products_all": "Eliminar todos los productos",
+    "secure.products.create_product_unit.list_products.delete_products_some": "Seleccionar productos",
+    "secure.products.create_product_unit.list_products.delete_products_some_checked": "Eliminar productos seleccionados",
+    "secure.products.create_product_unit.list_products.title_some_modal_delete": "¡Vas a eliminar productos!",
+    "secure.products.create_product_unit.list_products.title_some_modal_messagge_1": "¿Estas seguro que deseas eliminar ",
+    "secure.products.create_product_unit.list_products.title_some_modal_messagge_2": " productos de tu base de datos de Mis productos?",
+    "secure.products.create_product_unit.list_products.title_some_ok1": "Haz eliminado de tu base de datos ",
+    "secure.products.create_product_unit.list_products.title_some_ok2": " productos.",
+    "secure.products.create_product_unit.list_products.title_all_modal_delete": "¡Vas a eliminar todos los productos!",
+    "secure.products.create_product_unit.list_products.title_all_modal_messagge": "¿Estas seguro que deseas eliminar todos los productos de tu base de datos de Mis productos?",
+    "secure.products.create_product_unit.list_products.button_all": "ELIMINAR TODOS LOS PRODUCTOS",
+    "secure.products.create_product_unit.list_products.title_all_ok": "Haz eliminado de tu base de datos todos los productos.",
+    "secure.products.create_product_unit.list_products.error_delete": "Se ha producido un error al momento de tratar de eliminar producto(s).",
+    "secure.products.create_product_unit.list_products.add_plus": "Agregar PLU's",
+
 
     "secure.products.create_product_unit.list_products.combo_product.creation_date": "Fecha de creación",
     "secure.products.create_product_unit.list_products.combo_product.modification_date": "Fecha de modificación",
@@ -1421,6 +1442,11 @@
     "secure.parametize.support_claims-upload-general-error": "El documento adjunto que estas tratando de cargar no es compatible con nuestra plataforma, te pedimos tener en cuenta las siguientes recomendaciones: Tu vídeo no puede durar más de 90 segundos y los formatos permitidos son : AVI, 3GP (móviles), MOV (Mac), WMV (Windows), MPG, MPEG y MP4 con un peso máximo de 4 MB. Las imágenes que puedes cargar deben estar en JPG, PNG o documentos en PDF, Excel o Word",
 
     "secure.products.bulk_upload.process": "al momento de cargar los productos.",
+    "secure.frauds.bulk_upload.process": "al momento de cargar los fraudes.",
+    "secure.frauds.charge.success": "Carga exitosa",
+    "secure.frauds.charge.success.text": "El archivo con la información de fraudes se ha cargado exitosamente",
+    "secure.frauds.in_devolution.in_devolution_page.no_found_frauds": "No se han encontrado fraudes.",
+    "errors.error_check_frauds": "Se ha presentado un error al consultar los fraudes.",
 
     "secure.reports.report-offert.download-modal-offert-ts.ok": "Se ha realizado la descarga del reporte de ofertas correctamente, revisa tu correo electrónico en unos minutos.",
     "secure.reports.report-offert.download-modal-offert-ts.ko": "Se ha presentado un error al realizar la descarga del reporte de ofertas.",
@@ -1481,6 +1507,9 @@
     "secure.dispersion.summaryPayment.allSeller": "Total Vendedores",
     "secure.dispersion.summaryPayment.dispersar": "Dispersar",
 
+    "secure.frauds.charge.frauds": "Cargar reporte de fraudes",
+    "secure.frauds.charge.select.file": "Por favor seleccione el archivo de fraudes que desea cargar",
+
     "errors_download_file_submodules" : "Se ha presentado un error al realizar la descarga.",
     "school.exito": "Escuela Éxito",
     "school.exito.theme.list": "LISTADO DE TEMAS",
@@ -1523,5 +1552,6 @@
     "quality.indicators.indicator_not_available": "Información no disponible temporalmente",
     "quality.indicators.bar_green": "Supera objetivo",
     "quality.indicators.bar_orange": "Se ajusta al objetivo",
-    "quality.indicators.bar_red": "Alerta! Indicador degradado"
+    "quality.indicators.bar_red": "Alerta! Indicador degradado",
+    "secure.reports.notification.fraud.charge-fraud": "CARGAR FRAUDES"
 }

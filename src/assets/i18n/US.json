@@ -49,6 +49,7 @@
     "menu.Cargar guías": "Upload tracking numbers",
     "menu.Menu": "Menu",
     "menu.Reporte de ofertas": "Active offers reports",
+    "menu.Notificación de Fraudes": "Fraud Notification",
     "menu.Historico de devoluciones": "Historical devolution",
     "menu.Ciudades con Cobertura": "Cities with Coverage",
     "menu.Calificación de Vendedores": "Quality Score",
@@ -92,6 +93,7 @@
     "permissions.Cancelarvacaciones": "Cancel vacations",
     "permissions.Cancelar Vacaciones": "Cancel vacations",
     "permissions.Eliminar": "Delete",
+    "permissions.ELIMINAR": "DELETE",
     "permissions.Adjuntar": "Attach",
     "permissions.Enviar": "Send",
     "permissions.Marcar": "Flag",
@@ -175,6 +177,7 @@
     "actions.options": "Options",
     "actions.refresh": "Refresh",
     "actions.close": "Close",
+    "actions.close_mayus": "CLOSE",
     "actions.export_excel": "Export excel",
     "actions.send_historical": "Send historic registry",
     "actions.send": "Send",
@@ -305,6 +308,8 @@
     "core.shell.search_order_menu.search_envios_exito_form.digital_catalog": "Digital Catalog",
     "core.shell.search_order_menu.search_envios_exito_form.filter_by_number": "Filter by order number",
     "core.shell.search_order_menu.search_envios_exito_form.filter_by_id": "Filter by client ID",
+    "core.shell.search_order_menu.search_fraud_notification_nameFile": "File Name",
+    "core.shell.search_order_menu.search_fraud_notification_downloadFile": "File to download",
 
     "core.shell.search_order_menu.search_order_form.from": "From",
     "core.shell.search_order_menu.search_order_form.to": "To",
@@ -1082,6 +1087,21 @@
     "secure.products.create_product_unit.list_products.are_no_uploades_products": "There are no uploaded products",
     "secure.products.create_product_unit.list_products.date_must_no_be_initial_date": "The starting date must Not be later than the final date",
     "secure.products.create_product_unit.list_products.you_must_initial": "You must enter an inicial and ending date to filter",
+    "secure.products.create_product_unit.list_products.delete_products": "Remove products",
+    "secure.products.create_product_unit.list_products.delete_products_all": "Remove all products",
+    "secure.products.create_product_unit.list_products.delete_products_some": "Select products",
+    "secure.products.create_product_unit.list_products.delete_products_some_checked": "Delete selected products",
+    "secure.products.create_product_unit.list_products.title_some_modal_delete": "¡You are going to eliminate products!",
+    "secure.products.create_product_unit.list_products.title_some_modal_messagge_1": "Are you sure you want to remove ",
+    "secure.products.create_product_unit.list_products.title_some_modal_messagge_2": "products from your database; My products?",
+    "secure.products.create_product_unit.list_products.title_some_ok1": "You have removed ",
+    "secure.products.create_product_unit.list_products.title_some_ok2": " products from your database.",
+    "secure.products.create_product_unit.list_products.title_all_modal_delete": "¡You are going to eliminate all products!",
+    "secure.products.create_product_unit.list_products.title_all_modal_messagge": "Are you sure you want to remove all products from your database; My products?",
+    "secure.products.create_product_unit.list_products.button_all": "DELETE ALL PRODUCTS",
+    "secure.products.create_product_unit.list_products.title_all_ok": "You have removed all products from your database.",
+    "secure.products.create_product_unit.list_products.error_delete": "An error occurred while trying to delete product(s).",
+    "secure.products.create_product_unit.list_products.add_plus": "Add PLU's",
 
     "secure.products.create_product_unit.list_products.combo_product.creation_date": "Creation date",
     "secure.products.create_product_unit.list_products.combo_product.modification_date": "Modification date",
@@ -1399,10 +1419,13 @@
 
     "secure.products.bulk_upload.process": "when uploading the products.",
 
+    "secure.frauds.bulk_upload.process": "when uploading the frauds.",
+
     "secure.reports.report-offert.download-modal-offert-ts.ok": "The download has started successfully. Check your e-mail.",
     "secure.reports.report-offert.download-modal-offert-ts.ko": "And error has occurred when downloading the file.",
 
     "secure.reports.report-vtex.download-modal-vtex-ts.ok":"Request sent successfully. In a few minutes you will receive an email with the requested file.",
+
 
     "secure.quality.quality-score.quality" :"Quality",
     "secure.quality.quality-score.qualityMonth" :"Quality month",
@@ -1437,6 +1460,13 @@
     "secure.orders.bulk.billing.maximum_All_file_size": "Files should not exceed 7 MB.",
     "secure.orders.bulk.billing.size_file": "File size: ",
     "secure.orders.bulk.billing.size_file_MB": "MB",
+
+    "secure.frauds.charge.frauds": "Upload fraud report",
+    "secure.frauds.charge.select.file": "Please select the fraud file you want to upload",
+    "secure.frauds.charge.success": "Successful upload",
+    "secure.frauds.charge.success.text": "The file with the fraud information has been uploaded successfully",
+    "secure.frauds.in_devolution.in_devolution_page.no_found_frauds": "No frauds have been found.",
+    "errors.error_check_frauds": "An error occurred while querying the frauds.",
 
     "errors_download_file_submodules" : "Se ha presentado un error al realizar la descarga.",
     "school.exito": "School Éxito",
@@ -1480,5 +1510,6 @@
     "quality.indicators.indicator_not_available": "Information temporarily unavailable",
     "quality.indicators.bar_green": "Exceeds target",
     "quality.indicators.bar_orange": "Adjusts to target",
-    "quality.indicators.bar_red": "Alert! Degraded indicator"
+    "quality.indicators.bar_red": "Alert! Degraded indicator",
+    "secure.reports.notification.fraud.charge-fraud": "CHARGE FRAUDS"
 }
