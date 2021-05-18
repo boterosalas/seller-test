@@ -72,7 +72,6 @@ export class FilterComponent implements OnInit, OnChanges {
     public regexNoSpaces = /^((?! \s+|\s+$).)*$/;
     public regexOnlyNumber = /^[0-9]*$/;
     public regexSellerSku = /^(?=.*[A-Za-z\d])[A-Za-z\d!\"#$%&'()*+/\\_:.<>=?¡¿[\\]|°¬{}^~-]+/;
-    // public regexSellerSku = /^(?=.*[A-Za-z\d])[A-Za-z\d!\"#$%&'()*+/\\_:.<>=?¡¿[\\]|°¬{}^~-]+/;
 
     listFilterOfferts: any[];
     eanList: any;
