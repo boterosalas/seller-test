@@ -28,7 +28,7 @@
             <div *ngIf="i < 5  && page1">
                     
                     <div fxLayout="row" fxLayoutGap="10px">
-                        <h4>{{item.Title}}</h4>
+                        <h4 [ngClass]="{'normal': item.IsRead }">{{item.Title}}</h4>
                         <span class="tag" *ngIf="item.IsNew"> {{'actions.new' | translate}} </span>
                     </div>
                     
@@ -45,7 +45,7 @@
             <div *ngIf="i >= 5  && page2">
                     
                     <div fxLayout="row" fxLayoutGap="10px">
-                        <h4>{{item.Title}}</h4>
+                        <h4 [ngClass]="{'normal': item.IsRead } || {'normal': read} ">{{item.Title}}</h4>
                         <span class="tag" *ngIf="item.IsNew"> {{'actions.new' | translate}}  </span>
                     </div>
 

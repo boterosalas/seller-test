@@ -90,8 +90,23 @@ public getIndicators(params: any): Observable<any> {
     return this._http.get(this._api.get('getIndicators', [params]));
   }
 
+  /**
+   * 
+   * @returns devulve el listado de los anuncios
+   */
+
   public getAdvertisements(): Observable<any> {
     return this._http.get(this._api.get('getAdvertisements'));
+  }
+
+  /**
+   * 
+   * @param body envia el id para marcar como leido un anuncio
+   * @returns 
+   */
+
+  readAdvertisements(body: any): Observable<{}> {
+    return this._http.post(this._api.get('readAdvertisements'), {Id: body});
   }
 
 }
