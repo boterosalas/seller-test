@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSidenav, ErrorStateMatcher, MatSnackBar, MatDialogRef, MatDialog } from '@angular/material';
 import { LoadingService } from '@app/core';
 import { ModalGenericComponent } from './component/modal-generic/modal-generic.component';
@@ -38,6 +38,10 @@ export class NotificationAdminComponent implements OnInit {
   public paramsNotification: any;
 
   public onlyOne = true;
+  public arrayPosition = [];
+  public indexPage = 0;
+  @ViewChild('toolbarOptions', {static: false}) toolbarOption;
+  public filter: any;
 
   public limit = 50;
   public paginationToken = encodeURI('{}');
@@ -101,11 +105,17 @@ export class NotificationAdminComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.filter = {
+      'PaginationToken': '{}',
+      'limit': this.limit,
+    };
+    this.arrayPosition = [];
+    this.arrayPosition.push('{}');
     this.getAllAdvertisements();
   }
 
   getAllAdvertisements() {
-    const params = '?limit=' + this.limit + '&paginationToken=' + this.paginationToken;
+    const params = '?limit=' + this.limit + '&paginationToken=' + encodeURI(this.paginationToken);
     this.loadingService.viewSpinner();
     this.notificationAdminService.getAllNotification(params).subscribe(result => {
       if (result && result.status === 200 && result.body) {
@@ -114,10 +124,18 @@ export class NotificationAdminComponent implements OnInit {
         if (this.onlyOne) {
           this.length = body.Count;
         }
+        this.savePaginationToken(body.PaginationToken);
         this.onlyOne = false;
         this.loadingService.closeSpinner();
       }
     });
+  }
+
+  savePaginationToken(pagination: string) {
+    const isExist = this.arrayPosition.includes(pagination);
+    if (isExist === false) {
+      this.arrayPosition.push(pagination);
+    }
   }
 
   createNotification() {
@@ -161,7 +179,6 @@ export class NotificationAdminComponent implements OnInit {
     });
   }
   preview(event: any, showPreview: boolean) {
-    console.log(event);
     event.showPreview = showPreview;
     const dialogRef = this.dialog.open(ModalPreviewNotificationComponent, {
       width: '58%',
@@ -169,7 +186,32 @@ export class NotificationAdminComponent implements OnInit {
     });
   }
 
-  paginations(event: any) { }
+  paginations(event: any) {
+    const newLimit = event.param.pageSize;
+    const index = event.param.pageIndex;
+    if (newLimit !== this.limit)  {
+      this.indexPage = 0;
+      this.limit = event.param.pageSize;
+      this.filter.PaginationToken = '{}';
+      this.filter.Limit = this.limit;
+      this.filter.CurrentPage = 0;
+      const paginator = this.toolbarOption.getPaginator();
+      paginator.pageIndex = 0;
+      this.arrayPosition = [];
+      this.arrayPosition.push('{}');
+      this.paginationToken = '{}';
+    } else {
+      let newPaginationToken = this.arrayPosition[index];
+      if (newPaginationToken === undefined) {
+          newPaginationToken = '{}';
+          this.paginationToken = '{}';
+      }
+      this.filter.PaginationToken = newPaginationToken;
+      this.paginationToken = newPaginationToken;
+      this.limit = newLimit;
+    }
+    this.getAllAdvertisements();
+   }
   changeSizeOrderTable(even: any) { }
 
 }
