@@ -3,7 +3,7 @@
   dashboard-component-container-height-50">
     <div fxLayout="row" class="dashboard-component-container-header-align">
       <div fxFlex="70" fxFlex.sm="90" fxFlex.md="75" class="dashboard-component-container-position-title-orders">
-        {{'secure.dashboard.sales' | translate}} 0
+        {{'secure.dashboard.sales' | translate}}
       </div>
       <div fxFlex="20" fxFlex.sm="10" fxFlex.md="25" fxFlex.lg="" fxFlex.xs="30" fxFlex.xl="20"
         class="dashboard-component-container-orders-align">
@@ -46,10 +46,15 @@
         <div fxLayout="column" [fxShow.lg]="false" [fxShow.xl]="false" [fxShow.sm]="true" [fxShow.md]="false" class="dashboard-component-container-position-title-orders
         dashboard-component-container-align-icon">
           <div>
-            <mat-icon class="mat-18" fxShow.lg="false" (click)="showChangeViewSales(showOrdersChartSales)"
+            <!-- <mat-icon class="mat-18" fxShow.lg="false" (click)="showChangeViewSales(showOrdersChartSales)"
               *ngIf="!showOrdersChartSales" class="dashboard-component-container-cursor-pointer">
               insert_chart_outlined
-            </mat-icon>
+            </mat-icon> 1 -->
+
+            <span class="material-icons-outlined dashboard-component-container-cursor-pointer-mobile" fxShow.lg="false"
+              (click)="showChangeViewSales(showOrdersChartSales)" *ngIf="!showOrdersChartSales">
+              bar_chart
+            </span>
           </div>
           <div>
             <mat-icon class="mat-18" fxShow.lg="false" (click)="showChangeViewSales(showOrdersChartSales)"
@@ -123,8 +128,15 @@
       <div fxFlex="20" fxFlex.md="" fxFlex.lg="" fxFlex.xs="100" fxFlex.xl="100" fxFlex.sm="100"
         [fxShow.xs]="!showOrdersChartSales" [fxShow.sm]="!showOrdersChartSales"
         class="dashboard-component-container-max-width-left-ordens">
+        <div class="dashboard-component-container-title-sales">
+          <span>{{'secure.dashboard.sales.total' | translate}}</span>
+          <p>$ 6.300.000</p>
+        </div>
         <div fxLayout="column" class="dashboard-padding-buttom-32">
-          <div fxLayout="row" class="dashboard-component-container-aling-center-calender">
+          <div fxLayout="row" class="dashboard-component-container-aling-center-sales">
+            <!-- <div>
+              HOLA 2
+            </div> -->
             <div fxFlex="50">
               <div fxLayout="column" *ngIf="false">
                 <div class="dashboard-color-text dashboard-padding-resumen" *ngIf="lang === 'US'"> {{selectTypeFilter}}
@@ -143,7 +155,6 @@
               </div>
               <!-- venta por : (Diaria, semanal, mensual, trimestral) -->
               <div fxLayout="column">
-                <!-- Casilla por enviar -->
                 <div class="dashboard-component-container-cards">
                   <div>
                     <span *ngIf="lang === 'US'"> {{selectTypeFilter}}
@@ -159,7 +170,7 @@
               </div>
             </div>
             <div fxFlex="50">
-              <div fxLayout="column">
+              <div fxLayout="column" *ngIf="false">
                 <div class="dashboard-color-text dashboard-padding-resumen">
                   {{'secure.dashboard.table.top.title.average_listing_price' | translate}}</div>
                 <div>
@@ -169,6 +180,15 @@
                       local_offer</mat-icon>
                     <span>${{promedTicket | number}}</span>
                   </span>
+                </div>
+              </div>
+              <div fxLayout="column">
+                <div class="dashboard-component-container-cards">
+                  <div>
+                    <span>{{'secure.dashboard.table.top.title.average_listing_price' | translate}}</span>
+                    <p>
+                      ${{promedTicket | number}}</p>
+                  </div>
                 </div>
               </div>
             </div>
