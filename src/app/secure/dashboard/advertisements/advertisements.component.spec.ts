@@ -1,4 +1,9 @@
+import { DatePipe } from '@angular/common';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { EndpointService } from '@app/core';
+import { MaterialModule } from '@app/material.module';
+import { SharedModule } from '@app/shared/shared.module';
+import { DashboardService } from '../services/dashboard.service';
 
 import { AdvertisementsComponent } from './advertisements.component';
 
@@ -8,7 +13,16 @@ describe('AdvertisementsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdvertisementsComponent ]
+      declarations: [ AdvertisementsComponent ],
+      imports:[
+        MaterialModule,
+        SharedModule,
+      ],
+      providers: [
+        DatePipe,
+        DashboardService,
+        EndpointService
+      ]
     })
     .compileComponents();
   }));
