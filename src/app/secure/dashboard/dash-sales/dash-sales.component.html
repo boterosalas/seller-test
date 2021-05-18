@@ -3,6 +3,9 @@
   dashboard-component-container-height-50">
     <div fxLayout="row" class="dashboard-component-container-header-align">
       <div fxFlex="70" fxFlex.sm="90" fxFlex.md="75" class="dashboard-component-container-position-title-orders">
+        <mat-icon class="mat-18
+        dashboard-component-container-icon-color-process-send">monetization_on
+        </mat-icon>
         {{'secure.dashboard.sales' | translate}}
       </div>
       <div fxFlex="20" fxFlex.sm="10" fxFlex.md="25" fxFlex.lg="" fxFlex.xs="30" fxFlex.xl="20"
@@ -84,7 +87,7 @@
     </div>
   </div>
   <div fxLayout="column">
-    <div class="dashboard-component-container-align-end-margin-top">
+    <div class="dashboard-component-container-align-end-margin-top" *ngIf="false">
       <span *ngIf="showSales" class="dashboard-component-container-data-sales">{{dateSales}}</span>
       <mat-icon class="mat-18 dashboard-component-container-screenFull"
         (click)="modalOpenChart(last_sales, 2, typeFilterSales)" [fxShow.xs]="false" [fxShow.sm]="false">

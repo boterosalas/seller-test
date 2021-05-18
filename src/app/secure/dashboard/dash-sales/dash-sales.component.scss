@@ -382,6 +382,7 @@ $table-break: 900px;
   &-container-title-sales {
     padding-left: 5%;
     font-family: Arial, Helvetica, sans-serif;
+
     span {
       font-size: 20px;
     }
@@ -391,7 +392,9 @@ $table-break: 900px;
       font-weight: bold;
       margin: 1% 0%
     }
+
     @media only screen and (max-width: $mobile-break) {
+      text-align: center;
       p {
         text-align: center;
         font-size: 50px;
@@ -403,6 +406,7 @@ $table-break: 900px;
 
   &-container-aling-center-sales {
     padding-left: 5%;
+
     @media only screen and (max-width: $mobile-break) {
       display: grid !important;
     }
