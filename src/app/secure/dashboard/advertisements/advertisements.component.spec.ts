@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { EndpointService } from '@app/core';
 import { MaterialModule } from '@app/material.module';
 import { SharedModule } from '@app/shared/shared.module';
+import { TranslateModule } from '@ngx-translate/core';
 import { DashboardService } from '../services/dashboard.service';
 
 import { AdvertisementsComponent } from './advertisements.component';
@@ -17,6 +18,7 @@ describe('AdvertisementsComponent', () => {
       imports:[
         MaterialModule,
         SharedModule,
+        TranslateModule.forRoot()
       ],
       providers: [
         DatePipe,

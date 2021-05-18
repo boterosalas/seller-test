@@ -406,6 +406,7 @@
 
 
     "secure.dashboard.all": "Todas",
+    "secure.dashboard.advertisements": "Anuncios",
     "secure.dashboard.in_transit": "En proceso de envío",
     "secure.dashboard.delievered": "Entregado",
     "secure.dashboard.expired": "Vencido",

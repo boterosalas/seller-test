@@ -2,7 +2,7 @@
 
     <div fxLayout="row" fxLayoutAlign="space-between center">
 
-        <h3> <mat-icon class="campaign">campaign</mat-icon> Anuncios</h3>
+        <h3> <mat-icon class="campaign">campaign</mat-icon> {{'secure.dashboard.advertisements' | translate}} </h3>
 
         <div fxLayout="row">
         
@@ -29,7 +29,7 @@
                     
                     <div fxLayout="row" fxLayoutGap="10px">
                         <h4>{{item.Title}}</h4>
-                        <span class="tag" *ngIf="item.IsNew"> Nuevo </span>
+                        <span class="tag" *ngIf="item.IsNew"> {{'actions.new' | translate}} </span>
                     </div>
                     
                     <p>{{item.CreationDate | date: 'dd/MM/yyyy'}}</p>
@@ -46,7 +46,7 @@
                     
                     <div fxLayout="row" fxLayoutGap="10px">
                         <h4>{{item.Title}}</h4>
-                        <span class="tag" *ngIf="item.IsNew"> Nuevo </span>
+                        <span class="tag" *ngIf="item.IsNew"> {{'actions.new' | translate}}  </span>
                     </div>
 
                     <p>{{item.CreationDate | date: 'dd/MM/yyyy'}}</p>
