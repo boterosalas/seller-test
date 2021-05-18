@@ -1,12 +1,9 @@
-<p>dash-sales works!</p>
-
-<div class="dashboard-component-container-color-border
-dashboard-component-container-margin-top-50">
+<div>
   <div fxLayout="column" class="dashboard-component-container-border-bottom-color
   dashboard-component-container-height-50">
     <div fxLayout="row" class="dashboard-component-container-header-align">
       <div fxFlex="70" fxFlex.sm="90" fxFlex.md="75" class="dashboard-component-container-position-title-orders">
-        {{'secure.dashboard.sales' | translate}}
+        {{'secure.dashboard.sales' | translate}} 0
       </div>
       <div fxFlex="20" fxFlex.sm="10" fxFlex.md="25" fxFlex.lg="" fxFlex.xs="30" fxFlex.xl="20"
         class="dashboard-component-container-orders-align">
@@ -129,19 +126,35 @@ dashboard-component-container-margin-top-50">
         <div fxLayout="column" class="dashboard-padding-buttom-32">
           <div fxLayout="row" class="dashboard-component-container-aling-center-calender">
             <div fxFlex="50">
-              <div fxLayout="column">
+              <div fxLayout="column" *ngIf="false">
                 <div class="dashboard-color-text dashboard-padding-resumen" *ngIf="lang === 'US'"> {{selectTypeFilter}}
-                  {{'secure.dashboard.sales'| translate}}</div>
+                  {{'secure.dashboard.sales'| translate}} 1 </div>
                 <div class="dashboard-color-text dashboard-padding-resumen" *ngIf="lang === 'ES'">
-                  {{'secure.dashboard.sales'| translate}} {{selectTypeFilter}}</div>
+                  {{'secure.dashboard.sales'| translate}} 2 {{selectTypeFilter}}</div>
                 <div class="dashboard-color-text dashboard-padding-resumen" *ngIf="lang === 'FR'"> {{selectTypeFilter}}
-                  {{'secure.dashboard.sales'| translate}}</div>
+                  {{'secure.dashboard.sales'| translate}} 3</div>
                 <div>
                   <span>
                     <mat-icon class="mat-18 vertical-aling-bottom dashboard-component-container-icon-color-delivered">
                       monetization_on</mat-icon>
                     <span>${{sumatoryTotal | number}}</span>
                   </span>
+                </div>
+              </div>
+              <!-- venta por : (Diaria, semanal, mensual, trimestral) -->
+              <div fxLayout="column">
+                <!-- Casilla por enviar -->
+                <div class="dashboard-component-container-cards">
+                  <div>
+                    <span *ngIf="lang === 'US'"> {{selectTypeFilter}}
+                      {{'secure.dashboard.sales'| translate}}</span>
+                    <span *ngIf="lang === 'ES'">
+                      {{'secure.dashboard.sales'| translate}} {{selectTypeFilter}}</span>
+                    <span *ngIf="lang === 'FR'"> {{selectTypeFilter}}
+                      {{'secure.dashboard.sales'| translate}}</span>
+                    <p>
+                      ${{sumatoryTotal | number}}</p>
+                  </div>
                 </div>
               </div>
             </div>
