@@ -318,7 +318,7 @@ export class ListComponent implements OnInit {
     };
     dataToSend.paramsFilters.ean = this.paramData.ean || null;
     dataToSend.paramsFilters.plu = this.paramData.pluVtex || null;
-    dataToSend.paramsFilters.plu = this.paramData.reference || null;
+    dataToSend.paramsFilters.reference = this.paramData.reference || null;
     dataToSend.paramsFilters.stock = this.paramData.stock || null;
     dataToSend.paramsFilters.sellerSku = this.paramData.sellerSku || null;
     dataToSend.paramsFilters.product = this.paramData.product || null;
