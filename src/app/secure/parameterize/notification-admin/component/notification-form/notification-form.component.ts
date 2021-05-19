@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { TranslateService } from '@ngx-translate/core';
 import { AngularEditorConfig } from '@kolkov/angular-editor/lib/config';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { ModalLoadFileComponent } from '../modal-load-file/modal-load-file.component';
 import { ModalPreviewNotificationComponent } from '../modal-preview-notification/modal-preview-notification.component';
 import { ModalGenericComponent } from '../modal-generic/modal-generic.component';
@@ -22,11 +22,12 @@ export class NotificationFormComponent implements OnInit {
   @ViewChild('radioGroupNotification', { static: false }) radioGroupNotification: any;
   @Output() isBackList = new EventEmitter<object>();
   @Output() refreshData = new EventEmitter<object>();
+  @Output() confirDelete = new EventEmitter<object>();
 
   public isEdit = false;
   @Input() set paramsNotification(value: any) {
     if (value) {
-      console.log(value);
+      window.scroll(0, 0);
       this.setValueNotificacion(value.notification);
       this.isEdit = value.isEdit ? value.isEdit : false;
       this.btnTitle = this.isEdit ? 'Editar anuncio' : 'Crear anuncio';
@@ -38,32 +39,24 @@ export class NotificationFormComponent implements OnInit {
   public disableLoadImag = false;
   public disableColor = true;
   public btnTitle = '';
-
   public showDescriptionColorImg = true;
   public show: boolean;
-
   public colorBackground = '#ffffff';
   public imagePathDrag = null;
-
   public nameFile = null;
   public sizeFile = null;
-
   public params: any;
   public today = Date.now();
-
   public checkedTypeNotification: any;
   public checkedCulture: any;
-
   public imagUrl = '';
   public changeFile = false;
-
   public paramsSaveImg: any;
-
   public listError = [];
   public withError = false;
-
   public createOrEdit = true;
   public titleErrorSubtitle = '';
+  public idNotification = null;
 
 
   public config: AngularEditorConfig = {
@@ -113,14 +106,17 @@ export class NotificationFormComponent implements OnInit {
     private notificationAdminService: NotificationAdminService,
     private dialog: MatDialog,
     private loadingService: LoadingService,
+    public snackBar?: MatSnackBar,
   ) {
     this.createForm();
   }
 
-  ngOnInit() {
-    window.scroll(0, 0);
-  }
-
+  ngOnInit() { }
+  /**
+   * funcion para crear fomulario
+   *
+   * @memberof NotificationFormComponent
+   */
   createForm() {
     this.form = new FormGroup({
       bodyNotification: new FormControl('1', [Validators.required]),
@@ -133,13 +129,22 @@ export class NotificationFormComponent implements OnInit {
       pickerColor: new FormControl({ value: '', disabled: true }),
     });
   }
-
+  /**
+   * funcion para setear el color en el pickercolor
+   *
+   * @param {string} color
+   * @memberof NotificationFormComponent
+   */
   setValueColor(color: string) {
     this.form.controls.pickerColor.setValue(color);
     this.colorBackground = color;
     this.imagePathDrag = 'backgroundColor';
   }
-
+  /**
+   * funcion para mostrar el modal de carga de archivo
+   *
+   * @memberof NotificationFormComponent
+   */
   modalLoadFiel() {
     const params = {
       show: true
@@ -161,15 +166,24 @@ export class NotificationFormComponent implements OnInit {
       }
     });
   }
-
+  /**
+   * funcion para emitir el evento cuando se cargue la imagen 
+   *
+   * @param {*} data
+   * @memberof NotificationFormComponent
+   */
   emitDataImgLoad(data: any) {
     this.imagePathDrag = data;
     this.imagUrl = data;
     this.changeFile = true;
   }
-
+  /**
+   * funcion para validar el tipo de
+   *
+   * @param {number} typeBody
+   * @memberof NotificationFormComponent
+   */
   validateBody(typeBody: number) {
-    console.log(typeBody);
     this.resetOpction(typeBody);
     switch (typeBody) {
       case 1:
@@ -215,7 +229,12 @@ export class NotificationFormComponent implements OnInit {
         break;
     }
   }
-
+  /**
+   * funcion para resetear las opciones de pickercolor y descripcion
+   *
+   * @param {number} type
+   * @memberof NotificationFormComponent
+   */
   resetOpction(type: number) {
     this.form.controls.pickerColor.reset();
     this.colorBackground = '#ffffff';
@@ -223,17 +242,25 @@ export class NotificationFormComponent implements OnInit {
       this.form.controls.bodyDescription.reset();
     }
   }
-
+  /**
+   * funcion para devolverse al listado de notificaciones
+   *
+   * @memberof NotificationFormComponent
+   */
   backList() {
     window.scroll(0, 0);
     this.isBackList.emit({ back: true });
   }
-
+  /**
+   * funcion para ver modal de prevista del anuncio
+   *
+   * @memberof NotificationFormComponent
+   */
   preview() {
     const paramsCreate = this.setparams();
     paramsCreate.showPreview = true;
     paramsCreate.isEdit = this.isEdit;
-    paramsCreate.btnTitle = this.btnTitle ;
+    paramsCreate.btnTitle = this.btnTitle;
     const dialogRef = this.dialog.open(ModalPreviewNotificationComponent, {
       width: '58%',
       data: paramsCreate,
@@ -245,7 +272,11 @@ export class NotificationFormComponent implements OnInit {
       dialogRef.close();
     });
   }
-
+  /**
+   * funcion para salvar el anuncio creado
+   *
+   * @memberof NotificationFormComponent
+   */
   saveNotification() {
     this.loadingService.viewSpinner();
     if (this.isEdit) {
@@ -262,25 +293,31 @@ export class NotificationFormComponent implements OnInit {
                   this.imagUrl = body.Data.Url;
                   const paramsCreate = this.setparams();
                   this.notificationAdminService.updateNotification(paramsCreate).subscribe(res => {
-                    console.log('edito con la imagen', res);
                     this.createOrEdit = true;
                     this.loadingService.closeSpinner();
                     this.backList();
                   });
                 } else {
-
+                  const msg = 'Se ha presentado un error al realizar la peteción al servidor';
+                  this.snackBar.open(msg, 'Cerrar', {
+                    duration: 3000
+                  });
                 }
               } else {
-                console.log('con error');
+                this.createOrEdit = false;
+                this.withError = true;
+                this.listError = body.Errors;
+                this.titleErrorSubtitle = 'Ha ocurrido un error al momento de cargar el anuncio';
+                this.loadingService.closeSpinner();
+                this.modalGeneric();
               }
             }
           }
         });
 
       } else {
-       const paramsCreate = this.setparams();
+        const paramsCreate = this.setparams();
         this.notificationAdminService.createNew(paramsCreate).subscribe(res => {
-          console.log('edito pero No la imagen, ', res);
           this.withError = false;
           this.createOrEdit = true;
           this.loadingService.closeSpinner();
@@ -302,7 +339,6 @@ export class NotificationFormComponent implements OnInit {
                 const paramsCreate = this.setparams();
                 this.notificationAdminService.createNew(paramsCreate).subscribe(res => {
                   if (res && res.Errors.length === 0) {
-                    console.log('SE CREA EL ANUNCIO', res);
                     this.createOrEdit = true;
                     this.loadingService.closeSpinner();
                     this.modalGeneric();
@@ -336,7 +372,12 @@ export class NotificationFormComponent implements OnInit {
       });
     }
   }
-
+  /**
+   * funcion para enviar los parametros para guardar la imgen 
+   *
+   * @returns
+   * @memberof NotificationFormComponent
+   */
   paramSaveOrChangeImg() {
     const paramsSaveImg = {
       NewsContentType: this.form.controls && this.form.controls.bodyNotification ? this.form.controls.bodyNotification.value : null,
@@ -346,11 +387,16 @@ export class NotificationFormComponent implements OnInit {
     };
     return paramsSaveImg;
   }
-
+  /**
+   * funcion para crear parametros y crear el anuncio 
+   *
+   * @returns
+   * @memberof NotificationFormComponent
+   */
   setparams() {
     const paramsCreate = {
-      Id: null,
-      NewsContentType: parseInt(this.form.controls.bodyNotification.value, 0) ,
+      Id: this.idNotification,
+      NewsContentType: parseInt(this.form.controls.bodyNotification.value, 0),
       Target: this.form.controls.lenguaje.value,
       InitialDate: this.form.controls.dateInitial.value,
       FinalDate: this.form.controls.dateEnd.value,
@@ -361,8 +407,13 @@ export class NotificationFormComponent implements OnInit {
       BackgroundColor: this.form.controls.pickerColor.value ? this.form.controls.pickerColor.value : null,
     };
 
-     return <any>paramsCreate;
+    return <any>paramsCreate;
   }
+  /**
+   * funcion para llamar al modal generico para mostrar editado, creado o eliminar 
+   *
+   * @memberof NotificationFormComponent
+   */
   modalGeneric() {
     const title = this.isEdit ? 'El anuncio se ha editado exitosamente' : 'El anuncio se ha creado exitosamente';
     const params = {
@@ -373,11 +424,11 @@ export class NotificationFormComponent implements OnInit {
       },
       error: {
         isError: this.withError,
-        listError : this.listError,
+        listError: this.listError,
         titleErrorSubtitle: this.titleErrorSubtitle
       },
-      delete : {
-        isDelete : false
+      delete: {
+        isDelete: false
       },
     };
     const dialogRef = this.dialog.open(ModalGenericComponent, {
@@ -391,12 +442,15 @@ export class NotificationFormComponent implements OnInit {
       dialogRef.close();
     });
   }
-
+  /**
+   * funcion para setear en el formulario para editar
+   *
+   * @param {*} params
+   * @memberof NotificationFormComponent
+   */
   setValueNotificacion(params: any) {
     if (params && this.form) {
-      window.scroll(0, 0);
-      const newNotification = params && params.NewsContentType ? params.NewsContentType.toString() : 1;
-      console.log(newNotification);
+      const newNotification = params.NewsContentType ? params.NewsContentType.toString() : 1;
       this.form.controls.title.setValue(params.Title);
       this.form.controls.dateInitial.setValue(params.InitialDate);
       this.form.controls.dateEnd.setValue(params.FinalDate);
@@ -405,6 +459,7 @@ export class NotificationFormComponent implements OnInit {
       this.form.controls.bodyDescription.setValue(params.Body);
       this.form.controls.bodyNotification.setValue(newNotification);
       this.form.controls.lenguaje.setValue(params.Target);
+      this.idNotification = params.Id;
       this.imagePathDrag = params.UrlImage;
       this.imagUrl = params.UrlImage;
     }

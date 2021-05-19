@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
 
@@ -52,6 +52,7 @@ export class ModalLoadFileComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _sanitizer: DomSanitizer,
     public dialogRef: MatDialogRef<ModalLoadFileComponent>,
+    public snackBar?: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -87,7 +88,6 @@ export class ModalLoadFileComponent implements OnInit {
   loadDragAndDrop(file: any) {
     this.getBase64(file).then(data => {
       try {
-        console.log(file);
         this.fileImgBase64 = data;
         this.imagePathDrag = this._sanitizer.bypassSecurityTrustResourceUrl(data);
         this.emitDataImgLoad.emit(this.fileImgBase64);
@@ -95,7 +95,10 @@ export class ModalLoadFileComponent implements OnInit {
         this.dateFile = file.lastModifiedDate;
         this.success = this.error ? false : true;
       } catch (error) {
-        console.log(error);
+        const msg = 'Se ha presentado un error al realizar la peteción al servidor';
+        this.snackBar.open(msg, 'Cerrar', {
+          duration: 3000
+        });
       }
     });
   }

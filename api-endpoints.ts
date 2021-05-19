@@ -331,7 +331,10 @@ export const endpoints = {
        // Guardar imagen de anuncios
        saveImgNotification : 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/SaveImage',
        // Editar anuncios
-       updateNotification : 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/UpdateNew?culture=es-CO'
+       updateNotification : 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/UpdateNew',
+       // Eliminar anuncios
+       deleteNotification: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/DeleteNew{params}'
+
     },
   },
   // Endpoints production
@@ -660,7 +663,9 @@ export const endpoints = {
       // Guardar imagen de anuncios
       saveImgNotification : '',
       // Editar anuncios
-      UpdateNotification : 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/UpdateNew?culture=es-CO'
+      UpdateNotification : '',
+      // Eliminar anuncios
+      deleteNotification:''
 
     }
   }

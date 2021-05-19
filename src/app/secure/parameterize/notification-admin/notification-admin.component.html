@@ -8,7 +8,6 @@
         (OnGetOrdersList)="getOrdersList($event)"
         (paginationListOrdens)="paginations($event)"
         [isFullSearch]="isFullSearch" [pageIndexChange]="pageIndexChange"
-        (OnChangeSizeOrderTable)="changeSizeOrderTable($event)"
         [downloadPermission]="downloadPermission"
         [Typeprofile]="typeProfile" [allFilter]="allFilter"
         [showLoading]="false" [limitPaginate]="[50, 100, 150]"
@@ -16,21 +15,19 @@
         [showContainerDetail]="showContainerDetail"></app-toolbar-search-pagination>
     </div>
   </div>
-
   <div *ngIf="showListAdvertisements">
     <div class="padding-width" fxLayout="row wrap">
-      <div fxFlex fxLayoutAlign="end center" style="padding: 20px 30px; width:
-        220px;">
-        <button mat-stroked-button color="primary" style="text-transform:
-          uppercase;" mat-button
+      <div fxFlex fxLayoutAlign="end center"
+        class="notification-admin-title-module">
+        <button mat-stroked-button color="primary"
+          class="notification-admin-text-transform-uppercase" mat-button
           (click)="createNotification()">Crear nuevo anuncio</button>
       </div>
     </div>
     <div>
       <div fxFlex.xs="100%" fxFlex.sm="95" fxFlex.md="100" fxFlex.lg="100"
-        fxFlex.xl="100" style="padding: 0px 30px;">
+        fxFlex.xl="100" class="notification-admin-padding-content-title">
         <mat-table #table [dataSource]="dataSource" matSort>
-
           <ng-container matColumnDef="title">
             <mat-header-cell fxShow.xs="false" fxShow.sm="false"
               fxShow.lg="true"
@@ -44,11 +41,9 @@
               fxShow.xl="true" fxShow="true" fxFlex.lg="40"
               fxFlex.sm="40" fxFlex.md="40" fxFlex.xs="40" fxFlex.xl=""
               *matCellDef="let element">
-              <p class="sc-text-normal calification-list-font-weight"
-                style="color: #909090; font-size: 14px;">{{element.Title}}</p>
+              <p class="sc-text-normal notification-admin-column-title">{{element.Title}}</p>
             </mat-cell>
           </ng-container>
-
           <ng-container matColumnDef="date">
             <mat-header-cell fxShow.xs="false" fxShow.sm="false"
               fxShow.lg="true"
@@ -62,53 +57,44 @@
               fxShow.xl="true" fxShow="true" fxFlex.lg="40"
               fxFlex.sm="40" fxFlex.md="40" fxFlex.xs="40" fxFlex.xl="40"
               *matCellDef="let element">
-              <p class="sc-text-normal" style="color: #909090; font-size:
-                14px;"><span>Publicada
+              <p class="sc-text-normal notification-admin-column-title"><span>Publicada
                 </span>{{element.CreationDate | date: 'dd/MM/yyyy'}}</p>
             </mat-cell>
           </ng-container>
-
-          <ng-container matColumnDef="actions"
-            class="calification-list-justify-content">
+          <ng-container matColumnDef="actions">
             <mat-header-cell fxShow.xs="false" fxShow.sm="false"
               fxShow.lg="true"
               fxShow.xl="true" fxShow="true"
               fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30"
               fxFlex.xl="" *matHeaderCellDef
-              class="calification-list-justify-content" style="display: flex;
-              justify-content: center;">
+              class="notification-admin-display-justify">
               <span class="title-table-header">{{'shared.actions' | translate}}</span>
             </mat-header-cell>
             <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
               fxShow.xl="true" fxShow="true" fxFlex.lg="20"
               fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl="20"
-              *matCellDef="let element" style="display: flex;
-              justify-content:center;">
-              <p class="sc-text-normal align-end-actions cursor-pointer"
-                style="padding-left: 5px; padding-right: 5px; color: #909090">
-                <mat-icon class="color-icons-details" style="width: 18px;
-                  height:
-                  18px; font-size: 18px; cursor: pointer;"
+              *matCellDef="let element"
+              class="notification-admin-display-justify">
+              <p class="sc-text-normal
+                notification-admin-container-padding-color-icon">
+                <mat-icon class="notification-admin-container-hover-cursor-icon"
                   matTooltip="Previsualizar"
                   (click)="preview(element, false);">find_in_page</mat-icon>
               </p>
-              <p class="sc-text-normal align-end-actions cursor-pointer"
-                style="padding-left: 5px; padding-right: 5px; color: #909090">
-                <mat-icon class="color-icons-details" style="width: 18px;
-                  height:
-                  18px; font-size: 18px; cursor: pointer;" matTooltip="Editar"
+              <p class="sc-text-normal
+                notification-admin-container-padding-color-icon">
+                <mat-icon class="notification-admin-container-hover-cursor-icon"
+                  matTooltip="Editar"
                   (click)="edit(element, true);">edit</mat-icon>
               </p>
-              <p class="sc-text-normal align-end-actions cursor-pointer"
-                style="padding-left: 5px; padding-right: 5px; color: #909090">
-                <mat-icon class="color-icons-details" style="width: 18px;
-                  height:
-                  18px; font-size: 18px; cursor: pointer;" matTooltip="Eliminar"
+              <p class="sc-text-normal
+                notification-admin-container-padding-color-icon">
+                <mat-icon class="notification-admin-container-hover-cursor-icon"
+                  matTooltip="Eliminar"
                   (click)="deleteNotification(element);">delete</mat-icon>
               </p>
             </mat-cell>
           </ng-container>
-
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row id="order-number-{{index}}" *matRowDef="let index=index; let
             row; columns: displayedColumns;" class="element-row
@@ -127,6 +113,10 @@
           </div>
         </div>
       </div>
+    </div>
+    <div *ngIf="!dataSource" class="width-100">
+      <mat-spinner [diameter]="30" class="aling-spinner-center"></mat-spinner>
+      <p class="loading-waiting">{{'secure.products.create_product_unit.list_products.please_wait' | translate}}</p>
     </div>
   </div>
   <div *ngIf="!showListAdvertisements">

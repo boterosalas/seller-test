@@ -2,7 +2,7 @@
 <div fxLayout="row wrap">
   <div fxFlex="100" class="modal-generic-icon-position-close">
     <mat-icon class="mat-18 modal-generic-cursor-grey-color"
-      (click)="close()">close</mat-icon>
+      (click)="close()" matTooltip="Cerrar">close</mat-icon>
   </div>
 </div>
 <div *ngIf="data">
@@ -17,8 +17,8 @@
       </div>
     </div>
     <div style="text-align: center; padding-top: 30px; font-weight: bold;">
-      <span>El anuncio se ha <span *ngIf="!data.isEdit">creado</span> <span
-          *ngIf="data.isEdit">editado</span> exitosamente</span>
+      <span>El anuncio se ha <span *ngIf="!data.success.isEdit">creado</span> <span
+          *ngIf="data.success.isEdit">editado</span> exitosamente</span>
     </div>
     <div style="width: 100%; text-align: center; padding-top: 150px;padding-bottom: 30px;">
       <div style="width: 100%; text-align: center;">
@@ -31,12 +31,12 @@
   <div *ngIf="data.delete.isDelete && !data.success.createOrEdit && !data.error.isError">
     <div style="text-align: center;">
       <span style="font-size: 18px;font-weight: bold;">
-        {{data.success.title}}
+        {{data.delete.title}}
       </span>
     </div>
     <div style="text-align: center;padding-top: 40px;">
       <span style="color: #757474;">
-        {{data.success.subTitle}}
+        {{data.delete.subTitle}}
       </span>
     </div>
     <div fxLayout="row wrap" style="padding: 80px 0px;">
@@ -48,7 +48,7 @@
       <div fxFlex="50" style="padding-left: 10px;">
         <button mat-raised-button color="primary" style="text-transform:
         uppercase; width: 160px;" mat-button
-        (click)="saveNotification()">Aceptar</button>
+        (click)="deleteNotification()">Aceptar</button>
       </div>
     </div>
   </div>

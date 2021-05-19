@@ -10,15 +10,14 @@ import { Subject } from 'rxjs';
 export class ModalGenericComponent implements OnInit {
 
   public processFinish$ = new Subject<any>();
+  public delete$ = new Subject<any>();
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ModalGenericComponent>,
   ) { }
 
-  ngOnInit() {
-    console.log(this.data);
-  }
+  ngOnInit() {}
 
   close() {
     this.dialogRef.close();
@@ -26,6 +25,9 @@ export class ModalGenericComponent implements OnInit {
 
   refresh() {
     this.processFinish$.next(true);
+  }
+  deleteNotification (){
+    this.delete$.next(true);
   }
 
 }
