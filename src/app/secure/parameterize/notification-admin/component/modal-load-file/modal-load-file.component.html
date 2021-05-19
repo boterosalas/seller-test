@@ -1,10 +1,11 @@
-<div style="padding-bottom: 20px;">
+<div class="modal-load-file-padding-bottom-20">
   <div fxLayout="row wrap" *ngIf="_showComponent">
-    <div fxFlex="90" style="text-align: center;">
-      <span style="margin-left: 60px; font-weight: bold; font-size: 18px;">Imagen destacadas</span>
+    <div fxFlex="90" class="modal-load-file-text-align-center">
+      <span class="modal-load-file-margin-left-font-size">Imagen destacadas</span>
     </div>
-    <div fxFlex="10" style="text-align: end;">
-      <mat-icon class="mat-18" (click)="close()" style="cursor: pointer;" matTooltip="Cerrar">close</mat-icon>
+    <div fxFlex="10" class="modal-load-file-text-align-end">
+      <mat-icon class="mat-18 modal-load-file-cursor-pointer" (click)="close()"
+        matTooltip="Cerrar">close</mat-icon>
     </div>
   </div>
 </div>
@@ -21,60 +22,63 @@
           [class.invalid-drag]="validComboDrag===false"
           [class.valid-drag]="validComboDrag"
           (filesChange)="lastFileAt=getDate(); validateFile(files, file)"
-          style="min-height: 250px;">
+          class="modal-load-file-min-height-250">
 
           <div *ngIf="startInit === true && !error && !lastInvalids?.length">
-            <div style="padding-bottom: 30px;">
+            <div class="modal-load-file-padding-bottom-30">
               <span>
                 Arrastra el archivo a cualquier lugar para subirlo
               </span>
             </div>
-            <div style="text-align: center; padding-bottom: 30px;">
+            <div class="modal-load-file-text-align-center-padding-30">
               <span>ó</span>
             </div>
-            <div style="text-align: center;">
-              <button mat-stroked-button color="primary" style="text-transform:
-                uppercase;" mat-button>seleccionar archivo</button>
+            <div class="modal-load-file-text-align-center">
+              <button mat-stroked-button color="primary"
+                class="modal-load-file-text-transform-uppercase" mat-button>seleccionar
+                archivo</button>
             </div>
           </div>
 
-          <div *ngIf="success && !lastInvalids?.length"style="width: 100%;">
-            <div fxLayout="row wrap" style="width: 100%; max-height: 280px;">
-              <div fxFlex="50" style="contain: content; padding-top: 10px;
-                text-align: center;">
-                <img [src]="imagePathDrag" style="width: 100%; height: 100%;
-                  max-height: 200px;
-                  max-width: 290px;">
+          <div *ngIf="success && !lastInvalids?.length"
+            class="modal-load-file-width-100">
+            <div fxLayout="row wrap"
+              class="modal-load-file-width-100-max-height">
+              <div fxFlex="50"
+                class="modal-load-file-contain-padding-text-align">
+                <img [src]="imagePathDrag"
+                  class="modal-load-file-width-max-100">
               </div>
-              <div fxFlex="50" style="padding-left: 10px;">
-                <div style="text-align: center;">
-                  <span style="font-size: 15px;">Detalle de la imagen</span>
+              <div fxFlex="50" class="modal-load-file-padding-left-10">
+                <div class="modal-load-file-text-align-center">
+                  <span class="modal-load-file-font-size-15">Detalle de la
+                    imagen</span>
                 </div>
                 <mat-divider></mat-divider>
-                <div style="padding: 5px; padding-top: 25px;">
-                  <mat-icon class="mat-18" style="vertical-align: middle;color:
-                    #cac3c3; font-size: 22px; width: 22px; height: 22px;">image</mat-icon>
-                  <span style="font-size: 13px;">
+                <div class="modal-load-file-padding-top-5">
+                  <mat-icon class="mat-18
+                    modal-load-file-img-vertical-align-middle">image</mat-icon>
+                  <span class="modal-load-file-font-size-13">
                     Nombre: {{nameFile}}
                   </span>
                 </div>
-                <div style="padding: 5px;">
-                  <mat-icon class="mat-18" style="vertical-align: middle;color:
-                    #cac3c3; font-size: 22px; width: 22px; height: 22px;">fitness_center</mat-icon>
-                  <span style="font-size: 13px;">
+                <div class="modal-load-file-padding-5">
+                  <mat-icon class="mat-18
+                    modal-load-file-img-vertical-align-middle">fitness_center</mat-icon>
+                  <span class="modal-load-file-font-size-13">
                     Peso: {{this.size}} MB
                   </span>
                 </div>
-                <div style="padding: 5px;">
-                  <mat-icon class="mat-18" style="vertical-align: middle;color:
-                    #cac3c3; font-size: 22px; width: 22px; height: 22px;">date_range</mat-icon>
-                  <span style="font-size: 13px;">
+                <div class="modal-load-file-padding-5">
+                  <mat-icon class="mat-18
+                    modal-load-file-img-vertical-align-middle">date_range</mat-icon>
+                  <span class="modal-load-file-font-size-13">
                     Fecha: {{dateFile | date:'dd/MM/yyyy'}}
                   </span>
                 </div>
-                <div style="padding: 5px; text-align: center; padding-top:
-                  26px;" *ngIf="_showComponent">
-                  <span style="color: #a5a2a2; font-size: 11px;">
+                <div class="modal-load-file-container-text-help"
+                  *ngIf="_showComponent">
+                  <span class="modal-load-file-text-font-size">
                     (La imagen se ha recargado exitosamente, cierre para
                     completar el cargado de la imagen )
                   </span>
@@ -83,34 +87,35 @@
             </div>
           </div>
 
-          <div *ngIf="error || lastInvalids?.length"style="text-align: center;
-            width: 100%">
-            <div style="padding-bottom: 20px; width: 100%">
-              <mat-icon class="material-icons" style="color: red;font-size:
-                40px; width: 40px;height: 40px;">
+          <div *ngIf="error || lastInvalids?.length"
+            class="modal-load-file-text-align-width-100">
+            <div class="modal-load-file-padding-bottom-width">
+              <mat-icon class="material-icons"
+                class="modal-load-file-icon-not-interesed">
                 not_interested
               </mat-icon>
             </div>
-            <div *ngIf="lastInvalids?.length" style="width: 100%">
+            <div *ngIf="lastInvalids?.length" class="modal-load-file-width-100">
               <span>Formato invalido</span>
             </div>
-            <div *ngIf="refuseMaxSize && !lastInvalids?.length" style="width:
-              100%">
+            <div *ngIf="refuseMaxSize && !lastInvalids?.length"
+              class="modal-load-file-width-100">
               <span>La imagen no puede superar los 7 mb</span>
             </div>
-            <div *ngIf="!dimesion && !lastInvalids?.length" style="width: 100%">
+            <div *ngIf="!dimesion && !lastInvalids?.length"
+              class="modal-load-file-width-100">
               <span>Medidas de las imagenes no pueden superar 800 x 600 px</span>
             </div>
           </div>
         </div>
-        <div style="width: 100%;" *ngIf="_showComponent">
-          <div style="width: 100%; text-align: center;">
+        <div class="modal-load-file-width-100" *ngIf="_showComponent">
+          <div class="modal-load-file-width-100-text-align-center">
             <mat-divider></mat-divider>
           </div>
-          <div style="width: 100%; text-align: right; padding-top: 30px;">
-            <button mat-stroked-button color="primary" style="text-transform:
-              uppercase; width: 160px;" mat-button
-              (click)="closeAndsave()">Cerrar</button>
+          <div class="modal-load-file-btn-close-text">
+            <button mat-raised-button color="primary"
+              class="modal-load-file-text-transform-uppercase-width" mat-button
+              (click)="closeAndsave()">Continuar</button>
           </div>
         </div>
       </div>
