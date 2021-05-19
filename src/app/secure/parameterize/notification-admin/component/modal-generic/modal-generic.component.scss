@@ -32,4 +32,130 @@ mat-icon {
     color: #909090;
     cursor: pointer;
   }
+
+  &-text-align-center {
+    text-align: center;
+  }
+
+  &-text-transform-uppercase-width {
+    text-transform: uppercase;
+    width: 160px;
+  }
+
+  &-container-icon-check {
+    background-color: #6FB63E;
+    margin-left: 44%;
+    margin-right: 45%;
+    border-radius: 64px;
+    height: 70px;
+  }
+
+  &-icons-white-margin {
+    margin-top: 22px;
+    color: white;
+  }
+
+  &-text-align-padding-font {
+    text-align: center;
+    padding-top: 30px;
+    font-weight: bold;
+  }
+
+  &-width-text-align-padding {
+    width: 100%;
+    text-align: center;
+    padding-top: 150px;
+    padding-bottom: 30px;
+  }
+
+  &-width-text-align-center {
+    width: 100%;
+    text-align: center;
+  }
+
+  &-font-size-weight-bold {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  &-text-align-center-padding-40 {
+    text-align: center;
+    padding-top: 40px;
+  }
+
+  &-color-text {
+    color: #757474;
+  }
+
+  &-padding-80px {
+    padding: 80px 0px;
+  }
+
+  &-text-align-right-padding {
+    text-align: right;
+    padding-right: 14px;
+  }
+
+  &-padding-left-10 {
+    padding-left: 10px;
+  }
+
+  &-container-icons-color-red {
+    background-color: #D14444;
+    margin-left: 44%;
+    margin-right: 45%;
+    border-radius: 64px;
+    height: 70px;
+  }
+
+  &-container-color-white-margin-top {
+    margin-top: 22px;
+    color: white;
+  }
+
+  &-text-align-width {
+    text-align: center;
+    width: 100%;
+    padding: 30px 0px;
+  }
+
+  &-font-weight-bold-font {
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  &-container-text-subtitle {
+    text-align: center;
+    color: #757474;
+    font-size: 14px;
+  }
+
+  &-padding-top-20 {
+    padding-top: 20px;
+  }
+
+  &-container-overflox-x {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 130px;
+    min-height: 130px;
+    max-height: 130px;
+  }
+
+  &-color-grey {
+    color: #757474
+  }
+
+  &-font-size-14 {
+    font-size: 14px;
+  }
+
+  &-padding-5 {
+    padding: 5px 0px;
+  }
+
+  &-width-height {
+    width: 100%;
+    height: 130px;
+  }
 }
