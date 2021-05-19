@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
@@ -42,17 +42,29 @@ export class ModalPreviewNotificationComponent implements OnInit {
       this.load = false;
     }, 700);
   }
-
+  /**
+   * funcion para cerrar el modal de vista previa
+   *
+   * @memberof ModalPreviewNotificationComponent
+   */
   close() {
     this.dialogRef.close();
   }
-
+  /**
+   * funcion para hacer la accion en todo la imgen y redireccionar al link
+   *
+   * @memberof ModalPreviewNotificationComponent
+   */
   callToAction() {
     if (this.link) {
       window.open(this.link, '_blank');
     }
   }
-
+  /**
+   * funcion para enviar el evento emitido
+   *
+   * @memberof ModalPreviewNotificationComponent
+   */
   emitEventNotification() {
     this.processFinishModalPreview$.next();
   }

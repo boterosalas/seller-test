@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSidenav, ErrorStateMatcher, MatSnackBar, MatDialogRef, MatDialog } from '@angular/material';
+import { MatTableDataSource, MatSnackBar, MatDialog } from '@angular/material';
 import { LoadingService } from '@app/core';
 import { ModalGenericComponent } from './component/modal-generic/modal-generic.component';
 import { ModalPreviewNotificationComponent } from './component/modal-preview-notification/modal-preview-notification.component';
