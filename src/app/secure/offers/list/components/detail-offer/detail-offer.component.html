@@ -39,7 +39,7 @@
     </div>
     <p class="name">{{dataOffer.name}}</p>
     <div *ngIf="dataOffer.reference" class="maskSellerSku">
-      {{'secure.orders.order_list.product_order.reference' | translate}}: {{dataOffer.reference}}
+      {{'secure.products.table_load_product.parent_reference' | translate}}: {{dataOffer.reference}}
     </div> 
     <div class="container-data-offer" *ngIf="!isUpdateOffer && isUpdateOffer === false">
       <p *ngIf="dataOffer.discountPrice > 0" [innerHTML]="dataOffer.price | currency: '$' : 'symbol' : '1.2-2'"

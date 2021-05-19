@@ -130,7 +130,7 @@ export class FilterComponent implements OnInit, OnChanges {
                 this.sellerSku.setValue(undefined);
                 break;
             case 'filterReference':
-                this.sellerSku.setValue(undefined);
+                this.reference.setValue(undefined);
                 break;
             case 'filterStock':
                 this.stock.setValue(undefined);
