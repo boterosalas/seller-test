@@ -17,16 +17,29 @@ export class ModalGenericComponent implements OnInit {
     public dialogRef: MatDialogRef<ModalGenericComponent>,
   ) { }
 
-  ngOnInit() {}
-
+  ngOnInit() { }
+  /**
+   * funcion para cerrar el modal
+   *
+   * @memberof ModalGenericComponent
+   */
   close() {
     this.dialogRef.close();
   }
-
+  /**
+   * funcion para emitir para hacer el refrescado
+   *
+   * @memberof ModalGenericComponent
+   */
   refresh() {
     this.processFinish$.next(true);
   }
-  deleteNotification (){
+  /**
+   * funcion para eliminar las notificaciones
+   *
+   * @memberof ModalGenericComponent
+   */
+  deleteNotification() {
     this.delete$.next(true);
   }
 
