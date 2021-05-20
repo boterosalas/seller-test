@@ -408,6 +408,7 @@ export class OfertExpandedProductComponent implements OnInit {
      * @memberof OfertExpandedProductComponent
      */
     public sendDataToService(approval: number): void {
+        this.ofertProduct.controls.OfferByReference.value === true ? this.applyOffer.ean = null : this.applyOffer.ean = this.applyOffer.ean;
         const data = {
             EAN: this.applyOffer.ean,
             Stock: this.ofertProduct.controls.Stock.value,
