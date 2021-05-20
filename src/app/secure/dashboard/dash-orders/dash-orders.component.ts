@@ -150,7 +150,7 @@ export class DashOrdersComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.log = new Logger('DashboardComponent');
+        this.log = new Logger('DashOrdersComponent');
         this.getUserData();
         this.changeLanguage();
         this.setSelectFilterOrders();
@@ -159,20 +159,19 @@ export class DashOrdersComponent implements OnInit {
     }
 
     /**
- * funcion para selecionar por defecto una opcion en el listado de periodicidad
- *
- * @memberof DashboardComponent
- */
+     * funcion para selecionar por defecto una opcion en el listado de periodicidad
+     * @memberof DashOrdersComponent
+     */
     setSelectFilterOrders() {
         this.selected = '1';
         this.selectedSales = '4';
     }
+
     /**
-    * funcion para mostrar los diferentes calendarios dependiendo del filtro
-    *
-    * @param {*} filter
-    * @memberof DashboardComponent
-    */
+     * funcion para mostrar los diferentes calendarios dependiendo del filtro
+     * @param {*} filter
+     * @memberof DashOrdersComponent
+     */
     select(filter: any) {
         this.typeFilter = filter;
         if (filter === '1' || filter === '2') {
@@ -184,12 +183,12 @@ export class DashOrdersComponent implements OnInit {
         }
         this.getOrdensSummary();
     }
+
     /**
-    * funcion para obtener todas las ordenes
-    *
-    * @param {*} [params]
-    * @memberof DashboardComponent
-    */
+     * funcion para obtener todas las ordenes
+     * @param {*} [params]
+     * @memberof DashOrdersComponent
+     */
     getOrdensSummary(params?: any) {
         this.params = this.setParameters(params);
         this.showChartOrdens = false;
@@ -213,13 +212,13 @@ export class DashOrdersComponent implements OnInit {
         }
         );
     }
+
     /**
-    * funcion para setear los parametros
-    *
-    * @param {*} params
-    * @returns
-    * @memberof DashboardComponent
-    */
+     * funcion para setear los parametros
+     * @param {*} params
+     * @returns
+     * @memberof DashOrdersComponent
+     */
     setParameters(params: any) {
         let paramsOrdersSummary = 'null/';
         if (this.dateCurrent === '' || this.dateCurrent === undefined) {
@@ -241,12 +240,12 @@ export class DashOrdersComponent implements OnInit {
         }
         return paramsOrdersSummary;
     }
+
     /**
-    * funcion para calcular el total de cantidad de un producto
-    *
-    * @param {*} res
-    * @memberof DashboardComponent
-    */
+     * funcion para calcular el total de cantidad de un producto
+     * @param {*} res
+     * @memberof DashOrdersComponent
+     */
     calculateCountSales(res: any) {
         this.totalCount = 0;
         if (res && res.length > 0) {
@@ -260,7 +259,7 @@ export class DashOrdersComponent implements OnInit {
     /**
      * @method getUserData
      * @description Método que carga los datos del vendedor para obtener la sellerId.
-     * @memberof DashboardComponent
+     * @memberof DashOrdersComponent
      */
     private async getUserData() {
         this.user = await this.userParams.getUserData();
@@ -694,25 +693,25 @@ export class DashOrdersComponent implements OnInit {
         dp.close();
     }
 
+
     /**
-    * modal para mostrar el detalle
-    *
-    * @param {*} data
-    * @param {*} type
-    * @param {*} filter
-    * @memberof DashboardComponent
-    */
+     * modal para mostrar el detalle
+     * @param {*} data
+     * @param {*} type
+     * @param {*} filter
+     * @memberof DashOrdersComponent
+     */
     public modalOpenChart(data: any, type: any, filter: any) {
         this.openDialog(data, type, filter);
     }
+
     /**
-    * modal para mostrar el detalle
-    *
-    * @param {*} data
-    * @param {*} type
-    * @param {*} filter
-    * @memberof DashboardComponent
-    */
+     * modal para mostrar el detalle
+     * @param {*} data
+     * @param {*} type
+     * @param {*} filter
+     * @memberof DashOrdersComponent
+     */
     public openDialog(data: any, type: any, filter: any) {
         if (!!data) {
             const dialogRef = this.dialog.open(ModalDashboardComponent, {
@@ -721,12 +720,12 @@ export class DashOrdersComponent implements OnInit {
             });
         }
     }
+
     /**
-    * funcion para agregar un clase que permita el scroll en el contenedor
-    *
-    * @param {boolean} show
-    * @memberof DashboardComponent
-    */
+     * funcion para agregar un clase que permita el scroll en el contenedor
+     * @param {boolean} show
+     * @memberof DashOrdersComponent
+     */
     public addClassScroll(show: boolean) {
         if (show) {
             this.containerScrollTop.nativeElement.classList.add('addScroll');
