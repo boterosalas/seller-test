@@ -827,6 +827,8 @@
 
     "secure.offers.bulk_upload.bulk_upload.title_toolbar": "BULK OFFER UPLOAD",
     "secure.offers.bulk_upload.bulk_upload.download_format_offer": "DOWNLOAD FORMAT",
+    "secure.offers.bulk_upload.bulk_upload.download_format_estandar": "STANDARD",
+    "secure.offers.bulk_upload.bulk_upload.download_format_variant": "VARIANTS",
     "secure.offers.bulk_upload.bulk_upload.upload_format": "SELECT A FILE TO UPLOAD",
     "secure.offers.bulk_upload.bulk_upload.text_step_import_to_offer": "in this file you may enter your offer information",
     "secure.offers.bulk_upload.bulk_upload.exceeds_limits": "The amount of assets found is over 1,048,576, this amount is not allowed.",
@@ -847,6 +849,7 @@
     "secure.offers.bulk_upload.table_error.dane_code": "The code entered is invalid.",
     "secure.offers.bulk_upload.table_error.periodicity": "The periodicity is invalid.",
     "secure.offers.bulk_upload.table_error.sellerSku": "Seller SKU is invalid.",
+    "secure.offers.bulk_upload.table_error.reference": "The parent reference is invalid.",
 
     "secure.offers.bulk_upload.table_load.title_offer_charge": "Upload the offers again",
     "secure.offers.bulk_upload.table_load.ean_combo": "EAN Combo",
@@ -1142,6 +1145,7 @@
     "secure.products.create_product_unit.list_products.ofert_product.mandatory_warranty": "The warranty field is mandatory",
     "secure.products.create_product_unit.list_products.ofert_product.envios_exito_indicator": "Envios Éxito Indicator",
     "secure.products.create_product_unit.list_products.ofert_product.stock_update": "Stock update",
+    "secure.products.create_product_unit.list_products.ofert_product.reference_update": "Apply Offer to all variants",
     "secure.products.create_product_unit.list_products.ofert_product.mandatory_price_ean_combo": "Combo EAN Price is mandatory",
     "secure.products.create_product_unit.list_products.ofert_product.invalid_price_ean_combo": "Combo EAN Price is invalid",
     "secure.products.create_product_unit.list_products.ofert_product.mandatory_amount_ean_combo": "Combo EAN Amount is mandatory",

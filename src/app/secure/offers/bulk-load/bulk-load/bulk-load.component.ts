@@ -36,7 +36,7 @@ export const OFFERS_HEADERS_PERIODICITY = 'Periodicity';
 export const OFFERS_HEADERS_PÉRIODICITÉ = 'Périodicité';
 export const OFFERS_HEADERS_FREE_SHIPPING = 'Free Shipping';
 export const OFFERS_HEADERS_FREE_SHIPPING_FR = 'Livraison gratuite';
-export const OFFERS_HEADERS_ENVIOS_EXITO = 'Indicador Envios Exito';
+export const OFFERS_HEADERS_ENVIOS_EXITO = 'Indicador Envíos Exito';
 export const OFFERS_HEADERS_EXITO_INDICATOR = 'Envios Exito Indicator';
 export const OFFERS_HEADERS_EXITO_INDICATOR_FR = 'Indicateur d\'expédition Éxito';
 export const OFFERS_HEADERS_COTIZADOR = 'Cotizador de Flete';
@@ -58,16 +58,18 @@ export const OFFERS_HEADERS_AMOUNT_COMBO_FR = 'Bundle stock';
 export const OFFERS_HEADERS_MONEDA = 'Tipo de moneda';
 export const OFFERS_HEADERS_CURRENCY = 'Currency';
 export const OFFERS_HEADERS_CURRENCY_FR = 'Type de monnaie';
-export const OFFERS_HEADERS_DIRECCION = 'Direccion de Recogida';
-export const OFFERS_HEADERS_ADDRESS = 'Picking Address';
+export const OFFERS_HEADERS_DIRECCION = 'Dirección de Recogida';
+export const OFFERS_HEADERS_ADDRESS = 'Pick up address';
 export const OFFERS_HEADERS_ADDRESS_FR = 'Adresse de collecte';
 export const OFFERS_HEADERS_CODIGO_DANE = 'Ciudad de Recogida';
-export const OFFERS_HEADERS_DANECODE = 'Picking City';
+export const OFFERS_HEADERS_DANECODE = 'Pick up city';
 export const OFFERS_HEADERS_DANECODE_FR = 'Ville de collecte';
 export const OFFERS_HEADERS_SKU_ES = 'SKU Vendedor';
 export const OFFERS_HEADERS_SKU_EN = 'Seller SKU';
 export const OFFERS_HEADERS_SKU_FR = 'Vendeur SKU';
-
+export const OFFERS_HEADERS_PARENT_REF_ES = 'Referencia Padre';
+export const OFFERS_HEADERS_PARENT_REF_EN = 'Parent Reference';
+export const OFFERS_HEADERS_PARENT_REF_FR = 'Parent Reference';
 
 // log component
 const log = new Logger('BulkLoadComponent');
@@ -148,18 +150,18 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     formatNumber: '',
     promiseDelivery: '',
     periodicity: '',
-    currency: '',
     warranty: '',
     price: '',
     address: '',
     daneCode: '',
-    atleastonealphanumeric: ''
+    atleastonealphanumeric: '',
+    referenceProduct: ''
   };
 
 
   /* Input file que carga el archivo*/
-  @ViewChild('fileUploadOption', {static: false}) inputFileUpload: any;
-  @ViewChild('dialogContent', {static: false}) content: TemplateRef<any>;
+  @ViewChild('fileUploadOption', { static: false }) inputFileUpload: any;
+  @ViewChild('dialogContent', { static: false }) content: TemplateRef<any>;
 
 
   constructor(
@@ -364,8 +366,10 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             res[0][j] === OFFERS_HEADERS_DANECODE_FR ||
             res[0][j] === OFFERS_HEADERS_SKU_ES ||
             res[0][j] === OFFERS_HEADERS_SKU_EN ||
-            res[0][j] === OFFERS_HEADERS_SKU_FR
-
+            res[0][j] === OFFERS_HEADERS_SKU_FR ||
+            res[0][j] === OFFERS_HEADERS_PARENT_REF_ES ||
+            res[0][j] === OFFERS_HEADERS_PARENT_REF_EN ||
+            res[0][j] === OFFERS_HEADERS_PARENT_REF_FR
           ) {
             this.arrayNecessaryData[i].push(res[i][j]);
           }
@@ -436,18 +440,22 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             iPromEntrega: this.validateSubTitle(this.arrayNecessaryData, 'Delivery Terms', 'Promesa de Entrega', 'Temps de livraison'),
             iPeriodicity: this.validateSubTitle(this.arrayNecessaryData, 'Periodicity', 'Periodicidad', 'Périodicité'),
             iFreeShiping: this.validateSubTitle(this.arrayNecessaryData, 'Free Shipping', 'Free Shipping', 'Livraison gratuite'),
-            iIndEnvExito: this.validateSubTitle(this.arrayNecessaryData, 'Indicador Envios Exito', 'Envios Exito Indicator', 'Indicateur d\'expédition Éxito'),
+            iIndEnvExito: this.validateSubTitle(this.arrayNecessaryData, 'Indicador Envíos Exito', 'Envios Exito Indicator', 'Indicateur d\'expédition Éxito'),
             iCotFlete: this.validateSubTitle(this.arrayNecessaryData, 'Freight Calculator', 'Cotizador de Flete', 'Cotation du fret'),
             iGarantia: this.validateSubTitle(this.arrayNecessaryData, 'Warranty', 'Garantia', 'Garantie'),
             iLogisticaExito: this.validateSubTitle(this.arrayNecessaryData, 'Exito Logistics', 'Logistica Exito', 'Logistique Éxito'),
             iActInventario: this.validateSubTitle(this.arrayNecessaryData, 'Stock Update', 'Actualizacion de Inventario', 'Mise à Jour du Stock'),
             iEanCombo: this.validateSubTitle(this.arrayNecessaryData, 'Ean combo', 'Ean combo', 'Ean combo'),
             iCantidadCombo: this.validateSubTitle(this.arrayNecessaryData, 'Amount in combo', 'Cantidad en combo', 'Bundle stock'),
-            iCurrency: this.validateSubTitle(this.arrayNecessaryData, 'Currency', 'Tipo de moneda', 'Type de monnaie'),
             iAddress: this.validateSubTitle(this.arrayNecessaryData, 'Picking Address', 'Direccion de Recogida', 'Adresse de collecte'),
             iDaneCode: this.validateSubTitle(this.arrayNecessaryData, 'Picking City', 'Ciudad de Recogida', 'Ville de collecte'),
-            iSellerSku: this.validateSubTitle(this.arrayNecessaryData, 'Seller SKU', 'SKU Vendedor', 'Vendeur SKU')
+            iSellerSku: this.validateSubTitle(this.arrayNecessaryData, 'Seller SKU', 'SKU Vendedor', 'Vendeur SKU'),
+            iReference: this.validateSubTitle(this.arrayNecessaryData, 'Parent Reference', 'Referencia Padre', 'Parent Reference')
           };
+
+          //Elimina las filas 1 y 2 que son de titulos
+          this.arrayNecessaryData.splice(1, 2);
+
           if (this.arrayNecessaryData.length > this.limitRowExcel) {
             this.loadingService.closeSpinner();
             this.componentService
@@ -552,7 +560,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
               };
               this.listLog.push(itemLog);
               errorInCell = true;
-            } else if (res[i][iVal.iEanCombo] === res[i][iVal.iEAN] || !fast && res[i][iVal.iEanCombo]) {
+            } else if ((res[i][iVal.iEAN] && res[i][iVal.iEanCombo] === res[i][iVal.iEAN]) || !fast && res[i][iVal.iEanCombo]) {
               // ERROR: ya que el ean de combo es el mismo ean.
               this.countErrors += 1;
               const row = i + 1, column = j + 1;
@@ -696,6 +704,26 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
                   errorInCell = true;
                 }
 
+              } else if (j === iVal.iReference) {
+                const isReference = this.validFormat(res[i][j], 'referenceProduct');
+                if (!isReference && isReference === false) {
+                  this.countErrors += 1;
+                  const row = i + 1, column = j + 1;
+
+                  const itemLog = {
+                    row: this.arrayInformation.length,
+                    column: j,
+                    type: 'InvalidReference',
+                    columna: column,
+                    fila: row,
+                    positionRowPrincipal: i,
+                    dato: j === iVal.iReference ? 'Reference' : null
+                  };
+
+                  this.listLog.push(itemLog);
+                  errorInCell = true;
+                }
+
               } else if (j === iVal.iGarantia) {
                 const iGarantia = this.validFormat(res[i][j], 'greaterWarranty');
                 if (!iGarantia && iGarantia === false) {
@@ -821,7 +849,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
 
               }
             }
-          } else if (j === iVal.iEAN || (j === iVal.iInv && !res[i][iVal.iEanCombo]) || j === iVal.iPrecio) {
+          } else if ((j === iVal.iInv && !res[i][iVal.iEanCombo]) || j === iVal.iPrecio) {
             if (res[i][j] === undefined || res[i][j] === '' || res[i][j] === null) {
               this.countErrors += 1;
               const row = i + 1, column = j + 1;
@@ -833,13 +861,30 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
                 columna: column,
                 fila: row,
                 positionRowPrincipal: i,
-                dato: j === iVal.iEAN ? 'Ean' : j === iVal.iInv ? 'Stock' : j === iVal.iPrecio ? 'Price' : null
+                dato: j === iVal.iInv ? 'Stock' : j === iVal.iPrecio ? 'Price' : null
               };
 
               this.listLog.push(itemLog);
               errorInCell = true;
             }
+          } else if ((j === iVal.iEAN && !res[i][iVal.iReference])) {
+            if (res[i][j] === undefined || res[i][j] === '' || res[i][j] === null) {
+              this.countErrors += 1;
+              const row = i + 1, column = j + 1;
 
+              const itemLog = {
+                row: this.arrayInformation.length,
+                column: j,
+                type: 'dateNotFound',
+                columna: column,
+                fila: row,
+                positionRowPrincipal: i,
+                dato: j === iVal.iEAN ? 'Ean' : null
+              };
+
+              this.listLog.push(itemLog);
+              errorInCell = true;
+            }
           } else {
             log.info('Dato cargado correctamente');
           }
@@ -939,7 +984,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       Currency: res[index][iVal.iCurrency] ? res[index][iVal.iCurrency] : 'COP',
       Address: res[index][iVal.iAddress],
       DaneCode: res[index][iVal.iDaneCode],
-      SellerSku: res[index][iVal.iSellerSku]
+      SellerSku: res[index][iVal.iSellerSku],
+      Reference: res[index][iVal.iReference]
       // Currency: 'COP'
     };
     this.arrayInformationForSend.push(newObjectForSend);
@@ -973,6 +1019,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       Address: res[index][iVal.iAddress],
       DaneCode: res[index][iVal.iDaneCode],
       SellerSku: res[index][iVal.iSellerSku],
+      Reference: res[index][iVal.iReference],
       errorRow: false
     };
 
@@ -1023,6 +1070,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       this.arrayInformation[index].errorDaneCode = false;
       this.arrayInformation[index].errorRow = false;
       this.arrayInformation[index].errorSellerSku = false;
+      this.arrayInformation[index].errorReference = false;
     }
   }
 
@@ -1098,7 +1146,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       width: '95%',
       data: {
         response: res,
-        responseDiferent : false
+        responseDiferent: false
       },
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -1134,17 +1182,6 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             } else {
               valueReturn = false;
             }
-          }
-          break;
-        case 'currency':
-          if ((inputtxt.match(this.offertRegex.currency))) {
-            if (inputtxt === 'COP' || inputtxt === 'USD') {
-              valueReturn = true;
-            } else {
-              valueReturn = false;
-            }
-          } else {
-            valueReturn = false;
           }
           break;
         case 'boolean':
@@ -1217,6 +1254,13 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             valueReturn = false;
           }
           break;
+        case 'referenceProduct':
+          if ((inputtxt.match(this.offertRegex.referenceProduct))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
       }
     }
     return valueReturn;
@@ -1240,14 +1284,14 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
         'Costo de Flete Promedio': undefined,
         'Promesa de Entrega': undefined,
         'Free Shipping': undefined,
-        'Indicador Envios Exito': undefined,
+        'Indicador Envíos Exito': undefined,
         'Actualizacion de Inventario': undefined,
         'Cotizador de Flete': undefined,
         'Garantia': undefined,
         'Ean combo': undefined,
         'Cantidad en combo': undefined,
         'Tipo de moneda': undefined,
-        'Direccion de Recogida': undefined,
+        'Dirección de Recogida': undefined,
         'Ciudad de Recogida': undefined
       }];
       log.info(emptyFile);
@@ -1273,8 +1317,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
         'Ean combo': undefined,
         'Amount in combo': undefined,
         'Currency': undefined,
-        'Picking Address': undefined,
-        'Picking City': undefined,
+        'Pick up address': undefined,
+        'Pick up city': undefined,
       }];
       log.info(emptyFile);
       this.exportAsExcelFile(emptyFile, 'Offer upload format');
@@ -1407,7 +1451,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
   public validateFormSupport(): void {
     this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
       let dataOffertRegex = JSON.parse(res.body.body);
-      dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'ofertas' || data.Module === 'transversal');
+      dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'ofertas' || data.Module === 'transversal' || data.Module === 'productos');
       for (const val in this.offertRegex) {
         if (!!val) {
           const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
@@ -1426,16 +1470,21 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     if (approval !== 1) {
       this.arrayInformationForSend.splice(0, 1);
     }
-    // Validacion para que siempre se envie la promesa de entrega # a #.
     this.arrayInformationForSend.forEach(element => {
-      // if (element['EanCombo'] === null && element['EanCombo'] === '' && element['EanCombo'] === undefined ) {
+      // Validacion para que siempre se envie la promesa de entrega # a #.
       if (element['PromiseDelivery']) {
         const promiseSplited = (element['PromiseDelivery'].split(/\s(a|-|to)\s/));
         const convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
         element['PromiseDelivery'] = convertPromise;
       }
+      if (element['EAN']) {
+        element['OfferByReference'] = false;
+      } else if (!element['EAN'] && element['Reference']) {
+        element['OfferByReference'] = true;
+      } else {
+        element['OfferByReference'] = false;
+      }
     });
-
     this.sendData = {
       'PriceApproval': approval,
       'ListOffers': this.arrayInformationForSend
@@ -1514,7 +1563,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
       intervalTime: this.intervalTime,
       listError: listError,
       typeStatus: type,
-      responseDiferent : false
+      responseDiferent: false
     };
     this.cdr.detectChanges();
     const dialog = this.dialog.open(FinishUploadInformationComponent, {
@@ -1559,9 +1608,12 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
    *
    * @memberof BulkLoadComponent
    */
-  requestMail() {
-    this.dialogRef = this.dialog.open(ModalSendEmailComponent);
+  requestMail(productType: string) {
+    this.dialogRef = this.dialog.open(ModalSendEmailComponent, {
+      data: { productType }
+    });
   }
+
   /**
    * destruye el compomente y cierra el modal
    *

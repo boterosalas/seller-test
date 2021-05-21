@@ -7,6 +7,7 @@ export class ModelFilter {
       public limit?: any,
       public IdSeller?: string,
       public pluVtex?: any,
+      public reference?: any,
       public sellerSku?: any
   ) { }
 
@@ -23,5 +24,6 @@ export class ModelFilter {
       this.limit = undefined;
       this.pluVtex = undefined;
       this.sellerSku = undefined;
+      this.reference = undefined;
   }
 }

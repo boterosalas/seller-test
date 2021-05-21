@@ -43,6 +43,14 @@
       <mat-hint></mat-hint>
       <mat-error *ngIf="filterForm.get('sellerSku').hasError('pattern')">{{'secure.offers.bulk_upload.table_error.sellerSku' | translate}}</mat-error>
     </mat-form-field>
+    <!-- Campo nuevo Referencia Padre -->
+    <mat-form-field>
+      <input matInput 
+        [placeholder]="'secure.products.table_load_product.parent_reference' | translate" formControlName="reference"
+        [errorStateMatcher]="matcher">
+      <mat-hint></mat-hint>
+      <mat-error *ngIf="filterForm.get('reference').hasError('pattern')">{{'errors.format_invalidate' | translate}}</mat-error>
+    </mat-form-field>
 
     <article class="container-radio-buttons flexbox align-center justify-between">
       <div class="inputGroup flexbox align-center justify-center">
@@ -60,7 +68,7 @@
       <button mat-stroked-button color="primary" type="button" (click)="cleanFilter()"
         [innerHTML]="['filters.clear' | translate]">{{'filters.clear' | translate}}</button>
       <button mat-flat-button color="primary" type="submit" [innerHTML]="['filters.filter' | translate]"
-        [disabled]="!filterOffers.form.valid || (!product.value && !ean.value && !stock.value && !pluVtex.value && !sellerSku.value)">{{'filters.filter' | translate}}</button>
+        [disabled]="!filterOffers.form.valid || (!product.value && !ean.value && !stock.value && !pluVtex.value && !sellerSku.value && !reference.value)">{{'filters.filter' | translate}}</button>
     </article>
 
   </form>
