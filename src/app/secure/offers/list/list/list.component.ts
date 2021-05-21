@@ -26,7 +26,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class ListComponent implements OnInit {
 
   // Componente necesario para el funcionamiento del filtro.
-  @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
+  @ViewChild('sidenav', { static: false }) sidenav: MatSidenav;
 
   // Variable para almacenar los datos del usuario logeado.
   public user: any;
@@ -101,8 +101,8 @@ export class ListComponent implements OnInit {
    * @memberof ListComponent
    */
   ngOnInit() {
+    this.callServiceStatus();
     this.getListOffers();
-    this.verifyProccesDesactiveOffert();
     this.permissionComponent = this.authService.getMenu(offerListName);
     this.updatePermission = this.getFunctionality(this.update);
     this.readPermission = this.getFunctionality(this.read);
@@ -144,6 +144,7 @@ export class ListComponent implements OnInit {
     this.paramData.product = params.product !== undefined && params.product !== null ? params.product.trim() : params.product;
     this.paramData.ean = params.ean !== undefined && params.ean !== null ? params.ean.trim() : params.ean;
     this.paramData.pluVtex = params.pluVtex !== undefined && params.pluVtex !== null ? params.pluVtex.trim() : params.pluVtex;
+    this.paramData.reference = params.reference !== undefined && params.reference !== null ? params.reference.trim() : params.reference;
     this.paramData.stock = params.stock;
     this.paramData.sellerSku = params.sellerSku;
     this.paramData.currentPage = this.currentPage;
@@ -155,6 +156,7 @@ export class ListComponent implements OnInit {
       pluVtex: this.paramData.pluVtex,
       product: encodeURIComponent(this.paramData.product),
       sellerSku: encodeURIComponent(this.paramData.sellerSku),
+      reference: this.paramData.reference,
       stock: this.paramData.stock
     };
     this.getListOffers(dataToSend);
@@ -178,6 +180,9 @@ export class ListComponent implements OnInit {
       case 'filterPluVtex':
         this.paramData.pluVtex = undefined;
         break;
+      case 'filterReference':
+        this.paramData.reference = undefined;
+        break;
       case 'filterSellerSku':
         this.paramData.sellerSku = undefined;
         break;
@@ -187,7 +192,7 @@ export class ListComponent implements OnInit {
     }
     this.filterRemove = filter;
 
-    if (this.paramData.product === undefined && this.paramData.ean === undefined && this.paramData.stock === undefined && this.paramData.pluVtex === undefined && this.paramData.sellerSku === undefined) {
+    if (this.paramData.product === undefined && this.paramData.ean === undefined && this.paramData.stock === undefined && this.paramData.pluVtex === undefined && this.paramData.sellerSku === undefined && this.paramData.reference === undefined) {
       this.filterActive = false;
     }
     this.getListOffers(this.paramData);
@@ -255,7 +260,11 @@ export class ListComponent implements OnInit {
       this.filterActive = false;
       this.filterRemove = 'all';
       this.paramData.clear();
-      this.getListOffers();
+      if (event.reference === true) {
+        this.verifyProccesApplyOffert();
+      } else {
+        this.getListOffers();
+      }
     }
   }
 
@@ -268,6 +277,7 @@ export class ListComponent implements OnInit {
     this.paramData.ean = null;
     this.paramData.stock = null;
     this.paramData.product = null;
+    this.paramData.reference = null;
     this.paramData.pluVtex = null;
     this.paramData.sellerSku = null;
     this.filterOffers(this.paramData);
@@ -302,18 +312,18 @@ export class ListComponent implements OnInit {
         plu: null,
         product: null,
         stock: null,
+        reference: null,
         sellerSku: null
       }
     };
-
     dataToSend.paramsFilters.ean = this.paramData.ean || null;
     dataToSend.paramsFilters.plu = this.paramData.pluVtex || null;
+    dataToSend.paramsFilters.reference = this.paramData.reference || null;
     dataToSend.paramsFilters.stock = this.paramData.stock || null;
     dataToSend.paramsFilters.sellerSku = this.paramData.sellerSku || null;
     dataToSend.paramsFilters.product = this.paramData.product || null;
 
     this.allOffer ? this.sumItemCount = this.totalOffers : this.sumItemCount = this.sumItemCount;
-
     const dialogRef = this.dialog.open(DialogDesactiveOffertComponent, {
       data: {
         count: this.sumItemCount
@@ -389,6 +399,26 @@ export class ListComponent implements OnInit {
   }
 
   /**
+   * Validar status si es carga en proceso o aplicar oferta en proceso
+   * @memberof ListComponent
+   */
+  callServiceStatus() {
+    this.loadingService.viewSpinner();
+    this.bulkLoadService.verifyStatusBulkLoad().subscribe((res) => {
+      if (res && res.status === 200) {
+        if (res.body.data.type === '1') {
+          this.verifyProccesApplyOffert();
+        } else {
+          this.verifyProccesDesactiveOffert();
+        }
+      } else {
+        this.loadingService.viewSpinner();
+        this.modalService.showModal('errorService');
+      }
+    });
+  }
+
+  /**
    * Funcion para validar el estado del proceso de desactivacion de ofertas
    * @memberof ListComponent
    */
@@ -422,6 +452,39 @@ export class ListComponent implements OnInit {
   }
 
   /**
+   * Funcion para validar el estado del proceso de aplicar una ofertas
+   * @memberof ListComponent
+   */
+  verifyProccesApplyOffert() {
+    this.bulkLoadService.verifyStatusBulkLoad().subscribe((res) => {
+      try {
+        if (res && res.status === 200) {
+          const { status, checked } = res.body.data;
+          if ((status === 1 || status === 4 ) && checked !== 'true') {
+            const statusCurrent = 1;
+            setTimeout(() => { this.openModalApplyOffer(statusCurrent, null); });
+          } else if (status === 2 && checked !== 'true') {
+            setTimeout(() => { this.openModalApplyOffer(status, null); });
+          } else if (status === 3 && checked !== 'true') {
+            const response = res.body.data.response;
+            if (response) {
+              this.listErrorStatus = JSON.parse(response).Data.OfferNotify;
+            } else {
+              this.listErrorStatus = null;
+            }
+            setTimeout(() => { this.openModalApplyOffer(status, this.listErrorStatus); });
+          } else {
+            this.loadingService.closeSpinner();
+          }
+        }
+      } catch {
+        this.loadingService.viewSpinner();
+        this.modalService.showModal('errorService');
+      }
+    });
+  }
+
+  /**
    * Metodo para abrir modal de OK, carga en proceso o con errores.
    * @param {number} type
    * @param {*} listError
@@ -438,7 +501,7 @@ export class ListComponent implements OnInit {
       intervalTime: intervalTime,
       listError: listError,
       typeStatus: type,
-      responseDiferent : false
+      responseDiferent: false
     };
     const dialog = this.dialog.open(FinishUploadInformationComponent, {
       width: '70%',
@@ -451,6 +514,43 @@ export class ListComponent implements OnInit {
     dialogIntance.request = this.bulkLoadService.verifyStatusBulkLoad();
     dialogIntance.processFinish$.subscribe((val) => {
       dialog.disableClose = false;
+    });
+  }
+
+  /**
+   * Modal para abrirOk, errores o carga en proceso de aplicar una oferta.
+   * @param {number} type
+   * @param {*} listError
+   * @memberof ListComponent
+   */
+  openModalApplyOffer(type: number, listError: any) {
+    this.loadingService.closeSpinner();
+    const intervalTime = 6000;
+    const data = {
+      successText: this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.offer_has_been_correctly'),
+      failText: this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.error_trying_apply_offer'),
+      processText: this.languageService.instant('secure.products.Finish_upload_product_information.upload_progress'),
+      goList: true,
+      initTime: 500,
+      intervalTime: intervalTime,
+      listError: listError,
+      typeStatus: type,
+      responseDiferent: false
+    };
+    const dialog = this.dialog.open(FinishUploadInformationComponent, {
+      width: '70%',
+      minWidth: '280px',
+      maxHeight: '80vh',
+      disableClose: type === 1 || type === 2 || type === 3,
+      data: data
+    });
+
+    const dialogIntance = dialog.componentInstance;
+    dialogIntance.request = this.bulkLoadService.verifyStatusBulkLoad();
+    dialogIntance.processFinish$.subscribe((val) => {
+      if (val === null) {
+        this.getListOffers();
+      }
     });
   }
 
