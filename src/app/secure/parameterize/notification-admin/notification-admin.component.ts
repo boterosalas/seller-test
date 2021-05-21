@@ -87,7 +87,6 @@ export class NotificationAdminComponent implements OnInit {
       if (result && result.status === 200 && result.body) {
         const body = result.body;
         this.dataSource = new MatTableDataSource(body.ViewModel);
-        console.log(this.dataSource);
         if (this.onlyOne) {
           this.length = body.Count;
         }
@@ -199,7 +198,7 @@ export class NotificationAdminComponent implements OnInit {
     });
   }
   /**
-   * funcion para borrar el anuncion 
+   * funcion para borrar el anuncion
    *
    * @param {*} id
    * @param {*} dialog

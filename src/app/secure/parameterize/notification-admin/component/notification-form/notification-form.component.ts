@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AngularEditorConfig } from '@kolkov/angular-editor/lib/config';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -15,7 +15,7 @@ import { LoadingService } from '@app/core';
   templateUrl: './notification-form.component.html',
   styleUrls: ['./notification-form.component.scss']
 })
-export class NotificationFormComponent implements OnInit {
+export class NotificationFormComponent implements OnInit, OnDestroy  {
 
   @ViewChild('fileUploadOption', { static: false }) inputFileUpload: any;
   @ViewChild('pickerColor', { static: false }) pickerColor: any;
@@ -57,6 +57,7 @@ export class NotificationFormComponent implements OnInit {
   public createOrEdit = true;
   public titleErrorSubtitle = '';
   public idNotification = null;
+  public dialogRef: any;
 
 
   public config: AngularEditorConfig = {
@@ -149,13 +150,13 @@ export class NotificationFormComponent implements OnInit {
     const params = {
       show: true
     };
-    const dialogRef = this.dialog.open(ModalLoadFileComponent, {
+     this.dialogRef = this.dialog.open(ModalLoadFileComponent, {
       width: '50%',
       data: params,
       disableClose: true,
     });
 
-    const dialogIntance = dialogRef.componentInstance;
+    const dialogIntance = this.dialogRef.componentInstance;
     dialogIntance.processFinish$.subscribe((val) => {
       if (val.imgBase64 !== undefined) {
         this.imagePathDrag = val.imgBase64;
@@ -261,15 +262,15 @@ export class NotificationFormComponent implements OnInit {
     paramsCreate.showPreview = true;
     paramsCreate.isEdit = this.isEdit;
     paramsCreate.btnTitle = this.btnTitle;
-    const dialogRef = this.dialog.open(ModalPreviewNotificationComponent, {
+    this.dialogRef = this.dialog.open(ModalPreviewNotificationComponent, {
       width: '58%',
       data: paramsCreate,
     });
 
-    const dialogIntance = dialogRef.componentInstance;
+    const dialogIntance = this.dialogRef.componentInstance;
     dialogIntance.processFinishModalPreview$.subscribe((val) => {
       this.saveNotification();
-      dialogRef.close();
+      this.dialogRef.close();
     });
   }
   /**
@@ -317,7 +318,7 @@ export class NotificationFormComponent implements OnInit {
 
       } else {
         const paramsCreate = this.setparams();
-        this.notificationAdminService.createNew(paramsCreate).subscribe(res => {
+        this.notificationAdminService.updateNotification(paramsCreate).subscribe(res => {
           this.withError = false;
           this.createOrEdit = true;
           this.loadingService.closeSpinner();
@@ -373,7 +374,7 @@ export class NotificationFormComponent implements OnInit {
     }
   }
   /**
-   * funcion para enviar los parametros para guardar la imgen 
+   * funcion para enviar los parametros para guardar la imgen
    *
    * @returns
    * @memberof NotificationFormComponent
@@ -431,15 +432,15 @@ export class NotificationFormComponent implements OnInit {
         isDelete: false
       },
     };
-    const dialogRef = this.dialog.open(ModalGenericComponent, {
+     this.dialogRef = this.dialog.open(ModalGenericComponent, {
       width: '50%',
       data: params,
     });
 
-    const dialogIntance = dialogRef.componentInstance;
+    const dialogIntance = this.dialogRef.componentInstance;
     dialogIntance.processFinish$.subscribe((val) => {
       this.refreshData.emit(val);
-      dialogRef.close();
+      this.dialogRef.close();
     });
   }
   /**
@@ -462,6 +463,16 @@ export class NotificationFormComponent implements OnInit {
       this.idNotification = params.Id;
       this.imagePathDrag = params.UrlImage;
       this.imagUrl = params.UrlImage;
+    }
+  }
+  /**
+    * funcion para destruir el componente del modal
+    *
+    * @memberof ExpandedProductComponent
+    */
+   ngOnDestroy() {
+    if (this.dialogRef) {
+      this.dialogRef.close();
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Subject } from 'rxjs';
 
@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
   templateUrl: './modal-generic.component.html',
   styleUrls: ['./modal-generic.component.scss']
 })
-export class ModalGenericComponent implements OnInit {
+export class ModalGenericComponent implements OnInit, OnDestroy {
 
   public processFinish$ = new Subject<any>();
   public delete$ = new Subject<any>();
@@ -41,6 +41,17 @@ export class ModalGenericComponent implements OnInit {
    */
   deleteNotification() {
     this.delete$.next(true);
+  }
+
+   /**
+    * funcion para destruir el componente del modal
+    *
+    * @memberof ExpandedProductComponent
+    */
+  ngOnDestroy() {
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    }
   }
 
 }

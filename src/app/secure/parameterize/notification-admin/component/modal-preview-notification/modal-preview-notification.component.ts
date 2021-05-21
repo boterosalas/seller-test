@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
@@ -8,7 +8,7 @@ import { Subject } from 'rxjs';
   templateUrl: './modal-preview-notification.component.html',
   styleUrls: ['./modal-preview-notification.component.scss']
 })
-export class ModalPreviewNotificationComponent implements OnInit {
+export class ModalPreviewNotificationComponent implements OnInit, OnDestroy   {
 
   public title = null;
   public typeBody = null;
@@ -68,5 +68,16 @@ export class ModalPreviewNotificationComponent implements OnInit {
   emitEventNotification() {
     this.processFinishModalPreview$.next();
   }
+
+   /**
+    * funcion para destruir el componente del modal
+    *
+    * @memberof ExpandedProductComponent
+    */
+    ngOnDestroy() {
+      if (this.dialogRef) {
+        this.dialogRef.close();
+      }
+    }
 
 }
