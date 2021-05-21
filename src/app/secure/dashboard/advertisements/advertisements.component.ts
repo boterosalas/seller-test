@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
+import { LoadingService } from '@app/core';
 import { ModalAdvertisementsComponent } from '../modal-advertisements/modal-advertisements.component';
 import { DashboardService } from '../services/dashboard.service';
 
@@ -13,7 +14,8 @@ export class AdvertisementsComponent implements OnInit {
 
   constructor(
     private _dashboard: DashboardService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private loadingService: LoadingService,
   ) { }
   
 
@@ -30,8 +32,10 @@ export class AdvertisementsComponent implements OnInit {
    */
 
   public listAdvertisements() {
+    this.loadingService.viewSpinner();
     this._dashboard.getAdvertisements().subscribe(({Data}) => {
       this.advertisements = Data;
+      this.loadingService.closeSpinner();
     })
   }
 
