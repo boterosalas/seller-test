@@ -139,6 +139,7 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
 
 
   ngOnInit() {
+    console.log('abro filtro');
     this.filteredOptions = this.textForSearch.valueChanges
       .pipe(
         startWith(''),
@@ -160,6 +161,7 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
    * @memberof ToolbarOptionsComponent
    */
   toggleMenuOrderSearch() {
+    console.log('this.informationToForm: ', this.informationToForm);
     this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this.idSeller, this._Typeprofile, this.state, this.limitSizeList);
   }
 

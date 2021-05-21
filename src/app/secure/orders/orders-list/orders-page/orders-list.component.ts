@@ -22,6 +22,7 @@ import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import * as _ from 'lodash';
 import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
+import { SearchOrderMenuService } from '@app/core/shell/search-order-menu/search-order-menu.service';
 
 // log component
 const log = new Logger('OrdersListComponent');
@@ -58,9 +59,9 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   // Constantes
   public const = Const;
   // Sort: elemento que se emplea para poder organizar los elementos de la tabla de acuerdo a la columna seleccionada
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
   // Toolbar Options Componente: Permite acceder a los metodos de este compomente
-  @ViewChild('toolbarOptions', {static: false}) toolbarOption;
+  @ViewChild('toolbarOptions', { static: false }) toolbarOption;
   // Columnas que se visualizan en la tabla
   public displayedColumns = [
     'select',
@@ -187,6 +188,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   public arrayPermission: any;
   currentLanguage: string;
   isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
+  initialDate: any;
+  finalDate: any;
 
 
   constructor(
@@ -207,9 +210,14 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     public eventsSeller: EventEmitterSeller,
     private profileService: MyProfileService,
     public modalService: ModalService,
+    public searchOrderMenuService: SearchOrderMenuService,
+
   ) {
     this.getAllDataUser();
+    this.getListbyParams();
+    console.log('por enviar');
   }
+
 
   /**
    * ngOnInit
@@ -242,6 +250,56 @@ export class OrdersListComponent implements OnInit, OnDestroy {
 
     });
     this.changeLanguage();
+    // this.getListbyParams();
+
+  }
+
+  /**
+   * Obtener parametros de la ruta
+   * @memberof OrdersListComponent
+   */
+  getListbyParams() {
+
+    this.route.params.subscribe(params => {
+      console.log(params);
+      this.initialDate = params.dateInitial;
+      this.finalDate = params.dateFinal;
+
+      console.log(this.initialDate, this.finalDate);
+    });
+
+    const dataParamsRouteFilter = '&dateOrderInitial=' + this.initialDate + '&dateOrderFinal=' + this.finalDate + '&idStatusOrder=' + 35;
+    console.log(dataParamsRouteFilter)
+
+    const pageToken = '&paginationToken=%7B%7D&idSeller='
+
+  }
+
+  callServiceParams() {
+    console.log('here', this.currentRootPage)
+    let stateCurrent = null;
+    const dataParamsRouteFilter = '&dateOrderInitial=' + this.initialDate + '&dateOrderFinal=' + this.finalDate + '&idStatusOrder=' + this.currentRootPage;
+    if (this.initialDate || this.finalDate) {
+      this.setCategoryName();
+      this.searchOrderMenuService.getOrdersFilter(50, dataParamsRouteFilter).subscribe((res: any) => {
+        console.log(res);
+        if (res) {
+          if (res.pendingResponse) {
+            this.getOrdersList(this.params);
+          } else {
+            stateCurrent = this.params ? this.params.state : null;
+            this.lastState = stateCurrent;
+            this.setTable(res);
+            if (this.params && this.params.callOne) {
+              this.length = res.data.count;
+              this.isClear = true;
+            }
+            const paginator = { 'pageIndex': 0 };
+            this.addCheckOptionInProduct(res.data.viewModel, paginator);
+          }
+        }
+      });
+    }
   }
 
   async getAllDataUser() {
@@ -250,6 +308,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
         const body: any = res.body;
         const response = JSON.parse(body.body);
         const userData = response.Data;
+        console.log(userData);
         return userData;
       });
       if (sellerData.Country !== 'COLOMBIA') {
@@ -307,9 +366,16 @@ export class OrdersListComponent implements OnInit, OnDestroy {
         }
       }
       // Logica para cargar el componente
-      this.getOrdersListSinceCurrentUrl();
+      // this.getOrdersListSinceCurrentUrl();
       this.getOrdersListSinceFilterSearchOrder();
       this.clearData();
+      console.log(55, this.initialDate, this.finalDate);
+      if (this.initialDate  || this.finalDate ) {
+        this.callServiceParams();
+      } else {
+        console.log('else no hay data');
+        this.getOrdersListSinceCurrentUrl();
+      }
     });
   }
 
@@ -396,7 +462,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
             } else {
               this.orderListLength = false;
             }
-            if ( this.dataListOrder && this.dataListOrder.length > 0) {
+            if (this.dataListOrder && this.dataListOrder.length > 0) {
               this.numberElements = this.dataListOrder.length;
             } else {
               this.numberElements = 0;
@@ -566,15 +632,15 @@ export class OrdersListComponent implements OnInit, OnDestroy {
         if (res.pendingResponse) {
           this.getOrdersList(params);
         } else {
-            stateCurrent = params ? params.state : null;
-            this.lastState = stateCurrent;
-            this.setTable(res);
-            if (params && params.callOne) {
-              this.length = res.data.count;
-              this.isClear = true;
-            }
-            const paginator = { 'pageIndex': 0 };
-            this.addCheckOptionInProduct(res.data.viewModel, paginator);
+          stateCurrent = params ? params.state : null;
+          this.lastState = stateCurrent;
+          this.setTable(res);
+          if (params && params.callOne) {
+            this.length = res.data.count;
+            this.isClear = true;
+          }
+          const paginator = { 'pageIndex': 0 };
+          this.addCheckOptionInProduct(res.data.viewModel, paginator);
         }
       }
     });

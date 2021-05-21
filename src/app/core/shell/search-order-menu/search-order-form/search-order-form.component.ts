@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SearchFormEntity } from '@app/shared/models';
 import { ComponentsService } from '@app/shared/services';
 import { ShellComponent } from '@core/shell/shell.component';
@@ -32,6 +32,8 @@ export class SearchOrderFormComponent implements OnInit {
   @Input() typeProfiel: number;
   showFilterStatus = false;
   _state: number;
+  dateInit: any;
+  dateFinal: any;
   @Input() set state(value: number) {
     if (value) {
       if (value.toString() === '170') {
@@ -65,13 +67,15 @@ export class SearchOrderFormComponent implements OnInit {
    */
   constructor(
     public componentsService: ComponentsService,
-    private route: Router,
+    public router: Router,
+    private route: ActivatedRoute,
     public searchOrderMenuService: SearchOrderMenuService,
     private shellComponent: ShellComponent,
     private fb: FormBuilder,
     private userParams: UserParametersService,
     private languageService: TranslateService,
     private loadingService: LoadingService,
+    public datepipe: DatePipe,
   ) { }
 
   /**
@@ -79,15 +83,30 @@ export class SearchOrderFormComponent implements OnInit {
    * @memberof SearchOrderFormComponent
    */
   ngOnInit() {
+    console.log('entro al searh');
+    console.log(66, this.route);
+    console.log('info', this.informationToForm);
+
     // Obtengo la información del usuario
     this.getDataUser();
     this.createForm();
     this.getOrdersStatus();
+    this.getFilterOrderDate();
   }
 
   async getDataUser() {
     this.user = await this.userParams.getUserData();
   }
+
+  getFilterOrderDate() {
+    this.dateInit = this.route.snapshot ? this.route.snapshot.children[0].params.dateInitial : null;
+    this.dateFinal = this.route.snapshot ? this.route.snapshot.children[0].params.dateFinal : null;
+    console.log(this.dateInit)
+    this.myform.controls.dateOrderInitial.setValue(this.datepipe.transform(this.dateInit, 'yyyy-MM-dd'));
+    this.myform.controls.dateOrderFinal.setValue(this.datepipe.transform(this.dateFinal, 'yyyy-MM-dd'));
+    console.log(this.dateInit)
+  }
+
   /**
    * Método para crear el formulario
    * @memberof SearchOrderFormComponent
@@ -115,6 +134,7 @@ export class SearchOrderFormComponent implements OnInit {
     this.myform.reset();
     this.shellComponent.eventEmitterOrders.getClear();
     this.shellComponent.sidenavSearchOrder.toggle();
+    this.router.navigate(['securehome/seller-center/ordenes/estado/35', {}]);
   }
 
   /**

@@ -3,6 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { LoadingService, Logger, ModalService, UserLoginService, UserParametersService } from '@app/core';
+import { RoutesConst } from '@app/shared';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { ModalDashboardComponent } from '../modal-dashboard/modal-dashboard.component';
 import { DashboardService } from '../services/dashboard.service';
@@ -111,6 +112,9 @@ export class DashOrdersComponent implements OnInit {
         type: 'seller'
     };
 
+    public initialDateSend: any;
+    public finalDateSend: any;
+
 
     @ViewChild('picker', { static: false }) picker;
     @ViewChild('pickerDiary', { static: false }) pickerDiary;
@@ -173,6 +177,7 @@ export class DashOrdersComponent implements OnInit {
      * @memberof DashOrdersComponent
      */
     select(filter: any) {
+        console.log(filter);
         this.typeFilter = filter;
         if (filter === '1' || filter === '2') {
             this.showCalenderQ = true;
@@ -182,6 +187,73 @@ export class DashOrdersComponent implements OnInit {
             this.showCalenderD = true;
         }
         this.getOrdensSummary();
+    }
+
+    /**
+     * Ordenes estado asignado, redirigiendo modulo de ordedes: Por enviar
+     * @memberof DashOrdersComponent
+     */
+    goToSendOrders(type: any) {
+        console.log(type);
+        const idToSend = '35';
+        let latest_date;
+        // if (this.dateCurrent === '' || this.dateCurrent === undefined) {
+        //     this.dateCurrent = new Date();
+        //     latest_date = this.datepipe.transform(this.dateCurrent, 'yyyy-MM-dd');
+        // }
+        // if (this.typeFilter === '4' || this.typeFilter === '3') {
+        //     this.dateOrdens = this.datepipe.transform(this.dateCurrent, 'yyyy-MM-dd');
+        // } else {
+        //     this.dateOrdens = '';
+        // }
+        if (this.typeFilter) {
+            if (this.typeFilter === '1') {
+                this.dateCurrent = new Date();
+                latest_date = this.datepipe.transform(this.dateCurrent, 'yyyy/MM/dd');
+                const initialDate = this.datepipe.transform(this.addOrSubtractDays(new Date(latest_date), -89), 'yyyy/MM/dd');
+                this.initialDateSend = initialDate;
+                this.finalDateSend = latest_date;
+            } else if (this.typeFilter === '2') {
+                this.dateCurrent = new Date();
+                latest_date = this.datepipe.transform(this.dateCurrent, 'yyyy/MM/dd');
+                const initialDate = this.datepipe.transform(this.addOrSubtractDays(new Date(latest_date), -29), 'yyyy/MM/dd');
+                this.initialDateSend = initialDate;
+                this.finalDateSend = latest_date;
+            } else if (this.typeFilter === '3') {
+                this.dateOrdens = this.datepipe.transform(this.dateCurrent, 'yyyy/MM/dd');
+                const initialDate = this.datepipe.transform(this.addOrSubtractDays(new Date(this.dateOrdens), -6), 'yyyy/MM/dd');
+                this.initialDateSend = initialDate;
+                this.finalDateSend = this.dateOrdens;
+            } else {
+                this.dateOrdens = this.datepipe.transform(this.dateCurrent, 'yyyy/MM/dd');
+                const initialDate = this.datepipe.transform(this.addOrSubtractDays(new Date(this.dateOrdens), 0), 'yyyy/MM/dd');
+                this.initialDateSend = initialDate;
+                this.finalDateSend = this.dateOrdens;
+            }
+
+            if (type === 1) {
+                this.router.navigate(['securehome/seller-center/ordenes/estado/35', { dateInitial: this.initialDateSend, dateFinal: this.finalDateSend }]);
+
+            } else if (type === 2) {
+                this.router.navigate(['securehome/seller-center/ordenes/estado/170', { dateInitial: this.initialDateSend, dateFinal: this.finalDateSend }]);
+
+            } else {
+                this.router.navigate(['securehome/seller-center/ordenes', { dateInitial: this.initialDateSend, dateFinal: this.finalDateSend }]);
+            }
+        }
+
+    }
+
+    /**
+     * Funcion para restar fechas
+     * @param {*} date
+     * @param {*} days
+     * @returns
+     * @memberof DashOrdersComponent
+     */
+    addOrSubtractDays(date: any, days: any) {
+        date.setDate(date.getDate() + days);
+        return date;
     }
 
     /**
@@ -238,6 +310,10 @@ export class DashOrdersComponent implements OnInit {
             this.dateOrdens = '';
             this.showOrdens = false;
         }
+        console.log('this.typeFilter: ', this.typeFilter);
+        console.log('this.dateOrdens', this.dateOrdens);
+        console.log(paramsOrdersSummary);
+
         return paramsOrdersSummary;
     }
 

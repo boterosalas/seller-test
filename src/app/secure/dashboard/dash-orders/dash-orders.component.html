@@ -130,7 +130,7 @@
             {{totalCount | number}}</p>
         </div>
         <!-- Casilla por enviar -->
-        <div class="dashboard-component-container-cards">
+        <div class="dashboard-component-container-cards" (click)="goToSendOrders(1)">
           <div>
             <span>Por
               enviar</span>
@@ -144,7 +144,7 @@
           </div>
         </div>
         <!-- Casilla en transporte -->
-        <div class="dashboard-component-container-cards">
+        <div class="dashboard-component-container-cards" (click)="goToSendOrders(2)">
           <div>
             <span>Por
               transporte</span>
@@ -158,7 +158,7 @@
           </div>
         </div>
         <!-- Casilla de entregados -->
-        <div class="dashboard-component-container-cards">
+        <div class="dashboard-component-container-cards" (click)="goToSendOrders(3)">
           <div>
             <span>Entregado</span>
             <p>
