@@ -7,23 +7,23 @@
   </div>
   <form #filterForm="ngForm" [formGroup]="form">
     <div fxLayout="row wrap" class="notification-form-container-padding-color-font">
-      <div fxFlex="50" class="notification-form-padding-right-40">
+      <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="35" fxFlex.lg="50" fxFlex.xl="50" class="notification-form-padding-right-40">
         <div class="notification-form-padding-bottom-20">
           <span>Tipo de anuncios</span>
         </div>
         <div class="notification-form-padding-bottom-20">
           <mat-radio-group aria-label="Select an bodyNotification"
             formControlName="bodyNotification" >
-            <div fxFlex="35">
+            <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="35" fxFlex.lg="35" fxFlex.xl="35">
               <mat-radio-button value="1" [checked]="checkedTypeNotification === 1 ? true : false "
                 (click)="validateBody(1)">Texto +
                 Imagen</mat-radio-button>
             </div>
-            <div fxFlex="35">
+            <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="35" fxFlex.lg="35" fxFlex.xl="35">
               <mat-radio-button value="3" [checked]="checkedTypeNotification === 3 ? true : false " (click)="validateBody(2)">Texto +
                 Fondo</mat-radio-button>
             </div>
-            <div fxFlex="35">
+            <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="35" fxFlex.lg="35" fxFlex.xl="35">
               <mat-radio-button value="2" [checked]="checkedTypeNotification === 2 ? true : false " (click)="validateBody(3)">Imagen
                 diseñada</mat-radio-button>
             </div>
@@ -48,7 +48,7 @@
           </mat-form-field>
         </div>
       </div>
-      <div fxFlex="50" class="notification-form-padding-left-40">
+      <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="35" fxFlex.lg="50" fxFlex.xl="50" class="notification-form-padding-left-40">
         <div class="notification-form-padding-bottom-20">
           <span>Idioma</span>
         </div>
