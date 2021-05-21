@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { EndpointService } from '@app/core';
+import { EndpointService, LoadingService } from '@app/core';
 import { MaterialModule } from '@app/material.module';
 import { SharedModule } from '@app/shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
@@ -23,7 +23,8 @@ describe('AdvertisementsComponent', () => {
       providers: [
         DatePipe,
         DashboardService,
-        EndpointService
+        EndpointService,
+        LoadingService
       ]
     })
     .compileComponents();
