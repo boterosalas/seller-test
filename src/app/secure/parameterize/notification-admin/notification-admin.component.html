@@ -29,7 +29,7 @@
         fxFlex.xl="100" class="notification-admin-padding-content-title">
         <mat-table #table [dataSource]="dataSource" matSort>
           <ng-container matColumnDef="title">
-            <mat-header-cell fxShow.xs="false" fxShow.sm="false"
+            <mat-header-cell fxShow.xs="true" fxShow.sm="true"
               fxShow.lg="true"
               fxShow.xl="true" fxShow="true"
               fxFlex.lg="40" fxFlex.sm="40" fxFlex.md="40" fxFlex.xs="40"
@@ -37,7 +37,7 @@
               <span class="title-table-header">{{'secure.notifications.list.column-title'
                 | translate}}</span>
             </mat-header-cell>
-            <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
+            <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
               fxShow.xl="true" fxShow="true" fxFlex.lg="40"
               fxFlex.sm="40" fxFlex.md="40" fxFlex.xs="40" fxFlex.xl=""
               *matCellDef="let element">
@@ -45,7 +45,7 @@
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="date">
-            <mat-header-cell fxShow.xs="false" fxShow.sm="false"
+            <mat-header-cell fxShow.xs="true" fxShow.sm="true"
               fxShow.lg="true"
               fxShow.xl="true" fxShow="true"
               fxFlex.lg="40" fxFlex.sm="40" fxFlex.md="40" fxFlex.xs="40"
@@ -53,7 +53,7 @@
               <span class="title-table-header">{{'secure.notifications.list.column-date'
                 | translate}}</span>
             </mat-header-cell>
-            <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
+            <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
               fxShow.xl="true" fxShow="true" fxFlex.lg="40"
               fxFlex.sm="40" fxFlex.md="40" fxFlex.xs="40" fxFlex.xl="40"
               *matCellDef="let element">
@@ -62,7 +62,7 @@
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="actions">
-            <mat-header-cell fxShow.xs="false" fxShow.sm="false"
+            <mat-header-cell fxShow.xs="true" fxShow.sm="true"
               fxShow.lg="true"
               fxShow.xl="true" fxShow="true"
               fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30"
@@ -70,7 +70,7 @@
               class="notification-admin-display-justify">
               <span class="title-table-header">{{'shared.actions' | translate}}</span>
             </mat-header-cell>
-            <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
+            <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
               fxShow.xl="true" fxShow="true" fxFlex.lg="20"
               fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl="20"
               *matCellDef="let element"

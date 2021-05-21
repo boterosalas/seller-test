@@ -46,10 +46,17 @@
 
   &-padding-right-40 {
     padding-right: 40px;
+    @media screen and (min-width: 400px) and (max-width: 600px) {
+      padding-right: 0px;
+    }
+    
   }
 
   &-padding-left-40 {
     padding-left: 40px;
+    @media screen and (min-width: 400px) and (max-width: 600px) {
+      padding-left: 0px;
+    }
   }
 
   &-padding-bottom-20 {
@@ -85,6 +92,9 @@
     border-radius: 10px;
     width: 94%;
     cursor: pointer;
+    @media screen and (min-width: 400px) and (max-width: 600px) {
+      width: 99%;
+    }
   }
 
   &-container-drag-icon {
@@ -118,6 +128,9 @@
 
   &-padding-left-45 {
     padding-left: 45px;
+    @media screen and (min-width: 400px) and (max-width: 600px) {
+      padding-left: 0px;
+    }
   }
 
   &-container-pickerColor {
@@ -149,6 +162,9 @@
 
   &-text-align-right {
     text-align: right;
+    @media screen and (min-width: 400px) and (max-width: 600px) {
+      text-align: center;
+    }
   }
 
   &-text-align-center {
@@ -156,7 +172,10 @@
   }
 
   &-text-align-left {
-    text-align: left
+    text-align: left;
+    @media screen and (min-width: 400px) and (max-width: 600px) {
+      text-align: center;
+    }
   }
 
   &-btn-generic {
