@@ -135,12 +135,12 @@
             <span>Por
               enviar</span>
             <p>
-              {{totalCount | number}}</p>
+              {{totalToSend | number}}</p>
           </div>
           <div>
-            <h6>Vencidos</h6>
-            <h6>Por vencerse</h6>
-            <h6>A tiempo</h6>
+            <h6>Vencidos: {{toExpireSend | number}}</h6> 
+            <h6>Por vencerse: {{overComeSend | number}}</h6> 
+            <h6>A tiempo: {{onTimeSend | number}}</h6> 
           </div>
         </div>
         <!-- Casilla en transporte -->
@@ -149,12 +149,12 @@
             <span>Por
               transporte</span>
             <p>
-              {{totalCount | number}}</p>
+              {{totalDelivered | number}}</p>
           </div>
           <div>
-            <h6>Vencidos</h6>
-            <h6>Por vencerse</h6>
-            <h6>A tiempo</h6>
+            <h6>Vencidos: {{toExpireDelivered | number}}</h6> 
+            <h6>Por vencerse: {{overComeDelivered | number}}</h6> 
+            <h6>A tiempo: {{onTimeDelivered | number}}</h6> 
           </div>
         </div>
         <!-- Casilla de entregados -->
@@ -162,12 +162,12 @@
           <div>
             <span>Entregado</span>
             <p>
-              {{totalCount | number}}</p>
+              {{totalInTransport | number}}</p>
           </div>
           <div>
-            <h6>Vencidos</h6>
-            <h6>Por vencerse</h6>
-            <!-- <h6 >A tiempo</h6> -->
+            <h6>Vencidos: {{toExpireInTransport | number}}</h6> 
+            <h6>Por vencerse: {{overComeInTransport | number}}</h6> 
+            <!-- <h6>A tiempo: {{onTimeSend | number}}</h6>  -->
           </div>
         </div>
 

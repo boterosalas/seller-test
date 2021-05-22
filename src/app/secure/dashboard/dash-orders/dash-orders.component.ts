@@ -125,6 +125,18 @@ export class DashOrdersComponent implements OnInit {
 
     // Variable para ocultar temporalmente indicadores para vendedores
     hideIndicators = false;
+    onTimeSend: any;
+    toExpireSend: any;
+    totalToSend: number;
+    overComeSend: any;
+    totalDelivered: any;
+    onTimeDelivered: any;
+    overComeDelivered: any;
+    toExpireDelivered: any;
+    totalInTransport: any;
+    onTimeInTransport: any;
+    overComeInTransport: any;
+    toExpireInTransport: any;
 
     constructor(
         private _dashboard: DashboardService,
@@ -272,6 +284,7 @@ export class DashOrdersComponent implements OnInit {
             }
             this.last_ordens = res.reportOrdersSalesType ? this.parseLastOrdens(res.reportOrdersSalesType.reverse()) : [];
             this.calculateCountSales(res.reportOrdersSalesType);
+            this.calculateDataCards(res.ordersIndicators);
             this.showChartOrdens = true;
         }, err => {
             if (this.isLoad) {
@@ -329,6 +342,21 @@ export class DashOrdersComponent implements OnInit {
                 this.totalCount += element.quantity;
             });
         }
+    }
+
+    calculateDataCards(res: any) {
+        this.totalToSend = res.toSend.onTime + res.toSend.overcome + res.toSend.toExpire;
+        this.onTimeSend = res.toSend.onTime;
+        this.overComeSend = res.toSend.overcome;
+        this.toExpireSend = res.toSend.toExpire;
+        this.totalDelivered = res.delivered.onTime + res.delivered.overcome + res.delivered.toExpire;
+        this.onTimeDelivered = res.delivered.onTime;
+        this.overComeDelivered = res.delivered.overcome;
+        this.toExpireDelivered = res.delivered.toExpire;
+        this.totalInTransport = res.inTransport.onTime + res.inTransport.overcome + res.inTransport.toExpire;
+        this.onTimeInTransport = res.inTransport.onTime;
+        this.overComeInTransport = res.inTransport.overcome;
+        this.toExpireInTransport = res.inTransport.toExpire;
     }
 
 
@@ -571,6 +599,7 @@ export class DashOrdersComponent implements OnInit {
         this.params = this.setParametersSales(params);
         this.showChartSales = false;
         this._dashboard.getSalesSummary(this.params).subscribe((res: any) => {
+            console.log(4, res);
             if (res) {
                 if (this.isLoad) {
                     this.loadingService.closeSpinner();

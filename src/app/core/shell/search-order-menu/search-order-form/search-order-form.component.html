@@ -73,3 +73,11 @@
     </button>
   </div>
 </form>
+
+aki:  {{informationToForm | json}}
+
+<!-- Request URL: https://5x9qrupiba.execute-api.us-east-1.amazonaws.com/SearchOrders?idSeller=&limit=50&paginationToken=%7B%7D&idStatusOrder=35&culture=es-CO
+Request URL: https://5x9qrupiba.execute-api.us-east-1.amazonaws.com/SearchOrders?idSeller=&limit=50&dateOrderInitial=2021/05/01&dateOrderFinal=2021/05/19&idStatusOrder=35&paginationToken=%7B%7D&idSeller=&culture=es-CO
+Request URL: https://5x9qrupiba.execute-api.us-east-1.amazonaws.com/SearchOrders?idSeller=&limit=50&dateOrderInitial=2021/04/01&dateOrderInitial=2021/04/01&dateOrderFinal=2021-04-01&idStatusOrder=35&idSeller=12390&culture=es-CO
+
+?idSeller=: "NaN&dateOrderInitial=2021-04-01&dateOrderInitial=2…04-01&dateOrderFinal=2021-04-01 &idStatusOrder=35" -->
