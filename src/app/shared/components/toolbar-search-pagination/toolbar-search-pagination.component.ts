@@ -162,7 +162,9 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
    */
   toggleMenuOrderSearch() {
     console.log('this.informationToForm: ', this.informationToForm);
+    this.informationToForm.information['dateInit'] = '24-05-2001';
     this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this.idSeller, this._Typeprofile, this.state, this.limitSizeList);
+    console.log('this.informationToForm: ', this.informationToForm);
   }
 
   /**

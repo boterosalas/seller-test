@@ -175,7 +175,7 @@
       class="sc-default-button btn-filter input-search-black top-11-btn-generic"
       id="search-order-button" (click)="toggleMenuOrderSearch()"  mat-button color="primary">
       <mat-icon>filter_list</mat-icon>
-      {{'filters.filter' | translate}}
+      {{'filters.filter' | translate}} 1
     </button>
     <!-- filter for califications-->
     <button fxShow.xs="false" *ngIf="_Typeprofile == 1 &&
@@ -191,14 +191,14 @@
       input-search-black top-11-btn-generic"
       id="search-order-button" (click)="toggleMenuCalifications()"  mat-button color="primary">
       <mat-icon>filter_list</mat-icon>
-      {{'filters.filter' | translate}}
+      {{'filters.filter' | translate}} 2
     </button>
     <button fxShow.xs="false" *ngIf="_Typeprofile == 0 && !billingType"
       fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button
       btn-filter input-search-black top-11-btn-generic"
       id="search-order-button" (click)="toggleMenuOrderSearch()"  mat-button color="primary">
       <mat-icon>filter_list</mat-icon>
-      {{'filters.filter' | translate}}
+      {{'filters.filter' | translate}} 3
     </button>
     </div>
   </div>
