@@ -447,8 +447,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             iActInventario: this.validateSubTitle(this.arrayNecessaryData, 'Stock Update', 'Actualizacion de Inventario', 'Mise à Jour du Stock'),
             iEanCombo: this.validateSubTitle(this.arrayNecessaryData, 'Ean combo', 'Ean combo', 'Ean combo'),
             iCantidadCombo: this.validateSubTitle(this.arrayNecessaryData, 'Amount in combo', 'Cantidad en combo', 'Bundle stock'),
-            iAddress: this.validateSubTitle(this.arrayNecessaryData, 'Picking Address', 'Direccion de Recogida', 'Adresse de collecte'),
-            iDaneCode: this.validateSubTitle(this.arrayNecessaryData, 'Picking City', 'Ciudad de Recogida', 'Ville de collecte'),
+            iAddress: this.validateSubTitle(this.arrayNecessaryData, 'Pick up address', 'Dirección de Recogida', 'Adresse de collecte'),
+            iDaneCode: this.validateSubTitle(this.arrayNecessaryData, 'Pick up city', 'Ciudad de Recogida', 'Ville de collecte'),
             iSellerSku: this.validateSubTitle(this.arrayNecessaryData, 'Seller SKU', 'SKU Vendedor', 'Vendeur SKU'),
             iReference: this.validateSubTitle(this.arrayNecessaryData, 'Parent Reference', 'Referencia Padre', 'Parent Reference')
           };
