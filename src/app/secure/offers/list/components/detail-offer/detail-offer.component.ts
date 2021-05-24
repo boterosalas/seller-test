@@ -754,7 +754,7 @@ export class DetailOfferComponent implements OnInit {
    */
   alertSellerByReference(event: any) {
     if (event && (this.formUpdateOffer.controls.OfferByReference.value === true && this.formUpdateOffer.controls.IsUpdatedStock.value === 1 || this.formUpdateOffer.controls.IsUpdatedStock.value === true)) {
-        this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.update_variants'), this.languageService.instant('actions.close'), {
+        this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.update_variants_all_references'), this.languageService.instant('actions.close'), {
             duration: 7000,
         });
     }
