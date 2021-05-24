@@ -211,15 +211,6 @@ export class DashOrdersComponent implements OnInit {
         console.log(type);
         const idToSend = '35';
         let latest_date;
-        // if (this.dateCurrent === '' || this.dateCurrent === undefined) {
-        //     this.dateCurrent = new Date();
-        //     latest_date = this.datepipe.transform(this.dateCurrent, 'yyyy-MM-dd');
-        // }
-        // if (this.typeFilter === '4' || this.typeFilter === '3') {
-        //     this.dateOrdens = this.datepipe.transform(this.dateCurrent, 'yyyy-MM-dd');
-        // } else {
-        //     this.dateOrdens = '';
-        // }
         if (this.typeFilter) {
             if (this.typeFilter === '1') {
                 this.dateCurrent = new Date();
@@ -246,13 +237,13 @@ export class DashOrdersComponent implements OnInit {
             }
 
             if (type === 1) {
-                this.router.navigate(['securehome/seller-center/ordenes/estado/35', { dateInitial: this.initialDateSend, dateFinal: this.finalDateSend }]);
+                this.router.navigate(['securehome/seller-center/ordenes/estado/35', { dateInitial: this.initialDateSend, dateFinal: this.finalDateSend, type: type }]);
 
             } else if (type === 2) {
-                this.router.navigate(['securehome/seller-center/ordenes/estado/170', { dateInitial: this.initialDateSend, dateFinal: this.finalDateSend }]);
+                this.router.navigate(['securehome/seller-center/ordenes/estado/170', { dateInitial: this.initialDateSend, dateFinal: this.finalDateSend, type: type }]);
 
             } else {
-                this.router.navigate(['securehome/seller-center/ordenes', { dateInitial: this.initialDateSend, dateFinal: this.finalDateSend }]);
+                this.router.navigate(['securehome/seller-center/ordenes', { dateInitial: this.initialDateSend, dateFinal: this.finalDateSend, type: type }]);
             }
         }
 

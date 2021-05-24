@@ -28,6 +28,7 @@ export class SearchOrderFormComponent implements OnInit {
   // Variable que almacena los datos que se le pueden pasar al formulario
 
   public infoDataForm: any;
+  status: any;
   @Input() set informationToForm(value: any) {
     if (value) {
       this.infoDataForm = value;
@@ -112,8 +113,12 @@ export class SearchOrderFormComponent implements OnInit {
   getFilterOrderDate() {
     this.dateInit = this.infoDataForm ? this.infoDataForm.information.dateInit : null;
     this.dateFinal = this.infoDataForm ? this.infoDataForm.information.dateFinal : null;
+    this.status = this.infoDataForm ? this.infoDataForm.information.category : null;
     this.myform.controls.dateOrderInitial.setValue(this.datepipe.transform(this.dateInit, 'yyyy-MM-dd'));
     this.myform.controls.dateOrderFinal.setValue(this.datepipe.transform(this.dateFinal, 'yyyy-MM-dd'));
+    if (this.status === '60') {
+      this.myform.controls.idStatusOrder.setValue(this.status);
+    }
   }
 
   /**
@@ -143,7 +148,14 @@ export class SearchOrderFormComponent implements OnInit {
     this.myform.reset();
     this.shellComponent.eventEmitterOrders.getClear();
     this.shellComponent.sidenavSearchOrder.toggle();
-    this.router.navigate(['securehome/seller-center/ordenes/estado/35', {}]);
+    console.log(this.infoDataForm)
+    if (this.infoDataForm && this.infoDataForm.information.status === '35') {
+      this.router.navigate(['securehome/seller-center/ordenes/estado/35', {}]);
+    } else if (this.infoDataForm && this.infoDataForm.information.status === '170') {
+      this.router.navigate(['securehome/seller-center/ordenes/estado/170', {}]);
+    } else {
+      this.router.navigate(['securehome/seller-center/ordenes']);
+    }
   }
 
   /**
