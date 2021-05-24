@@ -403,6 +403,18 @@ export class OfertExpandedProductComponent implements OnInit {
     }
 
     /**
+     * Mensaje alerta cuadno toogle de inventario y variantes estan activados listado de productos.
+     * @memberof OfertExpandedProductComponent
+     */
+    alertSellerByReference(event: any) {
+        if (event && (this.ofertProduct.controls.OfferByReference.value === true && this.ofertProduct.controls.IsUpdatedStock.value === true)) {
+            this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.update_variants'), this.languageService.instant('actions.close'), {
+                duration: 7000,
+            });
+        }
+    }
+
+    /**
      * Funcion que se encarga de enviar el JSON y llamar el servicio
      * @param {number} approval
      * @memberof OfertExpandedProductComponent

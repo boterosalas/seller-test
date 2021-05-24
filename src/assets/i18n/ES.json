@@ -1171,6 +1171,7 @@
     "secure.products.create_product_unit.list_products.ofert_product.changed_currency": "El tipo de moneda se ha cambiado a ",
     "secure.products.create_product_unit.list_products.ofert_product.format_invalidate": "El formato es inválido",
     "secure.products.create_product_unit.list_products.please_wait" : "Cargando, espere por favor...",
+    "secure.products.create_product_unit.list_products.ofert_product.update_variants": "Actualización de Inventario a todas las variaciones",
 
     "secure.products.list_products.modal.title": "Esta oferta sufre un cambio extremo de precio, ¿Deseas Continuar?",
     "secure.products.pending_products_tab1": "Pendientes Modificación",

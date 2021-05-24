@@ -748,6 +748,19 @@ export class DetailOfferComponent implements OnInit {
   }
 
   /**
+   * Mostrar alerta actualizacion variantes a todas alas ofertas
+   * @param {*} event
+   * @memberof DetailOfferComponent
+   */
+  alertSellerByReference(event: any) {
+    if (event && (this.formUpdateOffer.controls.OfferByReference.value === true && this.formUpdateOffer.controls.IsUpdatedStock.value === 1 || this.formUpdateOffer.controls.IsUpdatedStock.value === true)) {
+        this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.update_variants'), this.languageService.instant('actions.close'), {
+            duration: 7000,
+        });
+    }
+}
+
+  /**
    * @description Metodo para enviar los datos al servicio y actualizar la oferta.
    * @method submitUpdateOffer
    * @memberof DetailOfferComponent
