@@ -9,6 +9,7 @@ export const endpoints = {
     v1: {
       // orders
       sendOrderEmail: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/exportoffersbyseller/{idSeller}/{email}',
+      sendEmailFormat: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/exportoffersbyseller?email={email}&productType={productType}',
       searchOrders: 'https://5x9qrupiba.execute-api.us-east-1.amazonaws.com/SearchOrders?idSeller={sellerId}&limit={limit}',
       carries: 'https://2he495iasj.execute-api.us-east-1.amazonaws.com/Carries',
       sendAllGuides: 'https://tew99ut1y2.execute-api.us-east-1.amazonaws.com/SendAllGuides',
@@ -318,6 +319,14 @@ export const endpoints = {
       getStatusDeleteProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/getstatusdisassociateproducts',
       // Captura de indicadores
       getIndicators : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller/getindicatorsbynit/{params}',
+      // obtiene el listado de fraudes
+      getFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles?&limit={limit}',
+      // envia el listado de fraudes
+      sendFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles',
+      // obtiene el statuts de los fraudes
+      statusFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles/status',
+      // descarga la plantilla
+      downloadTemplateFrauds : 'https://seller-center-exito-staging.s3.amazonaws.com/Templates-Dev/PlantillaCargaFraudes.xlsx',
       // Descargar plantilla para carga masiva de categorias
       downloadTemplateCategoryMasive : 'https://seller-center-exito-staging.s3.amazonaws.com/Templates-Dev/PlantillaCargaMasivaCategorias.xlsx',
       // Crear caterogiras de forma masiva
@@ -342,6 +351,7 @@ export const endpoints = {
     v1: {
       // orders
       sendOrderEmail: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/exportoffersbyseller/{idSeller}/{email}',
+      sendEmailFormat: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/exportoffersbyseller?email={email}&productType={productType}',
       searchOrders: 'https://ldixrz8no2.execute-api.us-east-1.amazonaws.com/searchorders-pdn?idSeller={sellerId}&limit={limit}',
       carries: 'https://q8sree00sb.execute-api.us-east-1.amazonaws.com/carrier-pdn',
       sendAllGuides: 'https://vaf1d3c2ic.execute-api.us-east-1.amazonaws.com/sendallguides-pdn',
@@ -650,6 +660,14 @@ export const endpoints = {
       getStatusDeleteProducts: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/getstatusdisassociateproducts',
       // Captura de indicadores
       getIndicators : 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller/getindicatorsbynit/{params}',
+      // obtiene el listado de fraudes
+      getFrauds : 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/fraudfiles?&limit={limit}',
+      // envia el listado de fraudes
+      sendFrauds : 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/fraudfiles',
+      // obtiene el status de los fraudes
+      statusFrauds : 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/fraudfiles/status',
+      // descarga la plantilla
+      downloadTemplateFrauds : 'https://seller-center-exito-staging.s3.amazonaws.com/Templates/PlantillaCargaFraudes.xlsx',
       // Descargar plantilla para carga masiva de categorias
       downloadTemplateCategoryMasive : 'https://s3.amazonaws.com/seller-center-exito-staging/Templates/PlantillaCargaMasivaCategorias.xlsx',
       // Crear caterogiras de forma masiva

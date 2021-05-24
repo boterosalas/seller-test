@@ -19,7 +19,7 @@ import { ListAdminService } from '../list-admin.service';
 export class ListAdminComponent implements OnInit {
 
   // Componente necesario para el funcionamiento del filtro
-  @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
+  @ViewChild('sidenav', { static: false }) sidenav: MatSidenav;
 
   // Variable para almacenar los datos del vendedor que se va a buscar
   public seller: any;
@@ -218,6 +218,7 @@ export class ListAdminComponent implements OnInit {
     this.paramData.product = params.product !== undefined && params.product !== null ? params.product.trim() : params.product;
     this.paramData.ean = params.ean !== undefined && params.ean !== null ? params.ean.trim() : params.ean;
     this.paramData.pluVtex = params.pluVtex !== undefined && params.pluVtex !== null ? params.pluVtex.trim() : params.pluVtex;
+    this.paramData.reference = params.reference !== undefined && params.reference !== null ? params.reference.trim() : params.reference;
     this.paramData.stock = params.stock;
     this.paramData.sellerSku = params.sellerSku;
     this.paramData.currentPage = this.currentPage;
@@ -242,6 +243,9 @@ export class ListAdminComponent implements OnInit {
       case 'filterPluVtex':
         this.paramData.pluVtex = undefined;
         break;
+      case 'filterReference':
+        this.paramData.reference = undefined;
+        break;
       case 'filterSellerSku':
         this.paramData.sellerSku = undefined;
         break;
@@ -251,7 +255,7 @@ export class ListAdminComponent implements OnInit {
     }
     this.filterRemove = filter;
 
-    if (this.paramData.product === undefined && this.paramData.ean === undefined && this.paramData.stock === undefined && this.paramData.pluVtex === undefined && this.paramData.sellerSku === undefined) {
+    if (this.paramData.product === undefined && this.paramData.ean === undefined && this.paramData.stock === undefined && this.paramData.pluVtex === undefined && this.paramData.reference === undefined && this.paramData.sellerSku === undefined) {
       this.filterActive = false;
     }
     this.getListAdminOffers(this.paramData);
@@ -295,6 +299,7 @@ export class ListAdminComponent implements OnInit {
     this.paramData.stock = null;
     this.paramData.product = null;
     this.paramData.pluVtex = null;
+    this.paramData.reference = null;
     this.paramData.sellerSku = null;
     this.filterOffers(this.paramData);
   }

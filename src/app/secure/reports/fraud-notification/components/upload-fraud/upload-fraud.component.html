@@ -1,0 +1,97 @@
+<div fxLayout="column" class="load-file-container">
+  <div fxLayout="row" fxLayoutAlign="end end">
+    <mat-icon class="material-icons close" (click)="close()"> close </mat-icon>
+  </div>
+
+  <div fxFlex="100" class="text-aling-center-modal-load">
+    <h2>{{ "secure.frauds.charge.frauds" | translate }}</h2>
+    <p>{{ "secure.frauds.charge.select.file" | translate }}</p>
+    <div class="inline-block">
+      <input
+        placeholder="file upload"
+        class="my-drop-zone"
+        id="uploadFile"
+        hidden
+        name="fileUploadOption"
+        type="file"
+        (change)="onFileChange($event)"
+        multiple="false"
+        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+        #fileUploadOption
+      />
+      <div fxLayout="column-reverse" (click)="fileUploadOption.click()">
+        
+        
+        
+        <span fxLayout="column" *ngIf="fileExcel">
+        
+          <mat-icon class="material-icons check" id="sizeIcon">
+            check_circle
+          </mat-icon>
+
+          <strong id="colorInput">{{ fileName }}</strong>
+
+        </span>
+
+        <span *ngIf="initialState">
+          <p class="textFileExcel">
+            Presione acá para subir el archivo
+          </p>
+          
+          <mat-icon class="material-icons" id="sizeIcon">
+            note_add
+          </mat-icon>
+
+        </span>
+
+
+        <div *ngIf="notExcel" fxLayout="column-reverse">
+          <strong id="colorInput">
+            {{ "errors.format_invalidate" | translate }}
+            <p class="textFileExcel"> Presione acá para subir el archivo</p>
+          </strong>
+          <mat-icon class="material-icons error">
+            not_interested
+          </mat-icon>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="downloadFormat">
+    <a href="{{url}}" target="blank">
+      <button color="primary" mat-button>
+        Descargar Formato de fraudes
+      </button>
+    </a>
+  </div>
+
+  <div
+    mat-dialog-actions
+    class="mat-buttons"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+  >
+    <button
+      mat-stroked-button
+      class="btn-transparent"
+      type="button"
+      id="btn-create-transporter"
+      color="primary"
+      (click)="close()"
+    >
+      {{ "actions.cancel" | translate }}
+    </button>
+    <button
+      id="btn-create-transporter"
+      type="button"
+      mat-raised-button
+      color="primary"
+      (click)="sendDataBulkLoadAgreement()"
+      [disabled]="!fileExcel"
+    >
+      {{ "actions.create" | translate }}
+    </button>
+  </div>
+</div>

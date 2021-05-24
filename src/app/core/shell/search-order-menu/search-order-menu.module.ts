@@ -15,6 +15,8 @@ import {
     SearchPendingDevolutionFormComponent,
 } from './search-pending-devolution-form/search-pending-devolution-form.component';
 import { SearchHistoricalDevolutionFormComponent } from './search-historical-devolution-form/search-historical-devolution-form.component';
+import { SearchFraudNotificationFormComponent } from './search-fraud-notification-form/search-fraud-notification-form.component';
+
 
 
 @NgModule({
@@ -31,7 +33,8 @@ import { SearchHistoricalDevolutionFormComponent } from './search-historical-dev
         SearchBillingFormComponent,
         SearchPendingDevolutionFormComponent,
         SearchEnviosExitoFormComponent,
-        SearchHistoricalDevolutionFormComponent
+        SearchHistoricalDevolutionFormComponent,
+        SearchFraudNotificationFormComponent
     ],
     exports: [
         SearchOrderMenuComponent

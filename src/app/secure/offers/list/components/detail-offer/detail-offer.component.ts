@@ -35,6 +35,7 @@ export interface Oferts {
   IsFreightCalculator: string;
   IsLogisticsExito: string;
   IsUpdatedStock?: string;
+  OfferByReference?: any;
   DiscountPrice?: number;
   Currency?: string;
   Warranty?: string;
@@ -42,6 +43,7 @@ export interface Oferts {
   EanCombo?: string;
   ComboQuantity?: number;
   SellerSku?: any;
+  Reference?: any;
 }
 
 const log = new Logger('DetailOfferComponent');
@@ -94,6 +96,7 @@ export class DetailOfferComponent implements OnInit {
   public Periodicity: FormControl;
   public SellerSku: FormControl;
   public IsUpdatedStock: FormControl;
+  public OfferByReference: FormControl;
   public Currency: FormControl;
   public comboForm: FormGroup;
   public showButton: boolean;
@@ -153,7 +156,7 @@ export class DetailOfferComponent implements OnInit {
    * @type {EventEmitter<boolean>}
    * @memberof DetailOfferComponent
    */
-  @Output() consumeServiceList = new EventEmitter<boolean>();
+  @Output() consumeServiceList = new EventEmitter<any>();
 
   /**
    *
@@ -322,6 +325,7 @@ export class DetailOfferComponent implements OnInit {
     this.AverageFreightCost = new FormControl(this.dataOffer.shippingCost, [Validators.pattern(this.offertRegex.formatNumber)]);
     this.PromiseDelivery = new FormControl('', [Validators.pattern(this.offertRegex.promiseDelivery)]);
     this.IsFreeShipping = new FormControl(this.dataOffer.isFreeShipping ? 1 : 0);
+    this.OfferByReference = new FormControl('');
     this.IsEnviosExito = new FormControl(this.dataOffer.isEnviosExito ? 1 : 0);
     this.IsFreightCalculator = new FormControl(this.dataOffer.isFreightCalculator ? 1 : 0);
     this.Warranty = new FormControl(this.dataOffer.warranty);
@@ -391,6 +395,7 @@ export class DetailOfferComponent implements OnInit {
       Periodicity: this.Periodicity,
       SellerSku: this.SellerSku,
       IsUpdatedStock: this.IsUpdatedStock,
+      OfferByReference: this.OfferByReference,
       Currency: this.Currency,
       Combos: this.fb.array([]),
     });
@@ -598,7 +603,7 @@ export class DetailOfferComponent implements OnInit {
    * @returns
    * @memberof DetailOfferComponent
    */
-   unLessDiscountPrice() {
+  unLessDiscountPrice() {
     if (Number(this.formUpdateOffer.controls.DiscountPrice.value) < this.sellerMinPrice) {
       this.formUpdateOffer.controls.DiscountPrice.setErrors({ 'unLess': true });
       this.unLess = true;
@@ -616,61 +621,70 @@ export class DetailOfferComponent implements OnInit {
    * @memberof DetailOfferComponent
    */
   validateRulesOfert(): void {
-      const valHighUp = +this.dataOffer.price * 1.30;
-      const valHighDown = +this.dataOffer.price * 0.70;
-      const valLowUp = +this.dataOffer.discountPrice * 1.30;
-      const valLowDown = +this.dataOffer.discountPrice * 0.70;
-      const valPrice = +this.formUpdateOffer.controls.Price.value;
-      const valDiscount = +this.formUpdateOffer.controls.DiscountPrice.value;
+    const valHighUp = +this.dataOffer.price * 1.30;
+    const valHighDown = +this.dataOffer.price * 0.70;
+    const valLowUp = +this.dataOffer.discountPrice * 1.30;
+    const valLowDown = +this.dataOffer.discountPrice * 0.70;
+    const valPrice = +this.formUpdateOffer.controls.Price.value;
+    const valDiscount = +this.formUpdateOffer.controls.DiscountPrice.value;
 
-      if (this.formUpdateOffer.controls.DiscountPrice.value !== 0 && this.formUpdateOffer.controls.DiscountPrice.value !== '') {
-        if (this.dataOffer.discountPrice === '0.00' || this.dataOffer.discountPrice === 0.00 || this.dataOffer.discountPrice === '0') {
-          if (valDiscount && (valDiscount < valHighDown || valDiscount > valHighUp)) {
-            this.openDialogModalRule();
-          } else {
-            this.sameInfoUpdate();
-            this.dataUpdateOffer['priceApproval'] = 0;
-            this.submitUpdateOffer(this.dataUpdateOffer);
-          }
+    if (this.formUpdateOffer.controls.DiscountPrice.value !== 0 && this.formUpdateOffer.controls.DiscountPrice.value !== '') {
+      if (this.dataOffer.discountPrice === '0.00' || this.dataOffer.discountPrice === 0.00 || this.dataOffer.discountPrice === '0') {
+        if (valDiscount && (valDiscount < valHighDown || valDiscount > valHighUp)) {
+          this.openDialogModalRule();
         } else {
-          if (valDiscount && (valDiscount < valLowDown || valDiscount > valLowUp)) {
-            this.openDialogModalRule();
-          } else {
-            this.sameInfoUpdate();
-            this.dataUpdateOffer['priceApproval'] = 0;
-            this.submitUpdateOffer(this.dataUpdateOffer);
-          }
+          this.sameInfoUpdate();
+          this.dataUpdateOffer['priceApproval'] = 0;
+          this.submitUpdateOffer(this.dataUpdateOffer);
         }
       } else {
-        if (this.dataOffer.discountPrice !== '0.00') {
-          if (valPrice < valLowDown || valPrice > valLowUp) {
-            this.openDialogModalRule();
-          } else {
-            this.sameInfoUpdate();
-            this.dataUpdateOffer['priceApproval'] = 0;
-            this.submitUpdateOffer(this.dataUpdateOffer);
-          }
+        if (valDiscount && (valDiscount < valLowDown || valDiscount > valLowUp)) {
+          this.openDialogModalRule();
         } else {
-          if (valPrice && (valPrice < valHighDown || valPrice > valHighUp)) {
-            this.openDialogModalRule();
-          } else {
-            this.sameInfoUpdate();
-            this.dataUpdateOffer['priceApproval'] = 0;
-            this.submitUpdateOffer(this.dataUpdateOffer);
-          }
+          this.sameInfoUpdate();
+          this.dataUpdateOffer['priceApproval'] = 0;
+          this.submitUpdateOffer(this.dataUpdateOffer);
         }
+      }
+    } else {
+      if (this.dataOffer.discountPrice !== '0.00') {
+        if (valDiscount && (valPrice < valLowDown || valPrice > valLowUp)) {
+          this.openDialogModalRule();
+        } else {
+          this.sameInfoUpdate();
+          this.dataUpdateOffer['priceApproval'] = 0;
+          this.submitUpdateOffer(this.dataUpdateOffer);
+        }
+      } else {
+        if (valPrice && (valPrice < valHighDown || valPrice > valHighUp)) {
+          this.openDialogModalRule();
+        } else {
+          this.sameInfoUpdate();
+          this.dataUpdateOffer['priceApproval'] = 0;
+          this.submitUpdateOffer(this.dataUpdateOffer);
+        }
+      }
     }
   }
 
+  /**
+   * Metodo para setear información
+   * @memberof DetailOfferComponent
+   */
   sameInfoUpdate(): void {
     const promiseSplited = this.formUpdateOffer.controls.PromiseDelivery.value.split(/\s(a|-|to)\s/);
     this.convertPromise = promiseSplited[0] + ' a ' + promiseSplited[2];
     this.formUpdateOffer.controls.PromiseDelivery.setValue(this.convertPromise);
     this.params.push(this.formUpdateOffer.value);
     const combos = this.formUpdateOffer.controls.Combos.value;
+
+    let sendEan = this.dataOffer.ean;
+    if (this.formUpdateOffer.controls['OfferByReference'].value === true) {
+      sendEan = null;
+    }
     this.oferts = [
       {
-        EAN: this.dataOffer.ean,
+        EAN: sendEan,
         Stock: this.params[0].Stock,
         Price: this.params[0].Price,
         DiscountPrice: this.params[0].DiscountPrice,
@@ -681,7 +695,9 @@ export class DetailOfferComponent implements OnInit {
         IsFreeShipping: this.formUpdateOffer.controls['IsFreeShipping'].value,
         IsEnviosExito: this.formUpdateOffer.controls['IsEnviosExito'].value,
         IsFreightCalculator: this.formUpdateOffer.controls['IsFreightCalculator'].value,
+        OfferByReference: this.formUpdateOffer.controls['OfferByReference'].value ? true : false,
         SellerSku: this.params[0].SellerSku,
+        Reference: this.dataOffer.reference,
         IsLogisticsExito: '0',
         IsUpdatedStock: this.params[0].IsUpdatedStock,
         Currency: this.formUpdateOffer.controls['Currency'].value
@@ -732,11 +748,25 @@ export class DetailOfferComponent implements OnInit {
   }
 
   /**
+   * Mostrar alerta actualizacion variantes a todas alas ofertas
+   * @param {*} event
+   * @memberof DetailOfferComponent
+   */
+  alertSellerByReference(event: any) {
+    if (event && (this.formUpdateOffer.controls.OfferByReference.value === true && this.formUpdateOffer.controls.IsUpdatedStock.value === 1 || this.formUpdateOffer.controls.IsUpdatedStock.value === true)) {
+        this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.update_variants'), this.languageService.instant('actions.close'), {
+            duration: 7000,
+        });
+    }
+}
+
+  /**
    * @description Metodo para enviar los datos al servicio y actualizar la oferta.
    * @method submitUpdateOffer
    * @memberof DetailOfferComponent
    */
   submitUpdateOffer(dataUpdate: any) {
+    let booleanReference = false;
     this.loadingService.viewSpinner();
     this.loadOfferService.setOffersProducts(dataUpdate).subscribe(
       (result: any) => {
@@ -745,19 +775,36 @@ export class DetailOfferComponent implements OnInit {
           if (data.body.successful !== 0 || data.body.error !== 0) {
             if (data.body.data.error > 0) {
               this.loadingService.closeSpinner();
-              this.snackBar.open(this.languageService.instant('secure.offers.list.components.detail_offer.snackbar_offer_product'), this.languageService.instant('actions.close'), {
-                duration: 5000,
-              });
-              this.consumeServiceList.emit(true);
+              // this.consumeServiceList.emit(true);
               this.params = [];
               this.oferts = [];
+              let countError = 0;
+              data.body.data.offerNotifyViewModels.forEach(element => {
+                if (element.code === 'PEX') {
+                  countError++;
+                }
+              });
+              if (countError === data.body.data.error) {
+                this.openDialogModalRule();
+              } else {
+                this.snackBar.open(this.languageService.instant('secure.offers.list.components.detail_offer.snackbar_offer_product'), this.languageService.instant('actions.close'), {
+                  duration: 5000,
+                });
+              }
             } else {
               this.loadingService.closeSpinner();
-              this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.offer_has_been_correctly'), this.languageService.instant('actions.close'), {
-                duration: 5000,
-              });
+              this.oferts[0].OfferByReference === true ? booleanReference = true : booleanReference = false;
               this.goToListOffers();
-              this.consumeServiceList.emit(true);
+              if (booleanReference === false) {
+                this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.offer_has_been_correctly'), this.languageService.instant('actions.close'), {
+                  duration: 5000,
+                });
+              }
+              const dataEmit = {
+                event: true,
+                reference: booleanReference
+              };
+              this.consumeServiceList.emit(dataEmit);
               this.params = [];
               this.oferts = [];
             }
@@ -773,11 +820,13 @@ export class DetailOfferComponent implements OnInit {
           this.params = [];
           this.oferts = [];
         }
-
         if (result.body.data.error === 1) {
           this.loadingService.closeSpinner();
           this.modalService.showModal('errorService');
         }
+      }, error => {
+        this.loadingService.closeSpinner();
+        this.modalService.showModal('errorService');
       }
     );
   }
@@ -1015,9 +1064,6 @@ export class DetailOfferComponent implements OnInit {
           this.formUpdateOffer.controls.DiscountPrice.setErrors(null);
           if (parseFloat(discountPrice) !== total) {
             this.showButton = true;
-            // this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.discount_price_sumatory_combo'), this.languageService.instant('actions.close'), {
-            //   duration: 3000,
-            // });
           } else {
             this.showButton = false;
           }
@@ -1031,9 +1077,6 @@ export class DetailOfferComponent implements OnInit {
       } else {
         if (parseFloat(discountPrice) >= parseFloat(price)) {
           this.showButton = true;
-          // this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.price_lower_discount'), this.languageService.instant('actions.close'), {
-          //   duration: 3000,
-          // });
         } else {
           this.showButton = false;
           if (this.formUpdateOffer.value.Currency === 'COP') {

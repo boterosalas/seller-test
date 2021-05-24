@@ -48,6 +48,7 @@
     "menu.Cargar guías": "Upload tracking numbers",
     "menu.Menu": "Menu",
     "menu.Reporte de ofertas": "Active offers reports",
+    "menu.Notificación de Fraudes": "Notification de fraude",
     "menu.Historico de devoluciones": "Historical devolution",
     "menu.Ciudades con Cobertura": "Cities with Coverage",
     "menu.Calificación de Vendedores": "Quality Score",
@@ -306,6 +307,8 @@
     "core.shell.search_order_menu.search_envios_exito_form.digital_catalog": "Digital Catalog",
     "core.shell.search_order_menu.search_envios_exito_form.filter_by_number": "Filter by order number",
     "core.shell.search_order_menu.search_envios_exito_form.filter_by_id": "Filter by client ID",
+    "core.shell.search_order_menu.search_fraud_notification_nameFile": "Nom de fichier",
+    "core.shell.search_order_menu.search_fraud_notification_downloadFile": "Fichier à télécharger",
 
     "core.shell.search_order_menu.search_order_form.from": "From",
     "core.shell.search_order_menu.search_order_form.to": "To",
@@ -815,6 +818,8 @@
 
     "secure.offers.bulk_upload.bulk_upload.title_toolbar": "BULK OFFER UPLOAD",
     "secure.offers.bulk_upload.bulk_upload.download_format_offer": "DOWNLOAD FORMAT",
+    "secure.offers.bulk_upload.bulk_upload.download_format_estandar": "LA NORME",
+    "secure.offers.bulk_upload.bulk_upload.download_format_variant": "VARIANTES",
     "secure.offers.bulk_upload.bulk_upload.upload_format": "SELECT A FILE TO UPLOAD",
     "secure.offers.bulk_upload.bulk_upload.text_step_import_to_offer": "in this file you may enter your offer information",
     "secure.offers.bulk_upload.bulk_upload.exceeds_limits": "The amount of assets found is over 1,048,576, this amount is not allowed.",
@@ -835,6 +840,7 @@
     "secure.offers.bulk_upload.table_error.dane_code": "The code entered is invalid.",
     "secure.offers.bulk_upload.table_error.periodicity": "The periodicity is invalid.",
     "secure.offers.bulk_upload.table_error.sellerSku": "Seller SKU is invalid.",
+    "secure.offers.bulk_upload.table_error.reference": "La référence parent n'est pas valide.",
 
     "secure.offers.bulk_upload.table_load.title_offer_charge": "Upload the offers again",
     "secure.offers.bulk_upload.table_load.ean_combo": "EAN Combo",
@@ -1130,6 +1136,7 @@
     "secure.products.create_product_unit.list_products.ofert_product.mandatory_warranty": "The warranty field is mandatory",
     "secure.products.create_product_unit.list_products.ofert_product.envios_exito_indicator": "Envios Éxito Indicator",
     "secure.products.create_product_unit.list_products.ofert_product.stock_update": "Stock update",
+    "secure.products.create_product_unit.list_products.ofert_product.reference_update": "Appliquer l'offre à toutes les variantes",
     "secure.products.create_product_unit.list_products.ofert_product.mandatory_price_ean_combo": "Combo EAN Price is mandatory",
     "secure.products.create_product_unit.list_products.ofert_product.invalid_price_ean_combo": "Combo EAN Price is invalid",
     "secure.products.create_product_unit.list_products.ofert_product.mandatory_amount_ean_combo": "Combo EAN Amount is mandatory",
@@ -1142,6 +1149,7 @@
     "secure.products.create_product_unit.list_products.ofert_product.changed_currency": "The currency has changed to ",
     "secure.products.create_product_unit.list_products.ofert_product.format_invalidate": "The format is invalid",
     "secure.products.create_product_unit.list_products.please_wait" : "Loading, wait please ...",
+    "secure.products.create_product_unit.list_products.ofert_product.update_variants": "Inventory update to all variations",
 
     "secure.products.list_products.modal.title": "This offer undergoes an extreme price change, do you wish to continue?",
     "secure.products.pending_products_tab1": "Pendientes Modificación",
@@ -1395,6 +1403,8 @@
 
     "secure.products.bulk_upload.process": "when uploading the products.",
 
+    "secure.frauds.bulk_upload.process": "au moment du chargement des arnaques.",
+
     "secure.reports.report-offert.download-modal-offert-ts.ok": "The download has started successfully. Check your e-mail.",
     "secure.reports.report-offert.download-modal-offert-ts.ko": "And error has occurred when downloading the file.",
 
@@ -1433,6 +1443,13 @@
     "secure.orders.bulk.billing.maximum_All_file_size": "Les fichiers ne doivent pas dépasser 7 MO.",
     "secure.orders.bulk.billing.size_file": "Taille du fichier: ",
     "secure.orders.bulk.billing.size_file_MB": "MO",
+
+    "secure.frauds.charge.frauds": "Télécharger le rapport de fraude",
+    "secure.frauds.charge.select.file": "Veuillez sélectionner le fichier de fraude que vous souhaitez télécharger",
+    "secure.frauds.charge.success": "Téléchargement réussi",
+    "secure.frauds.charge.success.text": "Le fichier contenant les informations sur la fraude a été téléchargé avec succès",
+    "secure.frauds.in_devolution.in_devolution_page.no_found_frauds": "Aucune escroquerie n'a été trouvée.",
+    "errors.error_check_frauds": "Une erreur s'est produite lors de l'interrogation des escroqueries.",
 
     "errors_download_file_submodules" : "Se ha presentado un error al realizar la descarga.",
     "school.exito": "School Éxito",
@@ -1475,7 +1492,7 @@
     "quality.indicators.bar_green": "Astrid Dépasse l'objectif",
     "quality.indicators.bar_orange": "S'adapte à la cible",
     "quality.indicators.bar_red": "Alerte ! Indicateur dégradé",
-
     "secure.notifications.list.column-title": "Title",
-    "secure.notifications.list.column-date": "Date"
+    "secure.notifications.list.column-date": "Date",
+    "secure.reports.notification.fraud.charge-fraud": "CHARGE DES FRAUDES"
 }
