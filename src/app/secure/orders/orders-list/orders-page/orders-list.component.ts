@@ -278,15 +278,30 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   callServiceParams() {
     let stateCurrent = null;
     if (this.typeCardToDashboard === '3') {
-      const paramsArray = {
-        'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
-        'idSeller': this.idSeller,
-        'state': this.lastState,
-        'callOne': true,
-        'clear': true
-      };
-      this.isClear = true;
-      this.getOrdersList(paramsArray);
+      const dataParamsRouteFilter = '&dateOrderInitial=' + this.initialDate + '&dateOrderFinal=' + this.finalDate + '&idStatusOrder=' + 60;
+      if (this.initialDate || this.finalDate) {
+        this.setCategoryName();
+        this.loadingService.viewSpinner();
+        this.searchOrderMenuService.getOrdersFilter(50, dataParamsRouteFilter).subscribe((res: any) => {
+          if (res) {
+            if (res.pendingResponse) {
+              this.getOrdersList(this.params);
+            } else {
+              stateCurrent = this.params ? this.params.state : null;
+              this.lastState = stateCurrent;
+              this.setTable(res);
+              if (this.params && this.params.callOne) {
+                this.length = res.data.count;
+                this.isClear = true;
+              }
+              const paginator = { 'pageIndex': 0 };
+              this.addCheckOptionInProduct(res.data.viewModel, paginator);
+            }
+            this.loadingService.closeSpinner();
+
+          }
+        });
+      }
     } else {
       const dataParamsRouteFilter = '&dateOrderInitial=' + this.initialDate + '&dateOrderFinal=' + this.finalDate + '&idStatusOrder=' + this.currentRootPage;
       if (this.initialDate || this.finalDate) {
