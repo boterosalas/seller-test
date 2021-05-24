@@ -125,14 +125,17 @@ export class DashOrdersComponent implements OnInit {
 
     // Variable para ocultar temporalmente indicadores para vendedores
     hideIndicators = false;
+    // Variables cards Por enviar
     onTimeSend: any;
     toExpireSend: any;
     totalToSend: number;
     overComeSend: any;
+    // Variables cards entregado
     totalDelivered: any;
     onTimeDelivered: any;
     overComeDelivered: any;
     toExpireDelivered: any;
+    // Variables cards por transporte
     totalInTransport: any;
     onTimeInTransport: any;
     overComeInTransport: any;
@@ -162,7 +165,6 @@ export class DashOrdersComponent implements OnInit {
         this.startDate = new Date();
         this.dateMax = this.startDate;
         this.getMonthVisible(this.startDate.getMonth());
-        this.getMonthVisibleSales(this.startDate.getMonth());
     }
 
     ngOnInit() {
@@ -170,7 +172,7 @@ export class DashOrdersComponent implements OnInit {
         this.getUserData();
         this.changeLanguage();
         this.setSelectFilterOrders();
-        this.getSalesSummary();
+        // this.getSalesSummary();
         this.getOrdensSummary();
     }
 
@@ -283,7 +285,7 @@ export class DashOrdersComponent implements OnInit {
                 this.isLoading = false;
             }
             this.last_ordens = res.reportOrdersSalesType ? this.parseLastOrdens(res.reportOrdersSalesType.reverse()) : [];
-            this.calculateCountSales(res.reportOrdersSalesType);
+            this.calculateCountOrders(res.reportOrdersSalesType);
             this.calculateDataCards(res.ordersIndicators);
             this.showChartOrdens = true;
         }, err => {
@@ -335,7 +337,7 @@ export class DashOrdersComponent implements OnInit {
      * @param {*} res
      * @memberof DashOrdersComponent
      */
-    calculateCountSales(res: any) {
+    calculateCountOrders(res: any) {
         this.totalCount = 0;
         if (res && res.length > 0) {
             res.forEach(element => {
@@ -344,19 +346,38 @@ export class DashOrdersComponent implements OnInit {
         }
     }
 
+    /**
+     * Setear valores de los cards Por enviar, por transporte, entregado
+     * @param {*} res
+     * @memberof DashOrdersComponent
+     */
     calculateDataCards(res: any) {
-        this.totalToSend = res.toSend.onTime + res.toSend.overcome + res.toSend.toExpire;
-        this.onTimeSend = res.toSend.onTime;
-        this.overComeSend = res.toSend.overcome;
-        this.toExpireSend = res.toSend.toExpire;
-        this.totalDelivered = res.delivered.onTime + res.delivered.overcome + res.delivered.toExpire;
-        this.onTimeDelivered = res.delivered.onTime;
-        this.overComeDelivered = res.delivered.overcome;
-        this.toExpireDelivered = res.delivered.toExpire;
-        this.totalInTransport = res.inTransport.onTime + res.inTransport.overcome + res.inTransport.toExpire;
-        this.onTimeInTransport = res.inTransport.onTime;
-        this.overComeInTransport = res.inTransport.overcome;
-        this.toExpireInTransport = res.inTransport.toExpire;
+        this.totalToSend = 0;
+        this.onTimeSend = 0;
+        this.overComeSend = 0;
+        this.toExpireSend = 0;
+        this.totalDelivered = 0;
+        this.onTimeDelivered = 0;
+        this.overComeDelivered = 0;
+        this.toExpireDelivered = 0;
+        this.totalInTransport = 0;
+        this.onTimeInTransport = 0;
+        this.overComeInTransport = 0;
+        this.toExpireInTransport = 0;
+        if (res) {
+            this.totalToSend = res.toSend.onTime + res.toSend.overcome + res.toSend.toExpire;
+            this.onTimeSend = res.toSend.onTime;
+            this.overComeSend = res.toSend.overcome;
+            this.toExpireSend = res.toSend.toExpire;
+            this.totalDelivered = res.delivered.onTime + res.delivered.overcome + res.delivered.toExpire;
+            this.onTimeDelivered = res.delivered.onTime;
+            this.overComeDelivered = res.delivered.overcome;
+            this.toExpireDelivered = res.delivered.toExpire;
+            this.totalInTransport = res.inTransport.onTime + res.inTransport.overcome + res.inTransport.toExpire;
+            this.onTimeInTransport = res.inTransport.onTime;
+            this.overComeInTransport = res.inTransport.overcome;
+            this.toExpireInTransport = res.inTransport.toExpire;
+        }
     }
 
 
@@ -402,6 +423,11 @@ export class DashOrdersComponent implements OnInit {
         this.dateCurrent = date;
         this.getOrdensSummary();
     }
+
+    /**
+     * Actualizar info cuando cambia de lenguaje
+     * @memberof DashOrdersComponent
+     */
     changeLanguage() {
         this.languageService.onLangChange.subscribe((e: Event) => {
             this.isLoad = false;
@@ -415,7 +441,7 @@ export class DashOrdersComponent implements OnInit {
             } else {
                 this.selectTypeFilter = this.periodsEN[3].value;
             }
-            this.getSalesSummary();
+            // this.getSalesSummary();
             this.getOrdensSummary();
         });
 
@@ -571,6 +597,7 @@ export class DashOrdersComponent implements OnInit {
     public showChangeView(show: boolean) {
         this.showOrdersChart = !show;
     }
+
     /**
      * funcion para mostrar las grafias de ventas
      *
@@ -580,6 +607,7 @@ export class DashOrdersComponent implements OnInit {
     public showChangeViewSales(show: boolean) {
         this.showOrdersChartSales = !show;
     }
+
     /**
      * funcion para mostrar las graficas de ventas
      *
@@ -588,214 +616,6 @@ export class DashOrdersComponent implements OnInit {
      */
     public showChangeViewSeller(show: boolean) {
         this.showOrdersChartSeller = !show;
-    }
-    /**
-     * funcion que obtiene los registros de ventas del vendedor logeado
-     *
-     * @param {*} [params]
-     * @memberof DashboardComponent
-     */
-    getSalesSummary(params?: any) {
-        this.params = this.setParametersSales(params);
-        this.showChartSales = false;
-        this._dashboard.getSalesSummary(this.params).subscribe((res: any) => {
-            console.log(4, res);
-            if (res) {
-                if (this.isLoad) {
-                    this.loadingService.closeSpinner();
-                } else {
-                    this.isLoading = false;
-                }
-                this.last_sales = res.reportOrdersSalesType ? this.parseLastSales(res.reportOrdersSalesType.reverse()) : [];
-                this.calculateCountSales(res.reportOrdersSalesType);
-
-                if (res.productsBestSellings && res.productsBestSellings.length > 0) {
-                    this.topProduct = res.productsBestSellings;
-                } else {
-                    this.topProduct = [];
-                }
-
-                if (res.ticketAverage) {
-                    this.promedTicket = res.ticketAverage;
-                } else {
-                    this.promedTicket = '0';
-                }
-
-                this.showChartSales = true;
-            }
-
-        }, err => {
-            if (this.isLoad) {
-                this.loadingService.closeSpinner();
-            } else {
-                this.isLoading = false;
-            }
-            this.log.debug(err);
-            this.modalService.showModal('errorService');
-        }
-        );
-    }
-    /**
-     * funcion para mostrar los calendarios mes y otro permite dias
-     *
-     * @param {*} filter
-     * @memberof DashboardComponent
-     */
-    selectSales(filter: any) {
-        this.typeFilterSales = filter;
-        if (filter === '1' || filter === '2') {
-            this.showCalenderQSales = true;
-            this.showCalenderDSales = false;
-        } else {
-            this.showCalenderQSales = false;
-            this.showCalenderDSales = true;
-        }
-        if (filter) {
-            this.lang = localStorage.getItem('culture_current');
-            if (this.lang === 'ES') {
-                this.selectTypeFilter = this.periodsES[filter - 1].value;
-            } else {
-                this.selectTypeFilter = this.periodsEN[filter - 1].value;
-            }
-        }
-        this.getSalesSummary();
-    }
-    /**
-     * funcion para setear los parametros y enviarlo al endPoint para consultar las ventas
-     *
-     * @param {*} params
-     * @returns
-     * @memberof DashboardComponent
-     */
-    setParametersSales(params: any) {
-        let paramsOrdersSummary = 'null/';
-        if (this.dateCurrent === '' || this.dateCurrent === undefined) {
-            this.dateCurrent = new Date();
-            const latest_date = this.datepipe.transform(this.dateCurrent, 'yyyy-MM-dd');
-            paramsOrdersSummary += latest_date + '/';
-        } else {
-            paramsOrdersSummary += this.datepipe.transform(this.dateCurrent, 'yyyy-MM-dd') + '/';
-        }
-        if (this.typeFilterSales !== undefined && this.typeFilterSales !== null) {
-            paramsOrdersSummary += this.typeFilterSales;
-        }
-        if (this.typeFilterSales === '4' || this.typeFilterSales === '3') {
-            this.dateSales = this.datepipe.transform(this.dateCurrent, 'yyyy-MM-dd');
-            this.showSales = true;
-        } else {
-            this.dateSales = '';
-            this.showSales = false;
-        }
-        return paramsOrdersSummary;
-    }
-    /**
-     * funcion para calcular el porcentaje de las barras para el grafico
-     *
-     * @private
-     * @param {*} last
-     * @returns
-     * @memberof DashboardComponent
-     */
-    private parseLastSales(last: any) {
-        let sumatory = 0;
-        let total = '0';
-        if (last && last.length > 0) {
-            last.forEach(element => {
-                sumatory += element.sales;
-                element.percent = 0 + '%';
-            });
-            last.forEach(element => {
-                total = ((element.sales / sumatory) * 100).toString();
-                element.percent = parseFloat(total).toFixed(2) + '%';
-            });
-        } else {
-            last.forEach(element => {
-                element.percent = '0%';
-            });
-        }
-        this.sumatoryTotal = sumatory;
-        return last;
-    }
-    /**
-     * funcion para setear la fecha en una variable global y llamar a la funcion getSalesSummary
-     *
-     * @private
-     * @param {*} [date]
-     * @memberof DashboardComponent
-     */
-    private getLastSales(date?: any) {
-        this.dateCurrent = date;
-        this.getSalesSummary();
-    }
-    /**
-     * funcion para buscar por medio de un array las traducion de los meses
-     *
-     * @param {*} month
-     * @memberof DashboardComponent
-     */
-    getMonthVisibleSales(month: any) {
-        this.languageService.onLangChange.subscribe((event: LangChangeEvent) => {
-            if ('ES' === event.lang) {
-                this.visibleDateSales = this.monthES[month];
-            } else if ('FR' === event.lang) {
-                this.selectTypeFilter = this.monthEN[month];
-            } else {
-                this.visibleDateSales = this.monthEN[month];
-            }
-        });
-        this.lang = localStorage.getItem('culture_current');
-        if (this.lang === 'ES') {
-            this.visibleDateSales = this.monthES[month];
-        } else {
-            this.visibleDateSales = this.monthEN[month];
-        }
-    }
-    /**
-     * funcion para abrir el datapicker (mes)
-     *
-     * @memberof DashboardComponent
-     */
-    public openDatePickerDiarySales() {
-        this.pickerDiarySales.open();
-    }
-    /**
-     * funcion para abrir el datapicker (diario)
-     *
-     * @memberof DashboardComponent
-     */
-    public openDatePickerSales() {
-        this.pickerSales.open();
-    }
-
-
-    /**
-     * funcion para seleccionar el mes  y consultar de nuevo los datos con ese mes (mes)
-     *
-     * @param {*} month
-     * @param {*} dp
-     * @memberof DashboardComponent
-     */
-    public chosenMonthHandlerSales(month: any, dp: any) {
-        const date = new Date(month);
-        this.startDate = date;
-        this.getMonthVisibleSales(date.getMonth());
-        this.getLastSales(date);
-        dp.close();
-    }
-
-    /** funcion para seleccionar el mes  y consultar de nuevo los datos con ese mes (diario)
-     *
-     *
-     * @param {*} month
-     * @param {*} dp
-     * @memberof DashboardComponent
-     */
-    public chosenMonthHandlerDiarySales(month: any, dp: any) {
-        const date = new Date(month.value);
-        this.startDate = date;
-        this.getMonthVisibleSales(date.getMonth());
-        this.getLastSales(date);
-        dp.close();
     }
 
 
