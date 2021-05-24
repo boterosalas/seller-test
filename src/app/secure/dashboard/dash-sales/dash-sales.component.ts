@@ -512,6 +512,7 @@ export class DashSalesComponent implements OnInit {
     this.params = this.setParametersSales(params);
     this.showChartSales = false;
     this._dashboard.getSalesSummary(this.params).subscribe((res: any) => {
+    console.log('res sales: ', res);
       if (res) {
         if (this.isLoad) {
           this.loadingService.closeSpinner();

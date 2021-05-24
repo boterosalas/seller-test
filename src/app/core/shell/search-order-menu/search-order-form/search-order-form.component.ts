@@ -26,7 +26,15 @@ export class SearchOrderFormComponent implements OnInit {
   // Configuración para el formato de fecha
   public locale = 'es-CO';
   // Variable que almacena los datos que se le pueden pasar al formulario
-  @Input() informationToForm: SearchFormEntity;
+  // @Input() informationToForm: SearchFormEntity;
+
+  public infoDataForm: any
+  @Input() set informationToForm(value: any) {
+    if(value) {
+      this.infoDataForm = value;
+    }
+  }
+
 
   @Input() idSeller: number;
   @Input() typeProfiel: number;
@@ -76,7 +84,9 @@ export class SearchOrderFormComponent implements OnInit {
     private languageService: TranslateService,
     private loadingService: LoadingService,
     public datepipe: DatePipe,
-  ) { }
+  ) {
+    console.log('this.infoDataForm', this.infoDataForm);
+   }
 
   /**
    * ngOnInit
@@ -85,7 +95,6 @@ export class SearchOrderFormComponent implements OnInit {
   ngOnInit() {
     console.log('entro al searh');
     console.log(66, this.route);
-    console.log('info', this.informationToForm);
 
     // Obtengo la información del usuario
     this.getDataUser();
@@ -102,8 +111,8 @@ export class SearchOrderFormComponent implements OnInit {
     this.dateInit = this.route.snapshot ? this.route.snapshot.children[0].params.dateInitial : null;
     this.dateFinal = this.route.snapshot ? this.route.snapshot.children[0].params.dateFinal : null;
     console.log(this.dateInit)
-    this.myform.controls.dateOrderInitial.setValue(this.datepipe.transform(this.dateInit, 'yyyy-MM-dd'));
-    this.myform.controls.dateOrderFinal.setValue(this.datepipe.transform(this.dateFinal, 'yyyy-MM-dd'));
+    // this.myform.controls.dateOrderInitial.setValue(this.datepipe.transform(this.dateInit, 'yyyy-MM-dd'));
+    // this.myform.controls.dateOrderFinal.setValue(this.datepipe.transform(this.dateFinal, 'yyyy-MM-dd'));
     console.log(this.dateInit)
   }
 
