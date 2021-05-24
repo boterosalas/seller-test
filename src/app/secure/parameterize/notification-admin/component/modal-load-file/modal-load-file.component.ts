@@ -36,6 +36,10 @@ export class ModalLoadFileComponent implements OnInit, OnDestroy  {
   public nameFile = '';
   public dateFile: any;
 
+  public validComboDrag = false;
+  public dragFiles = true;
+  public lastFileAt: Date;
+
   @Output() emitDataImgLoad = new EventEmitter<object>();
 
   public _showComponent: boolean;

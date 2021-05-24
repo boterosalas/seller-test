@@ -1,15 +1,20 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AngularEditorConfig } from '@kolkov/angular-editor/lib/config';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher, MatDialog, MatSnackBar } from '@angular/material';
 import { ModalLoadFileComponent } from '../modal-load-file/modal-load-file.component';
 import { ModalPreviewNotificationComponent } from '../modal-preview-notification/modal-preview-notification.component';
 import { ModalGenericComponent } from '../modal-generic/modal-generic.component';
 import { NotificationAdminService } from '../../notification-admin.service';
 import { LoadingService } from '@app/core';
 
-
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 @Component({
   selector: 'app-notification-form',
   templateUrl: './notification-form.component.html',
@@ -58,6 +63,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
   public titleErrorSubtitle = '';
   public idNotification = null;
   public dialogRef: any;
+  public matcher: MyErrorStateMatcher;
 
 
   public config: AngularEditorConfig = {
