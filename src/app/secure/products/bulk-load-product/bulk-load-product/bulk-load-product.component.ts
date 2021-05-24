@@ -173,6 +173,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
   dataProduct:any = {};
 
+  public dataarr = [];
+
   @ViewChild('modalContent', {static: false}) contentDialog: TemplateRef<any>;
   copySizeArray: any;
   setInterval: any;
@@ -710,24 +712,25 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
             this.arrayNecessaryData.splice(1,2);
 
 
-            //hace un split del arreglo para solo sacar el numero de la categoria y se vuelve a insertar
+            //hace un split del arreglo para solo sacar el numero de la categoria y se inserta en un array
 
             this.arrayNecessaryData.map((resp, i) => {
               
               if(i > 0) {
-
-                resp.filter( resp => resp === "Clothing" )
-        
-                let splitCategory = resp[4].split('_');
-                resp[4] = splitCategory[0];
-
-                resp.filter( resp => resp === "Technology" )
-        
-                splitCategory = resp[3].split('_');
-                resp[3] = splitCategory[0];
-
+                resp.forEach(element => {
+                  let splitElement = element.split('_');
+                  this.dataarr.push(splitElement[0]);
+                });
               }
-            })
+              
+            });
+
+            /** Elimina la data del array original hasta la posicion 5000 */
+            this.arrayNecessaryData.splice(1, 5000);
+            
+            /** Inserta el array nuevamente transformado con la categoria de forma correcta */
+            this.arrayNecessaryData.push(this.dataarr);
+
 
             this.eanComboPosition = this.iVal.iEanCombo;
 
