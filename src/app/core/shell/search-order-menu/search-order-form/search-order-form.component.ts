@@ -26,12 +26,14 @@ export class SearchOrderFormComponent implements OnInit {
   // Configuración para el formato de fecha
   public locale = 'es-CO';
   // Variable que almacena los datos que se le pueden pasar al formulario
-  // @Input() informationToForm: SearchFormEntity;
 
-  public infoDataForm: any
+  public infoDataForm: any;
   @Input() set informationToForm(value: any) {
-    if(value) {
+    if (value) {
       this.infoDataForm = value;
+      if (this.myform) {
+        this.getFilterOrderDate();
+      }
     }
   }
 
@@ -85,35 +87,33 @@ export class SearchOrderFormComponent implements OnInit {
     private loadingService: LoadingService,
     public datepipe: DatePipe,
   ) {
-    console.log('this.infoDataForm', this.infoDataForm);
-   }
+    // this.getFilterOrderDate();
+    this.createForm();
+  }
 
   /**
    * ngOnInit
    * @memberof SearchOrderFormComponent
    */
   ngOnInit() {
-    console.log('entro al searh');
-    console.log(66, this.route);
-
     // Obtengo la información del usuario
     this.getDataUser();
-    this.createForm();
     this.getOrdersStatus();
-    this.getFilterOrderDate();
   }
 
   async getDataUser() {
     this.user = await this.userParams.getUserData();
   }
 
+  /**
+   * Seteo valores al formulario por parametroSeteo valores al formulario por parametro de la url
+   * @memberof SearchOrderFormComponent
+   */
   getFilterOrderDate() {
-    this.dateInit = this.route.snapshot ? this.route.snapshot.children[0].params.dateInitial : null;
-    this.dateFinal = this.route.snapshot ? this.route.snapshot.children[0].params.dateFinal : null;
-    console.log(this.dateInit)
-    // this.myform.controls.dateOrderInitial.setValue(this.datepipe.transform(this.dateInit, 'yyyy-MM-dd'));
-    // this.myform.controls.dateOrderFinal.setValue(this.datepipe.transform(this.dateFinal, 'yyyy-MM-dd'));
-    console.log(this.dateInit)
+    this.dateInit = this.infoDataForm ? this.infoDataForm.information.dateInit : null;
+    this.dateFinal = this.infoDataForm ? this.infoDataForm.information.dateFinal : null;
+    this.myform.controls.dateOrderInitial.setValue(this.datepipe.transform(this.dateInit, 'yyyy-MM-dd'));
+    this.myform.controls.dateOrderFinal.setValue(this.datepipe.transform(this.dateFinal, 'yyyy-MM-dd'));
   }
 
   /**

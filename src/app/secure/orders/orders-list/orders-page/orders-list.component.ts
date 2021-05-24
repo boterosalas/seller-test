@@ -281,6 +281,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     const dataParamsRouteFilter = '&dateOrderInitial=' + this.initialDate + '&dateOrderFinal=' + this.finalDate + '&idStatusOrder=' + this.currentRootPage;
     if (this.initialDate || this.finalDate) {
       this.setCategoryName();
+      this.loadingService.viewSpinner();
       this.searchOrderMenuService.getOrdersFilter(50, dataParamsRouteFilter).subscribe((res: any) => {
         console.log(res);
         if (res) {
@@ -297,6 +298,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
             const paginator = { 'pageIndex': 0 };
             this.addCheckOptionInProduct(res.data.viewModel, paginator);
           }
+          this.loadingService.closeSpinner();
+
         }
       });
     }
@@ -370,7 +373,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       this.getOrdersListSinceFilterSearchOrder();
       this.clearData();
       console.log(55, this.initialDate, this.finalDate);
-      if (this.initialDate  || this.finalDate ) {
+      if (this.initialDate || this.finalDate) {
         this.callServiceParams();
       } else {
         console.log('else no hay data');
