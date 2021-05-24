@@ -221,7 +221,6 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   ) {
     this.getAllDataUser();
     this.getListbyParams();
-    console.log('por enviar');
   }
 
 
@@ -266,11 +265,9 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    */
   getListbyParams() {
     this.route.params.subscribe(params => {
-      console.log(params);
       this.initialDate = params.dateInitial;
       this.finalDate = params.dateFinal;
       this.typeCardToDashboard = params.type;
-      console.log(this.initialDate, this.finalDate);
     });
   }
 
@@ -279,7 +276,6 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   callServiceParams() {
-    console.log('here', this.currentRootPage, this.typeCardToDashboard)
     let stateCurrent = null;
     if (this.typeCardToDashboard === '3') {
       const paramsArray = {
@@ -293,12 +289,10 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       this.getOrdersList(paramsArray);
     } else {
       const dataParamsRouteFilter = '&dateOrderInitial=' + this.initialDate + '&dateOrderFinal=' + this.finalDate + '&idStatusOrder=' + this.currentRootPage;
-      console.log('entra al else');
       if (this.initialDate || this.finalDate) {
         this.setCategoryName();
         this.loadingService.viewSpinner();
         this.searchOrderMenuService.getOrdersFilter(50, dataParamsRouteFilter).subscribe((res: any) => {
-          console.log(res);
           if (res) {
             if (res.pendingResponse) {
               this.getOrdersList(this.params);
@@ -327,7 +321,6 @@ export class OrdersListComponent implements OnInit, OnDestroy {
         const body: any = res.body;
         const response = JSON.parse(body.body);
         const userData = response.Data;
-        console.log(userData);
         return userData;
       });
       if (sellerData.Country !== 'COLOMBIA') {
@@ -388,11 +381,9 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       // this.getOrdersListSinceCurrentUrl();
       this.getOrdersListSinceFilterSearchOrder();
       this.clearData();
-      console.log(55, this.initialDate, this.finalDate);
       if (this.initialDate || this.finalDate || this.typeCardToDashboard) {
         this.callServiceParams();
       } else {
-        console.log('else no hay data');
         this.getOrdersListSinceCurrentUrl();
       }
     });
@@ -641,7 +632,6 @@ export class OrdersListComponent implements OnInit, OnDestroy {
    * @memberof OrdersListComponent
    */
   getOrdersList(params?: any) {
-    console.log('get: ', params);
     this.loadingService.viewSpinner();
     this.isClear = false;
     this.params = this.setParameters(params);

@@ -142,7 +142,6 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
 
 
   ngOnInit() {
-    console.log('abro filtro');
     this.filteredOptions = this.textForSearch.valueChanges
       .pipe(
         startWith(''),
@@ -164,13 +163,11 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
    * @memberof ToolbarOptionsComponent
    */
   toggleMenuOrderSearch() {
-    console.log(this.route.params['_value'].dateInitial, this.route.params['_value'].dateFinal);
-    console.log('this.informationToForm: ', this.informationToForm);
     this.informationToForm.information['dateInit'] = this.route.params ? this.route.params['_value'].dateInitial : null;
     this.informationToForm.information['dateFinal'] = this.route.params ? this.route.params['_value'].dateFinal : null;
     this.informationToForm.information['status'] = this.route.params ? this.route.params['_value'].category : null;
+    this.informationToForm.information['type'] = this.route.params ? this.route.params['_value'].type : null;
     this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this.idSeller, this._Typeprofile, this.state, this.limitSizeList);
-    console.log('this.informationToForm: ', this.informationToForm);
   }
 
   /**

@@ -191,7 +191,6 @@ export class DashOrdersComponent implements OnInit {
      * @memberof DashOrdersComponent
      */
     select(filter: any) {
-        console.log(filter);
         this.typeFilter = filter;
         if (filter === '1' || filter === '2') {
             this.showCalenderQ = true;
@@ -208,7 +207,6 @@ export class DashOrdersComponent implements OnInit {
      * @memberof DashOrdersComponent
      */
     goToSendOrders(type: any) {
-        console.log(type);
         const idToSend = '35';
         let latest_date;
         if (this.typeFilter) {
@@ -316,10 +314,6 @@ export class DashOrdersComponent implements OnInit {
             this.dateOrdens = '';
             this.showOrdens = false;
         }
-        console.log('this.typeFilter: ', this.typeFilter);
-        console.log('this.dateOrdens', this.dateOrdens);
-        console.log(paramsOrdersSummary);
-
         return paramsOrdersSummary;
     }
 

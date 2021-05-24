@@ -29,6 +29,7 @@ export class SearchOrderFormComponent implements OnInit {
 
   public infoDataForm: any;
   status: any;
+  typeCards: any;
   @Input() set informationToForm(value: any) {
     if (value) {
       this.infoDataForm = value;
@@ -114,12 +115,19 @@ export class SearchOrderFormComponent implements OnInit {
     this.dateInit = this.infoDataForm ? this.infoDataForm.information.dateInit : null;
     this.dateFinal = this.infoDataForm ? this.infoDataForm.information.dateFinal : null;
     this.status = this.infoDataForm ? this.infoDataForm.information.category : null;
+    this.typeCards = this.infoDataForm ? this.infoDataForm.information.type : null;
     this.myform.controls.dateOrderInitial.setValue(this.datepipe.transform(this.dateInit, 'yyyy-MM-dd'));
     this.myform.controls.dateOrderFinal.setValue(this.datepipe.transform(this.dateFinal, 'yyyy-MM-dd'));
-    if (this.status === '60') {
-      this.myform.controls.idStatusOrder.setValue(this.status);
+
+    if (this.listOrderStatus && this.typeCards) {
+      this.listOrderStatus.forEach(el => {
+        if (Number(this.typeCards) === 3 && el.idStatusOrder === 60) {
+          this.myform.controls.idStatusOrder.setValue(el.idStatusOrder.toString());
+        }
+      });
     }
   }
+
 
   /**
    * Método para crear el formulario
@@ -148,7 +156,6 @@ export class SearchOrderFormComponent implements OnInit {
     this.myform.reset();
     this.shellComponent.eventEmitterOrders.getClear();
     this.shellComponent.sidenavSearchOrder.toggle();
-    console.log(this.infoDataForm)
     if (this.infoDataForm && this.infoDataForm.information.status === '35') {
       this.router.navigate(['securehome/seller-center/ordenes/estado/35', {}]);
     } else if (this.infoDataForm && this.infoDataForm.information.status === '170') {
