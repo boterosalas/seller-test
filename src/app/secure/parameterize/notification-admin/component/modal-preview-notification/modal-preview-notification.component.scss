@@ -83,4 +83,12 @@
   &-padding-top-20 {
     padding-top: 20px;
   }
+
+  &-content-description-notification{
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 150px;
+    min-height: 150px;
+    max-height: 150px;
+  }
 }

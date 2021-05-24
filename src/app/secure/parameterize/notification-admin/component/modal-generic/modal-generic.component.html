@@ -1,13 +1,15 @@
 
-<div fxLayout="row wrap">
-  <div fxFlex="100" class="modal-generic-icon-position-close">
-    <mat-icon class="mat-18 modal-generic-cursor-grey-color"
-      (click)="close()" matTooltip="Cerrar">close</mat-icon>
-  </div>
-</div>
+
 <div *ngIf="data">
+ 
   <div *ngIf="data.success.createOrEdit && !data.delete.isDelete &&
     !data.error.isError">
+    <div fxLayout="row wrap">
+      <div fxFlex="100" class="modal-generic-icon-position-close">
+        <mat-icon class="mat-18 modal-generic-cursor-grey-color"
+          (click)="refresh()" matTooltip="Cerrar">close</mat-icon>
+      </div>
+    </div>
     <div class="modal-generic-text-align-center">
       <div class="modal-generic-container-icon-check">
         <mat-icon class="material-icons modal-generic-icons-white-margin">
@@ -30,6 +32,12 @@
   </div>
   <div *ngIf="data.delete.isDelete && !data.success.createOrEdit &&
     !data.error.isError">
+    <div fxLayout="row wrap">
+      <div fxFlex="100" class="modal-generic-icon-position-close">
+        <mat-icon class="mat-18 modal-generic-cursor-grey-color"
+          (click)="close()" matTooltip="Cerrar">close</mat-icon>
+      </div>
+    </div>
     <div class="modal-generic-text-align-center">
       <span class="modal-generic-font-size-weight-bold">
         {{data.delete.title}}
@@ -55,6 +63,12 @@
   </div>
   <div *ngIf="!data.delete.isDelete && !data.success.createOrEdit &&
     data.error.isError">
+    <div fxLayout="row wrap">
+      <div fxFlex="100" class="modal-generic-icon-position-close">
+        <mat-icon class="mat-18 modal-generic-cursor-grey-color"
+          (click)="close()" matTooltip="Cerrar">close</mat-icon>
+      </div>
+    </div>
     <div class="modal-generic-text-align-center">
       <div class="modal-generic-container-icons-color-red">
         <mat-icon class="material-icons"

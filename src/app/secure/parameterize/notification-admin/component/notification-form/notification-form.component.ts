@@ -435,6 +435,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
      this.dialogRef = this.dialog.open(ModalGenericComponent, {
       width: '50%',
       data: params,
+      disableClose: true
     });
 
     const dialogIntance = this.dialogRef.componentInstance;

@@ -14,7 +14,7 @@
         <div class="modal-preview-text-align-center">
           <img [src]="imagePathDrag" loading="lazy" class="modal-preview-container-height-width">
         </div>
-        <div [innerHTML]="body" class="modal-preview-padding-color"> </div>
+        <div [innerHTML]="body" class="modal-preview-padding-color modal-preview-content-description-notification"> </div>
       </div>
       <div *ngIf="load" class="modal-preview-padding-top-80">
         <div class="modal-preview-padding-text-align-center">
@@ -33,7 +33,7 @@
     <div (click)="callToAction()" [ngStyle]="{'background-color': backgroundColor, 'min-height': '200px',
       'max-height': '360px'
       }">
-      <div [innerHTML]="body" class="modal-preview-padding-color"> </div>
+      <div [innerHTML]="body" class="modal-preview-padding-color modal-preview-content-description-notification"> </div>
     </div>
   </div>
   <div fxLayout="row wrap" class="modal-preview-padding-top-20">
