@@ -711,27 +711,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
             this.arrayNecessaryData.splice(1,2);
 
-
-            //hace un split del arreglo para solo sacar el numero de la categoria y se inserta en un array
-
-            this.arrayNecessaryData.map((resp, i) => {
-              
-              if(i > 0) {
-                resp.forEach(element => {
-                  let splitElement = element.split('_');
-                  this.dataarr.push(splitElement[0]);
-                });
-              }
-              
-            });
-
-            /** Elimina la data del array original hasta la posicion 5000 */
-            this.arrayNecessaryData.splice(1, 5000);
-            
-            /** Inserta el array nuevamente transformado con la categoria de forma correcta */
-            this.arrayNecessaryData.push(this.dataarr);
-
-
             this.eanComboPosition = this.iVal.iEanCombo;
 
             if (this.isAdmin) {
@@ -955,7 +934,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                 errorInCell = true;
               }
             } else if (j === iVal.iCategoria) {
-              const isNumeric = this.validFormat(res[i][j], 'greaterThanZero');
+              const isNumeric = this.validFormat((res[i][j]).split('_')[0], 'greaterThanZero');
               if (!isNumeric && isNumeric === false) {
                 this.countErrors += 1;
                 const row = i + 1, column = j + 1;
@@ -1298,7 +1277,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     const newObjectForSend = {
       Ean: res[i][iVal.iEAN] ? res[i][iVal.iEAN].trim() : null,
       Name: res[i][iVal.iNombreProd] ? res[i][iVal.iNombreProd].trim() : null,
-      Category: res[i][iVal.iCategoria] ? res[i][iVal.iCategoria].trim() : null,
+      Category: res[i][iVal.iCategoria] ? res[i][iVal.iCategoria].split('_')[0].trim() : null,
       Brand: res[i][iVal.iMarca] ? res[i][iVal.iMarca].trim() : null,
       Description: res[i][iVal.iDescripcion] ? res[i][iVal.iDescripcion].trim().replace(regex, '\'') : null,
       MetaTitle: res[i][iVal.iMetaTitulo] ? res[i][iVal.iMetaTitulo].trim() : null,
@@ -1328,6 +1307,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       EanCombo: res[i][iVal.iEanCombo] ? res[i][iVal.iEanCombo].trim() : null,
       features: []
     };
+
+    console.log(newObjectForSend);
 
     if (variant && variant === true) {
       newObjectForSend['ParentReference'] = res[i][iVal.iParentReference] ? res[i][iVal.iParentReference].trim() : null;
