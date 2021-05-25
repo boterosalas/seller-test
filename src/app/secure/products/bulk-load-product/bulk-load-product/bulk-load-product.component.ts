@@ -1308,8 +1308,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       features: []
     };
 
-    console.log(newObjectForSend);
-
     if (variant && variant === true) {
       newObjectForSend['ParentReference'] = res[i][iVal.iParentReference] ? res[i][iVal.iParentReference].trim() : null;
       newObjectForSend['Size'] = res[i][iVal.iSize] ? res[i][iVal.iSize].trim() : null;
