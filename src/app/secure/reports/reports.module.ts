@@ -17,6 +17,7 @@ import { UploadFraudComponent } from './fraud-notification/components/upload-fra
 import { ngfModule } from 'angular-file';
 import { FinishUploadProductInformationComponent } from './fraud-notification/components/finish-upload-product-information/finish-upload-product-information.component';
 import { FinishUploadFraudInformationComponent } from './fraud-notification/components/finish-upload-fraud-information/finish-upload-fraud-information';
+import { SellerContactsComponent } from './seller-contacts/seller-contacts.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { FinishUploadFraudInformationComponent } from './fraud-notification/comp
         FinishUploadProductInformationComponent,
         FinishUploadFraudInformationComponent,
         UploadFraudComponent,
+        SellerContactsComponent,
     ],
     exports: [
         ReportOffertComponent
