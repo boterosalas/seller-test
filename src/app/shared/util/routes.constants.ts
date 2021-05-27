@@ -66,6 +66,7 @@ export class RoutesConst {
     static readonly reportCommission: any = 'report-commision';
     static readonly reportDispersion: any = 'report-dispersion';
     static readonly fraudNotification: any = 'fraud-notification';
+    static readonly sellerContact: any = 'seller-contacts';
     static readonly listCalification: any = 'quality-score';
     static readonly consultIndicators: any = 'consult-indicators';
     static readonly summaryPayment: any = 'summary-payment';
@@ -138,6 +139,7 @@ export class RoutesConst {
     static readonly sellerCenterIntReportsCommission: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.reportCommission;
     static readonly sellerCenterIntReportsDispersion: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.reportDispersion;
     static readonly sellerCenterFraudNotification: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.fraudNotification;
+    static readonly sellerCenterSellerContact: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.sellerContact;
     static readonly sellerCenterIntOfferCitiesCoverage: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.offerCitiesCoverage;
 
     static readonly sellerCenterIntProductBulkLoad: any = RoutesConst.sellerCenterProducts + '/' + RoutesConst.productBulkLoad;
