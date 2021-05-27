@@ -25,27 +25,23 @@
               fxShow.xl="true">{{'secure.parametize.support_claims-filter.modal-export.addSeller' | translate}}</span>
           </div>
         </div>
-        <div fxLayout="row wrap" class="modal-export-to-reclaim-action-padding" *ngIf="isAdmin">
+        <div fxLayout="row wrap" fxLayoutGap="20px" class="modal-export-to-reclaim-action-padding" *ngIf="isAdmin">
           
-          <div fxFlex.md="15" fxFlex.lg="15" fxFlex.xl="15" fxFlex.xs="100" fxFlex.sm="95"
-            class="modal-export-to-reclaim-margin-content-action-5">
-            <mat-radio-button color="primary" formControlName="importAll" class="dialog-accept" (click)="clearSellerSearch(!valueCheck)">
-            <span class="modal-export-to-reclaim-text-export-text">{{'secure.parametize.support_claims-filter.modal-export.exportAll' | translate}}</span>
-            </mat-radio-button>
-          </div>
-
-          <div fxFlex.md="15" fxFlex.lg="15" fxFlex.xl="15" fxFlex.xs="100" fxFlex.sm="95"
-            class="modal-export-to-reclaim-margin-content-action-5">
-            <mat-radio-button color="primary" class="dialog-accept" (click)="showFilter()">
-            <span class="modal-export-to-reclaim-text-export-text">{{'secure.parametize.support_claims-filter.modal-export.applyFilter' | translate}}</span>
-            </mat-radio-button>
-          </div>
-
-          <!-- <div fxFlex.md="15" fxFlex.lg="15" fxFlex.xl="15" fxFlex.xs="100" fxFlex.sm="95"
-            class="modal-export-to-reclaim-margin-content-action-5" (click)="showFilter()">
-            <mat-icon class="mat-18 vertical-align-top">filter_list</mat-icon>
-            <span class="modal-export-to-reclaim-text">{{'secure.parametize.support_claims-filter.modal-export.applyFilter' | translate}}</span>
-          </div> -->
+        <mat-radio-group formControlName="importAll">
+            <div fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100" fxFlex.xs="100" fxFlex.sm="95"
+                class="modal-export-to-reclaim-margin-content-action-5">
+                    <mat-radio-button color="primary"  class="dialog-accept" (click)="clearSellerSearch(!valueCheck)">
+                    <span class="modal-export-to-reclaim-text-export-text">{{'secure.parametize.support_claims-filter.modal-export.exportAll' | translate}}</span>
+                    </mat-radio-button>
+                </div>
+                
+                <div fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100" fxFlex.xs="100" fxFlex.sm="95"
+                class="modal-export-to-reclaim-margin-content-action-5">
+                <mat-radio-button color="primary" class="dialog-accept" (click)="showFilter()">
+                    <span class="modal-export-to-reclaim-text-export-text">{{'secure.parametize.support_claims-filter.modal-export.applyFilter' | translate}}</span>
+                </mat-radio-button>
+            </div>
+        </mat-radio-group>
 
           <div fxFlex.md="15" fxFlex.lg="15" fxFlex.xl="15" fxFlex.xs="100" fxFlex.sm="95"
             class="modal-export-to-reclaim-margin-content-action-5" (click)="showEmailSend()">
@@ -68,69 +64,15 @@
             </mat-form-field>
           </div>
         </div>
-        <div fxLayout="row wrap" *ngIf="isShowFilter || !isAdmin" class="modal-export-to-reclaim-container-input-filter">
-          <div fxFlex.md="18" fxFlex.lg="18" fxFlex.xl="18" fxFlex.xs="100" fxFlex.sm="100">
-            <mat-form-field color="primary" class="modal-export-to-reclaim-width-90">
-              <input id="sinceDate-input"
-                [placeholder]="translateService.instant('secure.parametize.support_claims-filter.start-date')"
-                [(ngModel)]="filter.DateInit" formControlName="dateInitial" name="dateInitial" [readonly]="true" matInput
-                [matDatepicker]="dateInitial">
-              <mat-datepicker-toggle matPrefix [for]="dateInitial"></mat-datepicker-toggle>
-              <mat-datepicker touchUi="true" startView="year" #dateInitial></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div fxFlex.md="18" fxFlex.lg="18" fxFlex.xl="18" fxFlex.xs="100" fxFlex.sm="100">
-            <mat-form-field color="primary" class="modal-export-to-reclaim-width-90">
-              <input id="untilDate-input"
-                [placeholder]="translateService.instant('secure.parametize.support_claims-filter.end-date')"
-                [(ngModel)]="filter.DateEnd" formControlName="dateFinal" name="dateFinal" [readonly]="true"
-                [min]="filter.DateInit" [max]="rangeDateMax" matInput [matDatepicker]="dateFinal">
-              <mat-datepicker-toggle matPrefix [for]="dateFinal"></mat-datepicker-toggle>
-              <mat-datepicker touchUi="true" startView="year" #dateFinal></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div fxFlex.md="18" fxFlex.lg="18" fxFlex.xl="18" fxFlex.xs="100" fxFlex.sm="100">
-            <mat-form-field class="filter-form--field" class="modal-export-to-reclaim-width-90">
-              <mat-select [placeholder]="translateService.instant('secure.parametize.support_claims-filter.last_post')"
-                name="lastPost" formControlName="lastPost" [(ngModel)]="valuePost">
-                <mat-option *ngFor="let post of lastPost" value="{{post.valuePost}}">
-                  {{post.name | translate}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div fxFlex.md="18" fxFlex.lg="18" fxFlex.xl="18" fxFlex.xs="100" fxFlex.sm="100">
-            <mat-form-field class="filter-form--field" class="modal-export-to-reclaim-width-90">
-              <mat-select [placeholder]="translateService.instant('secure.parametize.support_claims-filter.status')"
-                name="status" [(ngModel)]="value" formControlName="status">
-                <mat-option *ngFor="let state of options" value="{{state.code}}">
-                  {{state.name}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div fxFlex.md="25" fxFlex.lg="25" fxFlex.xl="25" fxFlex.xs="100" fxFlex.sm="100">
-            <mat-form-field class="filter-form--field w-100">
-              <mat-select id="suport-modal-input-reason" formControlName="classification"
-              [placeholder]="'secure.parametize.support_drop-down-reason-detail' | translate">
-              <ng-container *ngFor="
-                  let item of getClassification;
-                  let i = index
-                ">
-                <mat-option [value]="item.idMatrix">
-                  <span id="{{ item.category }} - {{ i }}">
-                    {{
-                      item.category != null
-                        ? item.category
-                        : "Sin título"
-                    }}
-                  </span>
-                </mat-option>
-              </ng-container>
-            </mat-select>
-          </mat-form-field>  
-          </div>
+        
+        <div fxLayout="row wrap" fxLayoutGap="20px" *ngIf="isShowFilter || !isAdmin" class="modal-export-to-reclaim-container-input-filter">
+            <span *ngFor="let option of optionsCheck; let i=index">
+                <mat-checkbox color="primary" [(ngModel)]="option.checked" [ngModelOptions]="{standalone: true}" (change)="addFilter(option)">
+                  {{option.name}}
+                </mat-checkbox>
+            </span>
         </div>
+
         <div fxLayout="row" class="modal-export-to-reclaim-container-scroll-seller" *ngIf="isAdmin">
           <div class="modal-export-to-reclaim-chips-seller">
             <div class="modal-export-to-reclaim-margin-top-20">
@@ -141,19 +83,14 @@
                 </mat-chip>
               </mat-chip-list>
             </div>
-            
-            <!-- <div *ngIf="keywords.length === 0 && valueCheck === false" class="modal-export-to-reclaim-margin-top-50">
-              <span>{{'secure.parametize.support_claims-filter.modal-export.not-select-seller' | translate}}</span>
-            </div> -->
-            
-            <!-- <div *ngIf="valueCheck === true && keywords.length === 0" class="modal-export-to-reclaim-margin-top-50">
-              <span class="modal-export-to-reclaim-font-weight ">{{'secure.parametize.support_claims-filter.modal-export.export-all' | translate}}</span>
-            </div> -->
+
 
           </div>
         </div>
       </form>
 
-    <mat-divider></mat-divider>
+    <button type="button" mat-raised-button color="primary" (click)="sendExportReclain()"
+      [disabled]="disabledButton && !valueCheck || !filterForm.form.valid">EXPORTAR</button>
+
   </div>
   

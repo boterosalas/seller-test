@@ -43,6 +43,7 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
   IsClickEnable = false;
   keywords = [];
   arraySellerId = [];
+  nameLists = [];
   seller: any;
   disabledButton = true;
   disabledCheckBox = true;
@@ -50,10 +51,15 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
   valueCheck = false;
   getClassification = [];
 
-  public lastPost = [
-    { valuePost: 1, name: this.translateService.instant('secure.parametize.support_claims-filter.sac_answer') },
-    { valuePost: 2, name: this.translateService.instant('secure.parametize.support_claims-filter.seller_answer') }
-  ];
+  optionsCheck = [
+    {name:'Gerente general', checked:false},
+    {name:'Comercial y ventas', checked:false},
+    {name:'Operaciones y logística', checked:false},
+    {name:'Contenido', checked:false},
+    {name:'Reclamaciones y devoluciones', checked:false},
+    {name:'Pagos y facturación', checked:false},
+    {name:'Mercadeo', checked:false},
+  ]
 
 
   constructor(
@@ -114,13 +120,8 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
 
   createForm() {
     this.form = new FormGroup({
-      lastPost: new FormControl(''),
       importAll: new FormControl(this.valueCheck),
-      dateInitial: new FormControl(''),
-      dateFinal: new FormControl(''),
-      status: new FormControl(''),
       email: new FormControl('', [Validators.required, Validators.email]),
-      classification: new FormControl('')
     });
   }
 
@@ -165,6 +166,7 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
     this.arraySellerId.splice(indexOfValue, 1);
     this.validateSendSeller();
   }
+  
   validateSendSeller() {
     if (this.arraySellerId.length > 0) {
       this.disabledButton = false;
@@ -174,30 +176,37 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
 
   }
 
+  addFilter(e:any){
+    if(e.checked){
+      this.nameLists.push(e.name)
+    } else {
+      this.nameLists.forEach((element, i) => {
+        if(element === e.name) {
+          this.nameLists.splice(i, 1);
+        }
+      });
+    }
+  }
+
   sendExportReclain() {
 
-    this.loadingService.viewSpinner();
+    // this.loadingService.viewSpinner();
+
     const arraySend = {
-      dateInit: '',
-      dateEnd: '',
-      status: '',
-      lastPost: '',
       email: '',
       allSeller: '',
       sellers: [],
-      classification: ''
+      nameLists: []
     };
     
     if (this.form) {
-      arraySend.dateInit =  this.formatDate.transform(this.form.controls['dateInitial'].value, 'y-MM-d');
-      arraySend.dateEnd = this.formatDate.transform(this.form.controls['dateFinal'].value, 'y-MM-d');
-      arraySend.status = this.form.controls['status'].value;
-      arraySend.lastPost = this.form.controls['lastPost'].value;
       arraySend.email = this.form.controls['email'].value;
       arraySend.allSeller = this.form.controls['importAll'].value;
-      arraySend.classification = this.form.controls['classification'].value;
       arraySend.sellers = this.arraySellerId;
+      arraySend.nameLists = this.nameLists;
     }
+
+    console.log(arraySend);
 
    /* this.modalExportReclaimService.sendEmailExportReclaim(arraySend).subscribe((res: any) => {
       if (res) {
