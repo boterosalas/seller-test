@@ -206,8 +206,6 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
       arraySend.nameLists = this.nameLists;
     }
 
-    console.log(arraySend);
-
    /* this.modalExportReclaimService.sendEmailExportReclaim(arraySend).subscribe((res: any) => {
       if (res) {
         if (res.errors && res.errors.length > 0) {
