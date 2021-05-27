@@ -1,85 +1,321 @@
-<h1 class="text-center">{{'secure.aws_cognito.profile.profile' | translate}}</h1>
-<div class="profile-content">
-  <div class="sub-content">
-    <form [formGroup]="form">
-      <mat-form-field class="full-width">
-        <input matInput [placeholder]="'secure.aws_cognito.profile.seller_id' | translate" autocomplete="false"
-          formControlName="IdSeller">
-      </mat-form-field>
-      <mat-form-field class="full-width">
-        <input matInput [placeholder]="('secure.seller.register_seller.lb_nit_form' | translate)" autocomplete="false"
-          formControlName="Nit">
-      </mat-form-field>
-      <mat-form-field class="full-width">
-        <input matInput [placeholder]="('secure.seller.register_seller.lb_store_name_form' | translate)"
-          autocomplete="false" formControlName="Name">
-      </mat-form-field>
-      <mat-form-field class="full-width">
-        <input matInput [placeholder]="('secure.seller.register_seller.lb_email_form' | translate)" autocomplete="false"
-          formControlName="Email">
-      </mat-form-field>
-    </form>
-    <div *ngIf="isChannel && channelAdvisor" class=" classToken">
-      {{'secure.seller.register_seller.lb_channel_token' | translate}}:
-      <br>
-      {{channelAdvisor}}
+<div *ngIf="typeUser !== null">
+  <div *ngIf="typeUser === 'seller'">
+    <div style="height: 190px; background-color: #F6F6F4;">
+      <div fxLayout="row wrap">
+        <div fxFlex="75">
+          <div fxLayout="row wrap">
+            <div fxFlex="40" style="padding: 30px;">
+              <div>
+                <span style="color: black; font-weight: bold; font-size: 24px;">
+                  {{userInformation.name}}
+                </span>
+              </div>
+              <div>
+                <span style="font-size: 14px;">
+                  Vendedor
+                </span>
+              </div>
+            </div>
+            <div fxFlex="20" style="padding: 30px;">
+              <div>
+                <span style="font-size: 12px; color: #5D5D5D;">
+                  Id seller
+                </span>
+              </div>
+              <div>
+                <span style="color: black; font-weight: bold;">
+                  {{userInformation.id}}
+                </span>
+              </div>
+            </div>
+            <div fxFlex="40" style="padding: 30px;">
+              <div>
+                <span style="font-size: 12px; color: #5D5D5D;">
+                  Tienda
+                </span>
+              </div>
+              <div>
+                <span style="color: black; font-weight: bold;">
+                  {{userInformation.name}}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row wrap">
+            <div fxFlex="40" style="padding-left: 30px;">
+              <div *ngIf="canVacation" class="sub-content">
+                <ng-container *ngIf="isInVacation; else programVacations">
+                  <mat-card id="info-vacation" class="mat card">
+                    <div class="options">
+                      <mat-icon id="btn-edit-vacations" style="width: 18px;
+                        height: 18px; font-size: 18px;"
+                        (click)="sendToOpenVacationDialog()"
+                        [ngClass]="{disabledDiv: isDisable}">
+                        edit
+                      </mat-icon>
+                      <mat-icon *ngIf="canCancelVacation" style="width: 18px;
+                        height: 18px; font-size: 18px;"
+                        id="btn-cancel-vacations"
+                        (click)="sendToOpenCancelVacationDialog()"
+                        [ngClass]="{disabledDiv: isDisable}">
+                        delete
+                      </mat-icon>
+                    </div>
+                    <div class="icon-container" style="height: 22px;
+                      width: 24px;
+                      font-size: 24px;
+                      color: #b6b6b6;">
+                      <mat-icon>
+                        local_airport
+                      </mat-icon>
+                    </div>
+                    <div class="content-contaienr">
+                      <mat-card-title>
+                        <p class="title-text">
+                          <strong>{{'secure.seller.list.vacation_title_modal' |
+                            translate}}</strong>
+                        </p>
+                      </mat-card-title>
+                      <mat-card-content>
+                        <div>
+                          <label class="label-result">
+                            <strong>{{'secure.seller.list.start_date' | translate}}:</strong>{{user.StartVacations}} -
+                          </label>
+                        </div>
+                        <div>
+                          <label class="label-result">
+                            <strong>{{'secure.seller.list.end_date' | translate}}:</strong>{{user.EndVacations}}
+                          </label>
+                        </div>
+                      </mat-card-content>
+                    </div>
+                  </mat-card>
+                </ng-container>
+                <ng-template #programVacations>
+                  <button mat-stroked-button id="btn-program-vacation"
+                    color="primary" [disabled]="isDisable"
+                    (click)="sendToOpenVacationDialog()">{{'secure.seller.list.program_vacation'
+                    | translate}}</button>
+                </ng-template>
+              </div>
+            </div>
+            <div fxFlex="20" style="padding-left: 30px;">
+              <div>
+                <span style="font-size: 12px; color: #5D5D5D;">
+                  NIT
+                </span>
+              </div>
+              <div>
+                <span style="color: black; font-weight: bold;">
+                  {{userInformation.nit}}
+                </span>
+              </div>
+            </div>
+            <div fxFlex="40" style="padding-left: 30px;">
+              <div>
+                <span style="font-size: 12px; color: #5D5D5D;">
+                  Correo electrónico
+                </span>
+              </div>
+              <div>
+                <span style="color: black; font-weight: bold;">
+                  {{userInformation.email}}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div fxFlex="25">
+          <div style="padding: 30px;">
+            <div>
+              <button id="toggle" mat-stroked-button color="primary"
+                style="background-color:
+                white; border: solid 1px; width: 100%;" type="button"
+                (click)="copyToken('la monda')">
+                <span>Copiar token Channel avisor</span>
+              </button>
+            </div>
+            <div class="container">
+              <div class="slider closed">
+                <mat-icon class="mat-18" style="color: green;width: 18px;height:
+                18px;font-size: 18px;vertical-align: middle;">done</mat-icon>
+              <span style="font-size: 12px;">
+                Token copiado
+              </span>
+              </div>
+          </div>
+            <!-- <div style="padding: 10px 60px; text-align: center;"
+              *ngIf="clickBoarToken" [@detailExpand]>
+                <mat-icon class="mat-18" style="color: green;width: 18px;height:
+                18px;font-size: 18px;vertical-align: middle;;">done</mat-icon>
+              <span style="font-size: 12px;">
+                Token copiado
+              </span>
+            </div> -->
+          </div>
+
+
+
+
+
+
+
+
+
+
+        </div>
+      </div>
     </div>
-  </div>
-  <div *ngIf="canVacation" class="sub-content">
-    <ng-container *ngIf="isInVacation; else programVacations">
-      <mat-card id="info-vacation" class="mat card">
-        <div class="options">
-          <mat-icon id="btn-edit-vacations" (click)="sendToOpenVacationDialog()" [ngClass]="{disabledDiv: isDisable}">
-            edit
-          </mat-icon>
-          <mat-icon *ngIf="canCancelVacation" id="btn-cancel-vacations" (click)="sendToOpenCancelVacationDialog()"
-            [ngClass]="{disabledDiv: isDisable}">
-            delete
-          </mat-icon>
-        </div>
-        <div class="icon-container">
-          <mat-icon>
-            local_airport
-          </mat-icon>
-        </div>
-        <div class="content-contaienr">
-          <mat-card-title>
-            <p class="title-text">
-              <strong>{{'secure.seller.list.vacation_title_modal' | translate}}</strong>
-            </p>
-          </mat-card-title>
-          <mat-card-content>
-            <label class="label-result">
-              <strong>{{'secure.seller.list.start_date' | translate}}:</strong>{{user.StartVacations}} -
-              <strong>{{'secure.seller.list.end_date' | translate}}:</strong>{{user.EndVacations}}
-            </label>
-          </mat-card-content>
-        </div>
-      </mat-card>
-    </ng-container>
-    <ng-template #programVacations>
-      <button mat-stroked-button id="btn-program-vacation" color="primary" [disabled]="isDisable"
-        (click)="sendToOpenVacationDialog()">{{'secure.seller.list.program_vacation' | translate}}</button>
-    </ng-template>
+    <div>
+      <div style="padding: 20px;">
+        <span>Datos de contactos</span>
+      </div>
+      <div fxLayout="row wrap" style="padding: 30px;">
+        <mat-table #table [dataSource]="dataSource" matSort style="width:
+          100%;">
+          <ng-container matColumnDef="responsibleArea">
+            <mat-header-cell fxShow.xs="false" fxShow.sm="false"
+              fxShow.lg="true" fxShow.xl="true" fxShow="true"
+              fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30"
+              fxFlex.xl="" *matHeaderCellDef>
+              <span class="title-table-header">Área responsable</span>
+            </mat-header-cell>
+            <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
+              fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+              fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+              *matCellDef="let element">
+              <!-- <p *ngIf="element.Type === 'Plu'"> {{element.IdVTEX}}</p>
+              <p *ngIf="element.Type === 'Brand'"> -- </p> -->
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <mat-header-cell fxShow.xs="false" fxShow.sm="false"
+              fxShow.lg="true" fxShow.xl="true" fxShow="true"
+              fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30"
+              fxFlex.xl="" *matHeaderCellDef>
+              <span class="title-table-header">Nombre</span>
+            </mat-header-cell>
+            <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
+              fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+              fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+              *matCellDef="let element">
+              <!-- <p *ngIf="element.Type === 'Plu'"> {{element.IdVTEX}}</p>
+              <p *ngIf="element.Type === 'Brand'"> -- </p> -->
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="position">
+            <mat-header-cell fxShow.xs="false" fxShow.sm="false"
+              fxShow.lg="true" fxShow.xl="true" fxShow="true"
+              fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30"
+              fxFlex.xl="" *matHeaderCellDef>
+              <span class="title-table-header">Cargo</span>
+            </mat-header-cell>
+            <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
+              fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+              fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+              *matCellDef="let element">
+              <!-- <p *ngIf="element.Type === 'Plu'"> {{element.IdVTEX}}</p>
+              <p *ngIf="element.Type === 'Brand'"> -- </p> -->
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="email">
+            <mat-header-cell fxShow.xs="false" fxShow.sm="false"
+              fxShow.lg="true" fxShow.xl="true" fxShow="true"
+              fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30"
+              fxFlex.xl="" *matHeaderCellDef>
+              <span class="title-table-header">Correo electrónico</span>
+            </mat-header-cell>
+            <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
+              fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+              fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+              *matCellDef="let element">
+              <!-- <p *ngIf="element.Type === 'Plu'"> {{element.IdVTEX}}</p>
+              <p *ngIf="element.Type === 'Brand'"> -- </p> -->
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="phone">
+            <mat-header-cell fxShow.xs="false" fxShow.sm="false"
+              fxShow.lg="true" fxShow.xl="true" fxShow="true"
+              fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30"
+              fxFlex.xl="" *matHeaderCellDef>
+              <span class="title-table-header">Celular</span>
+            </mat-header-cell>
+            <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
+              fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+              fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+              *matCellDef="let element">
+              <!-- <p *ngIf="element.Type === 'Plu'"> {{element.IdVTEX}}</p>
+              <p *ngIf="element.Type === 'Brand'"> -- </p> -->
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="telephone">
+            <mat-header-cell fxShow.xs="false" fxShow.sm="false"
+              fxShow.lg="true" fxShow.xl="true" fxShow="true"
+              fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30"
+              fxFlex.xl="" *matHeaderCellDef>
+              <span class="title-table-header">Teléfono</span>
+            </mat-header-cell>
+            <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
+              fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+              fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+              *matCellDef="let element">
+              <!-- <p *ngIf="element.Type === 'Plu'"> {{element.IdVTEX}}</p>
+              <p *ngIf="element.Type === 'Brand'"> -- </p> -->
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <mat-header-cell fxShow.xs="false" fxShow.sm="false"
+              fxShow.lg="true" fxShow.xl="true" fxShow="true"
+              fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30"
+              fxFlex.xl="" *matHeaderCellDef>
+              <span class="title-table-header">Acciones</span>
+            </mat-header-cell>
+            <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
+              fxShow.xl="true" fxShow="true" fxFlex.lg="15"
+              fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+              *matCellDef="let element">
+              <!-- <p *ngIf="element.Type === 'Plu'"> {{element.IdVTEX}}</p>
+              <p *ngIf="element.Type === 'Brand'"> -- </p> -->
+            </mat-cell>
+          </ng-container>
+
+
+          <!-- Creación de las filas para la tabla -->
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row id="order-number-{{index}}" *matRowDef="let index=index; let
+            row; columns: displayedColumns;" class="element-row
+            personal-row-table" [cdkDetailRow]="row"
+            [cdkDetailRowTpl]="tpl">
+          </mat-row>
+        </mat-table>
+      </div>
+    </div>
   </div>
 </div>
 
 <ng-template #dialogTemplate>
-  <form [formGroup]="vacationForm" class="full-width space-between margin-top__15">
+  <form [formGroup]="vacationForm" class="full-width space-between
+    margin-top__15">
     <mat-form-field class="half-width">
-      <input matInput id="inputInitialDate" [matDatepicker]="intialPicker" [min]="tomorrow" [readonly]="true"
-        [placeholder]="'secure.seller.list.start_date' | translate" formControlName="StartDateVacation"
+      <input matInput id="inputInitialDate" [matDatepicker]="intialPicker"
+        [min]="tomorrow" [readonly]="true"
+        [placeholder]="'secure.seller.list.start_date' | translate"
+        formControlName="StartDateVacation"
         (click)="openPicker(1)" (dateInput)="startDate()">
       <mat-datepicker-toggle matSuffix [for]="intialPicker"></mat-datepicker-toggle>
       <mat-datepicker #intialPicker disabled="false"></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field class="half-width">
-      <input matInput id="inputEndDate" [matDatepicker]="endPicker" [readonly]="true" [min]="endvacationStart"
-        [placeholder]="'secure.seller.list.end_date' | translate" formControlName="EndDateVacation"
+      <input matInput id="inputEndDate" [matDatepicker]="endPicker"
+        [readonly]="true" [min]="endvacationStart"
+        [placeholder]="'secure.seller.list.end_date' | translate"
+        formControlName="EndDateVacation"
         (click)="openPicker(2)" [disabled]="enableEndVacation">
-      <mat-datepicker-toggle matSuffix [for]="endPicker" [disabled]="enableEndVacation"></mat-datepicker-toggle>
-      <mat-datepicker #endPicker disabled="false" [disabled]="enableEndVacation"></mat-datepicker>
+      <mat-datepicker-toggle matSuffix [for]="endPicker"
+        [disabled]="enableEndVacation"></mat-datepicker-toggle>
+      <mat-datepicker #endPicker disabled="false"
+        [disabled]="enableEndVacation"></mat-datepicker>
     </mat-form-field>
   </form>
 </ng-template>

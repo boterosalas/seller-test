@@ -1,25 +1,32 @@
-import { Component, OnInit, ViewChild, TemplateRef, AfterContentInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { CognitoUtil, LoggedInCallback, UserLoginService, UserParametersService, LoadingService, ModalService } from '@app/core';
+import { LoggedInCallback, UserLoginService, LoadingService, ModalService } from '@app/core';
 import { RoutesConst } from '@app/shared';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { StoresService } from '@app/secure/offers/stores/stores.service';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog, MatSnackBar, MatTableDataSource } from '@angular/material';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { MyProfileService } from './myprofile.service';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { DateService } from '@app/shared/util/date.service';
 import { MenuModel, vacationFunctionality, cancelVacacionFunctionality } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
-import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
 
 import { TranslateService } from '@ngx-translate/core';
 import moment from 'moment';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
     selector: 'app-awscognito',
     templateUrl: './myprofile.html',
-    styleUrls: ['myprofile.component.scss']
+    styleUrls: ['myprofile.component.scss'],
+    animations: [
+        trigger('detailExpand', [
+          state('void', style({ height: '0px', minHeight: '0', visibility: 'hidden' })),
+          state('*', style({ height: '*', visibility: 'visible' })),
+          transition('void <=> *', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+        ]),
+      ],
 })
 export class MyProfileComponent implements LoggedInCallback, OnInit {
 
@@ -36,6 +43,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     @ViewChild('dialogTemplate', {static: false}) content: TemplateRef<any>;
     @ViewChild('intialPicker', {static: false}) initialPicker;
     @ViewChild('endPicker', {static: false}) endPicker;
+    dataSource: MatTableDataSource<any>;
 
     // Permisos
     vacation = vacationFunctionality;
@@ -50,10 +58,31 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     otherUser: any;
     userData: any;
     isDisable: boolean;
+    clickBoarToken= false;
 
     // Seller nacional o internacional
     isChannel: Boolean = false;
     channelAdvisor: any;
+    typeUser = null;
+    userInformation = {
+        name : null,
+        id: null,
+        nit: null,
+        storeName: null,
+        email: null
+    };
+
+   displayedColumns = [
+    'responsibleArea',
+    'name',
+    'position',
+    'email',
+    'phone',
+    'telephone',
+    'action',
+  ];
+
+
 
     constructor(
         public router: Router,
@@ -76,6 +105,11 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         this.initUserForm();
         this.initVacationForm();
         this.userService.isAuthenticated(this);
+        this.getAllContactData();
+    }
+
+    getAllContactData() {
+        // this.dataSource = new MatTableDataSource(this.mock);
     }
 
 
@@ -88,6 +122,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         const sellerData = await this.profileService.getUser().toPromise().then(res => {
             const body: any = res.body;
             const userData = JSON.parse(body.body).Data;
+            this.typeUser = userData.Profile;
             if (userData.Status && userData.Status === 'Disable') {
                 this.isDisable = true;
             } else {
@@ -258,6 +293,14 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
      * @param user información del usuario
      */
     setUserData(user: any) {
+        console.log(user);
+        this.userInformation = {
+            name : user.Name,
+            id: user.IdSeller,
+            nit: user.Nit,
+            storeName: null,
+            email: user.Email
+        };
         const startDate = new Date(user.StartVacations);
         const endDate = new Date(user.EndVacations);
         if (startDate.getFullYear() === 1 || endDate.getFullYear() === 1) {
@@ -384,6 +427,38 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         const btnConfirmationText = null;
         return { message, title, icon, form, messageCenter, showButtons, btnConfirmationText };
     }
+
+
+    copyToken(val: string) {
+        this.clickBoarToken = true;
+        const selBox = document.createElement('textarea');
+        selBox.style.position = 'fixed';
+        selBox.style.left = '0';
+        selBox.style.top = '0';
+        selBox.style.opacity = '0';
+        selBox.value = val;
+        document.body.appendChild(selBox);
+        selBox.focus();
+        selBox.select();
+        document.execCommand('copy');
+        document.body.removeChild(selBox);
+
+        const slider = document.querySelector('.slider');
+        if (slider.classList.contains('opened')) {
+            slider.classList.remove('opened');
+            slider.classList.add('closed');
+        } else {
+            slider.classList.remove('closed');
+            slider.classList.add('opened');
+        }
+        setTimeout(() => {
+            if (slider.classList.contains('opened')) {
+                slider.classList.remove('opened');
+                slider.classList.add('closed');
+            }
+        }, 1000);
+      }
+
 
     /**
      * retorna el campo nit del formulario de usuario

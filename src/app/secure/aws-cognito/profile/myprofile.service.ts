@@ -9,4 +9,7 @@ export class MyProfileService {
     getUser() {
         return this.http.get(this.api.get('getSellerData'), { observe: 'response' });
     }
+    getAllContactData() {
+        return this.http.get(this.api.get('getAllContactData'), { observe: 'response' });
+    }
 }
