@@ -64,6 +64,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
   public idNotification = null;
   public dialogRef: any;
   public matcher: MyErrorStateMatcher;
+  public typeBody= 1;
 
 
   public config: AngularEditorConfig = {
@@ -154,7 +155,8 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
    */
   modalLoadFiel() {
     const params = {
-      show: true
+      show: true,
+      typeBody: this.typeBody
     };
      this.dialogRef = this.dialog.open(ModalLoadFileComponent, {
       width: '50%',
@@ -191,6 +193,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
    * @memberof NotificationFormComponent
    */
   validateBody(typeBody: number) {
+    this.typeBody = typeBody;
     this.resetOpction(typeBody);
     switch (typeBody) {
       case 1:

@@ -39,16 +39,20 @@ export class ModalLoadFileComponent implements OnInit, OnDestroy  {
   public validComboDrag = false;
   public dragFiles = true;
   public lastFileAt: Date;
+  public typeBody = null
+  public messageValidateDimension='';
 
   @Output() emitDataImgLoad = new EventEmitter<object>();
 
   public _showComponent: boolean;
 
-  @Input() set showComponent(value: any) {
-    if (value !== 'undefined') {
-      this._showComponent = value;
+  @Input() set params(value: any) {
+    if (value.show !== 'undefined') {
+      this._showComponent = value.show ;
+      this.typeBody = value.typeBody
     } else {
       this._showComponent = true;
+      this.typeBody = 1
     }
   }
 
@@ -62,6 +66,7 @@ export class ModalLoadFileComponent implements OnInit, OnDestroy  {
   ngOnInit() {
     if (this.data && this.data.show) {
       this._showComponent = this.data.show;
+      this.typeBody = this.data.typeBody
     }
   }
   /**
@@ -87,7 +92,15 @@ export class ModalLoadFileComponent implements OnInit, OnDestroy  {
       this.size = parseFloat(((this._fileAux.size) / 1024 / 1024).toFixed(3));
       this.validate(this._fileAux).then(data => {
         this.refuseMaxSize = this.size < 7000 ? false : true;
-        this.dimesion = data.width <= 800 && data.height <= 600 ? true : false;
+        if(this.typeBody === 1){
+          this.dimesion = data.width <= 900 && data.height <= 300 ? true : false;
+          this.messageValidateDimension = "Medidas de las imagenes no pueden superar 900 x 300 px"
+        } else if (this.typeBody === 3) {
+          this.dimesion = data.width <= 900 && data.height <= 600 ? true : false; 
+          this.messageValidateDimension = "Medidas de las imagenes no pueden superar 900 x 600 px"
+        } else {
+          this.dimesion = true;
+        }
         this.error = this.refuseMaxSize === true || this.dimesion === false ? true : false;
         if (!this.error) {
           this.loadDragAndDrop(this._fileAux);

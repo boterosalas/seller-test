@@ -37,11 +37,11 @@
     </div>
   </div>
   <div fxLayout="row wrap" class="modal-preview-padding-top-20">
-    <div fxFlex="50" class="modal-preview-padding-right-text" *ngIf="showBtn">
+    <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" fxFlex="50"  class="modal-preview-padding-right-text" *ngIf="showBtn">
       <button mat-stroked-button color="primary" class="modal-preview-btn-text-transform-uppercase" mat-button
         (click)="close()">volver a editar</button>
     </div>
-    <div fxFlex="50" class="modal-preview-padding-left-5" *ngIf="showBtn">
+    <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" fxFlex="50" class="modal-preview-padding-left-5" *ngIf="showBtn">
       <button mat-raised-button color="primary" class="modal-preview-btn-text-transform-uppercase" mat-button
         (click)="emitEventNotification()">{{btnTitle}}</button>
     </div>

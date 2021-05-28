@@ -165,8 +165,8 @@
         <div>
           <span>Imagen destacadas</span>
         </div>
-        <app-modal-load-file [showComponent]="show"
-          (emitDataImgLoad)="emitDataImgLoad($event)"></app-modal-load-file>
+        <app-modal-load-file [params]="{show:show, typeBody: typeBody}"
+          (emitDataImgLoad)="emitDataImgLoad($event)" ></app-modal-load-file>
       </div>
       <div fxLayout="row wrap" fxFlex="100" fxLayoutAlign="center center"
       class="notification-form-padding-top-30">
