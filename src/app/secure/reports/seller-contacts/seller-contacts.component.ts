@@ -50,6 +50,7 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
   disabledCheckBox = true;
   clearSearch = false;
   valueCheck = false;
+  selectSeller = false;
   getClassification = [];
 
   optionsCheck = [
@@ -148,6 +149,18 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
 
   showFilter() {
     this.isShowFilter = true;
+    this.selectSeller = true;
+    this.nameLists = [];
+    this.optionsCheck = [
+      {name:'Gerente general', checked:false},
+      {name:'Comercial y ventas', checked:false},
+      {name:'Operaciones y logística', checked:false},
+      {name:'Contenido', checked:false},
+      {name:'Reclamaciones y devoluciones', checked:false},
+      {name:'Pagos y facturación', checked:false},
+      {name:'Mercadeo', checked:false},
+    ]
+  
   }
 
   showEmailSend() {
@@ -190,9 +203,9 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
     }
   }
 
-  sendExportReclain() {
+  sendExportContacts() {
 
-    // this.loadingService.viewSpinner();
+    this.loadingService.viewSpinner();
 
     const arraySend = {
       email: '',
@@ -234,6 +247,7 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
   clearSellerSearch(value: any) {
     this.valueCheck = true;
     this.isShowFilter = false;
+    this.selectSeller = false;
     if (this.valueCheck === true) {
       this.clearSearch = true;
       this.keywords = [];

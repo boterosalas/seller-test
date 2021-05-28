@@ -1,3 +1,12 @@
+<mat-toolbar class="tree-toolbar">
+    <div class="normal-theme toolbar-options-table">
+     <!--  Titulo del toolbar -->
+      <p class="tree-title">{{'module.Reportes' | translate}}
+        <small class="sub-title">| Exportar contactos vendedor </small>
+      </p>
+    </div>
+  </mat-toolbar>
+
 
 <div class="container">  
 
@@ -50,7 +59,7 @@
                 
                 <div fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100" fxFlex.xs="100" fxFlex.sm="95"
                 class="modal-export-to-reclaim-margin-content-action-5">
-                <mat-radio-button color="primary" class="dialog-accept" (click)="showFilter()">
+                <mat-radio-button color="primary" class="dialog-accept" (click)="showFilter()" [checked]="selectSeller">
                     <span class="modal-export-to-reclaim-text-export-text">Seleccionar Seller</span>
                 </mat-radio-button>
             </div>
@@ -93,8 +102,8 @@
         
       </form>
 
-    <button class="mt-10" type="button" mat-raised-button color="primary" (click)="sendExportReclain()"
-      [disabled]="disabledButton && !valueCheck || !filterForm.form.valid">EXPORTAR</button>
+    <button class="mt-10" type="button" mat-raised-button color="primary" (click)="sendExportContacts()"
+      [disabled]="disabledButton && !valueCheck || !filterForm.form.valid || (selectSeller && (!nameLists.length || !arraySellerId.length) )">EXPORTAR</button>
 
   </div>
   
