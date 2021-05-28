@@ -1,0 +1,108 @@
+
+
+<div *ngIf="data">
+ 
+  <div *ngIf="data.success.createOrEdit && !data.delete.isDelete &&
+    !data.error.isError">
+    <div fxLayout="row wrap">
+      <div fxFlex="100" class="modal-generic-icon-position-close">
+        <mat-icon class="mat-18 modal-generic-cursor-grey-color"
+          (click)="refresh()" matTooltip="Cerrar">close</mat-icon>
+      </div>
+    </div>
+    <div class="modal-generic-text-align-center">
+      <div class="modal-generic-container-icon-check">
+        <mat-icon class="material-icons modal-generic-icons-white-margin">
+          check
+        </mat-icon>
+      </div>
+    </div>
+    <div class="modal-generic-text-align-padding-font">
+      <span>El anuncio se ha <span *ngIf="!data.success.isEdit">creado</span>
+        <span
+          *ngIf="data.success.isEdit">editado</span> exitosamente</span>
+    </div>
+    <div class="modal-generic-width-text-align-padding">
+      <div class="moda-generic-width-text-align-center">
+        <button mat-raised-button color="primary"
+          class="modal-generic-text-transform-uppercase-width" mat-button
+          (click)="refresh()">Aceptar</button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="data.delete.isDelete && !data.success.createOrEdit &&
+    !data.error.isError">
+    <div fxLayout="row wrap">
+      <div fxFlex="100" class="modal-generic-icon-position-close">
+        <mat-icon class="mat-18 modal-generic-cursor-grey-color"
+          (click)="close()" matTooltip="Cerrar">close</mat-icon>
+      </div>
+    </div>
+    <div class="modal-generic-text-align-center">
+      <span class="modal-generic-font-size-weight-bold">
+        {{data.delete.title}}
+      </span>
+    </div>
+    <div class="modal-generic-text-align-center-padding-40">
+      <span class="modal-generic-color-text">
+        {{data.delete.subTitle}}
+      </span>
+    </div>
+    <div fxLayout="row wrap" class="modal-generic-padding-80px">
+      <div fxFlex="50" class="modal-generic-text-align-right-padding">
+        <button mat-stroked-button color="primary"
+          class="modal-generic-text-transform-uppercase-width" mat-button
+          (click)="backList()">cancelar</button>
+      </div>
+      <div fxFlex="50" class="modal-generic-padding-left-10">
+        <button mat-raised-button color="primary"
+          class="modal-generic-text-transform-uppercase-width" mat-button
+          (click)="deleteNotification()">Aceptar</button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!data.delete.isDelete && !data.success.createOrEdit &&
+    data.error.isError">
+    <div fxLayout="row wrap">
+      <div fxFlex="100" class="modal-generic-icon-position-close">
+        <mat-icon class="mat-18 modal-generic-cursor-grey-color"
+          (click)="close()" matTooltip="Cerrar">close</mat-icon>
+      </div>
+    </div>
+    <div class="modal-generic-text-align-center">
+      <div class="modal-generic-container-icons-color-red">
+        <mat-icon class="material-icons"
+          class="modal-generic-container-color-white-margin-top">
+          close
+        </mat-icon>
+      </div>
+    </div>
+    <div class="modal-generic-text-align-width">
+      <span class="modal-generic-font-weight-bold-font">Ha ocurrido un error</span>
+    </div>
+    <div class="modal-generic-text-align-center">
+      <span class="modal-generic-container-text-subtitle">
+        {{data.error.titleErrorSubtitle}}
+      </span>
+    </div>
+    <div class="modal-generic-width-height">
+      <div class="modal-generic-container-overflox-x">
+        <ul *ngFor="let error of data.error.listError"
+          class="modal-generic-color-grey">
+          <li class="modal-generic-padding-5">
+            <span class="modal-generic-font-size-14">{{error.Message}}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div fxLayout="row wrap" class="modal-generic-padding-top-20">
+        <div fxFlex="100" class="modal-generic-text-align-center">
+          <button mat-stroked-button color="primary"
+            class="modal-generic-text-transform-uppercase-width" mat-button
+            (click)="close()">cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

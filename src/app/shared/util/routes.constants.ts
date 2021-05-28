@@ -74,6 +74,7 @@ export class RoutesConst {
     static readonly billingSeller: any = 'facturacion-vendedor';
     static readonly pendingProducts: any = 'productos-pendientes';
     static readonly excepctionCommision: any = 'excepcion-comision';
+    static readonly notification: any = 'notificacion';
     static readonly listCancelOrders: any = 'listado-cancelaciones';
     static readonly manageAgreements: any = 'administrar-acuerdos';
     static readonly detailAgreements: any = 'detalle-acuerdos';
@@ -168,6 +169,7 @@ export class RoutesConst {
     static readonly sellerCenterIntCategoryTree: any = RoutesConst.securehome + '/' + RoutesConst.categoryTree;
     static readonly sellerCenterIntPort: any = RoutesConst.securehome + '/' + RoutesConst.port;
     static readonly sellerCenterIntException: any = RoutesConst.securehome + '/' + RoutesConst.excepctionCommision;
+    static readonly sellerCenterIntNotification: any = RoutesConst.securehome + '/' + RoutesConst.notification;
 
     static readonly sellerCenterIntShipmentsExitoHist: any = RoutesConst.sellerCenterShipmentsExito + '/' + RoutesConst.shipmentsExitoHist;
     static readonly sellerCenterIntShipmentsExitoOffice: any = RoutesConst.sellerCenterShipmentsExito + '/' + RoutesConst.shipmentsExitoOffice;

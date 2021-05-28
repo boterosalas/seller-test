@@ -1518,5 +1518,7 @@
     "quality.indicators.bar_green": "Exceeds target",
     "quality.indicators.bar_orange": "Adjusts to target",
     "quality.indicators.bar_red": "Alert! Degraded indicator",
+    "secure.notifications.list.column-title": "Title",
+    "secure.notifications.list.column-date": "Date",
     "secure.reports.notification.fraud.charge-fraud": "CHARGE FRAUDS"
 }
