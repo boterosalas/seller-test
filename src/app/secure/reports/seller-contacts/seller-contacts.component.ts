@@ -13,6 +13,7 @@ import { DatePipe } from '@angular/common';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { SellerSupportCenterService } from '@app/secure/seller-support-center/services/seller-support-center.service';
 import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
+import { SellerContactsService } from './seller-contacts.service';
 @Component({
   selector: 'app-seller-contacts',
   templateUrl: './seller-contacts.component.html',
@@ -72,6 +73,7 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
     private formatDate?: DatePipe,
     public SUPPORT?: SupportService,
     private profileService?: MyProfileService,
+    private _sellerContactService?: SellerContactsService
   ) { }
 
   ngOnInit() {
@@ -206,28 +208,28 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
       arraySend.nameLists = this.nameLists;
     }
 
-   /* this.modalExportReclaimService.sendEmailExportReclaim(arraySend).subscribe((res: any) => {
+    this._sellerContactService.sendEmailExportContacts(arraySend).subscribe((res: any) => {
       if (res) {
         if (res.errors && res.errors.length > 0) {
           this.snackBar.open(this.translateService.instant('secure.orders.send.error_ocurred_processing'), this.translateService.instant('actions.close'), {
             duration: 3000,
         });
         } else {
-          this.snackBar.open(this.translateService.instant('secure.parametize.support_claims-filter.modal.export.confirmSend'), this.translateService.instant('actions.close'), {
+          this.snackBar.open(this.translateService.instant('Los contactos se han enviado de manera correcta al correo solicitado'), this.translateService.instant('actions.close'), {
             duration: 3000,
         });
         }
         this.loadingService.closeSpinner();
 
-      this.dialogRef.close();
+      
       } else {
         this.loadingService.closeSpinner();
         this.snackBar.open(this.translateService.instant('secure.orders.send.error_ocurred_processing'), this.translateService.instant('actions.close'), {
         duration: 3000,
       });
-      this.dialogRef.close();
+      
       }
-    });*/
+    });
 
   }
 
