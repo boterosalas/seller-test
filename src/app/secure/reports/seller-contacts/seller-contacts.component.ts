@@ -1,19 +1,19 @@
-import { Component, OnInit, Inject, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { StoreService } from '@app/store/store.service';
 import { ConfigurationState } from '@app/store/configuration';
-import { Observable, of, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Filter } from '@app/shared/components/case-filter/models/Filter';
-import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
 import { LoadingService } from '@app/core';
-import { DatePipe } from '@angular/common';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { SellerSupportCenterService } from '@app/secure/seller-support-center/services/seller-support-center.service';
 import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 import { SellerContactsService } from './seller-contacts.service';
+
 @Component({
   selector: 'app-seller-contacts',
   templateUrl: './seller-contacts.component.html',
@@ -51,7 +51,6 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
   clearSearch = false;
   valueCheck = false;
   selectSeller = false;
-  getClassification = [];
 
   optionsCheck = [
     {name:'Gerente general', checked:false},
@@ -77,10 +76,6 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
   ) { }
 
   ngOnInit() {
-
-    this.SUPPORT.getListClassification().subscribe( resp => {
-      this.getClassification = resp.data;
-    });
 
     this.createForm();
     this.getStatusCase();
@@ -146,6 +141,10 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
     });
   }
 
+  /**
+   * Funcion para mostrar los filtros 
+   */
+
   showFilter() {
     this.isShowFilter = true;
     this.selectSeller = true;
@@ -162,9 +161,17 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
   
   }
 
+  /**
+   * funcion para mostar el email
+   */
+
   showEmailSend() {
     this.isShowEmail = !this.isShowEmail;
   }
+
+  /**
+   * funcion para agregar los seller id
+   */
 
   saveKeyword() {
     this.keywords.push(this.seller.Name);
@@ -174,12 +181,21 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
     this.clearSearch = true;
   }
 
+  /**
+   * 
+   * @param indexOfValue posicion del arreglo
+   * Funcion para eliminar los seller id
+   */
 
   deleteKeywork(indexOfValue: number): void {
     this.keywords.splice(indexOfValue, 1);
     this.arraySellerId.splice(indexOfValue, 1);
     this.validateSendSeller();
   }
+
+  /**
+   * metodo para activar el boton
+   */
   
   validateSendSeller() {
     if (this.arraySellerId.length > 0) {
@@ -189,6 +205,12 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
     }
 
   }
+
+  /**
+   * 
+   * @param e valor del check
+   * funcion para agregar el listado de los filtros
+   */
 
   addFilter(e:any){
     if(e.checked){
@@ -201,6 +223,10 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
       });
     }
   }
+
+  /**
+   * funcion para exportar los contactos
+   */
 
   sendExportContacts() {
 
@@ -243,7 +269,11 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
 
   }
 
-  clearSellerSearch(value: any) {
+  /**
+   * funcion para limpiar los campos 
+   */
+
+  clearSellerSearch() {
     this.valueCheck = true;
     this.isShowFilter = false;
     this.selectSeller = false;
