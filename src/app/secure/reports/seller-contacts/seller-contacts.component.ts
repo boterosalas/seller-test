@@ -71,7 +71,6 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
     private loadingService: LoadingService,
     private storeService?: StoreService,
     public snackBar?: MatSnackBar,
-    private formatDate?: DatePipe,
     public SUPPORT?: SupportService,
     private profileService?: MyProfileService,
     private _sellerContactService?: SellerContactsService
