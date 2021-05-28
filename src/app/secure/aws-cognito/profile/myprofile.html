@@ -79,12 +79,14 @@
                       <mat-card-content>
                         <div>
                           <label class="label-result">
-                            <strong>{{'secure.seller.list.start_date' | translate}}:</strong>{{user.StartVacations}} -
+                            <strong>{{'secure.seller.list.start_date' |
+                              translate}}:</strong>{{user.StartVacations}} -
                           </label>
                         </div>
                         <div>
                           <label class="label-result">
-                            <strong>{{'secure.seller.list.end_date' | translate}}:</strong>{{user.EndVacations}}
+                            <strong>{{'secure.seller.list.end_date' |
+                              translate}}:</strong>{{user.EndVacations}}
                           </label>
                         </div>
                       </mat-card-content>
@@ -126,7 +128,7 @@
           </div>
         </div>
         <div fxFlex="25">
-          <div style="padding: 30px;">
+          <div style="padding: 30px;" *ngIf="isChannel">
             <div>
               <button id="toggle" mat-stroked-button color="primary"
                 style="background-color:
@@ -138,144 +140,97 @@
             <div class="container">
               <div class="slider closed">
                 <mat-icon class="mat-18" style="color: green;width: 18px;height:
-                18px;font-size: 18px;vertical-align: middle;">done</mat-icon>
-              <span style="font-size: 12px;">
-                Token copiado
-              </span>
+                  18px;font-size: 18px;vertical-align: middle;">done</mat-icon>
+                <span style="font-size: 12px;">
+                  Token copiado
+                </span>
               </div>
+            </div>
           </div>
-            <!-- <div style="padding: 10px 60px; text-align: center;"
-              *ngIf="clickBoarToken" [@detailExpand]>
-                <mat-icon class="mat-18" style="color: green;width: 18px;height:
-                18px;font-size: 18px;vertical-align: middle;;">done</mat-icon>
-              <span style="font-size: 12px;">
-                Token copiado
-              </span>
-            </div> -->
-          </div>
-
-
-
-
-
-
-
-
-
-
         </div>
       </div>
     </div>
     <div>
-      <div style="padding: 20px;">
+      <div style="padding: 30px;">
         <span>Datos de contactos</span>
       </div>
-      <div fxLayout="row wrap" style="padding: 30px;">
+      <div fxLayout="row wrap" style="padding:10px 30px 30px 30px">
         <mat-table #table [dataSource]="dataSource" matSort style="width:
-          100%;">
+          100%; color: #a3a2a2;">
           <ng-container matColumnDef="responsibleArea">
-            <mat-header-cell fxShow.xs="false" fxShow.sm="false"
-              fxShow.lg="true" fxShow.xl="true" fxShow="true"
-              fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30"
-              fxFlex.xl="" *matHeaderCellDef>
+            <mat-header-cell fxFlex="25"  *matHeaderCellDef>
               <span class="title-table-header">Área responsable</span>
             </mat-header-cell>
-            <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-              fxShow.xl="true" fxShow="true" fxFlex.lg="15"
-              fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+            <mat-cell fxFlex="25"
               *matCellDef="let element">
-              <!-- <p *ngIf="element.Type === 'Plu'"> {{element.IdVTEX}}</p>
-              <p *ngIf="element.Type === 'Brand'"> -- </p> -->
+              <span style="color: #a3a2a2;">{{element.Traduction}}</span>
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="name">
-            <mat-header-cell fxShow.xs="false" fxShow.sm="false"
-              fxShow.lg="true" fxShow.xl="true" fxShow="true"
-              fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30"
-              fxFlex.xl="" *matHeaderCellDef>
+            <mat-header-cell fxFlex="15" *matHeaderCellDef>
               <span class="title-table-header">Nombre</span>
             </mat-header-cell>
-            <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-              fxShow.xl="true" fxShow="true" fxFlex.lg="15"
-              fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+            <mat-cell fxFlex="15"
               *matCellDef="let element">
-              <!-- <p *ngIf="element.Type === 'Plu'"> {{element.IdVTEX}}</p>
-              <p *ngIf="element.Type === 'Brand'"> -- </p> -->
+              <span style="color: #a3a2a2;">{{element.ContactName}}</span>
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="position">
-            <mat-header-cell fxShow.xs="false" fxShow.sm="false"
-              fxShow.lg="true" fxShow.xl="true" fxShow="true"
-              fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30"
-              fxFlex.xl="" *matHeaderCellDef>
+            <mat-header-cell fxFlex="15" *matHeaderCellDef>
               <span class="title-table-header">Cargo</span>
             </mat-header-cell>
-            <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-              fxShow.xl="true" fxShow="true" fxFlex.lg="15"
-              fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+            <mat-cell fxFlex="15"
               *matCellDef="let element">
-              <!-- <p *ngIf="element.Type === 'Plu'"> {{element.IdVTEX}}</p>
-              <p *ngIf="element.Type === 'Brand'"> -- </p> -->
+              <span style="color: #a3a2a2;">{{element.Role}}</span>
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="email">
-            <mat-header-cell fxShow.xs="false" fxShow.sm="false"
-              fxShow.lg="true" fxShow.xl="true" fxShow="true"
-              fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30"
-              fxFlex.xl="" *matHeaderCellDef>
+            <mat-header-cell fxFlex="15" *matHeaderCellDef>
               <span class="title-table-header">Correo electrónico</span>
             </mat-header-cell>
-            <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-              fxShow.xl="true" fxShow="true" fxFlex.lg="15"
-              fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+            <mat-cell fxFlex="15"
               *matCellDef="let element">
-              <!-- <p *ngIf="element.Type === 'Plu'"> {{element.IdVTEX}}</p>
-              <p *ngIf="element.Type === 'Brand'"> -- </p> -->
+              <span style="color: #a3a2a2;">{{element.Email}}</span>
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="phone">
-            <mat-header-cell fxShow.xs="false" fxShow.sm="false"
-              fxShow.lg="true" fxShow.xl="true" fxShow="true"
-              fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30"
-              fxFlex.xl="" *matHeaderCellDef>
+            <mat-header-cell fxFlex="10" *matHeaderCellDef>
               <span class="title-table-header">Celular</span>
             </mat-header-cell>
-            <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-              fxShow.xl="true" fxShow="true" fxFlex.lg="15"
-              fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+            <mat-cell fxFlex="10"
               *matCellDef="let element">
-              <!-- <p *ngIf="element.Type === 'Plu'"> {{element.IdVTEX}}</p>
-              <p *ngIf="element.Type === 'Brand'"> -- </p> -->
+              <span style="color: #a3a2a2;">{{element.Cellphone}}</span>
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="telephone">
-            <mat-header-cell fxShow.xs="false" fxShow.sm="false"
-              fxShow.lg="true" fxShow.xl="true" fxShow="true"
-              fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30"
-              fxFlex.xl="" *matHeaderCellDef>
+            <mat-header-cell fxFlex="10" *matHeaderCellDef>
               <span class="title-table-header">Teléfono</span>
             </mat-header-cell>
-            <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-              fxShow.xl="true" fxShow="true" fxFlex.lg="15"
-              fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+            <mat-cell fxFlex="10"
               *matCellDef="let element">
-              <!-- <p *ngIf="element.Type === 'Plu'"> {{element.IdVTEX}}</p>
-              <p *ngIf="element.Type === 'Brand'"> -- </p> -->
+              <span style="color: #a3a2a2;">{{element.Phone}}</span>
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="action">
             <mat-header-cell fxShow.xs="false" fxShow.sm="false"
               fxShow.lg="true" fxShow.xl="true" fxShow="true"
-              fxFlex.lg="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30"
-              fxFlex.xl="" *matHeaderCellDef>
-              <span class="title-table-header">Acciones</span>
+              fxFlex="10" *matHeaderCellDef>
+              <span class="title-table-header" style="color: #a3a2a2;">Acciones</span>
             </mat-header-cell>
             <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
-              fxShow.xl="true" fxShow="true" fxFlex.lg="15"
-              fxFlex.sm="15" fxFlex.md="15" fxFlex.xs="30" fxFlex.xl=""
+              fxShow.xl="true" fxShow="true" fxFlex="10"
               *matCellDef="let element">
-              <!-- <p *ngIf="element.Type === 'Plu'"> {{element.IdVTEX}}</p>
-              <p *ngIf="element.Type === 'Brand'"> -- </p> -->
+              <button class="button-edit" type="button" color="primary" style="color: #a3a2a2;" matTooltip="Editar"
+               matTooltipPosition="below" mat-icon-button
+              mat-button (click)="openModalContact(element)">
+              <mat-icon class="flexbox align-center justify-center" style="width: 20px; height: 20px; font-size: 20px;">edit</mat-icon>
+            </button>
+            <button class="button-edit" type="button" style="color: #a3a2a2;" color="primary"
+              matTooltip="Eliminar" matTooltipPosition="below" mat-icon-button mat-button
+              (click)="deleteContact(productsExpanded)">
+              <mat-icon class="flexbox align-center justify-center" style="width: 20px; height: 20px; font-size: 20px;">delete</mat-icon>
+            </button>
+            
             </mat-cell>
           </ng-container>
 

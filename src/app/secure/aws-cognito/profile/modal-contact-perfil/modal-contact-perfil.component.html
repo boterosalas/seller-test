@@ -1,0 +1,92 @@
+<div>
+  <div fxLayout="row wrap">
+    <div fxFlex="100" style="text-align: end;">
+      <mat-icon class="mat-18" style="color: #909090; font-size: 18px; width:
+        16; height: 16px; cursor: pointer;" matTooltip="Cerrar" (click)="close()">close</mat-icon>
+    </div>
+  </div>
+  <div fxLayout="row wrap">
+    <div fxFlex="100" style="text-align: center;">
+      <span style="font-size: 20px; font-weight: bold;">Editar contacto</span>
+    </div>
+  </div>
+  <div fxLayout="row wrap" style="width: 100%;">
+    <form #contactForm="ngForm" [formGroup]="form" style="width: 100%;">
+      <div fxLayout="row wrap" style="width: 100%; padding: 20px; padding-top: 40px;">
+        <div fxFlex="50">
+          <mat-form-field style="width: 90%;">
+            <mat-label>Área responsable</mat-label>
+            <mat-select formControlName="translate" [(value)]="translate">
+              <mat-option *ngFor="let area of data.arrayListArea" [value]="area.NameList">
+                {{area.Traduction}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="50">
+          <mat-form-field style="width: 90%;"
+            class="notification-form-width-100">
+            <input matInput placeholder="Nombre de contacto"
+              class="modal-export-to-reclaim-text-uppercase"
+              [errorStateMatcher]="matcher" formControlName="contactName">
+            <!-- <mat-error *ngIf="form.get('contactName').hasError('required')">{{'errors.required' | translate}}</mat-error> -->
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row wrap" style="width: 100%; padding: 20px;">
+        <div fxFlex="50">
+          <mat-form-field style="width: 90%;"
+            class="notification-form-width-100">
+            <input matInput placeholder="Cargo"
+              class="modal-export-to-reclaim-text-uppercase"
+              [errorStateMatcher]="matcher" formControlName="role">
+            <!-- <mat-error *ngIf="form.get('contactName').hasError('required')">{{'errors.required' | translate}}</mat-error> -->
+          </mat-form-field>
+        </div>
+        <div fxFlex="50">
+          <mat-form-field style="width: 90%;"
+            class="notification-form-width-100">
+            <input matInput placeholder="Correo eletrónico"
+              class="modal-export-to-reclaim-text-uppercase"
+              [errorStateMatcher]="matcher" formControlName="email">
+            <!-- <mat-error *ngIf="form.get('contactName').hasError('required')">{{'errors.required' | translate}}</mat-error> -->
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row wrap" style="width: 100%; padding: 20px;">
+        <div fxFlex="50">
+          <mat-form-field style="width: 90%;"
+            class="notification-form-width-100">
+            <input matInput placeholder="Celular"
+              class="modal-export-to-reclaim-text-uppercase"
+              [errorStateMatcher]="matcher" formControlName="cellPhone">
+            <!-- <mat-error *ngIf="form.get('contactName').hasError('required')">{{'errors.required' | translate}}</mat-error> -->
+          </mat-form-field>
+        </div>
+        <div fxFlex="50">
+          <mat-form-field style="width: 90%;"
+            class="notification-form-width-100">
+            <input matInput placeholder="Teléfono"
+              class="modal-export-to-reclaim-text-uppercase"
+              [errorStateMatcher]="matcher" formControlName="phone">
+            <!-- <mat-error *ngIf="form.get('contactName').hasError('required')">{{'errors.required' | translate}}</mat-error> -->
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div fxLayout="row wrap" style="width: 100%; padding: 20px;" fxLayoutAlign="center center"
+    class="notification-form-padding-top-30">
+    <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50"
+      fxFlex.xl="50" fxFlex="50">
+      <button mat-stroked-button color="primary"  style="margin-left: 60%; text-transform: uppercase" mat-button
+        (click)="close()">cancelar</button>
+    </div>
+    <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50"
+      fxFlex.xl="50" fxFlex="50">
+      <button mat-raised-button style="text-transform: uppercase" [disabled]="!contactForm.form.valid"
+        color="primary" mat-button
+        (click)="editContact()">Editar contacto</button>
+    </div>
+  </div>
+</div>

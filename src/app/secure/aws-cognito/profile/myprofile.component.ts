@@ -15,6 +15,7 @@ import { AuthService } from '@app/secure/auth/auth.routing';
 import { TranslateService } from '@ngx-translate/core';
 import moment from 'moment';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { ModalContactPerfilComponent } from './modal-contact-perfil/modal-contact-perfil.component';
 
 @Component({
     selector: 'app-awscognito',
@@ -22,11 +23,11 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     styleUrls: ['myprofile.component.scss'],
     animations: [
         trigger('detailExpand', [
-          state('void', style({ height: '0px', minHeight: '0', visibility: 'hidden' })),
-          state('*', style({ height: '*', visibility: 'visible' })),
-          transition('void <=> *', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+            state('void', style({ height: '0px', minHeight: '0', visibility: 'hidden' })),
+            state('*', style({ height: '*', visibility: 'visible' })),
+            transition('void <=> *', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
         ]),
-      ],
+    ],
 })
 export class MyProfileComponent implements LoggedInCallback, OnInit {
 
@@ -40,9 +41,9 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     vacationForm: FormGroup;
     today = DateService.getToday();
     role: string;
-    @ViewChild('dialogTemplate', {static: false}) content: TemplateRef<any>;
-    @ViewChild('intialPicker', {static: false}) initialPicker;
-    @ViewChild('endPicker', {static: false}) endPicker;
+    @ViewChild('dialogTemplate', { static: false }) content: TemplateRef<any>;
+    @ViewChild('intialPicker', { static: false }) initialPicker;
+    @ViewChild('endPicker', { static: false }) endPicker;
     dataSource: MatTableDataSource<any>;
 
     // Permisos
@@ -58,29 +59,31 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     otherUser: any;
     userData: any;
     isDisable: boolean;
-    clickBoarToken= false;
+    clickBoarToken = false;
+    public dialogRef: any;
+    public arrayListArea =[];
 
     // Seller nacional o internacional
     isChannel: Boolean = false;
     channelAdvisor: any;
     typeUser = null;
     userInformation = {
-        name : null,
+        name: null,
         id: null,
         nit: null,
         storeName: null,
         email: null
     };
 
-   displayedColumns = [
-    'responsibleArea',
-    'name',
-    'position',
-    'email',
-    'phone',
-    'telephone',
-    'action',
-  ];
+    displayedColumns = [
+        'responsibleArea',
+        'name',
+        'position',
+        'email',
+        'phone',
+        'telephone',
+        'action',
+    ];
 
 
 
@@ -95,7 +98,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         private profileService: MyProfileService,
         public authService: AuthService,
         private snackBar: MatSnackBar,
-        private languageService: TranslateService) {
+        private languageService: TranslateService,) {
         this.loading.viewSpinner();
     }
 
@@ -109,8 +112,37 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     }
 
     getAllContactData() {
-        // this.dataSource = new MatTableDataSource(this.mock);
+        this.profileService.getAllContactData().subscribe(result => {
+            if (result.status === 200) {
+                const body = JSON.parse(result.body.body)
+                this.dataSource = new MatTableDataSource(body.Data);
+                console.log(body.Data)
+                body.Data.forEach(element => {
+                    this.arrayListArea.push(
+                        {
+                            NameList: element.NameList,
+                            Traduction: element.Traduction
+                        }
+                    )
+                });
+                console.log(this.arrayListArea);
+            } else {
+                // error
+            }
+        });
     }
+
+    openModalContact(contact: any) {
+        this.dialogRef = this.dialog.open(ModalContactPerfilComponent, {
+            width: '50%',
+            data: {
+                contact: contact,
+                arrayListArea: this.arrayListArea
+            },
+            disableClose: false,
+        });
+    }
+
 
 
     /**
@@ -293,9 +325,8 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
      * @param user información del usuario
      */
     setUserData(user: any) {
-        console.log(user);
         this.userInformation = {
-            name : user.Name,
+            name: user.Name,
             id: user.IdSeller,
             nit: user.Nit,
             storeName: null,
@@ -457,7 +488,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
                 slider.classList.add('closed');
             }
         }, 1000);
-      }
+    }
 
 
     /**

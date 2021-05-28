@@ -333,8 +333,6 @@ export const endpoints = {
       createUpdateMassiveCategories: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/CreateUpdateMassiveCategories/{params}',
        // valida el estado de la carga masiva de categorias
        ValidateStatusCreateUpdateMassive :  'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/ValidateStatusCreateUpdateMassive',
-       // Obtener todos los datos de contacto un vendedor
-       getAllContactData: '',
        // Captura todas las notificaciones (anuncios )
        getAllNotification : 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/GetPaginatedNews{params}',
        // Crear anuncio
@@ -344,7 +342,11 @@ export const endpoints = {
        // Editar anuncios
        updateNotification : 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/UpdateNew',
        // Eliminar anuncios
-       deleteNotification: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/DeleteNew{params}'
+       deleteNotification: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/DeleteNew{params}',
+       // Obtener todos los datos de contacto un vendedor
+       getAllContactData: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/GetSellerContacts',
+       // Actualizar datos de contacto vendedor
+       updateContactData: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/UpdateSellerContact'
 
     },
   },
@@ -676,8 +678,6 @@ export const endpoints = {
       createUpdateMassiveCategories: 'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/CreateUpdateMassiveCategories/{params}',
       // valida el estado de la carga masiva de categorias
       ValidateStatusCreateUpdateMassive :  'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/ValidateStatusCreateUpdateMassive',
-      // Obtener todos los datos de contacto un vendedor
-      getAllContactData: '',
        // Captura todas las notificaciones (anuncios )
       getAllNotification : '',
        // Crear anuncio
@@ -687,7 +687,11 @@ export const endpoints = {
       // Editar anuncios
       UpdateNotification : '',
       // Eliminar anuncios
-      deleteNotification:''
+      deleteNotification:'',
+      // Obtener todos los datos de contacto un vendedor
+      getAllContactData: '',
+      // Actualizar datos de contacto vendedor
+      updateContactData: ''
 
     }
   }
