@@ -1,3 +1,4 @@
+
 <div class="container">  
 
       <form #filterForm="ngForm" [formGroup]="form">
@@ -25,8 +26,20 @@
               fxShow.xl="true">{{'secure.parametize.support_claims-filter.modal-export.addSeller' | translate}}</span>
           </div>
         </div>
-        <div fxLayout="row wrap" fxLayoutGap="20px" class="modal-export-to-reclaim-action-padding" *ngIf="isAdmin">
-          
+        <div fxLayout="row" class="modal-export-to-reclaim-container-scroll-seller" *ngIf="isAdmin && keywords.length">
+            <div class="modal-export-to-reclaim-chips-seller">
+              <div class="modal-export-to-reclaim-margin-top-20">
+                <mat-chip-list>
+                  <mat-chip *ngFor="let key of keywords; let i = index" (removed)="deleteKeywork(i)">
+                    {{key}}
+                    <mat-icon class="material-icons" matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+            </div>
+          </div>
+        <div fxLayout="row wrap" fxLayoutAlign="start center"  class="modal-export-to-reclaim-action-padding" *ngIf="isAdmin">
+        <span class="env"><strong>Enviar a  </strong> </span>
         <mat-radio-group formControlName="importAll">
             <div fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100" fxFlex.xs="100" fxFlex.sm="95"
                 class="modal-export-to-reclaim-margin-content-action-5">
@@ -38,7 +51,7 @@
                 <div fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100" fxFlex.xs="100" fxFlex.sm="95"
                 class="modal-export-to-reclaim-margin-content-action-5">
                 <mat-radio-button color="primary" class="dialog-accept" (click)="showFilter()">
-                    <span class="modal-export-to-reclaim-text-export-text">{{'secure.parametize.support_claims-filter.modal-export.applyFilter' | translate}}</span>
+                    <span class="modal-export-to-reclaim-text-export-text">Seleccionar Seller</span>
                 </mat-radio-button>
             </div>
         </mat-radio-group>
@@ -49,10 +62,19 @@
               email</mat-icon>
             <span class="modal-export-to-reclaim-text">{{'secure.parametize.support_claims-filter.modal.export.editEmail' | translate}}</span>
           </div>
+
+          <div fxLayout="row wrap" fxLayoutGap="20px" *ngIf="isShowFilter || !isAdmin" class="modal-export-to-reclaim-container-input-filter">
+            <span *ngFor="let option of optionsCheck; let i=index">
+                <mat-checkbox color="primary" [(ngModel)]="option.checked" [ngModelOptions]="{standalone: true}" (change)="addFilter(option)">
+                  {{option.name}}
+                </mat-checkbox>
+            </span>
+          
         </div>
-        <div fxLayout="column" class="modal-export-to-reclaim-container-email" *ngIf="isShowEmail || !isAdmin">
+        
+        <div fxLayout="column" class="modal-export-to-reclaim-container-email w-90" *ngIf="isShowEmail || !isAdmin">
           <div class="modal-export-to-reclaim-margin-bottom-16" (click)="showEmailSend()">
-            <span class="modal-export-to-reclaim-text-send-email">{{'secure.parametize.support_claims-filter.modal-export.text-message-send-email' | translate}}</span>
+            <span class="modal-export-to-reclaim-text-send-email">Ingresa el correo electrónico para compartir este reporte</span>
           </div>
           <div class="modal-expot-to-reclaim-margin-left-5">
             <mat-form-field class="half-width modal-export-to-reclaim-width-100">
@@ -65,31 +87,13 @@
           </div>
         </div>
         
-        <div fxLayout="row wrap" fxLayoutGap="20px" *ngIf="isShowFilter || !isAdmin" class="modal-export-to-reclaim-container-input-filter">
-            <span *ngFor="let option of optionsCheck; let i=index">
-                <mat-checkbox color="primary" [(ngModel)]="option.checked" [ngModelOptions]="{standalone: true}" (change)="addFilter(option)">
-                  {{option.name}}
-                </mat-checkbox>
-            </span>
+     
         </div>
 
-        <div fxLayout="row" class="modal-export-to-reclaim-container-scroll-seller" *ngIf="isAdmin">
-          <div class="modal-export-to-reclaim-chips-seller">
-            <div class="modal-export-to-reclaim-margin-top-20">
-              <mat-chip-list>
-                <mat-chip *ngFor="let key of keywords; let i = index" (removed)="deleteKeywork(i)">
-                  {{key}}
-                  <mat-icon class="material-icons" matChipRemove>cancel</mat-icon>
-                </mat-chip>
-              </mat-chip-list>
-            </div>
-
-
-          </div>
-        </div>
+        
       </form>
 
-    <button type="button" mat-raised-button color="primary" (click)="sendExportReclain()"
+    <button class="mt-10" type="button" mat-raised-button color="primary" (click)="sendExportReclain()"
       [disabled]="disabledButton && !valueCheck || !filterForm.form.valid">EXPORTAR</button>
 
   </div>

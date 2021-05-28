@@ -196,14 +196,12 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
 
     const arraySend = {
       email: '',
-      allSeller: '',
       sellers: [],
       nameLists: []
     };
     
     if (this.form) {
       arraySend.email = this.form.controls['email'].value;
-      arraySend.allSeller = this.form.controls['importAll'].value;
       arraySend.sellers = this.arraySellerId;
       arraySend.nameLists = this.nameLists;
     }
@@ -234,12 +232,13 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
   }
 
   clearSellerSearch(value: any) {
-    this.valueCheck = value;
+    this.valueCheck = true;
     this.isShowFilter = false;
     if (this.valueCheck === true) {
       this.clearSearch = true;
       this.keywords = [];
       this.arraySellerId = [];
+      this.nameLists = [];
     }
   }
 
