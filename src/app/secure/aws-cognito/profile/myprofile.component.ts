@@ -2,9 +2,9 @@ import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoggedInCallback, UserLoginService, LoadingService, ModalService } from '@app/core';
 import { RoutesConst } from '@app/shared';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { StoresService } from '@app/secure/offers/stores/stores.service';
-import { MatDialog, MatSnackBar, MatTableDataSource } from '@angular/material';
+import { ErrorStateMatcher, MatDialog, MatSnackBar, MatTableDataSource } from '@angular/material';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { MyProfileService } from './myprofile.service';
 import { distinctUntilChanged } from 'rxjs/operators';
@@ -16,6 +16,13 @@ import { TranslateService } from '@ngx-translate/core';
 import moment from 'moment';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ModalContactPerfilComponent } from './modal-contact-perfil/modal-contact-perfil.component';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+        const isSubmitted = form && form.submitted;
+        return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+    }
+}
 
 @Component({
     selector: 'app-awscognito',
@@ -61,7 +68,8 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     isDisable: boolean;
     clickBoarToken = false;
     public dialogRef: any;
-    public arrayListArea =[];
+    public arrayListArea = [];
+    public idSeller= null;
 
     // Seller nacional o internacional
     isChannel: Boolean = false;
@@ -114,16 +122,15 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     getAllContactData() {
         this.profileService.getAllContactData().subscribe(result => {
             if (result.status === 200) {
-                const body = JSON.parse(result.body.body)
+                const body = JSON.parse(result.body.body);
                 this.dataSource = new MatTableDataSource(body.Data);
-                console.log(body.Data)
                 body.Data.forEach(element => {
                     this.arrayListArea.push(
                         {
                             NameList: element.NameList,
                             Traduction: element.Traduction
                         }
-                    )
+                    );
                 });
                 console.log(this.arrayListArea);
             } else {
@@ -137,7 +144,8 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
             width: '50%',
             data: {
                 contact: contact,
-                arrayListArea: this.arrayListArea
+                arrayListArea: this.arrayListArea,
+                idSeller : this.idSeller
             },
             disableClose: false,
         });
@@ -154,7 +162,9 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         const sellerData = await this.profileService.getUser().toPromise().then(res => {
             const body: any = res.body;
             const userData = JSON.parse(body.body).Data;
+            console.log(userData);
             this.typeUser = userData.Profile;
+            this.idSeller = userData.IdSeller;
             if (userData.Status && userData.Status === 'Disable') {
                 this.isDisable = true;
             } else {

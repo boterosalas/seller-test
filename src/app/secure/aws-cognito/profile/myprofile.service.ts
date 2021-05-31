@@ -14,7 +14,11 @@ export class MyProfileService {
         return this.http.get(this.api.get('getAllContactData'), { observe: 'response' });
     }
 
-    updateContactData(body): Observable<any> {
+    createContactData(body: any): Observable<any> {
+        return this.http.post(this.api.get('createContactData'), body);
+    }
+
+    updateContactData(body: any): Observable<any> {
         return this.http.patch(this.api.get('updateContactData'), body);
     }
 }

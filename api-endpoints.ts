@@ -346,7 +346,9 @@ export const endpoints = {
        // Obtener todos los datos de contacto un vendedor
        getAllContactData: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/GetSellerContacts',
        // Actualizar datos de contacto vendedor
-       updateContactData: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/UpdateSellerContact'
+       updateContactData: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/UpdateSellerContact',
+       //
+       createContactData: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/RegisterContactSeller'
 
     },
   },
@@ -691,7 +693,9 @@ export const endpoints = {
       // Obtener todos los datos de contacto un vendedor
       getAllContactData: '',
       // Actualizar datos de contacto vendedor
-      updateContactData: ''
+      updateContactData: '',
+      //
+      createContactData: ''
 
     }
   }
