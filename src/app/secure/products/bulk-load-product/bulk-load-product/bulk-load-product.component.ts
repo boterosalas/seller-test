@@ -173,6 +173,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
   dataProduct:any = {};
 
+  public dataarr = [];
+
   @ViewChild('modalContent', {static: false}) contentDialog: TemplateRef<any>;
   copySizeArray: any;
   setInterval: any;
@@ -709,26 +711,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
             this.arrayNecessaryData.splice(1,2);
 
-
-            //hace un split del arreglo para solo sacar el numero de la categoria y se vuelve a insertar
-
-            this.arrayNecessaryData.map((resp, i) => {
-              
-              if(i > 0) {
-
-                resp.filter( resp => resp === "Clothing" )
-        
-                let splitCategory = resp[4].split('_');
-                resp[4] = splitCategory[0];
-
-                resp.filter( resp => resp === "Technology" )
-        
-                splitCategory = resp[3].split('_');
-                resp[3] = splitCategory[0];
-
-              }
-            })
-
             this.eanComboPosition = this.iVal.iEanCombo;
 
             if (this.isAdmin) {
@@ -952,7 +934,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                 errorInCell = true;
               }
             } else if (j === iVal.iCategoria) {
-              const isNumeric = this.validFormat(res[i][j], 'greaterThanZero');
+              const isNumeric = this.validFormat((res[i][j]).split('_')[0], 'greaterThanZero');
               if (!isNumeric && isNumeric === false) {
                 this.countErrors += 1;
                 const row = i + 1, column = j + 1;
@@ -1295,7 +1277,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     const newObjectForSend = {
       Ean: res[i][iVal.iEAN] ? res[i][iVal.iEAN].trim() : null,
       Name: res[i][iVal.iNombreProd] ? res[i][iVal.iNombreProd].trim() : null,
-      Category: res[i][iVal.iCategoria] ? res[i][iVal.iCategoria].trim() : null,
+      Category: res[i][iVal.iCategoria] ? res[i][iVal.iCategoria].split('_')[0].trim() : null,
       Brand: res[i][iVal.iMarca] ? res[i][iVal.iMarca].trim() : null,
       Description: res[i][iVal.iDescripcion] ? res[i][iVal.iDescripcion].trim().replace(regex, '\'') : null,
       MetaTitle: res[i][iVal.iMetaTitulo] ? res[i][iVal.iMetaTitulo].trim() : null,
