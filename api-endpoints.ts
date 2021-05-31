@@ -675,16 +675,15 @@ export const endpoints = {
       // valida el estado de la carga masiva de categorias
       ValidateStatusCreateUpdateMassive :  'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/ValidateStatusCreateUpdateMassive',
        // Captura todas las notificaciones (anuncios )
-      getAllNotification : '',
+      getAllNotification : 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/GetPaginatedNews{params}',
        // Crear anuncio
-      createNew : '',
+      createNew : 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/CreateNew',
       // Guardar imagen de anuncios
-      saveImgNotification : '',
+      saveImgNotification : 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/SaveImage',
       // Editar anuncios
-      UpdateNotification : '',
+      UpdateNotification : 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/UpdateNew',
       // Eliminar anuncios
-      deleteNotification:''
-
+      deleteNotification: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/DeleteNew{params}'
     }
   }
 };
