@@ -45,9 +45,6 @@
         <div fxLayout="column" [fxShow.lg]="false" [fxShow.xl]="false" [fxShow.sm]="true" [fxShow.md]="false" class="dashboard-component-container-position-title-orders
             dashboard-component-container-align-icon">
           <div>
-            <!-- <mat-icon class="mat-18" fxShow.lg="false" (click)="showChangeView(showOrdersChart)"
-              *ngIf="!showOrdersChart" class="dashboard-component-container-cursor-pointer">bar_chart
-            </mat-icon> -->
             <span class="material-icons-outlined dashboard-component-container-cursor-pointer-mobile" fxShow.lg="false"
               (click)="showChangeView(showOrdersChart)" *ngIf="!showOrdersChart">
               bar_chart
@@ -132,42 +129,39 @@
         <!-- Casilla por enviar -->
         <div class="dashboard-component-container-cards" (click)="goToSendOrders(1)">
           <div>
-            <span>Por
-              enviar</span>
+            <span>{{'menu.Por enviar' | translate}}</span>
             <p>
               {{totalToSend | number}}</p>
           </div>
           <div>
-            <h6>Vencidos: {{toExpireSend | number}}</h6> 
-            <h6>Por vencerse: {{overComeSend | number}}</h6> 
-            <h6>A tiempo: {{onTimeSend | number}}</h6> 
+            <h6>{{'secure.dashboard.expireds' | translate}}: {{toExpireSend | number}}</h6> 
+            <h6>{{'secure.dashboard.to_defeatd' | translate}}: {{overComeSend | number}}</h6> 
+            <h6>{{'secure.dashboard.on_time' | translate}}: {{onTimeSend | number}}</h6> 
           </div>
         </div>
         <!-- Casilla en transporte -->
         <div class="dashboard-component-container-cards" (click)="goToSendOrders(2)">
           <div>
-            <span>En
-              transporte</span>
+            <span>{{'menu.En transoprte' | translate}}</span>
             <p>
               {{totalDelivered | number}}</p>
           </div>
           <div>
-            <h6>Vencidos: {{toExpireDelivered | number}}</h6> 
-            <h6>Por vencerse: {{overComeDelivered | number}}</h6> 
-            <h6>A tiempo: {{onTimeDelivered | number}}</h6> 
+            <h6>{{'secure.dashboard.expireds' | translate}}: {{toExpireDelivered | number}}</h6> 
+            <h6>{{'secure.dashboard.to_defeatd' | translate}}: {{overComeDelivered | number}}</h6> 
+            <h6>{{'secure.dashboard.on_time' | translate}}: {{onTimeDelivered | number}}</h6> 
           </div>
         </div>
         <!-- Casilla de entregados -->
         <div class="dashboard-component-container-cards" (click)="goToSendOrders(3)">
           <div>
-            <span>Entregado</span>
+            <span>{{'secure.dashboard.delievered' | translate}}</span>
             <p>
               {{totalInTransport | number}}</p>
           </div>
           <div>
-            <h6>Vencidos: {{toExpireInTransport | number}}</h6> 
-            <h6>Por vencerse: {{overComeInTransport | number}}</h6> 
-            <!-- <h6>A tiempo: {{onTimeSend | number}}</h6>  -->
+            <h6>{{'secure.dashboard.expireds' | translate}}: {{toExpireInTransport | number}}</h6> 
+            <h6>{{'secure.dashboard.to_defeatd' | translate}}: {{overComeInTransport | number}}</h6> 
           </div>
         </div>
 
