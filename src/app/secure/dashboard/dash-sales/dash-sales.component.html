@@ -49,11 +49,6 @@
         <div fxLayout="column" [fxShow.lg]="false" [fxShow.xl]="false" [fxShow.sm]="true" [fxShow.md]="false" class="dashboard-component-container-position-title-orders
         dashboard-component-container-align-icon">
           <div>
-            <!-- <mat-icon class="mat-18" fxShow.lg="false" (click)="showChangeViewSales(showOrdersChartSales)"
-              *ngIf="!showOrdersChartSales" class="dashboard-component-container-cursor-pointer">
-              insert_chart_outlined
-            </mat-icon> 1 -->
-
             <span class="material-icons-outlined dashboard-component-container-cursor-pointer-mobile" fxShow.lg="false"
               (click)="showChangeViewSales(showOrdersChartSales)" *ngIf="!showOrdersChartSales">
               bar_chart
@@ -132,59 +127,23 @@
         [fxShow.xs]="!showOrdersChartSales" [fxShow.sm]="!showOrdersChartSales"
         class="dashboard-component-container-max-width-left-ordens">
         <div class="dashboard-component-container-title-sales">
-          <span>{{'secure.dashboard.sales.total' | translate}}</span>
-          <p>$ 6.300.000</p>
+          <span *ngIf="lang === 'US'"> {{selectTypeFilter}}
+            {{'secure.dashboard.sales.total'| translate}}</span>
+          <span *ngIf="lang === 'ES'">
+            {{'secure.dashboard.sales.total'| translate}} {{selectTypeFilter}}</span>
+          <span *ngIf="lang === 'FR'"> {{selectTypeFilter}}
+            {{'secure.dashboard.sales.total'| translate}}</span>
+          <div fxLayout="row">
+            <p>${{sumatoryTotal | number}}</p>
+            <p *ngIf="typeFilterSales === '1' && sumatoryTotal === 1">{{'secure.dashboard.table.million' | translate}}
+            </p>
+            <p *ngIf="typeFilterSales === '1' && sumatoryTotal !== 1">{{'secure.dashboard.table.millions' | translate}}
+            </p>
+          </div>
         </div>
         <div fxLayout="column" class="dashboard-padding-buttom-32">
           <div fxLayout="row" class="dashboard-component-container-aling-center-sales">
-            <!-- <div>
-              HOLA 2
-            </div> -->
             <div fxFlex="50">
-              <div fxLayout="column" *ngIf="false">
-                <div class="dashboard-color-text dashboard-padding-resumen" *ngIf="lang === 'US'"> {{selectTypeFilter}}
-                  {{'secure.dashboard.sales'| translate}} 1 </div>
-                <div class="dashboard-color-text dashboard-padding-resumen" *ngIf="lang === 'ES'">
-                  {{'secure.dashboard.sales'| translate}} 2 {{selectTypeFilter}}</div>
-                <div class="dashboard-color-text dashboard-padding-resumen" *ngIf="lang === 'FR'"> {{selectTypeFilter}}
-                  {{'secure.dashboard.sales'| translate}} 3</div>
-                <div>
-                  <span>
-                    <mat-icon class="mat-18 vertical-aling-bottom dashboard-component-container-icon-color-delivered">
-                      monetization_on</mat-icon>
-                    <span>${{sumatoryTotal | number}}</span>
-                  </span>
-                </div>
-              </div>
-              <!-- venta por : (Diaria, semanal, mensual, trimestral) -->
-              <div fxLayout="column">
-                <div class="dashboard-component-container-cards">
-                  <div>
-                    <span *ngIf="lang === 'US'"> {{selectTypeFilter}}
-                      {{'secure.dashboard.sales'| translate}}</span>
-                    <span *ngIf="lang === 'ES'">
-                      {{'secure.dashboard.sales'| translate}} {{selectTypeFilter}}</span>
-                    <span *ngIf="lang === 'FR'"> {{selectTypeFilter}}
-                      {{'secure.dashboard.sales'| translate}}</span>
-                    <p>
-                      ${{sumatoryTotal | number}}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div fxFlex="50">
-              <div fxLayout="column" *ngIf="false">
-                <div class="dashboard-color-text dashboard-padding-resumen">
-                  {{'secure.dashboard.table.top.title.average_listing_price' | translate}}</div>
-                <div>
-                  <span>
-                    <mat-icon
-                      class="mat-18 vertical-aling-bottom dashboard-component-container-icon-color-process-send">
-                      local_offer</mat-icon>
-                    <span>${{promedTicket | number}}</span>
-                  </span>
-                </div>
-              </div>
               <div fxLayout="column">
                 <div class="dashboard-component-container-cards">
                   <div>
@@ -250,8 +209,14 @@
             <div class="graph__content">
               <div class="graph__table">
                 <div *ngFor="let colum of last_sales" class="graph__bar-box">
-                  <div class="graph__value dashboard-component-rotate-text">${{colum.sales
-                  | number}}</div>
+                  <div
+                    [ngClass]="typeFilterSales === '1' ? 'graph__value dashboard-component-no-rotate-text' : 'graph__value dashboard-component-rotate-text'">${{colum.sales
+                  | number}} <span *ngIf="typeFilterSales === '1'"></span>
+                    <span
+                      *ngIf="typeFilterSales === '1' && colum.sales === 1">{{'secure.dashboard.table.million' | translate}}</span>
+                    <span
+                      *ngIf="typeFilterSales === '1' && colum.sales !== 1">{{'secure.dashboard.table.millions' | translate}}</span>
+                  </div>
                   <div class="graph__bar" [style.minHeight]="colum.percent">
                     <div class="graph__label">{{colum.name}}</div>
                   </div>

@@ -414,6 +414,8 @@
     "secure.dashboard.table.top.title.Available_units": "Available units",
     "secure.dashboard.table.top.title.top_selling_products": "Top selling products",
     "secure.dashboard.table.top.title.average_listing_price": "Average listing price",
+    "secure.dashboard.table.million": " millon",
+    "secure.dashboard.table.millions": " millons",
 
     "secure.dashboard.seller-rating.title":"Quality score",
     "secure.dashboard.seller-rating.title_filter":"Release date filter",

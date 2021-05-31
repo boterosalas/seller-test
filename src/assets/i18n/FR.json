@@ -406,6 +406,8 @@
     "secure.dashboard.type.filter.diary": "Daily",
     "secure.dashboard.selected_months": "Select a month",
     "secure.dashboard.info_cancel_sale": "This info is approximated and doesn't take into account cancelations, additionaly the sales value is shown without taking freight values into account",
+    "secure.dashboard.table.million": " millon",
+    "secure.dashboard.table.millions": " millons",
 
     "secure.dashboard.seller-rating.title":"Quality score",
     "secure.dashboard.seller-rating.title_filter":"Release date filter",

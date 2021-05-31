@@ -9,6 +9,7 @@ $table-break: 900px;
 
   &__advertisements-orders {
     display: flex;
+    width: 100%;
 
     @media only screen and (max-width: $mobile-break) {
       display: flex;
@@ -17,7 +18,7 @@ $table-break: 900px;
   }
 
   &__advertisements {
-    width: 453px;
+    width: 35%;
     height: 709px;
     background-color: aquamarine;
 
@@ -30,7 +31,7 @@ $table-break: 900px;
   &__orders {
     margin-left: 1%;
     background-color: white;
-    width: 804px;
+    width: 65%;
     height: 709px;
     border: 1px solid #dadada;
     border-radius: 7px;

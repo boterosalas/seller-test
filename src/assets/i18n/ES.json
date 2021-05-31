@@ -423,6 +423,8 @@
     "secure.dashboard.table.top.title.Available_units": "Uds Disponibles",
     "secure.dashboard.table.top.title.top_selling_products": "Productos más vendidos",
     "secure.dashboard.table.top.title.average_listing_price": "Ticket promedio",
+    "secure.dashboard.table.million": " millón",
+    "secure.dashboard.table.millions": " millones",
 
     "secure.dashboard.seller-rating.title":"Calificación de Calidad",
     "secure.dashboard.seller-rating.title_filter":"Filtro por fecha de Emisión",
