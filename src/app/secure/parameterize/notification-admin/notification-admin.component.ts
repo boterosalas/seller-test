@@ -169,7 +169,7 @@ export class NotificationAdminComponent implements OnInit {
   deleteNotification(element: any) {
     this.notification = element;
     const title = '¡Vas a eliminar un anuncio!';
-    const subTitle = 'Se eliminaran anuncio de tu base de datos ¿Estas seguro de eliminar el anuncio?';
+    const subTitle = 'Se eliminarán anuncio de tu base de datos ¿Estás seguro de eliminar el anuncio?';
     const params = {
       success: {
         createOrEdit: false,
