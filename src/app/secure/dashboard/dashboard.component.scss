@@ -19,11 +19,14 @@ $table-break: 900px;
   &__advertisements {
     width: 35%;
     height: 709px;
-    background-color: aquamarine;
+    background-color: white;
+    border: 1px solid #dadada;
+    border-radius: 7px;
 
     @media only screen and (max-width: $mobile-break) {
-      // display: flex;
-      // flex-wrap: wrap;
+      width: 100%;
+      margin: 2% 0;
+      height: auto;
     }
   }
 

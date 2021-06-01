@@ -398,6 +398,7 @@
 
 
     "secure.dashboard.all": "All",
+    "secure.dashboard.advertisements": "Advertisements",
     "secure.dashboard.in_transit": "In transit",
     "secure.dashboard.delievered": "Delievered",
     "secure.dashboard.expired": "Expired",

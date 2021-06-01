@@ -18,6 +18,8 @@ import { ModalDashboardComponent } from './modal-dashboard/modal-dashboard.compo
 import { QualityIndicatorsComponent } from './quality-indicators/quality-indicators.component';
 import { InfoIndicatorsComponent } from './info-indicators/info-indicators.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { AdvertisementsComponent } from './advertisements/advertisements.component';
+import { ModalAdvertisementsComponent } from './modal-advertisements/modal-advertisements.component';
 import { DashOrdersComponent } from './dash-orders/dash-orders.component';
 import { DashSalesComponent } from './dash-sales/dash-sales.component';
 
@@ -29,7 +31,9 @@ import { DashSalesComponent } from './dash-sales/dash-sales.component';
         QualityIndicatorsComponent,
         InfoIndicatorsComponent,
         DashOrdersComponent,
-        DashSalesComponent
+        DashSalesComponent,
+        AdvertisementsComponent,
+        ModalAdvertisementsComponent
     ],
     imports: [
         CommonModule,
@@ -49,6 +53,7 @@ import { DashSalesComponent } from './dash-sales/dash-sales.component';
     entryComponents: [
         ModalDashboardComponent,
         InfoIndicatorsComponent,
+        ModalAdvertisementsComponent
     ],
     exports: [
         QualityIndicatorsComponent

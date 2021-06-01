@@ -1,4 +1,6 @@
+
 <div *ngIf="false" class="dashboard-component-container-general" fxFlex="row">
+  
   <iframe
     src="https://vignette.wikia.nocookie.net/gemas/images/b/b1/Gear1.gif/revision/latest?cb=20151201164022&path-prefix=es"
     width="200" height="146" frameBorder="0"></iframe>
@@ -11,7 +13,7 @@
   <div class="dashboard__content" style="background-color: #F6F6F4;">
 
     <div class="dashboard__advertisements-orders">
-      <div class="dashboard__advertisements">aqui va anuncios</div>
+      <app-advertisements class="dashboard__advertisements"></app-advertisements>
       <app-dash-orders class="dashboard__orders"></app-dash-orders>
     </div>
 

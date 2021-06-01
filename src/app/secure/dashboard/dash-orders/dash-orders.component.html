@@ -45,10 +45,10 @@
         <div fxLayout="column" [fxShow.lg]="false" [fxShow.xl]="false" [fxShow.sm]="true" [fxShow.md]="false" class="dashboard-component-container-position-title-orders
             dashboard-component-container-align-icon">
           <div>
-            <span class="material-icons-outlined dashboard-component-container-cursor-pointer-mobile" fxShow.lg="false"
+            <mat-icon class="material-icons-outlined dashboard-component-container-cursor-pointer-mobile" fxShow.lg="false"
               (click)="showChangeView(showOrdersChart)" *ngIf="!showOrdersChart">
               bar_chart
-            </span>
+            </mat-icon>
           </div>
           <div>
             <mat-icon class="mat-18" fxShow.lg="false" (click)="showChangeView(showOrdersChart)" *ngIf="showOrdersChart"

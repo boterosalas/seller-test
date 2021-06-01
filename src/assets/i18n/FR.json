@@ -396,6 +396,7 @@
 
 
     "secure.dashboard.all": "All",
+    "secure.dashboard.advertisements": "Annonces",
     "secure.dashboard.in_transit": "In transit",
     "secure.dashboard.delievered": "Delievered",
     "secure.dashboard.expired": "Expired",
