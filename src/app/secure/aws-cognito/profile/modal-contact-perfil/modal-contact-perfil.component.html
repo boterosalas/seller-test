@@ -1,7 +1,8 @@
 <div fxLayout="row wrap">
   <div fxFlex="100" style="text-align: end;">
     <mat-icon class="mat-18" style="color: #909090; font-size: 20px; width:
-      20; height: 20px; cursor: pointer;" matTooltip="Cerrar" (click)="close()">close</mat-icon>
+      20; height: 20px; cursor: pointer;" [matTooltip]="'actions.close' |
+      translate" (click)="close()">close</mat-icon>
   </div>
 </div>
 <div fxLayout="row wrap" *ngIf="!success">
@@ -12,12 +13,14 @@
 <div *ngIf="form && !success">
   <div fxLayout="row wrap" style="width: 100%;">
     <form #contactForm="ngForm" [formGroup]="form" style="width: 100%;">
-      <div fxLayout="row wrap" style="width: 100%; padding: 20px; padding-top: 40px;">
+      <div fxLayout="row wrap" style="width: 100%; padding: 20px; padding-top:
+        40px;">
         <div fxFlex="50">
           <mat-form-field style="width: 90%;">
             <mat-label>Área responsable</mat-label>
             <mat-select formControlName="translate" [(value)]="translate">
-              <mat-option *ngFor="let area of data.arrayListArea" [value]="area.Traduction">
+              <mat-option *ngFor="let area of data.arrayListArea"
+                [value]="area.Traduction">
                 {{area.Traduction}}
               </mat-option>
             </mat-select>
@@ -57,51 +60,63 @@
         <div fxFlex="50">
           <mat-form-field style="width: 90%;"
             class="notification-form-width-100">
-            <input matInput placeholder="Celular" (focusout)="validateOutFocus_CellPhone()"
+            <input matInput placeholder="Celular"
+              (focusout)="validateOutFocus_CellPhone()"
               class="modal-export-to-reclaim-text-uppercase"
-              [errorStateMatcher]="matcher" formControlName="cellPhone" maxlength="12">
-              <mat-error *ngIf="form.get('cellPhone').hasError('pattern')">{{'errors.format_invalidate' | translate}}
-              </mat-error>
-              <mat-error *ngIf="form.get('cellPhone').hasError('required')">{{'errors.required' | translate}}</mat-error>
+              [errorStateMatcher]="matcher" formControlName="cellPhone"
+              maxlength="12">
+            <mat-error *ngIf="form.get('cellPhone').hasError('pattern')">{{'errors.format_invalidate'
+              | translate}}
+            </mat-error>
+            <mat-error *ngIf="form.get('cellPhone').hasError('required')">{{'errors.required'
+              | translate}}</mat-error>
           </mat-form-field>
         </div>
         <div fxFlex="50">
           <mat-form-field style="width: 90%;"
             class="notification-form-width-100">
             <input matInput placeholder="Teléfono"
-              class="modal-export-to-reclaim-text-uppercase" (focusout)="validateOutFocus_Phone()"
-              [errorStateMatcher]="matcher" formControlName="phone" maxlength="12">
-              <mat-error *ngIf="form.get('phone').hasError('pattern')">{{'errors.format_invalidate' | translate}}
-              </mat-error>
-              <mat-error *ngIf="form.get('phone').hasError('required')">{{'errors.required' | translate}}</mat-error>
+              class="modal-export-to-reclaim-text-uppercase"
+              (focusout)="validateOutFocus_Phone()"
+              [errorStateMatcher]="matcher" formControlName="phone"
+              maxlength="12">
+            <mat-error *ngIf="form.get('phone').hasError('pattern')">{{'errors.format_invalidate'
+              | translate}}
+            </mat-error>
+            <mat-error *ngIf="form.get('phone').hasError('required')">{{'errors.required'
+              | translate}}</mat-error>
           </mat-form-field>
         </div>
       </div>
     </form>
   </div>
-  <div fxLayout="row wrap" style="width: 100%; padding: 20px;" fxLayoutAlign="center center"
+  <div fxLayout="row wrap" style="width: 100%; padding: 20px;"
+    fxLayoutAlign="center center"
     class="notification-form-padding-top-30">
     <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50"
       fxFlex.xl="50" fxFlex="50">
-      <button mat-stroked-button color="primary"  style="margin-left: 60%; text-transform: uppercase" mat-button
+      <button mat-stroked-button color="primary" style="margin-left: 60%;
+        text-transform: uppercase" mat-button
         (click)="close()">cancelar</button>
     </div>
     <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50"
       fxFlex.xl="50" fxFlex="50">
-      <button mat-raised-button style="text-transform: uppercase" [disabled]="!contactForm.form.valid"
+      <button mat-raised-button style="text-transform: uppercase"
+        [disabled]="!contactForm.form.valid"
         color="primary" mat-button
         (click)="validContact()">Editar contacto</button>
     </div>
   </div>
 </div>
-<div *ngIf="!form && !success" style="text-align: center;  padding-top: 80px;
-padding-bottom:220px;">
+<div *ngIf="!form && !success" style="text-align: center; padding-top: 80px;
+  padding-bottom:220px;">
   <div style="margin-left: 47%;">
     <mat-spinner class="processCharge" [diameter]="40"></mat-spinner>
   </div>
   <div style="padding-top: 20px;">
     <span>
-      {{'secure.products.create_product_unit.list_products.please_wait' | translate}}
+      {{'secure.products.create_product_unit.list_products.please_wait' |
+      translate}}
     </span>
   </div>
 </div>
@@ -121,8 +136,8 @@ padding-bottom:220px;">
     <div>
       <div>
         <button mat-raised-button color="primary"
-        class="modal-contact-perfil-text-transform-uppercase" mat-button
-        (click)="close()">Aceptar</button>
+          class="modal-contact-perfil-text-transform-uppercase" mat-button
+          (click)="close()">Aceptar</button>
       </div>
     </div>
   </div>

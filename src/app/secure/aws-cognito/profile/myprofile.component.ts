@@ -12,7 +12,7 @@ import { DateService } from '@app/shared/util/date.service';
 import { MenuModel, vacationFunctionality, cancelVacacionFunctionality } from '@app/secure/auth/auth.consts';
 import { AuthService } from '@app/secure/auth/auth.routing';
 
-import { TranslateService } from '@ngx-translate/core';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import moment from 'moment';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ModalContactPerfilComponent } from './modal-contact-perfil/modal-contact-perfil.component';
@@ -117,6 +117,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         this.initVacationForm();
         this.userService.isAuthenticated(this);
         this.getAllContactData();
+        this.changeLanguaje();
     }
 
     getAllContactData() {
@@ -132,7 +133,6 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
                         }
                     );
                 });
-                console.log(this.arrayListArea);
             } else {
                 // error
             }
@@ -152,9 +152,11 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
 
         const dialogIntance = this.dialogRef.componentInstance;
         this.dialogRef.afterClosed().subscribe(res => {
+            this.arrayListArea = [];
             this.getAllContactData();
         });
         dialogIntance.processFinishModalContactProfiel$.subscribe((val) => {
+            this.arrayListArea = [];
             this.getAllContactData();
         });
     }
@@ -170,7 +172,6 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         const sellerData = await this.profileService.getUser().toPromise().then(res => {
             const body: any = res.body;
             const userData = JSON.parse(body.body).Data;
-            console.log(userData);
             this.typeUser = userData.Profile;
             this.idSeller = userData.IdSeller;
             if (userData.Status && userData.Status === 'Disable') {
@@ -507,6 +508,19 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
             }
         }, 1000);
     }
+
+    /**
+     * funcion para cambiar la cultura
+     *
+     * @memberof QualityIndicatorsComponent
+     */
+  changeLanguaje() {
+    this.languageService.onLangChange.subscribe((event: LangChangeEvent) => {
+      localStorage.setItem('culture_current', event['lang']);
+      this.getAllDataUser();
+      this.getAllContactData();
+    });
+  }
 
 
     /**
