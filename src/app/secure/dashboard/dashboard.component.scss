@@ -57,6 +57,36 @@ $table-break: 900px;
       height: auto;
     }
   }
+
+  &__indicators {
+    margin-top: 1%;
+    background-color: white;
+    width: 100%;
+    height: auto;
+    border: 1px solid #dadada;
+    border-radius: 7px;
+
+    @media only screen and (max-width: $mobile-break) {
+      width: 100%;
+      margin: 2% 0;
+      height: auto;
+    }
+  }
+
+  &__quality {
+    margin-top: 1%;
+    background-color: white;
+    width: 100%;
+    height: auto;
+    border: 1px solid #dadada;
+    border-radius: 7px;
+
+    @media only screen and (max-width: $mobile-break) {
+      width: 100%;
+      margin: 2% 0;
+      height: auto;
+    }
+  }
 }
 
 .hideTitleResponsive {

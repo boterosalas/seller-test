@@ -467,12 +467,10 @@
         </div>
       </div>
     </div>
-    <div class="dashboard-component-container-color-border
-    dashboard-component-container-margin-top-50" *ngIf="hideIndicators">
+    <div class="dashboard__indicators" *ngIf="hideIndicators">
       <app-quality-indicators [params]="paramsIndicators"></app-quality-indicators>
     </div>
-    <div class="dashboard-component-container-color-border
-      dashboard-component-container-margin-top-50">
+    <div class="dashboard__quality">
       <app-seller-rating></app-seller-rating>
     </div>
   </div>

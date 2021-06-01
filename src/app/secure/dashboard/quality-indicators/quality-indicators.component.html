@@ -1,32 +1,25 @@
-<div fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true"
-  fxShow.xl="true" fxShow="true">
-  <div fxLayout="column"
-    class="quality-indicators-border-bottom-color
+<div fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" fxShow="true">
+  <div fxLayout="column" class="quality-indicators-border-bottom-color
     quality-indicators-height-50">
     <div fxLayout="row" class="quality-indicators-header-align">
-      <div fxFlex="60" fxFlex.sm="90" fxFlex.md="65"
-        class="quality-indicators-position-title-orders">
-        <span>
-          {{'quality.indicators.quality_indicators'| translate}}
+      <div fxFlex="60" fxFlex.sm="90" fxFlex.md="65" class="quality-indicators-position-title-quality">
+        <span class="material-icons-outlined
+        quality-indicators-icon-color-title">bar_chart
         </span>
+        {{'quality.indicators.quality_indicators'| translate}}
       </div>
-      <div fxFlex="30" fxFlex.sm="50" fxFlex.md="25" fxFlex.lg=""
-        fxFlex.xs="50" fxFlex.xl="30"
-        class="quality-indicators-orders-align
-        quality-indicators-text-align-end">
+      <div fxFlex="30" fxFlex.sm="50" fxFlex.md="25" fxFlex.lg="" fxFlex.xs="50" fxFlex.xl="30" class="quality-indicators-text-align-end">
         <span class="quality-indicators-font-size-color" *ngIf="qualityIndicators
           && qualityIndicators.length !== 0">
           {{'quality.indicators.Last_days'| translate}}: {{'shared.from' |
           translate}} <span class="quality-indicators-font-weight-bold">{{from}}</span>
-          {{'shared.to'| translate }} <span
-            class="quality-indicators-font-weight-bold">{{to}}</span>
+          {{'shared.to'| translate }} <span class="quality-indicators-font-weight-bold">{{to}}</span>
         </span>
       </div>
     </div>
   </div>
   <div *ngIf="!load">
-    <div fxLayout="row" class="quality-indicators-row-padding"
-      *ngIf="qualityIndicators && qualityIndicators.length> 0">
+    <div fxLayout="row" class="quality-indicators-row-padding" *ngIf="qualityIndicators && qualityIndicators.length> 0">
       <div fxFlex="30" class="quality-indicators-padding-left-10">{{'quality.indicators.objectives'
         | translate}}</div>
       <div fxFlex="10">{{'quality.indicators.goal'| translate}}</div>
@@ -39,29 +32,26 @@
           <span class="quality-indicators-color-text-indicators">
             {{indicators.indicatorName}}
           </span>
-          <span class="quality-indicators-aling-icon-cursor"
-          (click)="openBtnInfo(indicators.indicatorName ,
+          <span class="quality-indicators-aling-icon-cursor" (click)="openBtnInfo(indicators.indicatorName ,
             indicators.calcInformation)">
             <mat-icon class="mat-18 quality-indicators-icon-info">info</mat-icon>
           </span>
         </div>
-        <div fxFlex="10" class="quality-indicators-padding-20"
-          *ngIf="indicators.value !== null">
+        <div fxFlex="10" class="quality-indicators-padding-20" *ngIf="indicators.value !== null">
           <span class="quality-indicators-color-text-indicators">
             {{indicators.symbol}} {{indicators.goal}} {{indicators.measureUnit}}
           </span>
         </div>
-        <div fxFlex="50" class="quality-indicators-padding-contain" >
-          <div class="quality-indicators-height-15" 
-            *ngIf="indicators.value !== null && indicators.value !== 0">
+        <div fxFlex="50" class="quality-indicators-padding-contain">
+          <div class="quality-indicators-height-15" *ngIf="indicators.value !== null && indicators.value !== 0">
             <div [ngStyle]="{'width': indicators.percentageBar + '%',
-              'background-color': indicators.color, 'height': '15px'}"  [matTooltip]="indicators.message" matTooltipPosition="above">
+              'background-color': indicators.color, 'height': '15px'}" [matTooltip]="indicators.message"
+              matTooltipPosition="above">
             </div>
           </div>
         </div>
 
-        <div fxFlex="10" class="quality-indicators-padding-20"
-          *ngIf="indicators.value !== null">
+        <div fxFlex="10" class="quality-indicators-padding-20" *ngIf="indicators.value !== null">
           <span class="quality-indicators-color-text-indicators">
             {{indicators.value}} {{indicators.measureUnit}}
           </span>
@@ -74,27 +64,29 @@
       </div>
     </div>
     <div *ngIf="qualityIndicators && qualityIndicators.length === 0 && type
-      ==='seller'"
-      class="quality-indicators-align-center">
-      <div><mat-icon class="quality-indicators-icon-not-found" color="primary">info</mat-icon></div>
+      ==='seller'" class="quality-indicators-align-center">
+      <div>
+        <mat-icon class="quality-indicators-icon-not-found" color="primary">info</mat-icon>
+      </div>
       <div>
         {{'school.exito.empty_data' | translate}}
       </div>
     </div>
     <div *ngIf="type === 'admin' && qualityIndicators &&
-      qualityIndicators.length === 0"
-      class="quality-indicators-align-center-admin">
+      qualityIndicators.length === 0" class="quality-indicators-align-center-admin">
       <div *ngIf="consult && qualityIndicators && qualityIndicators.length ===
         0">
-        <div><mat-icon class="quality-indicators-icon-not-found"
-            color="primary">info</mat-icon></div>
+        <div>
+          <mat-icon class="quality-indicators-icon-not-found" color="primary">info</mat-icon>
+        </div>
         <div class="quality-indicators-space-text">
           {{'school.exito.empty_data' | translate}}
         </div>
       </div>
       <div *ngIf="!consult && _idSeller === null">
-        <div><mat-icon class="quality-indicators-icon-not-found"
-            color="primary">info</mat-icon></div>
+        <div>
+          <mat-icon class="quality-indicators-icon-not-found" color="primary">info</mat-icon>
+        </div>
         <div class="quality-indicators-space-text">
           {{'secure.seller.manage.txt_serch_seller' | translate}}
         </div>
@@ -111,29 +103,25 @@
     </div>
   </div>
 </div>
-<div fxShow.xs="true" fxShow.sm="true" fxShow.md="false" fxShow.lg="false"
-  fxShow.xl="false" fxShow="false">
-  <div fxLayout="column"
-    class="quality-indicators-border-bottom-color
+<div fxShow.xs="true" fxShow.sm="true" fxShow.md="false" fxShow.lg="false" fxShow.xl="false" fxShow="false">
+  <div fxLayout="column" class="quality-indicators-border-bottom-color
     quality-indicators-height-50">
     <div fxLayout="row" class="quality-indicators-header-align">
-      <div fxFlex="100" fxFlex.sm="100" fxFlex.md="100"
-        class="quality-indicators-position-title-orders">
-        <span>
-          {{'quality.indicators.quality_indicators'| translate}}
+      <div fxFlex="60" fxFlex.sm="90" fxFlex.md="65" class="quality-indicators-position-title-mobile">
+        <span class="material-icons-outlined
+        quality-indicators-icon-color-title">bar_chart
         </span>
+        {{'quality.indicators.quality_indicators'| translate}}
       </div>
     </div>
   </div>
   <div fxLayout="column">
     <div fxLayout="row" class="quality-indicators-header-align">
-      <div fxFlex="100" fxFlex.sm="100" fxFlex.md="100"
-        class="quality-indicators-position-title-orders">
+      <div fxFlex="100" fxFlex.sm="100" fxFlex.md="100" class="quality-indicators-position-title-orders">
         <span class="quality-indicators-font-size-color">
           {{'quality.indicators.Last_days'| translate}}: {{'shared.from' |
           translate}} <span class="quality-indicators-font-weight-bold">{{from}}</span>
-          {{'shared.to'| translate }} <span
-            class="quality-indicators-font-weight-bold">{{to}}</span>
+          {{'shared.to'| translate }} <span class="quality-indicators-font-weight-bold">{{to}}</span>
         </span>
       </div>
     </div>
@@ -141,8 +129,7 @@
   <div fxLayout="column" class="quality-indicators-border-bottom-color
     quality-indicators-height-50">
     <div fxLayout="row" class="quality-indicators-header-align">
-      <div fxFlex="100" fxFlex.sm="100" fxFlex.md="100"
-        class="quality-indicators-position-title-orders">
+      <div fxFlex="100" fxFlex.sm="100" fxFlex.md="100" class="quality-indicators-position-title-orders">
         <div class="quality-indicators-color">
           {{'quality.indicators.objectives' | translate}}
         </div>
@@ -159,8 +146,7 @@
                 quality-indicators-font-weight-bold">
                 {{indicators.indicatorName}}
               </span>
-              <span class="quality-indicators-aling-icon-cursor"
-                (click)="openBtnInfo(indicators.indicatorName ,
+              <span class="quality-indicators-aling-icon-cursor" (click)="openBtnInfo(indicators.indicatorName ,
                 indicators.calcInformation)">
                 <mat-icon class="mat-18 quality-indicators-icon-info">info</mat-icon>
               </span>
@@ -182,27 +168,23 @@
             </div>
             <div fxFlex="100">
               <div fxLayout="row" class="quality-indicators-padding-top">
-                <div fxFlex="80" class="quality-indicators-contain"
-                  *ngIf="indicators.value !== null">
-                  <div class="quality-indicators-height-15" 
-                  *ngIf="indicators.value !== null && indicators.value !== 0">
-                  <div *ngIf="indicators.percentageBar> 0 " [ngStyle]="{'width':
+                <div fxFlex="80" class="quality-indicators-contain" *ngIf="indicators.value !== null">
+                  <div class="quality-indicators-height-15" *ngIf="indicators.value !== null && indicators.value !== 0">
+                    <div *ngIf="indicators.percentageBar> 0 " [ngStyle]="{'width':
                     indicators.percentageBar + '%',
-                    'background-color': indicators.color, 'height': '15px' }"  [matTooltip]="indicators.message" matTooltipPosition="above"></div>
-                  <div *ngIf="indicators.percentageBar === 0"
-                    class="quality-indicators-bar-without-data"></div>
+                    'background-color': indicators.color, 'height': '15px' }" [matTooltip]="indicators.message"
+                      matTooltipPosition="above"></div>
+                    <div *ngIf="indicators.percentageBar === 0" class="quality-indicators-bar-without-data"></div>
                   </div>
                 </div>
-                <div fxFlex="20" class="quality-indicators-text-align-end"
-                  *ngIf="indicators.value !== null">
+                <div fxFlex="20" class="quality-indicators-text-align-end" *ngIf="indicators.value !== null">
                   <span class="quality-indicators-color-text-indicators
                     quality-indicators-vertical-aling-super">
                     {{indicators.value}} {{indicators.measureUnit}}
                   </span>
                 </div>
                 <div fxFlex="100" class="quality-indicators-padding-20
-                  quality-indicators-color-text-indicators"
-                  *ngIf="indicators.value ===
+                  quality-indicators-color-text-indicators" *ngIf="indicators.value ===
                   null">
                   {{'quality.indicators.indicator_not_available'| translate}}
                 </div>
