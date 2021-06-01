@@ -66,6 +66,8 @@ export class OfertExpandedProductComponent implements OnInit {
 
 
     public validateNumberOrder = true;
+    // Variable para cambiar copy del toogle de actualizar inventario
+    public changeCopyUpdateStock = this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.stock_update');
     convertPromise: string;
     approvalOfert: any;
     sellerMinPrice: any;
@@ -293,7 +295,7 @@ export class OfertExpandedProductComponent implements OnInit {
     public setCategoryError(show: boolean): void {
         if (this.ofertProduct.get('Currency').value === 'COP') {
             if (show) {
-                if (this.ofertProduct.controls.DiscountPrice.value <= this.sellerMinPrice ) {
+                if (this.ofertProduct.controls.DiscountPrice.value <= this.sellerMinPrice) {
                     this.ofertProduct.controls.DiscountPrice.setErrors({ price: show });
                 }
             } else {
@@ -400,6 +402,24 @@ export class OfertExpandedProductComponent implements OnInit {
                 this.sendDataToService(1);
             }
         });
+    }
+
+    /**
+     * Mensaje alerta cuadno toogle de inventario y variantes estan activados listado de productos.
+     * @memberof OfertExpandedProductComponent
+     */
+    alertSellerByReference(event: any) {
+        if (event && (this.ofertProduct.controls.OfferByReference.value === true && this.ofertProduct.controls.IsUpdatedStock.value === true)) {
+            this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.update_variants_all_references'), this.languageService.instant('actions.close'), {
+                duration: 7000,
+            });
+        }
+
+        if (this.ofertProduct.controls.OfferByReference.value === true) {
+            this.changeCopyUpdateStock = this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.update_variants');
+        } else {
+            this.changeCopyUpdateStock = this.languageService.instant('secure.products.create_product_unit.list_products.ofert_product.stock_update');
+        }
     }
 
     /**

@@ -257,7 +257,8 @@
         </div>
 
         <div>
-          <mat-slide-toggle color="primary" formControlName="IsFreeShipping"
+          <div fxLayout="row" fxLayoutAlign="space-evenly center">
+            <mat-slide-toggle color="primary" formControlName="IsFreeShipping" id="freeShippingdWidth"
             (change)="checkSlide($event, 'isFreeShipping')">
             {{'secure.offers.historical_admin.historical_admin.free_shipping' | translate}}
           </mat-slide-toggle>
@@ -271,15 +272,16 @@
             (change)="checkSlide($event, 'isFreightCalculator')">
             {{'secure.offers.historical_admin.historical_admin.freight_calculator' | translate}}
           </mat-slide-toggle>
+          </div>
 
-          <mat-slide-toggle color="primary" formControlName="IsUpdatedStock"
-            (change)="checkSlide($event, 'IsUpdatedStock')">
-            {{'secure.offers.list.components.detail_offer.update_stock' | translate}}
+          <mat-slide-toggle color="primary" formControlName="IsUpdatedStock"  id="updateStockWidth"
+            (change)="checkSlide($event, 'IsUpdatedStock'); alertSellerByReference($event)">
+            {{changeCopyUpdateStock}}
           </mat-slide-toggle>
         </div>
 
         <div *ngIf="dataOffer.reference || dataOffer.isCombo === false">
-          <mat-slide-toggle color="primary" formControlName="OfferByReference" class="apply_variants_toogle">
+          <mat-slide-toggle color="primary" formControlName="OfferByReference" class="apply_variants_toogle" (change)="alertSellerByReference($event)">
             {{'secure.products.create_product_unit.list_products.ofert_product.reference_update' | translate}}
           </mat-slide-toggle>
         </div>

@@ -1155,6 +1155,9 @@
     "secure.products.create_product_unit.list_products.ofert_product.changed_currency": "The currency has changed to ",
     "secure.products.create_product_unit.list_products.ofert_product.format_invalidate": "The format is invalid",
     "secure.products.create_product_unit.list_products.please_wait" : "Loading, wait please ...",
+    "secure.products.create_product_unit.list_products.ofert_product.update_variants": "Inventory update to all variations",
+    "secure.products.create_product_unit.list_products.ofert_product.update_variants_all_references": "The INVENTORY will be updated for all variations of the same Parent Reference",
+
 
     "secure.products.list_products.modal.title": "This offer undergoes an extreme price change, do you wish to continue?",
     "secure.products.pending_products_tab1": "Pendientes Modificación",
@@ -1497,5 +1500,7 @@
     "quality.indicators.bar_green": "Astrid Dépasse l'objectif",
     "quality.indicators.bar_orange": "S'adapte à la cible",
     "quality.indicators.bar_red": "Alerte ! Indicateur dégradé",
+    "secure.notifications.list.column-title": "Title",
+    "secure.notifications.list.column-date": "Date",
     "secure.reports.notification.fraud.charge-fraud": "CHARGE DES FRAUDES"
 }

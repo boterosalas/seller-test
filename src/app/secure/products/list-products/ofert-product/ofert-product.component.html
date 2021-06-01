@@ -112,10 +112,10 @@
       </mat-radio-group>
     </div>
     <div class="optionsUpdate">
-      <mat-slide-toggle formControlName="IsUpdatedStock">
-          {{'secure.products.create_product_unit.list_products.ofert_product.stock_update' | translate}}
+      <mat-slide-toggle formControlName="IsUpdatedStock" (change)="alertSellerByReference($event)">
+          {{changeCopyUpdateStock}}
       </mat-slide-toggle>
-      <mat-slide-toggle formControlName="OfferByReference">
+      <mat-slide-toggle formControlName="OfferByReference" (change)="alertSellerByReference($event)" *ngIf="applyOffer.eanesCombos.length === 0 && applyOffer.reference">
         {{'secure.products.create_product_unit.list_products.ofert_product.reference_update' | translate}}
     </mat-slide-toggle>
     </div>

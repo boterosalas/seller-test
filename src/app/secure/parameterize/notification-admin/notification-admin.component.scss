@@ -1,0 +1,64 @@
+:host ::ng-deep {
+  .top-11-btn-generic {
+    top: inherit !important
+  }
+}
+
+.notification-admin {
+  &-title-module {
+    padding: 20px 30px;
+    width: 220px;
+  }
+
+  &-padding-content-title{
+    padding: 0px 30px;
+  }
+
+  &-column-title{
+    color: #909090;
+    font-size: 14px;
+  }
+
+  &-display-justify{
+    display: flex;
+    justify-content: center;
+  }
+
+  &-{
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #909090
+  }
+
+  &-container-padding-color-icon{
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #909090
+  }
+
+  &-container-hover-cursor-icon{
+    width: 18px;
+    height:18px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  &-text-transform-uppercase{
+    text-transform: uppercase;
+  }
+  &-container-load-spinner-padding{
+    padding-top: 60px;
+  }
+}
+
+.loading-waiting{
+  text-align: center;
+}
+
+.width-100{
+  width: 100%;
+}
+
+.aling-spinner-center{
+  margin-left: 49%;
+  margin-right: 40%;
+}

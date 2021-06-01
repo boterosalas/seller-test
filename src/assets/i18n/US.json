@@ -1163,6 +1163,9 @@
     "secure.products.create_product_unit.list_products.ofert_product.changed_currency": "The currency has changed to ",
     "secure.products.create_product_unit.list_products.ofert_product.format_invalidate": "The format is invalid",
     "secure.products.create_product_unit.list_products.please_wait" : "Loading, wait please ...",
+    "secure.products.create_product_unit.list_products.ofert_product.update_variants": "Inventory update to all variations",
+    "secure.products.create_product_unit.list_products.ofert_product.update_variants_all_references": "The INVENTORY will be updated for all variations of the same Parent Reference",
+
 
     "secure.products.list_products.modal.title": "This offer undergoes an extreme price change, do you wish to continue?",
     "secure.products.pending_products_tab1": "Pending modification",
@@ -1521,5 +1524,7 @@
     "quality.indicators.bar_green": "Exceeds target",
     "quality.indicators.bar_orange": "Adjusts to target",
     "quality.indicators.bar_red": "Alert! Degraded indicator",
+    "secure.notifications.list.column-title": "Title",
+    "secure.notifications.list.column-date": "Date",
     "secure.reports.notification.fraud.charge-fraud": "CHARGE FRAUDS"
 }

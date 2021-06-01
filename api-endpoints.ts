@@ -332,7 +332,18 @@ export const endpoints = {
       // Crear caterogiras de forma masiva
       createUpdateMassiveCategories: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/CreateUpdateMassiveCategories/{params}',
        // valida el estado de la carga masiva de categorias
-       ValidateStatusCreateUpdateMassive :  'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/ValidateStatusCreateUpdateMassive'
+       ValidateStatusCreateUpdateMassive :  'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/ValidateStatusCreateUpdateMassive',
+       // Captura todas las notificaciones (anuncios )
+       getAllNotification : 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/GetPaginatedNews{params}',
+       // Crear anuncio
+       createNew : 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/CreateNew',
+       // Guardar imagen de anuncios
+       saveImgNotification : 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/SaveImage',
+       // Editar anuncios
+       updateNotification : 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/UpdateNew',
+       // Eliminar anuncios
+       deleteNotification: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/DeleteNew{params}'
+
     },
   },
   // Endpoints production
@@ -662,7 +673,17 @@ export const endpoints = {
       // Crear caterogiras de forma masiva
       createUpdateMassiveCategories: 'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/CreateUpdateMassiveCategories/{params}',
       // valida el estado de la carga masiva de categorias
-      ValidateStatusCreateUpdateMassive :  'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/ValidateStatusCreateUpdateMassive'
+      ValidateStatusCreateUpdateMassive :  'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/ValidateStatusCreateUpdateMassive',
+       // Captura todas las notificaciones (anuncios )
+      getAllNotification : 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/GetPaginatedNews{params}',
+       // Crear anuncio
+      createNew : 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/CreateNew',
+      // Guardar imagen de anuncios
+      saveImgNotification : 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/SaveImage',
+      // Editar anuncios
+      UpdateNotification : 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/UpdateNew',
+      // Eliminar anuncios
+      deleteNotification: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/DeleteNew{params}'
     }
   }
 };

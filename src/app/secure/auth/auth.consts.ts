@@ -473,7 +473,7 @@ const DocumentModule = new ModuleModel(documentModule, showAll, documentModule.t
  * 4. Perfiles.
  * 5. Marcas.
  */
-export const paramModule = 'PARAMETRIZACIÓN', quoteName = 'Cotizador', transportName = 'transportadora', zonesName = 'zonas', specsName = 'Especificaciones', categoriesTreeName = 'Asignar comisión', profileName = 'Perfiles', categoryName = 'Árbol de categorías', brandName = 'Marcas', portName = 'Parametrizar Centros de Acopio', exception = 'Excepción por comisión';
+export const paramModule = 'PARAMETRIZACIÓN', quoteName = 'Cotizador', transportName = 'transportadora', zonesName = 'zonas', specsName = 'Especificaciones', categoriesTreeName = 'Asignar comisión', profileName = 'Perfiles', categoryName = 'Árbol de categorías', brandName = 'Marcas', portName = 'Parametrizar Centros de Acopio', exception = 'Excepción por comisión', notification = 'Notificación';
 const ParamModule = new ModuleModel(paramModule, showAll, paramModule.toLowerCase(), [
     // 1. Cotizador.
     new MenuModel(quoteName, showAll, quoteName.toLowerCase(), ProfileTypes.Administrador, [
@@ -526,11 +526,18 @@ const ParamModule = new ModuleModel(paramModule, showAll, paramModule.toLowerCas
         new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality), // Editar.
         new FunctionalitiesModel(createFunctionality, showAll, createFunctionality) // Crear.
     ], RoutesConst.sellerCenterIntPort),
+    // 8. Excepcion por marca
     new MenuModel(exception, showAll, exception.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality), // Editar.
         new FunctionalitiesModel(createFunctionality, showAll, createFunctionality) // Crear.
-    ], RoutesConst.sellerCenterIntException)
+    ], RoutesConst.sellerCenterIntException),
+    // 9. Notificacion
+    new MenuModel(notification, showAll, notification.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+        new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality), // Editar.
+        new FunctionalitiesModel(createFunctionality, showAll, createFunctionality) // Crear.
+    ], RoutesConst.sellerCenterIntNotification)
 ]);
 
 export const reclaModule = 'RECLAMACIONES', listreclamaciones = 'Listar Reclamaciones';
