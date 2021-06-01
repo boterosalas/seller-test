@@ -71,6 +71,7 @@ export class ListProductsComponent implements OnInit {
     fechaFinal: any;
     pluVtexList: any;
     sellerSkuList: any;
+    referenceList: any;
     categoryList: any;
     showProducts = false;
     // user info
@@ -79,6 +80,7 @@ export class ListProductsComponent implements OnInit {
     eanVariable = false;
     pluVariable = false;
     sellerSkuVariable = false;
+    referenceVariable = false;
     nameVariable = false;
     fechaInicialVariable = false;
     fechaFinalVariable = false;
@@ -299,6 +301,7 @@ export class ListProductsComponent implements OnInit {
             ean: this.eanList || null,
             plu: stringPlus || null,
             sellerSku: this.sellerSkuList || null,
+            reference: this.referenceList || null,
             product: this.nameProductList || null,
             categories: this.categoryList || null,
             creationDate: booleanDate || null,
@@ -556,6 +559,7 @@ export class ListProductsComponent implements OnInit {
             ean: this.eanList || null,
             plu: this.keyPlus.toString() || null,
             sellerSku: this.sellerSkuList || null,
+            reference: this.referenceList || null,
             product: this.nameProductList || null,
             categories: this.categoryList || null,
             creationDate: this.creationDateList || null,
@@ -598,6 +602,7 @@ export class ListProductsComponent implements OnInit {
             ean: this.eanList || null,
             plu: this.keyPlus.toString() || null,
             sellerSku: this.sellerSkuList || null,
+            reference: this.referenceList || null,
             product: this.nameProductList || null,
             categories: this.categoryList || null,
             creationDate: this.creationDateList || null,
@@ -660,6 +665,7 @@ export class ListProductsComponent implements OnInit {
             ean: new FormControl(''),
             pluVtex: new FormControl(''),
             sellerSku: new FormControl('', Validators.compose([Validators.pattern(this.getValue('sellerSku'))])),
+            reference: new FormControl('', Validators.compose([Validators.pattern(this.getValue('referenceProduct'))])),
             initialDate: { disabled: true, value: '' },
             finalDate: { disabled: true, value: '' },
             creationDate: new FormControl('', []),
@@ -710,6 +716,7 @@ export class ListProductsComponent implements OnInit {
         this.finalDateList = null;
         this.pluVtexList = null;
         this.sellerSkuList = null;
+        this.referenceList = null;
         this.categoryList = null;
         this.listFilterProducts = [];
 
@@ -815,6 +822,7 @@ export class ListProductsComponent implements OnInit {
         this.nameProductList = this.filterProduts.controls.productName.value || null;
         this.pluVtexList = arrayPlus || null;
         this.sellerSkuList = this.filterProduts.controls.sellerSku.value || null;
+        this.referenceList = this.filterProduts.controls.reference.value || null;
         this.categoryList = this.idcategory || null;
         this.eanList = this.filterProduts.controls.ean.value || null;
         this.creationDateList = this.filterProduts.controls.creationDate.value || null;
@@ -852,6 +860,13 @@ export class ListProductsComponent implements OnInit {
         }
         if (this.sellerSkuList) {
             this.sellerSkuVariable = true;
+            countFilter++;
+        } else {
+            this.eanVariable = false;
+            countFilter++;
+        }
+        if (this.referenceList) {
+            this.referenceVariable = true;
             countFilter++;
         } else {
             this.eanVariable = false;
@@ -925,7 +940,7 @@ export class ListProductsComponent implements OnInit {
             this.finalDateList = null;
         }
         if (countFilter) {
-            urlParams2 = `?&initialDate=${this.initialDateList}&finalDate=${this.finalDateList}&ean=${encodeURIComponent(this.eanList)}&productName=${encodeURIComponent(this.nameProductList)}&creationDate=${this.creationDateList}&page=${page}&limit=${limit}&pluVtex=${this.pluVtexList}&sellerSku=${this.sellerSkuList}&categories=${this.categoryList}&myProducts=${this.myProduct}`;
+            urlParams2 = `?&initialDate=${this.initialDateList}&finalDate=${this.finalDateList}&ean=${encodeURIComponent(this.eanList)}&productName=${encodeURIComponent(this.nameProductList)}&creationDate=${this.creationDateList}&page=${page}&limit=${limit}&pluVtex=${this.pluVtexList}&sellerSku=${this.sellerSkuList}&reference=${this.referenceList}&categories=${this.categoryList}&myProducts=${this.myProduct}`;
         }
         this.loadingService.viewSpinner(); // Mostrar el spinner
         if (params && !fecha) {
@@ -962,6 +977,7 @@ export class ListProductsComponent implements OnInit {
         this.eanList = this.filterProduts.controls.ean.value || null;
         this.pluVtexList = this.keyPlus || null;
         this.sellerSkuList = this.filterProduts.controls.sellerSku.value || null;
+        this.referenceList = this.filterProduts.controls.reference.value || null;
         this.categoryList = this.idcategory || null;
 
 
@@ -974,7 +990,7 @@ export class ListProductsComponent implements OnInit {
         // const data = [];
         this.dataChips.push({ value: this.nameProductList, name: 'nameProductList', nameFilter: 'productName' });
         this.dataChips.push({ value: this.eanList, name: 'eanList', nameFilter: 'ean' });
-        // this.dataChips.push({ value: this.pluVtexList, name: 'pluVtexList', nameFilter: 'pluVtex' });
+        this.dataChips.push({ value: this.referenceList, name: 'referenceList', nameFilter: 'reference' });
         this.dataChips.push({ value: this.sellerSkuList, name: 'sellerSkuList', nameFilter: 'sellerSku' });
         this.dataChips.push({ value: this.creationDateList, name: 'creationDateList', nameFilter: 'creationDate' });
         if (this.idcategory && this.idcategory.length > 0) {
@@ -1009,6 +1025,10 @@ export class ListProductsComponent implements OnInit {
         if (!this.sellerSkuVariable) {
             this.filterProduts.controls.sellerSku.setValue('');
             this.sellerSkuList = null;
+        }
+        if (!this.referenceVariable) {
+            this.filterProduts.controls.reference.setValue('');
+            this.referenceList = null;
         }
         if (!this.categoryVariable) {
             this.filterProduts.controls.category.setValue('');

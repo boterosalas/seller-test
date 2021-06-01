@@ -18,6 +18,14 @@ $color-green: #6FB63E;
   }
 }
 
+#freeShippingdWidth {
+  width: 33% !important;
+}
+
+#updateStockWidth {
+  width: 90% !important;
+}
+
 .titleMask {
   width: 25%;
 }
@@ -26,6 +34,10 @@ $color-green: #6FB63E;
   width: 100%;
   display: flex;
   color: #5D5D5D;
+}
+
+.apply_variants_toogle {
+  width: 100% !important;
 }
 
 
