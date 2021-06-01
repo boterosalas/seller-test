@@ -59,6 +59,10 @@ export class SizesComponent implements OnInit {
     this.validateFormSupport();
   }
 
+  /**
+   * Metodo para obtener regex de dynamo
+   * @memberof SizesComponent
+   */
   public validateFormSupport(): void {
     this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
       let dataRegexs = JSON.parse(res.body.body);
@@ -73,12 +77,23 @@ export class SizesComponent implements OnInit {
     });
   }
 
+  /**
+   * Filtro por nombre de tallas
+   * @memberof SizesComponent
+   */
   createFormControls() {
     this.filterSizes = this.fb.group({
       SizeName: new FormControl('', [Validators.pattern(this.sizeRegex.sizeProduct)]),
     });
   }
 
+
+  /**
+   * Funcion para listar tallas.
+   * @param {*} [params]
+   * @param {*} [filters]
+   * @memberof SizesComponent
+   */
   listSize(params?: any, filters?: any) {
     this.loadingService.viewSpinner();
     let urlParams;
@@ -201,6 +216,11 @@ export class SizesComponent implements OnInit {
     });
   }
 
+  /**
+   * Metodo para eliminar tallas
+   * @param {*} element
+   * @memberof SizesComponent
+   */
   public deleteSize(element: any) {
     console.log(element);
     this.paginationToken = '{}';
