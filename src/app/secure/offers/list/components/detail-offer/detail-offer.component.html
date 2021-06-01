@@ -280,7 +280,7 @@
           </mat-slide-toggle>
         </div>
 
-        <div *ngIf="dataOffer.reference || dataOffer.isCombo === false">
+        <div *ngIf="dataOffer.reference && dataOffer.isCombo === false">
           <mat-slide-toggle color="primary" formControlName="OfferByReference" class="apply_variants_toogle" (change)="alertSellerByReference($event)">
             {{'secure.products.create_product_unit.list_products.ofert_product.reference_update' | translate}}
           </mat-slide-toggle>
