@@ -4,6 +4,22 @@ $table-break: 900px;
 .dashboard {
   &__content {
     padding: 3em 5%;
+    background-color: #F6F6F4;
+  }
+
+  &__greetings {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+
+    span {
+      font-size: 14px;
+    }
+
+    p {
+      font-size: 36px;
+      margin-top: 0%;
+      margin-bottom: 1.5%;
+    }
   }
 
   &__advertisements-orders {

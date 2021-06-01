@@ -10,8 +10,16 @@
     Puedes ingresar al resto de los m&oacute;dulos a trabajar. "</p>
 </div>
 <div class="dashboard">
-  <div class="dashboard__content" style="background-color: #F6F6F4;">
 
+  <div class="dashboard__content">
+
+    <div class="dashboard__greetings">
+      <span>{{'shared.hi' | translate}}</span>
+      <p *ngIf="user">
+        {{user.sellerName}}
+      </p>
+    </div>
+   
     <div class="dashboard__advertisements-orders">
       <app-advertisements class="dashboard__advertisements"></app-advertisements>
       <app-dash-orders class="dashboard__orders"></app-dash-orders>

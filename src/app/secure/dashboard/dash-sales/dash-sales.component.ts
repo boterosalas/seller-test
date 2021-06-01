@@ -155,7 +155,6 @@ export class DashSalesComponent implements OnInit {
 
     this.startDate = new Date();
     this.dateMax = this.startDate;
-    this.getMonthVisible(this.startDate.getMonth());
     this.getMonthVisibleSales(this.startDate.getMonth());
   }
 
@@ -166,93 +165,16 @@ export class DashSalesComponent implements OnInit {
     this.changeLanguage();
     this.setSelectFilterOrders();
     this.getSalesSummary();
-    this.getOrdensSummary();
   }
-
 
   /**
    * funcion para selecionar por defecto una opcion en el listado de periodicidad
    * @memberof DashSalesComponent
    */
-  setSelectFilterOrders() {
+   setSelectFilterOrders() {
     this.selected = '1';
     this.selectedSales = '4';
   }
-
-  /**
-   * funcion para mostrar los diferentes calendarios dependiendo del filtro
-   * @param {*} filter
-   * @memberof DashSalesComponent
-   */
-  select(filter: any) {
-    this.typeFilter = filter;
-    if (filter === '1' || filter === '2') {
-      this.showCalenderQ = true;
-      this.showCalenderD = false;
-    } else {
-      this.showCalenderQ = false;
-      this.showCalenderD = true;
-    }
-    this.getOrdensSummary();
-  }
-
-  /**
-   * funcion para obtener todas las ordenes
-   * @param {*} [params]
-   * @memberof DashSalesComponent
-   */
-  getOrdensSummary(params?: any) {
-    this.params = this.setParameters(params);
-    this.showChartOrdens = false;
-    this._dashboard.getOrdensSummary(this.params).subscribe((res: any) => {
-      if (this.isLoad) {
-        this.loadingService.closeSpinner();
-      } else {
-        this.isLoading = false;
-      }
-      this.last_ordens = res.reportOrdersSalesType ? this.parseLastOrdens(res.reportOrdersSalesType.reverse()) : [];
-      this.calculateCountSales(res.reportOrdersSalesType);
-      this.showChartOrdens = true;
-    }, err => {
-      if (this.isLoad) {
-        this.loadingService.closeSpinner();
-      } else {
-        this.isLoading = false;
-      }
-      this.log.debug(err);
-      this.modalService.showModal('errorService');
-    }
-    );
-  }
-
-  /**
-   * funcion para setear los parametros
-   * @param {*} params
-   * @returns
-   * @memberof DashSalesComponent
-   */
-  setParameters(params: any) {
-    let paramsOrdersSummary = 'null/';
-    if (this.dateCurrent === '' || this.dateCurrent === undefined) {
-      this.dateCurrent = new Date();
-      const latest_date = this.datepipe.transform(this.dateCurrent, 'yyyy-MM-dd');
-      paramsOrdersSummary += latest_date + '/';
-    } else {
-      paramsOrdersSummary += this.datepipe.transform(this.dateCurrent, 'yyyy-MM-dd') + '/';
-    }
-    if (this.typeFilter !== undefined && this.typeFilter !== null) {
-      paramsOrdersSummary += this.typeFilter;
-    }
-    if (this.typeFilter === '4' || this.typeFilter === '3') {
-      this.dateOrdens = this.datepipe.transform(this.dateCurrent, 'yyyy-MM-dd');
-      this.showOrdens = true;
-    } else {
-      this.dateOrdens = '';
-      this.showOrdens = false;
-    }
-    return paramsOrdersSummary;
-  }
-
   /**
    * funcion para calcular el total de cantidad de un producto
    * @param {*} res
@@ -281,39 +203,8 @@ export class DashSalesComponent implements OnInit {
     } else {
       this.hideIndicators = false;
     }
-    this.getOrdersData();
   }
 
-
-  /**
-   * Método que carga los datos de las órdenes.
-   * @private
-   * @memberof DashSalesComponent
-   */
-  private getOrdersData() {
-    this.loadingService.viewSpinner();
-    this._dashboard.getOrdersByStatus(this.user.sellerId)
-      .subscribe(res => {
-        this.orders = res;
-        this.loadingService.closeSpinner();
-      }, err => {
-        this.loadingService.closeSpinner();
-        this.log.debug(err);
-        this.modalService.showModal('errorService');
-      });
-  }
-
-
-  /**
-   * Método que carga los datos de las ventas de los últimos tres meses a parir de la fecha indicada.
-   * @private
-   * @param {*} [date]
-   * @memberof DashSalesComponent
-   */
-  private getLastOrdens(date?: any) {
-    this.dateCurrent = date;
-    this.getOrdensSummary();
-  }
 
   /**
    * Metodo cambio lenguaje, seteo info
@@ -333,7 +224,6 @@ export class DashSalesComponent implements OnInit {
         this.selectTypeFilter = this.periodsEN[3].value;
       }
       this.getSalesSummary();
-      this.getOrdensSummary();
     });
 
     this.lang = localStorage.getItem('culture_current');
@@ -346,85 +236,6 @@ export class DashSalesComponent implements OnInit {
     }
   }
 
-  /**
-   * Método organiza la información de las ventas de los últimos 3 meses para encontrar
-   * las proporciones adecuadas para pintar los datos en la gráfica.
-   * @param {*} last datos sin procesar de los últimos tres meses.
-   * @returns
-   * @memberof DashSalesComponent
-   */
-  private parseLastOrdens(last: any) {
-    if (last && last.length > 0) {
-      let sumatory = 0;
-      last.forEach(element => {
-        sumatory += element.quantity;
-        element.percent = 0 + '%';
-      });
-      last.forEach(element => {
-        element.percent = ((element.quantity / sumatory) * 100) + '%';
-      });
-    } else {
-      last.forEach(element => {
-        element.percent = '0%';
-      });
-    }
-    return last;
-  }
-
-  /**
-   * Método que se encarga de responder al evento que se produce al seleccionar un mes en el date picker.
-   * @param {*} month Fecha correspondiente al mes seleccionado en el date picker.
-   * @param {*} dp El elemento date picker.
-   * @memberof DashSalesComponent
-   */
-  public chosenMonthHandler(month: any, dp: any) {
-    const date = new Date(month);
-    this.startDate = date;
-    this.getMonthVisible(date.getMonth());
-    this.getLastOrdens(date);
-    dp.close();
-  }
-  public chosenMonthHandlerDiary(month: any, dp: any) {
-    const date = new Date(month.value);
-    this.startDate = date;
-    this.getMonthVisible(date.getMonth());
-    this.getLastOrdens(date);
-    dp.close();
-  }
-
-  /**
-   * Método que abre el date picker.
-   * @memberof DashSalesComponent
-   */
-  public openDatePicker() {
-    this.picker.open();
-  }
-
-  /**
-   * Método que abre el date picker diario.
-   * @memberof DashSalesComponent
-   */
-  public openDatePickerDiary() {
-    this.pickerDiary.open();
-  }
-
-  getMonthVisible(month: any) {
-    this.languageService.onLangChange.subscribe((event: LangChangeEvent) => {
-      if ('ES' === event.lang) {
-        this.visibleDate = this.monthES[month];
-      } else if ('FR' === event.lang) {
-        this.selectTypeFilter = this.monthEN[month];
-      } else {
-        this.visibleDate = this.monthEN[month];
-      }
-    });
-    this.lang = localStorage.getItem('culture_current');
-    if (this.lang === 'ES') {
-      this.visibleDate = this.monthES[month];
-    } else {
-      this.visibleDate = this.monthEN[month];
-    }
-  }
 
   /**
    * Método que retorna el mes actual en forma de string.
@@ -474,15 +285,6 @@ export class DashSalesComponent implements OnInit {
     } else {
       this.getUserData();
     }
-  }
-
-  /**
-   * funcion para mostrar las diferentes vistas de movil a escritorio
-   * @param {boolean} show
-   * @memberof DashSalesComponent
-   */
-  public showChangeView(show: boolean) {
-    this.showOrdersChart = !show;
   }
 
   /**
