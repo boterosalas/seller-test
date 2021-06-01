@@ -69,7 +69,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     clickBoarToken = false;
     public dialogRef: any;
     public arrayListArea = [];
-    public idSeller= null;
+    public idSeller = null;
 
     // Seller nacional o internacional
     isChannel: Boolean = false;
@@ -145,9 +145,17 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
             data: {
                 contact: contact,
                 arrayListArea: this.arrayListArea,
-                idSeller : this.idSeller
+                idSeller: this.idSeller
             },
             disableClose: false,
+        });
+
+        const dialogIntance = this.dialogRef.componentInstance;
+        this.dialogRef.afterClosed().subscribe(res => {
+            this.getAllContactData();
+        });
+        dialogIntance.processFinishModalContactProfiel$.subscribe((val) => {
+            this.getAllContactData();
         });
     }
 

@@ -94,7 +94,8 @@
                   </mat-card>
                 </ng-container>
                 <ng-template #programVacations>
-                  <button mat-stroked-button id="btn-program-vacation"
+                  <button mat-stroked-button id="btn-program-vacation" style="background-color:
+                  white; border: solid 1px; width: 188px;"
                     color="primary" [disabled]="isDisable"
                     (click)="sendToOpenVacationDialog()">{{'secure.seller.list.program_vacation'
                     | translate}}</button>
@@ -225,15 +226,8 @@
               mat-button (click)="openModalContact(element)">
               <mat-icon class="flexbox align-center justify-center" style="width: 20px; height: 20px; font-size: 20px;">edit</mat-icon>
             </button>
-            <!-- <button class="button-edit" type="button" style="color: #a3a2a2;" color="primary"
-              matTooltip="Eliminar" matTooltipPosition="below" mat-icon-button mat-button
-              (click)="deleteContact(productsExpanded)">
-              <mat-icon class="flexbox align-center justify-center" style="width: 20px; height: 20px; font-size: 20px;">delete</mat-icon>
-            </button> -->
             </mat-cell>
           </ng-container>
-
-
           <!-- Creación de las filas para la tabla -->
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row id="order-number-{{index}}" *matRowDef="let index=index; let
@@ -242,6 +236,73 @@
             [cdkDetailRowTpl]="tpl">
           </mat-row>
         </mat-table>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="typeUser !== 'seller'">
+    <h1 class="text-center">{{'secure.aws_cognito.profile.profile' | translate}}</h1>
+    <div class="profile-content">
+      <div class="sub-content">
+        <form [formGroup]="form">
+          <mat-form-field class="full-width">
+            <input matInput [placeholder]="'secure.aws_cognito.profile.seller_id' | translate" autocomplete="false"
+              formControlName="IdSeller">
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input matInput [placeholder]="('secure.seller.register_seller.lb_nit_form' | translate)" autocomplete="false"
+              formControlName="Nit">
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input matInput [placeholder]="('secure.seller.register_seller.lb_store_name_form' | translate)"
+              autocomplete="false" formControlName="Name">
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input matInput [placeholder]="('secure.seller.register_seller.lb_email_form' | translate)" autocomplete="false"
+              formControlName="Email">
+          </mat-form-field>
+        </form>
+        <div *ngIf="isChannel && channelAdvisor" class=" classToken">
+          {{'secure.seller.register_seller.lb_channel_token' | translate}}:
+          <br>
+          {{channelAdvisor}}
+        </div>
+      </div>
+      <div *ngIf="canVacation" class="sub-content">
+        <ng-container *ngIf="isInVacation; else programVacations">
+          <mat-card id="info-vacation" class="mat card">
+            <div class="options">
+              <mat-icon id="btn-edit-vacations" (click)="sendToOpenVacationDialog()" [ngClass]="{disabledDiv: isDisable}">
+                edit
+              </mat-icon>
+              <mat-icon *ngIf="canCancelVacation" id="btn-cancel-vacations" (click)="sendToOpenCancelVacationDialog()"
+                [ngClass]="{disabledDiv: isDisable}">
+                delete
+              </mat-icon>
+            </div>
+            <div class="icon-container">
+              <mat-icon>
+                local_airport
+              </mat-icon>
+            </div>
+            <div class="content-contaienr">
+              <mat-card-title>
+                <p class="title-text">
+                  <strong>{{'secure.seller.list.vacation_title_modal' | translate}}</strong>
+                </p>
+              </mat-card-title>
+              <mat-card-content>
+                <label class="label-result">
+                  <strong>{{'secure.seller.list.start_date' | translate}}:</strong>{{user.StartVacations}} -
+                  <strong>{{'secure.seller.list.end_date' | translate}}:</strong>{{user.EndVacations}}
+                </label>
+              </mat-card-content>
+            </div>
+          </mat-card>
+        </ng-container>
+        <ng-template #programVacations>
+          <button mat-stroked-button id="btn-program-vacation" color="primary" [disabled]="isDisable"
+            (click)="sendToOpenVacationDialog()">{{'secure.seller.list.program_vacation' | translate}}</button>
+        </ng-template>
       </div>
     </div>
   </div>

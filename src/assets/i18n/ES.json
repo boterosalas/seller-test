@@ -1563,5 +1563,6 @@
     "quality.indicators.bar_red": "Alerta! Indicador degradado",
     "secure.notifications.list.column-title": "Título",
     "secure.notifications.list.column-date": "Fecha",
-    "secure.reports.notification.fraud.charge-fraud": "CARGAR FRAUDES"
+    "secure.reports.notification.fraud.charge-fraud": "CARGAR FRAUDES",
+    "secure.profiel.modal.message.text":"El contacto se ha creado exitosamente"
 }

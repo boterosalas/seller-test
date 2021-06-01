@@ -1,15 +1,15 @@
 <div fxLayout="row wrap">
   <div fxFlex="100" style="text-align: end;">
-    <mat-icon class="mat-18" style="color: #909090; font-size: 18px; width:
-      16; height: 16px; cursor: pointer;" matTooltip="Cerrar" (click)="close()">close</mat-icon>
+    <mat-icon class="mat-18" style="color: #909090; font-size: 20px; width:
+      20; height: 20px; cursor: pointer;" matTooltip="Cerrar" (click)="close()">close</mat-icon>
   </div>
 </div>
-<div fxLayout="row wrap">
+<div fxLayout="row wrap" *ngIf="!success">
   <div fxFlex="100" style="text-align: center;">
     <span style="font-size: 20px; font-weight: bold;">Editar contacto</span>
   </div>
 </div>
-<div *ngIf="form">
+<div *ngIf="form && !success">
   <div fxLayout="row wrap" style="width: 100%;">
     <form #contactForm="ngForm" [formGroup]="form" style="width: 100%;">
       <div fxLayout="row wrap" style="width: 100%; padding: 20px; padding-top: 40px;">
@@ -57,21 +57,23 @@
         <div fxFlex="50">
           <mat-form-field style="width: 90%;"
             class="notification-form-width-100">
-            <input matInput placeholder="Celular"
+            <input matInput placeholder="Celular" (focusout)="validateOutFocus_CellPhone()"
               class="modal-export-to-reclaim-text-uppercase"
-              [errorStateMatcher]="matcher" (keypress)="validateCellOrPhone($event)" formControlName="cellPhone">
+              [errorStateMatcher]="matcher" formControlName="cellPhone" maxlength="12">
               <mat-error *ngIf="form.get('cellPhone').hasError('pattern')">{{'errors.format_invalidate' | translate}}
               </mat-error>
+              <mat-error *ngIf="form.get('cellPhone').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
         </div>
         <div fxFlex="50">
           <mat-form-field style="width: 90%;"
             class="notification-form-width-100">
             <input matInput placeholder="Teléfono"
-              class="modal-export-to-reclaim-text-uppercase"
-              [errorStateMatcher]="matcher" formControlName="phone">
+              class="modal-export-to-reclaim-text-uppercase" (focusout)="validateOutFocus_Phone()"
+              [errorStateMatcher]="matcher" formControlName="phone" maxlength="12">
               <mat-error *ngIf="form.get('phone').hasError('pattern')">{{'errors.format_invalidate' | translate}}
               </mat-error>
+              <mat-error *ngIf="form.get('phone').hasError('required')">{{'errors.required' | translate}}</mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -92,8 +94,8 @@
     </div>
   </div>
 </div>
-<div *ngIf="!form" style="text-align: center;  padding-top: 140px;
-padding-bottom: 150px;">
+<div *ngIf="!form && !success" style="text-align: center;  padding-top: 80px;
+padding-bottom:220px;">
   <div style="margin-left: 47%;">
     <mat-spinner class="processCharge" [diameter]="40"></mat-spinner>
   </div>
@@ -101,5 +103,27 @@ padding-bottom: 150px;">
     <span>
       {{'secure.products.create_product_unit.list_products.please_wait' | translate}}
     </span>
+  </div>
+</div>
+
+<div *ngIf="success">
+  <div class="modal-contact-perfil-text-align-center">
+    <div class="modal-contact-perfil-container-icon-check">
+      <mat-icon class="material-icons modal-contact-perfil-icons-white-margin">
+        check
+      </mat-icon>
+    </div>
+    <div style="padding-top: 5%; padding-bottom: 10%;">
+      <span style="font-size: 18px; font-weight: bold;">
+        {{'secure.profiel.modal.message.text'| translate}}
+      </span>
+    </div>
+    <div>
+      <div>
+        <button mat-raised-button color="primary"
+        class="modal-contact-perfil-text-transform-uppercase" mat-button
+        (click)="close()">Aceptar</button>
+      </div>
+    </div>
   </div>
 </div>

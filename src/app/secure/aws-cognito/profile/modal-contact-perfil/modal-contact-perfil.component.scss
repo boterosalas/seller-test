@@ -1,0 +1,21 @@
+.modal-contact-perfil {
+  &-container-icon-check {
+    background-color: #6FB63E;
+    margin-left: 45%;
+    margin-right: 45%;
+    border-radius: 64px;
+    height: 70px;
+  }
+  &-text-align-center{
+    text-align: center;
+  }
+
+  &-icons-white-margin {
+    margin-top: 24px;
+    color: white;
+  }
+
+  &-text-transform-uppercase{
+    text-transform: uppercase;
+  }
+}

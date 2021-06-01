@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { EndpointService } from '@app/core';
 import { Observable } from 'rxjs/Observable';
+import { ARIA_DESCRIBER_PROVIDER_FACTORY } from '@angular/cdk/a11y';
 
 @Injectable()
 export class MyProfileService {

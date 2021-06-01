@@ -1,8 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import { Subject } from 'rxjs';
 import { MyProfileService } from '../myprofile.service';
+import { LoadingService } from '@app/core';
 
 @Component({
   selector: 'app-modal-contact-perfil',
@@ -13,11 +15,15 @@ export class ModalContactPerfilComponent implements OnInit {
 
   public form: FormGroup;
   ContactRegex = { integerNumber: '' };
+  public processFinishModalContactProfiel$ = new Subject<any>();
+  public success = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private profileService: MyProfileService,
     public SUPPORT: SupportService,
+    public dialogRef: MatDialogRef<ModalContactPerfilComponent>,
+    private loadingService: LoadingService,
   ) {
     this.getRegexByModule();
   }
@@ -39,7 +45,6 @@ export class ModalContactPerfilComponent implements OnInit {
   }
 
   createForm() {
-    console.log(this.ContactRegex);
     this.form = new FormGroup({
       translate: new FormControl(''),
       contactName: new FormControl('', [Validators.required]),
@@ -59,37 +64,19 @@ export class ModalContactPerfilComponent implements OnInit {
   }
 
   validContact() {
+    this.loadingService.viewSpinner();
     if (
       this.data.contact.Traduction !== null &&
       this.data.contact.ContactName !== null &&
       this.data.contact.Role !== null &&
-      this.data.contact.Email !== null &&
-      this.data.contact.Cellphone &&
-      this.data.contact.Phone !== null) {
+      this.data.contact.Email !== null) {
       this.editContact();
     } else {
       this.createContactData();
     }
-
   }
 
-  createContactData() {
-  const contactName = this.form.controls.contactName ? this.form.controls.contactName.value : null;
-    const params = {
-      IdSeller: this.data.idSeller ? this.data.idSeller : null,
-      Cellphone: this.form.controls.cellPhone ? parseInt(this.form.controls.cellPhone.value, 0) : null,
-      ContactName: contactName ? contactName.replace(/\b\w/g, l => l.toUpperCase()) : null,
-      Email: this.form.controls.email.value,
-      NameList: this.valiteResponsable(this.form.controls.translate.value),
-      Phone: this.form.controls.phone.value ? parseInt(this.form.controls.phone.value, 0) : null,
-      Role: this.form.controls.role.value,
-    };
-    this.profileService.createContactData(params).subscribe(result => {
-      console.log(result);
-    });
-  }
-
-  editContact() {
+  setParamas() {
     const contactName = this.form.controls.contactName ? this.form.controls.contactName.value : null;
     const params = {
       IdSeller: this.data.idSeller ? this.data.idSeller : null,
@@ -100,9 +87,36 @@ export class ModalContactPerfilComponent implements OnInit {
       Phone: this.form.controls.phone.value ? parseInt(this.form.controls.phone.value, 0) : null,
       Role: this.form.controls.role.value,
     };
-    console.log(params);
+    return params;
+  }
+
+  createContactData() {
+    const params = this.setParamas();
+    this.profileService.createContactData(params).subscribe(result => {
+      if (result.Data) {
+        this.success = true;
+        this.processFinishModalContactProfiel$.next();
+        this.loadingService.closeSpinner();
+      } else {
+        // error
+        this.success = false;
+        this.loadingService.closeSpinner();
+      }
+    });
+  }
+
+  editContact() {
+    const params = this.setParamas();
     this.profileService.updateContactData(params).subscribe(result => {
-      console.log(result);
+      if (result.Data) {
+        this.processFinishModalContactProfiel$.next();
+        this.success = true;
+        this.loadingService.closeSpinner();
+      } else {
+        this.success = false;
+        this.loadingService.closeSpinner();
+        // error
+      }
     });
   }
 
@@ -110,8 +124,32 @@ export class ModalContactPerfilComponent implements OnInit {
     const nameList = this.data.arrayListArea.find(x => x.Traduction === areaResponsable).NameList;
     return nameList;
   }
+  close() {
+    this.dialogRef.close();
+  }
 
-  validateCellOrPhone(event: any) {
-    console.log(event);
+  validateOutFocus_CellPhone() {
+    if (this.form) {
+      const cellPhone = this.form.controls.cellPhone.value;
+      if (cellPhone) {
+        this.form.controls.phone.clearValidators();
+        this.form.controls.phone.setValidators(Validators.compose([Validators.pattern(this.ContactRegex.integerNumber)]));
+      } else {
+        this.form.controls.phone.clearValidators();
+        this.form.controls.phone.setValidators(Validators.compose([Validators.required]));
+      }
+    }
+  }
+  validateOutFocus_Phone() {
+    if (this.form) {
+      const phone = this.form.controls.phone.value;
+      if (phone) {
+        this.form.controls.cellPhone.clearValidators();
+        this.form.controls.cellPhone.setValidators(Validators.compose([Validators.pattern(this.ContactRegex.integerNumber)]));
+      } else {
+        this.form.controls.cellPhone.clearValidators();
+        this.form.controls.cellPhone.setValidators(Validators.compose([Validators.required, Validators.pattern(this.ContactRegex.integerNumber)]));
+      }
+    }
   }
 }

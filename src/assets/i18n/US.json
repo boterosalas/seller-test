@@ -1520,5 +1520,6 @@
     "quality.indicators.bar_red": "Alert! Degraded indicator",
     "secure.notifications.list.column-title": "Title",
     "secure.notifications.list.column-date": "Date",
-    "secure.reports.notification.fraud.charge-fraud": "CHARGE FRAUDS"
+    "secure.reports.notification.fraud.charge-fraud": "CHARGE FRAUDS",
+    "secure.profiel.modal.message.text":"The contact has been created successfully"
 }
