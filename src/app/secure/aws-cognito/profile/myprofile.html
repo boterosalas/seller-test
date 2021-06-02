@@ -12,14 +12,14 @@
               </div>
               <div>
                 <span style="font-size: 14px;">
-                  Vendedor
+                  {{'secure.products.table_load_product.seller' | translate}}
                 </span>
               </div>
             </div>
             <div fxFlex="20" style="padding: 30px;">
               <div>
                 <span style="font-size: 12px; color: #5D5D5D;">
-                  Id seller
+                  {{'secure.aws_cognito.profile.seller_id' | translate}}
                 </span>
               </div>
               <div>
@@ -31,7 +31,7 @@
             <div fxFlex="40" style="padding: 30px;">
               <div>
                 <span style="font-size: 12px; color: #5D5D5D;">
-                  Tienda
+                  {{'secure.parametize.profiles.dialog.modal_rdn_store' | translate}}
                 </span>
               </div>
               <div>
@@ -105,7 +105,7 @@
             <div fxFlex="20" style="padding-left: 30px;">
               <div>
                 <span style="font-size: 12px; color: #5D5D5D;">
-                  NIT
+                  {{'secure.seller.register_seller.lb_nit_form' | translate}}
                 </span>
               </div>
               <div>
@@ -117,7 +117,7 @@
             <div fxFlex="40" style="padding-left: 30px;">
               <div>
                 <span style="font-size: 12px; color: #5D5D5D;">
-                  Correo electrónico
+                  {{'secure.seller.register_seller.lb_email_form' | translate}}
                 </span>
               </div>
               <div>
@@ -135,7 +135,7 @@
                 style="background-color:
                 white; border: solid 1px; width: 100%;" type="button"
                 (click)="copyToken('la monda')">
-                <span>Copiar token Channel avisor</span>
+                <span>{{'secure.profiel.copy_token_channel_advisor' | translate}}</span>
               </button>
             </div>
             <div class="container">
@@ -143,7 +143,7 @@
                 <mat-icon class="mat-18" style="color: green;width: 18px;height:
                   18px;font-size: 18px;vertical-align: middle;">done</mat-icon>
                 <span style="font-size: 12px;">
-                  Token copiado
+                  {{'secure.profiel.copied_token'| translate}}
                 </span>
               </div>
             </div>
@@ -153,32 +153,32 @@
     </div>
     <div>
       <div style="padding: 30px;">
-        <span>Datos de contactos</span>
+        <span>{{'secure.profiel.contact_information' | translate}}</span>
       </div>
       <div fxLayout="row wrap" style="padding:10px 30px 30px 30px">
         <mat-table #table [dataSource]="dataSource" matSort style="width:
           100%; color: #a3a2a2;">
           <ng-container matColumnDef="responsibleArea">
-            <mat-header-cell fxFlex="25"  *matHeaderCellDef>
-              <span class="title-table-header">Área responsable</span>
+            <mat-header-cell fxFlex="15"  *matHeaderCellDef>
+              <span class="title-table-header">{{'secure.profiel.responsible_area' | translate}}</span>
             </mat-header-cell>
-            <mat-cell fxFlex="25"
+            <mat-cell fxFlex="15"
               *matCellDef="let element">
               <span style="color: #a3a2a2;">{{element.Traduction}}</span>
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="name">
-            <mat-header-cell fxFlex="15" *matHeaderCellDef>
-              <span class="title-table-header">Nombre</span>
+            <mat-header-cell fxFlex="25" *matHeaderCellDef>
+              <span class="title-table-header">{{'secure.profiel.contact_name_surname' | translate}}</span>
             </mat-header-cell>
-            <mat-cell fxFlex="15"
+            <mat-cell fxFlex="25"
               *matCellDef="let element">
               <span style="color: #a3a2a2;">{{element.ContactName}}</span>
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="position">
             <mat-header-cell fxFlex="15" *matHeaderCellDef>
-              <span class="title-table-header">Cargo</span>
+              <span class="title-table-header">{{'secure.profiel.position'| translate}}</span>
             </mat-header-cell>
             <mat-cell fxFlex="15"
               *matCellDef="let element">
@@ -187,7 +187,9 @@
           </ng-container>
           <ng-container matColumnDef="email">
             <mat-header-cell fxFlex="15" *matHeaderCellDef>
-              <span class="title-table-header">Correo electrónico</span>
+              <span class="title-table-header">
+                {{'secure.seller.register_seller.lb_email_form' | translate}}
+              </span>
             </mat-header-cell>
             <mat-cell fxFlex="15"
               *matCellDef="let element">
@@ -196,7 +198,7 @@
           </ng-container>
           <ng-container matColumnDef="phone">
             <mat-header-cell fxFlex="10" *matHeaderCellDef>
-              <span class="title-table-header">Celular</span>
+              <span class="title-table-header">{{'secure.profiel.cellPhone' | translate}}</span>
             </mat-header-cell>
             <mat-cell fxFlex="10"
               *matCellDef="let element">
@@ -205,7 +207,7 @@
           </ng-container>
           <ng-container matColumnDef="telephone">
             <mat-header-cell fxFlex="10" *matHeaderCellDef>
-              <span class="title-table-header">Teléfono</span>
+              <span class="title-table-header">{{'secure.profiel.phone_number' | translate}}</span>
             </mat-header-cell>
             <mat-cell fxFlex="10"
               *matCellDef="let element">
@@ -216,12 +218,12 @@
             <mat-header-cell fxShow.xs="false" fxShow.sm="false"
               fxShow.lg="true" fxShow.xl="true" fxShow="true"
               fxFlex="10" *matHeaderCellDef>
-              <span class="title-table-header" style="color: #a3a2a2;">Acciones</span>
+              <span class="title-table-header" style="color: #a3a2a2;">{{'shared.actions' | translate}}</span>
             </mat-header-cell>
             <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
               fxShow.xl="true" fxShow="true" fxFlex="10"
               *matCellDef="let element">
-              <button class="button-edit" type="button" color="primary" style="color: #a3a2a2;" matTooltip="Editar"
+              <button class="button-edit" type="button" color="primary" style="color: #a3a2a2;" [matTooltip]="'actions.edit' | translate" 
                matTooltipPosition="below" mat-icon-button
               mat-button (click)="openModalContact(element)">
               <mat-icon class="flexbox align-center justify-center" style="width: 20px; height: 20px; font-size: 20px;">edit</mat-icon>

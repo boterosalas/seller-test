@@ -1564,5 +1564,15 @@
     "secure.notifications.list.column-title": "Título",
     "secure.notifications.list.column-date": "Fecha",
     "secure.reports.notification.fraud.charge-fraud": "CARGAR FRAUDES",
-    "secure.profiel.modal.message.text":"El contacto se ha creado exitosamente"
+    "secure.profiel.modal.message.text":"El contacto se ha creado exitosamente",
+    "secure.profiel.copy_token_channel_advisor":"Copiar token Channel advisor",
+    "secure.profiel.copied_token":"Token copiado",
+    "secure.profiel.contact_information":"Datos de contactos",
+    "secure.profiel.responsible_area":"Área responsable",
+    "secure.profiel.position":"Cargo",
+    "secure.profiel.cellPhone":"Número celular",
+    "secure.profiel.phone_number":"Número de teléfono",
+    "secure.profiel.contact_name_surname":"Nombre (s) y Apellido (s) del contacto",
+    "secure.profiel.edit_contact":"Editar contacto"
+
 }
