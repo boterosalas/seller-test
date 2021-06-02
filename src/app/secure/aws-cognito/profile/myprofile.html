@@ -1,70 +1,65 @@
 <div *ngIf="typeUser !== null">
   <div *ngIf="typeUser === 'seller'">
-    <div style="height: 190px; background-color: #F6F6F4;">
+    <div class="myprofiel-container-top-data">
       <div fxLayout="row wrap">
         <div fxFlex="75">
           <div fxLayout="row wrap">
-            <div fxFlex="40" style="padding: 30px;">
+            <div fxFlex="40" class="myprofiel-padding-30">
               <div>
-                <span style="color: black; font-weight: bold; font-size: 24px;">
+                <span class="myprofiel-text-color-font-size">
                   {{userInformation.name}}
                 </span>
               </div>
               <div>
-                <span style="font-size: 14px;">
+                <span class="myprofiel-font-size-14">
                   {{'secure.products.table_load_product.seller' | translate}}
                 </span>
               </div>
             </div>
-            <div fxFlex="20" style="padding: 30px;">
+            <div fxFlex="20" class="myprofiel-padding-30">
               <div>
-                <span style="font-size: 12px; color: #5D5D5D;">
+                <span class="myprofiel-text-id">
                   {{'secure.aws_cognito.profile.seller_id' | translate}}
                 </span>
               </div>
               <div>
-                <span style="color: black; font-weight: bold;">
+                <span class="myprofiel-id-text-color">
                   {{userInformation.id}}
                 </span>
               </div>
             </div>
-            <div fxFlex="40" style="padding: 30px;">
+            <div fxFlex="40" class="myprofiel-padding-30">
               <div>
-                <span style="font-size: 12px; color: #5D5D5D;">
+                <span class="myprofiel-text-id">
                   {{'secure.parametize.profiles.dialog.modal_rdn_store' | translate}}
                 </span>
               </div>
               <div>
-                <span style="color: black; font-weight: bold;">
+                <span class="myprofiel-id-text-color">
                   {{userInformation.name}}
                 </span>
               </div>
             </div>
           </div>
           <div fxLayout="row wrap">
-            <div fxFlex="40" style="padding-left: 30px;">
+            <div fxFlex="40" class="myprofiel-padding-left-30">
               <div *ngIf="canVacation" class="sub-content">
                 <ng-container *ngIf="isInVacation; else programVacations">
                   <mat-card id="info-vacation" class="mat card">
                     <div class="options">
-                      <mat-icon id="btn-edit-vacations" style="width: 18px;
-                        height: 18px; font-size: 18px;"
+                      <mat-icon id="btn-edit-vacations" class="myprofiel-width-height-font-size"
                         (click)="sendToOpenVacationDialog()"
                         [ngClass]="{disabledDiv: isDisable}">
                         edit
                       </mat-icon>
-                      <mat-icon *ngIf="canCancelVacation" style="width: 18px;
-                        height: 18px; font-size: 18px;"
+                      <mat-icon *ngIf="canCancelVacation" class="myprofiel-width-height-font-size"
                         id="btn-cancel-vacations"
                         (click)="sendToOpenCancelVacationDialog()"
                         [ngClass]="{disabledDiv: isDisable}">
                         delete
                       </mat-icon>
                     </div>
-                    <div class="icon-container" style="height: 22px;
-                      width: 24px;
-                      font-size: 24px;
-                      color: #b6b6b6;">
+                    <div class="icon-container myprofiel-local-airport-icon">
                       <mat-icon>
                         local_airport
                       </mat-icon>
@@ -94,34 +89,33 @@
                   </mat-card>
                 </ng-container>
                 <ng-template #programVacations>
-                  <button mat-stroked-button id="btn-program-vacation" style="background-color:
-                  white; border: solid 1px; width: 188px;"
+                  <button mat-stroked-button id="btn-program-vacation" class="myprofiel-btn-send-vacation"
                     color="primary" [disabled]="isDisable"
                     (click)="sendToOpenVacationDialog()">{{'secure.seller.list.program_vacation'
                     | translate}}</button>
                 </ng-template>
               </div>
             </div>
-            <div fxFlex="20" style="padding-left: 30px;">
+            <div fxFlex="20" class="myprofiel-padding-left-30">
               <div>
-                <span style="font-size: 12px; color: #5D5D5D;">
+                <span class="myprofiel-text-id">
                   {{'secure.seller.register_seller.lb_nit_form' | translate}}
                 </span>
               </div>
               <div>
-                <span style="color: black; font-weight: bold;">
+                <span class="myprofiel-id-text-color">
                   {{userInformation.nit}}
                 </span>
               </div>
             </div>
-            <div fxFlex="40" style="padding-left: 30px;">
+            <div fxFlex="40" class="myprofiel-padding-left-30">
               <div>
-                <span style="font-size: 12px; color: #5D5D5D;">
+                <span class="myprofiel-text-id">
                   {{'secure.seller.register_seller.lb_email_form' | translate}}
                 </span>
               </div>
               <div>
-                <span style="color: black; font-weight: bold;">
+                <span class="myprofiel-id-text-color">
                   {{userInformation.email}}
                 </span>
               </div>
@@ -129,20 +123,18 @@
           </div>
         </div>
         <div fxFlex="25">
-          <div style="padding: 30px;" *ngIf="isChannel">
+          <div class="myprofiel-padding-30" *ngIf="isChannel">
             <div>
               <button id="toggle" mat-stroked-button color="primary"
-                style="background-color:
-                white; border: solid 1px; width: 100%;" type="button"
+                class="myprofiel-btn-copy-token-channel" type="button"
                 (click)="copyToken(tokenChannel)">
                 <span>{{'secure.profiel.copy_token_channel_advisor' | translate}}</span>
               </button>
             </div>
             <div class="container">
               <div class="slider closed">
-                <mat-icon class="mat-18" style="color: green;width: 18px;height:
-                  18px;font-size: 18px;vertical-align: middle;">done</mat-icon>
-                <span style="font-size: 12px;">
+                <mat-icon class="mat-18 myprofiel-message-token-copied">done </mat-icon>
+                <span>
                   {{'secure.profiel.copied_token'| translate}}
                 </span>
               </div>
@@ -152,19 +144,18 @@
       </div>
     </div>
     <div>
-      <div style="padding: 30px;">
+      <div class="myprofiel-padding-30">
         <span>{{'secure.profiel.contact_information' | translate}}</span>
       </div>
-      <div *ngIf="!showLoading" fxLayout="row wrap" style="padding:10px 30px 30px 30px">
-        <mat-table #table [dataSource]="dataSource" matSort style="width:
-          100%; color: #a3a2a2;">
+      <div *ngIf="!showLoading" fxLayout="row wrap" class="myprofiel-padding-10-30">
+        <mat-table #table [dataSource]="dataSource" matSort class="myprofiel-width-100-color">
           <ng-container matColumnDef="responsibleArea">
             <mat-header-cell fxFlex="15"  *matHeaderCellDef>
               <span class="title-table-header">{{'secure.profiel.responsible_area' | translate}}</span>
             </mat-header-cell>
             <mat-cell fxFlex="15"
               *matCellDef="let element">
-              <span style="color: #a3a2a2;">{{element.Traduction}}</span>
+              <span class="myprofiel-text-color-column">{{element.Traduction}}</span>
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="name">
@@ -173,7 +164,7 @@
             </mat-header-cell>
             <mat-cell fxFlex="25"
               *matCellDef="let element">
-              <span style="color: #a3a2a2;">{{element.ContactName}}</span>
+              <span class="myprofiel-text-color-column">{{element.ContactName}}</span>
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="position">
@@ -182,7 +173,7 @@
             </mat-header-cell>
             <mat-cell fxFlex="15"
               *matCellDef="let element">
-              <span style="color: #a3a2a2;">{{element.Role}}</span>
+              <span class="myprofiel-text-color-column">{{element.Role}}</span>
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="email">
@@ -193,7 +184,7 @@
             </mat-header-cell>
             <mat-cell fxFlex="15"
               *matCellDef="let element">
-              <span style="color: #a3a2a2;">{{element.Email}}</span>
+              <span class="myprofiel-text-color-column">{{element.Email}}</span>
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="phone">
@@ -202,7 +193,7 @@
             </mat-header-cell>
             <mat-cell fxFlex="10"
               *matCellDef="let element">
-              <span style="color: #a3a2a2;">{{element.Cellphone}}</span>
+              <span class="myprofiel-text-color-column">{{element.Cellphone}}</span>
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="telephone">
@@ -211,22 +202,22 @@
             </mat-header-cell>
             <mat-cell fxFlex="10"
               *matCellDef="let element">
-              <span style="color: #a3a2a2;">{{element.Phone}}</span>
+              <span class="myprofiel-text-color-column">{{element.Phone}}</span>
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="action">
             <mat-header-cell fxShow.xs="false" fxShow.sm="false"
               fxShow.lg="true" fxShow.xl="true" fxShow="true"
               fxFlex="10" *matHeaderCellDef>
-              <span class="title-table-header" style="color: #a3a2a2;">{{'shared.actions' | translate}}</span>
+              <span class="title-table-header" class="myprofiel-text-color-column">{{'shared.actions' | translate}}</span>
             </mat-header-cell>
             <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
               fxShow.xl="true" fxShow="true" fxFlex="10"
               *matCellDef="let element">
-              <button class="button-edit" type="button" color="primary" style="color: #a3a2a2;" [matTooltip]="'actions.edit' | translate" 
+              <button class="button-edit" type="button" color="primary" class="myprofiel-text-color-column" [matTooltip]="'actions.edit' | translate" 
                matTooltipPosition="below" mat-icon-button
               mat-button (click)="openModalContact(element)">
-              <mat-icon class="flexbox align-center justify-center" style="width: 20px; height: 20px; font-size: 20px;">edit</mat-icon>
+              <mat-icon class="flexbox align-center justify-center myprofiel-wi-he-font-size-20">edit</mat-icon>
             </button>
             </mat-cell>
           </ng-container>
@@ -240,10 +231,10 @@
         </mat-table>
       </div>
       <div *ngIf="showLoading">
-        <div style="margin-left: 48%;">
+        <div class="myprofiel-margin-left-48">
           <mat-spinner class="processCharge" [diameter]="40"></mat-spinner>
         </div>
-        <div style="padding-top: 20px;">
+        <div class="myprofiel-padding-top-20">
           <span>
             {{'secure.products.create_product_unit.list_products.please_wait' |
             translate}}
@@ -320,12 +311,11 @@
     </div>
   </div>
 </div>
-<div  *ngIf="typeUser === null" style="text-align: center; padding-top: 80px;
-padding-bottom:220px;">
-  <div style="margin-left: 48%;">
+<div  *ngIf="typeUser === null" class="myprofiel-container-loading-spinner">
+  <div class="myprofiel-margin-left-48">
     <mat-spinner class="processCharge" [diameter]="40"></mat-spinner>
   </div>
-  <div style="padding-top: 20px;">
+  <div class="myprofiel-padding-top-20">
     <span>
       {{'secure.products.create_product_unit.list_products.please_wait' |
       translate}}

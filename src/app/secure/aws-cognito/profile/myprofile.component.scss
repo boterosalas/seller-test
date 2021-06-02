@@ -175,3 +175,88 @@ $modal: 72px;
   transform: translate(0, -100%);
 }
 
+.myprofiel{
+  &-container-top-data{
+    height: 190px;
+    background-color: #F6F6F4;
+  }
+  &-padding-30{
+    padding: 30px;
+  }
+  &-text-color-font-size{
+    color: black;
+    font-weight: bold;
+    font-size: 24px;
+  }
+  &-font-size-14{
+    font-size: 14px;
+  }
+  &-text-id{
+    font-size: 12px;
+    color: #5D5D5D;
+  }
+  &-id-text-color{
+    color: black;
+    font-weight: bold;
+  }
+  &-padding-left-30{
+    padding-left: 30px;
+  }
+  &-width-height-font-size{
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+  }
+  &-local-airport-icon{
+    height: 22px;
+    width: 24px;
+    font-size: 24px;
+    color: #b6b6b6;
+  }
+
+  &-btn-send-vacation{
+    background-color: white;
+    border: solid 1px;
+    width: 188px;
+  }
+  &-btn-copy-token-channel{
+    background-color: white;
+    border: solid 1px;
+    width: 100%;
+  }
+  &-message-token-copied{
+    color: green;
+    width: 18px;
+    height:18px;
+    font-size: 18px;
+    vertical-align: middle;
+  }
+  &-text-color-column{
+    color: #a3a2a2;
+  }
+  &-padding-10-30{
+    padding:10px 30px 30px 30px
+  }
+  &-width-100-color{
+    width:100%;
+    color: #a3a2a2;
+  }
+  &-wi-he-font-size-20{
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+  }
+  &-margin-left-48{
+    margin-left: 48%;
+  }
+  &-padding-top-20{
+    padding-top: 20px;
+  }
+  &-container-loading-spinner{
+    text-align: center;
+    padding-top: 80px;
+    padding-bottom:220px;
+  }
+
+}
+
