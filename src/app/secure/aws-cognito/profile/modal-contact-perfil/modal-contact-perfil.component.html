@@ -1,22 +1,23 @@
 <div fxLayout="row wrap">
-  <div fxFlex="100" style="text-align: end;">
-    <mat-icon class="mat-18" style="color: #909090; font-size: 20px; width:
-      20; height: 20px; cursor: pointer;" [matTooltip]="'actions.close' |
+  <div fxFlex="100" class="modal-contact-perfil-text-align-end">
+    <mat-icon class="mat-18 modal-contact-perfil-icon-close-modal"
+      [matTooltip]="'actions.close' |
       translate" (click)="close()">close</mat-icon>
   </div>
 </div>
 <div fxLayout="row wrap" *ngIf="!success">
-  <div fxFlex="100" style="text-align: center;">
-    <span style="font-size: 20px; font-weight: bold;">{{'secure.profiel.edit_contact' | translate}}</span>
+  <div fxFlex="100" class="modal-contact-perfil-text-align-center">
+    <span class="modal-contact-perfil-font-size-font-bold">{{'secure.profiel.edit_contact'
+      | translate}}</span>
   </div>
 </div>
 <div *ngIf="form && !success">
-  <div fxLayout="row wrap" style="width: 100%;">
-    <form #contactForm="ngForm" [formGroup]="form" style="width: 100%;">
-      <div fxLayout="row wrap" style="width: 100%; padding: 20px; padding-top:
-        40px;">
+  <div fxLayout="row wrap" class="modal-contact-perfil-width-100">
+    <form #contactForm="ngForm" [formGroup]="form"
+      class="modal-contact-perfil-width-100">
+      <div fxLayout="row wrap" class="modal-contact-perfil-padding-20-40-width">
         <div fxFlex="50">
-          <mat-form-field style="width: 90%;">
+          <mat-form-field class="modal-contact-perfil-width-90">
             <mat-label>{{'secure.profiel.responsible_area' | translate}}</mat-label>
             <mat-select formControlName="translate" [(value)]="translate">
               <mat-option *ngFor="let area of data.arrayListArea"
@@ -27,40 +28,42 @@
           </mat-form-field>
         </div>
         <div fxFlex="50">
-          <mat-form-field style="width: 90%;"
+          <mat-form-field class="modal-contact-perfil-width-90"
             class="notification-form-width-100">
-            <input matInput [placeholder]="'secure.profiel.contact_name_surname'| translate"
+            <input matInput
+              [placeholder]="'secure.profiel.contact_name_surname'| translate"
               class="modal-export-to-reclaim-text-uppercase"
               [errorStateMatcher]="matcher" formControlName="contactName">
-            <!-- <mat-error *ngIf="form.get('contactName').hasError('required')">{{'errors.required' | translate}}</mat-error> -->
           </mat-form-field>
         </div>
       </div>
-      <div fxLayout="row wrap" style="width: 100%; padding: 20px;">
+      <div fxLayout="row wrap" class="modal-contact-perfil-width-padding">
         <div fxFlex="50">
-          <mat-form-field style="width: 90%;"
+          <mat-form-field class="modal-contact-perfil-width-90"
             class="notification-form-width-100">
-            <input matInput [placeholder]="'secure.profiel.position' | translate"
+            <input matInput [placeholder]="'secure.profiel.position' |
+              translate"
               class="modal-export-to-reclaim-text-uppercase"
               [errorStateMatcher]="matcher" formControlName="role">
-            <!-- <mat-error *ngIf="form.get('contactName').hasError('required')">{{'errors.required' | translate}}</mat-error> -->
           </mat-form-field>
         </div>
         <div fxFlex="50">
-          <mat-form-field style="width: 90%;"
+          <mat-form-field class="modal-contact-perfil-width-90"
             class="notification-form-width-100">
-            <input matInput [placeholder]="'secure.seller.register_seller.lb_email_form' | translate"
+            <input matInput
+              [placeholder]="'secure.seller.register_seller.lb_email_form' |
+              translate"
               class="modal-export-to-reclaim-text-uppercase"
               [errorStateMatcher]="matcher" formControlName="email">
-            <!-- <mat-error *ngIf="form.get('contactName').hasError('required')">{{'errors.required' | translate}}</mat-error> -->
           </mat-form-field>
         </div>
       </div>
-      <div fxLayout="row wrap" style="width: 100%; padding: 20px;">
+      <div fxLayout="row wrap" class="modal-contact-perfil-width-padding">
         <div fxFlex="50">
-          <mat-form-field style="width: 90%;"
+          <mat-form-field class="modal-contact-perfil-width-90"
             class="notification-form-width-100">
-            <input matInput [placeholder]="'secure.profiel.cellPhone' | translate"
+            <input matInput [placeholder]="'secure.profiel.cellPhone' |
+              translate"
               (focusout)="validateOutFocus_CellPhone()"
               class="modal-export-to-reclaim-text-uppercase"
               [errorStateMatcher]="matcher" formControlName="cellPhone"
@@ -73,9 +76,10 @@
           </mat-form-field>
         </div>
         <div fxFlex="50">
-          <mat-form-field style="width: 90%;"
+          <mat-form-field class="modal-contact-perfil-width-90"
             class="notification-form-width-100">
-            <input matInput [placeholder]="'secure.profiel.phone_number' | translate"
+            <input matInput [placeholder]="'secure.profiel.phone_number' |
+              translate"
               class="modal-export-to-reclaim-text-uppercase"
               (focusout)="validateOutFocus_Phone()"
               [errorStateMatcher]="matcher" formControlName="phone"
@@ -90,30 +94,31 @@
       </div>
     </form>
   </div>
-  <div fxLayout="row wrap" style="width: 100%; padding: 20px;"
+  <div fxLayout="row wrap" class="modal-contact-perfil-width-padding"
     fxLayoutAlign="center center"
     class="notification-form-padding-top-30">
     <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50"
       fxFlex.xl="50" fxFlex="50">
-      <button mat-stroked-button color="primary" style="margin-left: 60%;
-        text-transform: uppercase" mat-button
+      <button mat-stroked-button color="primary"
+        class="modal-contact-perfil-margin-transform-uppercase" mat-button
         (click)="close()">{{'actions.cancel' | translate}}</button>
     </div>
     <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50"
       fxFlex.xl="50" fxFlex="50">
-      <button mat-raised-button style="text-transform: uppercase"
+      <button mat-raised-button
+        class="modal-contact-perfil-text-transform-uppercase"
         [disabled]="!contactForm.form.valid"
         color="primary" mat-button
         (click)="validContact()">{{'secure.profiel.edit_contact' | translate}}</button>
     </div>
   </div>
 </div>
-<div *ngIf="!form && !success" style="text-align: center; padding-top: 80px;
-  padding-bottom:220px;">
-  <div style="margin-left: 47%;">
+<div *ngIf="!form && !success"
+  class="modal-contact-perfil-text-align-center-padding-top">
+  <div class="modal-contact-perfil-margin-left-47">
     <mat-spinner class="processCharge" [diameter]="40"></mat-spinner>
   </div>
-  <div style="padding-top: 20px;">
+  <div class="modal-contact-perfil-padding-top-20">
     <span>
       {{'secure.products.create_product_unit.list_products.please_wait' |
       translate}}
@@ -128,8 +133,8 @@
         check
       </mat-icon>
     </div>
-    <div style="padding-top: 5%; padding-bottom: 10%;">
-      <span style="font-size: 18px; font-weight: bold;">
+    <div class="modal-contact-perfil-padding-top-bottom">
+      <span class="modal-contact-perfil-font-size-weight">
         {{'secure.profiel.modal.message.text'| translate}}
       </span>
     </div>
