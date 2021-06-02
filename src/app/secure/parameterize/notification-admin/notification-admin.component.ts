@@ -121,7 +121,7 @@ export class NotificationAdminComponent implements OnInit {
     };
     this.showListAdvertisements = false;
     this.showContainerDetail = true;
-    this.showOttertTitle = 'Crear notificaciones';
+    this.showOttertTitle = 'Crear anuncio';
   }
   /**
    * funcion para devolver al listado principal de anuncios
@@ -149,7 +149,7 @@ export class NotificationAdminComponent implements OnInit {
     };
     this.showListAdvertisements = false;
     this.showContainerDetail = true;
-    this.showOttertTitle = 'Crear notificaciones';
+    this.showOttertTitle = 'Crear anuncio';
   }
   /**
    * funcion para refrescar la data que se visualiza en el listado principal
