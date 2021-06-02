@@ -318,31 +318,35 @@ export const endpoints = {
       // Mirar estado batch carga eliminar productos
       getStatusDeleteProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/getstatusdisassociateproducts',
       // Captura de indicadores
-      getIndicators : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller/getindicatorsbynit/{params}',
+      getIndicators: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller/getindicatorsbynit/{params}',
       // obtiene el listado de fraudes
-      getFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles?&limit={limit}',
+      getFrauds: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles?&limit={limit}',
       // envia el listado de fraudes
-      sendFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles',
+      sendFrauds: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles',
       // obtiene el statuts de los fraudes
-      statusFrauds : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles/status',
+      statusFrauds: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles/status',
       // descarga la plantilla
-      downloadTemplateFrauds : 'https://seller-center-exito-staging.s3.amazonaws.com/Templates-Dev/PlantillaCargaFraudes.xlsx',
+      downloadTemplateFrauds: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates-Dev/PlantillaCargaFraudes.xlsx',
       // Descargar plantilla para carga masiva de categorias
-      downloadTemplateCategoryMasive : 'https://seller-center-exito-staging.s3.amazonaws.com/Templates-Dev/PlantillaCargaMasivaCategorias.xlsx',
+      downloadTemplateCategoryMasive: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates-Dev/PlantillaCargaMasivaCategorias.xlsx',
       // Crear caterogiras de forma masiva
       createUpdateMassiveCategories: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/CreateUpdateMassiveCategories/{params}',
-       // valida el estado de la carga masiva de categorias
-       ValidateStatusCreateUpdateMassive :  'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/ValidateStatusCreateUpdateMassive',
-       // Captura todas las notificaciones (anuncios )
-       getAllNotification : 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/GetPaginatedNews{params}',
-       // Crear anuncio
-       createNew : 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/CreateNew',
-       // Guardar imagen de anuncios
-       saveImgNotification : 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/SaveImage',
-       // Editar anuncios
-       updateNotification : 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/UpdateNew',
-       // Eliminar anuncios
-       deleteNotification: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/DeleteNew{params}'
+      // valida el estado de la carga masiva de categorias
+      ValidateStatusCreateUpdateMassive: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/ValidateStatusCreateUpdateMassive',
+      // Captura todas las notificaciones (anuncios )
+      getAllNotification: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/GetPaginatedNews{params}',
+      // Crear anuncio
+      createNew: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/CreateNew',
+      // Guardar imagen de anuncios
+      saveImgNotification: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/SaveImage',
+      // Editar anuncios
+      updateNotification: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/UpdateNew',
+      // Eliminar anuncios
+      deleteNotification: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/DeleteNew{params}',
+      // Listar anuncios vendedor
+      getAdvertisements: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/GetNewsByTarget?totalMax=10',
+      // Listar anuncios vendedor
+      readAdvertisements: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/SetNewsRead'
 
     },
   },
@@ -659,31 +663,35 @@ export const endpoints = {
       // Mirar estado batch carga eliminar productos
       getStatusDeleteProducts: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/getstatusdisassociateproducts',
       // Captura de indicadores
-      getIndicators : 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller/getindicatorsbynit/{params}',
+      getIndicators: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller/getindicatorsbynit/{params}',
       // obtiene el listado de fraudes
-      getFrauds : 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/fraudfiles?&limit={limit}',
+      getFrauds: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/fraudfiles?&limit={limit}',
       // envia el listado de fraudes
-      sendFrauds : 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/fraudfiles',
+      sendFrauds: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/fraudfiles',
       // obtiene el status de los fraudes
-      statusFrauds : 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/fraudfiles/status',
+      statusFrauds: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/fraudfiles/status',
       // descarga la plantilla
-      downloadTemplateFrauds : 'https://seller-center-exito-staging.s3.amazonaws.com/Templates/PlantillaCargaFraudes.xlsx',
+      downloadTemplateFrauds: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates/PlantillaCargaFraudes.xlsx',
       // Descargar plantilla para carga masiva de categorias
-      downloadTemplateCategoryMasive : 'https://s3.amazonaws.com/seller-center-exito-staging/Templates/PlantillaCargaMasivaCategorias.xlsx',
+      downloadTemplateCategoryMasive: 'https://s3.amazonaws.com/seller-center-exito-staging/Templates/PlantillaCargaMasivaCategorias.xlsx',
       // Crear caterogiras de forma masiva
       createUpdateMassiveCategories: 'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/CreateUpdateMassiveCategories/{params}',
       // valida el estado de la carga masiva de categorias
-      ValidateStatusCreateUpdateMassive :  'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/ValidateStatusCreateUpdateMassive',
-       // Captura todas las notificaciones (anuncios )
-      getAllNotification : 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/GetPaginatedNews{params}',
-       // Crear anuncio
-      createNew : 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/CreateNew',
+      ValidateStatusCreateUpdateMassive: 'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/ValidateStatusCreateUpdateMassive',
+      // Captura todas las notificaciones (anuncios )
+      getAllNotification: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/GetPaginatedNews{params}',
+      // Crear anuncio
+      createNew: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/CreateNew',
       // Guardar imagen de anuncios
-      saveImgNotification : 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/SaveImage',
+      saveImgNotification: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/SaveImage',
       // Editar anuncios
-      UpdateNotification : 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/UpdateNew',
+      UpdateNotification: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/UpdateNew',
       // Eliminar anuncios
-      deleteNotification: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/DeleteNew{params}'
+      deleteNotification: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/DeleteNew{params}',
+      // Listar anuncios vendedor
+      getAdvertisements :  'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/Dev-SC-News/GetNewsByTarget?totalMax=10',
+      // Listar anuncios vendedor
+      readAdvertisements :  'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/Dev-SC-News/SetNewsRead'
     }
   }
 };

@@ -15,6 +15,7 @@ import { LoadingService } from '@app/core';
 import { StoreModel } from '@app/secure/offers/stores/models/store.model';
 import { TranslateService } from '@ngx-translate/core';
 import { MatPaginatorI18nService } from '@app/shared/services/mat-paginator-i18n.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 const log = new Logger('ToolbarOptionsComponent');
@@ -138,6 +139,8 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
     public storeService: StoresService,
     public shell: ShellComponent,
     private loadingService: LoadingService,
+    private route: ActivatedRoute,
+
   ) {
     this.textForSearch = new FormControl();
     this.user = {};
@@ -168,6 +171,10 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
    * @memberof ToolbarOptionsComponent
    */
   toggleMenuOrderSearch() {
+    this.informationToForm.information['dateInit'] = this.route.params ? this.route.params['_value'].dateInitial : null;
+    this.informationToForm.information['dateFinal'] = this.route.params ? this.route.params['_value'].dateFinal : null;
+    this.informationToForm.information['status'] = this.route.params ? this.route.params['_value'].category : null;
+    this.informationToForm.information['type'] = this.route.params ? this.route.params['_value'].type : null;
     this.shellComponent.toggleMenuSearchOrder(this.informationToForm, this.idSeller, this._Typeprofile, this.state, this.limitSizeList);
   }
 

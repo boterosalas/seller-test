@@ -1,0 +1,60 @@
+<mat-card class="advertisements" *ngIf="advertisements.length">
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+
+        <h3> <mat-icon class="campaign">campaign</mat-icon> {{'secure.dashboard.advertisements' | translate}} </h3>
+
+        <div fxLayout="row">
+        
+            <button  mat-raised-button (click)="showPage1()" class="adv mat-elevation-z0" [disabled]="page1">
+                <mat-icon class="material-icons-outlined">
+                    chevron_left
+                </mat-icon>
+            </button>
+
+            <button  mat-raised-button (click)="showPage2()" class="adv mat-elevation-z0" [disabled]="page2">
+                <mat-icon class="material-icons-outlined">
+                    chevron_right
+                </mat-icon>
+            </button>
+
+        </div>
+    </div>
+
+    
+        
+        <div [ngClass]="{'list-adv': i < 5  && page1}" *ngFor="let item of advertisements; let i = index" (click)="openAdv(item)" >
+
+            <div *ngIf="i < 5  && page1">
+                    
+                    <div fxLayout="row" fxLayoutGap="10px">
+                        <h4 [ngClass]="{'normal': item.IsRead }">{{item.Title}}</h4>
+                        <span class="tag" *ngIf="item.IsNew"> {{'actions.new' | translate}} </span>
+                    </div>
+                    
+                    <p>{{item.CreationDate | date: 'dd/MM/yyyy'}}</p>
+
+                    <div *ngIf="item.Body" class="desc" [innerHtml]="item.Body | removeTags"></div>
+
+                </div>
+
+        </div>
+        
+        <div [ngClass]="{'list-adv': i >= 5   && page2}" *ngFor="let item of advertisements; let i = index" (click)="openAdv(item)">
+
+            <div *ngIf="i >= 5  && page2">
+                    
+                    <div fxLayout="row" fxLayoutGap="10px">
+                        <h4 [ngClass]="{'normal': item.IsRead } || {'normal': read} ">{{item.Title}}</h4>
+                        <span class="tag" *ngIf="item.IsNew"> {{'actions.new' | translate}}  </span>
+                    </div>
+
+                    <p>{{item.CreationDate | date: 'dd/MM/yyyy'}}</p>
+                    <div *ngIf="item.Body" class="desc" [innerHtml]="item.Body | removeTags"></div>
+            </div>
+        
+        </div>
+
+      
+
+</mat-card>

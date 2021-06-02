@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SearchFormEntity } from '@app/shared/models';
 import { ComponentsService } from '@app/shared/services';
 import { ShellComponent } from '@core/shell/shell.component';
@@ -26,12 +26,26 @@ export class SearchOrderFormComponent implements OnInit {
   // Configuración para el formato de fecha
   public locale = 'es-CO';
   // Variable que almacena los datos que se le pueden pasar al formulario
-  @Input() informationToForm: SearchFormEntity;
+
+  public infoDataForm: any;
+  status: any;
+  typeCards: any;
+  @Input() set informationToForm(value: any) {
+    if (value) {
+      this.infoDataForm = value;
+      if (this.myform) {
+        this.getFilterOrderDate();
+      }
+    }
+  }
+
 
   @Input() idSeller: number;
   @Input() typeProfiel: number;
   showFilterStatus = false;
   _state: number;
+  dateInit: any;
+  dateFinal: any;
   @Input() set state(value: number) {
     if (value) {
       if (value.toString() === '170') {
@@ -65,14 +79,18 @@ export class SearchOrderFormComponent implements OnInit {
    */
   constructor(
     public componentsService: ComponentsService,
-    private route: Router,
+    public router: Router,
+    private route: ActivatedRoute,
     public searchOrderMenuService: SearchOrderMenuService,
     private shellComponent: ShellComponent,
     private fb: FormBuilder,
     private userParams: UserParametersService,
     private languageService: TranslateService,
     private loadingService: LoadingService,
-  ) { }
+    public datepipe: DatePipe,
+  ) {
+    this.createForm();
+  }
 
   /**
    * ngOnInit
@@ -81,13 +99,35 @@ export class SearchOrderFormComponent implements OnInit {
   ngOnInit() {
     // Obtengo la información del usuario
     this.getDataUser();
-    this.createForm();
     this.getOrdersStatus();
   }
 
   async getDataUser() {
     this.user = await this.userParams.getUserData();
   }
+
+  /**
+   * Seteo valores al formulario por parametroSeteo valores al formulario por parametro de la url
+   * @memberof SearchOrderFormComponent
+   */
+  getFilterOrderDate() {
+    this.dateInit = this.infoDataForm ? this.infoDataForm.information.dateInit : null;
+    this.dateFinal = this.infoDataForm ? this.infoDataForm.information.dateFinal : null;
+    this.status = this.infoDataForm ? this.infoDataForm.information.category : null;
+    this.typeCards = this.infoDataForm ? this.infoDataForm.information.type : null;
+    this.myform.controls.dateOrderInitial.setValue(this.datepipe.transform(this.dateInit, 'yyyy-MM-dd'));
+    this.myform.controls.dateOrderFinal.setValue(this.datepipe.transform(this.dateFinal, 'yyyy-MM-dd'));
+
+    if (this.listOrderStatus && this.typeCards) {
+      this.listOrderStatus.forEach(el => {
+        if (Number(this.typeCards) === 3 && el.idStatusOrder === 60) {
+          this.myform.controls.idStatusOrder.setValue(el.idStatusOrder.toString());
+        }
+      });
+    }
+  }
+
+
   /**
    * Método para crear el formulario
    * @memberof SearchOrderFormComponent
@@ -115,6 +155,13 @@ export class SearchOrderFormComponent implements OnInit {
     this.myform.reset();
     this.shellComponent.eventEmitterOrders.getClear();
     this.shellComponent.sidenavSearchOrder.toggle();
+    if (this.infoDataForm && this.infoDataForm.information.status === '35') {
+      this.router.navigate(['securehome/seller-center/ordenes/estado/35', {}]);
+    } else if (this.infoDataForm && this.infoDataForm.information.status === '170') {
+      this.router.navigate(['securehome/seller-center/ordenes/estado/170', {}]);
+    } else {
+      this.router.navigate(['securehome/seller-center/ordenes']);
+    }
   }
 
   /**
