@@ -120,6 +120,7 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   @Input() limitSizeList: number;
 
   @Input() btnFilter = true;
+  @Input() showBtn = true;
   @Input() btnDownload: boolean;
 
 

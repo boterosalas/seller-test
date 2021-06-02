@@ -128,14 +128,14 @@
       btn-filter input-search-black top-11-btn-generic" id="download-order-button" mat-button color="primary"
         *ngIf="!billingType && downloadPermission">
         <mat-icon>file_download</mat-icon>
-        {{'actions.download' | translate}}
+        {{'actions.download' | translate}}1
       </button>
       <button [disabled]="orderListLength" (click)="openModalDownloadBillPay()" fxShow.xs="false" fxShow.sm="false"
         fxShow.md="false" fxShow="true" fxFlex="160px" class="sc-default-button
       btn-filter input-search-black top-11-btn-generic" id="download-pay-button" mat-button color="primary"
         *ngIf="downloadBillingPay">
         <mat-icon>file_download</mat-icon>
-        {{'actions.download' | translate}}
+        {{'actions.download' | translate}}2
       </button>
 
       <button fxShow.xs="false" *ngIf="_Typeprofile == 1 &&
@@ -144,7 +144,7 @@
         class="sc-default-button btn-filter input-search-black top-11-btn-generic" id="search-order-button"
         (click)="toggleMenuOrderSearch()" mat-button color="primary">
         <mat-icon>filter_list</mat-icon>
-        {{'filters.filter' | translate}}
+        {{'filters.filter' | translate}}3
       </button>
       <!-- filter for califications-->
       <button fxShow.xs="false" *ngIf="_Typeprofile == 1 &&
@@ -153,20 +153,20 @@
       btn-filter input-search-black top-11-btn-generic" id="search-order-button" (click)="toggleMenuCalifications()"
         mat-button color="primary">
         <mat-icon>filter_list</mat-icon>
-        {{'filters.filter' | translate}}
+        {{'filters.filter' | translate}}4
       </button>
-      <button fxShow.xs="false" *ngIf="_Typeprofile == 3" fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button btn-filter
+      <button fxShow.xs="false" *ngIf="_Typeprofile == 3 && showBtn" fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button btn-filter
       input-search-black top-11-btn-generic" id="search-order-button" (click)="toggleMenuCalifications()" mat-button
         color="primary">
         <mat-icon>filter_list</mat-icon>
-        {{'filters.filter' | translate}}
+        {{'filters.filter' | translate}}5
       </button>
       <button fxShow.xs="false" *ngIf="_Typeprofile == 0 && !billingType" fxShow.sm="false" fxShow.md="false"
         fxShow="true" class="sc-default-button
       btn-filter input-search-black top-11-btn-generic" id="search-order-button" (click)="toggleMenuOrderSearch()"
         mat-button color="primary">
         <mat-icon>filter_list</mat-icon>
-        {{'filters.filter' | translate}}
+        {{'filters.filter' | translate}}6
       </button>
     </div>
   </div>

@@ -123,9 +123,18 @@
                               {{nameFile}} ({{sizeFile}} MB)
                             </span>
                           </div>
-                          <div class="notification-form-color-padding-bottom-20">Medidas
-                            de las imagenes 800 x 600 px | Tamaño máximo del
-                            archivo 7 MB</div>
+                          <div class="notification-form-color-padding-bottom-20">
+                           <span *ngIf="typeBody === 1 || typeBody === 2">
+                            Medidas máximas
+                            de las imagenes 900*300 px | Tamaño máximo del
+                            archivo 7 MB
+                           </span> 
+                           <span *ngIf="typeBody === 3">
+                            Medidas máximas
+                            de las imagenes 900*600 px | Tamaño máximo del
+                            archivo 7 MB
+                           </span>
+                          </div>
                         </div>
                       </div>
                     </div>
