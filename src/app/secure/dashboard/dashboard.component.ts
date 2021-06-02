@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
 
 
     // Variable para almacenar los datos del vendedor.
-    private user: any;
+    public user: any;
 
     // Instancia de Logger
     public log: Logger;
