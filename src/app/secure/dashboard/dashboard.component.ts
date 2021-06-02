@@ -34,6 +34,12 @@ export class DashboardComponent implements OnInit {
     // Variable para ocultar temporalmente indicadores para vendedores
     hideIndicators = false;
 
+    public paramsIndicators = {
+        idSeller : null,
+        consult: true,
+        type: 'seller'
+      };
+
     /**
      * @method constructor
      * @description crea una instancia del componente.
