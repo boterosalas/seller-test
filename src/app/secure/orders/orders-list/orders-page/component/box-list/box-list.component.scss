@@ -63,6 +63,7 @@ $color-gray1:#909090;
   &-content-center {
     align-items: center;
   }
+
   &-text-center {
     text-align: center;
   }
@@ -72,7 +73,7 @@ $color-gray1:#909090;
   height: 62px;
 }
 
-.width-100{
+.width-100 {
   width: 100%;
 }
 
@@ -95,7 +96,7 @@ $color-gray1:#909090;
   }
 }
 
-.maxWidStatus{
+.maxWidStatus {
   max-width: 13% !important;
 }
 
@@ -129,24 +130,78 @@ $color-gray1:#909090;
   }
 }
 
-.font-size-14{
+.font-size-14 {
   font-size: 14px;
 }
 
-.fraud{
-    background: #D14444 0% 0% no-repeat padding-box;
-    border-radius: 6px;
-    color: #fff;
-    padding: 8px;
-    display: flex;
-    position: absolute;
-    right: 23px;
-    top: 10px;
-    font-size: 10px;
+.fraud {
+  background: #D14444 0% 0% no-repeat padding-box;
+  border-radius: 6px;
+  color: #fff;
+  padding: 8px;
+  display: flex;
+  position: absolute;
+  right: 23px;
+  top: 10px;
+  font-size: 10px;
+}
+
+.chip_1 {
+  BORDER-RIGHT: #D14444 1px solid;
+  BORDER-TOP: #D14444 1px solid;
+  BORDER-LEFT: #D14444 1px solid;
+  BORDER-BOTTOM: #D14444 1px solid;
+  BACKGROUND-COLOR: White;
+  border-radius: 6px;
+  color: black;
+  padding: 8px;
+  display: flex;
+  position: absolute;
+  right: 3%;
+  top: 10px;
+  font-size: 10px;
+  width: 70px;
+  justify-content: center;
+}
+
+.chip_2 {
+  BORDER-RIGHT: #FFA600 1px solid;
+  BORDER-TOP: #FFA600 1px solid;
+  BORDER-LEFT: #FFA600 1px solid;
+  BORDER-BOTTOM: #FFA600 1px solid;
+  BACKGROUND-COLOR: White;
+  border-radius: 6px;
+  color: black;
+  padding: 8px;
+  display: flex;
+  position: absolute;
+  right: 3%;
+  top: 10px;
+  font-size: 10px;
+  justify-content: center;
+  width: 70px;
+}
+
+.chip_3 {
+  BORDER-RIGHT: #34B72D 1px solid;
+  BORDER-TOP: #34B72D 1px solid;
+  BORDER-LEFT: #34B72D 1px solid;
+  BORDER-BOTTOM: #34B72D 1px solid;
+  BACKGROUND-COLOR: White;
+  border-radius: 6px;
+  color: black;
+  padding: 8px;
+  display: flex;
+  position: absolute;
+  right: 3%;
+  top: 10px;
+  font-size: 10px;
+  width: 70px;
+  justify-content: center;
 }
 
 @media (max-width: 600px) {
-  .fraud{
+  .fraud {
     padding: 5px;
     left: 0;
     top: 8px;
