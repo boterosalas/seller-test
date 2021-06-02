@@ -70,6 +70,8 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     public dialogRef: any;
     public arrayListArea = [];
     public idSeller = null;
+    public tokenChannel = null;
+    public showLoading = true;
 
     // Seller nacional o internacional
     isChannel: Boolean = false;
@@ -116,13 +118,17 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         this.initUserForm();
         this.initVacationForm();
         this.userService.isAuthenticated(this);
-        this.getAllContactData();
         this.changeLanguaje();
     }
-
+    /**
+     * funcion para consultar todos los contactos que esta registrados
+     *
+     * @memberof MyProfileComponent
+     */
     getAllContactData() {
         this.profileService.getAllContactData().subscribe(result => {
             if (result.status === 200) {
+                this.showLoading = false;
                 const body = JSON.parse(result.body.body);
                 this.dataSource = new MatTableDataSource(body.Data);
                 body.Data.forEach(element => {
@@ -138,7 +144,12 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
             }
         });
     }
-
+    /**
+     * funcion para abrir el modal de contactos
+     *
+     * @param {*} contact
+     * @memberof MyProfileComponent
+     */
     openModalContact(contact: any) {
         this.dialogRef = this.dialog.open(ModalContactPerfilComponent, {
             width: '50%',
@@ -172,8 +183,12 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         const sellerData = await this.profileService.getUser().toPromise().then(res => {
             const body: any = res.body;
             const userData = JSON.parse(body.body).Data;
+            this.tokenChannel = userData.TokenChannel;
             this.typeUser = userData.Profile;
             this.idSeller = userData.IdSeller;
+            if (userData.Profile === 'seller') {
+                this.getAllContactData();
+            }
             if (userData.Status && userData.Status === 'Disable') {
                 this.isDisable = true;
             } else {
@@ -182,7 +197,11 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
             this.loading.closeSpinner();
         });
     }
-
+    /**
+     * funcion para consultar los permisos
+     *
+     * @memberof MyProfileComponent
+     */
     getPermissions() {
         this.authService.availableModules$.pipe(distinctUntilChanged()).subscribe(data => {
             if (!!data) {
@@ -478,7 +497,12 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
         return { message, title, icon, form, messageCenter, showButtons, btnConfirmationText };
     }
 
-
+    /**
+     * funcion para copiar el toker por medio de un text area
+     *
+     * @param {string} val
+     * @memberof MyProfileComponent
+     */
     copyToken(val: string) {
         this.clickBoarToken = true;
         const selBox = document.createElement('textarea');
@@ -514,13 +538,13 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
      *
      * @memberof QualityIndicatorsComponent
      */
-  changeLanguaje() {
-    this.languageService.onLangChange.subscribe((event: LangChangeEvent) => {
-      localStorage.setItem('culture_current', event['lang']);
-      this.getAllDataUser();
-      this.getAllContactData();
-    });
-  }
+    changeLanguaje() {
+        this.languageService.onLangChange.subscribe((event: LangChangeEvent) => {
+            localStorage.setItem('culture_current', event['lang']);
+            // this.getAllDataUser();
+            this.getAllContactData();
+        });
+    }
 
 
     /**

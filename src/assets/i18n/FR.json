@@ -1497,7 +1497,7 @@
     "secure.notifications.list.column-title": "Title",
     "secure.notifications.list.column-date": "Date",
     "secure.reports.notification.fraud.charge-fraud": "CHARGE DES FRAUDES",
-    "secure.profiel.modal.message.text":"The contact has been created successfully",
+    "secure.profiel.modal.message.text":"The contact has been successfully created",
     "secure.profiel.copy_token_channel_advisor":"Copy token Channel advisor",
     "secure.profiel.copied_token":"Copied token",
     "secure.profiel.contact_information":"Contact information",

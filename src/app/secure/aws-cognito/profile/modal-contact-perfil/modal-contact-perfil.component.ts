@@ -29,8 +29,12 @@ export class ModalContactPerfilComponent implements OnInit {
   }
 
   ngOnInit() { }
-
-  public getRegexByModule(): void {
+/**
+ * funcion para validar los caracteres por medio de la regex
+ *
+ * @memberof ModalContactPerfilComponent
+ */
+public getRegexByModule(): void {
     this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
       let dataOffertRegex = JSON.parse(res.body.body);
       dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'vendedores');
@@ -43,7 +47,11 @@ export class ModalContactPerfilComponent implements OnInit {
       this.createForm();
     });
   }
-
+  /**
+   * funcion para crear el formulario de contactos
+   *
+   * @memberof ModalContactPerfilComponent
+   */
   createForm() {
     this.form = new FormGroup({
       translate: new FormControl(''),
@@ -62,7 +70,11 @@ export class ModalContactPerfilComponent implements OnInit {
       this.form.controls.phone.setValue(this.data.contact.Phone);
     }
   }
-
+  /**
+   * funcion para validar el contacto
+   *
+   * @memberof ModalContactPerfilComponent
+   */
   validContact() {
     this.loadingService.viewSpinner();
     if (
@@ -75,7 +87,12 @@ export class ModalContactPerfilComponent implements OnInit {
       this.createContactData();
     }
   }
-
+  /**
+   * funcion para setear variables
+   *
+   * @returns
+   * @memberof ModalContactPerfilComponent
+   */
   setParamas() {
     const contactName = this.form.controls.contactName ? this.form.controls.contactName.value : null;
     const params = {
@@ -89,7 +106,11 @@ export class ModalContactPerfilComponent implements OnInit {
     };
     return params;
   }
-
+  /**
+   * funcion para crear contancto
+   *
+   * @memberof ModalContactPerfilComponent
+   */
   createContactData() {
     const params = this.setParamas();
     this.profileService.createContactData(params).subscribe(result => {
@@ -98,13 +119,16 @@ export class ModalContactPerfilComponent implements OnInit {
         this.processFinishModalContactProfiel$.next();
         this.loadingService.closeSpinner();
       } else {
-        // error
         this.success = false;
         this.loadingService.closeSpinner();
       }
     });
   }
-
+  /**
+   * funcion para editar el contacto
+   *
+   * @memberof ModalContactPerfilComponent
+   */
   editContact() {
     const params = this.setParamas();
     this.profileService.updateContactData(params).subscribe(result => {
@@ -115,19 +139,33 @@ export class ModalContactPerfilComponent implements OnInit {
       } else {
         this.success = false;
         this.loadingService.closeSpinner();
-        // error
       }
     });
   }
-
+  /**
+   * funcion para validar el nombre a mostrar en el select de area responsable
+   *
+   * @param {*} areaResponsable
+   * @returns
+   * @memberof ModalContactPerfilComponent
+   */
   valiteResponsable(areaResponsable: any) {
     const nameList = this.data.arrayListArea.find(x => x.Traduction === areaResponsable).NameList;
     return nameList;
   }
+  /**
+   * funcion para cerrar el modal
+   *
+   * @memberof ModalContactPerfilComponent
+   */
   close() {
     this.dialogRef.close();
   }
-
+  /**
+   * funcion para validar los campos de telefono celular y telefono
+   *
+   * @memberof ModalContactPerfilComponent
+   */
   validateOutFocus_CellPhone() {
     if (this.form) {
       const cellPhone = this.form.controls.cellPhone.value;
@@ -140,6 +178,11 @@ export class ModalContactPerfilComponent implements OnInit {
       }
     }
   }
+  /**
+   * funcion para validar el numero de telefono no celular
+   *
+   * @memberof ModalContactPerfilComponent
+   */
   validateOutFocus_Phone() {
     if (this.form) {
       const phone = this.form.controls.phone.value;

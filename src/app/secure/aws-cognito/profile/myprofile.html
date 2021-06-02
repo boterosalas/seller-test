@@ -134,7 +134,7 @@
               <button id="toggle" mat-stroked-button color="primary"
                 style="background-color:
                 white; border: solid 1px; width: 100%;" type="button"
-                (click)="copyToken('la monda')">
+                (click)="copyToken(tokenChannel)">
                 <span>{{'secure.profiel.copy_token_channel_advisor' | translate}}</span>
               </button>
             </div>
@@ -155,7 +155,7 @@
       <div style="padding: 30px;">
         <span>{{'secure.profiel.contact_information' | translate}}</span>
       </div>
-      <div fxLayout="row wrap" style="padding:10px 30px 30px 30px">
+      <div *ngIf="!showLoading" fxLayout="row wrap" style="padding:10px 30px 30px 30px">
         <mat-table #table [dataSource]="dataSource" matSort style="width:
           100%; color: #a3a2a2;">
           <ng-container matColumnDef="responsibleArea">
@@ -239,6 +239,17 @@
           </mat-row>
         </mat-table>
       </div>
+      <div *ngIf="showLoading">
+        <div style="margin-left: 48%;">
+          <mat-spinner class="processCharge" [diameter]="40"></mat-spinner>
+        </div>
+        <div style="padding-top: 20px;">
+          <span>
+            {{'secure.products.create_product_unit.list_products.please_wait' |
+            translate}}
+          </span>
+        </div>
+      </div>
     </div>
   </div>
   <div *ngIf="typeUser !== 'seller'">
@@ -307,6 +318,18 @@
         </ng-template>
       </div>
     </div>
+  </div>
+</div>
+<div  *ngIf="typeUser === null" style="text-align: center; padding-top: 80px;
+padding-bottom:220px;">
+  <div style="margin-left: 48%;">
+    <mat-spinner class="processCharge" [diameter]="40"></mat-spinner>
+  </div>
+  <div style="padding-top: 20px;">
+    <span>
+      {{'secure.products.create_product_unit.list_products.please_wait' |
+      translate}}
+    </span>
   </div>
 </div>
 
