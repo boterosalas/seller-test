@@ -172,7 +172,6 @@ export class DashOrdersComponent implements OnInit {
         this.getUserData();
         this.changeLanguage();
         this.setSelectFilterOrders();
-        // this.getSalesSummary();
         this.getOrdensSummary();
     }
 
@@ -426,7 +425,6 @@ export class DashOrdersComponent implements OnInit {
             } else {
                 this.selectTypeFilter = this.periodsEN[3].value;
             }
-            // this.getSalesSummary();
             this.getOrdensSummary();
         });
 
@@ -568,7 +566,7 @@ export class DashOrdersComponent implements OnInit {
      */
     public isLoggedIn(message: string, isLoggedIn: boolean) {
         if (!isLoggedIn) {
-            // this.router.navigate([`/${RoutesConst.home}`]);
+            this.router.navigate([`/${RoutesConst.home}`]);
         } else {
             this.getUserData();
         }

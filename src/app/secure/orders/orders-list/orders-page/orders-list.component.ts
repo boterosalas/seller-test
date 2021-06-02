@@ -255,8 +255,6 @@ export class OrdersListComponent implements OnInit, OnDestroy {
 
     });
     this.changeLanguage();
-    // this.getListbyParams();
-
   }
 
   /**
@@ -393,7 +391,6 @@ export class OrdersListComponent implements OnInit, OnDestroy {
         }
       }
       // Logica para cargar el componente
-      // this.getOrdersListSinceCurrentUrl();
       this.getOrdersListSinceFilterSearchOrder();
       this.clearData();
       if (this.initialDate || this.finalDate || this.typeCardToDashboard) {

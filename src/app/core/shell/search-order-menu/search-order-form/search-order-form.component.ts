@@ -89,7 +89,6 @@ export class SearchOrderFormComponent implements OnInit {
     private loadingService: LoadingService,
     public datepipe: DatePipe,
   ) {
-    // this.getFilterOrderDate();
     this.createForm();
   }
 

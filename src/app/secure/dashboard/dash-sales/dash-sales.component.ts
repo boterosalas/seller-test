@@ -3,6 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { LoadingService, Logger, ModalService, UserLoginService, UserParametersService } from '@app/core';
+import { RoutesConst } from '@app/shared';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { ModalDashboardComponent } from '../modal-dashboard/modal-dashboard.component';
 import { DashboardService } from '../services/dashboard.service';
@@ -281,7 +282,7 @@ export class DashSalesComponent implements OnInit {
    */
   public isLoggedIn(message: string, isLoggedIn: boolean) {
     if (!isLoggedIn) {
-      // this.router.navigate([`/${RoutesConst.home}`]);
+      this.router.navigate([`/${RoutesConst.home}`]);
     } else {
       this.getUserData();
     }
