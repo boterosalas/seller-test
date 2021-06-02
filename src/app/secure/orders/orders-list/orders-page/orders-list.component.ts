@@ -276,7 +276,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   callServiceParams() {
     let stateCurrent = null;
     if (this.typeCardToDashboard === '3') {
-      const dataParamsRouteFilter = '&dateOrderInitial=' + this.initialDate + '&dateOrderFinal=' + this.finalDate + '&idStatusOrder=' + 60;
+      const dataParamsRouteFilter = '&paginationToken=' + encodeURI(this.paginationToken) + '&dateOrderInitial=' + this.initialDate + '&dateOrderFinal=' + this.finalDate + '&idStatusOrder=' + 60;
       if (this.initialDate || this.finalDate) {
         this.setCategoryName();
         this.loadingService.viewSpinner();
@@ -301,7 +301,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
         });
       }
     } else {
-      const dataParamsRouteFilter = '&dateOrderInitial=' + this.initialDate + '&dateOrderFinal=' + this.finalDate + '&idStatusOrder=' + this.currentRootPage;
+      const dataParamsRouteFilter = '&paginationToken=' + encodeURI(this.paginationToken) + '&dateOrderInitial=' + this.initialDate + '&dateOrderFinal=' + this.finalDate + '&idStatusOrder=' + this.currentRootPage;
       if (this.initialDate || this.finalDate) {
         this.setCategoryName();
         this.loadingService.viewSpinner();
@@ -777,15 +777,20 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       this.paginationToken = '{}';
       this.isClear = true;
     }
-    const params = {
-      'limit': this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken),
-      'idSeller': this.idSeller,
-      'state': this.lastState,
-      'dateOrderFinal': this.dateOrderFinal,
-      'dateOrderInitial': this.dateOrderInitial,
-      'bill': this.bill
-    };
-    this.getOrdersList(params);
+
+    if (this.initialDate || this.finalDate || this.typeCardToDashboard) {
+      this.callServiceParams();
+    } else {
+      const params = {
+        'limit': this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken),
+        'idSeller': this.idSeller,
+        'state': this.lastState,
+        'dateOrderFinal': this.dateOrderFinal,
+        'dateOrderInitial': this.dateOrderInitial,
+        'bill': this.bill
+      };
+      this.getOrdersList(params);
+    }
   }
 
   /**
