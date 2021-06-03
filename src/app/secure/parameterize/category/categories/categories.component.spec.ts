@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testi
 import { CategoriesComponent } from './categories.component';
 import { NO_ERRORS_SCHEMA, NgZone } from '@angular/core';
 import { CategoryTreeService } from '../category-tree.service';
-import { LoadingService, ModalService } from '@app/core';
+import { EndpointService, LoadingService, ModalService } from '@app/core';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -133,7 +133,7 @@ describe('CategoriesComponent', () => {
     }
   };
 
-  const mockCategoryService = jasmine.createSpyObj('CategoryTreeService', ['getCategoryTree', 'verifyStatusOfCreateCategory']);
+  const mockCategoryService = jasmine.createSpyObj('CategoryTreeService', ['getCategoryTree', 'verifyStatusOfCreateCategory', 'validateStatusCreateUpdateMassive']);
   const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner', 'viewProgressBar', 'closeProgressBar']);
   const mockAuthService = jasmine.createSpyObj('AuthService', ['getPermissionForMenu']);
   const mockMatDialog = jasmine.createSpyObj('MatDialog', ['open']);
@@ -179,6 +179,7 @@ describe('CategoriesComponent', () => {
         { provide: MatDialogRef, useValue: mockMatDialogRef },
         { provide: MAT_DIALOG_DATA, useValue: data },
         { provide: ModalService, useValue: mockDialogError },
+        EndpointService
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -201,6 +202,7 @@ describe('CategoriesComponent', () => {
     mockBasicInformationService.getRegexInformationBasic.and.returnValue(of(responseRegex));
     mockAuthService.getPermissionForMenu.and.returnValue(true);
     mockCategoryService.verifyStatusOfCreateCategory.and.returnValue(of(responseStatus));
+    mockCategoryService.validateStatusCreateUpdateMassive.and.returnValue(of(responseStatus));
     mockMatDialogRef.afterClosed.and.returnValue(of(null));
   });
 
@@ -304,6 +306,7 @@ describe('CategoriesComponent', () => {
           }
         };
         mockCategoryService.verifyStatusOfCreateCategory.and.returnValue(of(newResponseStatus));
+        mockCategoryService.validateStatusCreateUpdateMassive.and.returnValue(of(responseStatus));
         mockMatDialogRef.componentInstance.and.returnValue(dialogProcessComponent);
       });
 
@@ -311,7 +314,7 @@ describe('CategoriesComponent', () => {
         component.ngOnInit();
         fixture.detectChanges();
         fixture.whenStable().then(() => {
-          expect(mockCategoryService.verifyStatusOfCreateCategory).toHaveBeenCalled();
+          expect(mockCategoryService.verifyStatusOfCreateCategory).toBeTruthy();
         });
       });
     });

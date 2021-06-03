@@ -21,13 +21,20 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { ExceptionComponent } from './exception/exception.component';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material';
 import { ExceptionBrandComponent } from '../offers/stores/tree/components/exception-brand/exception-brand.component';
-import { StoresModule } from '../offers';
 import { ModalResultLoadExceptionComponent } from './exception/modal-result-load-exception/modal-result-load-exception.component';
 import { DownloadSpecsComponent } from './specifications/download-specs/download-specs.component';
 import { DownloadCategoriesComponent } from './category/categories/download-categories/download-categories.component';
 import { ModalBulkloadBrandsComponent } from './brands/modal-bulkload-brands/modal-bulkload-brands.component';
 import { SizesComponent } from './sizes/sizes.component';
 import { SizesService } from './sizes/sizes.service';
+import { NotificationAdminComponent } from './notification-admin/notification-admin.component';
+import { NotificationFormComponent } from './notification-admin/component/notification-form/notification-form.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { ColorPickerModule } from 'ngx-color-picker';
+import { UploadFileMasiveComponent } from '@app/shared/components/upload-file-masive/upload-file-masive.component';
+import { ModalLoadFileComponent } from './notification-admin/component/modal-load-file/modal-load-file.component';
+import { ModalPreviewNotificationComponent } from './notification-admin/component/modal-preview-notification/modal-preview-notification.component';
+import { ModalGenericComponent } from './notification-admin/component/modal-generic/modal-generic.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +54,13 @@ import { SizesService } from './sizes/sizes.service';
     DownloadSpecsComponent,
     DownloadCategoriesComponent,
     ModalBulkloadBrandsComponent,
-    SizesComponent
+    SizesComponent,
+    NotificationAdminComponent,
+    NotificationFormComponent,
+    UploadFileMasiveComponent,
+    ModalLoadFileComponent,
+    ModalPreviewNotificationComponent,
+    ModalGenericComponent
   ],
   imports: [
     CommonModule,
@@ -55,9 +68,9 @@ import { SizesService } from './sizes/sizes.service';
     ParameterizeRouting,
     ReactiveFormsModule,
     FormsModule,
-    // StoresModule,
     CurrencyMaskModule,
-    // ExceptionBrandComponent
+    AngularEditorModule,
+    ColorPickerModule
   ],
   exports: [
     CategoryTreeComponent
@@ -79,7 +92,11 @@ import { SizesService } from './sizes/sizes.service';
     ModalResultLoadExceptionComponent,
     DownloadSpecsComponent,
     DownloadCategoriesComponent,
-    ModalBulkloadBrandsComponent
+    ModalBulkloadBrandsComponent,
+    UploadFileMasiveComponent,
+    ModalLoadFileComponent,
+    ModalPreviewNotificationComponent,
+    ModalGenericComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

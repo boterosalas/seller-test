@@ -7,12 +7,27 @@
 }
 
 .example-chip-list {
-  margin: 1%;
+  margin-bottom: 4%;
   position: sticky;
   top: 64px;
   // background: white;
   z-index: 1;
   padding: 1%;
+}
+
+.example-chip-list-filters {
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  height: 80px;
+  max-height: 100px;
+  contain: content;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin-bottom: 2%;
+  & mat-icon {
+    margin-right: 0px;
+  }
 }
 
 .tree-toolbar {
@@ -27,12 +42,14 @@
     justify-content: flex-start;
     width: 100%;
     padding-left: 20px;
-    p{
+
+    p {
       margin: 0;
       color: $color-black;
       font-size: 18px;
       line-height: 21px;
       font-weight: bold;
+
       small {
         color: $color-gray1;
         font-weight: normal;
@@ -42,7 +59,7 @@
   }
 }
 
-.notFixed{
+.notFixed {
   position: relative;
 }
 
@@ -89,7 +106,7 @@
   }
 }
 
-.hide-page{
+.hide-page {
   @media only screen and (max-width: 600px) {
     display: none;
   }
@@ -145,12 +162,56 @@
 .listCombo {
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
+  width: 96%;
   // justify-content: center;
-  margin-top: 3%;
+  margin-top: 1.5%;
   position: relative;
 }
 
-.disabledIconAddKeyCategoryFilter{
+.disabledIconAddKeyCategoryFilter {
   pointer-events: none;
+}
+
+
+.customizeActions {
+  color: blue;
+  box-shadow: none;
+  border-width: 1px;
+  border-style: solid;
+  width: 300px
+}
+
+.allContainer {
+  height: auto;
+}
+
+.divDelete {
+  margin-top: 2%;
+  width: 95%;
+  text-align: right
+}
+
+.buttonDelete {
+  border-color: #485AFA;
+  width: 280px;
+  height: 37px;
+}
+
+.buttonSelected {
+  color: #485AFA;
+  font-family: Arial;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.buttonSelectedSome {
+  background-color: #485AFA;
+  width: 280px;
+  height: 37px;
+  & span {
+    color: white;
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 12px;
+  }
 }

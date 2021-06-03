@@ -5,13 +5,17 @@
    <div class="deactivate_offers" *ngIf="!viewDetailOffer && listOffer">
 
      <button mat-button color="primary" [matMenuTriggerFor]="menu">
-      <mat-icon>block</mat-icon> {{'secure.offers.list.list.desactive_offer' | translate}}</button>
+       <mat-icon>block</mat-icon> {{'secure.offers.list.list.desactive_offer' | translate}}
+     </button>
      <mat-menu #menu="matMenu">
-       <button mat-menu-item (click)="someOffersSelected(); activeMultipleOffer()">{{'secure.offers.list.list.selected_offer' | translate}}</button>
-       <button mat-menu-item (click)="allOffersSelected(); openDialogDesactiveOffer()">{{'secure.offers.list.list.all_offer' | translate}}</button>
+       <button mat-menu-item
+         (click)="someOffersSelected(); activeMultipleOffer()">{{'secure.offers.list.list.selected_offer' | translate}}</button>
+       <button mat-menu-item
+         (click)="allOffersSelected(); openDialogDesactiveOffer()">{{'secure.offers.list.list.all_offer' | translate}}</button>
      </mat-menu>
      <div *ngIf="activeCheck">
-       <button mat-raised-button color="primary" (click)="openDialogDesactiveOffer()">{{'secure.offers.list.list.confirm_desactive' | translate}}</button>
+       <button mat-raised-button color="primary"
+         (click)="openDialogDesactiveOffer()">{{'secure.offers.list.list.confirm_desactive' | translate}}</button>
      </div>
    </div>
 
@@ -23,6 +27,7 @@
                 (paramData.ean && paramData.ean !== null && paramData.ean !== undefined && paramData.ean !== '') ||
                 (paramData.stock && paramData.stock !== null && paramData.stock !== undefined && paramData.stock !== '') ||
                 (paramData.sellerSku && paramData.sellerSku !== null && paramData.sellerSku !== undefined && paramData.sellerSku !== '') ||
+                (paramData.reference && paramData.reference !== null && paramData.reference !== undefined && paramData.reference !== '') ||
                 (paramData.pluVtex && paramData.pluVtex !== null && paramData.pluVtex !== undefined && paramData.pluVtex !== ''))">
        <span class="filter-tittle">{{'secure.offers.list.list.filter_answer' | translate}}</span>
 
@@ -59,6 +64,14 @@
        </div>
 
        <div class="filter-desc flexbox align-center justify-between"
+         *ngIf="paramData.reference && paramData.reference !== null && paramData.reference !== undefined && paramData.reference !== ''">
+         <span [innerHTML]="paramData.reference"></span>
+         <span class="icon flexbox align-center justify-center" (click)="removeFilter('filterReference')">
+           <mat-icon>add_circle</mat-icon>
+         </span>
+       </div>
+
+       <div class="filter-desc flexbox align-center justify-between"
          *ngIf="paramData.stock && paramData.stock !== null && paramData.stock !== undefined && paramData.stock !== ''">
          <span
            [innerHTML]="paramData.stock == '1' ? ['secure.offers.list.list.with_stock' | translate] : paramData.stock == 0 ? ['secure.offers.list.list.with_out_stock' | translate] : '' "></span>
@@ -70,7 +83,8 @@
 
      <div *ngFor="let item of listOffer">
        <div class="checkSelected" *ngIf="activeCheck">
-         <mat-checkbox type="checkbox" [checked]="item.checked" (change)="onvalueCheckdesactiveChanged(item)">{{'secure.offers.list.list.select_me' | translate}}
+         <mat-checkbox type="checkbox" [checked]="item.checked" (change)="onvalueCheckdesactiveChanged(item)">
+           {{'secure.offers.list.list.select_me' | translate}}
          </mat-checkbox>
        </div>
        <div>
@@ -129,7 +143,6 @@
    <section *ngIf="viewDetailOffer && viewDetailOffer == true">
      <app-detail-offer [dataOffer]="dataOffer" (consumeServiceList)="receiveVarConsumeList($event)"
        [canEdit]="updatePermission"></app-detail-offer>
-     <!-- <app-detail-offer [dataOffer]="dataOffer" (consumeServiceList)="receiveVarConsumeList($event)"></app-detail-offer> -->
    </section>
 
    <mat-sidenav #sidenav mode="over" position="end">

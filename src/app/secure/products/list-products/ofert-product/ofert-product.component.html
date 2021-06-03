@@ -110,15 +110,14 @@
         <mat-radio-button value="IsFreightCalculator" class="radio-ofert">{{'secure.offers.historical_admin.historical_admin.freight_calculator' | translate}}</mat-radio-button>
         <mat-radio-button *ngIf="false" value="IsLogisticsExito" class="radio-ofert">{{'secure.offers.historical_admin.historical_admin.exito_logistic' | translate}}</mat-radio-button>
       </mat-radio-group>
-      <!-- <mat-slide-toggle formControlName="ofertOption" value="IsFreeShipping" class="radio-ofert" color="primary">
-        Flete gratis
-      </mat-slide-toggle>
-      <mat-checkbox formControlName="ofertOption" value="IsEnviosExito" class="radio-ofert">Indicador Envíos Éxito</mat-checkbox> -->
     </div>
     <div class="optionsUpdate">
-      <mat-slide-toggle formControlName="IsUpdatedStock">
-          {{'secure.products.create_product_unit.list_products.ofert_product.stock_update' | translate}}
+      <mat-slide-toggle formControlName="IsUpdatedStock" (change)="alertSellerByReference($event)">
+          {{changeCopyUpdateStock}}
       </mat-slide-toggle>
+      <mat-slide-toggle formControlName="OfferByReference" (change)="alertSellerByReference($event)" *ngIf="applyOffer.eanesCombos.length === 0 && applyOffer.reference">
+        {{'secure.products.create_product_unit.list_products.ofert_product.reference_update' | translate}}
+    </mat-slide-toggle>
     </div>
   </div>
 

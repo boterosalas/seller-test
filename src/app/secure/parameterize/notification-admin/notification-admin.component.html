@@ -1,0 +1,129 @@
+<div class="content-order my-content">
+  <div class="container" fxLayout="row wrap" fxLayoutAlign="center
+    start">
+    <div fxFlex="100" class="light-content">
+      <app-toolbar-search-pagination [isClear]="isClear"
+        [informationToForm]="informationToForm"
+         #toolbarOptions
+        (paginationListOrdens)="paginations($event)"
+        [isFullSearch]="isFullSearch" 
+        [downloadPermission]="downloadPermission"
+        [showOttertTitle]="showOttertTitle"
+        [Typeprofile]="typeProfile" 
+        [btnFilter]="false"
+        [showBtn]="false"
+        [showLoading]="false" [limitPaginate]="[50, 100, 150]"
+        [lengthOrder]="length" 
+        [showContainerDetail]="showContainerDetail"></app-toolbar-search-pagination>
+    </div>
+  </div>
+  <div *ngIf="showListAdvertisements">
+    <div class="padding-width" fxLayout="row wrap">
+      <div fxFlex fxLayoutAlign="end center"
+        class="notification-admin-title-module">
+        <button mat-stroked-button [disabled]="!dataSource" color="primary"
+          class="notification-admin-text-transform-uppercase" mat-button
+          (click)="createNotification()">Crear nuevo anuncio</button>
+      </div>
+    </div>
+    <div>
+      <div fxFlex.xs="100%" fxFlex.sm="95" fxFlex.md="100" fxFlex.lg="100"
+        fxFlex.xl="100" class="notification-admin-padding-content-title">
+        <mat-table #table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="title">
+            <mat-header-cell fxShow.xs="true" fxShow.sm="true"
+              fxShow.lg="true"
+              fxShow.xl="true" fxShow="true"
+              fxFlex.lg="40" fxFlex.sm="40" fxFlex.md="40" fxFlex.xs="40"
+              fxFlex.xl="40" *matHeaderCellDef>
+              <span class="title-table-header">{{'secure.notifications.list.column-title'
+                | translate}}</span>
+            </mat-header-cell>
+            <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+              fxShow.xl="true" fxShow="true" fxFlex.lg="40"
+              fxFlex.sm="40" fxFlex.md="40" fxFlex.xs="40" fxFlex.xl=""
+              *matCellDef="let element">
+              <p class="sc-text-normal notification-admin-column-title">{{element.Title}}</p>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="date">
+            <mat-header-cell fxShow.xs="true" fxShow.sm="true"
+              fxShow.lg="true"
+              fxShow.xl="true" fxShow="true"
+              fxFlex.lg="40" fxFlex.sm="40" fxFlex.md="40" fxFlex.xs="40"
+              fxFlex.xl="40" *matHeaderCellDef>
+              <span class="title-table-header">{{'secure.notifications.list.column-date'
+                | translate}}</span>
+            </mat-header-cell>
+            <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+              fxShow.xl="true" fxShow="true" fxFlex.lg="40"
+              fxFlex.sm="40" fxFlex.md="40" fxFlex.xs="40" fxFlex.xl="40"
+              *matCellDef="let element">
+              <p class="sc-text-normal notification-admin-column-title"><span>Publicada
+                </span>{{element.CreationDate | date: 'dd/MM/yyyy'}}</p>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="actions">
+            <mat-header-cell fxShow.xs="true" fxShow.sm="true"
+              fxShow.lg="true"
+              fxShow.xl="true" fxShow="true"
+              fxFlex.lg="20" fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30"
+              fxFlex.xl="" *matHeaderCellDef
+              class="notification-admin-display-justify">
+              <span class="title-table-header">{{'shared.actions' | translate}}</span>
+            </mat-header-cell>
+            <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+              fxShow.xl="true" fxShow="true" fxFlex.lg="20"
+              fxFlex.sm="20" fxFlex.md="20" fxFlex.xs="30" fxFlex.xl="20"
+              *matCellDef="let element"
+              class="notification-admin-display-justify">
+              <p class="sc-text-normal
+                notification-admin-container-padding-color-icon">
+                <mat-icon class="notification-admin-container-hover-cursor-icon"
+                  matTooltip="Previsualizar"
+                  (click)="preview(element, false);">find_in_page</mat-icon>
+              </p>
+              <p class="sc-text-normal
+                notification-admin-container-padding-color-icon">
+                <mat-icon class="notification-admin-container-hover-cursor-icon"
+                  matTooltip="Editar"
+                  (click)="edit(element, true);">edit</mat-icon>
+              </p>
+              <p class="sc-text-normal
+                notification-admin-container-padding-color-icon">
+                <mat-icon class="notification-admin-container-hover-cursor-icon"
+                  matTooltip="Eliminar"
+                  (click)="deleteNotification(element);">delete</mat-icon>
+              </p>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row id="order-number-{{index}}" *matRowDef="let index=index; let
+            row; columns: displayedColumns;" class="element-row
+            personal-row-table" [cdkDetailRow]="row"
+            [cdkDetailRowTpl]="tpl">
+          </mat-row>
+        </mat-table>
+        <div [@detailExpand] class="orders-no-data" *ngIf="length === 0">
+          <mat-icon class="icon-not-found" color="primary">info</mat-icon>
+          <div *ngIf="length === 0 && !showEmpty">
+            <p>No se han encontrado registros</p>
+          </div>
+          <div *ngIf="length === 0 && showEmpty">
+            <p>{{'secure.quality.quality-score.text-empty-califications' |
+              translate}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!dataSource" class="width-100 notification-admin-container-load-spinner-padding">
+      <mat-spinner [diameter]="30" class="aling-spinner-center"></mat-spinner>
+      <p class="loading-waiting">{{'secure.products.create_product_unit.list_products.please_wait' | translate}}</p>
+    </div>
+  </div>
+  <div *ngIf="!showListAdvertisements">
+    <app-notification-form (isBackList)="backList($event)"
+      (refreshData)="refreshData($event)"
+      [paramsNotification]="paramsNotification"></app-notification-form>
+  </div>
+</div>

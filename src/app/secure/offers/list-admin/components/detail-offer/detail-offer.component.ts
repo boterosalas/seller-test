@@ -71,14 +71,6 @@ export class DetailOfferComponent implements OnInit {
   periodicityHtml: string;
 
   /**
-   * @description Variable que almancena un booleano que se le envia al listado de ofertas para volver a consumir el servicio
-   * de listado de ofertas.
-   * @type {EventEmitter<boolean>}
-   * @memberof DetailOfferComponent
-   */
-  @Output() consumeServiceList = new EventEmitter<boolean>();
-
-  /**
    *
    * @description Variable para controlar si es production o no
    * @memberof DetailOfferComponent

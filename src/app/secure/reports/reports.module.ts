@@ -12,6 +12,12 @@ import { DownloadModalErrorVtexComponent } from './report-errors-vtex/download-m
 import { ReportCommissionComponent } from './report-commission/report-commission.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { ReportDispersionComponent } from './report-dispersion/report-dispersion.component';
+import { FraudNotificationComponent } from './fraud-notification/fraud-notification.component';
+import { UploadFraudComponent } from './fraud-notification/components/upload-fraud/upload-fraud.component';
+import { ngfModule } from 'angular-file';
+import { FinishUploadProductInformationComponent } from './fraud-notification/components/finish-upload-product-information/finish-upload-product-information.component';
+import { FinishUploadFraudInformationComponent } from './fraud-notification/components/finish-upload-fraud-information/finish-upload-fraud-information';
+
 
 @NgModule({
     imports: [
@@ -21,7 +27,8 @@ import { ReportDispersionComponent } from './report-dispersion/report-dispersion
         FormsModule,
         CurrencyMaskModule,
         ListReportRoutingModule,
-        SharedModule
+        SharedModule,
+        ngfModule
     ],
     declarations: [
         ReportOffertComponent,
@@ -30,13 +37,20 @@ import { ReportDispersionComponent } from './report-dispersion/report-dispersion
         DownloadModalErrorVtexComponent,
         ReportCommissionComponent,
         ReportDispersionComponent,
+        FraudNotificationComponent,
+        FinishUploadProductInformationComponent,
+        FinishUploadFraudInformationComponent,
+        UploadFraudComponent,
     ],
     exports: [
         ReportOffertComponent
     ],
     entryComponents: [
         DownloadModalOffertReportComponent,
-        DownloadModalErrorVtexComponent
+        DownloadModalErrorVtexComponent,
+        UploadFraudComponent,
+        FinishUploadProductInformationComponent,
+        FinishUploadFraudInformationComponent
     ],
     providers: [
         ReportOffertService

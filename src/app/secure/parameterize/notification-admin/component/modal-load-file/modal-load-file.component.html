@@ -1,0 +1,117 @@
+<div class="modal-load-file-padding-bottom-20">
+  <div fxLayout="row wrap" *ngIf="_showComponent">
+    <div fxFlex="90" class="modal-load-file-text-align-center">
+      <span class="modal-load-file-margin-left-font-size">Imagen destacadas</span>
+    </div>
+    <div fxFlex="10" class="modal-load-file-text-align-end">
+      <mat-icon class="mat-18 modal-load-file-cursor-pointer" (click)="close()"
+        matTooltip="Cerrar">close</mat-icon>
+    </div>
+  </div>
+</div>
+<mat-tab-group>
+  <mat-tab label="Subir archivos">
+    <div fxFlex="100">
+      <div class="inline-block">
+        <div ngfDrop selectable="1" multiple="1" [(validDrag)]="validComboDrag"
+          [(files)]="files" [(file)]="file" [maxSize]="maxSize"
+          [accept]="accept" [(lastInvalids)]="lastInvalids"
+          [(dragFiles)]="dragFiles"
+          class="well my-drop-zone" fxLayout="column" id="excel"
+          fxLayoutAlign="center center"
+          [class.invalid-drag]="validComboDrag===false"
+          [class.valid-drag]="validComboDrag"
+          (filesChange)="lastFileAt=getDate(); validateFile(files, file)"
+          class="modal-load-file-min-height-250">
+
+          <div *ngIf="startInit === true && !error && !lastInvalids?.length">
+            <div class="modal-load-file-padding-bottom-30">
+              <span>
+                Arrastra el archivo a cualquier lugar para subirlo
+              </span>
+            </div>
+            <div class="modal-load-file-text-align-center-padding-30">
+              <span>ó</span>
+            </div>
+            <div class="modal-load-file-text-align-center">
+              <button mat-stroked-button color="primary"
+                class="modal-load-file-text-transform-uppercase" mat-button>seleccionar
+                archivo</button>
+            </div>
+          </div>
+
+          <div *ngIf="success && !lastInvalids?.length"
+            class="modal-load-file-width-100">
+            <div fxLayout="row wrap"
+              class="modal-load-file-width-100-max-height">
+              <div fxFlex="50"
+                class="modal-load-file-contain-padding-text-align">
+                <img [src]="imagePathDrag"
+                  class="modal-load-file-width-max-100">
+              </div>
+              <div fxFlex="50" class="modal-load-file-padding-left-10">
+                <div class="modal-load-file-text-align-center">
+                  <span class="modal-load-file-font-size-15">Detalle de la
+                    imagen</span>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="modal-load-file-padding-top-5">
+                  <mat-icon class="mat-18
+                    modal-load-file-img-vertical-align-middle">image</mat-icon>
+                  <span class="modal-load-file-font-size-13">
+                    Nombre: {{nameFile}}
+                  </span>
+                </div>
+                <div class="modal-load-file-padding-5">
+                  <mat-icon class="mat-18
+                    modal-load-file-img-vertical-align-middle">fitness_center</mat-icon>
+                  <span class="modal-load-file-font-size-13">
+                    Peso: {{this.size}} MB
+                  </span>
+                </div>
+                <div class="modal-load-file-padding-5">
+                  <mat-icon class="mat-18
+                    modal-load-file-img-vertical-align-middle">date_range</mat-icon>
+                  <span class="modal-load-file-font-size-13">
+                    Fecha: {{dateFile | date:'dd/MM/yyyy'}}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="error || lastInvalids?.length"
+            class="modal-load-file-text-align-width-100">
+            <div class="modal-load-file-padding-bottom-width">
+              <mat-icon class="material-icons"
+                class="modal-load-file-icon-not-interesed">
+                not_interested
+              </mat-icon>
+            </div>
+            <div *ngIf="lastInvalids?.length" class="modal-load-file-width-100">
+              <span>Formato inválido</span>
+            </div>
+            <div *ngIf="refuseMaxSize && !lastInvalids?.length"
+              class="modal-load-file-width-100">
+              <span>La imagen no puede superar los 7 MB</span>
+            </div>
+            <div *ngIf="!dimesion && !lastInvalids?.length"
+              class="modal-load-file-width-100">
+              <span>{{messageValidateDimension}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-load-file-width-100" *ngIf="_showComponent">
+          <div class="modal-load-file-width-100-text-align-center">
+            <mat-divider></mat-divider>
+          </div>
+          <div class="modal-load-file-btn-close-text">
+            <button mat-raised-button color="primary"
+              class="modal-load-file-text-transform-uppercase-width" mat-button
+              (click)="closeAndsave()">Continuar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>

@@ -66,6 +66,7 @@ export class RoutesConst {
     static readonly reportErrorsVtexAdmin: any = 'report-error-vtex';
     static readonly reportCommission: any = 'report-commision';
     static readonly reportDispersion: any = 'report-dispersion';
+    static readonly fraudNotification: any = 'fraud-notification';
     static readonly listCalification: any = 'quality-score';
     static readonly consultIndicators: any = 'consult-indicators';
     static readonly summaryPayment: any = 'summary-payment';
@@ -74,6 +75,7 @@ export class RoutesConst {
     static readonly billingSeller: any = 'facturacion-vendedor';
     static readonly pendingProducts: any = 'productos-pendientes';
     static readonly excepctionCommision: any = 'excepcion-comision';
+    static readonly notification: any = 'notificacion';
     static readonly listCancelOrders: any = 'listado-cancelaciones';
     static readonly manageAgreements: any = 'administrar-acuerdos';
     static readonly detailAgreements: any = 'detalle-acuerdos';
@@ -138,6 +140,7 @@ export class RoutesConst {
     static readonly sellerCenterIntReportsErrorsVtex: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.reportErrorsVtexAdmin;
     static readonly sellerCenterIntReportsCommission: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.reportCommission;
     static readonly sellerCenterIntReportsDispersion: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.reportDispersion;
+    static readonly sellerCenterFraudNotification: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.fraudNotification;
     static readonly sellerCenterIntOfferCitiesCoverage: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.offerCitiesCoverage;
 
     static readonly sellerCenterIntProductBulkLoad: any = RoutesConst.sellerCenterProducts + '/' + RoutesConst.productBulkLoad;
@@ -168,6 +171,7 @@ export class RoutesConst {
     static readonly sellerCenterIntCategoryTree: any = RoutesConst.securehome + '/' + RoutesConst.categoryTree;
     static readonly sellerCenterIntPort: any = RoutesConst.securehome + '/' + RoutesConst.port;
     static readonly sellerCenterIntException: any = RoutesConst.securehome + '/' + RoutesConst.excepctionCommision;
+    static readonly sellerCenterIntNotification: any = RoutesConst.securehome + '/' + RoutesConst.notification;
 
     static readonly sellerCenterIntShipmentsExitoHist: any = RoutesConst.sellerCenterShipmentsExito + '/' + RoutesConst.shipmentsExitoHist;
     static readonly sellerCenterIntShipmentsExitoOffice: any = RoutesConst.sellerCenterShipmentsExito + '/' + RoutesConst.shipmentsExitoOffice;
