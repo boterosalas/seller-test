@@ -221,6 +221,8 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
         this.imagePathDrag = 'backgroundColor';
         this.nameFile = null;
         this.sizeFile = null;
+        this.changeFile = false;
+        this.imagUrl = null;
         break;
       case 3:
         this.form.controls.bodyDescription.disable();
@@ -303,9 +305,18 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
                   this.imagUrl = body.Data.Url;
                   const paramsCreate = this.setparams();
                   this.notificationAdminService.updateNotification(paramsCreate).subscribe(res => {
-                    this.createOrEdit = true;
-                    this.loadingService.closeSpinner();
-                    this.backList();
+                    if (res && res.Errors.length === 0) {
+                      this.createOrEdit = true;
+                      this.loadingService.closeSpinner();
+                      this.modalGeneric();
+                    } else {
+                      this.createOrEdit = false;
+                      this.withError = true;
+                      this.listError = res.Errors;
+                      this.titleErrorSubtitle = 'Ha ocurrido un error al momento de cargar el anuncio';
+                      this.loadingService.closeSpinner();
+                      this.modalGeneric();
+                    }
                   });
                 } else {
                   const msg = 'Se ha presentado un error al realizar la peteción al servidor';
@@ -328,10 +339,19 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
       } else {
         const paramsCreate = this.setparams();
         this.notificationAdminService.updateNotification(paramsCreate).subscribe(res => {
-          this.withError = false;
-          this.createOrEdit = true;
-          this.loadingService.closeSpinner();
-          this.modalGeneric();
+          if (res && res.Errors.length === 0) {
+            this.withError = false;
+            this.createOrEdit = true;
+            this.loadingService.closeSpinner();
+            this.modalGeneric();
+          } else {
+            this.createOrEdit = false;
+            this.withError = true;
+            this.listError = res.Errors;
+            this.titleErrorSubtitle = 'Ha ocurrido un error al momento de cargar la imagen';
+            this.loadingService.closeSpinner();
+            this.modalGeneric();
+          }
         });
       }
 
