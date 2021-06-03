@@ -473,7 +473,7 @@ const DocumentModule = new ModuleModel(documentModule, showAll, documentModule.t
  * 4. Perfiles.
  * 5. Marcas.
  */
-export const paramModule = 'PARAMETRIZACIÓN', quoteName = 'Cotizador', transportName = 'transportadora', zonesName = 'zonas', specsName = 'Especificaciones', categoriesTreeName = 'Asignar comisión', profileName = 'Perfiles', categoryName = 'Árbol de categorías', brandName = 'Marcas', portName = 'Parametrizar Centros de Acopio', exception = 'Excepción por comisión', sizeName = 'Tallas';
+export const paramModule = 'PARAMETRIZACIÓN', quoteName = 'Cotizador', transportName = 'transportadora', zonesName = 'zonas', specsName = 'Especificaciones', categoriesTreeName = 'Asignar comisión', profileName = 'Perfiles', categoryName = 'Árbol de categorías', brandName = 'Marcas', portName = 'Parametrizar Centros de Acopio', exception = 'Excepción por comisión', sizeName = 'Tallas', notification = 'Notificación';
 const ParamModule = new ModuleModel(paramModule, showAll, paramModule.toLowerCase(), [
     // 1. Cotizador.
     new MenuModel(quoteName, showAll, quoteName.toLowerCase(), ProfileTypes.Administrador, [
@@ -526,6 +526,7 @@ const ParamModule = new ModuleModel(paramModule, showAll, paramModule.toLowerCas
         new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality), // Editar.
         new FunctionalitiesModel(createFunctionality, showAll, createFunctionality) // Crear.
     ], RoutesConst.sellerCenterIntPort),
+    // 8. Excepcion por marca
     new MenuModel(exception, showAll, exception.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality), // Editar.
@@ -538,6 +539,12 @@ const ParamModule = new ModuleModel(paramModule, showAll, paramModule.toLowerCas
         new FunctionalitiesModel(createFunctionality, showAll, createFunctionality), // Agregar.
         new FunctionalitiesModel(deleteFunctionality, showAll, deleteFunctionality) // Eliminar.
     ], RoutesConst.sellerCenterIntParamSize),
+    // 9. Notificacion
+    new MenuModel(notification, showAll, notification.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+        new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality), // Editar.
+        new FunctionalitiesModel(createFunctionality, showAll, createFunctionality) // Crear.
+    ], RoutesConst.sellerCenterIntNotification)
 ]);
 
 export const reclaModule = 'RECLAMACIONES', listreclamaciones = 'Listar Reclamaciones';
@@ -557,7 +564,7 @@ const ReclaModule = new ModuleModel(reclaModule, showAll, reclaModule.toLowerCas
  * 1. Reporte de ofertas.
  */
 
-export const reportModule = 'REPORTES', reportOffertAdmin = 'Reporte de ofertas', reportErrorsVtex = 'Reporte de errores en VTEX', reportCommission = 'Reporte de comisiones', reportDispersion = 'Reporte cobros pendientes MPI';
+export const reportModule = 'REPORTES', reportOffertAdmin = 'Reporte de ofertas', reportErrorsVtex = 'Reporte de errores en VTEX', reportCommission = 'Reporte de comisiones', reportDispersion = 'Reporte cobros pendientes MPI', fraudNotification = 'Notificación de Fraudes';
 const ReportModule = new ModuleModel(reportModule, showAll, reportModule.toLowerCase(), [
     new MenuModel(reportOffertAdmin, showAll, reportOffertAdmin.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
@@ -574,7 +581,11 @@ const ReportModule = new ModuleModel(reportModule, showAll, reportModule.toLower
     new MenuModel(reportDispersion, showAll, reportDispersion.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality) // Descargar
-    ], RoutesConst.sellerCenterIntReportsDispersion)]);
+    ], RoutesConst.sellerCenterIntReportsDispersion),
+    new MenuModel(fraudNotification, showAll, fraudNotification.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+        new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality) // Descargar
+    ], RoutesConst.sellerCenterFraudNotification)]);
 
 
 /**

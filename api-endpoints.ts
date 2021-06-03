@@ -9,6 +9,7 @@ export const endpoints = {
     v1: {
       // orders
       sendOrderEmail: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/exportoffersbyseller/{idSeller}/{email}',
+      sendEmailFormat: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/exportoffersbyseller?email={email}&productType={productType}',
       searchOrders: 'https://5x9qrupiba.execute-api.us-east-1.amazonaws.com/SearchOrders?idSeller={sellerId}&limit={limit}',
       carries: 'https://2he495iasj.execute-api.us-east-1.amazonaws.com/Carries',
       sendAllGuides: 'https://tew99ut1y2.execute-api.us-east-1.amazonaws.com/SendAllGuides',
@@ -269,9 +270,9 @@ export const endpoints = {
       // verificar el status de carga de dispersion
       statusLoadDispersion: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/getstatusdispersion',
       // Envia un correo con el reporte
-      sendModuleReportDispersion : 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/pendingpaymentnews/{params}',
+      sendModuleReportDispersion: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing/dispersion/pendingpaymentnews/{params}',
       // Obtener listado de modulos y submodulos
-      getAllModuleSchoolExito : 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/GetAllModule',
+      getAllModuleSchoolExito: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/GetAllModule',
       // escuela exito modificar modulos
       editModules: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/EditModule',
       // escuela exito eliminar modulos
@@ -311,7 +312,11 @@ export const endpoints = {
       // Eliminar uno o varios vendedores del contrato
       delete1orMore: 'https://yoix96dfrg.execute-api.us-east-1.amazonaws.com/contracts/DeleteContractApply',
       // Consultar si tiene carga la creacion de modulos.
-      ValidateCreateMassive : 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/ValidateCreateMassive',
+      ValidateCreateMassive: 'https://ezuk98aqii.execute-api.us-east-1.amazonaws.com/dev/ValidateCreateMassive',
+      // ELiminar productos vendedor
+      deleteProduct: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/disassociateproductfrommyproductsasync',
+      // Mirar estado batch carga eliminar productos
+      getStatusDeleteProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/getstatusdisassociateproducts',
       // Captura de indicadores
       getIndicators : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller/getindicatorsbynit/{params}',
       // Obtener listado de tallas
@@ -319,7 +324,36 @@ export const endpoints = {
       // Obtener listado de tallas Creacion unitaria
       getAllSizesProducts: 'https://wss1xyl4h8.execute-api.us-east-1.amazonaws.com/Sizes/all',
       // Consultar estado de la carga masiva de tallas
-      getStatusSize: 'https://wss1xyl4h8.execute-api.us-east-1.amazonaws.com/Sizes/status'
+      getStatusSize: 'https://wss1xyl4h8.execute-api.us-east-1.amazonaws.com/Sizes/status',
+      // obtiene el listado de fraudes
+      getFrauds: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles?&limit={limit}',
+      // envia el listado de fraudes
+      sendFrauds: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles',
+      // obtiene el statuts de los fraudes
+      statusFrauds: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles/status',
+      // descarga la plantilla
+      downloadTemplateFrauds: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates-Dev/PlantillaCargaFraudes.xlsx',
+      // Descargar plantilla para carga masiva de categorias
+      downloadTemplateCategoryMasive: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates-Dev/PlantillaCargaMasivaCategorias.xlsx',
+      // Crear caterogiras de forma masiva
+      createUpdateMassiveCategories: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/CreateUpdateMassiveCategories/{params}',
+      // valida el estado de la carga masiva de categorias
+      ValidateStatusCreateUpdateMassive: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/ValidateStatusCreateUpdateMassive',
+      // Captura todas las notificaciones (anuncios )
+      getAllNotification: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/GetPaginatedNews{params}',
+      // Crear anuncio
+      createNew: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/CreateNew',
+      // Guardar imagen de anuncios
+      saveImgNotification: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/SaveImage',
+      // Editar anuncios
+      updateNotification: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/UpdateNew',
+      // Eliminar anuncios
+      deleteNotification: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/DeleteNew{params}',
+      // Listar anuncios vendedor
+      getAdvertisements: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/GetNewsByTarget?totalMax=10',
+      // Listar anuncios vendedor
+      readAdvertisements: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/SetNewsRead'
+
     },
   },
   // Endpoints production
@@ -327,6 +361,7 @@ export const endpoints = {
     v1: {
       // orders
       sendOrderEmail: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/exportoffersbyseller/{idSeller}/{email}',
+      sendEmailFormat: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/exportoffersbyseller?email={email}&productType={productType}',
       searchOrders: 'https://ldixrz8no2.execute-api.us-east-1.amazonaws.com/searchorders-pdn?idSeller={sellerId}&limit={limit}',
       carries: 'https://q8sree00sb.execute-api.us-east-1.amazonaws.com/carrier-pdn',
       sendAllGuides: 'https://vaf1d3c2ic.execute-api.us-east-1.amazonaws.com/sendallguides-pdn',
@@ -586,9 +621,9 @@ export const endpoints = {
       // verificar el status de carga de dispersion
       statusLoadDispersion: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/getstatusdispersion',
       // Envia un correo con el reporte
-      sendModuleReportDispersion : 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/pendingpaymentnews/{params}',
+      sendModuleReportDispersion: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn/dispersion/pendingpaymentnews/{params}',
       // Obtener listado de modulos y submodulos
-      getAllModuleSchoolExito : 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/GetAllModule',
+      getAllModuleSchoolExito: 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/GetAllModule',
       // escuela exito modificar modulos
       editModules: 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/EditModule',
       // escuela exito eliminar modulos
@@ -611,26 +646,58 @@ export const endpoints = {
       updatePositionSubModules: 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/MoveSubModule',
       // actualiza la posicion del elemento en la base de datos trabaja con el index
       updatePositionModules: 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/MoveModule',
-       // Elimina un producto del listado de productos por Ean
-       deleteProductByEan: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/deleteproduct/{params}',
+      // Elimina un producto del listado de productos por Ean
+      deleteProductByEan: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/deleteproduct/{params}',
       // Descarga formato masiva vendedores
       uploadMassiveAgreementSellers: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates/PlantillaCargaAcuerdos.xlsx',
       // Obtener listado de acuerdos
       getAllAgreement: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/GetSellerContract/{params}',
       // Consultar estado de crear acuerdos masivos (get)
       getStatusMassiveAgreement: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/GetStatusLoads',
-       // ELiminar contrato a todos los vendedores
-       deleteAllAgreement: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/DeleteContract/{params}',
-       // Establecer contrato por defecto
-       defaulAgreement: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/SetContractByDefault/{params}',
-       // Obtener listado de vendedores por acuerdos
-       getListSellersAgreement: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/GetSellerContractApply/{params}',
-       // Eliminar uno o varios vendedores del contrato
-       delete1orMore: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/DeleteContractApply',
-       // Consultar si tiene carga la creacion de modulos.
-      ValidateCreateMassive : 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/ValidateCreateMassive',
+      // ELiminar contrato a todos los vendedores
+      deleteAllAgreement: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/DeleteContract/{params}',
+      // Establecer contrato por defecto
+      defaulAgreement: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/SetContractByDefault/{params}',
+      // Obtener listado de vendedores por acuerdos
+      getListSellersAgreement: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/GetSellerContractApply/{params}',
+      // Eliminar uno o varios vendedores del contrato
+      delete1orMore: 'https://sw7zmm3j80.execute-api.us-east-1.amazonaws.com/contracts/DeleteContractApply',
+      // Consultar si tiene carga la creacion de modulos.
+      ValidateCreateMassive: 'https://jb829a2m54.execute-api.us-east-1.amazonaws.com/pdn/ValidateCreateMassive',
+      // ELiminar productos vendedor
+      deleteProduct: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/disassociateproductfrommyproductsasync',
+      // Mirar estado batch carga eliminar productos
+      getStatusDeleteProducts: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/getstatusdisassociateproducts',
       // Captura de indicadores
-      getIndicators : 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller/getindicatorsbynit/{params}'
+      getIndicators: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller/getindicatorsbynit/{params}',
+      // obtiene el listado de fraudes
+      getFrauds: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/fraudfiles?&limit={limit}',
+      // envia el listado de fraudes
+      sendFrauds: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/fraudfiles',
+      // obtiene el status de los fraudes
+      statusFrauds: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/fraudfiles/status',
+      // descarga la plantilla
+      downloadTemplateFrauds: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates/PlantillaCargaFraudes.xlsx',
+      // Descargar plantilla para carga masiva de categorias
+      downloadTemplateCategoryMasive: 'https://s3.amazonaws.com/seller-center-exito-staging/Templates/PlantillaCargaMasivaCategorias.xlsx',
+      // Crear caterogiras de forma masiva
+      createUpdateMassiveCategories: 'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/CreateUpdateMassiveCategories/{params}',
+      // valida el estado de la carga masiva de categorias
+      ValidateStatusCreateUpdateMassive: 'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/ValidateStatusCreateUpdateMassive',
+      // Captura todas las notificaciones (anuncios )
+      getAllNotification: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/GetPaginatedNews{params}',
+      // Crear anuncio
+      createNew: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/CreateNew',
+      // Guardar imagen de anuncios
+      saveImgNotification: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/SaveImage',
+      // Editar anuncios
+      UpdateNotification: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/UpdateNew',
+      // Eliminar anuncios
+      deleteNotification: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/DeleteNew{params}',
+      // Listar anuncios vendedor
+      getAdvertisements :  'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/Dev-SC-News/GetNewsByTarget?totalMax=10',
+      // Listar anuncios vendedor
+      readAdvertisements :  'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/Dev-SC-News/SetNewsRead'
     }
   }
 };

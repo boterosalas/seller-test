@@ -1,0 +1,49 @@
+<div fxLayout="row wrap" *ngIf="data">
+  <div fxFlex="90" class="modal-preview-text-align-center">
+    <span class="modal-preview-title-position-font-size"
+      *ngIf="title !== null">{{title}}</span>
+  </div>
+  <div fxFlex="10" class="modal-preview-text-align-end">
+    <mat-icon class="mat-18 modal-preview-cursor-pointer" (click)="close()" matTooltip="Cerrar">close</mat-icon>
+  </div>
+</div>
+<div>
+  <div *ngIf="typeBody === '1'">
+    <div (click)="callToAction()" class="modal-preview-min-height-200">
+      <div *ngIf="!load">
+        <div class="modal-preview-text-align-center">
+          <img [src]="imagePathDrag" loading="lazy" class="modal-preview-container-height-width">
+        </div>
+        <div [innerHTML]="body" class="modal-preview-padding-color modal-preview-content-description-notification"> </div>
+      </div>
+      <div *ngIf="load" class="modal-preview-padding-top-80">
+        <div class="modal-preview-padding-text-align-center">
+          <mat-spinner class="processCharge" [diameter]="40"></mat-spinner>
+        </div>
+        <div class="modal-preview-width-text-align-center-margin-top">
+          <span>Espere un momento por favor</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="typeBody === '2'" class="modal-preview-text-align-center">
+    <img [src]="imagePathDrag" (click)="callToAction()" class="modal-preview-container-width-height">
+  </div>
+  <div *ngIf="typeBody === '3'" class="modal-preview-padding-20">
+    <div (click)="callToAction()" [ngStyle]="{'background-color': backgroundColor, 'min-height': '200px',
+      'max-height': '360px'
+      }">
+      <div [innerHTML]="body" class="modal-preview-padding-color modal-preview-content-description-notification"> </div>
+    </div>
+  </div>
+  <div fxLayout="row wrap" class="modal-preview-padding-top-20">
+    <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" fxFlex="50"  class="modal-preview-padding-right-text" *ngIf="showBtn">
+      <button mat-stroked-button color="primary" class="modal-preview-btn-text-transform-uppercase" mat-button
+        (click)="close()">volver a editar</button>
+    </div>
+    <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" fxFlex="50" class="modal-preview-padding-left-5" *ngIf="showBtn">
+      <button mat-raised-button color="primary" class="modal-preview-btn-text-transform-uppercase" mat-button
+        (click)="emitEventNotification()">{{btnTitle}}</button>
+    </div>
+  </div>
+</div>

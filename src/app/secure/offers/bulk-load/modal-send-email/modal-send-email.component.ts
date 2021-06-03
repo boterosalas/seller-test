@@ -13,6 +13,7 @@ export class ModalSendEmailComponent implements OnInit {
 
   form: FormGroup;
   idSeller: any;
+  productType:string;
   constructor(
     private dialogRef: MatDialogRef<ModalSendEmailComponent>,
     private fb: FormBuilder,
@@ -25,6 +26,7 @@ export class ModalSendEmailComponent implements OnInit {
   ngOnInit() {
     this.createForm();
     this.setData();
+    this.productType = this.data.productType;
   }
 
   /**
@@ -60,7 +62,7 @@ setData() {
  */
 sendEmail(data: any) {
     data.idseller = this.idSeller;
-    this.service.getModeration(data).subscribe(res => {
+    this.service.sendEmailFormat(data, this.productType).subscribe(res => {
       let message;
       if (res.status === 200) {
         if (res && res.body) {

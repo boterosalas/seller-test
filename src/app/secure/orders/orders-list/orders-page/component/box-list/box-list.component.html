@@ -42,6 +42,9 @@
                 class="icon-forSend active" aria-label="Example icon-button with a heart icon">
                 description</mat-icon>
               {{data.orderNumber}}
+              <span class="fraud" *ngIf="data.isFraud">
+                No Despachar
+              </span>
             </p>
           </div>
           <div fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true"
@@ -61,6 +64,9 @@
                 <mat-icon [ngClass]="{'status-orange': data.statusOrder === const.NameOrderAsignado}">notifications
                 </mat-icon>
                 {{'secure.orders.assigned.' + const.AppOrderAsignado | translate}}
+                <span class="chip_{{data.idDashboardStatus}}">
+                  {{data.dashboardStatus}}
+                </span>
               </p>
 
               <p class="sc-status-order-table" *ngIf="data.statusOrder == const.NameOrderEntregado">

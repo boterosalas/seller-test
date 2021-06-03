@@ -29,6 +29,7 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
   processFinish$ = new Subject<any>();
   Success = false;
   enableCloseButton = false;
+  goList = false;
   countError: number;
   listError: any;
   listErrorStatus: any;
@@ -201,6 +202,10 @@ export class FinishUploadInformationComponent implements AfterViewInit, OnDestro
    */
   onNoClick(): void {
     this.dialogRef.close(false);
+  }
+
+  onClickOk(): void {
+    this.dialogRef.close(true);
   }
 
   /**

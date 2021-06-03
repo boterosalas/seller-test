@@ -44,11 +44,13 @@
     "menu.Solicitudes pendientes": "Solicitudes pendientes",
     "menu.Todas": "Todas",
     "menu.Por enviar": "Por enviar",
+    "menu.En transoprte": "En transporte",
     "menu.Enviadas": "Enviadas",
     "menu.Cargar guías": "Cargar guías",
     "menu.Menu": "Menú",
     "menu.Tallas": "Tallas",
     "menu.Reporte de ofertas": "Reporte de ofertas",
+    "menu.Notificación de Fraudes": "Notificación de Fraudes",
     "menu.Reporte de errores en VTEX": "Reporte de errores en VTEX",
     "menu.Historico de devoluciones": "Histórico de devoluciones",
     "menu.Ciudades con Cobertura": "Ciudades con Cobertura",
@@ -68,6 +70,7 @@
     "menu.Escuela Exito": "Escuela Éxito",
     "menu.Administrar Acuerdos": "Administrar acuerdos",
     "menu.Consultar Indicadores": "Consultar Indicadores",
+    "menu.Notificación": "Anuncios",
     "module.Documentación": "Documentación",
     "module.Ofertas": "Ofertas",
     "module.Productos": "Productos",
@@ -96,6 +99,7 @@
     "permissions.Cancelarvacaciones": "Cancelar Vacaciones",
     "permissions.Cancelar Vacaciones": "Cancelar Vacaciones",
     "permissions.Eliminar": "Eliminar",
+    "permissions.ELIMINAR": "ELIMINAR",
     "permissions.Adjuntar": "Adjuntar",
     "permissions.Enviar": "Enviar",
     "permissions.Marcar": "Marcar",
@@ -116,6 +120,7 @@
     "permissions.Editar_Parametrizacion": "Editar parametrización",
 
 
+    "shared.hi": "¡HOLA!",
     "shared.name": "Nombre",
     "shared.category": "Categoría",
     "shared.brand": "Marca",
@@ -186,6 +191,7 @@
     "actions.options": "Opciones",
     "actions.refresh": "Refrescar",
     "actions.close": "Cerrar",
+    "actions.close_mayus": "CERRAR",
     "actions.export_excel": "Exportar a excel",
     "actions.send_historical": "Enviar histórico",
     "actions.send": "Enviar",
@@ -316,6 +322,8 @@
     "core.shell.search_order_menu.search_envios_exito_form.digital_catalog": "Catálogos Virtuales",
     "core.shell.search_order_menu.search_envios_exito_form.filter_by_number": "Filtrar por número de pedido",
     "core.shell.search_order_menu.search_envios_exito_form.filter_by_id": "Filtrar por cédula del cliente",
+    "core.shell.search_order_menu.search_fraud_notification_nameFile": "Nombre del archivo",
+    "core.shell.search_order_menu.search_fraud_notification_downloadFile": "Archivo para descarga",
 
     "core.shell.search_order_menu.search_order_form.from": "Desde",
     "core.shell.search_order_menu.search_order_form.to": "Hasta",
@@ -402,9 +410,13 @@
 
 
     "secure.dashboard.all": "Todas",
+    "secure.dashboard.advertisements": "Anuncios",
     "secure.dashboard.in_transit": "En proceso de envío",
     "secure.dashboard.delievered": "Entregado",
     "secure.dashboard.expired": "Vencido",
+    "secure.dashboard.expireds": "Vencidos",
+    "secure.dashboard.to_defeatd": "Por vencerse",
+    "secure.dashboard.on_time": "A tiempo",
     "secure.dashboard.sales": "Ventas",
     "secure.dashboard.sales.total": "Ventas totales",
     "secure.dashboard.type.filter.quarterly": "Trimestral",
@@ -419,6 +431,8 @@
     "secure.dashboard.table.top.title.Available_units": "Uds Disponibles",
     "secure.dashboard.table.top.title.top_selling_products": "Productos más vendidos",
     "secure.dashboard.table.top.title.average_listing_price": "Ticket promedio",
+    "secure.dashboard.table.million": " millón",
+    "secure.dashboard.table.millions": " millones",
 
     "secure.dashboard.seller-rating.title":"Calificación de Calidad",
     "secure.dashboard.seller-rating.title_filter":"Filtro por fecha de Emisión",
@@ -835,6 +849,8 @@
 
     "secure.offers.bulk_upload.bulk_upload.title_toolbar": "CARGA MASIVA DE OFERTAS",
     "secure.offers.bulk_upload.bulk_upload.download_format_offer": "DESCARGAR FORMATO",
+    "secure.offers.bulk_upload.bulk_upload.download_format_estandar": "ESTÁNDAR",
+    "secure.offers.bulk_upload.bulk_upload.download_format_variant": "VARIANTES",
     "secure.offers.bulk_upload.bulk_upload.upload_format": "SELECCIONAR ARCHIVO PARA IMPORTAR",
     "secure.offers.bulk_upload.bulk_upload.text_step_import_to_offer": "en este archivo podrás cargar ofertas",
     "secure.offers.bulk_upload.bulk_upload.exceeds_limits": "El número de registros supera los 1,048,576, no se permite esta cantidad",
@@ -855,6 +871,7 @@
     "secure.offers.bulk_upload.table_error.dane_code": "El código DANE ingresado es inválido.",
     "secure.offers.bulk_upload.table_error.periodicity": "La periodicidad ingresada es inválida.",
     "secure.offers.bulk_upload.table_error.sellerSku": "El vendedor SKU es inválido.",
+    "secure.offers.bulk_upload.table_error.reference": "La referencia padre es inválida.",
 
     "secure.offers.bulk_upload.table_load.title_offer_charge": "Vuelve a cargar todas las ofertas",
     "secure.offers.bulk_upload.table_load.ean_combo": "Ean Combo",
@@ -1096,6 +1113,22 @@
     "secure.products.create_product_unit.list_products.are_no_uploades_products": "No hay productos cargados",
     "secure.products.create_product_unit.list_products.date_must_no_be_initial_date": "La fecha inicial NO debe ser mayor a la fecha final",
     "secure.products.create_product_unit.list_products.you_must_initial": "Debes ingresar fecha inicial y final para realizar filtro",
+    "secure.products.create_product_unit.list_products.delete_products": "Eliminar productos",
+    "secure.products.create_product_unit.list_products.delete_products_all": "Eliminar todos los productos",
+    "secure.products.create_product_unit.list_products.delete_products_some": "Seleccionar productos",
+    "secure.products.create_product_unit.list_products.delete_products_some_checked": "Eliminar productos seleccionados",
+    "secure.products.create_product_unit.list_products.title_some_modal_delete": "¡Vas a eliminar productos!",
+    "secure.products.create_product_unit.list_products.title_some_modal_messagge_1": "¿Estas seguro que deseas eliminar ",
+    "secure.products.create_product_unit.list_products.title_some_modal_messagge_2": " productos de tu base de datos de Mis productos?",
+    "secure.products.create_product_unit.list_products.title_some_ok1": "Haz eliminado de tu base de datos ",
+    "secure.products.create_product_unit.list_products.title_some_ok2": " productos.",
+    "secure.products.create_product_unit.list_products.title_all_modal_delete": "¡Vas a eliminar todos los productos!",
+    "secure.products.create_product_unit.list_products.title_all_modal_messagge": "¿Estas seguro que deseas eliminar todos los productos de tu base de datos de Mis productos?",
+    "secure.products.create_product_unit.list_products.button_all": "ELIMINAR TODOS LOS PRODUCTOS",
+    "secure.products.create_product_unit.list_products.title_all_ok": "Haz eliminado de tu base de datos todos los productos.",
+    "secure.products.create_product_unit.list_products.error_delete": "Se ha producido un error al momento de tratar de eliminar producto(s).",
+    "secure.products.create_product_unit.list_products.add_plus": "Agregar PLU's",
+
 
     "secure.products.create_product_unit.list_products.combo_product.creation_date": "Fecha de creación",
     "secure.products.create_product_unit.list_products.combo_product.modification_date": "Fecha de modificación",
@@ -1135,6 +1168,7 @@
     "secure.products.create_product_unit.list_products.ofert_product.mandatory_warranty": "Garantía es campo obligatorio",
     "secure.products.create_product_unit.list_products.ofert_product.envios_exito_indicator": "Indicador Envíos Éxito",
     "secure.products.create_product_unit.list_products.ofert_product.stock_update": "Actualización de inventario",
+    "secure.products.create_product_unit.list_products.ofert_product.reference_update": "Aplicar Oferta a todas las variantes",
     "secure.products.create_product_unit.list_products.ofert_product.mandatory_price_ean_combo": "Precio EAN combo obligatorio",
     "secure.products.create_product_unit.list_products.ofert_product.invalid_price_ean_combo": "Precio EAN combo inválido",
     "secure.products.create_product_unit.list_products.ofert_product.mandatory_amount_ean_combo": "Cantidad EAN combo obligatorio",
@@ -1147,6 +1181,9 @@
     "secure.products.create_product_unit.list_products.ofert_product.changed_currency": "El tipo de moneda se ha cambiado a ",
     "secure.products.create_product_unit.list_products.ofert_product.format_invalidate": "El formato es inválido",
     "secure.products.create_product_unit.list_products.please_wait" : "Cargando, espere por favor...",
+    "secure.products.create_product_unit.list_products.ofert_product.update_variants": "Actualización de Inventario a todas las variaciones",
+    "secure.products.create_product_unit.list_products.ofert_product.update_variants_all_references": "Se actualizará el INVENTARIO a todas las variaciones de la misma Referencia Padre",
+
 
     "secure.products.list_products.modal.title": "Esta oferta sufre un cambio extremo de precio, ¿Deseas Continuar?",
     "secure.products.pending_products_tab1": "Pendientes Modificación",
@@ -1422,6 +1459,11 @@
     "secure.parametize.support_claims-upload-general-error": "El documento adjunto que estas tratando de cargar no es compatible con nuestra plataforma, te pedimos tener en cuenta las siguientes recomendaciones: Tu vídeo no puede durar más de 90 segundos y los formatos permitidos son : AVI, 3GP (móviles), MOV (Mac), WMV (Windows), MPG, MPEG y MP4 con un peso máximo de 4 MB. Las imágenes que puedes cargar deben estar en JPG, PNG o documentos en PDF, Excel o Word",
 
     "secure.products.bulk_upload.process": "al momento de cargar los productos.",
+    "secure.frauds.bulk_upload.process": "al momento de cargar los fraudes.",
+    "secure.frauds.charge.success": "Carga exitosa",
+    "secure.frauds.charge.success.text": "El archivo con la información de fraudes se ha cargado exitosamente",
+    "secure.frauds.in_devolution.in_devolution_page.no_found_frauds": "No se han encontrado fraudes.",
+    "errors.error_check_frauds": "Se ha presentado un error al consultar los fraudes.",
 
     "secure.reports.report-offert.download-modal-offert-ts.ok": "Se ha realizado la descarga del reporte de ofertas correctamente, revisa tu correo electrónico en unos minutos.",
     "secure.reports.report-offert.download-modal-offert-ts.ko": "Se ha presentado un error al realizar la descarga del reporte de ofertas.",
@@ -1482,6 +1524,9 @@
     "secure.dispersion.summaryPayment.allSeller": "Total Vendedores",
     "secure.dispersion.summaryPayment.dispersar": "Dispersar",
 
+    "secure.frauds.charge.frauds": "Cargar reporte de fraudes",
+    "secure.frauds.charge.select.file": "Por favor seleccione el archivo de fraudes que desea cargar",
+
     "errors_download_file_submodules" : "Se ha presentado un error al realizar la descarga.",
     "school.exito": "Escuela Éxito",
     "school.exito.theme.list": "LISTADO DE TEMAS",
@@ -1524,5 +1569,8 @@
     "quality.indicators.indicator_not_available": "Información no disponible temporalmente",
     "quality.indicators.bar_green": "Supera objetivo",
     "quality.indicators.bar_orange": "Se ajusta al objetivo",
-    "quality.indicators.bar_red": "Alerta! Indicador degradado"
+    "quality.indicators.bar_red": "Alerta! Indicador degradado",
+    "secure.notifications.list.column-title": "Título",
+    "secure.notifications.list.column-date": "Fecha",
+    "secure.reports.notification.fraud.charge-fraud": "CARGAR FRAUDES"
 }

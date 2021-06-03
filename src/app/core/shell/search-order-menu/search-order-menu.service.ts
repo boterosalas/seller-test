@@ -42,7 +42,7 @@ export class SearchOrderMenuService {
    * @returns {Observable<[{}]>}
    * @memberof OrderService
    */
-  getOrdersFilter(limit: any, stringSearch: any, idSeller: number): Observable<[{}]> {
+  getOrdersFilter(limit: any, stringSearch: any, idSeller?: number): Observable<[{}]> {
     return new Observable(observer => {
       this.http.get(this.api.get('searchOrders', ['', limit + stringSearch + `&idSeller=${idSeller}`])).subscribe((data: any) => {
         observer.next(data);
@@ -94,4 +94,14 @@ export class SearchOrderMenuService {
         .subscribe(data => obs.next(data), err => obs.error(err));
     });
   }
+
+
+  getFraudList(limit: any, stringSearch: string): Observable<HistoricalDevolutionEntity[]> {
+    return new Observable(obs => {
+      this.http.get<HistoricalDevolutionEntity[]>(this.api.get('getFrauds', [limit + stringSearch]))
+        .subscribe(data => obs.next(data), err => obs.error(err));
+    });
+  }
+
+
 }

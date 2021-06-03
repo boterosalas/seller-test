@@ -22,6 +22,7 @@ import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import * as _ from 'lodash';
 import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
+import { SearchOrderMenuService } from '@app/core/shell/search-order-menu/search-order-menu.service';
 
 // log component
 const log = new Logger('OrdersListComponent');
@@ -58,9 +59,9 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   // Constantes
   public const = Const;
   // Sort: elemento que se emplea para poder organizar los elementos de la tabla de acuerdo a la columna seleccionada
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
   // Toolbar Options Componente: Permite acceder a los metodos de este compomente
-  @ViewChild('toolbarOptions', {static: false}) toolbarOption;
+  @ViewChild('toolbarOptions', { static: false }) toolbarOption;
   // Columnas que se visualizan en la tabla
   public displayedColumns = [
     'select',
@@ -178,6 +179,13 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     count: this.numberElements.toString()
   };
 
+  // Fecha inicial desde el dashboar. info obtenida desde la url
+  initialDate: any;
+  // Fecha final desde el dashboar. info obtenida desde la url
+  finalDate: any;
+  // Tipo de orden (1 = por enviar, 2 = en trasnporte, 3 = entregado) desde el dashboar. info obtenida desde la url
+  typeCardToDashboard: any;
+
   public cognitoId: string;
   public numberLength: number;
   public lastState: number;
@@ -187,6 +195,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   public arrayPermission: any;
   currentLanguage: string;
   isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
+
 
 
   constructor(
@@ -207,9 +216,13 @@ export class OrdersListComponent implements OnInit, OnDestroy {
     public eventsSeller: EventEmitterSeller,
     private profileService: MyProfileService,
     public modalService: ModalService,
+    public searchOrderMenuService: SearchOrderMenuService,
+
   ) {
     this.getAllDataUser();
+    this.getListbyParams();
   }
+
 
   /**
    * ngOnInit
@@ -242,6 +255,77 @@ export class OrdersListComponent implements OnInit, OnDestroy {
 
     });
     this.changeLanguage();
+  }
+
+  /**
+   * Obtener parametros de la ruta
+   * @memberof OrdersListComponent
+   */
+  getListbyParams() {
+    this.route.params.subscribe(params => {
+      this.initialDate = params.dateInitial;
+      this.finalDate = params.dateFinal;
+      this.typeCardToDashboard = params.type;
+    });
+  }
+
+  /**
+   * LLama servicio datos por url, enviadas, por enviar
+   * @memberof OrdersListComponent
+   */
+  callServiceParams() {
+    let stateCurrent = null;
+    if (this.typeCardToDashboard === '3') {
+      const dataParamsRouteFilter = '&paginationToken=' + encodeURI(this.paginationToken) + '&dateOrderInitial=' + this.initialDate + '&dateOrderFinal=' + this.finalDate + '&idStatusOrder=' + 60;
+      if (this.initialDate || this.finalDate) {
+        this.setCategoryName();
+        this.loadingService.viewSpinner();
+        this.searchOrderMenuService.getOrdersFilter(50, dataParamsRouteFilter).subscribe((res: any) => {
+          if (res) {
+            if (res.pendingResponse) {
+              this.getOrdersList(this.params);
+            } else {
+              stateCurrent = this.params ? this.params.state : null;
+              this.lastState = stateCurrent;
+              this.setTable(res);
+              if (this.params && this.params.callOne) {
+                this.length = res.data.count;
+                this.isClear = true;
+              }
+              const paginator = { 'pageIndex': 0 };
+              this.addCheckOptionInProduct(res.data.viewModel, paginator);
+            }
+            this.loadingService.closeSpinner();
+
+          }
+        });
+      }
+    } else {
+      const dataParamsRouteFilter = '&paginationToken=' + encodeURI(this.paginationToken) + '&dateOrderInitial=' + this.initialDate + '&dateOrderFinal=' + this.finalDate + '&idStatusOrder=' + this.currentRootPage;
+      if (this.initialDate || this.finalDate) {
+        this.setCategoryName();
+        this.loadingService.viewSpinner();
+        this.searchOrderMenuService.getOrdersFilter(50, dataParamsRouteFilter).subscribe((res: any) => {
+          if (res) {
+            if (res.pendingResponse) {
+              this.getOrdersList(this.params);
+            } else {
+              stateCurrent = this.params ? this.params.state : null;
+              this.lastState = stateCurrent;
+              this.setTable(res);
+              if (this.params && this.params.callOne) {
+                this.length = res.data.count;
+                this.isClear = true;
+              }
+              const paginator = { 'pageIndex': 0 };
+              this.addCheckOptionInProduct(res.data.viewModel, paginator);
+            }
+            this.loadingService.closeSpinner();
+
+          }
+        });
+      }
+    }
   }
 
   async getAllDataUser() {
@@ -307,9 +391,13 @@ export class OrdersListComponent implements OnInit, OnDestroy {
         }
       }
       // Logica para cargar el componente
-      this.getOrdersListSinceCurrentUrl();
       this.getOrdersListSinceFilterSearchOrder();
       this.clearData();
+      if (this.initialDate || this.finalDate || this.typeCardToDashboard) {
+        this.callServiceParams();
+      } else {
+        this.getOrdersListSinceCurrentUrl();
+      }
     });
   }
 
@@ -396,7 +484,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
             } else {
               this.orderListLength = false;
             }
-            if ( this.dataListOrder && this.dataListOrder.length > 0) {
+            if (this.dataListOrder && this.dataListOrder.length > 0) {
               this.numberElements = this.dataListOrder.length;
             } else {
               this.numberElements = 0;
@@ -566,15 +654,15 @@ export class OrdersListComponent implements OnInit, OnDestroy {
         if (res.pendingResponse) {
           this.getOrdersList(params);
         } else {
-            stateCurrent = params ? params.state : null;
-            this.lastState = stateCurrent;
-            this.setTable(res);
-            if (params && params.callOne) {
-              this.length = res.data.count;
-              this.isClear = true;
-            }
-            const paginator = { 'pageIndex': 0 };
-            this.addCheckOptionInProduct(res.data.viewModel, paginator);
+          stateCurrent = params ? params.state : null;
+          this.lastState = stateCurrent;
+          this.setTable(res);
+          if (params && params.callOne) {
+            this.length = res.data.count;
+            this.isClear = true;
+          }
+          const paginator = { 'pageIndex': 0 };
+          this.addCheckOptionInProduct(res.data.viewModel, paginator);
         }
       }
     });
@@ -689,15 +777,20 @@ export class OrdersListComponent implements OnInit, OnDestroy {
       this.paginationToken = '{}';
       this.isClear = true;
     }
-    const params = {
-      'limit': this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken),
-      'idSeller': this.idSeller,
-      'state': this.lastState,
-      'dateOrderFinal': this.dateOrderFinal,
-      'dateOrderInitial': this.dateOrderInitial,
-      'bill': this.bill
-    };
-    this.getOrdersList(params);
+
+    if (this.initialDate || this.finalDate || this.typeCardToDashboard) {
+      this.callServiceParams();
+    } else {
+      const params = {
+        'limit': this.pageSize + '&paginationToken=' + encodeURI(this.paginationToken),
+        'idSeller': this.idSeller,
+        'state': this.lastState,
+        'dateOrderFinal': this.dateOrderFinal,
+        'dateOrderInitial': this.dateOrderInitial,
+        'bill': this.bill
+      };
+      this.getOrdersList(params);
+    }
   }
 
   /**

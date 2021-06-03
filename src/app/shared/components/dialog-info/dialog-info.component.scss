@@ -1,0 +1,30 @@
+.marginButtonDeleteOk {
+  margin-bottom: 2%;
+  font-size: 30px;
+  border-radius: 50%;
+  height: 50px;
+  width: 65px;
+  padding-top: 2%;
+  color: #fafafa;
+}
+
+.iconDone {
+  color: #6FB63E;
+}
+
+.iconError {
+  color: red;
+}
+
+.buttonCancel {
+  border-color: #485AFA;
+  width: 129px;
+  height: 37px;
+}
+
+.buttonConfirm {
+  border-color: #485AFA;
+  width: initial;
+  height: 37px;
+  min-width: 129px
+}

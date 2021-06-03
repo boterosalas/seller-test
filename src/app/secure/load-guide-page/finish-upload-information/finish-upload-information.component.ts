@@ -24,6 +24,7 @@ const EXCEL_EXTENSION = '.xlsx';
 export class FinishUploadInformationComponent {
 
   public response: FinishUploadInformation;
+    request: any;
 
   /**
    * Creates an instance of FinishUploadInformationComponent.
