@@ -45,26 +45,41 @@
 
   &-width-100 {
     width: 100%;
+    @media screen and (min-width: 400px) and (max-width: 850px) {
+      width: 97%
+       }
   }
 
   &-padding-20-40-width {
     width: 100%;
     padding: 20px;
     padding-top: 40px;
+    @media screen and (min-width: 400px) and (max-width: 850px) {
+      padding: 30px 5px 5px;
+     }
   }
 
   &-width-90 {
     width: 90%;
+    @media screen and (min-width: 400px) and (max-width: 850px) {
+      width: 97%
+       }
   }
 
   &-width-padding {
     width: 100%;
     padding: 20px;
+    @media screen and (min-width: 400px) and (max-width: 850px) {
+      padding: 5px;
+       }
   }
 
   &-margin-transform-uppercase {
     margin-left: 60%;
-    text-transform: uppercase
+    text-transform: uppercase;
+    @media screen and (min-width: 400px) and (max-width: 850px) {
+      margin-left: initial;
+       }
   }
 
   &-text-transform-uppercase {
@@ -94,4 +109,8 @@
     font-size: 18px;
     font-weight: bold;
   }
+}
+
+::ng-deep .mat-dialog-container {
+  min-width: 350px
 }

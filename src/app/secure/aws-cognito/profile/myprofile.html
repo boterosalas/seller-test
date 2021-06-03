@@ -302,12 +302,12 @@
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="action">
-            <mat-header-cell fxShow.xs="false" fxShow.sm="false"
+            <mat-header-cell fxShow.xs="true" fxShow.sm="true"
               fxShow.lg="true" fxShow.xl="true" fxShow="true"
               fxFlex="10" *matHeaderCellDef>
               <span class="title-table-header" class="myprofiel-text-color-column">{{'shared.actions' | translate}}</span>
             </mat-header-cell>
-            <mat-cell fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
+            <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
               fxShow.xl="true" fxShow="true" fxFlex="10"
               *matCellDef="let element">
               <button class="button-edit" type="button" color="primary" class="myprofiel-text-color-column" [matTooltip]="'actions.edit' | translate" 

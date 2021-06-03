@@ -16,7 +16,8 @@
     <form #contactForm="ngForm" [formGroup]="form"
       class="modal-contact-perfil-width-100">
       <div fxLayout="row wrap" class="modal-contact-perfil-padding-20-40-width">
-        <div fxFlex="50">
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50"
+        fxFlex.xl="50" fxFlex="50">
           <mat-form-field class="modal-contact-perfil-width-90">
             <mat-label>{{'secure.profiel.responsible_area' | translate}}</mat-label>
             <mat-select formControlName="translate" [(value)]="translate">
@@ -27,9 +28,10 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div fxFlex="50">
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50"
+        fxFlex.xl="50" fxFlex="50">
           <mat-form-field class="modal-contact-perfil-width-90"
-            class="notification-form-width-100">
+            class="modal-contact-perfil-width-100">
             <input matInput
               [placeholder]="'secure.profiel.contact_name_surname'| translate"
               class="modal-export-to-reclaim-text-uppercase"
@@ -38,18 +40,20 @@
         </div>
       </div>
       <div fxLayout="row wrap" class="modal-contact-perfil-width-padding">
-        <div fxFlex="50">
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50"
+        fxFlex.xl="50" fxFlex="50">
           <mat-form-field class="modal-contact-perfil-width-90"
-            class="notification-form-width-100">
+            class="modal-contact-perfil-width-100">
             <input matInput [placeholder]="'secure.profiel.position' |
               translate"
               class="modal-export-to-reclaim-text-uppercase"
               [errorStateMatcher]="matcher" formControlName="role">
           </mat-form-field>
         </div>
-        <div fxFlex="50">
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50"
+        fxFlex.xl="50" fxFlex="50">
           <mat-form-field class="modal-contact-perfil-width-90"
-            class="notification-form-width-100">
+            class="modal-contact-perfil-width-100">
             <input matInput
               [placeholder]="'secure.seller.register_seller.lb_email_form' |
               translate"
@@ -59,9 +63,10 @@
         </div>
       </div>
       <div fxLayout="row wrap" class="modal-contact-perfil-width-padding">
-        <div fxFlex="50">
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50"
+        fxFlex.xl="50" fxFlex="50">
           <mat-form-field class="modal-contact-perfil-width-90"
-            class="notification-form-width-100">
+            class="modal-contact-perfil-width-100">
             <input matInput [placeholder]="'secure.profiel.cellPhone' |
               translate"
               (focusout)="validateOutFocus_CellPhone()"
@@ -75,9 +80,10 @@
               | translate}}</mat-error>
           </mat-form-field>
         </div>
-        <div fxFlex="50">
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50"
+        fxFlex.xl="50" fxFlex="50">
           <mat-form-field class="modal-contact-perfil-width-90"
-            class="notification-form-width-100">
+            class="modal-contact-perfil-width-100">
             <input matInput [placeholder]="'secure.profiel.phone_number' |
               translate"
               class="modal-export-to-reclaim-text-uppercase"
@@ -96,14 +102,14 @@
   </div>
   <div fxLayout="row wrap" class="modal-contact-perfil-width-padding"
     fxLayoutAlign="center center"
-    class="notification-form-padding-top-30">
-    <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50"
+    class="modal-contact-perfil-padding-top-30">
+    <div fxFlex.xs="50" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50"
       fxFlex.xl="50" fxFlex="50">
       <button mat-stroked-button color="primary"
         class="modal-contact-perfil-margin-transform-uppercase" mat-button
         (click)="close()">{{'actions.cancel' | translate}}</button>
     </div>
-    <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50"
+    <div fxFlex.xs="50" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50"
       fxFlex.xl="50" fxFlex="50">
       <button mat-raised-button
         class="modal-contact-perfil-text-transform-uppercase"
