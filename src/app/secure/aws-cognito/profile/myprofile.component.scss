@@ -147,6 +147,9 @@ $modal: 72px;
   position: relative;
   height: 80px;
   padding: 10px;
+  @media screen and (min-width: 400px) and (max-width: 850px) {
+    height: 51px;
+   }
 }
 
 
@@ -158,6 +161,9 @@ $modal: 72px;
   -moz-transition: -moz-transform .3s ease;
   -ms-transition: -ms-transform .3s ease;
   transition: transform .3s ease;
+  @media screen and (min-width: 400px) and (max-width: 850px) {
+    text-align: left;
+   }
 }
 
 
@@ -173,20 +179,36 @@ $modal: 72px;
   -moz-transform: translate(0, -100%);
   -ms-transform: translate(0, -100%);
   transform: translate(0, -100%);
+
 }
 
 .myprofiel{
   &-container-top-data{
-    height: 190px;
     background-color: #F6F6F4;
+    padding-bottom: 15px;
+    @media screen and (min-width: 400px) and (max-width: 850px) {
+      padding-left: 20px;
+     }
   }
   &-padding-30{
+    @media screen and (min-width: 400px) and (max-width: 850px) {
+     padding: 5px;
+     padding-bottom: 10px;
+    }
     padding: 30px;
   }
   &-text-color-font-size{
     color: black;
     font-weight: bold;
     font-size: 24px;
+  }
+  &-text-color-font-size-20{
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+    @media screen and (min-width: 400px) and (max-width: 850px) {
+      padding-left: 20px;
+     }
   }
   &-font-size-14{
     font-size: 14px;
@@ -200,6 +222,9 @@ $modal: 72px;
     font-weight: bold;
   }
   &-padding-left-30{
+    @media screen and (min-width: 400px) and (max-width: 850px) {
+      padding: 5px;
+     }
     padding-left: 30px;
   }
   &-width-height-font-size{
@@ -222,7 +247,6 @@ $modal: 72px;
   &-btn-copy-token-channel{
     background-color: white;
     border: solid 1px;
-    width: 100%;
   }
   &-message-token-copied{
     color: green;
@@ -256,6 +280,10 @@ $modal: 72px;
     text-align: center;
     padding-top: 80px;
     padding-bottom:220px;
+  }
+
+  &-font-weight-bold{
+    font-weight: bold;
   }
 
 }

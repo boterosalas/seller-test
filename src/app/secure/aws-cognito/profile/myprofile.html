@@ -4,7 +4,8 @@
       <div fxLayout="row wrap">
         <div fxFlex="75">
           <div fxLayout="row wrap">
-            <div fxFlex="40" class="myprofiel-padding-30">
+            <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="40" fxFlex.lg="40"
+            fxFlex.xl="40" class="myprofiel-padding-30">
               <div>
                 <span class="myprofiel-text-color-font-size">
                   {{userInformation.name}}
@@ -16,7 +17,62 @@
                 </span>
               </div>
             </div>
-            <div fxFlex="20" class="myprofiel-padding-30">
+            <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="40" fxFlex.lg="40"
+            fxFlex.xl="40" *ngIf="canVacation" fxShow.xs="true" fxShow.sm="true" fxShow.md="false" fxShow.lg="false"
+            fxShow.xl="false">
+            <ng-container *ngIf="isInVacation; else programVacations">
+              <mat-card id="info-vacation" class="mat card">
+                <div class="options">
+                  <mat-icon id="btn-edit-vacations" class="myprofiel-width-height-font-size"
+                    (click)="sendToOpenVacationDialog()"
+                    [ngClass]="{disabledDiv: isDisable}">
+                    edit
+                  </mat-icon>
+                  <mat-icon *ngIf="canCancelVacation" class="myprofiel-width-height-font-size"
+                    id="btn-cancel-vacations"
+                    (click)="sendToOpenCancelVacationDialog()"
+                    [ngClass]="{disabledDiv: isDisable}">
+                    delete
+                  </mat-icon>
+                </div>
+                <div class="icon-container myprofiel-local-airport-icon">
+                  <mat-icon>
+                    local_airport
+                  </mat-icon>
+                </div>
+                <div class="content-contaienr">
+                  <mat-card-title>
+                    <p class="title-text">
+                      <strong>{{'secure.seller.list.vacation_title_modal' |
+                        translate}}</strong>
+                    </p>
+                  </mat-card-title>
+                  <mat-card-content>
+                    <div>
+                      <label class="label-result">
+                        <strong>{{'secure.seller.list.start_date' |
+                          translate}}:</strong>{{user.StartVacations}} -
+                      </label>
+                    </div>
+                    <div>
+                      <label class="label-result">
+                        <strong>{{'secure.seller.list.end_date' |
+                          translate}}:</strong>{{user.EndVacations}}
+                      </label>
+                    </div>
+                  </mat-card-content>
+                </div>
+              </mat-card>
+            </ng-container>
+            <ng-template #programVacations>
+              <button mat-stroked-button id="btn-program-vacation" class="myprofiel-btn-send-vacation"
+                color="primary" [disabled]="isDisable"
+                (click)="sendToOpenVacationDialog()">{{'secure.seller.list.program_vacation'
+                | translate}}</button>
+            </ng-template>
+            </div>
+            <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="20" fxFlex.lg="20"
+            fxFlex.xl="20" class="myprofiel-padding-30">
               <div>
                 <span class="myprofiel-text-id">
                   {{'secure.aws_cognito.profile.seller_id' | translate}}
@@ -28,7 +84,21 @@
                 </span>
               </div>
             </div>
-            <div fxFlex="40" class="myprofiel-padding-30">
+            <div  fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="40" fxShow.xs="true" fxShow.sm="true" fxShow.md="false" fxShow.lg="false"
+            fxShow.xl="false" class="myprofiel-padding-30">
+            <div>
+              <span class="myprofiel-text-id">
+                {{'secure.seller.register_seller.lb_nit_form' | translate}}
+              </span>
+            </div>
+            <div>
+              <span class="myprofiel-id-text-color">
+                {{userInformation.nit}}
+              </span>
+            </div>
+            </div>
+            <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="40" fxFlex.lg="40"
+            fxFlex.xl="40" class="myprofiel-padding-30">
               <div>
                 <span class="myprofiel-text-id">
                   {{'secure.parametize.profiles.dialog.modal_rdn_store' | translate}}
@@ -41,9 +111,11 @@
               </div>
             </div>
           </div>
-          <div fxLayout="row wrap">
-            <div fxFlex="40" class="myprofiel-padding-left-30">
-              <div *ngIf="canVacation" class="sub-content">
+          <div fxLayout="row wrap" >
+            <div fxFlex="40" fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
+            fxShow.xl="true" class="myprofiel-padding-left-30">
+              <div *ngIf="canVacation" class="sub-content" fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
+              fxShow.xl="true">
                 <ng-container *ngIf="isInVacation; else programVacations">
                   <mat-card id="info-vacation" class="mat card">
                     <div class="options">
@@ -96,7 +168,9 @@
                 </ng-template>
               </div>
             </div>
-            <div fxFlex="20" class="myprofiel-padding-left-30">
+            <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="20" fxFlex.lg="20"
+            fxFlex.xl="20" fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true"
+            fxShow.xl="true" class="myprofiel-padding-left-30">
               <div>
                 <span class="myprofiel-text-id">
                   {{'secure.seller.register_seller.lb_nit_form' | translate}}
@@ -108,7 +182,8 @@
                 </span>
               </div>
             </div>
-            <div fxFlex="40" class="myprofiel-padding-left-30">
+            <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="40" fxFlex.lg="40"
+            fxFlex.xl="40" class="myprofiel-padding-left-30">
               <div>
                 <span class="myprofiel-text-id">
                   {{'secure.seller.register_seller.lb_email_form' | translate}}
@@ -122,7 +197,8 @@
             </div>
           </div>
         </div>
-        <div fxFlex="25">
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="25" fxFlex.lg="25"
+        fxFlex.xl="25" >
           <div class="myprofiel-padding-30" *ngIf="isChannel">
             <div>
               <button id="toggle" mat-stroked-button color="primary"
@@ -145,62 +221,82 @@
     </div>
     <div>
       <div class="myprofiel-padding-30">
-        <span>{{'secure.profiel.contact_information' | translate}}</span>
+        <span class="myprofiel-text-color-font-size-20">{{'secure.profiel.contact_information' | translate}}</span>
       </div>
       <div *ngIf="!showLoading" fxLayout="row wrap" class="myprofiel-padding-10-30">
         <mat-table #table [dataSource]="dataSource" matSort class="myprofiel-width-100-color">
           <ng-container matColumnDef="responsibleArea">
-            <mat-header-cell fxFlex="15"  *matHeaderCellDef>
+            <mat-header-cell fxFlex.xs="40" fxFlex.sm="40" fxFlex.md="20" fxFlex.lg="20"
+            fxFlex.xl="20"  *matHeaderCellDef>
               <span class="title-table-header">{{'secure.profiel.responsible_area' | translate}}</span>
             </mat-header-cell>
-            <mat-cell fxFlex="15"
+            <mat-cell fxFlex.xs="40" fxFlex.sm="40" fxFlex.md="20" fxFlex.lg="20"
+            fxFlex.xl="0"
               *matCellDef="let element">
               <span class="myprofiel-text-color-column">{{element.Traduction}}</span>
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="name">
-            <mat-header-cell fxFlex="25" *matHeaderCellDef>
+            <mat-header-cell fxFlex.xs="40" fxFlex.sm="40" fxFlex.md="20" fxFlex.lg="20"
+            fxFlex.xl="20" *matHeaderCellDef>
               <span class="title-table-header">{{'secure.profiel.contact_name_surname' | translate}}</span>
             </mat-header-cell>
-            <mat-cell fxFlex="25"
+            <mat-cell fxFlex.xs="40" fxFlex.sm="40" fxFlex.md="20" fxFlex.lg="20"
+            fxFlex.xl="20"
               *matCellDef="let element">
               <span class="myprofiel-text-color-column">{{element.ContactName}}</span>
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="position">
-            <mat-header-cell fxFlex="15" *matHeaderCellDef>
+            <mat-header-cell fxFlex.xs="30" fxFlex.sm="30" fxFlex.md="30" fxFlex.lg="30"
+            fxFlex.xl="30" *matHeaderCellDef>
               <span class="title-table-header">{{'secure.profiel.position'| translate}}</span>
             </mat-header-cell>
-            <mat-cell fxFlex="15"
+            <mat-cell fxFlex.xs="30" fxFlex.sm="30" fxFlex.md="30" fxFlex.lg="30"
+            fxFlex.xl="30"
               *matCellDef="let element">
               <span class="myprofiel-text-color-column">{{element.Role}}</span>
             </mat-cell>
           </ng-container>
-          <ng-container matColumnDef="email">
-            <mat-header-cell fxFlex="15" *matHeaderCellDef>
+          <ng-container matColumnDef="email" >
+            <mat-header-cell fxFlex.xs="25" fxFlex.sm="25" fxFlex.md="15" fxFlex.lg="15"
+            fxFlex.xl="15" *matHeaderCellDef fxShow.xs="false"
+            fxShow.sm="false" fxShow.md="false" fxShow.lg="true"
+            fxShow.xl="true" >
               <span class="title-table-header">
                 {{'secure.seller.register_seller.lb_email_form' | translate}}
               </span>
             </mat-header-cell>
-            <mat-cell fxFlex="15"
+            <mat-cell fxFlex.xs="25" fxFlex.sm="25" fxFlex.md="15" fxFlex.lg="15"
+            fxFlex.xl="15" fxShow.xs="false"
+            fxShow.sm="false" fxShow.md="false" fxShow.lg="true"
+            fxShow.xl="true"
               *matCellDef="let element">
               <span class="myprofiel-text-color-column">{{element.Email}}</span>
             </mat-cell>
           </ng-container>
-          <ng-container matColumnDef="phone">
-            <mat-header-cell fxFlex="10" *matHeaderCellDef>
+          <ng-container matColumnDef="phone" >
+            <mat-header-cell fxFlex="10" *matHeaderCellDef fxShow.xs="false"
+            fxShow.sm="false" fxShow.md="false" fxShow.lg="true"
+            fxShow.xl="true">
               <span class="title-table-header">{{'secure.profiel.cellPhone' | translate}}</span>
             </mat-header-cell>
             <mat-cell fxFlex="10"
-              *matCellDef="let element">
+              *matCellDef="let element" fxShow.xs="false"
+              fxShow.sm="false" fxShow.md="false" fxShow.lg="true"
+              fxShow.xl="true">
               <span class="myprofiel-text-color-column">{{element.Cellphone}}</span>
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="telephone">
-            <mat-header-cell fxFlex="10" *matHeaderCellDef>
+            <mat-header-cell fxFlex="10" *matHeaderCellDef fxShow.xs="false"
+            fxShow.sm="false" fxShow.md="false" fxShow.lg="true"
+            fxShow.xl="true">
               <span class="title-table-header">{{'secure.profiel.phone_number' | translate}}</span>
             </mat-header-cell>
-            <mat-cell fxFlex="10"
+            <mat-cell fxFlex="10" fxShow.xs="false"
+            fxShow.sm="false" fxShow.md="false" fxShow.lg="true"
+            fxShow.xl="true"
               *matCellDef="let element">
               <span class="myprofiel-text-color-column">{{element.Phone}}</span>
             </mat-cell>
