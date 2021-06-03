@@ -25,10 +25,12 @@ export class ModalContactPerfilComponent implements OnInit {
     public dialogRef: MatDialogRef<ModalContactPerfilComponent>,
     private loadingService: LoadingService,
   ) {
-    this.getRegexByModule();
+    
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.getRegexByModule();
+   }
 /**
  * funcion para validar los caracteres por medio de la regex
  *

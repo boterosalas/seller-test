@@ -140,7 +140,7 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
                     );
                 });
             } else {
-                // error
+                console.error('Error al momento de traer todos los contactos');
             }
         });
     }
@@ -541,7 +541,6 @@ export class MyProfileComponent implements LoggedInCallback, OnInit {
     changeLanguaje() {
         this.languageService.onLangChange.subscribe((event: LangChangeEvent) => {
             localStorage.setItem('culture_current', event['lang']);
-            // this.getAllDataUser();
             this.getAllContactData();
         });
     }
