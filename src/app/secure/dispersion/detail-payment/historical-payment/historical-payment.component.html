@@ -1,7 +1,7 @@
 <div class="styleToolbarandBody">
   <div fxLayout="row" fxLayoutAlign="space-evenly center" class="newToolbar">
     <app-toolbar-search-pagination #toolbarOptions [lengthOrder]="length" [limitPaginate]="[50,100,150]"
-      (paginationListOrdens)="paginations($event)" [pageIndexChange]="indexPage">
+      (paginationListOrdens)="paginations($event)" [pageIndexChange]="indexPage" [showBtn]="false" [btnFilter]="false">
     </app-toolbar-search-pagination>
 
     <div class="styleFilter">
