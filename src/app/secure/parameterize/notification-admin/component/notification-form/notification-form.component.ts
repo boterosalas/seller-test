@@ -182,8 +182,9 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
    * @memberof NotificationFormComponent
    */
   emitDataImgLoad(data: any) {
-    this.imagePathDrag = data;
-    this.imagUrl = data;
+    this.imagePathDrag = data.fileImgBase64;
+    this.imagUrl = data.fileImgBase64;
+    this.nameFile = data.name;
     this.changeFile = true;
   }
   /**
@@ -227,7 +228,9 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
         break;
       case '2':
         this.form.controls.bodyDescription.disable();
+        this.form.controls.bodyDescription.setValue(null);
         this.form.controls.pickerColor.disable();
+        this.form.controls.pickerColor.setValue(null);
         this.disableText = true;
         this.show = false;
         this.disableLoadImag = false;
@@ -445,6 +448,9 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
    * @memberof NotificationFormComponent
    */
   setparams() {
+    if (this.typeBody === '1' || this.typeBody === '2') {
+      this.colorBackground = null;
+    }
     const paramsCreate = {
       Id: this.idNotification,
       NewsContentType: parseInt(this.form.controls.bodyNotification.value, 0),

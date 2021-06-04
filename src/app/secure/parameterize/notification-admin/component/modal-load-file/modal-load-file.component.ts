@@ -123,7 +123,7 @@ export class ModalLoadFileComponent implements OnInit, OnDestroy  {
       try {
         this.fileImgBase64 = data;
         this.imagePathDrag = this._sanitizer.bypassSecurityTrustResourceUrl(data);
-        this.emitDataImgLoad.emit(this.fileImgBase64);
+        this.emitDataImgLoad.emit({fileImgBase64: this.fileImgBase64, name: file.name});
         this.nameFile = file.name;
         this.dateFile = file.lastModifiedDate;
         this.success = this.error ? false : true;
