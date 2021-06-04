@@ -211,28 +211,30 @@ export class DashOrdersComponent implements OnInit {
                 this.dateCurrent = this.dateCurrent ? this.dateCurrent : new Date();
                 const dateFinal = new Date(this.dateCurrent.getFullYear(), this.dateCurrent.getMonth() + 1, 0);
                 const dateInit = new Date(this.dateCurrent.getFullYear(), this.dateCurrent.getMonth() - 2, 1);
-                const initialDate = this.datepipe.transform(this.addOrSubtractDays(new Date(dateInit), +1), 'yyyy/MM/dd');
-                const finalDate = this.datepipe.transform(this.addOrSubtractDays(new Date(dateFinal), +1), 'yyyy/MM/dd');
+                const initialDate = this.datepipe.transform(this.addOrSubtractDays(new Date(dateInit), 0), 'yyyy/MM/dd');
+                const finalDate = this.datepipe.transform(this.addOrSubtractDays(new Date(dateFinal), 0), 'yyyy/MM/dd');
                 this.initialDateSend = this.datepipe.transform(new Date(initialDate), 'yyyy/MM/dd');
                 this.finalDateSend = this.datepipe.transform(new Date(finalDate), 'yyyy/MM/dd');
             } else if (this.typeFilter === '2') {
                 this.dateCurrent = this.dateCurrent ? this.dateCurrent : new Date();
                 const dateFinal = new Date(this.dateCurrent.getFullYear(), this.dateCurrent.getMonth() + 1, 0);
                 const dateInit = new Date(this.dateCurrent.getFullYear(), this.dateCurrent.getMonth(), 1);
-                const initialDate = this.datepipe.transform(this.addOrSubtractDays(new Date(dateInit), +1), 'yyyy/MM/dd');
-                const finalDate = this.datepipe.transform(this.addOrSubtractDays(new Date(dateFinal), +1), 'yyyy/MM/dd');
+                const initialDate = this.datepipe.transform(this.addOrSubtractDays(new Date(dateInit), 0), 'yyyy/MM/dd');
+                const finalDate = this.datepipe.transform(this.addOrSubtractDays(new Date(dateFinal), 0), 'yyyy/MM/dd');
                 this.initialDateSend = this.datepipe.transform(new Date(initialDate), 'yyyy/MM/dd');
                 this.finalDateSend = this.datepipe.transform(new Date(finalDate), 'yyyy/MM/dd');
             } else if (this.typeFilter === '3') {
                 this.dateOrdens = this.datepipe.transform(this.dateCurrent, 'yyyy/MM/dd');
-                const initialDate = this.datepipe.transform(this.addOrSubtractDays(new Date(this.dateOrdens), -6), 'yyyy/MM/dd');
+                const initialDate = this.datepipe.transform(this.addOrSubtractDays(new Date(this.dateOrdens), -7), 'yyyy/MM/dd');
+                const finallDate = this.datepipe.transform(this.addOrSubtractDays(new Date(this.dateOrdens), 0), 'yyyy/MM/dd');
                 this.initialDateSend = initialDate;
-                this.finalDateSend = this.dateOrdens;
+                this.finalDateSend = finallDate;
             } else {
                 this.dateOrdens = this.datepipe.transform(this.dateCurrent, 'yyyy/MM/dd');
                 const initialDate = this.datepipe.transform(this.addOrSubtractDays(new Date(this.dateOrdens), 0), 'yyyy/MM/dd');
+                const finallDate = this.datepipe.transform(this.addOrSubtractDays(new Date(this.dateOrdens), 0), 'yyyy/MM/dd');
                 this.initialDateSend = initialDate;
-                this.finalDateSend = this.dateOrdens;
+                this.finalDateSend = finallDate;
             }
 
             if (type === 1) {

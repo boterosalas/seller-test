@@ -102,8 +102,40 @@ export class SearchOrderFormComponent implements OnInit {
     this.getOrdersStatus();
   }
 
+
+  /**
+   * Metodo para obtener info usuario
+   * @memberof SearchOrderFormComponent
+   */
   async getDataUser() {
     this.user = await this.userParams.getUserData();
+  }
+
+
+  /**
+   * Metodo para retornar formato de fecha
+   * @param {*} date
+   * @returns {*}
+   * @memberof SearchOrderFormComponent
+   */
+  public getDate(date: any): any {
+    const day = this.addsZeroDate(date.getDate().toString());
+    const months = this.addsZeroDate((date.getMonth() + 1).toString());
+    const year = date.getFullYear();
+    return year + '-' + months + '-' + day;
+  }
+
+  /**
+   * Metodo para agregar 0 a la fecha si le hace falta
+   * @param {*} param
+   * @returns {*}
+   * @memberof SearchOrderFormComponent
+   */
+  public addsZeroDate(param: any): any {
+    if (param.length < 2) {
+      return '0' + param;
+    }
+    return param;
   }
 
   /**
@@ -115,8 +147,13 @@ export class SearchOrderFormComponent implements OnInit {
     this.dateFinal = this.infoDataForm ? this.infoDataForm.information.dateFinal : null;
     this.status = this.infoDataForm ? this.infoDataForm.information.category : null;
     this.typeCards = this.infoDataForm ? this.infoDataForm.information.type : null;
-    this.myform.controls.dateOrderInitial.setValue(this.datepipe.transform(this.dateInit, 'yyyy-MM-dd'));
-    this.myform.controls.dateOrderFinal.setValue(this.datepipe.transform(this.dateFinal, 'yyyy-MM-dd'));
+    const date1 = this.addOrSubtractDays(new Date(this.dateInit), +1);
+    const date2 = this.addOrSubtractDays(new Date(this.dateFinal), +1);
+    const viewDateInitial = this.getDate(date1);
+    const viewDateFinal = this.getDate(date2);
+
+    this.myform.controls.dateOrderInitial.setValue(viewDateInitial);
+    this.myform.controls.dateOrderFinal.setValue(viewDateFinal);
 
     if (this.listOrderStatus && this.typeCards) {
       this.listOrderStatus.forEach(el => {
@@ -125,6 +162,18 @@ export class SearchOrderFormComponent implements OnInit {
         }
       });
     }
+  }
+
+  /**
+   * Sumar 1 dia a la fecha para pintar
+   * @param {*} date
+   * @param {*} days
+   * @returns
+   * @memberof SearchOrderFormComponent
+   */
+  addOrSubtractDays(date: any, days: any) {
+    date.setDate(date.getDate() + days);
+    return date;
   }
 
 
