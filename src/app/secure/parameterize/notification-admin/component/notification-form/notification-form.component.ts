@@ -354,52 +354,70 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
           }
         });
       }
-
     } else {
-      const params = this.paramSaveOrChangeImg();
-      this.notificationAdminService.saveImgNotification(params).subscribe(result => {
-        if (result && result.status === 200) {
-          const body = result.body;
-          this.withError = false;
-          this.createOrEdit = true;
-          if (body) {
-            if (body.Data && body.Errors.length === 0) {
-              if (body.Data.Response === true) {
-                this.imagUrl = body.Data.Url;
-                const paramsCreate = this.setparams();
-                this.notificationAdminService.createNew(paramsCreate).subscribe(res => {
-                  if (res && res.Errors.length === 0) {
-                    this.createOrEdit = true;
-                    this.loadingService.closeSpinner();
-                    this.modalGeneric();
-                  } else {
-                    this.createOrEdit = false;
-                    this.withError = true;
-                    this.listError = res.Errors;
-                    this.titleErrorSubtitle = 'Ha ocurrido un error al momento de cargar el anuncio';
-                    this.loadingService.closeSpinner();
-                    this.modalGeneric();
-                  }
-                });
+      if (this.typeBody !== 2) {
+        const params = this.paramSaveOrChangeImg();
+        this.notificationAdminService.saveImgNotification(params).subscribe(result => {
+          if (result && result.status === 200) {
+            const body = result.body;
+            this.withError = false;
+            this.createOrEdit = true;
+            if (body) {
+              if (body.Data && body.Errors.length === 0) {
+                if (body.Data.Response === true) {
+                  this.imagUrl = body.Data.Url;
+                  const paramsCreate = this.setparams();
+                  this.notificationAdminService.createNew(paramsCreate).subscribe(res => {
+                    if (res && res.Errors.length === 0) {
+                      this.createOrEdit = true;
+                      this.loadingService.closeSpinner();
+                      this.modalGeneric();
+                    } else {
+                      this.createOrEdit = false;
+                      this.withError = true;
+                      this.listError = res.Errors;
+                      this.titleErrorSubtitle = 'Ha ocurrido un error al momento de cargar el anuncio';
+                      this.loadingService.closeSpinner();
+                      this.modalGeneric();
+                    }
+                  });
+                } else {
+                  this.createOrEdit = false;
+                  this.withError = true;
+                  this.listError = body.Errors;
+                  this.titleErrorSubtitle = 'Ha ocurrido un error al momento de cargar el anuncio';
+                  this.loadingService.closeSpinner();
+                  this.modalGeneric();
+                }
               } else {
                 this.createOrEdit = false;
                 this.withError = true;
                 this.listError = body.Errors;
-                this.titleErrorSubtitle = 'Ha ocurrido un error al momento de cargar el anuncio';
+                this.titleErrorSubtitle = 'Ha ocurrido un error al momento de cargar la imagen';
                 this.loadingService.closeSpinner();
                 this.modalGeneric();
               }
-            } else {
-              this.createOrEdit = false;
-              this.withError = true;
-              this.listError = body.Errors;
-              this.titleErrorSubtitle = 'Ha ocurrido un error al momento de cargar la imagen';
-              this.loadingService.closeSpinner();
-              this.modalGeneric();
             }
           }
-        }
-      });
+        });
+      } else {
+        this.imagUrl = null;
+        const paramsCreate = this.setparams();
+        this.notificationAdminService.createNew(paramsCreate).subscribe(res => {
+          if (res && res.Errors.length === 0) {
+            this.createOrEdit = true;
+            this.loadingService.closeSpinner();
+            this.modalGeneric();
+          } else {
+            this.createOrEdit = false;
+            this.withError = true;
+            this.listError = res.Errors;
+            this.titleErrorSubtitle = 'Ha ocurrido un error al momento de cargar el anuncio';
+            this.loadingService.closeSpinner();
+            this.modalGeneric();
+          }
+        });
+      }
     }
   }
   /**
