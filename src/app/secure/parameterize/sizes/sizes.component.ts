@@ -1,11 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar, MatTableDataSource, PageEvent } from '@angular/material';
-import { LoadingService, ModalService } from '@app/core';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher, MatDialog, MatDialogRef, MatSnackBar, MatTableDataSource, PageEvent } from '@angular/material';
+import { LoadingService, Logger, ModalService } from '@app/core';
+import { FinishUploadProductInformationComponent } from '@app/secure/products/bulk-load-product/finish-upload-product-information/finish-upload-product-information.component';
 import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
+import { ModalBulkloadBrandsComponent } from '../brands/modal-bulkload-brands/modal-bulkload-brands.component';
 import { SizesService } from './sizes.service';
+
+/**
+ * exporta funcion para mostrar los errores de validacion del formulario
+ *
+ * @export
+ * @class MyErrorStateMatcher
+ * @implements {ErrorStateMatcher}
+ */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
+
+const log = new Logger('SizesComponent');
 
 @Component({
   selector: 'app-sizes',
@@ -13,6 +33,10 @@ import { SizesService } from './sizes.service';
   styleUrls: ['./sizes.component.scss']
 })
 export class SizesComponent implements OnInit {
+
+  @ViewChild('dialogContent', { static: false }) content: TemplateRef<any>;
+  @ViewChild('matSlideToggle', { static: false }) matSlideToggle: ElementRef;
+  @ViewChild('buttonClose', { static: false }) buttonClose: ElementRef;
 
   displayedColumns = ['Name', 'State', 'Actions'];
 
@@ -35,14 +59,28 @@ export class SizesComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
 
   public filterSizes: FormGroup;
+  public form: FormGroup;
 
   sizeRegex = {
     sizeProduct: ''
   };
 
+  keySize = [];
+  validateKeySize = true;
+  removable = true;
+
+
   // parametro de filtro
   namefilter: string;
 
+  subs: Subscription[] = [];
+  changeNameSize: any;
+
+  validateExit = true;
+
+  checkIfDoneCharge: any = null;
+  /* Mirar el estado del progreso de la carga*/
+  public progressStatus = false;
 
   constructor(
     private service: SizesService,
@@ -52,11 +90,20 @@ export class SizesComponent implements OnInit {
     private fb?: FormBuilder,
     public SUPPORT?: SupportService,
     public snackBar?: MatSnackBar,
+    public dialog?: MatDialog,
   ) { }
 
   ngOnInit() {
     this.listSize();
     this.validateFormSupport();
+  }
+
+  /**
+   * Metodo para cerrar dialogo
+   * @memberof SizesComponent
+   */
+  onNoClick() {
+    this.dialog.closeAll();
   }
 
   /**
@@ -85,6 +132,111 @@ export class SizesComponent implements OnInit {
     this.filterSizes = this.fb.group({
       SizeName: new FormControl('', [Validators.pattern(this.sizeRegex.sizeProduct)]),
     });
+
+    this.form = new FormGroup({
+      nameSize: new FormControl('', [Validators.pattern(this.sizeRegex.sizeProduct)])
+    });
+
+    this.form.valueChanges.subscribe(() => {
+      this.validateExit = false;
+    });
+  }
+
+  /**
+   * Función para ir guardando las tallas como chips.
+   * @memberof SizesComponent
+   */
+  public saveSomeSizes(): void {
+    let word = this.form.controls.nameSize.value;
+    if (word) {
+      word = word.trim();
+      word = word.replace(/ /g, '');
+      if (word.search(',') === -1) {
+        this.keySize.push(word);
+      } else {
+        const counter = word.split(',');
+        counter.forEach(element => {
+          if (element) {
+            this.keySize.push(element);
+          }
+        });
+      }
+      this.form.controls.nameSize.clearValidators();
+      this.form.controls.nameSize.reset();
+      this.validateKeySize = this.keySize.length > 0 ? false : true;
+    }
+  }
+
+  /**
+   * Funcion para ir eliminando tallas
+   * @param {number} indexOfValue
+   * @memberof SizesComponent
+   */
+  public deleteKeySize(indexOfValue: number): void {
+    this.keySize.splice(indexOfValue, 1);
+    this.validateKeySize = this.keySize.length > 0 ? false : true;
+  }
+
+
+
+  confirmation() {
+    // this.loadingService.viewSpinner();
+    if (this.changeNameSize) {
+      console.log('edit');
+      console.log(this.form)
+
+      const dataToSendSize = {
+        'NewSize': this.form.controls.nameSize.value,
+        'OldSize': this.changeNameSize,
+        'Status': 1
+      };
+
+      this.service.updateSizes(dataToSendSize).subscribe(result => {
+        console.log(result);
+        // const errorMessage = JSON.parse(result.body);
+
+        // if (result.statusCode === 200 || result.statusCode === 201) {
+        //     this.snackBar.open('Actualizó correctamente la marca.', 'Cerrar', {
+        //         duration: 5000,
+        //     });
+        //     this.dialog.closeAll();
+        //     this.loadingService.closeSpinner();
+        //     this.listSize();
+        // } else {
+        //     this.snackBar.open(errorMessage[0].Message, 'Cerrar', {
+        //         duration: 5000,
+        //     });
+        //     this.dialog.closeAll();
+        //     this.loadingService.closeSpinner();
+        // }
+      });
+    } else {
+      console.log('create');
+      this.service.createSizes(this.keySize).subscribe(result => {
+        console.log(result);
+        if (result['data'] === true) {
+          console.log('valida status');
+          this.setIntervalStatusSize();
+        }
+
+        // const errorMessage = JSON.parse(result);
+
+        // if (result.statusCode === 200 || result.statusCode === 201) {
+        //     this.listSize();
+        //     this.snackBar.open('Agregó correctamente una marca.', 'Cerrar', {
+        //         duration: 5000,
+        //     });
+        //     this.dialog.closeAll();
+        //     this.loadingService.closeSpinner();
+        // } else {
+        //     this.snackBar.open(errorMessage[0].Message, 'Cerrar', {
+        //         duration: 5000,
+        //     });
+        //     this.dialog.closeAll();
+        //     this.loadingService.closeSpinner();
+        // }
+      });
+    }
   }
 
 
@@ -114,7 +266,7 @@ export class SizesComponent implements OnInit {
         this.dataSource = result.viewModel;
         console.log(this.dataSource);
         if (this.callOne) {
-      console.log('this.callOne: ', this.callOne)
+          console.log('this.callOne: ', this.callOne)
           this.length = result.count;
           this.arrayPosition = [];
           this.arrayPosition.push('{}');
@@ -190,9 +342,11 @@ export class SizesComponent implements OnInit {
    */
   public changeStatusSize(element: any) {
     console.log(element);
+    this.paginationToken = '{}';
     const paramChange = { 'OldSize': element };
     this.loadingService.viewSpinner();
     console.log(paramChange);
+    this.callOne = true;
     this.service.changeStatus(paramChange).subscribe(result => {
       console.log(result);
       if (result && result.status === 200) {
@@ -230,22 +384,143 @@ export class SizesComponent implements OnInit {
     this.callOne = true;
     this.service.deleteSize(paramDelete).subscribe(result => {
       console.log(result);
-        if (result && result.data === true) {
-          console.log(result.data);
-          // this.loadingService.closeSpinner();
-          this.snackBar.open('Has eliminado correctamente la talla ' + element + '.', this.languageService.instant('actions.close'), {
-            duration: 5000,
-          });
-          this.listSize();
-        } else {
-          this.loadingService.closeSpinner();
-          this.snackBar.open('Se ha producido un error al tratar de eliminar la talla ' + element, this.languageService.instant('actions.close'), {
-            duration: 5000,
-          });
+      if (result && result.data === true) {
+        console.log(result.data);
+        // this.loadingService.closeSpinner();
+        this.snackBar.open('Has eliminado correctamente la talla ' + element + '.', this.languageService.instant('actions.close'), {
+          duration: 5000,
+        });
+        this.listSize();
+      } else {
+        this.loadingService.closeSpinner();
+        this.snackBar.open('Se ha producido un error al tratar de eliminar la talla ' + element, this.languageService.instant('actions.close'), {
+          duration: 5000,
+        });
       }
     }, error => {
       this.loadingService.closeSpinner();
       this.modalService.showModal('errorService');
+    });
+  }
+
+  public parametrizeSizes(sizesData: any): void {
+    console.log(sizesData);
+    const dataDialog = this.setDataChangeStatusDialog(sizesData);
+    this.form.controls['nameSize'].setErrors({ 'validExist': true });
+    if (!!dataDialog && !!dataDialog.title) {
+      const dialogRef = this.dialog.open(DialogWithFormComponent, {
+        width: '55%',
+        minWidth: '280px',
+        data: dataDialog
+      });
+      setTimeout(() => {
+        this.configDataDialog(dialogRef);
+      });
+    }
+  }
+
+  configDataDialog(dialog: MatDialogRef<DialogWithFormComponent>) {
+    const dialogInstance = dialog.componentInstance;
+    dialogInstance.content = this.content;
+    this.subs.push(dialog.afterClosed().subscribe(() => {
+      this.form.reset({ nameBrands: '', IdBrands: '' });
+    }));
+  }
+
+  setDataChangeStatusDialog(sizeData: any) {
+    console.log(sizeData);
+    let message = '';
+    let title = '';
+    let icon = '';
+    let form = null;
+    let messageCenter = false;
+    const showButtons = false;
+    const btnConfirmationText = null;
+
+    if (sizeData) {
+      message = 'Para crear una talla nuevac debes ingresar el valor de la talla como quieras que aparezca en el sitio. Ten en cuenta que si la talla ya existe no podrás crearla. No podrás utilizar ningún simpolo o caracter especial.';
+      icon = 'edit';
+      title = 'Editar Talla';
+      messageCenter = false;
+      this.changeNameSize = sizeData;
+      this.form.controls['nameSize'].setValue(sizeData);
+      // this.form.controls['idBrands'].setValue(sizeData.Id);
+      // this.form.controls['status'].setValue(sizeData.Status);
+    } else {
+      message = 'Para crear una talla nuevac debes ingresar el valor de la talla como quieras que aparezca en el sitio. Ten en cuenta que si la talla ya existe no podrás crearla. No podrás utilizar ningún simpolo o caracter especial.';
+      icon = 'add';
+      title = 'Agrear talla';
+      messageCenter = false;
+    }
+    form = this.form;
+    return { title, message, icon, form, messageCenter, showButtons, btnConfirmationText };
+  }
+
+  setIntervalStatusSize() {
+    clearInterval(this.checkIfDoneCharge);
+    this.checkIfDoneCharge = setInterval(() => this.service.statusSize().subscribe((res) => {
+      this.verifyStateCharge(res);
+    }), 7000);
+  }
+
+  public closeActualDialog(): void {
+    if (this.progressStatus) {
+        this.dialog.closeAll();
+    }
+}
+
+  verifyStateCharge(result?: any) {
+    if (result.body.Data.Checked === 'true') {
+      clearInterval(this.checkIfDoneCharge);
+    } else if (result.body.Data.Status === 1 || result.body.Data.Status === 4) {
+      result.body.Data.Status = 1;
+      if (!this.progressStatus) {
+        this.openDialogSendOrder(result);
+      }
+      this.progressStatus = true;
+      this.loadingService.closeSpinner();
+    } else if (result.body.Data.Status === 2) {
+      clearInterval(this.checkIfDoneCharge);
+      this.closeActualDialog();
+      this.openDialogSendOrder(result);
+      this.loadingService.closeSpinner();
+    } else if (result.body.Data.Status === 3) {
+      this.closeActualDialog();
+      clearInterval(this.checkIfDoneCharge);
+      const resultBody = JSON.parse(result.body.Data.Response);
+      if (resultBody.Errors.length > 0) {
+        this.openDialogSendOrder(result);
+      }
+      this.loadingService.closeSpinner();
+    }
+  }
+
+
+  openDialogSendOrder(res: any): void {
+    if (!res.body.data) {
+      res.body.data = {};
+      res.body.data.status = 3;
+      res.productNotifyViewModel = res.body.productNotifyViewModel;
+    } else {
+      // Condicional apra mostrar errores mas profundos. ;
+      if (res.body.data.response) {
+        res.productNotifyViewModel = res.body.data.response.Data.ProductNotify;
+      } else {
+        if (res.body.data.status === undefined) {
+          res.body.data.status = 3;
+          res.productNotifyViewModel = res.body.data.productNotifyViewModel;
+        }
+      }
+    }
+    const dialogRef = this.dialog.open(ModalBulkloadBrandsComponent, {
+      width: '95%',
+      disableClose: true,
+      data: {
+        response: res
+      },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      log.info('The dialog was closed');
     });
   }
 

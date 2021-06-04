@@ -6,6 +6,54 @@ $title-color: black;
   margin: 20px 0;
 }
 
+.brands-modal-margin {
+  margin-top: 40px;
+  height: 128px;
+}
+
+.size-position-option {
+  justify-content: center;
+  text-align: center;
+  padding: 12px 0;
+  margin-bottom: -24px;
+}
+
+.example-chip-list {
+  margin-bottom: 4%;
+  position: sticky;
+  top: 64px;
+  // background: white;
+  z-index: 1;
+  padding: 1%;
+}
+
+.example-chip-list-filters {
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  height: 70px;
+  max-height: 100px;
+  contain: content;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  & mat-icon {
+    margin-right: 0px;
+  }
+}
+
+.size-position-option-cancel {
+  margin-left: 8px;
+}
+
+.input-size-width {
+  width: 95%;
+}
+
+.full-width {
+  width: 100%
+}
+
 .example-container {
   height: fit-content;
   // max-height: 200px;

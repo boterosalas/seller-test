@@ -318,13 +318,17 @@ export const endpoints = {
       // Mirar estado batch carga eliminar productos
       getStatusDeleteProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/getstatusdisassociateproducts',
       // Captura de indicadores
-      getIndicators : 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller/getindicatorsbynit/{params}',
+      getIndicators: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller/getindicatorsbynit/{params}',
       // Obtener listado de tallas
       getAllSizes: 'https://wss1xyl4h8.execute-api.us-east-1.amazonaws.com/Sizes/{params}',
       // Obtener listado de tallas Creacion unitaria
       getAllSizesProducts: 'https://wss1xyl4h8.execute-api.us-east-1.amazonaws.com/Sizes/all',
       // Consultar estado de la carga masiva de tallas
       getStatusSize: 'https://wss1xyl4h8.execute-api.us-east-1.amazonaws.com/Sizes/status',
+      // Crear tallas y ediutar tallas (post y patch)
+      parametrizeSizes: 'https://wss1xyl4h8.execute-api.us-east-1.amazonaws.com/Sizes',
+      // Validar status carga tallas
+      statusSizes: 'https://wss1xyl4h8.execute-api.us-east-1.amazonaws.com/Sizes/status',
       // obtiene el listado de fraudes
       getFrauds: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles?&limit={limit}',
       // envia el listado de fraudes
@@ -695,9 +699,9 @@ export const endpoints = {
       // Eliminar anuncios
       deleteNotification: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/DeleteNew{params}',
       // Listar anuncios vendedor
-      getAdvertisements :  'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/Dev-SC-News/GetNewsByTarget?totalMax=10',
+      getAdvertisements: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/Dev-SC-News/GetNewsByTarget?totalMax=10',
       // Listar anuncios vendedor
-      readAdvertisements :  'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/Dev-SC-News/SetNewsRead'
+      readAdvertisements: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/Dev-SC-News/SetNewsRead'
     }
   }
 };

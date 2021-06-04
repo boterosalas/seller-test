@@ -41,4 +41,22 @@ export class SizesService {
   public deleteSize(params: any): Observable<any> {
     return this.http.delete(this.api.get('getAllSizes', [params]));
   }
+
+  /**
+   * Servicio masiva o unitaria de tallas
+   * @param {*} data
+   * @returns
+   * @memberof SizesService
+   */
+  public createSizes(data: any) {
+    return this.http.post(this.api.get('parametrizeSizes'), data);
+  }
+
+  public updateSizes(data: any) {
+    return this.http.patch(this.api.get('parametrizeSizes'), data);
+  }
+
+  public statusSize() {
+    return this.http.get(this.api.get('statusSizes'), { observe: 'response' });
+  }
 }
