@@ -208,6 +208,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
         this.imagePathDrag = null;
         this.nameFile = null;
         this.sizeFile = null;
+        this.colorBackground = null;
         break;
       case '3':
         this.form.controls.bodyDescription.enable();
@@ -236,6 +237,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
         this.imagePathDrag = null;
         this.nameFile = null;
         this.sizeFile = null;
+        this.colorBackground = null;
         break;
       default:
         break;
@@ -355,7 +357,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
         });
       }
     } else {
-      if (this.typeBody !== '2') {
+      if (this.typeBody !== '3') {
         const params = this.paramSaveOrChangeImg();
         this.notificationAdminService.saveImgNotification(params).subscribe(result => {
           if (result && result.status === 200) {
@@ -406,6 +408,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
         this.notificationAdminService.createNew(paramsCreate).subscribe(res => {
           if (res && res.Errors.length === 0) {
             this.createOrEdit = true;
+            this.withError = false;
             this.loadingService.closeSpinner();
             this.modalGeneric();
           } else {
@@ -453,7 +456,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
       Body: this.form.controls.bodyDescription.value !== '' ? this.form.controls.bodyDescription.value : null,
       UrlImage: this.imagUrl,
       PartitionGrouper: 'News',
-      BackgroundColor: this.form.controls.pickerColor.value ? this.form.controls.pickerColor.value : null,
+      BackgroundColor: this.form.controls.pickerColor.value ? this.form.controls.pickerColor.value : this.colorBackground,
     };
 
     return <any>paramsCreate;
@@ -501,6 +504,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
   setValueNotificacion(params: any) {
     if (params && this.form) {
       const newNotification = params.NewsContentType ? params.NewsContentType.toString() : '1';
+      this.validateBody(newNotification);
       this.form.controls.title.setValue(params.Title);
       this.form.controls.dateInitial.setValue(params.InitialDate);
       this.form.controls.dateEnd.setValue(params.FinalDate);
@@ -513,8 +517,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
       this.idNotification = params.Id;
       this.imagePathDrag = params.UrlImage;
       this.imagUrl = params.UrlImage;
-      this.validateBody(newNotification);
-      this.colorBackground = params.BackgroundColor;
+      this.colorBackground = params.BackgroundColor ? params.BackgroundColor : null ;
     }
   }
 /**
