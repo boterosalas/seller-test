@@ -206,21 +206,23 @@ export class DashOrdersComponent implements OnInit {
      * @memberof DashOrdersComponent
      */
     goToSendOrders(type: any) {
-        const idToSend = '35';
-        let latest_date;
         if (this.typeFilter) {
             if (this.typeFilter === '1') {
-                this.dateCurrent = new Date();
-                latest_date = this.datepipe.transform(this.dateCurrent, 'yyyy/MM/dd');
-                const initialDate = this.datepipe.transform(this.addOrSubtractDays(new Date(latest_date), -89), 'yyyy/MM/dd');
-                this.initialDateSend = initialDate;
-                this.finalDateSend = latest_date;
+                this.dateCurrent = this.dateCurrent ? this.dateCurrent : new Date();
+                const dateFinal = new Date(this.dateCurrent.getFullYear(), this.dateCurrent.getMonth() + 1, 0);
+                const dateInit = new Date(this.dateCurrent.getFullYear(), this.dateCurrent.getMonth() - 2, 1);
+                const initialDate = this.datepipe.transform(this.addOrSubtractDays(new Date(dateInit), +1), 'yyyy/MM/dd');
+                const finalDate = this.datepipe.transform(this.addOrSubtractDays(new Date(dateFinal), +1), 'yyyy/MM/dd');
+                this.initialDateSend = this.datepipe.transform(new Date(initialDate), 'yyyy/MM/dd');
+                this.finalDateSend = this.datepipe.transform(new Date(finalDate), 'yyyy/MM/dd');
             } else if (this.typeFilter === '2') {
-                this.dateCurrent = new Date();
-                latest_date = this.datepipe.transform(this.dateCurrent, 'yyyy/MM/dd');
-                const initialDate = this.datepipe.transform(this.addOrSubtractDays(new Date(latest_date), -29), 'yyyy/MM/dd');
-                this.initialDateSend = initialDate;
-                this.finalDateSend = latest_date;
+                this.dateCurrent = this.dateCurrent ? this.dateCurrent : new Date();
+                const dateFinal = new Date(this.dateCurrent.getFullYear(), this.dateCurrent.getMonth() + 1, 0);
+                const dateInit = new Date(this.dateCurrent.getFullYear(), this.dateCurrent.getMonth(), 1);
+                const initialDate = this.datepipe.transform(this.addOrSubtractDays(new Date(dateInit), +1), 'yyyy/MM/dd');
+                const finalDate = this.datepipe.transform(this.addOrSubtractDays(new Date(dateFinal), +1), 'yyyy/MM/dd');
+                this.initialDateSend = this.datepipe.transform(new Date(initialDate), 'yyyy/MM/dd');
+                this.finalDateSend = this.datepipe.transform(new Date(finalDate), 'yyyy/MM/dd');
             } else if (this.typeFilter === '3') {
                 this.dateOrdens = this.datepipe.transform(this.dateCurrent, 'yyyy/MM/dd');
                 const initialDate = this.datepipe.transform(this.addOrSubtractDays(new Date(this.dateOrdens), -6), 'yyyy/MM/dd');
