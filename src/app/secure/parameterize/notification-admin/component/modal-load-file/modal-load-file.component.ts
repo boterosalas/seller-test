@@ -196,8 +196,7 @@ export class ModalLoadFileComponent implements OnInit, OnDestroy  {
     * @memberof ExpandedProductComponent
     */
     ngOnDestroy() {
-      const dialog = this.dialogRef;
-      if (JSON.stringify(dialog) !== '{}') {
+      if (Object.keys(this.dialogRef).length !== 0) {
         this.dialogRef.close();
       }
     }
