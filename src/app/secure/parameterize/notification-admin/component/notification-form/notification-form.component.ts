@@ -432,15 +432,16 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
       FinalDate: this.form.controls.dateEnd.value,
       Title: this.form.controls.title.value ? this.form.controls.title.value.charAt(0).toUpperCase() + this.form.controls.title.value.slice(1) : null,
       Link: this.form.controls.pageDestiny.value,
-      Body: this.form.controls.bodyDescription.value,
+      Body: this.form.controls.bodyDescription.value !== '' ? this.form.controls.bodyDescription.value : null,
       UrlImage: this.imagUrl,
-      BackgroundColor: this.form.controls.pickerColor.value ? this.form.controls.pickerColor.value : null,
+      PartitionGrouper: 'News',
+      BackgroundColor: this.form.controls.pickerColor.value ? this.form.controls.pickerColor.value : '#ffffff',
     };
 
     return <any>paramsCreate;
   }
   /**
-   * funcion para llamar al modal generico para mostrar editado, creado o eliminar 
+   * funcion para llamar al modal generico para mostrar editado, creado o eliminar
    *
    * @memberof NotificationFormComponent
    */
