@@ -64,7 +64,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
   public idNotification = null;
   public dialogRef: any;
   public matcher: MyErrorStateMatcher;
-  public typeBody= 1;
+  public typeBody= '1';
 
 
   public config: AngularEditorConfig = {
@@ -192,11 +192,11 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
    * @param {number} typeBody
    * @memberof NotificationFormComponent
    */
-  validateBody(typeBody: number) {
+  validateBody(typeBody: string) {
     this.typeBody = typeBody;
     this.resetOpction(typeBody);
     switch (typeBody) {
-      case 1:
+      case '1':
         this.form.controls.bodyDescription.enable();
         this.form.controls.pickerColor.disable();
         this.disableText = false;
@@ -209,7 +209,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
         this.nameFile = null;
         this.sizeFile = null;
         break;
-      case 2:
+      case '3':
         this.form.controls.bodyDescription.enable();
         this.form.controls.pickerColor.enable();
         this.disableText = false;
@@ -224,7 +224,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
         this.changeFile = false;
         this.imagUrl = null;
         break;
-      case 3:
+      case '2':
         this.form.controls.bodyDescription.disable();
         this.form.controls.pickerColor.disable();
         this.disableText = true;
@@ -247,10 +247,10 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
    * @param {number} type
    * @memberof NotificationFormComponent
    */
-  resetOpction(type: number) {
+  resetOpction(type: string) {
     this.form.controls.pickerColor.reset();
     this.colorBackground = '#ffffff';
-    if (type === 3) {
+    if (type === '3') {
       this.form.controls.bodyDescription.reset();
     }
   }
@@ -355,7 +355,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
         });
       }
     } else {
-      if (this.typeBody !== 2) {
+      if (this.typeBody !== '2') {
         const params = this.paramSaveOrChangeImg();
         this.notificationAdminService.saveImgNotification(params).subscribe(result => {
           if (result && result.status === 200) {
@@ -436,7 +436,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
     return paramsSaveImg;
   }
   /**
-   * funcion para crear parametros y crear el anuncio 
+   * funcion para crear parametros y crear el anuncio
    *
    * @returns
    * @memberof NotificationFormComponent
@@ -500,7 +500,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
    */
   setValueNotificacion(params: any) {
     if (params && this.form) {
-      const newNotification = params.NewsContentType ? params.NewsContentType.toString() : 1;
+      const newNotification = params.NewsContentType ? params.NewsContentType.toString() : '1';
       this.form.controls.title.setValue(params.Title);
       this.form.controls.dateInitial.setValue(params.InitialDate);
       this.form.controls.dateEnd.setValue(params.FinalDate);
@@ -509,17 +509,20 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
       this.form.controls.bodyDescription.setValue(params.Body);
       this.form.controls.bodyNotification.setValue(newNotification);
       this.form.controls.lenguaje.setValue(params.Target);
+      this.form.controls.pickerColor.setValue(params.BackgroundColor);
       this.idNotification = params.Id;
       this.imagePathDrag = params.UrlImage;
       this.imagUrl = params.UrlImage;
+      this.validateBody(newNotification);
+      this.colorBackground = params.BackgroundColor;
     }
   }
-  /**
-    * funcion para destruir el componente del modal
-    *
-    * @memberof ExpandedProductComponent
-    */
-   ngOnDestroy() {
+/**
+ * funcion para destruir el componente del modal
+ *
+ * @memberof NotificationFormComponent
+ */
+ngOnDestroy() {
     if (this.dialogRef) {
       this.dialogRef.close();
     }
