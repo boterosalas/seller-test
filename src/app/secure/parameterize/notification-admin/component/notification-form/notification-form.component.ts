@@ -453,7 +453,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
       Body: this.form.controls.bodyDescription.value !== '' ? this.form.controls.bodyDescription.value : null,
       UrlImage: this.imagUrl,
       PartitionGrouper: 'News',
-      BackgroundColor: this.form.controls.pickerColor.value ? this.form.controls.pickerColor.value : '#ffffff',
+      BackgroundColor: this.form.controls.pickerColor.value ? this.form.controls.pickerColor.value : null,
     };
 
     return <any>paramsCreate;
