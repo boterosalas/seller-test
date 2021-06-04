@@ -1529,6 +1529,6 @@
     "secure.profiel.position":"Position",
     "secure.profiel.cellPhone":"Cell phone number",
     "secure.profiel.phone_number":"Phone number",
-    "secure.profiel.contact_name_surname":"Contact name(s) and surname(s)",
+    "secure.profiel.contact_name_surname":"Name",
     "secure.profiel.edit_contact":"Edit contact"
 }

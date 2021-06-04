@@ -1570,9 +1570,9 @@
     "secure.profiel.contact_information":"Datos de contactos",
     "secure.profiel.responsible_area":"Área responsable",
     "secure.profiel.position":"Cargo",
-    "secure.profiel.cellPhone":"Número celular",
-    "secure.profiel.phone_number":"Número de teléfono",
-    "secure.profiel.contact_name_surname":"Nombre (s) y Apellido (s) del contacto",
+    "secure.profiel.cellPhone":"Celular",
+    "secure.profiel.phone_number":"Teléfono",
+    "secure.profiel.contact_name_surname":"Nombre",
     "secure.profiel.edit_contact":"Crear contacto"
 
 }
