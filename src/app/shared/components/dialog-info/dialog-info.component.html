@@ -1,20 +1,28 @@
 <mat-dialog-content align="center">
   <mat-icon class="material-icons container" *ngIf="icon"
-    [ngStyle]="{'background-color': icon === 'done' ? '#6fb63e' : '#6fb63e'}" class="marginButtonDeleteOk">
+    [ngStyle]="{'background-color': icon === 'done' ? '#6fb63e' : '#BCBCBC'}" class="marginButtonDeleteOk">
     {{icon}}
   </mat-icon>
   <h3 *ngIf="title">{{title}}</h3>
   <p *ngIf="message">
     {{message}}
   </p>
+
+  <div *ngIf="dataInfo.dataError" class="infoErros">
+    <div class="infoErros" *ngFor="let error of dataInfo.dataError">
+      {{error.Message}}
+    </div>
+  </div>
 </mat-dialog-content>
 <mat-dialog-actions align="center">
-  <button mat-stroked-button color="primary" *ngIf="cancelButtonText"
-    class="buttonCancel" (click)="onNoClick()">
+  <button mat-stroked-button color="primary" *ngIf="cancelButtonText" class="buttonCancel" (click)="onNoClick()">
     {{cancelButtonText}}</button>
-  <button mat-raised-button color="primary" *ngIf="closeButtonText"
-    class="buttonCancel" (click)="onNoClick()">
+  <button mat-raised-button color="primary" *ngIf="closeButtonText" class="buttonCancel" (click)="onNoClick()">
     {{closeButtonText}}</button>
-  <button mat-raised-button color="primary" *ngIf="confirmButtonText"
-    class="buttonConfirm" (click)="sendDataPatch()">{{confirmButtonText}}</button>
+  <button mat-raised-button color="primary" *ngIf="confirmButtonText" class="buttonConfirm"
+    (click)="sendDataPatch()">{{confirmButtonText}}</button>
+  <button mat-raised-button color="primary" *ngIf="deleteButtonText" class="buttonConfirm" (click)="confirmDelete()">
+    {{deleteButtonText}}</button>
+  <button mat-raised-button color="primary" *ngIf="acceptButtonText" class="buttonConfirm" (click)="onNoClick()">
+    {{acceptButtonText}}</button>
 </mat-dialog-actions>

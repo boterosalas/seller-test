@@ -5,6 +5,7 @@ import { LoadingService, Logger, ModalService } from '@app/core';
 import { FinishUploadProductInformationComponent } from '@app/secure/products/bulk-load-product/finish-upload-product-information/finish-upload-product-information.component';
 import { BasicInformationService } from '@app/secure/products/create-product-unit/basic-information/basic-information.component.service';
 import { SupportService } from '@app/secure/support-modal/support.service';
+import { DialogInfoComponent } from '@app/shared/components/dialog-info/dialog-info.component';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -82,6 +83,10 @@ export class SizesComponent implements OnInit {
   /* Mirar el estado del progreso de la carga*/
   public progressStatus = false;
 
+  dataDialog: any;
+  dataIfError: any;
+
+
   constructor(
     private service: SizesService,
     private loadingService: LoadingService,
@@ -94,6 +99,7 @@ export class SizesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.setIntervalStatusSize();
     this.listSize();
     this.validateFormSupport();
   }
@@ -403,6 +409,11 @@ export class SizesComponent implements OnInit {
     });
   }
 
+  /**
+   * Metodo para parametrizar, si es crear o editar tallas
+   * @param {*} sizesData
+   * @memberof SizesComponent
+   */
   public parametrizeSizes(sizesData: any): void {
     console.log(sizesData);
     const dataDialog = this.setDataChangeStatusDialog(sizesData);
@@ -419,6 +430,11 @@ export class SizesComponent implements OnInit {
     }
   }
 
+  /**
+   * Metodo para configurar datos dekl dialogo
+   * @param {MatDialogRef<DialogWithFormComponent>} dialog
+   * @memberof SizesComponent
+   */
   configDataDialog(dialog: MatDialogRef<DialogWithFormComponent>) {
     const dialogInstance = dialog.componentInstance;
     dialogInstance.content = this.content;
@@ -427,6 +443,12 @@ export class SizesComponent implements OnInit {
     }));
   }
 
+  /**
+   * Setear data abrir moda crear o editar talla
+   * @param {*} sizeData
+   * @returns
+   * @memberof SizesComponent
+   */
   setDataChangeStatusDialog(sizeData: any) {
     console.log(sizeData);
     let message = '';
@@ -456,65 +478,75 @@ export class SizesComponent implements OnInit {
     return { title, message, icon, form, messageCenter, showButtons, btnConfirmationText };
   }
 
+  /**
+   * Metodo consultar status de carga cada 7 segs
+   * @memberof SizesComponent
+   */
   setIntervalStatusSize() {
     clearInterval(this.checkIfDoneCharge);
     this.checkIfDoneCharge = setInterval(() => this.service.statusSize().subscribe((res) => {
+      console.log(66, res);
       this.verifyStateCharge(res);
     }), 7000);
   }
 
+  /**
+   * Funcion apra cerrar modal
+   * @memberof SizesComponent
+   */
   public closeActualDialog(): void {
     if (this.progressStatus) {
-        this.dialog.closeAll();
-    }
-}
-
-  verifyStateCharge(result?: any) {
-    if (result.body.Data.Checked === 'true') {
-      clearInterval(this.checkIfDoneCharge);
-    } else if (result.body.Data.Status === 1 || result.body.Data.Status === 4) {
-      result.body.Data.Status = 1;
-      if (!this.progressStatus) {
-        this.openDialogSendOrder(result);
-      }
-      this.progressStatus = true;
-      this.loadingService.closeSpinner();
-    } else if (result.body.Data.Status === 2) {
-      clearInterval(this.checkIfDoneCharge);
-      this.closeActualDialog();
-      this.openDialogSendOrder(result);
-      this.loadingService.closeSpinner();
-    } else if (result.body.Data.Status === 3) {
-      this.closeActualDialog();
-      clearInterval(this.checkIfDoneCharge);
-      const resultBody = JSON.parse(result.body.Data.Response);
-      if (resultBody.Errors.length > 0) {
-        this.openDialogSendOrder(result);
-      }
-      this.loadingService.closeSpinner();
+      this.dialog.closeAll();
     }
   }
 
-
-  openDialogSendOrder(res: any): void {
-    if (!res.body.data) {
-      res.body.data = {};
-      res.body.data.status = 3;
-      res.productNotifyViewModel = res.body.productNotifyViewModel;
-    } else {
-      // Condicional apra mostrar errores mas profundos. ;
-      if (res.body.data.response) {
-        res.productNotifyViewModel = res.body.data.response.Data.ProductNotify;
-      } else {
-        if (res.body.data.status === undefined) {
-          res.body.data.status = 3;
-          res.productNotifyViewModel = res.body.data.productNotifyViewModel;
-        }
+  /**
+   * Metodo para validar status de carga de tallas
+   * @param {*} [result]
+   * @memberof SizesComponent
+   */
+  verifyStateCharge(result?: any) {
+    if (result) {
+      if (result.body.data.response) {
+        result.body.data.response = JSON.parse(result.body.data.response);
       }
+      if (result.body.data.status === 0 || result.body.data.checked === 'true') {
+        clearInterval(this.checkIfDoneCharge);
+        this.progressStatus = false;
+      } else if (result.body.data.status === 1 || result.body.data.status === 4) {
+        result.body.data.status = 1;
+        if (!this.progressStatus) {
+          this.openDialogSendOrder(result);
+        }
+        this.progressStatus = true;
+      } else if (result.body.data.status === 2) {
+        console.log('result: ', result.body.data.response.SizesNotify);
+        this.dataIfError = result.body.data.response.SizesNotify;
+        this.loadingService.closeSpinner();
+        clearInterval(this.checkIfDoneCharge);
+        this.closeActualDialog();
+        this.chargeSizesOk();
+      } else if (result.body.data.status === 3) {
+        this.closeActualDialog();
+        clearInterval(this.checkIfDoneCharge);
+        this.snackBar.open(this.languageService.instant('secure.products.create_product_unit.list_products.error_delete'), this.languageService.instant('actions.close'), {
+          duration: 3000,
+        });
+      }
+    } else {
+      this.modalService.showModal('errorService');
     }
-    const dialogRef = this.dialog.open(ModalBulkloadBrandsComponent, {
+  }
+
+/**
+ * Mertodo para abrir modal de carga en proceso
+ * @memberof SizesComponent
+ */
+  openDialogSendOrder(res: any): void {
+    console.log(99, res.body.data.status);
+    const dialogRef = this.dialog.open(FinishUploadProductInformationComponent, {
       width: '95%',
-      disableClose: true,
+      disableClose: res.body.data.status === 1,
       data: {
         response: res
       },
@@ -523,5 +555,62 @@ export class SizesComponent implements OnInit {
       log.info('The dialog was closed');
     });
   }
+
+  /**
+   * Metodo para cargar las tallas abriendo modal con info
+   * @memberof SizesComponent
+   */
+  chargeSizesOk() {
+    const title1 = this.keySize.length < 2 ? 'Se ha creado ' : 'Se han creado ';
+    const title2 = this.keySize.length < 2 ? 'talla exitosamente ' : ' tallas exitosamente';
+    const message = this.keySize.length < 2 ? ' talla ha tenido un error y no han sido creada, revisa la siguiente información.' : ' tallas han tenido un error y no han sido creadas, revisa la siguiente información.';
+    this.dataDialog = {
+      title: title1 + this.keySize.length + title2,
+      icon: 'done',
+      message: this.dataIfError.length + message,
+      buttonText: {
+        accept: this.languageService.instant('actions.accept')
+      },
+      dataError: this.dataIfError
+    };
+    this.openDialogGenericInfo();
+  }
+
+  /**
+   * Funcion apra abrir modal eliminar y pasar info
+   * @param {*} element
+   * @memberof SizesComponent
+   */
+  deleteSizeDialog(element: any) {
+    this.dataDialog = {
+      title: '¡Vas a eliminar la talla creada!',
+      icon: 'delete',
+      message: '¿Estas seguro de eliminar la talla?',
+      buttonText: {
+        delete: this.languageService.instant('permissions.ELIMINAR'),
+        cancel: this.languageService.instant('actions.cancel')
+      },
+      dataError: this.dataIfError
+    };
+    this.openDialogGenericInfo(element);
+  }
+
+  openDialogGenericInfo(param?: any) {
+    const dialogRef = this.dialog.open(DialogInfoComponent, {
+        width: '60%',
+        minWidth: '280px',
+        data: this.dataDialog
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    console.log(result);
+        if (result === true) {
+            this.deleteSize(param);
+        } else {
+            // this.activeCheck = false;
+            this.listSize();
+        }
+        log.info('The modal detail billing was closed');
+    });
+}
 
 }
