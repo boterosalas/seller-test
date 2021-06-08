@@ -347,7 +347,7 @@ export const endpoints = {
        getAllContactData: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/GetSellerContacts',
        // Actualizar datos de contacto vendedor
        updateContactData: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/UpdateSellerContact',
-       //
+       // Crear un contacto para un vendedor (primero creamos y luego editamos)
        createContactData: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/RegisterContactSeller'
 
     },
@@ -691,12 +691,11 @@ export const endpoints = {
       // Eliminar anuncios
       deleteNotification:'',
       // Obtener todos los datos de contacto un vendedor
-      getAllContactData: '',
+      getAllContactData: 'https://igxf6mswfa.execute-api.us-east-1.amazonaws.com/pdn/GetSellerContacts',
       // Actualizar datos de contacto vendedor
-      updateContactData: '',
-      //
-      createContactData: ''
-
+      updateContactData: 'https://igxf6mswfa.execute-api.us-east-1.amazonaws.com/pdn/UpdateSellerContact',
+      // Crear un contacto para un vendedor (primero creamos y luego editamos)
+      createContactData: 'https://igxf6mswfa.execute-api.us-east-1.amazonaws.com/pdn/RegisterContactSeller'
     }
   }
 };
