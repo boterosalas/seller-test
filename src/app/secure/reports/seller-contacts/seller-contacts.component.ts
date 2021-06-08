@@ -51,6 +51,7 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
   clearSearch = false;
   valueCheck = false;
   selectSeller = false;
+  exportAll = false;
 
   optionsCheck = []
 
@@ -89,7 +90,6 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
     this._sellerContactService.getListContacts().subscribe(resp => {
       let object =  JSON.parse(resp.body);
       this.optionsCheck = object.Data;
-      console.log(this.optionsCheck);
       this.loadingService.closeSpinner();
     })
   }
@@ -153,7 +153,7 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
     this.selectSeller = true;
     this.nameLists = [];
     this.optionsContact();
-  
+    this.exportAll = false;
   }
 
   /**
@@ -273,10 +273,12 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
     this.isShowFilter = false;
     this.selectSeller = false;
     if (this.valueCheck === true) {
+      this.exportAll = true;
       this.clearSearch = true;
       this.keywords = [];
       this.arraySellerId = [];
       this.nameLists = [];
+
     }
   }
 

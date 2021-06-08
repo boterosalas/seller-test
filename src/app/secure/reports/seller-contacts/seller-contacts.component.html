@@ -52,7 +52,7 @@
         <mat-radio-group formControlName="importAll">
             <div fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100" fxFlex.xs="100" fxFlex.sm="95"
                 class="modal-export-to-reclaim-margin-content-action-5">
-                    <mat-radio-button color="primary"  class="dialog-accept" (click)="clearSellerSearch(!valueCheck)">
+                    <mat-radio-button color="primary" [checked]="exportAll"  class="dialog-accept" (click)="clearSellerSearch()">
                     <span class="modal-export-to-reclaim-text-export-text">{{'secure.parametize.support_claims-filter.modal-export.exportAll' | translate}}</span>
                     </mat-radio-button>
                 </div>
@@ -103,7 +103,7 @@
       </form>
 
     <button class="mt-10" type="button" mat-raised-button color="primary" (click)="sendExportContacts()"
-      [disabled]="disabledButton && !valueCheck || !filterForm.form.valid || (selectSeller && (!nameLists.length || !arraySellerId.length) )">EXPORTAR</button>
+      [disabled]="disabledButton && !valueCheck || !filterForm.form.valid || (selectSeller && (!nameLists.length || !arraySellerId.length)) || (exportAll === true && arraySellerId.length > 0)">EXPORTAR</button>
 
   </div>
   
