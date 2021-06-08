@@ -59,9 +59,12 @@
 
   </div>
 
-  <button mat-button mat-stroked-button (click)="parametrizeSizes()" id="addUnitBrand">
-    <strong>{{'secure.parametize.brands.btn_add_brand'| translate}}</strong>
-  </button>
+  <div class="margintButtonAdd">
+    <button mat-button mat-stroked-button (click)="parametrizeSizes()" id="addSize">
+      <strong>AGREGAR TALLA</strong>
+    </button>
+  </div>
+
 
   <div class="table-wrapper">
     <div class="example-container">
@@ -84,12 +87,14 @@
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let element">
             <div class="options">
-              <button mat-icon-button [matTooltip]="'actions.edit' | translate" (click)="parametrizeSizes(element.label)">
+              <button mat-icon-button [matTooltip]="'actions.edit' | translate"
+                (click)="parametrizeSizes(element.label)">
                 <mat-icon>
                   edit
                 </mat-icon>
               </button>
-              <button mat-icon-button [matTooltip]="'actions.delete' | translate" (click)="deleteSizeDialog(element.label)">
+              <button mat-icon-button [matTooltip]="'actions.delete' | translate"
+                (click)="deleteSizeDialog(element.label)">
                 <mat-icon>
                   delete
                 </mat-icon>

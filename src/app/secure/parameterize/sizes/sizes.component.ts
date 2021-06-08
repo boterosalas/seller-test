@@ -163,7 +163,7 @@ export class SizesComponent implements OnInit {
         const counter = word.split(',');
         counter.forEach(element => {
           if (element) {
-            this.keySize.push(element);
+            this.keySize.push(element.toUpperCase());
           }
         });
       }
@@ -185,12 +185,13 @@ export class SizesComponent implements OnInit {
 
 
 
+  /**
+   * Metodo de confirmar accion de crear o editar y llamar servicio
+   * @memberof SizesComponent
+   */
   confirmation() {
-    // this.loadingService.viewSpinner();
+    this.loadingService.viewSpinner();
     if (this.changeNameSize) {
-      console.log('edit');
-      console.log(this.form)
-
       const dataToSendSize = {
         'NewSize': this.form.controls.nameSize.value,
         'OldSize': this.changeNameSize,
@@ -201,20 +202,21 @@ export class SizesComponent implements OnInit {
         console.log(result);
         // const errorMessage = JSON.parse(result.body);
 
-        // if (result.statusCode === 200 || result.statusCode === 201) {
-        //     this.snackBar.open('Actualizó correctamente la marca.', 'Cerrar', {
-        //         duration: 5000,
-        //     });
-        //     this.dialog.closeAll();
-        //     this.loadingService.closeSpinner();
-        //     this.listSize();
-        // } else {
-        //     this.snackBar.open(errorMessage[0].Message, 'Cerrar', {
-        //         duration: 5000,
-        //     });
-        //     this.dialog.closeAll();
-        //     this.loadingService.closeSpinner();
-        // }
+        if (result['data'] === true) {
+          this.snackBar.open('Actualizó correctamente la marca.', 'Cerrar', {
+            duration: 5000,
+          });
+          this.dialog.closeAll();
+          this.loadingService.closeSpinner();
+          this.paginationToken = '{}';
+          this.listSize();
+        } else {
+          this.snackBar.open(result[0].message, 'Cerrar', {
+            duration: 5000,
+          });
+          this.dialog.closeAll();
+          this.loadingService.closeSpinner();
+        }
       });
     } else {
       console.log('create');
@@ -222,7 +224,15 @@ export class SizesComponent implements OnInit {
         console.log(result);
         if (result['data'] === true) {
           console.log('valida status');
+          this.dialog.closeAll();
           this.setIntervalStatusSize();
+        } else {
+
+          // this.snackBar.open(result.message, 'Cerrar', {
+          //           duration: 5000,
+          //       });
+          this.dialog.closeAll();
+          this.loadingService.closeSpinner();
         }
 
         // const errorMessage = JSON.parse(result);
@@ -347,17 +357,13 @@ export class SizesComponent implements OnInit {
    * @memberof SizesComponent
    */
   public changeStatusSize(element: any) {
-    console.log(element);
     this.paginationToken = '{}';
     const paramChange = { 'OldSize': element };
     this.loadingService.viewSpinner();
-    console.log(paramChange);
     this.callOne = true;
     this.service.changeStatus(paramChange).subscribe(result => {
-      console.log(result);
       if (result && result.status === 200) {
         if (result.body.data === true) {
-          console.log(result.data);
           this.listSize();
           this.snackBar.open('Has cambiado correctamente el estado de la talla ' + element + '.', this.languageService.instant('actions.close'), {
             duration: 5000,
@@ -382,17 +388,13 @@ export class SizesComponent implements OnInit {
    * @memberof SizesComponent
    */
   public deleteSize(element: any) {
-    console.log(element);
     this.paginationToken = '{}';
     const paramDelete = '?name=' + element;
     this.loadingService.viewSpinner();
-    console.log(paramDelete);
     this.callOne = true;
     this.service.deleteSize(paramDelete).subscribe(result => {
-      console.log(result);
       if (result && result.data === true) {
-        console.log(result.data);
-        // this.loadingService.closeSpinner();
+        this.loadingService.closeSpinner();
         this.snackBar.open('Has eliminado correctamente la talla ' + element + '.', this.languageService.instant('actions.close'), {
           duration: 5000,
         });
@@ -450,7 +452,6 @@ export class SizesComponent implements OnInit {
    * @memberof SizesComponent
    */
   setDataChangeStatusDialog(sizeData: any) {
-    console.log(sizeData);
     let message = '';
     let title = '';
     let icon = '';
@@ -460,7 +461,7 @@ export class SizesComponent implements OnInit {
     const btnConfirmationText = null;
 
     if (sizeData) {
-      message = 'Para crear una talla nuevac debes ingresar el valor de la talla como quieras que aparezca en el sitio. Ten en cuenta que si la talla ya existe no podrás crearla. No podrás utilizar ningún simpolo o caracter especial.';
+      message = 'Para crear una talla nueva debes ingresar el valor de la talla como quieras que aparezca en el sitio. Ten en cuenta que si la talla ya existe no podrás crearla. No podrás utilizar ningún simpolo o caracter especial.';
       icon = 'edit';
       title = 'Editar Talla';
       messageCenter = false;
@@ -469,7 +470,7 @@ export class SizesComponent implements OnInit {
       // this.form.controls['idBrands'].setValue(sizeData.Id);
       // this.form.controls['status'].setValue(sizeData.Status);
     } else {
-      message = 'Para crear una talla nuevac debes ingresar el valor de la talla como quieras que aparezca en el sitio. Ten en cuenta que si la talla ya existe no podrás crearla. No podrás utilizar ningún simpolo o caracter especial.';
+      message = 'Para crear una talla nueva debes ingresar el valor de la talla como quieras que aparezca en el sitio. Ten en cuenta que si la talla ya existe no podrás crearla. No podrás utilizar ningún simpolo o caracter especial.';
       icon = 'add';
       title = 'Agrear talla';
       messageCenter = false;
@@ -520,7 +521,6 @@ export class SizesComponent implements OnInit {
         }
         this.progressStatus = true;
       } else if (result.body.data.status === 2) {
-        console.log('result: ', result.body.data.response.SizesNotify);
         this.dataIfError = result.body.data.response.SizesNotify;
         this.loadingService.closeSpinner();
         clearInterval(this.checkIfDoneCharge);
@@ -538,12 +538,11 @@ export class SizesComponent implements OnInit {
     }
   }
 
-/**
- * Mertodo para abrir modal de carga en proceso
- * @memberof SizesComponent
- */
+  /**
+   * Mertodo para abrir modal de carga en proceso
+   * @memberof SizesComponent
+   */
   openDialogSendOrder(res: any): void {
-    console.log(99, res.body.data.status);
     const dialogRef = this.dialog.open(FinishUploadProductInformationComponent, {
       width: '95%',
       disableClose: res.body.data.status === 1,
@@ -597,20 +596,18 @@ export class SizesComponent implements OnInit {
 
   openDialogGenericInfo(param?: any) {
     const dialogRef = this.dialog.open(DialogInfoComponent, {
-        width: '60%',
-        minWidth: '280px',
-        data: this.dataDialog
+      width: '60%',
+      minWidth: '280px',
+      data: this.dataDialog
     });
     dialogRef.afterClosed().subscribe(result => {
-    console.log(result);
-        if (result === true) {
-            this.deleteSize(param);
-        } else {
-            // this.activeCheck = false;
-            this.listSize();
-        }
-        log.info('The modal detail billing was closed');
+      if (result === true) {
+        this.deleteSize(param);
+      } else {
+        this.listSize();
+      }
+      log.info('The modal detail billing was closed');
     });
-}
+  }
 
 }
