@@ -64,6 +64,9 @@
                 <mat-icon [ngClass]="{'status-orange': data.statusOrder === const.NameOrderAsignado}">notifications
                 </mat-icon>
                 {{'secure.orders.assigned.' + const.AppOrderAsignado | translate}}
+                <span class="chip_{{data.idDashboardStatus}}">
+                  {{data.dashboardStatus}}
+                </span>
               </p>
 
               <p class="sc-status-order-table" *ngIf="data.statusOrder == const.NameOrderEntregado">

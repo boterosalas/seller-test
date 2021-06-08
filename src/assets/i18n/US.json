@@ -45,6 +45,7 @@
     "menu.Solicitudes pendientes": "Pending Requests",
     "menu.Todas": "All",
     "menu.Por enviar": "Pending shipping",
+    "menu.En transoprte": "In transport",
     "menu.Enviadas": "Sent",
     "menu.Cargar guías": "Upload tracking numbers",
     "menu.Menu": "Menu",
@@ -67,6 +68,7 @@
     "module.Documentación": "Documentation",
     "menu.Resumen de pagos": "Payment Summary",
     "menu.Consultar Indicadores": "Check Indicators",
+    "menu.Notificación": "Anuncios",
     "module.Ofertas": "Offers",
     "module.Productos": "Products",
     "module.Vendedores": "Sellers",
@@ -113,7 +115,7 @@
     "permissions.Eliminar_Parametrizacion": "Remove parameterization",
     "permissions.Editar_Parametrizacion": "Edit parameterization",
 
-
+    "shared.hi": "¡HELLO!",
     "shared.name": "Name",
     "shared.category": "Category",
     "shared.brand": "Brand",
@@ -397,9 +399,13 @@
 
 
     "secure.dashboard.all": "All",
+    "secure.dashboard.advertisements": "Advertisements",
     "secure.dashboard.in_transit": "In transit",
     "secure.dashboard.delievered": "Delievered",
     "secure.dashboard.expired": "Expired",
+    "secure.dashboard.expireds": "Overcome",
+    "secure.dashboard.to_defeatd": "To be defeated",
+    "secure.dashboard.on_time": "On time",
     "secure.dashboard.sales": "Sales",
     "secure.dashboard.sales.total": "Total",
     "secure.dashboard.type.filter.quarterly": "Quarterly",
@@ -414,6 +420,8 @@
     "secure.dashboard.table.top.title.Available_units": "Available units",
     "secure.dashboard.table.top.title.top_selling_products": "Top selling products",
     "secure.dashboard.table.top.title.average_listing_price": "Average listing price",
+    "secure.dashboard.table.million": " millon",
+    "secure.dashboard.table.millions": " millons",
 
     "secure.dashboard.seller-rating.title":"Quality score",
     "secure.dashboard.seller-rating.title_filter":"Release date filter",

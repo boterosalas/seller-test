@@ -35,6 +35,7 @@ export class NotificationAdminComponent implements OnInit {
   public dataSource: MatTableDataSource<any>;
   public showListAdvertisements = true;
   public showContainerDetail = false;
+  public showOttertTitle = 'menu.Notificación';
   public paramsNotification: any;
   public onlyOne = true;
   public arrayPosition = [];
@@ -120,6 +121,7 @@ export class NotificationAdminComponent implements OnInit {
     };
     this.showListAdvertisements = false;
     this.showContainerDetail = true;
+    this.showOttertTitle = 'Crear anuncio';
   }
   /**
    * funcion para devolver al listado principal de anuncios
@@ -129,6 +131,8 @@ export class NotificationAdminComponent implements OnInit {
    */
   backList(event: any) {
     window.scroll(0, 0);
+    this.showContainerDetail = false;
+    this.showOttertTitle = 'menu.Notificación';
     this.showListAdvertisements = event && event.back ? event.back : false;
   }
   /**
@@ -145,6 +149,7 @@ export class NotificationAdminComponent implements OnInit {
     };
     this.showListAdvertisements = false;
     this.showContainerDetail = true;
+    this.showOttertTitle = 'Crear anuncio';
   }
   /**
    * funcion para refrescar la data que se visualiza en el listado principal
@@ -155,6 +160,7 @@ export class NotificationAdminComponent implements OnInit {
   refreshData(event: any) {
     this.showListAdvertisements = true;
     this.showContainerDetail = false;
+    this.showOttertTitle = 'menu.Notificación';
     this.getAllAdvertisements();
     setTimeout(() => {
       window.scroll(0, 0);
@@ -169,7 +175,7 @@ export class NotificationAdminComponent implements OnInit {
   deleteNotification(element: any) {
     this.notification = element;
     const title = '¡Vas a eliminar un anuncio!';
-    const subTitle = 'Se eliminaran anuncio de tu base de datos ¿Estas seguro de eliminar el anuncio?';
+    const subTitle = 'Se eliminarán anuncio de tu base de datos ¿Estás seguro de eliminar el anuncio?';
     const params = {
       success: {
         createOrEdit: false,

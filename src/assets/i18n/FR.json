@@ -44,6 +44,7 @@
     "menu.Solicitudes pendientes": "Pending Requests",
     "menu.Todas": "All",
     "menu.Por enviar": "Pending shipping",
+    "menu.En transoprte": "In transport",
     "menu.Enviadas": "Sent",
     "menu.Cargar guías": "Upload tracking numbers",
     "menu.Menu": "Menu",
@@ -64,6 +65,7 @@
     "menu.Reporte cobros pendientes MPI": "Report dispersion",
     "menu.Escuela Exito": "School Éxito",
     "menu.Consultar Indicadores": "Vérifier les indicateurs",
+    "menu.Notificación": "Anuncios",
     "module.Escuela Exito": "Escuela Éxito",
 
     "module.Documentación": "Documentation",
@@ -112,7 +114,7 @@
     "permissions.Eliminar_Parametrizacion": "Remove parameterization",
     "permissions.Editar_Parametrizacion": "Edit parameterization",
 
-
+    "shared.hi": "¡HELLO!",
     "shared.name": "Name",
     "shared.category": "Category",
     "shared.brand": "Brand",
@@ -395,9 +397,13 @@
 
 
     "secure.dashboard.all": "All",
+    "secure.dashboard.advertisements": "Annonces",
     "secure.dashboard.in_transit": "In transit",
     "secure.dashboard.delievered": "Delievered",
     "secure.dashboard.expired": "Expired",
+    "secure.dashboard.expireds": "Overcome",
+    "secure.dashboard.to_defeatd": "To be defeated",
+    "secure.dashboard.on_time": "On time",
     "secure.dashboard.sales": "Sales",
     "secure.dashboard.sales.total": "Total",
     "secure.dashboard.type.filter.quarterly": "Quarterly",
@@ -406,6 +412,8 @@
     "secure.dashboard.type.filter.diary": "Daily",
     "secure.dashboard.selected_months": "Select a month",
     "secure.dashboard.info_cancel_sale": "This info is approximated and doesn't take into account cancelations, additionaly the sales value is shown without taking freight values into account",
+    "secure.dashboard.table.million": " millon",
+    "secure.dashboard.table.millions": " millons",
 
     "secure.dashboard.seller-rating.title":"Quality score",
     "secure.dashboard.seller-rating.title_filter":"Release date filter",

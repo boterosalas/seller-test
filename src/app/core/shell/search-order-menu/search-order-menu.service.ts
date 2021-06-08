@@ -42,7 +42,7 @@ export class SearchOrderMenuService {
    * @returns {Observable<[{}]>}
    * @memberof OrderService
    */
-  getOrdersFilter(limit: any, stringSearch: any, idSeller: number): Observable<[{}]> {
+  getOrdersFilter(limit: any, stringSearch: any, idSeller?: number): Observable<[{}]> {
     return new Observable(observer => {
       this.http.get(this.api.get('searchOrders', ['', limit + stringSearch + `&idSeller=${idSeller}`])).subscribe((data: any) => {
         observer.next(data);

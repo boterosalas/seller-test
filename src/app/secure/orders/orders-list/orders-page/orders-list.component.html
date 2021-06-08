@@ -7,7 +7,7 @@
         (paginationListOrdens)="paginations($event)" [isFullSearch]="isFullSearch" [pageIndexChange]="pageIndexChange"
         (OnChangeSizeOrderTable)="changeSizeOrderTable($event)" [downloadPermission]="downloadPermission"
         [Typeprofile]="typeProfile" [allFilter]="allFilter" [showLoading]="false" [limitPaginate]="[50, 100, 150]"
-        [lengthOrder]="length" [limitSizeList]='pageSize'></app-toolbar-search-pagination>
+        [lengthOrder]="length" [limitSizeList]='pageSize' [showBtn]="false" [btnFilter]="false"></app-toolbar-search-pagination>
     </div>
 
     <ng-template [ngIf]="dataListOrder">

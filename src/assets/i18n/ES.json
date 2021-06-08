@@ -44,6 +44,7 @@
     "menu.Solicitudes pendientes": "Solicitudes pendientes",
     "menu.Todas": "Todas",
     "menu.Por enviar": "Por enviar",
+    "menu.En transoprte": "En transporte",
     "menu.Enviadas": "Enviadas",
     "menu.Cargar guías": "Cargar guías",
     "menu.Menu": "Menú",
@@ -118,6 +119,7 @@
     "permissions.Editar_Parametrizacion": "Editar parametrización",
 
 
+    "shared.hi": "¡HOLA!",
     "shared.name": "Nombre",
     "shared.category": "Categoría",
     "shared.brand": "Marca",
@@ -407,9 +409,13 @@
 
 
     "secure.dashboard.all": "Todas",
+    "secure.dashboard.advertisements": "Anuncios",
     "secure.dashboard.in_transit": "En proceso de envío",
     "secure.dashboard.delievered": "Entregado",
     "secure.dashboard.expired": "Vencido",
+    "secure.dashboard.expireds": "Vencidos",
+    "secure.dashboard.to_defeatd": "Por vencerse",
+    "secure.dashboard.on_time": "A tiempo",
     "secure.dashboard.sales": "Ventas",
     "secure.dashboard.sales.total": "Ventas totales",
     "secure.dashboard.type.filter.quarterly": "Trimestral",
@@ -424,6 +430,8 @@
     "secure.dashboard.table.top.title.Available_units": "Uds Disponibles",
     "secure.dashboard.table.top.title.top_selling_products": "Productos más vendidos",
     "secure.dashboard.table.top.title.average_listing_price": "Ticket promedio",
+    "secure.dashboard.table.million": " millón",
+    "secure.dashboard.table.millions": " millones",
 
     "secure.dashboard.seller-rating.title":"Calificación de Calidad",
     "secure.dashboard.seller-rating.title_filter":"Filtro por fecha de Emisión",
