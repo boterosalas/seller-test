@@ -75,7 +75,7 @@
           <div fxLayout="row wrap" fxLayoutGap="20px" *ngIf="isShowFilter || !isAdmin" class="modal-export-to-reclaim-container-input-filter">
             <span *ngFor="let option of optionsCheck; let i=index">
                 <mat-checkbox color="primary" [(ngModel)]="option.checked" [ngModelOptions]="{standalone: true}" (change)="addFilter(option)">
-                  {{option.name}}
+                  {{option.NameList}}
                 </mat-checkbox>
             </span>
           

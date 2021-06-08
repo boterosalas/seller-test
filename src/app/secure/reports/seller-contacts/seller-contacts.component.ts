@@ -52,15 +52,7 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
   valueCheck = false;
   selectSeller = false;
 
-  optionsCheck = [
-    {name:'Gerente general', checked:false},
-    {name:'Comercial y ventas', checked:false},
-    {name:'Operaciones y logística', checked:false},
-    {name:'Contenido', checked:false},
-    {name:'Reclamaciones y devoluciones', checked:false},
-    {name:'Pagos y facturación', checked:false},
-    {name:'Mercadeo', checked:false},
-  ]
+  optionsCheck = []
 
 
   constructor(
@@ -80,6 +72,7 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
     this.createForm();
     this.getStatusCase();
     this.getAllDataUser();
+    this.optionsContact();
     this.InitialSubscription = this.eventsSeller.eventSearchSellerModal.subscribe((seller: StoreModel) => {
       if (seller) {
         if (seller.IdSeller) {
@@ -89,6 +82,16 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
         }
       }
     });
+  }
+
+  public optionsContact() {
+    this.loadingService.viewSpinner();
+    this._sellerContactService.getListContacts().subscribe(resp => {
+      let object =  JSON.parse(resp.body);
+      this.optionsCheck = object.Data;
+      console.log(this.optionsCheck);
+      this.loadingService.closeSpinner();
+    })
   }
 
    /**
@@ -149,15 +152,7 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
     this.isShowFilter = true;
     this.selectSeller = true;
     this.nameLists = [];
-    this.optionsCheck = [
-      {name:'Gerente general', checked:false},
-      {name:'Comercial y ventas', checked:false},
-      {name:'Operaciones y logística', checked:false},
-      {name:'Contenido', checked:false},
-      {name:'Reclamaciones y devoluciones', checked:false},
-      {name:'Pagos y facturación', checked:false},
-      {name:'Mercadeo', checked:false},
-    ]
+    this.optionsContact();
   
   }
 
@@ -214,10 +209,10 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
 
   addFilter(e:any){
     if(e.checked){
-      this.nameLists.push(e.name)
+      this.nameLists.push(e.NameList)
     } else {
       this.nameLists.forEach((element, i) => {
-        if(element === e.name) {
+        if(element === e.NameList) {
           this.nameLists.splice(i, 1);
         }
       });

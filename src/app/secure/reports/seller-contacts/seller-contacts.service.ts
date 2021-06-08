@@ -14,4 +14,11 @@ export class SellerContactsService {
   public sendEmailExportContacts(body: any): Observable<any> {
     return this.http.patch(this.api.get('exportContacts'), body);
   }
+
+  
+   public getListContacts(): Observable<any> {
+    return this.http.get(this.api.get('listContacts'));
+  }
+
+  
 }
