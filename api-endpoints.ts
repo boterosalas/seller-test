@@ -334,7 +334,7 @@ export const endpoints = {
        // valida el estado de la carga masiva de categorias
        ValidateStatusCreateUpdateMassive :  'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/ValidateStatusCreateUpdateMassive',
        // Exportar Contactos
-       exportContacts: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/GenerateReportSellerContacts'
+       exportContacts: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/GenerateReportSellerContacts',
       // Captura todas las notificaciones (anuncios )
       getAllNotification: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/GetPaginatedNews{params}',
       // Crear anuncio
@@ -681,7 +681,7 @@ export const endpoints = {
       // valida el estado de la carga masiva de categorias
       ValidateStatusCreateUpdateMassive :  'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/ValidateStatusCreateUpdateMassive',
       // Exportar Contactos
-      exportContacts: 'https://igxf6mswfa.execute-api.us-east-1.amazonaws.com/pdn/GenerateReportSellerContacts'
+      exportContacts: 'https://igxf6mswfa.execute-api.us-east-1.amazonaws.com/pdn/GenerateReportSellerContacts',
       // Captura todas las notificaciones (anuncios )
       getAllNotification: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/GetPaginatedNews{params}',
       // Crear anuncio
