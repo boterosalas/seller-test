@@ -4,7 +4,7 @@
     <div fxFlex="100" class="light-content">
       <app-toolbar-search-pagination [informationToForm]="informationToForm" [state]="null" #toolbarOptions
         (filterCalifications)="toggleFilter()" (paginationListOrdens)="paginations($event)" [Typeprofile]="3"
-        [lengthOrder]="length" [limitPaginate]="[10,50,100]">
+        [lengthOrder]="length" [limitPaginate]="[10,50,100]" [showBtn]="false" [btnFilter]="false">
       </app-toolbar-search-pagination>
     </div>
 

@@ -1,0 +1,198 @@
+<div class="notification-form-macro-container-padding">
+  <div>
+    <a (click)="backList()" class="notification-form-list-back-btn">
+      <mat-icon class="mat-18 notification-form-size-icon-list-back">keyboard_arrow_left</mat-icon>
+      <span>Volver a la lista de anuncios</span>
+    </a>
+  </div>
+  <form #filterForm="ngForm" [formGroup]="form">
+    <div fxLayout="row wrap" class="notification-form-container-padding-color-font">
+      <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="35" fxFlex.lg="50" fxFlex.xl="50" class="notification-form-padding-right-40">
+        <div class="notification-form-padding-bottom-20">
+          <span>Tipo de anuncios</span>
+        </div>
+        <div class="notification-form-padding-bottom-20">
+          <mat-radio-group aria-label="Select an bodyNotification"
+            formControlName="bodyNotification" >
+            <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="35" fxFlex.lg="35" fxFlex.xl="35">
+              <mat-radio-button value="1" [checked]="checkedTypeNotification === 1 ? true : false "
+                (click)="validateBody('1')">Texto +
+                Imagen</mat-radio-button>
+            </div>
+            <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="35" fxFlex.lg="35" fxFlex.xl="35">
+              <mat-radio-button value="3" [checked]="checkedTypeNotification === 3 ? true : false " (click)="validateBody('3')">Texto +
+                Fondo</mat-radio-button>
+            </div>
+            <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="35" fxFlex.lg="35" fxFlex.xl="35">
+              <mat-radio-button value="2" [checked]="checkedTypeNotification === 2 ? true : false " (click)="validateBody('2')">Imagen
+                diseñada</mat-radio-button>
+            </div>
+          </mat-radio-group>
+        </div>
+        <div class="notification-form-padding-bottom-20">
+          <mat-form-field class="notification-form-font-size-width-100">
+            <input matInput [matDatepicker]="dateInitial"
+              formControlName="dateInitial" placeholder="Fecha
+              inicial" [min]="today" >
+            <mat-datepicker-toggle matSuffix [for]="dateInitial"></mat-datepicker-toggle>
+            <mat-datepicker  #dateInitial></mat-datepicker>
+            <mat-error *ngIf="form.get('dateInitial').hasError('required')">{{'errors.required' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="notification-form-width-100">
+            <input matInput placeholder="Título del anuncio"
+              class="modal-export-to-reclaim-text-uppercase"
+              [errorStateMatcher]="matcher" formControlName="title">
+              <mat-error *ngIf="form.get('title').hasError('required')">{{'errors.required' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="35" fxFlex.lg="50" fxFlex.xl="50" class="notification-form-padding-left-40">
+        <div class="notification-form-padding-bottom-20">
+          <span>Idioma</span>
+        </div>
+        <div class="notification-form-padding-bottom-20">
+          <mat-radio-group aria-label="Select an languaje"
+            formControlName="lenguaje">
+            <div fxFlex="35">
+              <mat-radio-button value="National" >Español</mat-radio-button>
+            </div>
+            <div fxFlex="35">
+              <mat-radio-button value="International" >Ingles</mat-radio-button>
+            </div>
+          </mat-radio-group>
+        </div>
+        <div class="notification-form-padding-bottom-20">
+          <mat-form-field class="notification-form-font-size-width-100">
+            <input matInput [matDatepicker]="dateEnd" placeholder="Fecha
+              final" formControlName="dateEnd" [min]="form.value.dateInitial">
+            <mat-datepicker-toggle matSuffix [for]="dateEnd"></mat-datepicker-toggle>
+            <mat-datepicker #dateEnd></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="notification-form-padding-bottom-20">
+          <mat-form-field class="notification-form-width-100">
+            <input matInput placeholder="Página de destino"
+              class="modal-export-to-reclaim-text-uppercase"
+              [errorStateMatcher]="matcher" formControlName="pageDestiny">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="notification-form-padding-bottom-20-width"
+        *ngIf="showDescriptionColorImg">
+        <div class="notification-form-padding-bottom-20-width">
+          <span>Contenido</span>
+        </div>
+        <div class="notification-form-width-100">
+          <angular-editor ngDefaultControl formControlName="bodyDescription"
+            [config]="config"></angular-editor>
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxFlex="100" class="notification-form-padding-bottom-20"
+        *ngIf="showDescriptionColorImg">
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" fxFlex="50">
+          <div class="notification-form-padding-bottom-20">
+            <span>Imagen destacadas</span>
+          </div>
+          <div>
+            <div>
+              <div fxLayout="row">
+                <div fxFlex="100">
+                  <div>
+                    <div fxLayout="column" id="fileExcel"
+                      (click)="disableLoadImag === false ? modalLoadFiel(): ''"
+                      
+                      [ngClass]="disableLoadImag === true ?
+                      'notification-form-disable-background-color notification-form-container-drag-border' :
+                      'notification-form-enable-background-color notification-form-container-drag-border'">
+                      <div fxLayout="row">
+                        <div class="notification-form-padding-img-load-drag">
+                          <mat-icon class="mat-18 notification-form-container-drag-icon"
+                             *ngIf="imagePathDrag === null || imagePathDrag === 'backgroundColor'">image</mat-icon>
+                          <div *ngIf="imagePathDrag !== null && imagePathDrag !== 'backgroundColor'" class="notification-form-margin-top-4" >
+                            <img [src]="imagePathDrag" class="notification-form-img-src-mini">
+                          </div>
+                        </div>
+                        <div>
+                          <div class="notification-form-content-text-upload-file">
+                            <span *ngIf="!nameFile">
+                              Subir archivo
+                            </span>
+                            <span *ngIf="nameFile">
+                              {{nameFile}} ({{sizeFile}} MB)
+                            </span>
+                          </div>
+                          
+                          <div class="notification-form-color-padding-bottom-20" >
+                           <span *ngIf="typeBody === '1' || typeBody === '3'">
+                            Medidas máximas
+                            de las imagenes 900*300 px  | Tamaño máximo del
+                            archivo 7 MB
+                           </span> 
+                           <span *ngIf="typeBody === '2'">
+                            Medidas máximas
+                            de las imagenes 900*600 px | Tamaño máximo del
+                            archivo 7 MB
+                           </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" fxFlex="50"class="notification-form-padding-left-45">
+          <div class="notification-form-padding-bottom-20">
+            <span>Color de fondo</span>
+          </div>
+          <div  [ngClass]="disableColor
+            === true ?
+            'notification-form-disable-background-color notification-form-container-pickerColor' :
+            'notification-form-enable-background-color notification-form-container-pickerColor'" fxLayout="row wrap">
+            <div class="notification-form-padding-25" fxFlex="18">
+              <input [ngStyle]="{'background': colorBackground, 'color':
+                colorBackground}"
+                formControlName="pickerColor"
+                (colorPickerChange)="setValueColor($event)"
+                class="notification-form-picker-color-container-input"
+                [cpOutputFormat]="'hex'"
+                [cpPositionOffset]="'-1000%'"
+                [(colorPicker)]="color" />
+            </div>
+            <div fxFlex="80" class="notification-form-padding-top-30">
+              <span class="notification-form-font-size-16">
+                {{colorBackground}}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!showDescriptionColorImg" class="notification-form-container-img-import">
+        <div>
+          <span>Imagen destacadas</span>
+        </div>
+        <app-modal-load-file [params]="{show:show, typeBody: typeBody}"
+          (emitDataImgLoad)="emitDataImgLoad($event)" ></app-modal-load-file>
+      </div>
+      <div fxLayout="row wrap" fxFlex="100" fxLayoutAlign="center center"
+      class="notification-form-padding-top-30">
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="40" fxFlex.lg="40" fxFlex.xl="40" fxFlex="40" class="notification-form-text-align-right">
+          <button mat-stroked-button color="primary" class="notification-form-btn-generic"  mat-button
+            (click)="backList()">cancelar</button>
+        </div>
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="40" fxFlex.lg="15" fxFlex.xl="15" fxFlex="15" class="notification-form-text-align-center">
+          <button mat-stroked-button [disabled]="!filterForm.form.valid || imagePathDrag === null" color="primary" class="notification-form-btn-generic" mat-button
+            (click)="preview()">vista previa</button>
+        </div>
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="40" fxFlex.lg="40" fxFlex.xl="40" fxFlex="40" class="notification-form-text-align-left">
+          <button mat-raised-button [disabled]="!filterForm.form.valid || imagePathDrag === null" color="primary" class="notification-form-btn-generic" mat-button
+            (click)="saveNotification()">{{btnTitle}}</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -9,6 +9,7 @@ import { EndpointService } from '@app/core/http';
 import { MaterialModule } from '@app/material.module';
 import { ComponentsService, EventEmitterOrders } from '@app/shared';
 import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 import { ShellComponent } from '../..';
 import { ShellModule } from '../../shell.module';
 import { SearchOrderMenuService } from '../search-order-menu.service';
@@ -16,6 +17,15 @@ import { SearchOrderMenuService } from '../search-order-menu.service';
 import { SearchFraudNotificationFormComponent } from './search-fraud-notification-form.component';
 
 describe('SearchFraudNotificationFormComponent', () => {
+
+  const data = {
+    sellerId: '11618',
+    IdSeller: '11618',
+    sellerProfile: 'seller',
+    sellerNit: '123',
+    sellerName: 'la tienda de cristian 2019 vs 512',
+    sellerEmail: 'ccbustamante221@misena.edu.co',
+  };
   let component: SearchFraudNotificationFormComponent;
   let fixture: ComponentFixture<SearchFraudNotificationFormComponent>;
 
@@ -54,6 +64,7 @@ describe('SearchFraudNotificationFormComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchFraudNotificationFormComponent);
+    mockUserParameterService.getUserData.and.returnValue(of(data));
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

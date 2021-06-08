@@ -18,6 +18,10 @@ import { ModalDashboardComponent } from './modal-dashboard/modal-dashboard.compo
 import { QualityIndicatorsComponent } from './quality-indicators/quality-indicators.component';
 import { InfoIndicatorsComponent } from './info-indicators/info-indicators.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { AdvertisementsComponent } from './advertisements/advertisements.component';
+import { ModalAdvertisementsComponent } from './modal-advertisements/modal-advertisements.component';
+import { DashOrdersComponent } from './dash-orders/dash-orders.component';
+import { DashSalesComponent } from './dash-sales/dash-sales.component';
 
 @NgModule({
     declarations: [
@@ -25,7 +29,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         SellerRatingComponent,
         ModalDashboardComponent,
         QualityIndicatorsComponent,
-        InfoIndicatorsComponent
+        InfoIndicatorsComponent,
+        DashOrdersComponent,
+        DashSalesComponent,
+        AdvertisementsComponent,
+        ModalAdvertisementsComponent
     ],
     imports: [
         CommonModule,
@@ -45,6 +53,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     entryComponents: [
         ModalDashboardComponent,
         InfoIndicatorsComponent,
+        ModalAdvertisementsComponent
     ],
     exports: [
         QualityIndicatorsComponent

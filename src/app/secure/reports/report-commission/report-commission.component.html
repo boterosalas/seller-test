@@ -4,7 +4,7 @@
     <div fxFlex="100" class="light-content">
       <app-toolbar-search-pagination [informationToForm]="informationToForm" #toolbarOptions [lengthOrder]="length"
         [limitPaginate]="[50, 100, 150]" [btnFilter]="btnFilter" [btnDownload]="btnDownload"
-        (filterGerenic)="toggleFilterReportCommission()"
+        (filterGerenic)="toggleFilterReportCommission()" [showBtn]="false"
         (paginationListOrdens)="paginations($event)" [pageIndexChange]="indexPage" (modalDownloadGeneric)="showModalDonloadCommission()">
       </app-toolbar-search-pagination>
     </div>
