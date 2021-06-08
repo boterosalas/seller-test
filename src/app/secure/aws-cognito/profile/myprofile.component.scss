@@ -264,6 +264,12 @@ $modal: 72px;
   &-width-100{
     width:100%;
   }
+  &-width-100-btn{
+    width:100%;
+    @media screen and (min-width: 400px) and (max-width: 850px) {
+      width: 60%
+       }
+  }
   &-width-100-color{
     width:100%;
     color: #a3a2a2;
