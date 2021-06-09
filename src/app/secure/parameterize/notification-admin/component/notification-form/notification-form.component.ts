@@ -133,7 +133,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
       lenguaje: new FormControl('National'),
       dateEnd: new FormControl(''),
       pageDestiny: new FormControl(''),
-      bodyDescription: new FormControl(''),
+      bodyDescription: new FormControl(' ', [Validators.required]),
       pickerColor: new FormControl({ value: '', disabled: true }),
     });
   }
@@ -199,6 +199,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
     switch (typeBody) {
       case '1':
         this.form.controls.bodyDescription.enable();
+        this.form.controls.bodyDescription.setValidators([Validators.required]);
         this.form.controls.pickerColor.disable();
         this.disableText = false;
         this.show = true;
@@ -213,6 +214,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
         break;
       case '3':
         this.form.controls.bodyDescription.enable();
+        this.form.controls.bodyDescription.setValidators([Validators.required]);
         this.form.controls.pickerColor.enable();
         this.disableText = false;
         this.show = true;
@@ -228,6 +230,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
         break;
       case '2':
         this.form.controls.bodyDescription.disable();
+        this.form.controls.bodyDescription.clearValidators();
         this.form.controls.bodyDescription.setValue(null);
         this.form.controls.pickerColor.disable();
         this.form.controls.pickerColor.setValue(null);

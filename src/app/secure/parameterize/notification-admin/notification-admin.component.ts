@@ -87,6 +87,7 @@ export class NotificationAdminComponent implements OnInit {
     this.notificationAdminService.getAllNotification(params).subscribe(result => {
       if (result && result.status === 200 && result.body) {
         const body = result.body;
+        console.log(body);
         this.dataSource = new MatTableDataSource(body.ViewModel);
         if (this.onlyOne) {
           this.length = body.Count;
@@ -215,6 +216,7 @@ export class NotificationAdminComponent implements OnInit {
     const idNotification = '?id=' + id;
     this.notificationAdminService.deleteNotification(idNotification).subscribe(result => {
       if (result && result.Data) {
+        this.onlyOne = true;
         this.getAllAdvertisements();
         const msg = 'Se eliminó el anuncio correctamente';
         this.snackBar.open(msg, 'Cerrar', {
