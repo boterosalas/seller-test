@@ -85,6 +85,10 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
     });
   }
 
+  /**
+   * Obtiene el listado de los checkbox
+   */
+
   public optionsContact() {
     this.loadingService.viewSpinner();
     this._sellerContactService.getListContacts().subscribe(resp => {
@@ -124,6 +128,10 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
       email: new FormControl('', [Validators.required, Validators.email]),
     });
   }
+
+  /**
+   * Configuracion del lenguaje
+   */
 
   getStatusCase() {
     this.storeService.getStateConfiguration().subscribe((res: ConfigurationState) => {
