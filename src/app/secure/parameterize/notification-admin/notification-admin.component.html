@@ -123,7 +123,7 @@
   </div>
   <div *ngIf="!showListAdvertisements">
     <app-notification-form (isBackList)="backList($event)"
-      (refreshData)="refreshData($event)"
+      (refreshData)="refreshData($event)" [notificationFormRegex] = "notificationFormRegex"
       [paramsNotification]="paramsNotification"></app-notification-form>
   </div>
 </div>

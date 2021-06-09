@@ -1,5 +1,5 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatButton, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -11,6 +11,7 @@ export class ModalGenericComponent implements OnInit, OnDestroy {
 
   public processFinish$ = new Subject<any>();
   public delete$ = new Subject<any>();
+  @ViewChild('btnFocus', {static: false}) btnFocus: MatButton;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,

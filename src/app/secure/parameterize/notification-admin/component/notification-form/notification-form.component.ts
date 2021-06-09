@@ -8,6 +8,7 @@ import { ModalPreviewNotificationComponent } from '../modal-preview-notification
 import { ModalGenericComponent } from '../modal-generic/modal-generic.component';
 import { NotificationAdminService } from '../../notification-admin.service';
 import { LoadingService } from '@app/core';
+import { SupportService } from '@app/secure/support-modal/support.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -30,6 +31,10 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
   @Output() confirDelete = new EventEmitter<object>();
 
   public isEdit = false;
+  public regex = {
+    bodyLengthNews: '^([\\s\\S]{1,699})$',
+    titleLengthNews: '^([\\s\\S]{1,99})$'
+  };
   @Input() set paramsNotification(value: any) {
     if (value) {
       window.scroll(0, 0);
@@ -38,6 +43,16 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
       this.btnTitle = this.isEdit ? 'Editar anuncio' : 'Crear anuncio';
     }
   }
+  public _notificationFormRegex: any;
+  @Input() set notificationFormRegex(value: any) {
+    if (value !== undefined) {
+      this._notificationFormRegex = value;
+    } else {
+      this._notificationFormRegex = this.regex;
+    }
+    this.createForm();
+  }
+
 
   public form: FormGroup;
   public disableText = false;
@@ -114,9 +129,10 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
     private notificationAdminService: NotificationAdminService,
     private dialog: MatDialog,
     private loadingService: LoadingService,
+    public SUPPORT?: SupportService,
     public snackBar?: MatSnackBar,
   ) {
-    this.createForm();
+    
   }
 
   ngOnInit() { }
@@ -129,14 +145,17 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
     this.form = new FormGroup({
       bodyNotification: new FormControl('1', [Validators.required]),
       dateInitial: new FormControl('', [Validators.required]),
-      title: new FormControl('', [Validators.required]),
+      title: new FormControl('', [Validators.required, Validators.pattern(this._notificationFormRegex.titleLengthNews)]),
       lenguaje: new FormControl('National'),
       dateEnd: new FormControl(''),
       pageDestiny: new FormControl(''),
-      bodyDescription: new FormControl(''),
+      bodyDescription: new FormControl(' ', [Validators.required, Validators.pattern(this._notificationFormRegex.bodyLengthNews)]),
       pickerColor: new FormControl({ value: '', disabled: true }),
     });
   }
+
+
+
   /**
    * funcion para setear el color en el pickercolor
    *
@@ -199,6 +218,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
     switch (typeBody) {
       case '1':
         this.form.controls.bodyDescription.enable();
+        this.form.controls.bodyDescription.setValidators([Validators.required, Validators.pattern(this._notificationFormRegex.bodyLengthNews)]);
         this.form.controls.pickerColor.disable();
         this.disableText = false;
         this.show = true;
@@ -213,6 +233,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
         break;
       case '3':
         this.form.controls.bodyDescription.enable();
+        this.form.controls.bodyDescription.setValidators([Validators.required, Validators.pattern(this._notificationFormRegex.bodyLengthNews)]);
         this.form.controls.pickerColor.enable();
         this.disableText = false;
         this.show = true;
@@ -228,6 +249,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
         break;
       case '2':
         this.form.controls.bodyDescription.disable();
+        this.form.controls.bodyDescription.clearValidators();
         this.form.controls.bodyDescription.setValue(null);
         this.form.controls.pickerColor.disable();
         this.form.controls.pickerColor.setValue(null);

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSnackBar, MatDialog } from '@angular/material';
 import { LoadingService } from '@app/core';
+import { SupportService } from '@app/secure/support-modal/support.service';
 import { ModalGenericComponent } from './component/modal-generic/modal-generic.component';
 import { ModalPreviewNotificationComponent } from './component/modal-preview-notification/modal-preview-notification.component';
 import { NotificationAdminService } from './notification-admin.service';
@@ -44,6 +45,7 @@ export class NotificationAdminComponent implements OnInit {
   public limit = 50;
   public paginationToken = encodeURI('{}');
   public notification: any;
+  public notificationFormRegex = { titleLengthNews: '', bodyLengthNews: '' };
   @ViewChild('toolbarOptions', { static: false }) toolbarOption;
 
   constructor(
@@ -51,11 +53,13 @@ export class NotificationAdminComponent implements OnInit {
     private dialog: MatDialog,
     private loadingService: LoadingService,
     public snackBar?: MatSnackBar,
+    public SUPPORT?: SupportService,
   ) {
     window.scroll(0, 0);
   }
 
   ngOnInit() {
+    this.validateFormSupport();
     this.setInitVar();
     this.getAllAdvertisements();
   }
@@ -87,6 +91,7 @@ export class NotificationAdminComponent implements OnInit {
     this.notificationAdminService.getAllNotification(params).subscribe(result => {
       if (result && result.status === 200 && result.body) {
         const body = result.body;
+        console.log(body);
         this.dataSource = new MatTableDataSource(body.ViewModel);
         if (this.onlyOne) {
           this.length = body.Count;
@@ -215,6 +220,7 @@ export class NotificationAdminComponent implements OnInit {
     const idNotification = '?id=' + id;
     this.notificationAdminService.deleteNotification(idNotification).subscribe(result => {
       if (result && result.Data) {
+        this.onlyOne = true;
         this.getAllAdvertisements();
         const msg = 'Se eliminó el anuncio correctamente';
         this.snackBar.open(msg, 'Cerrar', {
@@ -275,5 +281,20 @@ export class NotificationAdminComponent implements OnInit {
       this.limit = newLimit;
     }
     this.getAllAdvertisements();
+  }
+
+
+
+  public validateFormSupport(): void {
+    this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
+      let dataNotificationRegex = JSON.parse(res.body.body);
+      dataNotificationRegex = dataNotificationRegex.Data.filter(data => data.Module === 'news');
+      for (const val in this.notificationFormRegex) {
+        if (!!val) {
+          const element = dataNotificationRegex.find(regex => regex.Identifier === val.toString());
+          this.notificationFormRegex[val] = element && `${element.Value}`;
+        }
+      }
+    });
   }
 }
