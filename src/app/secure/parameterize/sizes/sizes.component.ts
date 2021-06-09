@@ -85,6 +85,7 @@ export class SizesComponent implements OnInit {
 
   dataDialog: any;
   dataIfError: any;
+  countSucces: any;
 
 
   constructor(
@@ -522,6 +523,7 @@ export class SizesComponent implements OnInit {
         this.progressStatus = true;
       } else if (result.body.data.status === 2) {
         this.dataIfError = result.body.data.response.SizesNotify;
+        this.countSucces = result.body.data.response.Successful;
         this.loadingService.closeSpinner();
         clearInterval(this.checkIfDoneCharge);
         this.closeActualDialog();
@@ -561,10 +563,10 @@ export class SizesComponent implements OnInit {
    */
   chargeSizesOk() {
     const title1 = this.keySize.length < 2 ? 'Se ha creado ' : 'Se han creado ';
-    const title2 = this.keySize.length < 2 ? 'talla exitosamente ' : ' tallas exitosamente';
-    const message = this.keySize.length < 2 ? ' talla ha tenido un error y no han sido creada, revisa la siguiente información.' : ' tallas han tenido un error y no han sido creadas, revisa la siguiente información.';
+    const title2 = this.keySize.length < 2 ? ' talla exitosamente ' : ' tallas exitosamente';
+    const message = this.dataIfError.length < 2 ? ' talla ha tenido un error y no han sido creada, revisa la siguiente información.' : ' tallas han tenido un error y no han sido creadas, revisa la siguiente información.';
     this.dataDialog = {
-      title: title1 + this.keySize.length + title2,
+      title: title1 + this.countSucces + title2,
       icon: 'done',
       message: this.dataIfError.length + message,
       buttonText: {
@@ -588,8 +590,7 @@ export class SizesComponent implements OnInit {
       buttonText: {
         delete: this.languageService.instant('permissions.ELIMINAR'),
         cancel: this.languageService.instant('actions.cancel')
-      },
-      dataError: this.dataIfError
+      }
     };
     this.openDialogGenericInfo(element);
   }
