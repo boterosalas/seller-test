@@ -39,8 +39,8 @@ export class ModalLoadFileComponent implements OnInit, OnDestroy  {
   public validComboDrag = false;
   public dragFiles = true;
   public lastFileAt: Date;
-  public typeBody = null
-  public messageValidateDimension='';
+  public typeBody = null;
+  public messageValidateDimension= '';
 
   @Output() emitDataImgLoad = new EventEmitter<object>();
 
@@ -49,10 +49,10 @@ export class ModalLoadFileComponent implements OnInit, OnDestroy  {
   @Input() set params(value: any) {
     if (value.show !== 'undefined') {
       this._showComponent = value.show ;
-      this.typeBody = value.typeBody
+      this.typeBody = value.typeBody;
     } else {
       this._showComponent = true;
-      this.typeBody = 1
+      this.typeBody = 1;
     }
   }
 
@@ -66,7 +66,7 @@ export class ModalLoadFileComponent implements OnInit, OnDestroy  {
   ngOnInit() {
     if (this.data && this.data.show) {
       this._showComponent = this.data.show;
-      this.typeBody = this.data.typeBody
+      this.typeBody = this.data.typeBody;
     }
   }
   /**
@@ -92,12 +92,12 @@ export class ModalLoadFileComponent implements OnInit, OnDestroy  {
       this.size = parseFloat(((this._fileAux.size) / 1024 / 1024).toFixed(3));
       this.validate(this._fileAux).then(data => {
         this.refuseMaxSize = this.size < 7000 ? false : true;
-        if(this.typeBody === 1){
+        if (this.typeBody === 1) {
           this.dimesion = data.width <= 900 && data.height <= 300 ? true : false;
-          this.messageValidateDimension = "Medidas de las imagenes no pueden superar 900 x 300 px"
+          this.messageValidateDimension = 'Medidas de las imagenes no pueden superar 900 x 300 px';
         } else if (this.typeBody === 3) {
-          this.dimesion = data.width <= 900 && data.height <= 600 ? true : false; 
-          this.messageValidateDimension = "Medidas de las imagenes no pueden superar 900 x 600 px"
+          this.dimesion = data.width <= 900 && data.height <= 600 ? true : false;
+          this.messageValidateDimension = 'Medidas de las imagenes no pueden superar 900 x 600 px';
         } else {
           this.dimesion = true;
         }
@@ -123,7 +123,7 @@ export class ModalLoadFileComponent implements OnInit, OnDestroy  {
       try {
         this.fileImgBase64 = data;
         this.imagePathDrag = this._sanitizer.bypassSecurityTrustResourceUrl(data);
-        this.emitDataImgLoad.emit(this.fileImgBase64);
+        this.emitDataImgLoad.emit({fileImgBase64: this.fileImgBase64, name: file.name});
         this.nameFile = file.name;
         this.dateFile = file.lastModifiedDate;
         this.success = this.error ? false : true;
@@ -196,7 +196,7 @@ export class ModalLoadFileComponent implements OnInit, OnDestroy  {
     * @memberof ExpandedProductComponent
     */
     ngOnDestroy() {
-      if (this.dialogRef) {
+      if (Object.keys(this.dialogRef).length !== 0) {
         this.dialogRef.close();
       }
     }

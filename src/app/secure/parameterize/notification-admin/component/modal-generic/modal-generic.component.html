@@ -51,13 +51,13 @@
     <div fxLayout="row wrap" class="modal-generic-padding-80px">
       <div fxFlex="50" class="modal-generic-text-align-right-padding">
         <button mat-stroked-button color="primary"
-          class="modal-generic-text-transform-uppercase-width" mat-button
+          class="modal-generic-text-transform-uppercase-width modal-generic-backgroundColor" mat-button
           (click)="close()">cancelar</button>
       </div>
       <div fxFlex="50" class="modal-generic-padding-left-10">
-        <button mat-raised-button color="primary"
+        <button mat-raised-button color="primary" #btnFocus="matButton" [autofocus]="btnFocus.focus()"
           class="modal-generic-text-transform-uppercase-width" mat-button
-          (click)="deleteNotification()">Aceptar</button>
+          (click)="deleteNotification()">Eliminar</button>
       </div>
     </div>
   </div>

@@ -8,6 +8,7 @@ import { ModalPreviewNotificationComponent } from '../modal-preview-notification
 import { ModalGenericComponent } from '../modal-generic/modal-generic.component';
 import { NotificationAdminService } from '../../notification-admin.service';
 import { LoadingService } from '@app/core';
+import { SupportService } from '@app/secure/support-modal/support.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -30,10 +31,14 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
   @Output() confirDelete = new EventEmitter<object>();
 
   public isEdit = false;
+  public paramsEdit = null;
+  public typeNotification = '1';
+  public notificationFormRegex = { titleLengthNews: '', bodyLengthNews: '' };
   @Input() set paramsNotification(value: any) {
     if (value) {
       window.scroll(0, 0);
-      this.setValueNotificacion(value.notification);
+      this.paramsEdit = value.notification;
+      this.typeNotification = value.NewsContentType ? value.NewsContentType.toString() : '1'
       this.isEdit = value.isEdit ? value.isEdit : false;
       this.btnTitle = this.isEdit ? 'Editar anuncio' : 'Crear anuncio';
     }
@@ -64,7 +69,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
   public idNotification = null;
   public dialogRef: any;
   public matcher: MyErrorStateMatcher;
-  public typeBody= 1;
+  public typeBody= '1';
 
 
   public config: AngularEditorConfig = {
@@ -114,12 +119,14 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
     private notificationAdminService: NotificationAdminService,
     private dialog: MatDialog,
     private loadingService: LoadingService,
+    public SUPPORT?: SupportService,
     public snackBar?: MatSnackBar,
   ) {
-    this.createForm();
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.createForm();
+   }
   /**
    * funcion para crear fomulario
    *
@@ -133,10 +140,17 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
       lenguaje: new FormControl('National'),
       dateEnd: new FormControl(''),
       pageDestiny: new FormControl(''),
-      bodyDescription: new FormControl(''),
+      bodyDescription: new FormControl(' ', [Validators.required]),
       pickerColor: new FormControl({ value: '', disabled: true }),
     });
+    if (this.isEdit) {
+      this.setValueNotificacion(this.paramsEdit);
+    }
+    this.validateFormSupport();
   }
+
+
+
   /**
    * funcion para setear el color en el pickercolor
    *
@@ -176,14 +190,15 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
     });
   }
   /**
-   * funcion para emitir el evento cuando se cargue la imagen 
+   * funcion para emitir el evento cuando se cargue la imagen
    *
    * @param {*} data
    * @memberof NotificationFormComponent
    */
   emitDataImgLoad(data: any) {
-    this.imagePathDrag = data;
-    this.imagUrl = data;
+    this.imagePathDrag = data.fileImgBase64;
+    this.imagUrl = data.fileImgBase64;
+    this.nameFile = data.name;
     this.changeFile = true;
   }
   /**
@@ -192,12 +207,13 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
    * @param {number} typeBody
    * @memberof NotificationFormComponent
    */
-  validateBody(typeBody: number) {
+  validateBody(typeBody: string) {
     this.typeBody = typeBody;
     this.resetOpction(typeBody);
     switch (typeBody) {
-      case 1:
+      case '1':
         this.form.controls.bodyDescription.enable();
+        this.form.controls.bodyDescription.setValidators([Validators.required]);
         this.form.controls.pickerColor.disable();
         this.disableText = false;
         this.show = true;
@@ -208,9 +224,11 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
         this.imagePathDrag = null;
         this.nameFile = null;
         this.sizeFile = null;
+        this.colorBackground = null;
         break;
-      case 2:
+      case '3':
         this.form.controls.bodyDescription.enable();
+        this.form.controls.bodyDescription.setValidators([Validators.required]);
         this.form.controls.pickerColor.enable();
         this.disableText = false;
         this.show = true;
@@ -221,10 +239,15 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
         this.imagePathDrag = 'backgroundColor';
         this.nameFile = null;
         this.sizeFile = null;
+        this.changeFile = false;
+        this.imagUrl = null;
         break;
-      case 3:
+      case '2':
         this.form.controls.bodyDescription.disable();
+        this.form.controls.bodyDescription.clearValidators();
+        this.form.controls.bodyDescription.setValue(null);
         this.form.controls.pickerColor.disable();
+        this.form.controls.pickerColor.setValue(null);
         this.disableText = true;
         this.show = false;
         this.disableLoadImag = false;
@@ -234,6 +257,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
         this.imagePathDrag = null;
         this.nameFile = null;
         this.sizeFile = null;
+        this.colorBackground = null;
         break;
       default:
         break;
@@ -245,10 +269,10 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
    * @param {number} type
    * @memberof NotificationFormComponent
    */
-  resetOpction(type: number) {
+  resetOpction(type: string) {
     this.form.controls.pickerColor.reset();
     this.colorBackground = '#ffffff';
-    if (type === 3) {
+    if (type === '3') {
       this.form.controls.bodyDescription.reset();
     }
   }
@@ -303,9 +327,18 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
                   this.imagUrl = body.Data.Url;
                   const paramsCreate = this.setparams();
                   this.notificationAdminService.updateNotification(paramsCreate).subscribe(res => {
-                    this.createOrEdit = true;
-                    this.loadingService.closeSpinner();
-                    this.backList();
+                    if (res && res.Errors.length === 0) {
+                      this.createOrEdit = true;
+                      this.loadingService.closeSpinner();
+                      this.modalGeneric();
+                    } else {
+                      this.createOrEdit = false;
+                      this.withError = true;
+                      this.listError = res.Errors;
+                      this.titleErrorSubtitle = 'Ha ocurrido un error al momento de cargar el anuncio';
+                      this.loadingService.closeSpinner();
+                      this.modalGeneric();
+                    }
                   });
                 } else {
                   const msg = 'Se ha presentado un error al realizar la peteción al servidor';
@@ -328,58 +361,86 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
       } else {
         const paramsCreate = this.setparams();
         this.notificationAdminService.updateNotification(paramsCreate).subscribe(res => {
-          this.withError = false;
-          this.createOrEdit = true;
-          this.loadingService.closeSpinner();
-          this.modalGeneric();
+          if (res && res.Errors.length === 0) {
+            this.withError = false;
+            this.createOrEdit = true;
+            this.loadingService.closeSpinner();
+            this.modalGeneric();
+          } else {
+            this.createOrEdit = false;
+            this.withError = true;
+            this.listError = res.Errors;
+            this.titleErrorSubtitle = 'Ha ocurrido un error al momento de cargar la imagen';
+            this.loadingService.closeSpinner();
+            this.modalGeneric();
+          }
         });
       }
-
     } else {
-      const params = this.paramSaveOrChangeImg();
-      this.notificationAdminService.saveImgNotification(params).subscribe(result => {
-        if (result && result.status === 200) {
-          const body = result.body;
-          this.withError = false;
-          this.createOrEdit = true;
-          if (body) {
-            if (body.Data && body.Errors.length === 0) {
-              if (body.Data.Response === true) {
-                this.imagUrl = body.Data.Url;
-                const paramsCreate = this.setparams();
-                this.notificationAdminService.createNew(paramsCreate).subscribe(res => {
-                  if (res && res.Errors.length === 0) {
-                    this.createOrEdit = true;
-                    this.loadingService.closeSpinner();
-                    this.modalGeneric();
-                  } else {
-                    this.createOrEdit = false;
-                    this.withError = true;
-                    this.listError = res.Errors;
-                    this.titleErrorSubtitle = 'Ha ocurrido un error al momento de cargar el anuncio';
-                    this.loadingService.closeSpinner();
-                    this.modalGeneric();
-                  }
-                });
+      if (this.typeBody !== '3') {
+        const params = this.paramSaveOrChangeImg();
+        this.notificationAdminService.saveImgNotification(params).subscribe(result => {
+          if (result && result.status === 200) {
+            const body = result.body;
+            this.withError = false;
+            this.createOrEdit = true;
+            if (body) {
+              if (body.Data && body.Errors.length === 0) {
+                if (body.Data.Response === true) {
+                  this.imagUrl = body.Data.Url;
+                  const paramsCreate = this.setparams();
+                  this.notificationAdminService.createNew(paramsCreate).subscribe(res => {
+                    if (res && res.Errors.length === 0) {
+                      this.createOrEdit = true;
+                      this.loadingService.closeSpinner();
+                      this.modalGeneric();
+                    } else {
+                      this.createOrEdit = false;
+                      this.withError = true;
+                      this.listError = res.Errors;
+                      this.titleErrorSubtitle = 'Ha ocurrido un error al momento de cargar el anuncio';
+                      this.loadingService.closeSpinner();
+                      this.modalGeneric();
+                    }
+                  });
+                } else {
+                  this.createOrEdit = false;
+                  this.withError = true;
+                  this.listError = body.Errors;
+                  this.titleErrorSubtitle = 'Ha ocurrido un error al momento de cargar el anuncio';
+                  this.loadingService.closeSpinner();
+                  this.modalGeneric();
+                }
               } else {
                 this.createOrEdit = false;
                 this.withError = true;
                 this.listError = body.Errors;
-                this.titleErrorSubtitle = 'Ha ocurrido un error al momento de cargar el anuncio';
+                this.titleErrorSubtitle = 'Ha ocurrido un error al momento de cargar la imagen';
                 this.loadingService.closeSpinner();
                 this.modalGeneric();
               }
-            } else {
-              this.createOrEdit = false;
-              this.withError = true;
-              this.listError = body.Errors;
-              this.titleErrorSubtitle = 'Ha ocurrido un error al momento de cargar la imagen';
-              this.loadingService.closeSpinner();
-              this.modalGeneric();
             }
           }
-        }
-      });
+        });
+      } else {
+        this.imagUrl = null;
+        const paramsCreate = this.setparams();
+        this.notificationAdminService.createNew(paramsCreate).subscribe(res => {
+          if (res && res.Errors.length === 0) {
+            this.createOrEdit = true;
+            this.withError = false;
+            this.loadingService.closeSpinner();
+            this.modalGeneric();
+          } else {
+            this.createOrEdit = false;
+            this.withError = true;
+            this.listError = res.Errors;
+            this.titleErrorSubtitle = 'Ha ocurrido un error al momento de cargar el anuncio';
+            this.loadingService.closeSpinner();
+            this.modalGeneric();
+          }
+        });
+      }
     }
   }
   /**
@@ -398,12 +459,15 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
     return paramsSaveImg;
   }
   /**
-   * funcion para crear parametros y crear el anuncio 
+   * funcion para crear parametros y crear el anuncio
    *
    * @returns
    * @memberof NotificationFormComponent
    */
   setparams() {
+    if (this.typeBody === '1' || this.typeBody === '2') {
+      this.colorBackground = null;
+    }
     const paramsCreate = {
       Id: this.idNotification,
       NewsContentType: parseInt(this.form.controls.bodyNotification.value, 0),
@@ -412,15 +476,16 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
       FinalDate: this.form.controls.dateEnd.value,
       Title: this.form.controls.title.value ? this.form.controls.title.value.charAt(0).toUpperCase() + this.form.controls.title.value.slice(1) : null,
       Link: this.form.controls.pageDestiny.value,
-      Body: this.form.controls.bodyDescription.value,
+      Body: this.form.controls.bodyDescription.value !== '' ? this.form.controls.bodyDescription.value : null,
       UrlImage: this.imagUrl,
-      BackgroundColor: this.form.controls.pickerColor.value ? this.form.controls.pickerColor.value : null,
+      PartitionGrouper: 'News',
+      BackgroundColor: this.form.controls.pickerColor.value ? this.form.controls.pickerColor.value : this.colorBackground,
     };
 
     return <any>paramsCreate;
   }
   /**
-   * funcion para llamar al modal generico para mostrar editado, creado o eliminar 
+   * funcion para llamar al modal generico para mostrar editado, creado o eliminar
    *
    * @memberof NotificationFormComponent
    */
@@ -461,26 +526,49 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
    */
   setValueNotificacion(params: any) {
     if (params && this.form) {
-      const newNotification = params.NewsContentType ? params.NewsContentType.toString() : 1;
+      const newNotification = params.NewsContentType ? params.NewsContentType.toString() : '1';
+      this.validateBody(newNotification);
       this.form.controls.title.setValue(params.Title);
       this.form.controls.dateInitial.setValue(params.InitialDate);
       this.form.controls.dateEnd.setValue(params.FinalDate);
-      this.form.controls.title.setValue(params.Title);
       this.form.controls.pageDestiny.setValue(params.Link);
       this.form.controls.bodyDescription.setValue(params.Body);
       this.form.controls.bodyNotification.setValue(newNotification);
       this.form.controls.lenguaje.setValue(params.Target);
+      this.form.controls.pickerColor.setValue(params.BackgroundColor);
       this.idNotification = params.Id;
       this.imagePathDrag = params.UrlImage;
       this.imagUrl = params.UrlImage;
+      this.colorBackground = params.BackgroundColor ? params.BackgroundColor : null ;
     }
   }
-  /**
-    * funcion para destruir el componente del modal
-    *
-    * @memberof ExpandedProductComponent
-    */
-   ngOnDestroy() {
+
+  public validateFormSupport(): void {
+    this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
+      let dataNotificationRegex = JSON.parse(res.body.body);
+      dataNotificationRegex = dataNotificationRegex.Data.filter(data => data.Module === 'news');
+      for (const val in this.notificationFormRegex) {
+        if (!!val) {
+          const element = dataNotificationRegex.find(regex => regex.Identifier === val.toString());
+          this.notificationFormRegex[val] = element && `${element.Value}`;
+        }
+      }
+      if (this.form) {
+        this.form.controls.title.setValidators([Validators.required, Validators.pattern(this.notificationFormRegex.titleLengthNews)]);
+        if (this.typeNotification === '1' || this.typeNotification === '3') {
+          this.form.controls.bodyDescription.setValidators([Validators.required, Validators.pattern(this.notificationFormRegex.bodyLengthNews)]);
+        } else if (this.typeNotification === '2') {
+          this.form.controls.bodyDescription.clearValidators();
+        }
+      }
+    });
+  }
+/**
+ * funcion para destruir el componente del modal
+ *
+ * @memberof NotificationFormComponent
+ */
+ngOnDestroy() {
     if (this.dialogRef) {
       this.dialogRef.close();
     }

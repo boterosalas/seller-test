@@ -3,7 +3,7 @@
     start">
     <div fxFlex="100" class="light-content">
       <app-toolbar-search-pagination [informationToForm]="informationToForm" #toolbarOptions [lengthOrder]="length"
-        [limitPaginate]="[50, 100, 150]" [btnFilter]="btnFilter"
+        [limitPaginate]="[50, 100, 150]" [btnFilter]="btnFilter" [showBtn]="false" 
         (filterGerenic)="toggleFilterReportPaymentSummary()" (paginationListOrdens)="paginations($event)"
         [pageIndexChange]="indexPage">
       </app-toolbar-search-pagination>
