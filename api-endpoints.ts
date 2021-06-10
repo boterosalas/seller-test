@@ -325,7 +325,7 @@ export const endpoints = {
       getAllSizesProducts: 'https://wss1xyl4h8.execute-api.us-east-1.amazonaws.com/Sizes/all',
       // Consultar estado de la carga masiva de tallas
       getStatusSize: 'https://wss1xyl4h8.execute-api.us-east-1.amazonaws.com/Sizes/status',
-      // Crear tallas y ediutar tallas (post y patch)
+      // Crear tallas y editar tallas (post y patch)
       parametrizeSizes: 'https://wss1xyl4h8.execute-api.us-east-1.amazonaws.com/Sizes',
       // Validar status carga tallas
       statusSizes: 'https://wss1xyl4h8.execute-api.us-east-1.amazonaws.com/Sizes/status',
@@ -674,6 +674,16 @@ export const endpoints = {
       getStatusDeleteProducts: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/getstatusdisassociateproducts',
       // Captura de indicadores
       getIndicators: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller/getindicatorsbynit/{params}',
+      // Obtener listado de tallas
+      getAllSizes: 'https://9zfy4s7pok.execute-api.us-east-1.amazonaws.com/Sizes/{params}',
+      // Obtener listado de tallas Creacion unitaria
+      getAllSizesProducts: 'https://9zfy4s7pok.execute-api.us-east-1.amazonaws.com/Sizes/all',
+      // Consultar estado de la carga masiva de tallas
+      getStatusSize: 'https://9zfy4s7pok.execute-api.us-east-1.amazonaws.com/Sizes/status',
+      // Crear tallas y editar tallas (post y patch)
+      parametrizeSizes: 'https://9zfy4s7pok.execute-api.us-east-1.amazonaws.com/Sizes',
+      // Validar status carga tallas
+      statusSizes: 'https://9zfy4s7pok.execute-api.us-east-1.amazonaws.com/Sizes/status',
       // obtiene el listado de fraudes
       getFrauds: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/fraudfiles?&limit={limit}',
       // envia el listado de fraudes
