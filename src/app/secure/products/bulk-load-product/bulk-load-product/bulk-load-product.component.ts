@@ -1737,7 +1737,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       width: '95%',
       disableClose: res.body.data.status === 1,
       data: {
-        response: res
+        response: res,
+        type: 'product'
       },
     });
     dialogRef.afterClosed().subscribe(result => {

@@ -412,7 +412,8 @@ export class ListProductsComponent implements OnInit {
             width: '95%',
             disableClose: res.body.data.status === 1,
             data: {
-                response: res
+                response: res,
+                type: 'generic'
             },
         });
         dialogRef.afterClosed().subscribe(result => {

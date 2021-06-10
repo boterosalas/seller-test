@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="typeModal ==='generic'">
   <div class="error-list-content list-log">
 
     <h3 class="processing-string" mat-subheader *ngIf="response.body.data.status ===1">
@@ -36,4 +36,7 @@
       (click)="exportAsExcelFile(response.productNotifyViewModel,'ProductsLogs')">{{'actions.export_excel' | translate}}
     </button>
   </mat-dialog-actions>
+</div>
+<div *ngIf="typeModal ==='product'">
+
 </div>
