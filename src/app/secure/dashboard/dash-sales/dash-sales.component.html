@@ -127,18 +127,20 @@
         [fxShow.xs]="!showOrdersChartSales" [fxShow.sm]="!showOrdersChartSales"
         class="dashboard-component-container-max-width-left-ordens">
         <div class="dashboard-component-container-title-sales">
-          <span *ngIf="lang === 'US'"> {{selectTypeFilter}}
-            {{'secure.dashboard.sales.total'| translate}}</span>
-          <span *ngIf="lang === 'ES'">
-            {{'secure.dashboard.sales.total'| translate}} {{selectTypeFilter}}</span>
-          <span *ngIf="lang === 'FR'"> {{selectTypeFilter}}
-            {{'secure.dashboard.sales.total'| translate}}</span>
+              <span *ngIf="selectTypeFilter === 'Trimester' || selectTypeFilter === 'Trimestral'">
+                {{'secure.dashboard.type.filter.total_quarterly_sales' | translate}}
+              </span>
+              <span *ngIf="selectTypeFilter === 'Monthly' || selectTypeFilter === 'Mensual'">
+                {{'secure.dashboard.type.filter.total_monthly_sales' | translate}}
+              </span>
+              <span *ngIf="selectTypeFilter === 'Weekly' || selectTypeFilter === 'Semanal'">
+                {{'secure.dashboard.type.filter.weekly_total_sales' | translate}}
+              </span>
+              <span *ngIf="selectTypeFilter === 'Daily' || selectTypeFilter === 'Diaria'">
+                {{'secure.dashboard.type.filter.daily_total_sales' | translate}}
+              </span>
           <div fxLayout="row">
             <p>${{sumatoryTotal | number}}</p>
-            <p *ngIf="typeFilterSales === '1' && sumatoryTotal === 1">{{'secure.dashboard.table.million' | translate}}
-            </p>
-            <p *ngIf="typeFilterSales === '1' && sumatoryTotal !== 1">{{'secure.dashboard.table.millions' | translate}}
-            </p>
           </div>
         </div>
         <div fxLayout="column" class="dashboard-padding-buttom-32">
