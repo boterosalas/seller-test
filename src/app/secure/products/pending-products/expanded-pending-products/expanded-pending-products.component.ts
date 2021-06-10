@@ -28,6 +28,9 @@ export class ExpandedPendingProductsComponent implements OnInit {
   public showOfer: boolean;
   avaibleProductPending: Boolean = false;
 
+  public showImage = true;
+  public showVideo = false;
+
   constructor(
     private router: Router,
     private userParams?: UserParametersService,
@@ -67,8 +70,18 @@ export class ExpandedPendingProductsComponent implements OnInit {
   }
 
   /* funcion que cambia el valor de la variable que contiene la url de la imagen grande y recibe como parametro la url de la imagen grande */
-  changeImage(image: any) {
-    this.imageMax = image;
+  changeImage(image: any, img:any) {
+    this.imageMax = image;   
+    const {min} = img;
+    let splitYoutube = min.split('https://img.youtube.com');
+    if(splitYoutube[0] === '') {
+        this.showVideo = true;
+        this.showImage = false
+    } else {
+        this.showVideo = false;
+        this.showImage = true
+    }
+
   }
 
   public createArrayImages(): void {

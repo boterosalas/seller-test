@@ -35,6 +35,9 @@ export class ExpandedProductComponent implements OnInit, OnDestroy {
     public user: UserInformation;
     public showOfer: boolean;
 
+    public showImage = true;
+    public showVideo = false;
+
     constructor(
         private router: Router,
         public dialog: MatDialog,
@@ -58,8 +61,18 @@ export class ExpandedProductComponent implements OnInit, OnDestroy {
     }
 
     /* funcion que cambia el valor de la variable que contiene la url de la imagen grande y recibe como parametro la url de la imagen grande */
-    changeImage(image: any) {
-        this.imageMax = image;
+    changeImage(image: any, img:any) {
+        this.imageMax = image;   
+        const {min} = img;
+        let splitYoutube = min.split('https://img.youtube.com');
+        if(splitYoutube[0] === '') {
+            this.showVideo = true;
+            this.showImage = false
+        } else {
+            this.showVideo = false;
+            this.showImage = true
+        }
+
     }
     /**
      * funcion para crear un array de imagen

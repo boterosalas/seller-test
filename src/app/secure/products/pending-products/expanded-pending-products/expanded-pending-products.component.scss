@@ -408,3 +408,19 @@ mat-card {
   padding-bottom: 5px;
   color: red;
 }
+
+.video{
+  width: 100%;
+}
+
+@media screen and (min-width: 600px) {
+  .video{
+    min-height: 510px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .video iframe{
+    width: 96vw;
+  }
+}
