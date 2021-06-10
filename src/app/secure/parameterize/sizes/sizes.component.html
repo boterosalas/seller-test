@@ -18,10 +18,6 @@
           <mat-form-field color="primary">
             <input matInput placeholder="Nombre de la talla" formControlName="SizeName" name="sizeName"
               [errorStateMatcher]="matcher">
-            <mat-hint></mat-hint>
-            <mat-error *ngIf="filterSizes.get('SizeName').hasError('pattern')">
-              Nombre de la talla inválido
-            </mat-error>
           </mat-form-field>
         </div>
         <div class="filter-control">
@@ -76,7 +72,6 @@
 
         <ng-container matColumnDef="State">
           <th mat-header-cell *matHeaderCellDef> Estado </th>
-          <!-- <td mat-cell *matCellDef="let element"> {{element.State}} </td> -->
           <td mat-cell *matCellDef="let element">
             <mat-slide-toggle [checked]=element.status (change)="changeStatusSize(element.label)"></mat-slide-toggle>
           </td>
@@ -138,7 +133,7 @@
       <button type="button" mat-button color="primary" (click)="onNoClick()">{{'actions.cancel' | translate}}</button>
       <button type="submit" mat-raised-button color="primary" class="size-position-option-cancel"
         (click)="confirmation()"
-        [disabled]="form && form.invalid || validateExit">{{'actions.accept' | translate}}</button>
+        [disabled]="form && form.invalid">{{'actions.save' | translate}}</button>
     </div>
   </form>
 </ng-template>

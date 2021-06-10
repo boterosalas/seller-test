@@ -8,9 +8,9 @@
     {{message}}
   </p>
 
-  <div *ngIf="dataInfo.dataError" class="infoErros">
-    <div class="infoErros" *ngFor="let error of dataInfo.dataError">
-      {{error.Message}}
+  <div *ngIf="dataInfo.dataError">
+    <div class="infoErrors" *ngFor="let error of dataInfo.dataError">
+      {{error.Name}}, {{error.Message}}
     </div>
   </div>
 </mat-dialog-content>

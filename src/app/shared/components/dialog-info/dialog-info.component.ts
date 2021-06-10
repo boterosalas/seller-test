@@ -54,8 +54,12 @@ export class DialogInfoComponent implements OnInit {
     this.dialogRef.close(true);
   }
 
+  /**
+   * Metodo eliminar talla
+   * @memberof DialogInfoComponent
+   */
   confirmDelete(): void {
-    this.dialogRef.close(true);
+    this.dialogRef.close('deleteSize');
   }
 
   /**

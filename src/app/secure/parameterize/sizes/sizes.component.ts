@@ -77,7 +77,6 @@ export class SizesComponent implements OnInit {
   subs: Subscription[] = [];
   changeNameSize: any;
 
-  validateExit = true;
 
   checkIfDoneCharge: any = null;
   /* Mirar el estado del progreso de la carga*/
@@ -141,11 +140,7 @@ export class SizesComponent implements OnInit {
     });
 
     this.form = new FormGroup({
-      nameSize: new FormControl('', [Validators.pattern(this.sizeRegex.sizeProduct)])
-    });
-
-    this.form.valueChanges.subscribe(() => {
-      this.validateExit = false;
+      nameSize: new FormControl('')
     });
   }
 
@@ -462,14 +457,12 @@ export class SizesComponent implements OnInit {
     const btnConfirmationText = null;
 
     if (sizeData) {
-      message = 'Para crear una talla nueva debes ingresar el valor de la talla como quieras que aparezca en el sitio. Ten en cuenta que si la talla ya existe no podrás crearla. No podrás utilizar ningún simpolo o caracter especial.';
+      message = 'Para editar una talla podrás modificar su nombre y dar clic en aceptar.';
       icon = 'edit';
       title = 'Editar Talla';
       messageCenter = false;
       this.changeNameSize = sizeData;
       this.form.controls['nameSize'].setValue(sizeData);
-      // this.form.controls['idBrands'].setValue(sizeData.Id);
-      // this.form.controls['status'].setValue(sizeData.Status);
     } else {
       message = 'Para crear una talla nueva debes ingresar el valor de la talla como quieras que aparezca en el sitio. Ten en cuenta que si la talla ya existe no podrás crearla. No podrás utilizar ningún simpolo o caracter especial.';
       icon = 'add';
@@ -595,6 +588,11 @@ export class SizesComponent implements OnInit {
     this.openDialogGenericInfo(element);
   }
 
+  /**
+   * Metodo para abrir modal generico
+   * @param {*} [param] datos apra cargar info del modal
+   * @memberof SizesComponent
+   */
   openDialogGenericInfo(param?: any) {
     const dialogRef = this.dialog.open(DialogInfoComponent, {
       width: '60%',
@@ -602,9 +600,11 @@ export class SizesComponent implements OnInit {
       data: this.dataDialog
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result === true) {
+      console.log(result);
+      if (result === 'deleteSize') {
         this.deleteSize(param);
       } else {
+        this.paginationToken = '{}';
         this.listSize();
       }
       log.info('The modal detail billing was closed');
