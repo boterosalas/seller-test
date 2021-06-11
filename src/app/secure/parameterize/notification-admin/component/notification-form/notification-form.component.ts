@@ -31,28 +31,18 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
   @Output() confirDelete = new EventEmitter<object>();
 
   public isEdit = false;
-  public regex = {
-    bodyLengthNews: '^([\\s\\S]{1,699})$',
-    titleLengthNews: '^([\\s\\S]{1,99})$'
-  };
+  public paramsEdit = null;
+  public typeNotification = '1';
+  public notificationFormRegex = { titleLengthNews: '', bodyLengthNews: '' };
   @Input() set paramsNotification(value: any) {
     if (value) {
       window.scroll(0, 0);
-      this.setValueNotificacion(value.notification);
+      this.paramsEdit = value.notification;
+      this.typeNotification = value.NewsContentType ? value.NewsContentType.toString() : '1'
       this.isEdit = value.isEdit ? value.isEdit : false;
       this.btnTitle = this.isEdit ? 'Editar anuncio' : 'Crear anuncio';
     }
   }
-  public _notificationFormRegex: any;
-  @Input() set notificationFormRegex(value: any) {
-    if (value !== undefined) {
-      this._notificationFormRegex = value;
-    } else {
-      this._notificationFormRegex = this.regex;
-    }
-    this.createForm();
-  }
-
 
   public form: FormGroup;
   public disableText = false;
@@ -132,10 +122,11 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
     public SUPPORT?: SupportService,
     public snackBar?: MatSnackBar,
   ) {
-    
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.createForm();
+   }
   /**
    * funcion para crear fomulario
    *
@@ -145,13 +136,17 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
     this.form = new FormGroup({
       bodyNotification: new FormControl('1', [Validators.required]),
       dateInitial: new FormControl('', [Validators.required]),
-      title: new FormControl('', [Validators.required, Validators.pattern(this._notificationFormRegex.titleLengthNews)]),
+      title: new FormControl('', [Validators.required]),
       lenguaje: new FormControl('National'),
       dateEnd: new FormControl(''),
       pageDestiny: new FormControl(''),
-      bodyDescription: new FormControl(' ', [Validators.required, Validators.pattern(this._notificationFormRegex.bodyLengthNews)]),
+      bodyDescription: new FormControl(' ', [Validators.required]),
       pickerColor: new FormControl({ value: '', disabled: true }),
     });
+    if (this.isEdit) {
+      this.setValueNotificacion(this.paramsEdit);
+    }
+    this.validateFormSupport();
   }
 
 
@@ -195,7 +190,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
     });
   }
   /**
-   * funcion para emitir el evento cuando se cargue la imagen 
+   * funcion para emitir el evento cuando se cargue la imagen
    *
    * @param {*} data
    * @memberof NotificationFormComponent
@@ -218,7 +213,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
     switch (typeBody) {
       case '1':
         this.form.controls.bodyDescription.enable();
-        this.form.controls.bodyDescription.setValidators([Validators.required, Validators.pattern(this._notificationFormRegex.bodyLengthNews)]);
+        this.form.controls.bodyDescription.setValidators([Validators.required]);
         this.form.controls.pickerColor.disable();
         this.disableText = false;
         this.show = true;
@@ -233,7 +228,7 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
         break;
       case '3':
         this.form.controls.bodyDescription.enable();
-        this.form.controls.bodyDescription.setValidators([Validators.required, Validators.pattern(this._notificationFormRegex.bodyLengthNews)]);
+        this.form.controls.bodyDescription.setValidators([Validators.required]);
         this.form.controls.pickerColor.enable();
         this.disableText = false;
         this.show = true;
@@ -536,7 +531,6 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
       this.form.controls.title.setValue(params.Title);
       this.form.controls.dateInitial.setValue(params.InitialDate);
       this.form.controls.dateEnd.setValue(params.FinalDate);
-      this.form.controls.title.setValue(params.Title);
       this.form.controls.pageDestiny.setValue(params.Link);
       this.form.controls.bodyDescription.setValue(params.Body);
       this.form.controls.bodyNotification.setValue(newNotification);
@@ -547,6 +541,27 @@ export class NotificationFormComponent implements OnInit, OnDestroy  {
       this.imagUrl = params.UrlImage;
       this.colorBackground = params.BackgroundColor ? params.BackgroundColor : null ;
     }
+  }
+
+  public validateFormSupport(): void {
+    this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
+      let dataNotificationRegex = JSON.parse(res.body.body);
+      dataNotificationRegex = dataNotificationRegex.Data.filter(data => data.Module === 'news');
+      for (const val in this.notificationFormRegex) {
+        if (!!val) {
+          const element = dataNotificationRegex.find(regex => regex.Identifier === val.toString());
+          this.notificationFormRegex[val] = element && `${element.Value}`;
+        }
+      }
+      if (this.form) {
+        this.form.controls.title.setValidators([Validators.required, Validators.pattern(this.notificationFormRegex.titleLengthNews)]);
+        if (this.typeNotification === '1' || this.typeNotification === '3') {
+          this.form.controls.bodyDescription.setValidators([Validators.required, Validators.pattern(this.notificationFormRegex.bodyLengthNews)]);
+        } else if (this.typeNotification === '2') {
+          this.form.controls.bodyDescription.clearValidators();
+        }
+      }
+    });
   }
 /**
  * funcion para destruir el componente del modal

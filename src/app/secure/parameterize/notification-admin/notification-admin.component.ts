@@ -33,6 +33,11 @@ export class NotificationAdminComponent implements OnInit {
     'date',
     'actions'
   ];
+
+  public regex = {
+    bodyLengthNews: '^([\\s\\S]{1,699})$',
+    titleLengthNews: '^([\\s\\S]{1,99})$'
+  };
   public dataSource: MatTableDataSource<any>;
   public showListAdvertisements = true;
   public showContainerDetail = false;
@@ -45,7 +50,6 @@ export class NotificationAdminComponent implements OnInit {
   public limit = 50;
   public paginationToken = encodeURI('{}');
   public notification: any;
-  public notificationFormRegex = { titleLengthNews: '', bodyLengthNews: '' };
   @ViewChild('toolbarOptions', { static: false }) toolbarOption;
 
   constructor(
@@ -59,7 +63,6 @@ export class NotificationAdminComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.validateFormSupport();
     this.setInitVar();
     this.getAllAdvertisements();
   }
@@ -91,7 +94,6 @@ export class NotificationAdminComponent implements OnInit {
     this.notificationAdminService.getAllNotification(params).subscribe(result => {
       if (result && result.status === 200 && result.body) {
         const body = result.body;
-        console.log(body);
         this.dataSource = new MatTableDataSource(body.ViewModel);
         if (this.onlyOne) {
           this.length = body.Count;
@@ -281,20 +283,5 @@ export class NotificationAdminComponent implements OnInit {
       this.limit = newLimit;
     }
     this.getAllAdvertisements();
-  }
-
-
-
-  public validateFormSupport(): void {
-    this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
-      let dataNotificationRegex = JSON.parse(res.body.body);
-      dataNotificationRegex = dataNotificationRegex.Data.filter(data => data.Module === 'news');
-      for (const val in this.notificationFormRegex) {
-        if (!!val) {
-          const element = dataNotificationRegex.find(regex => regex.Identifier === val.toString());
-          this.notificationFormRegex[val] = element && `${element.Value}`;
-        }
-      }
-    });
   }
 }
