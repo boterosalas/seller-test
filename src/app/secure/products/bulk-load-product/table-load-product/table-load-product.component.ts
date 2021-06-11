@@ -58,6 +58,7 @@ export class TableLoadProductComponent implements OnInit {
     'ImageUrl3',
     'ImageUrl4',
     'ImageUrl5',
+    'videoUrl',
     'Size',
     'Color',
     'HexColourName',

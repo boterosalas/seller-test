@@ -123,7 +123,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     typeCategory: '',
     descUnidadMedidaProduct: '',
     factConversionProduct: '',
-    eanCombo: ''
+    eanCombo: '',
+    videoUrl: ''
   };
 
   // listado de colores
@@ -509,7 +510,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Measuring Unit'),
                   iConversionFactor: this.arrayNecessaryData[0].indexOf('Conversion Factor'),
                   iDrainedFactor: this.arrayNecessaryData[0].indexOf('Drained Factor'),
-                  iEanCombo: this.arrayNecessaryData[0].indexOf('Combo EAN Group')
+                  iEanCombo: this.arrayNecessaryData[0].indexOf('Combo EAN Group'),
+                  iVideoUrl: this.arrayNecessaryData[0].indexOf('YouTube Video URL')
                 };
               } else if (this.arrayNecessaryData[0].indexOf('Nombre del producto') !== -1) {
                 this.iVal = {
@@ -546,7 +548,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Descripcion Unidad de Medida'),
                   iConversionFactor: this.arrayNecessaryData[0].indexOf('Factor de conversion'),
                   iDrainedFactor: this.arrayNecessaryData[0].indexOf('Factor escurrido'),
-                  iEanCombo: this.arrayNecessaryData[0].indexOf('Grupo EAN Combo')
+                  iEanCombo: this.arrayNecessaryData[0].indexOf('Grupo EAN Combo'),
+                  iVideoUrl: this.arrayNecessaryData[0].indexOf('URL Video YouTube')
                 };
               } else {
                 if (this.arrayNecessaryData[0].indexOf('Nom du produit') !== -1) {
@@ -584,7 +587,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                     iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Description Unité de mesure'),
                     iConversionFactor: this.arrayNecessaryData[0].indexOf('Facteur de conversion'),
                     iDrainedFactor: this.arrayNecessaryData[0].indexOf('Facteur drainé'),
-                    iEanCombo: this.arrayNecessaryData[0].indexOf('Bundle EAN')
+                    iEanCombo: this.arrayNecessaryData[0].indexOf('Bundle EAN'),
+                    iVideoUrl: this.arrayNecessaryData[0].indexOf('YouTube Video URL')
                   };
                 }
               }
@@ -624,7 +628,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Measuring Unit'),
                   iConversionFactor: this.arrayNecessaryData[0].indexOf('Conversion Factor'),
                   iDrainedFactor: this.arrayNecessaryData[0].indexOf('Drained Factor'),
-                  iEanCombo: this.arrayNecessaryData[0].indexOf('Combo EAN Group')
+                  iEanCombo: this.arrayNecessaryData[0].indexOf('Combo EAN Group'),
+                  iVideoUrl: this.arrayNecessaryData[0].indexOf('YouTube Video URL')
                 };
               } else if (this.arrayNecessaryData[0].indexOf('Nombre del producto') !== -1) {
                 this.iVal = {
@@ -662,7 +667,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Descripcion Unidad de Medida'),
                   iConversionFactor: this.arrayNecessaryData[0].indexOf('Factor de conversion'),
                   iDrainedFactor: this.arrayNecessaryData[0].indexOf('Factor escurrido'),
-                  iEanCombo: this.arrayNecessaryData[0].indexOf('Grupo EAN Combo')
+                  iEanCombo: this.arrayNecessaryData[0].indexOf('Grupo EAN Combo'),
+                  iVideoUrl: this.arrayNecessaryData[0].indexOf('URL Video YouTube')
                 };
               } else {
                 if (this.arrayNecessaryData[0].indexOf('Nom du produit') !== -1) {
@@ -700,7 +706,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                     iMeasurementUnit: this.arrayNecessaryData[0].indexOf('Description Unité de mesure'),
                     iConversionFactor: this.arrayNecessaryData[0].indexOf('Facteur de conversion'),
                     iDrainedFactor: this.arrayNecessaryData[0].indexOf('Facteur drainé'),
-                    iEanCombo: this.arrayNecessaryData[0].indexOf('Bundle EAN')
+                    iEanCombo: this.arrayNecessaryData[0].indexOf('Bundle EAN'),
+                    iVideoUrl: this.arrayNecessaryData[0].indexOf('YouTube Video URL')
                   };
                 }
               }
@@ -1054,6 +1061,23 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                 this.listLog.push(itemLog);
                 errorInCell = true;
               }
+            } else if (j === iVal.iVideoUrl) {
+              const validFormatVideoUrl= this.validFormat(res[i][j], 'videoUrl');
+              if (!validFormatVideoUrl && validFormatVideoUrl === false) {
+                this.countErrors += 1;
+                const row = i + 1, column = j + 1;
+                const itemLog = {
+                  row: this.arrayInformation.length,
+                  column: j,
+                  type: 'invalidFormat',
+                  columna: column,
+                  fila: row,
+                  positionRowPrincipal: i,
+                  dato: 'videoUrl'
+                };
+                this.listLog.push(itemLog);
+                errorInCell = true;
+              }
             } else if (
               j === iVal.iAltoDelEmpaque || j === iVal.ilargoDelEmpaque || j === iVal.iAnchoDelEmpaque || j === iVal.iPesoDelEmpaque ||
               j === iVal.iAltoDelProducto || j === iVal.iLargoDelProducto || j === iVal.iAnchoDelProducto || j === iVal.iPesoDelProducto) {
@@ -1305,7 +1329,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       ConversionFactor: res[i][iVal.iConversionFactor] ? res[i][iVal.iConversionFactor].trim() : null,
       DrainedFactor: res[i][iVal.iDrainedFactor] ? res[i][iVal.iDrainedFactor].trim() : null,
       EanCombo: res[i][iVal.iEanCombo] ? res[i][iVal.iEanCombo].trim() : null,
-      features: []
+      videoUrl: res[i][iVal.iVideoUrl] ? res[i][iVal.iVideoUrl].trim() : null,
+      features: [],
     };
 
     if (variant && variant === true) {
@@ -1347,7 +1372,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           k !== iVal.iMeasurementUnit &&
           k !== iVal.iConversionFactor &&
           k !== iVal.iDrainedFactor &&
-          k !== iVal.iEanCombo
+          k !== iVal.iEanCombo &&
+          k !== iVal.iVideoUrl 
         ) {
           if (variant && variant === true) {
             if (k !== iVal.iParentReference &&
@@ -1487,7 +1513,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       ConversionFactor: res[index][iVal.iConversionFactor],
       DrainedFactor: res[index][iVal.iDrainedFactor],
       EanCombo: res[index][iVal.iEanCombo],
-      isVariant: variant
+      videoUrl: res[index][iVal.iVideoUrl],
+      isVariant: variant,
     };
 
     this.arrayInformation.push(newObject);
@@ -1551,6 +1578,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       this.arrayInformation[index].errorMeasurementUnit = false;
       this.arrayInformation[index].errorConversionFactor = false;
       this.arrayInformation[index].errorDrainedFactor = false;
+      this.arrayInformation[index].errorvideoUrl = false;
     }
   }
 
@@ -1846,6 +1874,13 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           break;
         case 'formatImg':
           if ((inputtxt.match(this.productsRegex.eanImageProduct))) {
+            valueReturn = true;
+          } else {
+            valueReturn = false;
+          }
+          break;
+        case 'videoUrl':
+          if ((inputtxt.match(this.productsRegex.videoUrl))) {
             valueReturn = true;
           } else {
             valueReturn = false;

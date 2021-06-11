@@ -948,6 +948,7 @@
     "secure.products.table_load_product.seller": "Seller",
     "secure.products.table_load_product.product_type": "Product Type",
     "secure.products.table_load_product.image_modification": "Image Modification",
+    "secure.products.table_load_product.video": "YouTube Video URL",
     "secure.products.table_load_product.image ": "Image",
     "secure.products.table_load_product.size": "Size",
     "secure.products.table_load_product.color": "Color",
