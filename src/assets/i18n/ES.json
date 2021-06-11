@@ -1066,7 +1066,7 @@
     "secure.products.create_product_unit.component_process.continue": "Continuar",
     "secure.products.create_product_unit.component_process.basic_information": "Información básica",
     "secure.products.create_product_unit.component_process.specifications": "Especificaciones",
-    "secure.products.create_product_unit.component_process.images": "Imágenes",
+    "secure.products.create_product_unit.component_process.images": "Imágenes y Video",
     "secure.products.create_product_unit.component_process.save": "Guardar",
 
     "secure.products.create_product_unit.component_process.dialog_save.product_creation_request": "La solicitud de creación de tu producto ha sido recibida con éxito. El producto pasará a proceso de validación y te estaremos informando de manera oportuna si el producto es aceptado y puede ofertarse, o si es rechazado y debes corregir información.",
