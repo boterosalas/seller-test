@@ -68,7 +68,7 @@
     "module.Documentación": "Documentation",
     "menu.Resumen de pagos": "Payment Summary",
     "menu.Consultar Indicadores": "Check Indicators",
-    "menu.Notificación": "Anuncios",
+    "menu.Notificación": "Announcements",
     "module.Ofertas": "Offers",
     "module.Productos": "Products",
     "module.Vendedores": "Sellers",
@@ -399,7 +399,7 @@
 
 
     "secure.dashboard.all": "All",
-    "secure.dashboard.advertisements": "Advertisements",
+    "secure.dashboard.advertisements": "Announcements",
     "secure.dashboard.in_transit": "In transit",
     "secure.dashboard.delievered": "Delievered",
     "secure.dashboard.expired": "Expired",
