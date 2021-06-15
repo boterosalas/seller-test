@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSnackBar, MatDialog } from '@angular/material';
 import { LoadingService } from '@app/core';
+import { SupportService } from '@app/secure/support-modal/support.service';
 import { ModalGenericComponent } from './component/modal-generic/modal-generic.component';
 import { ModalPreviewNotificationComponent } from './component/modal-preview-notification/modal-preview-notification.component';
 import { NotificationAdminService } from './notification-admin.service';
@@ -32,6 +33,11 @@ export class NotificationAdminComponent implements OnInit {
     'date',
     'actions'
   ];
+
+  public regex = {
+    bodyLengthNews: '^([\\s\\S]{1,699})$',
+    titleLengthNews: '^([\\s\\S]{1,99})$'
+  };
   public dataSource: MatTableDataSource<any>;
   public showListAdvertisements = true;
   public showContainerDetail = false;
@@ -51,6 +57,7 @@ export class NotificationAdminComponent implements OnInit {
     private dialog: MatDialog,
     private loadingService: LoadingService,
     public snackBar?: MatSnackBar,
+    public SUPPORT?: SupportService,
   ) {
     window.scroll(0, 0);
   }
@@ -215,6 +222,7 @@ export class NotificationAdminComponent implements OnInit {
     const idNotification = '?id=' + id;
     this.notificationAdminService.deleteNotification(idNotification).subscribe(result => {
       if (result && result.Data) {
+        this.onlyOne = true;
         this.getAllAdvertisements();
         const msg = 'Se eliminó el anuncio correctamente';
         this.snackBar.open(msg, 'Cerrar', {

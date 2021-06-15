@@ -216,14 +216,6 @@ export class DashSalesComponent implements OnInit {
       this.isLoad = false;
       this.isLoading = true;
       localStorage.setItem('culture_current', e['lang']);
-
-      if ('ES' === e['lang']) {
-        this.selectTypeFilter = this.periodsES[3].value;
-      } else if ('FR' === e['lang']) {
-        this.selectTypeFilter = this.periodsEN[3].value;
-      } else {
-        this.selectTypeFilter = this.periodsEN[3].value;
-      }
       this.getSalesSummary();
     });
 
@@ -358,6 +350,7 @@ export class DashSalesComponent implements OnInit {
    */
   selectSales(filter: any) {
     this.typeFilterSales = filter;
+    console.log(this.typeFilterSales);
     if (filter === '1' || filter === '2') {
       this.showCalenderQSales = true;
       this.showCalenderDSales = false;
@@ -418,11 +411,11 @@ export class DashSalesComponent implements OnInit {
     let total = '0';
     if (last && last.length > 0) {
       last.forEach(element => {
-        sumatory += element.sales;
+        sumatory += element.salesFull;
         element.percent = 0 + '%';
       });
       last.forEach(element => {
-        total = ((element.sales / sumatory) * 100).toString();
+        total = ((element.salesFull / sumatory) * 100).toString();
         element.percent = parseFloat(total).toFixed(2) + '%';
       });
     } else {
