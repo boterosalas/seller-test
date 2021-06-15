@@ -1,8 +1,10 @@
-import { Component, Inject, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, Inject, OnInit, AfterViewInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 import { TranslateService } from '@ngx-translate/core';
+import { ComponentsService } from '@app/shared';
+import { dataUrltoBlob } from 'angular-file/file-upload/fileTools';
 
 const EXCEL_EXTENSION = '.xlsx';
 
@@ -28,6 +30,10 @@ export class FinishUploadProductInformationComponent implements AfterViewInit {
   public error: string;
   public name: string;
   public typeModal: string;
+  public limitRowExcel = 1048576;
+  public countError = 0;
+  public countSuccessful = 0;
+  @ViewChild('fileUploadOption', {static: false}) inputFileUpload: any;
 
   /**
    * Creates an instance of FinishUploadProductInformationComponent.
@@ -39,16 +45,24 @@ export class FinishUploadProductInformationComponent implements AfterViewInit {
     public dialogRef: MatDialogRef<FinishUploadProductInformationComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private cd: ChangeDetectorRef,
-    private languageService: TranslateService
+    private languageService: TranslateService,
+    public componentService: ComponentsService,
   ) {
-
     this.typeModal = data.type;
     this.response = data.response;
+    console.log(data);
     this.has = this.languageService.instant('secure.products.create_product_unit.specifications.dialog.has');
     this.have = this.languageService.instant('secure.products.create_product_unit.specifications.dialog.have');
     this.errors = this.languageService.instant('secure.products.create_product_unit.specifications.dialog.errors');
     this.error = this.languageService.instant('secure.products.create_product_unit.specifications.dialog.error');
     this.name = this.languageService.instant('secure.products.create_product_unit.list_products.product_name');
+    if (data !== undefined && data !== 'undefined' && this.typeModal === 'product') {
+      if (data && data.response && data.response.body && data.response.body.data && data.response.body.data.response && data.response.body.data.response.Data !== undefined) {
+        const {Error, Successful} = data.response.body.data.response.Data;
+        this.countError = Error;
+        this.countSuccessful = Successful;
+      }
+    }
   }
 
   ngAfterViewInit() {
@@ -60,7 +74,6 @@ export class FinishUploadProductInformationComponent implements AfterViewInit {
       this.cd.detectChanges();
     }
   }
-
   /**
    * Método para cerrar el modal
    * @memberof FinishUploadProductInformationComponent
@@ -122,4 +135,60 @@ export class FinishUploadProductInformationComponent implements AfterViewInit {
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
   }
 
+  onFileChange(evt: any) {
+console.log(evt);
+    this.readFileUpload(evt).then(data => {
+      console.log(data);
+    }, err => {
+      console.log(err);
+      this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), this.languageService.instant('actions.accpet_min'), 4000);
+    }).catch(err => {
+
+    });
+  }
+
+
+  
+  /**
+   * Funcionalidad que permite capturar los datos del excel.
+   * @param {*} evt
+   * @returns {Promise<any>}
+   * @memberof LoadGuidePageComponent
+   */
+   readFileUpload(evt: any): Promise<any> {
+
+    // tslint:disable-next-line:no-shadowed-variable
+    return new Promise((resolve, reject) => {
+
+      let data: any;
+      /* wire up file reader */
+      const target: DataTransfer = <DataTransfer>(evt.target);
+      // tslint:disable-next-line:curly
+      if (target.files.length !== 1) throw new Error('Cannot use multiple files');
+      const reader: FileReader = new FileReader();
+      reader.onload = (e: any) => {
+        try {
+          /* read workbook */
+          const bstr: string = e.target.result;
+          const wb: XLSX.WorkBook = XLSX.read(bstr, { raw: true, type: 'binary', sheetRows: this.limitRowExcel });
+          /* grab first sheet */
+          const wsname: string = wb.SheetNames[0];
+          const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+          /* save data */
+
+          data = XLSX.utils.sheet_to_json(ws, { header: 1, defval: null });
+          resolve(data);
+        } catch (e) {
+          reject(e);
+        }
+      };
+      reader.readAsBinaryString(target.files[0]);
+    });
+  }
+
+
+    resetUploadFIle() {
+      // Limpio el input file
+      this.inputFileUpload.nativeElement.value = '';
+    }
 }

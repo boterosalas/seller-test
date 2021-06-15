@@ -43,3 +43,38 @@
   .processCharge {
     margin: 0 6% 0 3%;
   }
+
+
+  .finishUploadProduct{
+    &-icon-position-close {
+      text-align: end;
+      height: 30px;
+    }
+  
+    &-cursor-grey-color {
+      color: #909090;
+      cursor: pointer;
+    }
+
+    &-container-icon-check {
+      background-color: #6FB63E;
+      margin-left: 46%;
+      margin-right: 45%;
+      border-radius: 64px;
+      height: 70px;
+      width: 72px;
+    }
+
+    &-icons-white-margin {
+      margin-top: 22px;
+      color: white;
+    }
+
+    &-text-align-center {
+      text-align: center;
+    }
+    &-text-transform-uppercase {
+      text-transform: uppercase;
+    }
+  
+  }
