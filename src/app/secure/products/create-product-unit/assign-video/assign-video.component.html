@@ -6,7 +6,7 @@
   
       <mat-form-field class="example-full-width">
         <input matInput #inputVideo_ formControlName="inputVideo"
-          [placeholder]="'secure.products.create_product_unit.assing_images_url.image' | translate"
+          [placeholder]="'secure.products.table_load_product.video' | translate"
           (change)="validateVideo()"
           >
         <mat-error *ngIf="createVideo.get('inputVideo').hasError('pattern')">

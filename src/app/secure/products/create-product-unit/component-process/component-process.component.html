@@ -41,14 +41,20 @@
     </form>
   </mat-step>
   <mat-step [stepControl]="imageFormGroup" [completed] ="ean">
+    
+    <ng-template matStepLabel>{{'secure.products.create_product_unit.component_process.images' | translate}}</ng-template>
+
+    <form [formGroup]="videoFormGroup">
+      <app-assign-video [detailProduct]="detailProduct"></app-assign-video>
+    </form>
+
     <form [formGroup]="imageFormGroup">
-      <ng-template matStepLabel>{{'secure.products.create_product_unit.component_process.images' | translate}}</ng-template>
-      <app-assign-video (videoUrl)="getValueVideo($event)"></app-assign-video>
       <app-assign-images [detailProduct]="detailProduct" [children]="children_created"></app-assign-images>
       <div class="buttonProcess">
           <button mat-button matStepperPrevious class="buttonProcessAtras">{{'secure.products.create_product_unit.component_process.back' | translate}}</button>
           <button mat-button (click)="saveInformationCreation()" class="buttonProcessContinuar" >{{'secure.products.create_product_unit.component_process.save' | translate}}</button>
         </div>
     </form>
+    
   </mat-step>
 </mat-horizontal-stepper></div>

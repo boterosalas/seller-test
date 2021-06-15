@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoadingService } from '@app/core';
 import { ComponentsService } from '@app/shared';
 import { TranslateService } from '@ngx-translate/core';
+import { ProcessService } from '../component-process/component-process.service';
 import { AssignVideoService } from './assign-video.service';
 
 
@@ -15,15 +16,21 @@ export class AssignVideoComponent implements OnInit {
 
   createVideo: FormGroup;
   imgUrl: String;
-  @Output() videoUrl = new EventEmitter<string>();
   public formatVideo = '^(https:\\/\\/((m|www)\\.youtube\\.com\\/watch\\?v=|youtu\\.be\\/)[\\s\\S]{11})$';
+  _detailProduct: any;
+  @Input() set detailProduct(value: any){
+    if (value) {
+        this._detailProduct = value;
+    }
+  }
 
   constructor(
     private fb: FormBuilder,
     private _video: AssignVideoService,
     private loadingService: LoadingService,
     private componentService: ComponentsService,
-    private languageService: TranslateService
+    private languageService: TranslateService,
+    private process: ProcessService
   ) {
 
     this.createVideo = this.fb.group({
@@ -46,14 +53,14 @@ export class AssignVideoComponent implements OnInit {
       this._video.getvalidateVideo(videoValue).subscribe(resp => {
         this.loadingService.closeSpinner();
         let body = JSON.parse(resp.body);
-        
         if(resp.statusCode === 200) {
           if(body.Data.IsValid === false) {
             this.componentService.openSnackBar(body.Message, this.languageService.instant('actions.close'), 3000);
             this.imgUrl = './assets/img/no-image.svg';
           } else {
             this.imgUrl = body.Data.UrlImage;
-            this.videoUrl.emit(this.createVideo.controls.inputVideo.value);
+            const data = { videoUrl: videoValue }
+            this.process.validaData(data);
           }
         }
 
