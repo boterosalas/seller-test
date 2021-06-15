@@ -77,7 +77,8 @@
       <div style="text-align: center; width: 100%; padding: 22px;">
         <span style="font-size: 18px; font-weight: bold;">¡Bien hecho!</span>
       </div>
-      <div style="text-align: justify; width: 100%; line-height : 25px;padding-left: 110px;padding-right: 110px;">
+      <div style="text-align: justify; width: 100%; line-height :
+        25px;padding-left: 110px;padding-right: 110px;">
         <span style="color: #989696;">
           Algunos productos se cargaron con éxito y pasaron a moderación, otros
           quedan pendientes para corregir, favor corregir e importan nuevamente.
@@ -86,12 +87,13 @@
     </div>
     <div fxLayout="row wrap">
       <div style="padding-top: 30px;padding-bottom: 30px; padding-left: 110px;">
-        <span style="color: #959595; font-weight: bold;">Conoce más detalles: </span>
+        <span style="color: #959595; font-weight: bold;">Conoce más detalles:
+        </span>
       </div>
     </div>
     <div fxLayout="row wrap">
       <div fxLayout="column" style="padding-left: 110px;">
-        <div style=" padding-bottom: 10px;">
+        <div style="padding-bottom: 10px;">
           <span style="color: #989696;">
             {{countSuccessful}} Productos pasaron a moderación
           </span>
@@ -105,18 +107,23 @@
     </div>
     <div fxLayout="row wrap" style="padding-top: 40px;padding-bottom: 20px;">
       <div fxFlex="50" style="text-align: end;">
-        <input placeholder="file upload" hidden name="fileUploadOption" type="file" (change)="onFileChange($event)"
-        multiple="false" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        #fileUploadOption>
-      <button  mat-stroked-button color="primary" class="sc-default-button finishUploadProduct-text-transform-uppercase" id="load-file-button"
-        (click)="fileUploadOption.click()" mat-button>
-        Subir excel
-      </button>
+        <form #filterForm="ngForm" [formGroup]="form">
+          <input placeholder="file upload" hidden formControlName="fileUploadOption" name="fileUploadOption"
+            type="file" (change)="onFileChange($event)"
+            multiple="false"
+            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            #fileUploadOption>
+          <button mat-stroked-button color="primary" class="sc-default-button
+            finishUploadProduct-text-transform-uppercase" id="load-file-button"
+            (click)="fileUploadOption.click()" mat-button>
+            Subir excel
+          </button>
+        </form>
       </div>
       <div fxFlex="50" style="padding-left: 10px;">
         <button mat-raised-button color="primary"
-        class="finishUploadProduct-text-transform-uppercase" mat-button
-        (click)="deleteNotification()">Descargar errores</button>
+          class="finishUploadProduct-text-transform-uppercase" mat-button
+          (click)="uploadFileError(urlFile)">Descargar errores</button>
       </div>
     </div>
   </div>

@@ -5,6 +5,7 @@ import * as XLSX from 'xlsx';
 import { TranslateService } from '@ngx-translate/core';
 import { ComponentsService } from '@app/shared';
 import { dataUrltoBlob } from 'angular-file/file-upload/fileTools';
+import { FormControl, FormGroup } from '@angular/forms';
 
 const EXCEL_EXTENSION = '.xlsx';
 
@@ -33,6 +34,8 @@ export class FinishUploadProductInformationComponent implements AfterViewInit {
   public limitRowExcel = 1048576;
   public countError = 0;
   public countSuccessful = 0;
+  public urlFile = null;
+  public form: FormGroup;
   @ViewChild('fileUploadOption', {static: false}) inputFileUpload: any;
 
   /**
@@ -58,11 +61,18 @@ export class FinishUploadProductInformationComponent implements AfterViewInit {
     this.name = this.languageService.instant('secure.products.create_product_unit.list_products.product_name');
     if (data !== undefined && data !== 'undefined' && this.typeModal === 'product') {
       if (data && data.response && data.response.body && data.response.body.data && data.response.body.data.response && data.response.body.data.response.Data !== undefined) {
-        const {Error, Successful} = data.response.body.data.response.Data;
+        const {Error, Successful, Url} = data.response.body.data.response.Data;
         this.countError = Error;
         this.countSuccessful = Successful;
+        this.urlFile = Url;
       }
     }
+    this.createForm();
+  }
+  createForm() {
+    this.form = new FormGroup({
+      fileUploadOption: new FormControl()
+    });
   }
 
   ngAfterViewInit() {
@@ -136,7 +146,6 @@ export class FinishUploadProductInformationComponent implements AfterViewInit {
   }
 
   onFileChange(evt: any) {
-console.log(evt);
     this.readFileUpload(evt).then(data => {
       console.log(data);
     }, err => {
@@ -190,5 +199,13 @@ console.log(evt);
     resetUploadFIle() {
       // Limpio el input file
       this.inputFileUpload.nativeElement.value = '';
+    }
+
+    uploadFileError (url: string) {
+      if (url != null) {
+        window.open(url, '_back');
+      } else {
+        console.error('error al descargar archivo');
+      }
     }
 }
