@@ -350,7 +350,13 @@ export const endpoints = {
       // Listar anuncios vendedor
       getAdvertisements: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/GetNewsByTarget?totalMax=10',
       // Listar anuncios vendedor
-      readAdvertisements: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/SetNewsRead'
+      readAdvertisements: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/SetNewsRead',
+      // Obtener todos los datos de contacto un vendedor
+      getAllContactData: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/GetSellerContacts',
+      // Actualizar datos de contacto vendedor
+      updateContactData: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/UpdateSellerContact',
+      // Crear un contacto para un vendedor (primero creamos y luego editamos)
+      createContactData: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/RegisterContactSeller'
 
     },
   },
@@ -699,7 +705,13 @@ export const endpoints = {
       // Listar anuncios vendedor
       getAdvertisements :  'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/Dev-SC-News/GetNewsByTarget?totalMax=10',
       // Listar anuncios vendedor
-      readAdvertisements :  'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/Dev-SC-News/SetNewsRead'
+      readAdvertisements :  'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/Dev-SC-News/SetNewsRead',
+      // Obtener todos los datos de contacto un vendedor
+      getAllContactData: 'https://igxf6mswfa.execute-api.us-east-1.amazonaws.com/pdn/GetSellerContacts',
+      // Actualizar datos de contacto vendedor
+      updateContactData: 'https://igxf6mswfa.execute-api.us-east-1.amazonaws.com/pdn/UpdateSellerContact',
+      // Crear un contacto para un vendedor (primero creamos y luego editamos)
+      createContactData: 'https://igxf6mswfa.execute-api.us-east-1.amazonaws.com/pdn/RegisterContactSeller'
     }
   }
 };

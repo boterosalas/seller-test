@@ -225,7 +225,7 @@ export class DashOrdersComponent implements OnInit {
                 this.finalDateSend = this.datepipe.transform(new Date(finalDate), 'yyyy/MM/dd');
             } else if (this.typeFilter === '3') {
                 this.dateOrdens = this.datepipe.transform(this.dateCurrent, 'yyyy/MM/dd');
-                const initialDate = this.datepipe.transform(this.addOrSubtractDays(new Date(this.dateOrdens), -7), 'yyyy/MM/dd');
+                const initialDate = this.datepipe.transform(this.addOrSubtractDays(new Date(this.dateOrdens), -6), 'yyyy/MM/dd');
                 const finallDate = this.datepipe.transform(this.addOrSubtractDays(new Date(this.dateOrdens), 0), 'yyyy/MM/dd');
                 this.initialDateSend = initialDate;
                 this.finalDateSend = finallDate;
