@@ -346,7 +346,9 @@ export const endpoints = {
       // Listar anuncios vendedor
       getAdvertisements: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/GetNewsByTarget?totalMax=10',
       // Listar anuncios vendedor
-      readAdvertisements: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/SetNewsRead'
+      readAdvertisements: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/SetNewsRead',
+      // Validacion del video creacion
+      validateVideo: 'https://3nr5ac6osg.execute-api.us-east-1.amazonaws.com/dev/ValidateVideo'
 
     },
   },
@@ -691,7 +693,9 @@ export const endpoints = {
       // Listar anuncios vendedor
       getAdvertisements :  'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/Dev-SC-News/GetNewsByTarget?totalMax=10',
       // Listar anuncios vendedor
-      readAdvertisements :  'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/Dev-SC-News/SetNewsRead'
+      readAdvertisements :  'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/Dev-SC-News/SetNewsRead',
+      // Validacion del video creacion
+      validateVideo: 'https://3nr5ac6osg.execute-api.us-east-1.amazonaws.com/dev/ValidateVideo'
     }
   }
 };

@@ -1,0 +1,20 @@
+<div class="comboImage">
+    <form #createImageProductEan="ngForm" [formGroup]="createVideo">
+      <mat-card class="createImagenPU">
+        <img mat-card-image [(src)]=imgUrl>
+      </mat-card>
+  
+      <mat-form-field class="example-full-width">
+        <input matInput #inputVideo_ formControlName="inputVideo"
+          [placeholder]="'secure.products.create_product_unit.assing_images_url.image' | translate"
+          (change)="validateVideo()"
+          >
+        <mat-error *ngIf="createVideo.get('inputVideo').hasError('pattern')">
+          {{'secure.products.create_product_unit.assing_images_url.format_invalidate' | translate}}</mat-error>
+        <mat-error
+          *ngIf="createVideo.controls.inputVideo.errors &&  createVideo.controls.inputVideo.errors.validFormatImage">
+          {{'secure.products.create_product_unit.assing_images_url.imagen_invalidate' | translate}}</mat-error>
+      </mat-form-field>
+    </form>
+  </div>
+  

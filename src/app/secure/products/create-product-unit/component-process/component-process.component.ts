@@ -99,6 +99,10 @@ export class ComponentProcessComponent implements OnInit {
     this.getDetailProduct();
   }
 
+  public getValueVideo(val) {
+    console.log(val);
+  }
+
   getDetailProduct() {
     if (this.pendingProduct) {
       if (this.ean) {
