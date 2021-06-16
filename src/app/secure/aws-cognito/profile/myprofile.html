@@ -1,85 +1,447 @@
-<h1 class="text-center">{{'secure.aws_cognito.profile.profile' | translate}}</h1>
-<div class="profile-content">
-  <div class="sub-content">
-    <form [formGroup]="form">
-      <mat-form-field class="full-width">
-        <input matInput [placeholder]="'secure.aws_cognito.profile.seller_id' | translate" autocomplete="false"
-          formControlName="IdSeller">
-      </mat-form-field>
-      <mat-form-field class="full-width">
-        <input matInput [placeholder]="('secure.seller.register_seller.lb_nit_form' | translate)" autocomplete="false"
-          formControlName="Nit">
-      </mat-form-field>
-      <mat-form-field class="full-width">
-        <input matInput [placeholder]="('secure.seller.register_seller.lb_store_name_form' | translate)"
-          autocomplete="false" formControlName="Name">
-      </mat-form-field>
-      <mat-form-field class="full-width">
-        <input matInput [placeholder]="('secure.seller.register_seller.lb_email_form' | translate)" autocomplete="false"
-          formControlName="Email">
-      </mat-form-field>
-    </form>
-    <div *ngIf="isChannel && channelAdvisor" class=" classToken">
-      {{'secure.seller.register_seller.lb_channel_token' | translate}}:
-      <br>
-      {{channelAdvisor}}
+<div *ngIf="typeUser !== null">
+  <div *ngIf="typeUser === 'seller'">
+    <div class="myprofiel-container-top-data">
+      <div fxLayout="row wrap">
+        <div fxFlex="75">
+          <div fxLayout="row wrap">
+            <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="40" fxFlex.lg="40"
+            fxFlex.xl="40" class="myprofiel-padding-30">
+              <div>
+                <span class="myprofiel-text-color-font-size">
+                  {{userInformation.name}}
+                </span>
+              </div>
+              <div>
+                <span class="myprofiel-font-size-14">
+                  {{'secure.products.table_load_product.seller' | translate}}
+                </span>
+              </div>
+            </div>
+            <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="40" fxFlex.lg="40"
+            fxFlex.xl="40" *ngIf="canVacation" fxShow.xs="true" fxShow.sm="true" fxShow.md="false" fxShow.lg="false"
+            fxShow.xl="false">
+            <ng-container *ngIf="isInVacation; else programVacations">
+              <mat-card id="info-vacation" class="mat card">
+                <div class="options">
+                  <mat-icon id="btn-edit-vacations" class="myprofiel-width-height-font-size"
+                    (click)="sendToOpenVacationDialog()"
+                    [ngClass]="{disabledDiv: isDisable}">
+                    edit
+                  </mat-icon>
+                  <mat-icon *ngIf="canCancelVacation" class="myprofiel-width-height-font-size"
+                    id="btn-cancel-vacations"
+                    (click)="sendToOpenCancelVacationDialog()"
+                    [ngClass]="{disabledDiv: isDisable}">
+                    delete
+                  </mat-icon>
+                </div>
+                <div class="icon-container myprofiel-local-airport-icon">
+                  <mat-icon>
+                    local_airport
+                  </mat-icon>
+                </div>
+                <div class="content-contaienr">
+                  <mat-card-title>
+                    <p class="title-text">
+                      <strong>{{'secure.seller.list.vacation_title_modal' |
+                        translate}}</strong>
+                    </p>
+                  </mat-card-title>
+                  <mat-card-content>
+                    <div>
+                      <label class="label-result">
+                        <strong>{{'secure.seller.list.start_date' |
+                          translate}}:</strong>{{user.StartVacations}} -
+                      </label>
+                    </div>
+                    <div>
+                      <label class="label-result">
+                        <strong>{{'secure.seller.list.end_date' |
+                          translate}}:</strong>{{user.EndVacations}}
+                      </label>
+                    </div>
+                  </mat-card-content>
+                </div>
+              </mat-card>
+            </ng-container>
+            <ng-template #programVacations>
+              <button mat-stroked-button id="btn-program-vacation" class="myprofiel-btn-send-vacation"
+                color="primary" [disabled]="isDisable"
+                (click)="sendToOpenVacationDialog()">{{'secure.seller.list.program_vacation'
+                | translate}}</button>
+            </ng-template>
+            </div>
+            <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="20" fxFlex.lg="20"
+            fxFlex.xl="20" class="myprofiel-padding-30">
+              <div>
+                <span class="myprofiel-text-id">
+                  {{'secure.aws_cognito.profile.seller_id' | translate}}
+                </span>
+              </div>
+              <div>
+                <span class="myprofiel-id-text-color">
+                  {{userInformation.id}}
+                </span>
+              </div>
+            </div>
+            <div  fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="40" fxShow.xs="true" fxShow.sm="true" fxShow.md="false" fxShow.lg="false"
+            fxShow.xl="false" class="myprofiel-padding-30">
+            <div>
+              <span class="myprofiel-text-id">
+                {{'secure.seller.register_seller.lb_nit_form' | translate}}
+              </span>
+            </div>
+            <div>
+              <span class="myprofiel-id-text-color">
+                {{userInformation.nit}}
+              </span>
+            </div>
+            </div>
+            <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="40" fxFlex.lg="40"
+            fxFlex.xl="40" class="myprofiel-padding-30">
+              <div>
+                <span class="myprofiel-text-id">
+                  {{'secure.parametize.profiles.dialog.modal_rdn_store' | translate}}
+                </span>
+              </div>
+              <div>
+                <span class="myprofiel-id-text-color">
+                  {{userInformation.name}}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row wrap" >
+            <div fxFlex="40" fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
+            fxShow.xl="true" class="myprofiel-padding-left-30">
+              <div *ngIf="canVacation" class="sub-content" fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
+              fxShow.xl="true">
+                <ng-container *ngIf="isInVacation; else programVacations">
+                  <mat-card id="info-vacation" class="mat card">
+                    <div class="options">
+                      <mat-icon id="btn-edit-vacations" class="myprofiel-width-height-font-size"
+                        (click)="sendToOpenVacationDialog()"
+                        [ngClass]="{disabledDiv: isDisable}">
+                        edit
+                      </mat-icon>
+                      <mat-icon *ngIf="canCancelVacation" class="myprofiel-width-height-font-size"
+                        id="btn-cancel-vacations"
+                        (click)="sendToOpenCancelVacationDialog()"
+                        [ngClass]="{disabledDiv: isDisable}">
+                        delete
+                      </mat-icon>
+                    </div>
+                    <div class="icon-container myprofiel-local-airport-icon">
+                      <mat-icon>
+                        local_airport
+                      </mat-icon>
+                    </div>
+                    <div class="content-contaienr">
+                      <mat-card-title>
+                        <p class="title-text">
+                          <strong>{{'secure.seller.list.vacation_title_modal' |
+                            translate}}</strong>
+                        </p>
+                      </mat-card-title>
+                      <mat-card-content>
+                        <div>
+                          <label class="label-result">
+                            <strong>{{'secure.seller.list.start_date' |
+                              translate}}:</strong>{{user.StartVacations}} -
+                          </label>
+                        </div>
+                        <div>
+                          <label class="label-result">
+                            <strong>{{'secure.seller.list.end_date' |
+                              translate}}:</strong>{{user.EndVacations}}
+                          </label>
+                        </div>
+                      </mat-card-content>
+                    </div>
+                  </mat-card>
+                </ng-container>
+                <ng-template #programVacations>
+                  <button mat-stroked-button id="btn-program-vacation" class="myprofiel-btn-send-vacation"
+                    color="primary" [disabled]="isDisable"
+                    (click)="sendToOpenVacationDialog()">{{'secure.seller.list.program_vacation'
+                    | translate}}</button>
+                </ng-template>
+              </div>
+            </div>
+            <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="20" fxFlex.lg="20"
+            fxFlex.xl="20" fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true"
+            fxShow.xl="true" class="myprofiel-padding-left-30">
+              <div>
+                <span class="myprofiel-text-id">
+                  {{'secure.seller.register_seller.lb_nit_form' | translate}}
+                </span>
+              </div>
+              <div>
+                <span class="myprofiel-id-text-color">
+                  {{userInformation.nit}}
+                </span>
+              </div>
+            </div>
+            <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="40" fxFlex.lg="40"
+            fxFlex.xl="40" class="myprofiel-padding-left-30">
+              <div>
+                <span class="myprofiel-text-id">
+                  {{'secure.seller.register_seller.lb_email_form' | translate}}
+                </span>
+              </div>
+              <div>
+                <span class="myprofiel-id-text-color">
+                  {{userInformation.email}}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="25" fxFlex.lg="25"
+        fxFlex.xl="25" >
+          <div class="myprofiel-padding-30" *ngIf="isChannel">
+            <div>
+              <button id="toggle" mat-stroked-button color="primary"
+                class="myprofiel-btn-copy-token-channel myprofiel-width-100-btn" type="button"
+                (click)="copyToken(tokenChannel)">
+                <span>{{'secure.profiel.copy_token_channel_advisor' | translate}}</span>
+              </button>
+            </div>
+            <div class="container">
+              <div class="slider closed">
+                <mat-icon class="mat-18 myprofiel-message-token-copied">done </mat-icon>
+                <span>
+                  {{'secure.profiel.copied_token'| translate}}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="myprofiel-padding-30">
+        <span class="myprofiel-text-color-font-size-20">{{'secure.profiel.contact_information' | translate}}</span>
+      </div>
+      <div *ngIf="!showLoading" fxLayout="row wrap" class="myprofiel-padding-10-30">
+        <mat-table #table [dataSource]="dataSource" matSort class="myprofiel-width-100-color">
+          <ng-container matColumnDef="responsibleArea">
+            <mat-header-cell fxFlex.xs="40" fxFlex.sm="40" fxFlex.md="20" fxFlex.lg="20"
+            fxFlex.xl="20"  *matHeaderCellDef>
+              <span class="title-table-header">{{'secure.profiel.responsible_area' | translate}}</span>
+            </mat-header-cell>
+            <mat-cell fxFlex.xs="40" fxFlex.sm="40" fxFlex.md="20" fxFlex.lg="20"
+            fxFlex.xl="0"
+              *matCellDef="let element">
+              <span class="myprofiel-text-color-column">{{element.Traduction}}</span>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <mat-header-cell fxFlex.xs="40" fxFlex.sm="40" fxFlex.md="20" fxFlex.lg="20"
+            fxFlex.xl="20" *matHeaderCellDef>
+              <span class="title-table-header">{{'secure.profiel.contact_name_surname' | translate}}</span>
+            </mat-header-cell>
+            <mat-cell fxFlex.xs="40" fxFlex.sm="40" fxFlex.md="20" fxFlex.lg="20"
+            fxFlex.xl="20"
+              *matCellDef="let element">
+              <span class="myprofiel-text-color-column">{{element.ContactName}}</span>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="position">
+            <mat-header-cell fxFlex.xs="30" fxFlex.sm="30" fxFlex.md="30" fxFlex.lg="30"
+            fxFlex.xl="30" *matHeaderCellDef>
+              <span class="title-table-header">{{'secure.profiel.position'| translate}}</span>
+            </mat-header-cell>
+            <mat-cell fxFlex.xs="30" fxFlex.sm="30" fxFlex.md="30" fxFlex.lg="30"
+            fxFlex.xl="30"
+              *matCellDef="let element">
+              <span class="myprofiel-text-color-column">{{element.Role}}</span>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="email" >
+            <mat-header-cell fxFlex.xs="25" fxFlex.sm="25" fxFlex.md="15" fxFlex.lg="15"
+            fxFlex.xl="15" *matHeaderCellDef fxShow.xs="false"
+            fxShow.sm="false" fxShow.md="false" fxShow.lg="true"
+            fxShow.xl="true" >
+              <span class="title-table-header">
+                {{'secure.seller.register_seller.lb_email_form' | translate}}
+              </span>
+            </mat-header-cell>
+            <mat-cell fxFlex.xs="25" fxFlex.sm="25" fxFlex.md="15" fxFlex.lg="15"
+            fxFlex.xl="15" fxShow.xs="false"
+            fxShow.sm="false" fxShow.md="false" fxShow.lg="true"
+            fxShow.xl="true"
+              *matCellDef="let element">
+              <span class="myprofiel-text-color-column">{{element.Email}}</span>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="phone" >
+            <mat-header-cell fxFlex="10" *matHeaderCellDef fxShow.xs="false"
+            fxShow.sm="false" fxShow.md="false" fxShow.lg="true"
+            fxShow.xl="true">
+              <span class="title-table-header">{{'secure.profiel.cellPhone' | translate}}</span>
+            </mat-header-cell>
+            <mat-cell fxFlex="10"
+              *matCellDef="let element" fxShow.xs="false"
+              fxShow.sm="false" fxShow.md="false" fxShow.lg="true"
+              fxShow.xl="true">
+              <span class="myprofiel-text-color-column">{{element.Cellphone}}</span>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="telephone">
+            <mat-header-cell fxFlex="10" *matHeaderCellDef fxShow.xs="false"
+            fxShow.sm="false" fxShow.md="false" fxShow.lg="true"
+            fxShow.xl="true">
+              <span class="title-table-header">{{'secure.profiel.phone_number' | translate}}</span>
+            </mat-header-cell>
+            <mat-cell fxFlex="10" fxShow.xs="false"
+            fxShow.sm="false" fxShow.md="false" fxShow.lg="true"
+            fxShow.xl="true"
+              *matCellDef="let element">
+              <span class="myprofiel-text-color-column">{{element.Phone}}</span>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <mat-header-cell fxShow.xs="true" fxShow.sm="true"
+              fxShow.lg="true" fxShow.xl="true" fxShow="true"
+              fxFlex="10" *matHeaderCellDef>
+              <span class="title-table-header" class="myprofiel-text-color-column">{{'shared.actions' | translate}}</span>
+            </mat-header-cell>
+            <mat-cell fxShow.xs="true" fxShow.sm="true" fxShow.lg="true"
+              fxShow.xl="true" fxShow="true" fxFlex="10"
+              *matCellDef="let element">
+              <button class="button-edit" type="button" color="primary" class="myprofiel-text-color-column" [matTooltip]="'actions.edit' | translate" 
+               matTooltipPosition="below" mat-icon-button
+              mat-button (click)="openModalContact(element)">
+              <mat-icon class="flexbox align-center justify-center myprofiel-wi-he-font-size-20">edit</mat-icon>
+            </button>
+            </mat-cell>
+          </ng-container>
+          <!-- Creación de las filas para la tabla -->
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row id="order-number-{{index}}" *matRowDef="let index=index; let
+            row; columns: displayedColumns;" class="element-row
+            personal-row-table" [cdkDetailRow]="row"
+            [cdkDetailRowTpl]="tpl">
+          </mat-row>
+        </mat-table>
+      </div>
+      <div *ngIf="showLoading">
+        <div class="myprofiel-margin-left-48">
+          <mat-spinner class="processCharge" [diameter]="40"></mat-spinner>
+        </div>
+        <div class="myprofiel-padding-top-20">
+          <span>
+            {{'secure.products.create_product_unit.list_products.please_wait' |
+            translate}}
+          </span>
+        </div>
+      </div>
     </div>
   </div>
-  <div *ngIf="canVacation" class="sub-content">
-    <ng-container *ngIf="isInVacation; else programVacations">
-      <mat-card id="info-vacation" class="mat card">
-        <div class="options">
-          <mat-icon id="btn-edit-vacations" (click)="sendToOpenVacationDialog()" [ngClass]="{disabledDiv: isDisable}">
-            edit
-          </mat-icon>
-          <mat-icon *ngIf="canCancelVacation" id="btn-cancel-vacations" (click)="sendToOpenCancelVacationDialog()"
-            [ngClass]="{disabledDiv: isDisable}">
-            delete
-          </mat-icon>
+  <div *ngIf="typeUser !== 'seller'">
+    <h1 class="text-center">{{'secure.aws_cognito.profile.profile' | translate}}</h1>
+    <div class="profile-content">
+      <div class="sub-content">
+        <form [formGroup]="form">
+          <mat-form-field class="full-width">
+            <input matInput [placeholder]="'secure.aws_cognito.profile.seller_id' | translate" autocomplete="false"
+              formControlName="IdSeller">
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input matInput [placeholder]="('secure.seller.register_seller.lb_nit_form' | translate)" autocomplete="false"
+              formControlName="Nit">
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input matInput [placeholder]="('secure.seller.register_seller.lb_store_name_form' | translate)"
+              autocomplete="false" formControlName="Name">
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input matInput [placeholder]="('secure.seller.register_seller.lb_email_form' | translate)" autocomplete="false"
+              formControlName="Email">
+          </mat-form-field>
+        </form>
+        <div *ngIf="isChannel && channelAdvisor" class=" classToken">
+          {{'secure.seller.register_seller.lb_channel_token' | translate}}:
+          <br>
+          {{channelAdvisor}}
         </div>
-        <div class="icon-container">
-          <mat-icon>
-            local_airport
-          </mat-icon>
-        </div>
-        <div class="content-contaienr">
-          <mat-card-title>
-            <p class="title-text">
-              <strong>{{'secure.seller.list.vacation_title_modal' | translate}}</strong>
-            </p>
-          </mat-card-title>
-          <mat-card-content>
-            <label class="label-result">
-              <strong>{{'secure.seller.list.start_date' | translate}}:</strong>{{user.StartVacations}} -
-              <strong>{{'secure.seller.list.end_date' | translate}}:</strong>{{user.EndVacations}}
-            </label>
-          </mat-card-content>
-        </div>
-      </mat-card>
-    </ng-container>
-    <ng-template #programVacations>
-      <button mat-stroked-button id="btn-program-vacation" color="primary" [disabled]="isDisable"
-        (click)="sendToOpenVacationDialog()">{{'secure.seller.list.program_vacation' | translate}}</button>
-    </ng-template>
+      </div>
+      <div *ngIf="canVacation" class="sub-content">
+        <ng-container *ngIf="isInVacation; else programVacations">
+          <mat-card id="info-vacation" class="mat card">
+            <div class="options">
+              <mat-icon id="btn-edit-vacations" (click)="sendToOpenVacationDialog()" [ngClass]="{disabledDiv: isDisable}">
+                edit
+              </mat-icon>
+              <mat-icon *ngIf="canCancelVacation" id="btn-cancel-vacations" (click)="sendToOpenCancelVacationDialog()"
+                [ngClass]="{disabledDiv: isDisable}">
+                delete
+              </mat-icon>
+            </div>
+            <div class="icon-container">
+              <mat-icon>
+                local_airport
+              </mat-icon>
+            </div>
+            <div class="content-contaienr">
+              <mat-card-title>
+                <p class="title-text">
+                  <strong>{{'secure.seller.list.vacation_title_modal' | translate}}</strong>
+                </p>
+              </mat-card-title>
+              <mat-card-content>
+                <label class="label-result">
+                  <strong>{{'secure.seller.list.start_date' | translate}}:</strong>{{user.StartVacations}} -
+                  <strong>{{'secure.seller.list.end_date' | translate}}:</strong>{{user.EndVacations}}
+                </label>
+              </mat-card-content>
+            </div>
+          </mat-card>
+        </ng-container>
+        <ng-template #programVacations>
+          <button mat-stroked-button id="btn-program-vacation" color="primary" [disabled]="isDisable"
+            (click)="sendToOpenVacationDialog()">{{'secure.seller.list.program_vacation' | translate}}</button>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+<div  *ngIf="typeUser === null" class="myprofiel-container-loading-spinner">
+  <div class="myprofiel-margin-left-48">
+    <mat-spinner class="processCharge" [diameter]="40"></mat-spinner>
+  </div>
+  <div class="myprofiel-padding-top-20">
+    <span>
+      {{'secure.products.create_product_unit.list_products.please_wait' |
+      translate}}
+    </span>
   </div>
 </div>
 
 <ng-template #dialogTemplate>
-  <form [formGroup]="vacationForm" class="full-width space-between margin-top__15">
+  <form [formGroup]="vacationForm" class="full-width space-between
+    margin-top__15">
     <mat-form-field class="half-width">
-      <input matInput id="inputInitialDate" [matDatepicker]="intialPicker" [min]="tomorrow" [readonly]="true"
-        [placeholder]="'secure.seller.list.start_date' | translate" formControlName="StartDateVacation"
+      <input matInput id="inputInitialDate" [matDatepicker]="intialPicker"
+        [min]="tomorrow" [readonly]="true"
+        [placeholder]="'secure.seller.list.start_date' | translate"
+        formControlName="StartDateVacation"
         (click)="openPicker(1)" (dateInput)="startDate()">
       <mat-datepicker-toggle matSuffix [for]="intialPicker"></mat-datepicker-toggle>
       <mat-datepicker #intialPicker disabled="false"></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field class="half-width">
-      <input matInput id="inputEndDate" [matDatepicker]="endPicker" [readonly]="true" [min]="endvacationStart"
-        [placeholder]="'secure.seller.list.end_date' | translate" formControlName="EndDateVacation"
+      <input matInput id="inputEndDate" [matDatepicker]="endPicker"
+        [readonly]="true" [min]="endvacationStart"
+        [placeholder]="'secure.seller.list.end_date' | translate"
+        formControlName="EndDateVacation"
         (click)="openPicker(2)" [disabled]="enableEndVacation">
-      <mat-datepicker-toggle matSuffix [for]="endPicker" [disabled]="enableEndVacation"></mat-datepicker-toggle>
-      <mat-datepicker #endPicker disabled="false" [disabled]="enableEndVacation"></mat-datepicker>
+      <mat-datepicker-toggle matSuffix [for]="endPicker"
+        [disabled]="enableEndVacation"></mat-datepicker-toggle>
+      <mat-datepicker #endPicker disabled="false"
+        [disabled]="enableEndVacation"></mat-datepicker>
     </mat-form-field>
   </form>
 </ng-template>
