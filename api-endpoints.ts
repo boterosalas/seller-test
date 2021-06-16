@@ -695,7 +695,7 @@ export const endpoints = {
       // Listar anuncios vendedor
       readAdvertisements :  'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/Dev-SC-News/SetNewsRead',
       // Validacion del video creacion
-      validateVideo: 'https://3nr5ac6osg.execute-api.us-east-1.amazonaws.com/dev/ValidateVideo'
+      validateVideo: 'https://nkoltok5rk.execute-api.us-east-1.amazonaws.com/pdn/ValidateVideo'
     }
   }
 };
