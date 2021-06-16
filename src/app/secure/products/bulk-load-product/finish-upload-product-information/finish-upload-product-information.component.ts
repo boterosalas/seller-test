@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ComponentsService } from '@app/shared';
 import { dataUrltoBlob } from 'angular-file/file-upload/fileTools';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Subject } from 'rxjs';
 
 const EXCEL_EXTENSION = '.xlsx';
 
@@ -34,8 +35,13 @@ export class FinishUploadProductInformationComponent implements AfterViewInit {
   public limitRowExcel = 1048576;
   public countError = 0;
   public countSuccessful = 0;
+  public countTotalProcess = 0;
   public urlFile = null;
   public form: FormGroup;
+  public processFinish$ = new Subject<any>();
+  public showError = false;
+  public showSuccessful = false;
+  public showErrorAndSuccessful = false;
   @ViewChild('fileUploadOption', {static: false}) inputFileUpload: any;
 
   /**
@@ -53,7 +59,6 @@ export class FinishUploadProductInformationComponent implements AfterViewInit {
   ) {
     this.typeModal = data.type;
     this.response = data.response;
-    console.log(data);
     this.has = this.languageService.instant('secure.products.create_product_unit.specifications.dialog.has');
     this.have = this.languageService.instant('secure.products.create_product_unit.specifications.dialog.have');
     this.errors = this.languageService.instant('secure.products.create_product_unit.specifications.dialog.errors');
@@ -61,10 +66,18 @@ export class FinishUploadProductInformationComponent implements AfterViewInit {
     this.name = this.languageService.instant('secure.products.create_product_unit.list_products.product_name');
     if (data !== undefined && data !== 'undefined' && this.typeModal === 'product') {
       if (data && data.response && data.response.body && data.response.body.data && data.response.body.data.response && data.response.body.data.response.Data !== undefined) {
-        const {Error, Successful, Url} = data.response.body.data.response.Data;
+        const {Error, Successful, Url, TotalProcess} = data.response.body.data.response.Data;
         this.countError = Error;
         this.countSuccessful = Successful;
+        this.countTotalProcess = TotalProcess;
         this.urlFile = Url;
+        if (Error > 0 && Error === TotalProcess && Successful === 0) {
+          this.showError = true;
+        } else if (Successful > 0 && Successful === TotalProcess && Error === 0) {
+          this.showSuccessful = true;
+        } else if (Error > 0 && Successful > 0 && TotalProcess > 0) {
+          this.showErrorAndSuccessful = true;
+        }
       }
     }
     this.createForm();
@@ -147,17 +160,18 @@ export class FinishUploadProductInformationComponent implements AfterViewInit {
 
   onFileChange(evt: any) {
     this.readFileUpload(evt).then(data => {
-      console.log(data);
+      this.processFinish$.next({data: data, evt: evt});
+      this.dialogRef.close(true);
     }, err => {
-      console.log(err);
       this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), this.languageService.instant('actions.accpet_min'), 4000);
+      this.dialogRef.close(true);
     }).catch(err => {
-
+      this.dialogRef.close(true);
+      this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), this.languageService.instant('actions.accpet_min'), 4000);
     });
   }
 
 
-  
   /**
    * Funcionalidad que permite capturar los datos del excel.
    * @param {*} evt

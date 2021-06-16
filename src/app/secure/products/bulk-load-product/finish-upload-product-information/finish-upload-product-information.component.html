@@ -67,21 +67,40 @@
       </div>
     </div>
     <div class="finishUploadProduct-text-align-center">
-      <div class="finishUploadProduct-container-icon-check">
+      <div class="finishUploadProduct-container-icon-check" *ngIf="showErrorAndSuccessful || showSuccessful ">
         <mat-icon class="material-icons finishUploadProduct-icons-white-margin">
           check
         </mat-icon>
       </div>
+      <div class="finishUploadProduct-container-icon-error" *ngIf="showError">
+        <mat-icon class="material-icons finishUploadProduct-icons-white-margin">
+          close
+        </mat-icon>
+      </div>
     </div>
     <div fxLayout="row wrap">
-      <div style="text-align: center; width: 100%; padding: 22px;">
-        <span style="font-size: 18px; font-weight: bold;">¡Bien hecho!</span>
+      <div style="text-align: center; width: 100%; padding: 22px;"  *ngIf="showErrorAndSuccessful || showSuccessful ">
+        <span style="font-size: 18px; font-weight: bold;">{{'secure.products.bulk_upload.modal.succefull.title'| translate}}</span>
+      </div>
+      <div style="text-align: center; width: 100%; padding: 22px;" *ngIf="showError">
+        <span style="font-size: 18px; font-weight: bold;">{{'secure.products.bulk_upload.modal.error.title'| translate}}</span>
       </div>
       <div style="text-align: justify; width: 100%; line-height :
-        25px;padding-left: 110px;padding-right: 110px;">
+        25px;padding-left: 110px;padding-right: 110px;" *ngIf="showSuccessful">
         <span style="color: #989696;">
-          Algunos productos se cargaron con éxito y pasaron a moderación, otros
-          quedan pendientes para corregir, favor corregir e importan nuevamente.
+          {{'secure.products.bulk_upload.modal.succefull.subtitle' | translate}}
+        </span>
+      </div>
+      <div style="text-align: justify; width: 100%; line-height :
+        25px;padding-left: 110px;padding-right: 110px;" *ngIf="showErrorAndSuccessful">
+        <span style="color: #989696;">
+          {{'secure.products.bulk_upload.modal.errorAndSuccefull.subtitle' | translate}}
+        </span>
+      </div>
+      <div style="text-align: justify; width: 100%; line-height :
+        25px;padding-left: 110px;padding-right: 110px;" *ngIf="showError">
+        <span style="color: #989696;">
+          {{'secure.products.bulk_upload.modal.error.subtitle' | translate}}
         </span>
       </div>
     </div>
@@ -106,7 +125,7 @@
       </div>
     </div>
     <div fxLayout="row wrap" style="padding-top: 40px;padding-bottom: 20px;">
-      <div fxFlex="50" style="text-align: end;">
+      <div fxFlex="50" style="text-align: end;" *ngIf="showError || showErrorAndSuccessful">
         <form #filterForm="ngForm" [formGroup]="form">
           <input placeholder="file upload" hidden formControlName="fileUploadOption" name="fileUploadOption"
             type="file" (change)="onFileChange($event)"
@@ -120,7 +139,7 @@
           </button>
         </form>
       </div>
-      <div fxFlex="50" style="padding-left: 10px;">
+      <div fxFlex="50" style="padding-left: 10px;" *ngIf="showError || showErrorAndSuccessful">
         <button mat-raised-button color="primary"
           class="finishUploadProduct-text-transform-uppercase" mat-button
           (click)="uploadFileError(urlFile)">Descargar errores</button>
