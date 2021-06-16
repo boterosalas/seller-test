@@ -106,7 +106,8 @@
     </div>
     <div fxLayout="row wrap">
       <div style="padding-top: 30px;padding-bottom: 30px; padding-left: 110px;">
-        <span style="color: #959595; font-weight: bold;">Conoce más detalles:
+        <span style="color: #959595; font-weight: bold;">
+          {{'secure.products.bulk_upload.modal.errorAndSuccefull.learnMoreDetails' | translate}}
         </span>
       </div>
     </div>
@@ -114,12 +115,12 @@
       <div fxLayout="column" style="padding-left: 110px;">
         <div style="padding-bottom: 10px;">
           <span style="color: #989696;">
-            {{countSuccessful}} Productos pasaron a moderación
+            {{countSuccessful}} {{'secure.products.bulk_upload.modal.errorAndSuccefull.productsWentModeration' | translate}}
           </span>
         </div>
         <div>
           <span style="color: #989696;">
-            {{countError}} Productos tiene errores
+            {{countError}} {{'secure.products.bulk_upload.modal.errorAndSuccefull.productsHaveErrors' | translate}}
           </span>
         </div>
       </div>
@@ -135,14 +136,14 @@
           <button mat-stroked-button color="primary" class="sc-default-button
             finishUploadProduct-text-transform-uppercase" id="load-file-button"
             (click)="fileUploadOption.click()" mat-button>
-            Subir excel
+            {{'secure.products.bulk_upload.modal.errorAndSuccefull.uploadExcel' | translate}}
           </button>
         </form>
       </div>
       <div fxFlex="50" style="padding-left: 10px;" *ngIf="showError || showErrorAndSuccessful">
         <button mat-raised-button color="primary"
           class="finishUploadProduct-text-transform-uppercase" mat-button
-          (click)="uploadFileError(urlFile)">Descargar errores</button>
+          (click)="uploadFileError(urlFile)">{{'secure.products.bulk_upload.modal.errorAndSuccefull.downloadBugs' | translate}}</button>
       </div>
     </div>
   </div>
