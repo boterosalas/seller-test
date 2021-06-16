@@ -538,3 +538,9 @@ body, mat-sidenav-container, .mat-expansion-panel-header,.mat-paginator, .mat-ca
 .container-form {
     margin-top: 20px;
 }
+
+@media only screen and (min-width: 600px) {
+    app-assign-video {
+      width: 35%;
+    }
+  }

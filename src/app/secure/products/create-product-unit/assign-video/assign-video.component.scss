@@ -1,6 +1,6 @@
 .createImagenPU {
     width: 96px;
-    height: 88px;
+    height: 68px;
     color: #D3D3D3;
     border: 1px solid;
     border-radius: 4px;
@@ -11,6 +11,27 @@
 
   .example-full-width {
     width: 90%;
-    margin-top: 4%;
+    margin-top: 1%;
     height: 28px;
+  }
+
+  .comboImage{
+    background:#f3f4f4;
+    border-radius: 5px;
+    border: 1px solid #BCBCBC;
+    padding: 10px;
+  }
+
+  @media screen and (max-width: 600px) {
+    .comboImage{
+      width: 300px;
+    }
+  }
+
+
+  .createImagenPU{
+    img{
+      object-fit: cover;
+      height: 100px;
+    }
   }

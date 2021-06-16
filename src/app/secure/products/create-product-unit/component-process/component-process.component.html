@@ -44,7 +44,7 @@
     
     <ng-template matStepLabel>{{'secure.products.create_product_unit.component_process.images' | translate}}</ng-template>
 
-    <form [formGroup]="videoFormGroup">
+    <form [formGroup]="videoFormGroup" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
       <app-assign-video [detailProduct]="detailProduct"></app-assign-video>
     </form>
 
