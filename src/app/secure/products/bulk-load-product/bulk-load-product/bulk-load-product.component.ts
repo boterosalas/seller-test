@@ -1364,8 +1364,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
             }
           } else if (!variant && variant === false) {
             if (res[i][k] !== null && res[i][k] !== undefined && res[i][k] !== '') {
-              console.log(res);
-              console.log(res[0][k].trim());
               newFeatures['key'] = res[0][k].trim();
               newFeatures['value'] = res[i][k].trim();
               this.validateFeature(res, i, k, iVal, res[i][k].trim(), variant, errorInCell);
