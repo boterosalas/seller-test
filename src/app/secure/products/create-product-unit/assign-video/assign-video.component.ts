@@ -17,6 +17,11 @@ export class AssignVideoComponent implements OnInit {
   public formatVideo =
     "^(https:\\/\\/((m|www)\\.youtube\\.com\\/watch\\?v=|youtu\\.be\\/)[\\s\\S]{11})$";
   _detailProduct: any;
+
+  /**
+   * toma los valores actuales del arreglo y se llena el input con info del back
+   */
+
   @Input() set detailProduct(value: any) {
     if (value !== undefined) {
       this._detailProduct = value;
@@ -44,6 +49,11 @@ export class AssignVideoComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  /**
+   * 
+   * @returns se valida el video (Que exista) y se le pone la img de youtube
+   */
 
   public validateVideo() {
     if (this.createVideo.controls.inputVideo.hasError("pattern")) {
