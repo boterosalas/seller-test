@@ -25,6 +25,7 @@ describe("AssignVideoComponent", () => {
   const mockAssignVideoService = jasmine.createSpyObj("AssignVideoService", [
     "getvalidateVideo",
   ]);
+  const mockComponentsService = jasmine.createSpyObj('ComponentsService', ['openConfirmAlert', 'openSnackBar']);
 
   let dataError = {
     statusCode: 200,
@@ -62,8 +63,8 @@ describe("AssignVideoComponent", () => {
         BrowserAnimationsModule,
       ],
       providers: [
-        ComponentsService,
         EndpointService,
+        { provide: ComponentsService, useValue: mockComponentsService },
         { provide: LoadingService, useValue: mockLoadingService },
         { provide: ProcessService, useValue: mockProcessService },
         { provide: AssignVideoService, useValue: mockAssignVideoService },
