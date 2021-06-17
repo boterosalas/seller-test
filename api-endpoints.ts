@@ -689,9 +689,9 @@ export const endpoints = {
       // Eliminar anuncios
       deleteNotification: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/DeleteNew{params}',
       // Listar anuncios vendedor
-      getAdvertisements :  'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/Dev-SC-News/GetNewsByTarget?totalMax=10',
+      getAdvertisements :  'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/GetNewsByTarget?totalMax=10',
       // Listar anuncios vendedor
-      readAdvertisements :  'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/Dev-SC-News/SetNewsRead'
+      readAdvertisements :  'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/SetNewsRead'
     }
   }
 };
