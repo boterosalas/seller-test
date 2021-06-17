@@ -172,11 +172,11 @@ public getRegexByModule(): void {
       const cellPhone = this.form.controls.cellPhone.value;
       if (cellPhone) {
         this.form.controls.phone.clearValidators();
-        this.form.controls.cellPhone.updateValueAndValidity();
+        this.form.controls.phone.updateValueAndValidity();
       } else {
         this.form.controls.phone.clearValidators();
         this.form.controls.phone.setValidators(Validators.compose([Validators.required]));
-        this.form.controls.cellPhone.updateValueAndValidity();
+        this.form.controls.phone.updateValueAndValidity();
       }
     }
   }
