@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SearchFormEntity } from '@app/shared/models';
 import { ComponentsService } from '@app/shared/services';
 import { ShellComponent } from '@core/shell/shell.component';
@@ -26,12 +26,26 @@ export class SearchOrderFormComponent implements OnInit {
   // Configuración para el formato de fecha
   public locale = 'es-CO';
   // Variable que almacena los datos que se le pueden pasar al formulario
-  @Input() informationToForm: SearchFormEntity;
+
+  public infoDataForm: any;
+  status: any;
+  typeCards: any;
+  @Input() set informationToForm(value: any) {
+    if (value) {
+      this.infoDataForm = value;
+      if (this.myform) {
+        this.getFilterOrderDate();
+      }
+    }
+  }
+
 
   @Input() idSeller: number;
   @Input() typeProfiel: number;
   showFilterStatus = false;
   _state: number;
+  dateInit: any;
+  dateFinal: any;
   @Input() set state(value: number) {
     if (value) {
       if (value.toString() === '170') {
@@ -65,14 +79,18 @@ export class SearchOrderFormComponent implements OnInit {
    */
   constructor(
     public componentsService: ComponentsService,
-    private route: Router,
+    public router: Router,
+    private route: ActivatedRoute,
     public searchOrderMenuService: SearchOrderMenuService,
     private shellComponent: ShellComponent,
     private fb: FormBuilder,
     private userParams: UserParametersService,
     private languageService: TranslateService,
     private loadingService: LoadingService,
-  ) { }
+    public datepipe: DatePipe,
+  ) {
+    this.createForm();
+  }
 
   /**
    * ngOnInit
@@ -81,13 +99,84 @@ export class SearchOrderFormComponent implements OnInit {
   ngOnInit() {
     // Obtengo la información del usuario
     this.getDataUser();
-    this.createForm();
     this.getOrdersStatus();
   }
 
+
+  /**
+   * Metodo para obtener info usuario
+   * @memberof SearchOrderFormComponent
+   */
   async getDataUser() {
     this.user = await this.userParams.getUserData();
   }
+
+
+  /**
+   * Metodo para retornar formato de fecha
+   * @param {*} date
+   * @returns {*}
+   * @memberof SearchOrderFormComponent
+   */
+  public getDate(date: any): any {
+    const day = this.addsZeroDate(date.getDate().toString());
+    const months = this.addsZeroDate((date.getMonth() + 1).toString());
+    const year = date.getFullYear();
+    return year + '-' + months + '-' + day;
+  }
+
+  /**
+   * Metodo para agregar 0 a la fecha si le hace falta
+   * @param {*} param
+   * @returns {*}
+   * @memberof SearchOrderFormComponent
+   */
+  public addsZeroDate(param: any): any {
+    if (param.length < 2) {
+      return '0' + param;
+    }
+    return param;
+  }
+
+  /**
+   * Seteo valores al formulario por parametroSeteo valores al formulario por parametro de la url
+   * @memberof SearchOrderFormComponent
+   */
+  getFilterOrderDate() {
+    this.dateInit = this.infoDataForm ? this.infoDataForm.information.dateInit : null;
+    this.dateFinal = this.infoDataForm ? this.infoDataForm.information.dateFinal : null;
+    this.status = this.infoDataForm ? this.infoDataForm.information.category : null;
+    this.typeCards = this.infoDataForm ? this.infoDataForm.information.type : null;
+    const date1 = this.addOrSubtractDays(new Date(this.dateInit), +1);
+    const date2 = this.addOrSubtractDays(new Date(this.dateFinal), +1);
+    const viewDateInitial = this.getDate(date1);
+    const viewDateFinal = this.getDate(date2);
+
+    this.myform.controls.dateOrderInitial.setValue(viewDateInitial);
+    this.myform.controls.dateOrderFinal.setValue(viewDateFinal);
+
+    if (this.listOrderStatus && this.typeCards) {
+      this.listOrderStatus.forEach(el => {
+        if (Number(this.typeCards) === 3 && el.idStatusOrder === 60) {
+          this.myform.controls.idStatusOrder.setValue(el.idStatusOrder.toString());
+        }
+      });
+    }
+  }
+
+  /**
+   * Sumar 1 dia a la fecha para pintar
+   * @param {*} date
+   * @param {*} days
+   * @returns
+   * @memberof SearchOrderFormComponent
+   */
+  addOrSubtractDays(date: any, days: any) {
+    date.setDate(date.getDate() + days);
+    return date;
+  }
+
+
   /**
    * Método para crear el formulario
    * @memberof SearchOrderFormComponent
@@ -115,6 +204,13 @@ export class SearchOrderFormComponent implements OnInit {
     this.myform.reset();
     this.shellComponent.eventEmitterOrders.getClear();
     this.shellComponent.sidenavSearchOrder.toggle();
+    if (this.infoDataForm && this.infoDataForm.information.status === '35') {
+      this.router.navigate(['securehome/seller-center/ordenes/estado/35', {}]);
+    } else if (this.infoDataForm && this.infoDataForm.information.status === '170') {
+      this.router.navigate(['securehome/seller-center/ordenes/estado/170', {}]);
+    } else {
+      this.router.navigate(['securehome/seller-center/ordenes']);
+    }
   }
 
   /**

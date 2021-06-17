@@ -1,9 +1,7 @@
-<div fxLayout="row wrap" class="toolbar-orders-options-table"
-  fxLayoutAlign="space-between center">
+<div fxLayout="row wrap" class="toolbar-orders-options-table" fxLayoutAlign="space-between center">
   <div fxFlex class="toolbar-options">
     <div class="normal-theme" *ngIf="informationToForm">
-      <button mat-button color="primary" fxShow.xs="true" fxShow.sm="true"
-        fxShow.md="false" fxShow="true"
+      <button mat-button color="primary" fxShow.xs="true" fxShow.sm="true" fxShow.md="false" fxShow="true"
         class="sc-title title-toolbar" (click)="getOrdersList($event)">
         <p>{{informationToForm.title | translate}}
           <small class="sub-title"><span class="bar">| </span>{{informationToForm.subtitle
@@ -12,29 +10,24 @@
       </button>
     </div>
   </div>
-  <div fxFlex fxShow.xs="true" fxLayoutAlign="center start"
-    class="center-search-orden" *ngIf="!_showContainerDetail">
+  <div fxFlex fxShow.xs="true" fxLayoutAlign="center start" class="center-search-orden" *ngIf="!_showContainerDetail">
     <div *ngIf="_Typeprofile == 1" class="width-100">
       <form id="search-store-form" class="search-store mat-typography width-100-important"
-         (keydown)="keyDownFunction($event)">
+        (keydown)="keyDownFunction($event)">
         <mat-form-field class="input-search">
           <!-- Icon search -->
           <mat-icon id="icon-search-store" class="icon-search" matPrefix>search</mat-icon>
           <!-- Input search -->
           <input id="input-search-store" class="search-store-input
-            input-search-black" type="search"
-            (ngModelChange)="whatchValueInput($event)" matInput
+            input-search-black" type="search" (ngModelChange)="whatchValueInput($event)" matInput
             [formControl]="textForSearch" [matAutocomplete]="auto">
         </mat-form-field>
 
         <!-- Autocomplete -->
-        <mat-autocomplete autoActiveFirstOption class="auto-complete"
-          #auto="matAutocomplete">
-          <mat-option id="option-search-store-number-{{position}}"
-            (click)="viewStoreInformation(option)"
+        <mat-autocomplete autoActiveFirstOption class="auto-complete" #auto="matAutocomplete">
+          <mat-option id="option-search-store-number-{{position}}" (click)="viewStoreInformation(option)"
             class="autocomplete-list" *ngFor="let option of filteredOptions |
-            async; let position= index"
-            [value]="option.Name">
+            async; let position= index" [value]="option.Name">
             <mat-icon>store</mat-icon>
             {{option.Name}}
           </mat-option>
@@ -42,29 +35,24 @@
       </form>
     </div>
   </div>
-  <div fxFlex fxShow.xs="true" fxLayoutAlign="center start"
-    class="center-search-orden" *ngIf="_showSearchSeller">
+  <div fxFlex fxShow.xs="true" fxLayoutAlign="center start" class="center-search-orden" *ngIf="_showSearchSeller">
     <div *ngIf="_Typeprofile == 1" class="width-100">
       <form id="search-store-form" class="search-store mat-typography width-100-important"
-         (keydown)="keyDownFunction($event)">
+        (keydown)="keyDownFunction($event)">
         <mat-form-field class="input-search">
           <!-- Icon search -->
           <mat-icon id="icon-search-store" class="icon-search" matPrefix>search</mat-icon>
           <!-- Input search -->
           <input id="input-search-store" class="search-store-input
-            input-search-black" type="search"
-            (ngModelChange)="whatchValueInput($event)" matInput
+            input-search-black" type="search" (ngModelChange)="whatchValueInput($event)" matInput
             [formControl]="textForSearch" [matAutocomplete]="auto">
         </mat-form-field>
 
         <!-- Autocomplete -->
-        <mat-autocomplete autoActiveFirstOption class="auto-complete"
-          #auto="matAutocomplete">
-          <mat-option id="option-search-store-number-{{position}}"
-            (click)="viewStoreInformation(option)"
+        <mat-autocomplete autoActiveFirstOption class="auto-complete" #auto="matAutocomplete">
+          <mat-option id="option-search-store-number-{{position}}" (click)="viewStoreInformation(option)"
             class="autocomplete-list" *ngFor="let option of filteredOptions |
-            async; let position= index"
-            [value]="option.Name">
+            async; let position= index" [value]="option.Name">
             <mat-icon>store</mat-icon>
             {{option.Name}}
           </mat-option>
@@ -74,132 +62,112 @@
   </div>
   <div fxFlex.xs="100" fxFlex.sm="300px" fxFlex fxLayoutAlign="end start">
     <div [hidden]="_showContainerDetail">
-      <mat-paginator [ngClass]="{'hidden-pagination': orderListLength == true}"
-      class="order-pagination" fxFlex.xs="100%"
-      fxFlex.sm="300px" fxFlex.md="auto" fxFlex.lg="400px" fxFlex.xl="400px"
-      class="paginator-style orders-paginate"
-      itemsPerPageLabel="" #paginator
-      [length]="lengthOrder" [pageSizeOptions]="limitPaginate" (page)="pageEvent=
+      <mat-paginator [ngClass]="{'hidden-pagination': orderListLength == true}" class="order-pagination"
+        fxFlex.xs="100%" fxFlex.sm="300px" fxFlex.md="auto" fxFlex.lg="400px" fxFlex.xl="400px"
+        class="paginator-style orders-paginate" itemsPerPageLabel="" #paginator [length]="lengthOrder"
+        [pageSizeOptions]="limitPaginate" (page)="pageEvent=
       changePaginatorOrdens($event)">
-    </mat-paginator>
-    <div fxLayout="row" class="center-product-list">
-      <div fxFlex="20px" fxShow.xs="true" fxShow.sm="true" fxShow.md="true" fxShow.lg="false" fxShow.xl="false">
-        <button id="more-options-for-search-orden" class="button-toolbar
-        margin-toolbar-aling" mat-icon-button *ngIf="!billingType"
-        [matMenuTriggerFor]="toolbarOptions">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-      <mat-menu #toolbarOptions="matMenu">
-        <div class="options-dropdwon">
-          <button id="close-more-options-for-search-orden" color="primary"
-            mat-icon-button matSuffix>
-            <mat-icon>close</mat-icon>
+      </mat-paginator>
+      <div fxLayout="row" class="center-product-list">
+        <div fxFlex="20px" fxShow.xs="true" fxShow.sm="true" fxShow.md="true" fxShow.lg="false" fxShow.xl="false">
+          <button id="more-options-for-search-orden" class="button-toolbar
+        margin-toolbar-aling" mat-icon-button *ngIf="!billingType" [matMenuTriggerFor]="toolbarOptions">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #toolbarOptions="matMenu">
+            <div class="options-dropdwon">
+              <button id="close-more-options-for-search-orden" color="primary" mat-icon-button matSuffix>
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+            <button id="search-order-button" *ngIf="!btnFilter" (click)="toggleMenuOrderSearch()" mat-menu-item>
+              <mat-icon>filter_list</mat-icon>
+              <span class="acction-text">{{'filters.filter' | translate}}</span>
+            </button>
+            <button id="search-order-button" *ngIf="btnFilter" (click)="toggleFilterGeneric()" mat-menu-item>
+              <mat-icon>filter_list</mat-icon>
+              <span class="acction-text">{{'filters.filter' | translate}}</span>
+            </button>
+            <button [disabled]="orderListLength" *ngIf="_Typeprofile == 0" (click)="openModalDownloadOrder()"
+              class="acction-text" id="download-order-button" mat-menu-item>
+              <mat-icon>file_download</mat-icon>
+              <span>{{'actions.download' | translate}}</span>
+            </button>
+            <mat-form-field class="selectPageSize">
+              <mat-select id="select-number-page-size" (click)="stopPropagation($event)" placeholder="Items por pagina"
+                [(ngModel)]="pageSizeOrder" (ngModelChange)="changeSizeOrderTable()">
+                <mat-option value="5">5</mat-option>
+                <mat-option value="10">10</mat-option>
+                <mat-option value="20">20</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="options-dropdwon">
+              <button id="close-more-options-for-search-orden" color="primary" mat-button matSuffix>
+                Cerrar
+              </button>
+            </div>
+          </mat-menu>
+        </div>
+        <div class="btn-generic-margin-top-10">
+          <button *ngIf="btnDownload" (click)="openModalDownloadGeneric()" fxShow.xs="false" fxShow.sm="false"
+            fxShow.md="false" fxShow="true" fxFlex="160px" class="sc-default-button
+        btn-filter input-search-black" id="download-pay-button" mat-button color="primary">
+            <mat-icon>file_download</mat-icon>
+            {{'actions.download' | translate}}
+          </button>
+
+          <button fxShow.xs="false" *ngIf="btnFilter" fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button btn-filter
+        input-search-black" id="search-order-button" (click)="toggleFilterGeneric()" mat-button color="primary">
+            <mat-icon>filter_list</mat-icon>
+            {{'filters.filter' | translate}}
           </button>
         </div>
-        <button id="search-order-button" *ngIf="!btnFilter" (click)="toggleMenuOrderSearch()"
-          mat-menu-item>
-          <mat-icon>filter_list</mat-icon>
-          <span class="acction-text">{{'filters.filter' | translate}}</span>
-        </button>
-        <button id="search-order-button" *ngIf="btnFilter" (click)="toggleFilterGeneric()"
-          mat-menu-item>
-          <mat-icon>filter_list</mat-icon>
-          <span class="acction-text">{{'filters.filter' | translate}}</span>
-        </button>
-        <button [disabled]="orderListLength" *ngIf="_Typeprofile == 0"
-          (click)="openModalDownloadOrder()" class="acction-text"
-          id="download-order-button" mat-menu-item>
-          <mat-icon>file_download</mat-icon>
-          <span>{{'actions.download' | translate}}</span>
-        </button>
-        <mat-form-field class="selectPageSize">
-          <mat-select id="select-number-page-size"
-            (click)="stopPropagation($event)" placeholder="Items por pagina"
-            [(ngModel)]="pageSizeOrder"
-            (ngModelChange)="changeSizeOrderTable()">
-            <mat-option value="5">5</mat-option>
-            <mat-option value="10">10</mat-option>
-            <mat-option value="20">20</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <div class="options-dropdwon">
-          <button id="close-more-options-for-search-orden" color="primary"
-            mat-button matSuffix>
-            Cerrar
-          </button>
-        </div>
-      </mat-menu>
       </div>
-      <div class="btn-generic-margin-top-10">
-        <button *ngIf="btnDownload" (click)="openModalDownloadGeneric()"
-        fxShow.xs="false" fxShow.sm="false"
+      <button [disabled]="orderListLength" (click)="openModalDownloadOrder()" fxShow.xs="false" fxShow.sm="false"
         fxShow.md="false" fxShow="true" fxFlex="160px" class="sc-default-button
-        btn-filter input-search-black"
-        id="download-pay-button"
-        mat-button color="primary">
+      btn-filter input-search-black top-11-btn-generic" id="download-order-button" mat-button color="primary"
+        *ngIf="!billingType && downloadPermission">
+        <mat-icon>file_download</mat-icon>
+        {{'actions.download' | translate}}
+      </button>
+      <button [disabled]="orderListLength" (click)="openModalDownloadBillPay()" fxShow.xs="false" fxShow.sm="false"
+        fxShow.md="false" fxShow="true" fxFlex="160px" class="sc-default-button
+      btn-filter input-search-black top-11-btn-generic" id="download-pay-button" mat-button color="primary"
+        *ngIf="downloadBillingPay">
         <mat-icon>file_download</mat-icon>
         {{'actions.download' | translate}}
       </button>
 
-      <button fxShow.xs="false" *ngIf="btnFilter" fxShow.sm="false"
-        fxShow.md="false" fxShow="true" class="sc-default-button btn-filter
-        input-search-black"
-        id="search-order-button" (click)="toggleFilterGeneric()" mat-button
+      <button fxShow.xs="false" *ngIf="_Typeprofile == 1 &&
+      !customerFilterCalifications && !billingType" [disabled]="idSeller?
+      'false': 'true'" fxShow.sm="false" fxShow.md="false" fxShow="true"
+        class="sc-default-button btn-filter input-search-black top-11-btn-generic" id="search-order-button"
+        (click)="toggleMenuOrderSearch()" mat-button color="primary">
+        <mat-icon>filter_list</mat-icon>
+        {{'filters.filter' | translate}}
+      </button>
+      <!-- filter for califications-->
+      <button fxShow.xs="false" *ngIf="_Typeprofile == 1 &&
+      customerFilterCalifications" [disabled]="idSeller? 'false': 'true'" fxShow.sm="false" fxShow.md="false"
+        fxShow="true" class="sc-default-button
+      btn-filter input-search-black top-11-btn-generic" id="search-order-button" (click)="toggleMenuCalifications()"
+        mat-button color="primary">
+        <mat-icon>filter_list</mat-icon>
+        {{'filters.filter' | translate}}
+      </button>
+      <button fxShow.xs="false" *ngIf="_Typeprofile == 3 && showBtn" fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button btn-filter
+      input-search-black top-11-btn-generic" id="search-order-button" (click)="toggleMenuCalifications()" mat-button
         color="primary">
         <mat-icon>filter_list</mat-icon>
         {{'filters.filter' | translate}}
       </button>
-      </div>
-    </div>
-    <button [disabled]="orderListLength" (click)="openModalDownloadOrder()"
-      fxShow.xs="false" fxShow.sm="false"
-      fxShow.md="false" fxShow="true" fxFlex="160px" class="sc-default-button
-      btn-filter input-search-black top-11-btn-generic" 
-      id="download-order-button"
-      mat-button color="primary" *ngIf="!billingType && downloadPermission">
-      <mat-icon>file_download</mat-icon>
-      {{'actions.download' | translate}}
-    </button>
-    <button [disabled]="orderListLength" (click)="openModalDownloadBillPay()"
-      fxShow.xs="false" fxShow.sm="false"
-      fxShow.md="false" fxShow="true" fxFlex="160px" class="sc-default-button
-      btn-filter input-search-black top-11-btn-generic" id="download-pay-button"
-      mat-button color="primary" *ngIf="downloadBillingPay">
-      <mat-icon>file_download</mat-icon>
-      {{'actions.download' | translate}}
-    </button>
-
-    <button fxShow.xs="false" *ngIf="_Typeprofile == 1 &&
-      !customerFilterCalifications && !billingType" [disabled]="idSeller?
-      'false': 'true'" fxShow.sm="false" fxShow.md="false" fxShow="true"
-      class="sc-default-button btn-filter input-search-black top-11-btn-generic"
-      id="search-order-button" (click)="toggleMenuOrderSearch()"  mat-button color="primary">
-      <mat-icon>filter_list</mat-icon>
-      {{'filters.filter' | translate}}
-    </button>
-    <!-- filter for califications-->
-    <button fxShow.xs="false" *ngIf="_Typeprofile == 1 &&
-      customerFilterCalifications" [disabled]="idSeller? 'false': 'true'"
-      fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button
-      btn-filter input-search-black top-11-btn-generic"
-      id="search-order-button" (click)="toggleMenuCalifications()"  mat-button color="primary">
-      <mat-icon>filter_list</mat-icon>
-      {{'filters.filter' | translate}}
-    </button>
-    <button fxShow.xs="false" *ngIf="_Typeprofile == 3"fxShow.sm="false"
-      fxShow.md="false" fxShow="true" class="sc-default-button btn-filter
-      input-search-black top-11-btn-generic"
-      id="search-order-button" (click)="toggleMenuCalifications()"  mat-button color="primary">
-      <mat-icon>filter_list</mat-icon>
-      {{'filters.filter' | translate}}
-    </button>
-    <button fxShow.xs="false" *ngIf="_Typeprofile == 0 && !billingType"
-      fxShow.sm="false" fxShow.md="false" fxShow="true" class="sc-default-button
-      btn-filter input-search-black top-11-btn-generic"
-      id="search-order-button" (click)="toggleMenuOrderSearch()"  mat-button color="primary">
-      <mat-icon>filter_list</mat-icon>
-      {{'filters.filter' | translate}}
-    </button>
+      <button fxShow.xs="false" *ngIf="_Typeprofile == 0 && !billingType" fxShow.sm="false" fxShow.md="false"
+        fxShow="true" class="sc-default-button
+      btn-filter input-search-black top-11-btn-generic" id="search-order-button" (click)="toggleMenuOrderSearch()"
+        mat-button color="primary">
+        <mat-icon>filter_list</mat-icon>
+        {{'filters.filter' | translate}}
+      </button>
     </div>
   </div>
 </div>
