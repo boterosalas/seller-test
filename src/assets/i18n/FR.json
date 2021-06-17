@@ -1165,6 +1165,7 @@
     "secure.products.create_product_unit.list_products.please_wait" : "Loading, wait please ...",
     "secure.products.create_product_unit.list_products.ofert_product.update_variants": "Inventory update to all variations",
     "secure.products.create_product_unit.list_products.ofert_product.update_variants_all_references": "The INVENTORY will be updated for all variations of the same Parent Reference",
+    "secure.products.create_product_unit.video": "Vidéo du produit : Si votre produit a une vidéo au format Youtube, vous pouvez entrer une (1) vidéo par produit, le lien est reçu du navigateur ou de Youtube APP. Ce champ est facultatif, il vise à enrichir le contenu de votre produit.",
 
 
     "secure.products.list_products.modal.title": "This offer undergoes an extreme price change, do you wish to continue?",

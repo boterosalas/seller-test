@@ -43,10 +43,12 @@
   <mat-step [stepControl]="imageFormGroup" [completed] ="ean">
     
     <ng-template matStepLabel>{{'secure.products.create_product_unit.component_process.images' | translate}}</ng-template>
-
+    <p class="textgray">{{'secure.products.create_product_unit.video' | translate}}</p>
     <form [formGroup]="videoFormGroup" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
       <app-assign-video [detailProduct]="detailProduct"></app-assign-video>
     </form>
+
+    <hr class="hrmar"/>
 
     <form [formGroup]="imageFormGroup">
       <app-assign-images [detailProduct]="detailProduct" [children]="children_created"></app-assign-images>
