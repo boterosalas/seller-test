@@ -1,7 +1,9 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import { ShellModule } from "@app/core/shell/shell.module";
 import { MaterialModule } from "@app/material.module";
 import { TranslateModule } from "@ngx-translate/core";
+import { SellerSupportCenterModule } from "../seller-support-center.module";
 
 import { InfoModalSupportComponent } from "./info-modal-support.component";
 
@@ -12,6 +14,7 @@ describe("InfoModalSupportComponent", () => {
   const mockDialog = jasmine.createSpyObj("MatDialogRef", [
     "open, close, afterClosed",
   ]);
+
   let data = {
     dataProduct: {
       imageUrl: "https://image.test",
@@ -23,12 +26,21 @@ describe("InfoModalSupportComponent", () => {
       price: "10000",
       quantity: 1,
     },
+    area: {
+      Traduction: 'Eng',
+    },
+    language: 'ESP'
   };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [InfoModalSupportComponent],
-      imports: [MaterialModule, TranslateModule.forRoot({})],
+      declarations: [],
+      imports: [
+        SellerSupportCenterModule,
+        MaterialModule,
+        TranslateModule.forRoot(),
+        ShellModule
+      ],
       providers: [
         { provide: MatDialogRef, useValue: mockDialog },
         { provide: MAT_DIALOG_DATA, useValue: data },

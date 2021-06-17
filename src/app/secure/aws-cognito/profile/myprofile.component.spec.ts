@@ -33,7 +33,7 @@ describe('MyProfileComponent', () => {
 
     const responseAllContactData = {
         body: {
-            boyd: '{"Message":"OK","Errors":[],"Data":[{"Id":0,"NameList":"Gerente General","ContactName":"Marcador","Role":"suplentes","Email":"israel@pragma.co","Cellphone":"8797698689","Phone":"980090","IdSeller":0,"SellerName":null,"CreationDate":"2021-05-31T16:32:09.185+00:00","Traduction":"Gerente General"}],"SellerId":null}',
+            body: '{"Message":"OK","Errors":[],"Data":[{"Id":0,"NameList":"Gerente General","ContactName":"Marcador","Role":"suplentes","Email":"israel@pragma.co","Cellphone":"8797698689","Phone":"980090","IdSeller":0,"SellerName":null,"CreationDate":"2021-05-31T16:32:09.185+00:00","Traduction":"Gerente General"}],"SellerId":null}',
             isBase64Encoded: false,
             statusCode: 200
         },
@@ -128,7 +128,6 @@ describe('MyProfileComponent', () => {
                 EventEmitterOrders,
                 CognitoUtil
             ],
-            schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
         }).compileComponents();
     }));
 
