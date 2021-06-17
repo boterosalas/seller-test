@@ -14,7 +14,7 @@ import { LoadingService } from '@app/core';
 export class ModalContactPerfilComponent implements OnInit {
 
   public form: FormGroup;
-  ContactRegex = { integerNumber: '' };
+  ContactRegex = { integerNumber: '', email : '' };
   public processFinishModalContactProfiel$ = new Subject<any>();
   public success = false;
 
@@ -25,7 +25,6 @@ export class ModalContactPerfilComponent implements OnInit {
     public dialogRef: MatDialogRef<ModalContactPerfilComponent>,
     private loadingService: LoadingService,
   ) {
-    
   }
 
   ngOnInit() {
@@ -59,9 +58,9 @@ public getRegexByModule(): void {
       translate: new FormControl(''),
       contactName: new FormControl('', [Validators.required]),
       role: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.ContactRegex.email)])),
       cellPhone: new FormControl('', Validators.compose([Validators.pattern(this.ContactRegex.integerNumber)])),
-      phone: new FormControl('', Validators.compose([Validators.pattern(this.ContactRegex.integerNumber)]))
+      phone: new FormControl('')
     });
     if (this.form) {
       this.form.controls.translate.setValue(this.data.contact.Traduction);

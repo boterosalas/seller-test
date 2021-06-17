@@ -59,6 +59,9 @@
               translate"
               class="modal-export-to-reclaim-text-uppercase"
               [errorStateMatcher]="matcher" formControlName="email">
+              <mat-error *ngIf="form.get('email').hasError('pattern')">{{'errors.format_invalidate'
+                | translate}}
+              </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -89,7 +92,7 @@
               class="modal-export-to-reclaim-text-uppercase"
               (focusout)="validateOutFocus_Phone()"
               [errorStateMatcher]="matcher" formControlName="phone"
-              maxlength="12">
+              maxlength="30">
             <mat-error *ngIf="form.get('phone').hasError('pattern')">{{'errors.format_invalidate'
               | translate}}
             </mat-error>
