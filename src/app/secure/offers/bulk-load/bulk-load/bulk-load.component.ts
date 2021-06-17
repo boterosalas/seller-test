@@ -52,6 +52,7 @@ export const OFFERS_HEADERS_ACTIALIZACION_INVENTARIO = 'Actualizacion de Inventa
 export const OFFERS_HEADERS_UPDATE_STOCK = 'Inventory Update';
 export const OFFERS_HEADERS_UPDATE_STOCK_FR = 'Mise à Jour du Stock';
 export const OFFERS_HEADERS_EAN_COMBO = 'Combo EAN';
+export const OFFERS_HEADERS_EAN_COMBO_ES = 'Ean combo';
 export const OFFERS_HEADERS_CANTIDAD_COMBO = 'Cantidad en combo';
 export const OFFERS_HEADERS_AMOUNT_COMBO = 'Quantity in combo';
 export const OFFERS_HEADERS_AMOUNT_COMBO_FR = 'Bundle stock';
@@ -342,6 +343,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             res[0][j] === OFFERS_HEADERS_ACTIALIZACION_INVENTARIO ||
             res[0][j] === OFFERS_HEADERS_UPDATE_STOCK ||
             res[0][j] === OFFERS_HEADERS_EAN_COMBO ||
+            res[0][j] === OFFERS_HEADERS_EAN_COMBO_ES ||
             res[0][j] === OFFERS_HEADERS_CANTIDAD_COMBO ||
             res[0][j] === OFFERS_HEADERS_AMOUNT_COMBO ||
             res[0][j] === OFFERS_HEADERS_MONEDA ||
