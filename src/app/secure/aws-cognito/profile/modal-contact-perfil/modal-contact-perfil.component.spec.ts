@@ -16,6 +16,7 @@ import { of } from 'rxjs';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { ModalContactPerfilComponent } from './modal-contact-perfil.component';
 import { MyProfileService } from '../myprofile.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 describe('ModalContactPerfilComponent', () => {
 
@@ -27,14 +28,27 @@ describe('ModalContactPerfilComponent', () => {
     const mockDialogError = jasmine.createSpyObj('ModalService', ['showModal']);
     const mockAuthService = jasmine.createSpyObj('AuthService', ['getMenu']);
 
-
-
     let component: ModalContactPerfilComponent;
     let fixture: ComponentFixture<ModalContactPerfilComponent>;
 
+    const mockDialog = jasmine.createSpyObj("MatDialogRef", [
+        "open, close, afterClosed",
+      ]);
+
+    let data = {
+        contact: {
+            Traduction:'',
+            ContactName:'',
+            Role:'',
+            Email:'',
+            Cellphone:'',
+            Phone:''
+        }
+      };
+
     const responseAllContactData = {
         body: {
-            boyd: '{"Message":"OK","Errors":[],"Data":[{"Id":0,"NameList":"Gerente General","ContactName":"Marcador","Role":"suplentes","Email":"israel@pragma.co","Cellphone":"8797698689","Phone":"980090","IdSeller":0,"SellerName":null,"CreationDate":"2021-05-31T16:32:09.185+00:00","Traduction":"Gerente General"}],"SellerId":null}',
+            body: '{"Message":"OK","Errors":[],"Data":[{"Id":0,"NameList":"Gerente General","ContactName":"Marcador","Role":"suplentes","Email":"israel@pragma.co","Cellphone":"8797698689","Phone":"980090","IdSeller":0,"SellerName":null,"CreationDate":"2021-05-31T16:32:09.185+00:00","Traduction":"Gerente General"}],"SellerId":null}',
             isBase64Encoded: false,
             statusCode: 200
         },
@@ -124,6 +138,8 @@ describe('ModalContactPerfilComponent', () => {
                 { provide: MyProfileService, useValue: mockMyProfielService },
                 { provide: SupportService, useValue: mockSupportService },
                 { provide: AuthService, useValue: mockAuthService },
+                { provide: MatDialogRef, useValue: mockDialog },
+                { provide: MAT_DIALOG_DATA, useValue: data },
                 ShellComponent,
                 ComponentsService,
                 EventEmitterOrders,
@@ -149,37 +165,84 @@ describe('ModalContactPerfilComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+
     afterAll(() => {
         TestBed.resetTestingModule();
     });
+
 });
 
+// import { HttpClientModule } from "@angular/common/http";
+// import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+// import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+// import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+// import { RouterTestingModule } from "@angular/router/testing";
+// import { LoadingService } from "@app/core";
+// import { MaterialModule } from "@app/material.module";
+// import { SupportService } from "@app/secure/support-modal/support.service";
+// import { SharedModule } from "@app/shared/shared.module";
+// import { of } from "rxjs";
+// import { MyProfileService } from "../myprofile.service";
 
+// import { ModalContactPerfilComponent } from "./modal-contact-perfil.component";
 
-
-
-// import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-// import { ModalContactPerfilComponent } from './modal-contact-perfil.component';
-
-// describe('ModalContactPerfilComponent', () => {
+// describe("ModalContactPerfilComponent", () => {
 //   let component: ModalContactPerfilComponent;
 //   let fixture: ComponentFixture<ModalContactPerfilComponent>;
 
+//   const mockMyProfielService = jasmine.createSpyObj('MyProfileService', ['getUser', 'getAllContactData', 'createContactData', 'updateContactData']);
+//   const mockSupportService = jasmine.createSpyObj('SupportService', ['getRegexFormSupport']);
+//   const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
+
+//       const reponseSYNC = {
+//         body: {
+//             body: '{"Message":"OK","Errors":[],"Data":{"IdSeller":1,"Name":"Madrid Emperador","DaneCode":"12345670","Address":null,"GotoExito":false,"GotoCarrulla":false,"GotoCatalogo":false,"IsShippingExito":true,"IsLogisticsExito":true,"Nit":"54813456222","Email":"avecesar@emperador.com","Status":"Enable","StartVacations":"0001-01-01T00:00:00","EndVacations":"0001-01-01T00:00:00","City":"","Country":null,"Payoneer":null,"DaneCodesNonCoverage":null,"Profile":"administrator","IdDispatchPort":0},"SellerId":null}',
+//             isBase64Encoded: false,
+//             statusCode: 200,
+//         }
+//     };
+
+//         const respondeRegex = {
+//         body: {
+//             body: '{"Errors":[],"Data":[],"Message":""}',
+//             isBase64Encoded: false,
+//             statusCode: 200
+//         },
+//         ok: true,
+//         status: 200,
+//         statusText: 'OK',
+//         type: 4
+//     };
+
 //   beforeEach(async(() => {
 //     TestBed.configureTestingModule({
-//       declarations: [ ModalContactPerfilComponent ]
-//     })
-//     .compileComponents();
+//       declarations: [ModalContactPerfilComponent],
+//       imports: [
+//         MaterialModule,
+//         ReactiveFormsModule,
+//         FormsModule,
+//         RouterTestingModule,
+//         BrowserAnimationsModule,
+//         HttpClientModule,
+//         SharedModule,
+//       ],
+//       providers:[
+//         { provide: MyProfileService, useValue: mockMyProfielService },
+//         { provide: SupportService, useValue: mockSupportService },
+//         { provide: LoadingService, useValue: mockLoadingService },
+//       ]
+//     }).compileComponents();
 //   }));
 
 //   beforeEach(() => {
 //     fixture = TestBed.createComponent(ModalContactPerfilComponent);
 //     component = fixture.componentInstance;
+//     mockMyProfielService.getUser.and.returnValue(of(reponseSYNC));
+//     mockSupportService.getRegexFormSupport.and.returnValue(of(respondeRegex));
 //     fixture.detectChanges();
 //   });
 
-//   it('should create', () => {
+//   it("should create", () => {
 //     expect(component).toBeTruthy();
 //   });
 // });
