@@ -14,7 +14,7 @@ import { LoadingService } from '@app/core';
 export class ModalContactPerfilComponent implements OnInit {
 
   public form: FormGroup;
-  ContactRegex = { integerNumber: '' };
+  ContactRegex = { integerNumber: '', email : '' };
   public processFinishModalContactProfiel$ = new Subject<any>();
   public success = false;
 
@@ -25,7 +25,6 @@ export class ModalContactPerfilComponent implements OnInit {
     public dialogRef: MatDialogRef<ModalContactPerfilComponent>,
     private loadingService: LoadingService,
   ) {
-    
   }
 
   ngOnInit() {
@@ -59,9 +58,9 @@ public getRegexByModule(): void {
       translate: new FormControl(''),
       contactName: new FormControl('', [Validators.required]),
       role: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      cellPhone: new FormControl('', Validators.compose([Validators.pattern(this.ContactRegex.integerNumber)])),
-      phone: new FormControl('', Validators.compose([Validators.pattern(this.ContactRegex.integerNumber)]))
+      email: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.ContactRegex.email)])),
+      cellPhone: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.ContactRegex.integerNumber)])),
+      phone: new FormControl('')
     });
     if (this.form) {
       this.form.controls.translate.setValue(this.data.contact.Traduction);
@@ -103,7 +102,7 @@ public getRegexByModule(): void {
       ContactName: contactName ? contactName.replace(/\b\w/g, l => l.toUpperCase()) : null,
       Email: this.form.controls.email.value,
       NameList: this.valiteResponsable(this.form.controls.translate.value),
-      Phone: this.form.controls.phone.value ? parseInt(this.form.controls.phone.value, 0) : null,
+      Phone: this.form.controls.phone.value ? this.form.controls.phone.value : null,
       Role: this.form.controls.role.value,
     };
     return params;
@@ -173,10 +172,11 @@ public getRegexByModule(): void {
       const cellPhone = this.form.controls.cellPhone.value;
       if (cellPhone) {
         this.form.controls.phone.clearValidators();
-        this.form.controls.phone.setValidators(Validators.compose([Validators.pattern(this.ContactRegex.integerNumber)]));
+        this.form.controls.phone.updateValueAndValidity();
       } else {
         this.form.controls.phone.clearValidators();
         this.form.controls.phone.setValidators(Validators.compose([Validators.required]));
+        this.form.controls.phone.updateValueAndValidity();
       }
     }
   }
@@ -191,9 +191,11 @@ public getRegexByModule(): void {
       if (phone) {
         this.form.controls.cellPhone.clearValidators();
         this.form.controls.cellPhone.setValidators(Validators.compose([Validators.pattern(this.ContactRegex.integerNumber)]));
+        this.form.controls.cellPhone.updateValueAndValidity();
       } else {
         this.form.controls.cellPhone.clearValidators();
         this.form.controls.cellPhone.setValidators(Validators.compose([Validators.required, Validators.pattern(this.ContactRegex.integerNumber)]));
+        this.form.controls.cellPhone.updateValueAndValidity();
       }
     }
   }
