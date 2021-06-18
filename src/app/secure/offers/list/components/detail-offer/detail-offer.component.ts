@@ -316,6 +316,7 @@ export class DetailOfferComponent implements OnInit {
    * @memberof DetailOfferComponent
    */
   createValidators() {
+    console.log(this.dataOffer);
     let priceCurrent = '';
     if (this.dataOffer.discountPrice !== '0.00') {
       priceCurrent = this.dataOffer.discountPrice;

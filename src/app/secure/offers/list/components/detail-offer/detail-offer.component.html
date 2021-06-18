@@ -1,9 +1,11 @@
 <div style="padding: 70px 25px 25px 25px;">
   <div fxLayout="row">
     <div fxFlex="40">
-      <button class="btn-back" style="width: auto; height: auto;" mat-icon-button (click)="goToListOffers()">
+      <button class="btn-back" style="width: auto; height: auto; color:
+        #9c9c9c;" mat-icon-button (click)="goToListOffers()">
         <mat-icon>arrow_back</mat-icon>
-        <small class="sub-title-back">Volver al listado de ofertas</small>
+        <small class="sub-title-back" style="font-size: 14px;">Volver al listado
+          de ofertas</small>
       </button>
     </div>
     <div fxFlex="60">
@@ -12,7 +14,8 @@
           translate" matTooltipPosition="below"
           mat-icon-button mat-button (click)="editOffer()" *ngIf="!isUpdateOffer
           && isUpdateOffer === false && canEdit">
-          <mat-icon class="flexbox align-center justify-center">edit</mat-icon>
+          <mat-icon class="flexbox align-center justify-center" style="color:
+            #909090;">edit</mat-icon>
         </button>
         <button type="button" color="primary" [matTooltip]="'actions.cancel' |
           translate" matTooltipPosition="below"
@@ -23,12 +26,107 @@
       </div>
     </div>
   </div>
-  <div  fxLayout="row">
+  <div fxLayout="row">
     <div fxFlex="40" class="max-height">
-      <img [src]="dataOffer.imageUrl" alt="" style="max-width: 70%; min-width: 60%;">
+      <div>
+        <div class="sold-out flexbox justify-center align-center">
+          <div class="flexbox justify-center align-center">
+            <p style="color: red; font-weight: bold; font-size: 14px;">{{'secure.offers.list.list.with_out_stock'
+              | translate}}</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <img [src]="dataOffer.imageUrl" alt="" style="max-width: 70%; min-width:
+          60%; border: solid 1px #e3e3e3; max-height: 390px;">
+      </div>
+      <div style="font-size: 13px; color: #B6B6A2;">
+        <mat-icon style="vertical-align: middle; cursor: pointer;">zoom_in</mat-icon>
+        <span style="cursor: pointer;">Ver imagen</span>
+      </div>
     </div>
     <div fxFlex="60">
-
+      <div style="padding: 14px;">
+        <div>
+          <div fxLayout="row">
+            <div fxFlex="70">
+              <span style="color: #696969; font-size: 22px;">
+                <mat-icon class="mat-18" *ngIf="dataOffer.reference === null ||
+                  dataOffer.reference === 'null' || dataOffer.reference === ''"
+                  style="vertical-align: middle; margin-right: 5px; color: #b6b6b6;">phonelink</mat-icon>
+                <mat-icon class="mat-18" *ngIf="dataOffer.reference != null &&
+                  dataOffer.reference != 'null' && dataOffer.reference != ''"
+                  style="vertical-align: middle; margin-right: 5px; color: #b6b6b6;">loyalty</mat-icon>
+                {{dataOffer.name}}
+              </span>
+            </div>
+            <div fxFlex="30" style="text-align: end;">
+              <span style="font-size: 13px; color: #b6b6b6;">
+                <span style="color: #6f6e6e;">
+                  {{'secure.offers.list.components.detail_offer.last_modify' | translate}}
+                </span>
+                  {{dataOffer.lastUpdate | date : 'dd/MM/yyyy'}}
+              </span>
+            </div>
+          </div>
+         
+        </div>
+        <div style="padding-left: 38px; color: #b6b6b6; margin-top: 5px;">
+          <span>
+            <span>
+              <span style="color: #6f6e6e">
+                {{'shared.ean' | translate}}:
+              </span>
+              {{dataOffer.ean}}
+            </span> 
+            <span *ngIf="dataOffer.pluVtex"> |
+              <span style="color: #6f6e6e">
+                {{'secure.dashboard.table.top.title.SKU' | translate}}:
+              </span>
+              {{dataOffer.pluVtex}}
+            </span>
+            <span *ngIf="dataOffer.reference"> |
+              <span style="color: #6f6e6e">
+                {{'secure.products.table_load_product.parent_reference' | translate}}:
+              </span>
+               {{dataOffer.reference}}
+            </span>
+          </span>
+        </div>
+        <div style="padding-left: 38px; color: #b6b6b6;margin-top: 5px;">
+          <span style="color: #6f6e6e">
+            {{'secure.offers.bulk_upload.table_load.sellerSku' | translate}}:
+          </span>
+          {{dataOffer.sellerSku}}
+        </div>
+        <div style="padding-left: 38px; color: #b6b6b6; padding-top: 50px;" *ngIf="!isUpdateOffer && isUpdateOffer === false">
+          <div *ngIf="dataOffer.discountPrice > 0">
+            <span style="text-decoration: line-through; font-size: 20px;">
+              {{dataOffer.price | currency: '$' : 'symbol' : '1.2-2'}}
+            </span>
+          </div>
+          <div>
+            <span>
+              <span *ngIf="dataOffer.discountPrice > 0" style="font-size: 40px; color: red;">
+                {{dataOffer.discountPrice | currency: '$' : 'symbol' : '1.2-2'}}
+              </span>
+              <span *ngIf="dataOffer.discountPrice === 0" style="font-size: 40px; color: red;">
+                {{dataOffer.price | currency: '$' : 'symbol' : '1.2-2'}}
+              </span>
+            </span>
+          </div>
+        </div>
+        <div fxLayout="row">
+         <div>
+          <p [innerHTML]="['secure.offers.list.components.detail_offer.id_offer' | translate] + '<strong> &nbsp;' + dataOffer.idOffer + '</strong>&nbsp;'"
+            class="stock flexbox flex-wrap align-center separator"></p>
+         </div>
+         <div>
+          <p [innerHTML]="dataOffer.stock > 0 && dataOffer.stock ? ['secure.offers.list.components.detail_offer.in_stock' | translate] + '<strong>&nbsp;' + (dataOffer.stock | number) + '</strong>' : '<strong class=sold-out>' + ['secure.offers.list.list.stock' | translate] + '</strong>'"
+            class="stock flexbox flex-wrap align-center padding-left-1"></p>
+         </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
