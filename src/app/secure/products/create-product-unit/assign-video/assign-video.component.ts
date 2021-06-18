@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { LoadingService } from "@app/core";
+import { SupportService } from "@app/secure/support-modal/support.service";
 import { ComponentsService } from "@app/shared";
 import { TranslateService } from "@ngx-translate/core";
 import { ProcessService } from "../component-process/component-process.service";
@@ -14,9 +15,8 @@ import { AssignVideoService } from "./assign-video.service";
 export class AssignVideoComponent implements OnInit {
   createVideo: FormGroup;
   imgUrl: String;
-  public formatVideo =
-    "^(https:\\/\\/((m|www)\\.youtube\\.com\\/watch\\?v=|youtu\\.be\\/)[\\s\\S]{11})$";
   _detailProduct: any;
+  BrandsRegex = { videoUrl: '' };
 
   /**
    * toma los valores actuales del arreglo y se llena el input con info del back
@@ -39,16 +39,44 @@ export class AssignVideoComponent implements OnInit {
     private loadingService: LoadingService,
     private componentService: ComponentsService,
     private languageService: TranslateService,
-    private process: ProcessService
+    private process: ProcessService,
+    public SUPPORT?: SupportService,
   ) {
-    this.createVideo = this.fb.group({
-      inputVideo: ["", Validators.pattern(this.formatVideo)],
-    });
-
     this.imgUrl = "./assets/img/no-image.svg";
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.createFormControls();
+    this.validateFormSupport();
+  }
+
+    /**
+   * Metodo para crear formulario del filtro
+   * @memberof SellerRatingComponent
+   */
+     createFormControls() {
+      this.createVideo = this.fb.group({
+        inputVideo: ["", Validators.pattern(this.BrandsRegex.videoUrl)],
+      });
+    }
+
+   /**
+   * Funcion para cargar datos de regex
+   * @memberof SellerRatingComponent
+   */
+    public validateFormSupport(): void {
+      this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
+        let dataOffertRegex = JSON.parse(res.body.body);
+        dataOffertRegex = dataOffertRegex.Data.filter(data => data.Module === 'productos');
+        for (const val in this.BrandsRegex) {
+          if (!!val) {
+            const element = dataOffertRegex.find(regex => regex.Identifier === val.toString());
+            this.BrandsRegex[val] = element && `${element.Value}`;
+          }
+        }
+        this.createFormControls();
+      });
+    }
 
   /**
    * 

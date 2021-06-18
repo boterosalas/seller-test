@@ -4,12 +4,17 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { EndpointService, LoadingService } from "@app/core";
 import { MaterialModule } from "@app/material.module";
+import { SupportService } from "@app/secure/support-modal/support.service";
 import { ComponentsService } from "@app/shared";
 import { TranslateModule } from "@ngx-translate/core";
 import { of } from "rxjs";
 import { ProcessService } from "../component-process/component-process.service";
 import { AssignVideoComponent } from "./assign-video.component";
 import { AssignVideoService } from "./assign-video.service";
+
+export const registerRegex = [
+    { Identifier: 'videoUrl', Value: '^(https:\\/\\/((m|www)\\.youtube\\.com\\/watch\\?v=|youtu\\.be\\/)[\\s\\S]{11})$', Module: 'productos' },
+];
 
 describe("AssignVideoComponent", () => {
   let component: AssignVideoComponent;
@@ -51,6 +56,16 @@ describe("AssignVideoComponent", () => {
     isBase64Encoded: false,
   };
 
+  const mockSuportService = jasmine.createSpyObj('SupportService', ['getRegexFormSupport']);
+
+      const resRegex = {
+        body: {
+            body: JSON.stringify({ Data: registerRegex })
+        }
+    };
+
+  
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AssignVideoComponent],
@@ -68,6 +83,7 @@ describe("AssignVideoComponent", () => {
         { provide: LoadingService, useValue: mockLoadingService },
         { provide: ProcessService, useValue: mockProcessService },
         { provide: AssignVideoService, useValue: mockAssignVideoService },
+        { provide: SupportService, useValue: mockSuportService },
       ]
     }).compileComponents();
   }));
@@ -75,6 +91,7 @@ describe("AssignVideoComponent", () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AssignVideoComponent);
     component = fixture.componentInstance;
+    mockSuportService.getRegexFormSupport.and.returnValue(of(resRegex));
     fixture.detectChanges();
   });
 
