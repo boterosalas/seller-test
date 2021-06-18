@@ -29,9 +29,10 @@
       <app-dash-sales></app-dash-sales>
     </div>
 
-    <div class="dashboard__indicators">
+    <div class="dashboard__indicators" *ngIf="false">
       <app-quality-indicators [params]="paramsIndicators"></app-quality-indicators>
     </div>
+
     <div class="dashboard__quality">
       <app-seller-rating></app-seller-rating>
     </div>
