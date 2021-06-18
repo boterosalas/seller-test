@@ -359,7 +359,6 @@ export const endpoints = {
       updateContactData: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/UpdateSellerContact',
       // Crear un contacto para un vendedor (primero creamos y luego editamos)
       createContactData: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/RegisterContactSeller'
-
     },
   },
   // Endpoints production
