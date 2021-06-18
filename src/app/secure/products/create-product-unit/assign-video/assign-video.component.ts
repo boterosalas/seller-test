@@ -28,7 +28,7 @@ export class AssignVideoComponent implements OnInit {
 
       if (this.createVideo && this.createVideo.controls) {
         this.createVideo.controls.inputVideo.setValue(value.videoUrl);
-        this.validateVideo();
+        this.validateVideo(true);
       }
     }
   }
@@ -83,7 +83,7 @@ export class AssignVideoComponent implements OnInit {
    * @returns se valida el video (Que exista) y se le pone la img de youtube
    */
 
-  public validateVideo() {
+  public validateVideo(edit?:any) {
     if (this.createVideo.controls.inputVideo.hasError("pattern")) {
       this.imgUrl = "./assets/img/no-image.svg";
       return;
@@ -102,9 +102,11 @@ export class AssignVideoComponent implements OnInit {
             );
             this.imgUrl = "./assets/img/no-image.svg";
           } else {
+            if(edit !== true) {
+              const data = { videoUrl: videoValue };
+              this.process.validaData(data);
+            }
             this.imgUrl = body.Data.UrlImage;
-            const data = { videoUrl: videoValue };
-            this.process.validaData(data);
           }
         }
 
