@@ -42,7 +42,7 @@ export class FinishUploadProductInformationComponent implements AfterViewInit {
   public showError = false;
   public showSuccessful = false;
   public showErrorAndSuccessful = false;
-  @ViewChild('fileUploadOption', {static: false}) inputFileUpload: any;
+  @ViewChild('fileUploadOption', { static: false }) inputFileUpload: any;
 
   /**
    * Creates an instance of FinishUploadProductInformationComponent.
@@ -66,7 +66,7 @@ export class FinishUploadProductInformationComponent implements AfterViewInit {
     this.name = this.languageService.instant('secure.products.create_product_unit.list_products.product_name');
     if (data !== undefined && data !== 'undefined' && this.typeModal === 'product') {
       if (data && data.response && data.response.body && data.response.body.data && data.response.body.data.response && data.response.body.data.response.Data !== undefined) {
-        const {Error, Successful, Url, TotalProcess} = data.response.body.data.response.Data;
+        const { Error, Successful, Url, TotalProcess } = data.response.body.data.response.Data;
         this.countError = Error;
         this.countSuccessful = Successful;
         this.countTotalProcess = TotalProcess;
@@ -89,7 +89,7 @@ export class FinishUploadProductInformationComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if ( !!this.response.productNotifyViewModel && this.response.productNotifyViewModel.length > 0) {
+    if (!!this.response.productNotifyViewModel && this.response.productNotifyViewModel.length > 0) {
       this.response.productNotifyViewModel.map(element => {
         element.ProductName = !!element.ProductName ? element.ProductName : !!element.productName ? element.productName : null;
         element.Ean = !!element.Ean ? element.Ean : !!element.ean ? element.ean : null;
@@ -160,7 +160,7 @@ export class FinishUploadProductInformationComponent implements AfterViewInit {
 
   onFileChange(evt: any) {
     this.readFileUpload(evt).then(data => {
-      this.processFinish$.next({data: data, evt: evt});
+      this.processFinish$.next({ data: data, evt: evt });
       this.dialogRef.close(true);
     }, err => {
       this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.error_has_uploading'), this.languageService.instant('actions.accpet_min'), 4000);
@@ -178,7 +178,7 @@ export class FinishUploadProductInformationComponent implements AfterViewInit {
    * @returns {Promise<any>}
    * @memberof LoadGuidePageComponent
    */
-   readFileUpload(evt: any): Promise<any> {
+  readFileUpload(evt: any): Promise<any> {
 
     // tslint:disable-next-line:no-shadowed-variable
     return new Promise((resolve, reject) => {
@@ -210,16 +210,19 @@ export class FinishUploadProductInformationComponent implements AfterViewInit {
   }
 
 
-    resetUploadFIle() {
-      // Limpio el input file
-      this.inputFileUpload.nativeElement.value = '';
-    }
+  resetUploadFIle() {
+    this.inputFileUpload.nativeElement.value = '';
+  }
 
-    uploadFileError (url: string) {
-      if (url != null) {
-        window.open(url, '_back');
-      } else {
-        console.error('error al descargar archivo');
-      }
+  uploadFileError(url: string) {
+    if (url != null) {
+      window.open(url, '_back');
+    } else {
+      console.error('error al descargar archivo');
     }
+  }
+
+  close() {
+    this.dialogRef.close(true);
+  }
 }
