@@ -53,32 +53,35 @@
               <span style="color: #696969; font-size: 22px;">
                 <mat-icon class="mat-18" *ngIf="dataOffer.reference === null ||
                   dataOffer.reference === 'null' || dataOffer.reference === ''"
-                  style="vertical-align: middle; margin-right: 5px; color: #b6b6b6;">phonelink</mat-icon>
+                  style="vertical-align: middle; margin-right: 5px; color:
+                  #b6b6b6;">phonelink</mat-icon>
                 <mat-icon class="mat-18" *ngIf="dataOffer.reference != null &&
                   dataOffer.reference != 'null' && dataOffer.reference != ''"
-                  style="vertical-align: middle; margin-right: 5px; color: #b6b6b6;">loyalty</mat-icon>
+                  style="vertical-align: middle; margin-right: 5px; color:
+                  #b6b6b6;">loyalty</mat-icon>
                 {{dataOffer.name}}
               </span>
             </div>
             <div fxFlex="30" style="text-align: end;">
               <span style="font-size: 13px; color: #b6b6b6;">
                 <span style="color: #6f6e6e;">
-                  {{'secure.offers.list.components.detail_offer.last_modify' | translate}}
+                  {{'secure.offers.list.components.detail_offer.last_modify' |
+                  translate}}
                 </span>
-                  {{dataOffer.lastUpdate | date : 'dd/MM/yyyy'}}
+                {{dataOffer.lastUpdate | date : 'dd/MM/yyyy'}}
               </span>
             </div>
           </div>
-         
+
         </div>
-        <div style="padding-left: 38px; color: #b6b6b6; margin-top: 5px;">
+        <div style="padding-left: 55px; color: #b6b6b6; margin-top: 10px;">
           <span>
             <span>
               <span style="color: #6f6e6e">
                 {{'shared.ean' | translate}}:
               </span>
               {{dataOffer.ean}}
-            </span> 
+            </span>
             <span *ngIf="dataOffer.pluVtex"> |
               <span style="color: #6f6e6e">
                 {{'secure.dashboard.table.top.title.SKU' | translate}}:
@@ -87,43 +90,144 @@
             </span>
             <span *ngIf="dataOffer.reference"> |
               <span style="color: #6f6e6e">
-                {{'secure.products.table_load_product.parent_reference' | translate}}:
+                {{'secure.products.table_load_product.parent_reference' |
+                translate}}:
               </span>
-               {{dataOffer.reference}}
+              {{dataOffer.reference}}
             </span>
           </span>
         </div>
-        <div style="padding-left: 38px; color: #b6b6b6;margin-top: 5px;">
+        <div style="padding-left: 55px; color: #b6b6b6;margin-top: 5px;">
           <span style="color: #6f6e6e">
             {{'secure.offers.bulk_upload.table_load.sellerSku' | translate}}:
           </span>
           {{dataOffer.sellerSku}}
         </div>
-        <div style="padding-left: 38px; color: #b6b6b6; padding-top: 50px;" *ngIf="!isUpdateOffer && isUpdateOffer === false">
-          <div *ngIf="dataOffer.discountPrice > 0">
+        <div style="padding-left: 55px; color: #b6b6b6; padding-top: 20px;"
+          *ngIf="!isUpdateOffer && isUpdateOffer === false">
+          <div *ngIf="dataOffer.discountPrice> 0">
             <span style="text-decoration: line-through; font-size: 20px;">
               {{dataOffer.price | currency: '$' : 'symbol' : '1.2-2'}}
             </span>
           </div>
           <div>
             <span>
-              <span *ngIf="dataOffer.discountPrice > 0" style="font-size: 40px; color: red;">
+              <span *ngIf="dataOffer.discountPrice> 0" style="font-size: 40px;
+                color: red;">
                 {{dataOffer.discountPrice | currency: '$' : 'symbol' : '1.2-2'}}
               </span>
-              <span *ngIf="dataOffer.discountPrice === 0" style="font-size: 40px; color: red;">
+              <span *ngIf="dataOffer.discountPrice === 0" style="font-size:
+                40px; color: red;">
                 {{dataOffer.price | currency: '$' : 'symbol' : '1.2-2'}}
               </span>
             </span>
           </div>
         </div>
+        <div fxLayout="row" style="padding-bottom: 10px;">
+          <div fxFlex="100" style="padding-left: 55px; color: #b6b6b6">
+            <span>
+              <span style="color: #6f6e6e">
+                {{'secure.offers.list.components.detail_offer.id_offer' |
+                translate}}
+              </span>
+              {{dataOffer.idOffer}}
+            </span> |
+            <span>
+              <span *ngIf="dataOffer.stock> 0 && dataOffer.stock">
+                <span style="color: #6f6e6e">
+                  {{'secure.offers.list.components.detail_offer.in_stock' |
+                  translate}}
+                </span>
+                {{dataOffer.stock | number}}
+              </span>
+            </span>
+            <span>
+              <span *ngIf="dataOffer.stock <0 && dataOffer.stock">
+                <span style="color: #6f6e6e">
+                  {{'secure.offers.list.list.stock' | translate}}
+                </span>
+                {{dataOffer.stock | number}}
+              </span>
+            </span>
+          </div>
+        </div>
         <div fxLayout="row">
-         <div>
-          <p [innerHTML]="['secure.offers.list.components.detail_offer.id_offer' | translate] + '<strong> &nbsp;' + dataOffer.idOffer + '</strong>&nbsp;'"
-            class="stock flexbox flex-wrap align-center separator"></p>
-         </div>
-         <div>
-          <p [innerHTML]="dataOffer.stock > 0 && dataOffer.stock ? ['secure.offers.list.components.detail_offer.in_stock' | translate] + '<strong>&nbsp;' + (dataOffer.stock | number) + '</strong>' : '<strong class=sold-out>' + ['secure.offers.list.list.stock' | translate] + '</strong>'"
-            class="stock flexbox flex-wrap align-center padding-left-1"></p>
+          <div fxFlex="100" style="padding-left: 55px;">
+            <div fxLayout="row" style="width: 100%;">
+              <div fxFlex="50" *ngIf="dataOffer.size">
+                <mat-icon style="vertical-align: middle; color: #b6b6b6;">tab_unselected</mat-icon>
+                <span>
+                  <span style="color: #6f6e6e;">
+                    {{'secure.products.bulk_upload.size' | translate}}
+                  </span>
+                  ({{dataOffer.size}})
+                </span>
+              </div>
+              <div fxFlex="50" *ngIf="dataOffer.hexColourCodePDP">
+                <mat-icon style="vertical-align: middle; color: #b6b6b6;">color_lens</mat-icon>
+                <span>
+                  <span style="color: #6f6e6e;">
+                    {{'secure.products.bulk_upload.color' | translate}}
+                  </span>
+                  <mat-icon [ngStyle]="{'color':'#' +
+                    dataOffer.hexColourCodePDP}" class="vertical-align">brightness_1</mat-icon>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row" style="padding-top: 10px;">
+          <div fxFlex="100" style="padding-left: 55px;">
+            <div fxLayout="row" style="width: 100%;">
+              <div fxFlex="50" >
+                <mat-icon style="vertical-align: middle; color: #b6b6b6;">attach_money</mat-icon>
+                <span>
+                  <span style="color: #6f6e6e;">
+                    {{'secure.offers.list.list.currency' | translate}}
+                  </span>
+                  {{dataOffer.currency}}
+                </span>
+              </div>
+              <div fxFlex="50">
+                <mat-icon style="vertical-align: middle; color: #b6b6b6;">local_shipping</mat-icon>
+                <span>
+                  <span style="color: #6f6e6e;">
+                    {{'secure.offers.list.list.averageFreightCost' | translate}}
+                  </span>
+                  {{dataOffer.shippingCost | currency: '$' : 'symbol' :
+                  '1.2-2'}}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row" style="padding-top: 10px;">
+          <div fxFlex="100" style="padding-left: 55px;">
+            <div fxLayout="row" style="width: 100%;">
+              <div fxFlex="50" >
+                <mat-icon style="vertical-align: middle; color: #b6b6b6;">beenhere</mat-icon>
+                <span>
+                  <span style="color: #6f6e6e;">
+                    {{'secure.offers.list.list.warranty' | translate}}
+                  </span>
+                  {{dataOffer.warranty}}
+                </span>
+              </div>
+              <div fxFlex="50">
+                <mat-icon style="vertical-align: middle; color: #b6b6b6;">date_range</mat-icon>
+                <span>
+                  <span style="color: #6f6e6e;">
+                    {{'secure.offers.list.list.promise' | translate}}
+                  </span>
+                    {{promiseFirts}}  {{'secure.offers.list.components.detail_offer.' + to | translate}} {{promiseSeconds}} {{periodicityHtml}}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style= " border: 1px solid #D3D3D3;  border-radius: 5px;width: 95%;margin: 5% 0;">
+         <div style="position: relative;box-sizing: border-box;padding: 0 20px;width: 50%;height: 50px;">
+
          </div>
         </div>
       </div>
