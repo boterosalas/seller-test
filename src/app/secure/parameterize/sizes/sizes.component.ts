@@ -195,9 +195,6 @@ export class SizesComponent implements OnInit {
       };
 
       this.service.updateSizes(dataToSendSize).subscribe(result => {
-        console.log(result);
-        // const errorMessage = JSON.parse(result.body);
-
         if (result['data'] === true) {
           this.snackBar.open('Actualizó correctamente la marca.', 'Cerrar', {
             duration: 5000,
@@ -215,38 +212,17 @@ export class SizesComponent implements OnInit {
         }
       });
     } else {
-      console.log('create');
       this.service.createSizes(this.keySize).subscribe(result => {
-        console.log(result);
         if (result['data'] === true) {
-          console.log('valida status');
           this.dialog.closeAll();
           this.setIntervalStatusSize();
         } else {
-
-          // this.snackBar.open(result.message, 'Cerrar', {
-          //           duration: 5000,
-          //       });
+          this.snackBar.open(result['message'], 'Cerrar', {
+                    duration: 5000,
+                });
           this.dialog.closeAll();
           this.loadingService.closeSpinner();
         }
-
-        // const errorMessage = JSON.parse(result);
-
-        // if (result.statusCode === 200 || result.statusCode === 201) {
-        //     this.listSize();
-        //     this.snackBar.open('Agregó correctamente una marca.', 'Cerrar', {
-        //         duration: 5000,
-        //     });
-        //     this.dialog.closeAll();
-        //     this.loadingService.closeSpinner();
-        // } else {
-        //     this.snackBar.open(errorMessage[0].Message, 'Cerrar', {
-        //         duration: 5000,
-        //     });
-        //     this.dialog.closeAll();
-        //     this.loadingService.closeSpinner();
-        // }
       });
     }
   }
@@ -263,22 +239,16 @@ export class SizesComponent implements OnInit {
     let urlParams;
     if (params) {
       urlParams = params;
-      console.log('if')
     } else {
-      console.log('else')
       urlParams = `?limit=${this.pageSize}&paginationToken=${encodeURI(this.paginationToken)}`;
     }
     if (filters) {
       urlParams = `?name=${filters}&limit=${this.limit}&paginationToken=` + this.paginationToken;
     }
-    console.log(urlParams);
     this.service.getListSizes(urlParams).subscribe(result => {
-      console.log(result);
       if (result) {
         this.dataSource = result.viewModel;
-        console.log(this.dataSource);
         if (this.callOne) {
-          console.log('this.callOne: ', this.callOne)
           this.length = result.count;
           this.arrayPosition = [];
           this.arrayPosition.push('{}');
@@ -300,12 +270,10 @@ export class SizesComponent implements OnInit {
    * @memberof SizesComponent
    */
   paginations(event: any): any {
-    console.log(event);
     if (event.pageSize !== this.limit) {
       this.limit = event.pageSize;
     }
     if (event && event.pageIndex >= 0) {
-      console.log('entra aki');
       const index = event.pageIndex;
       if (index === 0) {
         this.paginationToken = encodeURI('{}');
@@ -413,7 +381,6 @@ export class SizesComponent implements OnInit {
    * @memberof SizesComponent
    */
   public parametrizeSizes(sizesData: any): void {
-    console.log(sizesData);
     const dataDialog = this.setDataChangeStatusDialog(sizesData);
     this.form.controls['nameSize'].setErrors({ 'validExist': true });
     if (!!dataDialog && !!dataDialog.title) {
@@ -480,7 +447,6 @@ export class SizesComponent implements OnInit {
   setIntervalStatusSize() {
     clearInterval(this.checkIfDoneCharge);
     this.checkIfDoneCharge = setInterval(() => this.service.statusSize().subscribe((res) => {
-      console.log(66, res);
       this.verifyStateCharge(res);
     }), 7000);
   }
@@ -600,7 +566,6 @@ export class SizesComponent implements OnInit {
       data: this.dataDialog
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (result === 'deleteSize') {
         this.deleteSize(param);
       } else {

@@ -67,8 +67,6 @@ export class DialogInfoComponent implements OnInit {
    * @memberof DialogInfoComponent
    */
   setTextDialog() {
-    console.log('this.dataInfo: ', this.dataInfo);
-
     if (this.dataInfo) {
       this.icon = this.dataInfo.icon || null;
       this.title = this.dataInfo.title || null;
