@@ -685,7 +685,7 @@ export const endpoints = {
       // Guardar imagen de anuncios
       saveImgNotification: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/SaveImage',
       // Editar anuncios
-      UpdateNotification: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/UpdateNew',
+      updateNotification: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/UpdateNew',
       // Eliminar anuncios
       deleteNotification: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/DeleteNew{params}',
       // Listar anuncios vendedor
