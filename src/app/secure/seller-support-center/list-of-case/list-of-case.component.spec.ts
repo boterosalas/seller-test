@@ -52,7 +52,7 @@ describe('ListOfCaseComponent', () => {
       imports: [
         HttpClientModule,
         FlexModule,
-        TranslateModule.forRoot({}),
+        TranslateModule.forRoot(),
         RouterTestingModule,
         BrowserAnimationsModule,
         MaterialModule,

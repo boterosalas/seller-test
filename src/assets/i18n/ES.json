@@ -51,6 +51,7 @@
     "menu.Tallas": "Tallas",
     "menu.Reporte de ofertas": "Reporte de ofertas",
     "menu.Notificación de Fraudes": "Notificación de Fraudes",
+    "menu.Contactos vendedor": "Contactos vendedor",
     "menu.Reporte de errores en VTEX": "Reporte de errores en VTEX",
     "menu.Historico de devoluciones": "Histórico de devoluciones",
     "menu.Ciudades con Cobertura": "Ciudades con Cobertura",
@@ -423,6 +424,10 @@
     "secure.dashboard.type.filter.monthly": "Mensual",
     "secure.dashboard.type.filter.weekly": "Semanal",
     "secure.dashboard.type.filter.diary": "Diario",
+    "secure.dashboard.type.filter.daily_total_sales": "Venta total diaria",
+    "secure.dashboard.type.filter.weekly_total_sales": "Venta total semanal",
+    "secure.dashboard.type.filter.total_monthly_sales": "Venta total mensual",
+    "secure.dashboard.type.filter.total_quarterly_sales": "Venta total trimestral",
     "secure.dashboard.selected_months": "Seleccione el mes",
     "secure.dashboard.info_cancel_sale": "Esta información es aproximada y no tiene en cuenta cancelación, adicionalmente la venta se muestra sin flete",
     "secure.dashboard.table.top.title.SKU": "PLU",
@@ -434,7 +439,7 @@
     "secure.dashboard.table.million": " millón",
     "secure.dashboard.table.millions": " millones",
 
-    "secure.dashboard.seller-rating.title":"Calificación de Calidad",
+    "secure.dashboard.seller-rating.title":"Calificación de calidad",
     "secure.dashboard.seller-rating.title_filter":"Filtro por fecha de Emisión",
     "secure.dashboard.seller-rating.header_rating":"Calificación",
     "secure.dashboard.seller-rating.date_calificated":"Fecha mes Calificado",
@@ -1572,5 +1577,16 @@
     "quality.indicators.bar_red": "Alerta! Indicador degradado",
     "secure.notifications.list.column-title": "Título",
     "secure.notifications.list.column-date": "Fecha",
-    "secure.reports.notification.fraud.charge-fraud": "CARGAR FRAUDES"
+    "secure.reports.notification.fraud.charge-fraud": "CARGAR FRAUDES",
+    "secure.profiel.modal.message.text":"El contacto se ha creado exitosamente",
+    "secure.profiel.copy_token_channel_advisor":"Copiar token Channel advisor",
+    "secure.profiel.copied_token":"Token copiado",
+    "secure.profiel.contact_information":"Datos de contactos",
+    "secure.profiel.responsible_area":"Área responsable",
+    "secure.profiel.position":"Cargo",
+    "secure.profiel.cellPhone":"Celular",
+    "secure.profiel.phone_number":"Teléfono",
+    "secure.profiel.contact_name_surname":"Nombre",
+    "secure.profiel.edit_contact":"Crear contacto"
+
 }

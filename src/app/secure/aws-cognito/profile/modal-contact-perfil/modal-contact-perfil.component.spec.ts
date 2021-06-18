@@ -12,11 +12,13 @@ import { SupportService } from '@app/secure/support-modal/support.service';
 import { ShellComponent } from '@app/core/shell';
 import { ComponentsService, EventEmitterOrders } from '@app/shared';
 import { of } from 'rxjs';
-import { MyProfileComponent } from './myprofile.component';
-import { MyProfileService } from './myprofile.service';
-import { AuthService } from '@app/secure/auth/auth.routing';
 
-describe('MyProfileComponent', () => {
+import { AuthService } from '@app/secure/auth/auth.routing';
+import { ModalContactPerfilComponent } from './modal-contact-perfil.component';
+import { MyProfileService } from '../myprofile.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+
+describe('ModalContactPerfilComponent', () => {
 
     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
     const mockUserLoginService = jasmine.createSpyObj('UserLoginService', ['isAuthenticated']);
@@ -26,10 +28,23 @@ describe('MyProfileComponent', () => {
     const mockDialogError = jasmine.createSpyObj('ModalService', ['showModal']);
     const mockAuthService = jasmine.createSpyObj('AuthService', ['getMenu']);
 
+    let component: ModalContactPerfilComponent;
+    let fixture: ComponentFixture<ModalContactPerfilComponent>;
 
+    const mockDialog = jasmine.createSpyObj('MatDialogRef', [
+        'open, close, afterClosed',
+      ]);
 
-    let component: MyProfileComponent;
-    let fixture: ComponentFixture<MyProfileComponent>;
+    const data = {
+        contact: {
+            Traduction: '',
+            ContactName:  '',
+            Role: '',
+            Email: '',
+            Cellphone: '',
+            Phone: ''
+        }
+      };
 
     const responseAllContactData = {
         body: {
@@ -112,7 +127,7 @@ describe('MyProfileComponent', () => {
                 HttpClientModule,
                 SharedModule
             ],
-            declarations: [MyProfileComponent],
+            declarations: [ModalContactPerfilComponent],
             providers: [
                 { provide: StoresService, useValue: mockStoresService },
                 EndpointService,
@@ -123,22 +138,25 @@ describe('MyProfileComponent', () => {
                 { provide: MyProfileService, useValue: mockMyProfielService },
                 { provide: SupportService, useValue: mockSupportService },
                 { provide: AuthService, useValue: mockAuthService },
+                { provide: MatDialogRef, useValue: mockDialog },
+                { provide: MAT_DIALOG_DATA, useValue: data },
                 ShellComponent,
                 ComponentsService,
                 EventEmitterOrders,
                 CognitoUtil
             ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(MyProfileComponent);
+        fixture = TestBed.createComponent(ModalContactPerfilComponent);
+        mockSupportService.getRegexFormSupport.and.returnValue(of(respondeRegex));
         mockStoresService.getAllStoresFull.and.returnValue(of(response));
         mockMyProfielService.getUser.and.returnValue(of(reponseSYNC));
         mockMyProfielService.getAllContactData.and.returnValue(of(responseAllContactData));
         mockMyProfielService.createContactData.and.returnValue(of(responseData));
         mockMyProfielService.updateContactData.and.returnValue(of(responseData));
-        mockSupportService.getRegexFormSupport.and.returnValue(of(respondeRegex));
         mockAuthService.getMenu.and.returnValue(registerMenu);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -147,7 +165,9 @@ describe('MyProfileComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+
     afterAll(() => {
         TestBed.resetTestingModule();
     });
+
 });

@@ -8,6 +8,7 @@ import { ReportErrorsVtexComponent } from './report-errors-vtex/report-errors-vt
 import { ReportCommissionComponent } from './report-commission/report-commission.component';
 import { ReportDispersionComponent } from './report-dispersion/report-dispersion.component';
 import { FraudNotificationComponent } from './fraud-notification/fraud-notification.component';
+import { SellerContactsComponent } from './seller-contacts/seller-contacts.component';
 
 const routes: Routes = [
   Route.withShell([
@@ -39,6 +40,12 @@ const routes: Routes = [
       path: `${RoutesConst.sellerCenterFraudNotification}`,
       component: FraudNotificationComponent,
       data: { title: 'Notificación de Fraudes' },
+      canActivate: [AuthService]
+    },
+    {
+      path: `${RoutesConst.sellerCenterSellerContact}`,
+      component: SellerContactsComponent,
+      data: { title: 'Contactos vendedor' },
       canActivate: [AuthService]
     }
   ])

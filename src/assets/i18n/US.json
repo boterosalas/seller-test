@@ -52,6 +52,7 @@
     "menu.Tallas": "Sizes",
     "menu.Reporte de ofertas": "Active offers reports",
     "menu.Notificación de Fraudes": "Fraud Notification",
+    "menu.Contactos vendedor": "Seller contacts",
     "menu.Historico de devoluciones": "Historical devolution",
     "menu.Ciudades con Cobertura": "Cities with Coverage",
     "menu.Calificación de Vendedores": "Quality Score",
@@ -69,7 +70,7 @@
     "module.Documentación": "Documentation",
     "menu.Resumen de pagos": "Payment Summary",
     "menu.Consultar Indicadores": "Check Indicators",
-    "menu.Notificación": "Anuncios",
+    "menu.Notificación": "Announcements",
     "module.Ofertas": "Offers",
     "module.Productos": "Products",
     "module.Vendedores": "Sellers",
@@ -400,7 +401,7 @@
 
 
     "secure.dashboard.all": "All",
-    "secure.dashboard.advertisements": "Advertisements",
+    "secure.dashboard.advertisements": "Announcements",
     "secure.dashboard.in_transit": "In transit",
     "secure.dashboard.delievered": "Delievered",
     "secure.dashboard.expired": "Expired",
@@ -413,6 +414,10 @@
     "secure.dashboard.type.filter.monthly": "Monthly",
     "secure.dashboard.type.filter.weekly": "Weekly",
     "secure.dashboard.type.filter.diary": "Daily",
+    "secure.dashboard.type.filter.daily_total_sales": "Daily total sales",
+    "secure.dashboard.type.filter.weekly_total_sales": " Weekly total sales",
+    "secure.dashboard.type.filter.total_monthly_sales": "Total monthly sales",
+    "secure.dashboard.type.filter.total_quarterly_sales": "Total quarterly sales",
     "secure.dashboard.selected_months": "Select a month",
     "secure.dashboard.info_cancel_sale": "This info is approximated and doesn't take into account cancelations, additionaly the sales value is shown without taking freight values into account",
     "secure.dashboard.table.top.title.SKU": "SKU",
@@ -1529,5 +1534,15 @@
     "quality.indicators.bar_red": "Alert! Degraded indicator",
     "secure.notifications.list.column-title": "Title",
     "secure.notifications.list.column-date": "Date",
-    "secure.reports.notification.fraud.charge-fraud": "CHARGE FRAUDS"
+    "secure.reports.notification.fraud.charge-fraud": "CHARGE FRAUDS",
+    "secure.profiel.modal.message.text":"The contact has been successfully created",
+    "secure.profiel.copy_token_channel_advisor":"Copy token Channel advisor",
+    "secure.profiel.copied_token":"Copied token",
+    "secure.profiel.contact_information":"Contact information",
+    "secure.profiel.responsible_area":"Responsible area",
+    "secure.profiel.position":"Position",
+    "secure.profiel.cellPhone":"Cell phone number",
+    "secure.profiel.phone_number":"Phone number",
+    "secure.profiel.contact_name_surname":"Name",
+    "secure.profiel.edit_contact":"Edit contact"
 }

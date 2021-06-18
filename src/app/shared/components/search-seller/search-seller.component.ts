@@ -35,6 +35,7 @@ export class SearchSellerComponent implements OnInit, OnChanges {
     @Input() loadSpinner = true;
     @Input() widthComplete = false;
     @Input() emitModal: boolean;
+    @Input() placeHolder: string;
 
     @Input() set clearSearch(value: any) {
         if (value) {
