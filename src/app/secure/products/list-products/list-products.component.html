@@ -189,8 +189,7 @@
     </div>
 
     <div class="prodList">
-
-      <div *ngIf="myProduct && !activeCheck" class="divDelete">
+      <div *ngIf="myProduct && !activeCheck && !hideButtonDelete" class="divDelete">
         <button mat-stroked-button color="primary" [matMenuTriggerFor]="menu" class="buttonDelete">
           {{'secure.products.create_product_unit.list_products.delete_products' | translate}}</button>
         <mat-menu #menu="matMenu">
@@ -206,7 +205,7 @@
           <span>{{'secure.products.create_product_unit.list_products.delete_products_some_checked' | translate}}</span></button>
       </div>
 
-      <app-combo-product [offerPermission]="offerPermission" [editPermission]="editPermission"
+      <app-combo-product [offerPermission]="offerPermission" [editPermission]="editPermission" (viewDetailProduct)="viewDetailProduct($event)"
         (countPlu)="countPlu($event)" [showProducts]="showProducts" [productsList]="productsList" class="listCombo"
         (reloadData)="reloadData();" [deletePermission]="deletePermission" [isAdmin]="isAdmin"
         [activeCheck]="activeCheck"></app-combo-product>

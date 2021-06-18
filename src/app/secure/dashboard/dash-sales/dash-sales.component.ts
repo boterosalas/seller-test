@@ -350,7 +350,6 @@ export class DashSalesComponent implements OnInit {
    */
   selectSales(filter: any) {
     this.typeFilterSales = filter;
-    console.log(this.typeFilterSales);
     if (filter === '1' || filter === '2') {
       this.showCalenderQSales = true;
       this.showCalenderDSales = false;
