@@ -380,7 +380,7 @@ export class SizesComponent implements OnInit {
    * @param {*} sizesData
    * @memberof SizesComponent
    */
-  public parametrizeSizes(sizesData: any): void {
+  public parametrizeSizes(sizesData?: any): void {
     const dataDialog = this.setDataChangeStatusDialog(sizesData);
     this.form.controls['nameSize'].setErrors({ 'validExist': true });
     if (!!dataDialog && !!dataDialog.title) {
