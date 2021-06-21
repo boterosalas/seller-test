@@ -36,6 +36,7 @@ export class ModelProduct {
         public ModifyImage?: any,
         public isVariant?: boolean,
         public EanCombo?: any,
+        public videoUrl?: any,
         public errorRow?: boolean,
         public errorEan?: boolean,
         public errorName?: boolean,
@@ -71,7 +72,8 @@ export class ModelProduct {
         public errorColor?: any,
         public errorHexColourName?: any,
         public errorIsLogisticsExito?: any,
-        public errorEanCombo?: any
+        public errorEanCombo?: any,
+        public errorvideoUrl?: any
     ) { }
 }
 

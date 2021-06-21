@@ -29,6 +29,7 @@ import { SaveProcessDialogComponent } from './component-process/dialogSave/dialo
 import { SharedModule } from '@app/shared/shared.module';
 import { StickyNavModule } from 'ng2-sticky-nav';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { AssignVideoComponent } from './assign-video/assign-video.component';
 
 @NgModule({
   imports: [
@@ -57,7 +58,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     CompoImagesComponent,
     SpecificationProductComponent,
     SpecificationDialogComponent,
-    SaveProcessDialogComponent
+    SaveProcessDialogComponent,
+    AssignVideoComponent
   ],
   exports: [
     CreateUnutaryProductComponent,

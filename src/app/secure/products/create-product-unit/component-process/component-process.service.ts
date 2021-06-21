@@ -56,6 +56,7 @@ export interface ProductModel {
     EanCombo: any;
     ModifyImage: any;
     ParentReference: any;
+    videoUrl:string;
 }
 
 /**
@@ -161,6 +162,7 @@ export class ProcessService {
         ImageUrl3: null,
         ImageUrl4: null,
         ImageUrl5: null,
+        videoUrl: null,
         MetaTitle: null,
         MetaDescription: null,
         IsCombo: null,
@@ -310,6 +312,9 @@ export class ProcessService {
             this.productData.ConversionFactor = data.ConversionFactor;
             this.productData.HexColourName = data.HexColourName;
         }
+        if (data.videoUrl) {
+            this.productData.videoUrl = data.videoUrl;
+        }
         if (data.Features) {
             this.productData.Features = data.Features;
         }
@@ -450,6 +455,7 @@ export class ProcessService {
             ImageUrl3: null,
             ImageUrl4: null,
             ImageUrl5: null,
+            videoUrl: null,
             MetaTitle: null,
             MetaDescription: null,
             IsCombo: null,

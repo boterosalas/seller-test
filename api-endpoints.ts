@@ -361,13 +361,14 @@ export const endpoints = {
       getAdvertisements: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/GetNewsByTarget?totalMax=10',
       // Listar anuncios vendedor
       readAdvertisements: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/SetNewsRead',
+      // Validacion del video creacion
+      validateVideo: 'https://3nr5ac6osg.execute-api.us-east-1.amazonaws.com/dev/ValidateVideo',
       // Obtener todos los datos de contacto un vendedor
       getAllContactData: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/GetSellerContacts',
       // Actualizar datos de contacto vendedor
       updateContactData: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/UpdateSellerContact',
       // Crear un contacto para un vendedor (primero creamos y luego editamos)
       createContactData: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/RegisterContactSeller'
-
     },
   },
   // Endpoints production
@@ -724,6 +725,8 @@ export const endpoints = {
       deleteNotification: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/DeleteNew{params}',
       // Listar anuncios vendedor
       getAdvertisements :  'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/GetNewsByTarget?totalMax=10',
+       // Validacion del video creacion
+       validateVideo: 'https://nkoltok5rk.execute-api.us-east-1.amazonaws.com/pdn/ValidateVideo',
       // Leido anuncios vendedor
       readAdvertisements :  'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/SetNewsRead',
       // Obtener todos los datos de contacto un vendedor

@@ -29,6 +29,7 @@ export class ComponentProcessComponent implements OnInit {
   basicInfoFormGroup: FormGroup;
   especificFormGroup: FormGroup;
   imageFormGroup: FormGroup;
+  videoFormGroup: FormGroup;
   options: FormGroup;
   isOptional = true;
   views: any;
@@ -91,6 +92,9 @@ export class ComponentProcessComponent implements OnInit {
     });
     this.imageFormGroup = this.fb.group({
       imageCtrl: ['', Validators.required]
+    });
+    this.videoFormGroup = this.fb.group({
+      videoCtrl: ['', Validators.required]
     });
     this.process.change.subscribe(data => {
       this.views = data;
@@ -231,6 +235,11 @@ export class ComponentProcessComponent implements OnInit {
       this.imageFormGroup.controls.imageCtrl.setValue('1');
     } else if (!this.views.showImg) {
       this.imageFormGroup.controls.imageCtrl.setValue(null);
+    }
+    if (this.views.showVideo) {
+      this.videoFormGroup.controls.videoCtrl.setValue('1');
+    } else if (!this.views.showVideo) {
+      this.videoFormGroup.controls.videoCtrl.setValue(null);
     }
     if (this.eanFormGroup.valid && this.categoryFormGroup.valid && this.basicInfoFormGroup.valid && this.especificFormGroup.valid && this.imageFormGroup.valid) {
       this.isLinear = false;

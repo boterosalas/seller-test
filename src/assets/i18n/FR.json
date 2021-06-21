@@ -946,6 +946,7 @@
     "secure.products.table_load_product.seller": "Seller",
     "secure.products.table_load_product.product_type": "Product Type",
     "secure.products.table_load_product.image_modification": "Image Modification",
+    "secure.products.table_load_product.video": "YouTube Video URL",
     "secure.products.table_load_product.image ": "Image",
     "secure.products.table_load_product.size": "Size",
     "secure.products.table_load_product.color": "Color",
@@ -1045,7 +1046,7 @@
     "secure.products.create_product_unit.component_process.continue": "Continue",
     "secure.products.create_product_unit.component_process.basic_information": "Basic information",
     "secure.products.create_product_unit.component_process.specifications": "Specifications",
-    "secure.products.create_product_unit.component_process.images": "Images",
+    "secure.products.create_product_unit.component_process.images": "Images and Video",
     "secure.products.create_product_unit.component_process.save": "Save",
 
     "secure.products.create_product_unit.component_process.dialog_save.product_creation_request": "The product creation request has been succesful. The product will now go through our validation process and we will inform you as soon as possible whether the product has been accepted and an offer may be associated, or if it has been rejected and you must fix the information",
@@ -1165,6 +1166,7 @@
     "secure.products.create_product_unit.list_products.please_wait" : "Loading, wait please ...",
     "secure.products.create_product_unit.list_products.ofert_product.update_variants": "Inventory update to all variations",
     "secure.products.create_product_unit.list_products.ofert_product.update_variants_all_references": "The INVENTORY will be updated for all variations of the same Parent Reference",
+    "secure.products.create_product_unit.video": "Vidéo du produit : Si votre produit a une vidéo au format Youtube, vous pouvez entrer une (1) vidéo par produit, le lien est reçu du navigateur ou de Youtube APP. Ce champ est facultatif, il vise à enrichir le contenu de votre produit.",
 
 
     "secure.products.list_products.modal.title": "This offer undergoes an extreme price change, do you wish to continue?",

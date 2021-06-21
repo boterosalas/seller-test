@@ -968,6 +968,7 @@
     "secure.products.table_load_product.seller": "Vendedor",
     "secure.products.table_load_product.product_type": "Tipo del producto",
     "secure.products.table_load_product.image_modification": "Modificación Imagen",
+    "secure.products.table_load_product.video": "URL Video YouTube",
     "secure.products.table_load_product.image ": "Imagen",
     "secure.products.table_load_product.size": "Talla",
     "secure.products.table_load_product.color": "Color ",
@@ -1067,7 +1068,7 @@
     "secure.products.create_product_unit.component_process.continue": "Continuar",
     "secure.products.create_product_unit.component_process.basic_information": "Información básica",
     "secure.products.create_product_unit.component_process.specifications": "Especificaciones",
-    "secure.products.create_product_unit.component_process.images": "Imágenes",
+    "secure.products.create_product_unit.component_process.images": "Imágenes y Video",
     "secure.products.create_product_unit.component_process.save": "Guardar",
 
     "secure.products.create_product_unit.component_process.dialog_save.product_creation_request": "La solicitud de creación de tu producto ha sido recibida con éxito. El producto pasará a proceso de validación y te estaremos informando de manera oportuna si el producto es aceptado y puede ofertarse, o si es rechazado y debes corregir información.",
@@ -1188,6 +1189,7 @@
     "secure.products.create_product_unit.list_products.please_wait" : "Cargando, espere por favor...",
     "secure.products.create_product_unit.list_products.ofert_product.update_variants": "Actualización de Inventario a todas las variaciones",
     "secure.products.create_product_unit.list_products.ofert_product.update_variants_all_references": "Se actualizará el INVENTARIO a todas las variaciones de la misma Referencia Padre",
+    "secure.products.create_product_unit.video": "Video del producto: Si tu producto cuenta con un video en formato Youtube, podrás ingresar un (1) video por producto, se recibe el link del navegador o del APP de Youtube. Este campo es Opcional, busca enriquecer el contenido de tú producto.",
 
 
     "secure.products.list_products.modal.title": "Esta oferta sufre un cambio extremo de precio, ¿Deseas Continuar?",
