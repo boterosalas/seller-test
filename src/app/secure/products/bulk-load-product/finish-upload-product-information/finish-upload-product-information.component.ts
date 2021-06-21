@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, AfterViewInit, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, AfterViewInit, ChangeDetectorRef, ViewChild, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
@@ -23,7 +23,7 @@ const EXCEL_EXTENSION = '.xlsx';
 /**
  * FinishUploadProductInformationComponent
  */
-export class FinishUploadProductInformationComponent implements AfterViewInit {
+export class FinishUploadProductInformationComponent implements AfterViewInit, OnDestroy {
 
   public response: any;
   public has: string;
@@ -162,13 +162,13 @@ export class FinishUploadProductInformationComponent implements AfterViewInit {
     });
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
   }
-/**
- * funcion para cargar archivo de excel
- *
- * @param {*} evt
- * @memberof FinishUploadProductInformationComponent
- */
-onFileChange(evt: any) {
+  /**
+   * funcion para cargar archivo de excel
+   *
+   * @param {*} evt
+   * @memberof FinishUploadProductInformationComponent
+   */
+  onFileChange(evt: any) {
     this.readFileUpload(evt).then(data => {
       this.processFinish$.next({ data: data, evt: evt });
       this.dialogRef.close(true);
@@ -219,33 +219,44 @@ onFileChange(evt: any) {
     });
   }
 
-/**
- * funcion para resetear el campo de carga de archivo 
- *
- * @memberof FinishUploadProductInformationComponent
- */
-resetUploadFIle() {
+  /**
+   * funcion para resetear el campo de carga de archivo 
+   *
+   * @memberof FinishUploadProductInformationComponent
+   */
+  resetUploadFIle() {
     this.inputFileUpload.nativeElement.value = '';
   }
-/**
- * funcion para descarrgar la plantilla generada en el back con la columna errores
- *
- * @param {string} url
- * @memberof FinishUploadProductInformationComponent
- */
-uploadFileError(url: string) {
+  /**
+   * funcion para descarrgar la plantilla generada en el back con la columna errores
+   *
+   * @param {string} url
+   * @memberof FinishUploadProductInformationComponent
+   */
+  uploadFileError(url: string) {
     if (url != null) {
       window.open(url, '_back');
     } else {
       console.error('error al descargar archivo');
     }
   }
-/**
- * funcion para cerrar el modal
- *
- * @memberof FinishUploadProductInformationComponent
- */
-close() {
+  /**
+   * funcion para cerrar el modal
+   *
+   * @memberof FinishUploadProductInformationComponent
+   */
+  close() {
     this.dialogRef.close(true);
+  }
+
+  /**
+   * funcion para destruir el componente para se cierre la session
+   *
+   * @memberof FinishUploadProductInformationComponent
+   */
+  ngOnDestroy() {
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    }
   }
 }
