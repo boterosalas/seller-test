@@ -82,6 +82,11 @@ export class FinishUploadProductInformationComponent implements AfterViewInit {
     }
     this.createForm();
   }
+  /**
+   * funcion para crear formulario
+   *
+   * @memberof FinishUploadProductInformationComponent
+   */
   createForm() {
     this.form = new FormGroup({
       fileUploadOption: new FormControl()
@@ -157,8 +162,13 @@ export class FinishUploadProductInformationComponent implements AfterViewInit {
     });
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
   }
-
-  onFileChange(evt: any) {
+/**
+ * funcion para cargar archivo de excel
+ *
+ * @param {*} evt
+ * @memberof FinishUploadProductInformationComponent
+ */
+onFileChange(evt: any) {
     this.readFileUpload(evt).then(data => {
       this.processFinish$.next({ data: data, evt: evt });
       this.dialogRef.close(true);
@@ -209,20 +219,33 @@ export class FinishUploadProductInformationComponent implements AfterViewInit {
     });
   }
 
-
-  resetUploadFIle() {
+/**
+ * funcion para resetear el campo de carga de archivo 
+ *
+ * @memberof FinishUploadProductInformationComponent
+ */
+resetUploadFIle() {
     this.inputFileUpload.nativeElement.value = '';
   }
-
-  uploadFileError(url: string) {
+/**
+ * funcion para descarrgar la plantilla generada en el back con la columna errores
+ *
+ * @param {string} url
+ * @memberof FinishUploadProductInformationComponent
+ */
+uploadFileError(url: string) {
     if (url != null) {
       window.open(url, '_back');
     } else {
       console.error('error al descargar archivo');
     }
   }
-
-  close() {
+/**
+ * funcion para cerrar el modal
+ *
+ * @memberof FinishUploadProductInformationComponent
+ */
+close() {
     this.dialogRef.close(true);
   }
 }
