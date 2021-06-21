@@ -1067,7 +1067,7 @@
     "secure.products.create_product_unit.specifications.text_must_specifications": "In this section you must fill all the relevant specifications for the type of product you are creating. In each list you will see the specifications we consider important for your specific product type",
     "secure.products.create_product_unit.specifications.info": "Info",
     "secure.products.create_product_unit.specifications.error_has_occured_uploading": "An error has occurred when uploading the information",
-    "secure.products.create_product_unit.specifications.200_characters": "200 characters maximum",
+    "secure.products.create_product_unit.specifications.500_characters": "500 characters maximum",
     "secure.products.create_product_unit.specifications.error_field": "There is an error in the field",
     "secure.products.create_product_unit.specifications.add_specifications": "Add specifications",
     "secure.products.create_product_unit.specifications.field_mandatory": "mandatory field",

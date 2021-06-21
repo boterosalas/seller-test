@@ -1424,7 +1424,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
    */
   validateFeature(res: any, i: any, k: any, iVal: any, featureValue: any, variant?: any, errorInCell: boolean = false): boolean {
     // const format = /^[0-9A-Za-zá é í ó ú ü ñ  à è ù ë ï ü â ê î ô û ç Á É Í Ó Ú Ü Ñ  À È Ù Ë Ï Ü Â Ê Î Ô Û Ç]*$/;
-    if (featureValue.length > 200) {
+    if (featureValue.length > 500) {
       this.countErrors += 1;
       const itemLog = {
         row: this.arrayInformation.length,
