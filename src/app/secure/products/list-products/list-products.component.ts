@@ -137,6 +137,9 @@ export class ListProductsComponent implements OnInit {
     public progressStatus = false;
     typeDelete: number;
 
+    // Variable que se usa para ir al componente de detalle del producto.
+    hideButtonDelete = false;
+
     constructor(
         private languageService: TranslateService,
         public userParams: UserParametersService,
@@ -267,6 +270,15 @@ export class ListProductsComponent implements OnInit {
     countPlu(event: any) {
         this.infoSelected = event;
         this.modelObject();
+    }
+
+    /**
+     * Evento quee scucha variable para ocultar o no boton de eliminar productos
+     * @param {*} event
+     * @memberof ListProductsComponent
+     */
+    viewDetailProduct(event: any) {
+        this.hideButtonDelete = event;
     }
 
     /**

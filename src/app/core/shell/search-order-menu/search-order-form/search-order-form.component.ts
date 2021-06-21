@@ -258,8 +258,8 @@ export class SearchOrderFormComponent implements OnInit {
     const datePipe = new DatePipe(this.locale);
     this.loadingService.viewSpinner();
     // aplico el formato para la fecha a emplear en la consulta
-    const dateOrderFinal = datePipe.transform(this.myform.controls.dateOrderFinal.value, 'yyyy/MM/dd');
-    const dateOrderInitial = datePipe.transform(this.myform.controls.dateOrderInitial.value, 'yyyy/MM/dd');
+    const dateOrderFinal = this.myform.controls.dateOrderFinal.value !== 'NaN-NaN-NaN' ? datePipe.transform(this.myform.controls.dateOrderFinal.value, 'yyyy/MM/dd') : null;
+    const dateOrderInitial = this.myform.controls.dateOrderInitial.value !== 'NaN-NaN-NaN' ? datePipe.transform(this.myform.controls.dateOrderInitial.value, 'yyyy/MM/dd') : null;
     // creo el string que indicara los parametros de la consulta
     let stringSearch = '';
     const objectSearch: any = {};

@@ -1082,7 +1082,7 @@
     "secure.products.create_product_unit.specifications.text_must_specifications": "En esta sección deberás diligenciar las especificaciones relevantes para tu tipo de producto. En cada lista verás las especificaciones que consideramos importantes para el tipo específico de producto.",
     "secure.products.create_product_unit.specifications.info": "Info",
     "secure.products.create_product_unit.specifications.error_has_occured_uploading": "Error al intentar obtener las especificaciones",
-    "secure.products.create_product_unit.specifications.200_characters": "Maximo 200 caracteres.",
+    "secure.products.create_product_unit.specifications.500_characters": "Maximo 500 caracteres.",
     "secure.products.create_product_unit.specifications.error_field": "Error en el campo.",
     "secure.products.create_product_unit.specifications.field_mandatory": "Campo obligatorio.",
     "secure.products.create_product_unit.specifications.specifications": "Especificaciones",
