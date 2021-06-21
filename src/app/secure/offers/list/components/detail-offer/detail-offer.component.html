@@ -9,7 +9,7 @@
       </button>
     </div>
     <div fxFlex="60">
-      <div style="width: 100%; text-align: end;">
+      <!-- <div style="width: 100%; text-align: end;">
         <button type="button" color="primary" [matTooltip]="'actions.edit' |
           translate" matTooltipPosition="below"
           mat-icon-button mat-button (click)="editOffer()" *ngIf="!isUpdateOffer
@@ -23,7 +23,7 @@
           *ngIf="isUpdateOffer && isUpdateOffer === true">
           <mat-icon class="flexbox align-center justify-center">close</mat-icon>
         </button>
-      </div>
+      </div> -->
     </div>
   </div>
   <div fxLayout="row">
@@ -63,18 +63,34 @@
               </span>
             </div>
             <div fxFlex="30" style="text-align: end;">
-              <span style="font-size: 13px; color: #b6b6b6;">
+              <div style="width: 100%; text-align: end;">
+                <button type="button" color="primary" [matTooltip]="'actions.edit' |
+                  translate" matTooltipPosition="below"
+                  mat-icon-button mat-button (click)="editOffer()" *ngIf="!isUpdateOffer
+                  && isUpdateOffer === false && canEdit">
+                  <mat-icon class="flexbox align-center justify-center" style="color:
+                    #909090;">edit</mat-icon>
+                </button>
+                <button type="button" color="primary" [matTooltip]="'actions.cancel' |
+                  translate" matTooltipPosition="below"
+                  mat-icon-button mat-button (click)="cancelEditOffer()"
+                  *ngIf="isUpdateOffer && isUpdateOffer === true">
+                  <mat-icon class="flexbox align-center justify-center">close</mat-icon>
+                </button>
+              </div>
+              <!-- <span style="font-size: 13px; color: #b6b6b6;">
                 <span style="color: #6f6e6e;">
                   {{'secure.offers.list.components.detail_offer.last_modify' |
                   translate}}
                 </span>
                 {{dataOffer.lastUpdate | date : 'dd/MM/yyyy'}}
-              </span>
+              </span> -->
             </div>
           </div>
 
         </div>
-        <div style="padding-left: 55px; color: #b6b6b6; margin-top: 10px;">
+        <div style="padding-left: 55px; color: #b6b6b6; margin-top: 10px;
+          font-size: 13px;">
           <span>
             <span>
               <span style="color: #6f6e6e">
@@ -97,138 +113,195 @@
             </span>
           </span>
         </div>
-        <div style="padding-left: 55px; color: #b6b6b6;margin-top: 5px;">
+        <div style="padding-left: 55px; color: #b6b6b6;margin-top: 5px;
+          font-size: 13px;">
           <span style="color: #6f6e6e">
             {{'secure.offers.bulk_upload.table_load.sellerSku' | translate}}:
           </span>
           {{dataOffer.sellerSku}}
         </div>
-        <div style="padding-left: 55px; color: #b6b6b6; padding-top: 20px;"
-          *ngIf="!isUpdateOffer && isUpdateOffer === false">
-          <div *ngIf="dataOffer.discountPrice> 0">
-            <span style="text-decoration: line-through; font-size: 20px;">
-              {{dataOffer.price | currency: '$' : 'symbol' : '1.2-2'}}
-            </span>
-          </div>
-          <div>
-            <span>
-              <span *ngIf="dataOffer.discountPrice> 0" style="font-size: 40px;
-                color: red;">
-                {{dataOffer.discountPrice | currency: '$' : 'symbol' : '1.2-2'}}
-              </span>
-              <span *ngIf="dataOffer.discountPrice === 0" style="font-size:
-                40px; color: red;">
+        <div *ngIf="!isUpdateOffer && isUpdateOffer === false">
+          <div style="padding-left: 55px; color: #b6b6b6; padding-top: 20px;">
+            <div *ngIf="dataOffer.discountPrice> 0">
+              <span style="text-decoration: line-through; font-size: 20px;">
                 {{dataOffer.price | currency: '$' : 'symbol' : '1.2-2'}}
               </span>
-            </span>
-          </div>
-        </div>
-        <div fxLayout="row" style="padding-bottom: 10px;">
-          <div fxFlex="100" style="padding-left: 55px; color: #b6b6b6">
-            <span>
-              <span style="color: #6f6e6e">
-                {{'secure.offers.list.components.detail_offer.id_offer' |
-                translate}}
-              </span>
-              {{dataOffer.idOffer}}
-            </span> |
-            <span>
-              <span *ngIf="dataOffer.stock> 0 && dataOffer.stock">
-                <span style="color: #6f6e6e">
-                  {{'secure.offers.list.components.detail_offer.in_stock' |
-                  translate}}
-                </span>
-                {{dataOffer.stock | number}}
-              </span>
-            </span>
-            <span>
-              <span *ngIf="dataOffer.stock <0 && dataOffer.stock">
-                <span style="color: #6f6e6e">
-                  {{'secure.offers.list.list.stock' | translate}}
-                </span>
-                {{dataOffer.stock | number}}
-              </span>
-            </span>
-          </div>
-        </div>
-        <div fxLayout="row">
-          <div fxFlex="100" style="padding-left: 55px;">
-            <div fxLayout="row" style="width: 100%;">
-              <div fxFlex="50" *ngIf="dataOffer.size">
-                <mat-icon style="vertical-align: middle; color: #b6b6b6;">tab_unselected</mat-icon>
-                <span>
-                  <span style="color: #6f6e6e;">
-                    {{'secure.products.bulk_upload.size' | translate}}
-                  </span>
-                  ({{dataOffer.size}})
-                </span>
-              </div>
-              <div fxFlex="50" *ngIf="dataOffer.hexColourCodePDP">
-                <mat-icon style="vertical-align: middle; color: #b6b6b6;">color_lens</mat-icon>
-                <span>
-                  <span style="color: #6f6e6e;">
-                    {{'secure.products.bulk_upload.color' | translate}}
-                  </span>
-                  <mat-icon [ngStyle]="{'color':'#' +
-                    dataOffer.hexColourCodePDP}" class="vertical-align">brightness_1</mat-icon>
-                </span>
-              </div>
             </div>
-          </div>
-        </div>
-        <div fxLayout="row" style="padding-top: 10px;">
-          <div fxFlex="100" style="padding-left: 55px;">
-            <div fxLayout="row" style="width: 100%;">
-              <div fxFlex="50" >
-                <mat-icon style="vertical-align: middle; color: #b6b6b6;">attach_money</mat-icon>
-                <span>
-                  <span style="color: #6f6e6e;">
-                    {{'secure.offers.list.list.currency' | translate}}
-                  </span>
-                  {{dataOffer.currency}}
-                </span>
-              </div>
-              <div fxFlex="50">
-                <mat-icon style="vertical-align: middle; color: #b6b6b6;">local_shipping</mat-icon>
-                <span>
-                  <span style="color: #6f6e6e;">
-                    {{'secure.offers.list.list.averageFreightCost' | translate}}
-                  </span>
-                  {{dataOffer.shippingCost | currency: '$' : 'symbol' :
+            <div>
+              <span>
+                <span *ngIf="dataOffer.discountPrice> 0" style="font-size: 40px;
+                  color: red;">
+                  {{dataOffer.discountPrice | currency: '$' : 'symbol' :
                   '1.2-2'}}
                 </span>
+                <span *ngIf="dataOffer.discountPrice === 0" style="font-size:
+                  40px; color: red;">
+                  {{dataOffer.price | currency: '$' : 'symbol' : '1.2-2'}}
+                </span>
+              </span>
+            </div>
+          </div>
+          <div fxLayout="row" style="padding-bottom: 30px;">
+            <div fxFlex="100" style="padding-left: 55px; color: #b6b6b6;
+              font-size: 13px;">
+              <span>
+                <span style="color: #6f6e6e">
+                  {{'secure.offers.list.components.detail_offer.id_offer' |
+                  translate}}
+                </span>
+                {{dataOffer.idOffer}}
+              </span> |
+              <span>
+                <span *ngIf="dataOffer.stock> 0 && dataOffer.stock">
+                  <span style="color: #6f6e6e">
+                    {{'secure.offers.list.components.detail_offer.in_stock' |
+                    translate}}
+                  </span>
+                  {{dataOffer.stock | number}}
+                </span>
+              </span>
+              <span>
+                <span *ngIf="dataOffer.stock <0 && dataOffer.stock">
+                  <span style="color: #6f6e6e">
+                    {{'secure.offers.list.list.stock' | translate}}
+                  </span>
+                  {{dataOffer.stock | number}}
+                </span>
+              </span>
+            </div>
+          </div>
+          <div fxLayout="row">
+            <div fxFlex="100" style="padding-left: 50px; font-size: 13px;">
+              <div fxLayout="row" style="width: 100%;">
+                <div fxFlex="50" *ngIf="dataOffer.size">
+                  <mat-icon style="vertical-align: middle; color: #b6b6b6;">tab_unselected</mat-icon>
+                  <span>
+                    <span style="color: #6f6e6e;">
+                      {{'secure.products.bulk_upload.size' | translate}}
+                    </span>
+                    ({{dataOffer.size}})
+                  </span>
+                </div>
+                <div fxFlex="50" *ngIf="dataOffer.hexColourCodePDP">
+                  <mat-icon style="vertical-align: middle; color: #b6b6b6;">color_lens</mat-icon>
+                  <span>
+                    <span style="color: #6f6e6e;">
+                      {{'secure.products.bulk_upload.color' | translate}}
+                    </span>
+                    <mat-icon [ngStyle]="{'color':'#' +
+                      dataOffer.hexColourCodePDP}" class="vertical-align">brightness_1</mat-icon>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div fxLayout="row" style="padding-top: 10px;">
-          <div fxFlex="100" style="padding-left: 55px;">
-            <div fxLayout="row" style="width: 100%;">
-              <div fxFlex="50" >
-                <mat-icon style="vertical-align: middle; color: #b6b6b6;">beenhere</mat-icon>
-                <span>
-                  <span style="color: #6f6e6e;">
-                    {{'secure.offers.list.list.warranty' | translate}}
+          <div fxLayout="row" style="padding-top: 10px; font-size: 13px;">
+            <div fxFlex="100" style="padding-left: 50px;">
+              <div fxLayout="row" style="width: 100%;">
+                <div fxFlex="50">
+                  <mat-icon style="vertical-align: middle; color: #b6b6b6;">attach_money</mat-icon>
+                  <span>
+                    <span style="color: #6f6e6e;">
+                      {{'secure.offers.list.list.currency' | translate}}
+                    </span>
+                    {{dataOffer.currency}}
                   </span>
-                  {{dataOffer.warranty}}
-                </span>
-              </div>
-              <div fxFlex="50">
-                <mat-icon style="vertical-align: middle; color: #b6b6b6;">date_range</mat-icon>
-                <span>
-                  <span style="color: #6f6e6e;">
-                    {{'secure.offers.list.list.promise' | translate}}
+                </div>
+                <div fxFlex="50">
+                  <mat-icon style="vertical-align: middle; color: #b6b6b6;">local_shipping</mat-icon>
+                  <span>
+                    <span style="color: #6f6e6e;">
+                      {{'secure.offers.list.list.averageFreightCost' |
+                      translate}}
+                    </span>
+                    {{dataOffer.shippingCost | currency: '$' : 'symbol' :
+                    '1.2-2'}}
                   </span>
-                    {{promiseFirts}}  {{'secure.offers.list.components.detail_offer.' + to | translate}} {{promiseSeconds}} {{periodicityHtml}}
-                </span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div style= " border: 1px solid #D3D3D3;  border-radius: 5px;width: 95%;margin: 5% 0;">
-         <div style="position: relative;box-sizing: border-box;padding: 0 20px;width: 50%;height: 50px;">
-
-         </div>
+          <div fxLayout="row" style="padding-top: 10px; font-size: 13px;">
+            <div fxFlex="100" style="padding-left: 50px;">
+              <div fxLayout="row" style="width: 100%;">
+                <div fxFlex="50">
+                  <mat-icon style="vertical-align: middle; color: #b6b6b6;">beenhere</mat-icon>
+                  <span>
+                    <span style="color: #6f6e6e;">
+                      {{'secure.offers.list.list.warranty' | translate}}
+                    </span>
+                    {{dataOffer.warranty}}
+                  </span>
+                </div>
+                <div fxFlex="50">
+                  <mat-icon style="vertical-align: middle; color: #b6b6b6;">date_range</mat-icon>
+                  <span>
+                    <span style="color: #6f6e6e;">
+                      {{'secure.offers.list.list.promise' | translate}}
+                    </span>
+                    {{promiseFirts}}
+                    {{'secure.offers.list.components.detail_offer.' + to |
+                    translate}} {{promiseSeconds}} {{periodicityHtml}}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row wrap" style="padding-top: 70px; font-size:
+            14px;color: #6f6e6e;">
+            <div fxFlex="23" style="border: solid 1px #b6b6b6; margin-right:
+              5px; margin-left: 25px;">
+              <div class="flexbox align-center justify-center sep-right"
+                [ngClass]="{'check' : dataOffer.isFreeShipping}">
+                <mat-icon *ngIf="dataOffer.isFreeShipping &&
+                  dataOffer.isFreeShipping === true" class="color-green">check</mat-icon>
+                <mat-icon *ngIf="!dataOffer.isFreeShipping ||
+                  dataOffer.isFreeShipping === false">clear</mat-icon>
+                <p
+                  [innerHTML]="['secure.offers.historical_admin.historical_admin.free_shipping'
+                  | translate]"></p>
+              </div>
+            </div>
+            <div fxFlex="23" style="border: solid 1px #b6b6b6; margin-right:
+              5px;">
+              <div class="flexbox align-center justify-center"
+                [ngClass]="{'check' : dataOffer.isEnviosExito}">
+                <mat-icon *ngIf="dataOffer.isEnviosExito &&
+                  dataOffer.isEnviosExito === true" class="color-green">check</mat-icon>
+                <mat-icon *ngIf="!dataOffer.isEnviosExito ||
+                  dataOffer.isEnviosExito === false">clear</mat-icon>
+                <p
+                  [innerHTML]="['secure.offers.historical_admin.historical_admin.shiping_exito'
+                  | translate]"></p>
+              </div>
+            </div>
+            <div fxFlex="23" style="border: solid 1px #b6b6b6; margin-right:
+              5px;">
+              <div class="flexbox align-center justify-center sep-right sep-top"
+                [ngClass]="{'check' : dataOffer.isFreightCalculator}">
+                <mat-icon *ngIf="dataOffer.isFreightCalculator &&
+                  dataOffer.isFreightCalculator === true" class="color-green">check</mat-icon>
+                <mat-icon *ngIf="!dataOffer.isFreightCalculator ||
+                  dataOffer.isFreightCalculator === false">clear</mat-icon>
+                <p
+                  [innerHTML]="['secure.offers.historical_admin.historical_admin.freight_calculator'
+                  | translate]"></p>
+              </div>
+            </div>
+            <div fxFlex="23" style="border: solid 1px #b6b6b6; margin-right:
+              5px;">
+              <div class="flexbox align-center justify-center sep-top"
+                [ngClass]="{'check' : dataOffer.isLogisticsExito}">
+                <mat-icon *ngIf="dataOffer.isLogisticsExito &&
+                  dataOffer.isLogisticsExito === true" class="color-green">check</mat-icon>
+                <mat-icon *ngIf="!dataOffer.isLogisticsExito ||
+                  dataOffer.isLogisticsExito === false">clear</mat-icon>
+                <p
+                  [innerHTML]="['secure.offers.historical_admin.historical_admin.exito_logistic'
+                  | translate]"></p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
