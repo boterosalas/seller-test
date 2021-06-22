@@ -37,7 +37,7 @@
                     <mat-form-field *ngIf="!spec.List.length" class="specification-input">
                         <input [required]="spec.Required" matInput placeholder="{{spec.Name}}" (keyup.enter)="specificationChange(spec, i, e)"
                             name="specs{{e}}" id="specs{{e}}" [(ngModel)]="spec.Value" (change)="specificationChange(spec, i, e)"
-                            pattern="^[\w\W\s\d]{1,200}$">
+                            pattern="^[\w\W\s\d]{1,500}$">
                         <mat-error>
                             {{showError(e, specsForm)}}
                         </mat-error>

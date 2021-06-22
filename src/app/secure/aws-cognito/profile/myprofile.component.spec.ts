@@ -1,273 +1,153 @@
-// import { TestBed, ComponentFixture, async } from '@angular/core/testing';
-// import { CommonModule } from '@angular/common';
-// import { SharedModule } from '@app/shared/shared.module';
-// import { AwsCognitoRoutingModule } from '../aws-cognito.routing';
-// import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-// import { MaterialModule } from '@app/material.module';
-// import { MyProfileComponent } from './myprofile.component';
-// import { UserLoginService, UserParametersService, LoadingService, ModalService } from '@app/core';
-// import { StoresService } from '@app/secure/offers/stores/stores.service';
-// import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDatepickerIntl, MatDatepickerModule } from '@angular/material';
-// import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
-// import { element } from '@angular/core/src/render3/instructions';
-// import { By } from '@angular/platform-browser';
-// import { ShellComponent } from '@app/core/shell';
-// import { SecureHomeComponent } from '../landing/securehome.component';
-// import { RouterTestingModule } from '@angular/router/testing';
-// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { DashboardComponent } from '@app/secure/dashboard/dashboard.component';
-// import { LogoutComponent } from '@app/public/auth/confirm/confirmRegistration.component';
-// import { JwtComponent } from '../jwttokens/jwt.component';
-// import { UseractivityComponent } from '../useractivity/useractivity.component';
-// import { CoreModule } from '@angular/flex-layout';
-// import { SidebarComponent } from '@app/core/shell/sidebar/sidebar.component';
-// import { SearchOrderMenuComponent } from '@app/core/shell/search-order-menu/search-order-menu.component';
-// import { HeaderComponent } from '@app/core/shell/header/header.component';
-// import { ToolbarLinkComponent } from '@app/core/shell/toolbar-link';
-// import { SearchOrderFormComponent } from '@app/core/shell/search-order-menu/search-order-form/search-order-form.component';
-// import { SearchBillingFormComponent } from '@app/core/shell/search-order-menu/search-billing-form/search-billing-form.component';
-// import { SearchPendingDevolutionFormComponent } from '@app/core/shell/search-order-menu/search-pending-devolution-form/search-pending-devolution-form.component';
-// import { SearchEnviosExitoFormComponent } from '@app/core/shell/search-order-menu/search-envios-exito-form/search-envios-exito-form.component';
-// import { MyProfileService } from './myprofile.service';
-// import { of, BehaviorSubject } from 'rxjs';
-// import { AuthService } from '@app/secure/auth/auth.routing';
-// import { NO_ERRORS_SCHEMA } from '@angular/core';
-// import { HttpClient, HttpHandler } from '@angular/common/http';
-// import { HttpClientTestingModule } from '@angular/common/http/testing';
-// import { TranslateModule } from '@ngx-translate/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { MaterialModule } from '@app/material.module';
+import { SharedModule } from '@app/shared/shared.module';
+import { StoresService } from '@app/secure/offers/stores/stores.service';
+import { CognitoUtil, EndpointService, LoadingService, ModalService, UserLoginService, UserParametersService } from '@app/core';
+import { SupportService } from '@app/secure/support-modal/support.service';
+import { ShellComponent } from '@app/core/shell';
+import { ComponentsService, EventEmitterOrders } from '@app/shared';
+import { of } from 'rxjs';
+import { MyProfileComponent } from './myprofile.component';
+import { MyProfileService } from './myprofile.service';
+import { AuthService } from '@app/secure/auth/auth.routing';
 
-// const userData = {
-//     Address: 'calle falsa de algun lugar de este mundo',
-//     City: 'Sabaneta',
-//     DaneCode: '05440000',
-//     Email: 'ccbustamante2@misena.edu.co',
-//     EndVacations: '30/04/2019',
-//     GotoCarrulla: true,
-//     GotoCatalogo: true,
-//     GotoExito: true,
-//     IdSeller: 11618,
-//     IsLogisticsExito: true,
-//     IsShippingExito: true,
-//     Name: 'La Tienda De Cristian 2019 Vs 4',
-//     Nit: '1128438122',
-//     StartVacations: '15/04/2019',
-//     Status: 'Enable'
-// };
+describe('MyProfileComponent', () => {
 
-// describe('My Profile', () => {
-//     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
-//     const mockDialogError = jasmine.createSpyObj('ModalService', ['showModal']);
-//     const mockDialog = jasmine.createSpyObj('MatDialog', ['open']);
-//     const mockDialogRef = jasmine.createSpyObj('MatDialogRef', ['close', 'afterClosed', 'componentInstance']);
-//     const mockStoresService = jasmine.createSpyObj('StoresService', ['getAllStoresFull', 'changeStateSeller']);
-//     const userMockService = jasmine.createSpyObj('UserLoginService', ['isAuthenticated']);
-//     const mockProfileService = jasmine.createSpyObj('MyProfileService', ['getUser']);
-//     let availableModules = [{Name: 'Perfil', Menus: [{Actions: ['Vacaciones', 'Cancelar Vacaciones'], Name: 'Perfil'}], ProfileType: 'Seller'}];
-//     const mockAuthService = {
-//         availableModules: availableModules,
-//         availableModules$: new BehaviorSubject(availableModules)
-//     };
-//     const data = {
-//         title: '',
-//         message: '',
-//         icon: '',
-//         form: null,
-//         showButtons: true,
-//         btnConfirmationText : null
-//     };
+    const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
+    const mockUserLoginService = jasmine.createSpyObj('UserLoginService', ['isAuthenticated']);
+    const mockStoresService = jasmine.createSpyObj('StoresService', ['getAllStoresFull']);
+    const mockMyProfielService = jasmine.createSpyObj('MyProfileService', ['getUser', 'getAllContactData', 'createContactData', 'updateContactData']);
+    const mockSupportService = jasmine.createSpyObj('SupportService', ['getRegexFormSupport']);
+    const mockDialogError = jasmine.createSpyObj('ModalService', ['showModal']);
+    const mockAuthService = jasmine.createSpyObj('AuthService', ['getMenu']);
 
-//     let fixture: ComponentFixture<MyProfileComponent>;
-//     let component: MyProfileComponent;
-//     let loadingService: LoadingService;
-//     let storeService: StoresService;
-//     let matDialog: MatDialog;
-//     let dialogFixture: ComponentFixture<DialogWithFormComponent>;
-//     let dialogComponent: DialogWithFormComponent;
-//     let authService: AuthService;
 
-//     beforeEach(() => {
-//         TestBed.configureTestingModule({
-//             declarations: [
-//                 MyProfileComponent,
-//                 ShellComponent,
-//                 SecureHomeComponent,
-//                 DashboardComponent,
-//                 LogoutComponent,
-//                 JwtComponent,
-//                 UseractivityComponent,
-//                 SidebarComponent,
-//                 SearchOrderMenuComponent,
-//                 HeaderComponent,
-//                 ToolbarLinkComponent,
-//                 SearchOrderFormComponent,
-//                 SearchBillingFormComponent,
-//                 SearchPendingDevolutionFormComponent,
-//                 SearchEnviosExitoFormComponent
-//             ],
-//             imports: [
-//                 CommonModule,
-//                 SharedModule,
-//                 AwsCognitoRoutingModule,
-//                 ReactiveFormsModule,
-//                 MaterialModule,
-//                 RouterTestingModule,
-//                 BrowserAnimationsModule,
-//                 FormsModule,
-//                 CoreModule,
-//                 HttpClientTestingModule,
-//                 TranslateModule.forRoot({})
-//             ],
-//             providers: [
-//                 {provide: UserLoginService, useValue: userMockService},
-//                 {provide: MyProfileService, useValue: mockProfileService},
-//                 {provide: LoadingService, useValue: mockLoadingService},
-//                 {provide: StoresService, useValue: mockStoresService},
-//                 {provide: MatDialog, useValue: mockDialog},
-//                 {provide: MAT_DIALOG_DATA, useValue: data},
-//                 {provide: MatDialogRef, useValue: mockDialogRef},
-//                 {provide: ModalService, useValue: mockDialogError},
-//                 {provide: AuthService, useValue: mockAuthService},
-//             ],
-//             schemas: [NO_ERRORS_SCHEMA]
-//         }).compileComponents();
-//     });
 
-//     beforeEach(() => {
-//         fixture = TestBed.createComponent(MyProfileComponent);
-//         component = fixture.componentInstance;
-//         loadingService = TestBed.get(LoadingService);
-//         storeService = TestBed.get(StoresService);
-//         matDialog = TestBed.get(MatDialog);
-//         authService = TestBed.get(AuthService);
-//         dialogFixture = TestBed.createComponent(DialogWithFormComponent);
-//         dialogComponent = dialogFixture.componentInstance;
-//         mockDialog.open.and.returnValue(mockDialogRef);
-//         mockDialogRef.componentInstance.and.returnValue(dialogComponent);
-//         mockDialog.open.calls.reset();
-//         mockDialogRef.componentInstance.calls.reset();
-//         component.ngOnInit();
-//     });
+    let component: MyProfileComponent;
+    let fixture: ComponentFixture<MyProfileComponent>;
 
-//     it('should create my profile component', () => {
-//         expect(component).toBeTruthy();
-//     });
+    const responseAllContactData = {
+        body: {
+            body: '{"Message":"OK","Errors":[],"Data":[{"Id":0,"NameList":"Gerente General","ContactName":"Marcador","Role":"suplentes","Email":"israel@pragma.co","Cellphone":"8797698689","Phone":"980090","IdSeller":0,"SellerName":null,"CreationDate":"2021-05-31T16:32:09.185+00:00","Traduction":"Gerente General"}],"SellerId":null}',
+            isBase64Encoded: false,
+            statusCode: 200
+        },
+        headers: null,
+        ok: true,
+        status: 200,
+        statusText: 'OK',
+        type: 4,
+        url: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/GetSellerContacts/?culture=es-CO'
+    };
 
-//     describe('user admin login', () => {
-//         beforeEach( async () => {
-//             const mockUser = Object.assign({}, userData);
-//             mockUser.City = null;
-//             availableModules = [];
-//             const responseGetUser = {
-//                 body: {
-//                     body: JSON.stringify({Data: mockUser})
-//                 }
-//             };
-//             mockProfileService.getUser.and.returnValue(of(responseGetUser));
-//             await component.isLoggedIn('', true);
-//         });
+    const reponseSYNC = {
+        body: {
+            body: '{"Message":"OK","Errors":[],"Data":{"IdSeller":1,"Name":"Madrid Emperador","DaneCode":"12345670","Address":null,"GotoExito":false,"GotoCarrulla":false,"GotoCatalogo":false,"IsShippingExito":true,"IsLogisticsExito":true,"Nit":"54813456222","Email":"avecesar@emperador.com","Status":"Enable","StartVacations":"0001-01-01T00:00:00","EndVacations":"0001-01-01T00:00:00","City":"","Country":null,"Payoneer":null,"DaneCodesNonCoverage":null,"Profile":"administrator","IdDispatchPort":0},"SellerId":null}',
+            isBase64Encoded: false,
+            statusCode: 200,
+        }
+    };
 
-//         it('Should be admin', () => {
-//             expect(component.isAdmin).toBeTruthy();
-//         });
+    const responseData = {
+        Data: true,
+        Errors: [],
+        Message: ''
+    };
 
-//         it('should not be exist programVacations', () => {
-//             const btnProgramVacation = fixture.debugElement.query(By.css('#btn-program-vacation'));
-//             expect(btnProgramVacation).toBeNull();
-//         });
+    const response = {
+        data: true,
+        errors: [],
+        message: null,
+        pendingResponse: false,
+    };
+    const responseSendReport = {
+        headers: null,
+        isBase64Encoded: false,
+        multiValueHeaders: null,
+        statusCode: 200
+    };
 
-//         it('should not be exist Info of Vacation', () => {
-//             const btnProgramVacation = fixture.debugElement.query(By.css('#info-vacation'));
-//             expect(btnProgramVacation).toBeNull();
-//         });
-//     });
+    const responseListCommission = {
+        // tslint:disable-next-line: max-line-length
+        body: '{Message:"Operación realizada éxitosamente.","Errors":[],"Data":{"AuditCommissionExcViewModels":[{"Type":"Brand","SellerId":12390,"SellerAudit":12395,"SellerNameAudit":"raul vergara admin","SellerNit":"1117555556","Operation":"Create","Data":{"Commission":23.5,"IdVTEX":"57","Brand":"ADIDAS","InitialDate":null,"FinalDate":null,"Ean":null},"IdVTEX":"ADIDAS","Date":"2020-11-15T18:38:49.118+00:00"},{"Type":"Plu","SellerId":12390,"SellerAudit":12395,"SellerNameAudit":"raul vergara admin","SellerNit":"1117555556","Operation":"Create","Data":{"Commission":2.0,"IdVTEX":"1384715","Brand":"1384715","InitialDate":"2020-11-15 19:47","FinalDate":"2020-11-18 19:47","Ean":null},"IdVTEX":"1384715","Date":"2020-11-15T19:47:34.672+00:00"},{"Type":"Brand","SellerId":12390,"SellerAudit":12395,"SellerNameAudit":"raul vergara admin","SellerNit":"1117555556","Operation":"Delete","Data":{"Commission":23.0,"IdVTEX":"57","Brand":"ADIDAS","InitialDate":null,"FinalDate":null,"Ean":null},"IdVTEX":"ADIDAS","Date":"2020-11-26T18:44:40.892+00:00"},{"Type":"Brand","SellerId":12390,"SellerAudit":12395,"SellerNameAudit":"raul vergara admin","SellerNit":"1117555556","Operation":"Create","Data":{"Commission":23.0,"IdVTEX":"57","Brand":"ADIDAS","InitialDate":"2020-11-26 18:50","FinalDate":"2020-11-27 18:45","Ean":null},"IdVTEX":"ADIDAS","Date":"2020-11-26T18:45:08.651+00:00"},{"Type":"Plu","SellerId":11226,"SellerAudit":1,"SellerNameAudit":"madrid emperador","SellerNit":"54813456222","Operation":"Create","Data":{"Commission":18.0,"IdVTEX":"100001006","Brand":"100001006","InitialDate":"2020-11-13 11:47","FinalDate":"2020-11-20 11:48","Ean":null},"IdVTEX":"100001006","Date":"2020-11-13T11:48:28.205+00:00"},{"Type":"Plu","SellerId":11226,"SellerAudit":1,"SellerNameAudit":"madrid emperador","SellerNit":"54813456222","Operation":"Update","Data":{"Commission":18.12,"IdVTEX":"100001006","Brand":"100001006","InitialDate":"2020-11-13 11:47","FinalDate":"2020-11-20 11:48","Ean":null},"IdVTEX":"100001006","Date":"2020-11-23T15:41:57.583+00:00"},{"Type":"Brand","SellerId":11226,"SellerAudit":1,"SellerNameAudit":"madrid emperador","SellerNit":"54813456222","Operation":"Create","Data":{"Commission":10.0,"IdVTEX":"105707","Brand":"APPLE","InitialDate":"2020-11-23 15:42","FinalDate":"2020-11-24 15:42","Ean":null},"IdVTEX":"APPLE","Date":"2020-11-23T15:44:21.828+00:00"},{"Type":"Plu","SellerId":11226,"SellerAudit":1,"SellerNameAudit":"madrid emperador","SellerNit":"54813456222","Operation":"Update","Data":{"Commission":18.12,"IdVTEX":"100001006","Brand":"100001006","InitialDate":"2020-11-13 11:47","FinalDate":"2020-11-24 11:48","Ean":null},"IdVTEX":"100001006","Date":"2020-11-23T15:46:28.164+00:00"}],"PaginationToken":"{}","PaginationTokens":[],"Count":8}}',
+        headers: null,
+        isBase64Encoded: false,
+        multiValueHeaders: null,
+        statusCode: 200,
+    };
 
-//     describe('User seller Login With vacations', () => {
-//         beforeEach(async () => {
-//             availableModules = [{Name: 'Perfil', Menus: [{Actions: ['Vacaciones', 'Cancelar Vacaciones'], Name: 'Perfil'}], ProfileType: 'Seller'}];
-//             const responseGetUser = {
-//                 body: {
-//                     body: JSON.stringify({Data: userData})
-//                 }
-//             };
-//             mockProfileService.getUser.and.returnValue(of(responseGetUser));
-//             await component.isLoggedIn('', true);
-//         });
+    const respondeRegex = {
+        body: {
+            body: '{"Errors":[],"Data":[],"Message":""}',
+            isBase64Encoded: false,
+            statusCode: 200
+        },
+        ok: true,
+        status: 200,
+        statusText: 'OK',
+        type: 4
+    };
 
-//         it('Should be seller', () => {
-//             expect(component.isAdmin).toBeFalsy();
-//         });
+    const registerMenu = {
+        Functionalities: [{
+            NameFunctionality: 'Crear',
+            ShowFunctionality: true,
+            nameFunctionalityBack: 'Crear'
+        }],
+    };
 
-//         it('should not be exist programVacations', () => {
-//             const btnProgramVacation = fixture.debugElement.query(By.css('#btn-program-vacation'));
-//             expect(btnProgramVacation).toBeNull();
-//         });
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [
+                MaterialModule,
+                ReactiveFormsModule,
+                FormsModule,
+                RouterTestingModule,
+                BrowserAnimationsModule,
+                HttpClientModule,
+                SharedModule
+            ],
+            declarations: [MyProfileComponent],
+            providers: [
+                { provide: StoresService, useValue: mockStoresService },
+                EndpointService,
+                UserParametersService,
+                { provide: ModalService, useValue: mockDialogError },
+                { provide: LoadingService, useValue: mockLoadingService },
+                { provide: UserLoginService, useValue: mockUserLoginService },
+                { provide: MyProfileService, useValue: mockMyProfielService },
+                { provide: SupportService, useValue: mockSupportService },
+                { provide: AuthService, useValue: mockAuthService },
+                ShellComponent,
+                ComponentsService,
+                EventEmitterOrders,
+                CognitoUtil
+            ],
+        }).compileComponents();
+    }));
 
-//         it('should be exist Info of Vacation', () => {
-//             fixture.detectChanges();
-//             expect(component.isInVacation).toBeTruthy();
-//             const btnProgramVacation = fixture.debugElement.query(By.css('#info-vacation'));
-//             expect(btnProgramVacation).toBeTruthy();
-//         });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(MyProfileComponent);
+        mockStoresService.getAllStoresFull.and.returnValue(of(response));
+        mockMyProfielService.getUser.and.returnValue(of(reponseSYNC));
+        mockMyProfielService.getAllContactData.and.returnValue(of(responseAllContactData));
+        mockMyProfielService.createContactData.and.returnValue(of(responseData));
+        mockMyProfielService.updateContactData.and.returnValue(of(responseData));
+        mockSupportService.getRegexFormSupport.and.returnValue(of(respondeRegex));
+        mockAuthService.getMenu.and.returnValue(registerMenu);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-//         // it('should be return data for cancel vacation dialog', () => {
-//         //     const dataDialog = component.setDataCancelVacationsDialog();
-//         //     expect(dataDialog.title).toEqual('Cancelar vacaciones');
-//         // });
-
-//         it('should be open dialog cancel vacations', () => {
-//             const dataDialog = component.setDataCancelVacationsDialog();
-//             const dialogInstance = component.openCancelVacationDialog(dataDialog);
-//             expect(mockDialog.open).toHaveBeenCalled();
-//             expect(mockDialog.open).toHaveBeenCalledTimes(1);
-//         });
-
-//         it('should be send to open dialog cancel vacations', () => {
-//             component.sendToOpenCancelVacationDialog();
-//             expect(mockDialog.open).toHaveBeenCalled();
-//             expect(mockDialog.open).toHaveBeenCalledTimes(1);
-//         });
-//     });
-
-//     describe('User seller Login without vacations', () => {
-//         beforeEach( async () => {
-//             const mockUser = Object.assign({}, userData);
-//             mockUser.StartVacations = '0001-01-01T00:00:00';
-//             mockUser.EndVacations = '0001-01-01T00:00:00';
-//             const responseGetUser = {
-//                 body: {
-//                     body: JSON.stringify({Data: mockUser})
-//                 }
-//             };
-//             mockProfileService.getUser.and.returnValue(of(responseGetUser));
-//             await component.isLoggedIn('', true);
-//         });
-
-//         it('Should be seller', () => {
-//             expect(component.isAdmin).toBeFalsy();
-//         });
-
-//         it('should be exist programVacations', () => {
-//             fixture.detectChanges();
-//             expect(component.isInVacation).toBeFalsy();
-//             const btnProgramVacation = fixture.debugElement.query(By.css('#btn-program-vacation')).nativeElement;
-//             expect(btnProgramVacation).toBeTruthy();
-//         });
-
-//         it('should not be exist Info of Vacation', () => {
-//             const btnProgramVacation = fixture.debugElement.query(By.css('#info-vacation'));
-//             expect(btnProgramVacation).toBeNull();
-//         });
-
-//         // it('Should be set data to program vacations', () => {
-//         //     const dataDialog = component.setDataVacationsDialog();
-//         //     expect(dataDialog.title).toEqual('Vacaciones');
-//         // });
-
-//         it('should be open a dialog to prgram vacations', () => {
-//             component.sendToOpenVacationDialog();
-//             fixture.detectChanges();
-//             expect(mockDialog.open).toHaveBeenCalled();
-//             expect(mockDialog.open).toHaveBeenCalledTimes(1);
-//         });
-//     });
-// });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
+    afterAll(() => {
+        TestBed.resetTestingModule();
+    });
+});

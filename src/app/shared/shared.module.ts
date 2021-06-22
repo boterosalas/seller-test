@@ -52,6 +52,7 @@ import { ListModalService } from './components/dialog-info/dialog-ingo.component
 import { FlexSizePipe } from './pipes/flex-size.pipe';
 import { ngfModule } from 'angular-file/file-upload/ngf.module';
 import { RemoveTagsPipe } from './pipes/remove-tags.pipe';
+import { SafePipe } from './pipes/safe.pipe';
 
 export function createTranslateLaoder(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -107,7 +108,8 @@ export function createTranslateLaoder(http: HttpClient) {
     ContentDropDownDetailOrderDirective,
     ModalDonwloadEmailComponent,
     DialogInfoComponent,
-    RemoveTagsPipe
+    RemoveTagsPipe,
+    SafePipe
   ],
   exports: [
     RemoveTagsPipe,
@@ -138,6 +140,7 @@ export function createTranslateLaoder(http: HttpClient) {
     ConversationComponent,
     ItemConversationDirective,
     DateNoGtmPipe,
+    SafePipe,
     ToolbarSearchPaginationModule,
     NotificationCircleComponent,
     TranslateModule,

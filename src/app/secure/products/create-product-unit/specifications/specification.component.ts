@@ -204,7 +204,7 @@ export class SpecificationProductComponent implements OnInit {
                         return this.languageService.instant('secure.products.create_product_unit.specifications.field_mandatory');
                         break;
                     case 'pattern':
-                        return this.languageService.instant('secure.products.create_product_unit.specifications.200_characters');
+                        return this.languageService.instant('secure.products.create_product_unit.specifications.500_characters');
                         break;
                     default:
                         return this.languageService.instant('secure.products.create_product_unit.specifications.error_field');

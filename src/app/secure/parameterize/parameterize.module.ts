@@ -25,6 +25,8 @@ import { ModalResultLoadExceptionComponent } from './exception/modal-result-load
 import { DownloadSpecsComponent } from './specifications/download-specs/download-specs.component';
 import { DownloadCategoriesComponent } from './category/categories/download-categories/download-categories.component';
 import { ModalBulkloadBrandsComponent } from './brands/modal-bulkload-brands/modal-bulkload-brands.component';
+import { SizesComponent } from './sizes/sizes.component';
+import { SizesService } from './sizes/sizes.service';
 import { NotificationAdminComponent } from './notification-admin/notification-admin.component';
 import { NotificationFormComponent } from './notification-admin/component/notification-form/notification-form.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
@@ -52,6 +54,7 @@ import { ModalGenericComponent } from './notification-admin/component/modal-gene
     DownloadSpecsComponent,
     DownloadCategoriesComponent,
     ModalBulkloadBrandsComponent,
+    SizesComponent,
     NotificationAdminComponent,
     NotificationFormComponent,
     UploadFileMasiveComponent,
@@ -75,6 +78,7 @@ import { ModalGenericComponent } from './notification-admin/component/modal-gene
   providers: [
     ParamSpecsService,
     BrandService,
+    SizesService,
     CategoryTreeService,
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
   ],

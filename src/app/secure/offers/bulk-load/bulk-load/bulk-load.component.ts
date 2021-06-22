@@ -17,19 +17,19 @@ import { ModalSendEmailComponent } from '../modal-send-email/modal-send-email.co
 
 export const OFFERS_HEADERS_EAN = 'EAN';
 export const OFFERS_HEADERS_INVENTARIO = 'Inventario';
-export const OFFERS_HEADERS_STOCK = 'Stock';
+export const OFFERS_HEADERS_STOCK = 'Inventory';
 export const OFFERS_HEADERS_STOCK_FR = 'Stock';
 export const OFFERS_HEADERS_PRECIO = 'Precio';
 export const OFFERS_HEADERS_PRICE = 'Price';
 export const OFFERS_HEADERS_PRICE_FR = 'Prix';
 export const OFFERS_HEADERS_PRECIO_DESCUENTO = 'Precio con Descuento';
-export const OFFERS_HEADERS_DISCOUNT_PRICE = 'Discount Price';
+export const OFFERS_HEADERS_DISCOUNT_PRICE = 'Discounted Price';
 export const OFFERS_HEADERS_DISCOUNT_PRICE_FR = 'Prix réduit';
 export const OFFERS_HEADERS_FLETE = 'Costo de Flete Promedio';
-export const OFFERS_HEADERS_SHIPPING = 'Shipping Cost';
+export const OFFERS_HEADERS_SHIPPING = 'Average Freight Cost';
 export const OFFERS_HEADERS_SHIPPING_FR = 'Coût moyen d\'envoie';
 export const OFFERS_HEADERS_ENTREGA = 'Promesa de Entrega';
-export const OFFERS_HEADERS_DELIVERY = 'Delivery Terms';
+export const OFFERS_HEADERS_DELIVERY = 'Promise to Deliver';
 export const OFFERS_HEADERS_DELIVERY_FR = 'Temps de livraison';
 export const OFFERS_HEADERS_PERIODICIDAD = 'Periodicidad';
 export const OFFERS_HEADERS_PERIODICITY = 'Periodicity';
@@ -37,10 +37,10 @@ export const OFFERS_HEADERS_PÉRIODICITÉ = 'Périodicité';
 export const OFFERS_HEADERS_FREE_SHIPPING = 'Free Shipping';
 export const OFFERS_HEADERS_FREE_SHIPPING_FR = 'Livraison gratuite';
 export const OFFERS_HEADERS_ENVIOS_EXITO = 'Indicador Envíos Exito';
-export const OFFERS_HEADERS_EXITO_INDICATOR = 'Envios Exito Indicator';
+export const OFFERS_HEADERS_EXITO_INDICATOR = 'Successful Shipments Indicator';
 export const OFFERS_HEADERS_EXITO_INDICATOR_FR = 'Indicateur d\'expédition Éxito';
 export const OFFERS_HEADERS_COTIZADOR = 'Cotizador de Flete';
-export const OFFERS_HEADERS_FREIGHT = 'Freight Calculator';
+export const OFFERS_HEADERS_FREIGHT = 'Freight Quotation';
 export const OFFERS_HEADERS_FREIGHT_FR = 'Cotation du fret';
 export const OFFERS_HEADERS_GARANTIA = 'Garantia';
 export const OFFERS_HEADERS_WARRANTY = 'Warranty';
@@ -49,11 +49,12 @@ export const OFFERS_HEADERS_LIGICAEXITO = 'Logistica Exito';
 export const OFFERS_HEADERS_EXITO_LOGISTIC = 'Exito Logistics';
 export const OFFERS_HEADERS_EXITO_LOGISTIC_FR = 'Logistique Éxito';
 export const OFFERS_HEADERS_ACTIALIZACION_INVENTARIO = 'Actualizacion de Inventario';
-export const OFFERS_HEADERS_UPDATE_STOCK = 'Stock Update';
+export const OFFERS_HEADERS_UPDATE_STOCK = 'Inventory Update';
 export const OFFERS_HEADERS_UPDATE_STOCK_FR = 'Mise à Jour du Stock';
-export const OFFERS_HEADERS_EAN_COMBO = 'Ean combo';
+export const OFFERS_HEADERS_EAN_COMBO = 'Combo EAN';
+export const OFFERS_HEADERS_EAN_COMBO_ES = 'Ean combo';
 export const OFFERS_HEADERS_CANTIDAD_COMBO = 'Cantidad en combo';
-export const OFFERS_HEADERS_AMOUNT_COMBO = 'Amount in combo';
+export const OFFERS_HEADERS_AMOUNT_COMBO = 'Quantity in combo';
 export const OFFERS_HEADERS_AMOUNT_COMBO_FR = 'Bundle stock';
 export const OFFERS_HEADERS_MONEDA = 'Tipo de moneda';
 export const OFFERS_HEADERS_CURRENCY = 'Currency';
@@ -65,7 +66,7 @@ export const OFFERS_HEADERS_CODIGO_DANE = 'Ciudad de Recogida';
 export const OFFERS_HEADERS_DANECODE = 'Pick up city';
 export const OFFERS_HEADERS_DANECODE_FR = 'Ville de collecte';
 export const OFFERS_HEADERS_SKU_ES = 'SKU Vendedor';
-export const OFFERS_HEADERS_SKU_EN = 'Seller SKU';
+export const OFFERS_HEADERS_SKU_EN = 'SKU Seller';
 export const OFFERS_HEADERS_SKU_FR = 'Vendeur SKU';
 export const OFFERS_HEADERS_PARENT_REF_ES = 'Referencia Padre';
 export const OFFERS_HEADERS_PARENT_REF_EN = 'Parent Reference';
@@ -255,7 +256,8 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
           const bstr: string = e.target.result;
           const wb: XLSX.WorkBook = XLSX.read(bstr, { raw: true, type: 'binary', sheetRows: this.limitRowExcel });
           /* grab first sheet */
-          const ws: XLSX.WorkSheet = wb.Sheets['Ofertas'];
+          const wsname: string = wb.SheetNames[0];
+          const ws: XLSX.WorkSheet = wb.Sheets[wsname];
           /* save data */
           if (ws && ws !== null && ws !== undefined) {
             data = XLSX.utils.sheet_to_json(ws, { header: 1, defval: null });
@@ -341,6 +343,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             res[0][j] === OFFERS_HEADERS_ACTIALIZACION_INVENTARIO ||
             res[0][j] === OFFERS_HEADERS_UPDATE_STOCK ||
             res[0][j] === OFFERS_HEADERS_EAN_COMBO ||
+            res[0][j] === OFFERS_HEADERS_EAN_COMBO_ES ||
             res[0][j] === OFFERS_HEADERS_CANTIDAD_COMBO ||
             res[0][j] === OFFERS_HEADERS_AMOUNT_COMBO ||
             res[0][j] === OFFERS_HEADERS_MONEDA ||
@@ -429,30 +432,32 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
         this.componentService.openSnackBar(this.languageService.instant('secure.products.bulk_upload.no_information_contains'), this.languageService.instant('actions.accpet_min'), 10000);
       } else {
 
-        if (this.arrayNecessaryData[0].includes('EAN') && (this.arrayNecessaryData[0].includes('Inventario') || this.arrayNecessaryData[0].includes('Stock') || this.arrayNecessaryData[0].includes('Stock')) &&
+
+        if (this.arrayNecessaryData[0].includes('EAN') && (this.arrayNecessaryData[0].includes('Inventario') || this.arrayNecessaryData[0].includes('Inventory') || this.arrayNecessaryData[0].includes('Stock')) &&
           (this.arrayNecessaryData[0].includes('Precio') || this.arrayNecessaryData[0].includes('Prix') || this.arrayNecessaryData[0].includes('Price'))) {
+
+
           const iVal = {
             iEAN: this.arrayNecessaryData[0].indexOf('EAN'),
-            iInv: this.validateSubTitle(this.arrayNecessaryData, 'Stock', 'Inventario', 'Stock'),
+            iInv: this.validateSubTitle(this.arrayNecessaryData, 'Inventory', 'Inventario', 'Stock'),
             iPrecio: this.validateSubTitle(this.arrayNecessaryData, 'Price', 'Precio', 'Prix'),
-            iPrecDesc: this.validateSubTitle(this.arrayNecessaryData, 'Discount Price', 'Precio con Descuento', 'Prix réduit'),
-            iCostFletProm: this.validateSubTitle(this.arrayNecessaryData, 'Shipping Cost', 'Costo de Flete Promedio', 'Coût moyen d\'envoie'),
-            iPromEntrega: this.validateSubTitle(this.arrayNecessaryData, 'Delivery Terms', 'Promesa de Entrega', 'Temps de livraison'),
+            iPrecDesc: this.validateSubTitle(this.arrayNecessaryData, 'Discounted Price', 'Precio con Descuento', 'Prix réduit'),
+            iCostFletProm: this.validateSubTitle(this.arrayNecessaryData, 'Average Freight Cost', 'Costo de Flete Promedio', 'Coût moyen d\'envoie'),
+            iPromEntrega: this.validateSubTitle(this.arrayNecessaryData, 'Promise to Deliver', 'Promesa de Entrega', 'Temps de livraison'),
             iPeriodicity: this.validateSubTitle(this.arrayNecessaryData, 'Periodicity', 'Periodicidad', 'Périodicité'),
             iFreeShiping: this.validateSubTitle(this.arrayNecessaryData, 'Free Shipping', 'Free Shipping', 'Livraison gratuite'),
-            iIndEnvExito: this.validateSubTitle(this.arrayNecessaryData, 'Indicador Envíos Exito', 'Envios Exito Indicator', 'Indicateur d\'expédition Éxito'),
-            iCotFlete: this.validateSubTitle(this.arrayNecessaryData, 'Freight Calculator', 'Cotizador de Flete', 'Cotation du fret'),
+            iIndEnvExito: this.validateSubTitle(this.arrayNecessaryData, 'Successful Shipments Indicator', 'Indicador Envíos Exito', 'Indicateur d\'expédition Éxito'),
+            iCotFlete: this.validateSubTitle(this.arrayNecessaryData, 'Freight Quotation', 'Cotizador de Flete', 'Cotation du fret'),
             iGarantia: this.validateSubTitle(this.arrayNecessaryData, 'Warranty', 'Garantia', 'Garantie'),
             iLogisticaExito: this.validateSubTitle(this.arrayNecessaryData, 'Exito Logistics', 'Logistica Exito', 'Logistique Éxito'),
-            iActInventario: this.validateSubTitle(this.arrayNecessaryData, 'Stock Update', 'Actualizacion de Inventario', 'Mise à Jour du Stock'),
-            iEanCombo: this.validateSubTitle(this.arrayNecessaryData, 'Ean combo', 'Ean combo', 'Ean combo'),
-            iCantidadCombo: this.validateSubTitle(this.arrayNecessaryData, 'Amount in combo', 'Cantidad en combo', 'Bundle stock'),
+            iActInventario: this.validateSubTitle(this.arrayNecessaryData, 'Inventory Update', 'Actualizacion de Inventario', 'Mise à Jour du Stock'),
+            iEanCombo: this.validateSubTitle(this.arrayNecessaryData, 'Combo EAN', 'Ean combo', 'Ean combo'),
+            iCantidadCombo: this.validateSubTitle(this.arrayNecessaryData, 'Quantity in combo', 'Cantidad en combo', 'Bundle stock'),
             iAddress: this.validateSubTitle(this.arrayNecessaryData, 'Pick up address', 'Dirección de Recogida', 'Adresse de collecte'),
             iDaneCode: this.validateSubTitle(this.arrayNecessaryData, 'Pick up city', 'Ciudad de Recogida', 'Ville de collecte'),
-            iSellerSku: this.validateSubTitle(this.arrayNecessaryData, 'Seller SKU', 'SKU Vendedor', 'Vendeur SKU'),
+            iSellerSku: this.validateSubTitle(this.arrayNecessaryData, 'SKU Seller', 'SKU Vendedor', 'Vendeur SKU'),
             iReference: this.validateSubTitle(this.arrayNecessaryData, 'Parent Reference', 'Referencia Padre', 'Parent Reference')
           };
-
           //Elimina las filas 1 y 2 que son de titulos
           this.arrayNecessaryData.splice(1, 2);
 
