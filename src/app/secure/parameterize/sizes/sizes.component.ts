@@ -109,6 +109,8 @@ export class SizesComponent implements OnInit {
    * @memberof SizesComponent
    */
   onNoClick() {
+    this.form.reset();
+    this.keySize = [];
     this.dialog.closeAll();
   }
 
@@ -149,10 +151,11 @@ export class SizesComponent implements OnInit {
    * @memberof SizesComponent
    */
   public saveSomeSizes(): void {
+    this.validateKeySize = true;
     let word = this.form.controls.nameSize.value;
     if (word) {
       word = word.trim();
-      word = word.replace(/ /g, '');
+      // word = word.replace(/ /g, '');
       if (word.search(',') === -1) {
         this.keySize.push(word);
       } else {
@@ -194,26 +197,34 @@ export class SizesComponent implements OnInit {
         'Status': 1
       };
 
-      this.service.updateSizes(dataToSendSize).subscribe(result => {
-        if (result['data'] === true) {
-          this.snackBar.open('Actualizó correctamente la marca.', 'Cerrar', {
-            duration: 5000,
-          });
-          this.dialog.closeAll();
-          this.loadingService.closeSpinner();
-          this.paginationToken = '{}';
-          this.listSize();
-        } else {
-          this.snackBar.open(result[0].message, 'Cerrar', {
-            duration: 5000,
-          });
-          this.dialog.closeAll();
-          this.loadingService.closeSpinner();
-        }
-      });
+      if (dataToSendSize.NewSize.toUpperCase() === dataToSendSize.OldSize.toUpperCase()) {
+        this.snackBar.open('No estas actualizando el nombre de la talla.', 'Cerrar', {
+          duration: 5000,
+        });
+        this.loadingService.closeSpinner();
+      } else {
+        this.service.updateSizes(dataToSendSize).subscribe(result => {
+          if (result['data'] === true) {
+            this.snackBar.open('Actualizó correctamente la talla.', 'Cerrar', {
+              duration: 5000,
+            });
+            this.dialog.closeAll();
+            this.loadingService.closeSpinner();
+            this.paginationToken = '{}';
+            this.listSize();
+          } else {
+            this.snackBar.open(result[0].message, 'Cerrar', {
+              duration: 5000,
+            });
+            this.dialog.closeAll();
+            this.loadingService.closeSpinner();
+          }
+        });
+      }
     } else {
       this.service.createSizes(this.keySize).subscribe(result => {
         if (result['data'] === true) {
+          this.keySize = [];
           this.dialog.closeAll();
           this.setIntervalStatusSize();
         } else {
@@ -311,6 +322,7 @@ export class SizesComponent implements OnInit {
    * @memberof SizesComponent
    */
   public cleanFilter() {
+    this.callOne = true;
     this.filterSizes.reset();
     this.listSize();
   }
@@ -404,7 +416,7 @@ export class SizesComponent implements OnInit {
     const dialogInstance = dialog.componentInstance;
     dialogInstance.content = this.content;
     this.subs.push(dialog.afterClosed().subscribe(() => {
-      this.form.reset({ nameBrands: '', IdBrands: '' });
+      this.form.reset({ nameSize: ''});
     }));
   }
 
@@ -424,6 +436,7 @@ export class SizesComponent implements OnInit {
     const btnConfirmationText = null;
 
     if (sizeData) {
+      this.validateKeySize = false;
       message = 'Para editar una talla podrás modificar su nombre y dar clic en aceptar.';
       icon = 'edit';
       title = 'Editar Talla';
@@ -431,6 +444,7 @@ export class SizesComponent implements OnInit {
       this.changeNameSize = sizeData;
       this.form.controls['nameSize'].setValue(sizeData);
     } else {
+      this.changeNameSize = '';
       message = 'Para crear una talla nueva debes ingresar el valor de la talla como quieras que aparezca en el sitio. Ten en cuenta que si la talla ya existe no podrás crearla. No podrás utilizar ningún simpolo o caracter especial.';
       icon = 'add';
       title = 'Agrear talla';
@@ -567,8 +581,10 @@ export class SizesComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'deleteSize') {
+        this.callOne = true;
         this.deleteSize(param);
       } else {
+        this.callOne = true;
         this.paginationToken = '{}';
         this.listSize();
       }

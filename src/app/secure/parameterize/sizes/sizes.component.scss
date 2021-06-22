@@ -62,6 +62,14 @@ $title-color: black;
 
 .input-size-width {
   width: 95%;
+
+  input {
+    text-transform: uppercase;
+  }
+}
+
+::ng-deep .mat-chip-list-wrapper .mat-standard-chip, .mat-chip-list-wrapper input.mat-input-element {
+  text-transform: uppercase !important;
 }
 
 .full-width {
@@ -133,6 +141,7 @@ tr td:last-child {
 
 .size-toolbar {
   border-bottom: 1px solid #e0e0e0;
+
   p {
     margin-left: 3%;
   }

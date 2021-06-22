@@ -108,7 +108,7 @@
   <form [formGroup]="form" class="full-width brands-modal-margin">
     <div class="brands-input-spinner">
       <mat-form-field class="input-size-width">
-        <input matInput placeholder="Nombre de la talla" style="text-transform: uppercase;" formControlName="nameSize"
+        <input matInput placeholder="Nombre de la talla" formControlName="nameSize"
           [errorStateMatcher]="matcher" required>
         <mat-icon matSuffix matTooltip="Añadir tallas" class="material-icons add-keyword-icon vertical-align-top"
           (click)="saveSomeSizes()" *ngIf="!changeNameSize">
@@ -133,7 +133,7 @@
       <button type="button" mat-button color="primary" (click)="onNoClick()">{{'actions.cancel' | translate}}</button>
       <button type="submit" mat-raised-button color="primary" class="size-position-option-cancel"
         (click)="confirmation()"
-        [disabled]="form && form.invalid">{{'actions.save' | translate}}</button>
+        [disabled]="(form && form.invalid) || (validateKeySize === true)">{{'actions.save' | translate}}</button>
     </div>
   </form>
 </ng-template>
