@@ -198,7 +198,7 @@ export class SizesComponent implements OnInit {
       };
 
       if (dataToSendSize.NewSize.toUpperCase() === dataToSendSize.OldSize.toUpperCase()) {
-        this.snackBar.open('No estas actualizando el nombre de la talla.', 'Cerrar', {
+        this.snackBar.open('No estás actualizando el nombre de la talla.', 'Cerrar', {
           duration: 5000,
         });
         this.loadingService.closeSpinner();
@@ -399,7 +399,8 @@ export class SizesComponent implements OnInit {
       const dialogRef = this.dialog.open(DialogWithFormComponent, {
         width: '55%',
         minWidth: '280px',
-        data: dataDialog
+        data: dataDialog,
+        disableClose: true
       });
       setTimeout(() => {
         this.configDataDialog(dialogRef);
