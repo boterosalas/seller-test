@@ -15,6 +15,8 @@ export class ExpandedPendingProductsComponent implements OnInit {
 
   @Input() public productsPendindgExpanded: any;
   @Input() public productsPendindgValidationExpanded: any;
+  @Input() public productsMultiOfertExpanded: any;
+  @Input() public showDetailProduct = true;
   @Input() editPermission: boolean;
 
   /* arreglo q contiene las imagenes grandes y pequeñas */
@@ -52,6 +54,10 @@ export class ExpandedPendingProductsComponent implements OnInit {
       this.productsPendindgExpanded = this.productsPendindgValidationExpanded;
       const startswithModel = !!this.productsPendindgValidationExpanded.model && (this.productsPendindgValidationExpanded.model.toString() as string).toLowerCase().startsWith('modelo');
       this.productsPendindgValidationExpanded.model = startswithModel ? (this.productsPendindgValidationExpanded.model.toString() as string).slice(6, this.productsPendindgValidationExpanded.model.length) : this.productsPendindgValidationExpanded.model;
+    }
+
+    if (this.productsMultiOfertExpanded) {
+      console.log(this.productsMultiOfertExpanded);
     }
     this.createArrayImages();
     this.getDataUser();
@@ -110,4 +116,7 @@ export class ExpandedPendingProductsComponent implements OnInit {
     this.router.navigate(['securehome/products/creacion-unitaria', { ean: productsPendindgExpanded.ean, reference: productsPendindgExpanded.reference, pendingProduct: this.avaibleProductPending }]);
   }
 
+
+
+  
 }

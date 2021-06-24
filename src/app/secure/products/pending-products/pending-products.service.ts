@@ -5,6 +5,8 @@ import { Order } from '@app/shared';
 import { Observable } from 'rxjs/Observable';
 import { EventEmitter } from '@angular/core';
 
+
+
 @Injectable()
 /**
  * Clase OrderService
@@ -17,6 +19,8 @@ export class PendingProductsService {
     private http: HttpClient,
     private api: EndpointService
   ) { }
+
+
 
   public changeEmitter(): void {
     this.change.emit(false); // Todo el que este subscrito a esta variable va a obtener el cambio de la misma
@@ -33,7 +37,7 @@ export class PendingProductsService {
   getPendingProductsModify(params: any): Observable<[{}]> {
     const filter = '';
     return new Observable(observer => {
-      this.http.get<Order[]>(this.api.get('getProductsPendingModify', [params.idSeller, params.limit + filter ])).subscribe((data: any) => {
+      this.http.get<Order[]>(this.api.get('getProductsPendingModify', [params.idSeller, params.limit + filter])).subscribe((data: any) => {
         observer.next(data);
       }, err => {
         observer.error(err);
@@ -50,7 +54,22 @@ export class PendingProductsService {
   getPendingProductsValidation(params: any): Observable<[{}]> {
     const filter = '';
     return new Observable(observer => {
-      this.http.get<Order[]>(this.api.get('getProductsPendingValidation', [params.idSeller, params.limit + filter ])).subscribe((data: any) => {
+      this.http.get<Order[]>(this.api.get('getProductsPendingValidation', [params.idSeller, params.limit + filter])).subscribe((data: any) => {
+        observer.next(data);
+      }, err => {
+        observer.error(err);
+      });
+    });
+  }
+  /**
+   * Método para realiar la consulta de los productos pendientes por validación.
+   * @param {*} params
+   * @returns {Observable<[{}]>}
+   * @memberof PendingProductsService
+   */
+  getAllProductPendingMultiOfert(params: any): Observable<any> {
+    return new Observable(observer => {
+      this.http.get<Order[]>(this.api.get('getAllproductsApproveBySeller', [params])).subscribe((data: any) => {
         observer.next(data);
       }, err => {
         observer.error(err);

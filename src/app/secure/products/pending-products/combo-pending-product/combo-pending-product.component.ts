@@ -21,10 +21,16 @@ export class ComboPendingProductComponent implements OnInit {
   @Input() offerPermission: boolean;
   @Input() editPermission: boolean;
   @Input() sellerId: any;
-  @Input() indexTab: any;
+  public _indexTab: number;
+  @Input() set indexTab(value: number) {
+      this._indexTab = value;
+      console.log(this._indexTab);
+  }
 
   public productsPendindgExpanded: any;
   public productsPendindgValidationExpanded: any;
+  public productsMultiOfertExpanded: any;
+  public showDetailProduct = true ;
 
   public showImage = false;
 
@@ -47,7 +53,7 @@ export class ComboPendingProductComponent implements OnInit {
   ) {
     this.getDataUser();
     this.infoProduct = this.productsList;
-    this.matTabIndex = this.indexTab;
+    this.matTabIndex = this._indexTab;
   }
 
   ngOnInit() {
@@ -69,6 +75,7 @@ export class ComboPendingProductComponent implements OnInit {
   public backTolist(): void {
     this.productsPendindgExpanded = null;
     this.productsPendindgValidationExpanded = null;
+    this.productsMultiOfertExpanded = null;
     this.showImage = false;
   }
 
@@ -125,6 +132,16 @@ export class ComboPendingProductComponent implements OnInit {
     }
     const paramsServ = `${this.sellerId}/${params.ean}`;
     this.openInfoProductValidation(paramsServ);
+  }
+  /**
+   * Seteo de parametros y envio data para la carga del servicio para ionformacion expandida productos en validación
+   * @param {*} params
+   * @memberof ComboPendingProductComponent
+   */
+  setparams3(params: any) {
+    this.showImage = true;
+    this.productsMultiOfertExpanded = params;
+    this.showDetailProduct = false;
   }
 
   /**

@@ -1172,6 +1172,7 @@
     "secure.products.list_products.modal.title": "This offer undergoes an extreme price change, do you wish to continue?",
     "secure.products.pending_products_tab1": "Pendientes Modificación",
     "secure.products.pending_products_tab2": "Pendientes Validación",
+    "secure.products.pending_products_tab3": "Aprobar contendido Multioferta",
     "secure.products.pending_products_text_info_header": "Les Produits en Attente de Modification ne seront affichés que pendant 30 jours, veuillez les gérer avant la fin de cette période.",
     "secure.products.list_products.download.title": "Nous vous enverrons le téléchargement du produit à l'adresse e-mail suivante.",
     "secure.products.list_products.download.error": "Un problème est survenu lors du téléchargement des produits, veuillez réessayer.",

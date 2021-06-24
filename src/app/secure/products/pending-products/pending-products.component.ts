@@ -37,14 +37,18 @@ const log = new Logger('PendingProductsComponent');
 export class PendingProductsComponent implements OnInit {
   productsList: any = [];
   productsList2: any = [];
+  productsList3: any = [];
 
   read = readFunctionality;
   validateRegex: any;
   public filterProdutsPending: FormGroup;
   public filterProdutsValidation: FormGroup;
+  public filterProdutsMultiOfert: FormGroup;
+  public indexTab = 0;
 
   public pageSize = 30;
   public pageSize2 = 30;
+  public pageSize3 = 50;
   public idSeller = '';
   public sellerId: any;
 
@@ -61,43 +65,56 @@ export class PendingProductsComponent implements OnInit {
   nameProductList2: any;
   eanList2: any;
 
+  nameProductList3: any;
+  eanList3: any;
+
   listFilterProductsModify: ListFilterProductsModify[] = [];
   listFilterProductsValidation: ListFilterProductsModify[] = [];
+  listFilterProductsMultiOfert: ListFilterProductsModify[] = [];
 
   dataChips: Array<any> = [];
   dataChips2: Array<any> = [];
+  dataChips3: Array<any> = [];
 
 
   removable = true;
 
   length = 0;
   length2 = 0;
+  length3 = 0;
   pageSizeOptions: number[] = [30, 60, 120, 600];
   pageSizeOptions2: number[] = [30, 60, 120, 600];
+  pageSizeOptions3: number[] = [30, 60, 120, 600];
   pageEvent: PageEvent;
 
   editPermission = false;
   permissionComponent: MenuModel;
 
   public callOne = true;
-  public arrayPosition = [];
-  public paginationToken = '{}';
   public callOne2 = true;
+  public callOne3 = true;
+  public arrayPosition = [];
   public arrayPosition2 = [];
+  public arrayPosition3 = [];
+  public paginationToken = '{}';
   public paginationToken2 = '{}';
+  public paginationToken3 = '{}';
   public limit = 30;
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   paramsArray: { limit: string; idSeller: string; };
   paramsArray2: { limit: string; idSeller: string; };
+  public paramsArray3: any;
   ean = '';
-  nameProduct = '';
   ean2 = '';
+  ean3 = '';
+  nameProduct = '';
   nameProduct2 = '';
+  nameProduct3 = '';
+  plu3 = '';
 
   separatorKeysCodes: number[] = [];
 
-  indexTab: number;
   constructor(
     private pendingProductsService: PendingProductsService,
     public userParams: UserParametersService,
@@ -113,6 +130,7 @@ export class PendingProductsComponent implements OnInit {
     this.validateFormSupport();
     this.getPendingProductsModify();
     this.getPendingProductsValidation();
+    this.getPendingProductsMultiOfert();
     this.editPermission = this.authService.getPermissionForMenu(unitaryCreateName, 'Editar');
   }
 
@@ -176,6 +194,17 @@ export class PendingProductsComponent implements OnInit {
       matcher: new MyErrorStateMatcher()
     });
   }
+  /**
+   * Metodo para crear form productos pendiente validación filtros
+   * @memberof PendingProductsComponent
+   */
+  createFormControls3() {
+    this.filterProdutsMultiOfert = this.fb.group({
+      productName3: new FormControl('', Validators.compose([Validators.pattern(this.getValue('nameProduct'))])),
+      ean3: new FormControl(''),
+      matcher: new MyErrorStateMatcher()
+    });
+  }
 
   // Funcion para cargar datos de regex
   public validateFormSupport(): void {
@@ -184,6 +213,7 @@ export class PendingProductsComponent implements OnInit {
       this.validateRegex = JSON.parse(res.body.body);
       this.createFormControls();
       this.createFormControls2();
+      this.createFormControls3();
       // this.filterListProducts();
     });
   }
@@ -282,6 +312,49 @@ export class PendingProductsComponent implements OnInit {
       this.filterProductsModify2();
     });
   }
+  /**
+   * Metodo para obtener los productos pendientes de validación
+   * @param {*} [params]
+   * @memberof PendingProductsComponent
+   */
+  getPendingProductsMultiOfert(params?: any) {
+    this.loadingService.viewSpinner();
+    this.paramsArray3 =  '?limit=' + this.pageSize3 + '&paginationToken=' + encodeURI(this.paginationToken3) + '&name=' + this.nameProduct2 + '&ean=' + this.ean3 + '&plu=' + this.plu3;
+    this.showProducts = false;
+    this.pendingProductsService.getAllProductPendingMultiOfert(this.paramsArray3).subscribe((res: any) => {
+      if (res) {
+        console.log(res);
+        if (this.callOne3) {
+          this.length3 = res.count;
+          this.arrayPosition3 = [];
+          this.arrayPosition3.push('{}');
+          this.callOne3 = false;
+        }
+        this.showProducts = true;
+        this.productsList3 = this.mapItems(res.viewModel);
+        this.paginationToken3 = res.paginationToken;
+        this.loadingService.closeSpinner();
+      }
+      this.filterProductsModify3();
+    });
+  }
+
+  mapItems(items: any[]): any[] {
+    return items.map(x => {
+        return {
+          currentProduct: JSON.parse(x.CurrentProduct),
+          ean: x.Ean,
+          creationDate: x.CreationDate,
+          name: x.Name,
+          updateDate: x.UpdateDate,
+          id: x.Id,
+          oldProduct: JSON.parse(x.OldProduct),
+          sellerId: x.SellerId,
+          status: x.Status,
+          urlImage1: x.ImageUrl1
+        };
+    });
+}
 
   /**
    * Metodo de paginación productos pendientes modificación
@@ -350,6 +423,39 @@ export class PendingProductsComponent implements OnInit {
       this.getPendingProductsValidation(this.paramsArray2);
     }
   }
+  /**
+   * Metodo paginacion productos pendiente validación
+   * @param {*} event
+   * @memberof PendingProductsComponent
+   */
+  paginations3(event: any): any {
+    if (event.pageSize !== this.limit) {
+      this.limit = event.pageSize;
+    }
+    if (event && event.pageIndex >= 0) {
+      const index = event.pageIndex;
+      if (index === 0) {
+        this.paginationToken3 = encodeURI('{}');
+      }
+      const isExistInitial = this.arrayPosition3.includes('{}');
+      if (isExistInitial === false) {
+        this.arrayPosition3.push('{}');
+      }
+      const isExist = this.arrayPosition3.includes(this.paginationToken3);
+      if (isExist === false) {
+        this.arrayPosition3.push(this.paginationToken3);
+      }
+      this.paginationToken3 = this.arrayPosition3[index];
+      if (this.paginationToken3 === undefined) {
+        this.paginationToken3 = encodeURI('{}');
+      }
+      this.paramsArray3 = {
+        'limit': this.pageSize3 + '&paginationToken=' + this.paginationToken3,
+        'idSeller': this.user.sellerId + '&ean=' + this.ean3 + '&name=' + this.nameProduct3
+      };
+      this.getPendingProductsMultiOfert(this.paramsArray3);
+    }
+  }
 
   /**
    * Metodo para obtener el listado de productos pdtes modificacion
@@ -369,6 +475,13 @@ export class PendingProductsComponent implements OnInit {
       'idSeller': this.user.sellerId + '&ean=' + null + '&name=' + null
     };
     this.getPendingProductsValidation(this.paramsArray2);
+  }
+  getAllPendingProductsMultiOfert() {
+    this.paramsArray3 = {
+      'limit': this.pageSize3 + '&paginationToken=' + encodeURI('{}'),
+      'idSeller': this.user.sellerId + '&ean=' + null + '&name=' + null
+    };
+    this.getPendingProductsValidation(this.paramsArray3);
   }
 
   /**
@@ -402,6 +515,21 @@ export class PendingProductsComponent implements OnInit {
     }
     this.getAllPendingProductsValidattion();
   }
+  /**
+   * Metodo para cerrar el filtro de productos pendientes validación
+   * @memberof PendingProductsComponent
+   */
+  public closeFilter3() {
+    if (!this.eanVariable) {
+      this.filterProdutsMultiOfert.controls.ean3.setValue('');
+      this.eanList3 = null;
+    }
+    if (!this.nameVariable) {
+      this.filterProdutsMultiOfert.controls.productName3.setValue('');
+      this.nameProductList3 = null;
+    }
+    this.getAllPendingProductsMultiOfert();
+  }
 
   /**
    * Metodo para aplicar filtros productos pndtes modificacion
@@ -434,6 +562,21 @@ export class PendingProductsComponent implements OnInit {
     };
     this.getPendingProductsValidation(this.filterProdutsValidation);
   }
+  /**
+   * Metodo para aplicar filtros productos pndtes validacion
+   * @memberof PendingProductsComponent
+   */
+  public filterApply3() {
+    this.paginationToken3 = '{}';
+    this.callOne3 = true;
+    this.ean3 = encodeURIComponent(this.filterProdutsMultiOfert.controls.ean3.value);
+    this.nameProduct3 = encodeURIComponent(this.filterProdutsMultiOfert.controls.productName3.value);
+    this.paramsArray = {
+      'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
+      'idSeller': this.user.sellerId + '&ean=' + this.ean3 + '&name=' + this.nameProduct3
+    };
+    this.getPendingProductsMultiOfert(this.filterProdutsMultiOfert);
+  }
 
   /**
    * Metodo para limpiar formualrio y llamar servicio principal productos rechazados
@@ -443,6 +586,12 @@ export class PendingProductsComponent implements OnInit {
     this.filterProdutsPending.reset();
     this.filterApply();
     this.cleanFilterListProductsModify();
+  }
+
+  public cleanFilterListProductsModify(): void {
+    this.nameProductList = null;
+    this.eanList = null;
+    this.listFilterProductsModify = [];
   }
 
   /**
@@ -455,16 +604,25 @@ export class PendingProductsComponent implements OnInit {
     this.cleanFilterListProductsModify2();
   }
 
-  public cleanFilterListProductsModify(): void {
-    this.nameProductList = null;
-    this.eanList = null;
-    this.listFilterProductsModify = [];
-  }
-
   public cleanFilterListProductsModify2(): void {
     this.nameProductList2 = null;
     this.eanList2 = null;
     this.listFilterProductsValidation = [];
+  }
+  /**
+   *  Metodo para limpiar formualrio y llamar servicio principal productos validacion
+   * @memberof PendingProductsComponent
+   */
+  public cleanFilter3() {
+    this.filterProdutsMultiOfert.reset();
+    this.filterApply3();
+    this.cleanFilterListProductsModify3();
+  }
+
+  public cleanFilterListProductsModify3(): void {
+    this.nameProductList3 = null;
+    this.eanList3 = null;
+    this.listFilterProductsMultiOfert = [];
   }
 
   /**
@@ -496,6 +654,23 @@ export class PendingProductsComponent implements OnInit {
     this.dataChips2.push({ value: this.nameProductList2, name: 'nameProductList2', nameFilter: 'productName2' });
     this.dataChips2.push({ value: this.eanList2, name: 'eanList2', nameFilter: 'ean2' });
     this.add2(this.dataChips2);
+  }, 1000);
+  }
+  /**
+   * Metodo para aplicar filtros productos validacion
+   * @memberof PendingProductsComponent
+   */
+  public filterProductsModify3() {
+    console.log('asa');
+    setTimeout(() => {
+    this.cleanFilterListProductsModify();
+    this.nameProductList3 = this.filterProdutsMultiOfert.controls.productName3.value || null;
+    this.eanList3 = this.filterProdutsMultiOfert.controls.ean3.value || null;
+
+    // const data = [];
+    this.dataChips3.push({ value: this.nameProductList3, name: 'nameProductList3', nameFilter: 'productName3' });
+    this.dataChips3.push({ value: this.eanList3, name: 'eanList3', nameFilter: 'ean3' });
+    this.add3(this.dataChips3);
   }, 1000);
   }
 
@@ -530,6 +705,21 @@ export class PendingProductsComponent implements OnInit {
       this.filterProdutsValidation.controls[productsFilterValidation.nameFilter].setValue(null);
     }
     this.filterApply2();
+  }
+  /**
+   * Metodo para ir eliminando chips de filtros productos validación
+   * @param {ListFilterProductsModify} productsFilterValidation
+   * @memberof PendingProductsComponent
+   */
+  public removeMultiOfert(productsFilterMultiOfert: ListFilterProductsModify): void {
+    const index = this.listFilterProductsMultiOfert.indexOf(productsFilterMultiOfert);
+
+    if (index >= 0) {
+      this.listFilterProductsMultiOfert.splice(index, 1);
+      this[productsFilterMultiOfert.value] = '';
+      this.filterProdutsValidation.controls[productsFilterMultiOfert.nameFilter].setValue(null);
+    }
+    this.filterApply3();
   }
 
   /**
@@ -567,6 +757,23 @@ export class PendingProductsComponent implements OnInit {
     });
     this.dataChips2 = [];
   }
+  /**
+   * Metodo para añadir los chips de los filtros validacion
+   * @param {*} data
+   * @memberof PendingProductsComponent
+   */
+  public add3(data: any): void {
+    data.forEach(element => {
+      const value = element.value;
+      if (value) {
+        if ((value || '')) {
+          this.listFilterProductsMultiOfert.push({ name: element.value, value: element.name, nameFilter: element.nameFilter });
+        }
+
+      }
+    });
+    this.dataChips3 = [];
+  }
 
 
 
@@ -580,6 +787,8 @@ export class PendingProductsComponent implements OnInit {
     if (event.index === 0) {
       this.indexTab = event.index;
     } else if (event.index === 1) {
+      this.indexTab = event.index;
+    } else if (event.index === 2) {
       this.indexTab = event.index;
     }
   }
