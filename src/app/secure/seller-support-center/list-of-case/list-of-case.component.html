@@ -175,10 +175,10 @@
           {{"secure.parametize.support_drop-down-order-numer" | translate}}
         </div>
 
-        <div class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-menu-reason-detail"
+        <!-- <div class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-menu-reason-detail"
           [fxFlex]="6*  5 | flexSize">
           {{"secure.parametize.support_drop-down-reason-detail" | translate}} 1
-        </div>
+        </div> -->
 
         <div  mat-sort-header="createDate" class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-creation-date"
           [fxFlex]="3*  5 | flexSize">
@@ -190,11 +190,15 @@
         </div>
 
         <div class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-reply" [fxFlex]="2*  5 | flexSize">
-          {{"secure.parametize.support_drop-down-reply" | translate}}
+          {{"secure.parametize.support_drop-down-reply" | translate}} rep
         </div>
 
         <div mat-sort-header="lastReply" class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-last-reply" [fxFlex]="4*  5 | flexSize">
           {{"secure.parametize.support_drop-down-last-reply" | translate}}
+        </div>
+
+        <div mat-sort-header="timeReply" class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-last-reply" [fxFlex]="4*  5 | flexSize">
+          {{"secure.parametize.support_drop-down-time-reply" | translate}}
         </div>
       </div>
 

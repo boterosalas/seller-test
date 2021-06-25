@@ -1402,6 +1402,7 @@
     "secure.parametize.support_drop-down-status": "Status",
     "secure.parametize.support_drop-down-reply": "Reply",
     "secure.parametize.support_drop-down-last-reply": "Last post",
+    "secure.parametize.support_drop-down-time-reply": "Time post",
     "secure.parametize.support.see.product": "see product",
     "secure.parametize.support.product": "Product",
     "secure.parametize.support.brand": "Brand",

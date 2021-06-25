@@ -1427,6 +1427,7 @@
     "secure.parametize.support_drop-down-status": "Estado",
     "secure.parametize.support_drop-down-reply": "Responder",
     "secure.parametize.support_drop-down-last-reply": "Última respuesta",
+    "secure.parametize.support_drop-down-time-reply": "Tiempo de respuesta",
     "secure.parametize.support.see.product": "ver producto",
     "secure.parametize.support.product": "Producto",
     "secure.parametize.support.brand": "Marca",
