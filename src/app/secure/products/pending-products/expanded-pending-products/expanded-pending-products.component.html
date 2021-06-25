@@ -285,7 +285,7 @@
             <ng-template [ngIf]="productsMultiOfertExpanded">
               <app-list-product-multi-ofert [data]="productsMultiOfertExpanded" class="width-100">
                 <ng-container *itemDropDownList>
-                  <app-detail-product-multi-ofert  [data]="productsMultiOfertExpanded" (opened)="isOpened($event)" [index]="i">
+                  <app-detail-product-multi-ofert  [data]="productsMultiOfertExpanded" [index]="i">
 
                   </app-detail-product-multi-ofert>
                 </ng-container>

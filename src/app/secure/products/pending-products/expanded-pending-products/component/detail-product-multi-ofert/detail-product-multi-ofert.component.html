@@ -1,3 +1,32 @@
-<p>
-  detail-product-multi-ofert works!
-</p>
+<div class="case-list-content">
+  <mat-accordion class="case-list-expandable">
+    <mat-expansion-panel class="width-100" [expanded]="isOpen"
+      (opened)="opened.emit(data); this.panelOpenState= true; read= true;
+      showDetail.emit(panelOpenState)"
+      (closed)="panelOpenState= false; showDetail.emit(panelOpenState)">
+      <mat-expansion-panel-header>
+        <div class="case-list-detail case-list-detail-content-center" fxLayout
+          fxLayout.xs="row" fxLayoutGap="10px"
+          fxLayoutGap.xs="0">
+          <div fxFlex="3%"></div>
+          <div class="case-list-detail--item-detail" fxFlex="3%"
+            fxLayoutAlign="center center" class="no-select">
+            <span [ngClass]="!panelOpenState
+              ? 'item-detail-arrow'
+              : 'item-detail-arrow--active arrow-active'">
+              <mat-icon>keyboard_arrow_up</mat-icon>
+            </span>
+          </div>
+          <div class="case-list-detail--item-detail
+            case-list-detail-text-center" fxFlex="6%" fxFlex.sm="15"
+            fxFlex.md="15" fxFlex.lg="10" fxFlex.xs="15">
+            <p class="sc-text-normal">{{data.channel}}</p>
+          </div>
+        </div>
+      </mat-expansion-panel-header>
+      <ng-container *ngFor="let item of items">
+        <ng-container [ngTemplateOutlet]="item.tpl"></ng-container>
+      </ng-container>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

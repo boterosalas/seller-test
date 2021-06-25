@@ -20,6 +20,8 @@ export class DetailProductMultiOfertComponent implements OnInit {
   @Output() opened = new EventEmitter();
   @Output() showDetail = new EventEmitter();
   public const = Const;
+  public panelOpenState = false;
+  public hideStatus: any;
 
   constructor() { }
 

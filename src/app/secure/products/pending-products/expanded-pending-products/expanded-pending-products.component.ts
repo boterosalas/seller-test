@@ -57,8 +57,22 @@ export class ExpandedPendingProductsComponent implements OnInit {
     }
 
     if (this.productsMultiOfertExpanded) {
+      const json = { 'valor1': 1, 'valor2': [1, 2, 3, 4], 'valor3': '3' };
+      
+      for (const clave in json) {
+        // if (json.hasOwnProperty(clave)) {
+        //   console.log("La clave es " + clave + " y el valor es " + json[clave]);
+        // }
+        console.log(clave);
+      }
       console.log(this.productsMultiOfertExpanded);
     }
+
+    // const array = [
+    //   {
+
+    //   }
+    // ]
     this.createArrayImages();
     this.getDataUser();
   }
@@ -76,16 +90,16 @@ export class ExpandedPendingProductsComponent implements OnInit {
   }
 
   /* funcion que cambia el valor de la variable que contiene la url de la imagen grande y recibe como parametro la url de la imagen grande */
-  changeImage(image: any, img:any) {
-    this.imageMax = image;   
-    const {min} = img;
+  changeImage(image: any, img: any) {
+    this.imageMax = image;
+    const { min } = img;
     let splitYoutube = min.split('https://img.youtube.com');
-    if(splitYoutube[0] === '') {
-        this.showVideo = true;
-        this.showImage = false
+    if (splitYoutube[0] === '') {
+      this.showVideo = true;
+      this.showImage = false
     } else {
-        this.showVideo = false;
-        this.showImage = true
+      this.showVideo = false;
+      this.showImage = true
     }
 
   }
@@ -118,5 +132,5 @@ export class ExpandedPendingProductsComponent implements OnInit {
 
 
 
-  
+
 }
