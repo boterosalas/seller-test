@@ -30,7 +30,7 @@ export class ComboPendingProductComponent implements OnInit {
   public productsPendindgExpanded: any;
   public productsPendindgValidationExpanded: any;
   public productsMultiOfertExpanded: any;
-  public showDetailProduct = true ;
+  public typeDetailProduct = 'genericProduct' ;
 
   public showImage = false;
 
@@ -141,7 +141,7 @@ export class ComboPendingProductComponent implements OnInit {
   setparams3(params: any) {
     this.showImage = true;
     this.productsMultiOfertExpanded = params;
-    this.showDetailProduct = false;
+    this.typeDetailProduct = 'multiOfert';
   }
 
   /**

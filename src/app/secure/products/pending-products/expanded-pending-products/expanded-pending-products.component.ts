@@ -16,7 +16,7 @@ export class ExpandedPendingProductsComponent implements OnInit {
   @Input() public productsPendindgExpanded: any;
   @Input() public productsPendindgValidationExpanded: any;
   @Input() public productsMultiOfertExpanded: any;
-  @Input() public showDetailProduct = true;
+  @Input() public typeDetailProduct = 'genericProduct';
   @Input() editPermission: boolean;
 
   /* arreglo q contiene las imagenes grandes y pequeñas */

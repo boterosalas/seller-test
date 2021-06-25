@@ -1,0 +1,22 @@
+<div style="margin-right: 50px;">
+  <div fxLayout="row" style="padding: 20px 40px 20px 40px;">
+    <div fxFlex="20">
+      <span class="list-order-component-text-column">
+        Item
+      </span>
+    </div>
+    <div fxFlex="40" fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true">
+      <span class="list-order-component-text-column">
+        Anterior
+      </span>
+    </div>
+    <div fxFlex="40" fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true">
+      <span class="list-order-component-text-column">
+        Actual
+      </span>
+    </div>
+  </div>
+  <ng-container *ngFor="let item of items" >
+    <ng-container [ngTemplateOutlet]="item.tpl"></ng-container>
+  </ng-container>
+</div>

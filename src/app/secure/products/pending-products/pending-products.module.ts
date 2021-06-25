@@ -9,6 +9,8 @@ import { PendingProductsRoutingModule } from './pending-products.routing';
 import { PendingProductsService } from './pending-products.service';
 import { ComboPendingProductComponent } from './combo-pending-product/combo-pending-product.component';
 import { ExpandedPendingProductsComponent } from './expanded-pending-products/expanded-pending-products.component';
+import { ListProductMultiOfertComponent } from './expanded-pending-products/component/list-product-multi-ofert/list-product-multi-ofert.component';
+import { DetailProductMultiOfertComponent } from './expanded-pending-products/component/detail-product-multi-ofert/detail-product-multi-ofert.component';
 
 @NgModule({
     imports: [
@@ -23,7 +25,9 @@ import { ExpandedPendingProductsComponent } from './expanded-pending-products/ex
     declarations: [
         PendingProductsComponent,
         ComboPendingProductComponent,
-        ExpandedPendingProductsComponent
+        ExpandedPendingProductsComponent,
+        ListProductMultiOfertComponent,
+        DetailProductMultiOfertComponent
     ],
     exports: [
         PendingProductsComponent,

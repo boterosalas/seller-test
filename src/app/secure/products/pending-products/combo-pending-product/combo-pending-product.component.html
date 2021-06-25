@@ -12,7 +12,7 @@
   {{'secure.products.create_product_unit.list_products.combo_product.back' | translate}}
 </button>
 
-<button class="bleft" mat-icon-button *ngIf="productsMultiOfertExpanded && showProducts"  (click)="backTolist()">
+<button style="color: #909090;" mat-icon-button *ngIf="productsMultiOfertExpanded && showProducts"  (click)="backTolist()">
   <mat-icon class="material-icons">
     arrow_back
   </mat-icon>
@@ -80,5 +80,5 @@
   <app-expanded-pending-products *ngIf="productsPendindgValidationExpanded && showProducts" [productsPendindgValidationExpanded]="productsPendindgValidationExpanded"></app-expanded-pending-products>
 </div>
 <div class="full-width" *ngIf="_indexTab === 2">
-  <app-expanded-pending-products *ngIf="productsMultiOfertExpanded && showProducts" [showDetailProduct]="showDetailProduct" [productsMultiOfertExpanded]="productsMultiOfertExpanded"></app-expanded-pending-products>
+  <app-expanded-pending-products *ngIf="productsMultiOfertExpanded && showProducts" [typeDetailProduct]="typeDetailProduct" [productsMultiOfertExpanded]="productsMultiOfertExpanded"></app-expanded-pending-products>
 </div>
