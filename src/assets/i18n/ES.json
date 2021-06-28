@@ -1376,6 +1376,7 @@
     "secure.parametize.support_modal.reply.placeholder-write-answer": "Escribe tu respuesta",
 
     "secure.parametize.support_claims.title.claim": "Reclamaciones",
+    "secure.parametize.support_claims.title.time": "Tasa de respuesta últimos 30 días",
     "secure.parametize.support_claims.title.claim_search": "Buscar reclamaciones",
     "secure.parametize.support_claims.claims-display": "Visualización de productos",
     "secure.parametize.support_claims.products-per-page": "Productos por página",
@@ -1433,6 +1434,7 @@
     "secure.parametize.support.brand": "Marca",
     "secure.parametize.support.sell_price": "Precio de venta",
     "secure.parametize.support.quantity": "Cantidad",
+    "secure.parametize.support.hours": "horas",
 
     "secure.parametize.port.port": "Puerto",
     "secure.parametize.port.search_port": "Consultar puerto",

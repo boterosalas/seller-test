@@ -125,6 +125,8 @@
     </form>
   </mat-drawer>
 
+
+
   <div class="example-sidenav-content borde-line-toolbar">
     <mat-toolbar class="tree-toolbar" class="drawer-container">
       <div class="normal-theme toolbar-options-table" fxLayout="row" fxLayoutAlign="space-between center">
@@ -159,6 +161,17 @@
     </mat-toolbar>
   </div>
 
+  <div class="example-sidenav-content borde-line-toolbar-title-time">
+    <span class="material-icons">
+      alarm_on
+      </span>
+      <div fxLayout="column" fxLayoutAlign="space-evenly start">
+        <h1>{{timeResponse}} {{'secure.parametize.support.hours' | translate}}</h1>
+        <p>{{'secure.parametize.support_claims.title.time' | translate }}</p>
+      </div>
+    
+  </div>
+
   <ng-template [ngIf]="cases">
     <div *ngIf="!idDetail">
       <!-- Headers para tipo perifl seller -->
@@ -175,10 +188,10 @@
           {{"secure.parametize.support_drop-down-order-numer" | translate}}
         </div>
 
-        <!-- <div class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-menu-reason-detail"
+        <div class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-menu-reason-detail"
           [fxFlex]="6*  5 | flexSize">
-          {{"secure.parametize.support_drop-down-reason-detail" | translate}} 1
-        </div> -->
+          {{"secure.parametize.support_drop-down-reason-detail" | translate}}
+        </div>
 
         <div  mat-sort-header="createDate" class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-creation-date"
           [fxFlex]="3*  5 | flexSize">
@@ -189,15 +202,15 @@
           {{"secure.parametize.support_drop-down-status" | translate}}
         </div>
 
-        <div class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-reply" [fxFlex]="2*  5 | flexSize">
+        <!-- <div class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-reply" [fxFlex]="2*  5 | flexSize">
           {{"secure.parametize.support_drop-down-reply" | translate}} rep
-        </div>
+        </div> -->
 
         <div mat-sort-header="lastReply" class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-last-reply" [fxFlex]="4*  5 | flexSize">
           {{"secure.parametize.support_drop-down-last-reply" | translate}}
         </div>
 
-        <div mat-sort-header="timeReply" class="sh-list-header-header--item-header sh-list-header-header--item-header-none" id="sh-list-header-drop-down-last-reply" [fxFlex]="4*  5 | flexSize">
+        <div mat-sort-header="timeReply" class="sh-list-header-header--item-header" id="sh-list-header-drop-down-time-reply" [fxFlex]="4*  5 | flexSize">
           {{"secure.parametize.support_drop-down-time-reply" | translate}}
         </div>
       </div>
