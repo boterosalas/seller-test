@@ -31,15 +31,6 @@
           <div class="case-list-detail--item-detail noneMobile" fxFlex="10%" id="dpbox-case-status-{{index}}">
             {{ data.status }}
           </div>
-          <!-- <div class="case-list-detail--item-detail case-list-detail--content-center" fxFlex="5%" *ngIf="hideStatus">
-            <mat-icon>question_answer</mat-icon>
-          </div> -->
-          <!-- <div class="case-list-detail--item-detail case-list-detail--content-center noneMobile" fxFlex="5%">
-            <mat-icon id="dpbox-attachment-icon-{{index}} "
-              *ngIf="data.attachments && data.attachments.length && data.attachments.length > 0">
-              attachment
-            </mat-icon>
-          </div> -->
           <div class="case-list-detail--item-detail noneMobile" fxFlex="20%" id="dpbox-case-reason-{{index}}">
             <div [ngClass]="data.attachments && data.attachments.length && data.attachments.length > 0 ? 'flexAttach': ''">
               <mat-icon id="dpbox-attachment-icon-{{index}} "
@@ -48,10 +39,6 @@
             </mat-icon>
             <p>{{ data.lastPostDesc }}</p>
             </div>
-           
-            <!-- <p *ngIf="data.lastPost === 1">{{'secure.parametize.support_claims-filter.sac_answer' | translate}}</p>
-            <p *ngIf="data.lastPost === 2">{{'secure.parametize.support_claims-filter.seller_answer' | translate}}</p> -->
-
           </div>
 
           <div class="case-list-detail--item-detail" fxFlex="20%" id="dpbox-case-time-{{index}}">

@@ -1404,6 +1404,7 @@
     "secure.parametize.support_drop-down-reply": "Reply",
     "secure.parametize.support_drop-down-last-reply": "Last post",
     "secure.parametize.support_drop-down-time-reply": "Time post",
+    "secure.parametize.support_drop-down-time-reply-seller": "Time post seller",
     "secure.parametize.support.see.product": "see product",
     "secure.parametize.support.product": "Product",
     "secure.parametize.support.brand": "Brand",

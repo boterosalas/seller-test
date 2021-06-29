@@ -464,7 +464,6 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
               element.statusLoad = false;
             });
             this.timeResponse = res.body.data.responseTime;
-            console.log(this.timeResponse, res.body.data);
             this.loadingService.closeSpinner();
           }
         }
