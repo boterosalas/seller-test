@@ -983,6 +983,7 @@
 
     "secure.products.create_product_unit.assing_images_url.image": "Img URL",
     "secure.products.create_product_unit.assing_images_url.format_invalidate": "The format is invalid",
+    "secure.products.create_product_unit.assing_video_url.format_invalidate": "URL is not valid, the allowed format is a YouTube URL",
     "secure.products.create_product_unit.assing_images_url.imagen_invalidate": "The image is invalid",
 
     "secure.products.create_product_unit.basic_information.text_assign_images": "In this section you must enter the correspondinge image URL for the product you are creating. You may enter up to 5 product views, but the only mandatory is the first one. Remember that if your product doesn't have variations the image must be 1000x1000 pixels in size and it's format must be .jpg.  If your product has variations the image must be 733x1000 pixels in size and it's format must also be .jpg. If your product has variations you must also insert at least 1 image per variation.",

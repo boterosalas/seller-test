@@ -7,7 +7,7 @@ import { BasicInformationService } from '@app/secure/products/create-product-uni
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { DialogInfoComponent } from '@app/shared/components/dialog-info/dialog-info.component';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
-import { TranslateService } from '@ngx-translate/core';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { ModalBulkloadBrandsComponent } from '../brands/modal-bulkload-brands/modal-bulkload-brands.component';
 import { SizesService } from './sizes.service';
@@ -102,6 +102,7 @@ export class SizesComponent implements OnInit {
     this.setIntervalStatusSize();
     this.listSize();
     this.validateFormSupport();
+    this.changeLanguaje();
   }
 
   /**
@@ -224,13 +225,12 @@ export class SizesComponent implements OnInit {
     } else {
       this.service.createSizes(this.keySize).subscribe(result => {
         if (result['data'] === true) {
-          this.keySize = [];
           this.dialog.closeAll();
           this.setIntervalStatusSize();
         } else {
           this.snackBar.open(result['message'], 'Cerrar', {
-                    duration: 5000,
-                });
+            duration: 5000,
+          });
           this.dialog.closeAll();
           this.loadingService.closeSpinner();
         }
@@ -417,7 +417,7 @@ export class SizesComponent implements OnInit {
     const dialogInstance = dialog.componentInstance;
     dialogInstance.content = this.content;
     this.subs.push(dialog.afterClosed().subscribe(() => {
-      this.form.reset({ nameSize: ''});
+      this.form.reset({ nameSize: '' });
     }));
   }
 
@@ -448,7 +448,7 @@ export class SizesComponent implements OnInit {
       this.changeNameSize = '';
       message = 'Para crear una talla nueva debes ingresar el valor de la talla como quieras que aparezca en el sitio. Ten en cuenta que si la talla ya existe no podrás crearla. No podrás utilizar ningún simpolo o caracter especial.';
       icon = 'add';
-      title = 'Agrear talla';
+      title = 'Agregar talla';
       messageCenter = false;
     }
     form = this.form;
@@ -549,6 +549,7 @@ export class SizesComponent implements OnInit {
       dataError: this.dataIfError
     };
     this.openDialogGenericInfo();
+    this.keySize = [];
   }
 
   /**
@@ -590,6 +591,20 @@ export class SizesComponent implements OnInit {
         this.listSize();
       }
       log.info('The modal detail billing was closed');
+    });
+  }
+
+
+  /**
+   * funcion para cambiar la cultura
+   * @memberof SizesComponent
+   */
+  changeLanguaje() {
+    this.languageService.onLangChange.subscribe((event: LangChangeEvent) => {
+      localStorage.setItem('culture_current', event['lang']);
+      this.paginationToken = '{}';
+      this.callOne = true;
+      this.listSize();
     });
   }
 
