@@ -59,13 +59,18 @@
 <ng-template #dialogContent *ngIf="!msjDeleteCategory">
   <form [formGroup]="form" class="full-width form margin-top__15">
     <div class="container-fields">
-      <mat-form-field class="register full-width">
+      <mat-form-field class="register half-width">
         <mat-label>{{'shared.product_type' | translate}}</mat-label>
         <mat-select formControlName="ProductType" required>
           <mat-option *ngFor="let type of productTypes" [value]="type">
             {{type}}
           </mat-option>
         </mat-select>
+      </mat-form-field>
+      <mat-form-field class="half-width">
+        <input matInput id="NameParent"
+          [placeholder]="'secure.parametize.category.categories.lb_parent_name_category_form' | translate"
+          autocomplete="false" formControlName="NameParent">
       </mat-form-field>
     </div>
     <div class="container-fields">
@@ -84,32 +89,6 @@
           {{'errors.required' | translate}}</mat-error>
         <mat-error *ngIf="Commission.hasError('pattern') || Commission.hasError('positiveNumber')">
           {{'errors.commission_invalid' | translate}}</mat-error>
-      </mat-form-field>
-    </div>
-    <div class="container-fields">
-      <mat-form-field class="half-width">
-        <input matInput id="IdVTEX" [placeholder]="'secure.parametize.category.categories.lb_id_vtex_form' | translate"
-          autocomplete="false" formControlName="IdVTEX" required>
-        <mat-error *ngIf="IdVTEX.hasError('required') || IdVTEX.hasError('trim')">{{'errors.required' | translate}}
-        </mat-error>
-        <mat-error *ngIf="IdVTEX.hasError('pattern')">{{'errors.invalid_id' | translate}}</mat-error>
-      </mat-form-field>
-
-      <mat-form-field class="half-width">
-        <input matInput id="VtexIdCarulla"
-          [placeholder]="'secure.parametize.category.categories.lb_vtex_id_carulla_form' | translate"
-          autocomplete="false" formControlName="VtexIdCarulla" required>
-        <mat-error *ngIf="VtexIdCarulla.hasError('required') || VtexIdCarulla.hasError('trim')">
-          {{'errors.required' | translate}}
-        </mat-error>
-        <mat-error *ngIf="VtexIdCarulla.hasError('pattern')">{{'errors.invalid_VtexIdCarulla' | translate}}</mat-error>
-      </mat-form-field>
-    </div>
-    <div class="container-fields">
-      <mat-form-field class="whole-width">
-        <input matInput id="NameParent"
-          [placeholder]="'secure.parametize.category.categories.lb_parent_name_category_form' | translate"
-          autocomplete="false" formControlName="NameParent">
       </mat-form-field>
     </div>
 
@@ -135,5 +114,48 @@
           {{'errors.error.categories.valid' | translate}}</mat-error>
       </mat-form-field>
     </div>
+
+    <div class="container-fields">
+      <mat-form-field class="half-width">
+        <input matInput id="IdVTEX" [placeholder]="'secure.parametize.category.categories.lb_id_vtex_form' | translate"
+          autocomplete="false" formControlName="IdVTEX" required>
+        <mat-error *ngIf="IdVTEX.hasError('required') || IdVTEX.hasError('trim')">{{'errors.required' | translate}}
+        </mat-error>
+        <mat-error *ngIf="IdVTEX.hasError('pattern')">{{'errors.invalid_id' | translate}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="half-width">
+        <input matInput id="VtexIdCarulla"
+          [placeholder]="'secure.parametize.category.categories.lb_vtex_id_carulla_form' | translate"
+          autocomplete="false" formControlName="VtexIdCarulla" required>
+        <mat-error *ngIf="VtexIdCarulla.hasError('required') || VtexIdCarulla.hasError('trim')">
+          {{'errors.required' | translate}}
+        </mat-error>
+        <mat-error *ngIf="VtexIdCarulla.hasError('pattern')">{{'errors.invalid_VtexIdCarulla' | translate}}</mat-error>
+      </mat-form-field>
+    </div>
+
+
+    <div class="container-fields">
+      <mat-form-field class="half-width">
+        <input matInput id="sincoSubLineId" [placeholder]="'secure.parametize.category.categories.lb_sinco_sub_line_id'"
+          autocomplete="false" formControlName="sincoSubLineId" required>
+        <mat-error *ngIf="sincoSubLineId.hasError('required') || sincoSubLineId.hasError('trim')">{{'errors.required' | translate}}
+        </mat-error>
+        <mat-error *ngIf="sincoSubLineId.hasError('pattern')">{{'errors.sincoSubLineId' | translate}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="half-width">
+        <input matInput id="sincoCategoryId"
+          [placeholder]="'secure.parametize.category.categories.lb_sinco_category_id' | translate"
+          autocomplete="false" formControlName="sincoCategoryId">
+        <mat-error *ngIf="sincoCategoryId.hasError('required') || sincoCategoryId.hasError('trim')">
+          {{'errors.required' | translate}}
+        </mat-error>
+        <mat-error *ngIf="sincoCategoryId.hasError('pattern')">{{'errors.invalid_sincoCategoryId' | translate}}</mat-error>
+      </mat-form-field>
+    </div>
+
+
   </form>
 </ng-template>

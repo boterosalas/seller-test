@@ -33,12 +33,15 @@ export class DialogWithFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log("FORMMMM",this.data, this.content);
   }
 
   onNoClick: () => void = () => {
     // tslint:disable-next-line:no-unused-expression
-    !!this.data && !!this.data.form && this.data.form.reset();
-    this.dialogRef.close();
+    /* !!this.data && !!this.data.form && this.data.form.reset();
+    this.dialogRef.close(); */
+    console.log(this.content);
+
   }
 
   // tslint:disable-next-line:member-ordering
