@@ -108,6 +108,14 @@
             {{'secure.products.table_errors_product.duplication_ean' | translate}}
           </p>
 
+          <p matLine *ngIf="item.type == 'UrlVIdeoYoutbeError'" style="white-space: normal;overflow: visible;">
+            {{'secure.products.table_errors_product.column_data' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.column' | translate}}
+              #{{ item.columna }}</span> {{'secure.products.table_errors_product.for' | translate}}
+            <span class="error-string">{{'secure.products.table_errors_product.row' | translate}} #{{item.fila}}</span>
+            {{'secure.products.create_product_unit.assing_video_url.format_invalidate' | translate}}
+          </p>
+
         </mat-list-item>
       </mat-nav-list>
     </div>

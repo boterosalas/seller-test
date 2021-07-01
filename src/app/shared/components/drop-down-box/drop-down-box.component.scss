@@ -28,6 +28,14 @@ $line-color: #d3d3d3;
   border-bottom: 1px $line-color solid;
 }
 
+.flexAttach{
+  flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center space-evenly;
+    align-items: center;
+}
+
 .case-list-detail {
   width: 100%;
   color: $primary-color;
@@ -41,7 +49,7 @@ $line-color: #d3d3d3;
   &--item-detail {
     text-overflow: ellipsis;
     overflow-wrap: break-word;
-    white-space: nowrap;
+    // white-space: nowrap;
     overflow: hidden;
     width: inherit;
     max-width: 30%;

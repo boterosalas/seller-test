@@ -7,7 +7,7 @@ import { BasicInformationService } from '@app/secure/products/create-product-uni
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { DialogInfoComponent } from '@app/shared/components/dialog-info/dialog-info.component';
 import { DialogWithFormComponent } from '@app/shared/components/dialog-with-form/dialog-with-form.component';
-import { TranslateService } from '@ngx-translate/core';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { ModalBulkloadBrandsComponent } from '../brands/modal-bulkload-brands/modal-bulkload-brands.component';
 import { SizesService } from './sizes.service';
@@ -102,6 +102,7 @@ export class SizesComponent implements OnInit {
     this.setIntervalStatusSize();
     this.listSize();
     this.validateFormSupport();
+    this.changeLanguaje();
   }
 
   /**
@@ -109,6 +110,8 @@ export class SizesComponent implements OnInit {
    * @memberof SizesComponent
    */
   onNoClick() {
+    this.form.reset();
+    this.keySize = [];
     this.dialog.closeAll();
   }
 
@@ -149,10 +152,11 @@ export class SizesComponent implements OnInit {
    * @memberof SizesComponent
    */
   public saveSomeSizes(): void {
+    this.validateKeySize = true;
     let word = this.form.controls.nameSize.value;
     if (word) {
       word = word.trim();
-      word = word.replace(/ /g, '');
+      // word = word.replace(/ /g, '');
       if (word.search(',') === -1) {
         this.keySize.push(word);
       } else {
@@ -194,23 +198,30 @@ export class SizesComponent implements OnInit {
         'Status': 1
       };
 
-      this.service.updateSizes(dataToSendSize).subscribe(result => {
-        if (result['data'] === true) {
-          this.snackBar.open('Actualizó correctamente la marca.', 'Cerrar', {
-            duration: 5000,
-          });
-          this.dialog.closeAll();
-          this.loadingService.closeSpinner();
-          this.paginationToken = '{}';
-          this.listSize();
-        } else {
-          this.snackBar.open(result[0].message, 'Cerrar', {
-            duration: 5000,
-          });
-          this.dialog.closeAll();
-          this.loadingService.closeSpinner();
-        }
-      });
+      if (dataToSendSize.NewSize.toUpperCase() === dataToSendSize.OldSize.toUpperCase()) {
+        this.snackBar.open('No estás actualizando el nombre de la talla.', 'Cerrar', {
+          duration: 5000,
+        });
+        this.loadingService.closeSpinner();
+      } else {
+        this.service.updateSizes(dataToSendSize).subscribe(result => {
+          if (result['data'] === true) {
+            this.snackBar.open('Actualizó correctamente la talla.', 'Cerrar', {
+              duration: 5000,
+            });
+            this.dialog.closeAll();
+            this.loadingService.closeSpinner();
+            this.paginationToken = '{}';
+            this.listSize();
+          } else {
+            this.snackBar.open(result[0].message, 'Cerrar', {
+              duration: 5000,
+            });
+            this.dialog.closeAll();
+            this.loadingService.closeSpinner();
+          }
+        });
+      }
     } else {
       this.service.createSizes(this.keySize).subscribe(result => {
         if (result['data'] === true) {
@@ -218,8 +229,8 @@ export class SizesComponent implements OnInit {
           this.setIntervalStatusSize();
         } else {
           this.snackBar.open(result['message'], 'Cerrar', {
-                    duration: 5000,
-                });
+            duration: 5000,
+          });
           this.dialog.closeAll();
           this.loadingService.closeSpinner();
         }
@@ -311,6 +322,7 @@ export class SizesComponent implements OnInit {
    * @memberof SizesComponent
    */
   public cleanFilter() {
+    this.callOne = true;
     this.filterSizes.reset();
     this.listSize();
   }
@@ -387,7 +399,8 @@ export class SizesComponent implements OnInit {
       const dialogRef = this.dialog.open(DialogWithFormComponent, {
         width: '55%',
         minWidth: '280px',
-        data: dataDialog
+        data: dataDialog,
+        disableClose: true
       });
       setTimeout(() => {
         this.configDataDialog(dialogRef);
@@ -404,7 +417,7 @@ export class SizesComponent implements OnInit {
     const dialogInstance = dialog.componentInstance;
     dialogInstance.content = this.content;
     this.subs.push(dialog.afterClosed().subscribe(() => {
-      this.form.reset({ nameBrands: '', IdBrands: '' });
+      this.form.reset({ nameSize: '' });
     }));
   }
 
@@ -424,6 +437,7 @@ export class SizesComponent implements OnInit {
     const btnConfirmationText = null;
 
     if (sizeData) {
+      this.validateKeySize = false;
       message = 'Para editar una talla podrás modificar su nombre y dar clic en aceptar.';
       icon = 'edit';
       title = 'Editar Talla';
@@ -431,9 +445,10 @@ export class SizesComponent implements OnInit {
       this.changeNameSize = sizeData;
       this.form.controls['nameSize'].setValue(sizeData);
     } else {
+      this.changeNameSize = '';
       message = 'Para crear una talla nueva debes ingresar el valor de la talla como quieras que aparezca en el sitio. Ten en cuenta que si la talla ya existe no podrás crearla. No podrás utilizar ningún simpolo o caracter especial.';
       icon = 'add';
-      title = 'Agrear talla';
+      title = 'Agregar talla';
       messageCenter = false;
     }
     form = this.form;
@@ -534,6 +549,7 @@ export class SizesComponent implements OnInit {
       dataError: this.dataIfError
     };
     this.openDialogGenericInfo();
+    this.keySize = [];
   }
 
   /**
@@ -567,12 +583,28 @@ export class SizesComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'deleteSize') {
+        this.callOne = true;
         this.deleteSize(param);
       } else {
+        this.callOne = true;
         this.paginationToken = '{}';
         this.listSize();
       }
       log.info('The modal detail billing was closed');
+    });
+  }
+
+
+  /**
+   * funcion para cambiar la cultura
+   * @memberof SizesComponent
+   */
+  changeLanguaje() {
+    this.languageService.onLangChange.subscribe((event: LangChangeEvent) => {
+      localStorage.setItem('culture_current', event['lang']);
+      this.paginationToken = '{}';
+      this.callOne = true;
+      this.listSize();
     });
   }
 

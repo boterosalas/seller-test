@@ -1009,6 +1009,7 @@
 
     "secure.products.create_product_unit.assing_images_url.image": "Img URL",
     "secure.products.create_product_unit.assing_images_url.format_invalidate": "El formato es inválido",
+    "secure.products.create_product_unit.assing_video_url.format_invalidate": "URL no es válida, el formato permitido es una URL de YouTube",
     "secure.products.create_product_unit.assing_images_url.imagen_invalidate": "La imagen no es válida",
 
     "secure.products.create_product_unit.basic_information.text_assign_images": "En esta sección deberás ingresar las URL de imagen correspondientes para el producto a crear. Puedes ingresar hasta 5 vistas del producto pero la única que es obligatoria es la imagen 1. Recuerda que si tu producto no es variante la imagen debe ser de 1000x1000 pixeles en formato .jpg, y si tu producto es variante la imagen debe ser de 733x1000 pixeles en formato .jpg. Si tu producto es variante tambien debes ingresar como mínimo una imagen para cada hijo.",
@@ -1388,6 +1389,7 @@
     "secure.parametize.support_modal.reply.placeholder-write-answer": "Escribe tu respuesta",
 
     "secure.parametize.support_claims.title.claim": "Reclamaciones",
+    "secure.parametize.support_claims.title.time": "Tasa de respuesta últimos 30 días",
     "secure.parametize.support_claims.title.claim_search": "Buscar reclamaciones",
     "secure.parametize.support_claims.claims-display": "Visualización de productos",
     "secure.parametize.support_claims.products-per-page": "Productos por página",
@@ -1439,11 +1441,14 @@
     "secure.parametize.support_drop-down-status": "Estado",
     "secure.parametize.support_drop-down-reply": "Responder",
     "secure.parametize.support_drop-down-last-reply": "Última respuesta",
+    "secure.parametize.support_drop-down-time-reply": "Tiempo de respuesta",
+    "secure.parametize.support_drop-down-time-reply-seller": "Tiempo de respuesta vendedor",
     "secure.parametize.support.see.product": "ver producto",
     "secure.parametize.support.product": "Producto",
     "secure.parametize.support.brand": "Marca",
     "secure.parametize.support.sell_price": "Precio de venta",
     "secure.parametize.support.quantity": "Cantidad",
+    "secure.parametize.support.hours": "horas",
 
     "secure.parametize.port.port": "Puerto",
     "secure.parametize.port.search_port": "Consultar puerto",

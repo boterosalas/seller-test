@@ -1068,7 +1068,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                 const itemLog = {
                   row: this.arrayInformation.length,
                   column: j,
-                  type: 'invalidFormat',
+                  type: 'UrlVIdeoYoutbeError',
                   columna: column,
                   fila: row,
                   positionRowPrincipal: i,

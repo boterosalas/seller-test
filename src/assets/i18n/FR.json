@@ -987,6 +987,7 @@
 
     "secure.products.create_product_unit.assing_images_url.image": "Img URL",
     "secure.products.create_product_unit.assing_images_url.format_invalidate": "The format is invalid",
+    "secure.products.create_product_unit.assing_video_url.format_invalidate": "URL is not valid, the allowed format is a YouTube URL",
     "secure.products.create_product_unit.assing_images_url.imagen_invalidate": "The image is invalid",
 
     "secure.products.create_product_unit.basic_information.text_assign_images": "In this section you must enter the correspondinge image URL for the product you are creating. You may enter up to 5 product views, but the only mandatory is the first one. Remember that if your product doesn't have variations the image must be 1000x1000 pixels in size and it's format must be .jpg.  If your product has variations the image must be 733x1000 pixels in size and it's format must also be .jpg. If your product has variations you must also insert at least 1 image per variation.",
@@ -1355,6 +1356,7 @@
     "secure.parametize.support_modal.reply.placeholder-write-answer": "Write your answer",
 
     "secure.parametize.support_claims.title.claim": "Claims",
+    "secure.parametize.support_claims.title.time": "Response rate last 30 days",
     "secure.parametize.support_claims.title.claim_search": "Search claims",
     "secure.parametize.support_claims.claims-display": "Claims display",
     "secure.parametize.support_claims.products-per-page": "Products per page",
@@ -1398,6 +1400,22 @@
     "secure.parametize.support_claims-filter.modal-export.allSeller": "All Seller",
     "secure.parametize.support_claims-filter.modal-export.searchSeller": "Search for a seller",
     "secure.parametize.support_claims-filter.modal-export.titleExportReclaim": "Export claims",
+
+    "secure.parametize.support_drop-down-menu-ID": "ID",
+    "secure.parametize.support_drop-down-order-numer": "Order number",
+    "secure.parametize.support_drop-down-reason-detail": "Reason detail",
+    "secure.parametize.support_drop-down-creation-date": "Creation date",
+    "secure.parametize.support_drop-down-status": "Status",
+    "secure.parametize.support_drop-down-reply": "Reply",
+    "secure.parametize.support_drop-down-last-reply": "Last post",
+    "secure.parametize.support_drop-down-time-reply": "Time post",
+    "secure.parametize.support_drop-down-time-reply-seller": "Time post seller",
+    "secure.parametize.support.see.product": "see product",
+    "secure.parametize.support.product": "Product",
+    "secure.parametize.support.brand": "Brand",
+    "secure.parametize.support.sell_price": "Sale price",
+    "secure.parametize.support.quantity": "Quantity",
+    "secure.parametize.support.hours": "hours",
 
     "secure.parametize.port.port": "Port",
     "secure.parametize.port.search_port": "Search port",
