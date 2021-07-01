@@ -7,6 +7,8 @@ import { EventEmitter } from '@angular/core';
 
 
 
+
+
 @Injectable()
 /**
  * Clase OrderService
@@ -95,8 +97,21 @@ export class PendingProductsService {
    * @memberof PendingProductsService
    */
   getEANProductsValidation(params?: any): Observable<{}> {
-    // return this.http.get(this.api.get('getProductList', [params]));
     return this.http.get(this.api.get('getEANPendingValidation', [params]));
   }
+
+
+  sendApprovedProductMultiOfert(params?: any): Observable<{}> {
+    return new Observable(observer => {
+      observer.next({true: true});
+    });
+  }
+
+  sendRejectProductProductMultiOfert(params?: any): Observable<{}> {
+    return new Observable(observer => {
+      observer.next({true: true});
+    });
+  }
+
 
 }

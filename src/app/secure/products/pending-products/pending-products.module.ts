@@ -11,6 +11,7 @@ import { ComboPendingProductComponent } from './combo-pending-product/combo-pend
 import { ExpandedPendingProductsComponent } from './expanded-pending-products/expanded-pending-products.component';
 import { ListProductMultiOfertComponent } from './expanded-pending-products/component/list-product-multi-ofert/list-product-multi-ofert.component';
 import { DetailProductMultiOfertComponent } from './expanded-pending-products/component/detail-product-multi-ofert/detail-product-multi-ofert.component';
+import { ModalGenericProductMultiOfertComponent } from './expanded-pending-products/component/modal-generic-product-multi-ofert/modal-generic-product-multi-ofert.component';
 
 @NgModule({
     imports: [
@@ -27,7 +28,8 @@ import { DetailProductMultiOfertComponent } from './expanded-pending-products/co
         ComboPendingProductComponent,
         ExpandedPendingProductsComponent,
         ListProductMultiOfertComponent,
-        DetailProductMultiOfertComponent
+        DetailProductMultiOfertComponent,
+        ModalGenericProductMultiOfertComponent
     ],
     exports: [
         PendingProductsComponent,
@@ -35,6 +37,7 @@ import { DetailProductMultiOfertComponent } from './expanded-pending-products/co
         ExpandedPendingProductsComponent
     ],
     entryComponents: [
+        ModalGenericProductMultiOfertComponent
     ],
     providers: [
         PendingProductsService

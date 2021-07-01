@@ -51,6 +51,7 @@ export class PendingProductsComponent implements OnInit {
   public pageSize3 = 50;
   public idSeller = '';
   public sellerId: any;
+  public detailShow = false;
 
   public user: UserInformation;
   isAdmin = false;
@@ -323,7 +324,6 @@ export class PendingProductsComponent implements OnInit {
     this.showProducts = false;
     this.pendingProductsService.getAllProductPendingMultiOfert(this.paramsArray3).subscribe((res: any) => {
       if (res) {
-        console.log(res);
         if (this.callOne3) {
           this.length3 = res.count;
           this.arrayPosition3 = [];
@@ -661,7 +661,6 @@ export class PendingProductsComponent implements OnInit {
    * @memberof PendingProductsComponent
    */
   public filterProductsModify3() {
-    console.log('asa');
     setTimeout(() => {
     this.cleanFilterListProductsModify();
     this.nameProductList3 = this.filterProdutsMultiOfert.controls.productName3.value || null;
@@ -791,6 +790,10 @@ export class PendingProductsComponent implements OnInit {
     } else if (event.index === 2) {
       this.indexTab = event.index;
     }
+  }
+
+  showDetail(show: boolean) {
+    this.detailShow = show;
   }
 
 

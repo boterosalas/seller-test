@@ -223,6 +223,7 @@
     "actions.confirm_offer": "Confirmar Oferta",
     "actions.all": "Todos",
     "actions.new": "Nuevo",
+    "actions.reject_changes": "Nuevo",
 
 
     "errors.required": "Este campo es obligatorio",
@@ -1159,6 +1160,10 @@
     "secure.products.create_product_unit.list_products.expanded_product.no_more_spedifications": "No hay elementos de especificaciones",
     "secure.products.create_product_unit.list_products.expanded_product.product_not_ready_offer": "Este producto no está listo para ofertar, por favor intentalo más tarde.",
     "secure.products.create_product_unit.list_products.expanded_product.price_must_equal_combos": "El precio debe ser igual a la suma de los combos sino existe precio con descuento.",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_title_approved": "¡Vas a aprobar el contenido multioferta!",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_approved": "Continuaras ofertando este producto bajo los cambios realizados por otro vendedor",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_title_reject": "¡Vas a rechazar el contenido multioferta!",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_reject": "Mientras no estés de acuerdo con los cambios, por seguridad su inventario se mantendrá en ceros.",
 
     "secure.products.create_product_unit.list_products.ofert_product.stock_invalid": "Inventario inválido.",
     "secure.products.create_product_unit.list_products.ofert_product.stock_mandatory": "Inventario es campo obligatorio",

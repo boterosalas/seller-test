@@ -1,15 +1,12 @@
 <div class="case-list-content">
-  <mat-accordion class="case-list-expandable">
+  <mat-accordion class="case-list-expandable" *ngIf="data.expandable">
     <mat-expansion-panel class="width-100" [expanded]="isOpen"
       (opened)="opened.emit(data); this.panelOpenState= true; read= true;
       showDetail.emit(panelOpenState)"
-      (closed)="panelOpenState= false; showDetail.emit(panelOpenState)">
-      <mat-expansion-panel-header>
-        <div class="case-list-detail case-list-detail-content-center" fxLayout
-          fxLayout.xs="row" fxLayoutGap="10px"
-          fxLayoutGap.xs="0">
-          <div fxFlex="3%"></div>
-          <div class="case-list-detail--item-detail" fxFlex="3%"
+      (closed)="panelOpenState= false; showDetail.emit(panelOpenState)" style="box-shadow: initial;">
+      <mat-expansion-panel-header class="container-height-30">
+        <div class="case-list-detail case-list-detail-content-center" fxLayout>
+          <div class="case-list-detail--item-detail" fxFlex="5"
             fxLayoutAlign="center center" class="no-select">
             <span [ngClass]="!panelOpenState
               ? 'item-detail-arrow'
@@ -17,10 +14,8 @@
               <mat-icon>keyboard_arrow_up</mat-icon>
             </span>
           </div>
-          <div class="case-list-detail--item-detail
-            case-list-detail-text-center" fxFlex="6%" fxFlex.sm="15"
-            fxFlex.md="15" fxFlex.lg="10" fxFlex.xs="15">
-            <p class="sc-text-normal">{{data.channel}}</p>
+          <div class="case-list-detail--item-detail" fxFlex="90">
+            <p class="sc-text-normal">{{data.name}}</p>
           </div>
         </div>
       </mat-expansion-panel-header>
@@ -29,4 +24,18 @@
       </ng-container>
     </mat-expansion-panel>
   </mat-accordion>
+</div>
+<div class="case-list-content" *ngIf="!data.expandable">
+  <div fxLayout="row" style="height: 27px;">
+    <div fxFlex="5"></div>
+    <div class="case-list-detail--item-detail" fxFlex="25">
+      <p class="sc-text-normal">{{data.name}}</p>
+    </div>
+    <div class="case-list-detail--item-detail" fxFlex="30">
+      <p class="sc-text-normal">{{data.old}}</p>
+    </div>
+    <div class="case-list-detail--item-detail" fxFlex="40">
+      <p class="sc-text-normal" style="color: red;">{{data.current}}</p>
+    </div>
+  </div>
 </div>

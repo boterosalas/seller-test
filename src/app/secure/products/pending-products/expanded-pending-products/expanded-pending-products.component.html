@@ -246,33 +246,32 @@
 </div>
 <div *ngIf="typeDetailProduct === 'multiOfert'">
   <div *ngIf="productsMultiOfertExpanded">
-    <!-- {{productsMultiOfertExpanded| json}} -->
     <div fxLayout="row wrap">
-      <div fxFlex="30" style="text-align: center;">
+      <div fxFlex="35" style="text-align: center; padding-top: 30px;">
         <img [src]="productsMultiOfertExpanded.urlImage1" style="width:
-          440px;height: 350px;">
+          370px;height: 290px;">
       </div>
-      <div fxFlex="70">
+      <div fxFlex="62" style="border-left: solid 1px #c6c6c6;">
         <div>
-          <div>
-            <span>EAN: {{productsMultiOfertExpanded.ean}}</span>
+          <div style="padding-bottom: 5px; padding-left: 50px;">
+            <span style="color:#8c8c8c; font-size: 15px">EAN: {{productsMultiOfertExpanded.ean}}</span>
           </div>
-          <div>
-            <span style="font-weight: bold;">
+          <div style="padding-bottom: 5px; padding-left: 50px;">
+            <span style="font-size: 20px;">
               {{productsMultiOfertExpanded.name}}
             </span>
           </div>
-          <div>
+          <div style="color: #8c8c8c; padding-bottom: 5px;font-size: 12px; padding-left: 50px;">
             <span>
-              <span>
+              <span style="color: #b6b6b6;">
                 {{'secure.products.create_product_unit.list_products.combo_product.creation_date'
                 | translate}}:
               </span>
               {{productsMultiOfertExpanded.creationDate | date:'dd/MM/yyyy' }}
             </span>
-            |
+            <span style="color: #b6b6b6;">|</span>
             <span>
-              <span>
+              <span style="color: #b6b6b6;">
                 {{'secure.products.create_product_unit.list_products.combo_product.modification_date'
                 | translate}}:
               </span>
@@ -281,13 +280,133 @@
             <span>
             </span>
           </div>
-          <div>
+          <div style="padding-left: 10px; padding-right: 70px;">
             <ng-template [ngIf]="productsMultiOfertExpanded">
               <app-list-product-multi-ofert [data]="productsMultiOfertExpanded" class="width-100">
                 <ng-container *itemDropDownList>
-                  <app-detail-product-multi-ofert  [data]="productsMultiOfertExpanded" [index]="i">
-
-                  </app-detail-product-multi-ofert>
+                  <div style="max-height: 184px; overflow-y: auto;height: 190px;">
+                    <app-detail-product-multi-ofert *ngFor="let item of arrayMultiOfert; let i = index" [data]="item" >
+                      <ng-container *appContentDropDownDetailOrderDirective>
+                        <div>
+                          <div *ngIf="item.name === 'Features' && arrayFeature.length > 0" style="padding-right: 40px; padding-left: 40px;">
+                            <div fxLayout="row wrap" style="background-color: #f7f6f6;">
+                              <div fxFlex="30" style="color: #828181;font-weight: bold;font-size: 11px;">Nombre</div>
+                              <div fxFlex="30" style="color: #828181;font-weight: bold;font-size: 11px;">Anterior</div>
+                              <div fxFlex="30" style="color: #828181;font-weight: bold;font-size: 11px;">Actual</div>
+                            </div>
+                            <div *ngFor="let feature of arrayFeature" fxLayout="row wrap">
+                              <div fxFlex="30">
+                                <span style="font-size: 11px; color: #7e7e7e;">{{feature.key}}</span>
+                              </div>
+                              <div fxFlex="30">
+                                <span style="font-size: 11px; color: #7e7e7e;">{{feature.valueOld}}</span>
+                              </div>
+                              <div fxFlex="30">
+                                <span style="color: red; font-size: 11px;">{{feature.valueCurrent}}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="item.name === 'Description'">
+                            <div fxLayout="row wrap" >
+                              <div fxFlex="45" style="color: #828181;font-weight: bold;font-size: 11px; background-color: #f7f6f6;" >
+                                <span style="margin-left: 10px;">Anterior</span>
+                              </div>
+                              <div fxFlex="45" style="color: #828181;font-weight: bold;font-size: 11px; background-color: #f7f6f6; margin-left: 5px;">
+                                <span style="margin-left: 10px;">Actual</span>
+                              </div>
+                            </div>
+                            <div *ngFor="let description of arrayDescription" fxLayout="row wrap">
+                              <div fxFlex="50">
+                                <p [innerHTML]="description.valueOld"></p>
+                              </div>
+                              <div fxFlex="45">
+                                <p [innerHTML]="description.valueCurrent"></p>
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="item.name === 'KeyWords'" style="padding-left: 20px; padding-right: 20px;">
+                            <div fxLayout="row wrap" >
+                              <div fxFlex="45" style="color: #828181;font-weight: bold;font-size: 11px; background-color: #f7f6f6;" >
+                                <span style="margin-left: 10px;">Anterior</span>
+                              </div>
+                              <div fxFlex="45" style="color: #828181;font-weight: bold;font-size: 11px; background-color: #f7f6f6; margin-left: 5px;">
+                                <span style="margin-left: 10px;">Actual</span>
+                              </div>
+                            </div>
+                            <div *ngFor="let keyWord of arrayKeyWords" fxLayout="row wrap">
+                              <div fxFlex="50">
+                                <span style="font-size: 11px; color: #7e7e7e; margin-left: 10px;">{{keyWord.valueOld}}</span>
+                              </div>
+                              <div fxFlex="45">
+                                <span style="font-size: 11px;color: red; margin-left: 10px;">{{keyWord.valueCurrent}}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="item.name === 'ImageUrl1'" style="  margin-left: 20px; margin-right: 10px; ">
+                            <div *ngFor="let image of arrayImages1" fxLayout="row wrap">
+                              <div fxFlex="50" style="text-align: center; background-color: #f1f1f1;">
+                                <img [src]="image.imagenCurrent" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
+                              </div>
+                              <div fxFlex="45" style="text-align: center; margin-left: 5px; background-color: #f1f1f1;">
+                                <img [src]="image.imagenOld" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="item.name === 'ImageUrl2'" style=" margin-left: 20px; margin-right: 10px; ">
+                            <div *ngFor="let image of arrayImages2" fxLayout="row wrap">
+                              <div fxFlex="50" style="text-align: center; background-color: #f1f1f1;">
+                                <img [src]="image.imagenCurrent" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
+                              </div>
+                              <div fxFlex="45" style="text-align: center; margin-left: 5px; background-color: #f1f1f1;">
+                                <img [src]="image.imagenOld" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="item.name === 'ImageUrl3'" style=" margin-left: 20px; margin-right: 10px; ">
+                            <div *ngFor="let image of arrayImages3" fxLayout="row wrap">
+                              <div fxFlex="50" style="text-align: center; background-color: #f1f1f1;">
+                                <img [src]="image.imagenCurrent" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
+                              </div>
+                              <div fxFlex="45" style="text-align: center; margin-left: 5px; background-color: #f1f1f1;">
+                                <img [src]="image.imagenOld" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="item.name === 'ImageUrl4'" style="margin-left: 20px; margin-right: 10px; ">
+                            <div *ngFor="let image of arrayImage4" fxLayout="row wrap">
+                              <div fxFlex="50" style="text-align: center; background-color: #f1f1f1;">
+                                <img [src]="image.imagenCurrent" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
+                              </div>
+                              <div fxFlex="45" style="text-align: center; margin-left: 5px; background-color: #f1f1f1;">
+                                <img [src]="image.imagenOld" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="item.name === 'ImageUrl5'" style="margin-left: 20px; margin-right: 10px; ">
+                            <div *ngFor="let image of arrayImages5" fxLayout="row wrap">
+                              <div fxFlex="50" style="text-align: center; background-color: #f1f1f1;">
+                                <img [src]="image.imagenCurrent" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
+                              </div>
+                              <div fxFlex="45" style="text-align: center; margin-left: 5px; background-color: #f1f1f1;">
+                                <img [src]="image.imagenOld" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </app-detail-product-multi-ofert>
+                  </div>
+                  <div fxLayout="row wrap" style=" padding-top: 35px;">
+                    <div fxFlex="50" style="text-align: end; padding-right: 20px;">
+                      <button mat-stroked-button  color="primary" mat-button
+                      (click)="modalGeneric('reject')">RECHAZAR CAMBIOS</button>
+                    </div>
+                    <div fxFlex="50">
+                      <button mat-raised-button  color="primary" mat-button
+                      (click)="modalGeneric('approved')">APROBAR CAMBIOS</button>
+                    </div>
+                  </div>
+                
                 </ng-container>
               </app-list-product-multi-ofert>
             </ng-template>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Logger, LoadingService, UserParametersService } from '@app/core';
 import { ListProductService } from '../../list-products/list-products.service';
 import { MatSnackBar } from '@angular/material';
@@ -24,8 +24,9 @@ export class ComboPendingProductComponent implements OnInit {
   public _indexTab: number;
   @Input() set indexTab(value: number) {
       this._indexTab = value;
-      console.log(this._indexTab);
   }
+
+  @Output() public emitEventShowDetail = new EventEmitter<object>();
 
   public productsPendindgExpanded: any;
   public productsPendindgValidationExpanded: any;
@@ -77,6 +78,7 @@ export class ComboPendingProductComponent implements OnInit {
     this.productsPendindgValidationExpanded = null;
     this.productsMultiOfertExpanded = null;
     this.showImage = false;
+    this.emitEventShowDetail.emit({show: false});
   }
 
   /**
@@ -142,6 +144,7 @@ export class ComboPendingProductComponent implements OnInit {
     this.showImage = true;
     this.productsMultiOfertExpanded = params;
     this.typeDetailProduct = 'multiOfert';
+    this.emitEventShowDetail.emit({show: true});
   }
 
   /**

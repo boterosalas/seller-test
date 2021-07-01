@@ -1,4 +1,4 @@
-<mat-tab-group mat-stretch-tabs style="height: 80vh" (selectedTabChange)="setMatTab($event)">
+<mat-tab-group mat-stretch-tabs style="height: 85vh" (selectedTabChange)="setMatTab($event)">
   <mat-tab [label]="'secure.products.pending_products_tab1' | translate">
     <mat-drawer-container class="example-container" autosize>
       <mat-drawer #drawer [mode]="'over'" [position]="'end'" class="example-sidenav" [disableClose]="true">
@@ -115,7 +115,6 @@
             <div fxLayout="row" fxLayoutAlign="space-between center" class="buttonsSend">
               <button mat-stroked-button color="primary" type="button"
                 (click)="cleanFilter2()">{{'filters.clear' | translate}} </button>
-              <!-- <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterSeller.form.valid || (!product.value && !ean.value && !stock.value)"></button> -->
               <button mat-flat-button color="primary" (click)="drawer2.toggle() && filterApply2()"
                 [disabled]="!createfilterProdutsValidation.form.valid || !createfilterProdutsValidation.form.touched">{{'filters.filter' | translate}}</button>
             </div>
@@ -164,7 +163,7 @@
     </mat-drawer-container>
   </mat-tab>
   <mat-tab [label]="'secure.products.pending_products_tab3' | translate">
-    <mat-drawer-container class="example-container" autosize>
+    <mat-drawer-container class="example-container" style="height: 500px;">
       <mat-drawer #drawer3 [mode]="'over'" [position]="'end'" class="example-sidenav" [disableClose]="true">
         <form class="basic-info" #createfilterProdutsMultiOfert="ngForm" [formGroup]="filterProdutsMultiOfert"
           class="seller-filter-sidenav" *ngIf="filterProdutsMultiOfert">
@@ -195,7 +194,6 @@
             <div fxLayout="row" fxLayoutAlign="space-between center" class="buttonsSend">
               <button mat-stroked-button color="primary" type="button"
                 (click)="cleanFilter2()">{{'filters.clear' | translate}} </button>
-              <!-- <button mat-flat-button color="primary" type="submit" [innerHTML]="'Filtrar'" [disabled]="!filterSeller.form.valid || (!product.value && !ean.value && !stock.value)"></button> -->
               <button mat-flat-button color="primary" (click)="drawer3.toggle() && filterApply3()"
                 [disabled]="!createfilterProdutsMultiOfert.form.valid || !createfilterProdutsMultiOfert.form.touched">{{'filters.filter' | translate}}</button>
             </div>
@@ -227,7 +225,7 @@
     </div>
     <div fxLayout="column">
       <div class="example-chip-list">
-        <mat-chip-list #chipList>
+        <mat-chip-list #chipList *ngIf="!detailShow">
           <mat-chip *ngFor="let products of listFilterProductsValidation" [selectable]="selectable"
             [removable]="removable" (removed)="removeMultiOfert(products)">
             {{products.name}}
@@ -237,7 +235,7 @@
         </mat-chip-list>
       </div>
       <div class="prodList">
-        <app-combo-pending-product [indexTab]="indexTab" [sellerId]="sellerId" [showProducts]="showProducts" [editPermission]="editPermission" [productsList]="productsList3" class="listCombo">
+        <app-combo-pending-product [indexTab]="indexTab" [sellerId]="sellerId" [showProducts]="showProducts" [editPermission]="editPermission" [productsList]="productsList3" (emitEventShowDetail) ="showDetail($event)" class="listCombo">
         </app-combo-pending-product>
       </div>
     </div>

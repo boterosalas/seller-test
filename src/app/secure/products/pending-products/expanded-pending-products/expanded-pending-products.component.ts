@@ -2,6 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { UserInformation } from '@app/shared';
 import { Router } from '@angular/router';
 import { UserParametersService, Logger } from '@app/core';
+import { ModalGenericProductMultiOfertComponent } from './component/modal-generic-product-multi-ofert/modal-generic-product-multi-ofert.component';
+import { MatDialog } from '@angular/material';
+import { TranslateService } from '@ngx-translate/core';
 
 const log = new Logger('ExpandedPendingProductsComponent');
 
@@ -22,6 +25,15 @@ export class ExpandedPendingProductsComponent implements OnInit {
   /* arreglo q contiene las imagenes grandes y pequeñas */
   public images = [];
   public listKeywords = [];
+  public arrayKeyWords = [];
+  public arrayMultiOfert = [];
+  public arrayDescription = [];
+  public arrayFeature = [];
+  public arrayImages1 = [];
+  public arrayImages2 = [];
+  public arrayImages3 = [];
+  public arrayImages4 = [];
+  public arrayImages5 = [];
 
   /* variable que contiene la ruta de la imagen grande */
   public imageMax: string;
@@ -34,7 +46,9 @@ export class ExpandedPendingProductsComponent implements OnInit {
   public showVideo = false;
 
   constructor(
+    private languageService: TranslateService,
     private router: Router,
+    private dialog: MatDialog,
     private userParams?: UserParametersService,
   ) {
     if (this.productsPendindgExpanded) {
@@ -57,25 +71,136 @@ export class ExpandedPendingProductsComponent implements OnInit {
     }
 
     if (this.productsMultiOfertExpanded) {
-      const json = { 'valor1': 1, 'valor2': [1, 2, 3, 4], 'valor3': '3' };
-      
-      for (const clave in json) {
-        // if (json.hasOwnProperty(clave)) {
-        //   console.log("La clave es " + clave + " y el valor es " + json[clave]);
-        // }
-        console.log(clave);
+      console.log(this.productsMultiOfertExpanded)
+      const currentProduct = this.productsMultiOfertExpanded.currentProduct;
+      const oldProduct = this.productsMultiOfertExpanded.oldProduct;
+      for (const product in oldProduct) {
+        if (oldProduct.hasOwnProperty(product) && currentProduct.hasOwnProperty(product)) {
+          this.arrayMultiOfert.push(
+            {
+              name: product,
+              old: oldProduct[product],
+              current: currentProduct[product],
+              expandable: this.validateExpandable(product)
+            }
+          );
+        }
       }
-      console.log(this.productsMultiOfertExpanded);
     }
 
-    // const array = [
-    //   {
-
-    //   }
-    // ]
     this.createArrayImages();
     this.getDataUser();
   }
+  validateExpandable(name: string) {
+    let expansible = false;
+    switch (name) {
+      case 'Features':
+        expansible = true;
+        const currentProductFeature = this.productsMultiOfertExpanded.currentProduct.Features;
+        const oldProductFeature = this.productsMultiOfertExpanded.oldProduct.Features;
+        for (const productFeature in oldProductFeature) {
+          if (oldProductFeature.hasOwnProperty(productFeature) && currentProductFeature.hasOwnProperty(productFeature)) {
+            this.arrayFeature.push(
+              {
+                key: oldProductFeature[productFeature].Key,
+                valueOld: oldProductFeature[productFeature].Value,
+                valueCurrent: currentProductFeature[productFeature].Value,
+              }
+            );
+          }
+        }
+        break;
+      case 'KeyWords':
+        expansible = true;
+        this.arrayKeyWords = [];
+        const currentProductKeywords = this.productsMultiOfertExpanded.currentProduct.KeyWords;
+        const oldProductKeywords = this.productsMultiOfertExpanded.oldProduct.KeyWords;
+        if (currentProductKeywords !== '' && oldProductKeywords !== '') {
+          this.arrayKeyWords.push({
+                valueOld : oldProductKeywords,
+                valueCurrent : currentProductKeywords,
+          });
+        }
+        break;
+      case 'Description':
+        expansible = true;
+        this.arrayDescription = [];
+        const currentProductDescription = this.productsMultiOfertExpanded.currentProduct.Description;
+        const oldProductDescription = this.productsMultiOfertExpanded.oldProduct.Description;
+          this.arrayDescription.push({
+                valueOld : oldProductDescription,
+                valueCurrent : currentProductDescription,
+          });
+        console.log(this.arrayDescription);
+        break;
+      case 'VideoUrl':
+        expansible = true;
+        // const currentProductFeature = this.productsMultiOfertExpanded.currentProduct.Features;
+        // const oldProductFeature = this.productsMultiOfertExpanded.oldProduct.Features;
+        // for (const productFeature in oldProductFeature) {
+        //   if (oldProductFeature.hasOwnProperty(productFeature) && currentProductFeature.hasOwnProperty(productFeature)) {
+        //     this.arrayFeature.push(
+        //       {
+        //         key : oldProductFeature[productFeature].Key,
+        //         valueOld : oldProductFeature[productFeature].Value,
+        //         valueCurrent : currentProductFeature[productFeature].Value,
+        //       }
+        //     );
+        //   }
+        // }
+        break;
+      case 'ImageUrl1':
+        this.arrayImages1.push(
+          {
+            imagenCurrent: this.productsMultiOfertExpanded.currentProduct.ImageUrl1,
+            imagenOld: this.productsMultiOfertExpanded.oldProduct.ImageUrl1
+          }
+        );
+        expansible = true;
+        break;
+      case 'ImageUrl2':
+        this.arrayImages2.push(
+          {
+            imagenCurrent: this.productsMultiOfertExpanded.currentProduct.ImageUrl2,
+            imagenOld: this.productsMultiOfertExpanded.oldProduct.ImageUrl2
+          }
+        );
+        expansible = true;
+        break;
+      case 'ImageUrl3':
+        this.arrayImages3.push(
+          {
+            imagenCurrent: this.productsMultiOfertExpanded.currentProduct.ImageUrl3,
+            imagenOld: this.productsMultiOfertExpanded.oldProduct.ImageUrl3
+          }
+        );
+        expansible = true;
+        break;
+      case 'ImageUrl4':
+        this.arrayImages4.push(
+          {
+            imagenCurrent: this.productsMultiOfertExpanded.currentProduct.ImageUrl4,
+            imagenOld: this.productsMultiOfertExpanded.oldProduct.ImageUrl4
+          }
+        );
+        expansible = true;
+        break;
+      case 'ImageUrl5':
+        this.arrayImages5.push(
+          {
+            imagenCurrent: this.productsMultiOfertExpanded.currentProduct.ImageUrl5,
+            imagenOld: this.productsMultiOfertExpanded.oldProduct.ImageUrl5
+          }
+        );
+        expansible = true;
+        break;
+      default:
+        expansible = false;
+        break;
+    }
+    return expansible;
+  }
+
 
 
   /**
@@ -93,13 +218,13 @@ export class ExpandedPendingProductsComponent implements OnInit {
   changeImage(image: any, img: any) {
     this.imageMax = image;
     const { min } = img;
-    let splitYoutube = min.split('https://img.youtube.com');
+    const splitYoutube = min.split('https://img.youtube.com');
     if (splitYoutube[0] === '') {
       this.showVideo = true;
-      this.showImage = false
+      this.showImage = false;
     } else {
       this.showVideo = false;
-      this.showImage = true
+      this.showImage = true;
     }
 
   }
@@ -131,6 +256,26 @@ export class ExpandedPendingProductsComponent implements OnInit {
   }
 
 
+  modalGeneric(type: string) {
+    let params = {};
+    if (type === 'approved') {
+      params = {
+        title : this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_title_approved'),
+        subtitle : this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_approved'),
+        type: type
+      };
+    } else if (type === 'reject') {
+      params = {
+        title : this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_title_reject'),
+        subtitle : this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_reject'),
+        type: type
+      };
+    }
 
+    const dialogRef = this.dialog.open(ModalGenericProductMultiOfertComponent, {
+      width: '50%',
+      data: params,
+    });
+  }
 
 }

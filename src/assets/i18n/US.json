@@ -212,6 +212,7 @@
     "actions.confirm_offer": "Approve Offer",
     "actions.all": "All",
     "actions.new": "New",
+    "actions.reject_changes": "REJECT CHANGES",
 
     "errors.required": "Field required",
     "errors.invalid_name": "Invalid name",
@@ -1144,6 +1145,10 @@
     "secure.products.create_product_unit.list_products.expanded_product.no_more_spedifications": "No elements of specifications",
     "secure.products.create_product_unit.list_products.expanded_product.product_not_ready_offer": "This product is not ready to have an offer associated to it, please try again later.",
     "secure.products.create_product_unit.list_products.expanded_product.price_must_equal_combos": "The price must be equal to the sum of the components if there is no discount price.",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_title_approved": "You will approve the multi-bid content!",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_approved": "You will continue to bid on this product under the changes made by another seller.",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_title_reject": "You will reject the multi-bid content!",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_reject": "As long as you do not agree with the changes, for security your inventory will remain at zero.",
 
     "secure.products.create_product_unit.list_products.ofert_product.stock_invalid": "Invalid stock",
     "secure.products.create_product_unit.list_products.ofert_product.stock_mandatory": "Stock is mandatory",

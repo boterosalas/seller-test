@@ -208,3 +208,17 @@ $color-gray1:#909090;
     right: auto;
   }
 }
+
+
+:host ::ng-deep {
+  .sc-text-normal{
+    font-size: 11px;
+    color: #a0a0a0;
+  }
+}
+
+.container-height-30{
+  height: 38px !important;
+}
+
+
