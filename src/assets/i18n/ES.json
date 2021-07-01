@@ -1164,6 +1164,8 @@
     "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_approved": "Continuaras ofertando este producto bajo los cambios realizados por otro vendedor",
     "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_title_reject": "¡Vas a rechazar el contenido multioferta!",
     "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_reject": "Mientras no estés de acuerdo con los cambios, por seguridad su inventario se mantendrá en ceros.",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_msg_approved": "Los cambios han sido <b>aprobados</b> exitosamente",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_msg_rejected": "Los cambios han sido <b>rechazados</b> exitosamente",
 
     "secure.products.create_product_unit.list_products.ofert_product.stock_invalid": "Inventario inválido.",
     "secure.products.create_product_unit.list_products.ofert_product.stock_mandatory": "Inventario es campo obligatorio",

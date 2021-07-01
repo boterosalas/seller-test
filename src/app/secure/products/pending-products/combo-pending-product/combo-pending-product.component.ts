@@ -60,7 +60,7 @@ export class ComboPendingProductComponent implements OnInit {
   ngOnInit() {
     this.pendingProductsService.change.subscribe(data => {
       if (!data) {
-        this.backTolist();
+        this.backTolist(false);
       }
     });
   }
@@ -73,12 +73,12 @@ export class ComboPendingProductComponent implements OnInit {
    * Metodo para volver al listado de productos
    * @memberof ComboPendingProductComponent
    */
-  public backTolist(): void {
+  public backTolist(reload: boolean): void {
     this.productsPendindgExpanded = null;
     this.productsPendindgValidationExpanded = null;
     this.productsMultiOfertExpanded = null;
     this.showImage = false;
-    this.emitEventShowDetail.emit({show: false});
+    this.emitEventShowDetail.emit({show: false, reload : reload});
   }
 
   /**
@@ -161,6 +161,10 @@ export class ComboPendingProductComponent implements OnInit {
       concatInfo = null;
     }
     return concatInfo;
+  }
+
+  showList(show: any) {
+    this.backTolist(true);
   }
 
 }

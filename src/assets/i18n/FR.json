@@ -1141,6 +1141,9 @@
     "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_approved": "You will continue to bid on this product under the changes made by another seller.",
     "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_title_reject": "You will reject the multi-bid content!",
     "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_reject": "As long as you do not agree with the changes, for security your inventory will remain at zero.",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_msg_approved": "Changes have been successfully <b>approved</b>",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_msg_rejected": "Changes have been successfully <b>rejected</b>",
+
 
     "secure.products.create_product_unit.list_products.ofert_product.stock_invalid": "Invalid stock",
     "secure.products.create_product_unit.list_products.ofert_product.stock_mandatory": "Stock is mandatory",

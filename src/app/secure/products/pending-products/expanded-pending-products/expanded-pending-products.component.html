@@ -306,21 +306,31 @@
                               </div>
                             </div>
                           </div>
-                          <div *ngIf="item.name === 'Description'">
+                          <div *ngIf="item.name === 'VideoUrl'">
+                            <div *ngFor="let video of arrayVideo" fxLayout="row wrap">
+                              <div fxFlex="50" style="text-align: center; background-color: #f7f6f6;">
+                                <iframe width="200" height="150" [src]="video.valueOld | safe: 'resourceUrl'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                              </div>
+                              <div fxFlex="45" style="text-align: center; background-color: #f7f6f6; margin-left: 2px;" >
+                                <iframe width="200" height="150" [src]="video.valueCurrent | safe: 'resourceUrl'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="item.name === 'Description'" style="padding-left: 20px; padding-right: 20px;">
                             <div fxLayout="row wrap" >
                               <div fxFlex="45" style="color: #828181;font-weight: bold;font-size: 11px; background-color: #f7f6f6;" >
                                 <span style="margin-left: 10px;">Anterior</span>
                               </div>
-                              <div fxFlex="45" style="color: #828181;font-weight: bold;font-size: 11px; background-color: #f7f6f6; margin-left: 5px;">
+                              <div fxFlex="45" style="color: #828181;font-weight: bold;font-size: 11px; background-color: #f7f6f6; margin-left: 2px;">
                                 <span style="margin-left: 10px;">Actual</span>
                               </div>
                             </div>
                             <div *ngFor="let description of arrayDescription" fxLayout="row wrap">
-                              <div fxFlex="50">
-                                <p [innerHTML]="description.valueOld"></p>
+                              <div fxFlex="45">
+                                <span style="font-size: 11px; color: #7e7e7e; margin-left: 10px;" [innerHTML]="description.valueOld"></span>
                               </div>
                               <div fxFlex="45">
-                                <p [innerHTML]="description.valueCurrent"></p>
+                                <span style="font-size: 11px;color: red; margin-left: 10px;" [innerHTML]="description.valueCurrent"></span>
                               </div>
                             </div>
                           </div>
@@ -329,12 +339,12 @@
                               <div fxFlex="45" style="color: #828181;font-weight: bold;font-size: 11px; background-color: #f7f6f6;" >
                                 <span style="margin-left: 10px;">Anterior</span>
                               </div>
-                              <div fxFlex="45" style="color: #828181;font-weight: bold;font-size: 11px; background-color: #f7f6f6; margin-left: 5px;">
+                              <div fxFlex="45" style="color: #828181;font-weight: bold;font-size: 11px; background-color: #f7f6f6; margin-left: 2px;">
                                 <span style="margin-left: 10px;">Actual</span>
                               </div>
                             </div>
                             <div *ngFor="let keyWord of arrayKeyWords" fxLayout="row wrap">
-                              <div fxFlex="50">
+                              <div fxFlex="45">
                                 <span style="font-size: 11px; color: #7e7e7e; margin-left: 10px;">{{keyWord.valueOld}}</span>
                               </div>
                               <div fxFlex="45">
@@ -347,7 +357,7 @@
                               <div fxFlex="50" style="text-align: center; background-color: #f1f1f1;">
                                 <img [src]="image.imagenCurrent" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
                               </div>
-                              <div fxFlex="45" style="text-align: center; margin-left: 5px; background-color: #f1f1f1;">
+                              <div fxFlex="45" style="text-align: center; margin-left: 2px; background-color: #f1f1f1;">
                                 <img [src]="image.imagenOld" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
                               </div>
                             </div>
@@ -357,7 +367,7 @@
                               <div fxFlex="50" style="text-align: center; background-color: #f1f1f1;">
                                 <img [src]="image.imagenCurrent" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
                               </div>
-                              <div fxFlex="45" style="text-align: center; margin-left: 5px; background-color: #f1f1f1;">
+                              <div fxFlex="45" style="text-align: center; margin-left: 2px; background-color: #f1f1f1;">
                                 <img [src]="image.imagenOld" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
                               </div>
                             </div>
@@ -367,7 +377,7 @@
                               <div fxFlex="50" style="text-align: center; background-color: #f1f1f1;">
                                 <img [src]="image.imagenCurrent" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
                               </div>
-                              <div fxFlex="45" style="text-align: center; margin-left: 5px; background-color: #f1f1f1;">
+                              <div fxFlex="45" style="text-align: center; margin-left: 2px; background-color: #f1f1f1;">
                                 <img [src]="image.imagenOld" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
                               </div>
                             </div>
@@ -377,7 +387,7 @@
                               <div fxFlex="50" style="text-align: center; background-color: #f1f1f1;">
                                 <img [src]="image.imagenCurrent" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
                               </div>
-                              <div fxFlex="45" style="text-align: center; margin-left: 5px; background-color: #f1f1f1;">
+                              <div fxFlex="45" style="text-align: center; margin-left: 2px; background-color: #f1f1f1;">
                                 <img [src]="image.imagenOld" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
                               </div>
                             </div>
@@ -387,7 +397,7 @@
                               <div fxFlex="50" style="text-align: center; background-color: #f1f1f1;">
                                 <img [src]="image.imagenCurrent" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
                               </div>
-                              <div fxFlex="45" style="text-align: center; margin-left: 5px; background-color: #f1f1f1;">
+                              <div fxFlex="45" style="text-align: center; margin-left: 2px; background-color: #f1f1f1;">
                                 <img [src]="image.imagenOld" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
                               </div>
                             </div>

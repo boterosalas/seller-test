@@ -102,7 +102,7 @@ export class PendingProductsComponent implements OnInit {
   public paginationToken3 = '{}';
   public limit = 30;
 
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   paramsArray: { limit: string; idSeller: string; };
   paramsArray2: { limit: string; idSeller: string; };
   public paramsArray3: any;
@@ -320,7 +320,7 @@ export class PendingProductsComponent implements OnInit {
    */
   getPendingProductsMultiOfert(params?: any) {
     this.loadingService.viewSpinner();
-    this.paramsArray3 =  '?limit=' + this.pageSize3 + '&paginationToken=' + encodeURI(this.paginationToken3) + '&name=' + this.nameProduct2 + '&ean=' + this.ean3 + '&plu=' + this.plu3;
+    this.paramsArray3 = '?limit=' + this.pageSize3 + '&paginationToken=' + encodeURI(this.paginationToken3) + '&name=' + this.nameProduct2 + '&ean=' + this.ean3 + '&plu=' + this.plu3;
     this.showProducts = false;
     this.pendingProductsService.getAllProductPendingMultiOfert(this.paramsArray3).subscribe((res: any) => {
       if (res) {
@@ -341,20 +341,20 @@ export class PendingProductsComponent implements OnInit {
 
   mapItems(items: any[]): any[] {
     return items.map(x => {
-        return {
-          currentProduct: JSON.parse(x.CurrentProduct),
-          ean: x.Ean,
-          creationDate: x.CreationDate,
-          name: x.Name,
-          updateDate: x.UpdateDate,
-          id: x.Id,
-          oldProduct: JSON.parse(x.OldProduct),
-          sellerId: x.SellerId,
-          status: x.Status,
-          urlImage1: x.ImageUrl1
-        };
+      return {
+        currentProduct: JSON.parse(x.CurrentProduct),
+        ean: x.Ean,
+        creationDate: x.CreationDate,
+        name: x.Name,
+        updateDate: x.UpdateDate,
+        id: x.Id,
+        oldProduct: JSON.parse(x.OldProduct),
+        sellerId: x.SellerId,
+        status: x.Status,
+        urlImage1: x.ImageUrl1
+      };
     });
-}
+  }
 
   /**
    * Metodo de paginación productos pendientes modificación
@@ -646,15 +646,15 @@ export class PendingProductsComponent implements OnInit {
    */
   public filterProductsModify2() {
     setTimeout(() => {
-    this.cleanFilterListProductsModify();
-    this.nameProductList2 = this.filterProdutsValidation.controls.productName2.value || null;
-    this.eanList2 = this.filterProdutsValidation.controls.ean2.value || null;
+      this.cleanFilterListProductsModify();
+      this.nameProductList2 = this.filterProdutsValidation.controls.productName2.value || null;
+      this.eanList2 = this.filterProdutsValidation.controls.ean2.value || null;
 
-    // const data = [];
-    this.dataChips2.push({ value: this.nameProductList2, name: 'nameProductList2', nameFilter: 'productName2' });
-    this.dataChips2.push({ value: this.eanList2, name: 'eanList2', nameFilter: 'ean2' });
-    this.add2(this.dataChips2);
-  }, 1000);
+      // const data = [];
+      this.dataChips2.push({ value: this.nameProductList2, name: 'nameProductList2', nameFilter: 'productName2' });
+      this.dataChips2.push({ value: this.eanList2, name: 'eanList2', nameFilter: 'ean2' });
+      this.add2(this.dataChips2);
+    }, 1000);
   }
   /**
    * Metodo para aplicar filtros productos validacion
@@ -662,15 +662,15 @@ export class PendingProductsComponent implements OnInit {
    */
   public filterProductsModify3() {
     setTimeout(() => {
-    this.cleanFilterListProductsModify();
-    this.nameProductList3 = this.filterProdutsMultiOfert.controls.productName3.value || null;
-    this.eanList3 = this.filterProdutsMultiOfert.controls.ean3.value || null;
+      this.cleanFilterListProductsModify();
+      this.nameProductList3 = this.filterProdutsMultiOfert.controls.productName3.value || null;
+      this.eanList3 = this.filterProdutsMultiOfert.controls.ean3.value || null;
 
-    // const data = [];
-    this.dataChips3.push({ value: this.nameProductList3, name: 'nameProductList3', nameFilter: 'productName3' });
-    this.dataChips3.push({ value: this.eanList3, name: 'eanList3', nameFilter: 'ean3' });
-    this.add3(this.dataChips3);
-  }, 1000);
+      // const data = [];
+      this.dataChips3.push({ value: this.nameProductList3, name: 'nameProductList3', nameFilter: 'productName3' });
+      this.dataChips3.push({ value: this.eanList3, name: 'eanList3', nameFilter: 'ean3' });
+      this.add3(this.dataChips3);
+    }, 1000);
   }
 
   /**
@@ -792,11 +792,14 @@ export class PendingProductsComponent implements OnInit {
     }
   }
 
-  showDetail(show: boolean) {
-    this.detailShow = show;
+  showDetail(event: any) {
+    if (event) {
+      this.detailShow = event.show;
+      if (event.reload) {
+        this.getPendingProductsMultiOfert();
+      }
+    }
   }
-
-
 }
 
 

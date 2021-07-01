@@ -1,10 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { UserInformation } from '@app/shared';
 import { Router } from '@angular/router';
 import { UserParametersService, Logger } from '@app/core';
-import { ModalGenericProductMultiOfertComponent } from './component/modal-generic-product-multi-ofert/modal-generic-product-multi-ofert.component';
 import { MatDialog } from '@angular/material';
 import { TranslateService } from '@ngx-translate/core';
+import { ModalGenericProductMultiOfertComponent } from './component/modal-generic-product-multi-ofert/modal-generic-product-multi-ofert.component';
 
 const log = new Logger('ExpandedPendingProductsComponent');
 
@@ -28,12 +28,14 @@ export class ExpandedPendingProductsComponent implements OnInit {
   public arrayKeyWords = [];
   public arrayMultiOfert = [];
   public arrayDescription = [];
+  public arrayVideo = [];
   public arrayFeature = [];
   public arrayImages1 = [];
   public arrayImages2 = [];
   public arrayImages3 = [];
   public arrayImages4 = [];
   public arrayImages5 = [];
+  @Output() isBackList = new EventEmitter<object>();
 
   /* variable que contiene la ruta de la imagen grande */
   public imageMax: string;
@@ -117,8 +119,8 @@ export class ExpandedPendingProductsComponent implements OnInit {
         const oldProductKeywords = this.productsMultiOfertExpanded.oldProduct.KeyWords;
         if (currentProductKeywords !== '' && oldProductKeywords !== '') {
           this.arrayKeyWords.push({
-                valueOld : oldProductKeywords,
-                valueCurrent : currentProductKeywords,
+            valueOld: oldProductKeywords,
+            valueCurrent: currentProductKeywords,
           });
         }
         break;
@@ -127,27 +129,20 @@ export class ExpandedPendingProductsComponent implements OnInit {
         this.arrayDescription = [];
         const currentProductDescription = this.productsMultiOfertExpanded.currentProduct.Description;
         const oldProductDescription = this.productsMultiOfertExpanded.oldProduct.Description;
-          this.arrayDescription.push({
-                valueOld : oldProductDescription,
-                valueCurrent : currentProductDescription,
-          });
-        console.log(this.arrayDescription);
+        this.arrayDescription.push({
+          valueOld: oldProductDescription,
+          valueCurrent: currentProductDescription,
+        });
         break;
       case 'VideoUrl':
         expansible = true;
-        // const currentProductFeature = this.productsMultiOfertExpanded.currentProduct.Features;
-        // const oldProductFeature = this.productsMultiOfertExpanded.oldProduct.Features;
-        // for (const productFeature in oldProductFeature) {
-        //   if (oldProductFeature.hasOwnProperty(productFeature) && currentProductFeature.hasOwnProperty(productFeature)) {
-        //     this.arrayFeature.push(
-        //       {
-        //         key : oldProductFeature[productFeature].Key,
-        //         valueOld : oldProductFeature[productFeature].Value,
-        //         valueCurrent : currentProductFeature[productFeature].Value,
-        //       }
-        //     );
-        //   }
-        // }
+        this.arrayVideo = [];
+        const currentProductVideo = this.productsMultiOfertExpanded.currentProduct.VideoUrl;
+        const oldProductVideo = this.productsMultiOfertExpanded.oldProduct.VideoUrl;
+        this.arrayVideo.push({
+          valueOld: oldProductVideo,
+          valueCurrent: currentProductVideo,
+        });
         break;
       case 'ImageUrl1':
         this.arrayImages1.push(
@@ -260,14 +255,14 @@ export class ExpandedPendingProductsComponent implements OnInit {
     let params = {};
     if (type === 'approved') {
       params = {
-        title : this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_title_approved'),
-        subtitle : this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_approved'),
+        title: this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_title_approved'),
+        subtitle: this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_approved'),
         type: type
       };
     } else if (type === 'reject') {
       params = {
-        title : this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_title_reject'),
-        subtitle : this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_reject'),
+        title: this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_title_reject'),
+        subtitle: this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_reject'),
         type: type
       };
     }
@@ -275,6 +270,11 @@ export class ExpandedPendingProductsComponent implements OnInit {
     const dialogRef = this.dialog.open(ModalGenericProductMultiOfertComponent, {
       width: '50%',
       data: params,
+    });
+
+    const dialogIntance = dialogRef.componentInstance;
+    dialogIntance.processFinish$.subscribe((val) => {
+      this.isBackList.emit({ back: true });
     });
   }
 
