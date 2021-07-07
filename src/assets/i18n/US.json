@@ -1270,7 +1270,7 @@
 
   "secure.parametize.category.categories.lb_sinco_sub_line_id": "ID Subline SINCO",
   "secure.parametize.category.categories.lb_sinco_category_id": "ID Category SINCO",
-  "secure.parametize.category.categories.lb_sinco_sub_cateogry_id": "ID Subcategory SINCO",
+  "secure.parametize.category.categories.lb_sinco_sub_category_id": "ID Subcategory SINCO",
   "secure.parametize.category.categories.lb_sinco_segment_id": "ID Segment SINCO",
 
   "secure.parametize.category.categories.exception": "Exceptions",

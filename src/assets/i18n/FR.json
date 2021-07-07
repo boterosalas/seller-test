@@ -1262,7 +1262,7 @@
   "secure.parametize.category.categories.lb_id_market_form": "ID Marketplace",
   "secure.parametize.category.categories.lb_sinco_sub_line_id": "ID Sous-ligne SINCO",
   "secure.parametize.category.categories.lb_sinco_category_id": "ID Catégorie SINCO",
-  "secure.parametize.category.categories.lb_sinco_sub_cateogry_id": "ID Sous-catégorie SINCO",
+  "secure.parametize.category.categories.lb_sinco_sub_category_id": "ID Sous-catégorie SINCO",
   "secure.parametize.category.categories.lb_sinco_segment_id": "ID Segment SINCO",
   "secure.parametize.category.categories.exception": "Exceptions",
   "secure.parametize.category.categories.creation_succesfully": "Creation was successful",

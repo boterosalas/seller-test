@@ -52,10 +52,11 @@ export class CategoriesComponent implements OnInit, OnDestroy {
     Name: "",
     IdVTEX: "",
     integerNumber: "",
-    sincoSubLineId: "",
-    sincoSegmentId: "",
-    sincoSubCategoryId: "",
-    sincoCategoryId: "",
+    SincoSubLineId: "",
+    SincoSegmentId: "",
+    SincoSubCategoryId: "",
+    SincoCategoryId: "",
+    SincoSubline: "",
   };
 
   /**
@@ -298,6 +299,17 @@ export class CategoriesComponent implements OnInit, OnDestroy {
               return element;
             }
           }).Value;
+
+        this.categoryRegex.SincoSubline =
+          !!dataSellerRegex &&
+          dataSellerRegex.find((element) => {
+            if (
+              element.Identifier === "integerNumber" &&
+              element.Module === "vendedores"
+            ) {
+              return element;
+            }
+          }).Value;
       } catch {
         this.modalService.showModal("errorService");
       }
@@ -339,33 +351,38 @@ export class CategoriesComponent implements OnInit, OnDestroy {
           Validators.pattern(this.categoryRegex.IdVTEX),
         ]),
       ],
-      sincoSubLineId: [
+      SincoSubLineId: [
         "",
         Validators.compose([
           Validators.required,
           trimField,
-          Validators.pattern(this.categoryRegex.sincoSubLineId),
+          Validators.pattern(this.categoryRegex.SincoSubLineId),
+          Validators.maxLength(15),
+          positiveNumber,
         ]),
       ],
-      sincoCategoryId: [
+      SincoCategoryId: [
         "",
         Validators.compose([
-          trimField,
-          Validators.pattern(this.categoryRegex.sincoSubLineId),
+          Validators.pattern(this.categoryRegex.SincoSubline),
+          Validators.maxLength(15),
+          Validators.min(0),
         ]),
       ],
-      sincoSubCategoryId: [
+      SincoSubCategoryId: [
         "",
         Validators.compose([
-          trimField,
-          Validators.pattern(this.categoryRegex.sincoSubLineId),
+          Validators.pattern(this.categoryRegex.SincoSubline),
+          Validators.maxLength(15),
+          Validators.min(0),
         ]),
       ],
-      sincoSegmentId: [
+      SincoSegmentId: [
         "",
         Validators.compose([
-          trimField,
-          Validators.pattern(this.categoryRegex.sincoSubLineId),
+          Validators.pattern(this.categoryRegex.SincoSubline),
+          Validators.maxLength(15),
+          Validators.min(0),
         ]),
       ],
 
@@ -892,18 +909,18 @@ export class CategoriesComponent implements OnInit, OnDestroy {
     return this.form.get("TariffCode") as FormControl;
   }
 
-  get sincoSubLineId(): FormControl {
-    return this.form.get("sincoSubLineId") as FormControl;
+  get SincoSubLineId(): FormControl {
+    return this.form.get("SincoSubLineId") as FormControl;
   }
 
-  get sincoCategoryId(): FormControl {
-    return this.form.get("sincoCategoryId") as FormControl;
+  get SincoCategoryId(): FormControl {
+    return this.form.get("SincoCategoryId") as FormControl;
   }
-  get sincoSubCategoryId(): FormControl {
-    return this.form.get("sincoSubCategoryId") as FormControl;
+  get SincoSubCategoryId(): FormControl {
+    return this.form.get("SincoSubCategoryId") as FormControl;
   }
-  get sincoSegmentId(): FormControl {
-    return this.form.get("sincoSegmentId") as FormControl;
+  get SincoSegmentId(): FormControl {
+    return this.form.get("SincoSegmentId") as FormControl;
   }
   /**
    * funcuion para eliminar el componente de modal cuando se cierra la session

@@ -1285,7 +1285,7 @@
   "secure.parametize.category.categories.lb_id_market_form": "Marketplace ID",
   "secure.parametize.category.categories.lb_sinco_sub_line_id": "ID Sublíena SINCO",
   "secure.parametize.category.categories.lb_sinco_category_id": "ID Categoría SINCO",
-  "secure.parametize.category.categories.lb_sinco_sub_cateogry_id": "ID Subcategoría SINCO",
+  "secure.parametize.category.categories.lb_sinco_sub_category_id": "ID Subcategoría SINCO",
   "secure.parametize.category.categories.lb_sinco_segment_id": "ID Segmento SINCO",
 
   "secure.parametize.category.categories.exception": "Excepciones",
