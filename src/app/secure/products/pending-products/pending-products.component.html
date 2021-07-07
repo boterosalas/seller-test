@@ -163,18 +163,17 @@
     </mat-drawer-container>
   </mat-tab>
   <mat-tab [label]="'secure.products.pending_products_tab3' | translate">
-    <mat-drawer-container class="example-container" style="height: 500px;">
+    <mat-drawer-container class="example-container">
       <mat-drawer #drawer3 [mode]="'over'" [position]="'end'" class="example-sidenav" [disableClose]="true">
         <form class="basic-info" #createfilterProdutsMultiOfert="ngForm" [formGroup]="filterProdutsMultiOfert"
           class="seller-filter-sidenav" *ngIf="filterProdutsMultiOfert">
           <div fxLayout="row" fxLayoutAlign="space-between center">
             <h3>Aprobar contendido Multioferta</h3>
             <button id="closeMenuApplication" type="button" color="primary" [matTooltip]="'actions.close' | translate"
-              matTooltipPosition="below" mat-icon-button mat-button (click)="drawer3.toggle() && closeFilter3()">
+              matTooltipPosition="below" mat-icon-button mat-button (click)="drawer3.toggle()">
               <mat-icon>clear</mat-icon>
             </button>
           </div>
-
           <div fxLayout="column" fxLayoutAlign="space-between" fxLayout.xs="column">
             <mat-form-field color="primary">
               <input matInput
@@ -190,11 +189,16 @@
                 [errorStateMatcher]="matcher">
               <mat-hint></mat-hint>
             </mat-form-field>
+            <mat-form-field color="primary">
+              <input matInput [placeholder]="'filter-Plu' | translate" formControlName="plu3"
+                [errorStateMatcher]="matcher">
+              <mat-hint></mat-hint>
+            </mat-form-field>
 
             <div fxLayout="row" fxLayoutAlign="space-between center" class="buttonsSend">
               <button mat-stroked-button color="primary" type="button"
-                (click)="cleanFilter2()">{{'filters.clear' | translate}} </button>
-              <button mat-flat-button color="primary" (click)="drawer3.toggle() && filterApply3()"
+                (click)="cleanFilter3()">{{'filters.clear' | translate}} </button>
+              <button mat-flat-button color="primary" (click)="drawer3.toggle(); filterApply3()"
                 [disabled]="!createfilterProdutsMultiOfert.form.valid || !createfilterProdutsMultiOfert.form.touched">{{'filters.filter' | translate}}</button>
             </div>
           </div>
@@ -213,7 +217,7 @@
             {{'secure.products.pending_products_tab3' | translate}}
           </p>
           <div class="hide-page">
-            <mat-paginator [length]="length3" [pageSize]="pageSize2" [pageSizeOptions]="pageSizeOptions2"
+            <mat-paginator [length]="length3" [pageSize]="pageSize2" [pageSizeOptions]="pageSizeOptions3"
               (page)="pageEvent = paginations3($event)"></mat-paginator>
           </div>
         </div>
@@ -226,7 +230,7 @@
     <div fxLayout="column">
       <div class="example-chip-list">
         <mat-chip-list #chipList *ngIf="!detailShow">
-          <mat-chip *ngFor="let products of listFilterProductsValidation" [selectable]="selectable"
+          <mat-chip *ngFor="let products of listFilterProductsMultiOfert" [selectable]="selectable"
             [removable]="removable" (removed)="removeMultiOfert(products)">
             {{products.name}}
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>

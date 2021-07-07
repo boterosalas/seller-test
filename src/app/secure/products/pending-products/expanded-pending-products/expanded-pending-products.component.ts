@@ -46,6 +46,8 @@ export class ExpandedPendingProductsComponent implements OnInit {
 
   public showImage = true;
   public showVideo = false;
+  public currentProduct = [];
+  public oldProduct = [];
 
   constructor(
     private languageService: TranslateService,
@@ -73,16 +75,15 @@ export class ExpandedPendingProductsComponent implements OnInit {
     }
 
     if (this.productsMultiOfertExpanded) {
-      console.log(this.productsMultiOfertExpanded)
-      const currentProduct = this.productsMultiOfertExpanded.currentProduct;
-      const oldProduct = this.productsMultiOfertExpanded.oldProduct;
-      for (const product in oldProduct) {
-        if (oldProduct.hasOwnProperty(product) && currentProduct.hasOwnProperty(product)) {
+      this.currentProduct = this.productsMultiOfertExpanded.currentProduct;
+      this.oldProduct = this.productsMultiOfertExpanded.oldProduct;
+      for (const product in  this.oldProduct) {
+        if ( this.oldProduct.hasOwnProperty(product) && this.currentProduct.hasOwnProperty(product)) {
           this.arrayMultiOfert.push(
             {
               name: product,
-              old: oldProduct[product],
-              current: currentProduct[product],
+              old:  this.oldProduct[product],
+              current: this.currentProduct[product],
               expandable: this.validateExpandable(product)
             }
           );

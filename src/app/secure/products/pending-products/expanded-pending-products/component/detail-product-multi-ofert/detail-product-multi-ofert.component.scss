@@ -38,10 +38,6 @@ $color-gray1:#909090;
   height: 62px;
   margin-bottom: 2px;
 
-  @media (max-width: 600px) {
-    place-content: space-around !important;
-  }
-
   &--item-detail {
     text-overflow: ellipsis;
     overflow-wrap: break-word;
@@ -50,10 +46,6 @@ $color-gray1:#909090;
     width: inherit;
     max-width: 30%;
     position: relative;
-
-    @media (max-width: 600px) {
-      max-width: 25% !important;
-    }
 
     @media (max-width: 768px) {
       white-space: break-spaces;
@@ -219,6 +211,17 @@ $color-gray1:#909090;
 
 .container-height-30{
   height: 38px !important;
+}
+
+.box-shadow-initial {
+  box-shadow: initial;
+}
+
+.height-27{
+  height: 27px;
+}
+.color-red{
+  color: red;
 }
 
 

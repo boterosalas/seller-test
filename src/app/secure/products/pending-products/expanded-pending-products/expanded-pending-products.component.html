@@ -15,7 +15,8 @@
         <mat-card class="image-card" *ngFor="let img of images">
           <ng-container *ngIf="img.max">
             <!-- cargo la url de la imagen en el src y el evento click q llama la funcion con el parametro de la img grande -->
-            <div (click)="changeImage(img.max, img)" class="imageXs" [ngClass]="(imageMax
+            <div (click)="changeImage(img.max, img)" class="imageXs"
+              [ngClass]="(imageMax
               == img.max) ? 'activeImage' : ''">
               <img mat-card-image [src]="img.max" alt="X" [ngClass]="(imageMax
                 == img.max) ? 'border-gray' : ''">
@@ -247,31 +248,33 @@
 <div *ngIf="typeDetailProduct === 'multiOfert'">
   <div *ngIf="productsMultiOfertExpanded">
     <div fxLayout="row wrap">
-      <div fxFlex="35" style="text-align: center; padding-top: 30px;">
-        <img [src]="productsMultiOfertExpanded.urlImage1" style="width:
-          370px;height: 290px;">
+      <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="35"
+        fxFlex.xl="35" fxFlex="35" fxFlex="35" class="expanded-pending-product-container-text-align-center-padding-top-30">
+        <img [src]="productsMultiOfertExpanded.urlImage1" class="expanded-pending-product-img-width-height">
       </div>
-      <div fxFlex="62" style="border-left: solid 1px #c6c6c6;">
+      <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="62"
+        fxFlex.xl="62" fxFlex="62" fxFlex="62" class="expanded-pending-product-border-left-solid-color">
         <div>
-          <div style="padding-bottom: 5px; padding-left: 50px;">
-            <span style="color:#8c8c8c; font-size: 15px">EAN: {{productsMultiOfertExpanded.ean}}</span>
+          <div class="expanded-pending-product-padding-bottom-left-50">
+            <span class="expanded-pending-product-font-size-12-color">EAN:
+              {{productsMultiOfertExpanded.ean}}</span>
           </div>
-          <div style="padding-bottom: 5px; padding-left: 50px;">
-            <span style="font-size: 20px;">
+          <div class="expanded-pending-product-padding-bottom-left-50">
+            <span class="expanded-pending-product-font-size-17">
               {{productsMultiOfertExpanded.name}}
             </span>
           </div>
-          <div style="color: #8c8c8c; padding-bottom: 5px;font-size: 12px; padding-left: 50px;">
+          <div class="expanded-pending-product-container-date">
             <span>
-              <span style="color: #b6b6b6;">
+              <span class="expanded-pending-product-color-text-grey">
                 {{'secure.products.create_product_unit.list_products.combo_product.creation_date'
                 | translate}}:
               </span>
               {{productsMultiOfertExpanded.creationDate | date:'dd/MM/yyyy' }}
             </span>
-            <span style="color: #b6b6b6;">|</span>
+            <span class="expanded-pending-product-color-text-grey">|</span>
             <span>
-              <span style="color: #b6b6b6;">
+              <span class="expanded-pending-product-color-text-grey">
                 {{'secure.products.create_product_unit.list_products.combo_product.modification_date'
                 | translate}}:
               </span>
@@ -280,143 +283,351 @@
             <span>
             </span>
           </div>
-          <div style="padding-left: 10px; padding-right: 70px;">
+          <div class="expanded-pending-product-container-detail">
             <ng-template [ngIf]="productsMultiOfertExpanded">
-              <app-list-product-multi-ofert [data]="productsMultiOfertExpanded" class="width-100">
+              <app-list-product-multi-ofert [data]="productsMultiOfertExpanded"
+                class="width-100">
                 <ng-container *itemDropDownList>
-                  <div style="max-height: 184px; overflow-y: auto;height: 190px;">
-                    <app-detail-product-multi-ofert *ngFor="let item of arrayMultiOfert; let i = index" [data]="item" >
+                  <div class="expanded-pending-product-container-detail-modified-product">
+                    <app-detail-product-multi-ofert *ngFor="let item of
+                      arrayMultiOfert; let i= index" [data]="item">
                       <ng-container *appContentDropDownDetailOrderDirective>
-                        <div>
-                          <div *ngIf="item.name === 'Features' && arrayFeature.length > 0" style="padding-right: 40px; padding-left: 40px;">
-                            <div fxLayout="row wrap" style="background-color: #f7f6f6;">
-                              <div fxFlex="30" style="color: #828181;font-weight: bold;font-size: 11px;">Nombre</div>
-                              <div fxFlex="30" style="color: #828181;font-weight: bold;font-size: 11px;">Anterior</div>
-                              <div fxFlex="30" style="color: #828181;font-weight: bold;font-size: 11px;">Actual</div>
+                        <div fxShow.xs="false" fxShow.sm="false"
+                          fxShow.md="true" fxShow.lg="true" fxShow.xl="true">
+                          <div *ngIf="item.name === 'Features' &&
+                            arrayFeature.length> 0" class="expanded-pending-product-item-feature">
+                            <div fxLayout="row wrap">
+                              <div fxFlex="30" class="expanded-pending-product-detail-feature">
+                                {{'secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_Name'
+                                | translate}}
+                              </div>
+                              <div fxFlex="30" class="expanded-pending-product-detail-feature">
+                                {{'secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_previous'
+                                | translate}}
+                              </div>
+                              <div fxFlex="30" class="expanded-pending-product-detail-feature">
+                                {{'secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_current'
+                                | translate}}
+                              </div>
                             </div>
-                            <div *ngFor="let feature of arrayFeature" fxLayout="row wrap">
-                              <div fxFlex="30">
-                                <span style="font-size: 11px; color: #7e7e7e;">{{feature.key}}</span>
+                            <div *ngFor="let feature of arrayFeature"
+                              fxLayout="row wrap">
+                              <div fxFlex="30" class="expanded-pending-product-margin-right-2">
+                                <span class="expanded-pending-product-font-size-color-grey-text">{{feature.key}}</span>
                               </div>
-                              <div fxFlex="30">
-                                <span style="font-size: 11px; color: #7e7e7e;">{{feature.valueOld}}</span>
+                              <div fxFlex="30" class="expanded-pending-product-margin-right-2">
+                                <span class="expanded-pending-product-font-size-color-grey-text">{{feature.valueOld}}</span>
                               </div>
-                              <div fxFlex="30">
-                                <span style="color: red; font-size: 11px;">{{feature.valueCurrent}}</span>
+                              <div fxFlex="30" class="expanded-pending-product-margin-right-2">
+                                <span class="expanded-pending-product-color-red-font-size">{{feature.valueCurrent}}</span>
                               </div>
                             </div>
                           </div>
                           <div *ngIf="item.name === 'VideoUrl'">
-                            <div *ngFor="let video of arrayVideo" fxLayout="row wrap">
-                              <div fxFlex="50" style="text-align: center; background-color: #f7f6f6;">
-                                <iframe width="200" height="150" [src]="video.valueOld | safe: 'resourceUrl'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <div *ngFor="let video of arrayVideo" fxLayout="row
+                              wrap">
+                              <div fxFlex="50" class="expanded-pending-product-container-video-url">
+                                <iframe width="200" height="150"
+                                  [src]="video.valueOld | safe: 'resourceUrl'"
+                                  title="YouTube video player" frameborder="0"
+                                  allow="accelerometer; autoplay;
+                                  clipboard-write; encrypted-media; gyroscope;
+                                  picture-in-picture" allowfullscreen></iframe>
                               </div>
-                              <div fxFlex="45" style="text-align: center; background-color: #f7f6f6; margin-left: 2px;" >
-                                <iframe width="200" height="150" [src]="video.valueCurrent | safe: 'resourceUrl'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                              <div fxFlex="45" class="expanded-pending-product-container-video-url-margin-left-2">
+                                <iframe width="200" height="150"
+                                  [src]="video.valueCurrent | safe:
+                                  'resourceUrl'" title="YouTube video player"
+                                  frameborder="0" allow="accelerometer;
+                                  autoplay; clipboard-write; encrypted-media;
+                                  gyroscope; picture-in-picture"
+                                  allowfullscreen></iframe>
                               </div>
                             </div>
                           </div>
-                          <div *ngIf="item.name === 'Description'" style="padding-left: 20px; padding-right: 20px;">
-                            <div fxLayout="row wrap" >
-                              <div fxFlex="45" style="color: #828181;font-weight: bold;font-size: 11px; background-color: #f7f6f6;" >
-                                <span style="margin-left: 10px;">Anterior</span>
+                          <div *ngIf="item.name === 'Description'"
+                            class="expanded-pending-product-container-keyword-description-padding-20">
+                            <div fxLayout="row wrap">
+                              <div fxFlex="45"class="expanded-pending-product-containe-key-descr-detail-previus">
+                                <span class="expanded-pending-product-margin-left-10">
+                                  {{'secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_previous'
+                                  | translate}}
+                                </span>
                               </div>
-                              <div fxFlex="45" style="color: #828181;font-weight: bold;font-size: 11px; background-color: #f7f6f6; margin-left: 2px;">
-                                <span style="margin-left: 10px;">Actual</span>
+                              <div fxFlex="45" class="expanded-pending-product-container-element-current-product">
+                                <span class="expanded-pending-product-margin-left-10">
+                                  {{'secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_current'
+                                  | translate}}
+                                </span>
                               </div>
                             </div>
-                            <div *ngFor="let description of arrayDescription" fxLayout="row wrap">
+                            <div *ngFor="let description of arrayDescription"
+                              fxLayout="row wrap">
                               <div fxFlex="45">
-                                <span style="font-size: 11px; color: #7e7e7e; margin-left: 10px;" [innerHTML]="description.valueOld"></span>
+                                <span class="expanded-pending-product-container-valueOld-description"
+                                  [innerHTML]="description.valueOld"></span>
                               </div>
                               <div fxFlex="45">
-                                <span style="font-size: 11px;color: red; margin-left: 10px;" [innerHTML]="description.valueCurrent"></span>
+                                <span class="expanded-pending-product-container-valueCurrent-description"
+                                  [innerHTML]="description.valueCurrent"></span>
                               </div>
                             </div>
                           </div>
-                          <div *ngIf="item.name === 'KeyWords'" style="padding-left: 20px; padding-right: 20px;">
-                            <div fxLayout="row wrap" >
-                              <div fxFlex="45" style="color: #828181;font-weight: bold;font-size: 11px; background-color: #f7f6f6;" >
-                                <span style="margin-left: 10px;">Anterior</span>
+                          <div *ngIf="item.name === 'KeyWords'"
+                            class="expanded-pending-product-container-keyword-description-padding-20">
+                            <div fxLayout="row wrap">
+                              <div fxFlex="45"class="expanded-pending-product-containe-key-descr-detail-previus">
+                                <span class="expanded-pending-product-margin-left-10">
+                                  {{'secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_previous'
+                                  | translate}}
+                                </span>
                               </div>
-                              <div fxFlex="45" style="color: #828181;font-weight: bold;font-size: 11px; background-color: #f7f6f6; margin-left: 2px;">
-                                <span style="margin-left: 10px;">Actual</span>
+                              <div fxFlex="45" class="expanded-pending-product-container-element-old-keyWord">
+                                <span class="expanded-pending-product-margin-left-10">
+                                  {{'secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_current'
+                                  | translate}}
+                                </span>
                               </div>
                             </div>
-                            <div *ngFor="let keyWord of arrayKeyWords" fxLayout="row wrap">
+                            <div *ngFor="let keyWord of arrayKeyWords"
+                              fxLayout="row wrap">
                               <div fxFlex="45">
-                                <span style="font-size: 11px; color: #7e7e7e; margin-left: 10px;">{{keyWord.valueOld}}</span>
+                                <span class="expanded-pending-product-span-element-text-keyWord">{{keyWord.valueOld}}</span>
                               </div>
                               <div fxFlex="45">
-                                <span style="font-size: 11px;color: red; margin-left: 10px;">{{keyWord.valueCurrent}}</span>
+                                <span class="expanded-pending-product-container-valueCurrent-description">{{keyWord.valueCurrent}}</span>
                               </div>
                             </div>
                           </div>
-                          <div *ngIf="item.name === 'ImageUrl1'" style="  margin-left: 20px; margin-right: 10px; ">
-                            <div *ngFor="let image of arrayImages1" fxLayout="row wrap">
-                              <div fxFlex="50" style="text-align: center; background-color: #f1f1f1;">
-                                <img [src]="image.imagenCurrent" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
+                          <div *ngIf="item.name === 'ImageUrl1'"
+                           class="expanded-pending-product-container-margin-left-right-20">
+                            <div *ngFor="let image of arrayImages1"
+                              fxLayout="row wrap">
+                              <div fxFlex="50" class="expanded-pending-product-container-img-color-text-center">
+                                <img [src]="image.imagenCurrent" class="expanded-pending-product-container-img-width-height-margin-top">
                               </div>
-                              <div fxFlex="45" style="text-align: center; margin-left: 2px; background-color: #f1f1f1;">
-                                <img [src]="image.imagenOld" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
-                              </div>
-                            </div>
-                          </div>
-                          <div *ngIf="item.name === 'ImageUrl2'" style=" margin-left: 20px; margin-right: 10px; ">
-                            <div *ngFor="let image of arrayImages2" fxLayout="row wrap">
-                              <div fxFlex="50" style="text-align: center; background-color: #f1f1f1;">
-                                <img [src]="image.imagenCurrent" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
-                              </div>
-                              <div fxFlex="45" style="text-align: center; margin-left: 2px; background-color: #f1f1f1;">
-                                <img [src]="image.imagenOld" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
+                              <div fxFlex="45" class="expanded-pending-product-container-old-element">
+                                <img [src]="image.imagenOld" class="expanded-pending-product-container-img-width-height-margin-top">
                               </div>
                             </div>
                           </div>
-                          <div *ngIf="item.name === 'ImageUrl3'" style=" margin-left: 20px; margin-right: 10px; ">
-                            <div *ngFor="let image of arrayImages3" fxLayout="row wrap">
-                              <div fxFlex="50" style="text-align: center; background-color: #f1f1f1;">
-                                <img [src]="image.imagenCurrent" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
+                          <div *ngIf="item.name === 'ImageUrl2'"
+                           class="expanded-pending-product-container-margin-left-right-20">
+                            <div *ngFor="let image of arrayImages2"
+                              fxLayout="row wrap">
+                              <div fxFlex="50" class="expanded-pending-product-container-img-color-text-center">
+                                <img [src]="image.imagenCurrent" class="expanded-pending-product-container-img-width-height-margin-top">
                               </div>
-                              <div fxFlex="45" style="text-align: center; margin-left: 2px; background-color: #f1f1f1;">
-                                <img [src]="image.imagenOld" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
-                              </div>
-                            </div>
-                          </div>
-                          <div *ngIf="item.name === 'ImageUrl4'" style="margin-left: 20px; margin-right: 10px; ">
-                            <div *ngFor="let image of arrayImage4" fxLayout="row wrap">
-                              <div fxFlex="50" style="text-align: center; background-color: #f1f1f1;">
-                                <img [src]="image.imagenCurrent" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
-                              </div>
-                              <div fxFlex="45" style="text-align: center; margin-left: 2px; background-color: #f1f1f1;">
-                                <img [src]="image.imagenOld" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
+                              <div fxFlex="45" class="expanded-pending-product-container-old-element">
+                                <img [src]="image.imagenOld" class="expanded-pending-product-container-img-width-height-margin-top">
                               </div>
                             </div>
                           </div>
-                          <div *ngIf="item.name === 'ImageUrl5'" style="margin-left: 20px; margin-right: 10px; ">
-                            <div *ngFor="let image of arrayImages5" fxLayout="row wrap">
-                              <div fxFlex="50" style="text-align: center; background-color: #f1f1f1;">
-                                <img [src]="image.imagenCurrent" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
+                          <div *ngIf="item.name === 'ImageUrl3'"
+                           class="expanded-pending-product-container-margin-left-right-20">
+                            <div *ngFor="let image of arrayImages3"
+                              fxLayout="row wrap">
+                              <div fxFlex="50" class="expanded-pending-product-container-img-color-text-center">
+                                <img [src]="image.imagenCurrent" class="expanded-pending-product-container-img-width-height-margin-top">
                               </div>
-                              <div fxFlex="45" style="text-align: center; margin-left: 2px; background-color: #f1f1f1;">
-                                <img [src]="image.imagenOld" style="width: 210px; height: 150px; margin-bottom: 15px;margin-top: 15px;">
+                              <div fxFlex="45" class="expanded-pending-product-container-old-element">
+                                <img [src]="image.imagenOld" class="expanded-pending-product-container-img-width-height-margin-top">
                               </div>
+                            </div>
+                          </div>
+                          <div *ngIf="item.name === 'ImageUrl4'"
+                            class="expanded-pending-product-container-element-margin-left-right">
+                            <div *ngFor="let image of arrayImage4" fxLayout="row
+                              wrap">
+                              <div fxFlex="50" class="expanded-pending-product-container-img-color-text-center">
+                                <img [src]="image.imagenCurrent" class="expanded-pending-product-container-img-width-height-margin-top">
+                              </div>
+                              <div fxFlex="45" class="expanded-pending-product-container-old-element">
+                                <img [src]="image.imagenOld" class="expanded-pending-product-container-img-width-height-margin-top">
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="item.name === 'ImageUrl5'"
+                            class="expanded-pending-product-container-element-margin-left-right">
+                            <div *ngFor="let image of arrayImages5"
+                              fxLayout="row wrap">
+                              <div fxFlex="50" class="expanded-pending-product-container-img-color-text-center">
+                                <img [src]="image.imagenCurrent" class="expanded-pending-product-container-img-width-height-margin-top">
+                              </div>
+                              <div fxFlex="45" class="expanded-pending-product-container-old-element">
+                                <img [src]="image.imagenOld" class="expanded-pending-product-container-img-width-height-margin-top">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div fxShow.xs="true" fxShow.sm="true" fxShow.md="false"
+                          fxShow.lg="false" fxShow.xl="false">
+                          <div class="expanded-pending-product-background-color-grey">
+                            <div *ngIf="item.name !== 'Features' && item.name
+                              !== 'ImageUrl1' && item.name !== 'ImageUrl2' &&
+                              item.name !== 'ImageUrl3' && item.name !==
+                              'ImageUrl4' && item.name !== 'ImageUrl5' && item.name !== 'Description' && item.name !== 'VideoUrl'" class="expanded-pending-product-padding-left-40">
+                           
+                              <div>
+                                  <div class="expanded-pending-product-padding-bottom-10">
+                                    <div>
+                                      <span class="expanded-pending-product-text-item-element-current-old">Anterior</span>
+                                    </div>
+                                    <div>
+                                     <span class="expanded-pending-product-text-item-old">{{item.old}}</span>
+                                    </div>
+                                  </div>
+                                  <div>
+                                    <div>
+                                      <span class="expanded-pending-product-text-item-element-current-old">Actual</span>
+                                    </div>
+                                    <div>
+                                     <span class="expanded-pending-product-color-red-font-size">{{item.current}}</span>
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
+                            <div *ngIf="item.name === 'Description'" class="expanded-pending-product-padding-left-40">
+                           
+                              <div>
+                                  <div class="expanded-pending-product-padding-bottom-10">
+                                    <div>
+                                      <span class="expanded-pending-product-text-item-element-current-old">Anterior</span>
+                                    </div>
+                                    <div>
+                                      <span class="expanded-pending-product-span-element-text-keyWord"
+                                  [innerHTML]="item.old"></span>
+                                    </div>
+                                  </div>
+                                  <div>
+                                    <div>
+                                      <span class="expanded-pending-product-text-item-element-current-old">Actual</span>
+                                    </div>
+                                    <div>
+                                      <span class="expanded-pending-product-container-valueCurrent-description"
+                                  [innerHTML]="item.current"></span>
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
+                            <div *ngIf="item.name === 'VideoUrl'" class="expanded-pending-product-padding-left-40">
+                              <div>
+                                <span class="expanded-pending-product-text-item-element-current-old">Anterior</span>
+                              </div>
+                              <div class="expanded-pending-product-container-iframe-video-url">
+                                <iframe width="200" height="150"
+                                  [src]="item.old | safe: 'resourceUrl'"
+                                  title="YouTube video player" frameborder="0"
+                                  allow="accelerometer; autoplay;
+                                  clipboard-write; encrypted-media; gyroscope;
+                                  picture-in-picture" allowfullscreen></iframe>
+                              </div>
+                              <div>
+                                <span class="expanded-pending-product-text-item-element-current-old">Actual</span>
+                              </div>
+                              <div class="expanded-pending-product-container-iframe-video-url-left">
+                                <iframe width="200" height="150"
+                                  [src]="item.current | safe:
+                                  'resourceUrl'" title="YouTube video player"
+                                  frameborder="0" allow="accelerometer;
+                                  autoplay; clipboard-write; encrypted-media;
+                                  gyroscope; picture-in-picture"
+                                  allowfullscreen></iframe>
+                              </div>
+                            </div>
+                            <div *ngIf="item.name
+                            === 'ImageUrl1' || item.name === 'ImageUrl2' ||
+                            item.name === 'ImageUrl3' || item.name ===
+                            'ImageUrl4' || item.name === 'ImageUrl5'">
+                            <div>
+                              <div class="expanded-pending-product-padding-bottom-10">
+                                <div>
+                                  <span class="expanded-pending-product-text-item-element-current-old">Anterior</span>
+                                </div>
+                                <div>
+                                  
+                                <div class="expanded-pending-product-container-movil-img-old">
+                                  <img [src]="item.old" class="expanded-pending-product-container-movil-img">
+                                </div>
+                                </div>
+                              </div>
+                              <div>
+                                <div>
+                                  <span class="expanded-pending-product-text-item-element-current-old">Actual</span>
+                                </div>
+                                <div class="expanded-pending-product-container-img-color-text-center">
+                                <img [src]="item.current" class="expanded-pending-product-container-movil-img">
+                              </div>
+                              </div>
+                          </div>
+
+                            </div>
+                            <div *ngIf="item.name === 'Features' &&
+                              arrayFeature.length> 0" class="expanded-pending-product-item-feature">
+                              <div class="expanded-pending-product-padding-bottom-10">
+                                <div>
+                                  <span class="expanded-pending-product-text-item-element-current-old">Anterior</span>
+                                </div>
+                                <div>
+                                  <div *ngFor="let old of oldProduct.Features"
+                                    fxLayout="row wrap">
+                                    <div fxFlex="50">
+                                      <span class="expanded-pending-product-text-item-old">
+                                        {{old.Key}}
+                                      </span>
+                                    </div>
+                                    <div fxFlex="50">
+                                      <span class="expanded-pending-product-text-item-old">
+                                        {{old.Value}}
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div>
+                                <div>
+                                  <span class="expanded-pending-product-text-item-element-current-old">Actual</span>
+                                </div>
+                                <div>
+                                  <div *ngFor="let current of
+                                    currentProduct.Features" fxLayout="row
+                                    wrap">
+                                    <div fxFlex="50">
+                                      <span class="expanded-pending-product-text-item-old">
+                                        {{current.Key}}
+                                      </span>
+                                    </div>
+                                    <div fxFlex="50">
+                                      <span class="expanded-pending-product-color-red-font-size">
+                                        {{current.Value}}
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
                             </div>
                           </div>
                         </div>
                       </ng-container>
                     </app-detail-product-multi-ofert>
                   </div>
-                  <div fxLayout="row wrap" style=" padding-top: 35px;">
-                    <div fxFlex="50" style="text-align: end; padding-right: 20px;">
-                      <button mat-stroked-button  color="primary" mat-button
-                      (click)="modalGeneric('reject')">RECHAZAR CAMBIOS</button>
+                  <div fxLayout="row wrap" class="expanded-pending-product-padding-top-35-bottom-20">
+                    <div fxFlex="50" class="expanded-pending-product-text-align-end-padding-right-20">
+                      <button mat-stroked-button color="primary" mat-button
+                        (click)="modalGeneric('reject')">
+                        {{'secure.products.create_product_unit.list_products.expanded_product.multiOfert.btn_reject_changes'|
+                        translate}}
+                      </button>
                     </div>
                     <div fxFlex="50">
-                      <button mat-raised-button  color="primary" mat-button
-                      (click)="modalGeneric('approved')">APROBAR CAMBIOS</button>
+                      <button mat-raised-button color="primary" mat-button
+                        (click)="modalGeneric('approved')">
+                        {{'secure.products.create_product_unit.list_products.expanded_product.multiOfert.btn_approved_changes'|
+                        translate}}
+                      </button>
                     </div>
                   </div>
-                
                 </ng-container>
               </app-list-product-multi-ofert>
             </ng-template>

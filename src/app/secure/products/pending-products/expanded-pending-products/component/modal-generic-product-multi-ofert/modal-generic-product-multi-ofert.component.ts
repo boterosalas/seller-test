@@ -31,21 +31,17 @@ export class ModalGenericProductMultiOfertComponent implements OnInit {
   }
   approvedProduct() {
     this.pendingProductsService.sendApprovedProductMultiOfert().subscribe( result => {
-      console.log(result);
       this.processFinish$.next();
       this.showSuccessful = true;
       this.status = this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_msg_approved');
-
     });
   }
 
   rejectProduct() {
     this.pendingProductsService.sendRejectProductProductMultiOfert().subscribe( result => {
-      console.log(result);
       this.processFinish$.next();
       this.showReject = true;
       this.status = this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_msg_rejected')
-
     });
 
   }

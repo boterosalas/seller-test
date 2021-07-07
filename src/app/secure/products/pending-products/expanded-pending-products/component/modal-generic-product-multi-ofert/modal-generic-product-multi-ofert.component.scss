@@ -5,6 +5,10 @@
     margin-right: 44%;
     border-radius: 64px;
     height: 70px;
+    @media screen and (min-width: 400px) and (max-width: 600px) {
+      margin-left: 36%;
+      margin-right: 30%;
+    }
   }
 
   &-text-align-center {
@@ -14,5 +18,37 @@
   &-icons-white-margin {
     margin-top: 22px;
     color: white;
+  }
+  &-text-align-end{
+    text-align: end;
+  }
+  &-color-cursor-font-size{
+    color:#b6b6b6;
+    cursor:pointer;
+    font-size:16px
+  }
+  &-padding-top-bottom-20{
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  &-font-weight-size-15{
+    font-weight: bold;
+    font-size: 15px;
+  }
+
+  &-padding-btn-30{
+    padding-bottom: 30px;
+  }
+  &-color-font-size-14{
+    color: #b6b6b6;
+    font-size: 14px;
+  }
+  &-padding-left-10{
+    padding-left: 10px;
+  }
+  &-text-align-center-top-btn{
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
   }
 }

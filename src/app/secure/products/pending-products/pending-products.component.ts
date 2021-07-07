@@ -85,7 +85,8 @@ export class PendingProductsComponent implements OnInit {
   length3 = 0;
   pageSizeOptions: number[] = [30, 60, 120, 600];
   pageSizeOptions2: number[] = [30, 60, 120, 600];
-  pageSizeOptions3: number[] = [30, 60, 120, 600];
+  // pageSizeOptions3: number[] = [50, 100, 150, 200];
+  pageSizeOptions3: number[] = [1];
   pageEvent: PageEvent;
 
   editPermission = false;
@@ -112,7 +113,7 @@ export class PendingProductsComponent implements OnInit {
   nameProduct = '';
   nameProduct2 = '';
   nameProduct3 = '';
-  plu3 = '';
+  plu3: any;
 
   separatorKeysCodes: number[] = [];
 
@@ -203,6 +204,7 @@ export class PendingProductsComponent implements OnInit {
     this.filterProdutsMultiOfert = this.fb.group({
       productName3: new FormControl('', Validators.compose([Validators.pattern(this.getValue('nameProduct'))])),
       ean3: new FormControl(''),
+      plu3: new FormControl(''),
       matcher: new MyErrorStateMatcher()
     });
   }
@@ -320,7 +322,7 @@ export class PendingProductsComponent implements OnInit {
    */
   getPendingProductsMultiOfert(params?: any) {
     this.loadingService.viewSpinner();
-    this.paramsArray3 = '?limit=' + this.pageSize3 + '&paginationToken=' + encodeURI(this.paginationToken3) + '&name=' + this.nameProduct2 + '&ean=' + this.ean3 + '&plu=' + this.plu3;
+    this.paramsArray3 = '?limit=' + this.pageSize3 + '&paginationToken=' + encodeURI(this.paginationToken3) + '&name=' + this.nameProduct3 + '&ean=' + this.ean3 + '&plu=' + this.plu3;
     this.showProducts = false;
     this.pendingProductsService.getAllProductPendingMultiOfert(this.paramsArray3).subscribe((res: any) => {
       if (res) {
@@ -449,11 +451,7 @@ export class PendingProductsComponent implements OnInit {
       if (this.paginationToken3 === undefined) {
         this.paginationToken3 = encodeURI('{}');
       }
-      this.paramsArray3 = {
-        'limit': this.pageSize3 + '&paginationToken=' + this.paginationToken3,
-        'idSeller': this.user.sellerId + '&ean=' + this.ean3 + '&name=' + this.nameProduct3
-      };
-      this.getPendingProductsMultiOfert(this.paramsArray3);
+      this.getPendingProductsMultiOfert();
     }
   }
 
@@ -571,11 +569,8 @@ export class PendingProductsComponent implements OnInit {
     this.callOne3 = true;
     this.ean3 = encodeURIComponent(this.filterProdutsMultiOfert.controls.ean3.value);
     this.nameProduct3 = encodeURIComponent(this.filterProdutsMultiOfert.controls.productName3.value);
-    this.paramsArray = {
-      'limit': this.pageSize + '&paginationToken=' + encodeURI('{}'),
-      'idSeller': this.user.sellerId + '&ean=' + this.ean3 + '&name=' + this.nameProduct3
-    };
-    this.getPendingProductsMultiOfert(this.filterProdutsMultiOfert);
+    this.plu3 = encodeURIComponent(this.filterProdutsMultiOfert.controls.plu3.value);
+    this.getPendingProductsMultiOfert();
   }
 
   /**
@@ -622,6 +617,7 @@ export class PendingProductsComponent implements OnInit {
   public cleanFilterListProductsModify3(): void {
     this.nameProductList3 = null;
     this.eanList3 = null;
+    this.plu3 = null;
     this.listFilterProductsMultiOfert = [];
   }
 
@@ -630,14 +626,15 @@ export class PendingProductsComponent implements OnInit {
    * @memberof PendingProductsComponent
    */
   public filterProductsModify() {
+    setTimeout(() => {
     this.cleanFilterListProductsModify();
     this.nameProductList = this.filterProdutsPending.controls.productName.value || null;
     this.eanList = this.filterProdutsPending.controls.ean.value || null;
 
-    // const data = [];
     this.dataChips.push({ value: this.nameProductList, name: 'nameProductList', nameFilter: 'productName' });
     this.dataChips.push({ value: this.eanList, name: 'eanList', nameFilter: 'ean' });
     this.add(this.dataChips);
+  }, 1000);
   }
 
   /**
@@ -665,12 +662,14 @@ export class PendingProductsComponent implements OnInit {
       this.cleanFilterListProductsModify();
       this.nameProductList3 = this.filterProdutsMultiOfert.controls.productName3.value || null;
       this.eanList3 = this.filterProdutsMultiOfert.controls.ean3.value || null;
+      this.plu3 = this.filterProdutsMultiOfert.controls.plu3.value || null;
 
       // const data = [];
       this.dataChips3.push({ value: this.nameProductList3, name: 'nameProductList3', nameFilter: 'productName3' });
       this.dataChips3.push({ value: this.eanList3, name: 'eanList3', nameFilter: 'ean3' });
+      this.dataChips3.push({ value: this.plu3, name: 'plu3', nameFilter: 'plu3' });
       this.add3(this.dataChips3);
-    }, 1000);
+    }, 2000);
   }
 
   /**
