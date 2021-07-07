@@ -348,7 +348,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
    */
   readFileUpload(evt: any): Promise<any> {
     return new Promise((resolve, reject) => {
-      // this.loadingService.viewSpinner();
       let data: any;
       /* wire up file reader */
       const target: DataTransfer = <DataTransfer>(evt.target);
@@ -413,8 +412,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
           this.arrayNecessaryData.push([]);
           /*Se hace iteración en todas las columnas que tenga una fila del excel*/
           for (let j = 0; j < res[0].length; j++) {
-            if(res[i][j] === 'Seleccionar' || res[i][j] === 'Escribe o elige un valor de la hoja de marcas') {
-              res[i][j] = null
+            if (res[i][j] === 'Seleccionar' || res[i][j] === 'Escribe o elige un valor de la hoja de marcas') {
+              res[i][j] = null;
             }
             /*Se valida si la primera celda de cada columna si tenga dato, si no tiene no se tendra en cuenta*/
             if (res[0][j] !== '' && res[0][j] !== null && res[0][j] !== undefined) {
@@ -1069,7 +1068,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                 const itemLog = {
                   row: this.arrayInformation.length,
                   column: j,
-                  type: 'invalidFormat',
+                  type: 'UrlVIdeoYoutbeError',
                   columna: column,
                   fila: row,
                   positionRowPrincipal: i,
@@ -1384,7 +1383,9 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                 newFeatures['key'] = res[0][k].trim();
                 newFeatures['value'] = res[i][k].trim();
                 this.validateFeature(res, i, k, iVal, res[i][k].trim(), variant, errorInCell);
-                newObjectForSend.features.push(newFeatures);
+                if (res[0][k].trim() !== 'Errors' && res[0][k].trim() !== 'Errores') {
+                  newObjectForSend.features.push(newFeatures);
+                }
               }
             }
           } else if (!variant && variant === false) {
@@ -1392,7 +1393,9 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
               newFeatures['key'] = res[0][k].trim();
               newFeatures['value'] = res[i][k].trim();
               this.validateFeature(res, i, k, iVal, res[i][k].trim(), variant, errorInCell);
-              newObjectForSend.features.push(newFeatures);
+              if (res[0][k].trim() !== 'Errors' && res[0][k].trim() !== 'Errores') {
+                newObjectForSend.features.push(newFeatures);
+              }
             }
           }
 
@@ -1535,7 +1538,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.numberElements = this.dataSource.data.length;
-    this.loadingService.closeSpinner();
   }
 
   /**
@@ -1639,7 +1641,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
                   this.getAvaliableLoads();
                   // Validar que los errores existan para poder mostrar el modal.
                   if (result.body.data.error > 0) {
-                    this.openDialogSendOrder(data);
+                    this.openDialogSendOrder(data, 'generic');
                   }
                 } else if (data.body.successful === 0 && data.body.error === 0) {
                   this.modalService.showModal('errorService');
@@ -1652,7 +1654,6 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
               this.modalService.showModal('errorService');
             }
             this.resetVariableUploadFile();
-            this.loadingService.closeSpinner();
           }
         );
     } else {
@@ -1664,12 +1665,11 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
               if (data.body.data !== null && data.body.data !== undefined) {
                 if (data.body.successful !== 0 || data.body.error !== 0) {
                   this.progressStatus = false;
-                  // this.BulkLoadProductS.getCargasMasivas().subscribe((res: any) => this.verifyStateCharge(res));
                   this.setIntervalStatusCharge();
                   this.getAvaliableLoads();
                   // Validar que los errores existan para poder mostrar el modal.
                   if (result.body.data.error > 0) {
-                    this.openDialogSendOrder(data);
+                    this.openDialogSendOrder(data, 'generic');
                   }
                 } else if (data.body.successful === 0 && data.body.error === 0) {
                   this.modalService.showModal('errorService');
@@ -1711,30 +1711,25 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
   /*Funcion para validar el status de la carga y abrir o no el modal */
   verifyStateCharge(result?: any) {
-    // Convertimos el string que nos envia el response a JSON que es el formato que acepta
     if (result.body.data.response) {
       result.body.data.response = JSON.parse(result.body.data.response);
     }
+    this.loadingService.closeSpinner();
     if (result.body.data.status === 0 || result.body.data.checked === 'true') {
     } else if (result.body.data.status === 1 || result.body.data.status === 4) {
       result.body.data.status = 1;
       if (!this.progressStatus) {
-        this.openDialogSendOrder(result);
+        this.openDialogSendOrder(result, 'generic');
       }
       this.progressStatus = true;
     } else if (result.body.data.status === 2) {
       clearInterval(this.checkIfDoneCharge);
       this.closeActualDialog();
-      this.openDialogSendOrder(result);
+      this.openDialogSendOrder(result, 'product');
     } else if (result.body.data.status === 3) {
       this.closeActualDialog();
       clearInterval(this.checkIfDoneCharge);
-      if (result.body.data.response.Errors['0']) {
-        this.modalService.showModal('errorService');
-      } else {
-        this.openDialogSendOrder(result);
-
-      }
+      this.openDialogSendOrder(result, 'product');
     }
   }
 
@@ -1745,7 +1740,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
    * @param {any} res
    * @memberof BulkLoadProductComponent
    */
-  openDialogSendOrder(res: any): void {
+  openDialogSendOrder(res: any, type: string): void {
     if (!res.body.data) {
       res.body.data = {};
       res.body.data.status = 3;
@@ -1762,14 +1757,17 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       }
     }
     const dialogRef = this.dialog.open(FinishUploadProductInformationComponent, {
-      width: '95%',
+      width: '60%',
       disableClose: res.body.data.status === 1,
       data: {
-        response: res
+        response: res,
+        type: type
       },
     });
-    dialogRef.afterClosed().subscribe(result => {
-      log.info('The dialog was closed');
+    const dialogIntance = dialogRef.componentInstance;
+    dialogIntance.processFinish$.subscribe((result) => {
+      this.validateDataFromFile(result.data, result.evt);
+      this.resetUploadFIle();
     });
   }
 
@@ -2092,40 +2090,36 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
     dialogComponent.confirmation = () => {
       const {productType, Label} = this.dataProduct;
       this.BulkLoadProductS.getProductsTemplate(productType, Label).subscribe(({data, message})=> {
-        if(data) {
+        if (data) {
           this.loadingService.viewSpinner();
 
-          if(this.status === 1)  {
-
-            let statusInterval = setInterval(() => {
-
-            this.BulkLoadProductS.statusLoad().subscribe(({status, response})=> {
+          if (this.status === 1)  {
+            const statusInterval = setInterval(() => {
+            this.BulkLoadProductS.statusLoad().subscribe(({status, response}) => {
               this.status = status;
-              if(status !== 1) {
+              if (status !== 1) {
                 clearInterval(statusInterval);
                 this.loadingService.closeSpinner();
-                if(status === 2) {
+                if (status === 2) {
                   this.downloadFile(response);
                 }
-                if(status === 3) {
+                if (status === 3) {
                   this.componentService.openSnackBar(this.languageService.instant('shared.error.file'), this.languageService.instant('actions.close'), 4000);
                 }
                 this.status = 1;
               }
-            })
-            
+            });
           }, 5000);
-        } 
-          
+        }
         } else {
           this.componentService.openSnackBar(message, 'Cerrar', 4000);
         }
-      })
+      });
     };
   }
 
-  private downloadFile(filePath){
-    var link=document.createElement('a');
+  private downloadFile(filePath: any){
+    const link = document.createElement('a');
     link.href = filePath;
     link.download = filePath.substr(filePath.lastIndexOf('/') + 1);
     link.click();

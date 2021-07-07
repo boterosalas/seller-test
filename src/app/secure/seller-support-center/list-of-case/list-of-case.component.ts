@@ -144,6 +144,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
   hideHeader:Boolean;
 
   @ViewChild(MatSort , {static: false}) sort: MatSort;
+  timeResponse: any;
 
 
   constructor(
@@ -462,6 +463,7 @@ export class ListOfCaseComponent implements OnInit, OnDestroy {
             this.cases.forEach(element => {
               element.statusLoad = false;
             });
+            this.timeResponse = res.body.data.responseTime;
             this.loadingService.closeSpinner();
           }
         }
