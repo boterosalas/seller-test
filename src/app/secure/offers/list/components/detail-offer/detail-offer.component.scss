@@ -424,7 +424,7 @@ $color-green: #6FB63E;
 }
 
 .nameCombo {
-  font-size: 14px;
+  font-size: 12px;
   margin-bottom: 14px;
 }
 
@@ -460,7 +460,8 @@ $color-green: #6FB63E;
 
 .beforeNameCombo {
   height: 170px;
-  overflow-y: scroll
+  overflow-y: scroll;
+  margin-top: 10px;
 }
 
 #idPrice {

@@ -1,0 +1,61 @@
+<div>
+  <div fxLayout="row wrap">
+    <div fxFlex="100" class="modal-generic-icon-position-close">
+      <mat-icon class="mat-18 modal-generic-cursor-grey-color"
+        (click)="refresh()" matTooltip="Cerrar">close</mat-icon>
+    </div>
+  </div>
+  <div  fxLayout="row wrap">
+    <div fxFlex="100" style="text-align: center;">
+      Programar ofertas
+    </div>
+  </div>
+  <div>
+    <div>
+      precio :{{priceCurrent}}
+    </div>
+    <div>
+      Precio con descuento :{{discountPriceCurrent}}
+    </div>
+  </div>
+  <div fxLayout="row wrap">
+    <mat-tab-group>
+      <mat-tab label="Ofertas" style="font-size: 12px;">
+        <form #filterForm="ngForm" [formGroup]="form">
+
+       
+        <div  fxLayout="row wrap">
+          <div fxFlex="25">
+
+          </div>
+          <div fxFlex="25">
+
+          </div>
+          <div fxFlex="25">
+            <mat-form-field class="notification-form-font-size-width-100">
+              <input matInput [matDatepicker]="startDate" placeholder="Fecha
+                final" formControlName="startDate" [min]="form.value.startDate">
+              <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+              <mat-datepicker #startDate></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div fxFlex="25">
+            <mat-form-field class="notification-form-font-size-width-100">
+              <input matInput [matDatepicker]="dateEnd" placeholder="Fecha
+                final" formControlName="dateEnd" [min]="form.value.startDate">
+              <mat-datepicker-toggle matSuffix [for]="dateEnd"></mat-datepicker-toggle>
+              <mat-datepicker #dateEnd></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+      </mat-tab>
+      <mat-tab label="Combos" style="font-size: 12px;">
+        dfgdfg
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
+
+
+

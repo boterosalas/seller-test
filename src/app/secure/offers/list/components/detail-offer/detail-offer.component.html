@@ -1,4 +1,4 @@
-<div style="padding: 70px 25px 25px 25px;">
+<div style="padding: 70px 25px 0px 25px;">
   <div fxLayout="row">
     <div fxFlex="40">
       <button class="btn-back" style="width: auto; height: auto; color:
@@ -38,7 +38,7 @@
       </div>
       <div>
         <img [src]="dataOffer.imageUrl" alt="" style="max-width: 70%; min-width:
-          60%; border: solid 1px #e3e3e3; max-height: 390px;">
+          60%; border: solid 1px #e3e3e3; max-height: 310px;">
       </div>
       <div style="font-size: 13px; color: #B6B6A2;">
         <mat-icon style="vertical-align: middle; cursor: pointer;">zoom_in</mat-icon>
@@ -49,8 +49,8 @@
       <div style="padding: 14px;">
         <div>
           <div fxLayout="row">
-            <div fxFlex="70">
-              <span style="color: #696969; font-size: 22px;">
+            <div fxFlex="80">
+              <span style="color: #696969; font-size: 15px;">
                 <mat-icon class="mat-18" *ngIf="dataOffer.reference === null ||
                   dataOffer.reference === 'null' || dataOffer.reference === ''"
                   style="vertical-align: middle; margin-right: 5px; color:
@@ -62,7 +62,7 @@
                 {{dataOffer.name}}
               </span>
             </div>
-            <div fxFlex="30" style="text-align: end;">
+            <div fxFlex="20" style="text-align: end;">
               <div style="width: 100%; text-align: end;">
                 <button type="button" color="primary"
                   [matTooltip]="'actions.edit' |
@@ -73,6 +73,15 @@
                   <mat-icon class="flexbox align-center justify-center"
                     style="color:
                     #909090;">edit</mat-icon>
+                </button>
+                <button type="button" color="primary"
+                  matTooltip="Programar ofertas" matTooltipPosition="below"
+                  mat-icon-button mat-button (click)="offersPrograms()"
+                  *ngIf="!isUpdateOffer
+                  && isUpdateOffer === false && canEdit">
+                  <mat-icon class="flexbox align-center justify-center"
+                    style="color:
+                    #909090;">alarm_add</mat-icon>
                 </button>
                 <button type="button" color="primary"
                   [matTooltip]="'actions.cancel' |
@@ -93,11 +102,11 @@
           </div>
 
         </div>
-        <div style="padding-left: 55px; color: #b6b6b6; margin-top: 10px;
-          font-size: 13px;">
+        <div style="padding-left: 55px; color: #b6b6b6;
+          font-size: 12px;">
           <span>
             <span>
-              <span style="color: #6f6e6e">
+              <span style="color: #6f6e6e;">
                 {{'shared.ean' | translate}}:
               </span>
               {{dataOffer.ean}}
@@ -117,7 +126,7 @@
             </span>
           </span>
         </div>
-        <div style="padding-left: 55px; color: #b6b6b6;margin-top: 5px;
+        <div style="padding-left: 55px; color: #b6b6b6;margin-top: 10px;
           font-size: 13px;">
           <span style="color: #6f6e6e">
             {{'secure.offers.bulk_upload.table_load.sellerSku' | translate}}:
@@ -125,7 +134,7 @@
           {{dataOffer.sellerSku}}
         </div>
         <div *ngIf="!isUpdateOffer && isUpdateOffer === false">
-          <div style="padding-left: 55px; color: #b6b6b6; padding-top: 20px;">
+          <div style="padding-left: 55px; color: #b6b6b6; padding-top: 10px;">
             <div *ngIf="dataOffer.discountPrice> 0">
               <span style="text-decoration: line-through; font-size: 20px;">
                 {{dataOffer.price | currency: '$' : 'symbol' : '1.2-2'}}
@@ -133,19 +142,19 @@
             </div>
             <div>
               <span>
-                <span *ngIf="dataOffer.discountPrice> 0" style="font-size: 40px;
+                <span *ngIf="dataOffer.discountPrice> 0" style="font-size: 30px;
                   color: red;">
                   {{dataOffer.discountPrice | currency: '$' : 'symbol' :
                   '1.2-2'}}
                 </span>
                 <span *ngIf="dataOffer.discountPrice === 0" style="font-size:
-                  40px; color: red;">
+                  30px; color: red;">
                   {{dataOffer.price | currency: '$' : 'symbol' : '1.2-2'}}
                 </span>
               </span>
             </div>
           </div>
-          <div fxLayout="row" style="padding-bottom: 30px;">
+          <div fxLayout="row" style="padding-bottom: 10px;">
             <div fxFlex="100" style="padding-left: 55px; color: #b6b6b6;
               font-size: 13px;">
               <span>
@@ -174,148 +183,203 @@
               </span>
             </div>
           </div>
-          <div fxLayout="row">
-            <div fxFlex="100" style="padding-left: 50px; font-size: 13px;">
-              <div fxLayout="row" style="width: 100%;">
-                <div fxFlex="50" *ngIf="dataOffer.size">
-                  <mat-icon style="vertical-align: middle; color: #b6b6b6;">tab_unselected</mat-icon>
-                  <span>
-                    <span style="color: #6f6e6e;">
-                      {{'secure.products.bulk_upload.size' | translate}}
-                    </span>
-                    ({{dataOffer.size}})
-                  </span>
+          <div style="margin-left: 55px;">
+            <mat-tab-group>
+              <mat-tab label="Oferta">
+                <div fxLayout="row" style="margin-top: 10px;">
+                  <div fxFlex="100" style="padding-left: 50px; font-size:
+                    13px;">
+                    <div fxLayout="row" style="width: 100%;">
+                      <div fxFlex="50" *ngIf="dataOffer.size">
+                        <mat-icon style="vertical-align: middle; color:
+                          #b6b6b6;">tab_unselected</mat-icon>
+                        <span>
+                          <span style="color: #6f6e6e;">
+                            {{'secure.products.bulk_upload.size' | translate}}
+                          </span>
+                          ({{dataOffer.size}})
+                        </span>
+                      </div>
+                      <div fxFlex="50" *ngIf="dataOffer.hexColourCodePDP">
+                        <mat-icon style="vertical-align: middle; color:
+                          #b6b6b6;">color_lens</mat-icon>
+                        <span>
+                          <span style="color: #6f6e6e;">
+                            {{'secure.products.bulk_upload.color' | translate}}
+                          </span>
+                          <mat-icon [ngStyle]="{'color':'#' +
+                            dataOffer.hexColourCodePDP}" class="vertical-align">brightness_1</mat-icon>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div fxFlex="50" *ngIf="dataOffer.hexColourCodePDP">
-                  <mat-icon style="vertical-align: middle; color: #b6b6b6;">color_lens</mat-icon>
-                  <span>
-                    <span style="color: #6f6e6e;">
-                      {{'secure.products.bulk_upload.color' | translate}}
-                    </span>
-                    <mat-icon [ngStyle]="{'color':'#' +
-                      dataOffer.hexColourCodePDP}" class="vertical-align">brightness_1</mat-icon>
-                  </span>
+                <div fxLayout="row" style="padding-top: 10px; font-size: 13px;">
+                  <div fxFlex="100" style="padding-left: 50px;">
+                    <div fxLayout="row" style="width: 100%;">
+                      <div fxFlex="50">
+                        <mat-icon style="vertical-align: middle; color:
+                          #b6b6b6;">attach_money</mat-icon>
+                        <span>
+                          <span style="color: #6f6e6e;">
+                            {{'secure.offers.list.list.currency' | translate}}
+                          </span>
+                          {{dataOffer.currency}}
+                        </span>
+                      </div>
+                      <div fxFlex="50">
+                        <mat-icon style="vertical-align: middle; color:
+                          #b6b6b6;">local_shipping</mat-icon>
+                        <span>
+                          <span style="color: #6f6e6e;">
+                            {{'secure.offers.list.list.averageFreightCost' |
+                            translate}}
+                          </span>
+                          {{dataOffer.shippingCost | currency: '$' : 'symbol' :
+                          '1.2-2'}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+                <div fxLayout="row" style="padding-top: 10px; font-size: 13px;">
+                  <div fxFlex="100" style="padding-left: 50px;">
+                    <div fxLayout="row" style="width: 100%;">
+                      <div fxFlex="50">
+                        <mat-icon style="vertical-align: middle; color:
+                          #b6b6b6;">beenhere</mat-icon>
+                        <span>
+                          <span style="color: #6f6e6e;">
+                            {{'secure.offers.list.list.warranty' | translate}}
+                          </span>
+                          {{dataOffer.warranty}}
+                        </span>
+                      </div>
+                      <div fxFlex="50">
+                        <mat-icon style="vertical-align: middle; color:
+                          #b6b6b6;">date_range</mat-icon>
+                        <span>
+                          <span style="color: #6f6e6e;">
+                            {{'secure.offers.list.list.promise' | translate}}
+                          </span>
+                          {{promiseFirts}}
+                          {{'secure.offers.list.components.detail_offer.' + to |
+                          translate}} {{promiseSeconds}} {{periodicityHtml}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div fxLayout="row wrap" style="padding-top: 15px; font-size:
+                  13px;color: #6f6e6e;">
+                  <div fxFlex="23" style="border: solid 1px #b6b6b6;
+                    margin-right:
+                    5px; margin-left: 25px;">
+                    <div class="flexbox align-center justify-center sep-right"
+                      [ngClass]="{'check' : dataOffer.isFreeShipping}">
+                      <mat-icon *ngIf="dataOffer.isFreeShipping &&
+                        dataOffer.isFreeShipping === true" class="color-green">check</mat-icon>
+                      <mat-icon *ngIf="!dataOffer.isFreeShipping ||
+                        dataOffer.isFreeShipping === false">clear</mat-icon>
+                      <p
+                        [innerHTML]="['secure.offers.historical_admin.historical_admin.free_shipping'
+                        | translate]"></p>
+                    </div>
+                  </div>
+                  <div fxFlex="23" style="border: solid 1px #b6b6b6;
+                    margin-right:
+                    5px;">
+                    <div class="flexbox align-center justify-center"
+                      [ngClass]="{'check' : dataOffer.isEnviosExito}">
+                      <mat-icon *ngIf="dataOffer.isEnviosExito &&
+                        dataOffer.isEnviosExito === true" class="color-green">check</mat-icon>
+                      <mat-icon *ngIf="!dataOffer.isEnviosExito ||
+                        dataOffer.isEnviosExito === false">clear</mat-icon>
+                      <p
+                        [innerHTML]="['secure.offers.historical_admin.historical_admin.shiping_exito'
+                        | translate]"></p>
+                    </div>
+                  </div>
+                  <div fxFlex="23" style="border: solid 1px #b6b6b6;
+                    margin-right:
+                    5px;">
+                    <div class="flexbox align-center justify-center sep-right
+                      sep-top"
+                      [ngClass]="{'check' : dataOffer.isFreightCalculator}">
+                      <mat-icon *ngIf="dataOffer.isFreightCalculator &&
+                        dataOffer.isFreightCalculator === true"
+                        class="color-green">check</mat-icon>
+                      <mat-icon *ngIf="!dataOffer.isFreightCalculator ||
+                        dataOffer.isFreightCalculator === false">clear</mat-icon>
+                      <p
+                        [innerHTML]="['secure.offers.historical_admin.historical_admin.freight_calculator'
+                        | translate]"></p>
+                    </div>
+                  </div>
+                  <div fxFlex="23" style="border: solid 1px #b6b6b6;
+                    margin-right:
+                    5px;">
+                    <div class="flexbox align-center justify-center sep-top"
+                      [ngClass]="{'check' : dataOffer.isLogisticsExito}">
+                      <mat-icon *ngIf="dataOffer.isLogisticsExito &&
+                        dataOffer.isLogisticsExito === true"
+                        class="color-green">check</mat-icon>
+                      <mat-icon *ngIf="!dataOffer.isLogisticsExito ||
+                        dataOffer.isLogisticsExito === false">clear</mat-icon>
+                      <p
+                        [innerHTML]="['secure.offers.historical_admin.historical_admin.exito_logistic'
+                        | translate]"></p>
+                    </div>
+                  </div>
+                </div>
+              </mat-tab>
+              <mat-tab label="Combos ({{dataOffer.offerComponents.length}})"
+                *ngIf="dataOffer.offerComponents.length>
+                0">
+                <div fxLayout="row wrap">
+                  <div fxLayout="row wrap" class="beforeNameCombo" fxFlex="100">
+                    <div fxFlex="100" id="idListComponent" *ngFor="let
+                      detailOfers of dataOffer.offerComponents">
+                      <div class="nameCombo">
+                        <mat-icon matPrefix class="alingIcon"
+                          style="vertical-align: middle;width: 16px;height:
+                          16px;font-size: 16px;color: #8e8e8e;margin-right:
+                          5px;">move_to_inbox</mat-icon>
+                        <span class="colorTitleCombo">{{detailOfers.productName}}</span>
+                        <div fxLayout="row">
+                          <div fxFlex="50" id="idPrice">
+                            {{'secure.offers.historical_admin.historical_admin.price'
+                            | translate}}</div>
+                          <div fxFlex="50" id="idQuantyCombo">
+                            {{'secure.offers.bulk_upload.table_load.quantity_combo'
+                            | translate}}</div>
+                        </div>
+                        <div fxLayout="row">
+                          <div fxFlex="50" id="Price2">
+                            {{detailOfers.price}}</div>
+                          <div fxFlex="50" id="idQuantyCombo2">
+                            {{detailOfers.quantity}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-tab>
+            </mat-tab-group>
           </div>
-          <div fxLayout="row" style="padding-top: 10px; font-size: 13px;">
-            <div fxFlex="100" style="padding-left: 50px;">
-              <div fxLayout="row" style="width: 100%;">
-                <div fxFlex="50">
-                  <mat-icon style="vertical-align: middle; color: #b6b6b6;">attach_money</mat-icon>
-                  <span>
-                    <span style="color: #6f6e6e;">
-                      {{'secure.offers.list.list.currency' | translate}}
-                    </span>
-                    {{dataOffer.currency}}
-                  </span>
-                </div>
-                <div fxFlex="50">
-                  <mat-icon style="vertical-align: middle; color: #b6b6b6;">local_shipping</mat-icon>
-                  <span>
-                    <span style="color: #6f6e6e;">
-                      {{'secure.offers.list.list.averageFreightCost' |
-                      translate}}
-                    </span>
-                    {{dataOffer.shippingCost | currency: '$' : 'symbol' :
-                    '1.2-2'}}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div fxLayout="row" style="padding-top: 10px; font-size: 13px;">
-            <div fxFlex="100" style="padding-left: 50px;">
-              <div fxLayout="row" style="width: 100%;">
-                <div fxFlex="50">
-                  <mat-icon style="vertical-align: middle; color: #b6b6b6;">beenhere</mat-icon>
-                  <span>
-                    <span style="color: #6f6e6e;">
-                      {{'secure.offers.list.list.warranty' | translate}}
-                    </span>
-                    {{dataOffer.warranty}}
-                  </span>
-                </div>
-                <div fxFlex="50">
-                  <mat-icon style="vertical-align: middle; color: #b6b6b6;">date_range</mat-icon>
-                  <span>
-                    <span style="color: #6f6e6e;">
-                      {{'secure.offers.list.list.promise' | translate}}
-                    </span>
-                    {{promiseFirts}}
-                    {{'secure.offers.list.components.detail_offer.' + to |
-                    translate}} {{promiseSeconds}} {{periodicityHtml}}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div fxLayout="row wrap" style="padding-top: 70px; font-size:
-            14px;color: #6f6e6e;">
-            <div fxFlex="23" style="border: solid 1px #b6b6b6; margin-right:
-              5px; margin-left: 25px;">
-              <div class="flexbox align-center justify-center sep-right"
-                [ngClass]="{'check' : dataOffer.isFreeShipping}">
-                <mat-icon *ngIf="dataOffer.isFreeShipping &&
-                  dataOffer.isFreeShipping === true" class="color-green">check</mat-icon>
-                <mat-icon *ngIf="!dataOffer.isFreeShipping ||
-                  dataOffer.isFreeShipping === false">clear</mat-icon>
-                <p
-                  [innerHTML]="['secure.offers.historical_admin.historical_admin.free_shipping'
-                  | translate]"></p>
-              </div>
-            </div>
-            <div fxFlex="23" style="border: solid 1px #b6b6b6; margin-right:
-              5px;">
-              <div class="flexbox align-center justify-center"
-                [ngClass]="{'check' : dataOffer.isEnviosExito}">
-                <mat-icon *ngIf="dataOffer.isEnviosExito &&
-                  dataOffer.isEnviosExito === true" class="color-green">check</mat-icon>
-                <mat-icon *ngIf="!dataOffer.isEnviosExito ||
-                  dataOffer.isEnviosExito === false">clear</mat-icon>
-                <p
-                  [innerHTML]="['secure.offers.historical_admin.historical_admin.shiping_exito'
-                  | translate]"></p>
-              </div>
-            </div>
-            <div fxFlex="23" style="border: solid 1px #b6b6b6; margin-right:
-              5px;">
-              <div class="flexbox align-center justify-center sep-right sep-top"
-                [ngClass]="{'check' : dataOffer.isFreightCalculator}">
-                <mat-icon *ngIf="dataOffer.isFreightCalculator &&
-                  dataOffer.isFreightCalculator === true" class="color-green">check</mat-icon>
-                <mat-icon *ngIf="!dataOffer.isFreightCalculator ||
-                  dataOffer.isFreightCalculator === false">clear</mat-icon>
-                <p
-                  [innerHTML]="['secure.offers.historical_admin.historical_admin.freight_calculator'
-                  | translate]"></p>
-              </div>
-            </div>
-            <div fxFlex="23" style="border: solid 1px #b6b6b6; margin-right:
-              5px;">
-              <div class="flexbox align-center justify-center sep-top"
-                [ngClass]="{'check' : dataOffer.isLogisticsExito}">
-                <mat-icon *ngIf="dataOffer.isLogisticsExito &&
-                  dataOffer.isLogisticsExito === true" class="color-green">check</mat-icon>
-                <mat-icon *ngIf="!dataOffer.isLogisticsExito ||
-                  dataOffer.isLogisticsExito === false">clear</mat-icon>
-                <p
-                  [innerHTML]="['secure.offers.historical_admin.historical_admin.exito_logistic'
-                  | translate]"></p>
-              </div>
-            </div>
-          </div>
+
+
+
         </div>
         <div *ngIf="isUpdateOffer && isUpdateOffer === true" style="padding:
           10px 30px 20px 30px;">
-          <mat-tab-group>
-            <mat-tab label="Ofertas">
-              <form #updateOffer="ngForm" [formGroup]="formUpdateOffer"
-                autocomplete="off">
-                <div fxLayout="row wrap" style="padding-top: 40px;">
-                  <div fxFlex="25">
-                    <mat-form-field>
+          <form #updateOffer="ngForm" [formGroup]="formUpdateOffer"
+            autocomplete="off">
+            <mat-tab-group>
+              <mat-tab label="Ofertas" style="font-size: 12px;">
+                <div fxLayout="row wrap" style="padding-top: 20px;">
+                  <div fxFlex="20" style="margin-right: 15px;">
+                    <mat-form-field style="width: 100%; font-size: 13px;">
                       <input matInput
                         [placeholder]="['secure.offers.bulk_upload.table_load.sellerSku'
                         | translate]"
@@ -329,8 +393,8 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
-                  <div fxFlex="25">
-                    <mat-form-field>
+                  <div fxFlex="20" style="margin-right: 15px;">
+                    <mat-form-field style="width: 100%; font-size: 13px;">
                       <input matInput
                         [placeholder]="['secure.offers.historical_admin.historical_admin.stock'
                         | translate]"
@@ -344,8 +408,8 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
-                  <div fxFlex="25">
-                    <mat-form-field>
+                  <div fxFlex="20" style="margin-right: 15px;">
+                    <mat-form-field style="width: 100%; font-size: 13px;">
                       <input matInput
                         [placeholder]="['secure.offers.historical_admin.historical_admin.price'
                         | translate]" (change)="unLessDiscountPrice()"
@@ -382,8 +446,8 @@
                         {{'errors.price_cannot_be_0' | translate}}</mat-error>
                     </mat-form-field>
                   </div>
-                  <div fxFlex="25">
-                    <mat-form-field>
+                  <div fxFlex="20" style="margin-right: 15px;">
+                    <mat-form-field style="width: 100%; font-size: 13px;">
                       <input matInput
                         [placeholder]="'secure.offers.historical_admin.historical_admin.discount_price'
                         | translate" (change)="unLessDiscountPrice()"
@@ -421,8 +485,8 @@
                   </div>
                 </div>
                 <div fxLayout="row wrap" style="padding-top: 40px;">
-                  <div fxFlex="25">
-                    <mat-form-field>
+                  <div fxFlex="20" style="margin-right: 15px;">
+                    <mat-form-field style="width: 100%; font-size: 13px;">
                       <input matInput
                         [placeholder]="['secure.offers.list.components.detail_offer.averageFreightCost'
                         | translate]"
@@ -438,8 +502,8 @@
                         [innerHTML]="['errors.error_required' | translate]"></mat-error>
                     </mat-form-field>
                   </div>
-                  <div fxFlex="25">
-                    <mat-form-field>
+                  <div fxFlex="20" style="margin-right: 15px;">
+                    <mat-form-field style="width: 100%; font-size: 13px;">
                       <input matInput
                         [placeholder]="'secure.offers.historical_admin.historical_admin.promise'
                         | translate"
@@ -463,8 +527,8 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
-                  <div fxFlex="25">
-                    <mat-form-field>
+                  <div fxFlex="20" style="margin-right: 15px;">
+                    <mat-form-field style="width: 100%; font-size: 13px;">
                       <mat-select formControlName="Periodicity"
                         class="color-select-periodicity"
                         [disabled]="isInternational"
@@ -481,8 +545,8 @@
                         [innerHTML]="'errors.error_required' | translate"></mat-error>
                     </mat-form-field>
                   </div>
-                  <div fxFlex="25">
-                    <mat-form-field>
+                  <div fxFlex="20" style="margin-right: 15px;">
+                    <mat-form-field style="width: 100%; font-size: 13px;">
                       <input matInput
                         [placeholder]="['secure.offers.historical_admin.historical_admin.warranty'
                         | translate]"
@@ -497,7 +561,8 @@
                   </div>
                 </div>
 
-                <div fxLayout="row wrap" style="padding-top: 20px; font-size: 13px;">
+                <div fxLayout="row wrap" style="padding-top: 5px; font-size:
+                  13px;">
                   <div fxFlex="30">
                     <mat-slide-toggle color="primary"
                       formControlName="IsFreeShipping" id="freeShippingdWidth"
@@ -522,9 +587,10 @@
                       | translate}}
                     </mat-slide-toggle>
                   </div>
-                 
+
                 </div>
-                <div fxLayout="row wrap"  *ngIf="dataOffer.reference && dataOffer.isCombo === false" style="margin-top: 10px;">
+                <div fxLayout="row wrap" *ngIf="dataOffer.reference &&
+                  dataOffer.isCombo === false" style="margin-top: 10px;">
                   <div fxFlex="40">
                     <mat-slide-toggle color="primary"
                       formControlName="IsUpdatedStock" id="updateStockWidth"
@@ -535,27 +601,102 @@
                   </div>
                   <div fxFlex="40">
                     <div style="font-size: 13px;">
-                      <mat-slide-toggle color="primary" formControlName="OfferByReference" class="apply_variants_toogle" (change)="alertSellerByReference($event)">
-                        {{'secure.products.create_product_unit.list_products.ofert_product.reference_update' | translate}}
+                      <mat-slide-toggle color="primary"
+                        formControlName="OfferByReference"
+                        class="apply_variants_toogle"
+                        (change)="alertSellerByReference($event)">
+                        {{'secure.products.create_product_unit.list_products.ofert_product.reference_update'
+                        | translate}}
                       </mat-slide-toggle>
                     </div>
                   </div>
                 </div>
-                <div fxLayout="row wrap" style="    border-top: solid 1px #ededed;margin-top: 20px;">
-                  <div style="text-align: center; width: 100%; margin-top: 10px;">
-                    <button [disabled]="!updateOffer.form.valid || showButton === true || !updateOffer.form.touched" type="submit"
-                    mat-raised-button color="primary" [innerHTML]="'permissions.Editar' | translate"
-                    (click)="validateRulesOfert()"></button>
+                <div fxLayout="row wrap" style="border-top: solid 1px
+                  #ededed;margin-top: 20px;">
+                  <div style="text-align: center; width: 100%; margin-top:
+                    10px;">
+                    <button [disabled]="!updateOffer.form.valid || showButton
+                      === true || !updateOffer.form.touched" type="submit"
+                      mat-raised-button color="primary"
+                      [innerHTML]="'permissions.Editar' | translate"
+                      (click)="validateRulesOfert()"></button>
                   </div>
                 </div>
-              </form>
-            </mat-tab>
-            <mat-tab label="Combos" *ngIf="dataOffer.offerComponents.length > 0">
-            </mat-tab>
-            <mat-tab label="Programar precios">
-            </mat-tab>
-          </mat-tab-group>
-
+              </mat-tab>
+              <mat-tab label="Combos" *ngIf="dataOffer.offerComponents.length>
+                0">
+                <div fxLayout="row wrap" class="sizeContainer"
+                  *ngIf="dataOffer.offerComponents.length> 0">
+                  <div fxLayout="row" class="titleListCombo">
+                    {{'secure.offers.bulk_upload.table_load.component_list' |
+                    translate}}<span
+                      class="countCombo">({{Combos.controls.length}})</span></div>
+                  <div fxLayout="row wrap" class="classListComponents"
+                    fxFlex="100">
+                    <div fxFlex="100" id="idListComponent" *ngFor="let comp of
+                      Combos.controls">
+                      <ng-container [formGroup]="comp">
+                        <div class="nameCombo">
+                          <mat-icon matPrefix class="alingIcon">move_to_inbox</mat-icon>
+                          <span><b>{{comp.get('nameCombo').value}}</b></span>
+                        </div>
+                        <div>
+                          <mat-form-field color="primary" class="marginInput">
+                            <mat-icon matPrefix>attach_money</mat-icon>
+                            <input (change)="getPriceDescount()" matInput
+                              [placeholder]="'secure.offers.historical_admin.historical_admin.price'
+                              | translate"
+                              formControlName="ofertPriceComponet"
+                              (blur)="validInput('Price'); valiteInput()"
+                              [errorStateMatcher]="matcher">
+                            <mat-hint></mat-hint>
+                            <mat-error
+                              *ngIf="comp.get('ofertPriceComponet').hasError('required')">
+                              {{'secure.products.create_product_unit.list_products.ofert_product.mandatory_price_ean_combo'
+                              | translate}}
+                            </mat-error>
+                            <mat-error
+                              *ngIf="comp.get('ofertPriceComponet').hasError('pattern')">
+                              {{'secure.products.create_product_unit.list_products.ofert_product.invalid_price_ean_combo'
+                              | translate}}
+                            </mat-error>
+                          </mat-form-field>
+                          <mat-form-field color="primary" class="marginInput">
+                            <mat-icon matPrefix>add_shopping_cart</mat-icon>
+                            <input (change)="getPriceDescount()" matInput
+                              [placeholder]="'secure.offers.bulk_upload.table_load.quantity_combo'
+                              | translate"
+                              (blur)="validInput('Price'); valiteInput()"
+                              formControlName="ComboQuantity"
+                              [errorStateMatcher]="matcher">
+                            <mat-hint></mat-hint>
+                            <mat-error
+                              *ngIf="comp.get('ComboQuantity').hasError('required')">
+                              {{'secure.products.create_product_unit.list_products.ofert_product.mandatory_amount_ean_combo'
+                              | translate}}}
+                            </mat-error>
+                            <mat-error
+                              *ngIf="comp.get('ComboQuantity').hasError('pattern')">
+                              {{'secure.products.create_product_unit.list_products.ofert_product.invalid_amount_ean_combo'
+                              | translate}}
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+                <div class="button-update-offert flexbox justify-center
+                  align-center">
+                  <button [disabled]="!updateOffer.form.valid || showButton ===
+                    true || !updateOffer.form.touched" type="submit"
+                    mat-raised-button color="primary"
+                    [innerHTML]="'permissions.Editar' | translate"
+                    (click)="validateRulesOfert()"></button>
+                </div>
+              </mat-tab>
+            </mat-tab-group>
+          </form>
         </div>
       </div>
     </div>

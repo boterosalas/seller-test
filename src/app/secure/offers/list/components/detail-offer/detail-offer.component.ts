@@ -14,6 +14,7 @@ import { validateDataToEqual } from '@app/shared/util/validation-messages';
 import { TranslateService } from '@ngx-translate/core';
 import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 import { ModalRuleOfferComponent } from '@app/secure/products/list-products/modal-rule-offer/modal-rule-offer.component';
+import { ModalProgramOfertComponent } from '../modal-program-ofert/modal-program-ofert.component';
 
 
 // Error when invalid control is dirty, touched, or submitted.
@@ -1096,6 +1097,18 @@ export class DetailOfferComponent implements OnInit {
       }
     }
   }
+
+
+  offersPrograms(){
+    const dialogRef = this.dialog.open(ModalProgramOfertComponent, {
+      width: '70%',
+      data: {
+        discountPrice: this.DiscountPrice,
+        price: this.Price
+      },
+    });
+  }
+
   /**
    * inicializar control de combos
    *
