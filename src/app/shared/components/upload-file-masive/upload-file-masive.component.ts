@@ -136,35 +136,40 @@ export class UploadFileMasiveComponent implements OnInit, OnDestroy {
         if (data.length > 0) {
           data.forEach((categories) => {
             this.json.push({
-              Id: categories[0] ? parseInt(categories[0], 0) : 0,
-              IdParent: categories[1] ? parseInt(categories[1], 0) : null,
+              Id: categories[0],
+              IdParent: categories[1],
               ProductType: categories[2],
               Name: categories[3],
-              Commission: categories[4] ? parseInt(categories[4], 0) : 0,
+              Commission: categories[4],
               TariffCode: categories[5],
-              Tariff: categories[6] ? categories[6] : 0,
-              IdVTEX: categories[7] ? parseInt(categories[7], 0) : 0,
+              Tariff: categories[6],
+              IdVTEX: categories[7],
               VtexIdCarulla: categories[8],
 
-              SincoSubLineId: categories[9] ? parseInt(categories[9], 0) : null,
-              SincoCategoryId: categories[10] ? parseInt(categories[10], 0) : null,
-              SincoSubCategoryId: categories[11] ? parseInt(categories[11], 0) : null,
-              SincoSegmentId: categories[12] ? parseInt(categories[12], 0) : null,
-
+              SincoSubLineId: categories[9],
+              SincoCategoryId: categories[10],
+              SincoSubCategoryId: categories[11],
+              SincoSegmentId: categories[12],
             });
           });
-          this.uploadFileMasiveService.uploadFile(this.data.services.send.name, this.data.services.send.method, this.json).subscribe(result => {
-            if (result && result.statusCode === 200) {
-              if (result.body) {
-                const body = JSON.parse(result.body);
-                if (body && body.Data && body.Data.Data) {
-                  this.loadFile = false;
-                  this.validateStatus(1, null);
-                  this.verifyStatus(1);
+          this.uploadFileMasiveService
+            .uploadFile(
+              this.data.services.send.name,
+              this.data.services.send.method,
+              this.json
+            )
+            .subscribe((result) => {
+              if (result && result.statusCode === 200) {
+                if (result.body) {
+                  const body = JSON.parse(result.body);
+                  if (body && body.Data && body.Data.Data) {
+                    this.loadFile = false;
+                    this.validateStatus(1, null);
+                    this.verifyStatus(1);
+                  }
                 }
               }
-            }
-          });
+            });
         } else {
           this.snackBar.open("El archivo esta vacío", "Cerrar", {
             duration: 3000,
@@ -203,7 +208,11 @@ export class UploadFileMasiveComponent implements OnInit, OnDestroy {
 
           /* save data */
           if (ws && ws !== null && ws !== undefined) {
-            data = XLSX.utils.sheet_to_json(ws, { header: 1,  blankrows: false, defval: null });
+            data = XLSX.utils.sheet_to_json(ws, {
+              header: 1,
+              blankrows: false,
+              defval: null,
+            });
             resolve(data);
           } else {
             reject(e);
