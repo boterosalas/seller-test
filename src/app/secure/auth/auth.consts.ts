@@ -458,6 +458,11 @@ const DocumentModule = new ModuleModel(documentModule, showAll, documentModule.t
     new MenuModel(apiAngularAdminName, false, apiAngularAdminName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, false, readFunctionality) // Consultar.
     ], 'http://sellercenter.frontdoc.exito.com.co.s3-website-us-east-1.amazonaws.com/'),
+    new MenuModel(agreementName, showAll, agreementName.toLowerCase(), ProfileTypes.Vendedor, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
+        new FunctionalitiesModel(visualizeFunctionality, showAll, visualizeFunctionality), // Visualizar
+        new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality) // Descargar
+    ], RoutesConst.sellerCenterIntSellerAgreements),
 ]);
 
 /**
