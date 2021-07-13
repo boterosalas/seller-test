@@ -115,6 +115,13 @@ export class PendingProductsService {
    * @memberof PendingProductsService
    */
   sendReportProductsPendingModification(params?: any): Observable<any> {
+    console.log(
+      this.api.get("reportProductsPendingModificartion", [
+        params.email,
+        params.categories,
+      ])
+    );
+
     return this.http.get(
       this.api.get("reportProductsPendingModificartion", [
         params.email,

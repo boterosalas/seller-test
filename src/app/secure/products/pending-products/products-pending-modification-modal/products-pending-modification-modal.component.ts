@@ -80,7 +80,13 @@ export class ProductsPendingModificationModalComponent implements OnInit {
    */
   sendReport() {
     this.showLoading = true;
-    const categories = this.categories.map((c) => c.id).toString();
+    const categories =
+      this.selectAll === true
+        ? 'null'
+        : this.categories
+            .filter((c) => c.selected === true)
+            .map((c) => c.id)
+            .toString();
     const params = {
       email: this.email.value,
       categories: categories,
