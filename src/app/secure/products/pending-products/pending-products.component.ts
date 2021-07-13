@@ -4,7 +4,6 @@ import {
   MatPaginator,
   ErrorStateMatcher,
   PageEvent,
-  MatDialogRef,
   MatDialog,
 } from "@angular/material";
 import { MatPaginatorI18nService } from "@app/shared/services/mat-paginator-i18n.service";
@@ -688,16 +687,10 @@ export class PendingProductsComponent implements OnInit {
     }
   }
 
-  /**
-   * Metodo para abrir la modal de productos pendientes de modificacion
-   */
   openModalProductsPendingModification(): void {
     const dialogRef = this.dialog.open(
       ProductsPendingModificationModalComponent,
       {data:{}}
     );
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
-    });
   }
 }

@@ -1,17 +1,64 @@
-<!-- <div class="wrapper">
-  <form [formGroup]="emailFormGroup"></form>
-  <mat-form-field fxFill="48" fxFlex="48">
+<div class="wrapper" fxLayout="column" >
+  <div class="header">
+    <h2>{{ "download.products.pending.modal.title" | translate }}</h2>
+    <h4 class="sc-title">
+      {{ "download.products.pending.modal.sub_title" | translate }}
+    </h4>
+  </div>
+  <mat-form-field fxFlex>
     <input
       matInput
-      formControlName="email"
-      [placeholder]="
-        'secure.offers.quoting.administrator.dialogs.create.modal_placeholder_postal_code'
-          | translate
-      "
+      [formControl]="email"
+      [placeholder]="'secure.seller.register_seller.lb_email_form' | translate"
       required
     />
-   <mat-error *ngIf="formZone.controls.DaneCode.errors && formZone.controls.DaneCode.errors.pattern">{{'errors.quoting_postal_code_invalid' | translate}}</mat-error>
-
+    <mat-error *ngIf="email.errors && email.errors.required">{{
+      "errors.required" | translate
+    }}</mat-error>
+    <mat-error *ngIf="email.errors && email.errors.email">{{
+      "errors.email_invalid" | translate
+    }}</mat-error>
   </mat-form-field>
+
+  <div class="categoires-options" *ngIf="categories.length && !showLoading">
+    <h5 class="sc-title">Seleccione las categorías de PLU a descargar</h5>
+    <div class="select-all">
+      <mat-checkbox
+        color="primary"
+        [checked]="selectAll"
+        (change)="selectAllOptions($event.checked)"
+      >
+        Seleccionar todo
+      </mat-checkbox>
+    </div>
+    <div class="options">
+      <mat-checkbox
+        color="primary"
+        [checked]="option.selected"
+        [(ngModel)]="option.selected"
+        *ngFor="let option of categories"
+        (ngModelChange)="updateAllComplete()"
+      >
+        {{ option.name }}
+      </mat-checkbox>
+    </div>
+    <mat-dialog-actions fxLayoutAlign="center">
+      <button mat-button (click)="onNoClick()">
+        {{ "actions.cancel" | translate }}
+      </button>
+      <button
+        type="button"
+        mat-raised-button
+        color="primary"
+        [disabled]="!valid()"
+        (click)="sendReport()"
+      >
+        {{ "permissions.Descargar" | translate }}
+      </button>
+    </mat-dialog-actions>
+  </div>
+
+  <mat-spinner *ngIf="!categories.length || showLoading"></mat-spinner>
 </div>
- -->
+
+
