@@ -2,7 +2,7 @@
   <div class="sh-case-detail__item ticket-detail ticket-detail--col">
 
     <div fxHide.gt-xs="true">
-      
+
       <label>{{'secure.parametize.support_drop-down-reason-detail' | translate}}</label>
       <p>{{case.reasonDetail}}</p>
 
@@ -24,8 +24,9 @@
     </app-basic-card>
   </div>
 
-  <button fxHide.gt-xs="true" class="btn-no-bg" mat-stroked-button color="primary" type="button" (click)="showThumbnail(case)">
-    {{'secure.parametize.support.see.product' | translate}} 
+  <button fxHide.gt-xs="true" class="btn-no-bg" mat-stroked-button color="primary" type="button"
+    (click)="showThumbnail(case)">
+    {{'secure.parametize.support.see.product' | translate}}
   </button>
 
   <div class="sh-case-detail__item ticket-detail ticket-detail--col" *ngIf="case.descriptionSolution">
@@ -54,22 +55,39 @@
   </div>
 
   <div class="sh-case-detail__item ticket-detail--col">
-    <span class="sh-case-detail__title sh-case-detail--bottom-space">
-      {{'secure.parametize.support_claims.tracing'|translate}}
-    </span>
-    <app-conversation>
-      <div *ngIf="!case.follow || case.follow.length == 0">
-        <app-conversation-message *itemConversation class="sh-case-detail--full-width" style="opacity: 0.7;"
-          [message]="translateService.instant('secure.parametize.support_claims.no-tracing')">
-        </app-conversation-message>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="sh-case-detail__title sh-case-detail--bottom-space">
+        {{'secure.parametize.support_claims.tracing'|translate}}
+      </span>
+
+      <div class="titleTimeReply" fxShow.xs="false" fxShow.sm="false">
+        {{'secure.parametize.support_drop-down-time-reply-seller'|translate}}
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <app-conversation class="classConversation">
+        <div *ngIf="!case.follow || case.follow.length == 0">
+          <app-conversation-message *itemConversation class="sh-case-detail--full-width" style="opacity: 0.7;"
+            [message]="translateService.instant('secure.parametize.support_claims.no-tracing')">
+          </app-conversation-message>
+        </div>
+
+        <div *ngFor="let follow of case.follow; let i = index">
+          <app-conversation-message *itemConversation class="sh-case-detail--full-width" [name]="follow.userName"
+            [message]="follow.description" [date]="follow.createDate" (replyEvent)="openResponseDialog()"
+            [disabledClass]="isClosed" [configuration]="{reply: i == 0, theme: 'ALTER'}" [caseId]="case.caseNumber">
+          </app-conversation-message> 
+        </div>
+      </app-conversation>
+
+      <div class="chip_hours" fxShow.xs="false" fxShow.sm="false">
+        <span >
+          {{case.responseTime}} {{'secure.parametize.support.hours' | translate}}
+        </span>
       </div>
 
-      <div *ngFor="let follow of case.follow; let i = index">
-        <app-conversation-message *itemConversation class="sh-case-detail--full-width" [name]="follow.userName"
-          [message]="follow.description" [date]="follow.createDate" (replyEvent)="openResponseDialog()"
-          [disabledClass]="isClosed" [configuration]="{reply: i == 0, theme: 'ALTER'}" [caseId]="case.caseNumber">
-        </app-conversation-message>
-      </div>
-    </app-conversation>
+    </div>
+
   </div>
 </div>

@@ -457,7 +457,8 @@ export class UploadFraudComponent implements OnInit {
       maxHeight: '90vh',
       data: {
         response: res,
-        responseDiferent : false
+        responseDiferent : false,
+        type: 'generic'
       },
     });
     dialogRef.afterClosed().subscribe(result => {

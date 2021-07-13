@@ -434,7 +434,7 @@
     "secure.dashboard.seller-rating.date_issued_final_not_data_filter":"No evaluation data has been found for this date range.",
     "secure.dashboard.seller-rating.appeal":"Appeal",
     "secure.dashboard.seller-rating.getPdf":"Download PDF",
-    
+
 
     "secure.error_page.no_found_page": "The page you requested is not available",
     "secure.error_page.go_home": "Go to start",
@@ -601,10 +601,10 @@
     "secure.orders.send.error_ocurred_product": "An error has occurred when sending the product",
     "secure.orders.send.cant_not_sent": "The product can not be sent",
 
-    "secure.orders.list-cancels.tab1": "Annulations en cours", 
-    "secure.orders.list-cancels.tab2": "Historique des annulations", 
-    "secure.orders.list-cancels.tab1-title-download": "Nous vous enverrons le téléchargement des annulations par e-mail", 
-    "secure.orders.list-cancels.tab2-title-download": "Nous vous enverrons le téléchargement de l'historique des annulations par e-mail", 
+    "secure.orders.list-cancels.tab1": "Annulations en cours",
+    "secure.orders.list-cancels.tab2": "Historique des annulations",
+    "secure.orders.list-cancels.tab1-title-download": "Nous vous enverrons le téléchargement des annulations par e-mail",
+    "secure.orders.list-cancels.tab2-title-download": "Nous vous enverrons le téléchargement de l'historique des annulations par e-mail",
     "secure.orders.list-cancels-tab1-msg-ok": "Les annulations en attente ont été téléchargées avec succès, vérifiez votre e-mail.",
     "secure.orders.list-cancels-tab1-msg-ko": "Le téléchargement de l'historique des annulations a été effectué correctement, vérifiez votre email.",
     "secure.orders.list-cancels-tab2-msg-ok": "Une erreur s'est produite lors du téléchargement des annulations en cours.",
@@ -683,7 +683,7 @@
     "secure.seller.contracts.accept_terms_conditions": "J'accepte les termes et conditions de l'accord Marketplace",
     "secure.seller.contracts.not_save_agreement": "Conditions non enregistrées",
     "secure.seller.contracts.terms_conditions": "Termes et conditions",
-    
+
     "secure.offers.cities_coverage.save_daneCode_ok": "The available cities for dispatch have been saved succesfully.",
     "secure.offers.cities_coverage.save_daneCode_ko": "An error has occurren when trying to save the cities available for dispatch.",
 
@@ -900,6 +900,18 @@
     "secure.products.bulk_upload.size": "Size",
     "secure.products.bulk_upload.color": "Color ",
     "secure.products.bulk_upload.filter.plu": "PLU",
+    "secure.products.bulk_upload.modal.succefull.title": "!Well done¡",
+    "secure.products.bulk_upload.modal.succefull.subtitle": "All products were successfully uploaded and passed to moderation.",
+    "secure.products.bulk_upload.modal.error.title": "An error has occurred",
+    "secure.products.bulk_upload.modal.error.subtitle": "There was a general error in the upload of the products and the upload was not successful, please check the file and try again.",
+    "secure.products.bulk_upload.modal.errorAndSuccefull.title": "!Well done¡",
+    "secure.products.bulk_upload.modal.errorAndSuccefull.subtitle": "Some products were successfully uploaded and passed to moderation, others are pending correction, please correct and import again.",
+    "secure.products.bulk_upload.modal.errorAndSuccefull.learnMoreDetails": "En savoir plus:",
+    "secure.products.bulk_upload.modal.errorAndSuccefull.productsWentModeration": "Les produits sont passés en modération",
+    "secure.products.bulk_upload.modal.errorAndSuccefull.productsHaveErrors": "Les produits présentent des erreurs",
+    "secure.products.bulk_upload.modal.errorAndSuccefull.uploadExcel": "Télécharger excel",
+    "secure.products.bulk_upload.modal.errorAndSuccefull.downloadBugs": "Erreurs de téléchargement",
+
     "secure.offers.bulk_upload.table_load.component_list": "Component list",
 
     "secure.products.Finish_upload_product_information.upload_progress": "Upload in progress",
@@ -1276,6 +1288,10 @@
     "secure.parametize.category.categories.lb_id_exito_form": "ID Éxito",
     "secure.parametize.category.categories.lb_id_catalogo_form": "ID Cátalogos",
     "secure.parametize.category.categories.lb_id_market_form": "ID Marketplace",
+    "secure.parametize.category.categories.lb_sinco_sub_line_id": "ID Sous-ligne SINCO",
+    "secure.parametize.category.categories.lb_sinco_category_id": "ID Catégorie SINCO",
+    "secure.parametize.category.categories.lb_sinco_sub_category_id": "ID Sous-catégorie SINCO",
+    "secure.parametize.category.categories.lb_sinco_segment_id": "ID Segment SINCO",
     "secure.parametize.category.categories.exception": "Exceptions",
     "secure.parametize.category.categories.creation_succesfully": "Creation was successful",
     "secure.parametize.category.categories.not_create_category": "Could not create the category",
@@ -1344,6 +1360,7 @@
     "secure.parametize.support_modal.reply.placeholder-write-answer": "Write your answer",
 
     "secure.parametize.support_claims.title.claim": "Claims",
+    "secure.parametize.support_claims.title.time": "Response rate last 30 days",
     "secure.parametize.support_claims.title.claim_search": "Search claims",
     "secure.parametize.support_claims.claims-display": "Claims display",
     "secure.parametize.support_claims.products-per-page": "Products per page",
@@ -1387,6 +1404,22 @@
     "secure.parametize.support_claims-filter.modal-export.allSeller": "All Seller",
     "secure.parametize.support_claims-filter.modal-export.searchSeller": "Search for a seller",
     "secure.parametize.support_claims-filter.modal-export.titleExportReclaim": "Export claims",
+
+    "secure.parametize.support_drop-down-menu-ID": "ID",
+    "secure.parametize.support_drop-down-order-numer": "Order number",
+    "secure.parametize.support_drop-down-reason-detail": "Reason detail",
+    "secure.parametize.support_drop-down-creation-date": "Creation date",
+    "secure.parametize.support_drop-down-status": "Status",
+    "secure.parametize.support_drop-down-reply": "Reply",
+    "secure.parametize.support_drop-down-last-reply": "Last post",
+    "secure.parametize.support_drop-down-time-reply": "Time post",
+    "secure.parametize.support_drop-down-time-reply-seller": "Time post seller",
+    "secure.parametize.support.see.product": "see product",
+    "secure.parametize.support.product": "Product",
+    "secure.parametize.support.brand": "Brand",
+    "secure.parametize.support.sell_price": "Sale price",
+    "secure.parametize.support.quantity": "Quantity",
+    "secure.parametize.support.hours": "hours",
 
     "secure.parametize.port.port": "Port",
     "secure.parametize.port.search_port": "Search port",

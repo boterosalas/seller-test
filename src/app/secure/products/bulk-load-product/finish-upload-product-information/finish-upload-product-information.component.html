@@ -1,39 +1,147 @@
-<div>
+<div *ngIf="typeModal ==='generic'">
   <div class="error-list-content list-log">
 
-    <h3 class="processing-string" mat-subheader *ngIf="response.body.data.status ===1">
-        <mat-spinner class="processCharge" [diameter]="60"></mat-spinner>
-      {{response.processing}} {{'secure.products.Finish_upload_product_information.upload_progress' | translate}}
+    <h3 class="processing-string" mat-subheader *ngIf="response.body.data.status
+      ===1">
+      <mat-spinner class="processCharge" [diameter]="60"></mat-spinner>
+      {{response.processing}}
+      {{'secure.products.Finish_upload_product_information.upload_progress' |
+      translate}}
     </h3>
     <mat-divider *ngIf="response.processing != 0"></mat-divider>
 
-    <h3 class="succes-string" mat-subheader *ngIf="response.body.data.status ===2">
+    <h3 class="succes-string" mat-subheader *ngIf="response.body.data.status
+      ===2">
       <mat-icon>check</mat-icon>
-      {{response.successful}} {{'secure.products.Finish_upload_product_information.successful_upload' | translate}}
+      {{response.successful}}
+      {{'secure.products.Finish_upload_product_information.successful_upload' |
+      translate}}
     </h3>
     <mat-divider *ngIf="response.successful != 0"></mat-divider>
 
-    <h4 class="error-string" mat-subheader *ngIf="response.body.data.status ===3">
+    <h4 class="error-string" mat-subheader *ngIf="response.body.data.status
+      ===3">
       <mat-icon>warning</mat-icon>
-      {{'secure.products.create_product_unit.specifications.dialog.there' | translate}} {{response.body.error > 1 ? has: have }} {{'secure.products.create_product_unit.specifications.dialog.been' | translate}} {{response.body.error}} {{response.body.error > 1 ? errors : error }} {{'secure.products.bulk_upload.process' | translate}}
+      {{'secure.products.create_product_unit.specifications.dialog.there' |
+      translate}} {{response.body.error > 1 ? has: have }}
+      {{'secure.products.create_product_unit.specifications.dialog.been' |
+      translate}} {{response.body.error}} {{response.body.error > 1 ? errors :
+      error }} {{'secure.products.bulk_upload.process' | translate}}
     </h4>
     <mat-divider *ngIf="response.body.data.status ===3"></mat-divider>
-
     <mat-nav-list *ngIf="response.body.data.status ===3">
       <mat-list-item *ngFor="let item of response.productNotifyViewModel">
         <mat-icon mat-list-icon class="icon-color-error">warning</mat-icon>
-        <h4 matLine>{{item.ProductName === null ? ('EAN : ' + item.Ean) : (name + ': '+ item.ProductName)}}</h4>
-        <p matLine>{{'secure.products.Finish_upload_product_information.error_ocurred' | translate}}: {{item.message}}{{item.Message}}</p>
+        <h4 matLine>{{item.ProductName === null ? ('EAN : ' + item.Ean) : (name
+          + ': '+ item.ProductName)}}</h4>
+        <p matLine>{{'secure.products.Finish_upload_product_information.error_ocurred'
+          | translate}}: {{item.message}}{{item.Message}}</p>
       </mat-list-item>
     </mat-nav-list>
   </div>
 
   <mat-dialog-actions class="footer-dialog">
-    <button id="close-finish-upload-button" *ngIf="response.body.data.status === 1" mat-raised-button color="primary" (click)="reloadPage()">{{'actions.refresh' | translate}}</button>
-    <button id="close-finish-upload-button" *ngIf="response.body.data.status === 1" mat-raised-button color="primary" [routerLink]="['/securehome/seller-center']" mat-dialog-close>{{'secure.products.Finish_upload_product_information.home_seller_center' | translate}}</button>
-    <button id="close-finish-upload-button" *ngIf="response.body.data.status === 2 || response.body.data.status === 3" mat-raised-button color="primary" mat-dialog-close>{{'actions.close' | translate}}</button>
-    <button id="export-to-excel-button" *ngIf="response.body.data.status === 3" mat-raised-button color="primary"
-      (click)="exportAsExcelFile(response.productNotifyViewModel,'ProductsLogs')">{{'actions.export_excel' | translate}}
+    <button id="close-finish-upload-button" *ngIf="response.body.data.status ===
+      1" mat-raised-button color="primary" (click)="reloadPage()">{{'actions.refresh'
+      | translate}}</button>
+    <button id="close-finish-upload-button" *ngIf="response.body.data.status ===
+      1" mat-raised-button color="primary"
+      [routerLink]="['/securehome/seller-center']" mat-dialog-close>{{'secure.products.Finish_upload_product_information.home_seller_center'
+      | translate}}</button>
+    <button id="close-finish-upload-button" *ngIf="response.body.data.status ===
+      2 || response.body.data.status === 3" mat-raised-button color="primary"
+      mat-dialog-close>{{'actions.close' | translate}}</button>
+    <button id="export-to-excel-button" *ngIf="response.body.data.status === 3"
+      mat-raised-button color="primary"
+      (click)="exportAsExcelFile(response.productNotifyViewModel,'ProductsLogs')">{{'actions.export_excel'
+      | translate}}
     </button>
   </mat-dialog-actions>
+</div>
+<div *ngIf="typeModal ==='product'">
+  <div>
+    <div fxLayout="row wrap">
+      <div fxFlex="100" class="finishUploadProduct-icon-position-close">
+        <mat-icon class="mat-18 finishUploadProduct-cursor-grey-color"
+          (click)="close()" matTooltip="Cerrar">close</mat-icon>
+      </div>
+    </div>
+    <div class="finishUploadProduct-text-align-center">
+      <div class="finishUploadProduct-container-icon-check" *ngIf="showErrorAndSuccessful || showSuccessful ">
+        <mat-icon class="material-icons finishUploadProduct-icons-white-margin">
+          check
+        </mat-icon>
+      </div>
+      <div class="finishUploadProduct-container-icon-error" *ngIf="showError">
+        <mat-icon class="material-icons finishUploadProduct-icons-white-margin">
+          close
+        </mat-icon>
+      </div>
+    </div>
+    <div fxLayout="row wrap">
+      <div class="finishUploadProduct-modal-title-upload"  *ngIf="showErrorAndSuccessful || showSuccessful ">
+        <span class="finishUploadProduct-modal-subtitle-upload">{{'secure.products.bulk_upload.modal.succefull.title'| translate}}</span>
+      </div>
+      <div class="finishUploadProduct-modal-title-upload" *ngIf="showError">
+        <span class="finishUploadProduct-modal-subtitle-upload">{{'secure.products.bulk_upload.modal.error.title'| translate}}</span>
+      </div>
+      <div class="finishUploadProduct-modal-container-subtitle-upload" *ngIf="showSuccessful">
+        <span class="finishUploadProduct-color-text-subtitle">
+          {{'secure.products.bulk_upload.modal.succefull.subtitle' | translate}}
+        </span>
+      </div>
+      <div class="finishUploadProduct-modal-container-subtitle-upload" *ngIf="showErrorAndSuccessful">
+        <span class="finishUploadProduct-color-text-subtitle">
+          {{'secure.products.bulk_upload.modal.errorAndSuccefull.subtitle' | translate}}
+        </span>
+      </div>
+      <div class="finishUploadProduct-modal-container-subtitle-upload" *ngIf="showError">
+        <span class="finishUploadProduct-color-text-subtitle">
+          {{'secure.products.bulk_upload.modal.error.subtitle' | translate}}
+        </span>
+      </div>
+    </div>
+    <div fxLayout="row wrap">
+      <div class="finishUploadProduct-container-lear-more-text">
+        <span class="finishUploadProduct-color-font-weight-bold">
+          {{'secure.products.bulk_upload.modal.errorAndSuccefull.learnMoreDetails' | translate}}
+        </span>
+      </div>
+    </div>
+    <div fxLayout="row wrap">
+      <div fxLayout="column" class="finishUploadProduct-padding-left-110">
+        <div class="finishUploadProduct-padding-bottom-10">
+          <span class="finishUploadProduct-color-text-subtitle">
+            {{countSuccessful}} {{'secure.products.bulk_upload.modal.errorAndSuccefull.productsWentModeration' | translate}}
+          </span>
+        </div>
+        <div>
+          <span class="finishUploadProduct-color-text-subtitle">
+            {{countError}} {{'secure.products.bulk_upload.modal.errorAndSuccefull.productsHaveErrors' | translate}}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" class="finishUploadProduct-padding-top-bottom">
+      <div fxFlex="50" class="finishUploadProduct-text-align-end" *ngIf="showError || showErrorAndSuccessful">
+        <form #filterForm="ngForm" [formGroup]="form">
+          <input placeholder="file upload" hidden formControlName="fileUploadOption" name="fileUploadOption"
+            type="file" (change)="onFileChange($event)"
+            multiple="false"
+            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            #fileUploadOption>
+          <button mat-stroked-button color="primary" class="sc-default-button
+            finishUploadProduct-text-transform-uppercase" id="load-file-button"
+            (click)="fileUploadOption.click()" mat-button>
+            {{'secure.products.bulk_upload.modal.errorAndSuccefull.uploadExcel' | translate}}
+          </button>
+        </form>
+      </div>
+      <div fxFlex="50" class="finishUploadProduct-padding-left-10" *ngIf="showError || showErrorAndSuccessful">
+        <button mat-raised-button color="primary"
+          class="finishUploadProduct-text-transform-uppercase" mat-button
+          (click)="uploadFileError(urlFile)">{{'secure.products.bulk_upload.modal.errorAndSuccefull.downloadBugs' | translate}}</button>
+      </div>
+    </div>
+  </div>
 </div>

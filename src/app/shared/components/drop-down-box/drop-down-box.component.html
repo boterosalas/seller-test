@@ -1,6 +1,7 @@
 <div class="case-list-content">
   <mat-accordion class="case-list-expandable">
-    <mat-expansion-panel [expanded]="isOpen" (opened)="opened.emit(data); this.panelOpenState = true; read = true; showDetail.emit(panelOpenState)"
+    <mat-expansion-panel [expanded]="isOpen"
+      (opened)="opened.emit(data); this.panelOpenState = true; read = true; showDetail.emit(panelOpenState)"
       (closed)="panelOpenState = false; showDetail.emit(panelOpenState)">
       <mat-expansion-panel-header>
         <div [ngClass]="read === true ? '' : 'bold-text'" class="case-list-detail" fxLayout fxLayout.xs="row"
@@ -14,7 +15,7 @@
               <mat-icon>keyboard_arrow_up</mat-icon>
             </span>
           </div>
-          
+
           <div class="case-list-detail--item-detail" fxFlex="10%" id="dpbox-case-id-{{index}}">
             {{ data.caseNumber }}
           </div>
@@ -30,20 +31,18 @@
           <div class="case-list-detail--item-detail noneMobile" fxFlex="10%" id="dpbox-case-status-{{index}}">
             {{ data.status }}
           </div>
-          <div class="case-list-detail--item-detail case-list-detail--content-center" fxFlex="5%" *ngIf="hideStatus">
-            <mat-icon>question_answer</mat-icon>
-          </div>
-          <div class="case-list-detail--item-detail case-list-detail--content-center noneMobile" fxFlex="5%">
-            <mat-icon id="dpbox-attachment-icon-{{index}} "
+          <div class="case-list-detail--item-detail noneMobile" fxFlex="20%" id="dpbox-case-reason-{{index}}">
+            <div [ngClass]="data.attachments && data.attachments.length && data.attachments.length > 0 ? 'flexAttach': ''">
+              <mat-icon id="dpbox-attachment-icon-{{index}} "
               *ngIf="data.attachments && data.attachments.length && data.attachments.length > 0">
               attachment
             </mat-icon>
-          </div>
-          <div class="case-list-detail--item-detail noneMobile" fxFlex="20%" id="dpbox-case-reason-{{index}}">
             <p>{{ data.lastPostDesc }}</p>
-            <!-- <p *ngIf="data.lastPost === 1">{{'secure.parametize.support_claims-filter.sac_answer' | translate}}</p>
-            <p *ngIf="data.lastPost === 2">{{'secure.parametize.support_claims-filter.seller_answer' | translate}}</p> -->
+            </div>
+          </div>
 
+          <div class="case-list-detail--item-detail" fxFlex="20%" id="dpbox-case-time-{{index}}">
+            <p>{{ data.responseTime }} {{'secure.parametize.support.hours' | translate}}</p>
           </div>
         </div>
       </mat-expansion-panel-header>

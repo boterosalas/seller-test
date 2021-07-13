@@ -33,7 +33,7 @@ export class CategoryTreeService {
    * @memberof CategoryTreeService
    */
   createCategory(body: any): Observable<any> {
-    return this.http.post(`${this.api.get('manageCategory')}/AddCategory`, body);
+   return this.http.post(`${this.api.get('manageCategory')}/AddCategory`, body);
   }
   /**
    * funcion para editar una categoria
