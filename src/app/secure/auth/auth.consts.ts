@@ -439,8 +439,9 @@ const SellerModule = new ModuleModel(sellerModule, showAll, sellerModule.toLower
  * 2. App Angular administrador.
  * 3. Api vendedor.
  * 4. App Angular vendedor.
+ * 5. Listado de acuerdos/anexos vendedor
  */
-export const documentModule = 'DOCUMENTACIÓN', apiName = 'Api', apiAngularName = 'App Angular', apiAdminName = 'Api', apiAngularAdminName = 'App Angular';
+export const documentModule = 'DOCUMENTACIÓN', apiName = 'Api', apiAngularName = 'App Angular', apiAdminName = 'Api', apiAngularAdminName = 'App Angular', agreementNameSeller = 'Acuerdos y/o anexos';
 const DocumentModule = new ModuleModel(documentModule, showAll, documentModule.toLowerCase(), [
     // 1. Api administrador.
     new MenuModel(apiName, showAll, apiName.toLowerCase(), ProfileTypes.Administrador, [
@@ -458,7 +459,8 @@ const DocumentModule = new ModuleModel(documentModule, showAll, documentModule.t
     new MenuModel(apiAngularAdminName, false, apiAngularAdminName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, false, readFunctionality) // Consultar.
     ], 'http://sellercenter.frontdoc.exito.com.co.s3-website-us-east-1.amazonaws.com/'),
-    new MenuModel(agreementName, showAll, agreementName.toLowerCase(), ProfileTypes.Vendedor, [
+    // 5. Listado de acuerdos/anexos vendedor
+    new MenuModel(agreementNameSeller, showAll, agreementNameSeller.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
         new FunctionalitiesModel(visualizeFunctionality, showAll, visualizeFunctionality), // Visualizar
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality) // Descargar

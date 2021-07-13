@@ -3,9 +3,10 @@ import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.servi
 import { AgreementService, Agreement } from './agreement.component.service';
 import { Logger } from '@core/util/logger.service';
 import { BillingOrdersService } from '@app/secure/orders/billing-orders/billing-orders.service';
-import { LoadingService } from '@app/core';
+import { LoadingService, UserParametersService } from '@app/core';
 import { AuthService } from '@app/secure/auth/auth.routing';
-import { MenuModel, downloadFunctionality, agreementName, visualizeFunctionality, readFunctionality } from '@app/secure/auth/auth.consts';
+import { MenuModel, downloadFunctionality, agreementName, visualizeFunctionality, readFunctionality, agreementNameSeller } from '@app/secure/auth/auth.consts';
+import { ConfigurationServicePlaceholders } from 'aws-sdk/lib/config_service_placeholders';
 
 const log = new Logger('AgreementComponent');
 
@@ -26,19 +27,47 @@ export class AgreementComponent implements OnInit {
     download = downloadFunctionality;
     read = readFunctionality;
 
+    // user info
+    public user: any;
+    // Nombre del menu dependiendo si es admin o seller
+    nameModule: any;
+
     constructor(private emitterSeller: EventEmitterSeller,
         private agreementService: AgreementService,
         private billingOrdersService: BillingOrdersService,
         private loadingService: LoadingService,
-        public authService: AuthService) { }
+        public authService: AuthService,
+        private userParams: UserParametersService,
+    ) { 
+        this.getDataUser();
+    }
 
     ngOnInit() {
-        this.permissionComponent = this.authService.getMenu(agreementName);
+        this.permissionComponent = this.authService.getMenu(this.nameModule);
+        // this.permissionComponent = this.authService.getMenu(agreementNameSeller);
         this.emitterSeller.eventSearchSeller.subscribe(data => {
             this.sellerData = data;
             this.agreementsSeller = [];
-            this.chargeAgreements();
+            this.chargeAgreements(this.sellerData.IdSeller);
         });
+        // this.firstListAgreement()
+    }
+
+    firstListAgreement() {
+        if (this.nameModule !== 'Acuerdos' || 'Agreements') {
+        } 
+    }
+
+    async getDataUser() {
+        this.user = await this.userParams.getUserData();
+        console.log(this.user);
+        if (this.user && this.user.sellerProfile === 'seller') {
+            this.nameModule = agreementNameSeller;
+            this.chargeAgreements('null');
+
+        } else {
+            this.nameModule = agreementName;
+        }
     }
 
     /**
@@ -49,6 +78,9 @@ export class AgreementComponent implements OnInit {
      * @memberof ToolbarComponent
      */
     public getFunctionality(functionality: string): boolean {
+        console.log(66, functionality)
+        console.log(66, this.permissionComponent)
+
         const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
         return permission && permission.ShowFunctionality;
     }
@@ -58,13 +90,15 @@ export class AgreementComponent implements OnInit {
      *
      * @memberof AgreementComponent
      */
-    public chargeAgreements(): void {
+    public chargeAgreements(paramSeller: any): void {
+        console.log('peticion acuerdos');
         this.loadingService.viewSpinner();
-        this.agreementService.getAgreements(this.sellerData.IdSeller).subscribe(data => {
+        this.agreementService.getAgreements(paramSeller).subscribe(data => {
             if (data && data.body) {
                 try {
                     const terms = JSON.parse(data.body);
                     this.agreementsSeller = terms.Data as Agreement[];
+                    console.log(88, this.agreementsSeller);
                     this.loadingService.closeSpinner();
                 } catch (e) {
                     console.error('Error al cargar los acuerdos', e);
