@@ -30,7 +30,6 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['ChromeHeadless'],
     customLaunchers: {
       ChromeHeadless: {
         base: 'Chrome',
@@ -42,11 +41,12 @@ module.exports = function (config) {
         ]
       }
     },
+    browsers: ['ChromeHeadless'],
     singleRun: true,
     // browsers: ['Chrome'],
     // singleRun: false,
     captureTimeout: 210000,
-    browserDisconnectTolerance: 3,
+    browserDisconnectTolerance: 3, 
     browserDisconnectTimeout : 310000,
     browserNoActivityTimeout : 310000,
   });
