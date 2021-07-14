@@ -96,6 +96,8 @@ export class ProductsPendingModificationModalComponent implements OnInit {
       .subscribe((resp) => {
         this.showLoading = false;
         this.onNoClick();
+
+
       });
   }
 }
