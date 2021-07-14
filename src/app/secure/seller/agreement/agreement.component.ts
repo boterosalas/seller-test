@@ -7,6 +7,7 @@ import { LoadingService, UserParametersService } from '@app/core';
 import { AuthService } from '@app/secure/auth/auth.routing';
 import { MenuModel, downloadFunctionality, agreementName, visualizeFunctionality, readFunctionality, agreementNameSeller } from '@app/secure/auth/auth.consts';
 import { ConfigurationServicePlaceholders } from 'aws-sdk/lib/config_service_placeholders';
+import { TranslateService } from '@ngx-translate/core';
 
 const log = new Logger('AgreementComponent');
 
@@ -31,6 +32,8 @@ export class AgreementComponent implements OnInit {
     public user: any;
     // Nombre del menu dependiendo si es admin o seller
     nameModule: any;
+    title: any;
+    activeToolbarSearch: Boolean = false;
 
     constructor(private emitterSeller: EventEmitterSeller,
         private agreementService: AgreementService,
@@ -38,7 +41,8 @@ export class AgreementComponent implements OnInit {
         private loadingService: LoadingService,
         public authService: AuthService,
         private userParams: UserParametersService,
-    ) { 
+        private languageService: TranslateService
+    ) {
         this.getDataUser();
     }
 
@@ -55,7 +59,7 @@ export class AgreementComponent implements OnInit {
 
     firstListAgreement() {
         if (this.nameModule !== 'Acuerdos' || 'Agreements') {
-        } 
+        }
     }
 
     async getDataUser() {
@@ -64,9 +68,13 @@ export class AgreementComponent implements OnInit {
         if (this.user && this.user.sellerProfile === 'seller') {
             this.nameModule = agreementNameSeller;
             this.chargeAgreements('null');
+            this.title = 'Acuerdos y/o anexos';
+            this.activeToolbarSearch = false;
 
         } else {
             this.nameModule = agreementName;
+            this.title = this.languageService.instant('secure.seller.contracts.lb_title_toolbar');
+            this.activeToolbarSearch = true;
         }
     }
 

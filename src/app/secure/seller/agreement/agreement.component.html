@@ -4,12 +4,12 @@
         <div class="normal-theme toolbar-options-table flexbox justify-start align-center" fxLayout.xs="column">
             <!-- Titulo del toolbar -->
             <p class="tree-title">
-                {{'secure.seller.contracts.lb_title_toolbar' | translate}}
+                {{title}}
                 <small class="sub-title">| {{'secure.seller.contracts.lb_subtitle_toolbar' | translate}}</small>
             </p>
 
             <!-- Componente para realizar la busqueda de una tienda -->
-            <div class="search-container">
+            <div class="search-container" *ngIf="activeToolbarSearch">
                 <app-search-seller id="contet-searc-store" class="search-content" *ngIf="getFunctionality(visualize)"></app-search-seller>
             </div>
         </div>
@@ -24,7 +24,7 @@
         <p class="icon-face-text">{{'secure.seller.manage.txt_serch_seller' | translate}}</p>
     </div>
 
-    <div *ngIf="sellerData && !agreementsSeller.length">
+    <div *ngIf="agreementsSeller && !agreementsSeller.length">
         <div class="icon-face">
             <mat-icon>insert_drive_file</mat-icon>
         </div>
