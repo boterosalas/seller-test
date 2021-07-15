@@ -189,6 +189,7 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   }
   toggleFilterGeneric() {
     this.filterGerenic.emit();
+    console.log(1);
   }
   openModalDownloadGeneric() {
     this.modalDownloadGeneric.emit();
