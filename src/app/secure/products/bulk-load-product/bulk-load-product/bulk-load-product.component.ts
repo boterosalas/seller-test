@@ -172,7 +172,7 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
 
   public status = 1;
 
-  dataProduct:any = {};
+  dataProduct: any = {};
 
   public dataarr = [];
 
@@ -1761,7 +1761,8 @@ export class BulkLoadProductComponent implements OnInit, TreeSelected {
       disableClose: res.body.data.status === 1,
       data: {
         response: res,
-        type: type
+        type: this.isAdmin ? 'generic' : type,
+        typeUser : this.isAdmin
       },
     });
     const dialogIntance = dialogRef.componentInstance;
