@@ -41,13 +41,12 @@ module.exports = function (config) {
         ],
       },
     },
-    // browsers: ['ChromeHeadless'],
-    singleRun: true,
+   // browsers: ['ChromeHeadless'],
     browsers: ["Chrome"],
     singleRun: false,
     captureTimeout: 210000,
     browserDisconnectTolerance: 3,
-    browserDisconnectTimeout: 310000,
-    browserNoActivityTimeout: 310000,
+    browserDisconnectTimeout : 310000,
+    browserNoActivityTimeout : 310000,
   });
 };
