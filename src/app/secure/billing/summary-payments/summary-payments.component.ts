@@ -57,7 +57,7 @@ export class SummaryPaymentsComponent implements OnInit {
   // Configuración para el toolbar-options y el search de la pagina
   public informationToForm: SearchFormEntity = {
     title: 'module.Facturación',
-    subtitle: 'menu.Resumen de Pagos 1',
+    subtitle: 'menu.Resumen de Pagos',
     btn_title: 'secure.billing.summaryPayment.search_summaryPayment',
     title_for_search: 'secure.billing.summaryPayment.search_summaryPayment',
     type_form: 'summaryPayment',
