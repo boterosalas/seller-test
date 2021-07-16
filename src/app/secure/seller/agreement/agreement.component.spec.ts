@@ -38,6 +38,14 @@ fdescribe('AgreementComponent', () => {
         sellerProfile: 'seller'
     };
 
+    const reponseUserAdminSYNC = {
+        sellerEmail: 'exitoregresion@gmail.com',
+        sellerId: '11226',
+        sellerName: 'pruebas qa test',
+        sellerNit: '9852410170',
+        sellerProfile: 'admin'
+    };
+
     const userData = { sellerProfile: 'seller' };
 
     const mockUser = Object.assign({}, userData);
@@ -47,6 +55,20 @@ fdescribe('AgreementComponent', () => {
             body: JSON.stringify({ Data: mockUser })
         }
     };
+
+    const dataServicesAgreement = {
+        body: {
+            Data: [
+                {
+                    ContractName: "AcuerdoMarketplace - pruebas qa 12092019.pdf",
+                    ContractcUrl: "https://s3.amazonaws.com/seller.center.exito.seller/ContractDev/AcuerdoMarketplace%20-%20pruebas%20qa%2012092019.pdf"
+                }],
+            Errors: [],
+            Message: 'OK',
+            SellerId: null,
+        }
+    };
+
     const mockDialogRef = jasmine.createSpyObj('MatDialogRef', ['close', 'afterClosed', 'componentInstance']);
     const mockDialog = jasmine.createSpyObj('MatDialog', ['open']);
     const mockLoadingService = jasmine.createSpyObj('LoadingService', ['viewSpinner', 'closeSpinner']);
@@ -86,6 +108,7 @@ fdescribe('AgreementComponent', () => {
     beforeEach(() => {
         mockAuthService.getMenu.and.returnValue(agreementMenu);
         mockUserParameterService.getUserData.and.returnValue(of(reponseUserSYNC));
+        mockAgreementService.getAgreements.and.returnValue(of(dataServicesAgreement));
         fixture = TestBed.createComponent(AgreementComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -94,4 +117,26 @@ fdescribe('AgreementComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+
+    it('Método cargar acuerdos.', () => {
+        component.chargeAgreements(null);
+    });
+
+    // it('open pdf', () => {
+    //     component.getPDF2('docs.google.com/document/d/1HQx56fbvQMFuw34vgTQrnCuwEBf8SYNk17yjJogaLNI/edit');
+    // });
+
+    describe('Error servicio cargar acuerdos', () => {
+        beforeEach(() => {
+            mockUserParameterService.getUserData.and.returnValue(of(null));
+            mockUserParameterService.getUserData.and.returnValue(of(reponseUserAdminSYNC));
+            component = fixture.componentInstance;
+            fixture.detectChanges();
+        });
+        it('Método para traer la informacion .', () => {
+            component.user = reponseUserAdminSYNC;
+            component.getDataUser();
+        });
+    });
 });
+

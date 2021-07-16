@@ -48,23 +48,16 @@ export class AgreementComponent implements OnInit {
 
     ngOnInit() {
         this.permissionComponent = this.authService.getMenu(this.nameModule);
-        // this.permissionComponent = this.authService.getMenu(agreementNameSeller);
         this.emitterSeller.eventSearchSeller.subscribe(data => {
             this.sellerData = data;
             this.agreementsSeller = [];
             this.chargeAgreements(this.sellerData.IdSeller);
         });
-        // this.firstListAgreement()
     }
 
-    firstListAgreement() {
-        if (this.nameModule !== 'Acuerdos' || 'Agreements') {
-        }
-    }
 
     async getDataUser() {
         this.user = await this.userParams.getUserData();
-        console.log(this.user);
         if (this.user && this.user.sellerProfile === 'seller') {
             this.nameModule = agreementNameSeller;
             this.chargeAgreements('null');
@@ -86,9 +79,6 @@ export class AgreementComponent implements OnInit {
      * @memberof ToolbarComponent
      */
     public getFunctionality(functionality: string): boolean {
-        console.log(66, functionality)
-        console.log(66, this.permissionComponent)
-
         const permission = this.permissionComponent.Functionalities.find(result => functionality === result.NameFunctionality);
         return permission && permission.ShowFunctionality;
     }
@@ -102,9 +92,11 @@ export class AgreementComponent implements OnInit {
         console.log('peticion acuerdos');
         this.loadingService.viewSpinner();
         this.agreementService.getAgreements(paramSeller).subscribe(data => {
+            console.log('data: ', data);
             if (data && data.body) {
                 try {
                     const terms = JSON.parse(data.body);
+            console.log('terms: ', terms);
                     this.agreementsSeller = terms.Data as Agreement[];
                     console.log(88, this.agreementsSeller);
                     this.loadingService.closeSpinner();
