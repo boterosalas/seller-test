@@ -80,11 +80,15 @@
                 <mat-icon>close</mat-icon>
               </button>
             </div>
-            <button id="search-order-button" *ngIf="!btnFilter" (click)="toggleMenuOrderSearch()" mat-menu-item>
+            <button id="search-order-button" *ngIf="!btnFilter && _Typeprofile !== 3" (click)="toggleMenuOrderSearch()" mat-menu-item>
               <mat-icon>filter_list</mat-icon>
               <span class="acction-text">{{'filters.filter' | translate}}</span>
             </button>
             <button id="search-order-button" *ngIf="btnFilter" (click)="toggleFilterGeneric()" mat-menu-item>
+              <mat-icon>filter_list</mat-icon>
+              <span class="acction-text">{{'filters.filter' | translate}}</span>
+            </button>
+            <button id="search-order-button" *ngIf="_Typeprofile == 3 && showBtn" (click)="toggleMenuCalifications()" mat-menu-item>
               <mat-icon>filter_list</mat-icon>
               <span class="acction-text">{{'filters.filter' | translate}}</span>
             </button>
