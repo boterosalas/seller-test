@@ -18,7 +18,7 @@ import { AgreementComponent } from './agreement.component';
 import { AgreementService } from './agreement.component.service';
 
 
-fdescribe('AgreementComponent', () => {
+describe('AgreementComponent', () => {
     let component: AgreementComponent;
     let fixture: ComponentFixture<AgreementComponent>;
 

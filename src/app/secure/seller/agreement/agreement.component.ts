@@ -89,14 +89,11 @@ export class AgreementComponent implements OnInit {
      * @memberof AgreementComponent
      */
     public chargeAgreements(paramSeller: any): void {
-        console.log('peticion acuerdos');
         this.loadingService.viewSpinner();
         this.agreementService.getAgreements(paramSeller).subscribe(data => {
-            console.log('data: ', data);
             if (data && data.body) {
                 try {
                     const terms = JSON.parse(data.body);
-            console.log('terms: ', terms);
                     this.agreementsSeller = terms.Data as Agreement[];
                     console.log(88, this.agreementsSeller);
                     this.loadingService.closeSpinner();
