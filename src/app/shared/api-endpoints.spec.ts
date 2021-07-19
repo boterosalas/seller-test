@@ -1,16 +1,10 @@
-import { async, fakeAsync, tick } from '@angular/core/testing';
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { fakeAsync } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { endpoints } from '@root/api-endpoints';
 import { SupportService } from '@app/secure/support-modal/support.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '@app/shared/shared.module';
-import { AwsCognitoRoutingModule } from '@app/secure/aws-cognito/aws-cognito.routing';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MaterialModule } from '@app/material.module';
-import { RouterTestingModule } from '@angular/router/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ShellComponent } from '@app/core/shell';
+
 
 export const registerRegex = [
     { Identifier: 'formatIntegerNumber', Value: '^[0-9]+([.][0-9]{2})?$', Module: 'parametrizacion' },
@@ -32,7 +26,7 @@ describe('endpoints', () => {
         }).compileComponents();
     }));
     beforeEach(() => {
-        TestBed.configureTestingModule({ });
+        TestBed.configureTestingModule({});
     });
 
     it('Deberia obtener los api endpoints de desarrollo', (() => {
