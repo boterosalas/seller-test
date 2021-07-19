@@ -55,6 +55,7 @@ export class AgreementComponent implements OnInit {
             this.agreementsSeller = [];
             this.chargeAgreements(this.sellerData.IdSeller);
         });
+        this.changeLanguage();
     }
 
     /**
@@ -75,6 +76,13 @@ export class AgreementComponent implements OnInit {
             this.subtitle = this.languageService.instant('secure.seller.contracts.lb_subtitle_toolbar');
             this.activeToolbarSearch = true;
         }
+    }
+
+    changeLanguage() {
+        this.languageService.onLangChange.subscribe((e: Event) => {
+            localStorage.setItem("culture_current", e["lang"]);
+            this.getDataUser();
+        });
     }
 
     /**
