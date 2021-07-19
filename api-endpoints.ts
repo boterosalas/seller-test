@@ -43,7 +43,7 @@ export const endpoints = {
         'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing',
       searchBilling:
         'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing?idSeller={sellerId}&limit={limit}',
-      refuseOrAcceptDevolution: ',
+      /* refuseOrAcceptDevolution: ', */
       // Support message
       supporMessage:
         'https://iqbs3e9dyb.execute-api.us-east-1.amazonaws.com/CreateSupport',
@@ -285,7 +285,7 @@ export const endpoints = {
         'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/respondcasefollow',
       getUnreadCase:
         'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/unreadscount',
-      exceptionBrandsManage: ',
+     /*  exceptionBrandsManage: ', */
       // Reporte de ofertas administrator
       reportsOfferAdmin:
         'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/reportoffersexcel',
@@ -863,7 +863,7 @@ export const endpoints = {
         'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/respondcasefollow',
       getUnreadCase:
         'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/unreadscount',
-      exceptionBrandsManage: ',
+    /*   exceptionBrandsManage: ', */
       // Reporte de ofertas administrator
       reportsOfferAdmin:
         'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/reportoffersexcel',

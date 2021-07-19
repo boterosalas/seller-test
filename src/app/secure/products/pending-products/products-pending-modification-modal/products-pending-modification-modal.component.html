@@ -1,4 +1,4 @@
-<div class="wrapper" fxLayout="column" >
+<div class="wrapper" fxLayout="column">
   <div class="header">
     <h2>{{ "download.products.pending.modal.title" | translate }}</h2>
     <h4 class="sc-title">
@@ -21,14 +21,16 @@
   </mat-form-field>
 
   <div class="categoires-options" *ngIf="categories.length && !showLoading">
-    <h5 class="sc-title">Seleccione las categorías de PLU a descargar</h5>
+    <h5 class="sc-title">
+      {{ "download.products.pending.modal.select-plu" | translate }}
+    </h5>
     <div class="select-all">
       <mat-checkbox
         color="primary"
         [checked]="selectAll"
         (change)="selectAllOptions($event.checked)"
       >
-        Seleccionar todo
+        {{ "selectall" | translate }}
       </mat-checkbox>
     </div>
     <div class="options">
@@ -60,5 +62,3 @@
 
   <mat-spinner *ngIf="!categories.length || showLoading"></mat-spinner>
 </div>
-
-

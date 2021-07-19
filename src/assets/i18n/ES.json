@@ -1592,5 +1592,7 @@
   "secure.profiel.edit_contact": "Crear contacto",
 
   "download.products.pending.modal.title": "Descargar productos pendientes de modificación",
-  "download.products.pending.modal.sub_title": "Ingresa el correo electrónico para compartir este reporte"
+  "download.products.pending.modal.sub_title": "Ingresa el correo electrónico para compartir este reporte",
+  "download.products.pending.modal.select-plu": "Selecciona las categorías de PLU",
+  "selectall":"Seleccionar todo"
 }

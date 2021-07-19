@@ -1552,5 +1552,7 @@
   "secure.profiel.edit_contact": "Edit contact",
 
   "download.products.pending.modal.title": "Download products pending modification",
-  "download.products.pending.modal.sub_title": "Enter the email to share this report"
+  "download.products.pending.modal.sub_title": "Enter the email address to share this report",
+  "download.products.pending.modal.select-plu": "Select PLU categories",
+  "selectall":"Select all"
 }
