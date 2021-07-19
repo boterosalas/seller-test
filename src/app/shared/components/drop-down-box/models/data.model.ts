@@ -9,4 +9,5 @@ export interface IData {
   attachments: Array<any>;
   lastPost: any;
   lastPostDesc: any;
+  responseTime?: any;
 }

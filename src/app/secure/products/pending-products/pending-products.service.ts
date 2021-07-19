@@ -1,22 +1,18 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable, Output } from '@angular/core';
-import { EndpointService } from '@app/core';
-import { Order } from '@app/shared';
-import { Observable } from 'rxjs/Observable';
-import { EventEmitter } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { Injectable, Output } from "@angular/core";
+import { EndpointService } from "@app/core";
+import { Order } from "@app/shared";
+import { Observable } from "rxjs/Observable";
+import { EventEmitter } from "@angular/core";
 
 @Injectable()
 /**
  * Clase OrderService
  */
 export class PendingProductsService {
-
   @Output() change: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(
-    private http: HttpClient,
-    private api: EndpointService
-  ) { }
+  constructor(private http: HttpClient, private api: EndpointService) {}
 
   public changeEmitter(): void {
     this.change.emit(false); // Todo el que este subscrito a esta variable va a obtener el cambio de la misma
@@ -31,13 +27,23 @@ export class PendingProductsService {
    * @memberof OrderService
    */
   getPendingProductsModify(params: any): Observable<[{}]> {
-    const filter = '';
-    return new Observable(observer => {
-      this.http.get<Order[]>(this.api.get('getProductsPendingModify', [params.idSeller, params.limit + filter ])).subscribe((data: any) => {
-        observer.next(data);
-      }, err => {
-        observer.error(err);
-      });
+    const filter = "";
+    return new Observable((observer) => {
+      this.http
+        .get<Order[]>(
+          this.api.get("getProductsPendingModify", [
+            params.idSeller,
+            params.limit + filter,
+          ])
+        )
+        .subscribe(
+          (data: any) => {
+            observer.next(data);
+          },
+          (err) => {
+            observer.error(err);
+          }
+        );
     });
   }
 
@@ -48,13 +54,23 @@ export class PendingProductsService {
    * @memberof PendingProductsService
    */
   getPendingProductsValidation(params: any): Observable<[{}]> {
-    const filter = '';
-    return new Observable(observer => {
-      this.http.get<Order[]>(this.api.get('getProductsPendingValidation', [params.idSeller, params.limit + filter ])).subscribe((data: any) => {
-        observer.next(data);
-      }, err => {
-        observer.error(err);
-      });
+    const filter = "";
+    return new Observable((observer) => {
+      this.http
+        .get<Order[]>(
+          this.api.get("getProductsPendingValidation", [
+            params.idSeller,
+            params.limit + filter,
+          ])
+        )
+        .subscribe(
+          (data: any) => {
+            observer.next(data);
+          },
+          (err) => {
+            observer.error(err);
+          }
+        );
     });
   }
 
@@ -66,7 +82,7 @@ export class PendingProductsService {
    */
   getEANProductsModify(params?: any): Observable<{}> {
     // return this.http.get(this.api.get('getProductList', [params]));
-    return this.http.get(this.api.get('getEANPendingModify', [params]));
+    return this.http.get(this.api.get("getEANPendingModify", [params]));
   }
 
   /**
@@ -77,7 +93,33 @@ export class PendingProductsService {
    */
   getEANProductsValidation(params?: any): Observable<{}> {
     // return this.http.get(this.api.get('getProductList', [params]));
-    return this.http.get(this.api.get('getEANPendingValidation', [params]));
+    return this.http.get(this.api.get("getEANPendingValidation", [params]));
   }
 
+  /**
+   *Retorna todoas las categorias de los productos pendienentes de modificacion
+   *
+   * @returns {Observable<{}>}
+   * @memberof PendingProductsService
+   */
+  getCategoriesToDownloadProductsPendingModification(): Observable<any> {
+    return this.http.get(
+      this.api.get("getCategoriesProductsPendingModification")
+    );
+  }
+
+  /**
+   *Hace el llamado para enviar el archivo zip al correo seleccionado
+   *
+   * @returns {Observable<{}>}
+   * @memberof PendingProductsService
+   */
+  sendReportProductsPendingModification(params?: any): Observable<any> {
+    return this.http.get(
+      this.api.get("reportProductsPendingModificartion", [
+        params.email,
+        params.categories,
+      ])
+    );
+  }
 }

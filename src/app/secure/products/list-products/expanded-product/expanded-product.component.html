@@ -13,16 +13,22 @@
       <mat-card class="image-card" *ngFor="let img of images">
         <ng-container *ngIf="img.max">
           <!-- cargo la url de la imagen en el src y el evento click q llama la funcion con el parametro de la img grande -->
-          <div (click)="changeImage(img.max)" class="imageXs" [ngClass]=" (imageMax == img.max) ? 'activeImage' : ''">
+          <div (click)="changeImage(img.max, img)" class="imageXs" [ngClass]=" (imageMax == img.max) ? 'activeImage' : ''">
             <img mat-card-image [src]="img.max" alt="X" [ngClass]=" (imageMax == img.max) ? 'border-gray' : ''">
           </div>
         </ng-container>
       </mat-card>
     </div>
     <div>
-      <div class="imageXl">
+
+      <div class="imageXl" *ngIf="showImage">
         <img [src]="imageMax" alt="Imagen no disponible">
       </div>
+
+      <div class="video imageXl" *ngIf="productsExpanded.hasVideoUrl && showVideo">
+        <iframe width="480" height="315" [src]="productsExpanded.videoUrl | safe: 'resourceUrl'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+
     </div>
   </div>
 

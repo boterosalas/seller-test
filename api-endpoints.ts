@@ -26,7 +26,6 @@ export const endpoints = {
       getBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing{stringParams}',
       exportBillingPays: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing',
       searchBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing?idSeller={sellerId}&limit={limit}',
-      refuseOrAcceptDevolution: '',
       // Support message
       supporMessage: 'https://iqbs3e9dyb.execute-api.us-east-1.amazonaws.com/CreateSupport',
       createcaseseller: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/createcaseseller',
@@ -77,7 +76,7 @@ export const endpoints = {
       getZone: 'https://fu1opv4qtc.execute-api.us-east-1.amazonaws.com/Areas/{params}',
       transports: 'https://vfblsvp0wf.execute-api.us-east-1.amazonaws.com/Transporters',
       getTransport: 'https://vfblsvp0wf.execute-api.us-east-1.amazonaws.com/Transporters/{params}',
-      getSize: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/getvtexsizelist',
+      getSize: 'https://wss1xyl4h8.execute-api.us-east-1.amazonaws.com/Sizes/all',
       getQuoting: 'https://swje0lr27g.execute-api.us-east-1.amazonaws.com/utilities-dev/shippingcostrules/GetShippingCostRules',
       createQuoting: 'https://swje0lr27g.execute-api.us-east-1.amazonaws.com/utilities-dev/shippingcostrules/CreateShippingCostRule',
       updateQuoting: 'https://swje0lr27g.execute-api.us-east-1.amazonaws.com/utilities-dev/shippingcostrules/UpdateShippingCostRule',
@@ -319,6 +318,16 @@ export const endpoints = {
       getStatusDeleteProducts: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/getstatusdisassociateproducts',
       // Captura de indicadores
       getIndicators: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/qualificationseller/getindicatorsbynit/{params}',
+      // Obtener listado de tallas
+      getAllSizes: 'https://wss1xyl4h8.execute-api.us-east-1.amazonaws.com/Sizes/{params}',
+      // Obtener listado de tallas Creacion unitaria
+      getAllSizesProducts: 'https://wss1xyl4h8.execute-api.us-east-1.amazonaws.com/Sizes/all',
+      // Consultar estado de la carga masiva de tallas
+      getStatusSize: 'https://wss1xyl4h8.execute-api.us-east-1.amazonaws.com/Sizes/status',
+      // Crear tallas y editar tallas (post y patch)
+      parametrizeSizes: 'https://wss1xyl4h8.execute-api.us-east-1.amazonaws.com/Sizes',
+      // Validar status carga tallas
+      statusSizes: 'https://wss1xyl4h8.execute-api.us-east-1.amazonaws.com/Sizes/status',
       // obtiene el listado de fraudes
       getFrauds: 'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/fraudfiles?&limit={limit}',
       // envia el listado de fraudes
@@ -351,6 +360,8 @@ export const endpoints = {
       getAdvertisements: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/GetNewsByTarget?totalMax=10',
       // Listar anuncios vendedor
       readAdvertisements: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/SetNewsRead',
+      // Validacion del video creacion
+      validateVideo: 'https://3nr5ac6osg.execute-api.us-east-1.amazonaws.com/dev/ValidateVideo',
       // Obtener todos los datos de contacto un vendedor
       getAllContactData: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/GetSellerContacts',
       // Actualizar datos de contacto vendedor
@@ -361,7 +372,10 @@ export const endpoints = {
       scheduleoffer: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/scheduleoffer',
       //
       deleteScheduleoffer: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/scheduleoffer/{params}',
-
+      // Obtener las categorias para los productos pendientes de modificación
+      getCategoriesProductsPendingModification: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productsrejected/categories',
+      // Retorna respuesta del descargable de productos pendientes de modificacíon
+      reportProductsPendingModificartion: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productsrejected/report?email={email}&categories={categories}'
     },
   },
   // Endpoints production
@@ -377,9 +391,9 @@ export const endpoints = {
       sendAllProductInOrder: 'https://5zu3684z6e.execute-api.us-east-1.amazonaws.com/sendallproductsinorder-pdn/{orderId}',
       sendProductInOrder: 'https://dc042g38t8.execute-api.us-east-1.amazonaws.com/sendproductinorder-pdn/{orderId}/{idDetailProduct}',
       searchPendingDevolution: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn?{stringParams}',
-      pendingDevolution: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn?{stringParams}', // PENDIENTE
+      pendingDevolution: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn?{stringParams}',
       pendingDevolutionSearchTemporal: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn?{stringParams}',
-      acceptOrDeniedDevolution: 'https://geddaxinw4.execute-api.us-east-1.amazonaws.com/refuseoracceptdevolution-pdn', // TODO: Faltante en api end points
+      acceptOrDeniedDevolution: 'https://geddaxinw4.execute-api.us-east-1.amazonaws.com/refuseoracceptdevolution-pdn',
       recordProcesSedOrder: 'https://cfa1kdi5yj.execute-api.us-east-1.amazonaws.com/recordproccessedorder-pdn',
       getallordersbysellerwithouttracking: 'https://e06ayaf6s9.execute-api.us-east-1.amazonaws.com/getallordersbysellerwithouttracking-pdn{stringParam}',
       validateStatusLoadGuide: 'https://vaf1d3c2ic.execute-api.us-east-1.amazonaws.com/sendallguides-pdn/status',
@@ -387,7 +401,6 @@ export const endpoints = {
       getBilling: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn{stringParams}',
       exportBillingPays: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn',
       searchBilling: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn?idSeller={sellerId}&limit={limit}',
-      refuseOrAcceptDevolution: 'http://localhost:3000/reversionrequest/requestacceptordenied',
       // Support message
       supporMessage: 'https://7bvbe7k6n8.execute-api.us-east-1.amazonaws.com/createsupport-pdn',
       createcaseseller: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/createcaseseller',
@@ -437,7 +450,7 @@ export const endpoints = {
       getZone: 'https://umn1gjcm9a.execute-api.us-east-1.amazonaws.com/areas-pdn/{params}',
       transports: 'https://hl7mqciur3.execute-api.us-east-1.amazonaws.com/transporters-pdn',
       getTransport: 'https://hl7mqciur3.execute-api.us-east-1.amazonaws.com/transporters-pdn/{params}',
-      getSize: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/getvtexsizelist',
+      getSize: 'https://9zfy4s7pok.execute-api.us-east-1.amazonaws.com/Sizes/all',
       getQuoting: 'https://ndinovqhh8.execute-api.us-east-1.amazonaws.com/utilities-pdn/shippingcostrules/GetShippingCostRules',
       createQuoting: 'https://ndinovqhh8.execute-api.us-east-1.amazonaws.com/utilities-pdn/shippingcostrules/CreateShippingCostRule',
       updateQuoting: 'https://ndinovqhh8.execute-api.us-east-1.amazonaws.com/utilities-pdn/shippingcostrules/UpdateShippingCostRule',
@@ -678,6 +691,16 @@ export const endpoints = {
       getStatusDeleteProducts: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/getstatusdisassociateproducts',
       // Captura de indicadores
       getIndicators: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/qualificationseller/getindicatorsbynit/{params}',
+      // Obtener listado de tallas
+      getAllSizes: 'https://9zfy4s7pok.execute-api.us-east-1.amazonaws.com/Sizes/{params}',
+      // Obtener listado de tallas Creacion unitaria
+      getAllSizesProducts: 'https://9zfy4s7pok.execute-api.us-east-1.amazonaws.com/Sizes/all',
+      // Consultar estado de la carga masiva de tallas
+      getStatusSize: 'https://9zfy4s7pok.execute-api.us-east-1.amazonaws.com/Sizes/status',
+      // Crear tallas y editar tallas (post y patch)
+      parametrizeSizes: 'https://9zfy4s7pok.execute-api.us-east-1.amazonaws.com/Sizes',
+      // Validar status carga tallas
+      statusSizes: 'https://9zfy4s7pok.execute-api.us-east-1.amazonaws.com/Sizes/status',
       // obtiene el listado de fraudes
       getFrauds: 'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/fraudfiles?&limit={limit}',
       // envia el listado de fraudes
@@ -703,13 +726,15 @@ export const endpoints = {
       // Guardar imagen de anuncios
       saveImgNotification: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/SaveImage',
       // Editar anuncios
-      UpdateNotification: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/UpdateNew',
+      updateNotification: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/UpdateNew',
       // Eliminar anuncios
       deleteNotification: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/DeleteNew{params}',
       // Listar anuncios vendedor
-      getAdvertisements :  'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/Dev-SC-News/GetNewsByTarget?totalMax=10',
-      // Listar anuncios vendedor
-      readAdvertisements :  'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/Dev-SC-News/SetNewsRead',
+      getAdvertisements :  'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/GetNewsByTarget?totalMax=10',
+       // Validacion del video creacion
+       validateVideo: 'https://nkoltok5rk.execute-api.us-east-1.amazonaws.com/pdn/ValidateVideo',
+      // Leido anuncios vendedor
+      readAdvertisements :  'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/SetNewsRead',
       // Obtener todos los datos de contacto un vendedor
       getAllContactData: 'https://igxf6mswfa.execute-api.us-east-1.amazonaws.com/pdn/GetSellerContacts',
       // Actualizar datos de contacto vendedor
@@ -718,6 +743,10 @@ export const endpoints = {
       createContactData: 'https://igxf6mswfa.execute-api.us-east-1.amazonaws.com/pdn/RegisterContactSeller',
       //
       scheduleoffer: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/scheduleoffer',
+      // Obtener las categorias para los productos pendientes de modificación
+      getCategoriesProductsPendingModification: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn/productsrejected/categories',
+      // Retorna respuesta del descargable de productos pendientes de modificacíon
+      reportProductsPendingModificartion: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn/productsrejected/report?email={email}&categories={categories}'
     }
   }
 };

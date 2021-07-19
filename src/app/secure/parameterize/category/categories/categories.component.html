@@ -1,39 +1,68 @@
 <mat-toolbar class="category-tree-toolbar">
-  <div class="normal-theme toolbar-options-tree" fxLayout="row" fxLayoutAlign="space-between center">
+  <div
+    class="normal-theme toolbar-options-tree"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+  >
     <!--  Titulo del toolbar -->
     <p class="seller-list-title" fxShow [fxShow.xs]="false">
-      {{'secure.parametize.category.categories.title' | translate}}
-      <small class="sub-title">| {{'secure.parametize.category.categories.subtitle' | translate}}</small>
+      {{ "secure.parametize.category.categories.title" | translate }}
+      <small class="sub-title"
+        >|
+        {{
+          "secure.parametize.category.categories.subtitle" | translate
+        }}</small
+      >
     </p>
     <!--  Titulo del toolbar -->
     <p class="seller-list-title" fxShow="false" [fxShow.xs]="true">
-      {{'secure.parametize.category.categories.subtitle' | translate}}
+      {{ "secure.parametize.category.categories.subtitle" | translate }}
     </p>
     <div class="float-rigth">
-      <button mat-button [matTooltip]="'secure.parametize.category.categories.btn_download_category' | translate"
-        (click)="openModalDownloadCategories()">
+      <button
+        mat-button
+        [matTooltip]="
+          'secure.parametize.category.categories.btn_download_category'
+            | translate
+        "
+        (click)="openModalDownloadCategories()"
+      >
         <mat-icon>archive</mat-icon>
       </button>
-      <button mat-button [matTooltip]="'secure.parametize.category.categories.tooltip_expand' | translate"
-        (click)="expandTree()">
+      <button
+        mat-button
+        [matTooltip]="
+          'secure.parametize.category.categories.tooltip_expand' | translate
+        "
+        (click)="expandTree()"
+      >
         <mat-icon>keyboard_arrow_down</mat-icon>
-        {{'secure.parametize.category.categories.btn_expand' | translate}}
+        {{ "secure.parametize.category.categories.btn_expand" | translate }}
       </button>
-      <button mat-button [matTooltip]="'secure.parametize.category.categories.tooltip_contract' | translate"
-        (click)="contractTree()">
+      <button
+        mat-button
+        [matTooltip]="
+          'secure.parametize.category.categories.tooltip_contract' | translate
+        "
+        (click)="contractTree()"
+      >
         <mat-icon>keyboard_arrow_up</mat-icon>
-        {{'secure.parametize.category.categories.btn_contract' | translate}}
+        {{ "secure.parametize.category.categories.btn_contract" | translate }}
       </button>
     </div>
   </div>
 </mat-toolbar>
 <div class="content-flex-start">
-  <button *ngIf="canCreate && false" mat-button
-    [matTooltip]="'secure.parametize.category.categories.tooltip_add' | translate" (click)="openCategoryDialog()">
-    <mat-icon class="material-icons">
-      control_point
-    </mat-icon>
-    {{'secure.parametize.category.categories.btn_add_category' | translate}}
+  <button
+    *ngIf="canCreate && false"
+    mat-button
+    [matTooltip]="
+      'secure.parametize.category.categories.tooltip_add' | translate
+    "
+    (click)="openCategoryDialog()"
+  >
+    <mat-icon class="material-icons"> control_point </mat-icon>
+    {{ "secure.parametize.category.categories.btn_add_category" | translate }}
   </button>
 </div>
 <div>
@@ -42,97 +71,303 @@
       <span class="font-text-btn">Categorías</span>
     </div>
     <div fxFlex="26">
-      <button mat-stroked-button color="primary" class="btn-color-add-category" mat-button (click)="openModalUploadCategoriesMasive()">CARGAR ARCHIVO PARA CREAR/MODIFICAR</button>
+      <button
+        mat-stroked-button
+        color="primary"
+        class="btn-color-add-category"
+        mat-button
+        (click)="openModalUploadCategoriesMasive()"
+      >
+        CARGAR ARCHIVO PARA CREAR/MODIFICAR
+      </button>
     </div>
   </div>
 </div>
 <div class="padding-right">
   <div class="text-aling-end-font-size">
-    <span><a href="{{urlDownloadFile}}" target="_parent" class="text-decoration-cursor">Descargar formato</a></span>
+    <span
+      ><a
+        href="{{ urlDownloadFile }}"
+        target="_parent"
+        class="text-decoration-cursor"
+        >Descargar formato</a
+      ></span
+    >
   </div>
 </div>
 <div class="container__tree">
-  <app-category-tree [categoryList]="categoryList" [categoryComponent]="this" [canCreate]="canCreate"
-    [canDelete]="canDelete" [canUpdate]="canUpdate" [margin]="0"></app-category-tree>
+  <app-category-tree
+    [categoryList]="categoryList"
+    [categoryComponent]="this"
+    [canCreate]="canCreate"
+    [canDelete]="canDelete"
+    [canUpdate]="canUpdate"
+    [margin]="0"
+  ></app-category-tree>
 </div>
 
 <ng-template #dialogContent *ngIf="!msjDeleteCategory">
   <form [formGroup]="form" class="full-width form margin-top__15">
     <div class="container-fields">
-      <mat-form-field class="register full-width">
-        <mat-label>{{'shared.product_type' | translate}}</mat-label>
+      <mat-form-field class="register half-width">
+        <mat-label>{{ "shared.product_type" | translate }}</mat-label>
         <mat-select formControlName="ProductType" required>
           <mat-option *ngFor="let type of productTypes" [value]="type">
-            {{type}}
+            {{ type }}
           </mat-option>
         </mat-select>
       </mat-form-field>
-    </div>
-    <div class="container-fields">
       <mat-form-field class="half-width">
-        <input matInput id="Name" [placeholder]="'shared.name' | translate" autocomplete="false" formControlName="Name"
-          required>
-        <mat-error *ngIf="Name.hasError('required') || Name.hasError('trim')">{{'errors.required' | translate}}
-        </mat-error>
-        <mat-error *ngIf="Name.hasError('pattern')">{{'errors.invalid_name' | translate}}</mat-error>
-      </mat-form-field>
-      <mat-form-field class="half-width">
-        <input matInput id="Commission"
-          [placeholder]="'secure.parametize.category.categories.lb_comission_form' | translate" autocomplete="false"
-          formControlName="Commission" required>
-        <mat-error *ngIf="Commission.hasError('required') || Commission.hasError('trim')">
-          {{'errors.required' | translate}}</mat-error>
-        <mat-error *ngIf="Commission.hasError('pattern') || Commission.hasError('positiveNumber')">
-          {{'errors.commission_invalid' | translate}}</mat-error>
+        <input
+          matInput
+          id="NameParent"
+          [placeholder]="
+            'secure.parametize.category.categories.lb_parent_name_category_form'
+              | translate
+          "
+          autocomplete="false"
+          formControlName="NameParent"
+        />
       </mat-form-field>
     </div>
     <div class="container-fields">
       <mat-form-field class="half-width">
-        <input matInput id="IdVTEX" [placeholder]="'secure.parametize.category.categories.lb_id_vtex_form' | translate"
-          autocomplete="false" formControlName="IdVTEX" required>
-        <mat-error *ngIf="IdVTEX.hasError('required') || IdVTEX.hasError('trim')">{{'errors.required' | translate}}
+        <input
+          matInput
+          id="Name"
+          [placeholder]="'shared.name' | translate"
+          autocomplete="false"
+          formControlName="Name"
+          required
+        />
+        <mat-error *ngIf="Name.hasError('required') || Name.hasError('trim')"
+          >{{ "errors.required" | translate }}
         </mat-error>
-        <mat-error *ngIf="IdVTEX.hasError('pattern')">{{'errors.invalid_id' | translate}}</mat-error>
+        <mat-error *ngIf="Name.hasError('pattern')">{{
+          "errors.invalid_name" | translate
+        }}</mat-error>
       </mat-form-field>
+      <mat-form-field class="half-width">
+        <input
+          matInput
+          id="Commission"
+          [placeholder]="
+            'secure.parametize.category.categories.lb_comission_form'
+              | translate
+          "
+          autocomplete="false"
+          formControlName="Commission"
+          required
+        />
+        <mat-error
+          *ngIf="Commission.hasError('required') || Commission.hasError('trim')"
+        >
+          {{ "errors.required" | translate }}</mat-error
+        >
+        <mat-error
+          *ngIf="
+            Commission.hasError('pattern') ||
+            Commission.hasError('positiveNumber')
+          "
+        >
+          {{ "errors.commission_invalid" | translate }}</mat-error
+        >
+      </mat-form-field>
+    </div>
 
-      <mat-form-field class="half-width">
-        <input matInput id="VtexIdCarulla"
-          [placeholder]="'secure.parametize.category.categories.lb_vtex_id_carulla_form' | translate"
-          autocomplete="false" formControlName="VtexIdCarulla" required>
-        <mat-error *ngIf="VtexIdCarulla.hasError('required') || VtexIdCarulla.hasError('trim')">
-          {{'errors.required' | translate}}
-        </mat-error>
-        <mat-error *ngIf="VtexIdCarulla.hasError('pattern')">{{'errors.invalid_VtexIdCarulla' | translate}}</mat-error>
-      </mat-form-field>
-    </div>
-    <div class="container-fields">
-      <mat-form-field class="whole-width">
-        <input matInput id="NameParent"
-          [placeholder]="'secure.parametize.category.categories.lb_parent_name_category_form' | translate"
-          autocomplete="false" formControlName="NameParent">
-      </mat-form-field>
-    </div>
-
     <div class="container-fields">
       <mat-form-field class="half-width">
-        <input matInput id="tariffCode" placeholder="Partida arancelaria" autocomplete="false"
+        <input
+          matInput
+          id="tariffCode"
+          placeholder="Partida arancelaria"
+          autocomplete="false"
           onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"
-          formControlName="TariffCode" required>
-        <mat-error *ngIf="TariffCode.hasError('required') || TariffCode.hasError('trim')">
-          {{'errors.required' | translate}}
+          formControlName="TariffCode"
+          required
+        />
+        <mat-error
+          *ngIf="TariffCode.hasError('required') || TariffCode.hasError('trim')"
+        >
+          {{ "errors.required" | translate }}
         </mat-error>
         <mat-error
-          *ngIf="TariffCode.hasError('pattern') || TariffCode.hasError('maxlength') || TariffCode.hasError('minlength')">
-          {{'errors.error.categories.valid' | translate}}</mat-error>
+          *ngIf="
+            TariffCode.hasError('pattern') ||
+            TariffCode.hasError('maxlength') ||
+            TariffCode.hasError('minlength')
+          "
+        >
+          {{ "errors.error.categories.valid" | translate }}</mat-error
+        >
       </mat-form-field>
       <mat-form-field class="half-width">
-        <input matInput id="tariff" placeholder="Arancel" autocomplete="false"
-          onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" maxlength="5"
-          formControlName="Tariff" required>
-        <mat-error *ngIf="Tariff.hasError('required') || Tariff.hasError('trim')">{{'errors.required' | translate}}
+        <input
+          matInput
+          id="tariff"
+          placeholder="Arancel"
+          autocomplete="false"
+          onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"
+          maxlength="5"
+          formControlName="Tariff"
+          required
+        />
+        <mat-error
+          *ngIf="Tariff.hasError('required') || Tariff.hasError('trim')"
+          >{{ "errors.required" | translate }}
         </mat-error>
-        <mat-error *ngIf="Tariff.hasError('pattern') || Tariff.hasError('max') || Tariff.hasError('min')">
-          {{'errors.error.categories.valid' | translate}}</mat-error>
+        <mat-error
+          *ngIf="
+            Tariff.hasError('pattern') ||
+            Tariff.hasError('max') ||
+            Tariff.hasError('min')
+          "
+        >
+          {{ "errors.error.categories.valid" | translate }}</mat-error
+        >
+      </mat-form-field>
+    </div>
+
+    <div class="container-fields">
+      <mat-form-field class="half-width">
+        <input
+          matInput
+          id="IdVTEX"
+          [placeholder]="
+            'secure.parametize.category.categories.lb_id_vtex_form' | translate
+          "
+          autocomplete="false"
+          formControlName="IdVTEX"
+          required
+        />
+        <mat-error
+          *ngIf="IdVTEX.hasError('required') || IdVTEX.hasError('trim')"
+          >{{ "errors.required" | translate }}
+        </mat-error>
+        <mat-error *ngIf="IdVTEX.hasError('pattern')">{{
+          "errors.invalid_id" | translate
+        }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="half-width">
+        <input
+          matInput
+          id="VtexIdCarulla"
+          [placeholder]="
+            'secure.parametize.category.categories.lb_vtex_id_carulla_form'
+              | translate
+          "
+          autocomplete="false"
+          formControlName="VtexIdCarulla"
+          required
+        />
+        <mat-error
+          *ngIf="
+            VtexIdCarulla.hasError('required') || VtexIdCarulla.hasError('trim')
+          "
+        >
+          {{ "errors.required" | translate }}
+        </mat-error>
+        <mat-error *ngIf="VtexIdCarulla.hasError('pattern')">{{
+          "errors.invalid_VtexIdCarulla" | translate
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="container-fields">
+      <mat-form-field class="half-width">
+        <input
+          matInput
+          id="SincoSubLineId"
+          [placeholder]="
+            'secure.parametize.category.categories.lb_sinco_sub_line_id'
+              | translate
+          "
+          autocomplete="false"
+          formControlName="SincoSubLineId"
+          required
+        />
+        <mat-error
+          *ngIf="
+            SincoSubLineId.hasError('required') ||
+            SincoSubLineId.hasError('trim')
+          "
+          >{{ "errors.required" | translate }}
+        </mat-error>
+        <mat-error
+          *ngIf="
+            SincoSubLineId.hasError('pattern') ||
+            SincoSubLineId.hasError('positiveNumber') ||
+            SincoSubLineId.hasError('min') ||
+            SincoSubLineId.hasError('maxlength')
+          "
+          >{{ "errors.invalid_id" | translate }}</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field class="half-width">
+        <input
+          matInput
+          id="SincoCategoryId"
+          [placeholder]="
+            'secure.parametize.category.categories.lb_sinco_category_id'
+              | translate
+          "
+          autocomplete="false"
+          formControlName="SincoCategoryId"
+        />
+        <mat-error
+          *ngIf="
+            SincoCategoryId.hasError('pattern') ||
+            SincoCategoryId.hasError('min') ||
+            SincoCategoryId.hasError('maxlength')
+          "
+          >{{ "errors.invalid_id" | translate }}</mat-error
+        >
+      </mat-form-field>
+    </div>
+
+    <div class="container-fields">
+      <mat-form-field class="half-width">
+        <input
+          matInput
+          id="SincoSubCategoryId"
+          [placeholder]="
+            'secure.parametize.category.categories.lb_sinco_sub_category_id'
+              | translate
+          "
+          autocomplete="false"
+          formControlName="SincoSubCategoryId"
+        />
+        <mat-error
+          *ngIf="
+            SincoSubCategoryId.hasError('pattern') ||
+            SincoSubCategoryId.hasError('min') ||
+            SincoSubCategoryId.hasError('maxlength')
+          "
+          >{{ "errors.invalid_id" | translate }}</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field class="half-width">
+        <input
+          matInput
+          id="SincoSegmentId"
+          [placeholder]="
+            'secure.parametize.category.categories.lb_sinco_segment_id'
+              | translate
+          "
+          autocomplete="false"
+          formControlName="SincoSegmentId"
+        />
+        <mat-error
+          *ngIf="
+            SincoSegmentId.hasError('pattern') ||
+            SincoSegmentId.hasError('min') ||
+            SincoSegmentId.hasError('maxlength')
+          "
+          >{{ "errors.invalid_id" | translate }}</mat-error
+        >
       </mat-form-field>
     </div>
   </form>

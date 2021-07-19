@@ -24,6 +24,8 @@ export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
   @Input() deletePermission: boolean;
   @Output() reloadData = new EventEmitter<any>();
   @Output() countPlu = new EventEmitter();
+  @Output() viewDetailProduct = new EventEmitter();
+  
 
   public _listProduct: any;
   @Input() set productsList(value: any) {
@@ -117,6 +119,7 @@ export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
   public backTolist(): void {
     this.productsExpanded = null;
     this.showImage = false;
+    this.viewDetailProduct.emit(false);
   }
 
 
@@ -128,6 +131,7 @@ export class ComboProductComponent implements OnInit, OnChanges, OnDestroy {
    */
   public openInformation(params?: any): void {
     if (!this.activeCheck) {
+    this.viewDetailProduct.emit(true);
       this.loadingService.viewSpinner();
       this.productsService.getListProductsExpanded(params).subscribe((result: any) => {
         this.loadingService.closeSpinner();

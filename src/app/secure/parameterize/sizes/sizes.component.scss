@@ -1,0 +1,219 @@
+$accent-color: #485afa;
+$title-color: black;
+
+.table-wrapper {
+  position: relative;
+  margin: 20px 0;
+}
+
+.brands-modal-margin {
+  margin-top: 40px;
+  height: 128px;
+}
+
+.size-position-option {
+  justify-content: center;
+  text-align: center;
+  padding: 12px 0;
+  margin-bottom: -24px;
+}
+
+.example-chip-list {
+  margin-bottom: 4%;
+  position: sticky;
+  top: 64px;
+  z-index: 1;
+  padding: 1%;
+}
+
+.margintButtonAdd {
+  text-align: end;
+  margin-top: 2%;
+  margin-right: 4%;
+}
+
+#addSize {
+  width: 168px;
+  height: 37px;
+  border-color: #485AFA;
+  color: #485AFA;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.example-chip-list-filters {
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  height: 70px;
+  max-height: 100px;
+  contain: content;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  & mat-icon {
+    margin-right: 0px;
+  }
+}
+
+.size-position-option-cancel {
+  margin-left: 8px;
+}
+
+.input-size-width {
+  width: 95%;
+
+  input {
+    text-transform: uppercase;
+  }
+}
+
+::ng-deep .mat-chip-list-wrapper .mat-standard-chip, .mat-chip-list-wrapper input.mat-input-element {
+  text-transform: uppercase !important;
+}
+
+.full-width {
+  width: 100%
+}
+
+.example-container {
+  height: fit-content;
+  position: relative;
+  overflow: auto;
+}
+
+table {
+  margin-top: 0.5% !important;
+  width: 95%;
+  margin: 2.5%;
+
+  th {
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #757474;
+    font-weight: bold;
+  }
+
+  td {
+    color: #909090
+  }
+}
+
+tbody {
+  overflow: auto;
+
+}
+
+.options {
+  color: #757474;
+}
+
+@mixin last-child {
+  width: 14%
+}
+
+tr th:last-child {
+  @include last-child();
+}
+
+tr td:last-child {
+  @include last-child();
+}
+
+.full-width.space-between {
+  margin: 15px 0;
+}
+
+.size-title {
+  font-size: 18px;
+  margin-left: 0;
+  color: #000000;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.sub-title {
+  color: #757474;
+  font-size: 18px;
+  padding-left: 5px;
+  font-weight: 400;
+}
+
+.size-toolbar {
+  border-bottom: 1px solid #e0e0e0;
+
+  p {
+    margin-left: 3%;
+  }
+
+  div {
+    margin-right: 3%;
+  }
+}
+
+.styleFlex {
+  display: flex;
+}
+
+.example-sidenav {
+  width: 30%;
+
+  @media only screen and (max-width: 600px) {
+    width: 80%;
+  }
+
+  @media only screen and (max-width: 768px) {
+    width: 80%;
+  }
+}
+
+.filter-control {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 51px 8px 0 8px;
+
+  &--btn-clean {
+    background-color: white;
+    border: 1px solid $accent-color;
+    color: $accent-color;
+
+    &:hover {
+      background-color: $accent-color;
+      color: white;
+    }
+  }
+
+  &--btn-send {
+    background-color: $accent-color;
+    color: white;
+
+    &:hover {
+      background-color: white;
+      color: $accent-color;
+    }
+  }
+}
+
+.filter-content {
+  margin: 16% 8%;
+}
+
+.filter-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 20px;
+  margin-bottom: 10%;
+  margin-top: 6%;
+
+  &--title {
+    font-weight: bold;
+    color: $title-color;
+  }
+
+  &--close {
+    color: $accent-color;
+    cursor: pointer;
+  }
+}

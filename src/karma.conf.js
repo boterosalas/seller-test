@@ -16,7 +16,7 @@ module.exports = function (config) {
     parallelOptions: {
       executors: 4, // Defaults to cpu-count - 1
       shardStrategy: 'round-robin'
-      },
+    },
     client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
@@ -46,8 +46,8 @@ module.exports = function (config) {
     // browsers: ['Chrome'],
     // singleRun: false,
     captureTimeout: 210000,
-    browserDisconnectTolerance: 3, 
-    browserDisconnectTimeout : 310000,
-    browserNoActivityTimeout : 310000,
+    browserDisconnectTolerance: 3,
+    browserDisconnectTimeout: 310000,
+    browserNoActivityTimeout: 310000,
   });
 };

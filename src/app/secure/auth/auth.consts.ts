@@ -439,8 +439,9 @@ const SellerModule = new ModuleModel(sellerModule, showAll, sellerModule.toLower
  * 2. App Angular administrador.
  * 3. Api vendedor.
  * 4. App Angular vendedor.
+ * 5. Listado de acuerdos/anexos vendedor
  */
-export const documentModule = 'DOCUMENTACIÓN', apiName = 'Api', apiAngularName = 'App Angular', apiAdminName = 'Api', apiAngularAdminName = 'App Angular';
+export const documentModule = 'DOCUMENTACIÓN', apiName = 'Api', apiAngularName = 'App Angular', apiAdminName = 'Api', apiAngularAdminName = 'App Angular', agreementNameSeller = 'Acuerdos aprobados';
 const DocumentModule = new ModuleModel(documentModule, showAll, documentModule.toLowerCase(), [
     // 1. Api administrador.
     new MenuModel(apiName, showAll, apiName.toLowerCase(), ProfileTypes.Administrador, [
@@ -458,6 +459,12 @@ const DocumentModule = new ModuleModel(documentModule, showAll, documentModule.t
     new MenuModel(apiAngularAdminName, false, apiAngularAdminName.toLowerCase(), ProfileTypes.Vendedor, [
         new FunctionalitiesModel(readFunctionality, false, readFunctionality) // Consultar.
     ], 'http://sellercenter.frontdoc.exito.com.co.s3-website-us-east-1.amazonaws.com/'),
+    // 5. Listado de acuerdos/anexos vendedor
+    new MenuModel(agreementNameSeller, showAll, agreementNameSeller.toLowerCase(), ProfileTypes.Vendedor, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar
+        new FunctionalitiesModel(visualizeFunctionality, showAll, visualizeFunctionality), // Visualizar
+        new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality) // Descargar
+    ], RoutesConst.sellerCenterIntSellerAgreements),
 ]);
 
 /**
@@ -473,7 +480,7 @@ const DocumentModule = new ModuleModel(documentModule, showAll, documentModule.t
  * 4. Perfiles.
  * 5. Marcas.
  */
-export const paramModule = 'PARAMETRIZACIÓN', quoteName = 'Cotizador', transportName = 'transportadora', zonesName = 'zonas', specsName = 'Especificaciones', categoriesTreeName = 'Asignar comisión', profileName = 'Perfiles', categoryName = 'Árbol de categorías', brandName = 'Marcas', portName = 'Parametrizar Centros de Acopio', exception = 'Excepción por comisión', notification = 'Notificación';
+export const paramModule = 'PARAMETRIZACIÓN', quoteName = 'Cotizador', transportName = 'transportadora', zonesName = 'zonas', specsName = 'Especificaciones', categoriesTreeName = 'Asignar comisión', profileName = 'Perfiles', categoryName = 'Árbol de categorías', brandName = 'Marcas', portName = 'Parametrizar Centros de Acopio', exception = 'Excepción por comisión', sizeName = 'Tallas', notification = 'Notificación';
 const ParamModule = new ModuleModel(paramModule, showAll, paramModule.toLowerCase(), [
     // 1. Cotizador.
     new MenuModel(quoteName, showAll, quoteName.toLowerCase(), ProfileTypes.Administrador, [
@@ -532,6 +539,13 @@ const ParamModule = new ModuleModel(paramModule, showAll, paramModule.toLowerCas
         new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality), // Editar.
         new FunctionalitiesModel(createFunctionality, showAll, createFunctionality) // Crear.
     ], RoutesConst.sellerCenterIntException),
+    // 8. Tallas
+    new MenuModel(sizeName, showAll, sizeName.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+        new FunctionalitiesModel(updateFunctionality, showAll, updateFunctionality), // Editar.
+        new FunctionalitiesModel(createFunctionality, showAll, createFunctionality), // Agregar.
+        new FunctionalitiesModel(deleteFunctionality, showAll, deleteFunctionality) // Eliminar.
+    ], RoutesConst.sellerCenterIntParamSize),
     // 9. Notificacion
     new MenuModel(notification, showAll, notification.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
