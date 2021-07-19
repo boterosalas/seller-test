@@ -57,7 +57,9 @@ export class AgreementComponent implements OnInit {
         });
     }
 
-
+    /**
+     * Servicio obtener info del usuario.
+     */
     async getDataUser() {
         this.user = await this.userParams.getUserData();
         if (this.user && this.user.sellerProfile === 'seller') {
