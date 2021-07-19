@@ -71,6 +71,7 @@
     "menu.Consultar Indicadores": "Check Indicators",
     "menu.Notificación": "Announcements",
     "module.Ofertas": "Offers",
+    "module.Combo": "Kit",
     "module.Productos": "Products",
     "module.Vendedores": "Sellers",
     "module.Órdenes": "Orders",
@@ -154,6 +155,8 @@
 
     "filters.clear": "Clear",
     "filters.filter": "Filter",
+    "filter-FinalDate": "Final date",
+    "filter-InitialDate": "Initial date",
 
     "January": "January",
     "February": "February",
@@ -211,6 +214,8 @@
     "actions.confirm_offer": "Approve Offer",
     "actions.all": "All",
     "actions.new": "New",
+    "actions.yes": "SI",
+    "actions.no": "NO",
 
     "errors.required": "Field required",
     "errors.invalid_name": "Invalid name",
@@ -1184,6 +1189,13 @@
     "secure.products.list_products.all_products": "All products",
     "secure.products.list_products.download.ok": "The products have been downloaded, check your email",
     "secure.products.list_products.download.tooltip_category": "Add category",
+
+    "secure.products.pending_products.Schedule.modal.back_the_list_offers": "Back to the list of offers",
+    "secure.products.pending_products.Schedule.modal.scheduled_offer": "Scheduled offer",
+    "secure.products.pending_products.Schedule.modal.scheduled_next": "NEXT",
+    "secure.products.pending_products.Schedule.modal.scheduled_previous": "PREVIOUS",
+    "secure.products.pending_products.Schedule.modal.ofert_scheduled": "Scheduled offer",
+    "secure.products.pending_products.Schedule.modal.ofert_scheduled_delete_quest": "Are you sure you want to delete the scheduled offer?",
 
     "secure.parametize.title_toolbar": "Configuration",
     "secure.parametize.brands.title_filter_brand": "Brand filter",

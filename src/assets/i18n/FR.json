@@ -71,6 +71,7 @@
 
     "module.Documentación": "Documentation",
     "module.Ofertas": "Offers",
+    "module.Combo": "Kit",
     "module.Productos": "Products",
     "module.Vendedores": "Sellers",
     "module.Órdenes": "Orders",
@@ -153,6 +154,8 @@
 
     "filters.clear": "Clear",
     "filters.filter": "Filter",
+    "filter-FinalDate": "Final date",
+    "filter-InitialDate": "Initial date",
 
     "January": "January",
     "February": "February",
@@ -210,6 +213,8 @@
     "actions.confirm_offer": "Approve Offer",
     "actions.all": "All",
     "actions.new": "New",
+    "actions.yes": "SI",
+    "actions.no": "NO",
 
     "errors.required": "Field required",
     "errors.invalid_name": "Invalid name",
@@ -1201,6 +1206,13 @@
     "secure.parametize.specifications.download_title2": "We will send you the specification report to the following email",
     "secure.parametize.specifications.download_OK": "The specifications have been downloaded correctly, check your inbox.",
     "secure.parametize.specifications.download_KO": "An error has occurred when downloading the specifications, please try again.",
+
+    "secure.products.pending_products.Schedule.modal.back_the_list_offers": "Back to the list of offers",
+    "secure.products.pending_products.Schedule.modal.scheduled_offer": "Scheduled offer",
+    "secure.products.pending_products.Schedule.modal.scheduled_next": "NEXT",
+    "secure.products.pending_products.Schedule.modal.scheduled_previous": "PREVIOUS",
+    "secure.products.pending_products.Schedule.modal.ofert_scheduled": "Scheduled offer",
+    "secure.products.pending_products.Schedule.modal.ofert_scheduled_delete_quest": "Are you sure you want to delete the scheduled offer?",
 
     "secure.parametize.dialog.modal_title_spec": "Add specification group",
     "secure.parametize.dialog.modal_title_brand": "Add brand",

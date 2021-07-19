@@ -459,7 +459,12 @@ $color-green: #6FB63E;
 }
 
 .beforeNameCombo {
-  height: 170px;
+  height: 150px;
+  overflow-y: scroll;
+  margin-top: 10px;
+}
+.formBeforeNameCombo {
+  height: 190px;
   overflow-y: scroll;
   margin-top: 10px;
 }
@@ -514,4 +519,289 @@ vertical-align: middle;
 }
 .color-green{
   color: $color-green;
+}
+
+.sold-out {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $color-white-opacity;
+  border-radius: 5px;
+
+  div {
+    background-color: $color-gray4;
+    height: 50px;
+    width: 300px;
+    color: $color-white;
+    border-radius: 5px;
+
+    p {
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+
+.color-red{
+  color: red;
+}
+
+
+.padding-70-25px{
+  padding: 70px 25px 0px 25px;
+}
+
+.container-main-width-auto-color{
+  width: auto; height: auto; color:
+        #9c9c9c;
+}
+
+.font-size-14{
+  font-size: 14px;
+}
+
+.container-detail-ofert-img{
+  max-width: 70%;
+  min-width:60%;
+  border: solid 1px #e3e3e3;
+  max-height: 310px;
+}
+
+.position-relative-height{
+  position: relative; height: 90%;
+}
+
+.padding-14{
+  padding: 14px;
+}
+
+.font-size-color-grey-img{
+  color: #696969;
+  font-size: 15px;
+}
+
+.color-icon-detail{
+  vertical-align: middle;
+  margin-right: 5px;
+  color:#b6b6b6;
+}
+
+.text-align-end{
+  text-align: end;
+}
+
+.width-100-and-text-align-end{
+  width: 100%; text-align: end;
+}
+
+.color-grey-text-icon{
+  color: #909090;
+}
+
+.detail-ofert-info-down{
+  padding-left: 55px;
+  color: #b6b6b6;
+  font-size: 12px;
+}
+
+.color-grey-light-text{
+  color: #6f6e6e;
+}
+
+.detail-ofert-info-down-two{
+  padding-left: 55px;
+  color: #b6b6b6;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.container-price-info{
+  padding-left: 55px;
+  color: #b6b6b6;
+  padding-top: 10px;
+}
+
+.aling-container-price-info{
+  text-align: center;
+  height: 22px;
+}
+
+.info-text-price{
+  text-decoration: line-through;
+  font-size: 15px;
+}
+
+.font-size-20{
+  font-size:20px;
+}
+
+.padding-bottom-10{
+  padding-bottom: 10px;
+}
+
+.detail-ofert-info-down-three{
+  padding-left: 55px;
+  color: #b6b6b6;
+  font-size: 13px;
+}
+
+.border-container-solid-left{
+  border-left: solid 1px #dcdcdc;
+}
+
+.container-ofert-program{
+  padding-left: 30px;
+  color: #b6b6b6;
+  padding-top: 10px;
+}
+
+.text-aling-center{
+  text-align: center;
+}
+
+.font-size-13{
+  font-size: 13px;
+}
+
+.icon-color-ofert-program{
+  font-size: 17px;
+  height: 17px;
+  width: 17px;
+  cursor: pointer;
+}
+
+.text-decoration-line{
+  text-decoration: line-through;
+  font-size: 15px;
+}
+
+.font-size-color-red{
+  font-size: 20px;
+  color: red;
+}
+
+.font-size-13-color{
+  color: #b6b6b6;
+  font-size: 13px;
+}
+
+.margin-left-55{
+  margin-left: 55px;
+}
+
+.margin-top-10{
+  margin-top: 10px;
+}
+
+.padding-left-font-size-13{
+  padding-left: 50px;
+  font-size:13px;
+}
+
+.widht-100{
+  width: 100%;
+}
+
+.vertical-align-color-grey{
+  vertical-align: middle;
+  color: #b6b6b6;
+}
+
+.padding-top-font-size{
+  padding-top: 10px; font-size: 13px;
+}
+
+.padding-left-50{
+  padding-left: 50px;
+}
+
+.padding-top-font-size-color{
+  padding-top: 15px;
+  font-size:13px;
+  color: #6f6e6e;
+}
+
+.freshippingText{
+  border: solid 1px #b6b6b6;
+  margin-right:5px;
+  margin-left: 25px;
+}
+
+.container-element-detail-ofert{
+  border: solid 1px #b6b6b6;
+  margin-right:5px;
+}
+
+.move-to-inbox{
+  vertical-align: middle;
+  width: 16px;
+  height:16px;
+  font-size: 16px;
+  color: #8e8e8e;
+  margin-right: 5px;
+}
+
+.padding-10-20-30{
+  padding:10px 30px 20px 30px;
+}
+
+.font-size-12{
+  font-size: 12px;
+}
+
+.padding-top-20{
+  padding-top: 20px;
+}
+
+.margin-right-15{
+  margin-right: 15px;
+}
+
+.width-100-font-size-13{
+  width: 100%; font-size: 13px;
+}
+
+.padding-top-40{
+  padding-top: 40px;
+}
+
+.padding-top-font-size-13{
+  padding-top: 5px;
+  font-size:13px;
+}
+
+.margin-top-10{
+  margin-top: 10px;
+}
+
+.border-color-margin-top{
+  border-top: solid 1px#ededed;
+  margin-top: 20px;
+}
+
+.text-aling-center-width-100-margin{
+  text-align: center;
+  width: 100%; 
+  margin-top:10px;
+}
+
+.font-margin-left-width{
+  font-size:13px;
+  margin-left: 21px;
+  width: 80%;
+}
+
+.font-size-width{
+  font-size:13px;
+  width: 80%;
+}
+
+.color-grey-generic {
+  color: #b6b6b6;
+}
+
+.margin-right-20{
+  margin-right: 20px;
 }

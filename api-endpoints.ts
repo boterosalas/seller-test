@@ -356,7 +356,11 @@ export const endpoints = {
       // Actualizar datos de contacto vendedor
       updateContactData: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/UpdateSellerContact',
       // Crear un contacto para un vendedor (primero creamos y luego editamos)
-      createContactData: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/RegisterContactSeller'
+      createContactData: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/RegisterContactSeller',
+      //
+      scheduleoffer: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/scheduleoffer',
+      //
+      deleteScheduleoffer: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/scheduleoffer/{params}',
 
     },
   },
@@ -711,7 +715,9 @@ export const endpoints = {
       // Actualizar datos de contacto vendedor
       updateContactData: 'https://igxf6mswfa.execute-api.us-east-1.amazonaws.com/pdn/UpdateSellerContact',
       // Crear un contacto para un vendedor (primero creamos y luego editamos)
-      createContactData: 'https://igxf6mswfa.execute-api.us-east-1.amazonaws.com/pdn/RegisterContactSeller'
+      createContactData: 'https://igxf6mswfa.execute-api.us-east-1.amazonaws.com/pdn/RegisterContactSeller',
+      //
+      scheduleoffer: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/scheduleoffer',
     }
   }
 };

@@ -31,6 +31,7 @@ mat-icon {
   &-cursor-grey-color {
     color: #909090;
     cursor: pointer;
+    font-size: 15px;
   }
 
   &-text-align-center {
@@ -163,3 +164,149 @@ mat-icon {
     background-color: white;
   }
 }
+
+.nameCombo {
+  font-size: 13px;
+  color: #919191;
+}
+
+.formBeforeNameCombo {
+  height: 190px;
+  overflow-y: scroll;
+  margin-top: 10px;
+}
+
+.text-align-font-weight-bold{
+  text-align: center;
+  font-weight: bold;
+}
+
+.color-grey-light{
+  color: #6f6e6e
+}
+
+.font-size-13{
+  font-size: 13px;
+}
+
+.color-grey-black{
+ color: #b6b6b6
+}
+
+.color-red-price{
+  color: red;
+}
+
+.width-100{
+  width: 100%;
+}
+
+.margin-top-10{
+  margin-top: 10px;
+}
+
+.font-size-12{
+  font-size: 12px;
+}
+
+.margin-bottom-top{
+  margin-top: 30px;
+  margin-bottom:30px;
+}
+
+.text-align-center{
+  text-align: center;
+}
+
+.input-width-font-size{
+  width: 90%;
+  font-size: 13px;
+}
+
+.padding-bottom-20{
+  padding-bottom: 20px;
+}
+
+.width-90-font-size-13{
+  width: 90%;
+  font-size: 13px;
+}
+
+.icon-arraw-end{
+  text-align: end;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.margin-right-20{
+  margin-right: 20px;
+}
+
+.color-grey-text-icon{
+  color: #b6b6b6;
+}
+
+.font-size-12{
+  font-size: 12px;
+}
+
+.move-to-inbox{
+  vertical-align: middle;
+  width:16px;
+  height: 16px;
+  font-size: 16px;
+  color: #8e8e8e;
+  margin-right:5px;
+}
+
+.margin-top-20{
+  margin-top: 20px;
+}
+
+.input-mat-width-80{
+  font-size:13px;
+  margin-left: 21px;
+  width: 80%;
+}
+
+.text-aling-center-padding-bottom{
+  text-align: center;
+  padding-bottom:20px;
+}
+
+.font-size-13-width-80{
+  font-size:13px;
+  width: 80%;
+}
+
+.margin-right-20{
+  margin-right: 20px;
+}
+
+
+.width-100-text-align-center{
+  width: 100%;
+  text-align: center;
+}
+
+.modal-title-color-font-size{
+  font-size: 16px;
+  color: #555555; 
+  font-weight: bold;
+}
+
+.padding-top-width{
+  width: 100%;
+  padding-top: 25px;
+}
+
+.font-size-17{
+  font-size: 17px;
+}
+
+.container-btn{
+  width: 100%;
+  text-align: center;
+  padding-top: 20px;
+}
+
