@@ -5,7 +5,7 @@
             <!-- Titulo del toolbar -->
             <p class="tree-title">
                 {{title}}
-                <small class="sub-title">| {{'secure.seller.contracts.lb_subtitle_toolbar' | translate}}</small>
+                <small class="sub-title" *ngIf="subtitle">| {{subtitle}}</small>
             </p>
 
             <!-- Componente para realizar la busqueda de una tienda -->
@@ -24,7 +24,7 @@
         <p class="icon-face-text">{{'secure.seller.manage.txt_serch_seller' | translate}}</p>
     </div>
 
-    <div *ngIf="agreementsSeller && !agreementsSeller.length">
+    <div *ngIf="agreementsSeller && !thereAgreements">
         <div class="icon-face">
             <mat-icon>insert_drive_file</mat-icon>
         </div>

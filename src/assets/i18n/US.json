@@ -71,6 +71,7 @@
     "menu.Resumen de pagos": "Payment Summary",
     "menu.Consultar Indicadores": "Check Indicators",
     "menu.Notificación": "Announcements",
+    "menu.Acuerdos aprobados": "Agreements approved",
     "module.Ofertas": "Offers",
     "module.Productos": "Products",
     "module.Vendedores": "Sellers",
@@ -691,6 +692,7 @@
     "secure.seller.contracts.accept_terms_conditions": "I Accept the Terms & Conditions",
     "secure.seller.contracts.not_save_agreement": "We couldn't safe your changes",
     "secure.seller.contracts.terms_conditions": "Terms & Conditions",
+    "secure.seller.contracts.file_error_data": "Failed to load agreements: ",
 
     "secure.offers.cities_coverage.save_daneCode_ok": "The available cities for dispatch have been saved succesfully.",
     "secure.offers.cities_coverage.save_daneCode_ko": "An error has occurren when trying to save the cities available for dispatch.",

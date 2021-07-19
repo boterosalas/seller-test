@@ -34,6 +34,8 @@ export class AgreementComponent implements OnInit {
     nameModule: any;
     title: any;
     activeToolbarSearch: Boolean = false;
+    thereAgreements: Boolean = true;
+    subtitle: string;
 
     constructor(private emitterSeller: EventEmitterSeller,
         private agreementService: AgreementService,
@@ -61,12 +63,14 @@ export class AgreementComponent implements OnInit {
         if (this.user && this.user.sellerProfile === 'seller') {
             this.nameModule = agreementNameSeller;
             this.chargeAgreements('null');
-            this.title = 'Acuerdos y/o anexos';
+            this.title = this.languageService.instant('module.Documentación');
+            this.subtitle = this.languageService.instant('menu.Acuerdos aprobados');
             this.activeToolbarSearch = false;
 
         } else {
             this.nameModule = agreementName;
             this.title = this.languageService.instant('secure.seller.contracts.lb_title_toolbar');
+            this.subtitle = this.languageService.instant('secure.seller.contracts.lb_subtitle_toolbar');
             this.activeToolbarSearch = true;
         }
     }
@@ -96,13 +100,14 @@ export class AgreementComponent implements OnInit {
                     const terms = JSON.parse(data.body);
                     this.agreementsSeller = terms.Data as Agreement[];
                     console.log(88, this.agreementsSeller);
+                    this.thereAgreements = this.agreementsSeller && this.agreementsSeller.length > 0 ? true : false;
                     this.loadingService.closeSpinner();
                 } catch (e) {
-                    console.error('Error al cargar los acuerdos', e);
+                    console.error(this.languageService.instant('secure.seller.contracts.file_error_data'), e);
                 }
             }
         }, error => {
-            log.error('Error al obtener los acuerdos:', error);
+            log.error(this.languageService.instant('secure.seller.contracts.file_error_data'), error);
         });
     }
 
@@ -111,15 +116,6 @@ export class AgreementComponent implements OnInit {
         window.open(model.ContractcUrl, '_blank');
     }
 
-    public getPDF2(model: any): void {
-        this.loadingService.viewSpinner();
-        this.billingOrdersService.getDownnLoadBilling(['model.ContractcUrl']).subscribe(result => {
-            this.showFile(result, (model.ContractName), 'application/pdf');
-            this.loadingService.closeSpinner();
-        }, error => {
-            log.error('Error al obtener los acuerdos:', error);
-        });
-    }
 
     /**
      * Funcion  showFile(blob: any, filename: string) que convierte el texto plano en archivo pdf

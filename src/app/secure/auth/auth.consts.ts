@@ -441,7 +441,7 @@ const SellerModule = new ModuleModel(sellerModule, showAll, sellerModule.toLower
  * 4. App Angular vendedor.
  * 5. Listado de acuerdos/anexos vendedor
  */
-export const documentModule = 'DOCUMENTACIÓN', apiName = 'Api', apiAngularName = 'App Angular', apiAdminName = 'Api', apiAngularAdminName = 'App Angular', agreementNameSeller = 'Acuerdos y/o anexos';
+export const documentModule = 'DOCUMENTACIÓN', apiName = 'Api', apiAngularName = 'App Angular', apiAdminName = 'Api', apiAngularAdminName = 'App Angular', agreementNameSeller = 'Acuerdos aprobados';
 const DocumentModule = new ModuleModel(documentModule, showAll, documentModule.toLowerCase(), [
     // 1. Api administrador.
     new MenuModel(apiName, showAll, apiName.toLowerCase(), ProfileTypes.Administrador, [

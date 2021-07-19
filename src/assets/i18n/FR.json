@@ -69,6 +69,7 @@
     "menu.Consultar Indicadores": "Vérifier les indicateurs",
     "menu.Notificación": "Annonces",
     "module.Escuela Exito": "Escuela Éxito",
+    "menu.Acuerdos aprobados": "Agreements approved",
 
     "module.Documentación": "Documentation",
     "module.Ofertas": "Offers",
@@ -683,6 +684,7 @@
     "secure.seller.contracts.accept_terms_conditions": "J'accepte les termes et conditions de l'accord Marketplace",
     "secure.seller.contracts.not_save_agreement": "Conditions non enregistrées",
     "secure.seller.contracts.terms_conditions": "Termes et conditions",
+    "secure.seller.contracts.file_error_data": "Failed to load agreements: ",
 
     "secure.offers.cities_coverage.save_daneCode_ok": "The available cities for dispatch have been saved succesfully.",
     "secure.offers.cities_coverage.save_daneCode_ko": "An error has occurren when trying to save the cities available for dispatch.",

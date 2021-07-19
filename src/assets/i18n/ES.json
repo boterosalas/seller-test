@@ -72,6 +72,7 @@
     "menu.Administrar Acuerdos": "Administrar acuerdos",
     "menu.Consultar Indicadores": "Consultar Indicadores",
     "menu.Notificación": "Anuncios",
+    "menu.Acuerdos aprobados": "Acuerdos aprobados",
     "module.Documentación": "Documentación",
     "module.Ofertas": "Ofertas",
     "module.Productos": "Productos",
@@ -704,6 +705,7 @@
     "secure.seller.contracts.accept_terms_conditions": "Acepto los términos y condiciones del acuerdo de Marketplace",
     "secure.seller.contracts.not_save_agreement": "No se pudo guardar los términos",
     "secure.seller.contracts.terms_conditions": "Términos y condiciones",
+    "secure.seller.contracts.file_error_data": "Error al cargar los acuerdos: ",
 
     "secure.offers.cities_coverage.save_daneCode_ok": "Se ha guardado con éxito la restricción de las ciudades sin cobertura.",
     "secure.offers.cities_coverage.save_daneCode_ko": "Se ha producido un error al intentar guardar la restricción de ciudades sin cobertura.",
