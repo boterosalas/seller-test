@@ -41,11 +41,18 @@ module.exports = function (config) {
         ],
       },
     },
+<<<<<<< HEAD
    // browsers: ['ChromeHeadless'],
     browsers: ["Chrome"],
     singleRun: false,
+=======
+    browsers: ['ChromeHeadless'],
+    singleRun: true,
+    // browsers: ['Chrome'],
+    // singleRun: false,
+>>>>>>> a8eae9c295444013f2a4ee856a401419b2c87520
     captureTimeout: 210000,
-    browserDisconnectTolerance: 3,
+    browserDisconnectTolerance: 3, 
     browserDisconnectTimeout : 310000,
     browserNoActivityTimeout : 310000,
   });
