@@ -23,7 +23,7 @@ export class ModalProgramOfertComponent implements OnInit {
   public priceCurrent = '';
   public discountPriceCurrent = '';
   public ean = '';
-  public comboList: any;
+  public comboList= null;
   public comboForm: FormGroup;
   public activeTabIndex = 0;
   public showButton: boolean;
@@ -101,8 +101,8 @@ export class ModalProgramOfertComponent implements OnInit {
    * @memberof ModalProgramOfertComponent
    */
   addItem(element: any): void {
-    const price = this.data.isEdit ? element.price : '';
-    const quantity = this.data.isEdit ? element.quantity : '';
+    const price = this.data.isEdit ? element.price || element.Price : '';
+    const quantity = this.data.isEdit ? element.quantity || element.Quantity : '';
     const nameProduct = this.data.isEdit ? element.nameCombo : element.productName;
     this.comboForm = this.fb.group({
       Ean: element.ean,
@@ -112,6 +112,7 @@ export class ModalProgramOfertComponent implements OnInit {
     });
     this.Combos.push(this.comboForm);
   }
+
   /**
    * funcion para validar si es editar
    *

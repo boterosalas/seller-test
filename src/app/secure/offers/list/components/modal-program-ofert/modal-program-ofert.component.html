@@ -136,7 +136,7 @@
                 {{'secure.products.pending_products.Schedule.modal.scheduled_next' | translate}}
               </button>
             </div>
-            <div *ngIf="comboList && comboList.length === 0" class="width-100">
+            <div *ngIf="comboList === null" class="width-100">
               <button mat-raised-button color="primary"
                 (click)="validateRulesOfert()" mat-button
                 [disabled]="!filterForm.form.valid || showButton === true ||
@@ -259,7 +259,7 @@
         {{'actions.no' | translate}}
       </button>
       <button mat-raised-button color="primary" (click)="deleteScheduleOffer()">
-        {{'actions.si' | translate}}
+        {{'actions.yes' | translate}}
       </button>
     </div>
   </div>

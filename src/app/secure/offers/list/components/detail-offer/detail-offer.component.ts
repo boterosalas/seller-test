@@ -1177,6 +1177,8 @@ export class DetailOfferComponent implements OnInit {
     const dialogIntance = dialogRef.componentInstance;
     dialogIntance.processFinish$.subscribe((val) => {
       this.dataOffer.scheduleOffer = val;
+      this.scheduleOfferDateStart = this.dataOffer.scheduleOffer.initialDate ? moment(this.dataOffer.scheduleOffer.initialDate).utc().format('DD/MM/YYYY') : null;
+      this.scheduleOfferDateEnd = this.dataOffer.scheduleOffer.finalDate ? moment(this.dataOffer.scheduleOffer.finalDate).utc().format('DD/MM/YYYY') : null;
     });
     dialogIntance.processDelete$.subscribe((val) => {
       this.dataOffer.scheduleOffer = null;
