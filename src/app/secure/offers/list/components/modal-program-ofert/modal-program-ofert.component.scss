@@ -1,0 +1,313 @@
+$size: 260%;
+$gray: #757474;
+$lightgray: lightgray;
+$blue: #485AFA;
+
+
+mat-icon {
+  font-size: 27px;
+  height: 25px;
+  width: 25px;
+  color: $gray;
+  margin: 0.2em;
+
+  &.check {
+    color: green;
+  }
+
+  &.error {
+    color: red;
+  }
+}
+
+
+
+.modal-generic {
+  &-icon-position-close {
+    text-align: end;
+    height: 30px;
+    width: 100%;
+  }
+
+  &-cursor-grey-color {
+    color: #909090;
+    cursor: pointer;
+    font-size: 15px;
+  }
+
+  &-text-align-center {
+    text-align: center;
+  }
+
+  &-text-transform-uppercase-width {
+    text-transform: uppercase;
+    width: 160px;
+  }
+
+  &-container-icon-check {
+    background-color: #6FB63E;
+    margin-left: 45%;
+    margin-right: 45%;
+    border-radius: 64px;
+    height: 70px;
+  }
+
+  &-icons-white-margin {
+    margin-top: 22px;
+    color: white;
+  }
+
+  &-text-align-padding-font {
+    text-align: center;
+    padding-top: 30px;
+    font-weight: bold;
+  }
+
+  &-width-text-align-padding {
+    width: 100%;
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 20px;
+  }
+
+  &-width-text-align-center {
+    width: 100%;
+    text-align: center;
+  }
+
+  &-font-size-weight-bold {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  &-text-align-center-padding-40 {
+    text-align: center;
+    padding-top: 40px;
+  }
+
+  &-color-text {
+    color: #757474;
+  }
+
+  &-padding-80px {
+    padding: 30px 0px;
+  }
+
+  &-text-align-right-padding {
+    text-align: right;
+    padding-right: 14px;
+  }
+
+  &-padding-left-10 {
+    padding-left: 10px;
+  }
+
+  &-container-icons-color-red {
+    background-color: #D14444;
+    margin-left: 45%;
+    margin-right: 45%;
+    border-radius: 64px;
+    height: 70px;
+  }
+
+  &-container-color-white-margin-top {
+    margin-top: 22px;
+    color: white;
+  }
+
+  &-text-align-width {
+    text-align: center;
+    width: 100%;
+    padding: 30px 0px;
+  }
+
+  &-font-weight-bold-font {
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  &-container-text-subtitle {
+    text-align: center;
+    color: #757474;
+    font-size: 14px;
+  }
+
+  &-padding-top-20 {
+    padding-top: 20px;
+  }
+
+  &-container-overflox-x {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100px;
+    min-height: 100px;
+    max-height: 100px;
+  }
+
+  &-color-grey {
+    color: #757474
+  }
+
+  &-font-size-14 {
+    font-size: 14px;
+  }
+
+  &-padding-5 {
+    padding: 5px 0px;
+  }
+
+  &-width-height {
+    width: 100%;
+    height: 100px;
+  }
+
+  &-backgroundColor{
+    background-color: white;
+  }
+}
+
+.nameCombo {
+  font-size: 13px;
+  color: #919191;
+}
+
+.formBeforeNameCombo {
+  height: 190px;
+  overflow-y: scroll;
+  margin-top: 10px;
+}
+
+.text-align-font-weight-bold{
+  text-align: center;
+  font-weight: bold;
+}
+
+.color-grey-light{
+  color: #6f6e6e
+}
+
+.font-size-13{
+  font-size: 13px;
+}
+
+.color-grey-black{
+ color: #b6b6b6
+}
+
+.color-red-price{
+  color: red;
+}
+
+.width-100{
+  width: 100%;
+}
+
+.margin-top-10{
+  margin-top: 10px;
+}
+
+.font-size-12{
+  font-size: 12px;
+}
+
+.margin-bottom-top{
+  margin-top: 30px;
+  margin-bottom:30px;
+}
+
+.text-align-center{
+  text-align: center;
+}
+
+.input-width-font-size{
+  width: 90%;
+  font-size: 13px;
+}
+
+.padding-bottom-20{
+  padding-bottom: 20px;
+}
+
+.width-90-font-size-13{
+  width: 90%;
+  font-size: 13px;
+}
+
+.icon-arraw-end{
+  text-align: end;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.margin-right-20{
+  margin-right: 20px;
+}
+
+.color-grey-text-icon{
+  color: #b6b6b6;
+}
+
+.font-size-12{
+  font-size: 12px;
+}
+
+.move-to-inbox{
+  vertical-align: middle;
+  width:16px;
+  height: 16px;
+  font-size: 16px;
+  color: #8e8e8e;
+  margin-right:5px;
+}
+
+.margin-top-20{
+  margin-top: 20px;
+}
+
+.input-mat-width-80{
+  font-size:13px;
+  margin-left: 21px;
+  width: 80%;
+}
+
+.text-aling-center-padding-bottom{
+  text-align: center;
+  padding-bottom:20px;
+}
+
+.font-size-13-width-80{
+  font-size:13px;
+  width: 80%;
+}
+
+.margin-right-20{
+  margin-right: 20px;
+}
+
+
+.width-100-text-align-center{
+  width: 100%;
+  text-align: center;
+}
+
+.modal-title-color-font-size{
+  font-size: 16px;
+  color: #555555; 
+  font-weight: bold;
+}
+
+.padding-top-width{
+  width: 100%;
+  padding-top: 25px;
+}
+
+.font-size-17{
+  font-size: 17px;
+}
+
+.container-btn{
+  width: 100%;
+  text-align: center;
+  padding-top: 20px;
+}
+

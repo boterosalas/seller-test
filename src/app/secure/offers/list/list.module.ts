@@ -16,6 +16,7 @@ import { ListService } from './list.service';
 import { ListComponent } from './list/list.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { DialogDesactiveOffertComponent } from './list/dialog-desactive-offert/dialog-desactive-offert.component';
+import { ModalProgramOfertComponent } from './components/modal-program-ofert/modal-program-ofert.component';
 
 
 @NgModule({
@@ -36,13 +37,14 @@ import { DialogDesactiveOffertComponent } from './list/dialog-desactive-offert/d
     ToolbarComponent,
     FilterComponent,
     DetailOfferComponent,
-    DialogDesactiveOffertComponent
+    DialogDesactiveOffertComponent,
+    ModalProgramOfertComponent
   ],
   providers: [
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
     ListService
   ],
   exports: [ListComponent],
-  entryComponents: [DialogDesactiveOffertComponent, ListComponent]
+  entryComponents: [DialogDesactiveOffertComponent, ListComponent, ModalProgramOfertComponent]
 })
 export class ListModule { }

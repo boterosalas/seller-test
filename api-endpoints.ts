@@ -368,10 +368,14 @@ export const endpoints = {
       updateContactData: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/UpdateSellerContact',
       // Crear un contacto para un vendedor (primero creamos y luego editamos)
       createContactData: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/RegisterContactSeller',
+      // Crear y editar una oferta programada
+      scheduleoffer: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/scheduleoffer',
+      // Borrar un oferta programada
+      deleteScheduleoffer: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/scheduleoffer/{params}',
       // Obtener las categorias para los productos pendientes de modificación
       getCategoriesProductsPendingModification: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productsrejected/categories',
-      //Retorna respuesta del descargable de productos pendientes de modificacíon
-      reportProductsPendingModificartion: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productsrejected/report?email={email}&categories={categories}',
+      // Retorna respuesta del descargable de productos pendientes de modificacíon
+      reportProductsPendingModificartion: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productsrejected/report?email={email}&categories={categories}'
     },
   },
   // Endpoints production
@@ -737,10 +741,14 @@ export const endpoints = {
       updateContactData: 'https://igxf6mswfa.execute-api.us-east-1.amazonaws.com/pdn/UpdateSellerContact',
       // Crear un contacto para un vendedor (primero creamos y luego editamos)
       createContactData: 'https://igxf6mswfa.execute-api.us-east-1.amazonaws.com/pdn/RegisterContactSeller',
+      // Crear y editar una oferta programada
+      scheduleoffer: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/scheduleoffer',
+      // Borrar un oferta programada
+      deleteScheduleoffer: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/scheduleoffer/{params}',
       // Obtener las categorias para los productos pendientes de modificación
       getCategoriesProductsPendingModification: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn/productsrejected/categories',
-      //Retorna respuesta del descargable de productos pendientes de modificacíon
-      reportProductsPendingModificartion: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn/productsrejected/report?email={email}&categories={categories}',
+      // Retorna respuesta del descargable de productos pendientes de modificacíon
+      reportProductsPendingModificartion: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn/productsrejected/report?email={email}&categories={categories}'
     }
   }
 };
