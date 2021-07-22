@@ -347,6 +347,19 @@
                     </div>
                   </div>
                 </div>
+                <div fxLayout="row wrap" class="padding-top-font-size-color">
+                  <div fxFlex="47" class="freshippingText">
+                    <div class="flexbox align-center justify-center sep-right"
+                      [ngClass]="{'check' : dataOffer.isUpdatedStock}">
+                      <mat-icon *ngIf="dataOffer.isUpdatedStock &&
+                        dataOffer.isUpdatedStock === true" class="color-green">check</mat-icon>
+                      <mat-icon *ngIf="!dataOffer.isUpdatedStock ||
+                        dataOffer.isUpdatedStock === false">clear</mat-icon>
+                      <p
+                        [innerHTML]="changeCopyUpdateStock"></p>
+                    </div>
+                  </div>
+                </div>
               </mat-tab>
               <mat-tab [label]="'module.Combo' | translate"
                 *ngIf="dataOffer.offerComponents.length>
@@ -597,8 +610,7 @@
                   </div>
 
                 </div>
-                <div fxLayout="row wrap" *ngIf="dataOffer.reference &&
-                  dataOffer.isCombo === false" class="margin-top-10">
+                <div fxLayout="row wrap"  class="margin-top-10 padding-top-font-size-13">
                   <div fxFlex="40">
                     <mat-slide-toggle color="primary"
                       formControlName="IsUpdatedStock" id="updateStockWidth"
@@ -607,7 +619,8 @@
                       {{changeCopyUpdateStock}}
                     </mat-slide-toggle>
                   </div>
-                  <div fxFlex="40">
+                  <div fxFlex="40" *ngIf="dataOffer.reference &&
+                  dataOffer.isCombo === false">
                     <div class="font-size-13">
                       <mat-slide-toggle color="primary"
                         formControlName="OfferByReference"
