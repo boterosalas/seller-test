@@ -32,6 +32,7 @@ export class ModalProgramOfertComponent implements OnInit {
   public valuePrice: any;
   public priceApproval = 0;
   public showForm = true;
+  public today = moment().add(1, 'days').format('YYYY-MM-DD');
 
   public Price: any;
   public DiscountPrice: any;

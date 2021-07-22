@@ -113,7 +113,7 @@
             <div fxFlex="50" class="width-100 text-align-center">
               <mat-form-field class="width-90-font-size-13">
                 <input matInput [matDatepicker]="startDate" [placeholder]="'filter-InitialDate' | translate" formControlName="startDate"
-                  [min]="form.value.startDate">
+                  [min]="today">
                 <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
                 <mat-datepicker #startDate></mat-datepicker>
               </mat-form-field>
@@ -123,6 +123,9 @@
                 <input matInput [matDatepicker]="dateEnd" [placeholder]="'filter-FinalDate' | translate" formControlName="dateEnd" [min]="form.value.startDate">
                 <mat-datepicker-toggle matSuffix [for]="dateEnd"></mat-datepicker-toggle>
                 <mat-datepicker #dateEnd></mat-datepicker>
+                <mat-error *ngIf="form.controls.dateEnd.hasError('matDatepickerMin')">
+                  {{'secure.products.create_product_unit.list_products.ending_date' | translate}}
+                </mat-error>
               </mat-form-field>
             </div>
           </div>
