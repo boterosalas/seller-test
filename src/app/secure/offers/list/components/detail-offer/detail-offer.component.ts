@@ -1,6 +1,4 @@
 
-
-
 import { Component, EventEmitter, HostListener, Input, Output, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -17,6 +15,8 @@ import { validateDataToEqual } from '@app/shared/util/validation-messages';
 import { TranslateService } from '@ngx-translate/core';
 import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
 import { ModalRuleOfferComponent } from '@app/secure/products/list-products/modal-rule-offer/modal-rule-offer.component';
+import { ModalProgramOfertComponent } from '../modal-program-ofert/modal-program-ofert.component';
+import moment from 'moment';
 
 
 // Error when invalid control is dirty, touched, or submitted.
@@ -103,6 +103,15 @@ export class DetailOfferComponent implements OnInit {
   public Currency: FormControl;
   public comboForm: FormGroup;
   public showButton: boolean;
+  public country = 'COLOMBIA';
+
+  public idOffer = null;
+  public idSeller = null;
+
+  public scheduleOfferDateStart = null;
+  public scheduleOfferDateEnd = null;
+
+  public activeTabIndex = 0;
 
   promiseFirts: string;
   promiseSeconds: string;
@@ -200,6 +209,7 @@ export class DetailOfferComponent implements OnInit {
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
+    this.getAllDataUser();
     this.setPromise();
     this.validateFormSupport();
     this.createValidators();
@@ -284,21 +294,18 @@ export class DetailOfferComponent implements OnInit {
       const response = JSON.parse(body.body);
       const userData = response.Data;
       this.sellerMinPrice = userData.MinFullPrice;
+      this.country = userData.Country;
       this.loadingService.closeSpinner();
       return userData;
     });
-    this.formUpdateOffer.get('Currency').disable();
-    if (sellerData.Country === 'COLOMBIA') {
-      this.isInternational = false;
-      this.formUpdateOffer.get('Currency').setValue('COP');
-    } else {
-      this.isInternational = true;
-      this.formUpdateOffer.get('Currency').setValue('USD');
-    }
   }
 
 
-  // Funcion para cargar datos de regex
+  /**
+   * funcion para vlaidatar la regex
+   *
+   * @memberof DetailOfferComponent
+   */
   public validateFormSupport(): void {
     this.SUPPORT.getRegexFormSupport(null).subscribe(res => {
       let dataOffertRegex = JSON.parse(res.body.body);
@@ -335,6 +342,8 @@ export class DetailOfferComponent implements OnInit {
     this.IsEnviosExito = new FormControl(this.dataOffer.isEnviosExito ? 1 : 0);
     this.IsFreightCalculator = new FormControl(this.dataOffer.isFreightCalculator ? 1 : 0);
     this.Warranty = new FormControl(this.dataOffer.warranty);
+    this.idOffer = this.dataOffer.idOffer;
+    this.idSeller = this.dataOffer.idSeller;
     if (this.dataOffer.periodicity) {
       if (this.isInternational) {
         this.Periodicity = new FormControl({ value: 1, disabled: true });
@@ -362,6 +371,12 @@ export class DetailOfferComponent implements OnInit {
       this.languageService.stream('secure.offers.historical_admin.historical_admin.day').subscribe(val => {
         this.periodicityHtml = val;
       });
+    }
+
+    if (this.dataOffer && this.dataOffer.scheduleOffer) {
+      this.scheduleOfferDateStart = this.dataOffer.scheduleOffer.initialDate ? moment(this.dataOffer.scheduleOffer.initialDate).utc().format('DD/MM/YYYY') : null;
+      this.scheduleOfferDateEnd = this.dataOffer.scheduleOffer.finalDate ? moment(this.dataOffer.scheduleOffer.finalDate).utc().format('DD/MM/YYYY') : null;
+
     }
     // this.IsLogisticsExito = new FormControl(this.dataOffer.isLogisticsExito ? 1 : 0);
     // this.IsUpdatedStock = new FormControl({ value: this.dataOffer.isUpdatedStock ? 1 : 0, disabled: this.IsLogisticsExito.value ? false : true }, [Validators.pattern(this.offertRegex.isUpdatedStock)]);
@@ -414,10 +429,30 @@ export class DetailOfferComponent implements OnInit {
     });
     const initialValue = Object.assign(this.formUpdateOffer.value, {});
     this.formUpdateOffer.setValidators([validateDataToEqual(initialValue)]);
-    this.getAllDataUser();
+    this.validateNationality();
 
   }
-
+  /**
+   * funcion para validar la nacionalidad
+   *
+   * @memberof DetailOfferComponent
+   */
+  validateNationality() {
+    this.formUpdateOffer.get('Currency').disable();
+    if (this.country === 'COLOMBIA') {
+      this.isInternational = false;
+      this.formUpdateOffer.get('Currency').setValue('COP');
+    } else {
+      this.isInternational = true;
+      this.formUpdateOffer.get('Currency').setValue('USD');
+    }
+  }
+  /**
+   * funsion para setear la moneda
+   *
+   * @param {*} val
+   * @memberof DetailOfferComponent
+   */
   validateOffertType(val: any) {
     if (val === 'USD' && !!this.authService.completeUserData && this.authService.completeUserData.Country !== 'Colombia') {
       this.formUpdateOffer.get('IsFreeShipping').setValue(0);
@@ -734,7 +769,11 @@ export class DetailOfferComponent implements OnInit {
       priceApproval: 0
     };
   }
-
+  /**
+   * funion para abrir el modal de reglas 
+   *
+   * @memberof DetailOfferComponent
+   */
   openDialogModalRule(): void {
     const dialogRef = this.dialog.open(ModalRuleOfferComponent, {
       width: '95%',
@@ -1098,6 +1137,65 @@ export class DetailOfferComponent implements OnInit {
       }
     }
   }
+
+  /**
+   * funcion para abrir el modal de ofertas programadas, se le pasan parametros 
+   *
+   * @param {*} [paramsEdit]
+   * @param {boolean} [isDelete]
+   * @param {boolean} [isEdit]
+   * @memberof DetailOfferComponent
+   */
+  offersPrograms(paramsEdit?: any, isDelete?: boolean, isEdit?: boolean) {
+    let comboList = null;
+    if (this.dataOffer.offerComponents || this.dataOffer.scheduleOffer != null) {
+      if (this.dataOffer.scheduleOffer != null && isEdit) {
+        comboList = this.dataOffer.scheduleOffer.componentCombos;
+      } else {
+        comboList = this.dataOffer.offerComponents;
+      }
+
+    }
+    const dialogRef = this.dialog.open(ModalProgramOfertComponent, {
+      width: '50%',
+      data: {
+        paramEdit: paramsEdit === undefined ? null : paramsEdit,
+        isDelete: isDelete,
+        isEdit: isEdit,
+        discountPrice: this.DiscountPrice,
+        isInternational: this.isInternational,
+        price: this.Price,
+        ean: this.Ean,
+        sellerMinPrice: this.sellerMinPrice,
+        Currency: this.Currency,
+        offertRegex: this.offertRegex,
+        idOffer: this.idOffer,
+        idSeller: this.idSeller,
+        combo: comboList
+      },
+    });
+
+    const dialogIntance = dialogRef.componentInstance;
+    dialogIntance.processFinish$.subscribe((val) => {
+      this.dataOffer.scheduleOffer = val;
+      this.scheduleOfferDateStart = this.dataOffer.scheduleOffer.initialDate ? moment(this.dataOffer.scheduleOffer.initialDate).utc().format('DD/MM/YYYY') : null;
+      this.scheduleOfferDateEnd = this.dataOffer.scheduleOffer.finalDate ? moment(this.dataOffer.scheduleOffer.finalDate).utc().format('DD/MM/YYYY') : null;
+    });
+    dialogIntance.processDelete$.subscribe((val) => {
+      this.dataOffer.scheduleOffer = null;
+    });
+  }
+  /**
+   * funsion para activar el tab de ofertas combos y ofertas programadas
+   *
+   * @param {number} tab
+   * @memberof DetailOfferComponent
+   */
+  btnTabActive(tab: number) {
+    this.activeTabIndex = tab;
+  }
+
+
   /**
    * inicializar control de combos
    *
