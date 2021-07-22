@@ -736,7 +736,7 @@ export class ProductBasicInfoComponent implements OnInit {
     listSize() {
         this.service.getSizeProducts().subscribe(size => {
             if (size.status === 200 || size.status === 201) {
-                this.sizes = JSON.parse(size.body);
+                    this.sizes = size.body['data'];
                 if (this.sonList.length > 0) {
                     for (let i = 0; i < this.sonList.length; i++) {
                         this.sonList[i].form.controls.Size.enable();

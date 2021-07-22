@@ -1,0 +1,64 @@
+<div class="wrapper" fxLayout="column">
+  <div class="header">
+    <h2>{{ "download.products.pending.modal.title" | translate }}</h2>
+    <h4 class="sc-title">
+      {{ "download.products.pending.modal.sub_title" | translate }}
+    </h4>
+  </div>
+  <mat-form-field fxFlex>
+    <input
+      matInput
+      [formControl]="email"
+      [placeholder]="'secure.seller.register_seller.lb_email_form' | translate"
+      required
+    />
+    <mat-error *ngIf="email.errors && email.errors.required">{{
+      "errors.required" | translate
+    }}</mat-error>
+    <mat-error *ngIf="email.errors && email.errors.email">{{
+      "errors.email_invalid" | translate
+    }}</mat-error>
+  </mat-form-field>
+
+  <div class="categoires-options" *ngIf="categories.length && !showLoading">
+    <h5 class="sc-title">
+      {{ "download.products.pending.modal.select-plu" | translate }}
+    </h5>
+    <div class="select-all">
+      <mat-checkbox
+        color="primary"
+        [checked]="selectAll"
+        (change)="selectAllOptions($event.checked)"
+      >
+        {{ "selectall" | translate }}
+      </mat-checkbox>
+    </div>
+    <div class="options">
+      <mat-checkbox
+        color="primary"
+        [checked]="option.selected"
+        [(ngModel)]="option.selected"
+        *ngFor="let option of categories"
+        (ngModelChange)="updateAllComplete()"
+      >
+        {{ option.name }}
+      </mat-checkbox>
+    </div>
+    <mat-dialog-actions fxLayoutAlign="center">
+      <button mat-button (click)="onNoClick()">
+        {{ "actions.cancel" | translate }}
+      </button>
+      <button
+        type="button"
+        mat-raised-button
+        color="primary"
+        [disabled]="!valid()"
+        (click)="sendReport()"
+      >
+        {{ "download-upercase" | translate }}
+      </button>
+    </mat-dialog-actions>
+  </div>
+
+  <mat-spinner *ngIf="!categories.length || showLoading"></mat-spinner>
+</div>

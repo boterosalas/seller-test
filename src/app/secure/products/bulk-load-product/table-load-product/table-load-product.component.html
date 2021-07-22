@@ -577,6 +577,25 @@
             </div>
           </td>
         </ng-container>
+        
+        <!-- videoUrl Column -->
+        <ng-container matColumnDef="videoUrl">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="information th">
+              <p>{{'secure.products.table_load_product.video' | translate}}</p>
+            </div>
+          </th>
+          <td mat-cell [ngClass]="{'selected-error': element.errorvideoUrl == true }" *matCellDef="let element"
+            matTooltip="{{element.videoUrl}}">
+            <div class="information" *ngIf="element.videoUrl != undefined && element.videoUrl != ''">
+              <p class="sc-text-normal">{{element.videoUrl}}</p>
+            </div>
+            <div class="information" *ngIf="element.videoUrl == undefined || element.videoUrl == ''">
+              <p class="text-error"> -
+              </p>
+            </div>
+          </td>
+        </ng-container>
 
         <!-- Size Column -->
         <ng-container matColumnDef="Size">

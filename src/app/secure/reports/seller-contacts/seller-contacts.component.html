@@ -1,0 +1,109 @@
+<mat-toolbar class="tree-toolbar">
+    <div class="normal-theme toolbar-options-table">
+     <!--  Titulo del toolbar -->
+      <p class="tree-title">{{'module.Reportes' | translate}}
+        <small class="sub-title">| Exportar contactos vendedor | {{email}}</small>
+      </p>
+    </div>
+  </mat-toolbar>
+
+
+<div class="container">  
+
+      <form #filterForm="ngForm" [formGroup]="form">
+        <div fxLayout="row" class="modal-export-to-reclaim-margin-text-search-seller" *ngIf="isAdmin">
+          <div>
+            <span>{{'secure.parametize.support_claims-filter.modal-export.searchSeller' | translate}}</span>
+          </div>
+        </div>
+        <div fxLayout="row wrap" class="modal-export-to-reclaim-margin-left-component-search-seller" *ngIf="isAdmin">
+          <div fxFlex.md="75" fxFlex.lg="75" fxFlex.xl="75" fxFlex.xs="90" fxFlex.sm="90">
+            <div fxLayout="column">
+              <div>
+                <app-search-seller [loadSpinner]="false" [emitModal]="true" [clearSearch]="clearSearch" [isFullSearch]="false"
+                  [widthComplete]="true"></app-search-seller>
+              </div>
+            </div>
+          </div>
+          <div fxFlex.md="20" fxFlex.lg="20" fxFlex.xl="20" fxFlex.xs="5" fxFlex.sm="5"
+            class="text-aling-end modal-export-to-reclaim-add-seller-btn" (click)="IsClickEnable?saveKeyword():null">
+            <mat-icon matSuffix [matTooltip]="'secure.parametize.port.btn_add_port' | translate"
+              class="material-icons color-icon-add-seller vertical-align-top">
+              add_circle_outline
+            </mat-icon>
+            <span class="color-text-add-seller" fxShow.xs="false" fxShow.sm="false" fxShow.lg="true"
+              fxShow.xl="true">{{'secure.parametize.support_claims-filter.modal-export.addSeller' | translate}}</span>
+          </div>
+        </div>
+        <div fxLayout="row" class="modal-export-to-reclaim-container-scroll-seller" *ngIf="isAdmin && keywords.length">
+            <div class="modal-export-to-reclaim-chips-seller">
+              <div class="modal-export-to-reclaim-margin-top-20">
+                <mat-chip-list>
+                  <mat-chip *ngFor="let key of keywords; let i = index" (removed)="deleteKeywork(i)">
+                    {{key}}
+                    <mat-icon class="material-icons" matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+            </div>
+          </div>
+        <div fxLayout="row wrap" fxLayoutAlign="start center"  class="modal-export-to-reclaim-action-padding" *ngIf="isAdmin">
+        <span class="env"><strong>Enviar a  </strong> </span>
+        <mat-radio-group formControlName="importAll">
+            <div fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100" fxFlex.xs="100" fxFlex.sm="95"
+                class="modal-export-to-reclaim-margin-content-action-5">
+                    <mat-radio-button color="primary" [checked]="exportAll"  class="dialog-accept" (click)="clearSellerSearch()">
+                    <span class="modal-export-to-reclaim-text-export-text">{{'secure.parametize.support_claims-filter.modal-export.exportAll' | translate}}</span>
+                    </mat-radio-button>
+                </div>
+                
+                <div fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100" fxFlex.xs="100" fxFlex.sm="95"
+                class="modal-export-to-reclaim-margin-content-action-5">
+                <mat-radio-button color="primary" class="dialog-accept" (click)="showFilter()" [checked]="selectSeller">
+                    <span class="modal-export-to-reclaim-text-export-text">Seleccionar Seller</span>
+                </mat-radio-button>
+            </div>
+        </mat-radio-group>
+
+          <div fxFlex.md="15" fxFlex.lg="15" fxFlex.xl="15" fxFlex.xs="100" fxFlex.sm="95"
+            class="modal-export-to-reclaim-margin-content-action-5" (click)="showEmailSend()">
+            <mat-icon class="mat-18 vertical-align-top modal-export-to-reclaim-color-text modal-export-to-reclaim-cursor">
+              email</mat-icon>
+            <span class="modal-export-to-reclaim-text">{{'secure.parametize.support_claims-filter.modal.export.editEmail' | translate}}</span>
+          </div>
+
+          <div fxLayout="row wrap" fxLayoutGap="20px" *ngIf="isShowFilter || !isAdmin" class="modal-export-to-reclaim-container-input-filter">
+            <span *ngFor="let option of optionsCheck; let i=index">
+                <mat-checkbox color="primary" [(ngModel)]="option.checked" [ngModelOptions]="{standalone: true}" (change)="addFilter(option)">
+                  {{option.NameList}}
+                </mat-checkbox>
+            </span>
+          
+        </div>
+        
+        <div fxLayout="column" class="modal-export-to-reclaim-container-email w-90" *ngIf="isShowEmail || !isAdmin">
+          <div class="modal-export-to-reclaim-margin-bottom-16" (click)="showEmailSend()">
+            <span class="modal-export-to-reclaim-text-send-email">Ingresa el correo electrónico para compartir este reporte</span>
+          </div>
+          <div class="modal-expot-to-reclaim-margin-left-5">
+            <mat-form-field class="half-width modal-export-to-reclaim-width-100">
+              <input matInput placeholder="Correo electrónico" class="modal-export-to-reclaim-text-uppercase"
+                formControlName="email" [errorStateMatcher]="matcher">
+              <mat-error *ngIf="form.get('email').hasError('required')">{{'errors.required' | translate}}</mat-error>
+              <mat-error *ngIf="form.get('email').hasError('email')">{{'errors.format_invalidate' | translate}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        
+     
+        </div>
+
+        
+      </form>
+
+    <button class="mt-10" type="button" mat-raised-button color="primary" (click)="sendExportContacts()"
+      [disabled]="disabledButton && !valueCheck || !filterForm.form.valid || (selectSeller && (!nameLists.length || !arraySellerId.length)) || (exportAll === true && arraySellerId.length > 0)">EXPORTAR</button>
+
+  </div>
+  

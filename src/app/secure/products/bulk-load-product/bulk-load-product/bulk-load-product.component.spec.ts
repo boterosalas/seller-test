@@ -35,6 +35,7 @@ export const registerRegex = [
     { Identifier: 'descUnidadMedidaProduct', Value: '^(Gramo|Mililitro|Metro|Unidad)$', Module: 'productos' },
     { Identifier: 'factConversionProduct', Value: '^(([1-9][0-9]{0,10})|([1-9][0-9]{0,8}([,\.][0-9]{1}))|(([0-9]([0-9]{0,7}([,\.][0-9]{2})|([,\.][1-9]{1})))))?$', Module: 'productos' },
     { Identifier: 'eanCombo', Value: '((^([A-Z0-9]{5,16}))+)+([,](([A-Z0-9]{5,16})))*)$', Module: 'productos' },
+    { Identifier: 'videoUrl', Value: '^(https:\\/\\/((m|www)\\.youtube\\.com\\/watch\\?v=|youtu\\.be\\/)[\\s\\S]{11})$', Module: 'productos' },
 ];
 
 describe('BulkLoad Products Component', () => {

@@ -83,7 +83,7 @@
               <div fxLayout="row wrap">
                 <div fxFlex="100">
                   <mat-form-field  class="half-width width-100">
-                    <input matInput placeholder="Correo electronico" class="modal-export-to-reclaim-text-uppercase"
+                    <input matInput placeholder="Correo electrónico" class="modal-export-to-reclaim-text-uppercase"
                       formControlName="email" [errorStateMatcher]="matcher">
                     <mat-error *ngIf="form.get('email').hasError('required')">{{'errors.required' | translate}}</mat-error>
                     <mat-error *ngIf="form.get('email').hasError('email')">{{'errors.format_invalidate' | translate}}

@@ -1,0 +1,269 @@
+<div *ngIf="!isDelete">
+  <div fxLayout="row wrap">
+    <div fxFlex="100" class="modal-generic-icon-position-close">
+      <mat-icon class="mat-18 modal-generic-cursor-grey-color" (click)="close()"
+        matTooltip="Cerrar">close</mat-icon>
+    </div>
+  </div>
+  <div fxLayout="row wrap" *ngIf="showForm">
+    <div fxFlex="100" class="text-align-font-weight-bold">
+      {{'secure.products.pending_products.Schedule.modal.ofert_scheduled' | translate}}
+    </div>
+  </div>
+  <div class="font-size-13" *ngIf="showForm">
+    <div>
+      <span class="color-grey-light">
+        {{'secure.offers.historical_admin.historical_admin.price'| translate}} :
+      </span>
+      <span class="color-grey-black">
+        {{priceCurrent | currency: '$' : 'symbol' : '1.2-2'}}
+      </span>
+    </div>
+    <div>
+      <span class="color-grey-light">
+        {{'secure.offers.historical_admin.historical_admin.discount_price' | translate}} :
+      </span>
+      <span class="color-red-price">
+        {{discountPriceCurrent | currency: '$' : 'symbol' : '1.2-2'}}
+      </span>
+    </div>
+    <div>
+      <span class="color-grey-light">
+        Ean :
+      </span>
+      <span class="color-grey-black">
+        {{ean}}
+      </span>
+    </div>
+  </div>
+  <div fxLayout="row wrap" class="margin-top-10" *ngIf="showForm">
+    <form #filterForm="ngForm" [formGroup]="form" class="width-100">
+      <mat-tab-group class="width-100" [(selectedIndex)]="activeTabIndex">
+        <mat-tab [label]="'module.Ofertas' | translate" class="font-size-12">
+          <div fxLayout="row wrap" class="margin-bottom-top">
+            <div fxFlex="50" class="text-align-center">
+              <mat-form-field class="input-width-font-size">
+                <input matInput
+                  [placeholder]="['secure.offers.historical_admin.historical_admin.price'
+                  | translate]" (change)="unLessDiscountPrice()"
+                  id="detail-offer-Price" formControlName="Price"
+                  [errorStateMatcher]="matcher" (blur)="valiteInput();
+                  validInput('Price');" required>
+                <mat-hint></mat-hint>
+                <mat-error *ngIf="form.get('Price').hasError('required')"
+                  [innerHTML]="['errors.error_required' | translate]">
+                </mat-error>
+                <mat-error *ngIf="form.get('Price').hasError('pattern')"
+                  [innerHTML]="['errors.format_invalidate' | translate]">
+                </mat-error>
+                <mat-error *ngIf="!form.get('Price').hasError('required')
+                  &&
+                  form.get('Price').hasError('isLessThanEightThousand')"
+                  [innerHTML]="['errors.error_price' | translate] +
+                  data.sellerMinPrice"></mat-error>
+                <mat-error *ngIf="form.controls.Price.errors &&
+                  form.controls.Price.errors.unLess"
+                  [innerHTML]="['errors.error_price' | translate] +
+                  data.sellerMinPrice"></mat-error>
+                <mat-error *ngIf="!form.get('Price').hasError('required')
+                  &&
+                  form.get('Price').hasError('isLessThanDiscPrice')"
+                  [innerHTML]="['errors.error_price_dscto' | translate]"></mat-error>
+                <mat-error *ngIf="!form.get('Price').hasError('required')
+                  && form.get('Price').hasError('notCero')">
+                  {{'errors.price_cannot_be_0' | translate}}</mat-error>
+              </mat-form-field>
+            </div>
+            <div fxFlex="50" class="text-align-center">
+              <mat-form-field class="input-width-font-size">
+                <input matInput
+                  [placeholder]="'secure.offers.historical_admin.historical_admin.discount_price'
+                  | translate" (change)="unLessDiscountPrice()"
+                  [errorStateMatcher]="matcher"
+                  formControlName="DiscountPrice" (blur)="valiteInput()">
+                <mat-hint></mat-hint>
+                <mat-error *ngIf="form.get('DiscountPrice').hasError('pattern')"
+                  [innerHTML]="['errors.format_invalidate' | translate]">
+                </mat-error>
+                <mat-error
+                  *ngIf="form.get('DiscountPrice').hasError('isLessThanEightThousand')"
+                  [innerHTML]="['errors.error_price_discount' | translate]
+                  + data.sellerMinPrice"></mat-error>
+                <mat-error
+                  *ngIf="form.get('DiscountPrice').hasError('isgreaterThanPrice')"
+                  [innerHTML]="['errors.error_price_discount-2' |
+                  translate]"></mat-error>
+                <mat-error
+                  *ngIf="!form.get('DiscountPrice').hasError('required')
+                  &&
+                  form.get('DiscountPrice').hasError('isLessThanDiscPrice')"
+                  [innerHTML]="['errors.error_price_dscto' | translate]"></mat-error>
+                <mat-error *ngIf="!form.get('Price').hasError('required')
+                  &&
+                  form.get('DiscountPrice').hasError('notCero')">
+                  {{'errors.discounted_price_cannot_be_0' | translate}}</mat-error>
+                <mat-error *ngIf="form.controls.DiscountPrice.errors &&
+                  form.controls.DiscountPrice.errors.unLess"
+                  [innerHTML]="['errors.error_price_discount' | translate]
+                  + data.sellerMinPrice"></mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row wrap" class="padding-bottom-20">
+            <div fxFlex="50" class="width-100 text-align-center">
+              <mat-form-field class="width-90-font-size-13">
+                <input matInput [matDatepicker]="startDate" [placeholder]="'filter-InitialDate' | translate" formControlName="startDate"
+                  [min]="today">
+                <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                <mat-datepicker #startDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div fxFlex="50" class="width-100 text-align-center">
+              <mat-form-field class="width-90-font-size-13">
+                <input matInput [matDatepicker]="dateEnd" [placeholder]="'filter-FinalDate' | translate" formControlName="dateEnd" [min]="form.value.startDate">
+                <mat-datepicker-toggle matSuffix [for]="dateEnd"></mat-datepicker-toggle>
+                <mat-datepicker #dateEnd></mat-datepicker>
+                <mat-error *ngIf="form.controls.dateEnd.hasError('matDatepickerMin')">
+                  {{'secure.products.create_product_unit.list_products.ending_date' | translate}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+          <div fxLayout="row wrap" class="icon-arraw-end">
+            <div class="width-100" *ngIf="comboList && comboList.length> 0">
+              <button class="sc-default-button margin-right-20"
+                (click)="btnTabActive(1)" type="button"
+                mat-stroked-button color="primary">
+                <mat-icon class="color-grey-text-icon">arrow_forward</mat-icon>
+                {{'secure.products.pending_products.Schedule.modal.scheduled_next' | translate}}
+              </button>
+            </div>
+            <div *ngIf="comboList === null" class="width-100">
+              <button mat-raised-button color="primary"
+                (click)="validateRulesOfert()" mat-button
+                [disabled]="!filterForm.form.valid || showButton === true ||
+                !filterForm.form.touched">{{'secure.products.pending_products.Schedule.modal.ofert_scheduled' | translate}}</button>
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab [label]="'module.Combo'| translate" *ngIf="comboList &&
+          comboList.length>
+          0" class="font-size-12">
+          <div fxLayout="row wrap" class="formBeforeNameCombo">
+            <div fxFlex="100" id="idListComponent" *ngFor="let comp of
+              Combos.controls">
+              <ng-container [formGroup]="comp">
+                <div class="nameCombo">
+                  <mat-icon matPrefix class="move-to-inbox">move_to_inbox</mat-icon>
+                  <span class="colorTitleCombo">{{comp.get('nameCombo').value}}</span>
+                </div>
+                <div fxLayout="row wrap" class="margin-top-20">
+                  <div fxFlex="50" class="width-100">
+                    <mat-form-field color="primary" class="input-mat-width-80">
+                      <input (change)="getPriceDescount()" matInput
+                        [placeholder]="'secure.offers.historical_admin.historical_admin.price'
+                        | translate" formControlName="Price"
+                        (blur)="validInput('Price'); valiteInput()"
+                        [errorStateMatcher]="matcher">
+                      <mat-hint></mat-hint>
+                      <mat-error *ngIf="comp.get('Price').hasError('required')">
+                        {{'secure.products.create_product_unit.list_products.ofert_product.mandatory_price_ean_combo'
+                        | translate}}
+                      </mat-error>
+                      <mat-error *ngIf="comp.get('Price').hasError('pattern')">
+                        {{'secure.products.create_product_unit.list_products.ofert_product.invalid_price_ean_combo'
+                        | translate}}
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex="50" class="text-aling-center-padding-bottom{">
+                    <mat-form-field color="primary"
+                      class="font-size-13-width-80">
+                      <input (change)="getPriceDescount()" matInput
+                        [placeholder]="'secure.offers.bulk_upload.table_load.quantity_combo'
+                        | translate" (blur)="validInput('Price'); valiteInput()"
+                        formControlName="Quantity"
+                        [errorStateMatcher]="matcher">
+                      <mat-hint></mat-hint>
+                      <mat-error
+                        *ngIf="comp.get('Quantity').hasError('required')">
+                        {{'secure.products.create_product_unit.list_products.ofert_product.mandatory_amount_ean_combo'
+                        | translate}}}
+                      </mat-error>
+                      <mat-error
+                        *ngIf="comp.get('Quantity').hasError('pattern')">
+                        {{'secure.products.create_product_unit.list_products.ofert_product.invalid_amount_ean_combo'
+                        | translate}}
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+              </ng-container>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+          <div fxLayout="row wrap" class="icon-arraw-end">
+            <div class="width-100">
+              <button class="sc-default-button margin-right-20" type="button"
+                (click)="btnTabActive(0)"
+                mat-stroked-button color="primary">
+                <mat-icon class="color-grey-text-icon">arrow_back</mat-icon>
+                {{'secure.products.pending_products.Schedule.modal.scheduled_previous'| translate}}
+              </button>
+              <button mat-raised-button color="primary" mat-button
+                [disabled]="!filterForm.form.valid || showButton === true ||
+                !filterForm.form.touched" (click)="validateRulesOfert()">{{'secure.products.pending_products.Schedule.modal.ofert_scheduled' | translate}}</button>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </form>
+  </div>
+  <div *ngIf="!showForm">
+    <div fxLayout="row wrap" class="width-100-text-align-center">
+      <div class="width-100-text-align-center">
+        <span class="modal-title-color-font-size">
+          {{'secure.products.list_products.modal.title' | translate}}
+        </span>
+      </div>
+      <div class="padding-top-width">
+        <div>
+          <button class="sc-default-button margin-right-20"
+            (click)="showViewActive(true)" type="button"
+            mat-stroked-button color="primary">
+            {{'actions.no' | translate}}
+          </button>
+          <button mat-raised-button color="primary" mat-button
+            (click)="programOfert(1)">
+            {{'actions.si' | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="isDelete">
+  <div fxLayout="row wrap">
+    <div class="width-100" class="modal-generic-icon-position-close">
+      <mat-icon class="mat-18 modal-generic-cursor-grey-color" (click)="close()"
+        matTooltip="Cerrar">close</mat-icon>
+    </div>
+    <div class="width-100-text-align-center">
+      <span class="font-size-17">
+        {{'secure.products.pending_products.Schedule.modal.ofert_scheduled_delete_quest' | translate}}
+      </span>
+    </div>
+    <div class="container-btn">
+      <button class="sc-default-button margin-right-20" (click)="close()"
+        type="button" mat-stroked-button color="primary">
+        {{'actions.no' | translate}}
+      </button>
+      <button mat-raised-button color="primary" (click)="deleteScheduleOffer()">
+        {{'actions.yes' | translate}}
+      </button>
+    </div>
+  </div>
+</div>

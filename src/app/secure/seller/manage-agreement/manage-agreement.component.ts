@@ -117,7 +117,7 @@ export class ManageAgreementComponent implements OnInit {
   }
 
   /**
-   * Modal para abrir y eliminar Todos los 
+   * Modal para abrir y eliminar Todos los acuerdos
    * @memberof ManageAgreementComponent
    */
   openModalDeleteAgreement(dataAgreement: any) {

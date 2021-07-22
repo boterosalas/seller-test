@@ -9,6 +9,7 @@ import { PendingProductsRoutingModule } from './pending-products.routing';
 import { PendingProductsService } from './pending-products.service';
 import { ComboPendingProductComponent } from './combo-pending-product/combo-pending-product.component';
 import { ExpandedPendingProductsComponent } from './expanded-pending-products/expanded-pending-products.component';
+import { ProductsPendingModificationModalComponent } from './products-pending-modification-modal/products-pending-modification-modal.component';
 
 @NgModule({
     imports: [
@@ -23,7 +24,8 @@ import { ExpandedPendingProductsComponent } from './expanded-pending-products/ex
     declarations: [
         PendingProductsComponent,
         ComboPendingProductComponent,
-        ExpandedPendingProductsComponent
+        ExpandedPendingProductsComponent,
+        ProductsPendingModificationModalComponent
     ],
     exports: [
         PendingProductsComponent,
@@ -31,6 +33,7 @@ import { ExpandedPendingProductsComponent } from './expanded-pending-products/ex
         ExpandedPendingProductsComponent
     ],
     entryComponents: [
+      ProductsPendingModificationModalComponent
     ],
     providers: [
         PendingProductsService

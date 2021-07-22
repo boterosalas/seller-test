@@ -487,8 +487,8 @@
             <mat-select formControlName="Size">
               <mat-option *ngFor="let size of sizes" (change)="detectForm()"
                 class="input-category-product"
-                [value]="size.Size">
-                {{size.Size}}
+                [value]="size.size">
+                {{size.size}}
               </mat-option>
             </mat-select>
             <mat-error *ngIf="son.form.get('Size').hasError('pattern')">

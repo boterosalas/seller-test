@@ -48,8 +48,10 @@
     "menu.Enviadas": "Enviadas",
     "menu.Cargar guías": "Cargar guías",
     "menu.Menu": "Menú",
+    "menu.Tallas": "Tallas",
     "menu.Reporte de ofertas": "Reporte de ofertas",
     "menu.Notificación de Fraudes": "Notificación de Fraudes",
+    "menu.Contactos vendedor": "Contactos vendedor",
     "menu.Reporte de errores en VTEX": "Reporte de errores en VTEX",
     "menu.Historico de devoluciones": "Histórico de devoluciones",
     "menu.Ciudades con Cobertura": "Ciudades con Cobertura",
@@ -70,8 +72,10 @@
     "menu.Administrar Acuerdos": "Administrar acuerdos",
     "menu.Consultar Indicadores": "Consultar Indicadores",
     "menu.Notificación": "Anuncios",
+    "menu.Acuerdos aprobados": "Acuerdos aprobados",
     "module.Documentación": "Documentación",
     "module.Ofertas": "Ofertas",
+    "module.Combo": "Combo",
     "module.Productos": "Productos",
     "module.Vendedores": "Vendedores",
     "module.Órdenes": "Órdenes",
@@ -221,6 +225,9 @@
     "actions.confirm_offer": "Confirmar Oferta",
     "actions.all": "Todos",
     "actions.new": "Nuevo",
+    "actions.yes": "SI",
+    "actions.no": "NO",
+
 
 
     "errors.required": "Este campo es obligatorio",
@@ -554,7 +561,7 @@
     "secure.orders.order_list.product_order.brand": "Marca",
     "secure.orders.order_list.product_order.productName": "Nombre del Producto",
     "secure.orders.order_list.product_order.ean": "EAN",
-    
+
     "secure.orders.order_list.product_order.see_total_records_download": "Visualiza todos tus pedidos descargando tu reporte de órdenes",
 
     "secure.orders.order_list.send_order.title_order": "Enviar órden",
@@ -617,10 +624,10 @@
     "secure.orders.send.error_ocurred_product": "Se ha presentado un error al enviar el producto",
     "secure.orders.send.cant_not_sent": "El producto seleccionado no puede ser enviado",
 
-    "secure.orders.list-cancels.tab1": "Cancelaciones pendientes", 
-    "secure.orders.list-cancels.tab2": "Histórico de cancelaciones", 
-    "secure.orders.list-cancels.tab1-title-download": "Te enviaremos la descarga de Cancelaciones al siguiente correo electrónico", 
-    "secure.orders.list-cancels.tab2-title-download": "Te enviaremos la descarga de Histórico de cancelaciones al siguiente correo electrónico", 
+    "secure.orders.list-cancels.tab1": "Cancelaciones pendientes",
+    "secure.orders.list-cancels.tab2": "Histórico de cancelaciones",
+    "secure.orders.list-cancels.tab1-title-download": "Te enviaremos la descarga de Cancelaciones al siguiente correo electrónico",
+    "secure.orders.list-cancels.tab2-title-download": "Te enviaremos la descarga de Histórico de cancelaciones al siguiente correo electrónico",
     "secure.orders.list-cancels-tab1-msg-ok": "Se ha realizado la descarga de las cancelaciones pendientes correctamente, revisa tu correo electrónico.",
     "secure.orders.list-cancels-tab2-msg-ok": "Se ha realizado la descarga del histórico de cancelaciones correctamente, revisa tu correo electrónico.",
     "secure.orders.list-cancels-tab1-msg-ko": "Se ha presentado un error al realizar la descarga de las cancelaciones pendientes.",
@@ -702,6 +709,7 @@
     "secure.seller.contracts.accept_terms_conditions": "Acepto los términos y condiciones del acuerdo de Marketplace",
     "secure.seller.contracts.not_save_agreement": "No se pudo guardar los términos",
     "secure.seller.contracts.terms_conditions": "Términos y condiciones",
+    "secure.seller.contracts.file_error_data": "Error al cargar los acuerdos: ",
 
     "secure.offers.cities_coverage.save_daneCode_ok": "Se ha guardado con éxito la restricción de las ciudades sin cobertura.",
     "secure.offers.cities_coverage.save_daneCode_ko": "Se ha producido un error al intentar guardar la restricción de ciudades sin cobertura.",
@@ -920,6 +928,18 @@
     "secure.products.bulk_upload.size": "Talla",
     "secure.products.bulk_upload.color": "Color ",
     "secure.products.bulk_upload.filter.plu": "PLU",
+    "secure.products.bulk_upload.modal.succefull.title": "!Bien hecho¡",
+    "secure.products.bulk_upload.modal.succefull.subtitle": "Todos los productos se cargaron con éxito y pasaron a moderación",
+    "secure.products.bulk_upload.modal.error.title": "!Ha ocurrido un error¡",
+    "secure.products.bulk_upload.modal.error.subtitle": "Se ha presentado un error general en la carga de los productos y estan no se ha realizado, revisa el archivo e inténtelo nuevamente",
+    "secure.products.bulk_upload.modal.errorAndSuccefull.title": "!Bien hecho¡",
+    "secure.products.bulk_upload.modal.errorAndSuccefull.subtitle": "Algunos productos se cargaron con éxito y pasaron a moderación, otros quedan pendientes para corregir, favor corregir e importar nuevamente",
+    "secure.products.bulk_upload.modal.errorAndSuccefull.learnMoreDetails": "Conoce más detalles:",
+    "secure.products.bulk_upload.modal.errorAndSuccefull.productsWentModeration": "Productos pasaron a moderación",
+    "secure.products.bulk_upload.modal.errorAndSuccefull.productsHaveErrors": "Productos tiene errores",
+    "secure.products.bulk_upload.modal.errorAndSuccefull.uploadExcel": "Subir excel",
+    "secure.products.bulk_upload.modal.errorAndSuccefull.downloadBugs": "Descargar errores",
+
     "secure.offers.bulk_upload.table_load.component_list": "Lista de componentes",
 
     "secure.products.Finish_upload_product_information.upload_progress": "Carga en proceso",
@@ -966,6 +986,7 @@
     "secure.products.table_load_product.seller": "Vendedor",
     "secure.products.table_load_product.product_type": "Tipo del producto",
     "secure.products.table_load_product.image_modification": "Modificación Imagen",
+    "secure.products.table_load_product.video": "URL Video YouTube",
     "secure.products.table_load_product.image ": "Imagen",
     "secure.products.table_load_product.size": "Talla",
     "secure.products.table_load_product.color": "Color ",
@@ -994,6 +1015,7 @@
 
     "secure.products.create_product_unit.assing_images_url.image": "Img URL",
     "secure.products.create_product_unit.assing_images_url.format_invalidate": "El formato es inválido",
+    "secure.products.create_product_unit.assing_video_url.format_invalidate": "URL no es válida, el formato permitido es una URL de YouTube",
     "secure.products.create_product_unit.assing_images_url.imagen_invalidate": "La imagen no es válida",
 
     "secure.products.create_product_unit.basic_information.text_assign_images": "En esta sección deberás ingresar las URL de imagen correspondientes para el producto a crear. Puedes ingresar hasta 5 vistas del producto pero la única que es obligatoria es la imagen 1. Recuerda que si tu producto no es variante la imagen debe ser de 1000x1000 pixeles en formato .jpg, y si tu producto es variante la imagen debe ser de 733x1000 pixeles en formato .jpg. Si tu producto es variante tambien debes ingresar como mínimo una imagen para cada hijo.",
@@ -1065,7 +1087,7 @@
     "secure.products.create_product_unit.component_process.continue": "Continuar",
     "secure.products.create_product_unit.component_process.basic_information": "Información básica",
     "secure.products.create_product_unit.component_process.specifications": "Especificaciones",
-    "secure.products.create_product_unit.component_process.images": "Imágenes",
+    "secure.products.create_product_unit.component_process.images": "Imágenes y Video",
     "secure.products.create_product_unit.component_process.save": "Guardar",
 
     "secure.products.create_product_unit.component_process.dialog_save.product_creation_request": "La solicitud de creación de tu producto ha sido recibida con éxito. El producto pasará a proceso de validación y te estaremos informando de manera oportuna si el producto es aceptado y puede ofertarse, o si es rechazado y debes corregir información.",
@@ -1186,6 +1208,7 @@
     "secure.products.create_product_unit.list_products.please_wait" : "Cargando, espere por favor...",
     "secure.products.create_product_unit.list_products.ofert_product.update_variants": "Actualización de Inventario a todas las variaciones",
     "secure.products.create_product_unit.list_products.ofert_product.update_variants_all_references": "Se actualizará el INVENTARIO a todas las variaciones de la misma Referencia Padre",
+    "secure.products.create_product_unit.video": "Video del producto: Si tu producto cuenta con un video en formato Youtube, podrás ingresar un (1) video por producto, se recibe el link del navegador o del APP de Youtube. Este campo es Opcional, busca enriquecer el contenido de tú producto.",
 
 
     "secure.products.list_products.modal.title": "Esta oferta sufre un cambio extremo de precio, ¿Deseas Continuar?",
@@ -1194,6 +1217,12 @@
     "secure.products.pending_products_text_info_header": "Los Productos Pendientes por Modificación sólo se visualizarán por 30 días, por favor gestionarlos antes de que culmine este período de tiempo.",
     "secure.products.pending_products.filterPending": "Filtro productos en validación",
     "secure.products.pending_products.filterModify": "Filtro productos para modificación",
+    "secure.products.pending_products.Schedule.modal.back_the_list_offers": "Volver al listado de ofertas",
+    "secure.products.pending_products.Schedule.modal.scheduled_offer": "Ofertas Programadas",
+    "secure.products.pending_products.Schedule.modal.scheduled_next": "SIGUIENTE",
+    "secure.products.pending_products.Schedule.modal.scheduled_previous": "ANTERIOR",
+    "secure.products.pending_products.Schedule.modal.ofert_scheduled": "Programar ofertas",
+    "secure.products.pending_products.Schedule.modal.ofert_scheduled_delete_quest": "¿Esta seguro que desea eliminar la oferta programada?",
 
     "secure.products.list_products.download.title": "Te enviaremos la descarga de productos al siguiente correo electrónico.",
     "secure.products.list_products.download.error": "Ocurrió un problema al realizar la descarga de los productos, por favor intenta nuevamente.",
@@ -1298,6 +1327,10 @@
     "secure.parametize.category.categories.lb_id_exito_form": "Éxito ID",
     "secure.parametize.category.categories.lb_id_catalogo_form": "Category ID",
     "secure.parametize.category.categories.lb_id_market_form": "Marketplace ID",
+    "secure.parametize.category.categories.lb_sinco_sub_line_id": "ID Sublínea SINCO",
+    "secure.parametize.category.categories.lb_sinco_category_id": "ID Categoría SINCO",
+    "secure.parametize.category.categories.lb_sinco_sub_category_id": "ID Subcategoría SINCO",
+    "secure.parametize.category.categories.lb_sinco_segment_id": "ID Segmento SINCO",
     "secure.parametize.category.categories.exception": "Excepciones",
     "secure.parametize.category.categories.creation_succesfully": "Creación realizada con éxito",
     "secure.parametize.category.categories.not_create_category": "No se pudo crear la categoría",
@@ -1372,6 +1405,7 @@
     "secure.parametize.support_modal.reply.placeholder-write-answer": "Escribe tu respuesta",
 
     "secure.parametize.support_claims.title.claim": "Reclamaciones",
+    "secure.parametize.support_claims.title.time": "Tasa de respuesta últimos 30 días",
     "secure.parametize.support_claims.title.claim_search": "Buscar reclamaciones",
     "secure.parametize.support_claims.claims-display": "Visualización de productos",
     "secure.parametize.support_claims.products-per-page": "Productos por página",
@@ -1423,11 +1457,14 @@
     "secure.parametize.support_drop-down-status": "Estado",
     "secure.parametize.support_drop-down-reply": "Responder",
     "secure.parametize.support_drop-down-last-reply": "Última respuesta",
+    "secure.parametize.support_drop-down-time-reply": "Tiempo de respuesta",
+    "secure.parametize.support_drop-down-time-reply-seller": "Tiempo de respuesta vendedor",
     "secure.parametize.support.see.product": "ver producto",
     "secure.parametize.support.product": "Producto",
     "secure.parametize.support.brand": "Marca",
     "secure.parametize.support.sell_price": "Precio de venta",
     "secure.parametize.support.quantity": "Cantidad",
+    "secure.parametize.support.hours": "horas",
 
     "secure.parametize.port.port": "Puerto",
     "secure.parametize.port.search_port": "Consultar puerto",
@@ -1515,7 +1552,7 @@
     "secure.dispersion.detail-payment.download": "Descargar detalle de pagos",
     "secure.dispersion.detail-payment.download_OK": "Se ha realizado la descarga del detalle de pagos correctamente, revisa tu correo electrónico.",
     "secure.dispersion.detail-payment.download_KO": "Ocurrió un problema al realizar la descarga de los detalles de pago, por favor intenta nuevamente",
-    
+
     "secure.dispersion.summaryPayment.cutofDate": "Fecha de corte",
     "secure.dispersion.summaryPayment.idSeller": "Id Vendedor",
     "secure.dispersion.summaryPayment.seller": "Vendedor",
@@ -1575,5 +1612,23 @@
     "quality.indicators.bar_red": "Alerta! Indicador degradado",
     "secure.notifications.list.column-title": "Título",
     "secure.notifications.list.column-date": "Fecha",
-    "secure.reports.notification.fraud.charge-fraud": "CARGAR FRAUDES"
+    "secure.reports.notification.fraud.charge-fraud": "CARGAR FRAUDES",
+    "secure.profiel.modal.message.text":"El contacto se ha creado exitosamente",
+    "secure.profiel.copy_token_channel_advisor":"Copiar token Channel advisor",
+    "secure.profiel.copied_token":"Token copiado",
+    "secure.profiel.contact_information":"Datos de contactos",
+    "secure.profiel.responsible_area":"Área responsable",
+    "secure.profiel.position":"Cargo",
+    "secure.profiel.cellPhone":"Celular",
+    "secure.profiel.phone_number":"Teléfono",
+    "secure.profiel.contact_name_surname":"Nombre",
+    "secure.profiel.edit_contact":"Crear contacto",
+
+
+    "download.products.pending.modal.title": "Descargar productos pendientes de modificación",
+    "download.products.pending.modal.sub_title": "Ingresa el correo electrónico para compartir este reporte",
+    "download.products.pending.modal.select-plu": "Selecciona las categorías de PLU",
+    "selectall":"Seleccionar todo",
+    "download-upercase":"DESCARGAR"
+
 }

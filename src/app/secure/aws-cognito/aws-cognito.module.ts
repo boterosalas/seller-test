@@ -10,6 +10,7 @@ import { MyProfileComponent } from './profile/myprofile.component';
 import { UseractivityComponent } from './useractivity/useractivity.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MyProfileService } from './profile/myprofile.service';
+import { ModalContactPerfilComponent } from './profile/modal-contact-perfil/modal-contact-perfil.component';
 
 
 @NgModule({
@@ -23,9 +24,13 @@ import { MyProfileService } from './profile/myprofile.service';
     UseractivityComponent,
     MyProfileComponent,
     SecureHomeComponent,
-    JwtComponent
+    JwtComponent,
+    ModalContactPerfilComponent
   ],
   exports: [],
+  entryComponents: [
+    ModalContactPerfilComponent
+  ],
   providers: [
     MyProfileComponent,
     MyProfileService

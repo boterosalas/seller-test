@@ -86,7 +86,7 @@ export class QualityIndicatorsComponent implements OnInit {
 
 
     /**
-     *funcion para mapear el resultado del servicio get all brands
+     * funcion para mapear el resultado del servicio get all brands
      * @param {any[]} items
      * @returns {any[]}
      * @memberof BrandsComponent

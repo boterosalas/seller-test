@@ -21,6 +21,9 @@ export class DialogInfoComponent implements OnInit {
   public name: any;
   public method: any;
   public dataToSend: any;
+  public dataError: any;
+  deleteButtonText: any;
+  acceptButtonText: any;
 
   constructor(
     public listModalService: ListModalService,
@@ -52,6 +55,14 @@ export class DialogInfoComponent implements OnInit {
   }
 
   /**
+   * Metodo eliminar talla
+   * @memberof DialogInfoComponent
+   */
+  confirmDelete(): void {
+    this.dialogRef.close('deleteSize');
+  }
+
+  /**
    * Seteo variables del modal
    * @memberof DialogInfoComponent
    */
@@ -63,9 +74,12 @@ export class DialogInfoComponent implements OnInit {
       this.confirmButtonText = this.dataInfo.buttonText.ok || null;
       this.cancelButtonText = this.dataInfo.buttonText.cancel || null;
       this.closeButtonText = this.dataInfo.buttonText.close || null;
-      this.name = this.dataInfo.services.name || null;
-      this.method = this.dataInfo.services.method || null;
+      this.deleteButtonText = this.dataInfo.buttonText.delete || null;
+      this.acceptButtonText = this.dataInfo.buttonText.accept || null;
       this.dataToSend = this.dataInfo.data || null;
+      this.dataError = this.dataInfo.dataError || null;
+      this.name = this.dataInfo.services ? this.dataInfo.services.name : null;
+      this.method = this.dataInfo.services ? this.dataInfo.services.method : null;
     }
   }
 
