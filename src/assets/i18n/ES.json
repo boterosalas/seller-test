@@ -1327,7 +1327,7 @@
     "secure.parametize.category.categories.lb_id_exito_form": "Éxito ID",
     "secure.parametize.category.categories.lb_id_catalogo_form": "Category ID",
     "secure.parametize.category.categories.lb_id_market_form": "Marketplace ID",
-    "secure.parametize.category.categories.lb_sinco_sub_line_id": "ID Sublíena SINCO",
+    "secure.parametize.category.categories.lb_sinco_sub_line_id": "ID Sublínea SINCO",
     "secure.parametize.category.categories.lb_sinco_category_id": "ID Categoría SINCO",
     "secure.parametize.category.categories.lb_sinco_sub_category_id": "ID Subcategoría SINCO",
     "secure.parametize.category.categories.lb_sinco_segment_id": "ID Segmento SINCO",
@@ -1628,6 +1628,7 @@
     "download.products.pending.modal.title": "Descargar productos pendientes de modificación",
     "download.products.pending.modal.sub_title": "Ingresa el correo electrónico para compartir este reporte",
     "download.products.pending.modal.select-plu": "Selecciona las categorías de PLU",
-    "selectall":"Seleccionar todo"
+    "selectall":"Seleccionar todo",
+    "download-upercase":"DESCARGAR"
 
 }

@@ -1548,5 +1548,6 @@
   "download.products.pending.modal.title": "Télécharger les produits en attente de modification",
   "download.products.pending.modal.sub_title": "Entrez l'adresse e-mail pour partager ce rapport",
   "download.products.pending.modal.select-plu": "Sélectionner les catégories de PLU",
-  "selectall": "Seleccionar todo"
+  "selectall": "Seleccionar todo",
+  "download-upercase":"DESCARGAR"
 }

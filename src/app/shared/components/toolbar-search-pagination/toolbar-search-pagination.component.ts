@@ -54,18 +54,18 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
 
   // Para identificar qué tipo de búsqueda se va a realizar.
   @Input() isFullSearch: boolean;
-   public _showContainerDetail: boolean;
+  public _showContainerDetail: boolean;
   @Input() set showContainerDetail(value: boolean) {
-      this._showContainerDetail = value;
+    this._showContainerDetail = value;
   }
   public _showOttertTitle: string;
   @Input() set showOttertTitle(value: string) {
-      this._showOttertTitle = value;
-      this.informationToForm.subtitle = value;
+    this._showOttertTitle = value;
+    this.informationToForm.subtitle = value;
   }
-   public _showSearchSeller: boolean;
+  public _showSearchSeller: boolean;
   @Input() set showSearchSeller(value: boolean) {
-      this._showSearchSeller = value;
+    this._showSearchSeller = value;
   }
 
   @Input() customerFilterCalifications = false;
@@ -74,9 +74,9 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
 
 
   //  Elemento paginador para la tabla
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   // Variable que almacena la configuración para el formulario
- 
+
   @Input() billingType: boolean;
   @Input() downloadPermission: boolean;
   @Input() downloadBillingPay: boolean;
@@ -99,7 +99,7 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
     }
   }
 
-  @Input() set pageIndexChange(value: number){
+  @Input() set pageIndexChange(value: number) {
     // this.paginator.pageIndex = value;
   }
 
@@ -187,9 +187,11 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   toggleMenuCalifications() {
     this.filterCalifications.emit();
   }
+
   toggleFilterGeneric() {
     this.filterGerenic.emit();
   }
+
   openModalDownloadGeneric() {
     this.modalDownloadGeneric.emit();
   }
@@ -242,11 +244,11 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
   getOrdersList(category?: any) {
     this.paginator.firstPage();
     this.OnGetOrdersList.emit({
-        'limit': this.lengthOrder + '&paginationToken=' + encodeURI('{}'),
-        'idSeller': this.idSeller,
-        'state': category,
-        'callOne': true
-      }
+      'limit': this.lengthOrder + '&paginationToken=' + encodeURI('{}'),
+      'idSeller': this.idSeller,
+      'state': category,
+      'callOne': true
+    }
     );
   }
 
@@ -345,7 +347,7 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
         const found = res.find((x: StoreModel) => x.Name === this.textForSearch.value);
         // si hay algun resultado de busqueda, paso a visualizar la información de la tienda
         // if (found !== undefined) {
-          this.viewStoreInformation(found);
+        this.viewStoreInformation(found);
         // }
       });
       suscribe.unsubscribe();
@@ -363,14 +365,14 @@ export class ToolbarSearchPaginationComponent implements OnInit, OnChanges {
     this.eventsSeller.searchSeller(search_seller);
   }
 
-/**
- * funcion que emite el cambio de la paginacion y rango de busqueda
- *
- * @param {*} param
- * @returns {*}
- * @memberof ToolbarSearchPaginationComponent
- */
-public changePaginatorOrdens(param: any): any {
+  /**
+   * funcion que emite el cambio de la paginacion y rango de busqueda
+   *
+   * @param {*} param
+   * @returns {*}
+   * @memberof ToolbarSearchPaginationComponent
+   */
+  public changePaginatorOrdens(param: any): any {
     this.paginationListOrdens.emit({ param });
   }
 }
