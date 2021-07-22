@@ -1,10 +1,10 @@
-<div class="content-order my-content">
+<div class="content-order">
   <div fxFlex class="container" fxLayout="row wrap" fxLayoutAlign="center
     start">
     <div fxFlex="100" class="light-content">
       <app-toolbar-search-pagination [informationToForm]="informationToForm" [state]="null" #toolbarOptions
         (filterCalifications)="toggleFilter()" (paginationListOrdens)="paginations($event)" [Typeprofile]="3"
-        [lengthOrder]="length" [limitPaginate]="[10,50,100]" [showBtn]="false" [btnFilter]="false">
+        [lengthOrder]="length" [limitPaginate]="[10,50,100]" [showBtn]="true" [btnFilter]="false">
       </app-toolbar-search-pagination>
     </div>
 

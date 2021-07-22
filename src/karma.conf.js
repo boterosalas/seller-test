@@ -3,56 +3,50 @@
 
 module.exports = function (config) {
   config.set({
-    basePath: "",
-    frameworks: ["parallel", "jasmine", "@angular-devkit/build-angular"],
+    basePath: '',
+    frameworks: ['parallel', 'jasmine', '@angular-devkit/build-angular'],
     plugins: [
-      require("karma-jasmine"),
-      require("karma-chrome-launcher"),
-      require("karma-jasmine-html-reporter"),
-      require("karma-coverage-istanbul-reporter"),
-      require("@angular-devkit/build-angular/plugins/karma"),
-      require("karma-parallel"),
+      require('karma-jasmine'),
+      require('karma-chrome-launcher'),
+      require('karma-jasmine-html-reporter'),
+      require('karma-coverage-istanbul-reporter'),
+      require('@angular-devkit/build-angular/plugins/karma'),
+      require('karma-parallel'),
     ],
     parallelOptions: {
       executors: 4, // Defaults to cpu-count - 1
-      shardStrategy: "round-robin",
+      shardStrategy: 'round-robin'
     },
     client: {
-      clearContext: false, // leave Jasmine Spec Runner output visible in browser
+      clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
     coverageIstanbulReporter: {
-      dir: require("path").join(__dirname, "../coverage"),
-      reports: ["html", "lcovonly"],
-      fixWebpackSourcePaths: true,
+      dir: require('path').join(__dirname, '../coverage'),
+      reports: ['html', 'lcovonly'],
+      fixWebpackSourcePaths: true
     },
-    reporters: ["progress", "kjhtml"],
+    reporters: ['progress', 'kjhtml'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
+    browsers: ['ChromeHeadless'],
     customLaunchers: {
       ChromeHeadless: {
-        base: "Chrome",
+        base: 'Chrome',
         flags: [
-          "--headless",
-          "--disable-gpu",
-          "--no-sandbox",
-          "--remote-debugging-port=9222",
-        ],
-      },
+          '--headless',
+          '--disable-gpu',
+          '--no-sandbox',
+          '--remote-debugging-port=9222',
+        ]
+      }
     },
-<<<<<<< HEAD
-   // browsers: ['ChromeHeadless'],
-    browsers: ["Chrome"],
-    singleRun: false,
-=======
-    browsers: ['ChromeHeadless'],
     singleRun: true,
     // browsers: ['Chrome'],
     // singleRun: false,
->>>>>>> a8eae9c295444013f2a4ee856a401419b2c87520
     captureTimeout: 210000,
-    browserDisconnectTolerance: 3, 
+    browserDisconnectTolerance: 3,
     browserDisconnectTimeout : 310000,
     browserNoActivityTimeout : 310000,
   });
