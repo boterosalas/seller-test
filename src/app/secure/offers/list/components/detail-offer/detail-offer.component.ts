@@ -110,6 +110,7 @@ export class DetailOfferComponent implements OnInit {
 
   public scheduleOfferDateStart = null;
   public scheduleOfferDateEnd = null;
+  public isDisabledAddScheduleOfert = false;
 
   public activeTabIndex = 0;
 
@@ -376,7 +377,12 @@ export class DetailOfferComponent implements OnInit {
     if (this.dataOffer && this.dataOffer.scheduleOffer) {
       this.scheduleOfferDateStart = this.dataOffer.scheduleOffer.initialDate ? moment(this.dataOffer.scheduleOffer.initialDate).utc().format('DD/MM/YYYY') : null;
       this.scheduleOfferDateEnd = this.dataOffer.scheduleOffer.finalDate ? moment(this.dataOffer.scheduleOffer.finalDate).utc().format('DD/MM/YYYY') : null;
+    }
 
+    if (this.dataOffer && this.dataOffer.scheduleOffer === null) {
+      this.isDisabledAddScheduleOfert = false;
+    } else {
+      this.isDisabledAddScheduleOfert = true;
     }
     // this.IsLogisticsExito = new FormControl(this.dataOffer.isLogisticsExito ? 1 : 0);
     // this.IsUpdatedStock = new FormControl({ value: this.dataOffer.isUpdatedStock ? 1 : 0, disabled: this.IsLogisticsExito.value ? false : true }, [Validators.pattern(this.offertRegex.isUpdatedStock)]);
@@ -1177,12 +1183,14 @@ export class DetailOfferComponent implements OnInit {
 
     const dialogIntance = dialogRef.componentInstance;
     dialogIntance.processFinish$.subscribe((val) => {
+      this.isDisabledAddScheduleOfert = true;
       this.dataOffer.scheduleOffer = val;
       this.scheduleOfferDateStart = this.dataOffer.scheduleOffer.initialDate ? moment(this.dataOffer.scheduleOffer.initialDate).utc().format('DD/MM/YYYY') : null;
       this.scheduleOfferDateEnd = this.dataOffer.scheduleOffer.finalDate ? moment(this.dataOffer.scheduleOffer.finalDate).utc().format('DD/MM/YYYY') : null;
     });
     dialogIntance.processDelete$.subscribe((val) => {
       this.dataOffer.scheduleOffer = null;
+      this.isDisabledAddScheduleOfert = false;
     });
   }
   /**

@@ -52,9 +52,9 @@
                 </button>
                 <button type="button" color="primary"
                   [matTooltip]="'secure.products.pending_products.Schedule.modal.ofert_scheduled' | translate" matTooltipPosition="below"
-                  mat-icon-button mat-button (click)="offersPrograms()"
+                  mat-icon-button mat-button  (click)="offersPrograms()"
                   *ngIf="!isUpdateOffer
-                  && isUpdateOffer === false && canEdit">
+                  && isUpdateOffer === false && canEdit && !isDisabledAddScheduleOfert">
                   <mat-icon class="flexbox align-center justify-center
                     color-grey-text-icon">alarm_add</mat-icon>
                 </button>
