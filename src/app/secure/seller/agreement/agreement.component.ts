@@ -109,7 +109,6 @@ export class AgreementComponent implements OnInit {
                 try {
                     const terms = JSON.parse(data.body);
                     this.agreementsSeller = terms.Data as Agreement[];
-                    console.log(88, this.agreementsSeller);
                     this.thereAgreements = this.agreementsSeller && this.agreementsSeller.length > 0 ? true : false;
                     this.loadingService.closeSpinner();
                 } catch (e) {

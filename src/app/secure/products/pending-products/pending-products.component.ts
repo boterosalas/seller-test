@@ -26,6 +26,7 @@ import { PendingProductsService } from "./pending-products.service";
 import { UserInformation } from "@app/shared";
 import { AuthService } from "@app/secure/auth/auth.routing";
 import { ProductsPendingModificationModalComponent } from "./products-pending-modification-modal/products-pending-modification-modal.component";
+import { FindValueSubscriber } from "rxjs/internal/operators/find";
 
 export interface ListFilterProductsModify {
   name: string;
@@ -72,6 +73,7 @@ export class PendingProductsComponent implements OnInit {
   public pageSize2 = 30;
   public idSeller = "";
   public sellerId: any;
+  public disabledBtnDownLoad = true;
 
   public user: UserInformation;
   isAdmin = false;
@@ -285,6 +287,7 @@ export class PendingProductsComponent implements OnInit {
           this.productsList = res.viewModel;
           this.paginationToken = res.paginationToken;
           this.loadingService.closeSpinner();
+          this.disabledBtnDownLoad = res.count > 0 ? false : true;
         }
         this.filterProductsModify();
         this.loadingService.closeSpinner();
