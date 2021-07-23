@@ -55,7 +55,7 @@
                 (page)="pageEvent = paginations($event)"></mat-paginator>
             </div>
           </div>
-          <button type="button" mat-button (click)="openModalProductsPendingModification()">
+          <button type="button" mat-button (click)="openModalProductsPendingModification()" [disabled]="disabledBtnDownLoad">
             <mat-icon>download</mat-icon>
             <small class="sub-title-filter">{{'permissions.Descargar' | translate}}</small>
           </button>
