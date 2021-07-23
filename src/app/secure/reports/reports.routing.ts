@@ -9,6 +9,7 @@ import { ReportCommissionComponent } from './report-commission/report-commission
 import { ReportDispersionComponent } from './report-dispersion/report-dispersion.component';
 import { FraudNotificationComponent } from './fraud-notification/fraud-notification.component';
 import { SellerContactsComponent } from './seller-contacts/seller-contacts.component';
+import { ReportOrderComponent } from './report-order/report-order.component';
 
 const routes: Routes = [
   Route.withShell([
@@ -16,6 +17,12 @@ const routes: Routes = [
       path: `${RoutesConst.sellerCenterIntOfferReportOffert}`,
       component: ReportOffertComponent,
       data: { title: 'Reporte de ofertas' },
+      canActivate: [AuthService]
+    },
+    {
+      path: `${RoutesConst.sellerCenterIntOfferReportOrder}`,
+      component: ReportOrderComponent,
+      data: { title: 'Reporte de órdenes' },
       canActivate: [AuthService]
     },
     {
