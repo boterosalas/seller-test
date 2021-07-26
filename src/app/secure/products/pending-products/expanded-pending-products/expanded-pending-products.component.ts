@@ -75,8 +75,11 @@ export class ExpandedPendingProductsComponent implements OnInit {
     }
 
     if (this.productsMultiOfertExpanded) {
-      this.currentProduct = this.productsMultiOfertExpanded.currentProduct;
-      this.oldProduct = this.productsMultiOfertExpanded.oldProduct;
+      this.currentProduct = JSON.parse(this.productsMultiOfertExpanded.currentProduct);
+      this.oldProduct = JSON.parse(this.productsMultiOfertExpanded.oldProduct);
+      console.log('curr: ', this.currentProduct);
+      console.log('old: ', this.oldProduct);
+
       for (const product in  this.oldProduct) {
         if ( this.oldProduct.hasOwnProperty(product) && this.currentProduct.hasOwnProperty(product)) {
           this.arrayMultiOfert.push(
@@ -144,6 +147,7 @@ export class ExpandedPendingProductsComponent implements OnInit {
           valueOld: oldProductVideo,
           valueCurrent: currentProductVideo,
         });
+        console.log(99, currentProductVideo)
         break;
       case 'ImageUrl1':
         this.arrayImages1.push(

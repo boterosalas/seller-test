@@ -144,11 +144,11 @@ export class ComboPendingProductComponent implements OnInit {
   setparams3(params: any) {
     console.log(1, params);
     this.showImage = true;
-    const paransId = '?id=' + params.id.toString();
+    const paransId = '?id=' + params.id;
     this.pendingProductsService.getExpandedProductMultiofferbyEan(paransId).subscribe((res: any) => {
       console.log('res: ', res);
       if (res) {
-        this.productsMultiOfertExpanded = params;
+        this.productsMultiOfertExpanded = res.data;
         this.typeDetailProduct = 'multiOfert';
         this.emitEventShowDetail.emit({ show: true });
       }

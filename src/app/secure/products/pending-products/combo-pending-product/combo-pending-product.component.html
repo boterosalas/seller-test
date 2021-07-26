@@ -55,12 +55,12 @@
   <div  *ngIf="showImage === false && _indexTab === 2 && products.oldProduct">
     <mat-card class="example-card" (click)="setparams3(products)">
       <div class="container-card-img flexbox align-center justify-center">
-        <img [src]="products.urlImage1">
+        <img [src]="products.imageUrl">
       </div>
       <mat-card-content>
         <div class="container-desc-card flexbox flex-wrap align-center">
           <h3>EAN: {{products.ean}} 1</h3>
-          <p class="name" style="font-weight: bold;">{{products.oldProduct.Name}}</p>
+          <p class="name" style="font-weight: bold;">{{products.name}}</p>
         </div>
         <mat-card-footer class="mfooter">
           <p>{{'secure.products.create_product_unit.list_products.combo_product.creation_date' | translate}}: {{products.creationDate | date:'dd/MM/yyyy' }}</p>
