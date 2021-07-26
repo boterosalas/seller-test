@@ -99,11 +99,13 @@ export class ExpandedPendingProductsComponent implements OnInit {
   }
   validateExpandable(name: string) {
     let expansible = false;
+    console.log('name: ', name);
     switch (name) {
       case 'Features':
+        console.log('here features');
         expansible = true;
-        const currentProductFeature = this.productsMultiOfertExpanded.currentProduct.Features;
-        const oldProductFeature = this.productsMultiOfertExpanded.oldProduct.Features;
+        const currentProductFeature = JSON.parse(this.productsMultiOfertExpanded.currentProduct).Features;
+        const oldProductFeature = JSON.parse(this.productsMultiOfertExpanded.oldProduct).Features;
         for (const productFeature in oldProductFeature) {
           if (oldProductFeature.hasOwnProperty(productFeature) && currentProductFeature.hasOwnProperty(productFeature)) {
             this.arrayFeature.push(
@@ -117,10 +119,11 @@ export class ExpandedPendingProductsComponent implements OnInit {
         }
         break;
       case 'KeyWords':
+        console.log('here KeyWords');
         expansible = true;
         this.arrayKeyWords = [];
-        const currentProductKeywords = this.productsMultiOfertExpanded.currentProduct.KeyWords;
-        const oldProductKeywords = this.productsMultiOfertExpanded.oldProduct.KeyWords;
+        const currentProductKeywords = JSON.parse(this.productsMultiOfertExpanded.currentProduct).KeyWords;
+        const oldProductKeywords = JSON.parse(this.productsMultiOfertExpanded.oldProduct).KeyWords;
         if (currentProductKeywords !== '' && oldProductKeywords !== '') {
           this.arrayKeyWords.push({
             valueOld: oldProductKeywords,
@@ -129,10 +132,14 @@ export class ExpandedPendingProductsComponent implements OnInit {
         }
         break;
       case 'Description':
+        console.log('here Description');
         expansible = true;
         this.arrayDescription = [];
-        const currentProductDescription = this.productsMultiOfertExpanded.currentProduct.Description;
-        const oldProductDescription = this.productsMultiOfertExpanded.oldProduct.Description;
+        const currentProductDescription = JSON.parse(this.productsMultiOfertExpanded.currentProduct).Description;
+        const oldProductDescription = JSON.parse(this.productsMultiOfertExpanded.oldProduct).Description;
+        console.log(44, currentProductDescription);
+        console.log(55, oldProductDescription);
+
         this.arrayDescription.push({
           valueOld: oldProductDescription,
           valueCurrent: currentProductDescription,
@@ -141,8 +148,8 @@ export class ExpandedPendingProductsComponent implements OnInit {
       case 'VideoUrl':
         expansible = true;
         this.arrayVideo = [];
-        const currentProductVideo = this.productsMultiOfertExpanded.currentProduct.VideoUrl;
-        const oldProductVideo = this.productsMultiOfertExpanded.oldProduct.VideoUrl;
+        const currentProductVideo = JSON.parse(this.productsMultiOfertExpanded.currentProduct).VideoUrl;
+        const oldProductVideo = JSON.parse(this.productsMultiOfertExpanded.oldProduct).VideoUrl;
         this.arrayVideo.push({
           valueOld: oldProductVideo,
           valueCurrent: currentProductVideo,
@@ -152,8 +159,8 @@ export class ExpandedPendingProductsComponent implements OnInit {
       case 'ImageUrl1':
         this.arrayImages1.push(
           {
-            imagenCurrent: this.productsMultiOfertExpanded.currentProduct.ImageUrl1,
-            imagenOld: this.productsMultiOfertExpanded.oldProduct.ImageUrl1
+            imagenCurrent: JSON.parse(this.productsMultiOfertExpanded.currentProduct).ImageUrl1,
+            imagenOld: JSON.parse(this.productsMultiOfertExpanded.oldProduct).ImageUrl1
           }
         );
         expansible = true;
@@ -161,8 +168,8 @@ export class ExpandedPendingProductsComponent implements OnInit {
       case 'ImageUrl2':
         this.arrayImages2.push(
           {
-            imagenCurrent: this.productsMultiOfertExpanded.currentProduct.ImageUrl2,
-            imagenOld: this.productsMultiOfertExpanded.oldProduct.ImageUrl2
+            imagenCurrent: JSON.parse(this.productsMultiOfertExpanded.currentProduct).ImageUrl2,
+            imagenOld: JSON.parse(this.productsMultiOfertExpanded.oldProduct).ImageUrl2
           }
         );
         expansible = true;
@@ -170,8 +177,8 @@ export class ExpandedPendingProductsComponent implements OnInit {
       case 'ImageUrl3':
         this.arrayImages3.push(
           {
-            imagenCurrent: this.productsMultiOfertExpanded.currentProduct.ImageUrl3,
-            imagenOld: this.productsMultiOfertExpanded.oldProduct.ImageUrl3
+            imagenCurrent: JSON.parse(this.productsMultiOfertExpanded.currentProduct).ImageUrl3,
+            imagenOld: JSON.parse(this.productsMultiOfertExpanded.oldProduct).ImageUrl3
           }
         );
         expansible = true;
@@ -179,8 +186,8 @@ export class ExpandedPendingProductsComponent implements OnInit {
       case 'ImageUrl4':
         this.arrayImages4.push(
           {
-            imagenCurrent: this.productsMultiOfertExpanded.currentProduct.ImageUrl4,
-            imagenOld: this.productsMultiOfertExpanded.oldProduct.ImageUrl4
+            imagenCurrent: JSON.parse(this.productsMultiOfertExpanded.currentProduct).ImageUrl4,
+            imagenOld: JSON.parse(this.productsMultiOfertExpanded.oldProduct).ImageUrl4
           }
         );
         expansible = true;
@@ -188,8 +195,8 @@ export class ExpandedPendingProductsComponent implements OnInit {
       case 'ImageUrl5':
         this.arrayImages5.push(
           {
-            imagenCurrent: this.productsMultiOfertExpanded.currentProduct.ImageUrl5,
-            imagenOld: this.productsMultiOfertExpanded.oldProduct.ImageUrl5
+            imagenCurrent: JSON.parse(this.productsMultiOfertExpanded.currentProduct).ImageUrl5,
+            imagenOld: JSON.parse(this.productsMultiOfertExpanded.oldProduct).ImageUrl5
           }
         );
         expansible = true;
