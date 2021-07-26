@@ -23,7 +23,7 @@ export class ComboPendingProductComponent implements OnInit {
   @Input() sellerId: any;
   public _indexTab: number;
   @Input() set indexTab(value: number) {
-      this._indexTab = value;
+    this._indexTab = value;
   }
 
   @Output() public emitEventShowDetail = new EventEmitter<object>();
@@ -31,7 +31,7 @@ export class ComboPendingProductComponent implements OnInit {
   public productsPendindgExpanded: any;
   public productsPendindgValidationExpanded: any;
   public productsMultiOfertExpanded: any;
-  public typeDetailProduct = 'genericProduct' ;
+  public typeDetailProduct = 'genericProduct';
 
   public showImage = false;
 
@@ -78,7 +78,7 @@ export class ComboPendingProductComponent implements OnInit {
     this.productsPendindgValidationExpanded = null;
     this.productsMultiOfertExpanded = null;
     this.showImage = false;
-    this.emitEventShowDetail.emit({show: false, reload : reload});
+    this.emitEventShowDetail.emit({ show: false, reload: reload });
   }
 
   /**
@@ -135,16 +135,24 @@ export class ComboPendingProductComponent implements OnInit {
     const paramsServ = `${this.sellerId}/${params.ean}`;
     this.openInfoProductValidation(paramsServ);
   }
+
   /**
    * Seteo de parametros y envio data para la carga del servicio para ionformacion expandida productos en validación
    * @param {*} params
    * @memberof ComboPendingProductComponent
    */
   setparams3(params: any) {
+    console.log(1, params);
     this.showImage = true;
-    this.productsMultiOfertExpanded = params;
-    this.typeDetailProduct = 'multiOfert';
-    this.emitEventShowDetail.emit({show: true});
+    const paransId = '?id=' + params.id.toString();
+    this.pendingProductsService.getExpandedProductMultiofferbyEan(paransId).subscribe((res: any) => {
+      console.log('res: ', res);
+      if (res) {
+        this.productsMultiOfertExpanded = params;
+        this.typeDetailProduct = 'multiOfert';
+        this.emitEventShowDetail.emit({ show: true });
+      }
+    });
   }
 
   /**
@@ -156,7 +164,7 @@ export class ComboPendingProductComponent implements OnInit {
   makeTooltipDetail(params: any) {
     let concatInfo = '';
     if (params) {
-      concatInfo = `${this.languageService.instant('secure.seller.list.reason')}: ${params.reason}`  +  ' || '  + `${this.languageService.instant('secure.seller.list.observation')}: ${params.comment}`;
+      concatInfo = `${this.languageService.instant('secure.seller.list.reason')}: ${params.reason}` + ' || ' + `${this.languageService.instant('secure.seller.list.observation')}: ${params.comment}`;
     } else {
       concatInfo = null;
     }

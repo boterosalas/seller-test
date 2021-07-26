@@ -112,7 +112,6 @@ export class PendingProductsComponent implements OnInit {
   ean3 = '';
   nameProduct = '';
   nameProduct2 = '';
-  nameProduct3 = '';
   plu3: any;
 
   separatorKeysCodes: number[] = [];
@@ -202,7 +201,6 @@ export class PendingProductsComponent implements OnInit {
    */
   createFormControls3() {
     this.filterProdutsMultiOfert = this.fb.group({
-      productName3: new FormControl('', Validators.compose([Validators.pattern(this.getValue('nameProduct'))])),
       ean3: new FormControl(''),
       plu3: new FormControl(''),
       matcher: new MyErrorStateMatcher()
@@ -322,9 +320,18 @@ export class PendingProductsComponent implements OnInit {
    */
   getPendingProductsMultiOfert(params?: any) {
     this.loadingService.viewSpinner();
-    this.paramsArray3 = '?limit=' + this.pageSize3 + '&paginationToken=' + encodeURI(this.paginationToken3) + '&name=' + this.nameProduct3 + '&ean=' + this.ean3 + '&plu=' + this.plu3;
+    // this.paramsArray3 = '?limit=' + this.pageSize3 + '&paginationToken=' + encodeURI(this.paginationToken3) + '&ean=' + this.ean3 + '&plu=' + this.plu3;
     this.showProducts = false;
+    if (params !== undefined) {
+      console.log(1);
+      this.paginationToken = encodeURI(this.paginationToken);
+      this.paramsArray3 = '?limit=' + this.pageSize3 + '&paginationToken=' + encodeURI(this.paginationToken3) + '&ean=' + this.ean3 + '&plu=' + this.plu3;;
+    } else {
+      console.log(2);
+      this.paramsArray3 = '?limit=' + this.pageSize3 + '&paginationToken=' + encodeURI(this.paginationToken3);
+    }
     this.pendingProductsService.getAllProductPendingMultiOfert(this.paramsArray3).subscribe((res: any) => {
+      console.log(res);
       if (res) {
         if (this.callOne3) {
           this.length3 = res.count;
@@ -333,7 +340,7 @@ export class PendingProductsComponent implements OnInit {
           this.callOne3 = false;
         }
         this.showProducts = true;
-        this.productsList3 = this.mapItems(res.viewModel);
+        this.productsList3 = res.viewModel;
         this.paginationToken3 = res.paginationToken;
         this.loadingService.closeSpinner();
       }
@@ -341,22 +348,23 @@ export class PendingProductsComponent implements OnInit {
     });
   }
 
-  mapItems(items: any[]): any[] {
-    return items.map(x => {
-      return {
-        currentProduct: JSON.parse(x.CurrentProduct),
-        ean: x.Ean,
-        creationDate: x.CreationDate,
-        name: x.Name,
-        updateDate: x.UpdateDate,
-        id: x.Id,
-        oldProduct: JSON.parse(x.OldProduct),
-        sellerId: x.SellerId,
-        status: x.Status,
-        urlImage1: x.ImageUrl1
-      };
-    });
-  }
+  // mapItems(items: any[]): any[] {
+  //   console.log(items);
+  //   return items.map(x => {
+  //     return {
+  //       currentProduct: JSON.parse(x.CurrentProduct),
+  //       ean: x.Ean,
+  //       creationDate: x.CreationDate,
+  //       name: x.Name,
+  //       updateDate: x.UpdateDate,
+  //       id: x.Id,
+  //       oldProduct: JSON.parse(x.OldProduct),
+  //       sellerId: x.SellerId,
+  //       status: x.Status,
+  //       urlImage1: x.ImageUrl1
+  //     };
+  //   });
+  // }
 
   /**
    * Metodo de paginación productos pendientes modificación
@@ -522,10 +530,10 @@ export class PendingProductsComponent implements OnInit {
       this.filterProdutsMultiOfert.controls.ean3.setValue('');
       this.eanList3 = null;
     }
-    if (!this.nameVariable) {
-      this.filterProdutsMultiOfert.controls.productName3.setValue('');
-      this.nameProductList3 = null;
-    }
+    // if (!this.nameVariable) {
+    //   this.filterProdutsMultiOfert.controls.productName3.setValue('');
+    //   this.nameProductList3 = null;
+    // }
     this.getAllPendingProductsMultiOfert();
   }
 
@@ -568,7 +576,6 @@ export class PendingProductsComponent implements OnInit {
     this.paginationToken3 = '{}';
     this.callOne3 = true;
     this.ean3 = encodeURIComponent(this.filterProdutsMultiOfert.controls.ean3.value);
-    this.nameProduct3 = encodeURIComponent(this.filterProdutsMultiOfert.controls.productName3.value);
     this.plu3 = encodeURIComponent(this.filterProdutsMultiOfert.controls.plu3.value);
     this.getPendingProductsMultiOfert();
   }
@@ -627,14 +634,14 @@ export class PendingProductsComponent implements OnInit {
    */
   public filterProductsModify() {
     setTimeout(() => {
-    this.cleanFilterListProductsModify();
-    this.nameProductList = this.filterProdutsPending.controls.productName.value || null;
-    this.eanList = this.filterProdutsPending.controls.ean.value || null;
+      this.cleanFilterListProductsModify();
+      this.nameProductList = this.filterProdutsPending.controls.productName.value || null;
+      this.eanList = this.filterProdutsPending.controls.ean.value || null;
 
-    this.dataChips.push({ value: this.nameProductList, name: 'nameProductList', nameFilter: 'productName' });
-    this.dataChips.push({ value: this.eanList, name: 'eanList', nameFilter: 'ean' });
-    this.add(this.dataChips);
-  }, 1000);
+      this.dataChips.push({ value: this.nameProductList, name: 'nameProductList', nameFilter: 'productName' });
+      this.dataChips.push({ value: this.eanList, name: 'eanList', nameFilter: 'ean' });
+      this.add(this.dataChips);
+    }, 1000);
   }
 
   /**
@@ -660,12 +667,10 @@ export class PendingProductsComponent implements OnInit {
   public filterProductsModify3() {
     setTimeout(() => {
       this.cleanFilterListProductsModify();
-      this.nameProductList3 = this.filterProdutsMultiOfert.controls.productName3.value || null;
       this.eanList3 = this.filterProdutsMultiOfert.controls.ean3.value || null;
       this.plu3 = this.filterProdutsMultiOfert.controls.plu3.value || null;
 
       // const data = [];
-      this.dataChips3.push({ value: this.nameProductList3, name: 'nameProductList3', nameFilter: 'productName3' });
       this.dataChips3.push({ value: this.eanList3, name: 'eanList3', nameFilter: 'ean3' });
       this.dataChips3.push({ value: this.plu3, name: 'plu3', nameFilter: 'plu3' });
       this.add3(this.dataChips3);

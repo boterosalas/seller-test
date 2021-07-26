@@ -168,14 +168,14 @@
         <form class="basic-info" #createfilterProdutsMultiOfert="ngForm" [formGroup]="filterProdutsMultiOfert"
           class="seller-filter-sidenav" *ngIf="filterProdutsMultiOfert">
           <div fxLayout="row" fxLayoutAlign="space-between center">
-            <h3>Aprobar contendido Multioferta</h3>
+            <h3>{{'secure.products.pending_products.filterMultiOffer' | translate}}</h3>
             <button id="closeMenuApplication" type="button" color="primary" [matTooltip]="'actions.close' | translate"
               matTooltipPosition="below" mat-icon-button mat-button (click)="drawer3.toggle()">
               <mat-icon>clear</mat-icon>
             </button>
           </div>
           <div fxLayout="column" fxLayoutAlign="space-between" fxLayout.xs="column">
-            <mat-form-field color="primary">
+            <!-- <mat-form-field color="primary">
               <input matInput
                 [placeholder]="'secure.products.create_product_unit.list_products.product_name' | translate"
                 formControlName="productName3" [errorStateMatcher]="matcher">
@@ -183,7 +183,7 @@
               <mat-error *ngIf="filterProdutsMultiOfert.get('productName3').hasError('pattern')">
                 {{'secure.products.create_product_unit.list_products.product_name_invalid' | translate}}
               </mat-error>
-            </mat-form-field>
+            </mat-form-field> -->
             <mat-form-field color="primary">
               <input matInput [placeholder]="'shared.ean' | translate" formControlName="ean3"
                 [errorStateMatcher]="matcher">

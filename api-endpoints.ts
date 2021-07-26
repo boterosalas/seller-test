@@ -341,13 +341,13 @@ export const endpoints = {
       downloadTemplateCategoryMasive: 'https://seller-center-exito-staging.s3.amazonaws.com/Templates-Dev/PlantillaCargaMasivaCategorias.xlsx',
       // Crear caterogiras de forma masiva
       createUpdateMassiveCategories: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/CreateUpdateMassiveCategories/{params}',
-       // valida el estado de la carga masiva de categorias
-       ValidateStatusCreateUpdateMassive :  'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/ValidateStatusCreateUpdateMassive',
-       // Exportar Contactos
-       exportContacts: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/GenerateReportSellerContacts',
-       // Listar Contactos
+      // valida el estado de la carga masiva de categorias
+      ValidateStatusCreateUpdateMassive: 'https://0dk55lff0l.execute-api.us-east-1.amazonaws.com/SellerCommissionCategory/ValidateStatusCreateUpdateMassive',
+      // Exportar Contactos
+      exportContacts: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/GenerateReportSellerContacts',
+      // Listar Contactos
       listContacts: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/GetListContacts',
-       // Captura todas las notificaciones (anuncios )
+      // Captura todas las notificaciones (anuncios )
       getAllNotification: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/GetPaginatedNews{params}',
       // Crear anuncio
       createNew: 'https://oi3ylqu9t0.execute-api.us-east-1.amazonaws.com/Dev-SC-News/CreateNew',
@@ -369,8 +369,10 @@ export const endpoints = {
       updateContactData: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/UpdateSellerContact',
       // Crear un contacto para un vendedor (primero creamos y luego editamos)
       createContactData: 'https://abc89jo3oa.execute-api.us-east-1.amazonaws.com/dev/RegisterContactSeller',
-      //
-      getAllproductsApproveBySeller: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/productspendingtoapprovebyseller{params}'
+      // Servicio obtener productos multioferta
+      getAllproductsApproveBySeller: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/productspendingtoapprovebyseller{params}',
+      // Servicio para obtener info expandida de producto multioferta
+      getExpandedProductMultiofferbyEan: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/productspendingtoapprovebyseller/specificproduct{params}'
     },
   },
   // Endpoints production
@@ -710,7 +712,7 @@ export const endpoints = {
       // Crear caterogiras de forma masiva
       createUpdateMassiveCategories: 'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/CreateUpdateMassiveCategories/{params}',
       // valida el estado de la carga masiva de categorias
-      ValidateStatusCreateUpdateMassive :  'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/ValidateStatusCreateUpdateMassive',
+      ValidateStatusCreateUpdateMassive: 'https://lp04fcggo3.execute-api.us-east-1.amazonaws.com/sellercommissioncategory-pdn/ValidateStatusCreateUpdateMassive',
       // Exportar Contactos
       exportContacts: 'https://igxf6mswfa.execute-api.us-east-1.amazonaws.com/pdn/GenerateReportSellerContacts',
       // Listar Contactos
@@ -726,19 +728,21 @@ export const endpoints = {
       // Eliminar anuncios
       deleteNotification: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/DeleteNew{params}',
       // Listar anuncios vendedor
-      getAdvertisements :  'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/GetNewsByTarget?totalMax=10',
-       // Validacion del video creacion
-       validateVideo: 'https://nkoltok5rk.execute-api.us-east-1.amazonaws.com/pdn/ValidateVideo',
+      getAdvertisements: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/GetNewsByTarget?totalMax=10',
+      // Validacion del video creacion
+      validateVideo: 'https://nkoltok5rk.execute-api.us-east-1.amazonaws.com/pdn/ValidateVideo',
       // Leido anuncios vendedor
-      readAdvertisements :  'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/SetNewsRead',
+      readAdvertisements: 'https://p3ippeuua6.execute-api.us-east-1.amazonaws.com/pdn/SetNewsRead',
       // Obtener todos los datos de contacto un vendedor
       getAllContactData: 'https://igxf6mswfa.execute-api.us-east-1.amazonaws.com/pdn/GetSellerContacts',
       // Actualizar datos de contacto vendedor
       updateContactData: 'https://igxf6mswfa.execute-api.us-east-1.amazonaws.com/pdn/UpdateSellerContact',
       // Crear un contacto para un vendedor (primero creamos y luego editamos)
       createContactData: 'https://igxf6mswfa.execute-api.us-east-1.amazonaws.com/pdn/RegisterContactSeller',
-      //
-      getAllproductsApproveBySeller: ''
+      // Servicio obtener productos multioferta
+      getAllproductsApproveBySeller: '',
+      // Servicio para obtener info expandida de producto multioferta
+      getExpandedProductMultiofferbyEan: ''
     }
   }
 };
