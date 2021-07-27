@@ -48,7 +48,7 @@ export class PendingProductsComponent implements OnInit {
 
   public pageSize = 30;
   public pageSize2 = 30;
-  public pageSize3 = 50;
+  public pageSize3 = 5;
   public idSeller = '';
   public sellerId: any;
   public detailShow = false;
@@ -85,8 +85,7 @@ export class PendingProductsComponent implements OnInit {
   length3 = 0;
   pageSizeOptions: number[] = [30, 60, 120, 600];
   pageSizeOptions2: number[] = [30, 60, 120, 600];
-  // pageSizeOptions3: number[] = [50, 100, 150, 200];
-  pageSizeOptions3: number[] = [1];
+  pageSizeOptions3: number[] = [50, 100, 150, 200];
   pageEvent: PageEvent;
 
   editPermission = false;
@@ -584,7 +583,6 @@ export class PendingProductsComponent implements OnInit {
     this.callOne3 = true;
     this.ean3 = encodeURIComponent(this.filterProdutsMultiOfert.controls.ean3.value);
     this.plu3 = encodeURIComponent(this.filterProdutsMultiOfert.controls.plu3.value);
-    // this.paramsArray3 = '?limit=' + this.pageSize3 + '&paginationToken=' + encodeURI(this.paginationToken3) + '&ean=' + this.ean3 + '&plu=' + this.plu3;
     this.getPendingProductsMultiOfert(this.filterProdutsMultiOfert);
   }
 
