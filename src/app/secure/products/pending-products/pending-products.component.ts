@@ -48,7 +48,7 @@ export class PendingProductsComponent implements OnInit {
 
   public pageSize = 30;
   public pageSize2 = 30;
-  public pageSize3 = 5;
+  public pageSize3 = 50;
   public idSeller = '';
   public sellerId: any;
   public detailShow = false;
