@@ -26,6 +26,7 @@
       </div>
 
       <div class="video imageXl" *ngIf="productsExpanded.hasVideoUrl && showVideo">
+        aquii: {{productsExpanded.videoUrl}}
         <iframe width="480" height="315" [src]="productsExpanded.videoUrl | safe: 'resourceUrl'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
 

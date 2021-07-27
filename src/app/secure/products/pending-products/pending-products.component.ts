@@ -319,7 +319,6 @@ export class PendingProductsComponent implements OnInit {
    * @memberof PendingProductsComponent
    */
   getPendingProductsMultiOfert(params?: any) {
-    this.loadingService.viewSpinner();
     // this.paramsArray3 = '?limit=' + this.pageSize3 + '&paginationToken=' + encodeURI(this.paginationToken3) + '&ean=' + this.ean3 + '&plu=' + this.plu3;
     this.showProducts = false;
     if (params !== undefined) {
@@ -330,6 +329,7 @@ export class PendingProductsComponent implements OnInit {
       console.log(2);
       this.paramsArray3 = '?limit=' + this.pageSize3 + '&paginationToken=' + encodeURI(this.paginationToken3);
     }
+    this.loadingService.viewSpinner();
     this.pendingProductsService.getAllProductPendingMultiOfert(this.paramsArray3).subscribe((res: any) => {
       console.log(res);
       if (res) {
@@ -342,6 +342,8 @@ export class PendingProductsComponent implements OnInit {
         this.showProducts = true;
         this.productsList3 = res.viewModel;
         this.paginationToken3 = res.paginationToken;
+        this.loadingService.closeSpinner();
+      } else {
         this.loadingService.closeSpinner();
       }
       this.filterProductsModify3();

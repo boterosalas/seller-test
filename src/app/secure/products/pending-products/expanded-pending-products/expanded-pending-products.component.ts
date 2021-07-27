@@ -75,17 +75,15 @@ export class ExpandedPendingProductsComponent implements OnInit {
     }
 
     if (this.productsMultiOfertExpanded) {
+      console.log(this.productsMultiOfertExpanded);
       this.currentProduct = JSON.parse(this.productsMultiOfertExpanded.currentProduct);
       this.oldProduct = JSON.parse(this.productsMultiOfertExpanded.oldProduct);
-      console.log('curr: ', this.currentProduct);
-      console.log('old: ', this.oldProduct);
-
-      for (const product in  this.oldProduct) {
-        if ( this.oldProduct.hasOwnProperty(product) && this.currentProduct.hasOwnProperty(product)) {
+      for (const product in this.oldProduct) {
+        if (this.oldProduct.hasOwnProperty(product) && this.currentProduct.hasOwnProperty(product)) {
           this.arrayMultiOfert.push(
             {
               name: product,
-              old:  this.oldProduct[product],
+              old: this.oldProduct[product],
               current: this.currentProduct[product],
               expandable: this.validateExpandable(product)
             }
@@ -97,12 +95,16 @@ export class ExpandedPendingProductsComponent implements OnInit {
     this.createArrayImages();
     this.getDataUser();
   }
+
+  /**
+   * Metodo para validar informacion y mapearla en los expandibles
+   * @param name
+   * @returns
+   */
   validateExpandable(name: string) {
     let expansible = false;
-    console.log('name: ', name);
     switch (name) {
       case 'Features':
-        console.log('here features');
         expansible = true;
         const currentProductFeature = JSON.parse(this.productsMultiOfertExpanded.currentProduct).Features;
         const oldProductFeature = JSON.parse(this.productsMultiOfertExpanded.oldProduct).Features;
@@ -119,7 +121,6 @@ export class ExpandedPendingProductsComponent implements OnInit {
         }
         break;
       case 'KeyWords':
-        console.log('here KeyWords');
         expansible = true;
         this.arrayKeyWords = [];
         const currentProductKeywords = JSON.parse(this.productsMultiOfertExpanded.currentProduct).KeyWords;
@@ -132,14 +133,10 @@ export class ExpandedPendingProductsComponent implements OnInit {
         }
         break;
       case 'Description':
-        console.log('here Description');
         expansible = true;
         this.arrayDescription = [];
         const currentProductDescription = JSON.parse(this.productsMultiOfertExpanded.currentProduct).Description;
         const oldProductDescription = JSON.parse(this.productsMultiOfertExpanded.oldProduct).Description;
-        console.log(44, currentProductDescription);
-        console.log(55, oldProductDescription);
-
         this.arrayDescription.push({
           valueOld: oldProductDescription,
           valueCurrent: currentProductDescription,
@@ -150,11 +147,12 @@ export class ExpandedPendingProductsComponent implements OnInit {
         this.arrayVideo = [];
         const currentProductVideo = JSON.parse(this.productsMultiOfertExpanded.currentProduct).VideoUrl;
         const oldProductVideo = JSON.parse(this.productsMultiOfertExpanded.oldProduct).VideoUrl;
+        console.log(44, currentProductVideo);
+        console.log(55, oldProductVideo);
         this.arrayVideo.push({
           valueOld: oldProductVideo,
           valueCurrent: currentProductVideo,
         });
-        console.log(99, currentProductVideo)
         break;
       case 'ImageUrl1':
         this.arrayImages1.push(
@@ -263,19 +261,25 @@ export class ExpandedPendingProductsComponent implements OnInit {
   }
 
 
+  /**
+   * Modal para abrir o rechazar cambios de multioferta
+   * @param type
+   */
   modalGeneric(type: string) {
     let params = {};
     if (type === 'approved') {
       params = {
         title: this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_title_approved'),
         subtitle: this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_approved'),
-        type: type
+        type: type,
+        id: this.productsMultiOfertExpanded.id.toString()
       };
     } else if (type === 'reject') {
       params = {
         title: this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_title_reject'),
         subtitle: this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_reject'),
-        type: type
+        type: type,
+        id: this.productsMultiOfertExpanded.id.toString()
       };
     }
 

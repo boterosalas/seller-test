@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { LoadingService, ModalService } from '@app/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { PendingProductsService } from '../../../pending-products.service';
@@ -21,6 +22,9 @@ export class ModalGenericProductMultiOfertComponent implements OnInit {
     public dialogRef: MatDialogRef<ModalGenericProductMultiOfertComponent>,
     private pendingProductsService: PendingProductsService,
     private languageService: TranslateService,
+    private loadingService?: LoadingService,
+    private modalService?: ModalService,
+
   ) { }
 
   ngOnInit() {
@@ -30,18 +34,40 @@ export class ModalGenericProductMultiOfertComponent implements OnInit {
     this.dialogRef.close();
   }
   approvedProduct() {
-    this.pendingProductsService.sendApprovedProductMultiOfert().subscribe( result => {
-      this.processFinish$.next();
-      this.showSuccessful = true;
-      this.status = this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_msg_approved');
+    const dataToSendApproved = {
+      Status: 1,
+      Id: this.data.id
+    };
+    this.loadingService.viewSpinner();
+    this.pendingProductsService.sendAcceptRejectedProductMultiOfert(dataToSendApproved).subscribe(result => {
+      if (result) {
+        this.processFinish$.next();
+        this.showSuccessful = true;
+        this.status = this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_msg_approved');
+        this.loadingService.viewSpinner();
+      } else {
+        this.modalService.showModal('errorService');
+        this.loadingService.viewSpinner();
+      }
     });
   }
 
   rejectProduct() {
-    this.pendingProductsService.sendRejectProductProductMultiOfert().subscribe( result => {
-      this.processFinish$.next();
-      this.showReject = true;
-      this.status = this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_msg_rejected')
+    const dataToSendRejectd = {
+      Status: 2,
+      Id: this.data.id
+    };
+    this.loadingService.viewSpinner();
+    this.pendingProductsService.sendAcceptRejectedProductMultiOfert(dataToSendRejectd).subscribe(result => {
+      if (result) {
+        this.processFinish$.next();
+        this.showReject = true;
+        this.status = this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_msg_rejected')
+        this.loadingService.viewSpinner();
+      } else {
+        this.modalService.showModal('errorService');
+        this.loadingService.viewSpinner();
+      }
     });
 
   }

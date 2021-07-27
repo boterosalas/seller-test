@@ -148,17 +148,20 @@ export class PendingProductsService {
   }
 
 
-  sendApprovedProductMultiOfert(params?: any): Observable<{}> {
-    return new Observable(observer => {
-      observer.next({ true: true });
-    });
+  /**
+   * Servicio para aceptar o rechazar multioferta
+   * @param params
+   * @returns
+   */
+  sendAcceptRejectedProductMultiOfert(params?: any): Observable<{}> {
+    return this.http.post(this.api.get('postAccepRejectedMultioffer'), params);
   }
 
-  sendRejectProductProductMultiOfert(params?: any): Observable<{}> {
-    return new Observable(observer => {
-      observer.next({ true: true });
-    });
-  }
+  // sendRejectProductProductMultiOfert(params?: any): Observable<{}> {
+  //   return new Observable(observer => {
+  //     observer.next({ true: true });
+  //   });
+  // }
 
 
 }

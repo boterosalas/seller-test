@@ -372,7 +372,9 @@ export const endpoints = {
       // Servicio obtener productos multioferta
       getAllproductsApproveBySeller: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/productspendingtoapprovebyseller{params}',
       // Servicio para obtener info expandida de producto multioferta
-      getExpandedProductMultiofferbyEan: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/productspendingtoapprovebyseller/specificproduct{params}'
+      getExpandedProductMultiofferbyEan: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/productspendingtoapprovebyseller/specificproduct{params}',
+      // Servicio para aceptar o rechazar multioferta
+      postAccepRejectedMultioffer: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/productspendingtoapprovebyseller'
     },
   },
   // Endpoints production
@@ -740,9 +742,11 @@ export const endpoints = {
       // Crear un contacto para un vendedor (primero creamos y luego editamos)
       createContactData: 'https://igxf6mswfa.execute-api.us-east-1.amazonaws.com/pdn/RegisterContactSeller',
       // Servicio obtener productos multioferta
-      getAllproductsApproveBySeller: '',
+      getAllproductsApproveBySeller: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/productspendingtoapprovebyseller{params}',
       // Servicio para obtener info expandida de producto multioferta
-      getExpandedProductMultiofferbyEan: ''
+      getExpandedProductMultiofferbyEan: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/productspendingtoapprovebyseller/specificproduct{params}',
+      // Servicio para aceptar o rechazar multioferta
+      postAccepRejectedMultioffer: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/productspendingtoapprovebyseller'
     }
   }
 };
