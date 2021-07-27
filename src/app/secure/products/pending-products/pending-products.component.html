@@ -55,13 +55,17 @@
                 (page)="pageEvent = paginations($event)"></mat-paginator>
             </div>
           </div>
+          <button type="button" mat-button (click)="openModalProductsPendingModification()" [disabled]="disabledBtnDownLoad">
+            <mat-icon>download</mat-icon>
+            <small class="sub-title-filter">{{'permissions.Descargar' | translate}}</small>
+          </button>
           <button type="button" mat-button (click)="drawer.toggle()">
             <mat-icon>filter_list</mat-icon>
             <small class="sub-title-filter">{{'filters.filter' | translate}}</small>
           </button>
         </mat-toolbar>
       </div>
-     
+
       <div fxLayout="column">
         <div class="text-info-container">
           {{'secure.products.pending_products_text_info_header' | translate}}

@@ -1,0 +1,34 @@
+:host {
+  .wrapper {
+    .header {
+      margin-bottom: 15px;
+    }
+  }
+  .categoires-options {
+    h5 {
+      margin: 10px 0;
+    }
+    .select-all {
+      margin: 0 0 10px 0;
+    }
+    .options {
+      width: min-content;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-column-gap: 15px;
+      mat-checkbox {
+        margin-bottom: 7px;
+      }
+    }
+    mat-dialog-actions {
+      margin-bottom: 0px;
+    }
+  }
+
+
+  mat-spinner {
+    margin: auto;
+    width: 50px;
+    height: 50px;
+  }
+}

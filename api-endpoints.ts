@@ -26,7 +26,6 @@ export const endpoints = {
       getBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing{stringParams}',
       exportBillingPays: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing',
       searchBilling: 'https://iqur5b3ua3.execute-api.us-east-1.amazonaws.com/billing?idSeller={sellerId}&limit={limit}',
-      refuseOrAcceptDevolution: '',
       // Support message
       supporMessage: 'https://iqbs3e9dyb.execute-api.us-east-1.amazonaws.com/CreateSupport',
       createcaseseller: 'https://7y9v564dl9.execute-api.us-east-1.amazonaws.com/cases-dev/createcaseseller',
@@ -374,7 +373,15 @@ export const endpoints = {
       // Servicio para obtener info expandida de producto multioferta
       getExpandedProductMultiofferbyEan: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/productspendingtoapprovebyseller/specificproduct{params}',
       // Servicio para aceptar o rechazar multioferta
-      postAccepRejectedMultioffer: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/productspendingtoapprovebyseller'
+      postAccepRejectedMultioffer: 'https://ugv14jroji.execute-api.us-east-1.amazonaws.com/Products/productspendingtoapprovebyseller',
+      // Crear y editar una oferta programada
+      scheduleoffer: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/scheduleoffer',
+      // Borrar un oferta programada
+      deleteScheduleoffer: 'https://1b98mqc06i.execute-api.us-east-1.amazonaws.com/Offer/scheduleoffer/{params}',
+      // Obtener las categorias para los productos pendientes de modificación
+      getCategoriesProductsPendingModification: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productsrejected/categories',
+      // Retorna respuesta del descargable de productos pendientes de modificacíon
+      reportProductsPendingModificartion: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productsrejected/report?email={email}&categories={categories}'
     },
   },
   // Endpoints production
@@ -390,9 +397,9 @@ export const endpoints = {
       sendAllProductInOrder: 'https://5zu3684z6e.execute-api.us-east-1.amazonaws.com/sendallproductsinorder-pdn/{orderId}',
       sendProductInOrder: 'https://dc042g38t8.execute-api.us-east-1.amazonaws.com/sendproductinorder-pdn/{orderId}/{idDetailProduct}',
       searchPendingDevolution: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn?{stringParams}',
-      pendingDevolution: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn?{stringParams}', // PENDIENTE
+      pendingDevolution: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn?{stringParams}',
       pendingDevolutionSearchTemporal: 'https://5nkjhkfsm2.execute-api.us-east-1.amazonaws.com/reversionrequest-pdn?{stringParams}',
-      acceptOrDeniedDevolution: 'https://geddaxinw4.execute-api.us-east-1.amazonaws.com/refuseoracceptdevolution-pdn', // TODO: Faltante en api end points
+      acceptOrDeniedDevolution: 'https://geddaxinw4.execute-api.us-east-1.amazonaws.com/refuseoracceptdevolution-pdn',
       recordProcesSedOrder: 'https://cfa1kdi5yj.execute-api.us-east-1.amazonaws.com/recordproccessedorder-pdn',
       getallordersbysellerwithouttracking: 'https://e06ayaf6s9.execute-api.us-east-1.amazonaws.com/getallordersbysellerwithouttracking-pdn{stringParam}',
       validateStatusLoadGuide: 'https://vaf1d3c2ic.execute-api.us-east-1.amazonaws.com/sendallguides-pdn/status',
@@ -400,7 +407,6 @@ export const endpoints = {
       getBilling: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn{stringParams}',
       exportBillingPays: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn',
       searchBilling: 'https://rtox6c92tc.execute-api.us-east-1.amazonaws.com/financial-pdn?idSeller={sellerId}&limit={limit}',
-      refuseOrAcceptDevolution: 'http://localhost:3000/reversionrequest/requestacceptordenied',
       // Support message
       supporMessage: 'https://7bvbe7k6n8.execute-api.us-east-1.amazonaws.com/createsupport-pdn',
       createcaseseller: 'https://rbanmmpwm0.execute-api.us-east-1.amazonaws.com/cases-pdn/createcaseseller',
@@ -746,7 +752,15 @@ export const endpoints = {
       // Servicio para obtener info expandida de producto multioferta
       getExpandedProductMultiofferbyEan: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/productspendingtoapprovebyseller/specificproduct{params}',
       // Servicio para aceptar o rechazar multioferta
-      postAccepRejectedMultioffer: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/productspendingtoapprovebyseller'
+      postAccepRejectedMultioffer: 'https://pb78swws90.execute-api.us-east-1.amazonaws.com/products-pdn/productspendingtoapprovebyseller',
+      // Crear y editar una oferta programada
+      scheduleoffer: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/scheduleoffer',
+      // Borrar un oferta programada
+      deleteScheduleoffer: 'https://dgu5y5h0u3.execute-api.us-east-1.amazonaws.com/offer-pdn/scheduleoffer/{params}',
+      // Obtener las categorias para los productos pendientes de modificación
+      getCategoriesProductsPendingModification: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn/productsrejected/categories',
+      // Retorna respuesta del descargable de productos pendientes de modificacíon
+      reportProductsPendingModificartion: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn/productsrejected/report?email={email}&categories={categories}'
     }
   }
 };

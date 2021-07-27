@@ -109,4 +109,5 @@ export interface Case {
   follow: Array<any>;
   attachments: Array<any>;
   caseNumber: string;
+  responseTime?: any;
 }

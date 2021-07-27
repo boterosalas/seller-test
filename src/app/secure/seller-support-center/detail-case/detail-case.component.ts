@@ -59,7 +59,7 @@ export class DetailCaseComponent implements OnInit {
   @Input() idDetail: any;
   @Output() idDetailFalse = new EventEmitter<any>();
 
-  displayedColumns: string[] = ['product','brand','sku', 'ean', 'skuseller', 'price', 'quantity'];
+  displayedColumns: string[] = ['product', 'brand', 'sku', 'ean', 'skuseller', 'price', 'quantity'];
 
 
   constructor(
@@ -91,8 +91,11 @@ export class DetailCaseComponent implements OnInit {
    * @memberof DetailCaseComponent
    */
   redirecToListClaims() {
-  this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
-   this.router.navigate(['/securehome/seller-center/support-center']));
+    this.idDetail = false;
+    this.idDetailFalse.emit(this.idDetail);
+    // Cambio comentado para prueba QA, volver listado reclamaciones
+    // this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+    //  this.router.navigate(['/securehome/seller-center/support-center']));
   }
 
   toggleFilter(stateFilter: boolean) {
@@ -107,7 +110,7 @@ export class DetailCaseComponent implements OnInit {
       this.configDialog
     );
     dialogRef.afterClosed().subscribe(result => {
-    this.loadingService.viewSpinner();
+      this.loadingService.viewSpinner();
       if (result !== undefined) {
         this.sellerSupportService
           .patchCaseResponse(result.data)
@@ -121,23 +124,23 @@ export class DetailCaseComponent implements OnInit {
     });
   }
 
-      /**
-   * funcion para mostrar el modal del producto
-   *
-   * @param {*} module
-   * @param {*} item
-   * @memberof ListAdminSchoolComponent
-   */
-       showThumbnail(dataProduct: any) {
-        this.dialog.open(InfoModalSupportComponent, {
-          data: {
-            dataProduct
-          },
-          width: '300px',
-          maxWidth: '90vw',
-        });
-        
-      }
+  /**
+* funcion para mostrar el modal del producto
+*
+* @param {*} module
+* @param {*} item
+* @memberof ListAdminSchoolComponent
+*/
+  showThumbnail(dataProduct: any) {
+    this.dialog.open(InfoModalSupportComponent, {
+      data: {
+        dataProduct
+      },
+      width: '300px',
+      maxWidth: '90vw',
+    });
+
+  }
 
   getStatusCase() {
     this.storeService.getStateConfiguration().subscribe((res: ConfigurationState) => {

@@ -59,4 +59,34 @@ export class ListService {
     return this.http.patch(this.api.get('patchDesactiveOffer'), body, { observe: 'response' });
   }
 
+/**
+ * funcion para programar ofertas
+ *
+ * @param {*} body
+ * @returns {Observable<any>}
+ * @memberof ListService
+ */
+public scheduleoffer(body: any): Observable<any> {
+    return this.http.post(this.api.get('scheduleoffer'), body, { observe: 'response' });
+  }
+/**
+ * funcion para editar una oferta programada
+ *
+ * @param {*} body
+ * @returns {Observable<any>}
+ * @memberof ListService
+ */
+public editScheduleoffer(body: any): Observable<any> {
+    return this.http.patch(this.api.get('scheduleoffer'), body, { observe: 'response' });
+  }
+/**
+ * funcion para borrar una oferta programada
+ *
+ * @param {*} param
+ * @returns {Observable<any>}
+ * @memberof ListService
+ */
+public deleteScheduleoffer(param: any): Observable<any> {
+    return this.http.delete(this.api.get('deleteScheduleoffer', [param]), { observe: 'response' });
+  }
 }

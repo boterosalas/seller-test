@@ -5,7 +5,7 @@ $underline: #909090;
 
 .ticket-toolbar {
   background-color: white;
-  padding: 0px 32px;
+  padding-left: 32px;
   height: 45px !important;
   max-height: 45px;
   justify-content: space-between;
@@ -157,6 +157,7 @@ $underline: #909090;
 }
 
 .toolbar-content {
+  width: 29%;
   @media (max-width: 600px) {
     width: 100%;
   }
