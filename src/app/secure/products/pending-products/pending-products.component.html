@@ -170,7 +170,7 @@
           <div fxLayout="row" fxLayoutAlign="space-between center">
             <h3>{{'secure.products.pending_products.filterMultiOffer' | translate}}</h3>
             <button id="closeMenuApplication" type="button" color="primary" [matTooltip]="'actions.close' | translate"
-              matTooltipPosition="below" mat-icon-button mat-button (click)="drawer3.toggle()">
+              matTooltipPosition="below" mat-icon-button mat-button (click)="drawer3.toggle() && closeFilter3()">
               <mat-icon>clear</mat-icon>
             </button>
           </div>

@@ -283,6 +283,7 @@ export class PendingProductsComponent implements OnInit {
    * @memberof PendingProductsComponent
    */
   getPendingProductsValidation(params?: any) {
+    console.log(params);
     this.loadingService.viewSpinner();
     if (params !== undefined) {
       this.paginationToken2 = encodeURI(this.paginationToken2);
@@ -319,12 +320,15 @@ export class PendingProductsComponent implements OnInit {
    * @memberof PendingProductsComponent
    */
   getPendingProductsMultiOfert(params?: any) {
+    console.log(852, params);
+    console.log('&ean=', this.ean3);
+    console.log('&ean=', this.plu3);
     // this.paramsArray3 = '?limit=' + this.pageSize3 + '&paginationToken=' + encodeURI(this.paginationToken3) + '&ean=' + this.ean3 + '&plu=' + this.plu3;
     this.showProducts = false;
-    if (params !== undefined) {
+    if (params !== undefined ) {
       console.log(1);
       this.paginationToken = encodeURI(this.paginationToken);
-      this.paramsArray3 = '?limit=' + this.pageSize3 + '&paginationToken=' + encodeURI(this.paginationToken3) + '&ean=' + this.ean3 + '&plu=' + this.plu3;;
+      this.paramsArray3 = '?limit=' + this.pageSize3 + '&paginationToken=' + encodeURI(this.paginationToken3) + '&ean=' + this.ean3 + '&plu=' + this.plu3;
     } else {
       console.log(2);
       this.paramsArray3 = '?limit=' + this.pageSize3 + '&paginationToken=' + encodeURI(this.paginationToken3);
@@ -489,7 +493,8 @@ export class PendingProductsComponent implements OnInit {
       'limit': this.pageSize3 + '&paginationToken=' + encodeURI('{}'),
       'idSeller': this.user.sellerId + '&ean=' + null + '&name=' + null
     };
-    this.getPendingProductsValidation(this.paramsArray3);
+    this.getPendingProductsMultiOfert(this.paramsArray3);
+    console.log('here here');
   }
 
   /**
@@ -524,7 +529,7 @@ export class PendingProductsComponent implements OnInit {
     this.getAllPendingProductsValidattion();
   }
   /**
-   * Metodo para cerrar el filtro de productos pendientes validación
+   * Metodo para cerrar el filtro de productos pendientes aprobar multioferta
    * @memberof PendingProductsComponent
    */
   public closeFilter3() {
@@ -579,7 +584,8 @@ export class PendingProductsComponent implements OnInit {
     this.callOne3 = true;
     this.ean3 = encodeURIComponent(this.filterProdutsMultiOfert.controls.ean3.value);
     this.plu3 = encodeURIComponent(this.filterProdutsMultiOfert.controls.plu3.value);
-    this.getPendingProductsMultiOfert();
+    // this.paramsArray3 = '?limit=' + this.pageSize3 + '&paginationToken=' + encodeURI(this.paginationToken3) + '&ean=' + this.ean3 + '&plu=' + this.plu3;
+    this.getPendingProductsMultiOfert(this.filterProdutsMultiOfert);
   }
 
   /**
@@ -704,16 +710,19 @@ export class PendingProductsComponent implements OnInit {
   public removeValidation(productsFilterValidation: ListFilterProductsModify): void {
     const index = this.listFilterProductsValidation.indexOf(productsFilterValidation);
 
+
     if (index >= 0) {
       this.listFilterProductsValidation.splice(index, 1);
       this[productsFilterValidation.value] = '';
       this.filterProdutsValidation.controls[productsFilterValidation.nameFilter].setValue(null);
     }
+    console.log(productsFilterValidation);
+    console.log(index);
     this.filterApply2();
   }
   /**
    * Metodo para ir eliminando chips de filtros productos validación
-   * @param {ListFilterProductsModify} productsFilterValidation
+   * @param {ListFilterProductsModify} productsFilterMultiOfert
    * @memberof PendingProductsComponent
    */
   public removeMultiOfert(productsFilterMultiOfert: ListFilterProductsModify): void {
@@ -722,8 +731,10 @@ export class PendingProductsComponent implements OnInit {
     if (index >= 0) {
       this.listFilterProductsMultiOfert.splice(index, 1);
       this[productsFilterMultiOfert.value] = '';
-      this.filterProdutsValidation.controls[productsFilterMultiOfert.nameFilter].setValue(null);
+      this.filterProdutsMultiOfert.controls[productsFilterMultiOfert.nameFilter].setValue(null);
     }
+    console.log(productsFilterMultiOfert);
+    console.log(index);
     this.filterApply3();
   }
 
