@@ -1587,5 +1587,12 @@
     "download.products.pending.modal.sub_title": "Enter the email address to share this report",
     "download.products.pending.modal.select-plu": "Select PLU categories",
     "selectall":"Select all",
-    "download-upercase":"DOWNLOAD"
+    "download-upercase":"DOWNLOAD",
+
+    "report.title": "ORDENES PARA ADMINISTRADOR",
+    "report.all-sellers": "Todos los Seller",
+    "report.all-orders": "Todas las órdenes",
+    "report.orders-to-send": "Órdenes por enviar",
+    "report.orders-sending": "Órdenes enviadas",
+    "report.download":"Descargar reporte"
 }

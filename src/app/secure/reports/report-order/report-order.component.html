@@ -1,1 +1,203 @@
-<p>report-order works!</p>
+<mat-toolbar class="tree-toolbar">
+  <div class="normal-theme toolbar-options-table">
+    <!--  Titulo del toolbar -->
+    <p class="tree-title">
+      {{ "module.Reportes" | translate }}
+      <small class="sub-title"> | {{ "report.title" | translate }}</small>
+    </p>
+  </div>
+</mat-toolbar>
+
+<div class="container" fxLayout="row">
+  <form [formGroup]="form" *ngIf="isAdmin" fxLayout="column" fxFlex>
+    <div
+      fxLayout="row"
+      class="modal-export-to-reclaim-margin-text-search-seller"
+      *ngIf="isAdmin"
+    >
+      <div>
+        <span>{{
+          "secure.parametize.support_claims-filter.modal-export.searchSeller"
+            | translate
+        }}</span>
+      </div>
+    </div>
+    <div
+      fxLayout="row wrap"
+      class="modal-export-to-reclaim-margin-left-component-search-seller"
+      *ngIf="isAdmin"
+    >
+      <div
+        fxFlex.md="75"
+        fxFlex.lg="75"
+        fxFlex.xl="75"
+        fxFlex.xs="90"
+        fxFlex.sm="90"
+      >
+        <div fxLayout="column">
+          <div>
+            <app-search-seller
+              [loadSpinner]="false"
+              [emitModal]="true"
+              [clearSearch]="clearSearch"
+              [isFullSearch]="false"
+              [widthComplete]="true"
+            ></app-search-seller>
+          </div>
+        </div>
+      </div>
+      <div
+        fxFlex.md="20"
+        fxFlex.lg="20"
+        fxFlex.xl="20"
+        fxFlex.xs="5"
+        fxFlex.sm="5"
+        class="text-aling-end modal-export-to-reclaim-add-seller-btn"
+        (click)="IsClickEnable ? saveKeyword() : null"
+      >
+        <mat-icon
+          matSuffix
+          [matTooltip]="'secure.parametize.port.btn_add_port' | translate"
+          class="material-icons color-icon-add-seller vertical-align-top"
+        >
+          add_circle_outline
+        </mat-icon>
+        <span
+          class="color-text-add-seller"
+          fxShow.xs="false"
+          fxShow.sm="false"
+          fxShow.lg="true"
+          fxShow.xl="true"
+          >{{
+            "secure.parametize.support_claims-filter.modal-export.addSeller"
+              | translate
+          }}</span
+        >
+      </div>
+    </div>
+    <div
+      fxLayout="row"
+      class="modal-export-to-reclaim-container-scroll-seller"
+      *ngIf="isAdmin && keywords.length"
+    >
+      <div class="modal-export-to-reclaim-chips-seller">
+        <div class="modal-export-to-reclaim-margin-top-20">
+          <mat-chip-list>
+            <mat-chip
+              *ngFor="let key of keywords; let i = index"
+              (removed)="deleteKeywork(i)"
+            >
+              {{ key }}
+              <mat-icon class="material-icons" matChipRemove>cancel</mat-icon>
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+      </div>
+    </div>
+    <section class="checkbox" fxLayout="row">
+      <p>
+        <mat-checkbox formControlName="allSeller">{{
+          "report.all-sellers" | translate
+        }}</mat-checkbox>
+      </p>
+    </section>
+
+    <section class="email" fxLayout="column">
+      <h4 class="sc-title">
+        {{ "download.products.pending.modal.sub_title" | translate }}
+      </h4>
+      <mat-form-field fxFlex>
+        <input
+          matInput
+          formControlName="email"
+          [placeholder]="
+            'secure.seller.register_seller.lb_email_form' | translate
+          "
+        />
+        <mat-error
+          *ngIf="
+            form.controls.email.errors && form.controls.email.errors.required
+          "
+          >{{ "errors.required" | translate }}</mat-error
+        >
+        <mat-error
+          *ngIf="form.controls.email.errors && form.controls.email.errors.email"
+          >{{ "errors.email_invalid" | translate }}</mat-error
+        >
+      </mat-form-field>
+    </section>
+
+    <section class="dates" fxFlex="row" fxLayoutAlign="space-between center">
+      <mat-form-field
+        id="sinceDate-input-search-order"
+        color="accent"
+        class="inputw"
+      >
+        <input
+          id="sinceDate-input"
+          [max]="form.value.toDate"
+          formControlName="fromDate"
+          [placeholder]="
+            'core.shell.search_order_menu.search_order_form.from' | translate
+          "
+          matInput
+          [matDatepicker]="fromDate"
+        />
+        <mat-datepicker-toggle
+          id="sinceDate-Perfix"
+          matSuffix
+          [for]="fromDate"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #fromDate></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field
+        id="untilDate-input-search-order"
+        color="accent"
+        class="inputw"
+      >
+        <input
+          id="untilDate-input"
+          [min]="form.value.fromDate"
+          formControlName="toDate"
+          [max]="maxToDate"
+          [placeholder]="
+            'core.shell.search_order_menu.search_order_form.to' | translate
+          "
+          matInput
+          [matDatepicker]="toDate"
+        />
+        <mat-datepicker-toggle id="untilDate-Prefix" matSuffix [for]="toDate">
+        </mat-datepicker-toggle>
+        <mat-datepicker #toDate></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select
+          formControlName="statusOrder"
+          [placeholder]="'shared.status' | translate"
+          multiple
+        >
+          <mat-option
+            *ngFor="let status of listOrderStatus"
+            [value]="status.idStatusOrder"
+          >
+            {{ status.statusOrder }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </section>
+  </form>
+  <div class="download-button" fxFlex="25">
+    <mat-icon>cloud_download</mat-icon>
+    <button
+      class="mt-10"
+      type="button"
+      mat-button
+      (click)="sendExportReportOrders()"
+      [disabled]="form.invalid"
+    >
+      {{ "report.download" | translate }}
+    </button>
+  </div>
+</div>
