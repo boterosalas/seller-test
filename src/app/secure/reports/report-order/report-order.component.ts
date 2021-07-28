@@ -183,7 +183,6 @@ export class ReportOrderComponent implements OnInit, OnDestroy {
       .sendReportOrdersToEmail(body)
       .subscribe((res: any) => {
         if (res) {
-          console.log(res);
           if (res.errors && res.errors.length > 0) {
             this.snackBar.open(
               this.translateService.instant(
