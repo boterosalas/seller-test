@@ -105,8 +105,9 @@ export class ModalProgramOfertComponent implements OnInit {
     const price = this.data.isEdit ? element.price || element.Price : '';
     const quantity = this.data.isEdit ? element.quantity || element.Quantity : '';
     const nameProduct = this.data.isEdit ? element.nameCombo : element.productName;
+    const ean = this.data.isEdit ? element.ean || element.Ean : null;
     this.comboForm = this.fb.group({
-      Ean: element.ean,
+      Ean: ean,
       Price: new FormControl(price, Validators.compose([Validators.required, Validators.pattern(this.data.offertRegex.formatNumber)])),
       Quantity: [quantity, Validators.compose([Validators.required, Validators.pattern(this.data.offertRegex.formatNumber)])],
       nameCombo: new FormControl(nameProduct),
