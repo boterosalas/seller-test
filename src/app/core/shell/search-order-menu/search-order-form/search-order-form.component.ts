@@ -201,6 +201,7 @@ export class SearchOrderFormComponent implements OnInit {
    * @memberof SearchOrderFormComponent
    */
   clearForm() {
+    this.loadingService.viewSpinner();
     this.myform.reset();
     this.shellComponent.eventEmitterOrders.getClear();
     this.shellComponent.sidenavSearchOrder.toggle();

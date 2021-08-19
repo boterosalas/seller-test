@@ -221,6 +221,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   ) {
     this.getAllDataUser();
     this.getListbyParams();
+    this.clearData();
   }
 
 
@@ -294,8 +295,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
               }
               const paginator = { 'pageIndex': 0 };
               this.addCheckOptionInProduct(res.data.viewModel, paginator);
+              this.loadingService.closeSpinner();
             }
-            this.loadingService.closeSpinner();
 
           }
         });
@@ -663,6 +664,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
           }
           const paginator = { 'pageIndex': 0 };
           this.addCheckOptionInProduct(res.data.viewModel, paginator);
+          this.loadingService.closeSpinner();
         }
       }
     });
