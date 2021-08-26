@@ -1,21 +1,21 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { MatSnackBar } from "@angular/material";
-import { LoadingService } from "@app/core";
-import { SearchOrderMenuService } from "@app/core/shell/search-order-menu/search-order-menu.service";
-import { MyProfileService } from "@app/secure/aws-cognito/profile/myprofile.service";
-import { StoreModel } from "@app/secure/offers/stores/models/store.model";
-import { EventEmitterSeller } from "@app/shared/events/eventEmitter-seller.service";
-import { TranslateService } from "@ngx-translate/core";
-import moment from "moment";
-import { Subscription, Observable } from "rxjs";
-import { distinctUntilChanged } from "rxjs/operators";
-import { ReportOrderService } from "./report-order.service";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
+import { LoadingService } from '@app/core';
+import { SearchOrderMenuService } from '@app/core/shell/search-order-menu/search-order-menu.service';
+import { MyProfileService } from '@app/secure/aws-cognito/profile/myprofile.service';
+import { StoreModel } from '@app/secure/offers/stores/models/store.model';
+import { EventEmitterSeller } from '@app/shared/events/eventEmitter-seller.service';
+import { TranslateService } from '@ngx-translate/core';
+import moment from 'moment';
+import { Subscription, Observable } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs/operators';
+import { ReportOrderService } from './report-order.service';
 
 @Component({
-  selector: "app-report-order",
-  templateUrl: "./report-order.component.html",
-  styleUrls: ["./report-order.component.scss"],
+  selector: 'app-report-order',
+  templateUrl: './report-order.component.html',
+  styleUrls: ['./report-order.component.scss'],
 })
 export class ReportOrderComponent implements OnInit, OnDestroy {
   public form: FormGroup;
@@ -39,7 +39,7 @@ export class ReportOrderComponent implements OnInit, OnDestroy {
   selectSeller = false;
   exportAll = false;
 
-  fromDate = moment(moment().subtract(1, "month")).toISOString();
+  fromDate = moment(moment().subtract(1, 'month')).toISOString();
   toDate = moment().toISOString();
   maxToDate = this.toDate;
   listOrderStatus = [];
@@ -53,7 +53,7 @@ export class ReportOrderComponent implements OnInit, OnDestroy {
     private profileService?: MyProfileService,
     private statusOrdersSvc?: SearchOrderMenuService,
     private reportOrdersSvc?: ReportOrderService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getAllDataUser();
@@ -77,10 +77,10 @@ export class ReportOrderComponent implements OnInit, OnDestroy {
    * Crea el formulario y activa la subscripcion a los cambios
    *  para validaciones y formatear la nueva fecha.
    */
-   createForm() {
+  createForm() {
     this.form = new FormGroup({
       allSeller: new FormControl({ value: false, disabled: false }),
-      email: new FormControl("", [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       fromDate: new FormControl(this.fromDate),
       toDate: new FormControl(this.toDate),
       statusOrder: new FormControl([]),
@@ -89,7 +89,7 @@ export class ReportOrderComponent implements OnInit, OnDestroy {
     this.formSubuscription = this.form.valueChanges
       .pipe(distinctUntilChanged())
       .subscribe((resp) => {
-        this.maxToDate = moment(resp.fromDate).add(1, "month").toISOString();
+        this.maxToDate = moment(resp.fromDate).add(1, 'month').toISOString();
         if (resp.allSeller === true) {
           this.arraySellerId = [];
           this.keywords = [];
@@ -118,7 +118,7 @@ export class ReportOrderComponent implements OnInit, OnDestroy {
     this.IsClickEnable = false;
     this.clearSearch = true;
     if (this.form.controls.allSeller.value === true) {
-      this.form.get("allSeller").setValue(false, { emitEvent: false });
+      this.form.get('allSeller').setValue(false, { emitEvent: false });
     }
   }
 
@@ -146,9 +146,9 @@ export class ReportOrderComponent implements OnInit, OnDestroy {
         const response = JSON.parse(body.body);
         const userData = response.Data;
         this.sellerId = userData.IdSeller;
-        localStorage.setItem("typeProfile", userData.Profile);
+        localStorage.setItem('typeProfile', userData.Profile);
         if (
-          userData.Profile !== "seller" &&
+          userData.Profile !== 'seller' &&
           userData.Profile &&
           userData.Profile !== null
         ) {
@@ -172,8 +172,8 @@ export class ReportOrderComponent implements OnInit, OnDestroy {
       Status: this.form.value.statusOrder[0]
         ? this.form.value.statusOrder
         : null, //Si no selecciona ningun estado lo manda null
-      DateInit: moment(this.form.value.fromDate).format("YYYY-MM-DD"),
-      DateEnd: moment(this.form.value.toDate).format("YYYY-MM-DD"),
+      DateInit: moment(this.form.value.fromDate).format('YYYY-MM-DD'),
+      DateEnd: moment(this.form.value.toDate).format('YYYY-MM-DD'),
       Sellers: this.arraySellerId.length ? this.arraySellerId : null, //Si no selecciona Vendedor lo manda null
       Email: this.form.value.email,
       AllSeller: this.form.value.allSeller ? true : false, //Es false cuando selecciona al menos 1 vendedor, y true cuando no selecciona ninguno
@@ -186,9 +186,9 @@ export class ReportOrderComponent implements OnInit, OnDestroy {
           if (res.errors && res.errors.length > 0) {
             this.snackBar.open(
               this.translateService.instant(
-                "secure.orders.send.error_ocurred_processing"
+                'secure.orders.send.error_ocurred_processing'
               ),
-              this.translateService.instant("actions.close"),
+              this.translateService.instant('actions.close'),
               {
                 duration: 3000,
               }
@@ -196,9 +196,9 @@ export class ReportOrderComponent implements OnInit, OnDestroy {
           } else {
             this.snackBar.open(
               this.translateService.instant(
-                "El reporte se ha enviado de manera correcta al correo solicitado"
+                'El reporte se ha enviado de manera correcta al correo solicitado'
               ),
-              this.translateService.instant("actions.close"),
+              this.translateService.instant('actions.close'),
               {
                 duration: 3000,
               }
@@ -209,9 +209,9 @@ export class ReportOrderComponent implements OnInit, OnDestroy {
           this.loadingService.closeSpinner();
           this.snackBar.open(
             this.translateService.instant(
-              "secure.orders.send.error_ocurred_processing"
+              'secure.orders.send.error_ocurred_processing'
             ),
-            this.translateService.instant("actions.close"),
+            this.translateService.instant('actions.close'),
             {
               duration: 3000,
             }
