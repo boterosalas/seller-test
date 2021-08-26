@@ -109,17 +109,40 @@ export class ReportOrderComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Funcion para buscar si el vendedor ya existe en la lista a enviar al back y no dejarla aceptar.
+   * @param param
+   * @returns
+   */
+  findSellerList(param: any) {
+    console.log(param);
+    if (this.keywords.find(el => el === param)) {
+      return true;
+    }
+  }
+
+  /**
    * funcion para agregar los seller id
    */
 
   saveKeyword() {
-    this.keywords.push(this.seller.Name);
-    this.arraySellerId.push(this.seller.IdSeller);
-    this.IsClickEnable = false;
-    this.clearSearch = true;
-    if (this.form.controls.allSeller.value === true) {
-      this.form.get('allSeller').setValue(false, { emitEvent: false });
+    if (this.findSellerList(this.seller.Name)) {
+      this.snackBar.open(
+        'El vendedor ya esta agregado en la lista.',
+        this.translateService.instant('actions.close'),
+        {
+          duration: 3000,
+        }
+      );
+    } else {
+      this.keywords.push(this.seller.Name);
+      this.arraySellerId.push(this.seller.IdSeller);
+      this.IsClickEnable = false;
+      this.clearSearch = true;
+      if (this.form.controls.allSeller.value === true) {
+        this.form.get('allSeller').setValue(false, { emitEvent: false });
+      }
     }
+
   }
 
   /**
