@@ -571,7 +571,7 @@ const ReclaModule = new ModuleModel(reclaModule, showAll, reclaModule.toLowerCas
  * 1. Reporte de ofertas.
  */
 
-export const reportModule = 'REPORTES', reportOffertAdmin = 'Reporte de ofertas', reportErrorsVtex = 'Reporte de errores en VTEX', reportCommission = 'Reporte de comisiones', reportDispersion = 'Reporte cobros pendientes MPI', fraudNotification = 'Notificación de Fraudes', sellerContacts = 'Contactos vendedor';
+export const reportModule = 'REPORTES', reportOffertAdmin = 'Reporte de ofertas', reportErrorsVtex = 'Reporte de errores en VTEX', reportCommission = 'Reporte de comisiones', reportDispersion = 'Reporte cobros pendientes MPI', fraudNotification = 'Notificación de Fraudes', sellerContacts = 'Contactos vendedor', reportOrders = 'Reporte de órdenes';
 const ReportModule = new ModuleModel(reportModule, showAll, reportModule.toLowerCase(), [
     new MenuModel(reportOffertAdmin, showAll, reportOffertAdmin.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
@@ -596,7 +596,11 @@ const ReportModule = new ModuleModel(reportModule, showAll, reportModule.toLower
     new MenuModel(sellerContacts, showAll, sellerContacts.toLowerCase(), ProfileTypes.Administrador, [
         new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
         new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality) // Descargar
-    ], RoutesConst.sellerCenterSellerContact)
+    ], RoutesConst.sellerCenterSellerContact),
+    new MenuModel(reportOrders, showAll, reportOrders.toLowerCase(), ProfileTypes.Administrador, [
+        new FunctionalitiesModel(readFunctionality, showAll, readFunctionality), // Consultar.
+        new FunctionalitiesModel(downloadFunctionality, showAll, downloadFunctionality) // Descargar
+    ], RoutesConst.sellerCenterIntOfferReportOrder),
 ]);
 
 

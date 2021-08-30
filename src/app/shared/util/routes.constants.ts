@@ -80,6 +80,7 @@ export class RoutesConst {
     static readonly listCancelOrders: any = 'listado-cancelaciones';
     static readonly manageAgreements: any = 'administrar-acuerdos';
     static readonly detailAgreements: any = 'detalle-acuerdos';
+    static readonly reportOrders: any = 'report-orders';
 
 
     /* Support Center */
@@ -138,6 +139,7 @@ export class RoutesConst {
     static readonly sellerCenterIntOferTreeCategory: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.oferTreeCategory;
     static readonly sellerCenterIntOfferQuoting: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.quoting;
     static readonly sellerCenterIntOfferReportOffert: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.reportOffertAdmin;
+    static readonly sellerCenterIntOfferReportOrder: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.reportOrders;
     static readonly sellerCenterIntReportsErrorsVtex: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.reportErrorsVtexAdmin;
     static readonly sellerCenterIntReportsCommission: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.reportCommission;
     static readonly sellerCenterIntReportsDispersion: any = RoutesConst.sellerCenterOffers + '/' + RoutesConst.reportDispersion;
