@@ -1063,6 +1063,8 @@
     "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_reject": "As long as you do not agree with the changes, for security your inventory will remain at zero.",
     "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_msg_approved": "Changes have been successfully <b>approved</b>",
     "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_msg_rejected": "Changes have been successfully <b>rejected</b>",
+
+    
     "secure.products.create_product_unit.list_products.expanded_product.multiOfert.btn_reject_changes": "REJECT CHANGES",
     "secure.products.create_product_unit.list_products.expanded_product.multiOfert.btn_approved_changes": "APPROVED CHANGES",
     "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_previous": "Previus",
