@@ -1,7 +1,7 @@
 <div class="case-list-content" fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true">
   <mat-accordion class="case-list-expandable" *ngIf="data.expandable">
     <mat-expansion-panel class="width-100" [expanded]="isOpen"
-      (opened)="opened.emit(data); this.panelOpenState= true; read= true;
+      (opened)="opened.emit(data); this.panelOpenState= true;
       showDetail.emit(panelOpenState)"
       (closed)="panelOpenState= false; showDetail.emit(panelOpenState)" class="box-shadow-initial">
       <mat-expansion-panel-header class="container-height-30">
@@ -47,7 +47,7 @@
 <div class="case-list-content" fxShow.xs="true" fxShow.sm="true" fxShow.md="false" fxShow.lg="false" fxShow.xl="false">
   <mat-accordion class="case-list-expandable">
     <mat-expansion-panel class="width-100" [expanded]="isOpen"
-      (opened)="opened.emit(data); this.panelOpenState= true; read= true;
+      (opened)="opened.emit(data); this.panelOpenState= true;
       showDetail.emit(panelOpenState)"
       (closed)="panelOpenState= false; showDetail.emit(panelOpenState)" class="box-shadow-initial">
       <mat-expansion-panel-header class="container-height-30">
