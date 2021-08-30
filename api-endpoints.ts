@@ -375,7 +375,9 @@ export const endpoints = {
       // Obtener las categorias para los productos pendientes de modificación
       getCategoriesProductsPendingModification: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productsrejected/categories',
       // Retorna respuesta del descargable de productos pendientes de modificacíon
-      reportProductsPendingModificartion: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productsrejected/report?email={email}&categories={categories}'
+      reportProductsPendingModificartion: 'https://dsaxgtixub.execute-api.us-east-1.amazonaws.com/ProductsWaiting/productsrejected/report?email={email}&categories={categories}',
+      //Retorna respuesta con el report de ordenes al correo enviado
+      reportOrders:'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/orders/reportbyadmin/{params}'
     },
   },
   // Endpoints production
@@ -748,7 +750,9 @@ export const endpoints = {
       // Obtener las categorias para los productos pendientes de modificación
       getCategoriesProductsPendingModification: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn/productsrejected/categories',
       // Retorna respuesta del descargable de productos pendientes de modificacíon
-      reportProductsPendingModificartion: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn/productsrejected/report?email={email}&categories={categories}'
+      reportProductsPendingModificartion: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn/productsrejected/report?email={email}&categories={categories}',
+      //Retorna respuesta con el report de ordenes al correo enviado
+      reportOrders:'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/orders/reportbyadmin/{params}'
     }
   }
 };

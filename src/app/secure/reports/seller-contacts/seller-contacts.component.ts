@@ -126,7 +126,9 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
     this.form = new FormGroup({
       importAll: new FormControl(this.valueCheck),
       email: new FormControl('', [Validators.required, Validators.email]),
-    });
+    })
+
+
   }
 
   /**
@@ -153,7 +155,7 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
   }
 
   /**
-   * Funcion para mostrar los filtros 
+   * Funcion para mostrar los filtros
    */
 
   showFilter() {
@@ -185,7 +187,7 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
   }
 
   /**
-   * 
+   *
    * @param indexOfValue posicion del arreglo
    * Funcion para eliminar los seller id
    */
@@ -199,7 +201,7 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
   /**
    * metodo para activar el boton
    */
-  
+
   validateSendSeller() {
     if (this.arraySellerId.length > 0) {
       this.disabledButton = false;
@@ -210,7 +212,7 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
   }
 
   /**
-   * 
+   *
    * @param e valor del check
    * funcion para agregar el listado de los filtros
    */
@@ -240,7 +242,7 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
       sellers: [],
       nameLists: []
     };
-    
+
     if (this.form) {
       arraySend.email = this.form.controls['email'].value;
       arraySend.sellers = this.arraySellerId;
@@ -260,20 +262,20 @@ export class SellerContactsComponent implements OnInit , OnDestroy {
         }
         this.loadingService.closeSpinner();
 
-      
+
       } else {
         this.loadingService.closeSpinner();
         this.snackBar.open(this.translateService.instant('secure.orders.send.error_ocurred_processing'), this.translateService.instant('actions.close'), {
         duration: 3000,
       });
-      
+
       }
     });
 
   }
 
   /**
-   * funcion para limpiar los campos 
+   * funcion para limpiar los campos
    */
 
   clearSellerSearch() {
