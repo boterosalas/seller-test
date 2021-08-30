@@ -75,7 +75,6 @@ export class ExpandedPendingProductsComponent implements OnInit {
     }
 
     if (this.productsMultiOfertExpanded) {
-      console.log(this.productsMultiOfertExpanded);
       this.currentProduct = JSON.parse(this.productsMultiOfertExpanded.currentProduct);
       this.oldProduct = JSON.parse(this.productsMultiOfertExpanded.oldProduct);
       for (const product in this.oldProduct) {
@@ -147,8 +146,6 @@ export class ExpandedPendingProductsComponent implements OnInit {
         this.arrayVideo = [];
         const currentProductVideo = JSON.parse(this.productsMultiOfertExpanded.currentProduct).VideoUrl;
         const oldProductVideo = JSON.parse(this.productsMultiOfertExpanded.oldProduct).VideoUrl;
-        console.log(44, currentProductVideo);
-        console.log(55, oldProductVideo);
         this.arrayVideo.push({
           valueOld: oldProductVideo,
           valueCurrent: currentProductVideo,

@@ -114,7 +114,6 @@ export class ReportOrderComponent implements OnInit, OnDestroy {
    * @returns
    */
   findSellerList(param: any) {
-    console.log(param);
     if (this.keywords.find(el => el === param)) {
       return true;
     }

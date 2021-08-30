@@ -30,12 +30,21 @@ export class ModalGenericProductMultiOfertComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Metodo para cerrar modal
+   */
   close() {
     this.dialogRef.close();
   }
+
+
+
+  /**
+   * Metodo para aceptar cambios
+   */
   approvedProduct() {
     const dataToSendApproved = {
-      Status: 1,
+      Status: 2,
       Id: this.data.id
     };
     this.loadingService.viewSpinner();
@@ -52,9 +61,12 @@ export class ModalGenericProductMultiOfertComponent implements OnInit {
     });
   }
 
+  /**
+   * Metodo para rechazar cambios
+   */
   rejectProduct() {
     const dataToSendRejectd = {
-      Status: 2,
+      Status: 3,
       Id: this.data.id
     };
     this.loadingService.viewSpinner();

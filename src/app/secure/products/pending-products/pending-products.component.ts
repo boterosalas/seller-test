@@ -327,7 +327,6 @@ export class PendingProductsComponent implements OnInit {
    * @memberof PendingProductsComponent
    */
   getPendingProductsValidation(params?: any) {
-    console.log(params);
     this.loadingService.viewSpinner();
     if (params !== undefined) {
       this.paginationToken2 = encodeURI(this.paginationToken2);
@@ -379,22 +378,15 @@ export class PendingProductsComponent implements OnInit {
    * @memberof PendingProductsComponent
    */
   getPendingProductsMultiOfert(params?: any) {
-    console.log(852, params);
-    console.log('&ean=', this.ean3);
-    console.log('&ean=', this.plu3);
-    // this.paramsArray3 = '?limit=' + this.pageSize3 + '&paginationToken=' + encodeURI(this.paginationToken3) + '&ean=' + this.ean3 + '&plu=' + this.plu3;
     this.showProducts = false;
     if (params !== undefined) {
-      console.log(1);
       this.paginationToken = encodeURI(this.paginationToken);
       this.paramsArray3 = '?limit=' + this.pageSize3 + '&paginationToken=' + encodeURI(this.paginationToken3) + '&ean=' + this.ean3 + '&plu=' + this.plu3;
     } else {
-      console.log(2);
       this.paramsArray3 = '?limit=' + this.pageSize3 + '&paginationToken=' + encodeURI(this.paginationToken3);
     }
     this.loadingService.viewSpinner();
     this.pendingProductsService.getAllProductPendingMultiOfert(this.paramsArray3).subscribe((res: any) => {
-      console.log(res);
       if (res) {
         if (this.callOne3) {
           this.length3 = res.count;
@@ -413,23 +405,6 @@ export class PendingProductsComponent implements OnInit {
     });
   }
 
-  // mapItems(items: any[]): any[] {
-  //   console.log(items);
-  //   return items.map(x => {
-  //     return {
-  //       currentProduct: JSON.parse(x.CurrentProduct),
-  //       ean: x.Ean,
-  //       creationDate: x.CreationDate,
-  //       name: x.Name,
-  //       updateDate: x.UpdateDate,
-  //       id: x.Id,
-  //       oldProduct: JSON.parse(x.OldProduct),
-  //       sellerId: x.SellerId,
-  //       status: x.Status,
-  //       urlImage1: x.ImageUrl1
-  //     };
-  //   });
-  // }
 
   /**
    * Metodo de paginación productos pendientes modificación
@@ -559,7 +534,6 @@ export class PendingProductsComponent implements OnInit {
       'idSeller': this.user.sellerId + '&ean=' + null + '&name=' + null
     };
     this.getPendingProductsMultiOfert(this.paramsArray3);
-    console.log('here here');
   }
 
   /**
@@ -795,8 +769,6 @@ export class PendingProductsComponent implements OnInit {
         productsFilterValidation.nameFilter
       ].setValue(null);
     }
-    console.log(productsFilterValidation);
-    console.log(index);
     this.filterApply2();
   }
   /**
@@ -812,8 +784,6 @@ export class PendingProductsComponent implements OnInit {
       this[productsFilterMultiOfert.value] = '';
       this.filterProdutsMultiOfert.controls[productsFilterMultiOfert.nameFilter].setValue(null);
     }
-    console.log(productsFilterMultiOfert);
-    console.log(index);
     this.filterApply3();
   }
 
