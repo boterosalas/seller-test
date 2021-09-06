@@ -195,7 +195,7 @@
             (click)="preview()">vista previa</button>
         </div>
         <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="40" fxFlex.lg="40" fxFlex.xl="40" fxFlex="40" class="notification-form-text-align-left">
-          <button mat-raised-button [disabled]="!filterForm.form.valid || !filterForm.form.touched" color="primary" class="notification-form-btn-generic" mat-button
+          <button mat-raised-button [disabled]="!filterForm.form.valid || imagePathDrag === null" color="primary" class="notification-form-btn-generic" mat-button
             (click)="saveNotification()">{{btnTitle}}</button>
         </div>
       </div>
