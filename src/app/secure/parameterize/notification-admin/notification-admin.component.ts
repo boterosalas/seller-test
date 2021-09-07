@@ -156,7 +156,7 @@ export class NotificationAdminComponent implements OnInit {
     };
     this.showListAdvertisements = false;
     this.showContainerDetail = true;
-    this.showOttertTitle = 'Crear anuncio 1';
+    this.showOttertTitle = 'Crear anuncio';
   }
   /**
    * funcion para refrescar la data que se visualiza en el listado principal
@@ -174,7 +174,7 @@ export class NotificationAdminComponent implements OnInit {
     }, 400);
   }
   /**
-   * funcuion para eliminar anuncios, llama al modal para confirmar 
+   * funcuion para eliminar anuncios, llama al modal para confirmar
    *
    * @param {*} element
    * @memberof NotificationAdminComponent

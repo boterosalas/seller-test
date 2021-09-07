@@ -1,21 +1,23 @@
 <div class="advertisements">
-
-    <div fxLayout="row" fxLayoutAlign="end end"><mat-icon class="material-icons close" (click)="close()"> close </mat-icon></div>
-   
-    <h2 class="center-text bold" mat-dialog-title>
-      {{data.Title}}
-    </h2>
-
-    <a  *ngIf=" data.Link !== null" [href]="data.Link" target="_blank">
-        <img *ngIf="data.UrlImage" class="img-adv" [src]="data.UrlImage">
-    </a>
-
-    <span *ngIf=" data.Link === null">
-        <img *ngIf="data.UrlImage" class="img-adv" [src]="data.UrlImage">
-    </span>
-
-    <div *ngIf="data.Body" id="body" [innerHTML]="body" [ngClass]="{'bgcol': data.BackgroundColor !==null}"  [ngStyle]="{'background-color': data.BackgroundColor}">
-    </div>
-  
-  
+  <div fxLayout="row" fxLayoutAlign="end end">
+    <mat-icon class="material-icons close" (click)="close()"> close </mat-icon>
   </div>
+
+  <h2 class="center-text bold" mat-dialog-title>
+    {{data.Title}}
+  </h2>
+
+  <div>
+    <a *ngIf=" data.Link !== null" [href]="data.Link" target="_blank">
+      <img *ngIf="data.UrlImage" class="img-adv" [src]="data.UrlImage">
+    </a>
+  </div>
+
+  <div *ngIf=" data.Link === null">
+    <img *ngIf="data.UrlImage" class="img-adv" [src]="data.UrlImage">
+  </div>
+
+  <div *ngIf="data.Body" id="body" [innerHTML]="body" [ngClass]="{'bgcol': data.BackgroundColor !==null}"
+    [ngStyle]="{'background-color': data.BackgroundColor}">
+  </div>
+</div>
