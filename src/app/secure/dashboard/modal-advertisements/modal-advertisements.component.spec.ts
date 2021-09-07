@@ -10,13 +10,13 @@ describe('ModalAdvertisementsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModalAdvertisementsComponent ],
-      imports:[
+      declarations: [ModalAdvertisementsComponent],
+      imports: [
         MaterialModule,
         SharedModule
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

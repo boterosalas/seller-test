@@ -17,7 +17,7 @@ export class AdvertisementsComponent implements OnInit {
     public dialog: MatDialog,
     private loadingService: LoadingService,
   ) { }
-  
+
 
   public advertisements = [];
   public page1 = true;
@@ -33,7 +33,7 @@ export class AdvertisementsComponent implements OnInit {
 
   public listAdvertisements() {
     this.loadingService.viewSpinner();
-    this._dashboard.getAdvertisements().subscribe(({Data}) => {
+    this._dashboard.getAdvertisements().subscribe(({ Data }) => {
       this.advertisements = Data;
       this.loadingService.closeSpinner();
     })
@@ -62,16 +62,14 @@ export class AdvertisementsComponent implements OnInit {
    * @param adv recibe la data del servicio para enviarla a la modal
    */
 
-  public openAdv(adv:any) {
+  public openAdv(adv: any) {
     const dialogref = this.dialog.open(ModalAdvertisementsComponent, {
-      data:adv,
-      width: '800px',
-      maxWidth: '90vw',
-      maxHeight: '90vh',
+      data: adv,
+      width: '58%',
     });
 
     this._dashboard.readAdvertisements(adv.Id).subscribe();
-    dialogref.afterClosed().subscribe(()=> this.listAdvertisements());
+    dialogref.afterClosed().subscribe(() => this.listAdvertisements());
 
   }
 
