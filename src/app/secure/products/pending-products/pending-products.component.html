@@ -237,6 +237,11 @@
         <app-combo-pending-product [indexTab]="indexTab" [sellerId]="sellerId" [showProducts]="showProducts" [editPermission]="editPermission" [productsList]="productsList3" (emitEventShowDetail) ="showDetail($event)" class="listCombo" (disabledFilterMUltioffer)="disableFilter($event)">
         </app-combo-pending-product>
       </div>
+      <div class="orders-no-data" *ngIf="productsList3.length === 0">
+        <mat-icon class="icon-not-found" color="primary">info</mat-icon>
+            <p>{{'secure.orders.order_list.order_page.no_products_found' | translate}}
+            </p>
+      </div>
     </div>
     </mat-drawer-container>
   </mat-tab>

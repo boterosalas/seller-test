@@ -880,6 +880,10 @@ export class PendingProductsComponent implements OnInit {
     if (event) {
       this.detailShow = event.show;
       if (event.reload) {
+        this.dataChips3 = [];
+        this.listFilterProductsMultiOfert = [];
+        this.cleanFilter3();
+        this.callOne3 = true;
         this.getPendingProductsMultiOfert();
       }
     }

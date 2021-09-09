@@ -469,11 +469,14 @@
     "secure.orders.download_order_modal.sn_download_guide": "The guides have been downloaded correctly, check your inbox.",
     "secure.orders.download_order_modal.sn_error_download": "An error has occurred when downloading the orders.",
     "secure.orders.download_order_modal.sn_error_download_guide": "An error has occurred when downloading the guides.",
+    
     "secure.orders.order_list.detail_modal.order_date": "Order date",
     "secure.orders.order_list.detail_modal.deadline": "Maximum delivery date",
     "secure.orders.order_list.detail_modal.order_type": "Order type",
     "secure.orders.order_list.detail_modal.channel": "Channel",
+
     "secure.orders.order_list.order_page.no_orders_found": "No orders have been found",
+  "secure.orders.order_list.order_page.no_products_found": "No products have been found",
     "secure.orders.order_list.order_page.pending_requests": "No pending requests have been found",
     "secure.orders.order_list.order_page.load_all_orders": "Load all the orders",
     "secure.orders.order_list.order_page.all_orders": "All the orders",

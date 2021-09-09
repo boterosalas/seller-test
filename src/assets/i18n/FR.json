@@ -492,6 +492,7 @@
   "secure.orders.order_list.detail_modal.channel": "Channel",
 
   "secure.orders.order_list.order_page.no_orders_found": "No orders have been found",
+  "secure.orders.order_list.order_page.no_products_found": "No products have been found",
   "secure.orders.order_list.order_page.pending_requests": "No pending requests have been found",
   "secure.orders.order_list.order_page.load_all_orders": "Load all the orders",
   "secure.orders.order_list.order_page.all_orders": "All the orders",
