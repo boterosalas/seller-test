@@ -179,15 +179,6 @@
             </button>
           </div>
           <div fxLayout="column" fxLayoutAlign="space-between" fxLayout.xs="column">
-            <!-- <mat-form-field color="primary">
-              <input matInput
-                [placeholder]="'secure.products.create_product_unit.list_products.product_name' | translate"
-                formControlName="productName3" [errorStateMatcher]="matcher">
-              <mat-hint></mat-hint>
-              <mat-error *ngIf="filterProdutsMultiOfert.get('productName3').hasError('pattern')">
-                {{'secure.products.create_product_unit.list_products.product_name_invalid' | translate}}
-              </mat-error>
-            </mat-form-field> -->
             <mat-form-field color="primary">
               <input matInput [placeholder]="'shared.ean' | translate" formControlName="ean3"
                 [errorStateMatcher]="matcher">
@@ -225,7 +216,7 @@
               (page)="pageEvent = paginations3($event)"></mat-paginator>
           </div>
         </div>
-        <button type="button" mat-button (click)="drawer3.toggle()">
+        <button type="button" mat-button (click)="drawer3.toggle()" [disabled]="disableFilterMultioffer">
           <mat-icon>filter_list</mat-icon>
           <small class="sub-title-filter">{{'filters.filter' | translate}}</small>
         </button>
@@ -243,7 +234,7 @@
         </mat-chip-list>
       </div>
       <div class="prodList">
-        <app-combo-pending-product [indexTab]="indexTab" [sellerId]="sellerId" [showProducts]="showProducts" [editPermission]="editPermission" [productsList]="productsList3" (emitEventShowDetail) ="showDetail($event)" class="listCombo">
+        <app-combo-pending-product [indexTab]="indexTab" [sellerId]="sellerId" [showProducts]="showProducts" [editPermission]="editPermission" [productsList]="productsList3" (emitEventShowDetail) ="showDetail($event)" class="listCombo" (disabledFilterMUltioffer)="disableFilter($event)">
         </app-combo-pending-product>
       </div>
     </div>

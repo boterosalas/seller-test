@@ -141,6 +141,8 @@ export class PendingProductsComponent implements OnInit {
 
   separatorKeysCodes: number[] = [];
 
+  disableFilterMultioffer = false;
+
   constructor(
     private pendingProductsService: PendingProductsService,
     public userParams: UserParametersService,
@@ -190,6 +192,15 @@ export class PendingProductsComponent implements OnInit {
    */
   setPermission(typeProfile: number) {
     this.editPermission = this.getFunctionality('Editar');
+  }
+
+  /**
+   * Evento que escucha y activa el filtro multioferta
+   * @param {*} e
+   * @memberof PendingProductsComponent
+   */
+  disableFilter(e: any) {
+    this.disableFilterMultioffer = e;
   }
 
   /**
@@ -373,7 +384,7 @@ export class PendingProductsComponent implements OnInit {
       });
   }
   /**
-   * Metodo para obtener los productos pendientes de validación
+   * Metodo para obtener los productos multioferta
    * @param {*} [params]
    * @memberof PendingProductsComponent
    */
@@ -623,10 +634,12 @@ export class PendingProductsComponent implements OnInit {
     this.getPendingProductsValidation(this.filterProdutsValidation);
   }
   /**
-   * Metodo para aplicar filtros productos pndtes validacion
+   * Metodo para aplicar filtros productos multioferta
    * @memberof PendingProductsComponent
    */
   public filterApply3() {
+    this.dataChips3 = [];
+    this.cleanFilterListProductsModify3();
     this.paginationToken3 = '{}';
     this.callOne3 = true;
     this.ean3 = encodeURIComponent(this.filterProdutsMultiOfert.controls.ean3.value);
@@ -715,7 +728,7 @@ export class PendingProductsComponent implements OnInit {
     }, 1000);
   }
   /**
-   * Metodo para aplicar filtros productos validacion
+   * Metodo para aplicar filtros productos multioferta
    * @memberof PendingProductsComponent
    */
   public filterProductsModify3() {
@@ -772,7 +785,7 @@ export class PendingProductsComponent implements OnInit {
     this.filterApply2();
   }
   /**
-   * Metodo para ir eliminando chips de filtros productos validación
+   * Metodo para ir eliminando chips de filtros productos multioferta
    * @param {ListFilterProductsModify} productsFilterMultiOfert
    * @memberof PendingProductsComponent
    */
@@ -863,6 +876,7 @@ export class PendingProductsComponent implements OnInit {
   }
 
   showDetail(event: any) {
+    this.disableFilterMultioffer = true;
     if (event) {
       this.detailShow = event.show;
       if (event.reload) {

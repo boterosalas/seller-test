@@ -27,6 +27,7 @@ export class ComboPendingProductComponent implements OnInit {
   }
 
   @Output() public emitEventShowDetail = new EventEmitter<object>();
+  @Output() public disabledFilterMUltioffer = new EventEmitter();
 
   public productsPendindgExpanded: any;
   public productsPendindgValidationExpanded: any;
@@ -79,6 +80,7 @@ export class ComboPendingProductComponent implements OnInit {
     this.productsMultiOfertExpanded = null;
     this.showImage = false;
     this.emitEventShowDetail.emit({ show: false, reload: reload });
+    this.disabledFilterMUltioffer.emit(false);
   }
 
   /**
