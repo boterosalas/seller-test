@@ -764,7 +764,7 @@ export const endpoints = {
       // Retorna respuesta del descargable de productos pendientes de modificacíon
       reportProductsPendingModificartion: 'https://qnhy8aplag.execute-api.us-east-1.amazonaws.com/products-waiting-pdn/productsrejected/report?email={email}&categories={categories}',
       //Retorna respuesta con el report de ordenes al correo enviado
-      reportOrders:'https://frgj254c3l.execute-api.us-east-1.amazonaws.com/dev/sellercenter/orders/reportbyadmin/{params}'
+      reportOrders:'https://cl9k3h7xr4.execute-api.us-east-1.amazonaws.com/orders-pdn/sellercenter/orders/reportbyadmin/{params}'
     }
   }
 };
