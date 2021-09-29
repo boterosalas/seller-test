@@ -174,7 +174,7 @@ export class NotificationAdminComponent implements OnInit {
     }, 400);
   }
   /**
-   * funcuion para eliminar anuncios, llama al modal para confirmar 
+   * funcuion para eliminar anuncios, llama al modal para confirmar
    *
    * @param {*} element
    * @memberof NotificationAdminComponent
