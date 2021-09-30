@@ -12,8 +12,15 @@
   {{'secure.products.create_product_unit.list_products.combo_product.back' | translate}}
 </button>
 
+<button style="color: #909090; height: 30px;" mat-icon-button *ngIf="productsMultiOfertExpanded && showProducts"  (click)="backTolist()">
+  <mat-icon class="material-icons">
+    arrow_back
+  </mat-icon>
+  {{'secure.products.create_product_unit.list_products.combo_product.back' | translate}}
+</button>
+
 <div class="cardImageAling" fxLayout.xs="column" fxLayoutAlign.xs="space-between center" *ngFor="let products of productsList; let i = index ">
-  <div (click)="setparams(products)" *ngIf="showImage === false && indexTab !== 1">
+  <div (click)="setparams(products)" *ngIf="showImage === false && _indexTab === 0">
     <mat-card class="example-card" [matTooltip]="makeTooltipDetail(products)" matTooltipPosition="below">
       <div class="container-card-img flexbox align-center justify-center">
         <img src="{{products.imageUrl}}">
@@ -29,7 +36,7 @@
       </mat-card-content>
     </mat-card>
   </div>
-  <div (click)="setparams2(products)" *ngIf="showImage === false && indexTab === 1">
+  <div (click)="setparams2(products)" *ngIf="showImage === false && _indexTab === 1">
     <mat-card class="example-card" >
       <div class="container-card-img flexbox align-center justify-center">
         <img src="{{products.imageUrl}}">
@@ -45,13 +52,31 @@
       </mat-card-content>
     </mat-card>
   </div>
+  <div  *ngIf="showImage === false && _indexTab === 2 && products.oldProduct">
+    <mat-card class="example-card" (click)="setparams3(products)">
+      <div class="container-card-img flexbox align-center justify-center">
+        <img [src]="products.imageUrl">
+      </div>
+      <mat-card-content>
+        <div class="container-desc-card flexbox flex-wrap align-center">
+          <h3>EAN: {{products.ean}}</h3>
+          <p class="name" style="font-weight: bold;">{{products.name}}</p>
+        </div>
+        <mat-card-footer class="mfooter">
+          <p>{{'secure.products.create_product_unit.list_products.combo_product.creation_date' | translate}}: {{products.creationDate | date:'dd/MM/yyyy' }}</p>
+          <p>{{'secure.products.create_product_unit.list_products.combo_product.modification_date' | translate}}: {{products.updateDate | date:'dd/MM/yyyy'}}</p>
+        </mat-card-footer>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
 
-
-<div class="full-width" *ngIf="indexTab !== 1">
+<div class="full-width" *ngIf="_indexTab === 0">
   <app-expanded-pending-products [editPermission]="editPermission" *ngIf="productsPendindgExpanded && showProducts" [productsPendindgExpanded]="productsPendindgExpanded"></app-expanded-pending-products>
 </div>
-
-<div class="full-width" *ngIf="indexTab === 1">
+<div class="full-width" *ngIf="_indexTab === 1">
   <app-expanded-pending-products *ngIf="productsPendindgValidationExpanded && showProducts" [productsPendindgValidationExpanded]="productsPendindgValidationExpanded"></app-expanded-pending-products>
+</div>
+<div class="full-width" *ngIf="_indexTab === 2">
+  <app-expanded-pending-products *ngIf="productsMultiOfertExpanded && showProducts" [typeDetailProduct]="typeDetailProduct" [productsMultiOfertExpanded]="productsMultiOfertExpanded" (isBackList)="showList($event)"></app-expanded-pending-products>
 </div>

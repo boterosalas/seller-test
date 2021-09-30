@@ -1,0 +1,23 @@
+<div>
+  <div fxLayout="row" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" class="list-product-multi-ofert-padding-top">
+    <div fxFlex="5"></div>
+    <div fxFlex="25" fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" class="list-product-multi-ofert-border-bottom-color">
+      <span class="list-product-multi-ofert-font-weight-bold-fontsize">
+        Item
+      </span>
+    </div>
+    <div fxFlex="30" fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" class="list-product-multi-ofert-border-bottom-color">
+      <span class="list-product-multi-ofert-font-weight-bold-fontsize">
+        {{'secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_previous' | translate}}
+      </span>
+    </div>
+    <div fxFlex="35" fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true" class="list-product-multi-ofert-border-bottom-color">
+      <span class="list-product-multi-ofert-font-weight-bold-fontsize">
+        {{'secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_current' | translate}}
+      </span>
+    </div>
+  </div>
+  <ng-container *ngFor="let item of items" >
+    <ng-container [ngTemplateOutlet]="item.tpl"></ng-container>
+  </ng-container>
+</div>

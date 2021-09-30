@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Logger, LoadingService, UserParametersService } from '@app/core';
 import { ListProductService } from '../../list-products/list-products.service';
 import { MatSnackBar } from '@angular/material';
@@ -21,10 +21,18 @@ export class ComboPendingProductComponent implements OnInit {
   @Input() offerPermission: boolean;
   @Input() editPermission: boolean;
   @Input() sellerId: any;
-  @Input() indexTab: any;
+  public _indexTab: number;
+  @Input() set indexTab(value: number) {
+    this._indexTab = value;
+  }
+
+  @Output() public emitEventShowDetail = new EventEmitter<object>();
+  @Output() public disabledFilterMUltioffer = new EventEmitter();
 
   public productsPendindgExpanded: any;
   public productsPendindgValidationExpanded: any;
+  public productsMultiOfertExpanded: any;
+  public typeDetailProduct = 'genericProduct';
 
   public showImage = false;
 
@@ -47,13 +55,13 @@ export class ComboPendingProductComponent implements OnInit {
   ) {
     this.getDataUser();
     this.infoProduct = this.productsList;
-    this.matTabIndex = this.indexTab;
+    this.matTabIndex = this._indexTab;
   }
 
   ngOnInit() {
     this.pendingProductsService.change.subscribe(data => {
       if (!data) {
-        this.backTolist();
+        this.backTolist(false);
       }
     });
   }
@@ -66,10 +74,13 @@ export class ComboPendingProductComponent implements OnInit {
    * Metodo para volver al listado de productos
    * @memberof ComboPendingProductComponent
    */
-  public backTolist(): void {
+  public backTolist(reload: boolean): void {
     this.productsPendindgExpanded = null;
     this.productsPendindgValidationExpanded = null;
+    this.productsMultiOfertExpanded = null;
     this.showImage = false;
+    this.emitEventShowDetail.emit({ show: false, reload: reload });
+    this.disabledFilterMUltioffer.emit(false);
   }
 
   /**
@@ -128,6 +139,27 @@ export class ComboPendingProductComponent implements OnInit {
   }
 
   /**
+   * Seteo de parametros y envio data para la carga del servicio para ionformacion expandida productos en validación
+   * @param {*} params
+   * @memberof ComboPendingProductComponent
+   */
+  setparams3(params: any) {
+    this.showImage = true;
+    const paransId = '?id=' + params.id;
+    this.loadingService.viewSpinner();
+    this.pendingProductsService.getExpandedProductMultiofferbyEan(paransId).subscribe((res: any) => {
+      if (res && res.data) {
+        this.loadingService.closeSpinner();
+        this.productsMultiOfertExpanded = res.data;
+        this.typeDetailProduct = 'multiOfert';
+        this.emitEventShowDetail.emit({ show: true });
+      } else {
+        this.loadingService.closeSpinner();
+      }
+    });
+  }
+
+  /**
    * Función que concatena el motivo y la observación para el tooltip.
    * @param {*} params: Se recibe toda la informacion del producto
    * @returns
@@ -136,11 +168,15 @@ export class ComboPendingProductComponent implements OnInit {
   makeTooltipDetail(params: any) {
     let concatInfo = '';
     if (params) {
-      concatInfo = `${this.languageService.instant('secure.seller.list.reason')}: ${params.reason}`  +  ' || '  + `${this.languageService.instant('secure.seller.list.observation')}: ${params.comment}`;
+      concatInfo = `${this.languageService.instant('secure.seller.list.reason')}: ${params.reason}` + ' || ' + `${this.languageService.instant('secure.seller.list.observation')}: ${params.comment}`;
     } else {
       concatInfo = null;
     }
     return concatInfo;
+  }
+
+  showList(show: any) {
+    this.backTolist(true);
   }
 
 }

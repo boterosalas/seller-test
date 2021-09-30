@@ -1,7 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { UserInformation } from '@app/shared';
 import { Router } from '@angular/router';
 import { UserParametersService, Logger } from '@app/core';
+import { MatDialog } from '@angular/material';
+import { TranslateService } from '@ngx-translate/core';
+import { ModalGenericProductMultiOfertComponent } from './component/modal-generic-product-multi-ofert/modal-generic-product-multi-ofert.component';
 
 const log = new Logger('ExpandedPendingProductsComponent');
 
@@ -15,11 +18,24 @@ export class ExpandedPendingProductsComponent implements OnInit {
 
   @Input() public productsPendindgExpanded: any;
   @Input() public productsPendindgValidationExpanded: any;
+  @Input() public productsMultiOfertExpanded: any;
+  @Input() public typeDetailProduct = 'genericProduct';
   @Input() editPermission: boolean;
 
   /* arreglo q contiene las imagenes grandes y pequeñas */
   public images = [];
   public listKeywords = [];
+  public arrayKeyWords = [];
+  public arrayMultiOfert = [];
+  public arrayDescription = [];
+  public arrayVideo = [];
+  public arrayFeature = [];
+  public arrayImages1 = [];
+  public arrayImages2 = [];
+  public arrayImages3 = [];
+  public arrayImages4 = [];
+  public arrayImages5 = [];
+  @Output() isBackList = new EventEmitter<object>();
 
   /* variable que contiene la ruta de la imagen grande */
   public imageMax: string;
@@ -30,9 +46,13 @@ export class ExpandedPendingProductsComponent implements OnInit {
 
   public showImage = true;
   public showVideo = false;
+  public currentProduct = [];
+  public oldProduct = [];
 
   constructor(
+    private languageService: TranslateService,
     private router: Router,
+    private dialog: MatDialog,
     private userParams?: UserParametersService,
   ) {
     if (this.productsPendindgExpanded) {
@@ -53,9 +73,136 @@ export class ExpandedPendingProductsComponent implements OnInit {
       const startswithModel = !!this.productsPendindgValidationExpanded.model && (this.productsPendindgValidationExpanded.model.toString() as string).toLowerCase().startsWith('modelo');
       this.productsPendindgValidationExpanded.model = startswithModel ? (this.productsPendindgValidationExpanded.model.toString() as string).slice(6, this.productsPendindgValidationExpanded.model.length) : this.productsPendindgValidationExpanded.model;
     }
+
+    if (this.productsMultiOfertExpanded) {
+      this.currentProduct = JSON.parse(this.productsMultiOfertExpanded.currentProduct);
+      this.oldProduct = JSON.parse(this.productsMultiOfertExpanded.oldProduct);
+      for (const product in this.oldProduct) {
+        if (this.oldProduct.hasOwnProperty(product) && this.currentProduct.hasOwnProperty(product)) {
+          this.arrayMultiOfert.push(
+            {
+              name: product,
+              old: this.oldProduct[product],
+              current: this.currentProduct[product],
+              expandable: this.validateExpandable(product)
+            }
+          );
+        }
+      }
+    }
+
     this.createArrayImages();
     this.getDataUser();
   }
+
+  /**
+   * Metodo para validar informacion y mapearla en los expandibles
+   * @param name
+   * @returns
+   */
+  validateExpandable(name: string) {
+    let expansible = false;
+    switch (name) {
+      case 'Features':
+        expansible = true;
+        const currentProductFeature = JSON.parse(this.productsMultiOfertExpanded.currentProduct).Features;
+        const oldProductFeature = JSON.parse(this.productsMultiOfertExpanded.oldProduct).Features;
+        for (const productFeature in oldProductFeature) {
+          if (oldProductFeature.hasOwnProperty(productFeature) && currentProductFeature.hasOwnProperty(productFeature)) {
+            this.arrayFeature.push(
+              {
+                key: oldProductFeature[productFeature].Key,
+                valueOld: oldProductFeature[productFeature].Value,
+                valueCurrent: currentProductFeature[productFeature].Value,
+              }
+            );
+          }
+        }
+        break;
+      case 'KeyWords':
+        expansible = true;
+        this.arrayKeyWords = [];
+        const currentProductKeywords = JSON.parse(this.productsMultiOfertExpanded.currentProduct).KeyWords;
+        const oldProductKeywords = JSON.parse(this.productsMultiOfertExpanded.oldProduct).KeyWords;
+        if (currentProductKeywords !== '' && oldProductKeywords !== '') {
+          this.arrayKeyWords.push({
+            valueOld: oldProductKeywords,
+            valueCurrent: currentProductKeywords,
+          });
+        }
+        break;
+      case 'Description':
+        expansible = true;
+        this.arrayDescription = [];
+        const currentProductDescription = JSON.parse(this.productsMultiOfertExpanded.currentProduct).Description;
+        const oldProductDescription = JSON.parse(this.productsMultiOfertExpanded.oldProduct).Description;
+        this.arrayDescription.push({
+          valueOld: oldProductDescription,
+          valueCurrent: currentProductDescription,
+        });
+        break;
+      case 'VideoUrl':
+        expansible = true;
+        this.arrayVideo = [];
+        const currentProductVideo = JSON.parse(this.productsMultiOfertExpanded.currentProduct).VideoUrl;
+        const oldProductVideo = JSON.parse(this.productsMultiOfertExpanded.oldProduct).VideoUrl;
+        this.arrayVideo.push({
+          valueOld: oldProductVideo,
+          valueCurrent: currentProductVideo,
+        });
+        break;
+      case 'ImageUrl1':
+        this.arrayImages1.push(
+          {
+            imagenCurrent: JSON.parse(this.productsMultiOfertExpanded.currentProduct).ImageUrl1,
+            imagenOld: JSON.parse(this.productsMultiOfertExpanded.oldProduct).ImageUrl1
+          }
+        );
+        expansible = true;
+        break;
+      case 'ImageUrl2':
+        this.arrayImages2.push(
+          {
+            imagenCurrent: JSON.parse(this.productsMultiOfertExpanded.currentProduct).ImageUrl2,
+            imagenOld: JSON.parse(this.productsMultiOfertExpanded.oldProduct).ImageUrl2
+          }
+        );
+        expansible = true;
+        break;
+      case 'ImageUrl3':
+        this.arrayImages3.push(
+          {
+            imagenCurrent: JSON.parse(this.productsMultiOfertExpanded.currentProduct).ImageUrl3,
+            imagenOld: JSON.parse(this.productsMultiOfertExpanded.oldProduct).ImageUrl3
+          }
+        );
+        expansible = true;
+        break;
+      case 'ImageUrl4':
+        this.arrayImages4.push(
+          {
+            imagenCurrent: JSON.parse(this.productsMultiOfertExpanded.currentProduct).ImageUrl4,
+            imagenOld: JSON.parse(this.productsMultiOfertExpanded.oldProduct).ImageUrl4
+          }
+        );
+        expansible = true;
+        break;
+      case 'ImageUrl5':
+        this.arrayImages5.push(
+          {
+            imagenCurrent: JSON.parse(this.productsMultiOfertExpanded.currentProduct).ImageUrl5,
+            imagenOld: JSON.parse(this.productsMultiOfertExpanded.oldProduct).ImageUrl5
+          }
+        );
+        expansible = true;
+        break;
+      default:
+        expansible = false;
+        break;
+    }
+    return expansible;
+  }
+
 
 
   /**
@@ -70,16 +217,16 @@ export class ExpandedPendingProductsComponent implements OnInit {
   }
 
   /* funcion que cambia el valor de la variable que contiene la url de la imagen grande y recibe como parametro la url de la imagen grande */
-  changeImage(image: any, img:any) {
-    this.imageMax = image;   
-    const {min} = img;
-    let splitYoutube = min.split('https://img.youtube.com');
-    if(splitYoutube[0] === '') {
-        this.showVideo = true;
-        this.showImage = false
+  changeImage(image: any, img: any) {
+    this.imageMax = image;
+    const { min } = img;
+    const splitYoutube = min.split('https://img.youtube.com');
+    if (splitYoutube[0] === '') {
+      this.showVideo = true;
+      this.showImage = false;
     } else {
-        this.showVideo = false;
-        this.showImage = true
+      this.showVideo = false;
+      this.showImage = true;
     }
 
   }
@@ -108,6 +255,40 @@ export class ExpandedPendingProductsComponent implements OnInit {
   editProduct(productsPendindgExpanded: any) {
     this.avaibleProductPending = true;
     this.router.navigate(['securehome/products/creacion-unitaria', { ean: productsPendindgExpanded.ean, reference: productsPendindgExpanded.reference, pendingProduct: this.avaibleProductPending }]);
+  }
+
+
+  /**
+   * Modal para abrir o rechazar cambios de multioferta
+   * @param type
+   */
+  modalGeneric(type: string) {
+    let params = {};
+    if (type === 'approved') {
+      params = {
+        title: this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_title_approved'),
+        subtitle: this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_approved'),
+        type: type,
+        id: this.productsMultiOfertExpanded.id.toString()
+      };
+    } else if (type === 'reject') {
+      params = {
+        title: this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_title_reject'),
+        subtitle: this.languageService.instant('secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_reject'),
+        type: type,
+        id: this.productsMultiOfertExpanded.id.toString()
+      };
+    }
+
+    const dialogRef = this.dialog.open(ModalGenericProductMultiOfertComponent, {
+      width: '50%',
+      data: params,
+    });
+
+    const dialogIntance = dialogRef.componentInstance;
+    dialogIntance.processFinish$.subscribe((val) => {
+      this.isBackList.emit({ back: true });
+    });
   }
 
 }

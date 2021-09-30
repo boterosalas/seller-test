@@ -1,0 +1,75 @@
+<div class="case-list-content" fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true">
+  <mat-accordion class="case-list-expandable" *ngIf="data.expandable">
+    <mat-expansion-panel class="width-100" [expanded]="isOpen"
+      (opened)="opened.emit(data); this.panelOpenState= true;
+      showDetail.emit(panelOpenState)"
+      (closed)="panelOpenState= false; showDetail.emit(panelOpenState)" class="box-shadow-initial">
+      <mat-expansion-panel-header class="container-height-30">
+        <div class="case-list-detail case-list-detail-content-center" fxLayout>
+          <div class="case-list-detail--item-detail" fxFlex="5"
+            fxLayoutAlign="center center" class="no-select">
+            <span [ngClass]="!panelOpenState
+              ? 'item-detail-arrow'
+              : 'item-detail-arrow--active arrow-active'">
+              <mat-icon>keyboard_arrow_up</mat-icon>
+            </span>
+          </div>
+          <div class="case-list-detail--item-detail" fxFlex="90">
+            <p class="sc-text-normal">
+              {{'secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_'+ data.name | translate}}
+            </p>
+          </div>
+        </div>
+      </mat-expansion-panel-header>
+      <ng-container *ngFor="let item of items">
+        <ng-container [ngTemplateOutlet]="item.tpl"></ng-container>
+      </ng-container>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+<div class="case-list-content" *ngIf="!data.expandable" fxShow.xs="false" fxShow.sm="false" fxShow.md="true" fxShow.lg="true" fxShow.xl="true">
+  <div fxLayout="row" class="height-27">
+    <div fxFlex="5"></div>
+    <div class="case-list-detail--item-detail" fxFlex="25">
+      <p class="sc-text-normal">
+        {{'secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_'+ data.name | translate}}
+      </p>
+    </div>
+    <div class="case-list-detail--item-detail" fxFlex="30">
+      <p class="sc-text-normal">{{data.old}}</p>
+    </div>
+    <div class="case-list-detail--item-detail" fxFlex="40">
+      <p class="sc-text-normal color-red">{{data.current}}</p>
+    </div>
+  </div>
+</div>
+
+<div class="case-list-content" fxShow.xs="true" fxShow.sm="true" fxShow.md="false" fxShow.lg="false" fxShow.xl="false">
+  <mat-accordion class="case-list-expandable">
+    <mat-expansion-panel class="width-100" [expanded]="isOpen"
+      (opened)="opened.emit(data); this.panelOpenState= true;
+      showDetail.emit(panelOpenState)"
+      (closed)="panelOpenState= false; showDetail.emit(panelOpenState)" class="box-shadow-initial">
+      <mat-expansion-panel-header class="container-height-30">
+        <div class="case-list-detail case-list-detail-content-center" fxLayout>
+          <div class="case-list-detail--item-detail" fxFlex="5"
+            fxLayoutAlign="center center" class="no-select">
+            <span [ngClass]="!panelOpenState
+              ? 'item-detail-arrow'
+              : 'item-detail-arrow--active arrow-active'">
+              <mat-icon>keyboard_arrow_up</mat-icon>
+            </span>
+          </div>
+          <div class="case-list-detail--item-detail" fxFlex="95">
+            <p class="sc-text-normal">
+              {{'secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_'+ data.name | translate}}
+            </p>
+          </div>
+        </div>
+      </mat-expansion-panel-header>
+      <ng-container *ngFor="let item of items">
+        <ng-container [ngTemplateOutlet]="item.tpl"></ng-container>
+      </ng-container>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

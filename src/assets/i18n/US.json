@@ -1,7 +1,5 @@
 {
     "select.language": "Select Language",
-
-
     "menu.App angular": "App angular",
     "menu.API": "Api",
     "menu.Histórico de Carga de ofertas": "Offers historic registry",
@@ -85,8 +83,6 @@
     "module.Devoluciones": "Returns",
     "module.Calidad": "Quality",
     "module.Escuela Exito": "Escuela Éxito",
-
-
     "permissions.Consultar": "Browse",
     "permissions.Editar": "Update",
     "permissions.Descargar": "Download",
@@ -118,7 +114,6 @@
     "permissions.Eliminarzonas": "Remove zones",
     "permissions.Eliminar_Parametrizacion": "Remove parameterization",
     "permissions.Editar_Parametrizacion": "Edit parameterization",
-
     "shared.hi": "¡HELLO!",
     "shared.name": "Name",
     "shared.category": "Category",
@@ -137,9 +132,9 @@
     "shared.product": "Product",
     "shared.ean": "EAN",
     "shared.phone": "Phone number",
-    "shared.to":"to",
-    "shared.from":"from",
-    "shared.days":"days",
+    "shared.to": "to",
+    "shared.from": "from",
+    "shared.days": "days",
     "shared.error.file": "File download failed",
     "shared.components.load_file.title": "Attach Invoice",
     "shared.components.load_file.subtitle": "The electronic invoice can only",
@@ -154,12 +149,10 @@
     "shared.components.load_file.snackbar_ko_file_format": "Ingles: The order already has an invoice loaded. This action allows you to modify the file, you must modify it keeping the initial format either in PDF or .ZIP type (PDF + xml)",
     "shared.components.load_file.snackbar_ko_file_format_pdf": "Requirement: To allow you to modify the invoice to the order, you must keep the same initial format, in this case you must attach the invoice in PDF format.",
     "shared.components.load_file.snackbar_ko_file_format_zip": "Requirement: To allow you to modify the invoice to the order, you must keep the same initial format, in this case you must attach the invoice in .ZIP format ( PDF +xml).",
-
     "filters.clear": "Clear",
     "filters.filter": "Filter",
     "filter-FinalDate": "Final date",
     "filter-InitialDate": "Initial date",
-
     "January": "January",
     "February": "February",
     "March": "March",
@@ -172,7 +165,6 @@
     "October": "October",
     "November": "November",
     "December": "December",
-
     "actions.edit": "Edit",
     "actions.add": "Add",
     "actions.delete": "Delete",
@@ -212,13 +204,13 @@
     "actions.page": "Items per page",
     "actions.next_page": "Next page",
     "actions.previous_page": "Previous page",
-    "actions.view_attachments" : "View attachments",
+    "actions.view_attachments": "View attachments",
     "actions.confirm_offer": "Approve Offer",
     "actions.all": "All",
     "actions.new": "New",
+    "actions.reject_changes": "REJECT CHANGES",
     "actions.yes": "SI",
     "actions.no": "NO",
-
     "errors.required": "Field required",
     "errors.invalid_name": "Invalid name",
     "errors.invalid_nit": "Invalid nit",
@@ -281,7 +273,6 @@
     "error.exception_brand.min_error": "The entered tariffs can not be under 0",
     "error.exception_brand.number_int": "The entered tariffs must be a positive whole numer, or contain a maximum of two decimal numbers",
     "error.pending.not_attachments": "No attached files",
-
     "modal.success.register": "The process was successful! Soon you will receive a notification with the seller's username and password for Seller Center. In this notification you will also receive the seller's ID",
     "modal.success.register title": "The process was successful!",
     "modal.fail.register": "The process has failed! Please check that all the fields are filled according to the restrictions. Any question you might have with the onboarding restrictions please consult in the user manual",
@@ -291,25 +282,19 @@
     "modal.product.no_stock": "This product is out of stock! Please try another one",
     "modal.success.update": "Your update was successful!",
     "modal.success.update.title": "Your update was successful!",
-
-
     "core.http.dialog_token_expired.title": "The session has expired",
     "core.http.dialog_token_expired.body": "The session has expired due to prolonged inactivity. Please try to enter once again.",
     "core.http.error_handler.error_network": "Network error, it seems you are not connected to the internet, please check your connection.",
     "core.http.error_handler.error_service": "An error has occurred when trying to access the server.",
     "core.http.error_handler.error_acces": "An error has occurred when trying to access the server.",
-
     "core.shell.header.support": "Support",
     "core.shell.header.welcome": "Welcome",
     "core.shell.header.profile": "Profile",
     "core.shell.header.logout": "Logout",
-
     "core.shell.search_order_menu.search_billing_form.initial_date": "Inicial payment date",
     "core.shell.search_order_menu.search_billing_form.final_date": "Final payment date",
     "core.shell.search_order_menu.search_billing_form.invoice_number": "Invoice number",
     "core.shell.search_order_menu.search_billing_form.tooltip_pedido": "Agregar # pedido(s)",
-
-
     "core.shell.search_order_menu.search_envios_exito_form.filter_channel": "Filter by channel",
     "core.shell.search_order_menu.search_envios_exito_form.filter_status": "Filter by status",
     "core.shell.search_order_menu.search_envios_exito_form.none": "None",
@@ -320,13 +305,10 @@
     "core.shell.search_order_menu.search_envios_exito_form.filter_by_id": "Filter by client ID",
     "core.shell.search_order_menu.search_fraud_notification_nameFile": "File Name",
     "core.shell.search_order_menu.search_fraud_notification_downloadFile": "File to download",
-
     "core.shell.search_order_menu.search_order_form.from": "From",
     "core.shell.search_order_menu.search_order_form.to": "To",
     "core.shell.search_order_menu.search_order_form.only_markerd_order": "Only marked orders",
     "core.shell.search_order_menu.search_order_form.ordersWithoutInvoice": "Orders without Invoice",
-
-
     "public.seller_center": "Seller Center",
     "public.login": "Login",
     "public.auth.login.ph_user": "User",
@@ -344,10 +326,8 @@
     "public.auth.forgot.user_not_found": "User not found",
     "public.auth.forgot.pattern_psw": "The password must contain at least a letter, a number and a symbol, and must contain at least 7 characters.",
     "public.auth.forgot.code_not_valid": "The verification code is invalid, please try again later.",
-
     "secure.aws_cognito.profile.profile": "My profile",
     "secure.aws_cognito.profile.seller_id": "Seller id",
-
     "secure.billing.invoice": "Invoice",
     "secure.billing.invoice-note": "Invoice / Credit note",
     "secure.billing.order_number": "Order number",
@@ -382,8 +362,6 @@
     "secure.billing.Nota crédito": "Credit Note",
     "secure.billing.Logistica Exito": "Exito Logistics",
     "secure.billing.no_data_admin": "Ingresa el nombre del vendedor en la barra de búsqueda para ver el detalle de las facturas",
-
-
     "secure.billing.summaryPayment.text_btn_details": "View details for selected invoices",
     "secure.billing.summaryPayment.invoice_iD": "Invoice ID",
     "secure.billing.summaryPayment.number_orders": "Number of Orders",
@@ -392,8 +370,6 @@
     "secure.billing.summaryPayment.total_to_Pay": "Total to Pay",
     "secure.billing.summaryPayment.total_invoiced_value": "Total Invoiced Value",
     "secure.billing.summaryPayment.search_summaryPayment": "Check Payment Summary",
-
-
     "secure.client_information.client": "Client",
     "secure.client_information.address": "Address",
     "secure.client_information.phone": "Phone",
@@ -404,8 +380,6 @@
     "secure.client_information.collection_center_phone": "Collection center telephone",
     "secure.client_information.dipatch_address": "Dispatch Address",
     "secure.client_information.po_box": "PO BOX",
-
-
     "secure.dashboard.all": "All",
     "secure.dashboard.advertisements": "Announcements",
     "secure.dashboard.in_transit": "In transit",
@@ -434,49 +408,36 @@
     "secure.dashboard.table.top.title.average_listing_price": "Average listing price",
     "secure.dashboard.table.million": " millon",
     "secure.dashboard.table.millions": " millons",
-
-    "secure.dashboard.seller-rating.title":"Quality score",
-    "secure.dashboard.seller-rating.title_filter":"Release date filter",
-    "secure.dashboard.seller-rating.header_rating":"Score",
-    "secure.dashboard.seller-rating.date_calificated":"Evaluated month",
-    "secure.dashboard.seller-rating.date_issued":"Release date",
-    "secure.dashboard.seller-rating.date_issued_initial_filter":"Initial date",
-    "secure.dashboard.seller-rating.date_issued_final_filter":"Final date",
-    "secure.dashboard.seller-rating.date_issued_final_filter_error":"Invalid format (mm/yyyy)",
-    "secure.dashboard.seller-rating.date_issued_final_not_data":"No evaluation data has been found.",
-    "secure.dashboard.seller-rating.date_issued_final_not_data_products":"No products data has been found.",
-    "secure.dashboard.seller-rating.date_issued_final_not_data_filter":"No evaluation data has been found for this date range.",
-    "secure.dashboard.seller-rating.appeal":"Appeal",
-    "secure.dashboard.seller-rating.getPdf":"Download PDF",
-
-
+    "secure.dashboard.seller-rating.title": "Quality score",
+    "secure.dashboard.seller-rating.title_filter": "Release date filter",
+    "secure.dashboard.seller-rating.header_rating": "Score",
+    "secure.dashboard.seller-rating.date_calificated": "Evaluated month",
+    "secure.dashboard.seller-rating.date_issued": "Release date",
+    "secure.dashboard.seller-rating.date_issued_initial_filter": "Initial date",
+    "secure.dashboard.seller-rating.date_issued_final_filter": "Final date",
+    "secure.dashboard.seller-rating.date_issued_final_filter_error": "Invalid format (mm/yyyy)",
+    "secure.dashboard.seller-rating.date_issued_final_not_data": "No evaluation data has been found.",
+    "secure.dashboard.seller-rating.date_issued_final_not_data_products": "No products data has been found.",
+    "secure.dashboard.seller-rating.date_issued_final_not_data_filter": "No evaluation data has been found for this date range.",
+    "secure.dashboard.seller-rating.appeal": "Appeal",
+    "secure.dashboard.seller-rating.getPdf": "Download PDF",
     "secure.error_page.no_found_page": "The page you requested is not available",
     "secure.error_page.go_home": "Go to start",
-
-
     "secure.load_guide_page.download_format.title": "Enter the amount of records you want to download in the file.",
     "secure.load_guide_page.download_format.ph_record_limit": "Record limit",
     "secure.load_guide_page.download_format.guide_format": "Guide format",
     "secure.load_guide_page.download_format.ts_download_ok": "The information was downloaded correctly.",
     "secure.load_guide_page.download_format.ts_want_download": "Do you want to download an empty format?",
-
-
     "secure.load_guide_page.finish_upload_info.title": "Correct records",
     "secure.load_guide_page.finish_upload_info.error_guide": "There have been",
     "secure.load_guide_page.finish_upload_info.error_guide_2": "errors have occurred when trying to register the tracking numbers.",
     "secure.load_guide_page.finish_upload_info.order_number": "Order number",
-
-
     "secure.load_guide_page.table_errors.numeric": "it must be numeric.",
     "secure.load_guide_page.table_errors.missinf_info": "Missing information in the",
     "secure.load_guide_page.table_errors.ok": "Ok 100%",
-
-
     "secure.load_guide_page.table_load.records_found": "Records found",
     "secure.load_guide_page.table_load.missing_data": "Missing information",
     "secure.load_guide_page.table_load.shipping_company": "Shipping company",
-
-
     "secure.orders.orders": "Orders",
     "secure.orders.order": "Order",
     "secure.orders.filter.title": "Browse orders",
@@ -489,18 +450,15 @@
     "secure.orders.delivered.product.Entregado": "Delivered",
     "secure.orders.sent.product.En envío": "Sent",
     "secure.orders.sent.product.Facturado Enviado": "Sent",
-
     "secure.orders.sent.Cancelado": "Cancel",
     "secure.orders.sent.Pagado Cancelado": "Paid Canceled",
     "secure.orders.sent.Devolución Pendiente Validación": "Return pending validation",
     "secure.orders.sent.Despacho Vendedor Int": "International Seller Shipped",
-
     "secure.orders.billing_orders.subtitle_toolbar": "Search for an invoice",
     "secure.orders.billing_orders.txt_serch_order": "Enter order number",
     "secure.orders.billing_orders.txt_no_order": "Enter the order number in the search bar to find a specific invoice",
     "secure.orders.billing_orders.txt_no_invoices": "There are no invoices associated with this order number.",
     "secure.orders.billing_orders.must_enter_order": "You must enter an order number to see the invoices associated",
-
     "secure.orders.download_order_modal.title": "We will send you the",
     "secure.orders.download_order_modal.title_3": "invoices",
     "secure.orders.download_order_modal.title_4": "to the following e-mail address",
@@ -511,13 +469,14 @@
     "secure.orders.download_order_modal.sn_download_guide": "The guides have been downloaded correctly, check your inbox.",
     "secure.orders.download_order_modal.sn_error_download": "An error has occurred when downloading the orders.",
     "secure.orders.download_order_modal.sn_error_download_guide": "An error has occurred when downloading the guides.",
-
+    
     "secure.orders.order_list.detail_modal.order_date": "Order date",
     "secure.orders.order_list.detail_modal.deadline": "Maximum delivery date",
     "secure.orders.order_list.detail_modal.order_type": "Order type",
     "secure.orders.order_list.detail_modal.channel": "Channel",
 
     "secure.orders.order_list.order_page.no_orders_found": "No orders have been found",
+  "secure.orders.order_list.order_page.no_products_found": "No products have been found",
     "secure.orders.order_list.order_page.pending_requests": "No pending requests have been found",
     "secure.orders.order_list.order_page.load_all_orders": "Load all the orders",
     "secure.orders.order_list.order_page.all_orders": "All the orders",
@@ -533,13 +492,11 @@
     "secure.orders.order_list.order_page.successfully_remove_mark": "The order has been unflagged correctly",
     "secure.orders.order_list.order_page.search_orders_insert": "Enter the name of the seller in the search bar to see the orders.",
     "secure.orders.order_list.order_page.date_tracking_guide": "The date shows the day when the tracking guide was uploaded",
-
     "secure.orders.order_list.product_detail.product": "Product",
     "secure.orders.order_list.product_detail.cost": "Cost",
     "secure.orders.order_list.product_detail.freight": "Freight",
     "secure.orders.order_list.product_detail.guide": "Tracking number",
     "secure.orders.order_list.product_detail.guides": "Tracking numbers",
-
     "secure.orders.order_list.product_order.conveyor": "Freight company",
     "secure.orders.order_list.product_order.delivery_type": "Delivery type",
     "secure.orders.order_list.product_order.standar": "Standar",
@@ -554,22 +511,18 @@
     "secure.orders.order_list.product_order.productName": "Product Name",
     "secure.orders.order_list.product_order.ean": "EAN",
     "secure.orders.order_list.product_order.see_total_records_download": "View all your orders by downloading the order report  ",
-
     "secure.orders.order_list.send_order.title_order": "Send Order",
     "secure.orders.order_list.send_order.no_send_products": "The order doesn't contain any more products left for sending.",
     "secure.orders.order_list.send_order.full_fillment": "Delivery type: Fulfillment",
     "secure.orders.order_list.send_order.envios_exito": "Delivery type: Envíos Éxito",
     "secure.orders.order_list.send_order.standar": "Delivery type: Standard",
     "secure.orders.order_list.send_order.send_products": "Send Product",
-
     "secure.orders.in_devolution.action_confirm_receipt.title_dialog": "Approve reception",
     "secure.orders.in_devolution.action_confirm_receipt.body_dialog": "You have confirmed the reception of the product, we will proceed with the refund to the client.",
-
     "secure.orders.in_devolution.action_report_novelty.title": "Enter observation",
     "secure.orders.in_devolution.action_report_novelty.placeholder_denied": "Rejection motive",
     "secure.orders.in_devolution.action_report_novelty.rejected_request": "Your request has been rejected, our team will evaluate your answer.",
     "secure.orders.in_devolution.action_report_novelty.error_rejected": "An error has occurred when trying to reject the request.",
-
     "secure.orders.in_devolution.in_devolution_page.order": "Order",
     "secure.orders.in_devolution.in_devolution_page.date_order": "Order date",
     "secure.orders.in_devolution.in_devolution_page.date_request": "Request date",
@@ -580,25 +533,19 @@
     "secure.orders.in_devolution.in_devolution_page.charge_orders": "Reload all the orders.",
     "secure.orders.in_devolution.in_devolution_page.load_pending_requests": "Reload all the pending requests.",
     "secure.orders.in_devolution.in_devolution_page.sn_error_request": "An error has occurred while accepting the request.",
-
     "secure.orders.in_devolution.product_devolution_modal.info_title": "Product information",
     "secure.orders.in_devolution.product_devolution_modal.reference": "Reference",
     "secure.orders.in_devolution.product_devolution_modal.sku": "SKU",
     "secure.orders.in_devolution.product_devolution_modal.view_info_client": "See client information",
     "secure.orders.in_devolution.product_devolution_modal.id": "ID",
-
     "secure.orders.in_devolution.view_comment.comment_request": "Refund request comment",
     "secure.orders.in_devolution.view_comment.commnet_ser_client": "Customer service's comment",
     "secure.orders.in_devolution.view_comment.commnet_seller": "Seller's coment",
     "secure.orders.in_devolution.view_comment.no_commnet": "There are no comments",
-
     "secure.orders.in_validation.in_validation_page.max_response_date": "Max response date",
-
     "secure.orders.pending_devolution.action_accept_devolution.title": "Approve refund request",
     "secure.orders.pending_devolution.action_accept_devolution.body": "The request has been approved, we will notify the client so they can send you the product back.",
-
     "secure.orders.pending_devolution.view_comment.commnet_client": "Customer's comment",
-
     "secure.orders.historical_devolutions.historical_devolutions_page.resolution": "Resolution",
     "secure.orders.historical_devolutions.historical_devolutions_page.date_resolution": "Date of resolution",
     "secure.orders.historical_devolutions.historical_devolutions_page.resolution.approved": "Approved",
@@ -606,7 +553,6 @@
     "secure.orders.historical_devolutions.historical_devolutions_page.resolution.rejected_validation": "Rejection through validation",
     "secure.orders.historical_devolutions.filter.title_filter": "Check history of returns",
     "secure.orders.historical_devolutions.filter.resolution": "Filter by resolution",
-
     "secure.orders.send.no_more_sent_products": "The order has no more products pending to be sent",
     "secure.orders.send.total_sent_order": "Total of products to be sent in the order",
     "secure.orders.send.error_ocurred_processing": "An error has occurred when processing the request",
@@ -614,7 +560,6 @@
     "secure.orders.send.send_correctly": "The product has ben sent correctly",
     "secure.orders.send.error_ocurred_product": "An error has occurred when sending the product",
     "secure.orders.send.cant_not_sent": "The product can not be sent",
-
     "secure.orders.list-cancels.tab1": "Pending cancellations",
     "secure.orders.list-cancels.tab2": "Cancellations Record",
     "secure.orders.list-cancels.tab1-title-download": "We will send you the Cancellations download to email",
@@ -623,7 +568,6 @@
     "secure.orders.list-cancels-tab2-msg-ok": "The download of the cancellation Overview has been done correctly, check your email.",
     "secure.orders.list-cancels-tab1-msg-ko": "An error occurred while downloading pending cancellations.",
     "secure.orders.list-cancels-tab2-msg-ko": "An error occurred when downloading the cancellation overview.",
-
     "secure.seller.list.enabled_title_modal": "Enable user",
     "secure.seller.list.disabled_title_modal": "Disable user",
     "secure.seller.list.vacation_title_modal": "Program vacations",
@@ -650,9 +594,7 @@
     "secure.seller.list.tooltip_enable": "Activate user",
     "secure.seller.list.tooltip_disable": "Disable user",
     "secure.seller.list.tooltip_vacations": "Program vacations",
-
     "secure.seller.uploadAgreement.selectAll": "All",
-
     "secure.seller.register_seller.tap_title_seller": "New seller onboarding form",
     "secure.seller.register_seller.tap_title_update_seller": "Seller update form",
     "secure.seller.register_seller.tap_title_update_admin": "Admin update form",
@@ -680,11 +622,9 @@
     "secure.seller.register_seller.lb_warranty": "Refund and Warranty Conditions",
     "secure.seller.register_seller.tap_title_admin": "New admin user registration form",
     "secure.seller.register_seller.txt_description_admin": "In this form you will be able to register sellers for Grupo Éxito's Marketplace. The sellers will have access to the Seller Center from the moment in which the credentials confirmation e-mail is received. We recommend following the the user manual's instructions when registering a new Seller",
-
     "secure.seller.manage.lb_title_toolbar": "Seller",
     "secure.seller.manage.lb_subtitle_toolbar": "Manage sellers",
     "secure.seller.manage.txt_serch_seller": "Enter the seller name in the search bar in order to see the data",
-
     "secure.seller.contracts.lb_title_toolbar": "Agreements",
     "secure.seller.contracts.lb_subtitle_toolbar": "Agreement lookup",
     "secure.seller.contracts.txt_no_contract_seller": "There are no current Agreement associated to this seller",
@@ -698,10 +638,8 @@
     "secure.seller.contracts.not_save_agreement": "We couldn't safe your changes",
     "secure.seller.contracts.terms_conditions": "Terms & Conditions",
     "secure.seller.contracts.file_error_data": "Failed to load agreements: ",
-
     "secure.offers.cities_coverage.save_daneCode_ok": "The available cities for dispatch have been saved succesfully.",
     "secure.offers.cities_coverage.save_daneCode_ko": "An error has occurren when trying to save the cities available for dispatch.",
-
     "secure.offers.stores.txt_no_seller": "Enter the store name in the search bar to see the categories.",
     "secure.offers.stores.treee.components.exception_brand_create_ok": "Brand exception has been added correctly.",
     "secure.offers.stores.treee.components.exception_brand_create_ko": "An error has occurred when trying to create a exception. Please try again.",
@@ -711,19 +649,14 @@
     "secure.offers.stores.treee.components.exception_brand_delete_ok": "You have eliminated the exception correctly.",
     "secure.offers.stores.treee.components.exception_brand_delete_ko": "An error has occurred when trying to eliminate de the exception. Please try again.",
     "secure.offers.stores.treee.components.exception_brand_exist": "You can only add one exception per brand.",
-
     "secure.offers.quoting.quoting_admin": "ADMINISTRATOR FREIGHT CALCULATOR.",
     "secure.offers.quoting.quoting_seller": "SELLER FREIGHT CALCULATOR.",
-
     "secure.offers.quoting.administrator.shipping_methods.title": "Shipping method",
-
     "secure.offers.quoting.administrator.list_transporter.title_component": "Freight companies",
     "secure.offers.quoting.administrator.list_transporter.lb_table_shipping_method": "Shipping method",
     "secure.offers.quoting.administrator.list_transporter.txt_not_elements": "There are no created elements.",
-
     "secure.offers.quoting.administrator.list_zones.title_component": "Zones",
     "secure.offers.quoting.administrator.list_zones.txt_not_elements": "There are no created elements.",
-
     "secure.offers.quoting.administrator.dialogs.create.modal_title_new_shipping": "Create shipping company",
     "secure.offers.quoting.administrator.dialogs.create.modal_title_new_zone": "Create zone",
     "secure.offers.quoting.administrator.dialogs.create.modal_title_update_shipping": "Update shipping company",
@@ -736,7 +669,6 @@
     "secure.offers.quoting.administrator.dialogs.create.modal_placeholder_shipping_method": "Select shipping method",
     "secure.offers.quoting.administrator.dialogs.create.modal_placeholder_name_zone": "Zone name",
     "secure.offers.quoting.administrator.dialogs.create.modal_placeholder_postal_code": "Postal code",
-
     "secure.offers.quoting.seller.new_opcion": "NEW SHIPPING OPTION",
     "secure.offers.quoting.seller.new_opcion_body": "To create a new shipping option, select the method, the conveyor and the corresponding zone.",
     "secure.offers.quoting.seller.plh_transoprt": "Select conveyor",
@@ -766,21 +698,17 @@
     "secure.offers.quoting.seller.category": "Category",
     "secure.offers.quoting.seller.zone": "Configured zone",
     "secure.offers.quoting.seller.permission": "This section is not available for you.",
-
     "secure.offers.historical_admin.components.filter.title": "Historic offer registry filter",
     "secure.offers.historical_admin.components.filter.tooltip_close": "Close",
     "secure.offers.historical_admin.components.filter.placeholder_initial_date": "Start date",
     "secure.offers.historical_admin.components.filter.placeholder_final_date": "Ending date",
     "secure.offers.historical_admin.components.filter.EAN": "EAN",
-
     "secure.offers.historical_admin.components.toolbar.title_offert": "Offers",
     "secure.offers.historical_admin.components.toolbar.subtitle_offert": "Offer Historic Registry",
-
     "secure.offers.historical_admin.download_historical.title": "We will send the offer historic registry to the following e-mail address.",
     "secure.offers.historical_admin.download_historical.tooltip_email": "Reselect my e-mail address.",
     "secure.offers.historical_admin.download_historical.snackbar_succes": "The historic registry download has been made correctly, check your inbox.",
     "secure.offers.historical_admin.download_historical.snackbar_error": "An error has occurred when trying to download the historic registry.",
-
     "secure.offers.historical_admin.historical_admin.stock": "Stock",
     "secure.offers.historical_admin.historical_admin.units": "units",
     "secure.offers.historical_admin.historical_admin.price": "Price",
@@ -800,7 +728,6 @@
     "secure.offers.historical_admin.historical_admin.stock_invalid": "Invalid stock",
     "secure.offers.historical_admin.historical_admin.stock_mandatory": "The stock field is mandatory",
     "secure.offers.historical_admin.a": "to",
-
     "secure.offers.list.list.filter_answer": "Filter results: ",
     "secure.offers.list.list.with_stock": "In stock",
     "secure.offers.list.list.with_out_stock": "Out of stock",
@@ -822,7 +749,6 @@
     "secure.offers.list.list.desactive_in_progress": "Deactivation of offers in process",
     "secure.offers.list.list.modal_desactive_1": "Are you sure you want to deactivate ",
     "secure.offers.list.list.modal_desactive_2": "offer(s)",
-
     "secure.offers.list.components.detail_offer.return": "Back",
     "secure.offers.list.components.detail_offer.averageFreightCost": "Shipping Cost",
     "secure.offers.list.components.detail_offer.cop": "COP",
@@ -838,13 +764,10 @@
     "secure.offers.list.components.detail_offer.last_modify": "Last modification: ",
     "secure.offers.list.components.detail_offer.last_mod": "Last modification: ",
     "secure.offers.list.components.detail_offer.a": "to",
-
     "secure.offers.list.components.filter.title_filter_offer": "Offer filter",
     "secure.offers.list.components.filter.placeholder_products": "Product",
-
     "secure.offers.list.components.toolbar.page_products": "Products per page",
     "secure.offers.list.components.toolbar.subtitle_offert_list": "Offer list",
-
     "secure.offers.bulk_upload.bulk_upload.title_toolbar": "BULK OFFER UPLOAD",
     "secure.offers.bulk_upload.bulk_upload.download_format_offer": "DOWNLOAD FORMAT",
     "secure.offers.bulk_upload.bulk_upload.download_format_estandar": "STANDARD",
@@ -855,10 +778,8 @@
     "secure.offers.bulk_upload.bulk_upload.no_number": "The product's price is not a number",
     "secure.offers.bulk_upload.bulk_upload.list_error": "An error has occurred: Product",
     "secure.offers.bulk_upload.bulk_upload.list_error_2": "has not been indexed yet, please try again later.",
-
     "secure.offers.bulk_upload.finish_upload_information.error_upload": "There have been",
     "secure.offers.bulk_upload.finish_upload_information.error_upload_2": "event(s) when uploading the information.",
-
     "secure.offers.bulk_upload.table_error.error_promise_delivery": "must have the following format (# to #), the numbers must be greater than 0.",
     "secure.offers.bulk_upload.table_error.error_currency": "must be either COP or USD.",
     "secure.offers.bulk_upload.table_error.diferent_ean": "must be different than your own EAN.",
@@ -870,7 +791,6 @@
     "secure.offers.bulk_upload.table_error.periodicity": "The periodicity is invalid.",
     "secure.offers.bulk_upload.table_error.sellerSku": "Seller SKU is invalid.",
     "secure.offers.bulk_upload.table_error.reference": "The parent reference is invalid.",
-
     "secure.offers.bulk_upload.table_load.title_offer_charge": "Upload the offers again",
     "secure.offers.bulk_upload.table_load.ean_combo": "EAN Combo",
     "secure.offers.bulk_upload.table_load.quantity_combo": "Amount in combo",
@@ -878,11 +798,8 @@
     "secure.offers.bulk_upload.table_load.dane_code": "Picking City",
     "secure.offers.bulk_upload.table_load.Periodicity": "Periodicity",
     "secure.offers.bulk_upload.table_load.sellerSku": "Seller SKU",
-
     "secure.offers.cities_coverage.title": "Cities Availiable for Dispatch",
     "secure.offers.cities_coverage.get_error": "There was an error trying to get the cities. Try again later.",
-
-
     "secure.products.bulk_upload.title_module": "Products",
     "secure.products.bulk_upload.title_bar": "Bulk upload",
     "secure.products.bulk_upload.select_file_import": "Select a file to import",
@@ -927,7 +844,6 @@
     "secure.products.bulk_upload.modal.errorAndSuccefull.uploadExcel": "Upload excel",
     "secure.products.bulk_upload.modal.errorAndSuccefull.downloadBugs": "Download errors",
     "secure.offers.bulk_upload.table_load.component_list": "Component list",
-
     "secure.products.Finish_upload_product_information.upload_progress": "Upload in progress",
     "secure.products.Finish_upload_product_information.successful_upload": "Successful upload",
     "secure.products.Finish_upload_product_information.error_upload": "Could not load",
@@ -935,7 +851,6 @@
     "secure.products.Finish_upload_product_information.error_ocurred": "An error has ocurred",
     "secure.products.Finish_upload_product_information.home_seller_center": "Go to dashboard",
     "secure.products.Finish_upload_product_information.when_uploading_products": "ocurred when uploading the products.",
-
     "secure.products.table_errors_product.selected_file": "Selected file",
     "secure.products.table_errors_product.column_data": "The data in column",
     "secure.products.table_errors_product.column": "column",
@@ -951,7 +866,6 @@
     "secure.products.table_errors_product.input_option": "The data in",
     "secure.products.table_errors_product.duplication_ean": "has duplication in it's EAN.",
     "secure.products.table_errors_product.must_positive_decimal": "must be a positive number greater or equal to cero, without decimals",
-
     "secure.products.table_load_product.records_found": "Records found, the following have errors",
     "secure.products.table_load_product.upload_all": "Upload all products again",
     "secure.products.table_load_product.mandatory_data": "Mandatory data",
@@ -982,7 +896,6 @@
     "secure.products.table_load_product.drained_factor": "Drained Factor",
     "secure.products.table_load_product.combo_ean_group": "Combo EAN Group",
     "secure.products.table_load_product.image": "Image URL",
-
     "secure.products.bulk_load_product_moderation.text_may_upload_product": "In order to import files to the Seller Center, first you must",
     "secure.products.bulk_load_product_moderation.download_the_format": "Download the format",
     "secure.products.bulk_load_product_moderation.text_file_may_update": "in this file you may upload the product validation",
@@ -995,15 +908,12 @@
     "secure.products.bulk_load_product_moderation.download_file_import": "Select file to import",
     "secure.products.bulk_load_product_moderation.template_download_clothing": "General template clothing",
     "secure.products.bulk_load_product_moderation.template_download_technology": "General template technology",
-
     "secure.products.create_product_unit.assing_images.text_assign_images": "In this section you must enter the corresponding image URL for the product you are creating. You may enter up to 5 product views, but the only mandatory is the first one. Remember that if your product doesn't have variations the image must be 1000x1000 pixels in size and it's format must be .jpg.  If your product has variations the image must be 733x1000 pixels in size and it's format must also be .jpg. If your product has variations you must also insert at least 1 image per variation.",
     "secure.products.create_product_unit.assing_images.assign_child_image": "child",
-
     "secure.products.create_product_unit.assing_images_url.image": "Img URL",
     "secure.products.create_product_unit.assing_images_url.format_invalidate": "The format is invalid",
     "secure.products.create_product_unit.assing_video_url.format_invalidate": "URL is not valid, the allowed format is a YouTube URL",
     "secure.products.create_product_unit.assing_images_url.imagen_invalidate": "The image is invalid",
-
     "secure.products.create_product_unit.basic_information.text_assign_images": "In this section you must enter the correspondinge image URL for the product you are creating. You may enter up to 5 product views, but the only mandatory is the first one. Remember that if your product doesn't have variations the image must be 1000x1000 pixels in size and it's format must be .jpg.  If your product has variations the image must be 733x1000 pixels in size and it's format must also be .jpg. If your product has variations you must also insert at least 1 image per variation.",
     "secure.products.create_product_unit.basic_information.assign_child_image": "child",
     "secure.products.create_product_unit.basic_information.format_invalidate": "The format is invalid",
@@ -1047,27 +957,23 @@
     "secure.products.create_product_unit.basic_information.write_description_here": "Write your description here…",
     "secure.products.create_product_unit.basic_information.only_up_to_20_keywords": "Only up to 500 characters.",
     "secure.products.create_product_unit.basic_information.order_to_add_necessary": "In order to add more variations it is necessary for the last variation to have correct data",
-    "secure.products.create_product_unit.basic_information.mesasuring":"Measuring unit",
-    "secure.products.create_product_unit.basic_information.ean_son":"Child EAN",
-    "secure.products.create_product_unit.basic_information.size":"Enter size",
-    "secure.products.create_product_unit.basic_information.colorPDP":"HexColorCodePDP",
-    "secure.products.create_product_unit.basic_information.color_spec":"Specific color name",
-    "secure.products.create_product_unit.basic_information.enter_new_brand":"Enter new brand",
-
+    "secure.products.create_product_unit.basic_information.mesasuring": "Measuring unit",
+    "secure.products.create_product_unit.basic_information.ean_son": "Child EAN",
+    "secure.products.create_product_unit.basic_information.size": "Enter size",
+    "secure.products.create_product_unit.basic_information.colorPDP": "HexColorCodePDP",
+    "secure.products.create_product_unit.basic_information.color_spec": "Specific color name",
+    "secure.products.create_product_unit.basic_information.enter_new_brand": "Enter new brand",
     "secure.products.create_product_unit.basic_information.kit": "Kit",
     "secure.products.create_product_unit.basic_information.kit_ean": "Kit's Ean",
     "secure.products.create_product_unit.basic_information.invalid_ean": "Invalid Ean",
     "secure.products.create_product_unit.basic_information.not_exist_ean": "The Ean entered does not exist",
     "secure.products.create_product_unit.basic_information.alredy_added_ean": "The Ean has already been added",
-
     "secure.products.create_product_unit.categorization.search_category": "Search category",
     "secure.products.create_product_unit.categorization.now_you_must": "Now you must categorize your product. In order to do this select the most apropiate category from the tree bellow. You may only select one specific subcategory for the product, if you need to look up the subcategory you need use the search bar entering the name and select it from the list.",
-
     "secure.products.create_product_unit.categorization.list.you_selected": "You selected",
     "secure.products.create_product_unit.categorization.list.expand": "Expand",
     "secure.products.create_product_unit.categorization.list.colapse": "Colapse",
     "secure.products.create_product_unit.categorization.list.standard_variant": "You can not change a category from Standard to Variant or from Variant to Standard",
-
     "secure.products.create_product_unit.component_process.categorization": "Categorization",
     "secure.products.create_product_unit.component_process.back": "Back",
     "secure.products.create_product_unit.component_process.continue": "Continue",
@@ -1075,16 +981,13 @@
     "secure.products.create_product_unit.component_process.specifications": "Specifications",
     "secure.products.create_product_unit.component_process.images": "Images and Video",
     "secure.products.create_product_unit.component_process.save": "Save",
-
     "secure.products.create_product_unit.component_process.dialog_save.product_creation_request": "The product creation request has been succesful. The product will now go through our validation process and we will inform you as soon as possible whether the product has been accepted and an offer may be associated, or if it has been rejected and you must fix the information",
     "secure.products.create_product_unit.component_process.dialog_save.product_modification_request": "The product modification request has been succesful. The product will now go through our validation process and we will inform you as soon as possible whether the product has been accepted and an offer may be associated, or if it has been rejected and you must fix the information",
     "secure.products.create_product_unit.component_process.dialog_save.home": "Home",
     "secure.products.create_product_unit.component_process.dialog_save.retry": "Retry",
     "secure.products.create_product_unit.component_process.dialog_save.error_ocurred": "An error has occurred",
-
     "secure.products.create_product_unit.create_unutary_product.products": "Products",
     "secure.products.create_product_unit.create_unutary_product.unitary_creation": "Unitary creation",
-
     "secure.products.create_product_unit.specifications.text_must_specifications": "In this section you must fill all the relevant specifications for the type of product you are creating. In each list you will see the specifications we consider important for your specific product type",
     "secure.products.create_product_unit.specifications.info": "Info",
     "secure.products.create_product_unit.specifications.error_has_occured_uploading": "An error has occurred when uploading the information",
@@ -1093,7 +996,6 @@
     "secure.products.create_product_unit.specifications.add_specifications": "Add specifications",
     "secure.products.create_product_unit.specifications.field_mandatory": "mandatory field",
     "secure.products.create_product_unit.specifications.group_mandatory_specifications": "This group has mandatory specifications",
-
     "secure.products.create_product_unit.specifications.dialog.add_specifications": "Add specifications",
     "secure.products.create_product_unit.specifications.dialog.has": "has",
     "secure.products.create_product_unit.specifications.dialog.have": "have",
@@ -1105,15 +1007,12 @@
     "secure.products.create_product_unit.specifications.dialog.error": "error",
     "secure.products.create_product_unit.specifications.complete_name": "In order to add a specification you must enter the name and all provided fields.",
     "secure.products.create_product_unit.specifications.specs": "Specification",
-
     "secure.products.create_product_unit.image.repeated": "The URL of the image cannot be repeated.",
-
     "secure.products.create_product_unit.specifications.validate-ean.first_you_must_valid_ean": "First you must enter a valid EAN or Bar Code for your product. Remember that this code must be real, since it identifies your product worldwide. For the EAN you may only enter numbers ranging from 7 to 13 characters. If you EAN contains less than 13 characters take into acount that it will be autocompleted with 0s to it's left until it has 13 characters. If you are a manufacturer or your product is generic you may pick the 'I don't have an EAN for my product' option and we will assign a code.",
     "secure.products.create_product_unit.specifications.validate-ean.invalid_ean_format": "Invalid EAN Format (7-13 alfanumeric characters)",
     "secure.products.create_product_unit.specifications.validate-ean.invalid_ean_format_multioffer": "The EAN already exists, please associate a multioffer",
     "secure.products.create_product_unit.specifications.validate-ean.not_have_ean_code": "I don't have an EAN code for this product",
     "secure.products.create_product_unit.specifications.validate-ean.continue": "Continue",
-
     "secure.products.create_product_unit.list_products.product_filter": "Product filter",
     "secure.products.create_product_unit.list_products.product_name": "Product name",
     "secure.products.create_product_unit.list_products.product_name_invalid": "Product name invalid",
@@ -1139,12 +1038,10 @@
     "secure.products.create_product_unit.list_products.title_all_ok": "You have removed all products from your database.",
     "secure.products.create_product_unit.list_products.error_delete": "An error occurred while trying to delete product(s).",
     "secure.products.create_product_unit.list_products.add_plus": "Add PLU's",
-
     "secure.products.create_product_unit.list_products.combo_product.creation_date": "Creation date",
     "secure.products.create_product_unit.list_products.combo_product.modification_date": "Modification date",
     "secure.products.create_product_unit.list_products.combo_product.best_offer": "Best offer",
     "secure.products.create_product_unit.list_products.combo_product.back": "Back",
-
     "secure.products.create_product_unit.list_products.expanded_product.size": "Size",
     "secure.products.create_product_unit.list_products.expanded_product.color": "Color ",
     "secure.products.create_product_unit.list_products.expanded_product.creation_date": "Creation date",
@@ -1163,7 +1060,49 @@
     "secure.products.create_product_unit.list_products.expanded_product.no_more_spedifications": "No elements of specifications",
     "secure.products.create_product_unit.list_products.expanded_product.product_not_ready_offer": "This product is not ready to have an offer associated to it, please try again later.",
     "secure.products.create_product_unit.list_products.expanded_product.price_must_equal_combos": "The price must be equal to the sum of the components if there is no discount price.",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_title_approved": "You will approve the multi-bid content!",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_approved": "You will continue to bid on this product under the changes made by another seller.",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_title_reject": "You will reject the multi-bid content!",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_reject": "As long as you do not agree with the changes, for security your inventory will remain at zero.",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_msg_approved": "Changes have been successfully <b>approved</b>",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.modal_subtitle_msg_rejected": "Changes have been successfully <b>rejected</b>",
 
+    
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.btn_reject_changes": "REJECT CHANGES",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.btn_approved_changes": "APPROVED CHANGES",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_previous": "Previus",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_current": "Current",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_EanCombo": "Ean combo",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_Name": "Name",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_Category": "Category",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_Brand": "Brand",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_Description": "Description",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_KeyWords": "KeyWords",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_ProductType": "Product type",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_SkuShippingSize": "Sku Shipping size",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_PackageWidth": "Package width",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_PackageHeight": "Package height",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_PackageLength": "Package length",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_PackageWeight": "Package weight",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_ProductWidth": "Product width",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_ProductHeight": "Product height",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_ProductLength": "Product length",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_ProductWeight": "Product weight",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_ImageUrl1": "ImageUrl 1",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_ImageUrl2": "ImageUrl 2",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_ImageUrl3": "ImageUrl 3",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_ImageUrl4": "ImageUrl 4",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_ImageUrl5": "ImageUrl 5",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_Features": "Feature",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_MeasurementUnit": "Measurement unit",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_ConversionFactor": "Conversion factor",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_DrainedFactor": "Drained factor",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_ParentReference": "Parent reference",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_SonReference": "Son reference",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_Size": "size",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_Color": "Color",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_HexColourCodePDP": "HexColourCodePDP",
+    "secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_VideoUrl": "Video Url",
     "secure.products.create_product_unit.list_products.ofert_product.stock_invalid": "Invalid stock",
     "secure.products.create_product_unit.list_products.ofert_product.stock_mandatory": "Stock is mandatory",
     "secure.products.create_product_unit.list_products.ofert_product.price_mandatoy": "The price field is mandatory",
@@ -1190,15 +1129,14 @@
     "secure.products.create_product_unit.list_products.ofert_product.error_trying_apply_offer": "An error has ocurred when trying to apply and offer",
     "secure.products.create_product_unit.list_products.ofert_product.changed_currency": "The currency has changed to ",
     "secure.products.create_product_unit.list_products.ofert_product.format_invalidate": "The format is invalid",
-    "secure.products.create_product_unit.list_products.please_wait" : "Loading, wait please ...",
+    "secure.products.create_product_unit.list_products.please_wait": "Loading, wait please ...",
     "secure.products.create_product_unit.list_products.ofert_product.update_variants": "Inventory update to all variations",
     "secure.products.create_product_unit.list_products.ofert_product.update_variants_all_references": "The INVENTORY will be updated for all variations of the same Parent Reference",
     "secure.products.create_product_unit.video": "If your product has a video in YouTube format, you can enter one (1) video per product, the link is received from the browser or YouTube APP. This field is optional, it is intended to enrich the content of your product.",
-
-
     "secure.products.list_products.modal.title": "This offer undergoes an extreme price change, do you wish to continue?",
     "secure.products.pending_products_tab1": "Pending modification",
     "secure.products.pending_products_tab2": "Pending validation",
+    "secure.products.pending_products_tab3": "Aprobar contenido Multioferta",
     "secure.products.pending_products_text_info_header": "Products Pending for Modification will only appear for 30 days, please modify them before the end of this period of time",
     "secure.products.list_products.download.title": "The file will be downloaded and sent to the following Email.",
     "secure.products.list_products.download.error": "There's been an error with the download, please try again.",
@@ -1206,14 +1144,12 @@
     "secure.products.list_products.all_products": "All products",
     "secure.products.list_products.download.ok": "The products have been downloaded, check your email",
     "secure.products.list_products.download.tooltip_category": "Add category",
-
     "secure.products.pending_products.Schedule.modal.back_the_list_offers": "Back to the list of offers",
     "secure.products.pending_products.Schedule.modal.scheduled_offer": "Scheduled offer",
     "secure.products.pending_products.Schedule.modal.scheduled_next": "NEXT",
     "secure.products.pending_products.Schedule.modal.scheduled_previous": "PREVIOUS",
     "secure.products.pending_products.Schedule.modal.ofert_scheduled": "Scheduled offer",
     "secure.products.pending_products.Schedule.modal.ofert_scheduled_delete_quest": "Are you sure you want to delete the scheduled offer?",
-
     "secure.parametize.title_toolbar": "Configuration",
     "secure.parametize.brands.title_filter_brand": "Brand filter",
     "secure.parametize.brands.txt_brand_name": "Brand's name",
@@ -1225,20 +1161,18 @@
     "secure.parametize.brands.edit_brand": "Edit brand",
     "secure.parametize.brands.txt_no_brands": "No registered brands found",
     "secure.parametize.brands.txt_no_permissions_view": "you no have permissions to see the list",
-
     "secure.parametize.specifications.txt_title_toolbar": "Shipping rules configuration",
     "secure.parametize.specifications.txt_subtitle_toolbar": "Product specification configuration",
     "secure.parametize.specifications.btn_add_specifications_group": "Add specification group",
     "secure.parametize.specifications.btn_add_specifications": "Add specifications to a group",
     "secure.parametize.specifications.tooltip_type_text": "Text especification",
-    "secure.parametize.specifications.tooltip_type_list": "Value list especification" ,
-    "secure.parametize.specifications.change_lang_english_delete": "You have switched the language to English, if you wish to delete Specifications please switch back to Spanish" ,
-    "secure.parametize.specifications.change_lang_english_edit": "You have switched the language to English, if you wish to edit Specifications please switch back to Spanish" ,
+    "secure.parametize.specifications.tooltip_type_list": "Value list especification",
+    "secure.parametize.specifications.change_lang_english_delete": "You have switched the language to English, if you wish to delete Specifications please switch back to Spanish",
+    "secure.parametize.specifications.change_lang_english_edit": "You have switched the language to English, if you wish to edit Specifications please switch back to Spanish",
     "secure.parametize.specifications.download_title": "DOWNLOAD SPECIFICATIONS",
     "secure.parametize.specifications.download_title2": "We will send you the specification report to the following email",
     "secure.parametize.specifications.download_OK": "The specifications have been downloaded correctly, check your inbox.",
     "secure.parametize.specifications.download_KO": "An error has occurred when downloading the specifications, please try again.",
-
     "secure.parametize.dialog.modal_title_spec": "Add specification group",
     "secure.parametize.dialog.modal_title_brand": "Add brand",
     "secure.parametize.dialog.modal_text": "Enter a name for the specification group and fill all the category codes for which the group must be shown to. In order to enter categories you may enter them one by one by writing the code, or enter all of them separated by commas. Remember that the categories must be valid in order to continue.",
@@ -1248,7 +1182,6 @@
     "secure.parametize.dialog.modal_placeholder_rd_add_all": "Add all",
     "secure.parametize.dialog.modal_subtitle_content": "Assigned categories",
     "secure.parametize.dialog.category_invalid": "Invalid category",
-
     "secure.parametize.commission.add": "Add tariffs exceptions",
     "secure.parametize.commission.delete": "Delete tariffs",
     "secure.parametize.commission.message": "Are you sure you want to remove this tariffis?",
@@ -1261,7 +1194,6 @@
     "secure.parametize.commission.date-time-2": "Date et heure de fin",
     "secure.parametize.commission.not-foun-data-exception": "The selected store does not have an exception for commission. Add an exception or find another store.",
     "secure.parametize.commission.date-init-required": "The Start date must be mandatory.",
-
     "secure.parametize.dialogAddSpecs.modal_title": "Add specifications to a group",
     "secure.parametize.dialogAddSpecs.modal_text_1": "Enter a name for the specification and select whether its mandatory or not in order to create the product. You must determine whether this specification will be an input or list type.",
     "secure.parametize.dialogAddSpecs.modal_text_2": "In the case you select a list type, you must also enter minimum 2 options",
@@ -1273,13 +1205,11 @@
     "secure.parametize.dialogAddSpecs.modal_chk_required": "Mandatory",
     "secure.parametize.dialogAddSpecs.modal_placeholder_add_option": "Enter an option",
     "secure.parametize.dialogAddSpecs.modal_btn_add_option": "Add an option",
-
     "secure.parametize.profiles.profile.toolbar_title": "Sellers",
     "secure.parametize.profiles.profile.toolbar_subtitle": "Profile configuration",
     "secure.parametize.profiles.profile.tbl_lbl_subtitle": "(Profile type)",
     "secure.parametize.profiles.profile.seller_type": "Seller type",
     "secure.parametize.profiles.profile.admin_type": "Admin type",
-
     "secure.parametize.profiles.dialog.modal_title_add_profile": "Add a profile",
     "secure.parametize.profiles.dialog.modal_title_edit_profile": "Edit a profile",
     "secure.parametize.profiles.dialog.modal_rdn_exito": "Exito",
@@ -1287,7 +1217,6 @@
     "secure.parametize.profiles.dialog.modal_placeholder_profile_name": "Profile name",
     "secure.parametize.profiles.dialog.modal_placeholder_select_menu": "Select a menu",
     "secure.parametize.profiles.dialog.modal_placeholder_select_functionality": "Select a functionality",
-
     "secure.parametize.category.categories.categories": "Categories",
     "secure.parametize.category.categories.title": "Configuration",
     "secure.parametize.category.categories.subtitle": "Category tree",
@@ -1319,9 +1248,7 @@
     "secure.parametize.category.categories.create_in_process": "Creation in progress",
     "secure.parametize.category.categories.change_language_english_edit": "You have switched the language to english, if you wish to edit categories please switch back to spanish",
     "secure.parametize.category.categories.change_language_english_add": "You have switched the language to english, if you wish to add categories please switch back to spanish",
-
     "secure.parametize.category.category_tree.tooltip_add_son": "Create child category",
-
     "secure.load_guide_page.load_guide.hi": "Hi",
     "secure.load_guide_page.load_guide.title": "UPLOADING GUIDES",
     "secure.load_guide_page.load_guide.body": "In order to upload files to Seller Center, first you must",
@@ -1331,7 +1258,6 @@
     "secure.load_guide_page.load_guide.warning_register": "Remember that the maximum number of allowed records is 500.",
     "secure.load_guide_page.load_guide.amount_not_allowed": "The number of records exceeds 500, this amount is not allowed.",
     "secure.load_guide_page.load_guide.error_has_uploading_guide": "There was an error submitting the guide.",
-
     "secure.parametize.support_modal.ts_send_msj": "Your message has been sent to the support team.",
     "secure.parametize.support_modal.ts_error_msj_support": "An error occurred when trying to send the message to the support team.",
     "secure.parametize.support_modal.title": "Enter your case",
@@ -1374,12 +1300,10 @@
     "secure.parametize.support_modal.field.paymentDate": "Payment date",
     "secure.parametize.support_modal.field.orderStripNumber": "Order strip number",
     "secure.parametize.support_modal.field.billNumber": "Bill number",
-
     "secure.parametize.support_modal.reply.title.reply": "Reply",
     "secure.parametize.support_modal.reply.dialog-cancel-button": "Cancel",
     "secure.parametize.support_modal.reply.dialog-add-button": "Add",
     "secure.parametize.support_modal.reply.placeholder-write-answer": "Write your answer",
-
     "secure.parametize.support_claims.title.claim": "Claims",
     "secure.parametize.support_claims.title.time": "Response rate last 30 days",
     "secure.parametize.support_claims.title.claim_search": "Search claims",
@@ -1400,7 +1324,6 @@
     "secure.parametize.support_claims.list.error.rangeDate": "The date range must be maximum of 14 days",
     "secure.parametize.support_claims.search_orders_insert": "Enter the seller's name in the search bar to view claims.",
     "secure.parametize.support_claims.download": "Download claims",
-
     "secure.parametize.support_claims-filter.modal-title": "Claims filter",
     "secure.parametize.support_claims-filter.id": "ID",
     "secure.parametize.support_claims-filter.reason": "Reason",
@@ -1413,7 +1336,6 @@
     "secure.parametize.support_claims-filter.last_post": "Last post",
     "secure.parametize.support_claims-filter.sac_answer": "Customer service response",
     "secure.parametize.support_claims-filter.seller_answer": "Seller´s response",
-
     "secure.parametize.support_claims-filter.modal-export.export-all": "The associated claims will be exported to all sellers",
     "secure.parametize.support_claims-filter.modal-export.not-select-seller": "No seller selected",
     "secure.parametize.support_claims-filter.modal-export.text-message-send-email": "Claims will be sent to the following email",
@@ -1425,7 +1347,6 @@
     "secure.parametize.support_claims-filter.modal-export.allSeller": "All Seller",
     "secure.parametize.support_claims-filter.modal-export.searchSeller": "Search for a seller",
     "secure.parametize.support_claims-filter.modal-export.titleExportReclaim": "Export claims",
-
     "secure.parametize.support_drop-down-menu-ID": "ID",
     "secure.parametize.support_drop-down-order-numer": "Order number",
     "secure.parametize.support_drop-down-reason-detail": "Reason detail",
@@ -1441,7 +1362,6 @@
     "secure.parametize.support.sell_price": "Sale price",
     "secure.parametize.support.quantity": "Quantity",
     "secure.parametize.support.hours": "hours",
-
     "secure.parametize.port.port": "Port",
     "secure.parametize.port.search_port": "Search port",
     "secure.parametize.port.country_apply": "country Apply",
@@ -1470,33 +1390,25 @@
     "secure.parametize.port.error_format_two_decimal": "Two-digit maximum invalid format",
     "secure.parametize.port.error_format_five_decimal": "Five-digit maximum invalid format",
     "secure.parametize.port.no_found_port": "No port have been found.",
-
     "secure.parametize.support_claims-upload-btn.title": "Please choose a file",
     "secure.parametize.support_claims-upload-general-error": "The attached document that you are trying to upload is not compatible with our platform, we ask you to take into account the following recommendations: Your video cannot last more than 90 seconds and the formats allowed are: AVI, 3GP (mobile), MOV (Mac) , WMV (Windows), MPG, MPEG and MP4 with a maximum weight of 4 MB. The images you can upload must be in JPG, PNG or PDF, Excel or Word documents",
-
     "secure.products.bulk_upload.process": "when uploading the products.",
-
     "secure.frauds.bulk_upload.process": "when uploading the frauds.",
-
     "secure.reports.report-offert.download-modal-offert-ts.ok": "The download has started successfully. Check your e-mail.",
     "secure.reports.report-offert.download-modal-offert-ts.ko": "And error has occurred when downloading the file.",
-
-    "secure.reports.report-vtex.download-modal-vtex-ts.ok":"Request sent successfully. In a few minutes you will receive an email with the requested file.",
-
-
-    "secure.quality.quality-score.quality" :"Quality",
-    "secure.quality.quality-score.qualityMonth" :"Quality month",
-    "secure.quality.quality-score.qualityIssued" :"Quality issued",
-    "secure.quality.quality-score.text-empty-califications" :"Enter the name of the seller in the search bar to see the quality score. ",
+    "secure.reports.report-vtex.download-modal-vtex-ts.ok": "Request sent successfully. In a few minutes you will receive an email with the requested file.",
+    "secure.quality.quality-score.quality": "Quality",
+    "secure.quality.quality-score.qualityMonth": "Quality month",
+    "secure.quality.quality-score.qualityIssued": "Quality issued",
+    "secure.quality.quality-score.text-empty-califications": "Enter the name of the seller in the search bar to see the quality score. ",
     "secure.quality.quality-score.filter-title": "Consultar calificaciones",
     "secure.quality.quality-score.message-send-quality": "Seller rating has been successfully submitted",
-    "secure.seller.contracts.load-agreement.select-option-load":"Please select the type of contract to upload",
-    "secure.seller.contracts.load-agreement.agreement":"Agreement",
-    "secure.seller.contracts.load-agreement.Attached":"Attached",
-    "secure.seller.contracts.load-agreement.upload_file":"Upload file on PDF (Max 3 MegaBytes)",
-    "secure.seller.contracts.load-agreement.import":"Import",
-    "secure.seller.contracts.load-agreement.import_agreement":"Import Agreement",
-
+    "secure.seller.contracts.load-agreement.select-option-load": "Please select the type of contract to upload",
+    "secure.seller.contracts.load-agreement.agreement": "Agreement",
+    "secure.seller.contracts.load-agreement.Attached": "Attached",
+    "secure.seller.contracts.load-agreement.upload_file": "Upload file on PDF (Max 3 MegaBytes)",
+    "secure.seller.contracts.load-agreement.import": "Import",
+    "secure.seller.contracts.load-agreement.import_agreement": "Import Agreement",
     "secure.orders.bulk.billing.please_list_verique": "File (s) loaded (s) above, please list verique",
     "secure.orders.bulk.billing.once_the_single_charge": "Remember only be made once the single charge",
     "secure.orders.bulk.billing.total_to_Save": "Total to Save",
@@ -1517,15 +1429,13 @@
     "secure.orders.bulk.billing.maximum_All_file_size": "Files should not exceed 7 MB.",
     "secure.orders.bulk.billing.size_file": "File size: ",
     "secure.orders.bulk.billing.size_file_MB": "MB",
-
     "secure.frauds.charge.frauds": "Upload fraud report",
     "secure.frauds.charge.select.file": "Please select the fraud file you want to upload",
     "secure.frauds.charge.success": "Successful upload",
     "secure.frauds.charge.success.text": "The file with the fraud information has been uploaded successfully",
     "secure.frauds.in_devolution.in_devolution_page.no_found_frauds": "No frauds have been found.",
     "errors.error_check_frauds": "An error occurred while querying the frauds.",
-
-    "errors_download_file_submodules" : "Se ha presentado un error al realizar la descarga.",
+    "errors_download_file_submodules": "Se ha presentado un error al realizar la descarga.",
     "school.exito": "School Éxito",
     "school.exito.theme.list": "LIST OF TOPICS",
     "school.exito.button": "CREATE NEW MODULE",
@@ -1571,21 +1481,26 @@
     "secure.notifications.list.column-title": "Title",
     "secure.notifications.list.column-date": "Date",
     "secure.reports.notification.fraud.charge-fraud": "CHARGE FRAUDS",
-    "secure.profiel.modal.message.text":"The contact has been successfully created",
-    "secure.profiel.copy_token_channel_advisor":"Copy token Channel advisor",
-    "secure.profiel.copied_token":"Copied token",
-    "secure.profiel.contact_information":"Contact information",
-    "secure.profiel.responsible_area":"Responsible area",
-    "secure.profiel.position":"Position",
-    "secure.profiel.cellPhone":"Cell phone number",
-    "secure.profiel.phone_number":"Phone number",
-    "secure.profiel.contact_name_surname":"Name",
-    "secure.profiel.edit_contact":"Edit contact",
-
-
+    "secure.profiel.modal.message.text": "The contact has been successfully created",
+    "secure.profiel.copy_token_channel_advisor": "Copy token Channel advisor",
+    "secure.profiel.copied_token": "Copied token",
+    "secure.profiel.contact_information": "Contact information",
+    "secure.profiel.responsible_area": "Responsible area",
+    "secure.profiel.position": "Position",
+    "secure.profiel.cellPhone": "Cell phone number",
+    "secure.profiel.phone_number": "Phone number",
+    "secure.profiel.contact_name_surname": "Name",
+    "secure.profiel.edit_contact": "Edit contact",
     "download.products.pending.modal.title": "Download products pending modification",
     "download.products.pending.modal.sub_title": "Enter the email address to share this report",
     "download.products.pending.modal.select-plu": "Select PLU categories",
     "selectall":"Select all",
-    "download-upercase":"DOWNLOAD"
+    "download-upercase":"DOWNLOAD",
+
+    "report.title": "ORDENES PARA ADMINISTRADOR",
+    "report.all-sellers": "Todos los Seller",
+    "report.all-orders": "Todas las órdenes",
+    "report.orders-to-send": "Órdenes por enviar",
+    "report.orders-sending": "Órdenes enviadas",
+    "report.download":"Descargar reporte"
 }

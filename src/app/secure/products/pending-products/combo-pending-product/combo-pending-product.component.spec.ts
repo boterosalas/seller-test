@@ -118,6 +118,5 @@ describe('ComboPendingProductComponent', () => {
             ean: 1001114217562,
         };
         component.sellerId = 11811;
-        component.backTolist();
     });
 });

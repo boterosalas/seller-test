@@ -843,8 +843,8 @@ export class DetailOfferComponent implements OnInit {
               if (countError === data.body.data.error) {
                 this.openDialogModalRule();
               } else {
-                this.snackBar.open(this.languageService.instant('secure.offers.list.components.detail_offer.snackbar_offer_product'), this.languageService.instant('actions.close'), {
-                  duration: 5000,
+                this.snackBar.open(data.body.data.offerNotifyViewModels[0].message, this.languageService.instant('actions.close'), {
+                  duration: 7000,
                 });
               }
             } else {
@@ -878,7 +878,6 @@ export class DetailOfferComponent implements OnInit {
         }
         if (result.body.data.error === 1) {
           this.loadingService.closeSpinner();
-          this.modalService.showModal('errorService');
         }
       }, error => {
         this.loadingService.closeSpinner();

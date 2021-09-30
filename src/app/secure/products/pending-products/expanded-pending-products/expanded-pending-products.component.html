@@ -1,193 +1,637 @@
-<div class="cont-product">
-  <div class="info-product" fxShow.xs="true" fxShow="false">
-    <div class="subtitle divider-two">
-      <h3>{{productsPendindgExpanded.name}}</h3>
-      <p class="title divider-two">{{'secure.offers.list.list.EAN_offert' | translate}} {{productsPendindgExpanded.ean}}
-      </p>
+<div *ngIf="typeDetailProduct === 'genericProduct'">
+  <div class="cont-product">
+    <div class="info-product" fxShow.xs="true" fxShow="false">
+      <div class="subtitle divider-two">
+        <h3>{{productsPendindgExpanded.name}}</h3>
+        <p class="title divider-two">{{'secure.offers.list.list.EAN_offert' |
+          translate}} {{productsPendindgExpanded.ean}}
+        </p>
+      </div>
     </div>
-  </div>
 
-  <div class="cont-images">
-    <div class="smallImages">
-      <!-- for que contiene el arreglo de las imagenes -->
-      <mat-card class="image-card" *ngFor="let img of images">
-        <ng-container *ngIf="img.max">
-          <!-- cargo la url de la imagen en el src y el evento click q llama la funcion con el parametro de la img grande -->
-          <div (click)="changeImage(img.max, img)" class="imageXs" [ngClass]=" (imageMax == img.max) ? 'activeImage' : ''">
-            <img mat-card-image [src]="img.max" alt="X" [ngClass]=" (imageMax == img.max) ? 'border-gray' : ''">
+    <div class="cont-images">
+      <div class="smallImages">
+        <!-- for que contiene el arreglo de las imagenes -->
+        <mat-card class="image-card" *ngFor="let img of images">
+          <ng-container *ngIf="img.max">
+            <!-- cargo la url de la imagen en el src y el evento click q llama la funcion con el parametro de la img grande -->
+            <div (click)="changeImage(img.max, img)" class="imageXs"
+              [ngClass]="(imageMax
+              == img.max) ? 'activeImage' : ''">
+              <img mat-card-image [src]="img.max" alt="X" [ngClass]="(imageMax
+                == img.max) ? 'border-gray' : ''">
+            </div>
+          </ng-container>
+        </mat-card>
+      </div>
+      <div>
+        <div class="imageXl" *ngIf="showImage">
+          <img [src]="imageMax" alt="Imagen no disponible">
+        </div>
+
+        <div class="video imageXl" *ngIf="productsPendindgExpanded.hasVideoUrl
+          && showVideo">
+          <iframe width="480" height="315"
+            [src]="productsPendindgExpanded.videoUrl | safe: 'resourceUrl'"
+            title="YouTube video player" frameborder="0" allow="accelerometer;
+            autoplay; clipboard-write; encrypted-media; gyroscope;
+            picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+
+    <mat-divider vertical="true"></mat-divider>
+    <div class="info-product" fxLayout="column" fxLayoutAlign="space-around
+      none">
+      <div class="subtitle divider-two" fxShow.xs="false">
+        <div fxFlex fxLayout="row wrap" fxLayoutAlign="center start"
+          class="max-height-list-product expanded-product-margin-max-height">
+          <div fxFlex>
+            <h3>{{'secure.offers.list.list.EAN_offert' | translate}}
+              {{productsPendindgExpanded.ean}}</h3>
           </div>
-        </ng-container>
-      </mat-card>
-    </div>
-    <div>
-      <div class="imageXl" *ngIf="showImage">
-        <img [src]="imageMax" alt="Imagen no disponible">
+          <div fxFlex fxLayoutAlign="end center"
+            class="expanded-product-height-edit-icon"
+            *ngIf="productsPendindgExpanded">
+            <button class="button-edit" type="button" color="primary"
+              matTooltip="Editar"
+              *ngIf="editPermission && productsPendindgExpanded.isMarketplace"
+              matTooltipPosition="below" mat-icon-button
+              mat-button (click)="editProduct(productsPendindgExpanded)">
+              <mat-icon class="flexbox align-center justify-center">edit</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="title divider-two">{{productsPendindgExpanded.name}}</p>
+      </div>
+      <div class="divider-one">
+        <p> <span
+            class="color-gray">{{'secure.products.create_product_unit.list_products.expanded_product.creation_date'
+            | translate}}:</span>
+          {{productsPendindgExpanded.createdDate}}</p>
+        <span class="separator"> | </span>
+        <p> <span
+            class="color-gray">{{'secure.products.create_product_unit.list_products.expanded_product.modification_date'
+            | translate}}:</span>
+          {{productsPendindgExpanded.updatedDate}}</p>
       </div>
 
-      <div class="video imageXl" *ngIf="productsPendindgExpanded.hasVideoUrl && showVideo">
-        <iframe width="480" height="315" [src]="productsPendindgExpanded.videoUrl | safe: 'resourceUrl'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <div class="text"> {{'shared.category' | translate}}: <span
+          class="color-gray"></span> <label>
+          {{productsPendindgExpanded.category}} </label></div>
+      <div class="text">{{'shared.brand' | translate}}:<span class="color-gray"></span>
+        <label>
+          {{productsPendindgExpanded.brand}} </label></div>
+      <div class="divider-one">
+        {{'secure.products.create_product_unit.basic_information.shipping_size'
+        | translate}}:
+        <span class="color-gray"></span> <label>
+          {{productsPendindgExpanded.shipping_size}} </label></div>
+
+
+      <div class="text" fxLayout="row">
+        <div *ngIf="productsPendindgExpanded.colour.length !== 0">
+          <i class="material-icons"> color_lens </i>
+          {{'secure.products.create_product_unit.list_products.expanded_product.color'
+          | translate}}:
+          <div class="color-product" [ngStyle]="{'background':
+            '#'+productsPendindgExpanded.colour}"></div>
+        </div>
+        <div *ngIf="productsPendindgExpanded.colour.length !== 0">
+          <i class="material-icons"> style </i>
+          {{'secure.products.create_product_unit.list_products.expanded_product.size'
+          | translate}}:
+          <label> {{productsPendindgExpanded.size}}</label>
+        </div>
+      </div>
+
+      <div class="text">
+        <i class="material-icons"> shopping_basket </i>
+        {{'secure.products.create_product_unit.list_products.expanded_product.packaging_form'
+        | translate}}:
+        <label>
+          {{'secure.products.create_product_unit.list_products.expanded_product.height'
+          | translate}}-{{productsPendindgExpanded.package_height}}cm
+          {{'secure.products.create_product_unit.list_products.expanded_product.width'
+          | translate}}-{{productsPendindgExpanded.package_width}}cm
+          {{'secure.products.create_product_unit.list_products.expanded_product.length'
+          | translate}}-{{productsPendindgExpanded.package_length}}cm
+          {{'secure.products.create_product_unit.list_products.expanded_product.weight'
+          | translate}}-{{productsPendindgExpanded.package_weight}}kg
+        </label>
+      </div>
+
+      <div class="text">
+        <i class="material-icons"> local_shipping </i>
+        {{'secure.products.create_product_unit.list_products.expanded_product.products'
+        | translate}}
+        <label>{{'secure.products.create_product_unit.list_products.expanded_product.height'
+          | translate}}-{{productsPendindgExpanded.item_height}}cm
+          {{'secure.products.create_product_unit.list_products.expanded_product.width'
+          | translate}}-{{productsPendindgExpanded.item_width}}cm
+          {{'secure.products.create_product_unit.list_products.expanded_product.length'
+          | translate}}-{{productsPendindgExpanded.item_length}}cm
+          {{'secure.products.create_product_unit.list_products.expanded_product.weight'
+          | translate}}-{{productsPendindgExpanded.item_weight}}kg
+        </label>
+      </div>
+
+      <br>
+      <div class="text-reject">
+        {{'secure.seller.list.reason' | translate}}:
+        <label>{{productsPendindgExpanded.reason}}</label>
+      </div>
+      <div class="text-reject">
+        {{'secure.seller.list.observation' | translate}}:
+        <label>{{productsPendindgExpanded.comment}}</label>
       </div>
     </div>
   </div>
 
-  <mat-divider vertical="true"></mat-divider>
-  <div class="info-product" fxLayout="column" fxLayoutAlign="space-around none">
-    <div class="subtitle divider-two" fxShow.xs="false">
-      <div fxFlex fxLayout="row wrap" fxLayoutAlign="center start"
-        class="max-height-list-product expanded-product-margin-max-height">
-        <div fxFlex>
-          <h3>{{'secure.offers.list.list.EAN_offert' | translate}} {{productsPendindgExpanded.ean}}</h3>
+
+  <div class="expanded-information-product">
+    <mat-tab-group>
+      <mat-tab
+        [label]="'secure.products.create_product_unit.list_products.expanded_product.description'
+        | translate">
+        <p class="description-product"
+          [innerHtml]="productsPendindgExpanded.description"></p>
+      </mat-tab>
+      <mat-tab
+        [label]="'secure.products.create_product_unit.list_products.expanded_product.keywords'
+        | translate"
+        class="flex">
+        <div class="keywords-products" *ngFor="let keywords of
+          productsPendindgExpanded.keyword">
+          <mat-chip>{{keywords}}</mat-chip>
         </div>
-        <div fxFlex fxLayoutAlign="end center" class="expanded-product-height-edit-icon"
-          *ngIf="productsPendindgExpanded">
-          <button class="button-edit" type="button" color="primary" matTooltip="Editar"
-            *ngIf="editPermission && productsPendindgExpanded.isMarketplace" matTooltipPosition="below" mat-icon-button
-            mat-button (click)="editProduct(productsPendindgExpanded)">
-            <mat-icon class="flexbox align-center justify-center">edit</mat-icon>
-          </button>
+      </mat-tab>
+
+      <mat-tab
+        [label]="'secure.products.create_product_unit.list_products.expanded_product.specifications'
+        | translate">
+        <span class="no-specs" *ngIf="!productsPendindgExpanded.features ||
+          !productsPendindgExpanded.features.length">
+          {{'secure.products.create_product_unit.list_products.expanded_product.no_more_spedifications'
+          | translate}}
+        </span>
+        <div class="container">
+          <div class="container-sub" *ngFor="let spec of
+            productsPendindgExpanded.features">
+            <div class="container-specs_title">
+              {{spec.key}}
+            </div>
+            <div class="container-specs_value">
+              {{spec.value}}
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <div>
-      <p class="title divider-two">{{productsPendindgExpanded.name}}</p>
-    </div>
-    <div class="divider-one">
-      <p> <span
-          class="color-gray">{{'secure.products.create_product_unit.list_products.expanded_product.creation_date' | translate}}:</span>
-        {{productsPendindgExpanded.createdDate}}</p>
-      <span class="separator"> | </span>
-      <p> <span
-          class="color-gray">{{'secure.products.create_product_unit.list_products.expanded_product.modification_date' | translate}}:</span>
-        {{productsPendindgExpanded.updatedDate}}</p>
-    </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
 
-    <div class="text"> {{'shared.category' | translate}}: <span class="color-gray"></span> <label>
-        {{productsPendindgExpanded.category}} </label></div>
-    <div class="text">{{'shared.brand' | translate}}:<span class="color-gray"></span> <label>
-        {{productsPendindgExpanded.brand}} </label></div>
-    <div class="divider-one"> {{'secure.products.create_product_unit.basic_information.shipping_size' | translate}}:
-      <span class="color-gray"></span> <label> {{productsPendindgExpanded.shipping_size}} </label></div>
-
-
-    <div class="text" fxLayout="row">
-      <div *ngIf="productsPendindgExpanded.colour.length !== 0">
-        <i class="material-icons"> color_lens </i>
-        {{'secure.products.create_product_unit.list_products.expanded_product.color' | translate}}:
-        <div class="color-product" [ngStyle]="{'background': '#'+productsPendindgExpanded.colour}"></div>
-      </div>
-      <div *ngIf="productsPendindgExpanded.colour.length !== 0">
-        <i class="material-icons"> style </i>
-        {{'secure.products.create_product_unit.list_products.expanded_product.size' | translate}}:
-        <label> {{productsPendindgExpanded.size}}</label>
-      </div>
-    </div>
-
-    <div class="text">
-      <i class="material-icons"> shopping_basket </i>
-      {{'secure.products.create_product_unit.list_products.expanded_product.packaging_form' | translate}}:
-      <label>
-        {{'secure.products.create_product_unit.list_products.expanded_product.height' | translate}}-{{productsPendindgExpanded.package_height}}cm
-        {{'secure.products.create_product_unit.list_products.expanded_product.width' | translate}}-{{productsPendindgExpanded.package_width}}cm
-        {{'secure.products.create_product_unit.list_products.expanded_product.length' | translate}}-{{productsPendindgExpanded.package_length}}cm
-        {{'secure.products.create_product_unit.list_products.expanded_product.weight' | translate}}-{{productsPendindgExpanded.package_weight}}kg
-      </label>
-    </div>
-
-    <div class="text">
-      <i class="material-icons"> local_shipping </i>
-      {{'secure.products.create_product_unit.list_products.expanded_product.products' | translate}}
-      <label>{{'secure.products.create_product_unit.list_products.expanded_product.height' | translate}}-{{productsPendindgExpanded.item_height}}cm
-        {{'secure.products.create_product_unit.list_products.expanded_product.width' | translate}}-{{productsPendindgExpanded.item_width}}cm
-        {{'secure.products.create_product_unit.list_products.expanded_product.length' | translate}}-{{productsPendindgExpanded.item_length}}cm
-        {{'secure.products.create_product_unit.list_products.expanded_product.weight' | translate}}-{{productsPendindgExpanded.item_weight}}kg
-      </label>
-    </div>
-
-    <br>
-    <div class="text-reject">
-      {{'secure.seller.list.reason' | translate}}:
-      <label>{{productsPendindgExpanded.reason}}</label>
-    </div>
-    <div class="text-reject">
-      {{'secure.seller.list.observation' | translate}}:
-      <label>{{productsPendindgExpanded.comment}}</label>
-    </div>
+  <div class="expanded-information-product2">
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{'shared.descripcion' | translate}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-form-field>
+          <p class="description-product"
+            [innerHtml]="productsPendindgExpanded.description"></p>
+          <input matInput placeholder="Age">
+        </mat-form-field>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{'secure.products.create_product_unit.list_products.expanded_product.keywords'
+            | translate}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="keywords-products" *ngFor="let keywords of
+          productsPendindgExpanded.keyword">
+          <mat-chip>{{keywords}}</mat-chip>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{'secure.products.create_product_unit.list_products.expanded_product.specifications'
+            | translate}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <span *ngIf="!productsPendindgExpanded.features ||
+          !productsPendindgExpanded.features.length">
+          {{'secure.products.create_product_unit.list_products.expanded_product.no_more_spedifications'
+          | translate}}
+        </span>
+        <div class="container">
+          <div class="container-sub" *ngFor="let spec of
+            productsPendindgExpanded.features">
+            <div class="container-specs_title">
+              {{spec.key}}
+            </div>
+            <div class="container-specs_value">
+              {{spec.value}}
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
 </div>
-
-
-<div class="expanded-information-product">
-  <mat-tab-group>
-    <mat-tab [label]="'secure.products.create_product_unit.list_products.expanded_product.description' | translate">
-      <p class="description-product" [innerHtml]="productsPendindgExpanded.description"></p>
-    </mat-tab>
-    <mat-tab [label]="'secure.products.create_product_unit.list_products.expanded_product.keywords' | translate"
-      class="flex">
-      <div class="keywords-products" *ngFor="let keywords of productsPendindgExpanded.keyword">
-        <mat-chip>{{keywords}}</mat-chip>
+<div *ngIf="typeDetailProduct === 'multiOfert'">
+  <div *ngIf="productsMultiOfertExpanded">
+    <div fxLayout="row wrap">
+      <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="35"
+        fxFlex.xl="35" fxFlex="35" fxFlex="35" class="expanded-pending-product-container-text-align-center-padding-top-30">
+        <img [src]="productsMultiOfertExpanded.imageUrl" class="expanded-pending-product-img-width-height">
       </div>
-    </mat-tab>
-
-    <mat-tab [label]="'secure.products.create_product_unit.list_products.expanded_product.specifications' | translate">
-      <span class="no-specs" *ngIf="!productsPendindgExpanded.features  || !productsPendindgExpanded.features.length">
-        {{'secure.products.create_product_unit.list_products.expanded_product.no_more_spedifications' | translate}}
-      </span>
-      <div class="container">
-        <div class="container-sub" *ngFor="let spec of productsPendindgExpanded.features">
-          <div class="container-specs_title">
-            {{spec.key}}
+      <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="62"
+        fxFlex.xl="62" fxFlex="62" fxFlex="62" class="expanded-pending-product-border-left-solid-color">
+        <div>
+          <div class="expanded-pending-product-padding-bottom-left-50">
+            <span class="expanded-pending-product-font-size-12-color">EAN:
+              {{productsMultiOfertExpanded.ean}}</span>
           </div>
-          <div class="container-specs_value">
-            {{spec.value}}
+          <div class="expanded-pending-product-padding-bottom-left-50">
+            <span class="expanded-pending-product-font-size-17">
+              {{productsMultiOfertExpanded.name}}
+            </span>
+          </div>
+          <div class="expanded-pending-product-container-date">
+            <span>
+              <span class="expanded-pending-product-color-text-grey">
+                {{'secure.products.create_product_unit.list_products.combo_product.creation_date'
+                | translate}}:
+              </span>
+              {{productsMultiOfertExpanded.creationDate | date:'dd/MM/yyyy' }}
+            </span>
+            <span class="expanded-pending-product-color-text-grey">|</span>
+            <span>
+              <span class="expanded-pending-product-color-text-grey">
+                {{'secure.products.create_product_unit.list_products.combo_product.modification_date'
+                | translate}}:
+              </span>
+              {{productsMultiOfertExpanded.updateDate | date:'dd/MM/yyyy' }}
+            </span>
+            <span>
+            </span>
+          </div>
+          <div class="expanded-pending-product-container-detail">
+            <ng-template [ngIf]="productsMultiOfertExpanded">
+              <app-list-product-multi-ofert [data]="productsMultiOfertExpanded"
+                class="width-100">
+                <ng-container *itemDropDownList>
+                  <div class="expanded-pending-product-container-detail-modified-product">
+                    <app-detail-product-multi-ofert *ngFor="let item of
+                      arrayMultiOfert; let i= index" [data]="item">
+                      <ng-container *appContentDropDownDetailOrderDirective>
+                        <div fxShow.xs="false" fxShow.sm="false"
+                          fxShow.md="true" fxShow.lg="true" fxShow.xl="true">
+                          <div *ngIf="item.name === 'Features' &&
+                            arrayFeature.length> 0" class="expanded-pending-product-item-feature">
+                            <div fxLayout="row wrap">
+                              <div fxFlex="30" class="expanded-pending-product-detail-feature">
+                                {{'secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_table_Name'
+                                | translate}}
+                              </div>
+                              <div fxFlex="30" class="expanded-pending-product-detail-feature">
+                                {{'secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_previous'
+                                | translate}}
+                              </div>
+                              <div fxFlex="30" class="expanded-pending-product-detail-feature">
+                                {{'secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_current'
+                                | translate}}
+                              </div>
+                            </div>
+                            <div *ngFor="let feature of arrayFeature"
+                              fxLayout="row wrap">
+                              <div fxFlex="30" class="expanded-pending-product-margin-right-2">
+                                <span class="expanded-pending-product-font-size-color-grey-text">{{feature.key}}</span>
+                              </div>
+                              <div fxFlex="30" class="expanded-pending-product-margin-right-2">
+                                <span class="expanded-pending-product-font-size-color-grey-text">{{feature.valueOld}}</span>
+                              </div>
+                              <div fxFlex="30" class="expanded-pending-product-margin-right-2">
+                                <span class="expanded-pending-product-color-red-font-size">{{feature.valueCurrent}}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="item.name === 'VideoUrl'">
+                            <div *ngFor="let video of arrayVideo" fxLayout="row
+                              wrap">
+                              <div fxFlex="50" class="expanded-pending-product-container-video-url">
+                                <iframe width="200" height="150"
+                                  [src]="video.valueOld | safe: 'resourceUrl'"
+                                  title="YouTube video player" frameborder="0"
+                                  allow="accelerometer; autoplay;
+                                  clipboard-write; encrypted-media; gyroscope;
+                                  picture-in-picture" allowfullscreen></iframe>
+                              </div>
+                              <div fxFlex="45" class="expanded-pending-product-container-video-url-margin-left-2">
+                                <iframe width="200" height="150"
+                                  [src]="video.valueCurrent | safe:
+                                  'resourceUrl'" title="YouTube video player"
+                                  title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="item.name === 'Description'"
+                            class="expanded-pending-product-container-keyword-description-padding-20">
+                            <div fxLayout="row wrap">
+                              <div fxFlex="45"class="expanded-pending-product-containe-key-descr-detail-previus">
+                                <span class="expanded-pending-product-margin-left-10">
+                                  {{'secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_previous'
+                                  | translate}}
+                                </span>
+                              </div>
+                              <div fxFlex="45" class="expanded-pending-product-container-element-current-product">
+                                <span class="expanded-pending-product-margin-left-10">
+                                  {{'secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_current'
+                                  | translate}}
+                                </span>
+                              </div>
+                            </div>
+                            <div *ngFor="let description of arrayDescription"
+                              fxLayout="row wrap">
+                              <div fxFlex="45">
+                                <span class="expanded-pending-product-container-valueOld-description"
+                                  [innerHTML]="description.valueOld"></span>
+                              </div>
+                              <div fxFlex="45">
+                                <span class="expanded-pending-product-container-valueCurrent-description"
+                                  [innerHTML]="description.valueCurrent"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="item.name === 'KeyWords'"
+                            class="expanded-pending-product-container-keyword-description-padding-20">
+                            <div fxLayout="row wrap">
+                              <div fxFlex="45"class="expanded-pending-product-containe-key-descr-detail-previus">
+                                <span class="expanded-pending-product-margin-left-10">
+                                  {{'secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_previous'
+                                  | translate}}
+                                </span>
+                              </div>
+                              <div fxFlex="45" class="expanded-pending-product-container-element-old-keyWord">
+                                <span class="expanded-pending-product-margin-left-10">
+                                  {{'secure.products.create_product_unit.list_products.expanded_product.multiOfert.item_current'
+                                  | translate}}
+                                </span>
+                              </div>
+                            </div>
+                            <div *ngFor="let keyWord of arrayKeyWords"
+                              fxLayout="row wrap">
+                              <div fxFlex="45">
+                                <span class="expanded-pending-product-span-element-text-keyWord">{{keyWord.valueOld}}</span>
+                              </div>
+                              <div fxFlex="45">
+                                <span class="expanded-pending-product-container-valueCurrent-description">{{keyWord.valueCurrent}}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="item.name === 'ImageUrl1'"
+                           class="expanded-pending-product-container-margin-left-right-20">
+                            <div *ngFor="let image of arrayImages1"
+                              fxLayout="row wrap">
+                              <div fxFlex="50" class="expanded-pending-product-container-img-color-text-center">
+                                <img [src]="image.imagenCurrent" class="expanded-pending-product-container-img-width-height-margin-top">
+                              </div>
+                              <div fxFlex="45" class="expanded-pending-product-container-old-element">
+                                <img [src]="image.imagenOld" class="expanded-pending-product-container-img-width-height-margin-top">
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="item.name === 'ImageUrl2'"
+                           class="expanded-pending-product-container-margin-left-right-20">
+                            <div *ngFor="let image of arrayImages2"
+                              fxLayout="row wrap">
+                              <div fxFlex="50" class="expanded-pending-product-container-img-color-text-center">
+                                <img [src]="image.imagenCurrent" class="expanded-pending-product-container-img-width-height-margin-top">
+                              </div>
+                              <div fxFlex="45" class="expanded-pending-product-container-old-element">
+                                <img [src]="image.imagenOld" class="expanded-pending-product-container-img-width-height-margin-top">
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="item.name === 'ImageUrl3'"
+                           class="expanded-pending-product-container-margin-left-right-20">
+                            <div *ngFor="let image of arrayImages3"
+                              fxLayout="row wrap">
+                              <div fxFlex="50" class="expanded-pending-product-container-img-color-text-center">
+                                <img [src]="image.imagenCurrent" class="expanded-pending-product-container-img-width-height-margin-top">
+                              </div>
+                              <div fxFlex="45" class="expanded-pending-product-container-old-element">
+                                <img [src]="image.imagenOld" class="expanded-pending-product-container-img-width-height-margin-top">
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="item.name === 'ImageUrl4'"
+                            class="expanded-pending-product-container-element-margin-left-right">
+                            <div *ngFor="let image of arrayImage4" fxLayout="row
+                              wrap">
+                              <div fxFlex="50" class="expanded-pending-product-container-img-color-text-center">
+                                <img [src]="image.imagenCurrent" class="expanded-pending-product-container-img-width-height-margin-top">
+                              </div>
+                              <div fxFlex="45" class="expanded-pending-product-container-old-element">
+                                <img [src]="image.imagenOld" class="expanded-pending-product-container-img-width-height-margin-top">
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="item.name === 'ImageUrl5'"
+                            class="expanded-pending-product-container-element-margin-left-right">
+                            <div *ngFor="let image of arrayImages5"
+                              fxLayout="row wrap">
+                              <div fxFlex="50" class="expanded-pending-product-container-img-color-text-center">
+                                <img [src]="image.imagenCurrent" class="expanded-pending-product-container-img-width-height-margin-top">
+                              </div>
+                              <div fxFlex="45" class="expanded-pending-product-container-old-element">
+                                <img [src]="image.imagenOld" class="expanded-pending-product-container-img-width-height-margin-top">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div fxShow.xs="true" fxShow.sm="true" fxShow.md="false"
+                          fxShow.lg="false" fxShow.xl="false">
+                          <div class="expanded-pending-product-background-color-grey">
+                            <div *ngIf="item.name !== 'Features' && item.name
+                              !== 'ImageUrl1' && item.name !== 'ImageUrl2' &&
+                              item.name !== 'ImageUrl3' && item.name !==
+                              'ImageUrl4' && item.name !== 'ImageUrl5' && item.name !== 'Description' && item.name !== 'VideoUrl'" class="expanded-pending-product-padding-left-40">
+                           
+                              <div>
+                                  <div class="expanded-pending-product-padding-bottom-10">
+                                    <div>
+                                      <span class="expanded-pending-product-text-item-element-current-old">Anterior</span>
+                                    </div>
+                                    <div>
+                                     <span class="expanded-pending-product-text-item-old">{{item.old}}</span>
+                                    </div>
+                                  </div>
+                                  <div>
+                                    <div>
+                                      <span class="expanded-pending-product-text-item-element-current-old">Actual</span>
+                                    </div>
+                                    <div>
+                                     <span class="expanded-pending-product-color-red-font-size">{{item.current}}</span>
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
+                            <div *ngIf="item.name === 'Description'" class="expanded-pending-product-padding-left-40">
+                           
+                              <div>
+                                  <div class="expanded-pending-product-padding-bottom-10">
+                                    <div>
+                                      <span class="expanded-pending-product-text-item-element-current-old">Anterior</span>
+                                    </div>
+                                    <div>
+                                      <span class="expanded-pending-product-span-element-text-keyWord"
+                                  [innerHTML]="item.old"></span>
+                                    </div>
+                                  </div>
+                                  <div>
+                                    <div>
+                                      <span class="expanded-pending-product-text-item-element-current-old">Actual</span>
+                                    </div>
+                                    <div>
+                                      <span class="expanded-pending-product-container-valueCurrent-description"
+                                  [innerHTML]="item.current"></span>
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
+                            <div *ngIf="item.name === 'VideoUrl'" class="expanded-pending-product-padding-left-40">
+                              <div>
+                                <span class="expanded-pending-product-text-item-element-current-old">Anterior</span>
+                              </div>
+                              <div class="expanded-pending-product-container-iframe-video-url">
+                                <iframe width="200" height="150"
+                                  [src]="item.old | safe: 'resourceUrl'"
+                                  title="YouTube video player" frameborder="0"
+                                  allow="accelerometer; autoplay;
+                                  clipboard-write; encrypted-media; gyroscope;
+                                  picture-in-picture" allowfullscreen></iframe>
+                              </div>
+                              <div>
+                                <span class="expanded-pending-product-text-item-element-current-old">Actual</span>
+                              </div>
+                              <div class="expanded-pending-product-container-iframe-video-url-left">
+                                <iframe width="200" height="150"
+                                  [src]="item.current | safe:
+                                  'resourceUrl'" title="YouTube video player"
+                                  frameborder="0" allow="accelerometer;
+                                  autoplay; clipboard-write; encrypted-media;
+                                  gyroscope; picture-in-picture"
+                                  allowfullscreen></iframe>
+                              </div>
+                            </div>
+                            <div *ngIf="item.name
+                            === 'ImageUrl1' || item.name === 'ImageUrl2' ||
+                            item.name === 'ImageUrl3' || item.name ===
+                            'ImageUrl4' || item.name === 'ImageUrl5'">
+                            <div>
+                              <div class="expanded-pending-product-padding-bottom-10">
+                                <div>
+                                  <span class="expanded-pending-product-text-item-element-current-old">Anterior</span>
+                                </div>
+                                <div>
+                                  
+                                <div class="expanded-pending-product-container-movil-img-old">
+                                  <img [src]="item.old" class="expanded-pending-product-container-movil-img">
+                                </div>
+                                </div>
+                              </div>
+                              <div>
+                                <div>
+                                  <span class="expanded-pending-product-text-item-element-current-old">Actual</span>
+                                </div>
+                                <div class="expanded-pending-product-container-img-color-text-center">
+                                <img [src]="item.current" class="expanded-pending-product-container-movil-img">
+                              </div>
+                              </div>
+                          </div>
+
+                            </div>
+                            <div *ngIf="item.name === 'Features' &&
+                              arrayFeature.length> 0" class="expanded-pending-product-item-feature">
+                              <div class="expanded-pending-product-padding-bottom-10">
+                                <div>
+                                  <span class="expanded-pending-product-text-item-element-current-old">Anterior</span>
+                                </div>
+                                <div>
+                                  <div *ngFor="let old of oldProduct.Features"
+                                    fxLayout="row wrap">
+                                    <div fxFlex="50">
+                                      <span class="expanded-pending-product-text-item-old">
+                                        {{old.Key}}
+                                      </span>
+                                    </div>
+                                    <div fxFlex="50">
+                                      <span class="expanded-pending-product-text-item-old">
+                                        {{old.Value}}
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div>
+                                <div>
+                                  <span class="expanded-pending-product-text-item-element-current-old">Actual</span>
+                                </div>
+                                <div>
+                                  <div *ngFor="let current of
+                                    currentProduct.Features" fxLayout="row
+                                    wrap">
+                                    <div fxFlex="50">
+                                      <span class="expanded-pending-product-text-item-old">
+                                        {{current.Key}}
+                                      </span>
+                                    </div>
+                                    <div fxFlex="50">
+                                      <span class="expanded-pending-product-color-red-font-size">
+                                        {{current.Value}}
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </app-detail-product-multi-ofert>
+                  </div>
+                  <div fxLayout="row wrap" class="expanded-pending-product-padding-top-35-bottom-20">
+                    <div fxFlex="50" class="expanded-pending-product-text-align-end-padding-right-20">
+                      <button mat-stroked-button color="primary" mat-button
+                        (click)="modalGeneric('reject')">
+                        {{'secure.products.create_product_unit.list_products.expanded_product.multiOfert.btn_reject_changes'|
+                        translate}}
+                      </button>
+                    </div>
+                    <div fxFlex="50">
+                      <button mat-raised-button color="primary" mat-button
+                        (click)="modalGeneric('approved')">
+                        {{'secure.products.create_product_unit.list_products.expanded_product.multiOfert.btn_approved_changes'|
+                        translate}}
+                      </button>
+                    </div>
+                  </div>
+                </ng-container>
+              </app-list-product-multi-ofert>
+            </ng-template>
           </div>
         </div>
       </div>
-    </mat-tab>
-  </mat-tab-group>
-</div>
+    </div>
+  </div>
 
-<div class="expanded-information-product2">
-  <mat-accordion>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          {{'shared.descripcion' | translate}}
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <mat-form-field>
-        <p class="description-product" [innerHtml]="productsPendindgExpanded.description"></p>
-        <input matInput placeholder="Age">
-      </mat-form-field>
-    </mat-expansion-panel>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          {{'secure.products.create_product_unit.list_products.expanded_product.keywords' | translate}}
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <div class="keywords-products" *ngFor="let keywords of productsPendindgExpanded.keyword">
-        <mat-chip>{{keywords}}</mat-chip>
-      </div>
-    </mat-expansion-panel>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          {{'secure.products.create_product_unit.list_products.expanded_product.specifications' | translate}}
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <span *ngIf="!productsPendindgExpanded.features  || !productsPendindgExpanded.features.length">
-        {{'secure.products.create_product_unit.list_products.expanded_product.no_more_spedifications' | translate}}
-      </span>
-      <div class="container">
-        <div class="container-sub" *ngFor="let spec of productsPendindgExpanded.features">
-          <div class="container-specs_title">
-            {{spec.key}}
-          </div>
-          <div class="container-specs_value">
-            {{spec.value}}
-          </div>
-        </div>
-      </div>
-    </mat-expansion-panel>
-  </mat-accordion>
 </div>
