@@ -45,7 +45,7 @@ export const OFFERS_HEADERS_FREIGHT_FR = 'Cotation du fret';
 export const OFFERS_HEADERS_GARANTIA = 'Garantia';
 export const OFFERS_HEADERS_WARRANTY = 'Warranty';
 export const OFFERS_HEADERS_WARRANTY_FR = 'Garantie';
-export const OFFERS_HEADERS_LIGICAEXITO = 'Logistica Exito';
+export const OFFERS_HEADERS_LIGICAEXITO = 'FulFillment';
 export const OFFERS_HEADERS_EXITO_LOGISTIC = 'Exito Logistics';
 export const OFFERS_HEADERS_EXITO_LOGISTIC_FR = 'Logistique Éxito';
 export const OFFERS_HEADERS_ACTIALIZACION_INVENTARIO = 'Actualizacion de Inventario';
@@ -449,7 +449,7 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             iIndEnvExito: this.validateSubTitle(this.arrayNecessaryData, 'Successful Shipments Indicator', 'Indicador Envíos Exito', 'Indicateur d\'expédition Éxito'),
             iCotFlete: this.validateSubTitle(this.arrayNecessaryData, 'Freight Quotation', 'Cotizador de Flete', 'Cotation du fret'),
             iGarantia: this.validateSubTitle(this.arrayNecessaryData, 'Warranty', 'Garantia', 'Garantie'),
-            iLogisticaExito: this.validateSubTitle(this.arrayNecessaryData, 'Exito Logistics', 'Logistica Exito', 'Logistique Éxito'),
+            iLogisticaExito: this.validateSubTitle(this.arrayNecessaryData, 'Exito Logistics', 'FulFillment', 'Logistique Éxito'),
             iActInventario: this.validateSubTitle(this.arrayNecessaryData, 'Inventory Update', 'Actualizacion de Inventario', 'Mise à Jour du Stock'),
             iEanCombo: this.validateSubTitle(this.arrayNecessaryData, 'Combo EAN', 'Ean combo', 'Ean combo'),
             iCantidadCombo: this.validateSubTitle(this.arrayNecessaryData, 'Quantity in combo', 'Cantidad en combo', 'Bundle stock'),
