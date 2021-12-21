@@ -96,8 +96,10 @@ export class OfertExpandedProductComponent implements OnInit {
             const stock = this.ofertProduct.get('IsUpdatedStock');
             if (val === 'IsLogisticsExito') {
                 stock.setValue(true);
+                stock.disable();
             } else {
                 stock.setValue(false);
+                stock.enable();
             }
         });
     }

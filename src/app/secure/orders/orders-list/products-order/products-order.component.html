@@ -166,7 +166,7 @@
     <div fxFlex.sm="11" fxFlex.md="11" fxFlex.lg="11" fxFlex.xs="11" fxShow fxHide.xs="true" fxHide.sm="true"
       fxHide.lt-md="true" fxHide.lg="false" fxHide.xl="false">
       <div class="text-center">
-        <p class="sc-text-order" *ngIf="product.fulfillment == true">
+        <p class="fulfillment" *ngIf="product.fulfillment == true">
           {{'secure.orders.order_list.product_order.fulfillment' | translate}}</p>
         <p class="sc-text-order" *ngIf="product.enviosExito == true">
           {{'secure.offers.historical_admin.historical_admin.shiping_exito' | translate}}</p>

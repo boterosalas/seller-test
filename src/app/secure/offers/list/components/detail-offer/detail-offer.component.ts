@@ -431,6 +431,7 @@ export class DetailOfferComponent implements OnInit {
     });
     // Se borra esta linea o se comenta cuando se despliegue MPI
     this.formUpdateOffer.get('Currency').disable();
+    this.IsUpdatedStock.disable();
     this.validateOffertType(this.formUpdateOffer.get('Currency').value);
     this.formUpdateOffer.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
       this.changeTypeCurrency(val);
@@ -528,8 +529,7 @@ export class DetailOfferComponent implements OnInit {
           this.IsFreeShipping.setValue(0);
           this.IsEnviosExito.setValue(0);
           this.IsUpdatedStock.setValue(1);
-          this.IsUpdatedStock.enable();
-          console.log('logistica exito');
+          this.IsUpdatedStock.disable();
           break;
         case 'IsUpdatedStock':
           this.IsUpdatedStock.setValue(1);
@@ -547,7 +547,7 @@ export class DetailOfferComponent implements OnInit {
           this.IsFreightCalculator.setValue(0);
           break;
         case 'isLogisticsExito':
-          // this.IsLogisticsExito.setValue(0);
+          this.IsLogisticsExito.setValue(0);
           this.IsUpdatedStock.setValue(0);
           this.IsUpdatedStock.enable();
           break;
@@ -750,7 +750,7 @@ export class DetailOfferComponent implements OnInit {
         OfferByReference: this.formUpdateOffer.controls['OfferByReference'].value ? true : false,
         SellerSku: this.params[0].SellerSku,
         Reference: this.dataOffer.reference,
-        IsUpdatedStock: this.params[0].IsUpdatedStock,
+        IsUpdatedStock: this.formUpdateOffer.controls['IsUpdatedStock'].value,
         Currency: this.formUpdateOffer.controls['Currency'].value
       }
     ];
