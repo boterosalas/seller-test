@@ -306,13 +306,14 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
     if (res.length > 1) {
       let contEmptyRow = 0;
       this.EanArray = [];
-
+      let shipMethodAux;
+      let shipMethod = false;
       for (let i = 0; i < res[0].length; i++) {
         res[0][i] = !!res[0][i] ? res[0][i].toString().trim() : res[0][i];
       }
 
       for (let i = 0; i < res.length; i++) {
-
+        shipMethodAux = 0;
         this.arrayNecessaryData.push([]);
         let priceDiscountIndex = 0;
         let priceIndex = 0;
@@ -375,6 +376,18 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             res[0][j] === OFFERS_HEADERS_PARENT_REF_FR
           ) {
             this.arrayNecessaryData[i].push(res[i][j]);
+          }
+          if (
+            res[0][j] === OFFERS_HEADERS_ENVIOS_EXITO || res[0][j] === OFFERS_HEADERS_EXITO_INDICATOR || res[0][j] === OFFERS_HEADERS_EXITO_INDICATOR_FR ||
+            res[0][j] === OFFERS_HEADERS_COTIZADOR || res[0][j] === OFFERS_HEADERS_FREIGHT || res[0][j] === OFFERS_HEADERS_FREIGHT_FR ||
+            res[0][j] === OFFERS_HEADERS_FREE_SHIPPING || res[0][j] === OFFERS_HEADERS_FREE_SHIPPING_FR || 
+            res[0][j] === OFFERS_HEADERS_LIGICAEXITO || res[0][j] === OFFERS_HEADERS_EXITO_LOGISTIC || res[0][j] === OFFERS_HEADERS_EXITO_LOGISTIC_FR) {
+            if (res[i][j]==='1') {
+              shipMethodAux++;
+            }
+            if (shipMethodAux>1) {
+              shipMethod = true;
+            }
           }
           if (res[0][j] === OFFERS_HEADERS_PRECIO || res[0][j] === OFFERS_HEADERS_PRICE_FR ||
             res[0][j] === OFFERS_HEADERS_PRICE) {
@@ -465,6 +478,10 @@ export class BulkLoadComponent implements OnInit, OnDestroy {
             this.loadingService.closeSpinner();
             this.componentService
               .openSnackBar(this.languageService.instant('secure.offers.bulk_upload.bulk_upload.exceeds_limits'), this.languageService.instant('actions.accpet_min'), 10000);
+          }else if (shipMethod) {
+            this.loadingService.closeSpinner();
+            this.componentService
+              .openSnackBar(this.languageService.instant('secure.offers.bulk_upload.bulk_upload.duplicated_shipping'), this.languageService.instant('actions.accpet_min'), 10000);
           } else {
             this.fileName = file.target.files[0].name;
             this.createTable(this.arrayNecessaryData, iVal, numCol);
