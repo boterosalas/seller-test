@@ -609,8 +609,16 @@
                       | translate}}
                     </mat-slide-toggle>
                   </div>
-
+                  <div fxFlex="40">
+                    <mat-slide-toggle color="primary"
+                      formControlName="IsLogisticsExito"
+                      (change)="checkSlide($event, 'isLogisticsExito')">
+                      {{'secure.offers.historical_admin.historical_admin.exito_logistic'
+                      | translate}}
+                    </mat-slide-toggle>
+                  </div>
                 </div>
+
                 <div fxLayout="row wrap"  class="margin-top-10 padding-top-font-size-13">
                   <div fxFlex="40">
                     <mat-slide-toggle color="primary"

@@ -95,6 +95,7 @@ export class DetailOfferComponent implements OnInit {
   public IsFreeShipping: FormControl;
   public IsEnviosExito: FormControl;
   public IsFreightCalculator: FormControl;
+  public IsLogisticsExito: FormControl;
   public Warranty: FormControl;
   public Periodicity: FormControl;
   public SellerSku: FormControl;
@@ -342,6 +343,7 @@ export class DetailOfferComponent implements OnInit {
     this.OfferByReference = new FormControl('');
     this.IsEnviosExito = new FormControl(this.dataOffer.isEnviosExito ? 1 : 0);
     this.IsFreightCalculator = new FormControl(this.dataOffer.isFreightCalculator ? 1 : 0);
+    this.IsLogisticsExito = new FormControl(this.dataOffer.isLogisticsExito ? 1 : 0);
     this.Warranty = new FormControl(this.dataOffer.warranty);
     this.idOffer = this.dataOffer.idOffer;
     this.idSeller = this.dataOffer.idSeller;
@@ -418,6 +420,7 @@ export class DetailOfferComponent implements OnInit {
       IsFreeShipping: this.IsFreeShipping,
       IsEnviosExito: this.IsEnviosExito,
       IsFreightCalculator: this.IsFreightCalculator,
+      IsLogisticsExito: this.IsLogisticsExito,
       Warranty: this.Warranty,
       Periodicity: this.Periodicity,
       SellerSku: this.SellerSku,
@@ -428,6 +431,7 @@ export class DetailOfferComponent implements OnInit {
     });
     // Se borra esta linea o se comenta cuando se despliegue MPI
     this.formUpdateOffer.get('Currency').disable();
+    this.IsUpdatedStock.disable();
     this.validateOffertType(this.formUpdateOffer.get('Currency').value);
     this.formUpdateOffer.get('Currency').valueChanges.pipe(distinctUntilChanged()).subscribe(val => {
       this.changeTypeCurrency(val);
@@ -499,7 +503,7 @@ export class DetailOfferComponent implements OnInit {
           this.IsFreeShipping.setValue(1);
           this.IsEnviosExito.setValue(0);
           this.IsFreightCalculator.setValue(0);
-          // this.IsLogisticsExito.setValue(0);
+          this.IsLogisticsExito.setValue(0);
           this.IsUpdatedStock.setValue(0);
           this.IsUpdatedStock.enable();
           break;
@@ -507,7 +511,7 @@ export class DetailOfferComponent implements OnInit {
           this.IsEnviosExito.setValue(1);
           this.IsFreeShipping.setValue(0);
           this.IsFreightCalculator.setValue(0);
-          // this.IsLogisticsExito.setValue(0);
+          this.IsLogisticsExito.setValue(0);
           this.IsUpdatedStock.setValue(0);
           this.IsUpdatedStock.enable();
           break;
@@ -515,17 +519,17 @@ export class DetailOfferComponent implements OnInit {
           this.IsFreightCalculator.setValue(1);
           this.IsFreeShipping.setValue(0);
           this.IsEnviosExito.setValue(0);
-          // this.IsLogisticsExito.setValue(0);
+          this.IsLogisticsExito.setValue(0);
           this.IsUpdatedStock.setValue(0);
           this.IsUpdatedStock.enable();
           break;
-        case 'IsLogisticsExito':
-          // this.IsLogisticsExito.setValue(1);
+        case 'isLogisticsExito':
+          this.IsLogisticsExito.setValue(1);
           this.IsFreightCalculator.setValue(0);
           this.IsFreeShipping.setValue(0);
           this.IsEnviosExito.setValue(0);
-          this.IsUpdatedStock.setValue(0);
-          this.IsUpdatedStock.enable();
+          this.IsUpdatedStock.setValue(1);
+          this.IsUpdatedStock.disable();
           break;
         case 'IsUpdatedStock':
           this.IsUpdatedStock.setValue(1);
@@ -542,8 +546,8 @@ export class DetailOfferComponent implements OnInit {
         case 'isFreightCalculator':
           this.IsFreightCalculator.setValue(0);
           break;
-        case 'IsLogisticsExito':
-          // this.IsLogisticsExito.setValue(0);
+        case 'isLogisticsExito':
+          this.IsLogisticsExito.setValue(0);
           this.IsUpdatedStock.setValue(0);
           this.IsUpdatedStock.enable();
           break;
@@ -742,11 +746,11 @@ export class DetailOfferComponent implements OnInit {
         IsFreeShipping: this.formUpdateOffer.controls['IsFreeShipping'].value,
         IsEnviosExito: this.formUpdateOffer.controls['IsEnviosExito'].value,
         IsFreightCalculator: this.formUpdateOffer.controls['IsFreightCalculator'].value,
+        IsLogisticsExito: this.formUpdateOffer.controls['IsLogisticsExito'].value,
         OfferByReference: this.formUpdateOffer.controls['OfferByReference'].value ? true : false,
         SellerSku: this.params[0].SellerSku,
         Reference: this.dataOffer.reference,
-        IsLogisticsExito: '0',
-        IsUpdatedStock: this.params[0].IsUpdatedStock,
+        IsUpdatedStock: this.formUpdateOffer.controls['IsUpdatedStock'].value,
         Currency: this.formUpdateOffer.controls['Currency'].value
       }
     ];
@@ -763,8 +767,8 @@ export class DetailOfferComponent implements OnInit {
           'IsEnviosExito': null,
           'IsFreeShipping': null,
           'IsFreightCalculator': null,
+          'IsLogisticsExito': null,
           'PromiseDelivery': null,
-          'IsLogisticsExito': '0',
           'SellerSku': null
         });
       });

@@ -89,8 +89,19 @@ export class OfertExpandedProductComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.createFormControls();
         this.getAllDataUser();
         this.validateFormSupport();
+        this.ofertProduct.controls.ofertOption.valueChanges.subscribe(val => {
+            const stock = this.ofertProduct.get('IsUpdatedStock');
+            if (val === 'IsLogisticsExito') {
+                stock.setValue(true);
+                stock.disable();
+            } else {
+                stock.setValue(false);
+                stock.enable();
+            }
+        });
     }
 
 
@@ -185,22 +196,6 @@ export class OfertExpandedProductComponent implements OnInit {
         return this.ofertProduct.get('Combos') as FormArray;
     }
 
-    /**
-     * Funcion para activar o desactivar toogle de actualizar inventario
-     *
-     * @memberof OfertExpandedProductComponent
-     */
-    /*
-        public disableUpdate(): void {
-             this.ofertProduct.controls.ofertOption.valueChanges.subscribe(val => {
-                 if (val === 'IsLogisticsExito') {
-                     this.ofertProduct.controls.IsUpdatedStock.enable();
-                 } else {
-                    //  this.ofertProduct.controls.IsUpdatedStock.setValue(false);
-                     this.ofertProduct.controls.IsUpdatedStock.enable();
-                 }
-             });
-        } */
 
     /**
      * Obtiene el precio de descuento si tiene ean combos.
@@ -590,7 +585,6 @@ export class OfertExpandedProductComponent implements OnInit {
                     this.offertRegex[val] = element && `${element.Value}`;
                 }
             }
-            this.createFormControls();
         });
     }
 
@@ -632,7 +626,6 @@ export class OfertExpandedProductComponent implements OnInit {
      * @memberof OfertExpandedProductComponent
      */
     async getAllDataUser() {
-        this.createFormControls();
         this.loadingService.viewSpinner();
         if (this.profileService.getUser() && await this.profileService.getUser().toPromise()) {
             const sellerData = await this.profileService.getUser().toPromise().then(res => {
