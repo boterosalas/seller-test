@@ -26,7 +26,8 @@ export class StoreModel {
         public SincoDaneCode?: string,
         public IdDispatchPort?: string,
         public Profile?: string,
-        public Policy?: string
+        public Policy?: string,
+        public Id_Seller_Octopia?: string, 
     ) { }
 }
 
