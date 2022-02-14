@@ -770,9 +770,7 @@ export class ManageSellerComponent implements OnInit {
   get IdDispatchPort(): FormControl {
     return this.validateFormRegister.get('IdDispatchPort') as FormControl;
   }
-  // get Id_Seller_Octopia(): FormControl {
-  //   return this.validateFormRegister.get('Id_Seller_Octopia') as FormControl;
-  // }
+
   get Payoneer(): FormControl {
     return this.validateFormRegister.get('Payoneer') as FormControl;
   }

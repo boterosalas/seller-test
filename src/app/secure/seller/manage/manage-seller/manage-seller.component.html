@@ -115,19 +115,14 @@
             <div *ngIf="!isColombiaSelect" [fxFlex]="!isColombiaSelect ? '45%' : '50%'" >
               <app-ports (portItemEmmited)="receivePortItem($event)" [countryName]="Country.value" [disabledComponent]='disabledComponent' [elementLoad]="elementIdDispatchPortLoad"></app-ports>
             </div>
+            <!-- Campo para registro de idselleroctopia -->
             <div *ngIf="!isColombiaSelect" fxFlex="50%">
               <mat-form-field class="register" style="width:100% !important;">
                 <input matInput [placeholder]="'secure.seller.register_seller.lb_Id Seller Octopia' | translate"
                   [pattern]="sellerRegex.Id_Seller_Octopia" maxlength="20" 
                   [errorStateMatcher]="matcher" (keypress)="keyPress($event, 'Id_Seller_Octopia')" id="register-phone-number"
                   formControlName="Id_Seller_Octopia" >
-                <mat-hint></mat-hint>
-                <!-- <mat-error id="error-phone-number-invalid"
-                  *ngIf="validateFormRegister.get('Payoneer').hasError('payoneer')">
-                  {{'errors.user_invalid' | translate}}</mat-error> -->
-                <!-- <mat-error id="error-phone-number-invalid"
-                  *ngIf="validateFormRegister.get('Payoneer').hasError('required')">
-                  {{'errors.error_required' | translate}}</mat-error> -->
+                <mat-hint></mat-hint>            
               </mat-form-field>
             </div>
           </div>
