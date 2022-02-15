@@ -59,7 +59,7 @@ export class RegisterSellerComponent implements OnInit {
     internationalIdentifier: '',
     internationalPostalCode: '',
     payoneer: '',
-    Id_Seller_Octopia:'',
+    IdSellerOctopia:'',
     internationalLocation: '',
     warranty: ''
   };
@@ -195,7 +195,7 @@ export class RegisterSellerComponent implements OnInit {
       Country: new FormControl,
       State: new FormControl,
       City: new FormControl,
-      Id_Seller_Octopia: new FormControl,
+      IdSellerOctopia: new FormControl,
       IdDispatchPort: new FormControl,
       DaneCode: new FormControl(Validators.pattern(this.sellerRegex.integerNumber)),
       SincoDaneCode: new FormControl(Validators.pattern(this.sellerRegex.integerNumber)),
@@ -283,7 +283,7 @@ export class RegisterSellerComponent implements OnInit {
     this.IdDispatchPort.setValidators(Validators.compose([Validators.required]));
     this.PostalCode.setValidators(Validators.compose([Validators.required, Validators.maxLength(8), Validators.minLength(4), Validators.pattern(this.sellerRegex.internationalPostalCode)]));
     this.Payoneer.enable();
-    this.Id_Seller_Octopia.enable();
+    this.IdSellerOctopia.enable();
     this.Payoneer.setValidators(Validators.compose([Validators.required, Validators.maxLength(50), Validators.pattern(this.sellerRegex.payoneer)]));
   }
 
@@ -296,7 +296,7 @@ export class RegisterSellerComponent implements OnInit {
     this.IdDispatchPort.setValidators(null);
     this.PostalCode.setValidators(Validators.pattern(this.sellerRegex.integerNumber));
     this.Payoneer.disable();
-    this.Id_Seller_Octopia.disable();
+    this.IdSellerOctopia.disable();
   }
 
   putColombiaByDefault() {
@@ -585,8 +585,8 @@ export class RegisterSellerComponent implements OnInit {
   get Payoneer(): FormControl {
     return this.validateFormRegister.get('Payoneer') as FormControl;
   }
-  get Id_Seller_Octopia(): FormControl {
-    return this.validateFormRegister.get('Id_Seller_Octopia') as FormControl;
+  get IdSellerOctopia(): FormControl {
+    return this.validateFormRegister.get('IdSellerOctopia') as FormControl;
   }
 
   get Exito(): FormControl {

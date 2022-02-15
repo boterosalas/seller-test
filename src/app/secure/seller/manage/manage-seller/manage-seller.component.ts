@@ -92,7 +92,7 @@ export class ManageSellerComponent implements OnInit {
 
 
   public country: FormControl;
-  public Id_Seller_Octopia: FormControl;
+  public IdSellerOctopia: FormControl;
   public payoneer: FormControl;
 
 
@@ -107,7 +107,7 @@ export class ManageSellerComponent implements OnInit {
     internationalNit: '',
     internationalRut: '',
     internationalPostalCode: '',
-    Id_Seller_Octopia:'',
+    IdSellerOctopia:'',
     payoneer: '',
     internationalState: '',
     internationalCity: '',
@@ -263,7 +263,7 @@ export class ManageSellerComponent implements OnInit {
               this.elementCityLoad = this.currentSellerSelect.City;
               // this.country.setValue(this.currentSellerSelect.Country);
               this.payoneer.setValue(this.currentSellerSelect.Payoneer);
-              this.Id_Seller_Octopia.setValue(this.currentSellerSelect.Id_Seller_Octopia);
+              this.IdSellerOctopia.setValue(this.currentSellerSelect.IdSellerOctopia);
 
             } else {
               this.showUpdate = false;
@@ -362,7 +362,7 @@ export class ManageSellerComponent implements OnInit {
 
     // disable = true ; Se quita el disable true para prueba internacional
     this.country = new FormControl({ value: '', disabled: disable }, [Validators.required]);
-    this.Id_Seller_Octopia = new FormControl({ value: '', disabled: disable }); 
+    this.IdSellerOctopia = new FormControl({ value: '', disabled: disable }); 
     this.payoneer = new FormControl({ value: '', disabled: disable });
     this.country.disable();
     this.createForm();
@@ -399,7 +399,7 @@ export class ManageSellerComponent implements OnInit {
       Profile: this.profile,
 
       Country: this.country,
-      Id_Seller_Octopia: this.Id_Seller_Octopia,
+      IdSellerOctopia: this.IdSellerOctopia,
       Payoneer: this.payoneer
     });
 
@@ -548,7 +548,7 @@ export class ManageSellerComponent implements OnInit {
       values.Policy = this.validateFormRegister.controls.Policy.value;
       values.Country = this.validateFormRegister.controls.Country.value;
       values.IdDispatchPort = this.validateFormRegister.controls.IdDispatchPort.value;
-      values.Id_Seller_Octopia = this.validateFormRegister.controls.Id_Seller_Octopia.value;
+      values.IdSellerOctopia = this.validateFormRegister.controls.IdSellerOctopia.value;
 
       this.manageSeller.updateSeller(values).subscribe(
         (result: any) => {
@@ -706,7 +706,7 @@ export class ManageSellerComponent implements OnInit {
     this.IdDispatchPort.setValidators(Validators.compose([Validators.required]));
     this.PostalCode.setValidators(Validators.compose([Validators.required, Validators.maxLength(8), Validators.minLength(4), Validators.pattern(this.sellerRegex.internationalPostalCode)]));
     this.payoneer.enable();
-    this.Id_Seller_Octopia.enable();    
+    this.IdSellerOctopia.enable();    
     this.payoneer.setValidators(Validators.compose([Validators.maxLength(50), Validators.pattern(this.sellerRegex.payoneer)]));
   }
   /**
@@ -722,7 +722,7 @@ export class ManageSellerComponent implements OnInit {
     this.city.setValidators(null);
     this.PostalCode.setValidators(Validators.pattern(this.sellerRegex.daneCode));
     this.payoneer.disable();
-    this.Id_Seller_Octopia.disable(); 
+    this.IdSellerOctopia.disable(); 
   }
   /**
    * dejar seleccionado colombia por defecto
