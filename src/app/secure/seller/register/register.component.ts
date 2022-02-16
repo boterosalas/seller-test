@@ -375,9 +375,15 @@ export class RegisterSellerComponent implements OnInit {
         (result: any) => {
           if (result.status === 201 || result.status === 200) {
             const data = result && result.body && result.body.body && JSON.parse(result.body.body);
+            debugger;
             if (!!data && data.Data) {
               this.modalService.showModal('success');
-            } else if (!data || !data.Data) {
+            }
+           
+            else if (data.Errors[0].Code ==="SELLER_ID_OCTOPIA"){
+              this.modalService.showModal('errorSELLER_ID_OCTOPIA'); 
+            }
+            else if (!data || !data.Data) {
               this.modalService.showModal('error');
             }
           } else {
