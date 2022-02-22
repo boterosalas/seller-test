@@ -664,6 +664,7 @@
   "secure.seller.register_seller.lb_postal_ports": "Centro de Acopio",
   "secure.seller.register_seller.lb_phone_form": "Teléfono",
   "secure.seller.register_seller.lb_payoneer_form": "Payoneer",
+  "secure.seller.register_seller.lb_Id Seller Octopia": "Id Seller Octopia (Es requerido para Vendedores Octopia)",
   "secure.seller.register_seller.lb_nit_form": "NIT",
   "secure.seller.register_seller.lb_rut_form": "RUT",
   "secure.seller.register_seller.lb_contact_form": "Contacto (nombre y apellido)",

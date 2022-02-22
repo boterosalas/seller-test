@@ -112,6 +112,23 @@
               <div *ngIf="!isColombiaSelect" [fxFlex]="!isColombiaSelect ? '45%' : '50%'">
                 <app-ports (portItemEmmited)="receivePortItem($event)" [countryName]="Country.value" [disabledComponent]='disabledComponent' [elementLoad]="elementIdDispatchPortLoad"></app-ports>
               </div>
+
+              <div *ngIf="!isColombiaSelect" fxFlex="50%">
+                <mat-form-field class="register" style="width:100% !important;">
+                  <input matInput [placeholder]="'secure.seller.register_seller.lb_Id Seller Octopia' | translate"
+                    [pattern]="sellerRegex.IdSellerOctopia" maxlength="20" 
+                    [errorStateMatcher]="matcher" (keypress)="keyPress($event, 'IdSellerOctopia')" id="register-phone-number"
+                    formControlName="IdSellerOctopia" >
+                  <mat-hint></mat-hint>
+                  <!-- <mat-error id="error-phone-number-invalid"
+                    *ngIf="validateFormRegister.get('Payoneer').hasError('payoneer')">
+                    {{'errors.user_invalid' | translate}}</mat-error> -->
+                  <!-- <mat-error id="error-phone-number-invalid"
+                    *ngIf="validateFormRegister.get('Payoneer').hasError('required')">
+                    {{'errors.error_required' | translate}}</mat-error> -->
+                </mat-form-field>
+              </div>
+
             </div>
 
             <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between"
@@ -148,6 +165,8 @@
                     {{'errors.error_required' | translate}}</mat-error>
                 </mat-form-field>
               </div>
+
+              
             </div>
 
             <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between"

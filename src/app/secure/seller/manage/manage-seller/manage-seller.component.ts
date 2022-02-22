@@ -92,6 +92,7 @@ export class ManageSellerComponent implements OnInit {
 
 
   public country: FormControl;
+  public IdSellerOctopia: FormControl;
   public payoneer: FormControl;
 
 
@@ -106,6 +107,7 @@ export class ManageSellerComponent implements OnInit {
     internationalNit: '',
     internationalRut: '',
     internationalPostalCode: '',
+    IdSellerOctopia:'',
     payoneer: '',
     internationalState: '',
     internationalCity: '',
@@ -261,6 +263,7 @@ export class ManageSellerComponent implements OnInit {
               this.elementCityLoad = this.currentSellerSelect.City;
               // this.country.setValue(this.currentSellerSelect.Country);
               this.payoneer.setValue(this.currentSellerSelect.Payoneer);
+              this.IdSellerOctopia.setValue(this.currentSellerSelect.IdSellerOctopia);
 
             } else {
               this.showUpdate = false;
@@ -359,6 +362,7 @@ export class ManageSellerComponent implements OnInit {
 
     // disable = true ; Se quita el disable true para prueba internacional
     this.country = new FormControl({ value: '', disabled: disable }, [Validators.required]);
+    this.IdSellerOctopia = new FormControl({ value: '', disabled: disable }); 
     this.payoneer = new FormControl({ value: '', disabled: disable });
     this.country.disable();
     this.createForm();
@@ -395,6 +399,7 @@ export class ManageSellerComponent implements OnInit {
       Profile: this.profile,
 
       Country: this.country,
+      IdSellerOctopia: this.IdSellerOctopia,
       Payoneer: this.payoneer
     });
 
@@ -523,6 +528,7 @@ export class ManageSellerComponent implements OnInit {
   }
 
   submitUpdateSeller(): void {
+
     if (this.validateFormRegister.valid) {
       if (this.validateFormRegister.controls['Country'].value === 'COLOMBIA') {
         this.validateFormRegister.controls['IdDispatchPort'].setValue(null);
@@ -542,6 +548,7 @@ export class ManageSellerComponent implements OnInit {
       values.Policy = this.validateFormRegister.controls.Policy.value;
       values.Country = this.validateFormRegister.controls.Country.value;
       values.IdDispatchPort = this.validateFormRegister.controls.IdDispatchPort.value;
+      values.IdSellerOctopia = this.validateFormRegister.controls.IdSellerOctopia.value;
 
       this.manageSeller.updateSeller(values).subscribe(
         (result: any) => {
@@ -571,6 +578,7 @@ export class ManageSellerComponent implements OnInit {
    * @memberof ManageSellerComponent
    */
   submitUpdateAdmin(): void {
+
     if (this.validateFormRegisterAdmin.valid) {
       this.loadingService.viewSpinner();
       this.disabledForService = true;
@@ -698,6 +706,7 @@ export class ManageSellerComponent implements OnInit {
     this.IdDispatchPort.setValidators(Validators.compose([Validators.required]));
     this.PostalCode.setValidators(Validators.compose([Validators.required, Validators.maxLength(8), Validators.minLength(4), Validators.pattern(this.sellerRegex.internationalPostalCode)]));
     this.payoneer.enable();
+    this.IdSellerOctopia.enable();    
     this.payoneer.setValidators(Validators.compose([Validators.maxLength(50), Validators.pattern(this.sellerRegex.payoneer)]));
   }
   /**
@@ -713,6 +722,7 @@ export class ManageSellerComponent implements OnInit {
     this.city.setValidators(null);
     this.PostalCode.setValidators(Validators.pattern(this.sellerRegex.daneCode));
     this.payoneer.disable();
+    this.IdSellerOctopia.disable(); 
   }
   /**
    * dejar seleccionado colombia por defecto
@@ -760,8 +770,12 @@ export class ManageSellerComponent implements OnInit {
   get IdDispatchPort(): FormControl {
     return this.validateFormRegister.get('IdDispatchPort') as FormControl;
   }
+  // get IdSellerOctopia(): FormControl {
+  //   return this.validateFormRegister.get('IdSellerOctopia') as FormControl;
+  // }
   get Payoneer(): FormControl {
     return this.validateFormRegister.get('Payoneer') as FormControl;
   }
-
+ 
+  
 }

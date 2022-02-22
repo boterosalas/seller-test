@@ -17,6 +17,7 @@ export class StoreModel {
         public Nit?: string,
         public Rut?: string,
         public Payoneer?: string,
+        public IdSellerOctopia?: string,
         public ContactName?: string,
         public Email?: string,
         public PhoneNumber?: string,
