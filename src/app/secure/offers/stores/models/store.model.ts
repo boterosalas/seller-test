@@ -28,7 +28,7 @@ export class StoreModel {
         public IdDispatchPort?: string,
         public Profile?: string,
         public Policy?: string,
-        public IdSellerOctopia?: string, 
+
     ) { }
 }
 
