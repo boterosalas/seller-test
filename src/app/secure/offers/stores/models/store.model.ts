@@ -17,6 +17,7 @@ export class StoreModel {
         public Nit?: string,
         public Rut?: string,
         public Payoneer?: string,
+        public IdSellerOctopia?: string,
         public ContactName?: string,
         public Email?: string,
         public PhoneNumber?: string,
@@ -26,7 +27,8 @@ export class StoreModel {
         public SincoDaneCode?: string,
         public IdDispatchPort?: string,
         public Profile?: string,
-        public Policy?: string
+        public Policy?: string,
+
     ) { }
 }
 

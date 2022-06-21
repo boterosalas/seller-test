@@ -115,7 +115,19 @@
             <div *ngIf="!isColombiaSelect" [fxFlex]="!isColombiaSelect ? '45%' : '50%'" >
               <app-ports (portItemEmmited)="receivePortItem($event)" [countryName]="Country.value" [disabledComponent]='disabledComponent' [elementLoad]="elementIdDispatchPortLoad"></app-ports>
             </div>
+            <!-- Campo para registro de idselleroctopia -->
+            <div *ngIf="!isColombiaSelect" fxFlex="50%">
+              <mat-form-field class="register" style="width:100% !important;">
+                <input matInput [placeholder]="'secure.seller.register_seller.lb_Id Seller Octopia' | translate"
+                  [pattern]="sellerRegex.IdSellerOctopia" maxlength="20" 
+                  [errorStateMatcher]="matcher" (keypress)="keyPress($event, 'IdSellerOctopia')" id="register-phone-number"
+                  formControlName="IdSellerOctopia" >
+                <mat-hint></mat-hint>            
+              </mat-form-field>
+            </div>
           </div>
+
+         
 
           <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="space-between"
             fxLayoutGap.md="10%" fxLayoutGap.lg="10%" fxLayoutGap.xl="10%" fxLayoutGap.xs="0" fxLayoutGap.sm="0%">

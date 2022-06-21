@@ -51,6 +51,13 @@ export class ModalComponent implements OnInit {
           'title': this.languageService.instant('modal.fail.register.title')
         };
         break;
+        case 'errorSELLER_ID_OCTOPIA':
+          dataModal = {
+            'status': 'clear',
+            'message': this.languageService.instant('modal.fail.errorSELLER_ID_OCTOPIA'),
+            'title': this.languageService.instant('modal.fail.register.title')
+          };
+          break;
       case 'errorService':
         dataModal = {
           'status': 'clear',

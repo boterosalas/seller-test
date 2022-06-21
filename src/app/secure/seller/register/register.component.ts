@@ -59,6 +59,7 @@ export class RegisterSellerComponent implements OnInit {
     internationalIdentifier: '',
     internationalPostalCode: '',
     payoneer: '',
+    IdSellerOctopia:'',
     internationalLocation: '',
     warranty: ''
   };
@@ -194,6 +195,7 @@ export class RegisterSellerComponent implements OnInit {
       Country: new FormControl,
       State: new FormControl,
       City: new FormControl,
+      IdSellerOctopia: new FormControl,
       IdDispatchPort: new FormControl,
       DaneCode: new FormControl(Validators.pattern(this.sellerRegex.integerNumber)),
       SincoDaneCode: new FormControl(Validators.pattern(this.sellerRegex.integerNumber)),
@@ -281,6 +283,7 @@ export class RegisterSellerComponent implements OnInit {
     this.IdDispatchPort.setValidators(Validators.compose([Validators.required]));
     this.PostalCode.setValidators(Validators.compose([Validators.required, Validators.maxLength(8), Validators.minLength(4), Validators.pattern(this.sellerRegex.internationalPostalCode)]));
     this.Payoneer.enable();
+    this.IdSellerOctopia.enable();
     this.Payoneer.setValidators(Validators.compose([Validators.required, Validators.maxLength(50), Validators.pattern(this.sellerRegex.payoneer)]));
   }
 
@@ -293,6 +296,7 @@ export class RegisterSellerComponent implements OnInit {
     this.IdDispatchPort.setValidators(null);
     this.PostalCode.setValidators(Validators.pattern(this.sellerRegex.integerNumber));
     this.Payoneer.disable();
+    this.IdSellerOctopia.disable();
   }
 
   putColombiaByDefault() {
@@ -361,7 +365,7 @@ export class RegisterSellerComponent implements OnInit {
    */
   submitSellerRegistrationForm() {
     this.loadingService.viewSpinner();
-    this.disabledForService = true;
+    this.disabledForService = true; 
     const profile = !this.validateFormRegister.controls.Profile.value.includes('Tienda') ? `Tienda|${this.validateFormRegister.controls.Profile.value}` : this.validateFormRegister.controls.Profile.value;
     this.validateFormRegister.controls.Profile.setValue(profile);
     this.City.setValue(this.City.value.toString().toUpperCase());
@@ -371,9 +375,15 @@ export class RegisterSellerComponent implements OnInit {
         (result: any) => {
           if (result.status === 201 || result.status === 200) {
             const data = result && result.body && result.body.body && JSON.parse(result.body.body);
+            debugger;
             if (!!data && data.Data) {
               this.modalService.showModal('success');
-            } else if (!data || !data.Data) {
+            }
+           
+            else if (data.Errors[0].Code ==="SELLER_ID_OCTOPIA"){
+              this.modalService.showModal('errorSELLER_ID_OCTOPIA'); 
+            }
+            else if (!data || !data.Data) {
               this.modalService.showModal('error');
             }
           } else {
@@ -580,6 +590,9 @@ export class RegisterSellerComponent implements OnInit {
 
   get Payoneer(): FormControl {
     return this.validateFormRegister.get('Payoneer') as FormControl;
+  }
+  get IdSellerOctopia(): FormControl {
+    return this.validateFormRegister.get('IdSellerOctopia') as FormControl;
   }
 
   get Exito(): FormControl {
