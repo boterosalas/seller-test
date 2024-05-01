@@ -98,7 +98,8 @@
           "options": {
             "stylePreprocessorOptions":{
               "includePaths":[
-                 "src/styles/settings"
+                 "src/styles/settings",
+                 "src/styles/generic"
               ]
            },
             "main": "src/test.ts",
