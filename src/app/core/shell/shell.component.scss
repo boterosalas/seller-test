@@ -1,1 +1,19 @@
+.view-content {
+    display: flex;
+    flex-direction: row;
 
+    .aside-container {
+        width: 334px;
+
+
+        .aside-menu {
+            width: 100%;
+        }
+    }
+
+    .router-container {
+        width: 100%;
+        overflow: auto;
+        height: 100vh;
+    }
+}
