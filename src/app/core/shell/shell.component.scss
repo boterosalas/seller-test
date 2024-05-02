@@ -3,32 +3,14 @@
     flex-direction: row;
     height: 100vh;
 
-    .aside-container {
-        width: 334px;
-        overflow: auto;
-
-        .aside-menu {
-            width: 100%;
-            padding-bottom: 100px;
-        }
-
-        &::-webkit-scrollbar {
-            width: 2px;
-        }
-
-        &::-webkit-scrollbar-thumb {
-            border-radius: 50%;
-            // background-color: #000 !important;
-        }
-
-        &::-webkit-scrollbar-track {
-            background-color: #ffffff !important;
-            box-shadow: none;
-        }
+    .aside-menu {
+        width: 360px;
+        min-width: 360px;
+        max-width: 360px;
     }
 
     .router-container {
-        width: 100%;
+        flex: 1;
         overflow: auto;
     }
 }

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_10778" data-name="Rectangle 10778" width="24" height="24" rx="2" transform="translate(237 78)" fill="#7e7ea4"/>
+    </clipPath>
+  </defs>
+  <g id="set_icons" data-name="set icons" transform="translate(-59 -187)">
+    <g id="sc-icon-outlined-reports" transform="translate(59 187)">
+      <g id="Mask_Group_1043" data-name="Mask Group 1043" transform="translate(-237 -78)" clip-path="url(#clip-path)">
+        <path id="Union_46" data-name="Union 46" d="M1411,1346a2.947,2.947,0,0,1-3-3v-13a2.948,2.948,0,0,1,3-3h2a.945.945,0,0,1,1-1h4a.945.945,0,0,1,1,1h2a2.948,2.948,0,0,1,3,3v8.8a4.2,4.2,0,0,1-1.2,2.8l-3.2,3.2a3.63,3.63,0,0,1-2.8,1.2Zm-1-16v13a.945.945,0,0,0,1,1h5v-3a2.947,2.947,0,0,1,3-3h3v-8a.945.945,0,0,0-1-1h-10A.945.945,0,0,0,1410,1330Zm8,11v2.5c.1,0,.1,0,.2-.1l3.3-3.2c0-.1.1-.1.1-.2H1419A.945.945,0,0,0,1418,1341Zm-3-4a.908.908,0,0,1-.7-.3l-1-1a.99.99,0,0,1,1.4-1.4l.2.2,2.3-3.1a1,1,0,0,1,1.6,1.2l-3,4a.842.842,0,0,1-.7.4Z" transform="translate(-1167 -1246)" fill="#7e7ea4"/>
+      </g>
+    </g>
+  </g>
+</svg>

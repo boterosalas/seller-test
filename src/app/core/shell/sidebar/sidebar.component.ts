@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { RoutesConst } from '@shared/util';
 import { CategoryList, UserInformation } from '@shared/models';
@@ -19,7 +19,8 @@ const log = new Logger('SideBarComponent');
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  styleUrls: ['./sidebar.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class SidebarComponent implements OnInit {
@@ -115,9 +116,9 @@ export class SidebarComponent implements OnInit {
   public showMenu(menu: MenuModel, showUrlRedirect: boolean = false): boolean {
     // return menu.ShowMenu && menu.ShowMenuProduction;
     if (showUrlRedirect) {
-      return menu.ShowMenu && (this.isProductionEnv && menu.ShowMenuProduction || !this.isProductionEnv) && showUrlRedirect && !this.showOnlyLocalMenus(menu.UrlRedirect);
+      return menu.ShowMenu && ((this.isProductionEnv && menu.ShowMenuProduction) || !this.isProductionEnv) && showUrlRedirect && !this.showOnlyLocalMenus(menu.UrlRedirect);
     } else {
-      return menu.ShowMenu && (this.isProductionEnv && menu.ShowMenuProduction || !this.isProductionEnv) && !showUrlRedirect && this.showOnlyLocalMenus(menu.UrlRedirect);
+      return menu.ShowMenu && ((this.isProductionEnv && menu.ShowMenuProduction) || !this.isProductionEnv) && this.showOnlyLocalMenus(menu.UrlRedirect);
     }
   }
 
