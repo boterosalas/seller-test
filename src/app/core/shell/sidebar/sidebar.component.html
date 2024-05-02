@@ -39,7 +39,7 @@
 
         <ng-container *ngFor="let menu of module.Menus">
           <mat-list-item [id]="'ver-'+(('menu.' + menu.NameMenu) | translate)" [routerLink]="['/' + menu.UrlRedirect]"
-            *ngIf="showMenu(menu)">
+            *ngIf="showMenu(menu)" routerLinkActive="active">
             {{('menu.' + menu.NameMenu) | translate}}
             <app-notification-circle *ngIf="menu.NameMenu === 'Solicitudes pendientes'" [value]="pending"
               id="circle-notification-toolbar"></app-notification-circle>
@@ -49,7 +49,9 @@
           <a mat-list-item [id]="'ver-'+(('module.' + getPersonalityName(module.NameModule)) | translate)"
             href="{{menu.UrlRedirect}}" [id]="('menu.' + menu.NameMenu) | translate" *ngIf="showMenu(menu, true)"
             target="_blank">
-            <h3 matLine style="margin-left:50px;">{{('menu.' + menu.NameMenu) | translate}}</h3>
+            <!-- <h3 matLine style="margin-left:50px;"> -->
+            {{('menu.' + menu.NameMenu) | translate}}
+            <!-- </h3> -->
           </a>
         </ng-container>
       </mat-expansion-panel>

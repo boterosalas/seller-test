@@ -7,7 +7,7 @@
   border-radius: 37px;
   box-shadow: 0px 0px 15px $transparent-black;
   padding: 26px 0px;
-  height: calc(100vh - 40px);
+  // height: calc(100vh - 40px);
   max-height: calc(100vh - 40px);
   padding-bottom: 80px;
   margin-top: 20px;
@@ -41,9 +41,23 @@
     .expansion-module {
       background-color: transparent;
       box-shadow: none !important;
+      border-radius: 0px;
 
-      &.active {
+      &.active,
+      &:hover {
         .mat-expansion-panel-header {
+          &::before {
+            content: '';
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            bottom: 0px;
+            width: 5px;
+            background-color: $pure-white;
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+          }
+
           .mat-expansion-panel-header-title {
 
             .modules-options__icon {}
@@ -62,6 +76,7 @@
       .mat-expansion-panel-header {
         padding-left: 0px;
         height: auto !important;
+        position: relative;
 
         .mat-expansion-panel-header-title {
           position: relative;
@@ -92,13 +107,23 @@
           padding: 0px 0px 16px 69px;
         }
 
-        .mat-list-item-content {
-          color: $slate-gray;
-          padding: 10px 0px;
-          cursor: pointer;
+        .mat-list-item {
+          text-decoration: none;
 
-          &:hover {
-            color: $pure-white;
+          &.active {
+            .mat-list-item-content {
+              color: $pure-white;
+            }
+          }
+
+          .mat-list-item-content {
+            color: $slate-gray;
+            padding: 10px 0px;
+            cursor: pointer;
+
+            &:hover {
+              color: $pure-white;
+            }
           }
         }
       }
