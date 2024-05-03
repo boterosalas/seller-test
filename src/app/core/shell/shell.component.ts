@@ -30,8 +30,6 @@ export class ShellComponent implements OnInit, LoggedInCallback {
   @ViewChild('sidenavSearchOrder', {static: false}) sidenavSearchOrder: MatSidenav;
   // Mostrar header
   showHeader = false;
-  // Variable que permite cambiar el estado del sidenav.
-  stateSideNav = false;
   stateSideNavOrder = false;
   // booleano para visualizar la barra de toolbar.
   public viewToolbarPrincipal: boolean;

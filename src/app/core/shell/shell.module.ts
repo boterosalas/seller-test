@@ -9,7 +9,6 @@ import { HeaderComponent } from './header/header.component';
 import { SearchOrderMenuModule } from './search-order-menu/search-order-menu.module';
 import { ShellComponent } from './shell.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { ToolbarLinkComponent } from './toolbar-link';
 import { SupportModule } from '@app/secure/support-modal/support-modal.module';
 
 
@@ -26,7 +25,6 @@ import { SupportModule } from '@app/secure/support-modal/support-modal.module';
     HeaderComponent,
     ShellComponent,
     SidebarComponent,
-    ToolbarLinkComponent
   ],
   exports: [
     HeaderComponent,

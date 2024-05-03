@@ -1,8 +1,4 @@
 <mat-sidenav-container class="example-container">
-  <!-- Sidebar Principal -->
-  <mat-sidenav #sidenav mode="over" opened="{{stateSideNav}}">
-    <app-sidebar [user]="user" [sidenav]="sidenav"></app-sidebar>
-  </mat-sidenav>
 
   <!-- Sidebar Busqueda de órdenes -->
   <mat-sidenav #sidenavSearchOrder mode="over" position="end" opened="{{stateSideNavOrder}}">
@@ -14,11 +10,9 @@
   <!-- Contenido principal -->
   <mat-sidenav-content class="view-content">
     <!-- Componente Header de la página -->
-    <!-- <section class="aside-container"> -->
-      <aside class="aside-menu">
-        <app-sidebar [user]="user" [sidenav]="sidenav"></app-sidebar>
-      </aside>
-    <!-- </section> -->
+    <aside class="aside-menu">
+      <app-sidebar [user]="user" [sidenav]="sidenav"></app-sidebar>
+    </aside>
     <section class="router-container">
       <app-header [sidenav]="sidenav" [user]="user"></app-header>
       <!-- <app-toolbar-link [user]="user" class="light-content" fxShow.xs="false" fxShow.sm="false" fxShow.gt-lg="true"
