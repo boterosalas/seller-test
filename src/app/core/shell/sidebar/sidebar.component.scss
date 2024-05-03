@@ -1,5 +1,19 @@
 @import 'variables';
 
+@mixin leftBorder {
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    width: 5px;
+    background-color: $pure-white;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+}
+
 .sidebar {
   background-color: $midnight-blue;
   width: 334px;
@@ -7,7 +21,7 @@
   border-radius: 37px;
   box-shadow: 0px 0px 15px $transparent-black;
   padding: 26px 0px;
-  // height: calc(100vh - 40px);
+  height: auto;
   max-height: calc(100vh - 40px);
   padding-bottom: 80px;
   margin-top: 20px;
@@ -23,6 +37,19 @@
   .modules-options {
     max-height: calc(100vh - 230px);
     overflow: auto;
+
+    .module-options__single-option {
+      display: flex;
+      width: 100%;
+      position: relative;
+      padding: 16px 0px 16px 69px;
+      box-sizing: border-box;
+      text-decoration: none;
+
+      &:hover {
+        @include leftBorder;
+      }
+    }
 
     &::-webkit-scrollbar {
       width: 2px;
@@ -45,27 +72,9 @@
 
       &.active,
       &:hover {
+
         .mat-expansion-panel-header {
-          &::before {
-            content: '';
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            bottom: 0px;
-            width: 5px;
-            background-color: $pure-white;
-            border-top-right-radius: 8px;
-            border-bottom-right-radius: 8px;
-          }
-
-          .mat-expansion-panel-header-title {
-
-            .modules-options__icon {}
-
-            .modules-options__title {
-              color: $pure-white;
-            }
-          }
+          @include leftBorder;
 
           .mat-expansion-indicator::after {
             color: $pure-white;
@@ -82,15 +91,14 @@
           position: relative;
           padding: 16px 20px 16px 69px;
 
-          .modules-options__icon {
-            width: 24px;
+          .notification-point {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: $bluebell;
             position: absolute;
-            left: 28px;
-            top: calc(50% - 12px);
-          }
-
-          .modules-options__title {
-            color: $slate-gray;
+            right: 0;
+            top: calc(50% - 2px);
           }
         }
 
@@ -107,7 +115,7 @@
           padding: 0px 0px 16px 69px;
         }
 
-        .mat-list-item {
+        .option-list-item {
           text-decoration: none;
 
           &.active {
@@ -118,14 +126,72 @@
 
           .mat-list-item-content {
             color: $slate-gray;
+            font-family: $poppins-medium;
             padding: 10px 0px;
             cursor: pointer;
+            font-size: 14px;
+            position: relative;
+
+            &:has(> .notification-count) {
+              padding-right: 44px;
+            }
 
             &:hover {
               color: $pure-white;
             }
+
+            .notification-count {
+              border-radius: 50%;
+              background-color: $bluebell;
+              color: $pure-white;
+              font-size: 12px;
+              padding: 2px;
+              position: absolute;
+              right: 16px;
+              top: calc(50% - 12px);
+              min-width: 20px;
+              text-align: center;
+            }
           }
+
         }
+      }
+    }
+
+    .modules-options__icon-background {
+      border-radius: 16px;
+      left: 22px;
+      top: calc(50% - 22px);
+      position: absolute;
+      padding: 8px;
+    }
+
+    .modules-options__icon {
+      width: 24px;
+      filter: invert(0.6);
+    }
+
+    .modules-options__title {
+      color: $slate-gray;
+      font-family: $poppins-medium;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .module-options__single-option:hover,
+    .expansion-module.active,
+    .expansion-module:hover {
+
+      .modules-options__icon-background {
+        background-color: $white-opacity;
+      }
+
+      .modules-options__icon {
+        filter: invert(1);
+      }
+
+      .modules-options__title {
+        color: $pure-white;
       }
     }
   }

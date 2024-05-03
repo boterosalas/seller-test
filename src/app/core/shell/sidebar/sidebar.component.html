@@ -1,69 +1,51 @@
-<!-- <mat-card class="content-profile"> -->
-
 <div class="sidebar">
-  <!-- <mat-toolbar color="primary">
-      <button id="closeMenuApplication" color="accent" [matTooltip]="'actions.close_menu' | translate"
-        matTooltipPosition="below" mat-icon-button mat-button (click)="toggleMenu()">
-        <mat-icon>close</mat-icon>
-      </button>
-
-      <span class="spacer-content"></span>
-
-      <div (click)="toggleMenu()" [routerLink]="['/' + routes?.secureSeller]" class="logo-application"></div>
-
-    </mat-toolbar> -->
-
-  <!-- <div class="sidebar-text-align">
-      <app-select-language></app-select-language>
-      <div class="sidebar-label-language">{{'select.language' | translate}}</div>
-    </div> -->
-
-
-  <!-- {{module.Menus}} -->
   <a routerLink="/">
     <img class="sidebar__seller-center-logo" src="assets/side-menu/header-side-menu.svg" alt="">
   </a>
   <div class="modules-options" *ngIf="user">
+    <a routerLink="/securehome/seller-center/dashboard" routerLinkActive="active" class="module-options__single-option">
+      <div class="modules-options__icon-background">
+        <img class="modules-options__icon" src="assets/side-menu/home.svg" alt="">
+      </div>
+      <span class="modules-options__title">
+        Inicio
+      </span>
+    </a>
     <ng-container *ngFor="let module of modules">
       <mat-expansion-panel [id]="'ver-'+(('module.' + getPersonalityName(module.NameModule)) | translate)"
         class="expansion-module" expanded="false" *ngIf="showModule(module) && module.NameModule !== 'Escuela Exito'"
         routerLinkActive="active">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <img class="modules-options__icon" src="assets/side-menu/orders.svg" alt="">
+            <div class="modules-options__icon-background">
+              <img class="modules-options__icon" [src]="getIconByName(module)" alt="">
+            </div>
             <span class="modules-options__title">
               {{('module.' + getPersonalityName(module.NameModule)) | translate}}
             </span>
+            <span class="notification-point" *ngIf="showNotificationPoint(module)"></span>
           </mat-panel-title>
         </mat-expansion-panel-header>
 
         <ng-container *ngFor="let menu of module.Menus">
-          <mat-list-item [id]="'ver-'+(('menu.' + menu.NameMenu) | translate)" [routerLink]="['/' + menu.UrlRedirect]"
-            *ngIf="showMenu(menu)" routerLinkActive="active">
+          <mat-list-item class="option-list-item" [id]="'ver-'+(('menu.' + menu.NameMenu) | translate)"
+            [routerLink]="['/' + menu.UrlRedirect]" *ngIf="showMenu(menu)" routerLinkActive="active">
             {{('menu.' + menu.NameMenu) | translate}}
-            <app-notification-circle *ngIf="menu.NameMenu === 'Solicitudes pendientes'" [value]="pending"
-              id="circle-notification-toolbar"></app-notification-circle>
-            <app-notification-circle *ngIf="menu.NameMenu === 'Listado de cancelaciones'" [value]="devolution"
-              id="circle-notification-toolbar"></app-notification-circle>
+            <span class="notification-count"
+              *ngIf="menu.NameMenu === 'Solicitudes pendientes' && pending">{{pending}}</span>
+            <span class="notification-count"
+              *ngIf="menu.NameMenu === 'Listado de cancelaciones' && devolution">{{devolution}}</span>
           </mat-list-item>
-          <a mat-list-item [id]="'ver-'+(('module.' + getPersonalityName(module.NameModule)) | translate)"
-            href="{{menu.UrlRedirect}}" [id]="('menu.' + menu.NameMenu) | translate" *ngIf="showMenu(menu, true)"
-            target="_blank">
-            <!-- <h3 matLine style="margin-left:50px;"> -->
+          <a mat-list-item class="option-list-item"
+            [id]="'ver-'+(('module.' + getPersonalityName(module.NameModule)) | translate)" href="{{menu.UrlRedirect}}"
+            [id]="('menu.' + menu.NameMenu) | translate" *ngIf="showMenu(menu, true)" target="_blank">
             {{('menu.' + menu.NameMenu) | translate}}
-            <!-- </h3> -->
           </a>
         </ng-container>
       </mat-expansion-panel>
     </ng-container>
   </div>
-  <img class="sidebar__grupo-exito-logo" src="assets/side-menu/grupo-exito.png" alt="">
-
-  <!-- <mat-list-item id="matlist-item-button-perfil-usuario" (click)="toggleMenu()"
-  [routerLink]="['/' + routes?.sellerCenterMyProfile]">
-  <mat-icon matListIcon class="mat-18">person</mat-icon>
-  <h6 matLine class="sidebar-margin-left">{{'core.shell.header.profile' | translate}}</h6>
-</mat-list-item> -->
+  <img class="sidebar__grupo-exito-logo" src="assets/side-menu/grupo-exito.svg" alt="">
 
   <mat-list-item id="matlist-item-button-cerrar-sesion" [routerLink]="['/' + routes?.sellerCenterLogout]"
     (click)="toggleMenu()">
@@ -72,4 +54,3 @@
   </mat-list-item>
 
 </div>
-<!-- </mat-card> -->

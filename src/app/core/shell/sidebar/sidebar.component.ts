@@ -56,10 +56,31 @@ export class SidebarComponent implements OnInit {
   /**
    * @memberof SidebarComponent
    */
+
+  getIconByName(module: ModuleModel) {
+    const noAccentinLowerCase = module.NameModule.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase();
+    const name = noAccentinLowerCase.replace(/\s+/g, '-');
+    const iconsUrl = {
+      'ordenes': 'orders.svg',
+      'ofertas': 'products-and-offers.svg',
+      'productos': 'products-and-offers.svg',
+      'devoluciones': 'claims-and-returns.svg',
+      'documentacion': 'config.svg',
+      'parametrizacion': 'config.svg',
+      'vendedores': 'seller.svg',
+      'reclamaciones': 'claims-and-returns.svg',
+      'reportes': 'reports.svg',
+      'calidad': 'seller.svg',
+      'dispersion': 'finance.svg',
+    };
+    return `assets/side-menu/${iconsUrl[name] || 'orders.svg'}`;
+  }
+
   ngOnInit() {
     this.categoryList = this.routes.CATEGORYLIST;
     this.authService.getModules().then(data => {
       this.modules = data;
+      console.log({ modules: data });
     }, error => {
       console.error(error);
     });
@@ -155,5 +176,9 @@ export class SidebarComponent implements OnInit {
    */
   public validateUserType(profileType: number): boolean {
     return this.user.sellerProfile === 'administrator' ? profileType === ProfileTypes.Administrador : profileType === ProfileTypes.Vendedor;
+  }
+
+  showNotificationPoint(module: ModuleModel) {
+    return module.NameModule.toLocaleLowerCase() === 'devoluciones' && (this.devolution || this.pending);
   }
 }

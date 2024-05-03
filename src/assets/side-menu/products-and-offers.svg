@@ -4,7 +4,7 @@
       <rect id="Rectangle_11523" data-name="Rectangle 11523" width="24" height="24" rx="2" transform="translate(508 1608) rotate(180)" fill="none" stroke="#15c3b5" stroke-width="2"/>
     </clipPath>
     <clipPath id="clip-path-2">
-      <rect id="Rectangle_11522" data-name="Rectangle 11522" width="20.011" height="20.01" fill="#7e7ea4"/>
+      <rect id="Rectangle_11522" data-name="Rectangle 11522" width="20.011" height="20.01" fill="#000"/>
     </clipPath>
   </defs>
   <g id="set_icons" data-name="set icons" transform="translate(-59 -187)">
@@ -12,8 +12,8 @@
       <g id="Mask_Group_1295" data-name="Mask Group 1295" transform="translate(-484 -1584)" clip-path="url(#clip-path)">
         <g id="Group_24337" data-name="Group 24337" transform="translate(486 1586)">
           <g id="Group_24337-2" data-name="Group 24337" transform="translate(0 0)" clip-path="url(#clip-path-2)">
-            <path id="Path_14098" data-name="Path 14098" d="M19.312,7.987,12.027.7A2.375,2.375,0,0,0,10.339,0H3.054A3.058,3.058,0,0,0,0,3.053v7.283a2.379,2.379,0,0,0,.7,1.692l7.285,7.283a2.4,2.4,0,0,0,3.38,0l7.947-7.945a2.393,2.393,0,0,0,0-3.379m-9.637,10L2.133,10.442V3.051a.921.921,0,0,1,.92-.92h7.392l7.542,7.544Z" transform="translate(0 0)" fill="#7e7ea4"/>
-            <path id="Path_14099" data-name="Path 14099" d="M8.834,6.775A1.859,1.859,0,1,0,6.973,8.634h0A1.862,1.862,0,0,0,8.834,6.777h.257v0Z" transform="translate(0.153 0.147)" fill="#7e7ea4"/>
+            <path id="Path_14098" data-name="Path 14098" d="M19.312,7.987,12.027.7A2.375,2.375,0,0,0,10.339,0H3.054A3.058,3.058,0,0,0,0,3.053v7.283a2.379,2.379,0,0,0,.7,1.692l7.285,7.283a2.4,2.4,0,0,0,3.38,0l7.947-7.945a2.393,2.393,0,0,0,0-3.379m-9.637,10L2.133,10.442V3.051a.921.921,0,0,1,.92-.92h7.392l7.542,7.544Z" transform="translate(0 0)" fill="#000"/>
+            <path id="Path_14099" data-name="Path 14099" d="M8.834,6.775A1.859,1.859,0,1,0,6.973,8.634h0A1.862,1.862,0,0,0,8.834,6.777h.257v0Z" transform="translate(0.153 0.147)" fill="#000"/>
           </g>
         </g>
       </g>
