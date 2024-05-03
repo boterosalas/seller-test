@@ -12,6 +12,7 @@ import { AuthService } from '@app/secure/auth/auth.routing';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { CoreState } from '@app/store';
+import { menuIcons } from './icons';
 
 // log component
 const log = new Logger('SideBarComponent');
@@ -60,20 +61,7 @@ export class SidebarComponent implements OnInit {
   getIconByName(module: ModuleModel) {
     const noAccentinLowerCase = module.NameModule.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase();
     const name = noAccentinLowerCase.replace(/\s+/g, '-');
-    const iconsUrl = {
-      'ordenes': 'orders.svg',
-      'ofertas': 'products-and-offers.svg',
-      'productos': 'products-and-offers.svg',
-      'devoluciones': 'claims-and-returns.svg',
-      'documentacion': 'config.svg',
-      'parametrizacion': 'config.svg',
-      'vendedores': 'seller.svg',
-      'reclamaciones': 'claims-and-returns.svg',
-      'reportes': 'reports.svg',
-      'calidad': 'seller.svg',
-      'dispersion': 'finance.svg',
-    };
-    return `assets/side-menu/${iconsUrl[name] || 'orders.svg'}`;
+    return `assets/side-menu/${menuIcons[name] || 'orders.svg'}`;
   }
 
   ngOnInit() {
