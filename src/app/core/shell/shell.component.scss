@@ -9,8 +9,14 @@
         max-width: 360px;
     }
 
-    .router-container {
+    .main-content {
+        display: flex;
+        flex-direction: column;
         flex: 1;
-        overflow: auto;
+
+        .router-container {
+            flex: 1;
+            overflow: auto;
+        }
     }
 }

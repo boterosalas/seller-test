@@ -1,0 +1,42 @@
+<section class="floating-header">
+    <div class="floating-header__options">
+        <button (click)="openMenu(1)" class="option-button" [ngClass]="{'active':menuOpened === 1}">
+            <mat-icon>language</mat-icon>
+            <mat-icon class="option-button__arrow">
+                {{menuOpened === 1 ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}
+            </mat-icon>
+        </button>
+        <button (click)="openMenu(2)" class="option-button" [ngClass]="{'active':menuOpened === 2}">
+            <mat-icon>notifications</mat-icon>
+            <mat-icon class="option-button__arrow">
+                {{menuOpened === 2 ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}
+            </mat-icon>
+        </button>
+        <button (click)="openMenu(3)" class="option-button"
+            [ngClass]="{'active':menuOpened === 3}">
+            <span class="option-button__text">
+                Estado
+            </span>
+            <mat-icon class="option-button__arrow">
+                {{menuOpened === 3 ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}
+            </mat-icon>
+        </button>
+        <button (click)="openMenu(4)" class="option-button option-button--image"
+            [ngClass]="{'active':menuOpened === 4}">
+            <img src="assets/img/picture.png" class="user-image" alt="">
+            <mat-icon class="option-button__arrow">
+                {{menuOpened === 4 ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}
+            </mat-icon>
+        </button>
+    </div>
+
+    <div class="floating-header__menu">
+        <ng-container [ngSwitch]="menuOpened">
+            <div *ngSwitchCase="1" class="menu-container language-menu">Language</div>
+            <div *ngSwitchCase="2" class="menu-container notification-menu">Notification</div>
+            <div *ngSwitchCase="3" class="menu-container state-menu">State</div>
+            <div *ngSwitchCase="4" class="menu-container profile-menu">Profile</div>
+        </ng-container>
+    </div>
+
+</section>

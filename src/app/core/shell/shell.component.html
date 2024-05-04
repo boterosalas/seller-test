@@ -7,19 +7,16 @@
       [sidenavSearchOrder]="sidenavSearchOrder"></app-search-order-menu>
   </mat-sidenav>
 
-  <!-- Contenido principal -->
   <mat-sidenav-content class="view-content">
-    <!-- Componente Header de la página -->
     <aside class="aside-menu">
       <app-sidebar [user]="user" [sidenav]="sidenav"></app-sidebar>
     </aside>
-    <section class="router-container">
-      <app-header [sidenav]="sidenav" [user]="user"></app-header>
-      <!-- <app-toolbar-link [user]="user" class="light-content" fxShow.xs="false" fxShow.sm="false" fxShow.gt-lg="true"
-        fxShow="true"></app-toolbar-link> -->
-      <!-- Render módulos-->
-      <router-outlet></router-outlet>
-    </section>
+    <div class="main-content">
+      <app-header [user]="user"></app-header>
+      <section class="router-container">
+        <router-outlet></router-outlet>
+      </section>
+    </div>
 
   </mat-sidenav-content>
 </mat-sidenav-container>

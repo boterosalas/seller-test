@@ -10,6 +10,8 @@ import { SearchOrderMenuModule } from './search-order-menu/search-order-menu.mod
 import { ShellComponent } from './shell.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SupportModule } from '@app/secure/support-modal/support-modal.module';
+import { FloatingHeaderComponent } from './floating-header/floating-header.component';
+import { ProfileMenuComponent } from './profile-menu/profile-menu.component';
 
 
 @NgModule({
@@ -25,6 +27,8 @@ import { SupportModule } from '@app/secure/support-modal/support-modal.module';
     HeaderComponent,
     ShellComponent,
     SidebarComponent,
+    FloatingHeaderComponent,
+    ProfileMenuComponent,
   ],
   exports: [
     HeaderComponent,

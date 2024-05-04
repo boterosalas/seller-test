@@ -1,0 +1,104 @@
+@import 'variables';
+
+.floating-header {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    box-shadow: 0px 0px 6px $black-opacity;
+    background-color: $light-lavender;
+    border-radius: 37px;
+    padding: 13px 0px;
+
+    .floating-header__options {
+        display: flex;
+        justify-content: flex-end;
+        align-items: stretch;
+        flex-direction: row;
+        box-sizing: border-box;
+        padding: 0px 20px;
+        gap: 7px;
+
+        .option-button {
+            background-color: $lavender-mist;
+            border: none;
+            border-radius: 16px;
+            padding: 10px 6px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            cursor: pointer;
+            font-family: $poppins-medium;
+            font-size: 12px;
+
+            &:hover,
+            &.active {
+                background-color: $pure-white;
+            }
+
+
+            &.option-button--image {
+                background-color: transparent;
+                padding: 0px;
+                border: 1px solid transparent;
+
+                .user-image {
+                    width: 44px;
+                    height: 44px;
+                    object-fit: cover;
+                    object-position: center;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    box-sizing: border-box;
+                }
+
+                &:hover,
+                &.active {
+                    .user-image {
+                        border: 1px solid $bluebell;
+                    }
+                }
+            }
+
+            .option-button__text {
+                margin-right: 30px;
+            }
+
+            .option-button__arrow {
+                font-size: 17px;
+                width: 17px;
+                height: 17px;
+            }
+        }
+    }
+
+    .menu-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        font-family: $poppins-bold;
+        font-size: 16px;
+    }
+
+    .language-menu {
+        height: 90px;
+        width: 100%;
+    }
+
+    .notification-menu {
+        height: 130px;
+        width: 100%;
+    }
+
+    .state-menu {
+        height: 70px;
+        width: 100%;
+    }
+
+    .profile-menu {
+        height: 100px;
+        width: 100%;
+    }
+}

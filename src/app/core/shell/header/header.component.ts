@@ -29,8 +29,6 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
   @Input() viewToolbarPrincipal: boolean;
   // Información del usuario
   @Input() user: UserInformation;
-  // Sidenav principal
-  @Input() sidenav;
   public userLoggin: boolean;
   public sellerName: any;
   public sellerId: any;
@@ -78,22 +76,6 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
       }
       this.routes = RoutesConst;
     }
-  }
-
-  goToHome() {
-    if (this.user.sellerProfile === 'administrator') {
-      this.router.navigate([`/${RoutesConst.sellerCenterIntSellerRegister}`]);
-    } else if (this.user.sellerProfile === 'seller') {
-      this.router.navigate([`/${RoutesConst.secureSeller}`]);
-    }
-  }
-
-  /**
-   * Funcionalidad que permite desplegar el menú.
-   * @memberof HeaderComponent
-   */
-  toggleMenu() {
-    this.sidenav.toggle();
   }
 
   openDialogSupport(): void {
