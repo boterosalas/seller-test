@@ -1,48 +1,19 @@
 <!-- {{'core.shell.header.welcome' | translate}}: {{user?.sellerName}} // Bienvenido sellerName-->
 <!-- {{'shared.id' | translate}}: {{user?.sellerId}} // ID: sellerId-->
 
-<!-- <div>
-      <app-select-language></app-select-language>
-      {{'select.language' | translate}}
-    </div> -->
 <!-- Conservar id 'header-container' para método addPadding() en header.component.ts-->
 <header class="header" id="header-container">
-    <div class="header__title">
-      <h1 class="section-title">
-        Órdenes
-        <span class="section-subtitle">| Todas las órdenes</span>
-      </h1>
-      <p class="section-description">
-        Acá podrás gestionar y visualizar todas las ordenes que se han realizado
-        <mat-icon class="close-icon">close</mat-icon>
-      </p>
-    </div>
+  <div class="header__title">
+    <h1 class="section-title">
+      Órdenes
+      <span class="section-subtitle">| Todas las órdenes</span>
+    </h1>
+    <p class="section-description">
+      Acá podrás gestionar y visualizar todas las ordenes que se han realizado
+      <mat-icon class="close-icon">close</mat-icon>
+    </p>
+  </div>
 
-    <app-floating-header></app-floating-header>
+  <app-floating-header></app-floating-header>
 
-    <!-- <a [routerLink]="['/' +
-        routes?.sellerCenterIntSchoolExito]" id="profile-button" mat-icon-button mat-button color="accent"
-      *ngIf="canView">
-      {{'school.exito' | translate}}
-    </a>
-
-
-
-    <div fxLayoutGap="10px">
-      <button *ngIf="user?.sellerProfile === 'seller'" (click)="openDialogSupport()" fxShow.xs="false" fxShow.sm="false"
-        fxShow.lg="true" fxShow.xl="true" fxShow="true" id="support-link-button" mat-button color="accent">
-        <mat-icon class="mat-24">help</mat-icon>
-        {{'core.shell.header.support' | translate}}
-      </button>
-      <button [matTooltip]="'core.shell.header.profile' | translate" matTooltipPosition="below" [routerLink]="['/' +
-        routes?.sellerCenterMyProfile]" id="profile-button" mat-icon-button mat-button color="accent">
-        <mat-icon class="mat-24">person</mat-icon>
-      </button>
-      <button [matTooltip]="'core.shell.header.logout'
-        | translate" matTooltipPosition="below" [routerLink]="['/' +
-        routes?.sellerCenterLogout]" id="logout-button" mat-icon-button mat-button color="accent">
-        <mat-icon class="mat-24">exit_to_app</mat-icon>
-      </button>
-    </div> -->
-    
 </header>

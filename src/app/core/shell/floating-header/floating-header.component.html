@@ -36,7 +36,7 @@
             <app-select-language *ngSwitchCase="1"></app-select-language>
             <div *ngSwitchCase="2" class="menu-container notification-menu">Notification</div>
             <div *ngSwitchCase="3" class="menu-container state-menu">State</div>
-            <div *ngSwitchCase="4" class="menu-container profile-menu">Profile</div>
+            <app-profile-menu *ngSwitchCase="4"></app-profile-menu>
         </ng-container>
     </div>
 

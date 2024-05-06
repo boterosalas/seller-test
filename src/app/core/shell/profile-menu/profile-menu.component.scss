@@ -1,0 +1,84 @@
+@import 'variables';
+
+.profile-menu {
+    .profile-menu__header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+
+        .header__initial-letters {
+            background-color: $peach;
+            border-radius: 50%;
+            width: 65px;
+            height: 65px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            font-family: $poppins-medium;
+            font-size: 26px;
+            color: $pure-white;
+        }
+
+        .header__name-and-rol {
+            font-family: $poppins-medium;
+            flex: 1;
+            overflow: hidden;
+
+            .header__name,
+            .header__rol {
+                white-space: nowrap;
+                width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .header__name {
+                color: $dark-lilac;
+                font-size: 20px;
+                margin: 0px;
+                max-width: 100%;
+            }
+
+            .header__rol {
+                color: $peach;
+                margin: 0px;
+                font-size: 14px;
+            }
+        }
+    }
+
+    .profile__button-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .profile__button-link {
+            background-color: transparent;
+            border: none;
+            font-family: $poppins-medium;
+            font-size: 14px;
+            color: $dark-lavender;
+            width: 100%;
+            text-align: left;
+        }
+    }
+
+    .profile__logout {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 20px;
+
+        .profile__logout-button {
+            font-family: $poppins-bold;
+            font-size: 14px;
+            color: $dark-lilac;
+            text-decoration: underline;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+        }
+    }
+}

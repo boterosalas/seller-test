@@ -75,6 +75,7 @@
 
     .floating-header__menu {
         box-sizing: border-box;
+        max-width: 360px;
 
         &.opened {
             padding: 13px;

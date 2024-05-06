@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { MatDialog } from '@angular/material/dialog';
 import { SupportModalComponent } from '@secure/support-modal/support-modal.component';
@@ -11,6 +11,9 @@ import { LoggedInCallback, UserLoginService, UserParametersService } from '../aw
 import { Logger } from '../util/logger.service';
 import { LoadingService } from '../global';
 import { UserInformation } from '@app/shared';
+import { SelectLanguageService } from '@app/shared/components/select-language/select-language.service';
+import { Subscription } from 'rxjs';
+import { StoreService } from '@app/store/store.service';
 
 // log component
 const log = new Logger('ShellComponent');
@@ -21,13 +24,14 @@ const log = new Logger('ShellComponent');
   styleUrls: ['./shell.component.scss']
 })
 
-export class ShellComponent implements OnInit, LoggedInCallback {
+export class ShellComponent implements OnInit, LoggedInCallback, OnDestroy {
+  language$: Subscription = new Subscription();
   // Usuario autenticado.
   public user: UserInformation;
   // SideMenu de la aplicación.
-  @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
+  @ViewChild('sidenav', { static: false }) sidenav: MatSidenav;
   // Sidenav de búsqueda de órdenes.
-  @ViewChild('sidenavSearchOrder', {static: false}) sidenavSearchOrder: MatSidenav;
+  @ViewChild('sidenavSearchOrder', { static: false }) sidenavSearchOrder: MatSidenav;
   // Mostrar header
   showHeader = false;
   stateSideNavOrder = false;
@@ -60,11 +64,39 @@ export class ShellComponent implements OnInit, LoggedInCallback {
     private userServiceCognito: UserLoginService,
     private userParams: UserParametersService,
     private loadingService: LoadingService,
+    private translate: SelectLanguageService,
   ) { }
 
 
   ngOnInit() {
     this.userServiceCognito.isAuthenticated(this);
+    this.initLanguage();
+  }
+
+  initLanguage() {
+    this.setCurrentLanguage();
+    this.language$ = this.translate.language$.subscribe(val => {
+      let userId = 'current';
+      if (localStorage.getItem('userId')) {
+        userId = localStorage.getItem('userId');
+      }
+      if (val) {
+        localStorage.setItem('culture_' + userId, val);
+        localStorage.setItem('culture_current', val);
+      } else {
+        localStorage.setItem('culture_' + userId, 'es');
+        localStorage.setItem('culture_current', 'es');
+      }
+    });
+  }
+
+  setCurrentLanguage() {
+    const currentLanguege = localStorage.getItem('culture_current');
+    if (currentLanguege) {
+      this.translate.setLanguage(currentLanguege);
+    } else {
+      this.translate.setLanguage(this.translate.getCurrentLanguage());
+    }
   }
 
   /**
@@ -130,5 +162,9 @@ export class ShellComponent implements OnInit, LoggedInCallback {
     const url = `https://envios.exito.com/token/${this.user['access_token']}`;
     window.location.href = url;
     window.open(url);
+  }
+
+  ngOnDestroy(): void {
+    this.language$.unsubscribe();
   }
 }
