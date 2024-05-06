@@ -1,7 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
-// import { LanguageService } from './language.service';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { SelectLanguageService } from './select-language.service';
 import { DateAdapter } from '@angular/material';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
@@ -13,30 +11,32 @@ import { StoreService } from '@app/store/store.service';
   styleUrls: ['./select-language.component.scss']
 })
 export class SelectLanguageComponent implements OnInit, OnDestroy {
-  ngOnDestroy(): void {
-    !!this.subs && this.subs.forEach(sub => {
-      !!sub && sub.unsubscribe();
-    });
+
+  languages: string[];
+  subs: Subscription[] = [];
+  currentLanguage = 'ES';
+  languagesDictionary = {
+    US: {
+      US: 'English',
+      ES: 'Spanish'
+    },
+    ES: {
+      US: 'Inglés',
+      ES: 'Español'
+    }
   }
 
-  langs: string[];
-  form: FormGroup;
-  subs: Subscription[] = [];
-  lang = 'ES';
-
-  constructor(private translate: SelectLanguageService, private fb: FormBuilder, private dateAdapter: DateAdapter<Date>, private languageService: TranslateService, private storeService: StoreService) {
-    this.form = this.fb.group({
-      lang: ['']
-    });
-    this.langs = this.translate.getLangs();
+  constructor(private translate: SelectLanguageService, private dateAdapter: DateAdapter<Date>, private languageService: TranslateService, private storeService: StoreService) {
+    this.languages = this.translate.getLangs();
+    console.log({ languages: this.languages });
     this.setLanguegeCurrent();
     const subsLang = this.translate.language$.subscribe(val => {
       if (localStorage.getItem('culture_current')) {
         const languageCurrent = localStorage.getItem('culture_current');
-        this.lang = languageCurrent;
+        this.currentLanguage = languageCurrent;
         this.setLocalStorageCulture(val);
       } else {
-        this.lang = val;
+        this.currentLanguage = val;
         this.setLocalStorageCulture(val);
       }
       storeService.changeLanguage(val);
@@ -64,32 +64,18 @@ export class SelectLanguageComponent implements OnInit, OnDestroy {
     }
   }
 
-  getLang() {
-    return this.form.get('lang') as FormControl;
-  }
-
   ngOnInit() {
     if (localStorage.getItem('culture_current')) {
       const langCurrent = localStorage.getItem('culture_current');
-      this.lang = localStorage.getItem('culture_current');
-      if (this.form && this.form.controls['lang']) {
-        this.form.controls['lang'].setValue(langCurrent);
-      }
+      this.currentLanguage = localStorage.getItem('culture_current');
     }
     this.languageService.onLangChange.subscribe((event: LangChangeEvent) => {
-      this.lang = event['lang'];
-      if (this.form && this.form.controls['lang']) {
-        this.form.controls['lang'].setValue(event['lang']);
-      }
+      this.currentLanguage = event['lang'];
     });
   }
 
   /**
    * Metodo para retornar la Palabra EN para pintarla ya que el flag aparece en US.
-   *
-   * @param {String} lang
-   * @returns
-   * @memberof SelectLanguageComponent
    */
   setText(lang: String) {
     if (lang === 'US') {
@@ -112,6 +98,12 @@ export class SelectLanguageComponent implements OnInit, OnDestroy {
     } else {
       this.translate.setLanguage(this.translate.getCurrentLanguage());
     }
+  }
+
+  ngOnDestroy(): void {
+    !!this.subs && this.subs.forEach(sub => {
+      !!sub && sub.unsubscribe();
+    });
   }
 
 }

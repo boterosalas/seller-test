@@ -1,14 +1,17 @@
-<form [formGroup]="form">
-  <mat-form-field>
-    <mat-select formControlName="lang" [(value)]="lang" class="mat-option-text">
-      <mat-select-trigger>
-        <span class="flag-icon flag-icon-{{ lang | lowercase}} flag-icon-squared"> </span>
-        {{setText(lang)}}
-      </mat-select-trigger>
-      <mat-option *ngFor="let lang of langs" [value]="lang" (click)="select(lang)">
-        <span class="flag-icon flag-icon-{{ lang | lowercase}} flag-icon-squared"></span>
-        {{setText(lang)}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</form>
+<section class="select-language">
+  <p class="select-language__title">
+    {{ 'select.language' | translate }}
+  </p>
+  <div class="language__button-group">
+    <button *ngFor="let language of languages" (click)="select(language)" class="language__button"
+      [ngClass]="{'active':currentLanguage === language}">
+      <mat-icon class="button__icon" *ngIf="currentLanguage === language; else noSelected">
+        check_circle
+      </mat-icon>
+      <ng-template #noSelected>
+        <mat-icon class="button__icon">check_circle_outline</mat-icon>
+      </ng-template>
+      <span class="button__text">{{ languagesDictionary[currentLanguage][language] }}</span>
+    </button>
+  </div>
+</section>

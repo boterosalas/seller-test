@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { Logger } from '@app/core/util/logger.service';
@@ -23,7 +23,7 @@ const log = new Logger('HeaderComponent');
   styleUrls: ['./header.component.scss'],
 })
 
-export class HeaderComponent implements OnInit, LoggedInCallback {
+export class HeaderComponent implements OnInit, LoggedInCallback, AfterViewInit {
 
   // booleano para visualizar la barra de toolbar
   @Input() viewToolbarPrincipal: boolean;
@@ -65,6 +65,10 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
           this.sumadevolution = notificationState.sumaUnreadDevolutions;
         }
       );
+  }
+
+  ngAfterViewInit(): void {
+    this.addPadding();
   }
 
   async isLoggedIn(message: string, isLoggedIn: boolean) {
@@ -115,5 +119,14 @@ export class HeaderComponent implements OnInit, LoggedInCallback {
     } else {
       return null;
     }
+  }
+
+  addPadding() {
+    const floatingHeader = document.querySelector('#floating-header');
+    const header: any = document.querySelector('#header-container');
+    window.addEventListener('resize', () => {
+      header.style.paddingRight = `${floatingHeader.clientWidth + 30}px`
+    });
+    window.dispatchEvent(new Event('resize'));
   }
 }

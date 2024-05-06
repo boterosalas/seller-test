@@ -1,31 +1,58 @@
-:host ::ng-deep .mat-select-value-text {
-  font-size: 14px
-}
+@import 'variables';
 
-:host ::ng-deep .mat-form-field {
-  display: inline;
-}
+.select-language {
 
-.mat-option-text {
-  font-size: 14px
-}
-
-.select-languege-label {
-  margin-top: -31px;
-  font-size: 10px;
-  color: darkgray;
-}
-
-.flag-icon {
-  border-radius: 38%;
-
-  .mat-option-text {
-    font-size: 14px
+  .select-language__title {
+    font-family: $poppins-medium;
+    font-size: 14px;
+    color: $dark-lilac;
   }
-}
 
-.select-languege-label {
-  margin-top: -31px;
-  font-size: 10px;
-  color: darkgray;
+  .language__button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .language__button {
+      width: 100%;
+      border-radius: 25px;
+      padding: 0px 15px;
+      height: 54px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      background-color: $pure-white;
+      border: none;
+      cursor: pointer;
+
+      .button__icon {
+        color: $dark-lavender;
+        vertical-align: bottom;
+        margin-right: 10px;
+      }
+
+      .button__text {
+        font-family: $poppins-medium;
+        font-size: 14px;
+        color: $dark-lavender;
+      }
+
+      &:hover {
+
+        .button__icon,
+        .button__text {
+          color: $dark-lilac;
+        }
+      }
+
+      &.active {
+        .button__icon {
+          border-radius: 50%;
+          border: 2px solid;
+          vertical-align: sub;
+        }
+      }
+    }
+  }
 }

@@ -41,7 +41,6 @@
             &.option-button--image {
                 background-color: transparent;
                 padding: 0px;
-                border: 1px solid transparent;
 
                 .user-image {
                     width: 44px;
@@ -51,12 +50,13 @@
                     border-radius: 50%;
                     cursor: pointer;
                     box-sizing: border-box;
+                    border: 2px solid transparent;
                 }
 
                 &:hover,
                 &.active {
                     .user-image {
-                        border: 1px solid $bluebell;
+                        border: 2px solid $bluebell;
                     }
                 }
             }
@@ -70,6 +70,14 @@
                 width: 17px;
                 height: 17px;
             }
+        }
+    }
+
+    .floating-header__menu {
+        box-sizing: border-box;
+
+        &.opened {
+            padding: 13px;
         }
     }
 

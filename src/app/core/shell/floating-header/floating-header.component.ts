@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BreakpointService } from '@app/shared/services/breakpoint.service';
 
 @Component({
   selector: 'app-floating-header',
@@ -8,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 export class FloatingHeaderComponent implements OnInit {
   menuOpened: number = 0;
 
-  constructor() { }
+  constructor(
+    private breakpointService: BreakpointService
+  ) { }
 
   ngOnInit() {
   }

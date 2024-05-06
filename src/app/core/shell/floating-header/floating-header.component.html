@@ -1,4 +1,5 @@
-<section class="floating-header">
+<!-- Conservar id 'floating-header' para método addPadding() en header.component.ts-->
+<section class="floating-header" id="floating-header">
     <div class="floating-header__options">
         <button (click)="openMenu(1)" class="option-button" [ngClass]="{'active':menuOpened === 1}">
             <mat-icon>language</mat-icon>
@@ -12,8 +13,7 @@
                 {{menuOpened === 2 ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}
             </mat-icon>
         </button>
-        <button (click)="openMenu(3)" class="option-button"
-            [ngClass]="{'active':menuOpened === 3}">
+        <button (click)="openMenu(3)" class="option-button" [ngClass]="{'active':menuOpened === 3}">
             <span class="option-button__text">
                 Estado
             </span>
@@ -30,9 +30,10 @@
         </button>
     </div>
 
-    <div class="floating-header__menu">
+    <div class="floating-header__menu" [ngClass]="{'opened':menuOpened}">
         <ng-container [ngSwitch]="menuOpened">
-            <div *ngSwitchCase="1" class="menu-container language-menu">Language</div>
+            <!-- <div class="menu-container language-menu">Language</div> -->
+            <app-select-language *ngSwitchCase="1"></app-select-language>
             <div *ngSwitchCase="2" class="menu-container notification-menu">Notification</div>
             <div *ngSwitchCase="3" class="menu-container state-menu">State</div>
             <div *ngSwitchCase="4" class="menu-container profile-menu">Profile</div>

@@ -1,56 +1,50 @@
 @import 'variables';
 
 .header {
-  width: 100%;
+  align-items: center;
+  background-color: $color-white;
   box-sizing: border-box;
-  background-color: #fff;
+  display: flex;
+  flex-direction: row;
+  font-family: $font-principal;
+  justify-content: space-between;
+  padding: 10px 20px 10px 0px;
+  position: relative;
+  width: 100%;
+  z-index: 3;
 
-  .header__content {
-    background-color: $color-white;
-    padding: 10px 20px 10px 0px;
-    z-index: 3;
-    font-family: $font-principal;
-    width: 100%;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
+  .header__title {
+    .section-title {
+      font-size: 22px;
+      font-family: $poppins-bold;
+      color: $dark-lilac;
+      margin-bottom: 8px;
 
-    .header__title {
-      .section-title {
-        font-size: 22px;
-        font-family: $poppins-bold;
-        color: $dark-lilac;
-        margin-bottom: 8px;
-
-        .section-subtitle {
-          font-family: $poppins-medium;
-          color: $iron-gray;
-        }
-      }
-
-      .section-description {
-        background-color: $ash-gray;
-        color: $pure-white;
-        font-size: 12px;
+      .section-subtitle {
         font-family: $poppins-medium;
-        margin: 0px;
-        padding: 6px;
-        border-radius: 5px;
+        color: $iron-gray;
+      }
+    }
 
-        .close-icon {
-          border-radius: 50%;
-          background-color: $pure-white;
-          color: $ash-gray;
-          vertical-align: middle;
-          font-size: 16px;
-          width: 16px;
-          height: 16px;
-          margin-left: 8px;
-          cursor: pointer;
-        }
+    .section-description {
+      background-color: $ash-gray;
+      color: $pure-white;
+      font-size: 12px;
+      font-family: $poppins-medium;
+      margin: 0px;
+      padding: 6px;
+      border-radius: 5px;
+
+      .close-icon {
+        border-radius: 50%;
+        background-color: $pure-white;
+        color: $ash-gray;
+        vertical-align: middle;
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+        margin-left: 8px;
+        cursor: pointer;
       }
     }
   }
