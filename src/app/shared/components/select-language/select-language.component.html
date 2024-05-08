@@ -3,7 +3,7 @@
     {{ 'select.language' | translate }}
   </p>
   <div class="language__button-group">
-    <button *ngFor="let language of languages" (click)="select(language)" class="language__button"
+    <button *ngFor="let language of languages" (click)="select(language)" class="floating-header__profile-button"
       [ngClass]="{'active':currentLanguage === language}">
       <mat-icon class="button__icon" *ngIf="currentLanguage === language; else noSelected">
         check_circle

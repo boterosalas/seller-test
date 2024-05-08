@@ -61,7 +61,7 @@ export class SidebarComponent implements OnInit {
   getIconByName(module: ModuleModel) {
     const noAccentinLowerCase = module.NameModule.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase();
     const name = noAccentinLowerCase.replace(/\s+/g, '-');
-    return `assets/side-menu/${menuIcons[name] || 'orders.svg'}`;
+    return `${menuIcons[name] || 'home'}`;
   }
 
   ngOnInit() {
@@ -83,25 +83,6 @@ export class SidebarComponent implements OnInit {
           this.pending = notificationState.unreadPendings;
         }
       );
-  }
-
-  /**
-   * Funcionalidad que permite desplegar el menú.
-   * @memberof SidebarComponent
-   */
-  toggleMenu() {
-    this.sidenav.toggle();
-  }
-
-  /**
-   * Método para dirigir al usuario a una vista en especifica
-   * @param {CategoryList} category
-   * @memberof SidebarComponent
-   */
-  goToRoot(category: MenuModel) {
-    if (category.Id !== '') {
-      this.route.navigate([category.UrlRedirect, category.Id]);
-    }
   }
   public getPersonalityName(name: string): string {
     return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();

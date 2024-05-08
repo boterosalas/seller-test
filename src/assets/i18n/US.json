@@ -1505,5 +1505,8 @@
     "report.all-orders": "Todas las órdenes",
     "report.orders-to-send": "Órdenes por enviar",
     "report.orders-sending": "Órdenes enviadas",
-    "report.download":"Descargar reporte"
+    "report.download":"Descargar reporte",
+
+    "profile.current-status": "Your current state is",
+    "profile.scheduled-vacation": "Scheduled"
 }

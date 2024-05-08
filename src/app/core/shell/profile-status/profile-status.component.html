@@ -1,0 +1,16 @@
+<section class="profile-status">
+    <p class="current-state">
+        Tu estado actual es: <span class="current-state__bold">{{ currentState }}</span>
+    </p>
+    <button class="floating-header__profile-button" *ngIf="!scheduledVacation; else scheduledVacationTemplate">
+        <span class="material-symbols-rounded button__icon">beach_access</span>
+        <span class="button__text">{{ 'secure.seller.list.program_vacation' | translate }}</span>
+    </button>
+    <ng-template #scheduledVacationTemplate>
+        <button class="floating-header__profile-button">
+            <span class="material-symbols-rounded button__icon peach-background">beach_access</span>
+            <span class="button__text">{{ 'profile.scheduled-vacation' | translate }}: {{ scheduledVacation }}</span>
+            <span class="material-symbols-rounded float-right-icon">edit</span>
+        </button>
+    </ng-template>
+</section>

@@ -12,6 +12,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { SupportModule } from '@app/secure/support-modal/support-modal.module';
 import { FloatingHeaderComponent } from './floating-header/floating-header.component';
 import { ProfileMenuComponent } from './profile-menu/profile-menu.component';
+import { ProfileStatusComponent } from './profile-status/profile-status.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { ProfileMenuComponent } from './profile-menu/profile-menu.component';
     SidebarComponent,
     FloatingHeaderComponent,
     ProfileMenuComponent,
+    ProfileStatusComponent,
   ],
   exports: [
     HeaderComponent,

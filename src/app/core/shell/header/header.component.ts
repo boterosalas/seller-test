@@ -36,6 +36,7 @@ export class HeaderComponent implements OnInit, LoggedInCallback, AfterViewInit 
   public unreadCase: number;
   sumadevolution: number;
   isAdmin = false;
+  showDescription: boolean = true;
 
   permissionComponent: MenuModel;
   canView: boolean;
@@ -128,5 +129,9 @@ export class HeaderComponent implements OnInit, LoggedInCallback, AfterViewInit 
       header.style.paddingRight = `${floatingHeader.clientWidth + 30}px`
     });
     window.dispatchEvent(new Event('resize'));
+  }
+  
+  toggleDescription(show: boolean){
+    this.showDescription = show;
   }
 }

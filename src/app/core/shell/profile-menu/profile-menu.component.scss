@@ -19,6 +19,10 @@
             font-family: $poppins-medium;
             font-size: 26px;
             color: $pure-white;
+
+            &.seller {
+                background-color: $bluebell;
+            }
         }
 
         .header__name-and-rol {
@@ -45,6 +49,10 @@
                 color: $peach;
                 margin: 0px;
                 font-size: 14px;
+
+                &.seller {
+                    color: $bluebell;
+                }
             }
         }
     }
@@ -52,7 +60,8 @@
     .profile__button-group {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 12px;
+        margin-top: 14px;
 
         .profile__button-link {
             background-color: transparent;
@@ -62,6 +71,27 @@
             color: $dark-lavender;
             width: 100%;
             text-align: left;
+            cursor: pointer;
+            text-decoration: none;
+            padding: 0px;
+
+            &:hover {
+                color: $dark-lilac;
+
+                .profile__button-icon {
+                    color: $dark-lilac;
+                    background-color: $pure-white;
+                }
+            }
+        }
+
+        .profile__button-icon {
+            vertical-align: middle;
+            padding: 10px;
+            border-radius: 16px;
+            background-color: #E7E7F4;
+            color: $dark-lavender;
+            margin-right: 6px;
         }
     }
 

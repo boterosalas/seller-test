@@ -4,9 +4,7 @@
   </a>
   <div class="modules-options" *ngIf="user">
     <a routerLink="/securehome/seller-center/dashboard" routerLinkActive="active" class="module-options__single-option">
-      <div class="modules-options__icon-background">
-        <img class="modules-options__icon" src="assets/side-menu/home.svg" alt="">
-      </div>
+      <span class="material-symbols-rounded modules-options__icon">home</span>
       <span class="modules-options__title">
         {{ "menu.Home" | translate}}
       </span>
@@ -17,9 +15,7 @@
         routerLinkActive="active">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <div class="modules-options__icon-background">
-              <img class="modules-options__icon" [src]="getIconByName(module)" alt="">
-            </div>
+            <span class="material-symbols-rounded modules-options__icon">home</span>
             <span class="modules-options__title">
               {{('module.' + getPersonalityName(module.NameModule)) | translate}}
             </span>
@@ -46,11 +42,5 @@
     </ng-container>
   </div>
   <img class="sidebar__grupo-exito-logo" src="assets/side-menu/grupo-exito.svg" alt="">
-
-  <mat-list-item id="matlist-item-button-cerrar-sesion" [routerLink]="['/' + routes?.sellerCenterLogout]"
-    (click)="toggleMenu()">
-    <mat-icon matListIcon class="mat-18">input</mat-icon>
-    <h6 matLine class="sidebar-margin-left">{{'core.shell.header.logout' | translate}}</h6>
-  </mat-list-item>
 
 </section>

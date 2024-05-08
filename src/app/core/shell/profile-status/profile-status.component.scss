@@ -1,0 +1,15 @@
+@import 'variables';
+@import 'floating-header';
+
+.profile-status {
+
+    .current-state {
+        font-family: $poppins-medium;
+        font-size: 14px;
+        color: $dark-lilac;
+
+        .current-state__bold {
+            font-family: $poppins-bold;
+        }
+    }
+}

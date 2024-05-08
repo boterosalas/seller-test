@@ -1,32 +1,36 @@
 <section class="profile-menu">
     <header class="profile-menu__header">
-        <span class="header__initial-letters">
-            AM
+        <span class="header__initial-letters" [ngClass]="{'seller':user.sellerProfile === 'seller'}">
+            {{ shortName }}
         </span>
         <div class="header__name-and-rol">
             <p class="header__name">
-                Andrés Felipe Marín
+                {{ user.sellerName | titlecase  }}
             </p>
-            <p class="header__rol">
-                Administrador
-                <strong>| ID: 430260</strong>
+            <p class="header__rol" [ngClass]="{'seller':user.sellerProfile === 'seller'}">
+                {{ user.sellerProfile | titlecase }}
+                <strong>| ID: {{ user.sellerId }}</strong>
             </p>
         </div>
     </header>
     <div class="profile__button-group">
-        <button class="profile__button-link">
+        <a [routerLink]="['/' + routesConst?.sellerCenterIntSchoolExito]" class="profile__button-link">
+            <span class="material-symbols-rounded profile__button-icon">school</span>
             Escuela éxito
-        </button>
-        <button class="profile__button-link">
+        </a>
+        <button class="profile__button-link" *ngIf="user.sellerProfile === 'seller'" (click)="openDialogSupport()">
+            <span class="material-symbols-rounded profile__button-icon">contact_support</span>
             Soporte al vendedor
+            <!-- {{'core.shell.header.support' | translate}} -->
         </button>
         <button class="profile__button-link">
+            <span class="material-symbols-rounded profile__button-icon">article</span>
             Documentación técnica
         </button>
     </div>
     <div class="profile__logout">
-        <button class="profile__logout-button">
+        <a class="profile__logout-button" [routerLink]="['/' + routesConst?.sellerCenterLogout]">
             Cerrar sesión
-        </button>
+        </a>
     </div>
 </section>

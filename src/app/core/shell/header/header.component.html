@@ -4,13 +4,13 @@
 <!-- Conservar id 'header-container' para método addPadding() en header.component.ts-->
 <header class="header" id="header-container">
   <div class="header__title">
-    <h1 class="section-title">
+    <h1 class="section-title" (click)="toggleDescription(true)">
       Órdenes
       <span class="section-subtitle">| Todas las órdenes</span>
     </h1>
-    <p class="section-description">
+    <p class="section-description" *ngIf="showDescription">
       Acá podrás gestionar y visualizar todas las ordenes que se han realizado
-      <mat-icon class="close-icon">close</mat-icon>
+      <mat-icon class="close-icon" (click)="toggleDescription(false)">close</mat-icon>
     </p>
   </div>
 

@@ -1,0 +1,62 @@
+@import 'variables';
+
+.floating-header__profile-button {
+    width: 100%;
+    border-radius: 25px;
+    padding: 0px 15px;
+    height: 54px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: $pure-white;
+    border: none;
+    cursor: pointer;
+
+    .button__icon {
+        color: $dark-lavender;
+        vertical-align: bottom;
+        margin-right: 10px;
+
+        &.peach-background {
+            margin-right: 8px;
+            background: #D98764;
+            border-radius: 50%;
+            padding: 2px;
+            color: $pure-white;
+        }
+    }
+
+    .button__text {
+        font-family: $poppins-medium;
+        font-size: 14px;
+        color: $dark-lavender;
+    }
+
+    .float-right-icon {
+        margin-left: auto;
+        color: $dark-lavender;
+        font-size: 20px;
+    }
+
+    &:hover {
+
+        .button__icon,
+        .button__text,
+        .float-right-icon {
+            color: $dark-lilac;
+
+            &.peach-background {
+                color: $pure-white;
+            }
+        }
+    }
+
+    &.active {
+        .button__icon {
+            border-radius: 50%;
+            border: 2px solid;
+            vertical-align: sub;
+        }
+    }
+}

@@ -40,9 +40,10 @@
 
     .module-options__single-option {
       display: flex;
+      align-items: center;
       width: 100%;
       position: relative;
-      padding: 16px 0px 16px 69px;
+      padding: 8px 0px 8px 20px;
       box-sizing: border-box;
       text-decoration: none;
 
@@ -89,7 +90,8 @@
 
         .mat-expansion-panel-header-title {
           position: relative;
-          padding: 16px 20px 16px 69px;
+          padding: 8px 20px 8px 20px;
+          align-items: center;
 
           .notification-point {
             width: 8px;
@@ -158,17 +160,13 @@
       }
     }
 
-    .modules-options__icon-background {
-      border-radius: 16px;
-      left: 22px;
-      top: calc(50% - 22px);
-      position: absolute;
-      padding: 8px;
-    }
-
     .modules-options__icon {
-      width: 24px;
-      filter: invert(0.6);
+      vertical-align: middle;
+      padding: 10px;
+      border-radius: 16px;
+      background-color: transparent;
+      color: $dark-lavender;
+      margin-right: 6px;
     }
 
     .modules-options__title {
@@ -182,12 +180,9 @@
     .expansion-module.active,
     .expansion-module:hover {
 
-      .modules-options__icon-background {
-        background-color: $white-opacity;
-      }
-
       .modules-options__icon {
-        filter: invert(1);
+        background-color: $white-opacity;
+        color: $pure-white;
       }
 
       .modules-options__title {
