@@ -125,13 +125,14 @@ export class HeaderComponent implements OnInit, LoggedInCallback, AfterViewInit 
   addPadding() {
     const floatingHeader = document.querySelector('#floating-header');
     const header: any = document.querySelector('#header-container');
+    console.log({ width: floatingHeader.clientWidth });
     window.addEventListener('resize', () => {
-      header.style.paddingRight = `${floatingHeader.clientWidth + 30}px`
+      header.style.width = `calc(100% - ${floatingHeader.clientWidth + 30}px)`
     });
     window.dispatchEvent(new Event('resize'));
   }
-  
-  toggleDescription(show: boolean){
+
+  toggleDescription(show: boolean) {
     this.showDescription = show;
   }
 }

@@ -15,11 +15,15 @@
   min-height: 105px;
 
   .header__title {
+    overflow: hidden;
+
     .section-title {
       font-size: 22px;
       font-family: $poppins-bold;
       color: $dark-lilac;
       margin-bottom: 8px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
 
       .section-subtitle {
         font-family: $poppins-medium;
@@ -35,6 +39,9 @@
       margin: 0px;
       padding: 6px;
       border-radius: 5px;
+      display: inline-block;
+      text-overflow: ellipsis;
+      white-space: nowrap;
 
       .close-icon {
         border-radius: 50%;
