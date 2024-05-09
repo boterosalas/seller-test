@@ -1,6 +1,6 @@
 <section class="profile-status">
-    <p class="current-state">
-        Tu estado actual es: <span class="current-state__bold">{{ currentState }}</span>
+    <p class="floating-header__section-title">
+        {{ 'profile.current-status' | translate }}: <span class="current-state">{{ currentState }}</span>
     </p>
     <button class="floating-header__profile-button" *ngIf="!scheduledVacation; else scheduledVacationTemplate">
         <span class="material-symbols-rounded button__icon">beach_access</span>

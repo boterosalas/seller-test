@@ -65,7 +65,7 @@
     "menu.Listado de cancelaciones": "List of cancellations",
     "menu.Reporte de comisiones": "Report commission",
     "menu.Reporte cobros pendientes MPI": "Report dispersion",
-    "menu.Escuela Exito": "School Éxito",
+    "menu.Escuela Exito": "Éxito School",
     "module.Documentación": "Documentation",
     "menu.Resumen de pagos": "Payment Summary",
     "menu.Consultar Indicadores": "Check Indicators",
@@ -289,7 +289,7 @@
     "core.http.error_handler.error_network": "Network error, it seems you are not connected to the internet, please check your connection.",
     "core.http.error_handler.error_service": "An error has occurred when trying to access the server.",
     "core.http.error_handler.error_acces": "An error has occurred when trying to access the server.",
-    "core.shell.header.support": "Support",
+    "core.shell.header.support": "Seller support",
     "core.shell.header.welcome": "Welcome",
     "core.shell.header.profile": "Profile",
     "core.shell.header.logout": "Logout",
@@ -1439,7 +1439,7 @@
     "secure.frauds.in_devolution.in_devolution_page.no_found_frauds": "No frauds have been found.",
     "errors.error_check_frauds": "An error occurred while querying the frauds.",
     "errors_download_file_submodules": "Se ha presentado un error al realizar la descarga.",
-    "school.exito": "School Éxito",
+    "school.exito": "Éxito School",
     "school.exito.theme.list": "LIST OF TOPICS",
     "school.exito.button": "CREATE NEW MODULE",
     "school.exito.card.school.add.submodule": "ADD SUBMODULE",
@@ -1508,5 +1508,10 @@
     "report.download":"Descargar reporte",
 
     "profile.current-status": "Your current state is",
-    "profile.scheduled-vacation": "Scheduled"
+    "profile.scheduled-vacation": "Scheduled",
+    "profile.notification-list": "Your notifications",
+    "profile.technical-documentation": "Technical documentation",
+    "profile.documentation": "Documentation",
+    "profile.notifications.show-more": "Show more",
+    "profile.notifications.show-less": "Show less"
 }

@@ -1,0 +1,24 @@
+<section class="notification-list">
+    <p class="floating-header__section-title">
+        {{ 'profile.notification-list' | translate}}
+    </p>
+    <div class="notification-list__group" [ngClass]="{'show-more':showMore}">
+        <div class="notification" *ngFor="let notification of notificationList | slice : 0 : sliceLimit">
+            <span class="material-symbols-rounded notification__icon">notifications</span>
+            <p class="notification__description">
+                <!-- Tienes <span class="notification__number">10</span> reclamaciones pendientes -->
+                {{ notification.description }}
+            </p>
+        </div>
+    </div>
+    <p class="notification-list__show-more">
+        <button class="show-more__button" (click)="toggleShowMore()">
+            <ng-container *ngIf="showMore; else showMoreTemplate">
+                {{ 'profile.notifications.show-less' | translate }}
+            </ng-container>
+            <ng-template #showMoreTemplate>
+                {{ 'profile.notifications.show-more' | translate }}
+            </ng-template>
+        </button>
+    </p>
+</section>

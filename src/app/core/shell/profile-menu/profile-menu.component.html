@@ -5,7 +5,7 @@
         </span>
         <div class="header__name-and-rol">
             <p class="header__name">
-                {{ user.sellerName | titlecase  }}
+                {{ user.sellerName | titlecase }}
             </p>
             <p class="header__rol" [ngClass]="{'seller':user.sellerProfile === 'seller'}">
                 {{ user.sellerProfile | titlecase }}
@@ -16,17 +16,22 @@
     <div class="profile__button-group">
         <a [routerLink]="['/' + routesConst?.sellerCenterIntSchoolExito]" class="profile__button-link">
             <span class="material-symbols-rounded profile__button-icon">school</span>
-            Escuela éxito
+            {{ 'menu.Escuela Exito' | translate }}
         </a>
         <button class="profile__button-link" *ngIf="user.sellerProfile === 'seller'" (click)="openDialogSupport()">
             <span class="material-symbols-rounded profile__button-icon">contact_support</span>
-            Soporte al vendedor
-            <!-- {{'core.shell.header.support' | translate}} -->
+            {{'core.shell.header.support' | translate}}
         </button>
-        <button class="profile__button-link">
+        <a href="http://sellercenter.api.exito.com.s3-website-us-east-1.amazonaws.com/" target="_blank"
+            class="profile__button-link" *ngIf="user.sellerProfile === 'seller'">
             <span class="material-symbols-rounded profile__button-icon">article</span>
-            Documentación técnica
-        </button>
+            {{'profile.technical-documentation' | translate}}
+        </a>
+        <!-- <a [routerLink]="['/' + routesConst?.sellerCenterIntSchoolExito]" class="profile__button-link"
+            *ngIf="user.sellerProfile === 'administrator'">
+            <span class="material-symbols-rounded profile__button-icon">article</span>
+            {{'profile.documentation' | translate}}
+        </a> -->
     </div>
     <div class="profile__logout">
         <a class="profile__logout-button" [routerLink]="['/' + routesConst?.sellerCenterLogout]">

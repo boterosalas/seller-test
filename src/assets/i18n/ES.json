@@ -307,7 +307,7 @@
   "core.http.error_handler.error_service": "Se produjo un error al realizar la petición al servidor.",
   "core.http.error_handler.error_acces": "No se pudo realizar la petición al servidor, Ocurrió un error.",
 
-  "core.shell.header.support": "Soporte",
+  "core.shell.header.support": "Soporte al vendedor",
   "core.shell.header.welcome": "Bienvenido",
   "core.shell.header.profile": "Perfil",
   "core.shell.header.logout": "Salir",
@@ -1667,5 +1667,10 @@
   "report.download":"Descargar reporte",
 
   "profile.current-status": "Tu estado actual es",
-  "profile.scheduled-vacation": "Programadas"
+  "profile.scheduled-vacation": "Programadas",
+  "profile.notification-list": "Tus notificaciones",
+  "profile.technical-documentation": "Documentación técnica",
+  "profile.documentation": "Documentación",
+  "profile.notifications.show-more": "Ver más",
+  "profile.notifications.show-less": "Ver menos"
 }

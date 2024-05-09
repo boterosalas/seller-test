@@ -13,6 +13,7 @@ import { SupportModule } from '@app/secure/support-modal/support-modal.module';
 import { FloatingHeaderComponent } from './floating-header/floating-header.component';
 import { ProfileMenuComponent } from './profile-menu/profile-menu.component';
 import { ProfileStatusComponent } from './profile-status/profile-status.component';
+import { NotificationListComponent } from './notification-list/notification-list.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { ProfileStatusComponent } from './profile-status/profile-status.componen
     FloatingHeaderComponent,
     ProfileMenuComponent,
     ProfileStatusComponent,
+    NotificationListComponent,
   ],
   exports: [
     HeaderComponent,
