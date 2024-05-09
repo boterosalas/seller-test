@@ -1672,5 +1672,6 @@
   "profile.technical-documentation": "Documentación técnica",
   "profile.documentation": "Documentación",
   "profile.notifications.show-more": "Ver más",
-  "profile.notifications.show-less": "Ver menos"
+  "profile.notifications.show-less": "Ver menos",
+  "profile.logout": "Cerrar sesión"
 }

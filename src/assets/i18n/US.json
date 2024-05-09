@@ -1513,5 +1513,6 @@
     "profile.technical-documentation": "Technical documentation",
     "profile.documentation": "Documentation",
     "profile.notifications.show-more": "Show more",
-    "profile.notifications.show-less": "Show less"
+    "profile.notifications.show-less": "Show less",
+    "profile.logout": "Log out"
 }
