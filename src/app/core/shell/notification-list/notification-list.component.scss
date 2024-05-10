@@ -34,17 +34,33 @@
 
             &:hover {
 
-                .notification__icon,
+                .notification__dot-container .notification__icon,
                 .notification__description {
                     color: $dark-lilac;
                 }
             }
 
-            .notification__icon {
-                font-size: 26px;
-                margin: 0px 10px 0px 5px;
-                color: $dark-lavender;
+            .notification__dot-container {
+
+                position: relative;
+
+                .notification__dot {
+                    position: absolute;
+                    top: 3px;
+                    right: 14px;
+                    background-color: $bluebell;
+                    border-radius: 50%;
+                    width: 8px;
+                    height: 8px;
+                }
+
+                .notification__icon {
+                    font-size: 26px;
+                    margin: 0px 10px 0px 5px;
+                    color: $dark-lavender;
+                }
             }
+
 
             .notification__description {
                 font-family: $poppins-medium;

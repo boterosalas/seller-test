@@ -11,16 +11,16 @@ export class NotificationListComponent implements OnInit {
   sliceLimit: number = 2;
 
   notificationList = [
-    { description: 'Tienes 10 reclamaciones pendientes' },
-    { description: 'Tienes 6 órdenes sin guía' },
-    { description: 'Tienes 10 reclamaciones pendientes' },
-    { description: 'Tienes 6 órdenes sin guía' },
-    { description: 'Tienes 10 reclamaciones pendientes' },
-    { description: 'Tienes 6 órdenes sin guía' },
-    { description: 'Tienes 10 reclamaciones pendientes' },
-    { description: 'Tienes 6 órdenes sin guía' },
-    { description: 'Tienes 10 reclamaciones pendientes' },
-    { description: 'Tienes 6 órdenes sin guía' },
+    { description: 'Tienes 10 reclamaciones pendientes', opened: false },
+    { description: 'Tienes 6 órdenes sin guía', opened: false },
+    { description: 'Tienes 10 reclamaciones pendientes', opened: false },
+    { description: 'Tienes 6 órdenes sin guía', opened: false },
+    { description: 'Tienes 10 reclamaciones pendientes', opened: false },
+    { description: 'Tienes 6 órdenes sin guía', opened: false },
+    { description: 'Tienes 10 reclamaciones pendientes', opened: false },
+    { description: 'Tienes 6 órdenes sin guía', opened: false },
+    { description: 'Tienes 10 reclamaciones pendientes', opened: false },
+    { description: 'Tienes 6 órdenes sin guía', opened: false },
   ];
 
   constructor() { }
@@ -36,6 +36,10 @@ export class NotificationListComponent implements OnInit {
     }
     this.showMore = true;
     this.sliceLimit = this.notificationList.length;
+  }
+
+  toggleOpenState(notification: any) {
+    notification.opened = true;
   }
 
 }

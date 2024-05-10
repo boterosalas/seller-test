@@ -15,7 +15,7 @@
         routerLinkActive="active">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <span class="material-symbols-rounded modules-options__icon">home</span>
+            <span class="material-symbols-rounded modules-options__icon">{{getIconByName(module)}}</span>
             <span class="modules-options__title">
               {{('module.' + getPersonalityName(module.NameModule)) | translate}}
             </span>

@@ -3,8 +3,12 @@
         {{ 'profile.notification-list' | translate}}
     </p>
     <div class="notification-list__group" [ngClass]="{'show-more':showMore}">
-        <div class="notification" *ngFor="let notification of notificationList | slice : 0 : sliceLimit">
-            <span class="material-symbols-rounded notification__icon">notifications</span>
+        <div class="notification" *ngFor="let notification of notificationList | slice : 0 : sliceLimit"
+            (click)="toggleOpenState(notification)">
+            <span class="notification__dot-container">
+                <span class="notification__dot" *ngIf="!notification.opened"></span>
+                <span class="material-symbols-rounded notification__icon">notifications</span>
+            </span>
             <p class="notification__description">
                 <!-- Tienes <span class="notification__number">10</span> reclamaciones pendientes -->
                 {{ notification.description }}

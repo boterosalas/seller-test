@@ -1,13 +1,16 @@
 export const menuIcons = {
-    'ordenes': 'orders.svg',
-    'ofertas': 'products-and-offers.svg',
-    'productos': 'products-and-offers.svg',
-    'devoluciones': 'claims-and-returns.svg',
-    'documentacion': 'config.svg',
-    'parametrizacion': 'config.svg',
-    'vendedores': 'seller.svg',
-    'reclamaciones': 'claims-and-returns.svg',
-    'reportes': 'reports.svg',
-    'calidad': 'seller.svg',
-    'dispersion': 'finance.svg',
+    'ordenes': 'package_2',
+    'ofertas': 'sell',
+    'productos': 'sell',
+    'devoluciones': 'contact_support',
+    'documentacion': 'article',
+    'parametrizacion': 'settings',
+    'vendedores': 'person',
+    'reclamaciones': 'contact_support',
+    'reportes': 'description',
+    'calidad': 'person',
+    'dispersion': 'attach_money',
+
+
+    'fulfillment': 'rocket_launch',
 };

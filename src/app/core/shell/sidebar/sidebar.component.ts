@@ -61,7 +61,7 @@ export class SidebarComponent implements OnInit {
   getIconByName(module: ModuleModel) {
     const noAccentinLowerCase = module.NameModule.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase();
     const name = noAccentinLowerCase.replace(/\s+/g, '-');
-    return `${menuIcons[name] || 'home'}`;
+    return `${menuIcons[name] || 'settings'}`;
   }
 
   ngOnInit() {
