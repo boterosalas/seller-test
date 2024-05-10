@@ -68,7 +68,6 @@ export class SidebarComponent implements OnInit {
     this.categoryList = this.routes.CATEGORYLIST;
     this.authService.getModules().then(data => {
       this.modules = data;
-      console.log({ modules: data });
     }, error => {
       console.error(error);
     });

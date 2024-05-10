@@ -69,7 +69,9 @@ export class HeaderComponent implements OnInit, LoggedInCallback, AfterViewInit 
   }
 
   ngAfterViewInit(): void {
-    this.addPadding();
+    // setTimeout(() => {
+    //   this.addPadding();
+    // }, 10);
   }
 
   async isLoggedIn(message: string, isLoggedIn: boolean) {
@@ -125,9 +127,8 @@ export class HeaderComponent implements OnInit, LoggedInCallback, AfterViewInit 
   addPadding() {
     const floatingHeader = document.querySelector('#floating-header');
     const header: any = document.querySelector('#header-container');
-    console.log({ width: floatingHeader.clientWidth });
     window.addEventListener('resize', () => {
-      header.style.width = `calc(100% - ${floatingHeader.clientWidth + 30}px)`
+      header.style.paddingRight = `${floatingHeader.clientWidth + 30}px`;
     });
     window.dispatchEvent(new Event('resize'));
   }

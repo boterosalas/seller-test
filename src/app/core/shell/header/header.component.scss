@@ -13,6 +13,7 @@
   width: 100%;
   z-index: 3;
   min-height: 105px;
+  padding-right: 370px;
 
   .header__title {
     overflow: hidden;
@@ -22,12 +23,13 @@
       font-family: $poppins-bold;
       color: $dark-lilac;
       margin-bottom: 8px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      overflow: hidden;
 
       .section-subtitle {
         font-family: $poppins-medium;
         color: $iron-gray;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
 
@@ -37,11 +39,10 @@
       font-size: 12px;
       font-family: $poppins-medium;
       margin: 0px;
-      padding: 6px;
+      padding: 6px 30px 6px 6px;
       border-radius: 5px;
       display: inline-block;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      position: relative;
 
       .close-icon {
         border-radius: 50%;
@@ -53,6 +54,9 @@
         height: 16px;
         margin-left: 8px;
         cursor: pointer;
+        position: absolute;
+        right: 6px;
+        top: calc(50% - 8px);
       }
     }
   }

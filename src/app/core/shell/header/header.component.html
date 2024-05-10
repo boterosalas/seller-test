@@ -1,9 +1,9 @@
 <!-- {{'core.shell.header.welcome' | translate}}: {{user?.sellerName}} // Bienvenido sellerName-->
 <!-- {{'shared.id' | translate}}: {{user?.sellerId}} // ID: sellerId-->
 
-<header class="header">
-  <!-- Conservar id 'header-container' para método addPadding() en header.component.ts-->
-  <div class="header__title" id="header-container">
+<!-- Conservar id 'header-container' para método addPadding() en header.component.ts-->
+<header class="header" id="header-container">
+  <div class="header__title">
     <h1 class="section-title" (click)="toggleDescription(true)">
       Órdenes
       <span class="section-subtitle">| Todas las órdenes</span>
